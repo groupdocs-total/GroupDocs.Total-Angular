@@ -7,5 +7,39 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "total": {
+      "tags": []
+    },
+    "total-e2e": {
+      "tags": []
+    },
+    "viewer": {
+      "tags": []
+    },
+    "viewer-e2e": {
+      "tags": []
+    },
+    "signature": {
+      "tags": []
+    },
+    "signature-e2e": {
+      "tags": []
+    },
+    "annotation": {
+      "tags": []
+    },
+    "annotation-e2e": {
+      "tags": []
+    },
+    "comparison": {
+      "tags": []
+    },
+    "comparison-e2e": {
+      "tags": []
+    },
+    "common": {
+      "tags": []
+    }
+  }
 }
