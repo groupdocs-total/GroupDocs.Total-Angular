@@ -7,7 +7,7 @@
       "root": "apps/total/",
       "sourceRoot": "apps/total/src",
       "projectType": "application",
-      "prefix": "GroupDocs.Total-Angular",
+      "prefix": "groupdocs-total-angular",
       "schematics": {
         "@nrwl/schematics:component": {
           "style": "less"
@@ -126,7 +126,7 @@
       "root": "apps/viewer/",
       "sourceRoot": "apps/viewer/src",
       "projectType": "application",
-      "prefix": "GroupDocs.Total-Angular",
+      "prefix": "groupdocs-total-angular",
       "schematics": {
         "@nrwl/schematics:component": {
           "style": "less"
@@ -245,7 +245,7 @@
       "root": "apps/signature/",
       "sourceRoot": "apps/signature/src",
       "projectType": "application",
-      "prefix": "GroupDocs.Total-Angular",
+      "prefix": "groupdocs-total-angular",
       "schematics": {
         "@nrwl/schematics:component": {
           "style": "less"
@@ -367,7 +367,7 @@
       "root": "apps/annotation/",
       "sourceRoot": "apps/annotation/src",
       "projectType": "application",
-      "prefix": "GroupDocs.Total-Angular",
+      "prefix": "groupdocs-total-angular",
       "schematics": {
         "@nrwl/schematics:component": {
           "style": "less"
@@ -489,7 +489,7 @@
       "root": "apps/comparison/",
       "sourceRoot": "apps/comparison/src",
       "projectType": "application",
-      "prefix": "GroupDocs.Total-Angular",
+      "prefix": "groupdocs-total-angular",
       "schematics": {
         "@nrwl/schematics:component": {
           "style": "less"
@@ -611,7 +611,7 @@
       "root": "libs/common",
       "sourceRoot": "libs/common/src",
       "projectType": "library",
-      "prefix": "GroupDocs.Total-Angular",
+      "prefix": "groupdocs-total-angular",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -629,6 +629,37 @@
             "main": "libs/common/src/test.ts",
             "tsConfig": "libs/common/tsconfig.spec.json",
             "karmaConfig": "libs/common/karma.conf.js"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "less"
+        }
+      }
+    },
+    "common-components": {
+      "root": "libs/common-components",
+      "sourceRoot": "libs/common-components/src",
+      "projectType": "library",
+      "prefix": "groupdocs-total-angular",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/common-components/tsconfig.lib.json",
+              "libs/common-components/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/common-components/src/test.ts",
+            "tsConfig": "libs/common-components/tsconfig.spec.json",
+            "karmaConfig": "libs/common-components/karma.conf.js"
           }
         }
       },

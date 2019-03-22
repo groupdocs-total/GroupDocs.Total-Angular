@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@GroupDocs.Total-Angular/common": ["libs/common/src/index.ts"]
+      "@groupdocs-total-angular/common-components": [
+        "libs/common-components/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

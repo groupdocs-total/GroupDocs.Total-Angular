@@ -1,5 +1,5 @@
 {
-  "npmScope": "GroupDocs.Total-Angular",
+  "npmScope": "groupdocs-total-angular",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -38,7 +38,7 @@
     "comparison-e2e": {
       "tags": []
     },
-    "common": {
+    "common-components": {
       "tags": []
     }
   }

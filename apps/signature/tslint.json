@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "GroupDocs.Total-Angular",
+      "groupdocs-total-angular",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "GroupDocs.Total-Angular",
+      "groupdocs-total-angular",
       "kebab-case"
     ]
   }
