@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'groupdocs-total-angular-top-toolbar',
+  selector: 'gd-top-toolbar',
   templateUrl: './top-toolbar.component.html',
   styleUrls: ['./top-toolbar.component.less']
 })
