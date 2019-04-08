@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'groupdocs-total-angular-root',
+  selector: 'groupdocs-signature-angular-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
