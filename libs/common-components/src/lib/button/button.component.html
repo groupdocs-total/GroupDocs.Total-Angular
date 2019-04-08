@@ -1,3 +1,4 @@
-<p>
-  button works!
-</p>
+<div class="button" (mouseenter)="onHovering()" (mouseleave)="onUnhovering()">
+  <i fa [name]="icon"></i>
+  <gd-tooltip [text]="tooltip" [show]="showToolTip" ></gd-tooltip>
+</div>
