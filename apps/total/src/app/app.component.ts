@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'total';
+  total: boolean = true;
+
+  onNavigate() {
+    this.total = false;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'gd-total-nav',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TotalNavComponent implements OnInit {
 
+  @Output() navigated = new EventEmitter<boolean>();
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  navigate() {
+    this.navigated.emit(true);
+  }
 }
