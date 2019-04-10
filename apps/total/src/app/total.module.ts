@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppComponent} from './app.component';
+import {TotalAppComponent} from './total-app.component';
 import {CommonComponentsModule} from "@groupdocs-total-angular/common-components";
 
 import {Angular2FontawesomeModule} from 'angular2-fontawesome/angular2-fontawesome'
@@ -10,7 +10,7 @@ import { TotalNavComponent } from './total-nav/total-nav.component';
 
 
 @NgModule({
-  declarations: [AppComponent, TotalNavComponent],
+  declarations: [TotalAppComponent, TotalNavComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -18,7 +18,7 @@ import { TotalNavComponent } from './total-nav/total-nav.component';
     AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [TotalAppComponent]
 })
-export class AppModule {
+export class TotalModule {
 }
