@@ -1,9 +1,6 @@
-.tooltip.hidden {
-  visibility: hidden;
-}
-.tooltip.shown {
-  visibility: visible;
+.tooltip {
   position: absolute;
+  margin-top: 37px;
   width: 120px;
   background-color: #000000;
   color: #fff;
@@ -11,9 +8,14 @@
   border-radius: 0px;
   padding: 5px 0;
   z-index: 1;
-  margin-top: 37px;
   margin-left: -66px;
   font-size: 10px;
+}
+.tooltip.hidden {
+  visibility: hidden;
+}
+.tooltip.shown {
+  visibility: visible;
 }
 .shown:after {
   content: " ";

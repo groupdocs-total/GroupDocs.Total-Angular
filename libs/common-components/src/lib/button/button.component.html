@@ -1,4 +1,4 @@
 <div class="button" (mouseenter)="onHovering()" (mouseleave)="onUnhovering()">
   <i fa [name]="icon"></i>
-  <gd-tooltip [text]="tooltip" [show]="showToolTip" ></gd-tooltip>
+  <gd-tooltip [text]="tooltip" [show]="showToolTip" *ngIf="tooltip"></gd-tooltip>
 </div>
