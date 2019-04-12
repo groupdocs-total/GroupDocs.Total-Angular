@@ -1,0 +1,20 @@
+<div class="gd-modal fade" id="modalDialog" (click)="close();" *ngIf="visibility">
+  <div class="gd-modal-dialog">
+    <div class="gd-modal-content" id="gd-modal-content"> 
+
+      <div class="gd-modal-header"> 
+        <div class="gd-modal-close" (click)="close();"><span>&times;</span></div>
+        <h4 class="gd-modal-title">{{title}}</h4>
+        </div> 
+
+      <div class="gd-modal-body">
+        <ng-content></ng-content>
+        </div> 
+
+      <div class="gd-modal-footer"> 
+
+        </div> 
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog --> 
+  </div>
+

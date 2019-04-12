@@ -1,0 +1,33 @@
+<gd-modal id="gd-browse-files" [title]="'Browse files'">
+  <section id="gd-browse-section">
+  <div id="gd-modal-spinner" class="gd-modal-spinner"><i class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.</div>
+  <table id="gd-modal-filebroswer" class="gd-modal-table">
+    <thead>
+    <tr>
+      <th class="col-md-1"> </th>
+      <th class="col-md-5">Document</th>
+      <th class="col-md-3">Format</th>
+      <th class="col-md-3">Size</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="gd-go-up"><i class="fa fa-level-up"></i></td>
+      <td class="gd-go-up">...</td>
+      <td></td>
+      <td></td>
+      </tr>
+    <tr *ngFor="let file of files">
+      <td><i fa [name]="getFormatIcon(file)"></i></td>
+      <td><div class="gd-file-name">{{file?.name}}</div></td>
+      <td>
+        {{getFormatName(file)}}
+      </td>
+      <td>
+        {{getSize(file?.size)}}
+      </td>
+    </tr>
+    </tbody>
+    </table>
+  </section>
+</gd-modal>

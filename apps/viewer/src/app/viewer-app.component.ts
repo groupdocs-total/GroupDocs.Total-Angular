@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ViewerService} from "./viewer.service";
+import {ModalService} from "@groupdocs-total-angular/common-components";
 
 @Component({
   selector: 'groupdocs-viewer-angular-root',
@@ -10,11 +11,15 @@ export class ViewerAppComponent {
   title = 'viewer';
   files;
 
-  constructor(private _service: ViewerService) {
+  constructor(private viewerService: ViewerService, private modalService: ModalService) {
   }
 
-  openModal() {
-    this._service.loadFiles().subscribe(files => this.files = files);
-    console.log("open modal");
+  openModal(id: string) {
+    this.viewerService.loadFiles('').subscribe(files => this.files = files);
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }

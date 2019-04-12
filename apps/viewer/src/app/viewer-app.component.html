@@ -1,9 +1,6 @@
 <gd-top-toolbar>
   <gd-logo [logo]="'viewer'"></gd-logo>
-  <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal()"></gd-button>
+  <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal('gd-browse-files')"></gd-button>
 </gd-top-toolbar>
-<ul>
-<li *ngFor="let file of files">
-  {{file.name}}
-</li>
-</ul>
+
+<gd-browse-files-modal [files]="files"></gd-browse-files-modal>

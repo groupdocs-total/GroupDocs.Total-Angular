@@ -1,0 +1,59 @@
+.gd-modal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+.gd-modal-dialog {
+  box-shadow: #0005 0px 0px 10px;
+  position: absolute;
+  width: 700px;
+  height: 500px;
+  top: calc(50% - 250px);
+  left: calc(50% - 350px);
+}
+.gd-modal-content {
+  background-color: #ffffff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.gd-modal-header {
+  padding: 1px 20px;
+}
+.gd-modal-close {
+  position: absolute;
+  right: 20px;
+  top: 13px;
+  font-size: 21px;
+  cursor: pointer;
+}
+.gd-modal-title {
+  font-size: 16px;
+  font-weight: 400;
+  padding: 16px;
+  margin: 0px;
+}
+.gd-modal-body {
+  background-color: #ffffff;
+  padding: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+  height: calc(100% - 75px);
+}
+.gd-modal-footer {
+  height: 25px;
+}
+.gd-modal-footer > .btn {
+  float: right;
+  margin: 20px 15px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 12px;
+}
