@@ -19,4 +19,8 @@ export class ViewerService {
   loadFiles(path: string) {
     return this._http.post(this._config.getApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, httpOptions);
   }
+
+  loadFile(guid: string) {
+    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, {'guid': guid}, httpOptions);
+  }
 }

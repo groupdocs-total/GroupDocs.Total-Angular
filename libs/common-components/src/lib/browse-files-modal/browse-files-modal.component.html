@@ -12,12 +12,12 @@
     </thead>
     <tbody>
     <tr>
-      <td class="gd-go-up"><i class="fa fa-level-up"></i></td>
+      <td class="gd-go-up" (click)="goUp()" ><i class="fa fa-level-up"></i></td>
       <td class="gd-go-up">...</td>
       <td></td>
       <td></td>
       </tr>
-    <tr *ngFor="let file of files">
+    <tr *ngFor="let file of files" (click)="choose(file);">
       <td><i fa [name]="getFormatIcon(file)"></i></td>
       <td><div class="gd-file-name">{{file?.name}}</div></td>
       <td>

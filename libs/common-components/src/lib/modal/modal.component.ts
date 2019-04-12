@@ -1,6 +1,5 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {ModalService} from "../modal.service";
-import {element} from "@angular/core/src/render3";
 
 @Component({
   selector: 'gd-modal',
@@ -41,5 +40,11 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   close(): void {
     this.visibility = false;
+  }
+
+  onClose($event: MouseEvent) {
+    if ($event && $event.target && (<Element>$event.target).id == 'modalDialog') {
+      this.close();
+    }
   }
 }
