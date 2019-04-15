@@ -1,6 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {FileDescription, FileModel, ModalService} from "@groupdocs-total-angular/common-components";
+import {ViewerConfig} from "./viewer-config";
+import {ViewerConfigService} from "./viewer-config.service";
 
 @Component({
   selector: 'groupdocs-viewer-angular-root',
@@ -11,25 +13,29 @@ export class ViewerAppComponent {
   title = 'viewer';
   files: FileModel[] = [];
   file: FileDescription;
+  viewerConfig: ViewerConfig;
 
-  constructor(private viewerService: ViewerService, private modalService: ModalService) {
+  constructor(private _viewerService: ViewerService, private _modalService: ModalService, private _configService: ViewerConfigService) {
+    this._configService.updatedConfig.subscribe( (viewerConfig) => {
+      this.viewerConfig = viewerConfig;
+    });
   }
 
   openModal(id: string) {
-    this.viewerService.loadFiles('').subscribe((files: FileModel[]) => this.files = files || []);
-    this.modalService.open(id);
+    this._viewerService.loadFiles('').subscribe((files: FileModel[]) => this.files = files || []);
+    this._modalService.open(id);
   }
 
   closeModal(id: string) {
-    this.modalService.close(id);
+    this._modalService.close(id);
   }
 
   selectDir($event: string) {
-    this.viewerService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
+    this._viewerService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
   }
 
   selectFile($event: string, modalId: string) {
-    this.viewerService.loadFile($event).subscribe((file: FileDescription) => this.file = file);
-    this.modalService.close(modalId);
+    this._viewerService.loadFile($event).subscribe((file: FileDescription) => this.file = file);
+    this._modalService.close(modalId);
   }
 }

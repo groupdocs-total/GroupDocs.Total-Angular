@@ -1,12 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Api, ConfigService} from "@groupdocs-total-angular/common-components";
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-  })
-};
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +11,10 @@ export class ViewerService {
   }
 
   loadFiles(path: string) {
-    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, httpOptions);
+    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
   }
 
   loadFile(guid: string) {
-    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, {'guid': guid}, httpOptions);
+    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, {'guid': guid}, Api.httpOptionsJson);
   }
 }

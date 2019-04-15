@@ -2,8 +2,6 @@
   <gd-logo [logo]="'viewer'"></gd-logo>
   <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal('gd-browse-files')"></gd-button>
 </gd-top-toolbar>
-  <div class="gd-page" *ngFor="let page of file?.pages">
-    <div class="gd-wrapper">{{page.data}}</div>
-  </div>
+<gd-document [file]="file" [mode]="viewerConfig?.htmlMode" [preloadPageCount]="viewerConfig?.preloadPageCount"></gd-document>
 
 <gd-browse-files-modal [files]="files" (selectedDirectory)="selectDir($event)" (selectedFileGuid)="selectFile($event, 'gd-browse-files')"></gd-browse-files-modal>

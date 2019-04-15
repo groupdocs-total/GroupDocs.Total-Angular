@@ -10,13 +10,38 @@ import {ModalService} from "./modal.service";
 import {ModalComponent} from './modal/modal.component';
 import {BrowseFilesModalComponent} from './browse-files-modal/browse-files-modal.component';
 import {FileModel, FileService, FileUtil} from "./file.service";
+import {DocumentComponent} from './document/document.component';
+import {PageComponent} from './page/page.component';
+import {SanitizeHtmlPipe, SanitizeResourceHtmlPipe} from "./pipes";
 
-const providers = [ConfigService, Api, ModalService, FileService, FileModel, FileUtil];
+const providers = [ConfigService, Api, ModalService, FileService, FileModel, FileUtil, SanitizeHtmlPipe, SanitizeResourceHtmlPipe];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
-  declarations: [TopToolbarComponent, ButtonComponent, LogoComponent, TooltipComponent, ModalComponent, BrowseFilesModalComponent],
-  exports: [TopToolbarComponent, ButtonComponent, LogoComponent, TooltipComponent, ModalComponent, BrowseFilesModalComponent],
+  declarations: [
+    TopToolbarComponent,
+    ButtonComponent,
+    LogoComponent,
+    TooltipComponent,
+    ModalComponent,
+    BrowseFilesModalComponent,
+    DocumentComponent,
+    PageComponent,
+    SanitizeHtmlPipe,
+    SanitizeResourceHtmlPipe
+  ],
+  exports: [
+    TopToolbarComponent,
+    ButtonComponent,
+    LogoComponent,
+    TooltipComponent,
+    ModalComponent,
+    BrowseFilesModalComponent,
+    DocumentComponent,
+    PageComponent,
+    SanitizeResourceHtmlPipe,
+    SanitizeHtmlPipe
+  ],
   providers: providers
 })
 export class CommonComponentsModule {

@@ -1,0 +1,2 @@
+<div class="gd-wrapper" [innerHTML]="data | safeHtml" *ngIf="isHtml"></div>
+<img style="width: inherit !important" class="gd-page-image" [attr.src]="imgData | safeResourceHtml" alt="" *ngIf="!isHtml">
