@@ -22,7 +22,6 @@ export class ViewerAppComponent {
   }
 
   openModal(id: string) {
-    this._viewerService.loadFiles('').subscribe((files: FileModel[]) => this.files = files || []);
     this._modalService.open(id);
   }
 

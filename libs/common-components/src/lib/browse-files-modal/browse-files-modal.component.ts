@@ -1,21 +1,32 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FileModel, FileUtil} from "../file.service";
 
+const upload_disc = 'Disc';
+
+const upload_url = 'url';
+
+const uploads_choices = [{name: upload_disc, icon: 'disc'}, {name: upload_url, icon: 'link'}];
+
 @Component({
   selector: 'gd-browse-files-modal',
   templateUrl: './browse-files-modal.component.html',
   styleUrls: ['./browse-files-modal.component.less']
 })
 export class BrowseFilesModalComponent implements OnInit {
+  uploads = uploads_choices;
+
   @Input() files;
   @Output() selectedFileGuid = new EventEmitter<string>();
   @Output() selectedDirectory = new EventEmitter<string>();
   private selectedFile: FileModel;
+  showUploadUrl: boolean = false;
+  showUploadFile: boolean = false;
 
   constructor() {
   }
 
   ngOnInit() {
+    console.log('init');
   }
 
   getSize(size: number) {
@@ -58,5 +69,30 @@ export class BrowseFilesModalComponent implements OnInit {
       }
       this.selectedDirectory.emit(guid);
     }
+  }
+
+  selectUpload($event: string) {
+    if (upload_url == $event) {
+      this.showUploadUrl = true;
+      this.showUploadFile = false;
+    } else {
+      this.showUploadFile = true;
+      this.showUploadUrl = false;
+    }
+  }
+
+  refresh($event) {
+    if ($event) {
+      this.files = null;
+      this.selectedDirectory.emit('');
+      this.showUploadUrl = false;
+      this.showUploadFile = false;
+      this.selectedFile = null;
+    }
+  }
+
+  showSpinner() {
+    console.log('' + this.files);
+    return !this.files;
   }
 }

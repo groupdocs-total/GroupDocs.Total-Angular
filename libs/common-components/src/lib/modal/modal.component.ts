@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ModalService} from "../modal.service";
 
 @Component({
@@ -9,6 +9,7 @@ import {ModalService} from "../modal.service";
 export class ModalComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() title: string;
+  @Output() visible = new EventEmitter<boolean>();
   visibility: boolean = false;
   private element: any;
 
@@ -17,8 +18,6 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    let modal = this;
-
     if (!this.id) {
       console.error('modal must have an id');
       return;
@@ -36,10 +35,12 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   open(): void {
     this.visibility = true;
+    this.visible.emit(true);
   }
 
   close(): void {
     this.visibility = false;
+    this.visible.emit(false);
   }
 
   onClose($event: MouseEvent) {

@@ -1,6 +1,13 @@
-<gd-modal id="gd-browse-files" [title]="'Browse files'">
+<gd-modal id="gd-browse-files" [title]="'Browse files'" (visible)="refresh($event)">
   <section id="gd-browse-section">
-  <div id="gd-modal-spinner" class="gd-modal-spinner"><i class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.</div>
+    <div class="upload-panel">
+    <gd-choice-button [name]="'Upload files'" [choices]="uploads" [icon]="'upload'" (selected)="selectUpload($event)"></gd-choice-button>
+    <div class="upload-url" *ngIf="showUploadUrl"><input class="url-input">
+      <i fa [name]="'check'"></i>
+    </div>
+    <gd-upload-file-zone class="drag-upload-file" *ngIf="showUploadFile">
+    </gd-upload-file-zone>
+    </div>
   <table id="gd-modal-filebroswer" class="gd-modal-table">
     <thead>
     <tr>
@@ -29,5 +36,6 @@
     </tr>
     </tbody>
     </table>
+    <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="showSpinner()"><i class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.</div>
   </section>
 </gd-modal>

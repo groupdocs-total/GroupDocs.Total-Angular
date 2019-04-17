@@ -13,6 +13,8 @@ import {FileModel, FileService, FileUtil} from "./file.service";
 import {DocumentComponent} from './document/document.component';
 import {PageComponent} from './page/page.component';
 import {SanitizeHtmlPipe, SanitizeResourceHtmlPipe} from "./pipes";
+import { ChoiceButtonComponent } from './choice-button/choice-button.component';
+import { UploadFileZoneComponent } from './upload-file-zone/upload-file-zone.component';
 
 const providers = [ConfigService, Api, ModalService, FileService, FileModel, FileUtil, SanitizeHtmlPipe, SanitizeResourceHtmlPipe];
 
@@ -28,7 +30,9 @@ const providers = [ConfigService, Api, ModalService, FileService, FileModel, Fil
     DocumentComponent,
     PageComponent,
     SanitizeHtmlPipe,
-    SanitizeResourceHtmlPipe
+    SanitizeResourceHtmlPipe,
+    ChoiceButtonComponent,
+    UploadFileZoneComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -40,7 +44,9 @@ const providers = [ConfigService, Api, ModalService, FileService, FileModel, Fil
     DocumentComponent,
     PageComponent,
     SanitizeResourceHtmlPipe,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    ChoiceButtonComponent,
+    UploadFileZoneComponent
   ],
   providers: providers
 })
