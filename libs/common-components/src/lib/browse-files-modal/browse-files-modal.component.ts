@@ -5,7 +5,7 @@ const upload_disc = 'Disc';
 
 const upload_url = 'url';
 
-const uploads_choices = [{name: upload_disc, icon: 'disc'}, {name: upload_url, icon: 'link'}];
+const uploads_choices = [{name: upload_disc, icon: 'hdd'}, {name: upload_url, icon: 'link'}];
 
 @Component({
   selector: 'gd-browse-files-modal',
@@ -26,7 +26,6 @@ export class BrowseFilesModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init');
   }
 
   getSize(size: number) {
@@ -92,7 +91,6 @@ export class BrowseFilesModalComponent implements OnInit {
   }
 
   showSpinner() {
-    console.log('' + this.files);
     return !this.files;
   }
 }

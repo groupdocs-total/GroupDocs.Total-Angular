@@ -1,25 +1,28 @@
 .gd-modal-table {
   width: 100%;
   text-align: left;
+  padding-top: 20px;
 }
-.gd-modal-table th:nth-child(3), .gd-modal-table th:last-child {
-  width: 31%;
-  padding-left: 52px;
+.gd-modal-table > thead {
+  color: #ACACAC;
+  font-size: 10px;
+}
+.gd-modal-table th:last-child {
+  width: 20%;
 }
 .gd-modal-table > tbody > tr > td {
   font-size: 14px;
   padding: 10px 6px;
 }
-.gd-modal-table > tbody > tr > td:nth-child(2) {
+.gd-modal-table > tbody > tr {
   cursor: pointer;
-  max-width: 200px;
   overflow: hidden;
-}
-.gd-modal-table td:nth-child(3), .gd-modal-table td:last-child {
-  font-size: 12px;
+  border-bottom: 1px #959da5;
 }
 .gd-modal-table td:last-child {
-  padding-left: 45px
+  font-size: 14px;
+  color: #777777;
+  width: 20%;
 }
 .gd-modal-spinner {
   background-color: #ffffff;
@@ -47,5 +50,58 @@
   cursor: pointer;
 }
 .upload-panel{
+  display: flex;
+}
+.file-description {
+  display: flex;
+}
+.file-description .fa-file-pdf {
+  color: #E21717;
+}
+.file-description .fa-file-word {
+  color: #6979B9;
+}
+.file-description .fa-file-powerpoint {
+  color: #E29417;
+}
+.file-description .fa-file-excel{
+  color: #3FA300;
+}
+.file-description .fa-file-image {
+  color: #E217DA;
+}
+.file-description .fa-file-text .fa-folder {
+  color: #5D6A75;
+}
+.file-description i {
+  font-size: 32px;
+}
+.file-name {
+  font-size: 16px;
+  color: #6E6E6E;
+}
+.file-name-format {
+  padding-left: 10px;
+}
+.file-format {
+  font-size: 10px;
+}
+.url-input {
+  width: 358px;
+  margin-left: 8px;
+  border-color: #25C2D4;
+  height: 26px;
+}
+.url-check {
+  width: 31px;
+  height: 31px;
+  color: #FFFFFF;
+  font-size: 15px;
+  background-color: #25C2D4;
+}
+.url-check i {
+  padding: 8px;
+}
+.upload-url {
   display: flex;
 }

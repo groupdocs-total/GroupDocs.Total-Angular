@@ -1,41 +1,44 @@
-<gd-modal id="gd-browse-files" [title]="'Browse files'" (visible)="refresh($event)">
+<gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
   <section id="gd-browse-section">
     <div class="upload-panel">
-    <gd-choice-button [name]="'Upload files'" [choices]="uploads" [icon]="'upload'" (selected)="selectUpload($event)"></gd-choice-button>
-    <div class="upload-url" *ngIf="showUploadUrl"><input class="url-input">
-      <i fa [name]="'check'"></i>
+      <gd-choice-button [name]="'Upload files'" [choices]="uploads" [icon]="'upload'"
+                        (selected)="selectUpload($event)"></gd-choice-button>
+      <div class="upload-url" *ngIf="showUploadUrl">
+        <input class="url-input">
+        <div class="url-check">
+          <i fa [name]="'check'"></i>
+        </div>
+      </div>
+      <gd-upload-file-zone class="drag-upload-file" *ngIf="showUploadFile">
+      </gd-upload-file-zone>
     </div>
-    <gd-upload-file-zone class="drag-upload-file" *ngIf="showUploadFile">
-    </gd-upload-file-zone>
-    </div>
-  <table id="gd-modal-filebroswer" class="gd-modal-table">
-    <thead>
-    <tr>
-      <th class="col-md-1"> </th>
-      <th class="col-md-5">Document</th>
-      <th class="col-md-3">Format</th>
-      <th class="col-md-3">Size</th>
+    <table id="gd-modal-filebroswer" class="gd-modal-table">
+      <thead>
+      <tr>
+        <th>Document</th>
+        <th>Size</th>
       </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td class="gd-go-up" (click)="goUp()" ><i class="fa fa-level-up"></i></td>
-      <td class="gd-go-up">...</td>
-      <td></td>
-      <td></td>
+      </thead>
+      <tbody>
+      <tr (click)="goUp()">
+        <td class="gd-go-up"><i class="fa fa-level-up-alt"></i>...</td>
+        <td></td>
       </tr>
-    <tr *ngFor="let file of files" (click)="choose(file);">
-      <td><i fa [name]="getFormatIcon(file)"></i></td>
-      <td><div class="gd-file-name">{{file?.name}}</div></td>
-      <td>
-        {{getFormatName(file)}}
-      </td>
-      <td>
-        {{getSize(file?.size)}}
-      </td>
-    </tr>
-    </tbody>
+      <tr *ngFor="let file of files" (click)="choose(file);">
+        <td class="file-description"><i fa [name]="getFormatIcon(file)"></i>
+          <div class="file-name-format">
+            <div class="file-name">{{file?.name}}</div>
+            <div class="file-format">{{getFormatName(file)}}</div>
+          </div>
+        </td>
+        <td>
+          {{getSize(file?.size)}}
+        </td>
+      </tr>
+      </tbody>
     </table>
-    <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="showSpinner()"><i class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.</div>
+    <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="showSpinner()"><i
+      class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.
+    </div>
   </section>
 </gd-modal>
