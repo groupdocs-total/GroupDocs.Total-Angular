@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {UploadFilesService} from "../upload-files.service";
 
 @Component({
   selector: 'gd-upload-file-zone',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadFileZoneComponent implements OnInit {
 
-  constructor() { }
+  @Output() closeUpload = new EventEmitter<boolean>();
+
+  constructor(private _uploadService: UploadFilesService) { }
 
   ngOnInit() {
   }
 
+  handleFileInput(files: FileList) {
+    this._uploadService.changeFilesList(files);
+    this.onCloseUpload();
+  }
+
+  onCloseUpload() {
+    this.closeUpload.emit(true);
+  }
+
+  close($event) {
+    if ($event.target.id == 'gd-dropZone') {
+      this.onCloseUpload();
+    }
+  }
 }

@@ -15,8 +15,10 @@ import {PageComponent} from './page/page.component';
 import {SanitizeHtmlPipe, SanitizeResourceHtmlPipe} from "./pipes";
 import { ChoiceButtonComponent } from './choice-button/choice-button.component';
 import { UploadFileZoneComponent } from './upload-file-zone/upload-file-zone.component';
+import {UploadFilesService} from "./upload-files.service";
+import { DndDirective } from './dnd.directive';
 
-const providers = [ConfigService, Api, ModalService, FileService, FileModel, FileUtil, SanitizeHtmlPipe, SanitizeResourceHtmlPipe];
+const providers = [ConfigService, Api, ModalService, FileService, FileModel, FileUtil, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, UploadFilesService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
@@ -32,7 +34,8 @@ const providers = [ConfigService, Api, ModalService, FileService, FileModel, Fil
     SanitizeHtmlPipe,
     SanitizeResourceHtmlPipe,
     ChoiceButtonComponent,
-    UploadFileZoneComponent
+    UploadFileZoneComponent,
+    DndDirective
   ],
   exports: [
     TopToolbarComponent,

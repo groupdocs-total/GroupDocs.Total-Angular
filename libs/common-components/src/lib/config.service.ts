@@ -6,6 +6,7 @@ export class Api {
   public static LOAD_FILE_TREE = 'loadFileTree';
   public static LOAD_CONFIG = 'loadConfig';
   public static LOAD_DOCUMENT_DESCRIPTION = 'loadDocumentDescription';
+  public static UPLOAD_DOCUMENTS = 'uploadDocument';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

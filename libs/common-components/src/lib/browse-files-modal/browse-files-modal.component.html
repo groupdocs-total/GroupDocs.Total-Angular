@@ -4,12 +4,12 @@
       <gd-choice-button [name]="'Upload files'" [choices]="uploads" [icon]="'upload'"
                         (selected)="selectUpload($event)"></gd-choice-button>
       <div class="upload-url" *ngIf="showUploadUrl">
-        <input class="url-input">
-        <div class="url-check">
+        <input class="url-input" #url (input)="uploadUrl(url.value)">
+        <div class="url-check" (click)="uploadUrl(url.value)">
           <i fa [name]="'check'"></i>
         </div>
       </div>
-      <gd-upload-file-zone class="drag-upload-file" *ngIf="showUploadFile">
+      <gd-upload-file-zone (closeUpload)="cleanUpload()" class="drag-upload-file" *ngIf="showUploadFile">
       </gd-upload-file-zone>
     </div>
     <table id="gd-modal-filebroswer" class="gd-modal-table">
@@ -21,7 +21,12 @@
       </thead>
       <tbody>
       <tr (click)="goUp()">
-        <td class="gd-go-up"><i class="fa fa-level-up-alt"></i>...</td>
+        <td class="go-up">
+          <div class="go-up-icon">
+            <i class="fa fa-level-up-alt"></i>
+          </div>
+          <div class="go-up-dots">...</div>
+        </td>
         <td></td>
       </tr>
       <tr *ngFor="let file of files" (click)="choose(file);">

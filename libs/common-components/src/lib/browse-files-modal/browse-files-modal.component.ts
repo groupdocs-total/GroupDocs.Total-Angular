@@ -18,6 +18,7 @@ export class BrowseFilesModalComponent implements OnInit {
   @Input() files;
   @Output() selectedFileGuid = new EventEmitter<string>();
   @Output() selectedDirectory = new EventEmitter<string>();
+  @Output() urlForUpload = new EventEmitter<string>();
   private selectedFile: FileModel;
   showUploadUrl: boolean = false;
   showUploadFile: boolean = false;
@@ -92,5 +93,17 @@ export class BrowseFilesModalComponent implements OnInit {
 
   showSpinner() {
     return !this.files;
+  }
+
+  uploadUrl(url: string) {
+    if (url) {
+      this.urlForUpload.emit(url);
+      this.cleanUpload();
+    }
+  }
+
+  cleanUpload() {
+    this.showUploadFile = false;
+    this.showUploadUrl = false;
   }
 }

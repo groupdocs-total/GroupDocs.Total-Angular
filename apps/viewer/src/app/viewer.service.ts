@@ -17,4 +17,15 @@ export class ViewerService {
   loadFile(guid: string) {
     return this._http.post(this._config.getApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, {'guid': guid}, Api.httpOptionsJson);
   }
+
+  upload(file: File, url: string, rewrite: boolean) {
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append('rewrite', String(rewrite));
+    if (url) {
+      formData.append("url", url);
+    }
+
+    return this._http.post(this._config.getApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
+  }
 }

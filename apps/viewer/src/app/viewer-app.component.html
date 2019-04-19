@@ -4,4 +4,4 @@
 </gd-top-toolbar>
 <gd-document [file]="file" [mode]="viewerConfig?.htmlMode" [preloadPageCount]="viewerConfig?.preloadPageCount"></gd-document>
 
-<gd-browse-files-modal [files]="files" (selectedDirectory)="selectDir($event)" (selectedFileGuid)="selectFile($event, 'gd-browse-files')"></gd-browse-files-modal>
+<gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)" (selectedFileGuid)="selectFile($event, 'gd-browse-files')"></gd-browse-files-modal>
