@@ -3,26 +3,27 @@
   text-align: left;
   padding-top: 20px;
 }
-.gd-modal-table > thead {
+.list-files-header {
   color: #ACACAC;
   font-size: 10px;
 }
-.gd-modal-table th:last-child {
-  width: 20%;
+.header-size, .file-size {
+  width: 10%;
+  font-size: 14px;
+  color: #777777;
 }
-.gd-modal-table > tbody > tr > td {
+.file-size, .file-description {
   font-size: 14px;
   padding: 10px 6px;
 }
-.gd-modal-table > tbody > tr {
+.file-description {
   cursor: pointer;
   overflow: hidden;
-  border-bottom: 1px #959da5;
 }
-.gd-modal-table td:last-child {
-  font-size: 14px;
-  color: #777777;
-  width: 20%;
+.list-files-lines, .list-files-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 .gd-modal-spinner {
   background-color: #ffffff;
@@ -105,8 +106,8 @@
 .url-input {
   width: 358px;
   margin-left: 8px;
-  border-color: #25C2D4;
-  height: 26px;
+  height: 27px;
+  border: 1px solid #25C2D4;
 }
 .url-check {
   width: 31px;
@@ -120,4 +121,7 @@
 }
 .upload-url {
   display: flex;
+}
+.list-files-lines {
+  border-top: 1px solid #ccc;
 }

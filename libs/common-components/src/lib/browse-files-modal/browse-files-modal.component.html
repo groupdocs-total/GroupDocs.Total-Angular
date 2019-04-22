@@ -1,7 +1,7 @@
 <gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
   <section id="gd-browse-section">
     <div class="upload-panel">
-      <gd-choice-button [name]="'Upload files'" [choices]="uploads" [icon]="'upload'"
+      <gd-choice-button [name]="'Upload file'" [choices]="uploads" [icon]="'upload'"
                         (selected)="selectUpload($event)"></gd-choice-button>
       <div class="upload-url" *ngIf="showUploadUrl">
         <input class="url-input" #url (input)="uploadUrl(url.value)">
@@ -12,36 +12,31 @@
       <gd-upload-file-zone (closeUpload)="cleanUpload()" class="drag-upload-file" *ngIf="showUploadFile">
       </gd-upload-file-zone>
     </div>
-    <table id="gd-modal-filebroswer" class="gd-modal-table">
-      <thead>
-      <tr>
-        <th>Document</th>
-        <th>Size</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr (click)="goUp()">
-        <td class="go-up">
+    <div id="gd-modal-filebroswer" class="gd-modal-table">
+      <div class="list-files-header">
+        <div class="header-name">Document</div>
+        <div class="header-size">Size</div>
+      </div>
+      <div class="list-files-body">
+      <div class="go-up" (click)="goUp()">
           <div class="go-up-icon">
             <i class="fa fa-level-up-alt"></i>
           </div>
           <div class="go-up-dots">...</div>
-        </td>
-        <td></td>
-      </tr>
-      <tr *ngFor="let file of files" (click)="choose(file);">
-        <td class="file-description"><i fa [name]="getFormatIcon(file)"></i>
+      </div>
+      <div class="list-files-lines" *ngFor="let file of files" (click)="choose(file);">
+        <div class="file-description"><i fa [name]="getFormatIcon(file)"></i>
           <div class="file-name-format">
             <div class="file-name">{{file?.name}}</div>
             <div class="file-format">{{getFormatName(file)}}</div>
           </div>
-        </td>
-        <td>
+        </div>
+        <div class="file-size">
           {{getSize(file?.size)}}
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        </div>
+      </div>
+      </div>
+    </div>
     <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="showSpinner()"><i
       class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.
     </div>
