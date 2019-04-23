@@ -13,7 +13,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   visibility: boolean = false;
   private element: any;
 
-  constructor(private modalService: ModalService, private el: ElementRef) {
+  constructor(private modalService: ModalService, el: ElementRef) {
     this.element = el.nativeElement;
   }
 
