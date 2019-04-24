@@ -1,7 +1,16 @@
-<gd-top-toolbar>
-  <gd-logo [logo]="'viewer'"></gd-logo>
-  <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal('gd-browse-files')"></gd-button>
-</gd-top-toolbar>
-<gd-document [file]="file" [mode]="viewerConfig?.htmlMode" [preloadPageCount]="viewerConfig?.preloadPageCount"></gd-document>
+<div class="wrapper">
+  <gd-top-toolbar>
+    <gd-logo [logo]="'viewer'"></gd-logo>
+    <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal('gd-browse-files')"></gd-button>
+    <gd-button [icon]="'angle-double-left'" [tooltip]="'First Page'" (click)="toFirstPage()"></gd-button>
+    <gd-button [icon]="'angle-left'" [tooltip]="'Previous Page'" (click)="prevPage()"></gd-button>
+    <div class="current-page-number">{{currentPage}}/{{countPages}}</div>
+    <gd-button [icon]="'angle-right'" [tooltip]="'Next Page'" (click)="nextPage()"></gd-button>
+    <gd-button [icon]="'angle-double-right'" [tooltip]="'Last Page'" (click)="toLastPage()"></gd-button>
+  </gd-top-toolbar>
+  <gd-document [file]="file" [mode]="viewerConfig?.htmlMode"
+               [preloadPageCount]="viewerConfig?.preloadPageCount"></gd-document>
 
-<gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)" (selectedFileGuid)="selectFile($event, 'gd-browse-files')"></gd-browse-files-modal>
+  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+                         (selectedFileGuid)="selectFile($event, 'gd-browse-files')"></gd-browse-files-modal>
+</div>

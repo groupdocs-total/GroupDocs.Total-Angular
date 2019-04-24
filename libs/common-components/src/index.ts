@@ -4,3 +4,5 @@ export * from './lib/modal.service';
 export * from './lib/file.service';
 export * from './lib/upload-files.service';
 export * from './lib/pipes'
+export * from './lib/navigate.service'
+export * from './lib/page-preload.service'

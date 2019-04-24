@@ -7,6 +7,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 })
 export class PageComponent implements OnInit, OnChanges {
 
+  @Input() number: number;
   @Input() data: string;
   @Input() isHtml: boolean;
   imgData: string;

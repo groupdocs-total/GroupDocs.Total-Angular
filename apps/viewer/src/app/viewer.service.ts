@@ -28,4 +28,8 @@ export class ViewerService {
 
     return this._http.post(this._config.getApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
   }
+
+  loadPage(guid: string, page: number) {
+    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_DOCUMENT_PAGE, {'guid': guid, 'page': page}, Api.httpOptionsJson);
+  }
 }
