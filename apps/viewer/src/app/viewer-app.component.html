@@ -2,6 +2,11 @@
   <gd-top-toolbar>
     <gd-logo [logo]="'viewer'"></gd-logo>
     <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal('gd-browse-files')"></gd-button>
+
+    <div class="current-zoom">{{zoom}}%</div>
+    <gd-button [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"></gd-button>
+    <gd-button [icon]="'search-minus'" [tooltip]="'Zoom Out'" (click)="zoomOut()"></gd-button>
+
     <gd-button [icon]="'angle-double-left'" [tooltip]="'First Page'" (click)="toFirstPage()"></gd-button>
     <gd-button [icon]="'angle-left'" [tooltip]="'Previous Page'" (click)="prevPage()"></gd-button>
     <div class="current-page-number">{{currentPage}}/{{countPages}}</div>

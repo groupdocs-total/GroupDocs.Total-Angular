@@ -12,7 +12,7 @@ import {BrowseFilesModalComponent} from './browse-files-modal/browse-files-modal
 import {FileModel, FileService, FileUtil} from "./file.service";
 import {DocumentComponent} from './document/document.component';
 import {PageComponent} from './page/page.component';
-import {SanitizeHtmlPipe, SanitizeResourceHtmlPipe} from "./pipes";
+import {SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe} from "./pipes";
 import {ChoiceButtonComponent} from './choice-button/choice-button.component';
 import {UploadFileZoneComponent} from './upload-file-zone/upload-file-zone.component';
 import {UploadFilesService} from "./upload-files.service";
@@ -20,6 +20,8 @@ import {DndDirective} from './dnd.directive';
 import {ScrollableDirective} from './scrollable.directive';
 import {NavigateService} from "./navigate.service";
 import {PagePreloadService} from "./page-preload.service";
+import {ZoomDirective} from './zoom.directive';
+import {ZoomService} from "./zoom.service";
 
 const providers = [ConfigService,
   Api,
@@ -29,9 +31,11 @@ const providers = [ConfigService,
   FileUtil,
   SanitizeHtmlPipe,
   SanitizeResourceHtmlPipe,
+  SanitizeStylePipe,
   UploadFilesService,
   NavigateService,
-  PagePreloadService];
+  PagePreloadService,
+  ZoomService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
@@ -46,10 +50,12 @@ const providers = [ConfigService,
     PageComponent,
     SanitizeHtmlPipe,
     SanitizeResourceHtmlPipe,
+    SanitizeStylePipe,
     ChoiceButtonComponent,
     UploadFileZoneComponent,
     DndDirective,
-    ScrollableDirective
+    ScrollableDirective,
+    ZoomDirective
   ],
   exports: [
     TopToolbarComponent,
@@ -61,6 +67,7 @@ const providers = [ConfigService,
     DocumentComponent,
     PageComponent,
     SanitizeResourceHtmlPipe,
+    SanitizeStylePipe,
     SanitizeHtmlPipe,
     ChoiceButtonComponent,
     UploadFileZoneComponent,

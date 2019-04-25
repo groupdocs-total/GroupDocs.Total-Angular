@@ -20,3 +20,13 @@ export class SanitizeResourceHtmlPipe {
     return this.sanitizer.bypassSecurityTrustResourceUrl(html);
   }
 }
+
+@Pipe({name: 'safeStyle'})
+export class SanitizeStylePipe {
+  constructor(private sanitizer: DomSanitizer) {
+  }
+
+  transform(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustStyle(html);
+  }
+}

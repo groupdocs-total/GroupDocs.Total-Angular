@@ -6,7 +6,9 @@ import {
   ModalService,
   UploadFilesService,
   NavigateService,
-  PagePreloadService, PageModel
+  PagePreloadService, 
+  PageModel, 
+  ZoomService
 } from "@groupdocs-total-angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -22,12 +24,14 @@ export class ViewerAppComponent {
   file: FileDescription;
   viewerConfig: ViewerConfig;
   countPages: number = 0;
+  _zoom: number = 100;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
               configService: ViewerConfigService,
               uploadFilesService: UploadFilesService,
               private _navigateService: NavigateService,
+              private _zoomService: ZoomService,
               pagePreloadService: PagePreloadService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
@@ -120,5 +124,28 @@ export class ViewerAppComponent {
 
   navigateToPage(page: number) {
     this._navigateService.navigateTo(page);
+  }
+
+  zoomIn() {
+    if (this._zoom < 490) {
+      this._zoom = this._zoom + 10;
+    }
+    this._zoomService.changeZoom(this._zoom);
+  }
+
+  zoomOut() {
+    if (this._zoom > 30) {
+      this._zoom = this._zoom - 10;
+    }
+    this._zoomService.changeZoom(this._zoom);
+  }
+  
+  set zoom(zoom: number) {
+    this._zoom = zoom;
+    this._zoomService.changeZoom(this._zoom);
+  }
+
+  get zoom() {
+    return this._zoom;
   }
 }

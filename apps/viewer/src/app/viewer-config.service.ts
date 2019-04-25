@@ -10,9 +10,13 @@ import {Observable, Subject} from "rxjs";
 })
 export class ViewerConfigService {
   private _viewerConfig: Subject<ViewerConfig> = new Subject<ViewerConfig>();
-  updatedConfig: Observable<ViewerConfig> = this._viewerConfig.asObservable();
+  private _updatedConfig: Observable<ViewerConfig> = this._viewerConfig.asObservable();
 
   constructor(private _http: HttpClient, private _config: ConfigService) {
+  }
+
+  get updatedConfig() {
+    return this._updatedConfig;
   }
 
   load() {

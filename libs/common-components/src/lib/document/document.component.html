@@ -1,6 +1,6 @@
 <div class="wait" *ngIf="wait">Please wait...</div>
 <div id="document" class="document" gdScrollable>
-  <div class="page" *ngFor="let page of file?.pages">
+  <div class="page" *ngFor="let page of file?.pages" gdZoom >
     <gd-page [number]="page.number" [data]="page.data" [isHtml]="mode"></gd-page>
   </div>
 </div>
