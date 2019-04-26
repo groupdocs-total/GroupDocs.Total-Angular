@@ -6,8 +6,8 @@ import {
   ModalService,
   UploadFilesService,
   NavigateService,
-  PagePreloadService, 
-  PageModel, 
+  PagePreloadService,
+  PageModel,
   ZoomService
 } from "@groupdocs-total-angular/common-components";
 import {ViewerConfig} from "./viewer-config";
@@ -25,6 +25,10 @@ export class ViewerAppComponent {
   viewerConfig: ViewerConfig;
   countPages: number = 0;
   _zoom: number = 100;
+  formatDisabled = !this.file;
+
+  _pageWidth: number;
+  _pageHeight: number;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -51,7 +55,7 @@ export class ViewerAppComponent {
 
     pagePreloadService.checkPreload.subscribe((page: number) => {
       if (this.viewerConfig.preloadPageCount != 0) {
-        for(let i = page; i < page + 2; i++) {
+        for (let i = page; i < page + 2; i++) {
           if (i > 0 && i <= this.countPages && !this.file.pages[i - 1].data) {
             this.preloadPages(i, i);
           }
@@ -79,6 +83,11 @@ export class ViewerAppComponent {
   selectFile($event: string, modalId: string) {
     this._viewerService.loadFile($event).subscribe((file: FileDescription) => {
         this.file = file;
+        this.formatDisabled = !this.file;
+        if (file && file.pages && file.pages[0]) {
+          this._pageHeight = file.pages[0].height;
+          this._pageWidth = file.pages[0].width;
+        }
         const preloadPageCount = this.viewerConfig.preloadPageCount;
         const countPages = file.pages.length;
         if (preloadPageCount > 0) {
@@ -107,39 +116,60 @@ export class ViewerAppComponent {
   }
 
   nextPage() {
+    if (this.formatDisabled)
+      return;
     this._navigateService.nextPage();
   }
 
   prevPage() {
+    if (this.formatDisabled)
+      return;
     this._navigateService.prevPage();
   }
 
   toLastPage() {
+    if (this.formatDisabled)
+      return;
     this._navigateService.toLastPage();
   }
 
   toFirstPage() {
+    if (this.formatDisabled)
+      return;
     this._navigateService.toFirstPage();
   }
 
   navigateToPage(page: number) {
+    if (this.formatDisabled)
+      return;
     this._navigateService.navigateTo(page);
   }
 
   zoomIn() {
+    if (this.formatDisabled)
+      return;
     if (this._zoom < 490) {
-      this._zoom = this._zoom + 10;
+      this.zoom = this._zoom + 10;
     }
-    this._zoomService.changeZoom(this._zoom);
   }
 
   zoomOut() {
+    if (this.formatDisabled)
+      return;
     if (this._zoom > 30) {
-      this._zoom = this._zoom - 10;
+      this.zoom = this._zoom - 10;
     }
-    this._zoomService.changeZoom(this._zoom);
   }
-  
+
+  zoomOptions() {
+    const offsetWidth = this._pageWidth ? this._pageWidth : window.innerWidth;
+    const offsetHeight = this._pageHeight ? this._pageHeight : window.innerHeight;
+
+    const width = 200 - Math.round(offsetWidth  * 100 / window.innerWidth);
+    const height = Math.round(window.innerHeight  * 100 / offsetHeight);
+    return ZoomService.zoomOptions(width, height);
+  }
+
   set zoom(zoom: number) {
     this._zoom = zoom;
     this._zoomService.changeZoom(this._zoom);
@@ -147,5 +177,9 @@ export class ViewerAppComponent {
 
   get zoom() {
     return this._zoom;
+  }
+
+  selectZoom($event: any) {
+    this.zoom = $event;
   }
 }

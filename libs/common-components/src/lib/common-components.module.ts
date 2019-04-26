@@ -22,6 +22,8 @@ import {NavigateService} from "./navigate.service";
 import {PagePreloadService} from "./page-preload.service";
 import {ZoomDirective} from './zoom.directive';
 import {ZoomService} from "./zoom.service";
+import {SelectComponent} from './select/select.component';
+import { DisabledCursorDirective } from './disabled-cursor.directive';
 
 const providers = [ConfigService,
   Api,
@@ -55,7 +57,9 @@ const providers = [ConfigService,
     UploadFileZoneComponent,
     DndDirective,
     ScrollableDirective,
-    ZoomDirective
+    ZoomDirective,
+    SelectComponent,
+    DisabledCursorDirective
   ],
   exports: [
     TopToolbarComponent,
@@ -71,7 +75,8 @@ const providers = [ConfigService,
     SanitizeHtmlPipe,
     ChoiceButtonComponent,
     UploadFileZoneComponent,
-    ScrollableDirective
+    ScrollableDirective,
+    SelectComponent
   ],
   providers: providers
 })

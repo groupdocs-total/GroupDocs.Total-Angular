@@ -1,4 +1,4 @@
-import {Observable, Observer, Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 
 export class ZoomService {
   private _observer: Subject<number> = new Subject();
@@ -19,5 +19,21 @@ export class ZoomService {
   changeZoom(zoom: number) {
     this._zoom = zoom;
     this._observer.next(zoom);
+  }
+
+  static createZoomOption(val: number, name: string = val + '%', sep: boolean = false) {
+    return {value: val, name: name, separator: sep}
+  }
+
+  static zoomOptions(width, height) {
+    return [this.createZoomOption(25),
+      this.createZoomOption(50),
+      this.createZoomOption(100),
+      this.createZoomOption(150),
+      this.createZoomOption(200),
+      this.createZoomOption(300),
+      this.createZoomOption(0, '', true),
+      this.createZoomOption(width, 'Fit Width'),
+      this.createZoomOption(height, 'Fit Height')];
   }
 }
