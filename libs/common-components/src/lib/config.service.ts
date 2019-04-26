@@ -7,6 +7,7 @@ export class Api {
   public static LOAD_CONFIG = 'loadConfig';
   public static LOAD_DOCUMENT_DESCRIPTION = 'loadDocumentDescription';
   public static LOAD_DOCUMENT_PAGE = 'loadDocumentPage';
+  public static ROTATE_DOCUMENT_PAGE = 'rotateDocumentPages';
   public static UPLOAD_DOCUMENTS = 'uploadDocument';
 
   public static httpOptionsJson = {

@@ -6,6 +6,11 @@ export class PageModel {
   number: number;
 }
 
+export class RotatedPage {
+  pageNumber: number;
+  angle: number;
+}
+
 export class FileDescription {
   guid: string;
   pages: PageModel[];

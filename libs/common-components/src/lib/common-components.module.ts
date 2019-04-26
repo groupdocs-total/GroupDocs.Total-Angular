@@ -24,6 +24,7 @@ import {ZoomDirective} from './zoom.directive';
 import {ZoomService} from "./zoom.service";
 import {SelectComponent} from './select/select.component';
 import { DisabledCursorDirective } from './disabled-cursor.directive';
+import { RotationDirective } from './rotation.directive';
 
 const providers = [ConfigService,
   Api,
@@ -59,7 +60,8 @@ const providers = [ConfigService,
     ScrollableDirective,
     ZoomDirective,
     SelectComponent,
-    DisabledCursorDirective
+    DisabledCursorDirective,
+    RotationDirective
   ],
   exports: [
     TopToolbarComponent,
@@ -76,7 +78,8 @@ const providers = [ConfigService,
     ChoiceButtonComponent,
     UploadFileZoneComponent,
     ScrollableDirective,
-    SelectComponent
+    SelectComponent,
+    RotationDirective
   ],
   providers: providers
 })

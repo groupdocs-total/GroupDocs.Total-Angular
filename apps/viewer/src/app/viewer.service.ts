@@ -32,4 +32,8 @@ export class ViewerService {
   loadPage(guid: string, page: number) {
     return this._http.post(this._config.getApiEndpoint() + Api.LOAD_DOCUMENT_PAGE, {'guid': guid, 'page': page}, Api.httpOptionsJson);
   }
+
+  rotate(guid: string, angle: number, page: number) {
+    return this._http.post(this._config.getApiEndpoint() + Api.ROTATE_DOCUMENT_PAGE, {'guid': guid, 'pages': [page], 'angle': angle}, Api.httpOptionsJson);
+  }
 }

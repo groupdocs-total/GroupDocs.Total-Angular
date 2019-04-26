@@ -12,6 +12,9 @@
     <div class="current-page-number">{{currentPage}}/{{countPages}}</div>
     <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'" (click)="nextPage()"></gd-button>
     <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'" (click)="toLastPage()"></gd-button>
+
+    <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Rotate CCW'" (click)="rotate(-90)"></gd-button>
+    <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Rotate CW'" (click)="rotate(90)"></gd-button>
   </gd-top-toolbar>
   <gd-document [file]="file" [mode]="viewerConfig?.htmlMode"
                [preloadPageCount]="viewerConfig?.preloadPageCount"></gd-document>

@@ -7,9 +7,11 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 })
 export class PageComponent implements OnInit, OnChanges {
 
+  @Input() angle: number;
   @Input() number: number;
   @Input() data: string;
   @Input() isHtml: boolean;
+  @Input() landscape: boolean;
   imgData: string;
 
   constructor() {

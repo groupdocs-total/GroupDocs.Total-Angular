@@ -8,7 +8,8 @@ import {
   NavigateService,
   PagePreloadService,
   PageModel,
-  ZoomService
+  ZoomService,
+  RotatedPage
 } from "@groupdocs-total-angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -181,5 +182,29 @@ export class ViewerAppComponent {
 
   selectZoom($event: any) {
     this.zoom = $event;
+  }
+
+  rotate(deg: number) {
+    const pageNumber = this._navigateService.currentPage;
+    if (this.viewerConfig.saveRotateState && this.file) {
+      this._viewerService.rotate(this.file.guid, deg, pageNumber).subscribe((data: RotatedPage[]) => {
+        for (let page of data) {
+          if (this.file && this.file.pages && this.file.pages[page.pageNumber - 1]) {
+            this.file.pages[page.pageNumber - 1].angle = page.angle;
+          }
+        }
+      })
+    } else {
+      if (this.file && this.file.pages && this.file.pages[pageNumber - 1]) {
+        let angle = this.file.pages[pageNumber - 1].angle + deg;
+        if (angle > 360) {
+          this.file.pages[pageNumber - 1].angle = 90;
+        } else if (angle < -360) {
+          this.file.pages[pageNumber - 1].angle = -90;
+        } else {
+          this.file.pages[pageNumber - 1].angle = angle;
+        }
+      }
+    }
   }
 }
