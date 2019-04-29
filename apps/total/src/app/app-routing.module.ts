@@ -9,10 +9,10 @@ import {ViewerAppComponent} from "../../../viewer/src/app/viewer-app.component";
 import {SignatureAppComponent} from "../../../signature/src/app/signature-app.component";
 import {AnnotationAppComponent} from "../../../annotation/src/app/annotation-app.component";
 import {ComparisonAppComponent} from "../../../comparison/src/app/comparison-app.component";
-import {TotalAppComponent} from "./total-app.component";
+import {TotalViewComponent} from "./total-view/total-view.component";
 
 const routes: Routes = [
-  {path: '', component: TotalAppComponent},
+  {path: '', component: TotalViewComponent},
   {path: 'viewer',
     component: ViewerAppComponent},
   {path: 'signature',

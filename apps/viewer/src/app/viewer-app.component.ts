@@ -15,7 +15,7 @@ import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 
 @Component({
-  selector: 'groupdocs-viewer-angular-root',
+  selector: 'gd-viewer-angular-root',
   templateUrl: './viewer-app.component.html',
   styleUrls: ['./viewer-app.component.less']
 })
@@ -166,8 +166,8 @@ export class ViewerAppComponent {
     const offsetWidth = this._pageWidth ? this._pageWidth : window.innerWidth;
     const offsetHeight = this._pageHeight ? this._pageHeight : window.innerHeight;
 
-    const width = 200 - Math.round(offsetWidth  * 100 / window.innerWidth);
-    const height = Math.round(window.innerHeight  * 100 / offsetHeight);
+    const width = 200 - Math.round(offsetWidth * 100 / window.innerWidth);
+    const height = Math.round(window.innerHeight * 100 / offsetHeight);
     return ZoomService.zoomOptions(width, height);
   }
 

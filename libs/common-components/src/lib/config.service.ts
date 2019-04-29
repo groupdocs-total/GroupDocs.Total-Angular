@@ -19,20 +19,26 @@ export class Api {
 
 export class ApiConfig {
   apiEndpoint:string;
+  configEndpoint: string;
 }
 
 @Injectable()
 export class ConfigService {
 
-  private apiEndpoint = Api.DEFAULT_API_ENDPOINT;
+  private _apiEndpoint = Api.DEFAULT_API_ENDPOINT;
+  private _configEndpoint:string;
   private loaded: boolean;
 
   constructor(private http: HttpClient) {
     this.loaded = false;
   }
 
+  getConfigEndpoint() {
+    return this._configEndpoint ? this._configEndpoint : (this.getApiEndpoint() + Api.LOAD_CONFIG);
+  }
+
   getApiEndpoint() {
-    return this.apiEndpoint;
+    return this._apiEndpoint;
   }
 
   load(environmentName) {
@@ -42,7 +48,8 @@ export class ConfigService {
     const jsonFile = `assets/config/config.${environmentName}.json`;
     return new Promise<void>((resolve, reject) => {
       this.http.get(jsonFile).toPromise().then((response : ApiConfig) => {
-        this.apiEndpoint = (<ApiConfig>response).apiEndpoint;
+        this._apiEndpoint = (<ApiConfig>response).apiEndpoint;
+        this._configEndpoint = (<ApiConfig>response).configEndpoint;
         this.loaded = true;
         resolve();
       }).catch((response: any) => {
