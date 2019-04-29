@@ -23,8 +23,9 @@ import {PagePreloadService} from "./page-preload.service";
 import {ZoomDirective} from './zoom.directive';
 import {ZoomService} from "./zoom.service";
 import {SelectComponent} from './select/select.component';
-import { DisabledCursorDirective } from './disabled-cursor.directive';
-import { RotationDirective } from './rotation.directive';
+import {DisabledCursorDirective} from './disabled-cursor.directive';
+import {RotationDirective} from './rotation.directive';
+import {InitStateComponent} from './init-state/init-state.component';
 
 const providers = [ConfigService,
   Api,
@@ -61,7 +62,8 @@ const providers = [ConfigService,
     ZoomDirective,
     SelectComponent,
     DisabledCursorDirective,
-    RotationDirective
+    RotationDirective,
+    InitStateComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -79,7 +81,8 @@ const providers = [ConfigService,
     UploadFileZoneComponent,
     ScrollableDirective,
     SelectComponent,
-    RotationDirective
+    RotationDirective,
+    InitStateComponent
   ],
   providers: providers
 })
