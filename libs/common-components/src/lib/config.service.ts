@@ -9,6 +9,7 @@ export class Api {
   public static LOAD_DOCUMENT_PAGE = 'loadDocumentPage';
   public static ROTATE_DOCUMENT_PAGE = 'rotateDocumentPages';
   public static UPLOAD_DOCUMENTS = 'uploadDocument';
+  public static DOWNLOAD_DOCUMENTS = 'downloadDocument';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

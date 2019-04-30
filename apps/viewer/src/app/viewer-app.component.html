@@ -21,6 +21,9 @@
 
     <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Rotate CCW'" (click)="rotate(-90)"></gd-button>
     <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Rotate CW'" (click)="rotate(90)"></gd-button>
+
+    <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Docwnload'" (click)="downloadFile()"></gd-button>
+    <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"></gd-button>
   </gd-top-toolbar>
   <gd-document *ngIf="file" [file]="file" [mode]="viewerConfig?.htmlMode"
                [preloadPageCount]="viewerConfig?.preloadPageCount"></gd-document>

@@ -207,4 +207,12 @@ export class ViewerAppComponent {
       }
     }
   }
+
+  downloadFile() {
+    window.location.assign(this._viewerService.getDownloadUrl(this.file.guid));
+  }
+
+  printFile() {
+
+  }
 }

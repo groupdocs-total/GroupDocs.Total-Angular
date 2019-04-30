@@ -36,4 +36,8 @@ export class ViewerService {
   rotate(guid: string, angle: number, page: number) {
     return this._http.post(this._config.getApiEndpoint() + Api.ROTATE_DOCUMENT_PAGE, {'guid': guid, 'pages': [page], 'angle': angle}, Api.httpOptionsJson);
   }
+
+  getDownloadUrl(guid: string) {
+    return this._config.getApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + guid;
+  }
 }
