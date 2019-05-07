@@ -26,6 +26,8 @@ import {SelectComponent} from './select/select.component';
 import {DisabledCursorDirective} from './disabled-cursor.directive';
 import {RotationDirective} from './rotation.directive';
 import {InitStateComponent} from './init-state/init-state.component';
+import {RenderPrintService} from "./render-print.service";
+import {RenderPrintDirective} from './render-print.directive';
 
 const providers = [ConfigService,
   Api,
@@ -37,6 +39,7 @@ const providers = [ConfigService,
   SanitizeResourceHtmlPipe,
   SanitizeStylePipe,
   UploadFilesService,
+  RenderPrintService,
   NavigateService,
   PagePreloadService,
   ZoomService];
@@ -63,7 +66,8 @@ const providers = [ConfigService,
     SelectComponent,
     DisabledCursorDirective,
     RotationDirective,
-    InitStateComponent
+    InitStateComponent,
+    RenderPrintDirective
   ],
   exports: [
     TopToolbarComponent,
@@ -82,7 +86,8 @@ const providers = [ConfigService,
     ScrollableDirective,
     SelectComponent,
     RotationDirective,
-    InitStateComponent
+    InitStateComponent,
+    RenderPrintDirective
   ],
   providers: providers
 })

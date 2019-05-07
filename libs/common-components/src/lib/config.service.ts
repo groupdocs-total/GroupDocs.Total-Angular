@@ -10,11 +10,19 @@ export class Api {
   public static ROTATE_DOCUMENT_PAGE = 'rotateDocumentPages';
   public static UPLOAD_DOCUMENTS = 'uploadDocument';
   public static DOWNLOAD_DOCUMENTS = 'downloadDocument';
+  public static LOAD_PRINT = 'loadPrint';
+  public static LOAD_PRINT_PDF = 'printPdf';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     })
+  };
+  public static httpOptionsJsonResponseTypeBlob = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+    responseType: 'blob' as 'blob'
   };
 }
 

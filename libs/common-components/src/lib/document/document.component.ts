@@ -22,7 +22,8 @@ export class DocumentComponent implements OnInit {
     this.docElement = this.elementRef.nativeElement.children.item(0);
 
     this._navigateService.navigate.subscribe((value => {
-      if (this.file.pages[value - 1].data) {
+      // TODO: if page loading takes a long time
+      /*if (this.file.pages[value - 1].data) {
         this.scrollToPage(value);
       } else {
         this.wait = true;
@@ -33,7 +34,8 @@ export class DocumentComponent implements OnInit {
             clearInterval(timer);
           }
         }, 5000);
-      }
+      }*/
+      this.scrollToPage(value);
     }));
   }
 

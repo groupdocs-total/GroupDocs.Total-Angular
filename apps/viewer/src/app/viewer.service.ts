@@ -30,14 +30,33 @@ export class ViewerService {
   }
 
   loadPage(guid: string, page: number) {
-    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_DOCUMENT_PAGE, {'guid': guid, 'page': page}, Api.httpOptionsJson);
+    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_DOCUMENT_PAGE, {
+      'guid': guid,
+      'page': page
+    }, Api.httpOptionsJson);
   }
 
   rotate(guid: string, angle: number, page: number) {
-    return this._http.post(this._config.getApiEndpoint() + Api.ROTATE_DOCUMENT_PAGE, {'guid': guid, 'pages': [page], 'angle': angle}, Api.httpOptionsJson);
+    return this._http.post(this._config.getApiEndpoint() + Api.ROTATE_DOCUMENT_PAGE, {
+      'guid': guid,
+      'pages': [page],
+      'angle': angle
+    }, Api.httpOptionsJson);
   }
 
   getDownloadUrl(guid: string) {
     return this._config.getApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + guid;
+  }
+
+  loadPrint(guid: string) {
+    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_PRINT, {
+      'guid': guid,
+    }, Api.httpOptionsJson);
+  }
+
+  loadPrintPdf(guid: string) {
+    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_PRINT_PDF, {
+      'guid': guid,
+    }, Api.httpOptionsJsonResponseTypeBlob);
   }
 }

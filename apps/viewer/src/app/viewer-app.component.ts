@@ -9,7 +9,9 @@ import {
   PagePreloadService,
   PageModel,
   ZoomService,
-  RotatedPage
+  RotatedPage,
+  RenderPrintService,
+  FileUtil
 } from "@groupdocs-total-angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -37,7 +39,8 @@ export class ViewerAppComponent {
               uploadFilesService: UploadFilesService,
               private _navigateService: NavigateService,
               private _zoomService: ZoomService,
-              pagePreloadService: PagePreloadService) {
+              pagePreloadService: PagePreloadService,
+              private _renderPrintService: RenderPrintService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -185,6 +188,8 @@ export class ViewerAppComponent {
   }
 
   rotate(deg: number) {
+    if (this.formatDisabled)
+      return;
     const pageNumber = this._navigateService.currentPage;
     if (this.viewerConfig.saveRotateState && this.file) {
       this._viewerService.rotate(this.file.guid, deg, pageNumber).subscribe((data: RotatedPage[]) => {
@@ -209,10 +214,29 @@ export class ViewerAppComponent {
   }
 
   downloadFile() {
+    if (this.formatDisabled)
+      return;
     window.location.assign(this._viewerService.getDownloadUrl(this.file.guid));
   }
 
   printFile() {
-
+    if (this.formatDisabled)
+      return;
+    if (this.viewerConfig.preloadPageCount != 0) {
+      if (FileUtil.find(this.file.guid, false).format == "Portable Document Format") {
+        this._viewerService.loadPrintPdf(this.file.guid).subscribe(blob => {
+          var file = new Blob([blob], {type: 'application/pdf'});
+          this._renderPrintService.changeBlob(file);
+        });
+      } else {
+        this._viewerService.loadPrint(this.file.guid).subscribe((data: FileDescription) => {
+          this.file.pages = data.pages;
+          this._renderPrintService.changePages(this.file.pages);
+        });
+      }
+    } else {
+      this._renderPrintService.changePages(this.file.pages);
+    }
   }
+
 }

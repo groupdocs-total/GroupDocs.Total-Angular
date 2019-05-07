@@ -43,11 +43,11 @@ export class BrowseFilesModalComponent implements OnInit {
   }
 
   getFormatName(file: FileModel) {
-    return FileUtil.find(file).format;
+    return FileUtil.find(file.name, file.directory).format;
   }
 
   getFormatIcon(file: FileModel) {
-    return FileUtil.find(file).icon;
+    return FileUtil.find(file.name, file.directory).icon;
   }
 
   choose(file: FileModel) {

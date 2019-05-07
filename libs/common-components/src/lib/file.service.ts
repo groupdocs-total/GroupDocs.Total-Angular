@@ -92,9 +92,9 @@ export class FileUtil {
     'unknown': {'format': 'This format is not supported', 'icon': 'file'},
   };
 
-  public static find(file: FileModel) {
-    if (file && !file.directory) {
-      const strings = file.name.split('.');
+  public static find(filename: string, isDirectory: boolean) {
+    if (filename && !isDirectory) {
+      const strings = filename.split('.');
       const name = strings.pop().toLowerCase();
       if (typeof FileUtil.map[name] == "undefined") {
         return strings.length > 1 ? FileUtil.map['unknown'] : FileUtil.map['folder'];
