@@ -1,7 +1,7 @@
 <div class="wrapper">
   <gd-top-toolbar>
     <gd-logo [logo]="'viewer'"></gd-logo>
-    <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal('gd-browse-files')"></gd-button>
+    <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"></gd-button>
 
     <gd-select [disabled]="formatDisabled" [options]="zoomOptions()" (selected)="selectZoom($event)"
                [showSelected]="zoom"></gd-select>
@@ -39,5 +39,8 @@
   <gd-init-state [icon]="'eye'" [text]="'viewer'" *ngIf="!file"></gd-init-state>
 
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
-                         (selectedFileGuid)="selectFile($event, 'gd-browse-files')"></gd-browse-files-modal>
+                         (selectedFileGuid)="selectFile($event, null, browseFilesModal)"></gd-browse-files-modal>
+
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
 </div>

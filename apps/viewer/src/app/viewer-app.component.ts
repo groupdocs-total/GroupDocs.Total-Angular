@@ -11,7 +11,9 @@ import {
   ZoomService,
   RotatedPage,
   RenderPrintService,
-  FileUtil
+  FileUtil,
+  PasswordService,
+  FileCredentials, CommonModals
 } from "@groupdocs-total-angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -29,6 +31,8 @@ export class ViewerAppComponent {
   countPages: number = 0;
   formatDisabled = !this.file;
   showThumbnails: boolean = false;
+  credentials: FileCredentials;
+  browseFilesModal = CommonModals.BrowseFiles;
 
   _zoom: number = 100;
   _pageWidth: number;
@@ -41,7 +45,8 @@ export class ViewerAppComponent {
               private _navigateService: NavigateService,
               private _zoomService: ZoomService,
               pagePreloadService: PagePreloadService,
-              private _renderPrintService: RenderPrintService) {
+              private _renderPrintService: RenderPrintService,
+              passwordService: PasswordService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -67,6 +72,10 @@ export class ViewerAppComponent {
         }
       }
     });
+
+    passwordService.passChange.subscribe((pass: string) => {
+      this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
+    });
   }
 
   get currentPage(): number {
@@ -85,8 +94,9 @@ export class ViewerAppComponent {
     this._viewerService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
   }
 
-  selectFile($event: string, modalId: string) {
-    this._viewerService.loadFile($event).subscribe((file: FileDescription) => {
+  selectFile($event: string, password: string, modalId: string) {
+    this.credentials = {guid: $event, password: password};
+    this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
         if (file && file.pages && file.pages[0]) {
@@ -108,7 +118,7 @@ export class ViewerAppComponent {
 
   preloadPages(start: number, end: number) {
     for (let i = start; i <= end; i++) {
-      this._viewerService.loadPage(this.file.guid, i).subscribe((page: PageModel) => {
+      this._viewerService.loadPage(this.credentials, i).subscribe((page: PageModel) => {
         this.file.pages[i - 1] = page;
       });
     }
@@ -193,7 +203,7 @@ export class ViewerAppComponent {
       return;
     const pageNumber = this._navigateService.currentPage;
     if (this.viewerConfig.saveRotateState && this.file) {
-      this._viewerService.rotate(this.file.guid, deg, pageNumber).subscribe((data: RotatedPage[]) => {
+      this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((data: RotatedPage[]) => {
         for (let page of data) {
           if (this.file && this.file.pages && this.file.pages[page.pageNumber - 1]) {
             this.file.pages[page.pageNumber - 1].angle = page.angle;
@@ -217,7 +227,7 @@ export class ViewerAppComponent {
   downloadFile() {
     if (this.formatDisabled)
       return;
-    window.location.assign(this._viewerService.getDownloadUrl(this.file.guid));
+    window.location.assign(this._viewerService.getDownloadUrl(this.credentials));
   }
 
   printFile() {
@@ -225,12 +235,12 @@ export class ViewerAppComponent {
       return;
     if (this.viewerConfig.preloadPageCount != 0) {
       if (FileUtil.find(this.file.guid, false).format == "Portable Document Format") {
-        this._viewerService.loadPrintPdf(this.file.guid).subscribe(blob => {
+        this._viewerService.loadPrintPdf(this.credentials).subscribe(blob => {
           var file = new Blob([blob], {type: 'application/pdf'});
           this._renderPrintService.changeBlob(file);
         });
       } else {
-        this._viewerService.loadPrint(this.file.guid).subscribe((data: FileDescription) => {
+        this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
           this.file.pages = data.pages;
           this._renderPrintService.changePages(this.file.pages);
         });
@@ -244,7 +254,7 @@ export class ViewerAppComponent {
     if (this.viewerConfig.preloadPageCount == 0) {
       this.showThumbnails = true;
     } else {
-      this._viewerService.loadThumbnails(this.file.guid).subscribe((data: FileDescription) => {
+      this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
         this.file.pages = data.pages;
         this.showThumbnails = true;
       })

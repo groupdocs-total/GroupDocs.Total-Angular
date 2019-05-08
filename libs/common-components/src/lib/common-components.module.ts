@@ -28,6 +28,11 @@ import {RotationDirective} from './rotation.directive';
 import {InitStateComponent} from './init-state/init-state.component';
 import {RenderPrintService} from "./render-print.service";
 import {RenderPrintDirective} from './render-print.directive';
+import {ErrorModalComponent} from './error-modal/error-modal.component';
+import {PasswordRequiredComponent} from './password-required/password-required.component';
+import {ExceptionMessageService} from "./exception-message.service";
+import {PasswordService} from "./password.service";
+import {ErrorInterceptorService} from "./error-interceptor.service";
 
 const providers = [ConfigService,
   Api,
@@ -42,7 +47,10 @@ const providers = [ConfigService,
   RenderPrintService,
   NavigateService,
   PagePreloadService,
-  ZoomService];
+  ZoomService,
+  ExceptionMessageService,
+  PasswordService,
+  ErrorInterceptorService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
@@ -67,7 +75,9 @@ const providers = [ConfigService,
     DisabledCursorDirective,
     RotationDirective,
     InitStateComponent,
-    RenderPrintDirective
+    RenderPrintDirective,
+    ErrorModalComponent,
+    PasswordRequiredComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -87,7 +97,9 @@ const providers = [ConfigService,
     SelectComponent,
     RotationDirective,
     InitStateComponent,
-    RenderPrintDirective
+    RenderPrintDirective,
+    ErrorModalComponent,
+    PasswordRequiredComponent
   ],
   providers: providers
 })

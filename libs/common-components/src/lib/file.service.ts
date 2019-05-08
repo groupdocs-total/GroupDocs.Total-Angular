@@ -11,6 +11,11 @@ export class RotatedPage {
   angle: number;
 }
 
+export class FileCredentials {
+  guid: string;
+  password: string;
+}
+
 export class FileDescription {
   guid: string;
   pages: PageModel[];
@@ -22,6 +27,16 @@ export class FileModel {
   name: string;
   directory: boolean;
   size: number;
+}
+
+export class HttpError {
+  static BadRequest = 400;
+  static Unauthorized = 401;
+  static Forbidden = 403;
+  static NotFound = 404;
+  static TimeOut = 408;
+  static Conflict = 409;
+  static InternalServerError = 500;
 }
 
 export class FileUtil {
