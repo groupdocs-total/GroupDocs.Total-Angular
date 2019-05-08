@@ -59,4 +59,10 @@ export class ViewerService {
       'guid': guid,
     }, Api.httpOptionsJsonResponseTypeBlob);
   }
+
+  loadThumbnails(guid: string) {
+    return this._http.post(this._config.getApiEndpoint() + Api.LOAD_THUMBNAILS, {
+      'guid': guid,
+    }, Api.httpOptionsJson);
+  }
 }

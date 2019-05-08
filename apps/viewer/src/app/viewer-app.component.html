@@ -22,11 +22,19 @@
     <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Rotate CCW'" (click)="rotate(-90)"></gd-button>
     <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Rotate CW'" (click)="rotate(90)"></gd-button>
 
-    <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Docwnload'" (click)="downloadFile()"></gd-button>
+    <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Docwnload'"
+               (click)="downloadFile()"></gd-button>
     <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"></gd-button>
+
+    <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
+               (click)="openThumbnails()"></gd-button>
   </gd-top-toolbar>
-  <gd-document *ngIf="file" [file]="file" [mode]="viewerConfig?.htmlMode"
-               [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint></gd-document>
+  <div class="doc-panel">
+    <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="viewerConfig?.htmlMode"></gd-thumbnails>
+
+    <gd-document *ngIf="file" [file]="file" [mode]="viewerConfig?.htmlMode"
+                 [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint></gd-document>
+  </div>
 
   <gd-init-state [icon]="'eye'" [text]="'viewer'" *ngIf="!file"></gd-init-state>
 

@@ -27,9 +27,10 @@ export class ViewerAppComponent {
   file: FileDescription;
   viewerConfig: ViewerConfig;
   countPages: number = 0;
-  _zoom: number = 100;
   formatDisabled = !this.file;
+  showThumbnails: boolean = false;
 
+  _zoom: number = 100;
   _pageWidth: number;
   _pageHeight: number;
 
@@ -239,4 +240,14 @@ export class ViewerAppComponent {
     }
   }
 
+  openThumbnails() {
+    if (this.viewerConfig.preloadPageCount == 0) {
+      this.showThumbnails = true;
+    } else {
+      this._viewerService.loadThumbnails(this.file.guid).subscribe((data: FileDescription) => {
+        this.file.pages = data.pages;
+        this.showThumbnails = true;
+      })
+    }
+  }
 }
