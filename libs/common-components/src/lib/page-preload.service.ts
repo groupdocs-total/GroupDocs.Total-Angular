@@ -13,7 +13,7 @@ export class PagePreloadService {
     return this._checkPreload;
   }
 
-  changeCurrentPage(currentPage: number) {
-    this._observer.next(currentPage);
+  changeLastPageInView(page: number) {
+    this._observer.next(page);
   }
 }

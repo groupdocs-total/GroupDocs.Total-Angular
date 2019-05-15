@@ -1,41 +1,49 @@
-import {Directive, ElementRef, HostListener} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, HostListener} from '@angular/core';
 import {NavigateService} from "./navigate.service";
 import {PagePreloadService} from "./page-preload.service";
+import {ZoomService} from "./zoom.service";
 
 @Directive({
   selector: '[gdScrollable]'
 })
-export class ScrollableDirective {
-  private currentPage:number;
+export class ScrollableDirective implements AfterViewInit {
+  private currentPage: number;
 
-  constructor(private _elementRef: ElementRef<HTMLElement>, private _navigateService: NavigateService, private _pagePreloadService: PagePreloadService) {
+  constructor(private _elementRef: ElementRef<HTMLElement>,
+              private _navigateService: NavigateService,
+              private _pagePreloadService: PagePreloadService,
+              zoomService: ZoomService) {
+
+    zoomService.zoomChange.subscribe((val: number) => {
+      this.refresh();
+    });
+  }
+
+  ngAfterViewInit() {
+    this.refresh();
   }
 
   @HostListener('scroll') scrolling() {
-    this.setCurrentPage();
-    this.checkPreloadPages();
+    this.refresh();
   }
 
   @HostListener('window:resize') resizing() {
-    this.setCurrentPage();
-    this.checkPreloadPages();
+    this.refresh();
   }
 
-  checkPreloadPages() {
-    if (this.currentPage) {
-      this._pagePreloadService.changeCurrentPage(this.currentPage);
-    }
-  }
-
-  setCurrentPage() {
+  refresh() {
     const el = this._elementRef.nativeElement;
     const children = el.children;
     let page;
+    let currentPageSet = false;
     for (page = 0; page < children.length; page++) {
       const element = children.item(page);
       if (this.checkInViewport(element)) {
-        this.currentPage = page + 1;
-        this._navigateService.currentPage = page + 1;
+        if (!currentPageSet) {
+          this.currentPage = page + 1;
+          this._navigateService.currentPage = page + 1;
+        }
+        this._pagePreloadService.changeLastPageInView(page + 1);
       }
     }
   }
