@@ -4,7 +4,7 @@
       <gd-choice-button [name]="'Upload file'" [choices]="uploads" [icon]="'upload'"
                         (selected)="selectUpload($event)"></gd-choice-button>
       <div class="upload-url" *ngIf="showUploadUrl">
-        <input class="url-input" #url (input)="uploadUrl(url.value)">
+        <input class="url-input" #url (keyup.enter)="uploadUrl(url.value)">
         <div class="url-check" (click)="uploadUrl(url.value)">
           <i fa [name]="'check'"></i>
         </div>
