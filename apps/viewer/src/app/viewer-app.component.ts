@@ -251,6 +251,11 @@ export class ViewerAppComponent {
   }
 
   openThumbnails() {
+    if (this.showThumbnails) {
+      this.showThumbnails = false;
+      return;
+    }
+
     if (this.viewerConfig.preloadPageCount == 0) {
       this.showThumbnails = true;
     } else {
