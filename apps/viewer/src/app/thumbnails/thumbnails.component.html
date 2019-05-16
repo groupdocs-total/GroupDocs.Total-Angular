@@ -1,7 +1,7 @@
 <div class="gd-thumbnails">
   <div class="gd-thumbnails-panzoom">
     <div *ngFor="let page of pages" id="gd-thumbnails-page-{{page.number}}" class="gd-page"
-         [style.min-width.px]="page.width" [style.min-height.px]="page.height">
+         [style.min-width.px]="page.width" [style.min-height.px]="page.height" (click)="openPage(page.number)">
       <div class="gd-wrapper" *ngIf="page.data && isHtmlMode">{{page.data}}</div>
       <div class="gd-wrapper" *ngIf="page.data && !isHtmlMode">
         <img style="width: inherit !important" class="gd-page-image" [attr.src]="imgData(page.data) | safeResourceHtml"

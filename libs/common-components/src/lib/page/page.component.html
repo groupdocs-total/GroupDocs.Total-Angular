@@ -1,7 +1,9 @@
 <div id="page-{{number}}" gdRotation [angle]="angle" [isHtmlMode]="isHtml" [isLandscape]="width > height"
      [style.min-width.px]="width" [style.min-height.px]="height">
   <div class="gd-wrapper" [innerHTML]="data | safeHtml" *ngIf="data && isHtml"></div>
-  <img style="width: inherit !important" class="gd-page-image" [attr.src]="imgData | safeResourceHtml" alt=""
+  <img class="gd-page-image" [style.width.px]="width" [style.height.px]="height" [attr.src]="imgData | safeResourceHtml"
+       alt=""
        *ngIf="data && !isHtml">
-  <div class="gd-page-spinner" *ngIf="!data"><i class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.</div>
+  <div class="gd-page-spinner" *ngIf="!data"><i class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.
+  </div>
 </div>

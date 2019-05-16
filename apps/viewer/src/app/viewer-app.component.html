@@ -32,7 +32,7 @@
   <div class="doc-panel">
     <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="viewerConfig?.htmlMode"></gd-thumbnails>
 
-    <gd-document *ngIf="file" [file]="file" [mode]="viewerConfig?.htmlMode"
+    <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="viewerConfig?.htmlMode"
                  [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint></gd-document>
   </div>
 

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {PageModel} from "@groupdocs-total-angular/common-components";
+import {NavigateService, PageModel} from "@groupdocs-total-angular/common-components";
 
 @Component({
   selector: 'gd-thumbnails',
@@ -11,7 +11,7 @@ export class ThumbnailsComponent implements OnInit {
   @Input() pages: PageModel[];
   @Input() isHtmlMode: boolean;
 
-  constructor() {
+  constructor(private _navigateService: NavigateService) {
   }
 
   ngOnInit() {
@@ -25,4 +25,7 @@ export class ThumbnailsComponent implements OnInit {
     return dataImagePngBase64;
   }
 
+  openPage(pageNumber: number) {
+    this._navigateService.navigateTo(pageNumber);
+  }
 }
