@@ -1,9 +1,10 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'gd-page',
   templateUrl: './page.component.html',
-  styleUrls: ['./page.component.less']
+  styleUrls: ['./page.component.less'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PageComponent implements OnInit, OnChanges {
 
