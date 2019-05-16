@@ -202,26 +202,36 @@ export class ViewerAppComponent {
     if (this.formatDisabled)
       return;
     const pageNumber = this._navigateService.currentPage;
+
     if (this.viewerConfig.saveRotateState && this.file) {
       this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((data: RotatedPage[]) => {
         for (let page of data) {
-          if (this.file && this.file.pages && this.file.pages[page.pageNumber - 1]) {
-            this.file.pages[page.pageNumber - 1].angle = page.angle;
+          const pageModel = this.file.pages[page.pageNumber - 1];
+          if (this.file && this.file.pages && pageModel) {
+            this.changeAngle(pageModel, page.angle);
           }
         }
       })
     } else {
-      if (this.file && this.file.pages && this.file.pages[pageNumber - 1]) {
-        let angle = this.file.pages[pageNumber - 1].angle + deg;
+      const pageModel = this.file.pages[pageNumber - 1];
+      if (this.file && this.file.pages && pageModel) {
+        let angle = pageModel.angle + deg;
         if (angle > 360) {
-          this.file.pages[pageNumber - 1].angle = 90;
+          this.changeAngle(pageModel, 90);
         } else if (angle < -360) {
-          this.file.pages[pageNumber - 1].angle = -90;
+          this.changeAngle(pageModel, -90);
         } else {
-          this.file.pages[pageNumber - 1].angle = angle;
+          this.changeAngle(pageModel, angle);
         }
       }
     }
+  }
+
+  private changeAngle(page: PageModel, angle: number) {
+    page.angle = angle;
+    let width = page.width;
+    page.width = page.height;
+    page.height = width;
   }
 
   downloadFile() {

@@ -1,7 +1,7 @@
 <div class="wait" *ngIf="wait">Please wait...</div>
 <div id="document" class="document" gdScrollable>
-  <div class="page" *ngFor="let page of file?.pages" gdZoom [style.width.px]="page.width"
-       [style.height.px]="page.height">
+  <div class="page" *ngFor="let page of file?.pages" gdZoom [style.width.px]="ifPdf() ? page.width : 'unset'"
+       [style.height.px]="ifPdf() ? page.height : 'unset'" gdRotation [angle]="page.angle" [isHtmlMode]="mode" [width]="page.width" [height]="page.height">
     <gd-page [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
              [width]="page.width" [height]="page.height"></gd-page>
   </div>

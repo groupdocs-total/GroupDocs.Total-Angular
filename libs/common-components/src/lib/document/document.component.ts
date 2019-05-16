@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
-import {FileDescription} from "../file.service";
+import {FileDescription, FileUtil} from "../file.service";
 import {NavigateService} from "../navigate.service";
 
 @Component({
@@ -54,4 +54,7 @@ export class DocumentComponent implements OnInit {
     this.docElement.scrollTo(options);
   }
 
+  ifPdf() {
+    return FileUtil.find(this.file.guid, false).format == "Portable Document Format";
+  }
 }
