@@ -61,6 +61,7 @@ export class NavigateService {
   }
 
   navigateTo(page: number) {
+    this.currentPage = page;
     this._pagePreloadService.changeLastPageInView(page);
     this._observer.next(page);
   }
