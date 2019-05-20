@@ -30,6 +30,10 @@ export class DocumentComponent implements OnInit, OnChanges {
     return FileUtil.find(this.file.guid, false).format == "Portable Document Format";
   }
 
+  ifImage() {
+    return FileUtil.find(this.file.guid, false).format == "Joint Photographic Experts Group";
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     this.refreshView = !this.refreshView;
   }
@@ -39,7 +43,7 @@ export class DocumentComponent implements OnInit, OnChanges {
   }
 
   zoomCorrection() {
-    return this.zoom < 100 ? 1 + this.zoom / 100 : 1;
+    return !this.ifImage() && this.zoom < 100 ? 1 + this.zoom / 100 : 1;
   }
 
   ifChromeOrFirefox() {
