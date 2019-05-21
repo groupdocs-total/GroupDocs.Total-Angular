@@ -78,6 +78,58 @@ export class ViewerAppComponent {
     });
   }
 
+  get rewriteConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.rewrite : true;
+  }
+
+  get zoomConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.zoom : true;
+  }
+
+  get pageSelectorConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.pageSelector : true;
+  }
+
+  get searchConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.search : true;
+  }
+
+  get thumbnailsConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.thumbnails : true;
+  }
+
+  get rotateConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.rotate : true;
+  }
+
+  get downloadConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.download : true;
+  }
+
+  get uploadConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.upload : true;
+  }
+
+  get printConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.print : true;
+  }
+
+  get browseConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.browse : true;
+  }
+
+  get htmlModeConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.htmlMode : true;
+  }
+
+  get saveRotateStateConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.saveRotateState : true;
+  }
+
+  get enableRightClickConfig(): boolean {
+    return this.viewerConfig ? this.viewerConfig.enableRightClick : true;
+  }
+
   get currentPage(): number {
     return this._navigateService.currentPage;
   }
@@ -126,7 +178,7 @@ export class ViewerAppComponent {
   }
 
   upload($event: string) {
-    this._viewerService.upload(null, $event, this.viewerConfig.rewrite).subscribe(() => {
+    this._viewerService.upload(null, $event, this.rewriteConfig).subscribe(() => {
       this.selectDir('');
     });
   }
@@ -204,7 +256,7 @@ export class ViewerAppComponent {
       return;
     const pageNumber = this._navigateService.currentPage;
 
-    if (this.viewerConfig.saveRotateState && this.file) {
+    if (this.saveRotateStateConfig && this.file) {
       this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((data: RotatedPage[]) => {
         for (let page of data) {
           const pageModel = this.file.pages[page.pageNumber - 1];
@@ -287,5 +339,9 @@ export class ViewerAppComponent {
     for (let page of this.file.pages) {
       page.data = null;
     }
+  }
+
+  onRightClick($event: MouseEvent) {
+    return this.enableRightClickConfig;
   }
 }

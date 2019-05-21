@@ -16,6 +16,7 @@ export class BrowseFilesModalComponent implements OnInit {
   uploads = uploads_choices;
 
   @Input() files;
+  @Input() uploadConfig;
   @Output() selectedFileGuid = new EventEmitter<string>();
   @Output() selectedDirectory = new EventEmitter<string>();
   @Output() urlForUpload = new EventEmitter<string>();
