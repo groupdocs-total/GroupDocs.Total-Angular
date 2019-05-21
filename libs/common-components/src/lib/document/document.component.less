@@ -4,23 +4,15 @@
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto !important;
-  padding-top: 10px;
-  margin-top: 50px;
   transition: all 0.4s;
-  transition: all 0.4s;
-  overflow: visible;
-  overflow-y: visible;
   padding: 0px;
   margin: 0px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 
 .page {
   display: inline-block;
   background-color: #ffffff;
-  margin: 10px;
+  margin: 20px;
   -webkit-box-shadow: 0px 4px 12px -4px rgba(0, 0, 0, 0.38);
   -moz-box-shadow: 0px 4px 12px -4px rgba(0, 0, 0, 0.38);
   box-shadow: 0px 4px 12px -4px rgba(0, 0, 0, 0.38);
@@ -31,4 +23,13 @@
   position: absolute;
   top: 55px;
   left: Calc(50% - 20px);
+}
+
+.panzoom {
+  transform: none;
+  backface-visibility: hidden;
+  transform-origin: 50% 50% 0px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }

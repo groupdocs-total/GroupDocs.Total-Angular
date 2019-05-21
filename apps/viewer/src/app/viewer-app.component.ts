@@ -114,6 +114,7 @@ export class ViewerAppComponent {
       }
     );
     this._modalService.close(modalId);
+    this.clearData();
   }
 
   preloadPages(start: number, end: number) {
@@ -261,6 +262,9 @@ export class ViewerAppComponent {
   }
 
   openThumbnails() {
+    if (this.formatDisabled)
+      return;
+
     if (this.showThumbnails) {
       this.showThumbnails = false;
       return;
@@ -273,6 +277,15 @@ export class ViewerAppComponent {
         this.file.pages = data.pages;
         this.showThumbnails = true;
       })
+    }
+  }
+
+  private clearData() {
+    if (!this.file || !this.file.pages) {
+      return;
+    }
+    for (let page of this.file.pages) {
+      page.data = null;
     }
   }
 }

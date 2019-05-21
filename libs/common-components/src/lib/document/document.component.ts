@@ -38,15 +38,11 @@ export class DocumentComponent implements OnInit, OnChanges {
     this.refreshView = !this.refreshView;
   }
 
-  ifZoomLess100() {
-    return this.zoom < 100;
-  }
-
-  zoomCorrection() {
-    return !this.ifImage() && this.zoom < 100 ? 1 + this.zoom / 100 : 1;
-  }
-
   ifChromeOrFirefox() {
-    return navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    return navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || this.ifFirefox();
+  }
+
+  ifFirefox() {
+    return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   }
 }

@@ -1,8 +1,12 @@
 <div class="wait" *ngIf="wait">Please wait...</div>
 <div id="document" class="document" gdScrollable [onRefresh]="refreshView">
-  <div class="page" *ngFor="let page of file?.pages" gdZoom [style.width.px]="ifPdf() ? page.width : 'unset'"
-       [style.height.px]="ifPdf() || ifImage() || (ifChromeOrFirefox() && ifZoomLess100()) ? (page.height * zoomCorrection()) : 'unset'" gdRotation [angle]="page.angle" [isHtmlMode]="mode" [width]="page.width" [height]="page.height">
-    <gd-page [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
-             [width]="page.width" [height]="page.height"></gd-page>
+  <div class="panzoom" gdZoom [zoomActive]="ifFirefox()">
+    <div class="page" *ngFor="let page of file?.pages" gdZoom [zoomActive]="!ifFirefox()"
+         [style.width.pt]="ifPdf() ? page.width : 'unset'"
+         [style.height.pt]="ifPdf() || ifImage() || ifChromeOrFirefox() ? page.height : 'unset'" gdRotation
+         [angle]="page.angle" [isHtmlMode]="mode" [width]="page.width" [height]="page.height">
+      <gd-page [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
+               [width]="page.width" [height]="page.height"></gd-page>
+    </div>
   </div>
 </div>

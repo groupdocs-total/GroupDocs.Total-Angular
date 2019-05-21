@@ -1,11 +1,13 @@
-import {Directive, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Directive, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {ZoomService} from "./zoom.service";
 import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 
 @Directive({
   selector: '[gdZoom]'
 })
-export class ZoomDirective implements OnInit, OnDestroy {
+export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
+
+  @Input() zoomActive: boolean = true;
 
   @HostBinding('style.zoom') zoomStr: string;
   @HostBinding('style.zoom') zoomInt: number;
@@ -15,10 +17,6 @@ export class ZoomDirective implements OnInit, OnDestroy {
   @HostBinding('style.-ms-transform') msTransform: SafeStyle;
   @HostBinding('style.-o-transform') oTransform: SafeStyle;
 
-  @HostBinding('style.margin-bottom') marginBottom: string;
-  @HostBinding('style.margin-left') marginLeft: string;
-  @HostBinding('style.margin-right') marginRight: string;
-
   constructor(private _zoomService: ZoomService, private _sanitizer: DomSanitizer) {
   }
 
@@ -26,6 +24,9 @@ export class ZoomDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (! this.zoomActive) {
+      return;
+    }
     this.setStyles(this._zoomService.zoom);
     this._zoomService.zoomChange.subscribe((zoom) => {
       this.setStyles(zoom);
@@ -33,6 +34,9 @@ export class ZoomDirective implements OnInit, OnDestroy {
   }
 
   private setStyles(zoom) {
+    if (! this.zoomActive) {
+      return;
+    }
     this.zoomStr = Math.round(zoom) + '%';
     this.zoomInt = zoom == 100 ? 1 : zoom / 100;
     this.mozTransform = 'scale(' + this.zoomInt + ', ' + this.zoomInt + ')';
@@ -43,20 +47,11 @@ export class ZoomDirective implements OnInit, OnDestroy {
     this.oTransform = transform;
 
     function getMargin(margin, alt = margin) {
-      return (margin == 0 ? 10 : alt);
+      return (margin == 0 ? 20 : alt);
     }
+  }
 
-    // TODO: magic!
-    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-      const margin = (zoom - 100) * 6;
-      this.marginBottom = getMargin(margin, margin * 2) + 'px';
-      if (zoom > 90) {
-        this.marginLeft = getMargin(margin) + 'px';
-        this.marginRight = getMargin(margin) + 'px';
-      } else {
-        this.marginLeft = getMargin(margin, margin * 0.5) + 'px';
-        this.marginRight = getMargin(margin, margin * 0.5) + 'px';
-      }
-    }
+  ngAfterViewInit(): void {
+    this.setStyles(this._zoomService.zoom);
   }
 }
