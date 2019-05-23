@@ -1,0 +1,7 @@
+<div class="gd-nav-search-container">
+  <input type="text" class="gd-search-input" #text (input)="setText(text.value)"/>
+  <div class="gd-search-count">{{current}} of {{total}}</div>
+  <div class="gd-nav-search-btn" (click)="prev()"><i fa [name]="'chevron-left'"></i></div>
+  <div class="gd-nav-search-btn" (click)="next()"><i fa [name]="'chevron-right'"></i></div>
+  <div class="gd-nav-search-btn gd-nav-search-cancel" (click)="hide()"><i fa [name]="'times'"></i></div>
+</div>

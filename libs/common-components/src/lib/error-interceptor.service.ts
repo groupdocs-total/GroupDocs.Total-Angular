@@ -45,7 +45,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
 
               case HttpError.Forbidden:
                 console.error('%c Forbidden 403', logFormat);
-                console.log(exception.error.message);
                 this._messageService.changeMessage(exception.error.message);
                 this._modalService.open(CommonModals.PasswordRequired);
                 break;

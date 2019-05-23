@@ -31,11 +31,15 @@
     <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
                *ngIf="printConfig"></gd-button>
 
+    <gd-button [disabled]="formatDisabled" [icon]="'search'" [tooltip]="'Search'" (click)="openSearch()"
+               *ngIf="searchConfig"></gd-button>
+    <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch"></gd-search>
+
     <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
                (click)="openThumbnails()" *ngIf="thumbnailsConfig"></gd-button>
   </gd-top-toolbar>
   <div class="doc-panel">
-    <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="htmlModeConfig"></gd-thumbnails>
+    <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="htmlModeConfig" [guid]="file.guid"></gd-thumbnails>
 
     <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig"
                  [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint></gd-document>

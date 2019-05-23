@@ -1,5 +1,5 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {NavigateService, PageModel} from "@groupdocs-total-angular/common-components";
+import {Component, Input, OnInit} from '@angular/core';
+import {FileUtil, NavigateService, PageModel} from "@groupdocs-total-angular/common-components";
 
 @Component({
   selector: 'gd-thumbnails',
@@ -9,6 +9,7 @@ import {NavigateService, PageModel} from "@groupdocs-total-angular/common-compon
 export class ThumbnailsComponent implements OnInit {
 
   @Input() pages: PageModel[];
+  @Input() guid: string;
   @Input() isHtmlMode: boolean;
 
   constructor(private _navigateService: NavigateService) {
@@ -27,5 +28,21 @@ export class ThumbnailsComponent implements OnInit {
 
   openPage(pageNumber: number) {
     this._navigateService.navigateTo(pageNumber);
+  }
+
+  ifPdf() {
+    return FileUtil.find(this.guid, false).format == "Portable Document Format";
+  }
+
+  ifImage() {
+    return FileUtil.find(this.guid, false).format == "Joint Photographic Experts Group";
+  }
+
+  ifChromeOrFirefox() {
+    return navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || this.ifFirefox();
+  }
+
+  ifFirefox() {
+    return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   }
 }

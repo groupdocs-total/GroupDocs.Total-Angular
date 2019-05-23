@@ -12,7 +12,7 @@ import {BrowseFilesModalComponent} from './browse-files-modal/browse-files-modal
 import {FileModel, FileService, FileUtil} from "./file.service";
 import {DocumentComponent} from './document/document.component';
 import {PageComponent} from './page/page.component';
-import {SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe} from "./pipes";
+import {HighlightSearchPipe, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe} from "./pipes";
 import {ChoiceButtonComponent} from './choice-button/choice-button.component';
 import {UploadFileZoneComponent} from './upload-file-zone/upload-file-zone.component';
 import {UploadFilesService} from "./upload-files.service";
@@ -33,6 +33,9 @@ import {PasswordRequiredComponent} from './password-required/password-required.c
 import {ExceptionMessageService} from "./exception-message.service";
 import {PasswordService} from "./password.service";
 import {ErrorInterceptorService} from "./error-interceptor.service";
+import {SearchComponent} from './search/search.component';
+import {SearchableDirective} from './searchable.directive';
+import {SearchService} from "./search.service";
 
 const providers = [ConfigService,
   Api,
@@ -43,6 +46,7 @@ const providers = [ConfigService,
   SanitizeHtmlPipe,
   SanitizeResourceHtmlPipe,
   SanitizeStylePipe,
+  HighlightSearchPipe,
   UploadFilesService,
   RenderPrintService,
   NavigateService,
@@ -50,7 +54,8 @@ const providers = [ConfigService,
   ZoomService,
   ExceptionMessageService,
   PasswordService,
-  ErrorInterceptorService];
+  ErrorInterceptorService,
+  SearchService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
@@ -66,6 +71,7 @@ const providers = [ConfigService,
     SanitizeHtmlPipe,
     SanitizeResourceHtmlPipe,
     SanitizeStylePipe,
+    HighlightSearchPipe,
     ChoiceButtonComponent,
     UploadFileZoneComponent,
     DndDirective,
@@ -77,7 +83,9 @@ const providers = [ConfigService,
     InitStateComponent,
     RenderPrintDirective,
     ErrorModalComponent,
-    PasswordRequiredComponent
+    PasswordRequiredComponent,
+    SearchComponent,
+    SearchableDirective,
   ],
   exports: [
     TopToolbarComponent,
@@ -90,6 +98,7 @@ const providers = [ConfigService,
     PageComponent,
     SanitizeResourceHtmlPipe,
     SanitizeStylePipe,
+    HighlightSearchPipe,
     SanitizeHtmlPipe,
     ChoiceButtonComponent,
     UploadFileZoneComponent,
@@ -99,7 +108,9 @@ const providers = [ConfigService,
     InitStateComponent,
     RenderPrintDirective,
     ErrorModalComponent,
-    PasswordRequiredComponent
+    PasswordRequiredComponent,
+    SearchComponent,
+    SearchableDirective,
   ],
   providers: providers
 })

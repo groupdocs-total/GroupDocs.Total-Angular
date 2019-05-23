@@ -143,7 +143,7 @@
             "tsConfig": "apps/viewer/tsconfig.app.json",
             "assets": ["apps/viewer/src/favicon.ico", "apps/viewer/src/assets"],
             "styles": ["apps/viewer/src/styles.less"],
-            "scripts": [],
+            "scripts": ["./node_modules/jquery/dist/jquery.js"],
             "es5BrowserSupport": true
           },
           "configurations": {

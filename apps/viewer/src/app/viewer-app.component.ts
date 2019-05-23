@@ -33,6 +33,7 @@ export class ViewerAppComponent {
   showThumbnails: boolean = false;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
+  showSearch: boolean = false;
 
   _zoom: number = 100;
   _pageWidth: number;
@@ -343,5 +344,11 @@ export class ViewerAppComponent {
 
   onRightClick($event: MouseEvent) {
     return this.enableRightClickConfig;
+  }
+
+  openSearch() {
+    if (this.formatDisabled)
+      return;
+    this.showSearch = ! this.showSearch;
   }
 }
