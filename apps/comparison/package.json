@@ -1,5 +1,5 @@
 {
-  "name": "@groupdocs-total-angular/comparison",
+  "name": "@groupdocs.total-angular/comparison",
   "version": "0.0.2",
   "publishConfig": {
     "access": "public"

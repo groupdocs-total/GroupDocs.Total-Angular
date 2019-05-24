@@ -1,5 +1,5 @@
 {
-  "name": "@groupdocs-total-angular/annotation",
+  "name": "@groupdocs.total-angular/annotation",
   "version": "0.0.2",
   "publishConfig": {
     "access": "public"
