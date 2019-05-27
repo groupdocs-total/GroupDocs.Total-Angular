@@ -17,6 +17,7 @@ import {
 } from "@groupdocs-total-angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
+import {WindowService} from "@groupdocs-total-angular/common-components";
 
 @Component({
   selector: 'gd-viewer-angular-root',
@@ -34,6 +35,7 @@ export class ViewerAppComponent {
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   showSearch: boolean = false;
+  isDesktop: boolean;
 
   _zoom: number = 100;
   _pageWidth: number;
@@ -47,7 +49,8 @@ export class ViewerAppComponent {
               private _zoomService: ZoomService,
               pagePreloadService: PagePreloadService,
               private _renderPrintService: RenderPrintService,
-              passwordService: PasswordService) {
+              passwordService: PasswordService,
+              windowService: WindowService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -76,6 +79,11 @@ export class ViewerAppComponent {
 
     passwordService.passChange.subscribe((pass: string) => {
       this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
+    });
+
+    this.isDesktop = windowService.isDesktop();
+    windowService.onResize.subscribe((w) => {
+      this.isDesktop = windowService.isDesktop();
     });
   }
 
@@ -349,6 +357,6 @@ export class ViewerAppComponent {
   openSearch() {
     if (this.formatDisabled)
       return;
-    this.showSearch = ! this.showSearch;
+    this.showSearch = !this.showSearch;
   }
 }

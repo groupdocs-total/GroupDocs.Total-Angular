@@ -36,6 +36,7 @@ import {ErrorInterceptorService} from "./error-interceptor.service";
 import {SearchComponent} from './search/search.component';
 import {SearchableDirective} from './searchable.directive';
 import {SearchService} from "./search.service";
+import {WindowService} from "./window.service";
 
 const providers = [ConfigService,
   Api,
@@ -55,7 +56,8 @@ const providers = [ConfigService,
   ExceptionMessageService,
   PasswordService,
   ErrorInterceptorService,
-  SearchService];
+  SearchService,
+  WindowService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
