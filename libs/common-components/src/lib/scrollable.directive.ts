@@ -103,18 +103,19 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
   refresh() {
     let page;
     let currentPageSet = false;
-    const currentPageRect = this.currentPage ? this.getPage(this.currentPage).getBoundingClientRect() : null;
+    const pageElem = this.getPage(this.currentPage);
+    const currentPageRect = this.currentPage && pageElem ? pageElem.getBoundingClientRect() : null;
     for (page = 1; page < this.getChildren().length + 1; page++) {
       const element = this.getPage(page);
       if (this.checkInViewport(element)) {
         if (!currentPageSet) {
-          if (!this.currentPage || (this.currentPage && currentPageRect && element.getBoundingClientRect().top != currentPageRect.top)) {
-            this.currentPage = page + 1;
-            this._navigateService.currentPage = page + 1;
+          if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top != currentPageRect.top)) {
+            this.currentPage = page;
+            this._navigateService.currentPage = page;
           }
           currentPageSet = true;
         }
-        this._pagePreloadService.changeLastPageInView(page + 1);
+        this._pagePreloadService.changeLastPageInView(page);
       }
     }
   }
