@@ -2,6 +2,7 @@ import {Directive, ElementRef} from '@angular/core';
 import {SearchService} from "./search.service";
 import {HighlightSearchPipe} from "./pipes";
 import * as $ from 'jquery';
+import {ZoomService} from "./zoom.service";
 
 @Directive({
   selector: '[gdSearchable]'
@@ -11,10 +12,12 @@ export class SearchableDirective {
   text: string;
   current: number = 0;
   total: number = 0;
+  private zoom: number = 100;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _searchService: SearchService,
-              private _highlight: HighlightSearchPipe) {
+              private _highlight: HighlightSearchPipe,
+              private _zoomService: ZoomService) {
     _searchService.currentChange.subscribe((current: number) => {
       this.current = current;
       if (this.current != 0) {
@@ -25,6 +28,11 @@ export class SearchableDirective {
     _searchService.textChange.subscribe((text: string) => {
       this.text = text;
       this.highlightSearch();
+    });
+
+    this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
+    _zoomService.zoomChange.subscribe((val: number) => {
+      this.zoom = val ? val : this.zoom;
     });
   }
 
@@ -47,6 +55,7 @@ export class SearchableDirective {
     if (this.current == 0) {
       return;
     }
+    let currentZoom = this.getZoom();
     const el = this._elementRef ? this._elementRef.nativeElement : null;
     if (el) {
       el.querySelectorAll('.gd-highlight-select').forEach(function (value) {
@@ -57,7 +66,7 @@ export class SearchableDirective {
       if (currentEl) {
         let options = {
           left: 0,
-          top: $(currentEl).offset().top,
+          top: ($(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
         };
         el.parentElement.scrollTo(options);
       }
@@ -94,5 +103,9 @@ export class SearchableDirective {
       element.replaceWith((<HTMLElement>element).innerText);
     }
     el.normalize();
+  }
+
+  private getZoom() {
+    return this.zoom / 100;
   }
 }
