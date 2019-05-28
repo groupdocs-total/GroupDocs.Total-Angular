@@ -1,11 +1,13 @@
 <div class="gd-thumbnails">
   <div class="gd-thumbnails-panzoom">
     <div *ngFor="let page of pages" id="gd-thumbnails-page-{{page.number}}" class="gd-page"
-         [style.min-width.px]="page.width" [style.min-height.px]="page.height"
-         [style.width.pt]="ifPdf() ? page.width : 'unset'"
-         [style.height.pt]="ifPdf() || ifImage() || ifChromeOrFirefox() ? page.height : 'unset'"
          (click)="openPage(page.number)">
-      <div class="gd-wrapper" *ngIf="page.data && isHtmlMode" [innerHTML]="page.data | safeHtml"></div>
+      <div class="gd-wrapper" 
+        [style.width.pt]="page.width" 
+        [style.height.pt]="page.height"
+        [ngStyle]="{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}"
+        *ngIf="page.data && isHtmlMode" 
+        [innerHTML]="page.data | safeHtml"></div>
       <div class="gd-wrapper" *ngIf="page.data && !isHtmlMode">
         <img style="width: inherit !important" class="gd-page-image" [attr.src]="imgData(page.data) | safeResourceHtml"
              alt/>
