@@ -26,23 +26,11 @@ export class ThumbnailsComponent implements OnInit {
     return dataImagePngBase64;
   }
 
+  getScale(x:number, y:number){
+    return Math.min(190/x,190/y);
+  }
+
   openPage(pageNumber: number) {
     this._navigateService.navigateTo(pageNumber);
-  }
-
-  ifPdf() {
-    return FileUtil.find(this.guid, false).format == "Portable Document Format";
-  }
-
-  ifImage() {
-    return FileUtil.find(this.guid, false).format == "Joint Photographic Experts Group";
-  }
-
-  ifChromeOrFirefox() {
-    return navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || this.ifFirefox();
-  }
-
-  ifFirefox() {
-    return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   }
 }

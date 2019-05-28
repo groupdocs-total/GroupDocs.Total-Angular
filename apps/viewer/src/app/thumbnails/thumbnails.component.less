@@ -1,7 +1,7 @@
 .gd-thumbnails {
   z-index: 9;
-  padding: 20px;
-  width: 200px;
+  padding: 10pt;
+  width: 200pt;
   background: #f5f5f5;
   color: #ffffff;
   overflow-y: auto;
@@ -10,25 +10,34 @@
   height: 100%;
 }
 
-.gd-thumbnails-panzoom {
-  transform: scale(0.25);
-  transform-origin: 25% 0px 0px;
-  margin-left: -60px;
-}
-
-.gd-thumbnails-panzoom > .gd-page {
-  margin-bottom: 100px;
-  margin-left: 0;
-}
-
 .gd-page {
   display: inline-block;
+  width: 190pt;
+  height: 190pt;
+  transition: all 0.3s;
+  padding: 5pt;
+  background-color: #efefef;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.gd-page:hover{
+  background-color: #c0c0c0;
+}
+.gd-wrapper{
+  transform: translate(-50%, -50%);
+  left:50%;
+  top:50%;
+  position: relative;
   background-color: #ffffff;
-  margin: 10px;
   -webkit-box-shadow: 0px 4px 12px -4px rgba(0,0,0,0.38);
   -moz-box-shadow: 0px 4px 12px -4px rgba(0,0,0,0.38);
   box-shadow: 0px 4px 12px -4px rgba(0,0,0,0.38);
-  transition: all 0.3s;
+}
+
+/* Make thumbnails sidebar scroll not visible */
+.gd-thumbnails::-webkit-scrollbar {
+  width: 0px;
+  background-color: #F5F5F5;
 }
 
 .gd-thumbnails-panzoom > .gd-thumbnails-landscape {
@@ -37,12 +46,6 @@
 
 .gd-thumbnails-panzoom .gd-wrapper > div > div > img {
   width: inherit;
-}
-
-/* Make thumbnails sidebar scroll not visible */
-.gd-thumbnails::-webkit-scrollbar {
-  width: 0px;
-  background-color: #F5F5F5;
 }
 
 .gd-thumbnails .gd-wrapper > img {
