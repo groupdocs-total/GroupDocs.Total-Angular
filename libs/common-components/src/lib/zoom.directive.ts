@@ -45,10 +45,6 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
     this.webkitTransform = transform;
     this.msTransform = transform;
     this.oTransform = transform;
-
-    function getMargin(margin, alt = margin) {
-      return (margin == 0 ? 20 : alt);
-    }
   }
 
   ngAfterViewInit(): void {
