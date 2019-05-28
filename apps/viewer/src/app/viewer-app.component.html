@@ -1,45 +1,48 @@
 <div class="wrapper" (contextmenu)="onRightClick($event)">
-  <gd-top-toolbar>
+  <div class="top-panel">
     <gd-logo [logo]="'viewer'"></gd-logo>
-    <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
-               *ngIf="browseConfig"></gd-button>
+    <gd-top-toolbar class="toolbar-panel" (startOut)="startTool = $event" (endOut)="endTool = $event">
+      <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                 *ngIf="browseConfig" [style.display]="isHidden(1)"></gd-button>
 
-    <gd-select [disabled]="formatDisabled" [options]="zoomOptions()" (selected)="selectZoom($event)"
-               [showSelected]="zoom" *ngIf="zoomConfig"></gd-select>
-    <gd-button [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"
-               *ngIf="zoomConfig"></gd-button>
-    <gd-button [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
-               (click)="zoomOut()" *ngIf="zoomConfig"></gd-button>
+      <gd-select [disabled]="formatDisabled" [options]="zoomOptions()" (selected)="selectZoom($event)"
+                 [showSelected]="zoom" *ngIf="zoomConfig" [style.display]="isHidden(2)"></gd-select>
+      <gd-button [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"
+                 *ngIf="zoomConfig" [style.display]="isHidden(3)"></gd-button>
+      <gd-button [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
+                 (click)="zoomOut()" *ngIf="zoomConfig" [style.display]="isHidden(4)"></gd-button>
 
-    <gd-button [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
-               (click)="toFirstPage()" *ngIf="pageSelectorConfig"></gd-button>
-    <gd-button [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
-               (click)="prevPage()" *ngIf="pageSelectorConfig"></gd-button>
-    <div class="current-page-number">{{currentPage}}/{{countPages}}</div>
-    <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
-               (click)="nextPage()" *ngIf="pageSelectorConfig"></gd-button>
-    <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
-               (click)="toLastPage()" *ngIf="pageSelectorConfig"></gd-button>
+      <gd-button [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
+                 (click)="toFirstPage()" *ngIf="pageSelectorConfig" [style.display]="isHidden(5)"></gd-button>
+      <gd-button [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
+                 (click)="prevPage()" *ngIf="pageSelectorConfig" [style.display]="isHidden(6)"></gd-button>
+      <div class="current-page-number" [style.display]="isHidden(7)">{{currentPage}}/{{countPages}}</div>
+      <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
+                 (click)="nextPage()" *ngIf="pageSelectorConfig" [style.display]="isHidden(8)"></gd-button>
+      <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
+                 (click)="toLastPage()" *ngIf="pageSelectorConfig" [style.display]="isHidden(9)"></gd-button>
 
-    <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Rotate CCW'" (click)="rotate(-90)"
-               *ngIf="rotateConfig"></gd-button>
-    <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Rotate CW'" (click)="rotate(90)"
-               *ngIf="rotateConfig"></gd-button>
+      <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Rotate CCW'" (click)="rotate(-90)"
+                 *ngIf="rotateConfig" [style.display]="isHidden(10)"></gd-button>
+      <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Rotate CW'" (click)="rotate(90)"
+                 *ngIf="rotateConfig" [style.display]="isHidden(11)"></gd-button>
 
-    <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
-               (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
-    <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
-               *ngIf="printConfig"></gd-button>
+      <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+                 (click)="downloadFile()" *ngIf="downloadConfig" [style.display]="isHidden(12)"></gd-button>
+      <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
+                 *ngIf="printConfig" [style.display]="isHidden(13)"></gd-button>
 
-    <gd-button [disabled]="formatDisabled" [icon]="'search'" [tooltip]="'Search'" (click)="openSearch()"
-               *ngIf="searchConfig"></gd-button>
-    <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch"></gd-search>
+      <gd-button [disabled]="formatDisabled" [icon]="'search'" [tooltip]="'Search'" (click)="openSearch()"
+                 *ngIf="searchConfig" [style.display]="isHidden(14)"></gd-button>
+      <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" [style.display]="isHidden(15)"></gd-search>
 
-    <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
-               (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop"></gd-button>
-  </gd-top-toolbar>
-  <div class="doc-panel">
-    <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="htmlModeConfig" [guid]="file.guid"></gd-thumbnails>
+      <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
+                 (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop"></gd-button>
+    </gd-top-toolbar>
+  </div>
+  <div class="doc-panel" *ngIf="file">
+    <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="htmlModeConfig"
+                   [guid]="file.guid"></gd-thumbnails>
 
     <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig"
                  [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint></gd-document>

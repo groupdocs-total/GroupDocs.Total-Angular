@@ -40,6 +40,8 @@ export class ViewerAppComponent {
   _zoom: number = 100;
   _pageWidth: number;
   _pageHeight: number;
+  startTool: number;
+  endTool: number;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -358,5 +360,9 @@ export class ViewerAppComponent {
     if (this.formatDisabled)
       return;
     this.showSearch = !this.showSearch;
+  }
+
+  isHidden(number: number) {
+    return (number < this.startTool || number > this.endTool) ? 'none' : null;
   }
 }
