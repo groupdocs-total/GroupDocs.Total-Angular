@@ -243,7 +243,7 @@ export class ViewerAppComponent {
     const offsetHeight = this._pageHeight ? this._pageHeight : window.innerHeight;
 
     const width = 200 - Math.round(offsetWidth * 100 / window.innerWidth);
-    const height = Math.round(window.innerHeight * 100 / offsetHeight);
+    const height = Math.round(offsetHeight * 100 / window.innerHeight);
     return ZoomService.zoomOptions(width, height);
   }
 
