@@ -35,6 +35,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   hide() {
+    this.setText('');
     this.hidePanel.emit(true);
   }
 
