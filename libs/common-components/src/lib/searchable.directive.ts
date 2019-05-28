@@ -3,6 +3,7 @@ import {SearchService} from "./search.service";
 import {HighlightSearchPipe} from "./pipes";
 import * as $ from 'jquery';
 import {ZoomService} from "./zoom.service";
+import {ScrollableDirective} from "./scrollable.directive";
 
 @Directive({
   selector: '[gdSearchable]'
@@ -13,11 +14,13 @@ export class SearchableDirective {
   current: number = 0;
   total: number = 0;
   private zoom: number = 100;
+  private _scrollDirective: ScrollableDirective;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _searchService: SearchService,
               private _highlight: HighlightSearchPipe,
-              private _zoomService: ZoomService) {
+              private _zoomService: ZoomService,
+              private _scrollDirective: ScrollableDirective) {
     _searchService.currentChange.subscribe((current: number) => {
       this.current = current;
       if (this.current != 0) {
@@ -69,6 +72,7 @@ export class SearchableDirective {
           top: ($(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
         };
         el.parentElement.scrollTo(options);
+        this._scrollDirective.refresh();
       }
     }
   }
