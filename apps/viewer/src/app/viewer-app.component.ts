@@ -251,7 +251,7 @@ export class ViewerAppComponent implements AfterViewInit {
     const pageHeight = this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
-    return (pageHeight > pageWidth) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth)  < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
   }
 
   private getFitToHeight() {
