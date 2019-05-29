@@ -51,11 +51,11 @@ export class ConfigService {
     return this._apiEndpoint;
   }
 
-  load(environmentName) {
+  load(app) {
     if (this.loaded)
       return;
 
-    const jsonFile = `assets/config/config.${environmentName}.json`;
+    const jsonFile = `assets/config/config.${app}.json`;
     return new Promise<void>((resolve, reject) => {
       this.http.get(jsonFile).toPromise().then((response : ApiConfig) => {
         this._apiEndpoint = (<ApiConfig>response).apiEndpoint;

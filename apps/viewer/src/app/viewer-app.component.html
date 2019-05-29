@@ -34,7 +34,7 @@
 
       <gd-button [disabled]="formatDisabled" [icon]="'search'" [tooltip]="'Search'" (click)="openSearch()"
                  *ngIf="searchConfig" [style.display]="isHidden(14)"></gd-button>
-      <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" [style.display]="isHidden(15)"></gd-search>
+      <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" ></gd-search>
 
       <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
                  (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop"></gd-button>
@@ -48,7 +48,7 @@
                  [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint></gd-document>
   </div>
 
-  <gd-init-state [icon]="'eye'" [text]="'viewer'" *ngIf="!file"></gd-init-state>
+  <gd-init-state [icon]="'eye'" [text]="''" *ngIf="!file"></gd-init-state>
 
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
                          (selectedFileGuid)="selectFile($event, null, browseFilesModal)"

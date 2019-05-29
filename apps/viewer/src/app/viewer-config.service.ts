@@ -20,7 +20,7 @@ export class ViewerConfigService {
   }
 
   load() {
-    this._config.load('viewer.' + environment.name).then(() => {
+    this._config.load('viewer').then(() => {
         return new Promise<void>((resolve, reject) => {
           const configEndpoint = this._config.getConfigEndpoint();
           if (configEndpoint.startsWith("http")) {
