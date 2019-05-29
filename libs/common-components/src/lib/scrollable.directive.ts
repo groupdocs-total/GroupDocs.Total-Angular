@@ -132,10 +132,11 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
 
     var viewport = {
       top: win.scrollTop(),
-      left: win.scrollLeft()
+      left: win.scrollLeft(),
+      right: win.scrollLeft() + win.width(),
+      bottom: win.scrollTop() + win.height()
     };
-    viewport.right = viewport.left + win.width();
-    viewport.bottom = viewport.top + win.height();
+
 
     if (isNaN(this.zoom)) {
       this.zoom = 1;
@@ -149,19 +150,19 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
     }
 
     var bounds = $(el).offset();
-    bounds.right = (bounds.left * (this.zoom / 100)) + width;
-    bounds.bottom = (bounds.top * (this.zoom / 100)) + height;
+    var right = (bounds.left * (this.zoom / 100)) + width;
+    var bottom = (bounds.top * (this.zoom / 100)) + height;
 
-    var visible = (!(viewport.right < (bounds.left * (this.zoom / 100)) || viewport.left > bounds.right || viewport.bottom < (bounds.top * (this.zoom / 100)) || viewport.top > bounds.bottom));
+    var visible = (!(viewport.right < (bounds.left * (this.zoom / 100)) || viewport.left > right || viewport.bottom < (bounds.top * (this.zoom / 100)) || viewport.top > bottom));
 
     if (!visible) {
       return false;
     }
 
     var deltas = {
-      top: Math.min(1, (bounds.bottom - viewport.top) / height),
+      top: Math.min(1, (bottom - viewport.top) / height),
       bottom: Math.min(1, (viewport.bottom - (bounds.top * (this.zoom / 100))) / height),
-      left: Math.min(1, (bounds.right - viewport.left) / width),
+      left: Math.min(1, (right - viewport.left) / width),
       right: Math.min(1, (viewport.right - (bounds.left * (this.zoom / 100))) / width)
     };
 
