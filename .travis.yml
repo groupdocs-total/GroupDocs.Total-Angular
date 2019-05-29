@@ -28,6 +28,7 @@ matrix:
         - mkdir /c/repo
         - mv ../GroupDocs.Total-JS /c/repo
         - cd /c/repo
+        - rm -f package-lock.json
         - npm install -g @angular/cli
         - git clone https://github.com/groupdocs-total/$BACKEND_REPO
         - cd $BACKEND_REPO
@@ -55,6 +56,7 @@ matrix:
         - mkdir /c/repo
         - mv ../GroupDocs.Total-JS /c/repo
         - cd /c/repo
+        - rm -f package-lock.json
         - npm install -g @angular/cli
         - git clone https://github.com/groupdocs-total/$BACKEND_REPO
         - cd $BACKEND_REPO
