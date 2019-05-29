@@ -12,6 +12,10 @@ env :
   - BACKEND_REPO=GroupDocs.Total-for-NET-WebForms SOLUTION=GroupDocs.Total.WebForms.sln
   - BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
   - BACKEND_REPO=GroupDocs.Total-for-Java-Spring
+cache:
+  directories:
+    - ~/.npm
+    - ~/.cache
 matrix:
   exclude: 
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
@@ -139,6 +143,8 @@ matrix:
         - git branch --set-upstream-to=origin/master master
         - echo "releasing fix"
         - npm install -g npx
+        - npm install
+        - npm run release_viewer
         - npm whoami
         - git status
         - npx lerna publish patch --yes
@@ -157,6 +163,8 @@ matrix:
         - git branch --set-upstream-to=origin/master master
         - echo "releasing minor update"
         - npm install -g npx
+        - npm install
+        - npm run release_viewer
         - npm whoami
         - git status
         - npx lerna publish minor --yes
