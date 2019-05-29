@@ -26,7 +26,7 @@ matrix:
       filter_secrets : false
       script: 
         - mkdir /c/repo
-        - mv ../GroupDocs.Total-JS /c/repo
+        - mv ../GroupDocs.Total-Angular /c/repo
         - cd /c/repo
         - rm -f package-lock.json
         - npm install -g @angular/cli
@@ -42,7 +42,7 @@ matrix:
         - "\"/c/Program Files (x86)/IIS Express/iisexpress.exe\" -path:. -port:8080 &"
         - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting for back-end..."; done
         - ls && pwd
-        - cd ../../GroupDocs.Total-JS
+        - cd ../../GroupDocs.Total-Angular
         - npm install
         - npm run e2e
         - "taskkill //F //IM iisexpress.exe"
@@ -54,7 +54,7 @@ matrix:
       filter_secrets : false
       script: 
         - mkdir /c/repo
-        - mv ../GroupDocs.Total-JS /c/repo
+        - mv ../GroupDocs.Total-Angular /c/repo
         - cd /c/repo
         - rm -f package-lock.json
         - npm install -g @angular/cli
@@ -70,7 +70,7 @@ matrix:
         - "\"/c/Program Files (x86)/IIS Express/iisexpress.exe\" -path:. -port:8080 &"
         - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting for back-end..."; done
         - ls && pwd
-        - cd ../../GroupDocs.Total-JS
+        - cd ../../GroupDocs.Total-Angular
         - npm install
         - npm run e2e
         - "taskkill //F //IM iisexpress.exe"
@@ -136,7 +136,7 @@ matrix:
         - git checkout master && git reset --hard $sha1 
         - git config --global user.email "travis@travis-ci.org" && git config --global user.name "Travis CI"
         - git remote remove origin
-        - git remote add origin https://${GH_TOKEN}@github.com/groupdocs-total/GroupDocs.Total-JS.git > /dev/null 2>&1
+        - git remote add origin https://${GH_TOKEN}@github.com/groupdocs-total/GroupDocs.Total-Angular.git > /dev/null 2>&1
         - git fetch
         - git branch --set-upstream-to=origin/master master
         - echo "releasing fix"
@@ -154,7 +154,7 @@ matrix:
         - git checkout master && git reset --hard $sha1 
         - git config --global user.email "travis@travis-ci.org" && git config --global user.name "Travis CI"
         - git remote remove origin
-        - git remote add origin https://${GH_TOKEN}@github.com/groupdocs-total/GroupDocs.Total-JS.git > /dev/null 2>&1
+        - git remote add origin https://${GH_TOKEN}@github.com/groupdocs-total/GroupDocs.Total-Angular.git > /dev/null 2>&1
         - git fetch
         - git branch --set-upstream-to=origin/master master
         - echo "releasing minor update"
