@@ -43,7 +43,7 @@ matrix:
         - ls && pwd
         - cd ../../GroupDocs.Total-JS
         - npm install
-        - ng e2e
+        - npm run e2e
         - "taskkill //F //IM iisexpress.exe"
         - "taskkill //F //IM node.exe"
     - env: BACKEND_REPO=GroupDocs.Total-for-NET-WebForms SOLUTION=GroupDocs.Total.WebForms.sln
@@ -70,7 +70,7 @@ matrix:
         - ls && pwd
         - cd ../../GroupDocs.Total-JS
         - npm install
-        - ng e2e
+        - npm run e2e
         - "taskkill //F //IM iisexpress.exe"
         - "taskkill //F //IM node.exe"
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
@@ -98,7 +98,7 @@ matrix:
         - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5; echo "waiting to back-end..."; done
         - cd ..
         - npm install
-        - npm e2e
+        - npm run e2e
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
       os: linux
       addons:
@@ -124,7 +124,7 @@ matrix:
         - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting to back-end..."; done
         - cd ..
         - npm install
-        - npm e2e
+        - npm run e2e
     - stage: Release fix
       dist: trusty
       os: linux
