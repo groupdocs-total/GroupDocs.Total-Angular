@@ -24,11 +24,11 @@
 }
 
 .gd-nav-search-container {
-	background-color: #3e4e5a;   
+	background-color: #3e4e5a;
     min-width: 330px;
     padding: 8px 0px 7px 7px;
-    position: absolute;  
-    left: 328px;  
+    position: absolute;
+    left: 328px;
     top: 49px;
     z-index: 1;
 }
@@ -38,4 +38,18 @@
     height: 11px;
     width: 215px;
 	padding: 5px 65px 5px 5px;
+}
+
+
+@media (max-width: 1025px) {
+  .gd-nav-search-container {
+    left: 0;
+    top: 100px;
+  }
+  .gd-search-input {
+    width: 183px;
+  }
+  .gd-search-count {
+    left: 189px;
+  }
 }
