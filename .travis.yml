@@ -46,7 +46,6 @@ matrix:
         - npm install
         - npm run e2e
         - "taskkill //F //IM iisexpress.exe"
-        - "taskkill //F //IM node.exe"
     - env: BACKEND_REPO=GroupDocs.Total-for-NET-WebForms SOLUTION=GroupDocs.Total.WebForms.sln
       node_js: "10"
       os: windows
@@ -74,7 +73,6 @@ matrix:
         - npm install
         - npm run e2e
         - "taskkill //F //IM iisexpress.exe"
-        - "taskkill //F //IM node.exe"
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
       os: linux
       addons:
