@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -24,7 +24,7 @@ import {WindowService} from "@groupdocs-total-angular/common-components";
   templateUrl: './viewer-app.component.html',
   styleUrls: ['./viewer-app.component.less']
 })
-export class ViewerAppComponent {
+export class ViewerAppComponent implements AfterViewInit {
   title = 'viewer';
   files: FileModel[] = [];
   file: FileDescription;
@@ -52,7 +52,7 @@ export class ViewerAppComponent {
               pagePreloadService: PagePreloadService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
-              windowService: WindowService) {
+              private _windowService: WindowService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -83,9 +83,9 @@ export class ViewerAppComponent {
       this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
     });
 
-    this.isDesktop = windowService.isDesktop();
-    windowService.onResize.subscribe((w) => {
-      this.isDesktop = windowService.isDesktop();
+    this.isDesktop = _windowService.isDesktop();
+    _windowService.onResize.subscribe((w) => {
+      this.isDesktop = _windowService.isDesktop();
     });
   }
 
@@ -165,6 +165,7 @@ export class ViewerAppComponent {
         if (file && file.pages && file.pages[0]) {
           this._pageHeight = file.pages[0].height;
           this._pageWidth = file.pages[0].width;
+          this.refreshZoom();
         }
         const preloadPageCount = this.viewerConfig.preloadPageCount;
         const countPages = file.pages.length;
@@ -240,12 +241,31 @@ export class ViewerAppComponent {
     }
   }
 
-  zoomOptions() {
-    const offsetWidth = this._pageWidth ? this._pageWidth : window.innerWidth;
-    const offsetHeight = this._pageHeight ? this._pageHeight : window.innerHeight;
+  private ptToPx(pt: number) {
+    //pt * 96 / 72 = px.
+    return pt * 96 / 72;
+  }
 
-    const width = 200 - Math.round(offsetWidth * 100 / window.innerWidth);
-    const height = Math.round(offsetHeight * 100 / window.innerHeight);
+  private getFitToWidth() {
+    const pageWidth = this.ptToPx(this._pageWidth);
+    const pageHeight = this.ptToPx(this._pageHeight);
+    const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
+
+    return (pageHeight > pageWidth) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+  }
+
+  private getFitToHeight() {
+    const pageWidth = this.ptToPx(this._pageWidth);
+    const pageHeight = this.ptToPx(this._pageHeight);
+    const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
+    const offsetHeight = pageHeight ? pageHeight : windowHeight;
+
+    return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
+  }
+
+  zoomOptions() {
+    const width = this.getFitToWidth();
+    const height = this.getFitToHeight();
     return ZoomService.zoomOptions(width, height);
   }
 
@@ -364,5 +384,13 @@ export class ViewerAppComponent {
 
   isHidden(number: number) {
     return (number < this.startTool || number > this.endTool) ? 'none' : null;
+  }
+
+  ngAfterViewInit(): void {
+    this.refreshZoom();
+  }
+
+  private refreshZoom() {
+    this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
   }
 }

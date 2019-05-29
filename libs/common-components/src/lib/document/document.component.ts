@@ -14,7 +14,7 @@ export class DocumentComponent implements OnInit, OnChanges {
   @Input() file: FileDescription;
   wait: boolean = false;
   refreshView: boolean;
-  private zoom: number;
+  zoom: number;
 
   constructor(zoomService: ZoomService) {
 

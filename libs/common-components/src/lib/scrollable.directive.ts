@@ -11,6 +11,7 @@ import {
 import {NavigateService} from "./navigate.service";
 import {PagePreloadService} from "./page-preload.service";
 import {ZoomService} from "./zoom.service";
+import {WindowService} from "./window.service";
 import * as $ from 'jquery';
 
 @Directive({
@@ -25,7 +26,8 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _navigateService: NavigateService,
               private _pagePreloadService: PagePreloadService,
-              private _zoomService: ZoomService) {
+              private _zoomService: ZoomService,
+              private _windowService: WindowService) {
 
     this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
     _zoomService.zoomChange.subscribe((val: number) => {
@@ -53,7 +55,10 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
 
   scrollToPage(pageNumber: number) {
     const el = this._elementRef.nativeElement;
-    if (this.checkInViewport(this.getPage(pageNumber))) {
+    const page = this.getPage(pageNumber);
+    const prev = pageNumber > 0 ? this.getPage(pageNumber - 1) : null;
+    const isSameTop = (prev && $(prev).offset().top == $(page).offset().top);
+    if (this.checkInViewport(page) && isSameTop) {
       return;
     }
     let pagesHeight = this.calculateOffset(pageNumber);
@@ -80,7 +85,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
 
   private calculateOffset(pageNumber: number) {
     let count = this.ifFirefox() ? 1 : this.countPagesOnWidth();
-    const margin = 20;
+    const margin = this._windowService.isDesktop() ? 40 : 10;
     let pagesHeight = 0;
     for (let i = 1; i < pageNumber / count; i++) {
       const item = this.getPage(i);

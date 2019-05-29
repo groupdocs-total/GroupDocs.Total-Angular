@@ -3,7 +3,7 @@
   <div class="panzoom" gdZoom [zoomActive]="ifFirefox()" gdSearchable>
     <div [ngClass]="(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'" *ngFor="let page of file?.pages" gdZoom [zoomActive]="!ifFirefox()"
          [style.width.pt]="ifPdf() ? page.width : 'unset'"
-         [style.height.pt]="ifPdf() || ifImage() || ifChromeOrFirefox() ? page.height : 'unset'" gdRotation
+         [style.height.pt]="(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'" gdRotation
          [angle]="page.angle" [isHtmlMode]="mode" [width]="page.width" [height]="page.height">
       <gd-page [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
                [width]="page.width" [height]="page.height"></gd-page>
