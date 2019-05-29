@@ -1,1 +1,2 @@
-# groupdocs-total-angular
+# GroupDocs.Total for Angular
+

@@ -1,10 +1,14 @@
 import { TestBed, async } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AnnotationAppComponent } from './annotation-app.component';
 
 describe('AnnotationAppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AnnotationAppComponent]
+      declarations: [AnnotationAppComponent],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ],
     }).compileComponents();
   }));
 

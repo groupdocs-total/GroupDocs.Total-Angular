@@ -1,10 +1,14 @@
 import { TestBed, async } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComparisonAppComponent } from './comparison-app.component';
 
 describe('ComparisonAppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ComparisonAppComponent]
+      declarations: [ComparisonAppComponent],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ],
     }).compileComponents();
   }));
 

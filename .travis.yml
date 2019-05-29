@@ -1,0 +1,171 @@
+before_script:
+  - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then cinst nuget.commandline -y; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then cinst googlechrome --ignorechecksum -y; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then cinst iisexpress -y; fi
+language: java
+os:
+  - windows
+  - linux
+env :
+  - BACKEND_REPO=GroupDocs.Total-for-NET-MVC SOLUTION="GroupDocs.Total MVC.sln"
+  - BACKEND_REPO=GroupDocs.Total-for-NET-WebForms SOLUTION=GroupDocs.Total.WebForms.sln
+  - BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
+  - BACKEND_REPO=GroupDocs.Total-for-Java-Spring
+cache:
+  directories:
+    - ~/.npm
+    - ~/.cache
+matrix:
+  exclude: 
+    - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
+    - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
+    - env: BACKEND_REPO=GroupDocs.Total-for-NET-MVC SOLUTION="GroupDocs.Total MVC.sln"
+    - env: BACKEND_REPO=GroupDocs.Total-for-NET-WebForms SOLUTION=GroupDocs.Total.WebForms.sln
+  include:
+    - env: BACKEND_REPO=GroupDocs.Total-for-NET-MVC SOLUTION="GroupDocs.Total MVC.sln"
+      node_js: "10"
+      os: windows
+      language: node_js
+      filter_secrets : false
+      script: 
+        - mkdir /c/repo
+        - mv ../GroupDocs.Total-Angular /c/repo
+        - cd /c/repo
+        - rm -f package-lock.json
+        - npm install -g @angular/cli
+        - git clone https://github.com/groupdocs-total/$BACKEND_REPO
+        - cd $BACKEND_REPO
+        - if git ls-remote --exit-code --heads https://github.com/groupdocs-total/$BACKEND_REPO $TRAVIS_BRANCH; then echo "testing with Branch"; git checkout $TRAVIS_BRANCH; else echo "testing with  Master"; fi
+        - nuget restore
+        - "\"/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/bin/MSBuild.exe\" \"$SOLUTION\""
+        - cd src
+        - cat /c/Windows/System32/drivers/etc/hosts
+        - netsh advfirewall set currentprofile state off
+        - netsh http add urlacl url=http://*:8080/ user=Everyone
+        - "\"/c/Program Files (x86)/IIS Express/iisexpress.exe\" -path:. -port:8080 &"
+        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting for back-end..."; done
+        - ls && pwd
+        - cd ../../GroupDocs.Total-Angular
+        - npm install
+        - npm run e2e
+        - "taskkill //F //IM iisexpress.exe"
+    - env: BACKEND_REPO=GroupDocs.Total-for-NET-WebForms SOLUTION=GroupDocs.Total.WebForms.sln
+      node_js: "10"
+      os: windows
+      language: node_js
+      filter_secrets : false
+      script: 
+        - mkdir /c/repo
+        - mv ../GroupDocs.Total-Angular /c/repo
+        - cd /c/repo
+        - rm -f package-lock.json
+        - npm install -g @angular/cli
+        - git clone https://github.com/groupdocs-total/$BACKEND_REPO
+        - cd $BACKEND_REPO
+        - if git ls-remote --exit-code --heads https://github.com/groupdocs-total/$BACKEND_REPO $TRAVIS_BRANCH; then echo "testing with Branch"; git checkout $TRAVIS_BRANCH; else echo "testing with  Master"; fi
+        - nuget restore
+        - "\"/c/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/bin/MSBuild.exe\" \"$SOLUTION\""
+        - cd src
+        - cat /c/Windows/System32/drivers/etc/hosts
+        - netsh advfirewall set currentprofile state off
+        - netsh http add urlacl url=http://*:8080/ user=Everyone
+        - "\"/c/Program Files (x86)/IIS Express/iisexpress.exe\" -path:. -port:8080 &"
+        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting for back-end..."; done
+        - ls && pwd
+        - cd ../../GroupDocs.Total-Angular
+        - npm install
+        - npm run e2e
+        - "taskkill //F //IM iisexpress.exe"
+    - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
+      os: linux
+      addons:
+        hosts:
+          - localhost
+        firefox: latest
+        apt:
+          sources:
+          - google-chrome
+          packages:
+          - google-chrome-stable fluxbox
+      language: java
+      script: 
+        - "export DISPLAY=:99.0"
+        - "sh -e /etc/init.d/xvfb start"
+        - sleep 3
+        - fluxbox >/dev/null 2>&1 &
+        - npm install -g @angular/cli
+        - git clone https://github.com/groupdocs-total/$BACKEND_REPO
+        - cd $BACKEND_REPO
+        - if git ls-remote --exit-code --heads https://github.com/groupdocs-total/$BACKEND_REPO $TRAVIS_BRANCH; then echo "testing with Branch"; git checkout $TRAVIS_BRANCH; else echo "testing with  Master"; fi
+        - mvn -q clean compile exec:java &
+        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5; echo "waiting to back-end..."; done
+        - cd ..
+        - npm install
+        - npm run e2e
+    - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
+      os: linux
+      addons:
+        hosts:
+          - localhost
+        firefox: latest
+        apt:
+          sources:
+          - google-chrome
+          packages:
+          - google-chrome-stable fluxbox
+      language: java
+      script: 
+        - "export DISPLAY=:99.0"
+        - "sh -e /etc/init.d/xvfb start"
+        - sleep 3
+        - fluxbox >/dev/null 2>&1 &
+        - npm install -g @angular/cli
+        - git clone https://github.com/groupdocs-total/$BACKEND_REPO
+        - cd $BACKEND_REPO
+        - if git ls-remote --exit-code --heads https://github.com/groupdocs-total/$BACKEND_REPO $TRAVIS_BRANCH; then echo "testing with Branch"; git checkout $TRAVIS_BRANCH; else echo "testing with  Master"; fi
+        - mvn -q clean spring-boot:run &
+        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting to back-end..."; done
+        - cd ..
+        - npm install
+        - npm run e2e
+    - stage: Release fix
+      dist: trusty
+      os: linux
+      language: ruby
+      if: type = push AND branch = master AND commit_message !~ /@RELEASE_MINOR/ AND commit_message !~ /@SKIP_RELEASE/ AND commit_message !~ /^v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}$/
+      script: 
+        - git checkout master && git reset --hard $sha1 
+        - git config --global user.email "travis@travis-ci.org" && git config --global user.name "Travis CI"
+        - git remote remove origin
+        - git remote add origin https://${GH_TOKEN}@github.com/groupdocs-total/GroupDocs.Total-Angular.git > /dev/null 2>&1
+        - git fetch
+        - git branch --set-upstream-to=origin/master master
+        - echo "releasing fix"
+        - npm install -g npx
+        - npm install
+        - npm run release_viewer
+        - npm whoami
+        - git status
+        - npx lerna publish patch --yes
+        - git status
+    - stage: Release minor update
+      dist: trusty
+      os: linux
+      language: ruby
+      if: type = push AND branch = master AND commit_message =~ /@RELEASE_MINOR/ AND commit_message !~ /@SKIP_RELEASE/ AND commit_message !~ /^v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}$/
+      script: 
+        - git checkout master && git reset --hard $sha1 
+        - git config --global user.email "travis@travis-ci.org" && git config --global user.name "Travis CI"
+        - git remote remove origin
+        - git remote add origin https://${GH_TOKEN}@github.com/groupdocs-total/GroupDocs.Total-Angular.git > /dev/null 2>&1
+        - git fetch
+        - git branch --set-upstream-to=origin/master master
+        - echo "releasing minor update"
+        - npm install -g npx
+        - npm install
+        - npm run release_viewer
+        - npm whoami
+        - git status
+        - npx lerna publish minor --yes
+        - git status
