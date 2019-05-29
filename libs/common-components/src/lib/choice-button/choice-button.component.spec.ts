@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ChoiceButtonComponent } from './choice-button.component';
 
 describe('ChoiceButtonComponent', () => {
@@ -8,7 +8,10 @@ describe('ChoiceButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChoiceButtonComponent ]
+      declarations: [ ChoiceButtonComponent ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ],
     })
     .compileComponents();
   }));

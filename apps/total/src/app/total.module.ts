@@ -12,10 +12,10 @@ import {TotalViewComponent} from './total-view/total-view.component';
 @NgModule({
   declarations: [TotalAppComponent, TotalNavComponent, TotalViewComponent],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     CommonComponentsModule,
     Angular2FontawesomeModule,
-    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [TotalAppComponent],

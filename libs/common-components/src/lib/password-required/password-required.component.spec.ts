@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { PasswordRequiredComponent } from './password-required.component';
 
 describe('PasswordRequiredComponent', () => {
@@ -8,7 +8,10 @@ describe('PasswordRequiredComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PasswordRequiredComponent ]
+      declarations: [ PasswordRequiredComponent ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ],
     })
     .compileComponents();
   }));
