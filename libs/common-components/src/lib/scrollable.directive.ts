@@ -11,6 +11,7 @@ import {
 import {NavigateService} from "./navigate.service";
 import {PagePreloadService} from "./page-preload.service";
 import {ZoomService} from "./zoom.service";
+import * as $ from 'jquery';
 
 @Directive({
   selector: '[gdScrollable]'
@@ -124,36 +125,47 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
     if (!el) {
       return false;
     }
+    let x = 0.5;
+    let y = 0.5;
 
-    const elSize = (el.offsetWidth * el.offsetHeight);
+    var win = $(window);
 
-    const rec = el.getBoundingClientRect();
-
-    const vp = {
-      width: window.innerWidth,
-      height: window.innerHeight
+    var viewport = {
+      top: win.scrollTop(),
+      left: win.scrollLeft()
     };
+    viewport.right = viewport.left + win.width();
+    viewport.bottom = viewport.top + win.height();
 
-    const tViz = rec.top >= 0 && rec.top < vp.height / 2 && rec.top < vp.height;
-    const bViz = rec.bottom > vp.height / 2 && rec.bottom <= vp.height;
-
-    const lViz = rec.left >= 0 && rec.left < vp.width;
-    const rViz = rec.right > 0 && rec.right <= vp.width;
-
-    const vVisible = partial ? tViz || bViz : tViz && bViz;
-    const hVisible = partial ? lViz || rViz : lViz && rViz;
-
-    let ret;
-
-    if (direction === 'both') {
-      ret = (elSize && vVisible && hVisible) ? true : false;
-    } else if (direction === 'vertical') {
-      ret = (elSize && vVisible) ? true : false;
-    } else if (direction === 'horizontal') {
-      ret = (elSize && hVisible) ? true : false;
+    if (isNaN(this.zoom)) {
+      this.zoom = 1;
     }
 
-    return ret;
+    var height = $(el).outerHeight() * (this.zoom / 100);
+    var width = $(el).outerWidth() * (this.zoom / 100);
+
+    if (!width || !height) {
+      return false;
+    }
+
+    var bounds = $(el).offset();
+    bounds.right = (bounds.left * (this.zoom / 100)) + width;
+    bounds.bottom = (bounds.top * (this.zoom / 100)) + height;
+
+    var visible = (!(viewport.right < (bounds.left * (this.zoom / 100)) || viewport.left > bounds.right || viewport.bottom < (bounds.top * (this.zoom / 100)) || viewport.top > bounds.bottom));
+
+    if (!visible) {
+      return false;
+    }
+
+    var deltas = {
+      top: Math.min(1, (bounds.bottom - viewport.top) / height),
+      bottom: Math.min(1, (viewport.bottom - (bounds.top * (this.zoom / 100))) / height),
+      left: Math.min(1, (bounds.right - viewport.left) / width),
+      right: Math.min(1, (viewport.right - (bounds.left * (this.zoom / 100))) / width)
+    };
+
+    return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
