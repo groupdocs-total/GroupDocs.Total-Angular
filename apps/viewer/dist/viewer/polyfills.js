@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["polyfills"],{
 
 /***/ "../../node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js":
-/*!***********************************************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js ***!
-  \***********************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js ***!
+  \***********************************************************************************************************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -24,9 +24,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../../node_modules/core-js/es7/reflect.js":
-/*!******************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/es7/reflect.js ***!
-  \******************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/es7/reflect.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45,9 +45,9 @@ module.exports = __webpack_require__(/*! ../modules/_core */ "../../node_modules
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_a-function.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_a-function.js ***!
-  \**************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_a-function.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -60,9 +60,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_an-instance.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_an-instance.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_an-instance.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -76,9 +76,9 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_an-object.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_an-object.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_an-object.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -92,9 +92,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_array-from-iterable.js":
-/*!***********************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-from-iterable.js ***!
-  \***********************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-from-iterable.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -110,9 +110,9 @@ module.exports = function (iter, ITERATOR) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_array-includes.js":
-/*!******************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-includes.js ***!
-  \******************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-includes.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -144,9 +144,9 @@ module.exports = function (IS_INCLUDES) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_array-methods.js":
-/*!*****************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-methods.js ***!
-  \*****************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-methods.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -199,9 +199,9 @@ module.exports = function (TYPE, $create) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_array-species-constructor.js":
-/*!*****************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-species-constructor.js ***!
-  \*****************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-species-constructor.js ***!
+  \*****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -226,9 +226,9 @@ module.exports = function (original) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_array-species-create.js":
-/*!************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-species-create.js ***!
-  \************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_array-species-create.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -243,9 +243,9 @@ module.exports = function (original, length) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_classof.js":
-/*!***********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_classof.js ***!
-  \***********************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_classof.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -277,9 +277,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_cof.js":
-/*!*******************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_cof.js ***!
-  \*******************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_cof.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -293,9 +293,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_collection-strong.js":
-/*!*********************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_collection-strong.js ***!
-  \*********************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_collection-strong.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -449,9 +449,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_collection-weak.js":
-/*!*******************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_collection-weak.js ***!
-  \*******************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_collection-weak.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -546,9 +546,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_collection.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_collection.js ***!
-  \**************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_collection.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -643,9 +643,9 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_core.js":
-/*!********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_core.js ***!
-  \********************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_core.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -656,9 +656,9 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_ctx.js":
-/*!*******************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_ctx.js ***!
-  \*******************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_ctx.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -687,9 +687,9 @@ module.exports = function (fn, that, length) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_defined.js":
-/*!***********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_defined.js ***!
-  \***********************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_defined.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -703,9 +703,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_descriptors.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_descriptors.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_descriptors.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -718,9 +718,9 @@ module.exports = !__webpack_require__(/*! ./_fails */ "../../node_modules/core-j
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_dom-create.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_dom-create.js ***!
-  \**************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_dom-create.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -736,9 +736,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_enum-bug-keys.js":
-/*!*****************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_enum-bug-keys.js ***!
-  \*****************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_enum-bug-keys.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -751,9 +751,9 @@ module.exports = (
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_export.js":
-/*!**********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_export.js ***!
-  \**********************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_export.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -805,9 +805,9 @@ module.exports = $export;
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_fails.js":
-/*!*********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_fails.js ***!
-  \*********************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_fails.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -823,9 +823,9 @@ module.exports = function (exec) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_for-of.js":
-/*!**********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_for-of.js ***!
-  \**********************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_for-of.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -859,9 +859,9 @@ exports.RETURN = RETURN;
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_function-to-string.js":
-/*!**********************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_function-to-string.js ***!
-  \**********************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_function-to-string.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -871,9 +871,9 @@ module.exports = __webpack_require__(/*! ./_shared */ "../../node_modules/core-j
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_global.js":
-/*!**********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_global.js ***!
-  \**********************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_global.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -888,9 +888,9 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_has.js":
-/*!*******************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_has.js ***!
-  \*******************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_has.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -903,9 +903,9 @@ module.exports = function (it, key) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_hide.js":
-/*!********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_hide.js ***!
-  \********************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_hide.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -922,9 +922,9 @@ module.exports = __webpack_require__(/*! ./_descriptors */ "../../node_modules/c
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_html.js":
-/*!********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_html.js ***!
-  \********************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_html.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -935,9 +935,9 @@ module.exports = document && document.documentElement;
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_ie8-dom-define.js":
-/*!******************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_ie8-dom-define.js ***!
-  \******************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_ie8-dom-define.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -949,9 +949,9 @@ module.exports = !__webpack_require__(/*! ./_descriptors */ "../../node_modules/
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_inherit-if-required.js":
-/*!***********************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_inherit-if-required.js ***!
-  \***********************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_inherit-if-required.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -969,9 +969,9 @@ module.exports = function (that, target, C) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_iobject.js":
-/*!***********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_iobject.js ***!
-  \***********************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_iobject.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -986,9 +986,9 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_is-array-iter.js":
-/*!*****************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_is-array-iter.js ***!
-  \*****************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_is-array-iter.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1005,9 +1005,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_is-array.js":
-/*!************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_is-array.js ***!
-  \************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_is-array.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1021,9 +1021,9 @@ module.exports = Array.isArray || function isArray(arg) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_is-object.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_is-object.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_is-object.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1035,9 +1035,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_iter-call.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-call.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-call.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1058,9 +1058,9 @@ module.exports = function (iterator, fn, value, entries) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_iter-create.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-create.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-create.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1083,9 +1083,9 @@ module.exports = function (Constructor, NAME, next) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_iter-define.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-define.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-define.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1164,9 +1164,9 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_iter-detect.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-detect.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-detect.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1197,9 +1197,9 @@ module.exports = function (exec, skipClosing) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_iter-step.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-step.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_iter-step.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1211,9 +1211,9 @@ module.exports = function (done, value) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_iterators.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_iterators.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_iterators.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1223,9 +1223,9 @@ module.exports = {};
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_library.js":
-/*!***********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_library.js ***!
-  \***********************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_library.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1235,9 +1235,9 @@ module.exports = false;
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_meta.js":
-/*!********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_meta.js ***!
-  \********************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_meta.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1299,9 +1299,9 @@ var meta = module.exports = {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_metadata.js":
-/*!************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_metadata.js ***!
-  \************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_metadata.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1361,9 +1361,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-assign.js":
-/*!*****************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-assign.js ***!
-  \*****************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-assign.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1407,9 +1407,9 @@ module.exports = !$assign || __webpack_require__(/*! ./_fails */ "../../node_mod
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-create.js":
-/*!*****************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-create.js ***!
-  \*****************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-create.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1459,9 +1459,9 @@ module.exports = Object.create || function create(O, Properties) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-dp.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-dp.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-dp.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1486,9 +1486,9 @@ exports.f = __webpack_require__(/*! ./_descriptors */ "../../node_modules/core-j
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-dps.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-dps.js ***!
-  \**************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-dps.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1510,9 +1510,9 @@ module.exports = __webpack_require__(/*! ./_descriptors */ "../../node_modules/c
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-gopd.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-gopd.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-gopd.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1537,9 +1537,9 @@ exports.f = __webpack_require__(/*! ./_descriptors */ "../../node_modules/core-j
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-gops.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-gops.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-gops.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1549,9 +1549,9 @@ exports.f = Object.getOwnPropertySymbols;
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-gpo.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-gpo.js ***!
-  \**************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-gpo.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1573,9 +1573,9 @@ module.exports = Object.getPrototypeOf || function (O) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-keys-internal.js":
-/*!************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-keys-internal.js ***!
-  \************************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-keys-internal.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1601,9 +1601,9 @@ module.exports = function (object, names) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-keys.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-keys.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-keys.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1619,9 +1619,9 @@ module.exports = Object.keys || function keys(O) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_object-pie.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-pie.js ***!
-  \**************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_object-pie.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1631,9 +1631,9 @@ exports.f = {}.propertyIsEnumerable;
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_property-desc.js":
-/*!*****************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_property-desc.js ***!
-  \*****************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_property-desc.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1650,9 +1650,9 @@ module.exports = function (bitmap, value) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_redefine-all.js":
-/*!****************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_redefine-all.js ***!
-  \****************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_redefine-all.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1666,9 +1666,9 @@ module.exports = function (target, src, safe) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_redefine.js":
-/*!************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_redefine.js ***!
-  \************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_redefine.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1708,9 +1708,9 @@ __webpack_require__(/*! ./_core */ "../../node_modules/core-js/modules/_core.js"
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_set-proto.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_set-proto.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_set-proto.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1744,9 +1744,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_set-species.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_set-species.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_set-species.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1769,9 +1769,9 @@ module.exports = function (KEY) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_set-to-string-tag.js":
-/*!*********************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_set-to-string-tag.js ***!
-  \*********************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_set-to-string-tag.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1787,9 +1787,9 @@ module.exports = function (it, tag, stat) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_shared-key.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_shared-key.js ***!
-  \**************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_shared-key.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1803,9 +1803,9 @@ module.exports = function (key) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_shared.js":
-/*!**********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_shared.js ***!
-  \**********************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_shared.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1826,9 +1826,9 @@ var store = global[SHARED] || (global[SHARED] = {});
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_to-absolute-index.js":
-/*!*********************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-absolute-index.js ***!
-  \*********************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-absolute-index.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1844,9 +1844,9 @@ module.exports = function (index, length) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_to-integer.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-integer.js ***!
-  \**************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-integer.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1861,9 +1861,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_to-iobject.js":
-/*!**************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-iobject.js ***!
-  \**************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-iobject.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1878,9 +1878,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_to-length.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-length.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-length.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1895,9 +1895,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_to-object.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-object.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-object.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1911,9 +1911,9 @@ module.exports = function (it) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_to-primitive.js":
-/*!****************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-primitive.js ***!
-  \****************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_to-primitive.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1934,9 +1934,9 @@ module.exports = function (it, S) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_uid.js":
-/*!*******************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_uid.js ***!
-  \*******************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_uid.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1950,9 +1950,9 @@ module.exports = function (key) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_validate-collection.js":
-/*!***********************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_validate-collection.js ***!
-  \***********************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_validate-collection.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1966,9 +1966,9 @@ module.exports = function (it, TYPE) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/_wks.js":
-/*!*******************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/_wks.js ***!
-  \*******************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/_wks.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1988,9 +1988,9 @@ $exports.store = store;
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/core.get-iterator-method.js":
-/*!***************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/core.get-iterator-method.js ***!
-  \***************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/core.get-iterator-method.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2007,9 +2007,9 @@ module.exports = __webpack_require__(/*! ./_core */ "../../node_modules/core-js/
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es6.map.js":
-/*!**********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es6.map.js ***!
-  \**********************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es6.map.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2038,9 +2038,9 @@ module.exports = __webpack_require__(/*! ./_collection */ "../../node_modules/co
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es6.set.js":
-/*!**********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es6.set.js ***!
-  \**********************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es6.set.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2064,9 +2064,9 @@ module.exports = __webpack_require__(/*! ./_collection */ "../../node_modules/co
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es6.weak-map.js":
-/*!***************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es6.weak-map.js ***!
-  \***************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es6.weak-map.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2136,9 +2136,9 @@ if (NATIVE_WEAK_MAP && IS_IE11) {
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es7.reflect.define-metadata.js":
-/*!******************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.define-metadata.js ***!
-  \******************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.define-metadata.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2155,9 +2155,9 @@ metadata.exp({ defineMetadata: function defineMetadata(metadataKey, metadataValu
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es7.reflect.delete-metadata.js":
-/*!******************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.delete-metadata.js ***!
-  \******************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.delete-metadata.js ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2181,9 +2181,9 @@ metadata.exp({ deleteMetadata: function deleteMetadata(metadataKey, target /* , 
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es7.reflect.get-metadata-keys.js":
-/*!********************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.get-metadata-keys.js ***!
-  \********************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.get-metadata-keys.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2211,9 +2211,9 @@ metadata.exp({ getMetadataKeys: function getMetadataKeys(target /* , targetKey *
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es7.reflect.get-metadata.js":
-/*!***************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.get-metadata.js ***!
-  \***************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.get-metadata.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2239,9 +2239,9 @@ metadata.exp({ getMetadata: function getMetadata(metadataKey, target /* , target
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es7.reflect.get-own-metadata-keys.js":
-/*!************************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.get-own-metadata-keys.js ***!
-  \************************************************************************************************************************/
+/*!************************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.get-own-metadata-keys.js ***!
+  \************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2258,9 +2258,9 @@ metadata.exp({ getOwnMetadataKeys: function getOwnMetadataKeys(target /* , targe
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es7.reflect.get-own-metadata.js":
-/*!*******************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.get-own-metadata.js ***!
-  \*******************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.get-own-metadata.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2278,9 +2278,9 @@ metadata.exp({ getOwnMetadata: function getOwnMetadata(metadataKey, target /* , 
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es7.reflect.has-metadata.js":
-/*!***************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.has-metadata.js ***!
-  \***************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.has-metadata.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2305,9 +2305,9 @@ metadata.exp({ hasMetadata: function hasMetadata(metadataKey, target /* , target
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es7.reflect.has-own-metadata.js":
-/*!*******************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.has-own-metadata.js ***!
-  \*******************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.has-own-metadata.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2325,9 +2325,9 @@ metadata.exp({ hasOwnMetadata: function hasOwnMetadata(metadataKey, target /* , 
 /***/ }),
 
 /***/ "../../node_modules/core-js/modules/es7.reflect.metadata.js":
-/*!***********************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.metadata.js ***!
-  \***********************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/core-js/modules/es7.reflect.metadata.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2351,9 +2351,9 @@ $metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
 /***/ }),
 
 /***/ "../../node_modules/zone.js/dist/zone.js":
-/*!****************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/zone.js/dist/zone.js ***!
-  \****************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/zone.js/dist/zone.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5778,14 +5778,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 2:
-/*!************************************************************************************************************************************************************************!*\
-  !*** multi ./src/polyfills.ts /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js ***!
-  \************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************************************************************************!*\
+  !*** multi ./src/polyfills.ts /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js ***!
+  \************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/elenko/projects/GroupDocs.Total-Angular/apps/viewer/src/polyfills.ts */"./src/polyfills.ts");
-module.exports = __webpack_require__(/*! /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"../../node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
+__webpack_require__(/*! /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/apps/viewer/src/polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"../../node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
 
 
 /***/ })

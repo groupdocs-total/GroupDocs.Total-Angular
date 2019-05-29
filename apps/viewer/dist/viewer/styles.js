@@ -1,20 +1,20 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["styles"],{
 
 /***/ "../../node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!../../node_modules/postcss-loader/src/index.js?!../../node_modules/less-loader/dist/cjs.js?!./src/styles.less":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!/Users/elenko/projects/GroupDocs.Total-Angular/node_modules/postcss-loader/src??embedded!/Users/elenko/projects/GroupDocs.Total-Angular/node_modules/less-loader/dist/cjs.js??ref--15-3!./src/styles.less ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!/home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/postcss-loader/src??embedded!/home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/less-loader/dist/cjs.js??ref--15-3!./src/styles.less ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = [[module.i, "body {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  margin: 0;\n  padding: 0;\n  font-family: \"proxima-nova-soft\", \"Proxima Nova Soft\", Helvetica, Arial, sans-serif;\n  width: 100%;\n  height: 100%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9lbGVua28vcHJvamVjdHMvR3JvdXBEb2NzLlRvdGFsLUFuZ3VsYXIvYXBwcy92aWV3ZXIvc3JjL3N0eWxlcy5sZXNzIiwiYXBwcy92aWV3ZXIvc3JjL3N0eWxlcy5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtFQUNBLE1BQUE7RUFDQSxTQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtFQUNBLG1GQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7QUNDRiIsImZpbGUiOiJhcHBzL3ZpZXdlci9zcmMvc3R5bGVzLmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJib2R5IHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDA7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG4gIG1hcmdpbjogMDtcbiAgcGFkZGluZzogMDtcbiAgZm9udC1mYW1pbHk6IFwicHJveGltYS1ub3ZhLXNvZnRcIiwgXCJQcm94aW1hIE5vdmEgU29mdFwiLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuIiwiYm9keSB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgdG9wOiAwO1xuICBib3R0b206IDA7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBtYXJnaW46IDA7XG4gIHBhZGRpbmc6IDA7XG4gIGZvbnQtZmFtaWx5OiBcInByb3hpbWEtbm92YS1zb2Z0XCIsIFwiUHJveGltYSBOb3ZhIFNvZnRcIiwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZjtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbn1cbiJdfQ== */", '', '']]
+module.exports = [[module.i, "body {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  margin: 0;\n  padding: 0;\n  font-family: \"proxima-nova-soft\", \"Proxima Nova Soft\", Helvetica, Arial, sans-serif;\n  width: 100%;\n  height: 100%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3RyYXZpcy9idWlsZC9ncm91cGRvY3MtdG90YWwvR3JvdXBEb2NzLlRvdGFsLUFuZ3VsYXIvYXBwcy92aWV3ZXIvc3JjL3N0eWxlcy5sZXNzIiwiYXBwcy92aWV3ZXIvc3JjL3N0eWxlcy5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtFQUNBLE1BQUE7RUFDQSxTQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtFQUNBLG1GQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7QUNDRiIsImZpbGUiOiJhcHBzL3ZpZXdlci9zcmMvc3R5bGVzLmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJib2R5IHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDA7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG4gIG1hcmdpbjogMDtcbiAgcGFkZGluZzogMDtcbiAgZm9udC1mYW1pbHk6IFwicHJveGltYS1ub3ZhLXNvZnRcIiwgXCJQcm94aW1hIE5vdmEgU29mdFwiLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuIiwiYm9keSB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgdG9wOiAwO1xuICBib3R0b206IDA7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBtYXJnaW46IDA7XG4gIHBhZGRpbmc6IDA7XG4gIGZvbnQtZmFtaWx5OiBcInByb3hpbWEtbm92YS1zb2Z0XCIsIFwiUHJveGltYSBOb3ZhIFNvZnRcIiwgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZjtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbn1cbiJdfQ== */", '', '']]
 
 /***/ }),
 
 /***/ "../../node_modules/style-loader/lib/addStyles.js":
-/*!*************************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/style-loader/lib/addStyles.js ***!
-  \*************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/style-loader/lib/addStyles.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -421,9 +421,9 @@ function updateLink (link, options, obj) {
 /***/ }),
 
 /***/ "../../node_modules/style-loader/lib/urls.js":
-/*!********************************************************************************************!*\
-  !*** /Users/elenko/projects/GroupDocs.Total-Angular/node_modules/style-loader/lib/urls.js ***!
-  \********************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/node_modules/style-loader/lib/urls.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -557,7 +557,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/elenko/projects/GroupDocs.Total-Angular/apps/viewer/src/styles.less */"./src/styles.less");
+module.exports = __webpack_require__(/*! /home/travis/build/groupdocs-total/GroupDocs.Total-Angular/apps/viewer/src/styles.less */"./src/styles.less");
 
 
 /***/ })
