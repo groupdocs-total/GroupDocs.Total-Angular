@@ -20,29 +20,16 @@ export class ViewerConfigService {
   }
 
   load() {
-    this._config.load('viewer').then(() => {
-        return new Promise<void>((resolve, reject) => {
-          const configEndpoint = this._config.getConfigEndpoint();
-          if (configEndpoint.startsWith("http")) {
-            this._http.get(configEndpoint, Api.httpOptionsJson).toPromise().then((response: ViewerConfig) => {
-              const viewerConfig = <ViewerConfig>response;
-              this._viewerConfig.next(viewerConfig);
-              resolve();
-            }).catch((response: any) => {
-              reject(`Could not load viewer config: ${JSON.stringify(response)}`);
-            });
-          } else {
-            this._http.get(configEndpoint).toPromise().then((response: ViewerConfig) => {
-              const viewerConfig = <ViewerConfig>response;
-              this._viewerConfig.next(viewerConfig);
-              resolve();
-            }).catch((response: any) => {
-              reject(`Could not load viewer config: ${JSON.stringify(response)}`);
-            });
-          }
-        });
-      }
-    );
-
+    return new Promise<void>((resolve, reject) => {
+      const configEndpoint = this._config.getConfigEndpoint(Api.VIEWER_APP);
+      this._http.get(configEndpoint, Api.httpOptionsJson).toPromise().then((response: ViewerConfig) => {
+        const viewerConfig = <ViewerConfig>response;
+        this._viewerConfig.next(viewerConfig);
+        resolve();
+      }).catch((response: any) => {
+        reject(`Could not load viewer config: ${JSON.stringify(response)}`);
+      });
+    });
   }
+
 }
