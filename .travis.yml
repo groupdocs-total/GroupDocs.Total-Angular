@@ -10,6 +10,7 @@ cache:
   directories:
     - ~/.npm
     - ~/.cache
+    - $HOME/.m2
 matrix:
   exclude: 
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
