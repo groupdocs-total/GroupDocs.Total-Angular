@@ -24,10 +24,6 @@ matrix:
           - localhost
       language: java
       script: 
-        - "export DISPLAY=:99.0"
-        - "sh -e /etc/init.d/xvfb start"
-        - sleep 3
-        - fluxbox >/dev/null 2>&1 &
         - npm install -g @angular/cli
         - git clone https://github.com/groupdocs-total/$BACKEND_REPO
         - cd $BACKEND_REPO
@@ -44,10 +40,6 @@ matrix:
           - localhost
       language: java
       script: 
-        - "export DISPLAY=:99.0"
-        - "sh -e /etc/init.d/xvfb start"
-        - sleep 3
-        - fluxbox >/dev/null 2>&1 &
         - npm install -g @angular/cli
         - git clone https://github.com/groupdocs-total/$BACKEND_REPO
         - cd $BACKEND_REPO
