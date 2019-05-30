@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, EventEmitter, OnInit, Output} from '@angular/core';
 import {WindowService} from "../window.service";
 
 @Component({
@@ -6,7 +6,7 @@ import {WindowService} from "../window.service";
   templateUrl: './top-toolbar.component.html',
   styleUrls: ['./top-toolbar.component.less']
 })
-export class TopToolbarComponent implements OnInit, AfterViewInit {
+export class TopToolbarComponent implements OnInit, AfterViewChecked {
   @Output() startOut: EventEmitter<number> = new EventEmitter();
   @Output() endOut: EventEmitter<number> = new EventEmitter();
   _start: number = 0;
@@ -69,14 +69,6 @@ export class TopToolbarComponent implements OnInit, AfterViewInit {
     return this._showScroll;
   }
 
-  ngAfterViewInit(): void {
-    let $this = this;
-    setTimeout(function () {
-      $this._width = $this.calcWidth(window.innerWidth);
-      $this.refresh();
-    }, 500);
-  }
-
   private refresh() {
     const el = this._elementRef.nativeElement ? this._elementRef.nativeElement.children[0] : null;
     if (!el) {
@@ -114,6 +106,14 @@ export class TopToolbarComponent implements OnInit, AfterViewInit {
   updateShowLeftRight() {
     this.showLeft = this._start > 1;
     this.showRight = this._end < this._countElem;
+  }
+
+  ngAfterViewChecked(): void {
+    let $this = this;
+    setTimeout(function () {
+      $this._width = $this.calcWidth(window.innerWidth);
+      $this.refresh();
+    }, 500);
   }
 
 }
