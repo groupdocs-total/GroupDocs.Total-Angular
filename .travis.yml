@@ -11,6 +11,9 @@ cache:
     - ~/.npm
     - ~/.cache
 matrix:
+  exclude: 
+    - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
+    - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
   include:
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
       os: linux
