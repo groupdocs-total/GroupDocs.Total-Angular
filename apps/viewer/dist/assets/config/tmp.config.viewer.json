@@ -1,4 +1,0 @@
-{
-  "apiEndpoint": "http://localhost:8080/viewer/",
-  "configEndpoint": "assets/config/config.json"
-}
