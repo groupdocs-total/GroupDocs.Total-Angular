@@ -24,19 +24,15 @@ matrix:
           - localhost
       language: java
       script: 
-        - "export DISPLAY=:99.0"
-        - "sh -e /etc/init.d/xvfb start"
-        - sleep 3
-        - fluxbox >/dev/null 2>&1 &
         - npm install -g @angular/cli
         - git clone https://github.com/groupdocs-total/$BACKEND_REPO
         - cd $BACKEND_REPO
         - if git ls-remote --exit-code --heads https://github.com/groupdocs-total/$BACKEND_REPO $TRAVIS_BRANCH; then echo "testing with Branch"; git checkout $TRAVIS_BRANCH; else echo "testing with  Master"; fi
         - mvn -q clean compile exec:java &
-        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5; echo "waiting to back-end..."; done
+        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 1;  done
         - cd ..
         - npm install
-        - npm run e2e --headless
+        - ng serve & while ! curl -s http://localhost:4200  > /dev/null ; do sleep 1 ; done && ng e2e --baseUrl=http://localhost:4200 --headless && pkill ng
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
       os: linux
       addons:
@@ -44,19 +40,15 @@ matrix:
           - localhost
       language: java
       script: 
-        - "export DISPLAY=:99.0"
-        - "sh -e /etc/init.d/xvfb start"
-        - sleep 3
-        - fluxbox >/dev/null 2>&1 &
         - npm install -g @angular/cli
         - git clone https://github.com/groupdocs-total/$BACKEND_REPO
         - cd $BACKEND_REPO
         - if git ls-remote --exit-code --heads https://github.com/groupdocs-total/$BACKEND_REPO $TRAVIS_BRANCH; then echo "testing with Branch"; git checkout $TRAVIS_BRANCH; else echo "testing with  Master"; fi
         - mvn -q clean spring-boot:run &
-        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting to back-end..."; done
+        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 1; done
         - cd ..
         - npm install
-        - npm run e2e
+        - ng serve & while ! curl -s http://localhost:4200  > /dev/null ; do sleep 1; done && ng e2e --baseUrl=http://localhost:4200 --headless && pkill ng
     - stage: Release fix
       dist: trusty
       os: linux

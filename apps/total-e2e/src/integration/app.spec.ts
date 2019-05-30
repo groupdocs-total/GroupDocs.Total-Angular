@@ -1,6 +1,6 @@
 import { getGreeting } from '../support/app.po';
 
-describe('Hello Nx', () => {
+describe('GroupDocs.Total for  Angular test suite', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display welcome message', () => {

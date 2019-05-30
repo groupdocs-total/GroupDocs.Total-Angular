@@ -104,8 +104,7 @@
           "builder": "@nrwl/builders:cypress",
           "options": {
             "cypressConfig": "apps/total-e2e/cypress.json",
-            "tsConfig": "apps/total-e2e/tsconfig.e2e.json",
-            "devServerTarget": "total:serve"
+            "tsConfig": "apps/total-e2e/tsconfig.e2e.json"
           },
           "configurations": {
             "production": {
@@ -223,8 +222,7 @@
           "builder": "@nrwl/builders:cypress",
           "options": {
             "cypressConfig": "apps/viewer-e2e/cypress.json",
-            "tsConfig": "apps/viewer-e2e/tsconfig.e2e.json",
-            "devServerTarget": "viewer:serve"
+            "tsConfig": "apps/viewer-e2e/tsconfig.e2e.json"
           },
           "configurations": {
             "production": {
