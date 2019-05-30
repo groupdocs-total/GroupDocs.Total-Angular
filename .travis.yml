@@ -1,6 +1,7 @@
 before_script:
   - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
 language: java
+sudo: false
 os:
   - linux
 env :
@@ -21,12 +22,6 @@ matrix:
       addons:
         hosts:
           - localhost
-        firefox: latest
-        apt:
-          sources:
-          - google-chrome
-          packages:
-          - google-chrome-stable fluxbox
       language: java
       script: 
         - "export DISPLAY=:99.0"
@@ -41,18 +36,12 @@ matrix:
         - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5; echo "waiting to back-end..."; done
         - cd ..
         - npm install
-        - npm run e2e
+        - npm run e2e --headless
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
       os: linux
       addons:
         hosts:
           - localhost
-        firefox: latest
-        apt:
-          sources:
-          - google-chrome
-          packages:
-          - google-chrome-stable fluxbox
       language: java
       script: 
         - "export DISPLAY=:99.0"
@@ -84,7 +73,7 @@ matrix:
         - npm install -g npx
         - npm install
         - npm run release_viewer
-        - npm whoami
+        - git commit -am "Build new version"
         - git status
         - npx lerna publish patch --yes
         - git status
@@ -104,7 +93,7 @@ matrix:
         - npm install -g npx
         - npm install
         - npm run release_viewer
-        - npm whoami
+        - git commit -am "Build new version"
         - git status
         - npx lerna publish minor --yes
         - git status
