@@ -22,12 +22,6 @@ matrix:
       addons:
         hosts:
           - localhost
-        firefox: latest
-        apt:
-          sources:
-          - google-chrome
-          packages:
-          - google-chrome-stable fluxbox
       language: java
       script: 
         - "export DISPLAY=:99.0"
@@ -48,12 +42,6 @@ matrix:
       addons:
         hosts:
           - localhost
-        firefox: latest
-        apt:
-          sources:
-          - google-chrome
-          packages:
-          - google-chrome-stable fluxbox
       language: java
       script: 
         - "export DISPLAY=:99.0"
