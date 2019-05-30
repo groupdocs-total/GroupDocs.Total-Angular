@@ -1,5 +1,5 @@
 {
-  "name": "@groupdocs.total-angular/common-components",
+  "name": "@groupdocs.examples.angular/common-components",
   "version": "0.1.0",
   "publishConfig": {
     "access": "public"
