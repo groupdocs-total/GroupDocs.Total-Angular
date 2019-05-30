@@ -9,7 +9,7 @@
     "release_viewer": "ng build viewer --aot --prod --vendor-chunk=false --output-hashing=none && git add apps/viewer/dist",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
-    "e2e": "ng e2e",
+    "e2e": "ng e2e --headless",
     "affected:apps": "./node_modules/.bin/nx affected:apps",
     "affected:libs": "./node_modules/.bin/nx affected:libs",
     "affected:build": "./node_modules/.bin/nx affected:build",

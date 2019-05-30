@@ -4,7 +4,7 @@
   "integrationFolder": "../../dist/out-tsc/apps/viewer-e2e/src/integration",
   "pluginsFile": "../../dist/out-tsc/apps/viewer-e2e/src/plugins/index.js",
   "supportFile": false,
-  "video": true,
+  "video": false,
   "videosFolder": "../../dist/out-tsc/apps/viewer-e2e/videos",
   "screenshotsFolder": "../../dist/out-tsc/apps/viewer-e2e/screenshots",
   "chromeWebSecurity": false
