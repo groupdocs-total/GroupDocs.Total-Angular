@@ -1,7 +1,0 @@
-{
-  "name": "@groupdocs.examples.angular/total",
-  "version": "0.1.0",
-  "publishConfig": {
-    "access": "public"
-  }
-}
