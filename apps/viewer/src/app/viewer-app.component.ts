@@ -164,20 +164,22 @@ export class ViewerAppComponent implements AfterViewInit {
     this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
-        if (file && file.pages && file.pages[0]) {
-          this._pageHeight = file.pages[0].height;
-          this._pageWidth = file.pages[0].width;
-          this.refreshZoom();
+        if (file) {
+          if (file.pages && file.pages[0]) {
+            this._pageHeight = file.pages[0].height;
+            this._pageWidth = file.pages[0].width;
+            this.options = this.zoomOptions();
+            this.refreshZoom();
+          }
+          const preloadPageCount = this.viewerConfig.preloadPageCount;
+          const countPages = file.pages ? file.pages.length : 0;
+          if (preloadPageCount > 0) {
+            this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
+          }
+          this._navigateService.countPages = countPages;
+          this._navigateService.currentPage = 1;
+          this.countPages = countPages;
         }
-        const preloadPageCount = this.viewerConfig.preloadPageCount;
-        const countPages = file.pages.length;
-        if (preloadPageCount > 0) {
-          this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
-        }
-        this._navigateService.countPages = countPages;
-        this._navigateService.currentPage = 1;
-        this.countPages = countPages;
-        this.options = this.zoomOptions();
       }
     );
     this._modalService.close(modalId);
@@ -254,7 +256,7 @@ export class ViewerAppComponent implements AfterViewInit {
     const pageHeight = this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
-    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth)  < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
   }
 
   private getFitToHeight() {
