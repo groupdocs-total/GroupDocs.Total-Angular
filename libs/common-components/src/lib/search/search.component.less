@@ -42,14 +42,29 @@
 
 
 @media (max-width: 1025px) {
-  .gd-nav-search-container {
-    left: 0;
-    top: 100px;
+  .gd-nav-search-container {   
+    top: 70px;
+	left: 45%;
   }
   .gd-search-input {
-    width: 183px;
+    width: auto;
   }
   .gd-search-count {
-    left: 189px;
+    left: 48%;
+  }
+}
+@media (min-width: 401px) and (max-width: 700px) {
+  .gd-search-input {
+    width: 226px;
+  }
+  .gd-search-count {
+    left: 55%;
+  }
+}
+
+@media (max-width: 500px) {
+  .gd-nav-search-container {
+	width: 100%;
+	left: 0;
   }
 }
