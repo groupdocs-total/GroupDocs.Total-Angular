@@ -5,7 +5,7 @@
       <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                  *ngIf="browseConfig" [style.display]="isHidden(1)"></gd-button>
 
-      <gd-select [disabled]="formatDisabled" [options]="zoomOptions()" (selected)="selectZoom($event)"
+      <gd-select [disabled]="formatDisabled" [options]="options" (selected)="selectZoom($event)"
                  [showSelected]="zoom" *ngIf="zoomConfig" [style.display]="isHidden(2)"></gd-select>
       <gd-button [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"
                  *ngIf="zoomConfig" [style.display]="isHidden(3)"></gd-button>

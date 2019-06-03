@@ -24,7 +24,7 @@ import {WindowService} from "@groupdocs-total-angular/common-components";
   templateUrl: './viewer-app.component.html',
   styleUrls: ['./viewer-app.component.less']
 })
-export class ViewerAppComponent implements AfterViewInit {
+export class ViewerAppComponent implements OnInit, AfterViewInit {
   title = 'viewer';
   files: FileModel[] = [];
   file: FileDescription;
@@ -42,6 +42,7 @@ export class ViewerAppComponent implements AfterViewInit {
   _pageHeight: number;
   startTool: number;
   endTool: number;
+  options;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -87,6 +88,10 @@ export class ViewerAppComponent implements AfterViewInit {
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
     });
+  }
+
+  ngOnInit() {
+    this.options = this.zoomOptions();
   }
 
   get rewriteConfig(): boolean {
