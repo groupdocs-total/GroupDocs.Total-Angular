@@ -313,9 +313,6 @@ export class ViewerAppComponent implements AfterViewInit {
 
   private changeAngle(page: PageModel, angle: number) {
     page.angle = angle;
-    let width = page.width;
-    page.width = page.height;
-    page.height = width;
   }
 
   downloadFile() {

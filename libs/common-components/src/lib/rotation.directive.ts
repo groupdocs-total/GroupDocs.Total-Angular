@@ -9,6 +9,7 @@ export class RotationDirective implements OnInit, OnChanges {
   @Input() isHtmlMode: boolean;
   @Input() width: number;
   @Input() height: number;
+  @Input() withMargin: boolean = true;
 
   @HostBinding('style.animation') animation: string;
   @HostBinding('style.transition-property') transition: string;
@@ -30,24 +31,26 @@ export class RotationDirective implements OnInit, OnChanges {
       this.transform = null;
     }
 
-    if (this.angle == 90 || this.angle == 270 || this.angle == -90 || this.angle == -270) {
-      if (this.isHtmlMode) {
-        if (this.isLandscape()) {
-          this.margin = '164px 254px';
+    if (this.withMargin) {
+      if (this.angle == 90 || this.angle == 270 || this.angle == -90 || this.angle == -270) {
+        if (this.isHtmlMode) {
+          if (this.isLandscape()) {
+            this.margin = '164px 254px';
+          } else {
+            this.margin = '-111px 254px';
+          }
         } else {
-          this.margin = '-111px 254px';
+          if (this.isLandscape()) {
+            this.margin = '129px 100px -79px';
+          } else {
+            this.margin = '-72px 100px -79px';
+          }
         }
+      } else if (this.angle == -180 || this.angle == 180) {
+        this.margin = '280px';
       } else {
-        if (this.isLandscape()) {
-          this.margin = '129px 100px -79px';
-        } else {
-          this.margin = '-72px 100px -79px';
-        }
+        this.margin = null;
       }
-    } else if (this.angle == -180 || this.angle == 180) {
-      this.margin = '280px';
-    } else {
-      this.margin = null;
     }
 
   }

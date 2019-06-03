@@ -10,6 +10,7 @@ export class ThumbnailsComponent implements OnInit {
 
   @Input() pages: PageModel[];
   @Input() guid: string;
+  @Input() mode: boolean;
   @Input() isHtmlMode: boolean;
 
   constructor(private _navigateService: NavigateService) {
@@ -26,8 +27,8 @@ export class ThumbnailsComponent implements OnInit {
     return dataImagePngBase64;
   }
 
-  getScale(x:number, y:number){
-    return Math.min(190/x,190/y);
+  getScale(x: number, y: number) {
+    return Math.min(190 / x, 190 / y);
   }
 
   openPage(pageNumber: number) {
