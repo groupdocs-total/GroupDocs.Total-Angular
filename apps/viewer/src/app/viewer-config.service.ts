@@ -13,6 +13,7 @@ export class ViewerConfigService {
   private _updatedConfig: Observable<ViewerConfig> = this._viewerConfig.asObservable();
 
   constructor(private _http: HttpClient, private _config: ConfigService) {
+    _config.apiEndpoint = environment.apiUrl;
   }
 
   get updatedConfig() {
