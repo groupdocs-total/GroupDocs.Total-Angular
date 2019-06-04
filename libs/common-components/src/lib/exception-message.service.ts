@@ -1,12 +1,10 @@
-import {Observable, Observer} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 export class ExceptionMessageService {
-  private _messageChange: Observable<string>;
-  private _observer: Observer<string>;
+  private _observer: BehaviorSubject<string> = new BehaviorSubject('Server is not available');
+  private _messageChange: Observable<string> = this._observer.asObservable();
 
   constructor() {
-    this._messageChange = new Observable(observer =>
-      this._observer = observer);
   }
 
   get messageChange(): Observable<string> {
