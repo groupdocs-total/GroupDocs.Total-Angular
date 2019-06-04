@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 
 export class Api {
@@ -34,6 +34,10 @@ export class ConfigService {
   private _apiEndpoint = Api.DEFAULT_API_ENDPOINT;
 
   constructor() {
+  }
+
+  set apiEndpoint(url: string) {
+    this._apiEndpoint = url;
   }
 
   getConfigEndpoint(app) {
