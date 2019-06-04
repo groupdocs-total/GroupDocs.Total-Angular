@@ -42,6 +42,7 @@ export class ViewerAppComponent implements AfterViewInit {
   _pageHeight: number;
   startTool: number;
   endTool: number;
+  options;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -86,6 +87,7 @@ export class ViewerAppComponent implements AfterViewInit {
     this.isDesktop = _windowService.isDesktop();
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
+      this.refreshZoom();
     });
   }
 
@@ -175,6 +177,7 @@ export class ViewerAppComponent implements AfterViewInit {
         this._navigateService.countPages = countPages;
         this._navigateService.currentPage = 1;
         this.countPages = countPages;
+        this.options = this.zoomOptions();
       }
     );
     this._modalService.close(modalId);
