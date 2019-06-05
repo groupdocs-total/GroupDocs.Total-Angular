@@ -40,6 +40,12 @@
     },
     "common-components": {
       "tags": []
+    },
+    "editor": {
+      "tags": []
+    },
+    "editor-e2e": {
+      "tags": []
     }
   }
 }
