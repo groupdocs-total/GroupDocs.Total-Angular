@@ -37,6 +37,7 @@ import {SearchComponent} from './search/search.component';
 import {SearchableDirective} from './searchable.directive';
 import {SearchService} from "./search.service";
 import {WindowService} from "./window.service";
+import {ViewportService} from "./viewport.service";
 
 const providers = [ConfigService,
   Api,
@@ -57,7 +58,8 @@ const providers = [ConfigService,
   PasswordService,
   ErrorInterceptorService,
   SearchService,
-  WindowService];
+  WindowService,
+  ViewportService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],

@@ -1,5 +1,6 @@
-import {AfterViewChecked, Component, ElementRef, EventEmitter, OnInit, Output} from '@angular/core';
-import {WindowService} from "../window.service";
+import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnInit} from '@angular/core';
+import {ViewportService} from "../viewport.service";
+import * as $ from "jquery";
 
 @Component({
   selector: 'gd-top-toolbar',
@@ -7,113 +8,105 @@ import {WindowService} from "../window.service";
   styleUrls: ['./top-toolbar.component.less']
 })
 export class TopToolbarComponent implements OnInit, AfterViewChecked {
-  @Output() startOut: EventEmitter<number> = new EventEmitter();
-  @Output() endOut: EventEmitter<number> = new EventEmitter();
-  _start: number = 0;
-  _end: number = 0;
-  private _countElem: number;
-  private _showScroll = false;
-  private _width: number;
   showLeft: boolean;
   showRight: boolean;
-  private _mostBigElemWidth: number = 0;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
-              private _windowService: WindowService) {
-    _windowService.onResize.subscribe((w) => {
-      this._width = this.calcWidth(w.innerWidth);
-      this.refresh();
-    });
-    this.startOut.emit(0);
-    this.endOut.emit(0);
-  }
-
-  calcWidth(width: number) {
-    const el = this._elementRef.nativeElement ? this._elementRef.nativeElement.parentElement : null;
-    if (!el) {
-      return width;
-    }
-    return width - el.children[0].clientWidth;
+              private _viewportService: ViewportService,
+              private _cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-  }
-
-  set start(start: number) {
-    this._start = start;
-    this.startOut.emit(start);
-  }
-
-  set end(end: number) {
-    this._end = end;
-    this.endOut.emit(end);
+    this.refresh();
+    const el = this.getToolsElem();
+    let $this = this;
+    el.addEventListener('scroll', function () {
+      $this.refresh();
+    });
   }
 
   moveLeft() {
-    if (this._start > 1) {
-      this.start = this._start - 1;
-      this.end = this._end - 1;
-      this.updateShowLeftRight();
+    const el = this.getToolsElem();
+    if (el) {
+      let elem = this.canMoveTo(true);
+      if (elem) {
+        let options = {
+          left: $(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
+          top: 0,
+        };
+        el.scrollTo(options);
+      }
     }
   }
 
   moveRight() {
-    if (this._end < this._countElem + 2) {
-      this.start = this._start + 1;
-      this.end = this._end + 1;
-      this.updateShowLeftRight();
+    const el = this.getToolsElem();
+    if (el) {
+      let elem = this.canMoveTo(false);
+      if (elem) {
+        let options = {
+          left: $(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
+          top: 0,
+        };
+        el.scrollTo(options);
+      }
     }
   }
 
-  get showScroll() {
-    return this._showScroll;
+  private getToolsElem() {
+    return this._elementRef ? this._elementRef.nativeElement.children[0].querySelector('#tools') : null;
   }
 
-  private refresh() {
-    const el = this._elementRef.nativeElement ? this._elementRef.nativeElement.children[0] : null;
+  private canMoveTo(left: boolean) {
+    let elem;
+    const children = this.getChildren();
+    const countElem = children.length;
+    for (elem = 0; elem < countElem; elem++) {
+      const element = this.getElem(elem);
+      if (this._viewportService.checkInViewport(element, 100, this.getLeftOffset())) {
+        if (left) {
+          return elem > 0 ? children.item(elem - 1) : null;
+        } else {
+          return elem + 1 < countElem ? children.item(elem + 1) : null;
+        }
+      }
+    }
+    return;
+  }
+
+  private getElem(num: number) {
+    const elems = this.getChildren();
+    return elems.item(num != null ? num : elems.length - 1);
+  }
+
+  private getChildren(): HTMLCollection {
+    const el = this.getToolsElem();
     if (!el) {
       return;
     }
-    const elems = el.children;
-    this._countElem = this.showScroll ? elems.length - 2 : elems.length;
-
-    let widthOfElems = 0;
-    let count = elems.length;
-    for (let i = this._start; i < (this.showScroll ? elems.length - 1 : elems.length); i++) {
-      const clientWidth = elems.item(i).clientWidth;
-      if (this._mostBigElemWidth < clientWidth) {
-        this._mostBigElemWidth = clientWidth;
-      }
-      widthOfElems += clientWidth == 0 ? this._mostBigElemWidth : clientWidth;
-      if (widthOfElems > this._width) {
-        count = i - 1;
-        break;
-      }
-    }
-
-    if (count == elems.length) {
-      this._showScroll = false;
-      this.start = 0;
-      this.end = elems.length;
-    } else {
-      this.start = this.showScroll ? this._start : 1;
-      this.end = count - (count < this._countElem ? 1 : 0) - (this._start > 1 ? 1 : 0);
-      this._showScroll = true;
-    }
-    this.updateShowLeftRight();
+    return el.children;
   }
 
-  updateShowLeftRight() {
-    this.showLeft = this._start > 1;
-    this.showRight = this._end < this._countElem;
+  private getLeftOffset() {
+    const el = this._elementRef.nativeElement ? this._elementRef.nativeElement.parentElement.children[0] : null;
+    if (!el) {
+      return 0;
+    }
+    return el.clientWidth;
+  }
+
+  private refresh() {
+    this.showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset());
+    this.showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset());
   }
 
   ngAfterViewChecked(): void {
-    let $this = this;
-    setTimeout(function () {
-      $this._width = $this.calcWidth(window.innerWidth);
-      $this.refresh();
-    }, 500);
+    let showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset());
+    let showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset());
+    if (showLeft != this.showLeft || showRight != this.showRight) {
+      this.showLeft = showLeft;
+      this.showRight = showRight;
+      this._cdRef.detectChanges();
+    }
   }
-
 }

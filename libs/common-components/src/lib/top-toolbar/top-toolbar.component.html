@@ -1,7 +1,11 @@
 <div class="top-toolbar">
-  <gd-button id="left" [icon]="'arrow-left'" [tooltip]="'Scroll left'" (click)="moveLeft()"
-             *ngIf="showScroll && showLeft"></gd-button>
-  <ng-content></ng-content>
-  <gd-button id="right" [icon]="'arrow-right'" [tooltip]="'Scroll right'" (click)="moveRight()"
-             *ngIf="showScroll && showRight"></gd-button>
+  <gd-button [className]="'arrow-button'" class="arrow-left" id="left" [icon]="'arrow-left'" [tooltip]="'Scroll left'"
+             (click)="moveLeft()"
+             *ngIf="showLeft"></gd-button>
+  <div id="tools" class="tools">
+    <ng-content></ng-content>
+  </div>
+  <gd-button [className]="'arrow-button'" class="arrow-right" id="right" [icon]="'arrow-right'"
+             [tooltip]="'Scroll right'" (click)="moveRight()"
+             *ngIf="showRight"></gd-button>
 </div>
