@@ -5,16 +5,14 @@ import {
   FileModel,
   ModalService,
   UploadFilesService,
-  NavigateService,
-  PagePreloadService,
-  PageModel,
   RenderPrintService,
-  FileUtil,
   PasswordService,
   FileCredentials, CommonModals
 } from "@groupdocs-total-angular/common-components";
-
+import {EditorConfig} from "./editor-config";
+import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
+import {FontsService} from "./fonts.service";
 
 @Component({
   selector: 'gd-editor-angular-root',
@@ -25,6 +23,7 @@ export class EditorAppComponent implements AfterViewInit {
   title = 'editor';
   files: FileModel[] = [];
   file: FileDescription;
+  editorConfig: EditorConfig;
   formatDisabled = !this.file;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
@@ -34,19 +33,60 @@ export class EditorAppComponent implements AfterViewInit {
   _pageHeight: number;
   startTool: number;
   endTool: number;
-  options;
+  fonts;
+  _font: string = "Arial";
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
+              configService: EditorConfigService,
               uploadFilesService: UploadFilesService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
-              private _windowService: WindowService) {
+              private _windowService: WindowService,
+              private _fontService: FontsService,) {
+
+    configService.updatedConfig.subscribe((editorConfig) => {
+      this.editorConfig = editorConfig;
+    });
 
     this.isDesktop = _windowService.isDesktop();
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
     });
+
+    this.fonts = this.fontOptions();
+  }
+
+  get rewriteConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.rewrite : true;
+  }
+
+  get downloadConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.download : true;
+  }
+
+  get uploadConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.upload : true;
+  }
+
+  get printConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.print : true;
+  }
+
+  get browseConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.browse : true;
+  }
+
+  get enableRightClickConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.enableRightClick : true;
+  }
+
+  get pageSelectorConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.pageSelector : true;
+  }
+
+  get createNewFileConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.createNewFile : true;
   }
 
   openModal(id: string) {
@@ -66,12 +106,31 @@ export class EditorAppComponent implements AfterViewInit {
     return pt * 96 / 72;
   }
 
+  onRightClick($event: MouseEvent) {
+    return this.enableRightClickConfig;
+  }
+
   isHidden(number: number) {
     return (number < this.startTool || number > this.endTool) ? 'none' : null;
   }
 
-  ngAfterViewInit(): void {
+  fontOptions() {
+    return FontsService.fontOptions();
   }
 
+  set font(font: string) {
+    this._font = font;
+    this._fontService.changeFont(this._font);
+  }
 
+  get font() {
+    return this._font;
+  }
+
+  selectFont($event: any) {
+    this.font = $event;
+  }
+
+  ngAfterViewInit(): void {
+  }
 }

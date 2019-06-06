@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build",
     "release_viewer": "ng build viewer --aot --prod --vendor-chunk=false --output-hashing=none && git add apps/viewer/dist",
-	  "release_editor": "ng build editor --aot --prod --vendor-chunk=false --output-hashing=none && git add apps/editor/dist",
+    "release_editor": "ng build editor --aot --prod --vendor-chunk=false --output-hashing=none && git add apps/editor/dist",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
     "e2e": "ng e2e --headless",
@@ -65,14 +65,16 @@
     "@angular/compiler": "^7.0.0",
     "@angular/core": "^7.0.0",
     "@angular/forms": "^7.0.0",
+    "@angular/material": "^8.0.0",
     "@angular/platform-browser": "^7.0.0",
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/router": "^7.0.0",
-    "core-js": "^2.5.4",
-    "rxjs": "6.3.3",
-    "zone.js": "^0.8.26",
     "angular2-fontawesome": "^5.2.1",
+    "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.1"
+    "igniteui-angular": "^7.3.3",
+    "jquery": "^3.4.1",
+    "rxjs": "6.3.3",
+    "zone.js": "^0.8.26"
   }
 }

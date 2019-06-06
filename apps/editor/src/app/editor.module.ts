@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import {EditorAppComponent} from './editor-app.component';
 import {CommonComponentsModule, ErrorInterceptorService} from "@groupdocs-total-angular/common-components";
@@ -9,14 +10,14 @@ import {EditorService} from "./editor.service";
 import {ConfigService} from "@groupdocs-total-angular/common-components";
 import {EditorConfigService} from "./editor-config.service";
 import { TabsComponent } from './tabs/tabs.component';
-import { ToolbarsComponent } from './toolbars/toolbars.component';
+import { TabComponent } from './tab/tab.component';
 
 export function initializeApp(editorConfigService: EditorConfigService) {
   return () => editorConfigService.load();
 }
 
 @NgModule({
-  declarations: [EditorAppComponent, TabsComponent, ToolbarsComponent],
+  declarations: [EditorAppComponent, TabsComponent, TabComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule.forRoot(),
@@ -39,7 +40,7 @@ export function initializeApp(editorConfigService: EditorConfigService) {
     }
   ],
   bootstrap: [EditorAppComponent],
-  exports: [TabsComponent, ToolbarsComponent]
+  exports: [TabsComponent, TabComponent]
 })
 export class EditorModule {
 }

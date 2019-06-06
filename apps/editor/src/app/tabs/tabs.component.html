@@ -1,0 +1,6 @@
+<div class="gd-tabs">
+  <div [ngClass]="(tab.active) ? 'gd-tab active' : 'gd-tab'" *ngFor="let tab of tabs" (click)="selectTab(tab)">
+    {{tab.tabTitle}}
+  </div>
+</div>
+<ng-content></ng-content>

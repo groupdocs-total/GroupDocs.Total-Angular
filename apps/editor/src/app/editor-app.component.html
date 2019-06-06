@@ -3,11 +3,35 @@
     <gd-logo [logo]="'editor'"></gd-logo>
     <gd-top-toolbar class="toolbar-panel" (startOut)="startTool = $event" (endOut)="endTool = $event">
 
-      <gd-tabs class="gd-tabs"></gd-tabs>
+      <tabs>
+        <tab tabTitle="File">
+          <gd-button [icon]="'file'" [tooltip]="'create file'" (click)="createnewFile()"
+                     *ngIf="createNewFileConfig"></gd-button>
+          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                     *ngIf="browseConfig"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
+                     (click)="toFirstPage()" *ngIf="pageSelectorConfig"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
+                     (click)="prevPage()" *ngIf="pageSelectorConfig"></gd-button>
+          <div class="current-page-number">{{currentPage}}/{{countPages}}</div>
+          <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
+                     (click)="nextPage()" *ngIf="pageSelectorConfig"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
+                     (click)="toLastPage()" *ngIf="pageSelectorConfig"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+                     (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'"
+                     (click)="saveFile()"></gd-button>
+        </tab>
+        <tab tabTitle="Formatting">
+          <gd-select [disabled]="false" [options]="fonts" (selected)="selectFont($event)"
+                     [showSelected]="font"></gd-select>
+        </tab>
+      </tabs>
 
     </gd-top-toolbar>
 
-    <gd-toolbars class="gd-toolbars"></gd-toolbars>
+
 
 
   </div>

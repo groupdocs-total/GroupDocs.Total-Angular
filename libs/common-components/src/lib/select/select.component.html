@@ -1,5 +1,5 @@
 <div class="select">
-  <span class="selected-value" gdDisabledCursor [dis]="disabled" (click)="toggle()">{{showSelected}}%</span>
+  <span class="selected-value" gdDisabledCursor [dis]="disabled" (click)="toggle()">{{showSelected}}</span>
   <span class="nav-caret" gdDisabledCursor [dis]="disabled" (click)="toggle()"></span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">
