@@ -13,8 +13,7 @@ import {
   PasswordService,
   FileCredentials, CommonModals
 } from "@groupdocs-total-angular/common-components";
-import {EditorConfig} from "./editor-config";
-import {EditorConfigService} from "./editor-config.service";
+
 import {WindowService} from "@groupdocs-total-angular/common-components";
 
 @Component({
@@ -26,7 +25,6 @@ export class EditorAppComponent implements AfterViewInit {
   title = 'editor';
   files: FileModel[] = [];
   file: FileDescription;
-  editorConfig: EditorConfig;
   formatDisabled = !this.file;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
@@ -40,44 +38,15 @@ export class EditorAppComponent implements AfterViewInit {
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
-              configService: EditorConfigService,
               uploadFilesService: UploadFilesService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService) {
 
-    configService.updatedConfig.subscribe((editorConfig) => {
-      this.editorConfig = editorConfig;
-    });
-
     this.isDesktop = _windowService.isDesktop();
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
     });
-  }
-
-  get rewriteConfig(): boolean {
-    return this.editorConfig ? this.editorConfig.rewrite : true;
-  }
-
-  get downloadConfig(): boolean {
-    return this.editorConfig ? this.editorConfig.download : true;
-  }
-
-  get uploadConfig(): boolean {
-    return this.editorConfig ? this.editorConfig.upload : true;
-  }
-
-  get printConfig(): boolean {
-    return this.editorConfig ? this.editorConfig.print : true;
-  }
-
-  get browseConfig(): boolean {
-    return this.editorConfig ? this.editorConfig.browse : true;
-  }
-
-  get enableRightClickConfig(): boolean {
-    return this.editorConfig ? this.editorConfig.enableRightClick : true;
   }
 
   openModal(id: string) {
@@ -97,14 +66,12 @@ export class EditorAppComponent implements AfterViewInit {
     return pt * 96 / 72;
   }
 
-  onRightClick($event: MouseEvent) {
-    return this.enableRightClickConfig;
-  }
-
   isHidden(number: number) {
     return (number < this.startTool || number > this.endTool) ? 'none' : null;
   }
 
   ngAfterViewInit(): void {
   }
+
+
 }

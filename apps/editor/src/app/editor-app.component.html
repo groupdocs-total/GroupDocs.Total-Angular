@@ -2,10 +2,14 @@
   <div class="top-panel">
     <gd-logo [logo]="'editor'"></gd-logo>
     <gd-top-toolbar class="toolbar-panel" (startOut)="startTool = $event" (endOut)="endTool = $event">
-      <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
-                 *ngIf="browseConfig" [style.display]="isHidden(1)"></gd-button>
 
-      </gd-top-toolbar>
+      <gd-tabs class="gd-tabs"></gd-tabs>
+
+    </gd-top-toolbar>
+
+    <gd-toolbars class="gd-toolbars"></gd-toolbars>
+
+
   </div>
   <div class="doc-panel" *ngIf="file">
 

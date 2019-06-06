@@ -10,4 +10,5 @@ export class EditorConfig {
   filesDirectory: string;
   fontsDirectory: string;
   defaultDocument: string;
+  createNewFile: boolean;
 }

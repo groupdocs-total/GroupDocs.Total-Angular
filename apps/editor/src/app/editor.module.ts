@@ -8,13 +8,15 @@ import {Angular2FontawesomeModule} from "angular2-fontawesome";
 import {EditorService} from "./editor.service";
 import {ConfigService} from "@groupdocs-total-angular/common-components";
 import {EditorConfigService} from "./editor-config.service";
+import { TabsComponent } from './tabs/tabs.component';
+import { ToolbarsComponent } from './toolbars/toolbars.component';
 
 export function initializeApp(editorConfigService: EditorConfigService) {
   return () => editorConfigService.load();
 }
 
 @NgModule({
-  declarations: [EditorAppComponent],
+  declarations: [EditorAppComponent, TabsComponent, ToolbarsComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule.forRoot(),
@@ -36,7 +38,8 @@ export function initializeApp(editorConfigService: EditorConfigService) {
       deps: [EditorConfigService], multi: true
     }
   ],
-  bootstrap: [EditorAppComponent]
+  bootstrap: [EditorAppComponent],
+  exports: [TabsComponent, ToolbarsComponent]
 })
 export class EditorModule {
 }
