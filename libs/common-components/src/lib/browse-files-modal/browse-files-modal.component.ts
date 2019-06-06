@@ -1,5 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FileModel, FileUtil} from "../file.service";
+import {UploadFilesService} from "../upload-files.service";
+import * as $ from "jquery";
 
 const upload_disc = 'Disc';
 
@@ -24,7 +26,7 @@ export class BrowseFilesModalComponent implements OnInit {
   showUploadUrl: boolean = false;
   showUploadFile: boolean = false;
 
-  constructor() {
+  constructor(private _uploadService: UploadFilesService) {
   }
 
   ngOnInit() {
@@ -75,10 +77,9 @@ export class BrowseFilesModalComponent implements OnInit {
   selectUpload($event: string) {
     if (upload_url == $event) {
       this.showUploadUrl = true;
-      this.showUploadFile = false;
     } else {
-      this.showUploadFile = true;
       this.showUploadUrl = false;
+      $("#gd-upload-input").trigger('click');
     }
   }
 
@@ -87,7 +88,6 @@ export class BrowseFilesModalComponent implements OnInit {
       this.files = null;
       this.selectedDirectory.emit('');
       this.showUploadUrl = false;
-      this.showUploadFile = false;
       this.selectedFile = null;
     }
   }
@@ -101,6 +101,10 @@ export class BrowseFilesModalComponent implements OnInit {
       this.urlForUpload.emit(url);
       this.cleanUpload();
     }
+  }
+
+  handleFileInput(files: FileList) {
+    this._uploadService.changeFilesList(files);
   }
 
   cleanUpload() {
