@@ -9,11 +9,11 @@ export class ViewportService {
   constructor() {
   }
 
-  checkInViewport(el, zoom: number = 100, leftOffset: number = 0) {
+  checkInViewport(el, zoom: number = 100, leftOffset: number = 0, deltaX: number = 0.5) {
     if (!el) {
       return false;
     }
-    let x = 0.5;
+    let x = deltaX;
     let y = 0.5;
 
     var win = $(window);
@@ -21,27 +21,28 @@ export class ViewportService {
     var viewport = {
       top: win.scrollTop(),
       left: win.scrollLeft() + leftOffset,
-      right: win.scrollLeft() + win.width() - leftOffset,
+      right: win.scrollLeft() + win.width() - 10,
       bottom: win.scrollTop() + win.height()
     };
 
 
     if (isNaN(zoom)) {
-      zoom = 1;
+      zoom = 100;
     }
 
-    var height = $(el).outerHeight() * (zoom / 100);
-    var width = $(el).outerWidth() * (zoom / 100);
+    const zoomN = zoom / 100;
+    var height = $(el).outerHeight() * (zoomN);
+    var width = $(el).outerWidth() * (zoomN);
 
     if (!width || !height) {
       return false;
     }
 
     var bounds = $(el).offset();
-    var right = (bounds.left * (zoom / 100)) + width;
-    var bottom = (bounds.top * (zoom / 100)) + height;
+    var right = (bounds.left * (zoomN)) + width;
+    var bottom = (bounds.top * (zoomN)) + height;
 
-    var visible = (!(viewport.right < (bounds.left * (zoom / 100)) || viewport.left > right || viewport.bottom < (bounds.top * (zoom / 100)) || viewport.top > bottom));
+    var visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
 
     if (!visible) {
       return false;
@@ -49,9 +50,9 @@ export class ViewportService {
 
     var deltas = {
       top: Math.min(1, (bottom - viewport.top) / height),
-      bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoom / 100))) / height),
+      bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
       left: Math.min(1, (right - viewport.left) / width),
-      right: Math.min(1, (viewport.right - (bounds.left * (zoom / 100))) / width)
+      right: Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width)
     };
 
     return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;

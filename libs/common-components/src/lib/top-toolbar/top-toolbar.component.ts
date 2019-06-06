@@ -96,13 +96,13 @@ export class TopToolbarComponent implements OnInit, AfterViewChecked {
   }
 
   private refresh() {
-    this.showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset());
-    this.showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset());
+    this.showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
+    this.showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
   }
 
   ngAfterViewChecked(): void {
-    let showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset());
-    let showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset());
+    let showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
+    let showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
     if (showLeft != this.showLeft || showRight != this.showRight) {
       this.showLeft = showLeft;
       this.showRight = showRight;
