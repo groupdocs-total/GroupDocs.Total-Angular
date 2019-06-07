@@ -12,6 +12,7 @@ import {NavigateService} from "./navigate.service";
 import {PagePreloadService} from "./page-preload.service";
 import {ZoomService} from "./zoom.service";
 import {WindowService} from "./window.service";
+import {ViewportService} from "./viewport.service";
 import * as $ from 'jquery';
 
 @Directive({
@@ -27,7 +28,8 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
               private _navigateService: NavigateService,
               private _pagePreloadService: PagePreloadService,
               private _zoomService: ZoomService,
-              private _windowService: WindowService) {
+              private _windowService: WindowService,
+              private _viewportService: ViewportService) {
 
     this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
     _zoomService.zoomChange.subscribe((val: number) => {
@@ -58,7 +60,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
     const page = this.getPage(pageNumber);
     const prev = pageNumber > 0 ? this.getPage(pageNumber - 1) : null;
     const isSameTop = (prev && $(prev).offset().top == $(page).offset().top);
-    if (this.checkInViewport(page) && isSameTop) {
+    if (this._viewportService.checkInViewport(page, this.zoom) && isSameTop) {
       return;
     }
     let pagesHeight = this.calculateOffset(pageNumber);
@@ -113,7 +115,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
     const currentPageRect = this.currentPage && pageElem ? pageElem.getBoundingClientRect() : null;
     for (page = 1; page < this.getChildren().length + 1; page++) {
       const element = this.getPage(page);
-      if (this.checkInViewport(element)) {
+      if (this._viewportService.checkInViewport(element, this.zoom)) {
         if (!currentPageSet) {
           if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top != currentPageRect.top)) {
             this.currentPage = page;
@@ -124,54 +126,6 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
         this._pagePreloadService.changeLastPageInView(page);
       }
     }
-  }
-
-  checkInViewport(el, partial: boolean = true, direction: string = 'vertical') {
-    if (!el) {
-      return false;
-    }
-    let x = 0.5;
-    let y = 0.5;
-
-    var win = $(window);
-
-    var viewport = {
-      top: win.scrollTop(),
-      left: win.scrollLeft(),
-      right: win.scrollLeft() + win.width(),
-      bottom: win.scrollTop() + win.height()
-    };
-
-
-    if (isNaN(this.zoom)) {
-      this.zoom = 1;
-    }
-
-    var height = $(el).outerHeight() * (this.zoom / 100);
-    var width = $(el).outerWidth() * (this.zoom / 100);
-
-    if (!width || !height) {
-      return false;
-    }
-
-    var bounds = $(el).offset();
-    var right = (bounds.left * (this.zoom / 100)) + width;
-    var bottom = (bounds.top * (this.zoom / 100)) + height;
-
-    var visible = (!(viewport.right < (bounds.left * (this.zoom / 100)) || viewport.left > right || viewport.bottom < (bounds.top * (this.zoom / 100)) || viewport.top > bottom));
-
-    if (!visible) {
-      return false;
-    }
-
-    var deltas = {
-      top: Math.min(1, (bottom - viewport.top) / height),
-      bottom: Math.min(1, (viewport.bottom - (bounds.top * (this.zoom / 100))) / height),
-      left: Math.min(1, (right - viewport.left) / width),
-      right: Math.min(1, (viewport.right - (bounds.left * (this.zoom / 100))) / width)
-    };
-
-    return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
