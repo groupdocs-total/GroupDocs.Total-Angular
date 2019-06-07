@@ -1,30 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
-import {ViewerModule} from "../../../viewer/src/app/viewer.module";
-import {ViewerAppComponent} from "../../../viewer/src/app/viewer-app.component";
-
-import {EditorModule} from "../../../editor/src/app/editor.module";
-import {EditorAppComponent} from "../../../editor/src/app/editor-app.component";
 
 import {TotalViewComponent} from "./total-view/total-view.component";
 
 const routes: Routes = [
   {path: '', component: TotalViewComponent},
-  {path: 'viewer',
-    component: ViewerAppComponent},
-  {path: 'editor',
-    component: EditorAppComponent},
+  {
+    path: 'viewer',
+    loadChildren: () => import('../../../viewer/src/app/viewer-export/viewer-export.module').then(mod => mod.ViewerExportModule)
+  },
+  {
+    path: 'editor',
+    loadChildren: () => import('../../../editor/src/app/editor-export/editor-export.module').then(mod => mod.EditorExportModule)
+  },
 ];
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    ViewerModule,
-    EditorModule,
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
