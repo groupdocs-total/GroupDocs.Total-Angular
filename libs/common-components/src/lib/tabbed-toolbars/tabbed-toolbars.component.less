@@ -1,0 +1,24 @@
+@import "~src/../../libs/common-components/src/styles/variables";
+
+
+.top-panel {
+  background: @nav-main-background ;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: @nav-tabs-height;
+
+  ::ng-deep .logo{
+    height: @nav-tabs-height;
+    font-size: 16px;
+  }
+}
+
+@media @phone-down{
+  .top-panel {
+    height: @nav-tabs-height-m;
+    ::ng-deep .logo{
+      height: @nav-tabs-height-m;
+    }
+  }
+}

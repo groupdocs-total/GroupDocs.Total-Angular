@@ -20,24 +20,6 @@
     "viewer-e2e": {
       "tags": []
     },
-    "signature": {
-      "tags": []
-    },
-    "signature-e2e": {
-      "tags": []
-    },
-    "annotation": {
-      "tags": []
-    },
-    "annotation-e2e": {
-      "tags": []
-    },
-    "comparison": {
-      "tags": []
-    },
-    "comparison-e2e": {
-      "tags": []
-    },
     "common-components": {
       "tags": []
     },

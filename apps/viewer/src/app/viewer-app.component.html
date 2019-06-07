@@ -1,6 +1,6 @@
 <div class="wrapper" (contextmenu)="onRightClick($event)">
   <div class="top-panel">
-    <gd-logo [logo]="'viewer'"></gd-logo>
+    <gd-logo [logo]="'viewer'" [icon]="'eye'"></gd-logo>
     <gd-top-toolbar class="toolbar-panel">
       <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                  *ngIf="browseConfig" ></gd-button>

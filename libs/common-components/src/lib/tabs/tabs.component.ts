@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TabComponent} from "../tab/tab.component";
 
 @Component({
-  selector: 'tabs',
+  selector: 'gd-tabs',
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.less']
 })
