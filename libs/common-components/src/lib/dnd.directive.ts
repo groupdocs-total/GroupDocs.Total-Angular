@@ -34,7 +34,8 @@ export class DndDirective {
     if (this.isBackground) {
       this.background = '#f8f8f8';
     } else {
-      this.open.emit(false);
+      // TODO: fix blinking
+      //this.open.emit(false);
     }
   }
 
