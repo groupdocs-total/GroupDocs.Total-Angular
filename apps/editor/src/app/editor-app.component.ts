@@ -7,7 +7,7 @@ import {
   UploadFilesService,
   RenderPrintService,
   PasswordService,
-  FileCredentials, CommonModals
+  FileCredentials, CommonModals, NavigateService
 } from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -35,10 +35,13 @@ export class EditorAppComponent implements AfterViewInit {
   endTool: number;
   fonts;
   _font: string = "Arial";
+  private _navigateService: any;
+  countPages: number = 0;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
               configService: EditorConfigService,
+              private _navigateService: NavigateService,
               uploadFilesService: UploadFilesService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
@@ -131,6 +134,34 @@ export class EditorAppComponent implements AfterViewInit {
     this.font = $event;
   }
 
+  createDocument() {
+    this._editorService.createDocument().subscribe((file: FileDescription) => {
+        this.file = file;
+        this.formatDisabled = !this.file;
+        if (file) {
+          if (file.pages && file.pages[0]) {
+            this._pageHeight = file.pages[0].height;
+            this._pageWidth = file.pages[0].width;
+          }
+          const countPages = file.pages ? file.pages.length : 0;
+          this._navigateService.countPages = countPages;
+          this._navigateService.currentPage = 1;
+          this.countPages = countPages;
+        }
+      }
+    );
+    this.clearData();
+  }
+
+  private clearData() {
+    if (!this.file || !this.file.pages) {
+      return;
+    }
+    for (let page of this.file.pages) {
+      page.data = null;
+    }
+  }
+  
   ngAfterViewInit(): void {
   }
 }

@@ -15,6 +15,7 @@ export class Api {
   public static LOAD_PRINT = '/loadPrint';
   public static LOAD_PRINT_PDF = '/printPdf';
   public static LOAD_THUMBNAILS = '/loadThumbnails';
+  public static CREATE_DOCUMENT = '/createDocument';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

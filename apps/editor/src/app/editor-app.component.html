@@ -3,8 +3,10 @@
     <gd-tabs>
       <gd-tab tabTitle="File" [icon]="'folder-open'">
         <gd-top-toolbar class="toolbar-panel">
-          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+          <gd-button [icon]="'file'" [tooltip]="'Create document'" (click)="createDocument()"
                      *ngIf="browseConfig"></gd-button>
+          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                     *ngIf="createNewFileConfig"></gd-button>
         </gd-top-toolbar>
       </gd-tab>
       <gd-tab tabTitle="Formatting" [icon]="'edit'">

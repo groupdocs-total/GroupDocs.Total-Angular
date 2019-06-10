@@ -13,4 +13,8 @@ export class EditorService {
   loadFiles(path: string) {
     return this._http.post(this._config.getEditorApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
   }
+
+  createDocument() {
+    return this._http.post(this._config.getEditorApiEndpoint() + Api.CREATE_DOCUMENT, Api.httpOptionsJson);
+  }
 }
