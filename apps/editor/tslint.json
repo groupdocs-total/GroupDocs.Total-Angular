@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "groupdocs-total-angular",
-      "camelCase"
+      "gd",
+      "kebab-case"
     ],
     "component-selector": [
       true,
       "element",
-      "groupdocs-total-angular",
+      "gd",
       "kebab-case"
     ]
   }

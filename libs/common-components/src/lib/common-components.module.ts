@@ -37,6 +37,8 @@ import {SearchComponent} from './search/search.component';
 import {SearchableDirective} from './searchable.directive';
 import {SearchService} from "./search.service";
 import {WindowService} from "./window.service";
+import {ViewportService} from "./viewport.service";
+import { TabbedToolbarsComponent } from './tabbed-toolbars/tabbed-toolbars.component';
 
 const providers = [ConfigService,
   Api,
@@ -57,7 +59,8 @@ const providers = [ConfigService,
   PasswordService,
   ErrorInterceptorService,
   SearchService,
-  WindowService];
+  WindowService,
+  ViewportService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
@@ -88,6 +91,7 @@ const providers = [ConfigService,
     PasswordRequiredComponent,
     SearchComponent,
     SearchableDirective,
+    TabbedToolbarsComponent,
   ],
   exports: [
     TopToolbarComponent,
@@ -113,6 +117,7 @@ const providers = [ConfigService,
     PasswordRequiredComponent,
     SearchComponent,
     SearchableDirective,
+    TabbedToolbarsComponent,
   ],
   providers: providers
 })

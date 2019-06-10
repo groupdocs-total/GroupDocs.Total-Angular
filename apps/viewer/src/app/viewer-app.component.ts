@@ -40,8 +40,6 @@ export class ViewerAppComponent implements AfterViewInit {
   _zoom: number = 100;
   _pageWidth: number;
   _pageHeight: number;
-  startTool: number;
-  endTool: number;
   options;
 
   constructor(private _viewerService: ViewerService,
@@ -382,10 +380,6 @@ export class ViewerAppComponent implements AfterViewInit {
     if (this.formatDisabled)
       return;
     this.showSearch = !this.showSearch;
-  }
-
-  isHidden(number: number) {
-    return (number < this.startTool || number > this.endTool) ? 'none' : null;
   }
 
   ngAfterViewInit(): void {

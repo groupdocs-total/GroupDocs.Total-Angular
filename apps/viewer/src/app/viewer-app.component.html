@@ -1,39 +1,39 @@
 <div class="wrapper" (contextmenu)="onRightClick($event)">
   <div class="top-panel">
-    <gd-logo [logo]="'viewer'"></gd-logo>
-    <gd-top-toolbar class="toolbar-panel" (startOut)="startTool = $event" (endOut)="endTool = $event">
+    <gd-logo [logo]="'viewer'" [icon]="'eye'"></gd-logo>
+    <gd-top-toolbar class="toolbar-panel">
       <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
-                 *ngIf="browseConfig" [style.display]="isHidden(1)"></gd-button>
+                 *ngIf="browseConfig" ></gd-button>
 
       <gd-select [disabled]="formatDisabled" [options]="options" (selected)="selectZoom($event)"
-                 [showSelected]="zoom" *ngIf="zoomConfig" [style.display]="isHidden(2)"></gd-select>
+                 [showSelected]="zoom" *ngIf="zoomConfig" ></gd-select>
       <gd-button [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"
-                 *ngIf="zoomConfig" [style.display]="isHidden(3)"></gd-button>
+                 *ngIf="zoomConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
-                 (click)="zoomOut()" *ngIf="zoomConfig" [style.display]="isHidden(4)"></gd-button>
+                 (click)="zoomOut()" *ngIf="zoomConfig" ></gd-button>
 
       <gd-button [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
-                 (click)="toFirstPage()" *ngIf="pageSelectorConfig" [style.display]="isHidden(5)"></gd-button>
+                 (click)="toFirstPage()" *ngIf="pageSelectorConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
-                 (click)="prevPage()" *ngIf="pageSelectorConfig" [style.display]="isHidden(6)"></gd-button>
-      <div class="current-page-number" [style.display]="isHidden(7)">{{currentPage}}/{{countPages}}</div>
+                 (click)="prevPage()" *ngIf="pageSelectorConfig" ></gd-button>
+      <div class="current-page-number">{{currentPage}}/{{countPages}}</div>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
-                 (click)="nextPage()" *ngIf="pageSelectorConfig" [style.display]="isHidden(8)"></gd-button>
+                 (click)="nextPage()" *ngIf="pageSelectorConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
-                 (click)="toLastPage()" *ngIf="pageSelectorConfig" [style.display]="isHidden(9)"></gd-button>
+                 (click)="toLastPage()" *ngIf="pageSelectorConfig" ></gd-button>
 
       <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Rotate CCW'" (click)="rotate(-90)"
-                 *ngIf="rotateConfig" [style.display]="isHidden(10)"></gd-button>
+                 *ngIf="rotateConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Rotate CW'" (click)="rotate(90)"
-                 *ngIf="rotateConfig" [style.display]="isHidden(11)"></gd-button>
+                 *ngIf="rotateConfig" ></gd-button>
 
       <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
-                 (click)="downloadFile()" *ngIf="downloadConfig" [style.display]="isHidden(12)"></gd-button>
+                 (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
-                 *ngIf="printConfig" [style.display]="isHidden(13)"></gd-button>
+                 *ngIf="printConfig" ></gd-button>
 
       <gd-button [disabled]="formatDisabled" [icon]="'search'" [tooltip]="'Search'" (click)="openSearch()"
-                 *ngIf="searchConfig" [style.display]="isHidden(14)"></gd-button>
+                 *ngIf="searchConfig" ></gd-button>
       <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" ></gd-search>
 
       <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"

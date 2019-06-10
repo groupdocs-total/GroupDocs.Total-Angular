@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class LogoComponent implements OnInit {
 
   @Input() logo;
+  @Input() icon;
 
   constructor() { }
 

@@ -5,17 +5,14 @@ import {
   FileModel,
   ModalService,
   UploadFilesService,
-  NavigateService,
-  PagePreloadService,
-  PageModel,
   RenderPrintService,
-  FileUtil,
   PasswordService,
   FileCredentials, CommonModals
 } from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
+import {FontsService} from "./fonts.service";
 
 @Component({
   selector: 'gd-editor-angular-root',
@@ -36,7 +33,8 @@ export class EditorAppComponent implements AfterViewInit {
   _pageHeight: number;
   startTool: number;
   endTool: number;
-  options;
+  fonts;
+  _font: string = "Arial";
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -44,7 +42,8 @@ export class EditorAppComponent implements AfterViewInit {
               uploadFilesService: UploadFilesService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
-              private _windowService: WindowService) {
+              private _windowService: WindowService,
+              private _fontService: FontsService,) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -54,6 +53,8 @@ export class EditorAppComponent implements AfterViewInit {
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
     });
+
+    this.fonts = this.fontOptions();
   }
 
   get rewriteConfig(): boolean {
@@ -80,6 +81,14 @@ export class EditorAppComponent implements AfterViewInit {
     return this.editorConfig ? this.editorConfig.enableRightClick : true;
   }
 
+  get pageSelectorConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.pageSelector : true;
+  }
+
+  get createNewFileConfig(): boolean {
+    return this.editorConfig ? this.editorConfig.createNewFile : true;
+  }
+
   openModal(id: string) {
     this._modalService.open(id);
   }
@@ -103,6 +112,23 @@ export class EditorAppComponent implements AfterViewInit {
 
   isHidden(number: number) {
     return (number < this.startTool || number > this.endTool) ? 'none' : null;
+  }
+
+  fontOptions() {
+    return FontsService.fontOptions();
+  }
+
+  set font(font: string) {
+    this._font = font;
+    this._fontService.changeFont(this._font);
+  }
+
+  get font() {
+    return this._font;
+  }
+
+  selectFont($event: any) {
+    this.font = $event;
   }
 
   ngAfterViewInit(): void {

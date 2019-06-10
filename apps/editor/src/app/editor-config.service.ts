@@ -24,8 +24,8 @@ export class EditorConfigService {
     return new Promise<void>((resolve, reject) => {
       const configEndpoint = this._config.getConfigEndpoint(Api.EDITOR_APP);
       this._http.get(configEndpoint, Api.httpOptionsJson).toPromise().then((response: EditorConfig) => {
-        const viewerConfig = <EditorConfig>response;
-        this._editorConfig.next(viewerConfig);
+        const editorConfig = <EditorConfig>response;
+        this._editorConfig.next(editorConfig);
         resolve();
       }).catch((response: any) => {
         reject(`Could not load editor config: ${JSON.stringify(response)}`);
