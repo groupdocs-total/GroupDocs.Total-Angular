@@ -45,7 +45,7 @@
                    [guid]="file.guid" [mode]="htmlModeConfig"></gd-thumbnails>
 
     <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig"
-                 [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint></gd-document>
+                 [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
   </div>
 
   <gd-init-state [icon]="'eye'" [text]="''" *ngIf="!file"></gd-init-state>
