@@ -133,4 +133,12 @@ export class EditorAppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
   }
+
+  selectFile($event: string, param2, browseFilesModal: string) {
+
+  }
+
+  upload($event: string) {
+
+  }
 }

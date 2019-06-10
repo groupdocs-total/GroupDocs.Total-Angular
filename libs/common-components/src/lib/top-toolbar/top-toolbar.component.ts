@@ -1,4 +1,4 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnInit} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Input, OnInit} from '@angular/core';
 import {ViewportService} from "../viewport.service";
 import * as $ from "jquery";
 
@@ -8,6 +8,8 @@ import * as $ from "jquery";
   styleUrls: ['./top-toolbar.component.less']
 })
 export class TopToolbarComponent implements OnInit, AfterViewChecked {
+  @Input() leftOffset: boolean = true;
+
   showLeft: boolean;
   showRight: boolean;
 
@@ -88,6 +90,9 @@ export class TopToolbarComponent implements OnInit, AfterViewChecked {
   }
 
   private getLeftOffset() {
+    if (!this.leftOffset) {
+      return 0;
+    }
     const el = this._elementRef.nativeElement ? this._elementRef.nativeElement.parentElement.children[0] : null;
     if (!el) {
       return 0;
