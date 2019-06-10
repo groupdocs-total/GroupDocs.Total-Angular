@@ -7,7 +7,7 @@ import {
   UploadFilesService,
   RenderPrintService,
   PasswordService,
-  FileCredentials, CommonModals, NavigateService
+  FileCredentials, CommonModals, NavigateService, PageModel, PagePreloadService
 } from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -27,6 +27,7 @@ export class EditorAppComponent implements AfterViewInit {
   formatDisabled = !this.file;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
+  createDocumentModal = CommonModals.CreateDocument;
   isDesktop: boolean;
 
   _pageWidth: number;
@@ -35,7 +36,6 @@ export class EditorAppComponent implements AfterViewInit {
   endTool: number;
   fonts;
   _font: string = "Arial";
-  private _navigateService: any;
   countPages: number = 0;
 
   constructor(private _editorService: EditorService,
@@ -46,7 +46,8 @@ export class EditorAppComponent implements AfterViewInit {
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _fontService: FontsService,) {
+              private _fontService: FontsService,
+              pagePreloadService: PagePreloadService) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -58,6 +59,11 @@ export class EditorAppComponent implements AfterViewInit {
     });
 
     this.fonts = this.fontOptions();
+
+    pagePreloadService.checkPreload.subscribe((page: number) => {
+      if (this.editorConfig.preloadPageCount != 0) {
+      }
+    });
   }
 
   get rewriteConfig(): boolean {
@@ -134,34 +140,24 @@ export class EditorAppComponent implements AfterViewInit {
     this.font = $event;
   }
 
-  createDocument() {
-    this._editorService.createDocument().subscribe((file: FileDescription) => {
-        this.file = file;
-        this.formatDisabled = !this.file;
-        if (file) {
-          if (file.pages && file.pages[0]) {
-            this._pageHeight = file.pages[0].height;
-            this._pageWidth = file.pages[0].width;
-          }
-          const countPages = file.pages ? file.pages.length : 0;
-          this._navigateService.countPages = countPages;
-          this._navigateService.currentPage = 1;
-          this.countPages = countPages;
-        }
-      }
-    );
-    this.clearData();
+  createFile($fileName: string){
+    this.file = new FileDescription();
+    this.file.guid = $fileName;
+    var page = new PageModel;
+    page.width = 595;
+    page.height = 842;
+    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body><p>Enter your text here</p></body></html>';
+    page.number = 1;
+    this.file.pages = [];
+    this.file.pages.push(page);
+    this._navigateService.countPages = 1;
+    this._navigateService.currentPage = 1;
+    this.countPages = 1;
+    this._pageWidth = page.width = 595;
+    this._pageHeight = page.height = 842;
+    this._modalService.close(this.createDocumentModal);
   }
 
-  private clearData() {
-    if (!this.file || !this.file.pages) {
-      return;
-    }
-    for (let page of this.file.pages) {
-      page.data = null;
-    }
-  }
-  
   ngAfterViewInit(): void {
   }
 }

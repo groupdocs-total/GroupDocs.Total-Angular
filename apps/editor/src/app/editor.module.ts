@@ -10,13 +10,15 @@ import {ConfigService} from "@groupdocs-total-angular/common-components";
 import {EditorConfigService} from "./editor-config.service";
 import { TabsComponent } from '../../../../libs/common-components/src/lib/tabs/tabs.component';
 import { TabComponent } from '../../../../libs/common-components/src/lib/tab/tab.component';
+import { CreateDocumentModalComponent } from './create.document-modal/create.document-modal.component';
+import { EditAreaComponent } from './editarea/editarea.component';
 
 export function initializeApp(editorConfigService: EditorConfigService) {
   return () => editorConfigService.load();
 }
 
 @NgModule({
-  declarations: [EditorAppComponent, TabsComponent, TabComponent],
+  declarations: [EditorAppComponent, TabsComponent, TabComponent, CreateDocumentModalComponent, EditAreaComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule.forRoot(),

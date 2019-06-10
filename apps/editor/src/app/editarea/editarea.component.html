@@ -1,0 +1,10 @@
+<div class="wait" *ngIf="wait">Please wait...</div>
+<div id="document" class="document" gdScrollable>
+  <div class="panzoom">
+    <div class="page" *ngFor="let page of file?.pages"
+         [style.width.pt]="page.width"
+         [style.height.pt]="page.height">
+      <gd-page [number]="page.number" [data]="page.data" [width]="page.width" [height]="page.height" [isHtml]="true" contenteditable="true"></gd-page>
+    </div>
+  </div>
+</div>

@@ -39,6 +39,7 @@ import {SearchService} from "./search.service";
 import {WindowService} from "./window.service";
 import {ViewportService} from "./viewport.service";
 import { TabbedToolbarsComponent } from './tabbed-toolbars/tabbed-toolbars.component';
+import {CreateDocumentModalComponent} from "../../../../apps/editor/src/app/create.document-modal/create.document-modal.component";
 
 const providers = [ConfigService,
   Api,
@@ -91,7 +92,7 @@ const providers = [ConfigService,
     PasswordRequiredComponent,
     SearchComponent,
     SearchableDirective,
-    TabbedToolbarsComponent,
+    TabbedToolbarsComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -117,7 +118,7 @@ const providers = [ConfigService,
     PasswordRequiredComponent,
     SearchComponent,
     SearchableDirective,
-    TabbedToolbarsComponent,
+    TabbedToolbarsComponent
   ],
   providers: providers
 })

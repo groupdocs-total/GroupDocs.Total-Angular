@@ -1,0 +1,12 @@
+<gd-modal id="gd-create-document" [title]="'Create new document'">
+  <section id="gd-create-document-section" class="tab-slider-body">
+    <div class="inner-addon left-addon btn gd-create-wrap" id="gd-create-wrap">
+      <input type="text" class="form-control" placeholder="Enter file name without extension" #name />
+      <span>
+        Select file type
+      </span>
+      <gd-select [disabled]="false" [options]="formats" (selected)="selectFormat($event)" [showSelected]="'Docx'"></gd-select>
+      <button class="btn btn-primary gd-create-submit" (click)="createFile(name.value)">Create</button>
+    </div>
+  </section>
+</gd-modal>

@@ -16,6 +16,7 @@ export class Api {
   public static LOAD_PRINT_PDF = '/printPdf';
   public static LOAD_THUMBNAILS = '/loadThumbnails';
   public static CREATE_DOCUMENT = '/createDocument';
+  public static Load_FORMATS = '/loadFormats';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({
@@ -58,4 +59,7 @@ export class ConfigService {
     return this._apiEndpoint;
   }
 
+  getEditorTypesEndpoint() {
+    return this._apiEndpoint.trim().endsWith(Api.EDITOR_APP) ? this._apiEndpoint : this._apiEndpoint + Api.Load_FORMATS;
+  }
 }

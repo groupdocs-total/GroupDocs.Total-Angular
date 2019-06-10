@@ -14,7 +14,11 @@ export class EditorService {
     return this._http.post(this._config.getEditorApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
   }
 
-  createDocument() {
-    return this._http.post(this._config.getEditorApiEndpoint() + Api.CREATE_DOCUMENT, Api.httpOptionsJson);
+  createDocument(name: string) {
+    return this._http.post(this._config.getEditorApiEndpoint() + Api.CREATE_DOCUMENT, {'path': name }, Api.httpOptionsJson);
+  }
+
+  getFormats() {
+    return this._http.get(this._config.getEditorApiEndpoint() + Api.Load_FORMATS, Api.httpOptionsJson);
   }
 }
