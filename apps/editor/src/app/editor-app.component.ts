@@ -140,13 +140,12 @@ export class EditorAppComponent implements AfterViewInit {
     this.font = $event;
   }
 
-  createFile($fileName: string){
+  createFile(){
     this.file = new FileDescription();
-    this.file.guid = $fileName;
     var page = new PageModel;
     page.width = 595;
     page.height = 842;
-    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body><p>Enter your text here</p></body></html>';
+    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body></body></html>';
     page.number = 1;
     page.editable = true;
     this.file.pages = [];
