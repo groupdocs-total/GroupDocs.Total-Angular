@@ -40,7 +40,11 @@ export class RenderPrintDirective {
     const a4Width = 595;
     var imageA4Adjusted = '';
     if(width > a4Width && height > a4Height){
-      imageA4Adjusted = '.gd-page img { width: 21cm; height: 29.7cm;}';
+      var zoom = (height > width) ? Math.round(height / a4Height) / 100 : Math.round(width / a4Width) / 100;
+      imageA4Adjusted = '.gd-page img { zoom:' + zoom + ';}';
+      if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+        imageA4Adjusted = '.gd-page img { transform: scale(' + zoom + ');}';
+      }
     }
     var cssPrint = '<style>' +
       '.gd-page { width: 21cm; height: 29.7cm; display: block; margin: auto; page-break-after:always; page-break-inside: avoid; }' +
