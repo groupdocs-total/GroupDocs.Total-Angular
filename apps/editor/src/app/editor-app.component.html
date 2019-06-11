@@ -2,7 +2,7 @@
   <gd-tabbed-toolbars>
     <gd-tabs>
       <gd-tab tabTitle="File" [icon]="'folder-open'">
-        <gd-top-toolbar class="toolbar-panel">
+        <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
           <gd-button [icon]="'file'" [tooltip]="'Create document'" (click)="openModal(createDocumentModal)"
                      *ngIf="browseConfig"></gd-button>
           <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
