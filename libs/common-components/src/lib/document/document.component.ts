@@ -1,13 +1,14 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
+import * as $ from "jquery";
 
 @Component({
   selector: 'gd-document',
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.less']
 })
-export class DocumentComponent implements OnInit, OnChanges {
+export class DocumentComponent implements OnInit, OnChanges, AfterViewChecked {
 
   @Input() mode: boolean;
   @Input() preloadPageCount: number;
@@ -16,7 +17,8 @@ export class DocumentComponent implements OnInit, OnChanges {
   refreshView: boolean;
   zoom: number;
 
-  constructor(zoomService: ZoomService) {
+  constructor(private _elementRef: ElementRef<HTMLElement>,
+              zoomService: ZoomService) {
 
     zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val;
@@ -44,5 +46,13 @@ export class DocumentComponent implements OnInit, OnChanges {
 
   ifFirefox() {
     return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+  }
+
+  ngAfterViewChecked(): void {
+    const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+    const element = elementNodeListOf.item(0);
+    if (element) {
+      $(element).trigger('focus');
+    }
   }
 }
