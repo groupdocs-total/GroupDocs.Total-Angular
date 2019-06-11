@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TabComponent} from "../tab/tab.component";
 
 @Component({
@@ -17,14 +17,14 @@ export class TabsComponent implements OnInit {
   ngOnInit() {
   }
 
-  addTab(tab:TabComponent) {
+  addTab(tab: TabComponent) {
     if (this.tabs.length === 0) {
       tab.active = true;
     }
     this.tabs.push(tab);
   }
 
-  selectTab(tab:TabsComponent) {
+  selectTab(tab: TabsComponent) {
     this.tabs.forEach((tab) => {
       tab.active = false;
     });
