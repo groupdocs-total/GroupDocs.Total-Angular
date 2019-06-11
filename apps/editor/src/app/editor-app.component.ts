@@ -5,10 +5,8 @@ import {
   FileModel,
   ModalService,
   UploadFilesService,
-  RenderPrintService,
   PasswordService,
-  FileCredentials, CommonModals
-} from "@groupdocs-total-angular/common-components";
+  FileCredentials, CommonModals, PageModel} from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
@@ -35,15 +33,15 @@ export class EditorAppComponent implements AfterViewInit {
   endTool: number;
   fonts;
   _font: string = "Arial";
+  countPages: number = 0;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
               configService: EditorConfigService,
               uploadFilesService: UploadFilesService,
-              private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _fontService: FontsService,) {
+              private _fontService: FontsService) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -131,14 +129,21 @@ export class EditorAppComponent implements AfterViewInit {
     this.font = $event;
   }
 
+  createFile(){
+    this.file = new FileDescription();
+    var page = new PageModel;
+    page.width = 595;
+    page.height = 842;
+    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body></body></html>';
+    page.number = 1;
+    page.editable = true;
+    this.file.pages = [];
+    this.file.pages.push(page);
+    this.countPages = 1;
+    this._pageWidth = page.width = 595;
+    this._pageHeight = page.height = 842;
+  }
+
   ngAfterViewInit(): void {
-  }
-
-  selectFile($event: string, param2, browseFilesModal: string) {
-
-  }
-
-  upload($event: string) {
-
   }
 }

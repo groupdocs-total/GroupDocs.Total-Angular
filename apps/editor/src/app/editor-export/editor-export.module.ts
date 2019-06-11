@@ -9,9 +9,10 @@ import {ConfigService} from "@groupdocs-total-angular/common-components";
 import {EditorConfigService} from "../editor-config.service";
 import {CommonModule} from "@angular/common";
 import {EditorRoutingModule} from "../editor-routing.module";
+import {CreateDocumentModalComponent} from "../create.document-modal/create.document-modal.component";
 
 @NgModule({
-  declarations: [EditorAppComponent],
+  declarations: [EditorAppComponent, CreateDocumentModalComponent],
   imports: [
     EditorRoutingModule,
     CommonModule,

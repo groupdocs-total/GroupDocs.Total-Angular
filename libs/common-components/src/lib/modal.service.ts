@@ -2,6 +2,7 @@ export class CommonModals {
   static PasswordRequired = "gd-password-required";
   static ErrorMessage = "gd-error-message";
   static BrowseFiles = "gd-browse-files";
+  static CreateDocument = "gd-create-document";
 }
 
 export class ModalService {

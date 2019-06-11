@@ -4,6 +4,7 @@ export class PageModel {
   width: number;
   height: number;
   number: number;
+  editable: boolean;
 }
 
 export class RotatedPage {

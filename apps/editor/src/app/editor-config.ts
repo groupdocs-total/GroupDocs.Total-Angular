@@ -11,4 +11,5 @@ export class EditorConfig {
   fontsDirectory: string;
   defaultDocument: string;
   createNewFile: boolean;
+  preloadPageCount: 0;
 }
