@@ -6,7 +6,7 @@
          [style.height.pt]="(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'" gdRotation
          [angle]="page.angle" [isHtmlMode]="mode" [width]="page.width" [height]="page.height">
       <gd-page [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
-               [width]="page.width" [height]="page.height"></gd-page>
+               [width]="page.width" [height]="page.height" [editable]="page.editable"></gd-page>
     </div>
   </div>
 </div>

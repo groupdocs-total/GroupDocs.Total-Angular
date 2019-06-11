@@ -14,7 +14,9 @@ export class PageComponent implements OnInit, OnChanges {
   @Input() number: number;
   @Input() data: string;
   @Input() isHtml: boolean;
+  @Input() editable: boolean;
   imgData: string;
+  model = this.data;
 
   constructor() {
   }

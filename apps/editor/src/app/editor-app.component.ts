@@ -148,6 +148,7 @@ export class EditorAppComponent implements AfterViewInit {
     page.height = 842;
     page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body><p>Enter your text here</p></body></html>';
     page.number = 1;
+    page.editable = true;
     this.file.pages = [];
     this.file.pages.push(page);
     this._navigateService.countPages = 1;
