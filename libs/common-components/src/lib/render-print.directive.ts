@@ -41,13 +41,13 @@ export class RenderPrintDirective {
     var imageA4Adjusted = '';
     if(width > a4Width && height > a4Height){
       var zoom = (height > width) ? Math.round(height / a4Height) / 100 : Math.round(width / a4Width) / 100;
-      imageA4Adjusted = '.gd-page img { zoom:' + zoom + ';}';
+      imageA4Adjusted = '.gd-page img { zoom:' + zoom + '; margin: 0; padding: 0;}';
       if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
         imageA4Adjusted = '.gd-page img { transform: scale(' + zoom + ');}';
       }
     }
     var cssPrint = '<style>' +
-      '.gd-page { width: 21cm; height: 29.7cm; display: block; margin: auto; page-break-after:always; page-break-inside: avoid; }' +
+      '.gd-page { width: 21cm; height: 29.7cm; display: block; page-break-after:always; page-break-inside: avoid; }' +
       ' .gd-page:last-child {page-break-after: auto;}' + imageA4Adjusted;
     cssPrint = cssPrint + '</style>';
 
@@ -55,10 +55,10 @@ export class RenderPrintDirective {
     windowObject.focus();
     windowObject.document.writeln(cssPrint);
     windowObject.document.writeln(pagesHtml);
-    windowObject.document.close();
+    //windowObject.document.close();
     windowObject.focus();
     windowObject.print();
-    windowObject.close();
+   // windowObject.close();
   }
 
   private renderPrintBlob(file: Blob) {
