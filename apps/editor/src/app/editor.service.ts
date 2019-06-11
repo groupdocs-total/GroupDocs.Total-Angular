@@ -25,4 +25,15 @@ export class EditorService {
   loadFile(credentials: FileCredentials) {
     return this._http.post(this._config.getEditorApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
   }
+
+  upload(file: File, url: string, rewrite: boolean) {
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append('rewrite', String(rewrite));
+    if (url) {
+      formData.append("url", url);
+    }
+
+    return this._http.post(this._config.getEditorApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
+  }
 }

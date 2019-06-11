@@ -45,6 +45,17 @@ export class EditorAppComponent implements AfterViewInit {
       this.editorConfig = editorConfig;
     });
 
+    uploadFilesService.uploadsChange.subscribe((uploads) => {
+      if (uploads) {
+        var i: number;
+        for (i = 0; i < uploads.length; i++) {
+          this._editorService.upload(uploads.item(i), '', this.editorConfig.rewrite).subscribe(() => {
+            this.selectDir('');
+          });
+        }
+      }
+    });
+
     this.isDesktop = _windowService.isDesktop();
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
@@ -169,6 +180,8 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   upload($event: string) {
-
+    this._editorService.upload(null, $event, this.rewriteConfig).subscribe(() => {
+      this.selectDir('');
+    });
   }
 }
