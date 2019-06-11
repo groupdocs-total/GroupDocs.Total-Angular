@@ -4,9 +4,9 @@
       <gd-tab tabTitle="File" [icon]="'folder-open'">
         <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
           <gd-button [icon]="'file'" [tooltip]="'Create document'" (click)="createFile()"
-                     *ngIf="browseConfig"></gd-button>
-          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                      *ngIf="createNewFileConfig"></gd-button>
+          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                     *ngIf="browseConfig"></gd-button>
         </gd-top-toolbar>
       </gd-tab>
       <gd-tab tabTitle="Formatting" [icon]="'edit'">
@@ -16,7 +16,7 @@
   </gd-tabbed-toolbars>
   <div class="doc-panel" *ngIf="file">
 
-    <gd-document class="gd-document gd-document-editor" *ngIf="file" [file]="file" [mode]="true"
+    <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="true"
                  [preloadPageCount]="0">
 
     </gd-document>
