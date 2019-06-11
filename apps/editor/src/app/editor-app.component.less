@@ -1,3 +1,5 @@
+@import "~src/../../libs/common-components/src/styles/variables";
+
 .current-page-number {
   margin: 0px 15px;
   font-size: 14px;
@@ -22,7 +24,7 @@
 
 .gd-document {
   width: 100%;
-  height: 100%;
+  height: ~"calc(100% - @{editor-nav-height})";
 }
 
 .top-panel {
@@ -35,7 +37,6 @@
   width: 100%;
 }
 
-.gd-document-editor {
-  top: 90px;
-  position: absolute;
+/deep/ .page {
+  padding: 96px;
 }
