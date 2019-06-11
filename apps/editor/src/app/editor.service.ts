@@ -21,4 +21,8 @@ export class EditorService {
   getFormats() {
     return this._http.get(this._config.getEditorApiEndpoint() + Api.LOAD_FORMATS, Api.httpOptionsJson);
   }
+
+  loadFile(credentials: FileCredentials) {
+    return this._http.post(this._config.getEditorApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
+  }
 }

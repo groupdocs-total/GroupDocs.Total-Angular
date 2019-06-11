@@ -29,11 +29,9 @@ export class EditorAppComponent implements AfterViewInit {
 
   _pageWidth: number;
   _pageHeight: number;
-  startTool: number;
-  endTool: number;
   fonts;
   _font: string = "Arial";
-  countPages: number = 0;
+  pageCount: number;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -108,10 +106,6 @@ export class EditorAppComponent implements AfterViewInit {
     return this.enableRightClickConfig;
   }
 
-  isHidden(number: number) {
-    return (number < this.startTool || number > this.endTool) ? 'none' : null;
-  }
-
   fontOptions() {
     return FontsService.fontOptions();
   }
@@ -145,5 +139,36 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+  }
+
+  selectFile($event: string, password: string, modalId: string) {
+    this.credentials = {guid: $event, password: password};
+    this._editorService.loadFile(this.credentials).subscribe((file: FileDescription) => {
+        this.file = file;
+        this.formatDisabled = !this.file;
+        if (file) {
+          if (file.pages && file.pages[0]) {
+            this._pageHeight = file.pages[0].height;
+            this._pageWidth = file.pages[0].width;
+          }
+          this.pageCount = file.pages.length;
+        }
+      }
+    );
+    this.clearData();
+    this._modalService.close(modalId);
+  }
+
+  private clearData() {
+    if (!this.file || !this.file.pages) {
+      return;
+    }
+    for (let page of this.file.pages) {
+      page.data = null;
+    }
+  }
+
+  upload($event: string) {
+
   }
 }
