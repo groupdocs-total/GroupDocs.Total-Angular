@@ -19,6 +19,6 @@ export class EditorService {
   }
 
   getFormats() {
-    return this._http.get(this._config.getEditorApiEndpoint() + Api.Load_FORMATS, Api.httpOptionsJson);
+    return this._http.get(this._config.getEditorApiEndpoint() + Api.LOAD_FORMATS, Api.httpOptionsJson);
   }
 }

@@ -140,7 +140,6 @@ export class EditorAppComponent implements AfterViewInit {
     this.file.pages = [];
     this.file.pages.push(page);
     this.countPages = 1;
-
     this._pageWidth = page.width = 595;
     this._pageHeight = page.height = 842;
   }

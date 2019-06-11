@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ConfigService, FileDescription, NavigateService} from "@groupdocs-total-angular/common-components";
+import {ConfigService, FileDescription} from "@groupdocs-total-angular/common-components";
 import {environment} from "../../environments/environment";
 import {EditorService} from "../editor.service";
-import {EditorAppComponent} from "../editor-app.component";
 
 @Component({
   selector: 'gd-create-document-modal',
@@ -12,14 +11,11 @@ import {EditorAppComponent} from "../editor-app.component";
 })
 export class CreateDocumentModalComponent implements OnInit {
   private _format: string;
-  private fileDescription: FileDescription;
   formats;
 
   constructor(private _http: HttpClient,
               private _config: ConfigService,
-              private _editorService: EditorService,
-              private _editorComponent: EditorAppComponent,
-              private _navigateService: NavigateService) {
+              private _editorService: EditorService) {
     _config.apiEndpoint = environment.apiUrl;
   }
 
