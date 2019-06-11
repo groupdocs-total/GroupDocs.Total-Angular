@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Api, ConfigService, FileDescription, NavigateService} from "@groupdocs-total-angular/common-components";
+import {ConfigService, FileDescription, NavigateService} from "@groupdocs-total-angular/common-components";
 import {environment} from "../../environments/environment";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {EditorService} from "../editor.service";
 import {EditorAppComponent} from "../editor-app.component";
 
@@ -50,9 +49,5 @@ export class CreateDocumentModalComponent implements OnInit {
       allTypes.push(this.createFormatOption(formats[i]));
     }
     return allTypes;
-  }
-
-  createFile($event) {
-    this._editorComponent.createFile($event + "." + this._format.toLowerCase());
   }
 }

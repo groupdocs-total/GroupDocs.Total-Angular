@@ -5,9 +5,8 @@ import {
   FileModel,
   ModalService,
   UploadFilesService,
-  RenderPrintService,
   PasswordService,
-  FileCredentials, CommonModals, NavigateService, PageModel} from "@groupdocs-total-angular/common-components";
+  FileCredentials, CommonModals, PageModel} from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
@@ -26,7 +25,6 @@ export class EditorAppComponent implements AfterViewInit {
   formatDisabled = !this.file;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
-  createDocumentModal = CommonModals.CreateDocument;
   isDesktop: boolean;
 
   _pageWidth: number;
@@ -40,9 +38,7 @@ export class EditorAppComponent implements AfterViewInit {
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
               configService: EditorConfigService,
-              private _navigateService: NavigateService,
               uploadFilesService: UploadFilesService,
-              private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
               private _fontService: FontsService) {
@@ -144,19 +140,11 @@ export class EditorAppComponent implements AfterViewInit {
     this.file.pages = [];
     this.file.pages.push(page);
     this.countPages = 1;
+
     this._pageWidth = page.width = 595;
     this._pageHeight = page.height = 842;
-    this._modalService.close(this.createDocumentModal);
   }
 
   ngAfterViewInit(): void {
-  }
-
-  selectFile($event: string, param2, browseFilesModal: string) {
-
-  }
-
-  upload($event: string) {
-
   }
 }
