@@ -7,8 +7,7 @@ import {
   UploadFilesService,
   RenderPrintService,
   PasswordService,
-  FileCredentials, CommonModals, NavigateService, PageModel, PagePreloadService
-} from "@groupdocs-total-angular/common-components";
+  FileCredentials, CommonModals, NavigateService, PageModel} from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
@@ -46,8 +45,7 @@ export class EditorAppComponent implements AfterViewInit {
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _fontService: FontsService,
-              pagePreloadService: PagePreloadService) {
+              private _fontService: FontsService) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -59,11 +57,6 @@ export class EditorAppComponent implements AfterViewInit {
     });
 
     this.fonts = this.fontOptions();
-
-    pagePreloadService.checkPreload.subscribe((page: number) => {
-      if (this.editorConfig.preloadPageCount != 0) {
-      }
-    });
   }
 
   get rewriteConfig(): boolean {
@@ -150,8 +143,6 @@ export class EditorAppComponent implements AfterViewInit {
     page.editable = true;
     this.file.pages = [];
     this.file.pages.push(page);
-    this._navigateService.countPages = 1;
-    this._navigateService.currentPage = 1;
     this.countPages = 1;
     this._pageWidth = page.width = 595;
     this._pageHeight = page.height = 842;
