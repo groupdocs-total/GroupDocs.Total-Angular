@@ -13,7 +13,8 @@
     </gd-tabs>
   </gd-tabbed-toolbars>
   <div class="doc-panel" *ngIf="file">
-    <gd-document class="gd-document" *ngIf="file" [file]="file"></gd-document>
+    <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="true"
+                 [preloadPageCount]="pageCount"></gd-document>
   </div>
   <gd-init-state [icon]="'eye'" [text]="''" *ngIf="!file"></gd-init-state>
   <gd-browse-files-modal
