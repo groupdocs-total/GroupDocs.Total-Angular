@@ -6,7 +6,10 @@ import {
   ModalService,
   UploadFilesService,
   PasswordService,
-  FileCredentials, CommonModals, PageModel} from "@groupdocs-total-angular/common-components";
+  FileCredentials,
+  CommonModals,
+  PageModel
+} from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
@@ -27,11 +30,9 @@ export class EditorAppComponent implements AfterViewInit {
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
 
-  _pageWidth: number;
-  _pageHeight: number;
   fonts;
   _font: string = "Arial";
-  pageCount: number;
+  pageCount: number = 0;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -134,7 +135,7 @@ export class EditorAppComponent implements AfterViewInit {
     this.font = $event;
   }
 
-  createFile(){
+  createFile() {
     this.file = new FileDescription();
     var page = new PageModel;
     page.width = 595;
@@ -145,8 +146,6 @@ export class EditorAppComponent implements AfterViewInit {
     this.file.pages = [];
     this.file.pages.push(page);
     this.pageCount = 1;
-    this._pageWidth = page.width = 595;
-    this._pageHeight = page.height = 842;
   }
 
   ngAfterViewInit(): void {
@@ -156,14 +155,11 @@ export class EditorAppComponent implements AfterViewInit {
     this.credentials = {guid: $event, password: password};
     this._editorService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
-        this.formatDisabled = !this.file;
-        if (file) {
-          if (file.pages && file.pages[0]) {
-            this._pageHeight = file.pages[0].height;
-            this._pageWidth = file.pages[0].width;
-          }
-          this.pageCount = file.pages.length;
+        if (this.file && this.file.pages[0]) {
+          this.file.pages[0].editable = true;
+          this.pageCount = this.file.pages.length;
         }
+        this.formatDisabled = !this.file;
       }
     );
     this.clearData();
