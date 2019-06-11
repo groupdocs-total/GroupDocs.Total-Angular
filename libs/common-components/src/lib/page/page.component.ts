@@ -16,12 +16,13 @@ export class PageComponent implements OnInit, OnChanges {
   @Input() isHtml: boolean;
   @Input() editable: boolean;
   imgData: string;
-  model = this.data;
+  text: string;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.text = this.data;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
