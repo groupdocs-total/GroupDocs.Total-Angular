@@ -41,6 +41,7 @@ import {ViewportService} from "./viewport.service";
 import {TabbedToolbarsComponent} from './tabbed-toolbars/tabbed-toolbars.component';
 import {TabComponent} from "./tab/tab.component";
 import {TabsComponent} from "./tabs/tabs.component";
+import {FormattingService} from "./formatting.service";
 
 const providers = [ConfigService,
   Api,
@@ -62,7 +63,8 @@ const providers = [ConfigService,
   ErrorInterceptorService,
   SearchService,
   WindowService,
-  ViewportService];
+  ViewportService,
+  FormattingService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],

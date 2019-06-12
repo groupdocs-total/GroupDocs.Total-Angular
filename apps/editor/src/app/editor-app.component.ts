@@ -8,7 +8,8 @@ import {
   PasswordService,
   FileCredentials,
   CommonModals,
-  PageModel
+  PageModel,
+  FormattingService
 } from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -33,6 +34,10 @@ export class EditorAppComponent implements AfterViewInit {
   fonts;
   _font: string = "Arial";
   pageCount: number = 0;
+  formatting = {
+    fontSize: 10
+  };
+  fontSizeOptions = FormattingService.getFontSizeOptions();
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -179,5 +184,9 @@ export class EditorAppComponent implements AfterViewInit {
     this._editorService.upload(null, $event, this.rewriteConfig).subscribe(() => {
       this.selectDir('');
     });
+  }
+
+  selectFontSize($event: any) {
+    this.formatting.fontSize = $event;
   }
 }

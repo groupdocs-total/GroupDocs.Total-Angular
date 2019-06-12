@@ -10,7 +10,10 @@
         </gd-top-toolbar>
       </gd-tab>
       <gd-tab tabTitle="Formatting" [icon]="'edit'">
-        <div>tab 2</div>
+        <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
+          <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontSizeOptions" (selected)="selectFontSize($event)"
+                     [showSelected]="formatting.fontSize + 'px'"></gd-select>
+        </gd-top-toolbar>
       </gd-tab>
     </gd-tabs>
   </gd-tabbed-toolbars>
