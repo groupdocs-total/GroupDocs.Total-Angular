@@ -42,6 +42,7 @@ import {TabbedToolbarsComponent} from './tabbed-toolbars/tabbed-toolbars.compone
 import {TabComponent} from "./tab/tab.component";
 import {TabsComponent} from "./tabs/tabs.component";
 import {FormattingService} from "./formatting.service";
+import {ColorPickerComponent} from './color-picker/color-picker.component';
 
 const providers = [ConfigService,
   Api,
@@ -97,7 +98,8 @@ const providers = [ConfigService,
     SearchableDirective,
     TabbedToolbarsComponent,
     TabComponent,
-    TabsComponent
+    TabsComponent,
+    ColorPickerComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -125,7 +127,8 @@ const providers = [ConfigService,
     SearchableDirective,
     TabbedToolbarsComponent,
     TabComponent,
-    TabsComponent
+    TabsComponent,
+    ColorPickerComponent
   ],
   providers: providers
 })

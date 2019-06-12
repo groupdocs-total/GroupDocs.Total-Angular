@@ -1,0 +1,5 @@
+<div class="bcPicker-picker">
+  <div class="bcPicker-palette">
+    <div class="bcPicker-color" *ngFor="let color of colors" [style.background-color]="color" (click)="select(color)"></div>
+  </div>
+</div>

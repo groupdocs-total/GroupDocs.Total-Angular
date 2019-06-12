@@ -35,9 +35,13 @@ export class EditorAppComponent implements AfterViewInit {
   _font: string = "Arial";
   pageCount: number = 0;
   formatting = {
-    fontSize: 10
+    fontSize: 10,
+    color: '#000000',
+    bgColor: '#FFFFFF',
   };
   fontSizeOptions = FormattingService.getFontSizeOptions();
+  bgColorPickerShow: boolean = false;
+  colorPickerShow: boolean = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -188,5 +192,28 @@ export class EditorAppComponent implements AfterViewInit {
 
   selectFontSize($event: any) {
     this.formatting.fontSize = $event;
+  }
+
+  toggleColorPicker(bg: boolean) {
+    if (this.formatDisabled) {
+      return;
+    }
+    if (bg) {
+      this.bgColorPickerShow = !this.bgColorPickerShow;
+      this.colorPickerShow = false;
+    } else {
+      this.colorPickerShow = !this.colorPickerShow;
+      this.bgColorPickerShow = false;
+    }
+  }
+
+  selectColor($event: string) {
+    if (this.bgColorPickerShow) {
+      this.formatting.bgColor = $event;
+      this.bgColorPickerShow = false;
+    } else {
+      this.formatting.color = $event;
+      this.colorPickerShow = false;
+    }
   }
 }
