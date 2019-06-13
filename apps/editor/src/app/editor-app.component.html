@@ -14,6 +14,8 @@
           <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontSizeOptions"
                      (selected)="selectFontSize($event)"
                      [showSelected]="formatting.fontSize + 'px'"></gd-select>
+          <gd-button [disabled]="formatDisabled" [icon]="'bold'" [tooltip]="'Bold'"
+                     (click)="toggleBold($event)"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
                      (click)="toggleColorPicker(true)">
             <div class="bg-color-pic" [style.background-color]="formatting.bgColor"></div>
@@ -31,7 +33,7 @@
   <div class="doc-panel" *ngIf="file">
 
     <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="true"
-                 [preloadPageCount]="0">
+                 [preloadPageCount]="0" gdFormatting>
 
     </gd-document>
 
