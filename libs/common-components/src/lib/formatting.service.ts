@@ -1,7 +1,10 @@
 import {Observable, Subject} from "rxjs";
-
 export class Formatting {
-  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false);
+  private static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false);
+
+  static getDefault() {
+    return Formatting.copy(Formatting.DEFAULT);
+  }
 
   static copy(formatting: Formatting) {
     return new Formatting(formatting.fontSize, formatting.color, formatting.bgColor, formatting.bold);

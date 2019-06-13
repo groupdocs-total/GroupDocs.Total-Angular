@@ -35,7 +35,7 @@ export class EditorAppComponent implements AfterViewInit {
   fonts;
   _font: string = "Arial";
   pageCount: number = 0;
-  formatting: Formatting = Formatting.DEFAULT;
+  formatting: Formatting = Formatting.getDefault();
   fontSizeOptions = FormattingService.getFontSizeOptions();
   bgColorPickerShow: boolean = false;
   colorPickerShow: boolean = false;

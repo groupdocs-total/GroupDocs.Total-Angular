@@ -5,7 +5,7 @@ import {Formatting, FormattingService} from "./formatting.service";
   selector: '[gdFormatting]'
 })
 export class FormattingDirective implements OnInit {
-  private formatting: Formatting = Formatting.DEFAULT;
+  private formatting: Formatting = Formatting.getDefault();
 
   constructor(private _formattingService: FormattingService) {
   }
