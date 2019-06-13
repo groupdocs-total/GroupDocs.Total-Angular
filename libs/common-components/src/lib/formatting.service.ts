@@ -23,6 +23,8 @@ export class FormattingService {
   private readonly _formatColorChange: Observable<string> = this._observerColor.asObservable();
   private _observerBgColor: Subject<string> = new Subject();
   private readonly _formatBgColorChange: Observable<string> = this._observerBgColor.asObservable();
+  private _observerFontSize: Subject<number> = new Subject();
+  private readonly _formatFontSizeChange: Observable<number> = this._observerFontSize.asObservable();
 
   constructor() {
   }
@@ -37,6 +39,10 @@ export class FormattingService {
 
   get formatBgColorChange() {
     return this._formatBgColorChange;
+  }
+
+  get formatFontSizeChange() {
+    return this._formatFontSizeChange;
   }
 
   changeFormatBold(bold: boolean) {
@@ -66,5 +72,9 @@ export class FormattingService {
       this.createFontSizeOption(22),
       this.createFontSizeOption(24),
     ];
+  }
+
+  changeFormatFontSize($event: number) {
+    this._observerFontSize.next($event);
   }
 }

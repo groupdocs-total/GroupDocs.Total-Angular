@@ -1,4 +1,4 @@
-<div class="wrapper" (contextmenu)="onRightClick($event)">
+<div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
   <gd-tabbed-toolbars>
     <gd-tabs>
       <gd-tab tabTitle="File" [icon]="'folder-open'">
@@ -15,12 +15,12 @@
                      (selected)="selectFontSize($event)"
                      [showSelected]="formatting.fontSize + 'px'"></gd-select>
           <gd-button [disabled]="formatDisabled" [icon]="'bold'" [tooltip]="'Bold'"
-                     (click)="toggleBold($event)"></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
+                     (click)="toggleBold($event)" [toggle]="formatting.bold"></gd-button>
+          <gd-button name="button" [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
                      (click)="toggleColorPicker(true)">
             <div class="bg-color-pic" [style.background-color]="formatting.bgColor"></div>
           </gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'font'" [tooltip]="'Color'" (click)="toggleColorPicker(false)">
+          <gd-button name="button" [disabled]="formatDisabled" [icon]="'font'" [tooltip]="'Color'" (click)="toggleColorPicker(false)">
             <div class="bg-color-pic" [style.background-color]="formatting.color"></div>
           </gd-button>
         </gd-top-toolbar>

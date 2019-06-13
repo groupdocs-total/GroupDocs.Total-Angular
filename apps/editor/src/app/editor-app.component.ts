@@ -10,7 +10,9 @@ import {
   CommonModals,
   PageModel,
   FormattingService,
-  Formatting, BackFormattingService
+  Formatting,
+  BackFormattingService,
+  OnCloseService
 } from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -48,7 +50,8 @@ export class EditorAppComponent implements AfterViewInit {
               private _windowService: WindowService,
               private _fontService: FontsService,
               private _formattingService: FormattingService,
-              private _backFormattingService: BackFormattingService) {
+              private _backFormattingService: BackFormattingService,
+              private _onCloseService: OnCloseService) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -80,6 +83,9 @@ export class EditorAppComponent implements AfterViewInit {
     });
     this._backFormattingService.formatBgColorChange.subscribe((bgcolor: string) => {
       this.formatting.bgColor = bgcolor;
+    });
+    this._backFormattingService.formatFontSizeChange.subscribe((fontSize: number) => {
+      this.formatting.fontSize = fontSize;
     });
   }
 
@@ -199,8 +205,8 @@ export class EditorAppComponent implements AfterViewInit {
     });
   }
 
-  selectFontSize($event: any) {
-    //this._formattingService.changeFormatFont($event);
+  selectFontSize($event: number) {
+    this._formattingService.changeFormatFontSize($event);
   }
 
   toggleColorPicker(bg: boolean) {
@@ -230,5 +236,20 @@ export class EditorAppComponent implements AfterViewInit {
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.changeFormatBold(!this.formatting.bold);
+  }
+
+  hideAll($event) {
+    if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
+      $event.target.parentElement.attributes['name'].value == 'button') ||
+      ($event.target.parentElement.parentElement &&
+        $event.target.parentElement.parentElement.attributes['name'] &&
+      $event.target.parentElement.parentElement.attributes['name'].value == 'button')) {
+
+      this._onCloseService.close(true);
+      return;
+    }
+    this.colorPickerShow = false;
+    this.bgColorPickerShow = false;
+    this._onCloseService.close(true);
   }
 }

@@ -45,6 +45,7 @@ import {FormattingService} from "./formatting.service";
 import {ColorPickerComponent} from './color-picker/color-picker.component';
 import {FormattingDirective} from './formatting.directive';
 import {BackFormattingService} from "./back-formatting.service";
+import {OnCloseService} from "./on-close.service";
 
 const providers = [ConfigService,
   Api,
@@ -68,7 +69,8 @@ const providers = [ConfigService,
   WindowService,
   ViewportService,
   FormattingService,
-  BackFormattingService];
+  BackFormattingService,
+  OnCloseService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],

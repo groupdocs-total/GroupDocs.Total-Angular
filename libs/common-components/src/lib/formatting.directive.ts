@@ -27,6 +27,9 @@ export class FormattingDirective implements OnInit {
     this._formattingService.formatBgColorChange.subscribe(((bgcolor: string) => {
       this.setBgColor(bgcolor);
     }));
+    this._formattingService.formatFontSizeChange.subscribe(((fontSize: number) => {
+      this.setFontSize(fontSize);
+    }));
   }
 
   private toggleBold() {
@@ -39,5 +42,9 @@ export class FormattingDirective implements OnInit {
 
   private setColor(color: string) {
     document.execCommand("foreColor", false, color)
+  }
+
+  private setFontSize(fontSize: number) {
+    document.execCommand('fontSize', false, fontSize.toString());
   }
 }
