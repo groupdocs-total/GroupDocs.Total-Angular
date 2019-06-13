@@ -70,6 +70,10 @@ export class EditorAppComponent implements AfterViewInit {
     });
 
     this.fonts = this.fontOptions();
+
+    this._formattingService.formattingChange.subscribe((formatting: Formatting) => {
+      this.formatting = formatting;
+    });
   }
 
   get rewriteConfig(): boolean {

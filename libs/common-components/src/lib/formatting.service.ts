@@ -35,7 +35,7 @@ export class FormattingService {
   }
 
   changeFormatting(formatting: Formatting) {
-    this._observer.next(formatting);
+    this._observer.next(Formatting.copy(formatting));
   }
 
   static createFontSizeOption(val: number) {

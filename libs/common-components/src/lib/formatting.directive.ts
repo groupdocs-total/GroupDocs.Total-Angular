@@ -1,4 +1,4 @@
-import {Directive, OnInit} from '@angular/core';
+import {Directive, HostListener, OnInit} from '@angular/core';
 import {Formatting, FormattingService} from "./formatting.service";
 
 @Directive({
@@ -8,6 +8,11 @@ export class FormattingDirective implements OnInit {
   private formatting: Formatting = Formatting.getDefault();
 
   constructor(private _formattingService: FormattingService) {
+  }
+
+  @HostListener('mousedown') mousedown() {
+    this.formatting.bold = document.queryCommandState("bold");
+    this._formattingService.changeFormatting(this.formatting);
   }
 
   ngOnInit(): void {
