@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/viewer",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Angular appplication that allows to display and manipulate documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {
