@@ -10,7 +10,7 @@ import {
   CommonModals,
   PageModel,
   FormattingService,
-  Formatting
+  Formatting, BackFormattingService
 } from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -35,7 +35,7 @@ export class EditorAppComponent implements AfterViewInit {
   fonts;
   _font: string = "Arial";
   pageCount: number = 0;
-  formatting: Formatting = Formatting.getDefault();
+  formatting: Formatting = Formatting.DEFAULT;
   fontSizeOptions = FormattingService.getFontSizeOptions();
   bgColorPickerShow: boolean = false;
   colorPickerShow: boolean = false;
@@ -47,7 +47,8 @@ export class EditorAppComponent implements AfterViewInit {
               passwordService: PasswordService,
               private _windowService: WindowService,
               private _fontService: FontsService,
-              private _formattingService: FormattingService) {
+              private _formattingService: FormattingService,
+              private _backFormattingService: BackFormattingService) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -71,8 +72,14 @@ export class EditorAppComponent implements AfterViewInit {
 
     this.fonts = this.fontOptions();
 
-    this._formattingService.formattingChange.subscribe((formatting: Formatting) => {
-      this.formatting = formatting;
+    this._backFormattingService.formatBoldChange.subscribe((bold: boolean) => {
+      this.formatting.bold = bold;
+    });
+    this._backFormattingService.formatColorChange.subscribe((color: string) => {
+      this.formatting.color = color;
+    });
+    this._backFormattingService.formatBgColorChange.subscribe((bgcolor: string) => {
+      this.formatting.bgColor = bgcolor;
     });
   }
 
@@ -193,8 +200,7 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   selectFontSize($event: any) {
-    this.formatting.fontSize = $event;
-    this._formattingService.changeFormatting(this.formatting);
+    //this._formattingService.changeFormatFont($event);
   }
 
   toggleColorPicker(bg: boolean) {
@@ -212,19 +218,17 @@ export class EditorAppComponent implements AfterViewInit {
 
   selectColor($event: string) {
     if (this.bgColorPickerShow) {
-      this.formatting.bgColor = $event;
       this.bgColorPickerShow = false;
+      this._formattingService.changeFormatBgColor($event);
     } else {
-      this.formatting.color = $event;
       this.colorPickerShow = false;
+      this._formattingService.changeFormatColor($event);
     }
-    this._formattingService.changeFormatting(this.formatting);
   }
 
   toggleBold(event) {
     event.preventDefault();
     event.stopPropagation();
-    this.formatting.bold = !this.formatting.bold;
-    this._formattingService.changeFormatting(this.formatting);
+    this._formattingService.changeFormatBold(!this.formatting.bold);
   }
 }

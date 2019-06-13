@@ -44,6 +44,7 @@ import {TabsComponent} from "./tabs/tabs.component";
 import {FormattingService} from "./formatting.service";
 import {ColorPickerComponent} from './color-picker/color-picker.component';
 import {FormattingDirective} from './formatting.directive';
+import {BackFormattingService} from "./back-formatting.service";
 
 const providers = [ConfigService,
   Api,
@@ -66,7 +67,8 @@ const providers = [ConfigService,
   SearchService,
   WindowService,
   ViewportService,
-  FormattingService];
+  FormattingService,
+  BackFormattingService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],

@@ -1,36 +1,43 @@
 import {Directive, HostListener, OnInit} from '@angular/core';
-import {Formatting, FormattingService} from "./formatting.service";
+import {FormattingService} from "./formatting.service";
+import {BackFormattingService} from "./back-formatting.service";
 
 @Directive({
   selector: '[gdFormatting]'
 })
 export class FormattingDirective implements OnInit {
-  private formatting: Formatting = Formatting.getDefault();
-
-  constructor(private _formattingService: FormattingService) {
+  constructor(private _formattingService: FormattingService,
+              private _backFormattingService: BackFormattingService) {
   }
 
-  @HostListener('mousedown') mousedown() {
-    this.formatting.bold = document.queryCommandState("bold");
-    this._formattingService.changeFormatting(this.formatting);
+  @HostListener('mouseup') mousedown() {
+    let bold = document.queryCommandValue("bold");
+    this._backFormattingService.changeFormatBold(bold  && bold.endsWith('true'));
+    this._backFormattingService.changeFormatColor(document.queryCommandValue("foreColor"));
+    this._backFormattingService.changeFormatBgColor(document.queryCommandValue("backColor"));
   }
 
   ngOnInit(): void {
-    this._formattingService.formattingChange.subscribe((formatting: Formatting) => {
-      this.format(formatting);
+    this._formattingService.formatBoldChange.subscribe((bold: boolean) => {
+      this.toggleBold();
     });
+    this._formattingService.formatColorChange.subscribe(((color: string) => {
+      this.setColor(color);
+    }));
+    this._formattingService.formatBgColorChange.subscribe(((bgcolor: string) => {
+      this.setBgColor(bgcolor);
+    }));
   }
 
-  private format(formatting: Formatting) {
-    if (this.formatting.bold != formatting.bold) {
-      document.execCommand("bold");
-    }
-    if (this.formatting.color != formatting.color) {
-      document.execCommand("foreColor", false, formatting.color)
-    }
-    if (this.formatting.bgColor != formatting.bgColor) {
-      document.execCommand("backColor", false, formatting.bgColor)
-    }
-    this.formatting = Formatting.copy(formatting);
+  private toggleBold() {
+    document.execCommand("bold");
+  }
+
+  private setBgColor(bgColor: string) {
+    document.execCommand("backColor", false, bgColor);
+  }
+
+  private setColor(color: string) {
+    document.execCommand("foreColor", false, color)
   }
 }

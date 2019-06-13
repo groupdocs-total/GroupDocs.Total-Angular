@@ -1,14 +1,7 @@
 import {Observable, Subject} from "rxjs";
+
 export class Formatting {
-  private static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false);
-
-  static getDefault() {
-    return Formatting.copy(Formatting.DEFAULT);
-  }
-
-  static copy(formatting: Formatting) {
-    return new Formatting(formatting.fontSize, formatting.color, formatting.bgColor, formatting.bold);
-  }
+  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false);
 
   constructor(fontSize: number, color: string, bgColor: string, bold: boolean) {
     this.fontSize = fontSize;
@@ -24,18 +17,38 @@ export class Formatting {
 }
 
 export class FormattingService {
-  private _observer: Subject<Formatting> = new Subject();
-  private readonly _formattingChange: Observable<Formatting> = this._observer.asObservable();
+  private _observerBold: Subject<boolean> = new Subject();
+  private readonly _formatBoldChange: Observable<boolean> = this._observerBold.asObservable();
+  private _observerColor: Subject<string> = new Subject();
+  private readonly _formatColorChange: Observable<string> = this._observerColor.asObservable();
+  private _observerBgColor: Subject<string> = new Subject();
+  private readonly _formatBgColorChange: Observable<string> = this._observerBgColor.asObservable();
 
   constructor() {
   }
 
-  get formattingChange() {
-    return this._formattingChange;
+  get formatBoldChange() {
+    return this._formatBoldChange;
   }
 
-  changeFormatting(formatting: Formatting) {
-    this._observer.next(Formatting.copy(formatting));
+  get formatColorChange() {
+    return this._formatColorChange;
+  }
+
+  get formatBgColorChange() {
+    return this._formatBgColorChange;
+  }
+
+  changeFormatBold(bold: boolean) {
+    this._observerBold.next(bold);
+  }
+
+  changeFormatColor(color: string) {
+    this._observerColor.next(color);
+  }
+
+  changeFormatBgColor(bgcolor: string) {
+    this._observerBgColor.next(bgcolor);
   }
 
   static createFontSizeOption(val: number) {
