@@ -1,6 +1,7 @@
 import {Directive, HostListener, OnInit} from '@angular/core';
 import {FormattingService} from "./formatting.service";
 import {BackFormattingService} from "./back-formatting.service";
+import * as $ from 'jquery';
 
 @Directive({
   selector: '[gdFormatting]'
@@ -15,6 +16,35 @@ export class FormattingDirective implements OnInit {
     this._backFormattingService.changeFormatBold(bold  && bold.endsWith('true'));
     this._backFormattingService.changeFormatColor(document.queryCommandValue("foreColor"));
     this._backFormattingService.changeFormatBgColor(document.queryCommandValue("backColor"));
+    this._backFormattingService.changeFormatFontSize(this.reportColourAndFontSize());
+  }
+
+  reportColourAndFontSize(): number {
+    var containerEl, sel;
+    if (window.getSelection) {
+      sel = window.getSelection();
+      if (sel.rangeCount) {
+        containerEl = sel.getRangeAt(0).commonAncestorContainer;
+        // Make sure we have an element rather than a text node
+        if (containerEl.nodeType == 3) {
+          containerEl = containerEl.parentNode;
+        }
+      }
+    } else if ( (sel = document.getSelection()) && sel.type != "Control") {
+      containerEl = sel.createRange().parentElement();
+    }
+
+    if (containerEl) {
+      return parseInt(this.getComputedStyleProperty(containerEl, "fontSize").replace("px", ""));
+    }
+  }
+
+  getComputedStyleProperty(el, propName) {
+    if (window.getComputedStyle) {
+      return window.getComputedStyle(el, null)[propName];
+    } else if (el.currentStyle) {
+      return el.currentStyle[propName];
+    }
   }
 
   ngOnInit(): void {
@@ -45,6 +75,14 @@ export class FormattingDirective implements OnInit {
   }
 
   private setFontSize(fontSize: number) {
-    document.execCommand('fontSize', false, fontSize.toString());
+    if(document.getSelection().toString()) {
+      var spanString = $('<span/>', {
+        'text': document.getSelection()
+      }).css('font-size', fontSize + "px").prop('outerHTML');
+
+      document.execCommand('insertHTML', false, spanString);
+    } else {
+      document.execCommand("fontsize", false, "7");
+    }
   }
 }

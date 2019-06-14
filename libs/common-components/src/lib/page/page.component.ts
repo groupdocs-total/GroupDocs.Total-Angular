@@ -35,6 +35,6 @@ export class PageComponent implements OnInit, OnChanges {
 
   noop(event){
     event.preventDefault();
-    event.stopPropagation();  
+    event.stopPropagation();
   }
 }

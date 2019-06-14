@@ -18,6 +18,7 @@ import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
 import {FontsService} from "./fonts.service";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'gd-editor-angular-root',
@@ -209,7 +210,17 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   selectFontSize($event: number) {
+    $(".gd-wrapper").off("keyup");
     this._formattingService.changeFormatFontSize($event);
+    $(".gd-wrapper").on("keyup", ()=> {
+      var fontElements = document.getElementsByTagName("font");
+      for (var i = 0, len = fontElements.length; i < len; ++i) {
+        if (fontElements[i].size == "7") {
+          fontElements[i].removeAttribute("size");
+          fontElements[i].style.fontSize = $event + "px";
+        }
+      }
+    });
   }
 
   toggleColorPicker(bg: boolean) {
