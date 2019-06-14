@@ -41,6 +41,7 @@ export class EditorAppComponent implements AfterViewInit {
   fontSizeOptions = FormattingService.getFontSizeOptions();
   bgColorPickerShow: boolean = false;
   colorPickerShow: boolean = false;
+  active: boolean = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -80,6 +81,7 @@ export class EditorAppComponent implements AfterViewInit {
     });
     this._backFormattingService.formatColorChange.subscribe((color: string) => {
       this.formatting.color = color;
+      console.log( this.formatting.color);
     });
     this._backFormattingService.formatBgColorChange.subscribe((bgcolor: string) => {
       this.formatting.bgColor = bgcolor;
@@ -170,6 +172,7 @@ export class EditorAppComponent implements AfterViewInit {
     this.file.pages = [];
     this.file.pages.push(page);
     this.pageCount = 1;
+    this.formatDisabled = false;
   }
 
   ngAfterViewInit(): void {
@@ -251,5 +254,19 @@ export class EditorAppComponent implements AfterViewInit {
     this.colorPickerShow = false;
     this.bgColorPickerShow = false;
     this._onCloseService.close(true);
+  }
+
+  checkState(name: string, $event: string) {
+    switch (name){
+      case "bold":
+        this.formatting.bold = !this.formatting.bold;
+        break;
+      case"bgColor":
+        this.formatting.bgColor = $event;
+        break;
+      case"color":
+        this.formatting.color = $event;
+        break;
+    }
   }
 }
