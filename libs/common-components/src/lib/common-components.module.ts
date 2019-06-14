@@ -43,6 +43,9 @@ import {TabComponent} from "./tab/tab.component";
 import {TabsComponent} from "./tabs/tabs.component";
 import {FormattingService} from "./formatting.service";
 import {ColorPickerComponent} from './color-picker/color-picker.component';
+import {FormattingDirective} from './formatting.directive';
+import {BackFormattingService} from "./back-formatting.service";
+import {OnCloseService} from "./on-close.service";
 
 const providers = [ConfigService,
   Api,
@@ -65,7 +68,9 @@ const providers = [ConfigService,
   SearchService,
   WindowService,
   ViewportService,
-  FormattingService];
+  FormattingService,
+  BackFormattingService,
+  OnCloseService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
@@ -99,7 +104,8 @@ const providers = [ConfigService,
     TabbedToolbarsComponent,
     TabComponent,
     TabsComponent,
-    ColorPickerComponent
+    ColorPickerComponent,
+    FormattingDirective
   ],
   exports: [
     TopToolbarComponent,
@@ -128,7 +134,8 @@ const providers = [ConfigService,
     TabbedToolbarsComponent,
     TabComponent,
     TabsComponent,
-    ColorPickerComponent
+    ColorPickerComponent,
+    FormattingDirective
   ],
   providers: providers
 })

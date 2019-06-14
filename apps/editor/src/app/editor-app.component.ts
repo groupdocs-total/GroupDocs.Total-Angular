@@ -9,12 +9,16 @@ import {
   FileCredentials,
   CommonModals,
   PageModel,
-  FormattingService
+  FormattingService,
+  Formatting,
+  BackFormattingService,
+  OnCloseService
 } from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
 import {FontsService} from "./fonts.service";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'gd-editor-angular-root',
@@ -34,14 +38,11 @@ export class EditorAppComponent implements AfterViewInit {
   fonts;
   _font: string = "Arial";
   pageCount: number = 0;
-  formatting = {
-    fontSize: 10,
-    color: '#000000',
-    bgColor: '#FFFFFF',
-  };
+  formatting: Formatting = Formatting.DEFAULT;
   fontSizeOptions = FormattingService.getFontSizeOptions();
   bgColorPickerShow: boolean = false;
   colorPickerShow: boolean = false;
+  active: boolean = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -49,7 +50,10 @@ export class EditorAppComponent implements AfterViewInit {
               uploadFilesService: UploadFilesService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _fontService: FontsService) {
+              private _fontService: FontsService,
+              private _formattingService: FormattingService,
+              private _backFormattingService: BackFormattingService,
+              private _onCloseService: OnCloseService) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -72,6 +76,20 @@ export class EditorAppComponent implements AfterViewInit {
     });
 
     this.fonts = this.fontOptions();
+
+    this._backFormattingService.formatBoldChange.subscribe((bold: boolean) => {
+      this.formatting.bold = bold;
+    });
+    this._backFormattingService.formatColorChange.subscribe((color: string) => {
+      this.formatting.color = color;
+      console.log( this.formatting.color);
+    });
+    this._backFormattingService.formatBgColorChange.subscribe((bgcolor: string) => {
+      this.formatting.bgColor = bgcolor;
+    });
+    this._backFormattingService.formatFontSizeChange.subscribe((fontSize: number) => {
+      this.formatting.fontSize = fontSize;
+    });
   }
 
   get rewriteConfig(): boolean {
@@ -155,6 +173,7 @@ export class EditorAppComponent implements AfterViewInit {
     this.file.pages = [];
     this.file.pages.push(page);
     this.pageCount = 1;
+    this.formatDisabled = false;
   }
 
   ngAfterViewInit(): void {
@@ -190,8 +209,18 @@ export class EditorAppComponent implements AfterViewInit {
     });
   }
 
-  selectFontSize($event: any) {
-    this.formatting.fontSize = $event;
+  selectFontSize($event: number) {
+    $(".gd-wrapper").off("keyup");
+    this._formattingService.changeFormatFontSize($event);
+    $(".gd-wrapper").on("keyup", ()=> {
+      var fontElements = document.getElementsByTagName("font");
+      for (var i = 0, len = fontElements.length; i < len; ++i) {
+        if (fontElements[i].size == "7") {
+          fontElements[i].removeAttribute("size");
+          fontElements[i].style.fontSize = $event + "px";
+        }
+      }
+    });
   }
 
   toggleColorPicker(bg: boolean) {
@@ -209,11 +238,46 @@ export class EditorAppComponent implements AfterViewInit {
 
   selectColor($event: string) {
     if (this.bgColorPickerShow) {
-      this.formatting.bgColor = $event;
       this.bgColorPickerShow = false;
+      this._formattingService.changeFormatBgColor($event);
     } else {
-      this.formatting.color = $event;
       this.colorPickerShow = false;
+      this._formattingService.changeFormatColor($event);
+    }
+  }
+
+  toggleBold(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.changeFormatBold(!this.formatting.bold);
+  }
+
+  hideAll($event) {
+    if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
+      $event.target.parentElement.attributes['name'].value == 'button') ||
+      ($event.target.parentElement.parentElement &&
+        $event.target.parentElement.parentElement.attributes['name'] &&
+      $event.target.parentElement.parentElement.attributes['name'].value == 'button')) {
+
+      this._onCloseService.close(true);
+      return;
+    }
+    this.colorPickerShow = false;
+    this.bgColorPickerShow = false;
+    this._onCloseService.close(true);
+  }
+
+  checkState(name: string, $event: string) {
+    switch (name){
+      case "bold":
+        this.formatting.bold = !this.formatting.bold;
+        break;
+      case"bgColor":
+        this.formatting.bgColor = $event;
+        break;
+      case"color":
+        this.formatting.color = $event;
+        break;
     }
   }
 }

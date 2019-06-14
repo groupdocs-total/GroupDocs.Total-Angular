@@ -23,7 +23,9 @@ export class ColorPickerComponent implements OnInit {
   ngOnInit() {
   }
 
-  select(color: string) {
+  select($event, color: string) {
+    $event.preventDefault();
+    $event.stopPropagation();
     this.selectedColor.emit(color);
   }
 }

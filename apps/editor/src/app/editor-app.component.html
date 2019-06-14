@@ -1,4 +1,4 @@
-<div class="wrapper" (contextmenu)="onRightClick($event)">
+<div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
   <gd-tabbed-toolbars>
     <gd-tabs>
       <gd-tab tabTitle="File" [icon]="'folder-open'">
@@ -14,11 +14,13 @@
           <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontSizeOptions"
                      (selected)="selectFontSize($event)"
                      [showSelected]="formatting.fontSize + 'px'"></gd-select>
-          <gd-button [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
+          <gd-button [disabled]="formatDisabled" [icon]="'bold'" [tooltip]="'Bold'"
+                     (click)="toggleBold($event); checkState('bold')" [className]="formatting.bold ? 'gd-edit active' : ''"></gd-button>
+          <gd-button name="button" [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
                      (click)="toggleColorPicker(true)">
             <div class="bg-color-pic" [style.background-color]="formatting.bgColor"></div>
           </gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'font'" [tooltip]="'Color'" (click)="toggleColorPicker(false)">
+          <gd-button name="button" [disabled]="formatDisabled" [icon]="'font'" [tooltip]="'Color'" (click)="toggleColorPicker(false)">
             <div class="bg-color-pic" [style.background-color]="formatting.color"></div>
           </gd-button>
         </gd-top-toolbar>
@@ -27,11 +29,11 @@
   </gd-tabbed-toolbars>
   <gd-color-picker *ngIf="bgColorPickerShow || colorPickerShow"
                    [className]="'palette ' + (bgColorPickerShow ? 'background-color-picker' : 'color-picker')"
-                   (selectedColor)="selectColor($event)"></gd-color-picker>
+                   (selectedColor)=" checkState(bgColorPickerShow ? 'bgColor' : 'color', $event); selectColor($event)"></gd-color-picker>
   <div class="doc-panel" *ngIf="file">
 
     <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="true"
-                 [preloadPageCount]="0">
+                 [preloadPageCount]="0" gdFormatting>
 
     </gd-document>
 
