@@ -21,6 +21,10 @@ export class Formatting {
 export class FormattingService {
   private _observerBold: Subject<boolean> = new Subject();
   private readonly _formatBoldChange: Observable<boolean> = this._observerBold.asObservable();
+  private _observerUndo: Subject<boolean> = new Subject();
+  private readonly _undo: Observable<boolean> = this._observerUndo.asObservable();
+  private _observerRedo: Subject<boolean> = new Subject();
+  private readonly _redo: Observable<boolean> = this._observerRedo.asObservable();
   private _observerItalic: Subject<boolean> = new Subject();
   private readonly _formatItalicChange: Observable<boolean> = this._observerItalic.asObservable();
   private _observerColor: Subject<string> = new Subject();
@@ -49,12 +53,28 @@ export class FormattingService {
     return this._formatFontSizeChange;
   }
 
+  get undo() {
+    return this._undo;
+  }
+
+  get redo() {
+    return this._redo;
+  }
+
   get formatItalicChange() {
     return this._formatItalicChange;
   }
 
   changeFormatBold(bold: boolean) {
     this._observerBold.next(bold);
+  }
+
+  Undo() {
+    this._observerUndo.next();
+  }
+
+  Redo() {
+    this._observerRedo.next();
   }
 
   changeFormatItalic(italic: boolean) {

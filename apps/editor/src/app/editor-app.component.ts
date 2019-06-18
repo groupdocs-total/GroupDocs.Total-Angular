@@ -254,6 +254,18 @@ export class EditorAppComponent implements AfterViewInit {
     this._formattingService.changeFormatBold(!this.formatting.bold);
   }
 
+  toggleUndo() {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.Undo();
+  }
+
+  toggleRedo() {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.Redo();
+  }
+
   toggleItalic(event) {
     event.preventDefault();
     event.stopPropagation();
