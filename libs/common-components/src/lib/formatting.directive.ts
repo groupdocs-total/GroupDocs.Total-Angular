@@ -2,18 +2,19 @@ import {Directive, HostListener, OnInit} from '@angular/core';
 import {FormattingService} from "./formatting.service";
 import {BackFormattingService} from "./back-formatting.service";
 import * as $ from 'jquery';
+import { SelectionService } from './selection.service';
 
 @Directive({
   selector: '[gdFormatting]'
 })
 export class FormattingDirective implements OnInit {
   constructor(private _formattingService: FormattingService,
-              private _backFormattingService: BackFormattingService) {
+              private _backFormattingService: BackFormattingService,
+              private _selectionService: SelectionService) {
   }
 
   @HostListener('mouseup') mousedown() {
-    let bold = document.queryCommandValue("bold");
-    this._backFormattingService.changeFormatBold(bold  && bold.endsWith('true'));
+    this._backFormattingService.changeFormatBold(document.queryCommandState("bold"));
     this._backFormattingService.changeFormatColor(document.queryCommandValue("foreColor"));
     this._backFormattingService.changeFormatBgColor(document.queryCommandValue("backColor"));
     this._backFormattingService.changeFormatFontSize(this.reportColourAndFontSize());
@@ -64,14 +65,17 @@ export class FormattingDirective implements OnInit {
 
   private toggleBold() {
     document.execCommand("bold");
+    this._selectionService.refreshSelection()
   }
 
   private setBgColor(bgColor: string) {
     document.execCommand("backColor", false, bgColor);
+    this._selectionService.refreshSelection()
   }
 
   private setColor(color: string) {
     document.execCommand("foreColor", false, color)
+    this._selectionService.refreshSelection()
   }
 
   private setFontSize(fontSize: number) {
@@ -84,5 +88,6 @@ export class FormattingDirective implements OnInit {
     } else {
       document.execCommand("fontsize", false, "7");
     }
+    this._selectionService.refreshSelection()
   }
 }

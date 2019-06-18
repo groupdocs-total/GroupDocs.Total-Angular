@@ -1,4 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import { SelectionService } from '../selection.service';
 
 @Component({
   selector: 'gd-page',
@@ -18,7 +19,7 @@ export class PageComponent implements OnInit, OnChanges {
   imgData: string;
   text: string;
 
-  constructor() {
+  constructor(private _selectionService: SelectionService) {
   }
 
   ngOnInit() {
@@ -34,7 +35,11 @@ export class PageComponent implements OnInit, OnChanges {
   }
 
   noop(event){
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault()
+    this._selectionService.restoreSelection();
+  }
+
+  captureSelection(){
+    this._selectionService.captureSelection();
   }
 }

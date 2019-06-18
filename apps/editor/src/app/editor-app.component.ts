@@ -247,6 +247,7 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   toggleBold(event) {
+    console.log(event)
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.changeFormatBold(!this.formatting.bold);
