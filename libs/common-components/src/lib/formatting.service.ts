@@ -1,16 +1,18 @@
 import {Observable, Subject} from "rxjs";
 
 export class Formatting {
-  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false);
+  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false);
 
-  constructor(fontSize: number, color: string, bgColor: string, bold: boolean) {
+  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean) {
     this.fontSize = fontSize;
     this.color = color;
     this.bgColor = bgColor;
     this.bold = bold;
+    this.italic = italic;
   }
 
   bold: boolean;
+  italic: boolean;
   fontSize: number;
   color: string;
   bgColor: string;
@@ -23,6 +25,8 @@ export class FormattingService {
   private readonly _undo: Observable<boolean> = this._observerUndo.asObservable();
   private _observerRedo: Subject<boolean> = new Subject();
   private readonly _redo: Observable<boolean> = this._observerRedo.asObservable();
+  private _observerItalic: Subject<boolean> = new Subject();
+  private readonly _formatItalicChange: Observable<boolean> = this._observerItalic.asObservable();
   private _observerColor: Subject<string> = new Subject();
   private readonly _formatColorChange: Observable<string> = this._observerColor.asObservable();
   private _observerBgColor: Subject<string> = new Subject();
@@ -57,6 +61,10 @@ export class FormattingService {
     return this._redo;
   }
 
+  get formatItalicChange() {
+    return this._formatItalicChange;
+  }
+
   changeFormatBold(bold: boolean) {
     this._observerBold.next(bold);
   }
@@ -67,6 +75,10 @@ export class FormattingService {
 
   Redo() {
     this._observerRedo.next();
+  }
+
+  changeFormatItalic(italic: boolean) {
+    this._observerItalic.next(italic);
   }
 
   changeFormatColor(color: string) {

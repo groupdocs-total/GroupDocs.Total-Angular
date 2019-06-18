@@ -8,19 +8,35 @@ import { SelectionService } from './selection.service';
   selector: '[gdFormatting]'
 })
 export class FormattingDirective implements OnInit {
+
+  private bold: boolean = false;
+  private italic: boolean = false;
+  private color: string;
+  private bgColor: string;
+
   constructor(private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
               private _selectionService: SelectionService) {
   }
 
   @HostListener('mouseup') mousedown() {
-    this._backFormattingService.changeFormatBold(document.queryCommandState("bold"));
-    this._backFormattingService.changeFormatColor(document.queryCommandValue("foreColor"));
-    this._backFormattingService.changeFormatBgColor(document.queryCommandValue("backColor"));
-    this._backFormattingService.changeFormatFontSize(this.reportColourAndFontSize());
+
+    this.bold = document.queryCommandState("bold");
+    this.italic = document.queryCommandState("italic");
+    this.bgColor = document.queryCommandValue("backColor");
+    //fix required by FireFox to get correct background color
+    if(this.bgColor == "transparent") {
+      this.bgColor = $(window.getSelection().focusNode.parentNode).css('background-color').toString();
+    }
+    this.color = document.queryCommandValue("foreColor");
+    this._backFormattingService.changeFormatBold(this.bold);
+    this._backFormattingService.changeFormatItalic(this.italic);
+    this._backFormattingService.changeFormatColor(this.color);
+    this._backFormattingService.changeFormatBgColor(this.bgColor);
+    this._backFormattingService.changeFormatFontSize(this.reportFontSize());
   }
 
-  reportColourAndFontSize(): number {
+  reportFontSize(): number {
     var containerEl, sel;
     if (window.getSelection) {
       sel = window.getSelection();
@@ -56,12 +72,19 @@ export class FormattingDirective implements OnInit {
       this.toggleRedo();
     });
     this._formattingService.formatBoldChange.subscribe((bold: boolean) => {
+      this.bold = bold;
       this.toggleBold();
     });
+    this._formattingService.formatItalicChange.subscribe((italic: boolean) => {
+      this.italic = italic;
+      this.toggleItalic();
+    });
     this._formattingService.formatColorChange.subscribe(((color: string) => {
+      this.color = color;
       this.setColor(color);
     }));
     this._formattingService.formatBgColorChange.subscribe(((bgcolor: string) => {
+      this.bgColor = bgcolor;
       this.setBgColor(bgcolor);
     }));
     this._formattingService.formatFontSizeChange.subscribe(((fontSize: number) => {
@@ -71,6 +94,11 @@ export class FormattingDirective implements OnInit {
 
   private toggleBold() {
     document.execCommand("bold");
+    this._selectionService.refreshSelection()
+  }
+
+  private toggleItalic() {
+    document.execCommand("italic");
     this._selectionService.refreshSelection()
   }
 
@@ -86,10 +114,13 @@ export class FormattingDirective implements OnInit {
 
   private setFontSize(fontSize: number) {
     if(document.getSelection().toString()) {
-      var spanString = $('<span/>', {
-        'text': document.getSelection()
-      }).css('font-size', fontSize + "px").prop('outerHTML');
-
+      var spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + ";'>" + document.getSelection() + "</span>";
+      if(this.bold){
+        spanString = "<b>" + spanString + "</b>";
+      }
+      if(this.italic){
+        spanString = "<i>" + spanString + "</i>";
+      }
       document.execCommand('insertHTML', false, spanString);
     } else {
       document.execCommand("fontsize", false, "7");
