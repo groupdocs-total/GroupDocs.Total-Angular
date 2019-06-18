@@ -13,13 +13,15 @@ export class FormattingDirective implements OnInit {
 
   @HostListener('mouseup') mousedown() {
     let bold = document.queryCommandValue("bold");
+    let italic = document.queryCommandValue("italic");
     this._backFormattingService.changeFormatBold(bold  && bold.endsWith('true'));
+    this._backFormattingService.changeFormatItalic(italic  && italic.endsWith('true'));
     this._backFormattingService.changeFormatColor(document.queryCommandValue("foreColor"));
     this._backFormattingService.changeFormatBgColor(document.queryCommandValue("backColor"));
-    this._backFormattingService.changeFormatFontSize(this.reportColourAndFontSize());
+    this._backFormattingService.changeFormatFontSize(this.reportFontSize());
   }
 
-  reportColourAndFontSize(): number {
+  reportFontSize(): number {
     var containerEl, sel;
     if (window.getSelection) {
       sel = window.getSelection();
@@ -50,6 +52,9 @@ export class FormattingDirective implements OnInit {
   ngOnInit(): void {
     this._formattingService.formatBoldChange.subscribe((bold: boolean) => {
       this.toggleBold();
+    });
+    this._formattingService.formatItalicChange.subscribe((italic: boolean) => {
+      this.toggleItalic();
     });
     this._formattingService.formatColorChange.subscribe(((color: string) => {
       this.setColor(color);
@@ -84,5 +89,9 @@ export class FormattingDirective implements OnInit {
     } else {
       document.execCommand("fontsize", false, "7");
     }
+  }
+
+  private toggleItalic() {
+    document.execCommand("italic");
   }
 }
