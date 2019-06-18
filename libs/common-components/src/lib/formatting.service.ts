@@ -19,6 +19,10 @@ export class Formatting {
 export class FormattingService {
   private _observerBold: Subject<boolean> = new Subject();
   private readonly _formatBoldChange: Observable<boolean> = this._observerBold.asObservable();
+  private _observerUndo: Subject<boolean> = new Subject();
+  private readonly _undo: Observable<boolean> = this._observerUndo.asObservable();
+  private _observerRedo: Subject<boolean> = new Subject();
+  private readonly _redo: Observable<boolean> = this._observerRedo.asObservable();
   private _observerColor: Subject<string> = new Subject();
   private readonly _formatColorChange: Observable<string> = this._observerColor.asObservable();
   private _observerBgColor: Subject<string> = new Subject();
@@ -45,8 +49,24 @@ export class FormattingService {
     return this._formatFontSizeChange;
   }
 
+  get undo() {
+    return this._undo;
+  }
+
+  get redo() {
+    return this._redo;
+  }
+
   changeFormatBold(bold: boolean) {
     this._observerBold.next(bold);
+  }
+
+  Undo() {
+    this._observerUndo.next();
+  }
+
+  Redo() {
+    this._observerRedo.next();
   }
 
   changeFormatColor(color: string) {
