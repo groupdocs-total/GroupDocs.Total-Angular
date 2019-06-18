@@ -80,9 +80,11 @@ export class EditorAppComponent implements AfterViewInit {
     this._backFormattingService.formatBoldChange.subscribe((bold: boolean) => {
       this.formatting.bold = bold;
     });
+    this._backFormattingService.formatItalicChange.subscribe((italic: boolean) => {
+      this.formatting.italic = italic;
+    });
     this._backFormattingService.formatColorChange.subscribe((color: string) => {
       this.formatting.color = color;
-      console.log( this.formatting.color);
     });
     this._backFormattingService.formatBgColorChange.subscribe((bgcolor: string) => {
       this.formatting.bgColor = bgcolor;
@@ -252,6 +254,24 @@ export class EditorAppComponent implements AfterViewInit {
     this._formattingService.changeFormatBold(!this.formatting.bold);
   }
 
+  toggleUndo() {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.Undo();
+  }
+
+  toggleRedo() {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.Redo();
+  }
+
+  toggleItalic(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.changeFormatItalic(!this.formatting.italic);
+  }
+
   hideAll($event) {
     if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
       $event.target.parentElement.attributes['name'].value == 'button') ||
@@ -277,6 +297,9 @@ export class EditorAppComponent implements AfterViewInit {
         break;
       case"color":
         this.formatting.color = $event;
+        break;
+      case "italic":
+        this.formatting.italic = !this.formatting.italic;
         break;
     }
   }

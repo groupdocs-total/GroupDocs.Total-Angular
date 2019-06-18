@@ -1,7 +1,7 @@
 <div id="page-{{number}}"
      [style.min-width.px]="width" [style.min-height.px]="height">
   <div class="gd-wrapper" [innerHTML]="data | safeHtml" *ngIf="data && isHtml" [contentEditable]="(editable) ? true : false"
-      (input)="text=$event.target.textContent" (blur)="this.noop($event)"></div>
+      (input)="text=$event.target.textContent" (blur)="this.noop($event)" (mouseleave)="this.captureSelection()"></div>
   <img class="gd-page-image" [style.width.px]="width" [style.height.px]="height" [attr.src]="imgData | safeResourceHtml"
        alt=""
        *ngIf="data && !isHtml">

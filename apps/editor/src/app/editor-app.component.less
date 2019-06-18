@@ -5,7 +5,12 @@
   font-size: 14px;
   color: #959da5;
 }
-
+*{
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;   
+}
 .wrapper {
   align-items: stretch;
   height: 100%;
@@ -37,8 +42,13 @@
   width: 100%;
 }
 
-/deep/ .page {
+/deep/ .gd-wrapper {
   padding: 96px;
+  -webkit-user-select: text;  /* Chrome all / Safari all */
+  -moz-user-select: text;     /* Firefox all */
+  -ms-user-select: text;      /* IE 10+ */
+  user-select: text;   
+  outline: none;
 }
 
 /deep/ .dropdown-menu {
@@ -52,6 +62,7 @@
 .palette {
   position: absolute;
   top: 90px;
+  z-index: 100;
 }
 
 .background-color-picker {
