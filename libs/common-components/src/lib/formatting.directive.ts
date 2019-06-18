@@ -97,21 +97,6 @@ export class FormattingDirective implements OnInit {
   private setFontSize(fontSize: number) {
     if(document.getSelection().toString()) {
 
-      // var spanString = $('<span/>', {
-      //   'html': window.getSelection().getRangeAt(0).extractContents()
-      // }).css('font-size', fontSize + "px").prop('outerHTML');
-      // if(this.bold){
-      //   spanString = $('<b/>', {
-      //     'html': spanString
-      //   }).prop('outerHTML');
-      // }
-      // if(this.italic){
-      //   spanString = $('<i/>', {
-      //     'html': spanString
-      //   }).prop('outerHTML');
-      // }
-
-
       var spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + ";'>" + document.getSelection() + "</span>";
       if(this.bold){
         spanString = "<b>" + spanString + "</b>";
