@@ -2,6 +2,7 @@ import {Directive, HostListener, OnInit} from '@angular/core';
 import {FormattingService} from "./formatting.service";
 import {BackFormattingService} from "./back-formatting.service";
 import * as $ from 'jquery';
+import { SelectionService } from './selection.service';
 
 @Directive({
   selector: '[gdFormatting]'
@@ -13,16 +14,15 @@ export class FormattingDirective implements OnInit {
   private color: string;
   private bgColor: string;
 
-
   constructor(private _formattingService: FormattingService,
-              private _backFormattingService: BackFormattingService) {
+              private _backFormattingService: BackFormattingService,
+              private _selectionService: SelectionService) {
   }
 
   @HostListener('mouseup') mousedown() {
-    let bold = document.queryCommandValue("bold");
-    let italic = document.queryCommandValue("italic");
-    this.bold = bold  && bold.endsWith('true');
-    this.italic = italic  && italic.endsWith('true');
+
+    this.bold = document.queryCommandState("bold");
+    this.italic = document.queryCommandState("italic");
     this.bgColor = document.queryCommandValue("backColor");
     this.color = document.queryCommandValue("foreColor");
     this._backFormattingService.changeFormatBold(this.bold);
@@ -84,19 +84,25 @@ export class FormattingDirective implements OnInit {
 
   private toggleBold() {
     document.execCommand("bold");
+    this._selectionService.refreshSelection()
+  }
+
+  private toggleItalic() {
+    document.execCommand("italic");
   }
 
   private setBgColor(bgColor: string) {
     document.execCommand("backColor", false, bgColor);
+    this._selectionService.refreshSelection()
   }
 
   private setColor(color: string) {
     document.execCommand("foreColor", false, color)
+    this._selectionService.refreshSelection()
   }
 
   private setFontSize(fontSize: number) {
     if(document.getSelection().toString()) {
-
       var spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + ";'>" + document.getSelection() + "</span>";
       if(this.bold){
         spanString = "<b>" + spanString + "</b>";
@@ -108,9 +114,6 @@ export class FormattingDirective implements OnInit {
     } else {
       document.execCommand("fontsize", false, "7");
     }
-  }
-
-  private toggleItalic() {
-    document.execCommand("italic");
+    this._selectionService.refreshSelection()
   }
 }
