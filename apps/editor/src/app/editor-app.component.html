@@ -11,6 +11,12 @@
       </gd-tab>
       <gd-tab tabTitle="Formatting" [icon]="'edit'">
         <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
+
+          <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Undo'"
+                     (click)="toggleUndo()"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Redo'"
+                     (click)="toggleRedo()"></gd-button>
+
           <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontSizeOptions"
                      (selected)="selectFontSize($event)"
                      [showSelected]="formatting.fontSize + 'px'"></gd-select>

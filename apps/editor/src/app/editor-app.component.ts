@@ -252,6 +252,18 @@ export class EditorAppComponent implements AfterViewInit {
     this._formattingService.changeFormatBold(!this.formatting.bold);
   }
 
+  toggleUndo() {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.Undo();
+  }
+
+  toggleRedo() {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.Redo();
+  }
+
   hideAll($event) {
     if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
       $event.target.parentElement.attributes['name'].value == 'button') ||

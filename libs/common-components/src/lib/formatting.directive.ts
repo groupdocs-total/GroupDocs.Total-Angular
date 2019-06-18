@@ -48,6 +48,12 @@ export class FormattingDirective implements OnInit {
   }
 
   ngOnInit(): void {
+    this._formattingService.undo.subscribe(() => {
+      this.toggleUndo();
+    });
+    this._formattingService.redo.subscribe(() => {
+      this.toggleRedo();
+    });
     this._formattingService.formatBoldChange.subscribe((bold: boolean) => {
       this.toggleBold();
     });
@@ -84,5 +90,13 @@ export class FormattingDirective implements OnInit {
     } else {
       document.execCommand("fontsize", false, "7");
     }
+  }
+
+  private toggleUndo() {
+    document.execCommand("undo");
+  }
+
+  private toggleRedo() {
+    document.execCommand("redo");
   }
 }
