@@ -14,7 +14,9 @@ export class SelectionService {
     }
   }
   captureSelection(){
-    this.selection = window.getSelection().getRangeAt(0);
+    if(window.getSelection().getRangeAt(0).startOffset != window.getSelection().getRangeAt(0).endOffset) {
+      this.selection = window.getSelection().getRangeAt(0);
+    }
   }
 
   refreshSelection(){

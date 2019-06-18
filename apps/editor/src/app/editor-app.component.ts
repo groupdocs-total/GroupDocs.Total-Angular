@@ -85,7 +85,6 @@ export class EditorAppComponent implements AfterViewInit {
     });
     this._backFormattingService.formatColorChange.subscribe((color: string) => {
       this.formatting.color = color;
-      console.log( this.formatting.color);
     });
     this._backFormattingService.formatBgColorChange.subscribe((bgcolor: string) => {
       this.formatting.bgColor = bgcolor;

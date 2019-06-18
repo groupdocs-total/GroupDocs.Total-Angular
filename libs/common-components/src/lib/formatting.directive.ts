@@ -24,6 +24,10 @@ export class FormattingDirective implements OnInit {
     this.bold = document.queryCommandState("bold");
     this.italic = document.queryCommandState("italic");
     this.bgColor = document.queryCommandValue("backColor");
+    //fix required by FireFox to get correct background color
+    if(this.bgColor == "transparent") {
+      this.bgColor = $(window.getSelection().focusNode.parentNode).css('background-color').toString();
+    }
     this.color = document.queryCommandValue("foreColor");
     this._backFormattingService.changeFormatBold(this.bold);
     this._backFormattingService.changeFormatItalic(this.italic);
@@ -89,6 +93,7 @@ export class FormattingDirective implements OnInit {
 
   private toggleItalic() {
     document.execCommand("italic");
+    this._selectionService.refreshSelection()
   }
 
   private setBgColor(bgColor: string) {
