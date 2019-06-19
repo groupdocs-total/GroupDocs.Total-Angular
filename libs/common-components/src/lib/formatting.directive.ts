@@ -17,6 +17,7 @@ export class FormattingDirective implements OnInit {
   private font: string;
   private strikeout: boolean = false;
   private align: string;
+  private list; string;
 
   constructor(private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
@@ -30,8 +31,8 @@ export class FormattingDirective implements OnInit {
     this.italic = document.queryCommandState("italic");
     this.bgColor = document.queryCommandValue("backColor");
     this.underline = document.queryCommandState("underline");
-
     this.align = this.checkJustify();
+    this.list = this.checkList();
 
     //fix required by FireFox to get correct background color
     if(this.bgColor == "transparent") {
@@ -48,6 +49,7 @@ export class FormattingDirective implements OnInit {
     this._backFormattingService.changeFormatFont(this.font);
     this._backFormattingService.changeFormatStrikeout(this.strikeout);
     this._backFormattingService.changeFormatAlign(this.align);
+    this._backFormattingService.changeFormatList(this.list);
   }
 
   private checkJustify() {
@@ -57,6 +59,12 @@ export class FormattingDirective implements OnInit {
     align = document.queryCommandState("justifyLeft") ? "left" : align;
     align = document.queryCommandState("justifyRight") ? "right" : align;
     return align;
+  }
+  private checkList() {
+    let list: string = "";
+    list = document.queryCommandState("insertUnorderedList") ? "unordered" : list;
+    list = document.queryCommandState("insertOrderedList") ? "ordered" : list;
+    return list;
   }
 
   reportFontSize(): number {
@@ -129,6 +137,10 @@ export class FormattingDirective implements OnInit {
     this._formattingService.formatAlignChange.subscribe((align: string) => {
       this.align = align;
       this.toggleAlign(this.align);
+    });
+    this._formattingService.formatListChange.subscribe((list: string) => {
+      this.list = list;
+      this.toggleList(this.list);
     });
   }
 
@@ -211,6 +223,18 @@ export class FormattingDirective implements OnInit {
         break;
       case 'right':
         document.execCommand('justifyRight');
+        break;
+    }
+    this._selectionService.refreshSelection()
+  }
+
+  private toggleList(list: string) {
+    switch(list){
+      case 'unordered':
+        document.execCommand('insertUnorderedList');
+        break;
+      case 'ordered':
+        document.execCommand('insertOrderedList');
         break;
     }
     this._selectionService.refreshSelection()

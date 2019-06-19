@@ -101,6 +101,10 @@ export class EditorAppComponent implements AfterViewInit {
     this._backFormattingService.formatAlignChange.subscribe((align: string) => {
       this.formatting.align = align;
     });
+
+    this._backFormattingService.formatListChange.subscribe((list: string) => {
+      this.formatting.list = list;
+    });
   }
 
   get rewriteConfig(): boolean {
@@ -307,6 +311,18 @@ export class EditorAppComponent implements AfterViewInit {
     this.formatting.align = align;
   }
 
+  toggleList(list: string) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if(list == this.formatting.list) {
+      this.formatting.list = "";
+    } else {
+      this.formatting.list = list;
+    }
+    this._formattingService.changeFormatList(list);
+  }
+
   checkState(name: string, $event: string) {
     switch (name){
       case "bold":
@@ -329,6 +345,9 @@ export class EditorAppComponent implements AfterViewInit {
         break;
       case "align":
         this.formatting.align = this.formatting.align;
+        break;
+      case "list":
+        this.formatting.list = this.formatting.list;
         break;
     }
   }

@@ -1,9 +1,9 @@
 import {Observable, Subject} from "rxjs";
 
 export class Formatting {
-  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "");
+  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
 
-  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean, align: string) {
+  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean, align: string, list: string) {
     this.fontSize = fontSize;
     this.color = color;
     this.bgColor = bgColor;
@@ -13,6 +13,7 @@ export class Formatting {
     this.font = font;
     this.strikeout = strikeout;
     this.align = align;
+    this.list = list;
   }
 
   bold: boolean;
@@ -24,6 +25,7 @@ export class Formatting {
   font: string;
   strikeout: boolean;
   align: string;
+  list: string;
 }
 
 export class FormattingService {
@@ -49,6 +51,8 @@ export class FormattingService {
   private readonly _formatStrikeoutChange: Observable<boolean> = this._observerStrikeout.asObservable();
   private _observerAlign: Subject<string> = new Subject();
   private readonly _formatAlignChange: Observable<string> = this._observerAlign.asObservable();
+  private _observerList: Subject<string> = new Subject();
+  private readonly _formatListChange: Observable<string> = this._observerList.asObservable();
 
   constructor() {
   }
@@ -95,6 +99,10 @@ export class FormattingService {
 
   get formatAlignChange() {
     return this._formatAlignChange;
+  }
+
+  get formatListChange() {
+    return this._formatListChange;
   }
 
   changeFormatBold(bold: boolean) {
@@ -171,5 +179,9 @@ export class FormattingService {
 
   changeFormatAlign(align: string) {
     this._observerAlign.next(align);
+  }
+
+  changeFormatList(list: string) {
+    this._observerList.next(list);
   }
 }
