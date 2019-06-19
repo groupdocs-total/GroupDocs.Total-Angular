@@ -83,6 +83,9 @@ export class EditorAppComponent implements AfterViewInit {
     this._backFormattingService.formatItalicChange.subscribe((italic: boolean) => {
       this.formatting.italic = italic;
     });
+    this._backFormattingService.formatUnderlineChange.subscribe((underline: boolean) => {
+      this.formatting.underline = underline;
+    });
     this._backFormattingService.formatColorChange.subscribe((color: string) => {
       this.formatting.color = color;
     });
@@ -270,6 +273,12 @@ export class EditorAppComponent implements AfterViewInit {
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.changeFormatItalic(!this.formatting.italic);
+  }
+
+  toggleUnderline(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.changeFormatUnderline(!this.formatting.underline);
   }
 
   hideAll($event) {

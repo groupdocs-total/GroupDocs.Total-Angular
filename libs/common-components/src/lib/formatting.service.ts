@@ -1,18 +1,20 @@
 import {Observable, Subject} from "rxjs";
 
 export class Formatting {
-  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false);
+  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false);
 
-  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean) {
+  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean) {
     this.fontSize = fontSize;
     this.color = color;
     this.bgColor = bgColor;
     this.bold = bold;
     this.italic = italic;
+    this.underline = underline;
   }
 
   bold: boolean;
   italic: boolean;
+  underline: boolean;
   fontSize: number;
   color: string;
   bgColor: string;
@@ -21,6 +23,8 @@ export class Formatting {
 export class FormattingService {
   private _observerBold: Subject<boolean> = new Subject();
   private readonly _formatBoldChange: Observable<boolean> = this._observerBold.asObservable();
+  private _observerUnderline: Subject<boolean> = new Subject();
+  private readonly _formatUnderlineChange: Observable<boolean> = this._observerUnderline.asObservable();
   private _observerUndo: Subject<boolean> = new Subject();
   private readonly _undo: Observable<boolean> = this._observerUndo.asObservable();
   private _observerRedo: Subject<boolean> = new Subject();
@@ -39,6 +43,10 @@ export class FormattingService {
 
   get formatBoldChange() {
     return this._formatBoldChange;
+  }
+
+  get formatUnderlineChange() {
+    return this._formatUnderlineChange;
   }
 
   get formatColorChange() {
@@ -67,6 +75,10 @@ export class FormattingService {
 
   changeFormatBold(bold: boolean) {
     this._observerBold.next(bold);
+  }
+
+  changeFormatUnderline(underline: boolean) {
+    this._observerUnderline.next(underline);
   }
 
   Undo() {

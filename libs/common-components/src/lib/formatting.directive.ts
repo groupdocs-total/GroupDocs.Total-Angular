@@ -11,6 +11,7 @@ export class FormattingDirective implements OnInit {
 
   private bold: boolean = false;
   private italic: boolean = false;
+  private underline: boolean = false;
   private color: string;
   private bgColor: string;
 
@@ -24,12 +25,14 @@ export class FormattingDirective implements OnInit {
     this.bold = document.queryCommandState("bold");
     this.italic = document.queryCommandState("italic");
     this.bgColor = document.queryCommandValue("backColor");
+    this.underline = document.queryCommandState("underline");
     //fix required by FireFox to get correct background color
     if(this.bgColor == "transparent") {
       this.bgColor = $(window.getSelection().focusNode.parentNode).css('background-color').toString();
     }
     this.color = document.queryCommandValue("foreColor");
     this._backFormattingService.changeFormatBold(this.bold);
+    this._backFormattingService.changeFormatUnderline(this.underline);
     this._backFormattingService.changeFormatItalic(this.italic);
     this._backFormattingService.changeFormatColor(this.color);
     this._backFormattingService.changeFormatBgColor(this.bgColor);
@@ -75,6 +78,10 @@ export class FormattingDirective implements OnInit {
       this.bold = bold;
       this.toggleBold();
     });
+    this._formattingService.formatUnderlineChange.subscribe((underline: boolean) => {
+      this.underline = underline;
+      this.toggleUnderline();
+    });
     this._formattingService.formatItalicChange.subscribe((italic: boolean) => {
       this.italic = italic;
       this.toggleItalic();
@@ -94,6 +101,11 @@ export class FormattingDirective implements OnInit {
 
   private toggleBold() {
     document.execCommand("bold");
+    this._selectionService.refreshSelection()
+  }
+
+  private toggleUnderline() {
+    document.execCommand("underline");
     this._selectionService.refreshSelection()
   }
 
