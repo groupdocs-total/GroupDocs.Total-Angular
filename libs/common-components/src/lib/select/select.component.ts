@@ -44,10 +44,10 @@ export class SelectComponent {
     }
   }
 
-  select($event, value: any) {
+  select($event, value: any, prefix: string) {
     $event.preventDefault();
     $event.stopPropagation();
-    this.showSelected = value + 'px';
+    this.showSelected = value + prefix;
     this.selected.emit(value);
     this.close();
   }

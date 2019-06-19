@@ -22,7 +22,7 @@ export class ZoomService {
   }
 
   static createZoomOption(val: number, name: string = val + '%', sep: boolean = false) {
-    return {value: val, name: name, separator: sep}
+    return {value: val, name: name, separator: sep, prefix: "%"}
   }
 
   static zoomOptions(width, height) {

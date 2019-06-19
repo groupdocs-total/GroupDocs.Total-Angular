@@ -17,7 +17,6 @@ import {
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
-import {FontsService} from "./fonts.service";
 import * as $ from 'jquery';
 
 @Component({
@@ -34,12 +33,10 @@ export class EditorAppComponent implements AfterViewInit {
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
-
-  fonts;
-  _font: string = "Arial";
   pageCount: number = 0;
   formatting: Formatting = Formatting.DEFAULT;
   fontSizeOptions = FormattingService.getFontSizeOptions();
+  fontOptions = FormattingService.getFontOptions();
   bgColorPickerShow: boolean = false;
   colorPickerShow: boolean = false;
   active: boolean = false;
@@ -50,7 +47,6 @@ export class EditorAppComponent implements AfterViewInit {
               uploadFilesService: UploadFilesService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _fontService: FontsService,
               private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
               private _onCloseService: OnCloseService) {
@@ -75,8 +71,6 @@ export class EditorAppComponent implements AfterViewInit {
       this.isDesktop = _windowService.isDesktop();
     });
 
-    this.fonts = this.fontOptions();
-
     this._backFormattingService.formatBoldChange.subscribe((bold: boolean) => {
       this.formatting.bold = bold;
     });
@@ -94,6 +88,10 @@ export class EditorAppComponent implements AfterViewInit {
     });
     this._backFormattingService.formatFontSizeChange.subscribe((fontSize: number) => {
       this.formatting.fontSize = fontSize;
+    });
+
+    this._backFormattingService.formatFontChange.subscribe((font: string) => {
+      this.formatting.font = font;
     });
   }
 
@@ -148,23 +146,6 @@ export class EditorAppComponent implements AfterViewInit {
 
   onRightClick($event: MouseEvent) {
     return this.enableRightClickConfig;
-  }
-
-  fontOptions() {
-    return FontsService.fontOptions();
-  }
-
-  set font(font: string) {
-    this._font = font;
-    this._fontService.changeFont(this._font);
-  }
-
-  get font() {
-    return this._font;
-  }
-
-  selectFont($event: any) {
-    this.font = $event;
   }
 
   createFile() {
@@ -226,6 +207,12 @@ export class EditorAppComponent implements AfterViewInit {
         }
       }
     });
+  }
+
+  selectFont($event: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.changeFormatFont($event);
   }
 
   toggleColorPicker(bg: boolean) {

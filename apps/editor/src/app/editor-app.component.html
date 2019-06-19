@@ -16,7 +16,9 @@
                      (click)="toggleUndo()"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Redo'"
                      (click)="toggleRedo()"></gd-button>
-
+          <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontOptions"
+                     (selected)="selectFont($event)"
+                     [showSelected]="formatting.font"></gd-select>
           <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontSizeOptions"
                      (selected)="selectFontSize($event)"
                      [showSelected]="formatting.fontSize + 'px'"></gd-select>

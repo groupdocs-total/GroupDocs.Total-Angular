@@ -14,6 +14,7 @@ export class FormattingDirective implements OnInit {
   private underline: boolean = false;
   private color: string;
   private bgColor: string;
+  private font: string;
 
   constructor(private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
@@ -30,6 +31,7 @@ export class FormattingDirective implements OnInit {
     if(this.bgColor == "transparent") {
       this.bgColor = $(window.getSelection().focusNode.parentNode).css('background-color').toString();
     }
+    this.font = document.queryCommandValue("FontName").replace(/"/g, '');
     this.color = document.queryCommandValue("foreColor");
     this._backFormattingService.changeFormatBold(this.bold);
     this._backFormattingService.changeFormatUnderline(this.underline);
@@ -37,6 +39,7 @@ export class FormattingDirective implements OnInit {
     this._backFormattingService.changeFormatColor(this.color);
     this._backFormattingService.changeFormatBgColor(this.bgColor);
     this._backFormattingService.changeFormatFontSize(this.reportFontSize());
+    this._backFormattingService.changeFormatFont(this.font);
   }
 
   reportFontSize(): number {
@@ -97,6 +100,11 @@ export class FormattingDirective implements OnInit {
     this._formattingService.formatFontSizeChange.subscribe(((fontSize: number) => {
       this.setFontSize(fontSize);
     }));
+
+    this._formattingService.formatFontChange.subscribe(((font: string) => {
+      this.font = font;
+      this.setFont(font);
+    }));
   }
 
   private toggleBold() {
@@ -126,7 +134,8 @@ export class FormattingDirective implements OnInit {
 
   private setFontSize(fontSize: number) {
     if(document.getSelection().toString()) {
-      var spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + ";'>" + document.getSelection() + "</span>";
+      var spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + "; font-family: " + this.font + "'>" +
+        document.getSelection() + "</span>";
       if(this.bold){
         spanString = "<b>" + spanString + "</b>";
       }
@@ -149,5 +158,10 @@ export class FormattingDirective implements OnInit {
 
   private toggleRedo() {
     document.execCommand("redo");
+  }
+
+  private setFont(font: string) {
+    document.execCommand("fontName", false, font);
+    this._selectionService.refreshSelection()
   }
 }
