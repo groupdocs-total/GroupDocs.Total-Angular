@@ -1,9 +1,9 @@
 import {Observable, Subject} from "rxjs";
 
 export class Formatting {
-  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false);
+  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "");
 
-  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean) {
+  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean, align: string) {
     this.fontSize = fontSize;
     this.color = color;
     this.bgColor = bgColor;
@@ -12,6 +12,7 @@ export class Formatting {
     this.underline = underline;
     this.font = font;
     this.strikeout = strikeout;
+    this.align = align;
   }
 
   bold: boolean;
@@ -22,6 +23,7 @@ export class Formatting {
   bgColor: string;
   font: string;
   strikeout: boolean;
+  align: string;
 }
 
 export class FormattingService {
@@ -45,6 +47,8 @@ export class FormattingService {
   private readonly _formatFontChange: Observable<string> = this._observerFont.asObservable();
   private _observerStrikeout: Subject<boolean> = new Subject();
   private readonly _formatStrikeoutChange: Observable<boolean> = this._observerStrikeout.asObservable();
+  private _observerAlign: Subject<string> = new Subject();
+  private readonly _formatAlignChange: Observable<string> = this._observerAlign.asObservable();
 
   constructor() {
   }
@@ -87,6 +91,10 @@ export class FormattingService {
 
   get formatStrikeoutChange() {
     return this._formatStrikeoutChange;
+  }
+
+  get formatAlignChange() {
+    return this._formatAlignChange;
   }
 
   changeFormatBold(bold: boolean) {
@@ -159,5 +167,9 @@ export class FormattingService {
 
   changeFormatStrikeout(strikeout: boolean) {
     this._observerStrikeout.next(strikeout);
+  }
+
+  changeFormatAlign(align: string) {
+    this._observerAlign.next(align);
   }
 }

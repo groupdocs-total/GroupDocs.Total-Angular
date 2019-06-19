@@ -16,6 +16,7 @@ export class FormattingDirective implements OnInit {
   private bgColor: string;
   private font: string;
   private strikeout: boolean = false;
+  private align: string;
 
   constructor(private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
@@ -29,6 +30,9 @@ export class FormattingDirective implements OnInit {
     this.italic = document.queryCommandState("italic");
     this.bgColor = document.queryCommandValue("backColor");
     this.underline = document.queryCommandState("underline");
+
+    this.align = this.checkJustify();
+
     //fix required by FireFox to get correct background color
     if(this.bgColor == "transparent") {
       this.bgColor = $(window.getSelection().focusNode.parentNode).css('background-color').toString();
@@ -43,6 +47,16 @@ export class FormattingDirective implements OnInit {
     this._backFormattingService.changeFormatFontSize(this.reportFontSize());
     this._backFormattingService.changeFormatFont(this.font);
     this._backFormattingService.changeFormatStrikeout(this.strikeout);
+    this._backFormattingService.changeFormatAlign(this.align);
+  }
+
+  private checkJustify() {
+    let align: string = "";
+    align = document.queryCommandState("justifyCenter") ? "center" : align;
+    align = document.queryCommandState("justifyFull") ? "full" : align;
+    align = document.queryCommandState("justifyLeft") ? "left" : align;
+    align = document.queryCommandState("justifyRight") ? "right" : align;
+    return align;
   }
 
   reportFontSize(): number {
@@ -112,6 +126,10 @@ export class FormattingDirective implements OnInit {
       this.strikeout = strikeout;
       this.toggleStrikeout();
     });
+    this._formattingService.formatAlignChange.subscribe((align: string) => {
+      this.align = align;
+      this.toggleAlign(this.align);
+    });
   }
 
   private toggleBold() {
@@ -177,6 +195,24 @@ export class FormattingDirective implements OnInit {
 
   private toggleStrikeout() {
     document.execCommand("strikeThrough");
+    this._selectionService.refreshSelection()
+  }
+
+  private toggleAlign(align: string) {
+    switch(align){
+      case 'center':
+        document.execCommand('justifyCenter');
+        break;
+      case 'full':
+        document.execCommand('justifyFull');
+        break;
+      case 'left':
+        document.execCommand('justifyLeft');
+        break;
+      case 'right':
+        document.execCommand('justifyRight');
+        break;
+    }
     this._selectionService.refreshSelection()
   }
 }

@@ -97,6 +97,10 @@ export class EditorAppComponent implements AfterViewInit {
     this._backFormattingService.formatStrikeoutChange.subscribe((strikeout: boolean) => {
       this.formatting.strikeout = strikeout;
     });
+
+    this._backFormattingService.formatAlignChange.subscribe((align: string) => {
+      this.formatting.align = align;
+    });
   }
 
   get rewriteConfig(): boolean {
@@ -293,6 +297,16 @@ export class EditorAppComponent implements AfterViewInit {
     this._formattingService.changeFormatStrikeout(!this.formatting.strikeout);
   }
 
+  toggleAlign(align: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    if(align == this.formatting.align) {
+      align = 'full';
+    }
+    this._formattingService.changeFormatAlign(align);
+    this.formatting.align = align;
+  }
+
   checkState(name: string, $event: string) {
     switch (name){
       case "bold":
@@ -312,6 +326,9 @@ export class EditorAppComponent implements AfterViewInit {
         break;
       case "strikeout":
         this.formatting.strikeout = !this.formatting.strikeout;
+        break;
+      case "align":
+        this.formatting.align = this.formatting.align;
         break;
     }
   }

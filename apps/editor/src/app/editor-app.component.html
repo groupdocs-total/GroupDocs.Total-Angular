@@ -30,6 +30,20 @@
                      (click)="toggleUnderline($event); checkState('underline')" [className]="formatting.underline ? 'gd-edit active' : ''"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'strikethrough'" [tooltip]="'Strike out'"
                      (click)="toggleStrikeout($event); checkState('strikeout')" [className]="formatting.strikeout ? 'gd-edit active' : ''"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'align-center'" [tooltip]="'Align center'"
+                     (click)="toggleAlign('center'); checkState('align')" [className]="formatting.align == 'center' ? 'gd-edit active' : ''"></gd-button>
+
+
+          <gd-button [disabled]="formatDisabled" [icon]="'align-justify'" [tooltip]="'Align full'"
+                     (click)="toggleAlign('full'); checkState('align')" [className]="formatting.align == 'full' ? 'gd-edit active' : ''"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'align-right'" [tooltip]="'Align right'"
+                     (click)="toggleAlign('right'); checkState('align')" [className]="formatting.align == 'right' ? 'gd-edit active' : ''"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'align-left'" [tooltip]="'Align left'"
+                     (click)="toggleAlign('left'); checkState('align')" [className]="formatting.align == 'left' ? 'gd-edit active' : ''"></gd-button>
+
+
+
+
           <gd-button name="button" [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
                      (click)="toggleColorPicker(true)">
             <div class="bg-color-pic" [style.background-color]="formatting.bgColor"></div>
