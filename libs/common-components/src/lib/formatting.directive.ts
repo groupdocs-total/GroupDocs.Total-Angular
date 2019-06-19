@@ -133,6 +133,9 @@ export class FormattingDirective implements OnInit {
       if(this.italic){
         spanString = "<i>" + spanString + "</i>";
       }
+      if(this.underline) {
+        spanString = "<u>" + spanString + "</u>";
+      }
       document.execCommand('insertHTML', false, spanString);
     } else {
       document.execCommand("fontsize", false, "7");

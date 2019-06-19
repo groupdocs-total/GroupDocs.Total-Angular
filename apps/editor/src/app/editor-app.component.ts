@@ -310,6 +310,9 @@ export class EditorAppComponent implements AfterViewInit {
       case "italic":
         this.formatting.italic = !this.formatting.italic;
         break;
+      case "underline":
+        this.formatting.underline = !this.formatting.underline;
+        break;
     }
   }
 }
