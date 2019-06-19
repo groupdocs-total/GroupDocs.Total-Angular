@@ -93,6 +93,10 @@ export class EditorAppComponent implements AfterViewInit {
     this._backFormattingService.formatFontChange.subscribe((font: string) => {
       this.formatting.font = font;
     });
+
+    this._backFormattingService.formatStrikeoutChange.subscribe((strikeout: boolean) => {
+      this.formatting.strikeout = strikeout;
+    });
   }
 
   get rewriteConfig(): boolean {
@@ -283,6 +287,12 @@ export class EditorAppComponent implements AfterViewInit {
     this._onCloseService.close(true);
   }
 
+  toggleStrikeout(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.changeFormatStrikeout(!this.formatting.strikeout);
+  }
+
   checkState(name: string, $event: string) {
     switch (name){
       case "bold":
@@ -299,6 +309,9 @@ export class EditorAppComponent implements AfterViewInit {
         break;
       case "underline":
         this.formatting.underline = !this.formatting.underline;
+        break;
+      case "strikeout":
+        this.formatting.strikeout = !this.formatting.strikeout;
         break;
     }
   }

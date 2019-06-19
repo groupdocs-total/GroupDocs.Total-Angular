@@ -28,6 +28,8 @@
                      (click)="toggleItalic($event); checkState('italic')" [className]="formatting.italic ? 'gd-edit active' : ''"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'underline'" [tooltip]="'Underline'"
                      (click)="toggleUnderline($event); checkState('underline')" [className]="formatting.underline ? 'gd-edit active' : ''"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'strikethrough'" [tooltip]="'Strike out'"
+                     (click)="toggleStrikeout($event); checkState('strikeout')" [className]="formatting.strikeout ? 'gd-edit active' : ''"></gd-button>
           <gd-button name="button" [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
                      (click)="toggleColorPicker(true)">
             <div class="bg-color-pic" [style.background-color]="formatting.bgColor"></div>

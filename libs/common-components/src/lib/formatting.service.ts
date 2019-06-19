@@ -1,9 +1,9 @@
 import {Observable, Subject} from "rxjs";
 
 export class Formatting {
-  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial');
+  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false);
 
-  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string) {
+  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean) {
     this.fontSize = fontSize;
     this.color = color;
     this.bgColor = bgColor;
@@ -11,6 +11,7 @@ export class Formatting {
     this.italic = italic;
     this.underline = underline;
     this.font = font;
+    this.strikeout = strikeout;
   }
 
   bold: boolean;
@@ -20,6 +21,7 @@ export class Formatting {
   color: string;
   bgColor: string;
   font: string;
+  strikeout: boolean;
 }
 
 export class FormattingService {
@@ -41,6 +43,8 @@ export class FormattingService {
   private readonly _formatFontSizeChange: Observable<number> = this._observerFontSize.asObservable();
   private _observerFont: Subject<string> = new Subject();
   private readonly _formatFontChange: Observable<string> = this._observerFont.asObservable();
+  private _observerStrikeout: Subject<boolean> = new Subject();
+  private readonly _formatStrikeoutChange: Observable<boolean> = this._observerStrikeout.asObservable();
 
   constructor() {
   }
@@ -79,6 +83,10 @@ export class FormattingService {
 
   get formatItalicChange() {
     return this._formatItalicChange;
+  }
+
+  get formatStrikeoutChange() {
+    return this._formatStrikeoutChange;
   }
 
   changeFormatBold(bold: boolean) {
@@ -149,4 +157,7 @@ export class FormattingService {
     return fontOptions;
   }
 
+  changeFormatStrikeout(strikeout: boolean) {
+    this._observerStrikeout.next(strikeout);
+  }
 }

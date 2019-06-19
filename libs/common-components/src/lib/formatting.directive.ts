@@ -15,6 +15,7 @@ export class FormattingDirective implements OnInit {
   private color: string;
   private bgColor: string;
   private font: string;
+  private strikeout: boolean = false;
 
   constructor(private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
@@ -24,6 +25,7 @@ export class FormattingDirective implements OnInit {
   @HostListener('mouseup') mousedown() {
 
     this.bold = document.queryCommandState("bold");
+    this.strikeout = document.queryCommandState("strikeThrough");
     this.italic = document.queryCommandState("italic");
     this.bgColor = document.queryCommandValue("backColor");
     this.underline = document.queryCommandState("underline");
@@ -40,6 +42,7 @@ export class FormattingDirective implements OnInit {
     this._backFormattingService.changeFormatBgColor(this.bgColor);
     this._backFormattingService.changeFormatFontSize(this.reportFontSize());
     this._backFormattingService.changeFormatFont(this.font);
+    this._backFormattingService.changeFormatStrikeout(this.strikeout);
   }
 
   reportFontSize(): number {
@@ -105,6 +108,10 @@ export class FormattingDirective implements OnInit {
       this.font = font;
       this.setFont(font);
     }));
+    this._formattingService.formatStrikeoutChange.subscribe((strikeout: boolean) => {
+      this.strikeout = strikeout;
+      this.toggleStrikeout();
+    });
   }
 
   private toggleBold() {
@@ -145,6 +152,9 @@ export class FormattingDirective implements OnInit {
       if(this.underline) {
         spanString = "<u>" + spanString + "</u>";
       }
+      if(this.strikeout) {
+        spanString = "<strike>" + spanString + "</strike>";
+      }
       document.execCommand('insertHTML', false, spanString);
     } else {
       document.execCommand("fontsize", false, "7");
@@ -162,6 +172,11 @@ export class FormattingDirective implements OnInit {
 
   private setFont(font: string) {
     document.execCommand("fontName", false, font);
+    this._selectionService.refreshSelection()
+  }
+
+  private toggleStrikeout() {
+    document.execCommand("strikeThrough");
     this._selectionService.refreshSelection()
   }
 }
