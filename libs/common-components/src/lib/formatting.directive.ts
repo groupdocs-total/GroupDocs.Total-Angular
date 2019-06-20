@@ -95,7 +95,7 @@ export class FormattingDirective implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this._formattingService.undo.subscribe(() => {
       this.toggleUndo();
     });
@@ -211,6 +211,7 @@ export class FormattingDirective implements OnInit {
   }
 
   private toggleAlign(align: string) {
+    document.execCommand("styleWithCSS", false, 'true');
     switch(align){
       case 'center':
         document.execCommand('justifyCenter');
