@@ -17,7 +17,6 @@ import {
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
-import {FontsService} from "./fonts.service";
 import * as $ from 'jquery';
 
 @Component({
@@ -34,12 +33,10 @@ export class EditorAppComponent implements AfterViewInit {
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
-
-  fonts;
-  _font: string = "Arial";
   pageCount: number = 0;
   formatting: Formatting = Formatting.DEFAULT;
   fontSizeOptions = FormattingService.getFontSizeOptions();
+  fontOptions = FormattingService.getFontOptions();
   bgColorPickerShow: boolean = false;
   colorPickerShow: boolean = false;
   active: boolean = false;
@@ -50,7 +47,6 @@ export class EditorAppComponent implements AfterViewInit {
               uploadFilesService: UploadFilesService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _fontService: FontsService,
               private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
               private _onCloseService: OnCloseService) {
@@ -75,13 +71,14 @@ export class EditorAppComponent implements AfterViewInit {
       this.isDesktop = _windowService.isDesktop();
     });
 
-    this.fonts = this.fontOptions();
-
     this._backFormattingService.formatBoldChange.subscribe((bold: boolean) => {
       this.formatting.bold = bold;
     });
     this._backFormattingService.formatItalicChange.subscribe((italic: boolean) => {
       this.formatting.italic = italic;
+    });
+    this._backFormattingService.formatUnderlineChange.subscribe((underline: boolean) => {
+      this.formatting.underline = underline;
     });
     this._backFormattingService.formatColorChange.subscribe((color: string) => {
       this.formatting.color = color;
@@ -91,6 +88,22 @@ export class EditorAppComponent implements AfterViewInit {
     });
     this._backFormattingService.formatFontSizeChange.subscribe((fontSize: number) => {
       this.formatting.fontSize = fontSize;
+    });
+
+    this._backFormattingService.formatFontChange.subscribe((font: string) => {
+      this.formatting.font = font;
+    });
+
+    this._backFormattingService.formatStrikeoutChange.subscribe((strikeout: boolean) => {
+      this.formatting.strikeout = strikeout;
+    });
+
+    this._backFormattingService.formatAlignChange.subscribe((align: string) => {
+      this.formatting.align = align;
+    });
+
+    this._backFormattingService.formatListChange.subscribe((list: string) => {
+      this.formatting.list = list;
     });
   }
 
@@ -145,23 +158,6 @@ export class EditorAppComponent implements AfterViewInit {
 
   onRightClick($event: MouseEvent) {
     return this.enableRightClickConfig;
-  }
-
-  fontOptions() {
-    return FontsService.fontOptions();
-  }
-
-  set font(font: string) {
-    this._font = font;
-    this._fontService.changeFont(this._font);
-  }
-
-  get font() {
-    return this._font;
-  }
-
-  selectFont($event: any) {
-    this.font = $event;
   }
 
   createFile() {
@@ -225,6 +221,12 @@ export class EditorAppComponent implements AfterViewInit {
     });
   }
 
+  selectFont($event: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.changeFormatFont($event);
+  }
+
   toggleColorPicker(bg: boolean) {
     if (this.formatDisabled) {
       return;
@@ -272,6 +274,12 @@ export class EditorAppComponent implements AfterViewInit {
     this._formattingService.changeFormatItalic(!this.formatting.italic);
   }
 
+  toggleUnderline(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.changeFormatUnderline(!this.formatting.underline);
+  }
+
   hideAll($event) {
     if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
       $event.target.parentElement.attributes['name'].value == 'button') ||
@@ -287,6 +295,34 @@ export class EditorAppComponent implements AfterViewInit {
     this._onCloseService.close(true);
   }
 
+  toggleStrikeout(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this._formattingService.changeFormatStrikeout(!this.formatting.strikeout);
+  }
+
+  toggleAlign(align: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    if(align == this.formatting.align) {
+      align = 'full';
+    }
+    this._formattingService.changeFormatAlign(align);
+    this.formatting.align = align;
+  }
+
+  toggleList(list: string) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if(list == this.formatting.list) {
+      this.formatting.list = "";
+    } else {
+      this.formatting.list = list;
+    }
+    this._formattingService.changeFormatList(list);
+  }
+
   checkState(name: string, $event: string) {
     switch (name){
       case "bold":
@@ -300,6 +336,18 @@ export class EditorAppComponent implements AfterViewInit {
         break;
       case "italic":
         this.formatting.italic = !this.formatting.italic;
+        break;
+      case "underline":
+        this.formatting.underline = !this.formatting.underline;
+        break;
+      case "strikeout":
+        this.formatting.strikeout = !this.formatting.strikeout;
+        break;
+      case "align":
+        this.formatting.align = this.formatting.align;
+        break;
+      case "list":
+        this.formatting.list = this.formatting.list;
         break;
     }
   }

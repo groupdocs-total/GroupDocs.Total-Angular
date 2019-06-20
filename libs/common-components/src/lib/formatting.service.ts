@@ -1,26 +1,38 @@
 import {Observable, Subject} from "rxjs";
 
 export class Formatting {
-  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false);
+  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
 
-  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean) {
+  constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean, align: string, list: string) {
     this.fontSize = fontSize;
     this.color = color;
     this.bgColor = bgColor;
     this.bold = bold;
     this.italic = italic;
+    this.underline = underline;
+    this.font = font;
+    this.strikeout = strikeout;
+    this.align = align;
+    this.list = list;
   }
 
   bold: boolean;
   italic: boolean;
+  underline: boolean;
   fontSize: number;
   color: string;
   bgColor: string;
+  font: string;
+  strikeout: boolean;
+  align: string;
+  list: string;
 }
 
 export class FormattingService {
   private _observerBold: Subject<boolean> = new Subject();
   private readonly _formatBoldChange: Observable<boolean> = this._observerBold.asObservable();
+  private _observerUnderline: Subject<boolean> = new Subject();
+  private readonly _formatUnderlineChange: Observable<boolean> = this._observerUnderline.asObservable();
   private _observerUndo: Subject<boolean> = new Subject();
   private readonly _undo: Observable<boolean> = this._observerUndo.asObservable();
   private _observerRedo: Subject<boolean> = new Subject();
@@ -33,12 +45,24 @@ export class FormattingService {
   private readonly _formatBgColorChange: Observable<string> = this._observerBgColor.asObservable();
   private _observerFontSize: Subject<number> = new Subject();
   private readonly _formatFontSizeChange: Observable<number> = this._observerFontSize.asObservable();
+  private _observerFont: Subject<string> = new Subject();
+  private readonly _formatFontChange: Observable<string> = this._observerFont.asObservable();
+  private _observerStrikeout: Subject<boolean> = new Subject();
+  private readonly _formatStrikeoutChange: Observable<boolean> = this._observerStrikeout.asObservable();
+  private _observerAlign: Subject<string> = new Subject();
+  private readonly _formatAlignChange: Observable<string> = this._observerAlign.asObservable();
+  private _observerList: Subject<string> = new Subject();
+  private readonly _formatListChange: Observable<string> = this._observerList.asObservable();
 
   constructor() {
   }
 
   get formatBoldChange() {
     return this._formatBoldChange;
+  }
+
+  get formatUnderlineChange() {
+    return this._formatUnderlineChange;
   }
 
   get formatColorChange() {
@@ -53,6 +77,10 @@ export class FormattingService {
     return this._formatFontSizeChange;
   }
 
+  get formatFontChange() {
+    return this._formatFontChange;
+  }
+
   get undo() {
     return this._undo;
   }
@@ -65,8 +93,24 @@ export class FormattingService {
     return this._formatItalicChange;
   }
 
+  get formatStrikeoutChange() {
+    return this._formatStrikeoutChange;
+  }
+
+  get formatAlignChange() {
+    return this._formatAlignChange;
+  }
+
+  get formatListChange() {
+    return this._formatListChange;
+  }
+
   changeFormatBold(bold: boolean) {
     this._observerBold.next(bold);
+  }
+
+  changeFormatUnderline(underline: boolean) {
+    this._observerUnderline.next(underline);
   }
 
   Undo() {
@@ -89,8 +133,12 @@ export class FormattingService {
     this._observerBgColor.next(bgcolor);
   }
 
+  changeFormatFont(font: string) {
+    this._observerFont.next(font);
+  }
+
   static createFontSizeOption(val: number) {
-    return {value: val, name: val + 'px', separator: false}
+    return {value: val, name: val + 'px', separator: false, prefix: "px"}
   }
 
   static getFontSizeOptions() {
@@ -108,5 +156,32 @@ export class FormattingService {
 
   changeFormatFontSize($event: number) {
     this._observerFontSize.next($event);
+  }
+
+  static createFontOption(val: string) {
+    return {value: val, name: val, separator: false, prefix: ""}
+  }
+
+  static getFontOptions() {
+    var fonts = ["Arial", "Calibri", "Century Gothic", "Comic Sans", "Consolas", "Courier", "Dejavu Sans", "Dejavu Serif", "Georgia", "Gill Sans", "Helvetica", "Impact", "Lucida Sans",
+      "Myriad Pro", "Open Sans", "Palatino", "Tahoma", "Times New Roman", "Trebuchet"];
+    var fontOptions = [];
+    fonts.forEach(font=> {
+      fontOptions.push(this.createFontOption(font));
+    })
+
+    return fontOptions;
+  }
+
+  changeFormatStrikeout(strikeout: boolean) {
+    this._observerStrikeout.next(strikeout);
+  }
+
+  changeFormatAlign(align: string) {
+    this._observerAlign.next(align);
+  }
+
+  changeFormatList(list: string) {
+    this._observerList.next(list);
   }
 }

@@ -7,7 +7,7 @@ export class SelectionService {
   selection : Range
   constructor() { }
   restoreSelection(){
-    if(this.selection){
+    if(this.selection && this.selection.collapsed){
       var sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(this.selection.cloneRange());
