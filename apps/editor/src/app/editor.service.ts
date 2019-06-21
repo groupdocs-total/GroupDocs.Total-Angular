@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Api, ConfigService, FileCredentials} from "@groupdocs-total-angular/common-components";
+import {
+  Api, ConfigService, FileCredentials, FileDescription
+} from "@groupdocs-total-angular/common-components";
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +37,13 @@ export class EditorService {
     }
 
     return this._http.post(this._config.getEditorApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
+  }
+
+  save(file: FileDescription){
+    return this._http.post(this._config.getEditorApiEndpoint() + Api.SAVE_FILE, file, Api.httpOptionsJson);
+  }
+
+  getDownloadUrl(credentials: FileCredentials) {
+    return this._config.getEditorApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
   }
 }

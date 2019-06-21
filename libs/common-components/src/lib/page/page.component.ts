@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import { SelectionService } from '../selection.service';
-
+import {GetHtmlServiceService} from "../get-html.service.service";
 @Component({
   selector: 'gd-page',
   templateUrl: './page.component.html',
@@ -17,9 +17,9 @@ export class PageComponent implements OnInit, OnChanges {
   @Input() isHtml: boolean;
   @Input() editable: boolean;
   imgData: string;
-  text: string;
+  text: any;
 
-  constructor(private _selectionService: SelectionService) {
+  constructor(private _selectionService: SelectionService, private _htmlService: GetHtmlServiceService) {
   }
 
   ngOnInit() {
@@ -37,6 +37,8 @@ export class PageComponent implements OnInit, OnChanges {
   noop(event){
     event.preventDefault()
     this._selectionService.restoreSelection();
+    let html = this.text.innerHTML.toString();
+    this._htmlService.SetContent(html);
   }
 
   captureSelection(){

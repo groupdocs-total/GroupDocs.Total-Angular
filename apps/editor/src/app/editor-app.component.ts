@@ -32,6 +32,7 @@ export class EditorAppComponent implements AfterViewInit {
   formatDisabled = !this.file;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
+  createFilesModal = CommonModals.CreateDocument;
   isDesktop: boolean;
   pageCount: number = 0;
   formatting: Formatting = Formatting.DEFAULT;
@@ -49,7 +50,8 @@ export class EditorAppComponent implements AfterViewInit {
               private _windowService: WindowService,
               private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
-              private _onCloseService: OnCloseService) {
+              private _onCloseService: OnCloseService
+              ) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -64,6 +66,10 @@ export class EditorAppComponent implements AfterViewInit {
           });
         }
       }
+    });
+
+    passwordService.passChange.subscribe((pass: string) => {
+      this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
     });
 
     this.isDesktop = _windowService.isDesktop();
@@ -140,11 +146,10 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   openModal(id: string) {
+    if(this.file) {
+      this.file.pages[0].editable = false;
+    }
     this._modalService.open(id);
-  }
-
-  closeModal(id: string) {
-    this._modalService.close(id);
   }
 
   selectDir($event: string) {
@@ -350,5 +355,12 @@ export class EditorAppComponent implements AfterViewInit {
         this.formatting.list = this.formatting.list;
         break;
     }
+  }
+
+  downloadFile() {
+    if (this.formatDisabled)
+      return;
+    this.credentials.guid = this.credentials.guid.match(/(^.*[\\\/]|^[^\\\/].*)/i)[0] + this.file.guid;
+    window.location.assign(this._editorService.getDownloadUrl(this.credentials));
   }
 }
