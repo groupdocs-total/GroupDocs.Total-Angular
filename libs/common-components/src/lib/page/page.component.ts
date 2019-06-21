@@ -37,7 +37,14 @@ export class PageComponent implements OnInit, OnChanges {
   noop(event){
     event.preventDefault()
     this._selectionService.restoreSelection();
-    let html = this.text.innerHTML.toString();
+
+    let html = ""
+    if(typeof this.text.innerHTML != "undefined") {
+      html = this.text.innerHTML.toString();
+    } else {
+      html = window.event.srcElement.innerHTML;
+    }
+
     this._htmlService.SetContent(html);
   }
 
