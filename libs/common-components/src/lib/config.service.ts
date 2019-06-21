@@ -17,6 +17,7 @@ export class Api {
   public static LOAD_THUMBNAILS = '/loadThumbnails';
   public static CREATE_DOCUMENT = '/createDocument';
   public static LOAD_FORMATS = '/loadFormats';
+  public static SAVE_FILE = '/saveFile';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({
