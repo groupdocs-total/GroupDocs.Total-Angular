@@ -19,7 +19,7 @@ export class ViewerService {
   }
 
   upload(file: File, url: string, rewrite: boolean) {
-    var formData = new FormData();
+    const formData = new FormData();
     formData.append("file", file);
     formData.append('rewrite', String(rewrite));
     if (url) {

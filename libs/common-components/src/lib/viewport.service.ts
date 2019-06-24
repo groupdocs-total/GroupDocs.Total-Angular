@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import * as $ from "jquery";
+import * as jquery from "jquery";
+const $ = jquery;
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,12 @@ export class ViewportService {
     if (!el) {
       return false;
     }
-    let x = deltaX;
-    let y = 0.5;
+    const x = deltaX;
+    const y = 0.5;
 
-    var win = $(window);
+    const win = $(window);
 
-    var viewport = {
+    const viewport = {
       top: win.scrollTop(),
       left: win.scrollLeft() + leftOffset,
       right: win.scrollLeft() + win.width() - 10,
@@ -31,24 +32,24 @@ export class ViewportService {
     }
 
     const zoomN = zoom / 100;
-    var height = $(el).outerHeight() * (zoomN);
-    var width = $(el).outerWidth() * (zoomN);
+    const height = $(el).outerHeight() * (zoomN);
+    const width = $(el).outerWidth() * (zoomN);
 
     if (!width || !height) {
       return false;
     }
 
-    var bounds = $(el).offset();
-    var right = (bounds.left * (zoomN)) + width;
-    var bottom = (bounds.top * (zoomN)) + height;
+    const bounds = $(el).offset();
+    const right = (bounds.left * (zoomN)) + width;
+    const bottom = (bounds.top * (zoomN)) + height;
 
-    var visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
+    const visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
 
     if (!visible) {
       return false;
     }
 
-    var deltas = {
+    const deltas = {
       top: Math.min(1, (bottom - viewport.top) / height),
       bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
       left: Math.min(1, (right - viewport.left) / width),

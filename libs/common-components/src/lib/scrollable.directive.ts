@@ -13,7 +13,8 @@ import {PagePreloadService} from "./page-preload.service";
 import {ZoomService} from "./zoom.service";
 import {WindowService} from "./window.service";
 import {ViewportService} from "./viewport.service";
-import * as $ from 'jquery';
+import * as jquery from "jquery";
+const $ = jquery;
 
 @Directive({
   selector: '[gdScrollable]'
@@ -22,7 +23,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
   @Input() onRefresh: boolean;
 
   private currentPage: number;
-  private zoom: number = 100;
+  private zoom = 100;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _navigateService: NavigateService,
@@ -59,16 +60,18 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
     const el = this._elementRef.nativeElement;
     const page = this.getPage(pageNumber);
     const prev = pageNumber > 0 ? this.getPage(pageNumber - 1) : null;
-    const isSameTop = (prev && $(prev).offset().top == $(page).offset().top);
+    const isSameTop = (prev && $(prev).offset().top === $(page).offset().top);
     if (this._viewportService.checkInViewport(page, this.zoom) && isSameTop) {
       return;
     }
-    let pagesHeight = this.calculateOffset(pageNumber);
-    let options = {
+    const pagesHeight = this.calculateOffset(pageNumber);
+    const options = {
       left: 0,
       top: pagesHeight
     };
-    el ? el.scrollTo(options) : null;
+    if(el){
+      el.scrollTo(options);
+    }
   }
 
   private getChildren() {
@@ -86,7 +89,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
   }
 
   private calculateOffset(pageNumber: number) {
-    let count = this.ifFirefox() ? 1 : this.countPagesOnWidth();
+    const count = this.ifFirefox() ? 1 : this.countPagesOnWidth();
     const margin = this._windowService.isDesktop() ? 40 : 10;
     let pagesHeight = 0;
     for (let i = 1; i < pageNumber / count; i++) {
@@ -101,7 +104,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
     const pageEl = this.getPage(1);
     const offset = 150;
     const count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
-    return count == 0 ? 1 : count;
+    return count === 0 ? 1 : count;
   }
 
   ifFirefox() {
@@ -117,7 +120,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
       const element = this.getPage(page);
       if (this._viewportService.checkInViewport(element, this.zoom)) {
         if (!currentPageSet) {
-          if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top != currentPageRect.top)) {
+          if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
             this.currentPage = page;
             this._navigateService.currentPage = page;
           }

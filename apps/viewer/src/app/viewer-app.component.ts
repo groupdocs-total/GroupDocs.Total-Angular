@@ -29,15 +29,15 @@ export class ViewerAppComponent implements AfterViewInit {
   files: FileModel[] = [];
   file: FileDescription;
   viewerConfig: ViewerConfig;
-  countPages: number = 0;
+  countPages = 0;
   formatDisabled = !this.file;
-  showThumbnails: boolean = false;
+  showThumbnails = false;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
-  showSearch: boolean = false;
+  showSearch = false;
   isDesktop: boolean;
 
-  _zoom: number = 100;
+  _zoom = 100;
   _pageWidth: number;
   _pageHeight: number;
   options;
@@ -59,7 +59,7 @@ export class ViewerAppComponent implements AfterViewInit {
 
     uploadFilesService.uploadsChange.subscribe((uploads) => {
       if (uploads) {
-        var i: number;
+        let i: number;
         for (i = 0; i < uploads.length; i++) {
           this._viewerService.upload(uploads.item(i), '', this.viewerConfig.rewrite).subscribe(() => {
             this.selectDir('');
@@ -69,7 +69,7 @@ export class ViewerAppComponent implements AfterViewInit {
     });
 
     pagePreloadService.checkPreload.subscribe((page: number) => {
-      if (this.viewerConfig.preloadPageCount != 0) {
+      if (this.viewerConfig.preloadPageCount !== 0) {
         for (let i = page; i < page + 2; i++) {
           if (i > 0 && i <= this.countPages && !this.file.pages[i - 1].data) {
             this.preloadPages(i, i);
@@ -269,7 +269,7 @@ export class ViewerAppComponent implements AfterViewInit {
   zoomOptions() {
     const width = this.getFitToWidth();
     const height = this.getFitToHeight();
-    return ZoomService.zoomOptions(width, height);
+    return this._zoomService.zoomOptions(width, height);
   }
 
   set zoom(zoom: number) {
@@ -292,7 +292,7 @@ export class ViewerAppComponent implements AfterViewInit {
 
     if (this.saveRotateStateConfig && this.file) {
       this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((data: RotatedPage[]) => {
-        for (let page of data) {
+        for (const page of data) {
           const pageModel = this.file.pages[page.pageNumber - 1];
           if (this.file && this.file.pages && pageModel) {
             this.changeAngle(pageModel, page.angle);
@@ -302,7 +302,7 @@ export class ViewerAppComponent implements AfterViewInit {
     } else {
       const pageModel = this.file.pages[pageNumber - 1];
       if (this.file && this.file.pages && pageModel) {
-        let angle = pageModel.angle + deg;
+        const angle = pageModel.angle + deg;
         if (angle > 360) {
           this.changeAngle(pageModel, 90);
         } else if (angle < -360) {
@@ -327,10 +327,10 @@ export class ViewerAppComponent implements AfterViewInit {
   printFile() {
     if (this.formatDisabled)
       return;
-    if (this.viewerConfig.preloadPageCount != 0) {
-      if (FileUtil.find(this.file.guid, false).format == "Portable Document Format") {
+    if (this.viewerConfig.preloadPageCount !== 0) {
+      if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
         this._viewerService.loadPrintPdf(this.credentials).subscribe(blob => {
-          var file = new Blob([blob], {type: 'application/pdf'});
+          const file = new Blob([blob], {type: 'application/pdf'});
           this._renderPrintService.changeBlob(file);
         });
       } else {
@@ -353,7 +353,7 @@ export class ViewerAppComponent implements AfterViewInit {
       return;
     }
 
-    if (this.viewerConfig.preloadPageCount == 0) {
+    if (this.viewerConfig.preloadPageCount === 0) {
       this.showThumbnails = true;
     } else {
       this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
@@ -367,7 +367,7 @@ export class ViewerAppComponent implements AfterViewInit {
     if (!this.file || !this.file.pages) {
       return;
     }
-    for (let page of this.file.pages) {
+    for (const page of this.file.pages) {
       page.data = null;
     }
   }

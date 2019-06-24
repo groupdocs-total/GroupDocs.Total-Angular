@@ -1,8 +1,9 @@
 import {Directive, ElementRef} from '@angular/core';
 import {SearchService} from "./search.service";
 import {HighlightSearchPipe} from "./pipes";
-import * as $ from 'jquery';
 import {ZoomService} from "./zoom.service";
+import * as jquery from "jquery";
+const $ = jquery;
 
 @Directive({
   selector: '[gdSearchable]'
@@ -10,9 +11,9 @@ import {ZoomService} from "./zoom.service";
 export class SearchableDirective {
 
   text: string;
-  current: number = 0;
-  total: number = 0;
-  private zoom: number = 100;
+  current = 0;
+  total = 0;
+  private zoom = 100;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _searchService: SearchService,
@@ -20,7 +21,7 @@ export class SearchableDirective {
               private _zoomService: ZoomService) {
     _searchService.currentChange.subscribe((current: number) => {
       this.current = current;
-      if (this.current != 0) {
+      if (this.current !== 0) {
         this.moveToCurrent();
       }
     });
@@ -42,7 +43,7 @@ export class SearchableDirective {
       this.cleanHighlight(el);
       if (this.text) {
         this.highlightEl(el);
-        let count = el.querySelectorAll('.gd-highlight').length;
+        const count = el.querySelectorAll('.gd-highlight').length;
         this.total = count;
       } else {
         this.total = 0;
@@ -52,19 +53,19 @@ export class SearchableDirective {
   }
 
   private moveToCurrent() {
-    if (this.current == 0) {
+    if (this.current === 0) {
       return;
     }
-    let currentZoom = this.getZoom();
+    const currentZoom = this.getZoom();
     const el = this._elementRef ? this._elementRef.nativeElement : null;
     if (el) {
       el.querySelectorAll('.gd-highlight-select').forEach(function (value) {
         $(value).removeClass('gd-highlight-select');
       });
-      let currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
+      const currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
       $(currentEl).addClass('gd-highlight-select');
       if (currentEl) {
-        let options = {
+        const options = {
           left: 0,
           top: ($(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
         };
@@ -74,22 +75,22 @@ export class SearchableDirective {
   }
 
   private highlightEl(el: Element) {
-    var textNodes = $(el).find('*').contents().filter(function () {
+    const textNodes = $(el).find('*').contents().filter(function () {
       const nodeName = this.parentElement.nodeName.toLowerCase();
       const checkClass = (<Element>this).classList ? !(<Element>this).classList.contains('gd-highlight') : true;
       return this.nodeType === 3 &&
-        this.textContent.trim().length != 0 &&
-        nodeName != 'style' &&
-        nodeName != 'title' &&
-        nodeName != 'body' &&
-        nodeName != 'script' &&
+        this.textContent.trim().length !== 0 &&
+        nodeName !== 'style' &&
+        nodeName !== 'title' &&
+        nodeName !== 'body' &&
+        nodeName !== 'script' &&
         checkClass;
     });
-    let text = this.text;
-    let highlight = this._highlight;
+    const text = this.text;
+    const highlight = this._highlight;
     textNodes.each(function () {
-      var $this = $(this);
-      var content = $this.text();
+      const $this = $(this);
+      let content = $this.text();
       content = highlight.transform(content, text);
       $this.replaceWith(content);
     });

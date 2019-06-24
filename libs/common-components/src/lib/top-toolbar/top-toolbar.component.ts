@@ -1,6 +1,7 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnInit} from '@angular/core';
 import {ViewportService} from "../viewport.service";
-import * as $ from "jquery";
+import * as jquery from "jquery";
+const $ = jquery;
 
 @Component({
   selector: 'gd-top-toolbar',
@@ -19,7 +20,7 @@ export class TopToolbarComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.refresh();
     const el = this.getToolsElem();
-    let $this = this;
+    const $this = this;
     el.addEventListener('scroll', function () {
       $this.refresh();
     });
@@ -28,9 +29,9 @@ export class TopToolbarComponent implements OnInit, AfterViewChecked {
   moveLeft() {
     const el = this.getToolsElem();
     if (el) {
-      let elem = this.canMoveTo(true);
+      const elem = this.canMoveTo(true);
       if (elem) {
-        let options = {
+        const options = {
           left: $(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
           top: 0,
         };
@@ -42,9 +43,9 @@ export class TopToolbarComponent implements OnInit, AfterViewChecked {
   moveRight() {
     const el = this.getToolsElem();
     if (el) {
-      let elem = this.canMoveTo(false);
+      const elem = this.canMoveTo(false);
       if (elem) {
-        let options = {
+        const options = {
           left: $(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
           top: 0,
         };
@@ -76,7 +77,7 @@ export class TopToolbarComponent implements OnInit, AfterViewChecked {
 
   private getElem(num: number) {
     const elems = this.getChildren();
-    return elems.item(num != null ? num : elems.length - 1);
+    return elems.item(num !== null ? num : elems.length - 1);
   }
 
   private getChildren(): HTMLCollection {
@@ -101,9 +102,9 @@ export class TopToolbarComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    let showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
-    let showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
-    if (showLeft != this.showLeft || showRight != this.showRight) {
+    const showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
+    const showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
+    if (showLeft !== this.showLeft || showRight !== this.showRight) {
       this.showLeft = showLeft;
       this.showRight = showRight;
       this._cdRef.detectChanges();
