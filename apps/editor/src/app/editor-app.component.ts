@@ -18,6 +18,8 @@ import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
 import * as $ from 'jquery';
+import {SelectionService} from "../../../../libs/common-components/src/lib/selection.service";
+import {GetHtmlServiceService} from "../../../../libs/common-components/src/lib/get-html.service.service";
 
 @Component({
   selector: 'gd-editor-angular-root',
@@ -32,7 +34,7 @@ export class EditorAppComponent implements AfterViewInit {
   formatDisabled = !this.file;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
-  createFilesModal = CommonModals.CreateDocument;
+  saveAsModal = CommonModals.CreateDocument;
   isDesktop: boolean;
   pageCount: number = 0;
   formatting: Formatting = Formatting.DEFAULT;
@@ -50,7 +52,9 @@ export class EditorAppComponent implements AfterViewInit {
               private _windowService: WindowService,
               private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
-              private _onCloseService: OnCloseService
+              private _onCloseService: OnCloseService,
+              private _selectionService: SelectionService,
+              private _htmlService: GetHtmlServiceService
               ) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
@@ -362,5 +366,13 @@ export class EditorAppComponent implements AfterViewInit {
       return;
     this.credentials.guid = this.credentials.guid.match(/(^.*[\\\/]|^[^\\\/].*)/i)[0] + this.file.guid;
     window.location.assign(this._editorService.getDownloadUrl(this.credentials));
+  }
+
+  saveFile(){
+    this.file.pages[0].data = this._htmlService.GetContent();
+    this._selectionService.restoreSelection();
+    this._editorService.save(this.file).subscribe(() => {
+      this._modalService.open(CommonModals.OperationSuccess);
+    });
   }
 }
