@@ -97,7 +97,7 @@ export class FormattingDirective implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this._formattingService.undo.subscribe(() => {
       this.toggleUndo();
     });
