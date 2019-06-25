@@ -18,6 +18,7 @@ import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import {WindowService} from "@groupdocs-total-angular/common-components";
 import * as $ from 'jquery';
+import {SelectionService} from "../../../../libs/common-components/src/lib/selection.service";
 
 @Component({
   selector: 'gd-editor-angular-root',
@@ -191,6 +192,16 @@ export class EditorAppComponent implements AfterViewInit {
           this.pageCount = this.file.pages.length;
         }
         this.formatDisabled = !this.file;
+      let isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        if(isIE) {
+          var observer = new MutationObserver(function (mutations) {
+            if($(".documentMainContent").length > 0 ){
+              $(".documentMainContent").attr("contentEditable", "true");
+              observer.disconnect();
+            }
+          });
+          observer.observe(document, {attributes: false, childList: true, characterData: false, subtree: true});
+        }
       }
     );
     this.clearData();

@@ -54,6 +54,11 @@ export class CreateDocumentModalComponent implements OnInit {
   }
 
   save(name: string){
+    let isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    if(isIE) {
+      this._htmlService.SetContent(document.getElementsByClassName("gd-wrapper")[0].innerHTML);
+
+    }
     let fileName = "";
     if(name && name != ""){
       fileName = name + "." + this._format;

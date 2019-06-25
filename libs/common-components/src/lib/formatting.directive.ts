@@ -18,10 +18,12 @@ export class FormattingDirective implements OnInit {
   private strikeout: boolean = false;
   private align: string;
   private list; string;
+  private isIE: boolean;
 
   constructor(private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
               private _selectionService: SelectionService) {
+    this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
   }
 
   @HostListener('mouseup') mousedown() {
@@ -145,26 +147,46 @@ export class FormattingDirective implements OnInit {
   }
 
   private toggleBold() {
+    if(this.isIE) {
+      this._selectionService.restoreSelection()
+      this._selectionService.captureSelection()
+    }
     document.execCommand("bold");
     this._selectionService.refreshSelection()
   }
 
   private toggleUnderline() {
+    if(this.isIE) {
+      this._selectionService.restoreSelection()
+      this._selectionService.captureSelection()
+    }
     document.execCommand("underline");
     this._selectionService.refreshSelection()
   }
 
   private toggleItalic() {
+    if(this.isIE) {
+      this._selectionService.restoreSelection()
+      this._selectionService.captureSelection()
+    }
     document.execCommand("italic");
     this._selectionService.refreshSelection()
   }
 
   private setBgColor(bgColor: string) {
+    if(this.isIE) {
+      this._selectionService.restoreSelection()
+      this._selectionService.captureSelection()
+    }
     document.execCommand("backColor", false, bgColor);
     this._selectionService.refreshSelection()
   }
 
   private setColor(color: string) {
+    if(this.isIE) {
+      this._selectionService.restoreSelection()
+      this._selectionService.captureSelection()
+    }
     document.execCommand("foreColor", false, color)
     this._selectionService.refreshSelection()
   }
@@ -185,8 +207,16 @@ export class FormattingDirective implements OnInit {
       if(this.strikeout) {
         spanString = "<strike>" + spanString + "</strike>";
       }
+      if(this.isIE) {
+        this._selectionService.restoreSelection()
+        this._selectionService.captureSelection()
+      }
       document.execCommand('insertHTML', false, spanString);
     } else {
+      if(this.isIE) {
+        this._selectionService.restoreSelection()
+        this._selectionService.captureSelection()
+      }
       document.execCommand("fontsize", false, "7");
     }
     this._selectionService.refreshSelection()
@@ -201,16 +231,28 @@ export class FormattingDirective implements OnInit {
   }
 
   private setFont(font: string) {
+    if(this.isIE) {
+      this._selectionService.restoreSelection()
+      this._selectionService.captureSelection()
+    }
     document.execCommand("fontName", false, font);
     this._selectionService.refreshSelection()
   }
 
   private toggleStrikeout() {
+    if(this.isIE) {
+      this._selectionService.restoreSelection()
+      this._selectionService.captureSelection()
+    }
     document.execCommand("strikeThrough");
     this._selectionService.refreshSelection()
   }
 
   private toggleAlign(align: string) {
+    if(this.isIE) {
+      this.toggleAlignIE(align);
+      return;
+    }
     switch(align){
       case 'center':
         document.execCommand('justifyCenter');
@@ -228,7 +270,19 @@ export class FormattingDirective implements OnInit {
     this._selectionService.refreshSelection()
   }
 
+  private toggleAlignIE(align: string) {
+    this._selectionService.restoreSelection()
+    this._selectionService.captureSelection()
+    var selection = window.getSelection().focusNode.parentNode.parentNode;
+    $(selection).css("text-align", align);
+    this._selectionService.refreshSelection()
+  }
+
   private toggleList(list: string) {
+    if(this.isIE) {
+      this._selectionService.restoreSelection()
+      this._selectionService.captureSelection()
+    }
     switch(list){
       case 'unordered':
         document.execCommand('insertUnorderedList');

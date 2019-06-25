@@ -18,12 +18,18 @@ export class PageComponent implements OnInit, OnChanges {
   @Input() editable: boolean;
   imgData: string;
   text: any;
+  private isIE: boolean;
 
   constructor(private _selectionService: SelectionService, private _htmlService: GetHtmlServiceService) {
   }
 
   ngOnInit() {
     this.text = this.data;
+    this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    let initialEditableState = false;
+    if(this.isIE){
+      this.editable = false;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -37,18 +43,14 @@ export class PageComponent implements OnInit, OnChanges {
   noop(event){
     event.preventDefault()
     this._selectionService.restoreSelection();
-
-    let html = ""
-    if(typeof this.text.innerHTML != "undefined") {
-      html = this.text.innerHTML.toString();
-    } else {
-      html = window.event.srcElement.innerHTML;
+    if(this.text.innerHTML) {
+      let html = this.text.innerHTML.toString();
+      this._htmlService.SetContent(html);
     }
-
-    this._htmlService.SetContent(html);
   }
 
   captureSelection(){
     this._selectionService.captureSelection();
   }
+
 }
