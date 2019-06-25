@@ -1,0 +1,23 @@
+{
+  "$schema": "../../node_modules/ng-packagr/package.schema.json",
+  "name": "@groupdocs.examples.angular/common-components",
+  "version": "0.1.14",
+  "description": "Common components for GroupDocs.Total Angular applications",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "main": "bundles/groupdocs.examples.angular-common-components.umd.js",
+  "module": "fesm5/groupdocs.examples.angular-common-components.js",
+  "es2015": "fesm2015/groupdocs.examples.angular-common-components.js",
+  "esm5": "esm5/groupdocs.examples.angular-common-components.js",
+  "esm2015": "esm2015/groupdocs.examples.angular-common-components.js",
+  "fesm5": "fesm5/groupdocs.examples.angular-common-components.js",
+  "fesm2015": "fesm2015/groupdocs.examples.angular-common-components.js",
+  "typings": "groupdocs.examples.angular-common-components.d.ts",
+  "metadata": "groupdocs.examples.angular-common-components.metadata.json",
+  "sideEffects": false
+}
