@@ -9,7 +9,8 @@
                      *ngIf="browseConfig"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                      (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save file'" (click)="openModal(createFilesModal)"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save file'" (click)="saveFile()"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'pencil-alt'" [secondIcon]="'far fa-save'" [tooltip]="'Save File As'" (click)="openModal(saveAsModal)"></gd-button>
         </gd-top-toolbar>
       </gd-tab>
       <gd-tab tabTitle="Formatting" [icon]="'edit'">
