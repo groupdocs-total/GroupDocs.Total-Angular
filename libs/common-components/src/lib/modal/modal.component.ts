@@ -10,7 +10,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() title: string;
   @Output() visible = new EventEmitter<boolean>();
-  visibility: boolean = false;
+  visibility = false;
   private element: any;
 
   constructor(private modalService: ModalService, el: ElementRef) {
@@ -44,7 +44,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   onClose($event: MouseEvent) {
-    if ($event && $event.target && (<Element>$event.target).id == 'modalDialog') {
+    if ($event && $event.target && (<Element>$event.target).id === 'modalDialog') {
       this.close();
     }
   }

@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FileModel, FileUtil} from "../file.service";
 import {UploadFilesService} from "../upload-files.service";
-import * as $ from "jquery";
+import * as jquery from "jquery";
+const $ = jquery;
 
 const upload_disc = 'Disc';
 
@@ -23,8 +24,8 @@ export class BrowseFilesModalComponent implements OnInit {
   @Output() selectedDirectory = new EventEmitter<string>();
   @Output() urlForUpload = new EventEmitter<string>();
   private selectedFile: FileModel;
-  showUploadUrl: boolean = false;
-  showUploadFile: boolean = false;
+  showUploadUrl = false;
+  showUploadFile = false;
 
   constructor(private _uploadService: UploadFilesService) {
   }
@@ -64,8 +65,8 @@ export class BrowseFilesModalComponent implements OnInit {
 
   goUp() {
     if (this.selectedFile) {
-      var guid = this.selectedFile.guid;
-      if (guid.length > 0 && guid.indexOf('/') == -1) {
+      let guid = this.selectedFile.guid;
+      if (guid.length > 0 && guid.indexOf('/') === -1) {
         guid = '';
       } else {
         guid = guid.replace(/\/[^\/]+\/?$/, '');
@@ -75,7 +76,7 @@ export class BrowseFilesModalComponent implements OnInit {
   }
 
   selectUpload($event: string) {
-    if (upload_url == $event) {
+    if (upload_url === $event) {
       this.showUploadUrl = true;
     } else {
       this.showUploadUrl = false;

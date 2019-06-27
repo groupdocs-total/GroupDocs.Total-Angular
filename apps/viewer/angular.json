@@ -16,7 +16,7 @@
           "build": {
             "builder": "@angular-devkit/build-angular:browser",
             "options": {
-              "outputPath": "dist/viewer",
+              "outputPath": "dist",
               "index": "src/index.html",
               "main": "src/main.ts",
               "polyfills": "src/polyfills.ts",
@@ -29,7 +29,7 @@
                 "src/styles.less"
               ],
               "scripts": [],
-              "es5BrowserSupport": true
+              "es5BrowserSupport": false
             },
             "configurations": {
               "production": {
@@ -41,11 +41,11 @@
                 ],
                 "optimization": true,
                 "outputHashing": "all",
-                "sourceMap": false,
-                "extractCss": true,
+                "sourceMap": true,
+                "extractCss": false,
                 "namedChunks": false,
                 "aot": true,
-                "extractLicenses": true,
+                "extractLicenses": false,
                 "vendorChunk": false,
                 "buildOptimizer": true,
                 "budgets": [

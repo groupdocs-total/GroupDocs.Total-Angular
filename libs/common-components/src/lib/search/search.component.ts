@@ -10,15 +10,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   @Output() hidePanel = new EventEmitter<boolean>(false);
 
-  current: number = 0;
-  total: number = 0;
+  current = 0;
+  total = 0;
 
   @ViewChild('text') textElement: ElementRef;
 
   constructor(private _searchService: SearchService) {
     _searchService.totalChange.subscribe((total: number) => {
       this.total = total;
-      if (total != 0) {
+      if (total !== 0) {
         this.current = 1;
       } else {
         this.current = 0;

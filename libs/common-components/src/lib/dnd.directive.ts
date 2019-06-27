@@ -9,9 +9,9 @@ export class DndDirective {
 
   @Output() close = new EventEmitter<boolean>();
   @Output() open = new EventEmitter<boolean>();
-  @Input() isBackground: boolean = true;
+  @Input() isBackground = true;
 
-  @HostBinding('style.background') private background = '#f8f8f8';
+  @HostBinding('style.background') background = '#f8f8f8';
 
   constructor(private _uploadFilesService: UploadFilesService) {
   }
@@ -43,7 +43,7 @@ export class DndDirective {
   public onDrop(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    let files = evt.dataTransfer.files;
+    const files = evt.dataTransfer.files;
     if (files.length > 0) {
       this.background = '#f8f8f8';
       this._uploadFilesService.changeFilesList(files);
