@@ -14,10 +14,10 @@ import {
   FileUtil,
   PasswordService,
   FileCredentials, CommonModals
-} from "@groupdocs-total-angular/common-components";
+} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
-import {WindowService} from "@groupdocs-total-angular/common-components";
+import {WindowService} from "@groupdocs.examples.angular/common-components";
 
 @Component({
   selector: 'gd-viewer-angular-root',

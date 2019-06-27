@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Api, ConfigService, FileCredentials} from "@groupdocs-total-angular/common-components";
+import {Api, ConfigService, FileCredentials} from "@groupdocs.examples.angular/common-components";
 
 @Injectable({
   providedIn: 'root'

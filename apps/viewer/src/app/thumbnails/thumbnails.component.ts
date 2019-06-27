@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FileUtil, NavigateService, PageModel} from "@groupdocs-total-angular/common-components";
+import {FileUtil, NavigateService, PageModel} from "@groupdocs.examples.angular/common-components";
 
 @Component({
   selector: 'gd-thumbnails',
