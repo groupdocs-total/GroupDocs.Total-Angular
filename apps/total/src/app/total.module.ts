@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {TotalAppComponent} from './total-app.component';
-import {CommonComponentsModule} from "@groupdocs-total-angular/common-components";
+import {CommonComponentsModule} from "@groupdocs.examples.angular/common-components";
 
 import {Angular2FontawesomeModule} from 'angular2-fontawesome/angular2-fontawesome'
 import {AppRoutingModule} from "./app-routing.module";
