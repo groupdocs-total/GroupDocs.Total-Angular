@@ -8,6 +8,7 @@
     "access": "public"
   },
   "ngPackage": {
+    "dest" : "dest/common",
     "lib": {
       "entryFile": "./src/index.ts"
     }
