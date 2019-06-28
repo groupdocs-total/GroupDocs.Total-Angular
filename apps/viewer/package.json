@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/viewer",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Angular appplication that allows to display and manipulate documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {
@@ -46,7 +46,7 @@
     "@angular/platform-browser": "^7.0.0",
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/router": "^7.0.0",
-    "@groupdocs.examples.angular/common-components": "^0.1.16",
+    "@groupdocs.examples.angular/common-components": "^0.1.18",
     "angular2-fontawesome": "^5.2.1",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
