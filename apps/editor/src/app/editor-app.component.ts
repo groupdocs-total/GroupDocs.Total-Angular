@@ -42,7 +42,6 @@ export class EditorAppComponent implements AfterViewInit {
   fontOptions = FormattingService.getFontOptions();
   bgColorPickerShow: boolean = false;
   colorPickerShow: boolean = false;
-  active: boolean = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -84,6 +83,7 @@ export class EditorAppComponent implements AfterViewInit {
     this._backFormattingService.formatBoldChange.subscribe((bold: boolean) => {
       this.formatting.bold = bold;
     });
+
     this._backFormattingService.formatItalicChange.subscribe((italic: boolean) => {
       this.formatting.italic = italic;
     });
@@ -113,6 +113,42 @@ export class EditorAppComponent implements AfterViewInit {
     });
 
     this._backFormattingService.formatListChange.subscribe((list: string) => {
+      this.formatting.list = list;
+    });
+
+
+    this._formattingService.formatBoldChange.subscribe((bold: boolean) => {
+      this.formatting.bold = bold;
+    });
+    this._formattingService.formatItalicChange.subscribe((italic: boolean) => {
+      this.formatting.italic = italic;
+    });
+    this._formattingService.formatUnderlineChange.subscribe((underline: boolean) => {
+      this.formatting.underline = underline;
+    });
+    this._formattingService.formatColorChange.subscribe((color: string) => {
+      this.formatting.color = color;
+    });
+    this._formattingService.formatBgColorChange.subscribe((bgcolor: string) => {
+      this.formatting.bgColor = bgcolor;
+    });
+    this._formattingService.formatFontSizeChange.subscribe((fontSize: number) => {
+      this.formatting.fontSize = fontSize;
+    });
+
+    this._formattingService.formatFontChange.subscribe((font: string) => {
+      this.formatting.font = font;
+    });
+
+    this._formattingService.formatStrikeoutChange.subscribe((strikeout: boolean) => {
+      this.formatting.strikeout = strikeout;
+    });
+
+    this._formattingService.formatAlignChange.subscribe((align: string) => {
+      this.formatting.align = align;
+    });
+
+    this._formattingService.formatListChange.subscribe((list: string) => {
       this.formatting.list = list;
     });
   }
@@ -333,42 +369,12 @@ export class EditorAppComponent implements AfterViewInit {
   toggleList(list: string) {
     event.preventDefault();
     event.stopPropagation();
-
     if(list == this.formatting.list) {
       this.formatting.list = "";
     } else {
       this.formatting.list = list;
     }
     this._formattingService.changeFormatList(list);
-  }
-
-  checkState(name: string, $event: string) {
-    switch (name){
-      case "bold":
-        this.formatting.bold = !this.formatting.bold;
-        break;
-      case"bgColor":
-        this.formatting.bgColor = $event;
-        break;
-      case"color":
-        this.formatting.color = $event;
-        break;
-      case "italic":
-        this.formatting.italic = !this.formatting.italic;
-        break;
-      case "underline":
-        this.formatting.underline = !this.formatting.underline;
-        break;
-      case "strikeout":
-        this.formatting.strikeout = !this.formatting.strikeout;
-        break;
-      case "align":
-        this.formatting.align = this.formatting.align;
-        break;
-      case "list":
-        this.formatting.list = this.formatting.list;
-        break;
-    }
   }
 
   downloadFile() {
