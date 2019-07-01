@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "@groupdocs.examples.angular/common-components",
-  "version": "0.1.16",
+  "version": "0.1.18",
   "description": "Common components for GroupDocs.Total Angular applications",
   "license": "MIT",
   "publishConfig": {
