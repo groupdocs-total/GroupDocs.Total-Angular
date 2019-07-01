@@ -26,25 +26,25 @@
                      (selected)="selectFontSize($event)"
                      [showSelected]="formatting.fontSize + 'px'"></gd-select>
           <gd-button [disabled]="formatDisabled" [icon]="'bold'" [tooltip]="'Bold'"
-                     (click)="toggleBold($event); checkState('bold')" [className]="formatting.bold ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleBold($event)" [toggle]="formatting.bold"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'italic'" [tooltip]="'Italic'"
-                     (click)="toggleItalic($event); checkState('italic')" [className]="formatting.italic ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleItalic($event)" [toggle]="formatting.italic"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'underline'" [tooltip]="'Underline'"
-                     (click)="toggleUnderline($event); checkState('underline')" [className]="formatting.underline ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleUnderline($event)" [toggle]="formatting.underline"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'strikethrough'" [tooltip]="'Strike out'"
-                     (click)="toggleStrikeout($event); checkState('strikeout')" [className]="formatting.strikeout ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleStrikeout($event)" [toggle]="formatting.strikeout"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'align-center'" [tooltip]="'Align center'"
-                     (click)="toggleAlign('center'); checkState('align')" [className]="formatting.align == 'center' ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleAlign('center')" [toggle]="formatting.align == 'center' ? true : false"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'align-justify'" [tooltip]="'Align full'"
-                     (click)="toggleAlign('full'); checkState('align')" [className]="formatting.align == 'full' ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleAlign('full')" [toggle]="formatting.align == 'full' ? true : false"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'align-right'" [tooltip]="'Align right'"
-                     (click)="toggleAlign('right'); checkState('align')" [className]="formatting.align == 'right' ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleAlign('right')" [toggle]="formatting.align == 'right' ? true : false"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'align-left'" [tooltip]="'Align left'"
-                     (click)="toggleAlign('left'); checkState('align')" [className]="formatting.align == 'left' ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleAlign('left')" [toggle]="formatting.align == 'left' ? true : false"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'list-ul'" [tooltip]="'Add Unordered List'"
-                     (click)="toggleList('unordered'); checkState('list')" [className]="formatting.list == 'unordered' ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleList('unordered')" [toggle]="formatting.list == 'unordered' ? true : false"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'list-ol'" [tooltip]="'Add Ordered List'"
-                     (click)="toggleList('ordered'); checkState('list')" [className]="formatting.list == 'ordered' ? 'gd-edit active' : ''"></gd-button>
+                     (click)="toggleList('ordered')" [toggle]="formatting.list == 'ordered' ? true : false"></gd-button>
           <gd-button name="button" [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
                      (click)="toggleColorPicker(true)">
             <div class="bg-color-pic" [style.background-color]="formatting.bgColor"></div>
