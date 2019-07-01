@@ -28,7 +28,7 @@
               "styles": [
                 "src/styles.less"
               ],
-              "scripts": [],
+              "scripts": ["./node_modules/jquery/dist/jquery.js"],
               "es5BrowserSupport": false
             },
             "configurations": {
