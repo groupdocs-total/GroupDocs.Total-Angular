@@ -13,7 +13,9 @@ import {
   Formatting,
   BackFormattingService,
   OnCloseService,
-  SaveFile
+  SaveFile,
+  SelectionService,
+  EditHtmlService
 } from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -49,7 +51,9 @@ export class EditorAppComponent {
               private _windowService: WindowService,
               private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
-              private _onCloseService: OnCloseService
+              private _onCloseService: OnCloseService,
+              private _selectionService: SelectionService,
+              private _htmlService: EditHtmlService
   ) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
@@ -144,6 +148,12 @@ export class EditorAppComponent {
 
     this._formattingService.formatListChange.subscribe((list: string) => {
       this.formatting.list = list;
+    });
+
+    this._htmlService.htmlContent.subscribe((text: string) => {
+      if (this.file && this.file.pages) {
+        this.file.pages[0].data = text;
+      }
     });
   }
 
@@ -394,10 +404,22 @@ export class EditorAppComponent {
     window.location.assign(this._editorService.getDownloadUrl(this.credentials));
   }
 
-  saveFile($event: SaveFile) {
-    this._editorService.save($event).subscribe((loadFile: FileDescription) => {
+  saveFile($event: FileCredentials) {
+    if (!this.file || !this.file.pages)
+      return;
+    let saveFile: SaveFile;
+    let password: string;
+    if ($event) {
+      password = $event.password;
+      saveFile = new SaveFile($event.guid, password, this.file.pages[0].data);
+    } else {
+      password = this.credentials.password;
+      saveFile = new SaveFile(this.credentials.guid, password, this.file.pages[0].data);
+    }
+    this._selectionService.restoreSelection();
+    this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
-      this.credentials = new FileCredentials(loadFile.guid, $event.password);
+      this.credentials = new FileCredentials(loadFile.guid, password);
       this._modalService.open(CommonModals.OperationSuccess);
     });
   }

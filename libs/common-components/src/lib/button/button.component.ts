@@ -9,6 +9,7 @@ export class ButtonComponent {
 
   @Input() disabled: boolean = false;
   @Input() icon:string;
+  @Input() iconClass:string;
   @Input() tooltip:string;
   @Input() className: string;
   @Input() toggle: boolean = false;

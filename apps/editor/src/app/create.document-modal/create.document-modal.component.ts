@@ -3,10 +3,7 @@ import {
   CommonModals,
   ExceptionMessageService,
   FileCredentials,
-  ModalService,
-  SaveFile,
-  SelectionService,
-  GetHtmlServiceService
+  ModalService
 } from "@groupdocs-total-angular/common-components";
 import {EditorService} from "../editor.service";
 
@@ -17,13 +14,11 @@ import {EditorService} from "../editor.service";
 })
 export class CreateDocumentModalComponent implements OnInit {
   @Input() file: FileCredentials;
-  @Output() savingFile: EventEmitter<SaveFile> = new EventEmitter<SaveFile>();
+  @Output() savingFile: EventEmitter<FileCredentials> = new EventEmitter<FileCredentials>();
   private _format: string;
   formats;
 
   constructor(private _editorService: EditorService,
-              private _selectionService: SelectionService,
-              private _htmlService: GetHtmlServiceService,
               private _modalService: ModalService,
               private _excMessageService: ExceptionMessageService) {
   }
@@ -67,8 +62,6 @@ export class CreateDocumentModalComponent implements OnInit {
     this._modalService.close(CommonModals.CreateDocument);
     let guid = fileName != "" ? fileName : this.file.guid;
     let password = this.file ? this.file.password : '';
-    let saveFile = new SaveFile(guid, password, this._htmlService.htmlContent);
-    this._selectionService.restoreSelection();
-    this.savingFile.emit(saveFile);
+    this.savingFile.emit(new FileCredentials(guid, password));
   }
 }
