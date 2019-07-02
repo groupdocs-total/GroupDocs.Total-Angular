@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {EditorService} from "./editor.service";
 import {
   FileDescription,
@@ -12,7 +12,8 @@ import {
   FormattingService,
   Formatting,
   BackFormattingService,
-  OnCloseService
+  OnCloseService,
+  SaveFile
 } from "@groupdocs-total-angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -24,7 +25,7 @@ import * as $ from 'jquery';
   templateUrl: './editor-app.component.html',
   styleUrls: ['./editor-app.component.less']
 })
-export class EditorAppComponent implements AfterViewInit {
+export class EditorAppComponent {
   title = 'editor';
   files: FileModel[] = [];
   file: FileDescription;
@@ -32,9 +33,7 @@ export class EditorAppComponent implements AfterViewInit {
   formatDisabled = !this.file;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
-  createFilesModal = CommonModals.CreateDocument;
   isDesktop: boolean;
-  pageCount: number = 0;
   formatting: Formatting = Formatting.DEFAULT;
   fontSizeOptions = FormattingService.getFontSizeOptions();
   fontOptions = FormattingService.getFontOptions();
@@ -51,7 +50,7 @@ export class EditorAppComponent implements AfterViewInit {
               private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
               private _onCloseService: OnCloseService
-              ) {
+  ) {
 
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -181,10 +180,16 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   openModal(id: string) {
-    if(this.file) {
+    if (this.file) {
       this.file.pages[0].editable = false;
     }
     this._modalService.open(id);
+  }
+
+  openSave() {
+    if (!this.formatDisabled) {
+      this.openModal(CommonModals.CreateDocument);
+    }
   }
 
   selectDir($event: string) {
@@ -210,26 +215,25 @@ export class EditorAppComponent implements AfterViewInit {
     page.editable = true;
     this.file.pages = [];
     this.file.pages.push(page);
-    this.pageCount = 1;
     this.formatDisabled = false;
   }
 
-  ngAfterViewInit(): void {
-  }
-
   selectFile($event: string, password: string, modalId: string) {
-    this.credentials = {guid: $event, password: password};
+    this.credentials = new FileCredentials($event, password);
     this._editorService.loadFile(this.credentials).subscribe((file: FileDescription) => {
-        this.file = file;
-        if (this.file && this.file.pages[0]) {
-          this.file.pages[0].editable = true;
-          this.pageCount = this.file.pages.length;
-        }
-        this.formatDisabled = !this.file;
+        this.loadFile(file);
       }
     );
     this.clearData();
     this._modalService.close(modalId);
+  }
+
+  private loadFile(file: FileDescription) {
+    this.file = file;
+    if (this.file && this.file.pages[0]) {
+      this.file.pages[0].editable = true;
+    }
+    this.formatDisabled = !this.file;
   }
 
   private clearData() {
@@ -248,9 +252,11 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   selectFontSize($event: number) {
+    if (this.formatDisabled)
+      return;
     $(".gd-wrapper").off("keyup");
     this._formattingService.changeFormatFontSize($event);
-    $(".gd-wrapper").on("keyup", ()=> {
+    $(".gd-wrapper").on("keyup", () => {
       var fontElements = document.getElementsByTagName("font");
       for (var i = 0, len = fontElements.length; i < len; ++i) {
         if (fontElements[i].size == "7") {
@@ -262,6 +268,8 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   selectFont($event: string) {
+    if (this.formatDisabled)
+      return;
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.changeFormatFont($event);
@@ -291,30 +299,40 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   toggleBold(event) {
+    if (this.formatDisabled)
+      return;
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.changeFormatBold(!this.formatting.bold);
   }
 
   toggleUndo() {
+    if (this.formatDisabled)
+      return;
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.Undo();
   }
 
   toggleRedo() {
+    if (this.formatDisabled)
+      return;
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.Redo();
   }
 
   toggleItalic(event) {
+    if (this.formatDisabled)
+      return;
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.changeFormatItalic(!this.formatting.italic);
   }
 
   toggleUnderline(event) {
+    if (this.formatDisabled)
+      return;
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.changeFormatUnderline(!this.formatting.underline);
@@ -325,7 +343,7 @@ export class EditorAppComponent implements AfterViewInit {
       $event.target.parentElement.attributes['name'].value == 'button') ||
       ($event.target.parentElement.parentElement &&
         $event.target.parentElement.parentElement.attributes['name'] &&
-      $event.target.parentElement.parentElement.attributes['name'].value == 'button')) {
+        $event.target.parentElement.parentElement.attributes['name'].value == 'button')) {
 
       this._onCloseService.close(true);
       return;
@@ -336,15 +354,19 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   toggleStrikeout(event) {
+    if (this.formatDisabled)
+      return;
     event.preventDefault();
     event.stopPropagation();
     this._formattingService.changeFormatStrikeout(!this.formatting.strikeout);
   }
 
   toggleAlign(align: string) {
+    if (this.formatDisabled)
+      return;
     event.preventDefault();
     event.stopPropagation();
-    if(align == this.formatting.align) {
+    if (align == this.formatting.align) {
       align = 'full';
     }
     this._formattingService.changeFormatAlign(align);
@@ -352,10 +374,12 @@ export class EditorAppComponent implements AfterViewInit {
   }
 
   toggleList(list: string) {
+    if (this.formatDisabled)
+      return;
     event.preventDefault();
     event.stopPropagation();
 
-    if(list == this.formatting.list) {
+    if (list == this.formatting.list) {
       this.formatting.list = "";
     } else {
       this.formatting.list = list;
@@ -368,5 +392,13 @@ export class EditorAppComponent implements AfterViewInit {
       return;
     this.credentials.guid = this.credentials.guid.match(/(^.*[\\\/]|^[^\\\/].*)/i)[0] + this.file.guid;
     window.location.assign(this._editorService.getDownloadUrl(this.credentials));
+  }
+
+  saveFile($event: SaveFile) {
+    this._editorService.save($event).subscribe((loadFile: FileDescription) => {
+      this.loadFile(loadFile);
+      this.credentials = new FileCredentials(loadFile.guid, $event.password);
+      this._modalService.open(CommonModals.OperationSuccess);
+    });
   }
 }

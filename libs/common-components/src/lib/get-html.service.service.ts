@@ -1,18 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetHtmlServiceService {
- private htmlContent: string;
+  private _htmlContent: string;
 
-  constructor() { }
-
-  GetContent(){
-    return this.htmlContent;
+  constructor() {
   }
 
-  SetContent(content: string){
-    this.htmlContent = content;
+
+  get htmlContent(): string {
+    return this._htmlContent;
   }
+
+  set htmlContent(value: string) {
+    this._htmlContent = value;
+  }
+
 }

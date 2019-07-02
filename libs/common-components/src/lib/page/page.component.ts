@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import { SelectionService } from '../selection.service';
+import {SelectionService} from '../selection.service';
 import {GetHtmlServiceService} from "../get-html.service.service";
+
 @Component({
   selector: 'gd-page',
   templateUrl: './page.component.html',
@@ -34,14 +35,16 @@ export class PageComponent implements OnInit, OnChanges {
     }
   }
 
-  noop(event){
-    event.preventDefault()
+  noop(event) {
+    event.preventDefault();
     this._selectionService.restoreSelection();
-    let html = this.text.innerHTML.toString();
-    this._htmlService.SetContent(html);
+    if (this.text.innerHTML) {
+      let html = this.text.innerHTML.toString();
+      this._htmlService.htmlContent = html;
+    }
   }
 
-  captureSelection(){
+  captureSelection() {
     this._selectionService.captureSelection();
   }
 }

@@ -9,7 +9,7 @@
                      *ngIf="browseConfig"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                      (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save file'" (click)="openModal(createFilesModal)"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save file'" (click)="openSave()"></gd-button>
         </gd-top-toolbar>
       </gd-tab>
       <gd-tab tabTitle="Formatting" [icon]="'edit'">
@@ -77,6 +77,6 @@
   ></gd-browse-files-modal>
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>
-  <gd-create-document-modal [file]="file"></gd-create-document-modal>
+  <gd-create-document-modal [file]="credentials" (savingFile)="saveFile($event)"></gd-create-document-modal>
   <gd-success-modal></gd-success-modal>
 </div>
