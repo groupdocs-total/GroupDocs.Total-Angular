@@ -10,10 +10,6 @@ import {ConfigService} from "@groupdocs-total-angular/common-components";
 import {EditorConfigService} from "./editor-config.service";
 import {EditorExportModule} from "./editor-export/editor-export.module"
 
-export function initializeApp(editorConfigService: EditorConfigService) {
-  return () => editorConfigService.load();
-}
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -30,11 +26,6 @@ export function initializeApp(editorConfigService: EditorConfigService) {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
       multi: true
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeApp,
-      deps: [EditorConfigService], multi: true
     }
   ],
   bootstrap: [EditorAppComponent],
