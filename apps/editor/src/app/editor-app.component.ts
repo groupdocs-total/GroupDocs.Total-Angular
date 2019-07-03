@@ -455,6 +455,7 @@ export class EditorAppComponent {
   }
 
   saveFile($event: FileCredentials) {
+
     if (!this.file || !this.file.pages)
       return;
     let saveFile: SaveFile;
@@ -466,7 +467,7 @@ export class EditorAppComponent {
       password = this.credentials.password;
       saveFile = new SaveFile(this.credentials.guid, password, this.textBackup);
     }
-    this._selectionService.restoreSelection();
+
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, password);

@@ -11,9 +11,16 @@ export class EditorDirective {
   constructor(private _selectionService: SelectionService, private _htmlService: EditHtmlService) {
   }
 
-  @HostListener('input', ['$event'])
+  @HostListener('keyup', ['$event'])
   public onInput(event) {
     this.text = event.target;
+    let isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    if(isIE){
+      if (this.text.innerHTML) {
+        let html = this.text.innerHTML.toString();
+        this._htmlService.observer.next(html);
+      }
+    }
   }
 
   @HostListener('mouseleave', ['$event'])
