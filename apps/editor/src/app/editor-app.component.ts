@@ -42,6 +42,7 @@ export class EditorAppComponent {
   bgColorPickerShow: boolean = false;
   colorPickerShow: boolean = false;
   active: boolean = false;
+  private textBackup: string;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -152,7 +153,7 @@ export class EditorAppComponent {
 
     this._htmlService.htmlContent.subscribe((text: string) => {
       if (this.file && this.file.pages) {
-        this.file.pages[0].data = text;
+        this.textBackup = text;
       }
     });
   }
@@ -242,6 +243,7 @@ export class EditorAppComponent {
     this.file = file;
     if (this.file && this.file.pages[0]) {
       this.file.pages[0].editable = true;
+      this.textBackup = this.file.pages[0].data;
     }
     this.formatDisabled = !this.file;
   }
@@ -411,10 +413,10 @@ export class EditorAppComponent {
     let password: string;
     if ($event) {
       password = $event.password;
-      saveFile = new SaveFile($event.guid, password, this.file.pages[0].data);
+      saveFile = new SaveFile($event.guid, password, this.textBackup);
     } else {
       password = this.credentials.password;
-      saveFile = new SaveFile(this.credentials.guid, password, this.file.pages[0].data);
+      saveFile = new SaveFile(this.credentials.guid, password, this.textBackup);
     }
     this._selectionService.restoreSelection();
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {

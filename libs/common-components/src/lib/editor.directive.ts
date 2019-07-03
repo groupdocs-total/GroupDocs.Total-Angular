@@ -13,7 +13,7 @@ export class EditorDirective {
 
   @HostListener('input', ['$event'])
   public onInput(event) {
-    this.text = event.target
+    this.text = event.target;
   }
 
   @HostListener('mouseleave', ['$event'])
