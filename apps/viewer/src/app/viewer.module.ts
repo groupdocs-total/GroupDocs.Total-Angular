@@ -9,13 +9,13 @@ import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs-total-angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
 import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
+import {ViewerExportModule} from "./viewer-export/viewer-export.module";
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   return () => viewerConfigService.load();
 }
 
 @NgModule({
-  declarations: [ViewerAppComponent, ThumbnailsComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule.forRoot(),

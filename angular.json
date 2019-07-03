@@ -286,7 +286,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/editor",
+            "outputPath": "apps/editor/dist",
             "index": "apps/editor/src/index.html",
             "main": "apps/editor/src/main.ts",
             "polyfills": "apps/editor/src/polyfills.ts",
@@ -294,7 +294,7 @@
             "assets": ["apps/editor/src/favicon.ico", "apps/editor/src/assets"],
             "styles": ["apps/editor/src/styles.less"],
             "scripts": [],
-            "es5BrowserSupport": true
+            "es5BrowserSupport": false
           },
           "configurations": {
             "production": {
@@ -305,12 +305,12 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "extractCss": false,
               "namedChunks": false,
               "aot": true,
-              "extractLicenses": true,
+              "extractLicenses": false,
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [

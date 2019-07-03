@@ -23,6 +23,10 @@ export class CreateDocumentModalComponent implements OnInit {
               private _excMessageService: ExceptionMessageService) {
   }
 
+  get format() {
+    return this._format;
+  }
+
   ngOnInit() {
     this.loadFormats();
   }

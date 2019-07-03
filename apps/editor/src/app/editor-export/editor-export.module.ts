@@ -13,6 +13,7 @@ import {CreateDocumentModalComponent} from "../create.document-modal/create.docu
 
 @NgModule({
   declarations: [EditorAppComponent, CreateDocumentModalComponent],
+  exports: [EditorAppComponent, CreateDocumentModalComponent],
   imports: [
     EditorRoutingModule,
     CommonModule,

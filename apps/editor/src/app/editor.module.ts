@@ -8,19 +8,19 @@ import {Angular2FontawesomeModule} from "angular2-fontawesome";
 import {EditorService} from "./editor.service";
 import {ConfigService} from "@groupdocs-total-angular/common-components";
 import {EditorConfigService} from "./editor-config.service";
-import {CreateDocumentModalComponent} from "./create.document-modal/create.document-modal.component";
+import {EditorExportModule} from "./editor-export/editor-export.module"
 
 export function initializeApp(editorConfigService: EditorConfigService) {
   return () => editorConfigService.load();
 }
 
 @NgModule({
-  declarations: [EditorAppComponent, CreateDocumentModalComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule.forRoot(),
     Angular2FontawesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    EditorExportModule
   ],
   providers: [
     EditorService,
