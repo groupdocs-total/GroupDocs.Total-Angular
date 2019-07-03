@@ -46,7 +46,8 @@ import {ColorPickerComponent} from './color-picker/color-picker.component';
 import {FormattingDirective} from './formatting.directive';
 import {BackFormattingService} from "./back-formatting.service";
 import {OnCloseService} from "./on-close.service";
-import { SuccessModalComponent } from './success-modal/success-modal.component';
+import {SuccessModalComponent} from './success-modal/success-modal.component';
+import {EditorDirective} from './editor.directive';
 
 const providers = [ConfigService,
   Api,
@@ -107,7 +108,8 @@ const providers = [ConfigService,
     TabsComponent,
     ColorPickerComponent,
     FormattingDirective,
-    SuccessModalComponent
+    SuccessModalComponent,
+    EditorDirective
   ],
   exports: [
     TopToolbarComponent,

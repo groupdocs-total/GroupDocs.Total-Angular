@@ -1,5 +1,5 @@
 <div class="button" [ngClass]="toggle ? className + ' gd-edit active' : className" (mouseenter)="onHovering()" (mouseleave)="onUnhovering()" gdDisabledCursor [dis]="disabled">
-  <i fa [name]="icon"></i>
+  <i fa [name]="icon" [ngClass]="iconClass"></i>
   <gd-tooltip [text]="tooltip" [show]="showToolTip" *ngIf="tooltip"></gd-tooltip>
   <ng-content></ng-content>
 </div>

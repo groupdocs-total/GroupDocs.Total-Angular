@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {
-  Api, ConfigService, FileCredentials, FileDescription
+  Api, ConfigService, FileCredentials, SaveFile
 } from "@groupdocs-total-angular/common-components";
 
 @Injectable({
@@ -14,10 +14,6 @@ export class EditorService {
 
   loadFiles(path: string) {
     return this._http.post(this._config.getEditorApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
-  }
-
-  createDocument(name: string) {
-    return this._http.post(this._config.getEditorApiEndpoint() + Api.CREATE_DOCUMENT, {'path': name }, Api.httpOptionsJson);
   }
 
   getFormats() {
@@ -39,7 +35,7 @@ export class EditorService {
     return this._http.post(this._config.getEditorApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
   }
 
-  save(file: FileDescription){
+  save(file: SaveFile) {
     return this._http.post(this._config.getEditorApiEndpoint() + Api.SAVE_FILE, file, Api.httpOptionsJson);
   }
 

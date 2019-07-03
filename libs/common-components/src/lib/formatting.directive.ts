@@ -2,7 +2,7 @@ import {Directive, HostListener, OnInit} from '@angular/core';
 import {FormattingService} from "./formatting.service";
 import {BackFormattingService} from "./back-formatting.service";
 import * as $ from 'jquery';
-import { SelectionService } from './selection.service';
+import {SelectionService} from './selection.service';
 
 @Directive({
   selector: '[gdFormatting]'
@@ -17,14 +17,14 @@ export class FormattingDirective implements OnInit {
   private font: string;
   private strikeout: boolean = false;
   private align: string;
-  private list; string;
+  private list: string;
 
   constructor(private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
               private _selectionService: SelectionService) {
   }
 
-  @HostListener('mouseup') mousedown() {
+  @HostListener('mouseup') mouseup() {
 
     this.bold = document.queryCommandState("bold");
     this.strikeout = document.queryCommandState("strikeThrough");
@@ -35,7 +35,7 @@ export class FormattingDirective implements OnInit {
     this.list = this.checkList();
 
     //fix required by FireFox to get correct background color
-    if(this.bgColor == "transparent") {
+    if (this.bgColor == "transparent") {
       this.bgColor = $(window.getSelection().focusNode.parentNode).css('background-color').toString();
     }
     this.font = document.queryCommandValue("FontName").replace(/"/g, '');
@@ -60,6 +60,7 @@ export class FormattingDirective implements OnInit {
     align = document.queryCommandState("justifyRight") ? "right" : align;
     return align;
   }
+
   private checkList() {
     let list: string = "";
     list = document.queryCommandState("insertUnorderedList") ? "unordered" : list;
@@ -78,7 +79,7 @@ export class FormattingDirective implements OnInit {
           containerEl = containerEl.parentNode;
         }
       }
-    } else if ( (sel = document.getSelection()) && sel.type != "Control") {
+    } else if ((sel = document.getSelection()) && sel.type != "Control") {
       containerEl = sel.createRange().parentElement();
     }
 
@@ -95,7 +96,7 @@ export class FormattingDirective implements OnInit {
     }
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this._formattingService.undo.subscribe(() => {
       this.toggleUndo();
     });
@@ -146,50 +147,50 @@ export class FormattingDirective implements OnInit {
 
   private toggleBold() {
     document.execCommand("bold");
-    this._selectionService.refreshSelection()
+    this._selectionService.refreshSelection();
   }
 
   private toggleUnderline() {
     document.execCommand("underline");
-    this._selectionService.refreshSelection()
+    this._selectionService.refreshSelection();
   }
 
   private toggleItalic() {
     document.execCommand("italic");
-    this._selectionService.refreshSelection()
+    this._selectionService.refreshSelection();
   }
 
   private setBgColor(bgColor: string) {
     document.execCommand("backColor", false, bgColor);
-    this._selectionService.refreshSelection()
+    this._selectionService.refreshSelection();
   }
 
   private setColor(color: string) {
-    document.execCommand("foreColor", false, color)
-    this._selectionService.refreshSelection()
+    document.execCommand("foreColor", false, color);
+    this._selectionService.refreshSelection();
   }
 
   private setFontSize(fontSize: number) {
-    if(document.getSelection().toString()) {
+    if (document.getSelection().toString()) {
       var spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + "; font-family: " + this.font + "'>" +
         document.getSelection() + "</span>";
-      if(this.bold){
+      if (this.bold) {
         spanString = "<b>" + spanString + "</b>";
       }
-      if(this.italic){
+      if (this.italic) {
         spanString = "<i>" + spanString + "</i>";
       }
-      if(this.underline) {
+      if (this.underline) {
         spanString = "<u>" + spanString + "</u>";
       }
-      if(this.strikeout) {
+      if (this.strikeout) {
         spanString = "<strike>" + spanString + "</strike>";
       }
       document.execCommand('insertHTML', false, spanString);
     } else {
       document.execCommand("fontsize", false, "7");
     }
-    this._selectionService.refreshSelection()
+    this._selectionService.refreshSelection();
   }
 
   private toggleUndo() {
@@ -202,17 +203,17 @@ export class FormattingDirective implements OnInit {
 
   private setFont(font: string) {
     document.execCommand("fontName", false, font);
-    this._selectionService.refreshSelection()
+    this._selectionService.refreshSelection();
   }
 
   private toggleStrikeout() {
     document.execCommand("strikeThrough");
-    this._selectionService.refreshSelection()
+    this._selectionService.refreshSelection();
   }
 
   private toggleAlign(align: string) {
     document.execCommand("styleWithCSS", false, 'true');
-    switch(align){
+    switch (align) {
       case 'center':
         document.execCommand('justifyCenter');
         break;
@@ -226,11 +227,11 @@ export class FormattingDirective implements OnInit {
         document.execCommand('justifyRight');
         break;
     }
-    this._selectionService.refreshSelection()
+    this._selectionService.refreshSelection();
   }
 
   private toggleList(list: string) {
-    switch(list){
+    switch (list) {
       case 'unordered':
         document.execCommand('insertUnorderedList');
         break;
@@ -238,6 +239,6 @@ export class FormattingDirective implements OnInit {
         document.execCommand('insertOrderedList');
         break;
     }
-    this._selectionService.refreshSelection()
+    this._selectionService.refreshSelection();
   }
 }

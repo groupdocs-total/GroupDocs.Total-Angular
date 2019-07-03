@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
-  CommonModals, ConfigService, FileDescription, ModalService
+  CommonModals,
+  ExceptionMessageService,
+  FileCredentials,
+  ModalService
 } from "@groupdocs-total-angular/common-components";
-import {environment} from "../../environments/environment";
 import {EditorService} from "../editor.service";
-import {SelectionService} from "../../../../../libs/common-components/src/lib/selection.service";
-import {GetHtmlServiceService} from "../../../../../libs/common-components/src/lib/get-html.service.service";
 
 @Component({
   selector: 'gd-create-document-modal',
@@ -13,16 +13,14 @@ import {GetHtmlServiceService} from "../../../../../libs/common-components/src/l
   styleUrls: ['./create.document-modal.component.less']
 })
 export class CreateDocumentModalComponent implements OnInit {
-  @Input() file: FileDescription;
+  @Input() file: FileCredentials;
+  @Output() savingFile: EventEmitter<FileCredentials> = new EventEmitter<FileCredentials>();
   private _format: string;
   formats;
 
-  constructor(private _config: ConfigService,
-              private _editorService: EditorService,
-              private _selectionService: SelectionService,
-              private _htmlService: GetHtmlServiceService,
-              private _modalService: ModalService) {
-    _config.apiEndpoint = environment.apiUrl;
+  constructor(private _editorService: EditorService,
+              private _modalService: ModalService,
+              private _excMessageService: ExceptionMessageService) {
   }
 
   ngOnInit() {
@@ -47,31 +45,23 @@ export class CreateDocumentModalComponent implements OnInit {
 
   formatOptions(formats) {
     var allTypes = new Array();
-    for(var i = 0; i < formats.length; i++){
+    for (var i = 0; i < formats.length; i++) {
       allTypes.push(this.createFormatOption(formats[i]));
     }
     return allTypes;
   }
 
-  save(name: string){
+  save(name: string) {
     let fileName = "";
-    if(name && name != ""){
+    if (name && name != "") {
       fileName = name + "." + this._format;
+    } else if (!this.file) {
+      this._modalService.open(CommonModals.ErrorMessage);
+      this._excMessageService.changeMessage("File name is empty");
     }
-    name = "";
     this._modalService.close(CommonModals.CreateDocument);
-    this.file.pages[0].editable = true;
-    this.file.pages[0].data = this._htmlService.GetContent();
-    if(fileName != "") {
-      this.file.guid = fileName;
-    }
-    this._selectionService.restoreSelection();
-    this.saveFile(this.file);
-  }
-
-  saveFile(file: FileDescription){
-    this._editorService.save(file).subscribe(() => {
-      this._modalService.open(CommonModals.OperationSuccess);
-    });
+    let guid = fileName != "" ? fileName : this.file.guid;
+    let password = this.file ? this.file.password : '';
+    this.savingFile.emit(new FileCredentials(guid, password));
   }
 }
