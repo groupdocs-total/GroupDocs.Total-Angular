@@ -5,12 +5,18 @@ import {Injectable} from '@angular/core';
 })
 export class SelectionService {
   selection: Range;
+  private isIE: boolean;
 
   constructor() {
+    this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
   }
 
   restoreSelection() {
-    if (this.selection && this.selection.collapsed) {
+    if(this.isIE && this.selection){
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(this.selection.cloneRange());
+    } else if(this.selection && this.selection.collapsed){
       var sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(this.selection.cloneRange());
@@ -18,8 +24,12 @@ export class SelectionService {
   }
 
   captureSelection() {
-    if (window.getSelection().getRangeAt(0).startOffset != window.getSelection().getRangeAt(0).endOffset) {
+    if(this.isIE){
       this.selection = window.getSelection().getRangeAt(0);
+    } else {
+      if (window.getSelection().getRangeAt(0).startOffset != window.getSelection().getRangeAt(0).endOffset) {
+        this.selection = window.getSelection().getRangeAt(0);
+      }
     }
   }
 

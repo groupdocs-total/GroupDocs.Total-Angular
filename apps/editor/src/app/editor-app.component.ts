@@ -43,6 +43,7 @@ export class EditorAppComponent {
   colorPickerShow: boolean = false;
   active: boolean = false;
   private textBackup: string;
+  private isIE: boolean = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -56,7 +57,7 @@ export class EditorAppComponent {
               private _selectionService: SelectionService,
               private _htmlService: EditHtmlService
   ) {
-
+    this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
     });
@@ -233,6 +234,16 @@ export class EditorAppComponent {
     this.credentials = new FileCredentials($event, password);
     this._editorService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.loadFile(file);
+        let isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        if(isIE) {
+          let observer = new MutationObserver(function (mutations) {
+            if($(".documentMainContent").length > 0 ){
+              $(".documentMainContent").attr("contentEditable", "true");
+              observer.disconnect();
+            }
+          });
+          observer.observe(document, {attributes: false, childList: true, characterData: false, subtree: true});
+        }
       }
     );
     this.clearData();
@@ -267,6 +278,10 @@ export class EditorAppComponent {
     if (this.formatDisabled)
       return;
     $(".gd-wrapper").off("keyup");
+    if(this.isIE) {
+      this._selectionService.restoreSelection();
+      this._selectionService.captureSelection();
+    }
     this._formattingService.changeFormatFontSize($event);
     $(".gd-wrapper").on("keyup", () => {
       var fontElements = document.getElementsByTagName("font");
@@ -284,12 +299,21 @@ export class EditorAppComponent {
       return;
     event.preventDefault();
     event.stopPropagation();
+    if(this.isIE) {
+      this._selectionService.restoreSelection();
+      this._selectionService.captureSelection();
+    }
     this._formattingService.changeFormatFont($event);
   }
 
   toggleColorPicker(bg: boolean) {
+
     if (this.formatDisabled) {
       return;
+    }
+    if(this.isIE) {
+      this._selectionService.restoreSelection();
+      this._selectionService.captureSelection();
     }
     if (bg) {
       this.bgColorPickerShow = !this.bgColorPickerShow;
@@ -301,6 +325,10 @@ export class EditorAppComponent {
   }
 
   selectColor($event: string) {
+    if(this.isIE) {
+      this._selectionService.restoreSelection();
+      this._selectionService.captureSelection();
+    }
     if (this.bgColorPickerShow) {
       this.bgColorPickerShow = false;
       this._formattingService.changeFormatBgColor($event);
@@ -315,6 +343,10 @@ export class EditorAppComponent {
       return;
     event.preventDefault();
     event.stopPropagation();
+    if(this.isIE) {
+      this._selectionService.restoreSelection();
+      this._selectionService.captureSelection();
+    }
     this._formattingService.changeFormatBold(!this.formatting.bold);
   }
 
@@ -339,6 +371,10 @@ export class EditorAppComponent {
       return;
     event.preventDefault();
     event.stopPropagation();
+    if(this.isIE) {
+      this._selectionService.restoreSelection();
+      this._selectionService.captureSelection();
+    }
     this._formattingService.changeFormatItalic(!this.formatting.italic);
   }
 
@@ -347,6 +383,10 @@ export class EditorAppComponent {
       return;
     event.preventDefault();
     event.stopPropagation();
+    if(this.isIE) {
+      this._selectionService.restoreSelection();
+      this._selectionService.captureSelection();
+    }
     this._formattingService.changeFormatUnderline(!this.formatting.underline);
   }
 
@@ -370,6 +410,10 @@ export class EditorAppComponent {
       return;
     event.preventDefault();
     event.stopPropagation();
+    if(this.isIE) {
+      this._selectionService.restoreSelection();
+      this._selectionService.captureSelection();
+    }
     this._formattingService.changeFormatStrikeout(!this.formatting.strikeout);
   }
 
@@ -395,6 +439,10 @@ export class EditorAppComponent {
       this.formatting.list = "";
     } else {
       this.formatting.list = list;
+    }
+    if(this.isIE) {
+      this._selectionService.restoreSelection();
+      this._selectionService.captureSelection();
     }
     this._formattingService.changeFormatList(list);
   }

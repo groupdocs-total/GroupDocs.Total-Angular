@@ -21,6 +21,10 @@ export class PageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    let isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    if(isIE){
+      this.editable = false;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
