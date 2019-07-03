@@ -39,6 +39,9 @@ export class FormattingDirective implements OnInit {
       this.bgColor = $(window.getSelection().focusNode.parentNode).css('background-color').toString();
     }
     this.font = document.queryCommandValue("FontName").replace(/"/g, '');
+    if(this.font.split(",").length > 1){
+      this.font = this.font.split(",")[0];
+    }
     this.color = document.queryCommandValue("foreColor");
     this._backFormattingService.changeFormatBold(this.bold);
     this._backFormattingService.changeFormatUnderline(this.underline);
@@ -95,7 +98,7 @@ export class FormattingDirective implements OnInit {
     }
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this._formattingService.undo.subscribe(() => {
       this.toggleUndo();
     });
