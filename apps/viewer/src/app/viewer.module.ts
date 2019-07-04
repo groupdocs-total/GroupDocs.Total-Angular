@@ -16,6 +16,7 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
 }
 
 @NgModule({
+  declarations: [ViewerAppComponent, ThumbnailsComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule.forRoot(),
