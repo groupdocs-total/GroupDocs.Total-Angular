@@ -452,7 +452,6 @@ export class EditorAppComponent {
   downloadFile() {
     if (this.formatDisabled)
       return;
-    this.credentials.guid = this.credentials.guid.match(/(^.*[\\\/]|^[^\\\/].*)/i)[0] + this.file.guid;
     window.location.assign(this._editorService.getDownloadUrl(this.credentials));
   }
 
