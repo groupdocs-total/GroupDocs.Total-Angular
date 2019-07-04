@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {ViewerAppComponent} from './viewer-app.component';
@@ -11,7 +11,6 @@ import {ViewerConfigService} from "./viewer-config.service";
 import {ViewerExportModule} from "./viewer-export/viewer-export.module";
 
 @NgModule({
-  declarations: [ViewerAppComponent, ThumbnailsComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule.forRoot(),
