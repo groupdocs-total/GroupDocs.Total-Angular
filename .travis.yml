@@ -33,6 +33,8 @@ matrix:
         - cd ..
         - npm install
         - npm run e2e --headless
+        - ng build viewer --aot --prod --vendor-chunk=false --output-hashing=none
+        - ng build editor --aot --prod --vendor-chunk=false --output-hashing=none
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
       os: linux
       addons:
@@ -48,7 +50,9 @@ matrix:
         - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting to back-end..."; done
         - cd ..
         - npm install
-        - npm run e2e
+        - npm run e2e --headless
+        - ng build viewer --aot --prod --vendor-chunk=false --output-hashing=none
+        - ng build editor --aot --prod --vendor-chunk=false --output-hashing=none
     - stage: Release fix
       dist: trusty
       os: linux
