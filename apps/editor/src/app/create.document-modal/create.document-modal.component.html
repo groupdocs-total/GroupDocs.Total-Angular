@@ -1,7 +1,7 @@
 <gd-modal id="gd-create-document" [title]="'Save document'">
   <section id="gd-create-document-section" class="tab-slider-body">
     <div class="inner-addon left-addon btn gd-create-wrap" id="gd-create-wrap">
-      <input type="text" class="form-control" placeholder="Enter file name without extension" #name autofocus/>
+      <input type="text" class="form-control" placeholder="Enter file name without extension" [value]="!file ? '' : file.guid.replace(FILE_NAME_REGEX, '').split('.')[0]" #name autofocus/>
       <span>
         Select file type
       </span>

@@ -227,6 +227,7 @@ export class EditorAppComponent {
     page.editable = true;
     this.file.pages = [];
     this.file.pages.push(page);
+    this.file.guid = "new document.docx";
     this.formatDisabled = false;
   }
 
@@ -454,6 +455,17 @@ export class EditorAppComponent {
     window.location.assign(this._editorService.getDownloadUrl(this.credentials));
   }
 
+  save(){
+    if (this.formatDisabled)
+      return;
+    if(this.file.guid == "new document.docx"){
+      this.openModal(CommonModals.CreateDocument);
+      return;
+    } else {
+      this.saveFile(null);
+    }
+  }
+
   saveFile($event: FileCredentials) {
 
     if (!this.file || !this.file.pages)
@@ -464,10 +476,9 @@ export class EditorAppComponent {
       password = $event.password;
       saveFile = new SaveFile($event.guid, password, this.textBackup);
     } else {
-      password = this.credentials.password;
-      saveFile = new SaveFile(this.credentials.guid, password, this.textBackup);
+        password = this.credentials.password;
+        saveFile = new SaveFile(this.credentials.guid, password, this.textBackup);
     }
-
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, password);
