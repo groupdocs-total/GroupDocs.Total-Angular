@@ -228,6 +228,7 @@ export class EditorAppComponent {
     this.file.pages = [];
     this.file.pages.push(page);
     this.file.guid = "new document.docx";
+    this.credentials = new FileCredentials("new document.docx", "");
     this.formatDisabled = false;
   }
 
