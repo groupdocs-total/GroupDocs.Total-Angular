@@ -18,10 +18,12 @@ export class FormattingDirective implements OnInit {
   private strikeout: boolean = false;
   private align: string;
   private list: string;
+  private isIE: boolean = false;
 
   constructor(private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
               private _selectionService: SelectionService) {
+    this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
   }
 
   @HostListener('mouseup') mouseup() {
@@ -212,6 +214,10 @@ export class FormattingDirective implements OnInit {
   }
 
   private toggleAlign(align: string) {
+    if(this.isIE) {
+      this.toggleAlignIE(align);
+      return;
+    }
     document.execCommand("styleWithCSS", false, 'true');
     switch (align) {
       case 'center':
@@ -228,6 +234,17 @@ export class FormattingDirective implements OnInit {
         break;
     }
     this._selectionService.refreshSelection();
+  }
+
+  private toggleAlignIE(align: string) {
+    this._selectionService.restoreSelection()
+    this._selectionService.captureSelection()
+    var selection = window.getSelection().focusNode.parentNode.parentNode;
+    if(align == "full"){
+      align = "justify";
+    }
+    $(selection).css("text-align", align);
+    this._selectionService.refreshSelection()
   }
 
   private toggleList(list: string) {

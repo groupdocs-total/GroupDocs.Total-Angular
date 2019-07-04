@@ -61,7 +61,7 @@
   </gd-tabbed-toolbars>
   <gd-color-picker *ngIf="bgColorPickerShow || colorPickerShow"
                    [className]="'palette ' + (bgColorPickerShow ? 'background-color-picker' : 'color-picker')"
-                   (selectedColor)=" checkState(bgColorPickerShow ? 'bgColor' : 'color', $event); selectColor($event)"></gd-color-picker>
+                   (selectedColor)="selectColor($event)"></gd-color-picker>
   <div class="doc-panel" *ngIf="file">
 
     <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="true"
