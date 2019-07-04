@@ -13,6 +13,7 @@ import {ViewerRoutingModule} from "../viewer-routing.module";
 
 @NgModule({
   declarations: [ViewerAppComponent, ThumbnailsComponent],
+  exports: [ViewerAppComponent, ThumbnailsComponent],
   imports: [
     ViewerRoutingModule,
     CommonModule,
