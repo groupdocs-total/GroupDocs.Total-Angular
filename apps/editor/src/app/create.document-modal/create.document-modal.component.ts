@@ -17,7 +17,7 @@ export class CreateDocumentModalComponent implements OnInit {
   @Output() savingFile: EventEmitter<FileCredentials> = new EventEmitter<FileCredentials>();
   private _format: string;
   formats;
-  const FILE_NAME_REGEX = /^.*[\\\/]/;
+  FILE_NAME_REGEX = /^.*[\\\/]/;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
