@@ -1,7 +1,5 @@
-import { getGreeting } from '../support/app.po';
-
 describe('Hello Nx', () => {
-  beforeEach(() => cy.visit('/'));
+  beforeEach(() => cy.visit('/editor'));
 
   it('should display welcome message', () => {
   });

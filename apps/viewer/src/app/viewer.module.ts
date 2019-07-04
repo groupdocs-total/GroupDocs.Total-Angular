@@ -8,12 +8,7 @@ import {Angular2FontawesomeModule} from "angular2-fontawesome";
 import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs-total-angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
-import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
 import {ViewerExportModule} from "./viewer-export/viewer-export.module";
-
-export function initializeApp(viewerConfigService: ViewerConfigService) {
-  return () => viewerConfigService.load();
-}
 
 @NgModule({
   declarations: [ViewerAppComponent, ThumbnailsComponent],
@@ -21,7 +16,8 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
     BrowserModule,
     CommonComponentsModule.forRoot(),
     Angular2FontawesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    ViewerExportModule
   ],
   providers: [
     ViewerService,
@@ -31,11 +27,6 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
       multi: true
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeApp,
-      deps: [ViewerConfigService], multi: true
     }
   ],
   bootstrap: [ViewerAppComponent]
