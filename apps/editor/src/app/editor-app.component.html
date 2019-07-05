@@ -9,6 +9,8 @@
                      *ngIf="browseConfig"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                      (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
+                     *ngIf="printConfig" ></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save File'" (click)="save()"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'pencil-alt'" [iconClass]="'save-as-button-icon'" [tooltip]="'Save File As'" (click)="openSave()">
             <i class="far fa-save save-button"></i>
@@ -65,7 +67,7 @@
   <div class="doc-panel" *ngIf="file">
 
     <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="true"
-                 [preloadPageCount]="0" gdFormatting>
+                 [preloadPageCount]="0" gdFormatting gdRenderPrint>
 
     </gd-document>
 
