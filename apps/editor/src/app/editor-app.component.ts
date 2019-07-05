@@ -479,17 +479,4 @@ export class EditorAppComponent {
       this._modalService.open(CommonModals.OperationSuccess);
     });
   }
-
-  printFile() {
-    if (this.formatDisabled)
-      return;
-    if(this.file.pages) {
-      const page = new PageModel;
-      page.width = 595;
-      page.height = 842;
-      page.data = this.textBackup;
-      const printHtml = [page];
-      this._renderPrintService.changePages(printHtml);
-    }
-  }
 }
