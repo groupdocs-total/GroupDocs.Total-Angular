@@ -16,8 +16,9 @@ import {
   SaveFile,
   SelectionService,
   EditHtmlService,
-  WindowService
-} from "@groupdocs.examples.angular/common-components"
+  WindowService,
+  RenderPrintService
+} from "@groupdocs.examples.angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import * as $ from 'jquery';
@@ -55,7 +56,8 @@ export class EditorAppComponent {
               private _backFormattingService: BackFormattingService,
               private _onCloseService: OnCloseService,
               private _selectionService: SelectionService,
-              private _htmlService: EditHtmlService
+              private _htmlService: EditHtmlService,
+              private _renderPrintService: RenderPrintService
   ) {
     this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     configService.updatedConfig.subscribe((editorConfig) => {
@@ -467,7 +469,6 @@ export class EditorAppComponent {
   }
 
   saveFile($event: FileCredentials) {
-
     if (!this.file || !this.file.pages)
       return;
     let saveFile: SaveFile;
@@ -484,5 +485,18 @@ export class EditorAppComponent {
       this.credentials = new FileCredentials(loadFile.guid, password);
       this._modalService.open(CommonModals.OperationSuccess);
     });
+  }
+
+  printFile() {
+    if (this.formatDisabled)
+      return;
+    if(this.file.pages) {
+      const page = new PageModel;
+      page.width = 595;
+      page.height = 842;
+      page.data = this.textBackup;
+      const printHtml = [page];
+      this._renderPrintService.changePages(printHtml);
+    }
   }
 }
