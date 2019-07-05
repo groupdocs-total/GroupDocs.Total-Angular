@@ -491,11 +491,11 @@ export class EditorAppComponent {
     if (this.formatDisabled)
       return;
     if(this.file.pages) {
-      let page = new PageModel;
+      const page = new PageModel;
       page.width = 595;
       page.height = 842;
       page.data = this.textBackup;
-      let printHtml = [page];
+      const printHtml = [page];
       this._renderPrintService.changePages(printHtml);
     }
   }
