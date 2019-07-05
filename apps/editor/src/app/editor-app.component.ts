@@ -16,11 +16,11 @@ import {
   SaveFile,
   SelectionService,
   EditHtmlService,
+  WindowServiceб
   RenderPrintService
-} from "@groupdocs-total-angular/common-components";
+} from "@groupdocs.examples.angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
-import {WindowService} from "@groupdocs-total-angular/common-components";
 import * as $ from 'jquery';
 
 @Component({

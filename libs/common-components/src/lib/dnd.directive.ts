@@ -1,5 +1,6 @@
-import {Directive, EventEmitter, HostBinding, HostListener, Output} from '@angular/core';
+import {Directive, EventEmitter, HostBinding, HostListener, Input, Output} from '@angular/core';
 import {UploadFilesService} from "./upload-files.service";
+import {isBlockScopeBoundary} from "tslint";
 
 @Directive({
   selector: '[gdDnd]'
@@ -7,8 +8,10 @@ import {UploadFilesService} from "./upload-files.service";
 export class DndDirective {
 
   @Output() close = new EventEmitter<boolean>();
+  @Output() open = new EventEmitter<boolean>();
+  @Input() isBackground = true;
 
-  @HostBinding('style.background') private background = '#f8f8f8';
+  @HostBinding('style.background') background = '#f8f8f8';
 
   constructor(private _uploadFilesService: UploadFilesService) {
   }
@@ -17,25 +20,35 @@ export class DndDirective {
   public onDragOver(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.background = '#999';
+    if (this.isBackground) {
+      this.background = '#999';
+    } else {
+      this.open.emit(true);
+    }
   }
 
   @HostListener('dragleave', ['$event'])
   public onDragLeave(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.background = '#f8f8f8'
+    if (this.isBackground) {
+      this.background = '#f8f8f8';
+    } else {
+      // TODO: fix blinking
+      //this.open.emit(false);
+    }
   }
 
   @HostListener('drop', ['$event'])
   public onDrop(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    let files = evt.dataTransfer.files;
+    const files = evt.dataTransfer.files;
     if (files.length > 0) {
       this.background = '#f8f8f8';
       this._uploadFilesService.changeFilesList(files);
       this.close.emit(true);
+      this.open.emit(false);
     }
   }
 }

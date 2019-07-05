@@ -25,7 +25,7 @@ export class UploadFileZoneComponent implements OnInit {
   }
 
   close($event) {
-    if ($event.target.id == 'gd-dropZone') {
+    if ($event.target.id === 'gd-dropZone') {
       this.onCloseUpload();
     }
   }

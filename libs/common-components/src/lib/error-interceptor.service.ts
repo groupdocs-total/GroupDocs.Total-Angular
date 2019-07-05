@@ -27,16 +27,16 @@ export class ErrorInterceptorService implements HttpInterceptor {
 
               case HttpError.BadRequest:
                 console.error('%c Bad Request 400', logFormat);
-
+                break;
               case HttpError.Unauthorized:
                 console.error('%c Unauthorized 401', logFormat);
-
+                break;
               case HttpError.NotFound:
                 console.error('%c Not Found 404', logFormat);
-
+                break;
               case HttpError.TimeOut:
                 console.error('%c TimeOut 408', logFormat);
-
+                break;
               case HttpError.InternalServerError:
                 console.error('%c big bad 500', logFormat);
                 this._messageService.changeMessage(exception.error.message);

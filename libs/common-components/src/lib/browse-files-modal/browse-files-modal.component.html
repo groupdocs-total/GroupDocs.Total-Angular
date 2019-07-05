@@ -1,16 +1,18 @@
 <gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
-  <section id="gd-browse-section">
+  <section id="gd-browse-section" gdDnd [isBackground]="false" (open)="showUploadFile=$event">
+    <div class="gd-dnd-wrap" *ngIf="showUploadFile">
+      <h2>Drag &amp; Drop your files here</h2>
+    </div>
     <div class="upload-panel" *ngIf="uploadConfig">
       <gd-choice-button [name]="'Upload file'" [choices]="uploads" [icon]="'upload'"
                         (selected)="selectUpload($event)"></gd-choice-button>
+      <input id="gd-upload-input" type="file" multiple style="display: none;" (change)="handleFileInput($event.target.files)">
       <div class="upload-url" *ngIf="showUploadUrl">
         <input class="url-input" #url (keyup.enter)="uploadUrl(url.value)">
         <div class="url-check" (click)="uploadUrl(url.value)">
           <i fa [name]="'check'"></i>
         </div>
       </div>
-      <gd-upload-file-zone (closeUpload)="cleanUpload()" class="drag-upload-file" *ngIf="showUploadFile">
-      </gd-upload-file-zone>
     </div>
     <div id="gd-modal-filebrowser" class="gd-modal-table">
       <div class="list-files-header">

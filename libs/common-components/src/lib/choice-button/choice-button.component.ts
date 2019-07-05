@@ -10,7 +10,7 @@ export class ChoiceButtonComponent implements OnInit {
   @Input() icon: string;
   @Input() choices;
   @Output() selected: EventEmitter<string> = new EventEmitter<string>();
-  open: boolean = false;
+  open = false;
 
   constructor() { }
 

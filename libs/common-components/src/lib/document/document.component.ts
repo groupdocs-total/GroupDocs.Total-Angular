@@ -13,7 +13,7 @@ export class DocumentComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() mode: boolean;
   @Input() preloadPageCount: number;
   @Input() file: FileDescription;
-  wait: boolean = false;
+  wait = false;
   refreshView: boolean;
   zoom: number;
 
@@ -29,11 +29,11 @@ export class DocumentComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   ifPdf() {
-    return FileUtil.find(this.file.guid, false).format == "Portable Document Format";
+    return FileUtil.find(this.file.guid, false).format === "Portable Document Format";
   }
 
   ifImage() {
-    return FileUtil.find(this.file.guid, false).format == "Joint Photographic Experts Group";
+    return FileUtil.find(this.file.guid, false).format === "Joint Photographic Experts Group";
   }
 
   ngOnChanges(changes: SimpleChanges): void {
