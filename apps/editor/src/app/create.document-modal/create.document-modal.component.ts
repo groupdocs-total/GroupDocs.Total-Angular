@@ -49,8 +49,8 @@ export class CreateDocumentModalComponent implements OnInit {
   }
 
   formatOptions(formats) {
-    var allTypes = new Array();
-    for (var i = 0; i < formats.length; i++) {
+    const allTypes = new Array();
+    for (let i = 0; i < formats.length; i++) {
       allTypes.push(this.createFormatOption(formats[i]));
     }
     return allTypes;
@@ -58,15 +58,15 @@ export class CreateDocumentModalComponent implements OnInit {
 
   save(name: string) {
     let fileName = "";
-    if (name && name != "") {
+    if (name && name !== "") {
       fileName = name + "." + this._format;
     } else if (!this.file) {
       this._modalService.open(CommonModals.ErrorMessage);
       this._excMessageService.changeMessage("File name is empty");
     }
     this._modalService.close(CommonModals.CreateDocument);
-    let guid = fileName != "" ? fileName : this.file.guid;
-    let password = this.file ? this.file.password : '';
+    const guid = fileName !== "" ? fileName : this.file.guid;
+    const password = this.file ? this.file.password : '';
     this.savingFile.emit(new FileCredentials(guid, password));
   }
 }
