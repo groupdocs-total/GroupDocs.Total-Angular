@@ -16,8 +16,9 @@ import {
   SaveFile,
   SelectionService,
   EditHtmlService,
-  WindowService
-} from "@groupdocs.examples.angular/common-components"
+  RenderPrintService,
+  WindowService,
+} from "@groupdocs.examples.angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import * as $ from 'jquery';
@@ -55,7 +56,8 @@ export class EditorAppComponent {
               private _backFormattingService: BackFormattingService,
               private _onCloseService: OnCloseService,
               private _selectionService: SelectionService,
-              private _htmlService: EditHtmlService
+              private _htmlService: EditHtmlService,
+              private _renderPrintService: RenderPrintService
   ) {
     this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     configService.updatedConfig.subscribe((editorConfig) => {
@@ -396,8 +398,8 @@ export class EditorAppComponent {
     if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
       $event.target.parentElement.attributes['name'].value == 'button') ||
       ($event.target.parentElement.parentElement &&
-        $event.target.parentElement.parentElement.attributes['name'] &&
-        $event.target.parentElement.parentElement.attributes['name'].value == 'button')) {
+      $event.target.parentElement.parentElement.attributes['name'] &&
+      $event.target.parentElement.parentElement.attributes['name'].value == 'button')) {
 
       this._onCloseService.close(true);
       return;
@@ -458,31 +460,36 @@ export class EditorAppComponent {
   save(){
     if (this.formatDisabled)
       return;
-    if(this.file.guid == "new document.docx"){
-      this.openModal(CommonModals.CreateDocument);
-      return;
-    } else {
-      this.saveFile(null);
+    if(this.credentials) {
+      if (this.file.guid === "new document.docx") {
+        this.openModal(CommonModals.CreateDocument);
+      } else {
+        this.saveFile(this.credentials);
+      }
     }
   }
 
-  saveFile($event: FileCredentials) {
-
+ saveFile(credentials: FileCredentials) {
     if (!this.file || !this.file.pages)
       return;
-    let saveFile: SaveFile;
-    let password: string;
-    if ($event) {
-      password = $event.password;
-      saveFile = new SaveFile($event.guid, password, this.textBackup);
-    } else {
-        password = this.credentials.password;
-        saveFile = new SaveFile(this.credentials.guid, password, this.textBackup);
-    }
+    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
-      this.credentials = new FileCredentials(loadFile.guid, password);
+      this.credentials = new FileCredentials(loadFile.guid, credentials.password);
       this._modalService.open(CommonModals.OperationSuccess);
     });
+  }
+
+  printFile() {
+    if (this.formatDisabled)
+      return;
+    if(this.file.pages) {
+      const page = new PageModel;
+      page.width = 595;
+      page.height = 842;
+      page.data = this.textBackup;
+      const printHtml = [page];
+      this._renderPrintService.changePages(printHtml);
+    }
   }
 }
