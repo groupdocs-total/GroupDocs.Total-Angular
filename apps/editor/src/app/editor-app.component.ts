@@ -16,7 +16,7 @@ import {
   SaveFile,
   SelectionService,
   EditHtmlService,
-  WindowServiceб
+  WindowService,
   RenderPrintService
 } from "@groupdocs.examples.angular/common-components";
 import {EditorConfig} from "./editor-config";
