@@ -4,7 +4,7 @@ import {
   ExceptionMessageService,
   FileCredentials,
   ModalService
-} from "@groupdocs-total-angular/common-components";
+} from "@groupdocs.examples.angular/common-components";
 import {EditorService} from "../editor.service";
 
 @Component({

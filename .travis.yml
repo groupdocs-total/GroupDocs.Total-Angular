@@ -69,6 +69,7 @@ matrix:
         - npm install -g npx
         - npm install
         - npm run release_viewer
+        - npm run release_common
         - git commit -am "Build new version" || true
         - git status
         - npx lerna publish patch --yes
@@ -89,6 +90,7 @@ matrix:
         - npm install -g npx
         - npm install
         - npm run release_viewer
+        - npm run release_common
         - git commit -am "Build new version" || true
         - git status
         - npx lerna publish minor --yes
