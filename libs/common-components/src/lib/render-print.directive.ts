@@ -55,10 +55,10 @@ export class RenderPrintDirective {
     windowObject.focus();
     windowObject.document.writeln(cssPrint);
     windowObject.document.writeln(pagesHtml);
-    //windowObject.document.close();
+    windowObject.document.close();
     windowObject.focus();
     windowObject.print();
-   // windowObject.close();
+    windowObject.close();
   }
 
   private renderPrintBlob(file: Blob) {
