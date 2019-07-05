@@ -1,6 +1,7 @@
 <gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
   <section id="gd-browse-section" gdDnd [isBackground]="false" (open)="showUploadFile=$event">
     <div class="gd-dnd-wrap" *ngIf="showUploadFile">
+      <div class="gd-drag-n-drop-icon"><i class="fa fa-cloud-download-alt fa-5x" aria-hidden="true"></i></div>
       <h2>Drag &amp; Drop your files here</h2>
     </div>
     <div class="upload-panel" *ngIf="uploadConfig">
