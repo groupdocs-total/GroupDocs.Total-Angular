@@ -90,6 +90,9 @@ export class TopToolbarComponent implements OnInit, AfterViewChecked {
   }
 
   private getLeftOffset() {
+    if (!this.leftOffset) {
+      return 0;
+    }
     const el = this._elementRef.nativeElement ? this._elementRef.nativeElement.parentElement.children[0] : null;
     if (!el) {
       return 0;
