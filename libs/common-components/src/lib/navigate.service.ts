@@ -6,8 +6,8 @@ import {Injectable} from "@angular/core";
   providedIn: 'root'
 })
 export class NavigateService {
-  private _currentPage:number = 0;
-  private _countPages:number = 0;
+  private _currentPage = 0;
+  private _countPages = 0;
   private readonly _navigate: Observable<number>;
   private _observer: Observer<number>;
 

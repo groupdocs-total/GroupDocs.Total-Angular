@@ -1,5 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FileModel, FileUtil} from "../file.service";
+import {UploadFilesService} from "../upload-files.service";
+import * as jquery from "jquery";
+const $ = jquery;
 
 const upload_disc = 'Disc';
 
@@ -21,10 +24,10 @@ export class BrowseFilesModalComponent implements OnInit {
   @Output() selectedDirectory = new EventEmitter<string>();
   @Output() urlForUpload = new EventEmitter<string>();
   private selectedFile: FileModel;
-  showUploadUrl: boolean = false;
-  showUploadFile: boolean = false;
+  showUploadUrl = false;
+  showUploadFile = false;
 
-  constructor() {
+  constructor(private _uploadService: UploadFilesService) {
   }
 
   ngOnInit() {
@@ -62,8 +65,8 @@ export class BrowseFilesModalComponent implements OnInit {
 
   goUp() {
     if (this.selectedFile) {
-      var guid = this.selectedFile.guid;
-      if (guid.length > 0 && guid.indexOf('/') == -1) {
+      let guid = this.selectedFile.guid;
+      if (guid.length > 0 && guid.indexOf('/') === -1) {
         guid = '';
       } else {
         guid = guid.replace(/\/[^\/]+\/?$/, '');
@@ -73,12 +76,11 @@ export class BrowseFilesModalComponent implements OnInit {
   }
 
   selectUpload($event: string) {
-    if (upload_url == $event) {
+    if (upload_url === $event) {
       this.showUploadUrl = true;
-      this.showUploadFile = false;
     } else {
-      this.showUploadFile = true;
       this.showUploadUrl = false;
+      $("#gd-upload-input").trigger('click');
     }
   }
 
@@ -87,7 +89,6 @@ export class BrowseFilesModalComponent implements OnInit {
       this.files = null;
       this.selectedDirectory.emit('');
       this.showUploadUrl = false;
-      this.showUploadFile = false;
       this.selectedFile = null;
     }
   }
@@ -101,6 +102,10 @@ export class BrowseFilesModalComponent implements OnInit {
       this.urlForUpload.emit(url);
       this.cleanUpload();
     }
+  }
+
+  handleFileInput(files: FileList) {
+    this._uploadService.changeFilesList(files);
   }
 
   cleanUpload() {

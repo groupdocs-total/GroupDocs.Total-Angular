@@ -15,10 +15,10 @@ export interface Option {
 export class SelectComponent {
 
   @Input() options: Option[];
-  @Input() disabled: boolean = false;
+  @Input() disabled = false;
   @Input() showSelected: any;
   @Output() selected: EventEmitter<any> = new EventEmitter();
-  isOpen: boolean = false;
+  isOpen = false;
 
   constructor(private _onCloseService: OnCloseService) {
     _onCloseService.onClose.subscribe(() => {

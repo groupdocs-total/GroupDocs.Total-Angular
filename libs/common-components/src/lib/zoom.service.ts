@@ -21,11 +21,11 @@ export class ZoomService {
     this._observer.next(zoom);
   }
 
-  static createZoomOption(val: number, name: string = val + '%', sep: boolean = false) {
+  private createZoomOption(val: number, name: string = val + '%', sep: boolean = false) {
     return {value: val, name: name, separator: sep, prefix: "%"}
   }
 
-  static zoomOptions(width, height) {
+  zoomOptions(width, height) {
     return [this.createZoomOption(25),
       this.createZoomOption(50),
       this.createZoomOption(100),

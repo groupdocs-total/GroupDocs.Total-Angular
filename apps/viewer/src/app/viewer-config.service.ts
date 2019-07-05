@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ViewerConfig} from "./viewer-config";
-import {Api, ConfigService} from "@groupdocs-total-angular/common-components";
+import {Api, ConfigService} from "@groupdocs.examples.angular/common-components";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {BehaviorSubject, Observable} from "rxjs";

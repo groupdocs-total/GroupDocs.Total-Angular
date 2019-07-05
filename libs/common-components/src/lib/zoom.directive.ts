@@ -7,7 +7,7 @@ import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 })
 export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
 
-  @Input() zoomActive: boolean = true;
+  @Input() zoomActive = true;
 
   @HostBinding('style.zoom') zoomStr: string;
   @HostBinding('style.zoom') zoomInt: number;
@@ -38,7 +38,7 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     this.zoomStr = Math.round(zoom) + '%';
-    this.zoomInt = zoom == 100 ? 1 : zoom / 100;
+    this.zoomInt = zoom === 100 ? 1 : zoom / 100;
     this.mozTransform = 'scale(' + this.zoomInt + ', ' + this.zoomInt + ')';
     this.mozTransformOrigin = 'top';
     const transform = this._sanitizer.bypassSecurityTrustStyle('(' + this.zoomInt + ', ' + this.zoomInt + ')');
