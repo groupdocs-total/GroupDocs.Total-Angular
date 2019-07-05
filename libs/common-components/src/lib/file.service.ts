@@ -34,7 +34,7 @@ export class SaveFile extends FileCredentials {
 export class FileDescription {
   guid: string;
   pages: PageModel[];
-  printAllowed: boolean = true;
+  printAllowed = true;
 }
 
 export class FileModel {
@@ -126,7 +126,7 @@ export class FileUtil {
     if (filename && !isDirectory) {
       const strings = filename.split('.');
       const name = strings.pop().toLowerCase();
-      if (typeof FileUtil.map[name] == "undefined") {
+      if (typeof FileUtil.map[name] === "undefined") {
         return strings.length > 1 ? FileUtil.map['unknown'] : FileUtil.map['folder'];
       } else {
         return FileUtil.map[name];

@@ -3,33 +3,40 @@
   text-align: left;
   padding-top: 20px;
 }
+
 .list-files-header {
   color: #ACACAC;
   font-size: 10px;
   padding-left: 21px;
 }
+
 .header-size {
   position: relative;
   left: -24px;
 }
+
 .header-size, .file-size {
   width: 10%;
   color: #777777;
 }
+
 .file-size, .file-description {
   font-size: 14px;
   padding: 10px 6px;
   margin-left: 12px;
 }
+
 .file-description {
   cursor: pointer;
   overflow: hidden;
 }
+
 .list-files-lines, .list-files-header {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
+
 .gd-modal-spinner {
   background-color: #ffffff;
   width: 100%;
@@ -37,86 +44,108 @@
   text-align: center;
   font-size: 16px;
 }
+
 .gd-cancel-button {
   padding: 7px;
   background: none;
   width: 28px;
   overflow: hidden;
 }
+
 .gd-cancel-button i {
   font-size: 21px;
 }
+
 .gd-file-name {
   white-space: nowrap;
   overflow: hidden;
   width: 100%;
   text-overflow: ellipsis;
 }
-.go-up{
+
+.go-up {
   cursor: pointer;
 }
-.upload-panel{
+
+.upload-panel {
   display: flex;
   position: relative;
   left: 20px;
 }
+
 .file-description {
   display: flex;
 }
+
 .file-description .fa-file-pdf {
   color: #E21717;
 }
+
 .file-description .fa-file-word {
   color: #6979B9;
 }
+
 .file-description .fa-file-powerpoint {
   color: #E29417;
 }
-.file-description .fa-file-excel{
+
+.file-description .fa-file-excel {
   color: #3FA300;
 }
+
 .file-description .fa-file-image {
   color: #E217DA;
 }
+
 .file-description .fa-file-text .fa-folder {
   color: #5D6A75;
 }
+
 .file-description i {
   font-size: 32px;
 }
+
 .go-up {
   display: flex;
   font-size: 16px;
 }
+
 .go-up-dots {
   margin-left: 10px;
   margin-top: 8px;
   font-size: 20px;
 }
+
 .go-up-icon i {
   padding: 8px;
 }
+
 .go-up-icon {
   width: 30px;
   height: 30px;
   margin-left: 12px;
 }
+
 .file-name {
   font-size: 16px;
   color: #6E6E6E;
 }
+
 .file-name-format {
   padding-left: 10px;
 }
+
 .file-format {
   font-size: 10px;
 }
+
 .url-input {
   width: 358px;
   margin-left: 8px;
   height: 27px;
   border: 1px solid #25C2D4;
 }
+
 .url-check {
   width: 31px;
   height: 31px;
@@ -124,18 +153,46 @@
   font-size: 15px;
   background-color: #25C2D4;
 }
+
 .url-check i {
   padding: 8px;
 }
+
 .upload-url {
   display: flex;
 }
+
 .list-files-lines {
   border-top: 1px solid #ccc;
+}
+
+.gd-dnd-wrap {
+  border: 2px dashed #ccc;
+  background-color: #f8f8f8;
+  cursor: default;
+  position: absolute;
+  width: 983px;
+  height: 626px;
+  opacity: 0.9;
+  z-index: 1;
+  left: 20px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.gd-dnd-wrap h2 {
+  color: #959DA5;
+  font-size: 15px;
+  font-weight: 300;
+  margin-top: 50%;
 }
 
 @media (max-width: 1025px) {
   .header-size, .file-size {
     width: 18%;
+  }
+  .gd-dnd-wrap {
+    width: 95%;
   }
 }

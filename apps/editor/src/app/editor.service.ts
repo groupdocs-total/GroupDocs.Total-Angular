@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {
   Api, ConfigService, FileCredentials, SaveFile
-} from "@groupdocs-total-angular/common-components";
+} from "@groupdocs.examples.angular/common-components"
 
 @Injectable({
   providedIn: 'root'

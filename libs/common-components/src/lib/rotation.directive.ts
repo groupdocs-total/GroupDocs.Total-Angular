@@ -9,7 +9,7 @@ export class RotationDirective implements OnInit, OnChanges {
   @Input() isHtmlMode: boolean;
   @Input() width: number;
   @Input() height: number;
-  @Input() withMargin: boolean = true;
+  @Input() withMargin = true;
 
   @HostBinding('style.animation') animation: string;
   @HostBinding('style.transition-property') transition: string;
@@ -25,14 +25,14 @@ export class RotationDirective implements OnInit, OnChanges {
       this.animation = 'none';
       this.transition = 'none';
       this.transform = 'rotate(' + this.angle + 'deg)';
-    } else if (this.angle == 0 && this.animation) {
+    } else if (this.angle === 0 && this.animation) {
       this.animation = null;
       this.transition = null;
       this.transform = null;
     }
 
     if (this.withMargin) {
-      if (this.angle == 90 || this.angle == 270 || this.angle == -90 || this.angle == -270) {
+      if (this.angle === 90 || this.angle === 270 || this.angle === -90 || this.angle === -270) {
         if (this.isHtmlMode) {
           if (this.isLandscape()) {
             this.margin = '164px 254px';
@@ -46,7 +46,7 @@ export class RotationDirective implements OnInit, OnChanges {
             this.margin = '-72px 100px -79px';
           }
         }
-      } else if (this.angle == -180 || this.angle == 180) {
+      } else if (this.angle === -180 || this.angle === 180) {
         this.margin = '280px';
       } else {
         this.margin = null;

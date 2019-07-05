@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@groupdocs-total-angular/common-components": [
+      "@groupdocs.examples.angular/common-components": [
         "libs/common-components/src/index.ts"
       ]
     }

@@ -3,21 +3,21 @@ import {ActivationEnd, Router} from "@angular/router";
 import {filter} from "rxjs/operators";
 
 @Component({
-  selector: 'groupdocs-total-angular-root',
+  selector: 'gd-groupdocs-total-angular-root',
   templateUrl: './total-app.component.html',
   styleUrls: ['./total-app.component.less']
 })
 export class TotalAppComponent {
   title = 'total';
-  total: boolean = true;
+  total = true;
 
   constructor(private router: Router) {
   }
 
-  ngOnInit() {
+  OnInit() {
     this.router.events.pipe(filter((event: any) => (event instanceof ActivationEnd)))
       .subscribe(event => {
-          this.onNavigate("/" == this.router.url);
+          this.onNavigate("/" === this.router.url);
       });
   }
 
