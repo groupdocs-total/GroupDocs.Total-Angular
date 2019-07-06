@@ -487,7 +487,8 @@ export class EditorAppComponent {
       const page = new PageModel;
       page.width = 595;
       page.height = 842;
-      page.data = this.textBackup;
+      // using of the replace is required to fix issue with padding for intire print content
+      page.data = this.textBackup.replace('</style>', 'body { padding-left: 20px; padding-top: 20px }</style>');
       const printHtml = [page];
       this._renderPrintService.changePages(printHtml);
     }
