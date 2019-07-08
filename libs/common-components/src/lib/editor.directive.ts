@@ -8,14 +8,15 @@ import {EditHtmlService} from "./edit-html.service";
 export class EditorDirective {
   @Input() text: any;
 
+  private isIE: boolean = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+
   constructor(private _selectionService: SelectionService, private _htmlService: EditHtmlService) {
   }
 
   @HostListener('keyup', ['$event'])
   public onInput(event) {
     this.text = event.target;
-    const isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
-    if(isIE){
+    if(this.isIE){
       if (this.text.innerHTML) {
         const html = this.text.innerHTML.toString();
         this._htmlService.observer.next(html);
@@ -26,6 +27,10 @@ export class EditorDirective {
   @HostListener('mouseleave', ['$event'])
   public onMouseleave(event) {
     this._selectionService.captureSelection();
+    // this code is required to fix IE11 issue - it doesn't trigger blur event, since that we need to save updated HTML here
+    if(this.isIE){
+      this._htmlService.observer.next(event.target.innerHTML.toString());
+    }
   }
 
   @HostListener('blur', ['$event'])
@@ -35,6 +40,8 @@ export class EditorDirective {
     if (this.text.innerHTML) {
       const html = this.text.innerHTML.toString();
       this._htmlService.observer.next(html);
+    } else {
+      this._htmlService.observer.next(event.target.innerHTML.toString());
     }
   }
 }
