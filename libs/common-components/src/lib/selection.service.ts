@@ -13,13 +13,9 @@ export class SelectionService {
 
   restoreSelection() {
     if(this.isIE && this.selection){
-      var sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(this.selection.cloneRange());
+      this.putSelection(this.selection);
     } else if(this.selection && this.selection.collapsed){
-      var sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(this.selection.cloneRange());
+      this.putSelection(this.selection);
     }
   }
 
@@ -31,6 +27,16 @@ export class SelectionService {
         this.selection = window.getSelection().getRangeAt(0);
       }
     }
+  }
+
+  getSelection() {
+    return window.getSelection().getRangeAt(0);
+  }
+
+  putSelection(selection) {
+    let sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(selection.cloneRange());
   }
 
   refreshSelection() {

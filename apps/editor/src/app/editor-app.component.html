@@ -7,7 +7,7 @@
                      *ngIf="createNewFileConfig"></gd-button>
           <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                      *ngIf="browseConfig"></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+          <gd-button [disabled]="downloadDisabled" [icon]="'download'" [tooltip]="'Download'"
                      (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
                      *ngIf="printConfig" ></gd-button>
@@ -74,6 +74,7 @@
   </div>
   <gd-init-state [icon]="'pen'" [text]="''" *ngIf="!file"></gd-init-state>
   <gd-browse-files-modal
+    (onClose)="onCloseModal($event)"
     (urlForUpload)="upload($event)"
     [files]="files"
     (selectedDirectory)="selectDir($event)"
@@ -82,6 +83,6 @@
   ></gd-browse-files-modal>
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>
-  <gd-create-document-modal [file]="credentials" (savingFile)="saveFile($event)"></gd-create-document-modal>
+  <gd-create-document-modal (onClose)="onCloseModal($event)" [file]="credentials" (savingFile)="saveFile($event)"></gd-create-document-modal>
   <gd-success-modal></gd-success-modal>
 </div>

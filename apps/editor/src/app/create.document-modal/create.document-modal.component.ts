@@ -15,6 +15,7 @@ import {EditorService} from "../editor.service";
 export class CreateDocumentModalComponent implements OnInit {
   @Input() file: FileCredentials;
   @Output() savingFile: EventEmitter<FileCredentials> = new EventEmitter<FileCredentials>();
+  @Output() onClose = new EventEmitter<boolean>();
   private _format: string;
   formats;
   FILE_NAME_REGEX = /^.*[\\\/]/;
@@ -68,5 +69,11 @@ export class CreateDocumentModalComponent implements OnInit {
     const guid = fileName !== "" ? fileName : this.file.guid;
     const password = this.file ? this.file.password : '';
     this.savingFile.emit(new FileCredentials(guid, password));
+  }
+
+  refresh($event: boolean) {
+    if (!$event) {
+      this.onClose.emit(true);
+    }
   }
 }

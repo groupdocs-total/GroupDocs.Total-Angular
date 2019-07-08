@@ -34,6 +34,7 @@ export class EditorAppComponent {
   file: FileDescription;
   editorConfig: EditorConfig;
   formatDisabled = !this.file;
+  downloadDisabled = true;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
@@ -45,6 +46,7 @@ export class EditorAppComponent {
   active: boolean = false;
   private textBackup: string;
   private isIE: boolean = false;
+  private selection: Range;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -195,6 +197,7 @@ export class EditorAppComponent {
 
   openModal(id: string) {
     if (this.file) {
+      this.selection = this._selectionService.getSelection();
       this.file.pages[0].editable = false;
     }
     this._modalService.open(id);
@@ -232,6 +235,7 @@ export class EditorAppComponent {
     this.file.guid = "new document.docx";
     this.credentials = new FileCredentials("new document.docx", "");
     this.formatDisabled = false;
+    this.downloadDisabled = true;
   }
 
   selectFile($event: string, password: string, modalId: string) {
@@ -261,6 +265,7 @@ export class EditorAppComponent {
       this.textBackup = this.file.pages[0].data;
     }
     this.formatDisabled = !this.file;
+    this.downloadDisabled = false;
   }
 
   private clearData() {
@@ -452,7 +457,7 @@ export class EditorAppComponent {
   }
 
   downloadFile() {
-    if (this.formatDisabled)
+    if (this.downloadDisabled)
       return;
     window.location.assign(this._editorService.getDownloadUrl(this.credentials));
   }
@@ -490,6 +495,13 @@ export class EditorAppComponent {
       page.data = this.textBackup;
       const printHtml = [page];
       this._renderPrintService.changePages(printHtml);
+    }
+  }
+
+  onCloseModal($event) {
+    if ($event) {
+      this.file.pages[0].editable = true;
+      this._selectionService.putSelection(this.selection);
     }
   }
 }
