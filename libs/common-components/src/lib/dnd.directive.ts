@@ -1,6 +1,5 @@
 import {Directive, EventEmitter, HostBinding, HostListener, Input, Output} from '@angular/core';
 import {UploadFilesService} from "./upload-files.service";
-import {isBlockScopeBoundary} from "tslint";
 
 @Directive({
   selector: '[gdDnd]'
@@ -34,8 +33,7 @@ export class DndDirective {
     if (this.isBackground) {
       this.background = '#f8f8f8';
     } else {
-      // TODO: fix blinking
-      //this.open.emit(false);
+      this.closeArea();
     }
   }
 
@@ -47,8 +45,17 @@ export class DndDirective {
     if (files.length > 0) {
       this.background = '#f8f8f8';
       this._uploadFilesService.changeFilesList(files);
-      this.close.emit(true);
-      this.open.emit(false);
+      this.closeArea();
     }
+  }
+
+  @HostListener('click', ['$event'])
+  public onClick(event) {
+    this.closeArea();
+  }
+
+  private closeArea() {
+    this.close.emit(true);
+    this.open.emit(false);
   }
 }
