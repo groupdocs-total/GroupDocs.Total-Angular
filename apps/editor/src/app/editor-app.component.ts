@@ -499,7 +499,7 @@ export class EditorAppComponent {
   }
 
   onCloseModal($event) {
-    if ($event) {
+    if (this.file && $event) {
       this.file.pages[0].editable = true;
       this._selectionService.putSelection(this.selection);
     }
