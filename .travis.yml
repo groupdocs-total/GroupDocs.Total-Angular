@@ -35,6 +35,7 @@ matrix:
         - npm run e2e --headless
         - npm run release_viewer
         - npm run release_editor
+        - ng lint
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
       os: linux
       addons:
@@ -53,6 +54,7 @@ matrix:
         - npm run e2e --headless
         - npm run release_viewer
         - npm run release_editor
+        - ng lint
     - stage: Release fix
       dist: trusty
       os: linux
