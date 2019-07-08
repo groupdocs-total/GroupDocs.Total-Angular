@@ -14,10 +14,10 @@ export class EditorDirective {
   @HostListener('keyup', ['$event'])
   public onInput(event) {
     this.text = event.target;
-    let isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    const isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     if(isIE){
       if (this.text.innerHTML) {
-        let html = this.text.innerHTML.toString();
+        const html = this.text.innerHTML.toString();
         this._htmlService.observer.next(html);
       }
     }
@@ -33,7 +33,7 @@ export class EditorDirective {
     event.preventDefault();
     this._selectionService.restoreSelection();
     if (this.text.innerHTML) {
-      let html = this.text.innerHTML.toString();
+      const html = this.text.innerHTML.toString();
       this._htmlService.observer.next(html);
     }
   }
