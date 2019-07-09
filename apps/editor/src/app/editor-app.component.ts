@@ -498,7 +498,11 @@ export class EditorAppComponent {
 
   onCloseModal($event) {
     if (this.file && $event) {
-      this.file.pages[0].editable = true;
+      if(this.isIE) {
+        $(".documentMainContent").attr("contentEditable", "true");
+      } else {
+        this.file.pages[0].editable = true;
+      }
       this._selectionService.restoreSelection();
     }
   }
