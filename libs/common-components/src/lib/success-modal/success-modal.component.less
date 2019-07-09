@@ -1,11 +1,4 @@
-#gd-modal-success {
-  top: 47%;
-  left: 45%;
-  position: absolute;
-}
 .check_mark {
-  width: 80px;
-  height: 130px;
   margin: 0 auto;
 }
 .sa-icon {
@@ -15,12 +8,14 @@
   -webkit-border-radius: 40px;
   border-radius: 40px;
   border-radius: 50%;
-  margin: 20px auto;
   padding: 0;
   position: relative;
   box-sizing: content-box;
 }
-
+#gd-modal-success {
+  display: flex;
+  overflow: hidden;
+}
 .sa-icon.sa-success {
   border-color: #4CAF50;
 }
@@ -270,5 +265,14 @@
   100% {
     transform: rotate(-405deg);
     -webkit-transform: rotate(-405deg);
+  }
+}
+
+@media (max-width: 1025px) {
+  #gd-modal-success{
+    left: 50%;
+    top: 50%;
+    position: relative;
+    transform: translate(-50%,-50%);
   }
 }
