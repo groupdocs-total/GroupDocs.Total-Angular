@@ -46,7 +46,6 @@ export class EditorAppComponent {
   active: boolean = false;
   private textBackup: string;
   private isIE: boolean = false;
-  private selection: Range;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
