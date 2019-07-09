@@ -291,20 +291,20 @@ var ConfigService = /** @class */ (function () {
         this._apiEndpoint = Api.DEFAULT_API_ENDPOINT;
     }
     Object.defineProperty(ConfigService.prototype, "apiEndpoint", {
+        get: function () {
+            return this._apiEndpoint;
+        },
         set: function (url) {
-            this._apiEndpoint = url;
+            this._apiEndpoint = url && url.trim().endsWith('/') ? url.substring(0, url.length - 1) : url;
         },
         enumerable: true,
         configurable: true
     });
     ConfigService.prototype.getConfigEndpoint = function (app) {
-        return (this.getApiEndpoint().endsWith(app) ? this.getApiEndpoint() : this.getApiEndpoint() + app) + Api.LOAD_CONFIG;
+        return (this.apiEndpoint.endsWith(app) ? this.apiEndpoint : this.apiEndpoint + app) + Api.LOAD_CONFIG;
     };
     ConfigService.prototype.getViewerApiEndpoint = function () {
-        return this._apiEndpoint.trim().endsWith(Api.VIEWER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.VIEWER_APP;
-    };
-    ConfigService.prototype.getApiEndpoint = function () {
-        return this._apiEndpoint;
+        return this._apiEndpoint.endsWith(Api.VIEWER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.VIEWER_APP;
     };
     ConfigService = __decorate([
         Injectable(),

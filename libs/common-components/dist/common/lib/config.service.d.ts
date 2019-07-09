@@ -26,5 +26,4 @@ export declare class ConfigService {
     apiEndpoint: string;
     getConfigEndpoint(app: any): string;
     getViewerApiEndpoint(): string;
-    getApiEndpoint(): string;
 }
