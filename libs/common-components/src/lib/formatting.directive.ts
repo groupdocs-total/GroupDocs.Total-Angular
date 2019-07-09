@@ -9,16 +9,16 @@ import {SelectionService} from './selection.service';
 })
 export class FormattingDirective implements OnInit {
 
-  private bold: boolean = false;
-  private italic: boolean = false;
-  private underline: boolean = false;
+  private bold = false;
+  private italic = false;
+  private underline = false;
   private color: string;
   private bgColor: string;
   private font: string;
-  private strikeout: boolean = false;
+  private strikeout = false;
   private align: string;
   private list: string;
-  private isIE: boolean = false;
+  private isIE = false;
 
   constructor(private _formattingService: FormattingService,
               private _backFormattingService: BackFormattingService,
@@ -37,7 +37,7 @@ export class FormattingDirective implements OnInit {
     this.list = this.checkList();
 
     //fix required by FireFox to get correct background color
-    if (this.bgColor == "transparent") {
+    if (this.bgColor === "transparent") {
       this.bgColor = $(window.getSelection().focusNode.parentNode).css('background-color').toString();
     }
     this.font = document.queryCommandValue("FontName").replace(/"/g, '');
@@ -58,7 +58,7 @@ export class FormattingDirective implements OnInit {
   }
 
   private checkJustify() {
-    let align: string = "";
+    let align = "";
     align = document.queryCommandState("justifyCenter") ? "center" : align;
     align = document.queryCommandState("justifyFull") ? "full" : align;
     align = document.queryCommandState("justifyLeft") ? "left" : align;
@@ -67,29 +67,29 @@ export class FormattingDirective implements OnInit {
   }
 
   private checkList() {
-    let list: string = "";
+    let list = "";
     list = document.queryCommandState("insertUnorderedList") ? "unordered" : list;
     list = document.queryCommandState("insertOrderedList") ? "ordered" : list;
     return list;
   }
 
   reportFontSize(): number {
-    var containerEl, sel;
+    let containerEl, sel;
     if (window.getSelection) {
       sel = window.getSelection();
       if (sel.rangeCount) {
         containerEl = sel.getRangeAt(0).commonAncestorContainer;
         // Make sure we have an element rather than a text node
-        if (containerEl.nodeType == 3) {
+        if (containerEl.nodeType === 3) {
           containerEl = containerEl.parentNode;
         }
       }
-    } else if ((sel = document.getSelection()) && sel.type != "Control") {
+    } else if ((sel = document.getSelection()) && sel.type !== "Control") {
       containerEl = sel.createRange().parentElement();
     }
 
     if (containerEl) {
-      return parseInt(this.getComputedStyleProperty(containerEl, "fontSize").replace("px", ""));
+      return parseInt(this.getComputedStyleProperty(containerEl, "fontSize").replace("px", ""), 10);
     }
   }
 
@@ -177,7 +177,7 @@ export class FormattingDirective implements OnInit {
 
   private setFontSize(fontSize: number) {
     if (document.getSelection().toString()) {
-      var spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + "; font-family: " + this.font + "'>" +
+      let spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + "; font-family: " + this.font + "'>" +
         document.getSelection() + "</span>";
       if (this.bold) {
         spanString = "<b>" + spanString + "</b>";
@@ -242,8 +242,8 @@ export class FormattingDirective implements OnInit {
   private toggleAlignIE(align: string) {
     this._selectionService.restoreSelection()
     this._selectionService.captureSelection()
-    var selection = window.getSelection().focusNode.parentNode.parentNode;
-    if(align == "full"){
+    const selection = window.getSelection().focusNode.parentNode.parentNode;
+    if(align === "full"){
       align = "justify";
     }
     $(selection).css("text-align", align);

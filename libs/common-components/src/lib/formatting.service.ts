@@ -105,6 +105,42 @@ export class FormattingService {
     return this._formatListChange;
   }
 
+  static createFontSizeOption(val: number) {
+    return {value: val, name: val + 'px', separator: false, prefix: "px"}
+  }
+
+  static getFontSizeOptions() {
+    return [this.createFontSizeOption(8),
+      this.createFontSizeOption(10),
+      this.createFontSizeOption(12),
+      this.createFontSizeOption(14),
+      this.createFontSizeOption(16),
+      this.createFontSizeOption(18),
+      this.createFontSizeOption(20),
+      this.createFontSizeOption(22),
+      this.createFontSizeOption(24),
+    ];
+  }
+
+  static createFontOption(val: string) {
+    return {value: val, name: val, separator: false, prefix: ""}
+  }
+
+  static getFontOptions() {
+    const fonts = ["Arial", "Calibri", "Century Gothic", "Comic Sans", "Consolas", "Courier", "Dejavu Sans", "Dejavu Serif", "Georgia", "Gill Sans", "Helvetica", "Impact", "Lucida Sans",
+      "Myriad Pro", "Open Sans", "Palatino", "Tahoma", "Times New Roman", "Trebuchet"];
+    const fontOptions = [];
+    fonts.forEach(font=> {
+      fontOptions.push(this.createFontOption(font));
+    })
+
+    return fontOptions;
+  }
+
+  changeFormatFontSize($event: number) {
+    this._observerFontSize.next($event);
+  }
+
   changeFormatBold(bold: boolean) {
     this._observerBold.next(bold);
   }
@@ -135,42 +171,6 @@ export class FormattingService {
 
   changeFormatFont(font: string) {
     this._observerFont.next(font);
-  }
-
-  static createFontSizeOption(val: number) {
-    return {value: val, name: val + 'px', separator: false, prefix: "px"}
-  }
-
-  static getFontSizeOptions() {
-    return [this.createFontSizeOption(8),
-      this.createFontSizeOption(10),
-      this.createFontSizeOption(12),
-      this.createFontSizeOption(14),
-      this.createFontSizeOption(16),
-      this.createFontSizeOption(18),
-      this.createFontSizeOption(20),
-      this.createFontSizeOption(22),
-      this.createFontSizeOption(24),
-    ];
-  }
-
-  changeFormatFontSize($event: number) {
-    this._observerFontSize.next($event);
-  }
-
-  static createFontOption(val: string) {
-    return {value: val, name: val, separator: false, prefix: ""}
-  }
-
-  static getFontOptions() {
-    var fonts = ["Arial", "Calibri", "Century Gothic", "Comic Sans", "Consolas", "Courier", "Dejavu Sans", "Dejavu Serif", "Georgia", "Gill Sans", "Helvetica", "Impact", "Lucida Sans",
-      "Myriad Pro", "Open Sans", "Palatino", "Tahoma", "Times New Roman", "Trebuchet"];
-    var fontOptions = [];
-    fonts.forEach(font=> {
-      fontOptions.push(this.createFontOption(font));
-    })
-
-    return fontOptions;
   }
 
   changeFormatStrikeout(strikeout: boolean) {

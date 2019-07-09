@@ -40,11 +40,11 @@ export class EditorAppComponent {
   formatting: Formatting = Formatting.DEFAULT;
   fontSizeOptions = FormattingService.getFontSizeOptions();
   fontOptions = FormattingService.getFontOptions();
-  bgColorPickerShow: boolean = false;
-  colorPickerShow: boolean = false;
-  active: boolean = false;
+  bgColorPickerShow = false;
+  colorPickerShow = false;
+  active = false;
   private textBackup: string;
-  private isIE: boolean = false;
+  private isIE = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -66,7 +66,7 @@ export class EditorAppComponent {
 
     uploadFilesService.uploadsChange.subscribe((uploads) => {
       if (uploads) {
-        var i: number;
+        let i: number;
         for (i = 0; i < uploads.length; i++) {
           this._editorService.upload(uploads.item(i), '', this.editorConfig.rewrite).subscribe(() => {
             this.selectDir('');
@@ -221,7 +221,7 @@ export class EditorAppComponent {
 
   createFile() {
     this.file = new FileDescription();
-    var page = new PageModel;
+    const page = new PageModel;
     page.width = 595;
     page.height = 842;
     page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body></body></html>';
@@ -238,9 +238,9 @@ export class EditorAppComponent {
     this.credentials = new FileCredentials($event, password);
     this._editorService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.loadFile(file);
-        let isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        const isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         if(isIE) {
-          let observer = new MutationObserver(function (mutations) {
+          const observer = new MutationObserver(function (mutations) {
             if($(".documentMainContent").length > 0 ){
               $(".documentMainContent").attr("contentEditable", "true");
               observer.disconnect();
@@ -267,7 +267,7 @@ export class EditorAppComponent {
     if (!this.file || !this.file.pages) {
       return;
     }
-    for (let page of this.file.pages) {
+    for (const page of this.file.pages) {
       page.data = null;
     }
   }
@@ -288,9 +288,9 @@ export class EditorAppComponent {
     }
     this._formattingService.changeFormatFontSize($event);
     $(".gd-wrapper").on("keyup", () => {
-      var fontElements = document.getElementsByTagName("font");
-      for (var i = 0, len = fontElements.length; i < len; ++i) {
-        if (fontElements[i].size == "7") {
+      const fontElements = document.getElementsByTagName("font");
+      for (let i = 0, len = fontElements.length; i < len; ++i) {
+        if (fontElements[i].size === "7") {
           fontElements[i].removeAttribute("size");
           fontElements[i].style.fontSize = $event + "px";
         }
@@ -396,10 +396,10 @@ export class EditorAppComponent {
 
   hideAll($event) {
     if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
-      $event.target.parentElement.attributes['name'].value == 'button') ||
+      $event.target.parentElement.attributes['name'].value === 'button') ||
       ($event.target.parentElement.parentElement &&
       $event.target.parentElement.parentElement.attributes['name'] &&
-      $event.target.parentElement.parentElement.attributes['name'].value == 'button')) {
+      $event.target.parentElement.parentElement.attributes['name'].value === 'button')) {
 
       this._onCloseService.close(true);
       return;
@@ -426,7 +426,7 @@ export class EditorAppComponent {
       return;
     event.preventDefault();
     event.stopPropagation();
-    if (align == this.formatting.align) {
+    if (align === this.formatting.align) {
       align = 'full';
     }
     this._formattingService.changeFormatAlign(align);
@@ -439,7 +439,7 @@ export class EditorAppComponent {
     event.preventDefault();
     event.stopPropagation();
 
-    if (list == this.formatting.list) {
+    if (list === this.formatting.list) {
       this.formatting.list = "";
     } else {
       this.formatting.list = list;

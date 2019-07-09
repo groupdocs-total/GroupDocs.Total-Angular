@@ -8,7 +8,7 @@ import * as $ from "jquery";
   styleUrls: ['./top-toolbar.component.less']
 })
 export class TopToolbarComponent implements OnInit, AfterViewChecked {
-  @Input() leftOffset: boolean = true;
+  @Input() leftOffset = true;
 
   showLeft: boolean;
   showRight: boolean;

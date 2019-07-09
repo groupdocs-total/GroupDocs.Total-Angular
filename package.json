@@ -9,6 +9,7 @@
     "release_viewer": "ng build viewer --aot --prod --vendor-chunk=false --output-hashing=none && git add apps/viewer/dist",
     "release_common": "node_modules/.bin/ng-packagr -p libs/common-components/package.json && git add apps/viewer/dist",
     "release_editor": "ng build editor --aot --prod --vendor-chunk=false --output-hashing=none && git add apps/editor/dist",
+    "ng_lint_viewer_and_editor": "ng lint",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
     "e2e": "ng e2e --headless",
