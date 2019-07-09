@@ -48,6 +48,7 @@ import {BackFormattingService} from "./back-formatting.service";
 import {OnCloseService} from "./on-close.service";
 import {SuccessModalComponent} from './success-modal/success-modal.component';
 import {EditorDirective} from './editor.directive';
+import {LoadingMaskComponent} from './loading-mask/loading-mask.component';
 
 const providers = [ConfigService,
   Api,
@@ -72,7 +73,8 @@ const providers = [ConfigService,
   ViewportService,
   FormattingService,
   BackFormattingService,
-  OnCloseService];
+  OnCloseService,
+  LoadingMaskComponent];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
@@ -109,7 +111,8 @@ const providers = [ConfigService,
     ColorPickerComponent,
     FormattingDirective,
     SuccessModalComponent,
-    EditorDirective
+    EditorDirective,
+    LoadingMaskComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -140,7 +143,8 @@ const providers = [ConfigService,
     TabsComponent,
     ColorPickerComponent,
     FormattingDirective,
-    SuccessModalComponent
+    SuccessModalComponent,
+    LoadingMaskComponent
   ],
   providers: providers
 })

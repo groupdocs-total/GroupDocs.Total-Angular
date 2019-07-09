@@ -45,6 +45,7 @@ export class EditorAppComponent {
   active = false;
   private textBackup: string;
   private isIE = false;
+  isLoading: boolean;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -235,8 +236,10 @@ export class EditorAppComponent {
   }
 
   selectFile($event: string, password: string, modalId: string) {
+    this.isLoading = true;
     this.credentials = new FileCredentials($event, password);
     this._editorService.loadFile(this.credentials).subscribe((file: FileDescription) => {
+        this.isLoading = false;
         this.loadFile(file);
         const isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         if(isIE) {
