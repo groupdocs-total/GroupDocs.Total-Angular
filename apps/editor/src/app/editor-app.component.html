@@ -83,6 +83,6 @@
   ></gd-browse-files-modal>
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>
-  <gd-create-document-modal (onClose)="onCloseModal($event)" [file]="credentials" (savingFile)="saveFile($event)"></gd-create-document-modal>
+  <gd-create-document-modal (close)="onCloseModal($event)" [file]="credentials" (savingFile)="saveFile($event)"></gd-create-document-modal>
   <gd-success-modal></gd-success-modal>
 </div>

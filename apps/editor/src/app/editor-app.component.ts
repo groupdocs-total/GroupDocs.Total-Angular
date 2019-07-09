@@ -293,7 +293,7 @@ export class EditorAppComponent {
     $(".gd-wrapper").on("keyup", () => {
       const fontElements = document.getElementsByTagName("font");
       for (let i = 0, len = fontElements.length; i < len; ++i) {
-        if (fontElements[i].size === "7") {
+        if (fontElements[i].getAttribute('size') === "7") {
           fontElements[i].removeAttribute("size");
           fontElements[i].style.fontSize = $event + "px";
         }
