@@ -37,19 +37,18 @@ export class ConfigService {
   }
 
   set apiEndpoint(url: string) {
-    this._apiEndpoint = url;
+    this._apiEndpoint = url && url.trim().endsWith('/') ? url.substring(0, url.length - 1) : url;
   }
 
   getConfigEndpoint(app) {
-    return (this.getApiEndpoint().endsWith(app) ? this.getApiEndpoint() : this.getApiEndpoint() + app) + Api.LOAD_CONFIG;
+    return (this.apiEndpoint.endsWith(app) ? this.apiEndpoint : this.apiEndpoint + app) + Api.LOAD_CONFIG;
   }
 
   getViewerApiEndpoint() {
-    return this._apiEndpoint.trim().endsWith(Api.VIEWER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.VIEWER_APP;
+    return this._apiEndpoint.endsWith(Api.VIEWER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.VIEWER_APP;
   }
 
-  getApiEndpoint() {
+  get apiEndpoint() {
     return this._apiEndpoint;
   }
-
 }
