@@ -197,7 +197,6 @@ export class EditorAppComponent {
 
   openModal(id: string) {
     if (this.file) {
-      this.selection = this._selectionService.getSelection();
       this.file.pages[0].editable = false;
     }
     this._modalService.open(id);
@@ -501,7 +500,7 @@ export class EditorAppComponent {
   onCloseModal($event) {
     if (this.file && $event) {
       this.file.pages[0].editable = true;
-      this._selectionService.putSelection(this.selection);
+      this._selectionService.restoreSelection();
     }
   }
 }
