@@ -24,11 +24,11 @@ export class TabsComponent implements OnInit {
     this.tabs.push(tab);
   }
 
-  selectTab(tab: TabsComponent) {
+  selectTab(tabComponent: TabsComponent) {
     this.tabs.forEach((tab) => {
       tab.active = false;
     });
-    tab.active = true;
+    tabComponent.active = true;
   }
 
 }

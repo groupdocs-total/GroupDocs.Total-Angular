@@ -13,10 +13,9 @@
 .gd-modal-dialog {
   box-shadow: #0005 0px 0px 10px;
   position: absolute;
-  width: 1024px;
-  height: 728px;
-  top: calc(50% - 364px);
-  left: calc(50% - 512px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }
 .gd-modal-content {
   background-color: #ffffff;
@@ -46,13 +45,13 @@
 }
 .gd-modal-body {
   background-color: #ffffff;
-  padding: 20px 0;
+  padding: 20px;
   overflow: hidden;
   overflow-y: auto;
   height: calc(100% - 75px);
 }
 .gd-modal-footer {
-  height: 25px;
+  height: auto;
 }
 .gd-modal-footer > .btn {
   float: right;
@@ -65,7 +64,5 @@
   .gd-modal-dialog {
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
   }
 }
