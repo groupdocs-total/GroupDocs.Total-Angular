@@ -2,6 +2,8 @@ export declare class CommonModals {
     static PasswordRequired: string;
     static ErrorMessage: string;
     static BrowseFiles: string;
+    static CreateDocument: string;
+    static OperationSuccess: string;
 }
 export declare class ModalService {
     private modals;

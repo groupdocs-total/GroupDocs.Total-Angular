@@ -23,7 +23,7 @@ export class BrowseFilesModalComponent implements OnInit {
   @Output() selectedFileGuid = new EventEmitter<string>();
   @Output() selectedDirectory = new EventEmitter<string>();
   @Output() urlForUpload = new EventEmitter<string>();
-  @Output() onClose = new EventEmitter<boolean>();
+  @Output() сlose = new EventEmitter<boolean>();
   private selectedFile: FileModel;
   showUploadUrl = false;
   showUploadFile = false;
@@ -92,7 +92,7 @@ export class BrowseFilesModalComponent implements OnInit {
       this.showUploadUrl = false;
       this.selectedFile = null;
     } else {
-      this.onClose.emit(true);
+      this.сlose.emit(true);
     }
   }
 

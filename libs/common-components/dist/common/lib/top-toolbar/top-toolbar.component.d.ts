@@ -4,6 +4,7 @@ export declare class TopToolbarComponent implements OnInit, AfterViewChecked {
     private _elementRef;
     private _viewportService;
     private _cdRef;
+    leftOffset: boolean;
     showLeft: boolean;
     showRight: boolean;
     constructor(_elementRef: ElementRef<HTMLElement>, _viewportService: ViewportService, _cdRef: ChangeDetectorRef);

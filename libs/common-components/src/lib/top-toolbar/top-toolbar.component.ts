@@ -1,6 +1,7 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Input, OnInit} from '@angular/core';
 import {ViewportService} from "../viewport.service";
-import * as $ from "jquery";
+import * as jquery from 'jquery';
+const $ = jquery;
 
 @Component({
   selector: 'gd-top-toolbar',

@@ -1,7 +1,8 @@
 import {AfterViewChecked, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
-import * as $ from "jquery";
+import * as jquery from 'jquery';
+const $ = jquery;
 
 @Component({
   selector: 'gd-document',

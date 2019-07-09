@@ -1,11 +1,15 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "@groupdocs.examples.angular/common-components",
-  "version": "0.1.19",
+  "version": "0.1.16",
   "description": "Common components for GroupDocs.Total Angular applications",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "angular2-fontawesome": "^5.2.1",
+    "jquery": "^3.4.1"
   },
   "main": "bundles/groupdocs.examples.angular-common-components.umd.js",
   "module": "fesm5/groupdocs.examples.angular-common-components.js",
