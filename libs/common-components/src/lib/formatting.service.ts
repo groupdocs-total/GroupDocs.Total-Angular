@@ -110,15 +110,16 @@ export class FormattingService {
   }
 
   static getFontSizeOptions() {
-    return [this.createFontSizeOption(8),
-      this.createFontSizeOption(10),
-      this.createFontSizeOption(12),
-      this.createFontSizeOption(14),
-      this.createFontSizeOption(16),
-      this.createFontSizeOption(18),
-      this.createFontSizeOption(20),
-      this.createFontSizeOption(22),
-      this.createFontSizeOption(24),
+    return [
+      FormattingService.createFontSizeOption(8),
+      FormattingService.createFontSizeOption(10),
+      FormattingService.createFontSizeOption(12),
+      FormattingService.createFontSizeOption(14),
+      FormattingService.createFontSizeOption(16),
+      FormattingService.createFontSizeOption(18),
+      FormattingService.createFontSizeOption(20),
+      FormattingService.createFontSizeOption(22),
+      FormattingService.createFontSizeOption(24),
     ];
   }
 

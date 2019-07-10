@@ -4,6 +4,7 @@ export declare class PageModel {
     width: number;
     height: number;
     number: number;
+    editable: boolean;
 }
 export declare class RotatedPage {
     pageNumber: number;
@@ -12,6 +13,11 @@ export declare class RotatedPage {
 export declare class FileCredentials {
     guid: string;
     password: string;
+    constructor(guid: string, password: string);
+}
+export declare class SaveFile extends FileCredentials {
+    content: string;
+    constructor(guid: string, password: string, content: string);
 }
 export declare class FileDescription {
     guid: string;

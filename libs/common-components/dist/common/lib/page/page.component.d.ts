@@ -6,6 +6,7 @@ export declare class PageComponent implements OnInit, OnChanges {
     number: number;
     data: string;
     isHtml: boolean;
+    editable: boolean;
     imgData: string;
     constructor();
     ngOnInit(): void;

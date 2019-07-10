@@ -10,4 +10,6 @@ export declare class DndDirective {
     onDragOver(evt: any): void;
     onDragLeave(evt: any): void;
     onDrop(evt: any): void;
+    onClick(event: any): void;
+    private closeArea;
 }

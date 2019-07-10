@@ -34,6 +34,7 @@ export class EditorAppComponent {
   file: FileDescription;
   editorConfig: EditorConfig;
   formatDisabled = !this.file;
+  downloadDisabled = true;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
@@ -232,6 +233,7 @@ export class EditorAppComponent {
     this.file.guid = "new document.docx";
     this.credentials = new FileCredentials("new document.docx", "");
     this.formatDisabled = false;
+    this.downloadDisabled = true;
   }
 
   selectFile($event: string, password: string, modalId: string) {
@@ -261,6 +263,7 @@ export class EditorAppComponent {
       this.textBackup = this.file.pages[0].data;
     }
     this.formatDisabled = !this.file;
+    this.downloadDisabled = false;
   }
 
   private clearData() {
@@ -290,7 +293,7 @@ export class EditorAppComponent {
     $(".gd-wrapper").on("keyup", () => {
       const fontElements = document.getElementsByTagName("font");
       for (let i = 0, len = fontElements.length; i < len; ++i) {
-        if (fontElements[i].size === "7") {
+        if (fontElements[i].getAttribute('size') === "7") {
           fontElements[i].removeAttribute("size");
           fontElements[i].style.fontSize = $event + "px";
         }
@@ -452,7 +455,7 @@ export class EditorAppComponent {
   }
 
   downloadFile() {
-    if (this.formatDisabled)
+    if (this.downloadDisabled)
       return;
     window.location.assign(this._editorService.getDownloadUrl(this.credentials));
   }
@@ -491,6 +494,17 @@ export class EditorAppComponent {
       page.data = this.textBackup.replace('</style>', 'body { padding: 96px; } </style>');
       const printHtml = [page];
       this._renderPrintService.changePages(printHtml);
+    }
+  }
+
+  onCloseModal($event) {
+    if (this.file && $event) {
+      if(this.isIE) {
+        $(".documentMainContent").attr("contentEditable", "true");
+      } else {
+        this.file.pages[0].editable = true;
+      }
+      this._selectionService.restoreSelection();
     }
   }
 }
