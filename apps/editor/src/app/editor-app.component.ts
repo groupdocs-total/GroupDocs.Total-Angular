@@ -260,6 +260,8 @@ export class EditorAppComponent {
     this.file = file;
     if (this.file && this.file.pages[0]) {
       this.file.pages[0].editable = true;
+      this.file.pages[0].width = 595;
+      this.file.pages[0].height = 842;
       this.textBackup = this.file.pages[0].data;
     }
     this.formatDisabled = !this.file;
