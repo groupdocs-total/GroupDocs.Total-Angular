@@ -18,6 +18,7 @@ import {
   EditHtmlService,
   RenderPrintService,
   WindowService,
+  LoadingMaskService,
 } from "@groupdocs.examples.angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -58,8 +59,13 @@ export class EditorAppComponent {
               private _onCloseService: OnCloseService,
               private _selectionService: SelectionService,
               private _htmlService: EditHtmlService,
-              private _renderPrintService: RenderPrintService
+              private _renderPrintService: RenderPrintService,
+              private _loadingMaskService: LoadingMaskService,
   ) {
+    this._loadingMaskService
+    .onLoadingChanged
+    .subscribe((loading: boolean) => this.isLoading = loading);
+
     this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -236,10 +242,8 @@ export class EditorAppComponent {
   }
 
   selectFile($event: string, password: string, modalId: string) {
-    this.isLoading = true;
     this.credentials = new FileCredentials($event, password);
     this._editorService.loadFile(this.credentials).subscribe((file: FileDescription) => {
-        this.isLoading = false;
         this.loadFile(file);
         const isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         if(isIE) {

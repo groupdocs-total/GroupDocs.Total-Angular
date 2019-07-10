@@ -4,7 +4,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {EditorAppComponent} from './editor-app.component';
 import {Angular2FontawesomeModule} from "angular2-fontawesome";
 import {EditorService} from "./editor.service";
-import {CommonComponentsModule, ErrorInterceptorService, ConfigService} from "@groupdocs.examples.angular/common-components";
+import {
+  CommonComponentsModule,
+  ErrorInterceptorService,
+  ConfigService,
+  LoadingMaskService,
+  LoadingMaskInterceptorService
+} from "@groupdocs.examples.angular/common-components";
 import {EditorConfigService} from "./editor-config.service";
 import {EditorExportModule} from "./editor-export/editor-export.module"
 
@@ -24,6 +30,13 @@ import {EditorExportModule} from "./editor-export/editor-export.module"
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
       multi: true
+    },
+    LoadingMaskService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: (service: LoadingMaskService) => new LoadingMaskInterceptorService(service),
+      multi: true,
+      deps: [LoadingMaskService]
     }
   ],
   bootstrap: [EditorAppComponent],

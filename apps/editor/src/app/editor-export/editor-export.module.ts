@@ -2,7 +2,13 @@ import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {EditorAppComponent} from '../editor-app.component';
-import {CommonComponentsModule, ErrorInterceptorService, ConfigService} from "@groupdocs.examples.angular/common-components";
+import {
+  CommonComponentsModule,
+  ErrorInterceptorService,
+  ConfigService,
+  LoadingMaskService,
+  LoadingMaskInterceptorService
+} from "@groupdocs.examples.angular/common-components";
 import {Angular2FontawesomeModule} from "angular2-fontawesome";
 import {EditorService} from "../editor.service";
 import {EditorConfigService} from "../editor-config.service";
@@ -29,6 +35,13 @@ import {CreateDocumentModalComponent} from "../create.document-modal/create.docu
       useClass: ErrorInterceptorService,
       multi: true
     },
+    LoadingMaskService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: (service: LoadingMaskService) => new LoadingMaskInterceptorService(service),
+      multi: true,
+      deps: [LoadingMaskService]
+    }
   ],
   bootstrap: [EditorAppComponent]
 })

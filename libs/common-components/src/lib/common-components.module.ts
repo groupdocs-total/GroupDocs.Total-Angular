@@ -49,6 +49,8 @@ import {OnCloseService} from "./on-close.service";
 import {SuccessModalComponent} from './success-modal/success-modal.component';
 import {EditorDirective} from './editor.directive';
 import {LoadingMaskComponent} from './loading-mask/loading-mask.component';
+import {LoadingMaskService} from './loading-mask.service';
+import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service";
 
 const providers = [ConfigService,
   Api,
@@ -74,7 +76,8 @@ const providers = [ConfigService,
   FormattingService,
   BackFormattingService,
   OnCloseService,
-  LoadingMaskComponent];
+  LoadingMaskInterceptorService,
+  LoadingMaskService];
 
 @NgModule({
   imports: [CommonModule, Angular2FontawesomeModule],
