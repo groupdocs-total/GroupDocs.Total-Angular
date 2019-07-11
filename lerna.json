@@ -1,6 +1,6 @@
 {
     "packages": [
-      "dist/libs"
+      "dist/libs/*"
     ],
     "version": "0.1.20"
   }
