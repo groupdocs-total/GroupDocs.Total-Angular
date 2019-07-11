@@ -1,5 +1,8 @@
 before_script:
   - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+  - nvm install v10.11.0
+  - nvm use v10.11.0
+  - node --version
 language: java
 sudo: false
 os:
