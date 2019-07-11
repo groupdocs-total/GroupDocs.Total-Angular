@@ -15,7 +15,7 @@ or
 Add following code within `<body>` tag
 
 ```JS
-<gd-viewer></gd-viewer-angular-root>
+<gd-viewer></gd-viewers>
 ```
 
 # Note
