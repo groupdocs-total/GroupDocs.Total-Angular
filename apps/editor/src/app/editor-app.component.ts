@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
 import {EditorService} from "./editor.service";
 import {
   FileDescription,
@@ -29,7 +29,7 @@ import * as $ from 'jquery';
   templateUrl: './editor-app.component.html',
   styleUrls: ['./editor-app.component.less']
 })
-export class EditorAppComponent {
+export class EditorAppComponent implements AfterViewInit  {
   title = 'editor';
   files: FileModel[] = [];
   file: FileDescription;
@@ -62,10 +62,6 @@ export class EditorAppComponent {
               private _renderPrintService: RenderPrintService,
               private _loadingMaskService: LoadingMaskService,
   ) {
-    this._loadingMaskService
-    .onLoadingChanged
-    .subscribe((loading: boolean) => this.isLoading = loading);
-
     this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     configService.updatedConfig.subscribe((editorConfig) => {
       this.editorConfig = editorConfig;
@@ -166,6 +162,12 @@ export class EditorAppComponent {
         this.textBackup = text;
       }
     });
+  }
+
+  ngAfterViewInit() {
+    this._loadingMaskService
+    .onLoadingChanged
+    .subscribe((loading: boolean) => this.isLoading = loading);
   }
 
   get rewriteConfig(): boolean {

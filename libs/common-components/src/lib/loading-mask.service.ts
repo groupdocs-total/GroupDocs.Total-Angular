@@ -24,6 +24,6 @@ export class LoadingMaskService {
   }
 
   private notify(): void {
-    setTimeout(() => this.onLoadingChanged.emit(this.requests.length !== 0));
+    this.onLoadingChanged.emit(this.requests.length !== 0);
   }
 }
