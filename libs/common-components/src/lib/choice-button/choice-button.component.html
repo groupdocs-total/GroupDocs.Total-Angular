@@ -1,13 +1,13 @@
 <div class="choice-button">
-  <i fa [name]="icon"></i>
+  <fa-icon [icon]="['fas',icon]"></fa-icon>
   <span class="button-name">{{name}}</span>
   <div class="down">
-    <i fa [name]="'angle-down'" (click)="openChoices()"></i>
+    <fa-icon [icon]="['fas','angle-down']" (click)="openChoices()"></fa-icon>
   </div>
   <div class="choices" *ngIf="open">
     <div class="upload-from">Upload from:</div>
     <div class="choice" *ngFor="let choice of choices" (click)="select(choice.name)">
-      <i fa [name]="choice.icon"></i>
+        <fa-icon [icon]="['fas',choice.icon]"></fa-icon>
       {{choice.name}}
     </div>
   </div>

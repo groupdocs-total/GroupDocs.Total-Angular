@@ -1,0 +1,14 @@
+{
+  "name": "@groupdocs.examples.angular/viewer",
+  "version": "0.1.20",
+  "description": "Angular application that allows to display and manipulate documents supported by groupdocs libraries APIs",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@groupdocs.examples.angular/common-compoenents" : "latest"
+  }
+}

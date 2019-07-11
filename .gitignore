@@ -7,13 +7,9 @@
 
 # dependencies
 /node_modules
-*node_modules
 
 # IDEs and editors
 /.idea
-*.iml
-*.ipr
-*.iws
 .project
 .classpath
 .c9/
@@ -41,5 +37,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-*.log

@@ -64,8 +64,7 @@ matrix:
         - echo "releasing fix"
         - npm install -g npx
         - npm install
-        - npm run release_viewer
-        - npm run release_common
+        - npm run affected:build
         - git commit -am "Build new version" || true
         - git status
         - npx lerna publish patch --yes
@@ -85,8 +84,7 @@ matrix:
         - echo "releasing minor update"
         - npm install -g npx
         - npm install
-        - npm run release_viewer
-        - npm run release_common
+        - npm run affected:build
         - git commit -am "Build new version" || true
         - git status
         - npx lerna publish minor --yes

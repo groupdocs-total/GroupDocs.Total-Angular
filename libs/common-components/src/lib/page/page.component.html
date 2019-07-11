@@ -4,6 +4,8 @@
   <img class="gd-page-image" [style.width.px]="width" [style.height.px]="height" [attr.src]="imgData | safeResourceHtml"
        alt=""
        *ngIf="data && !isHtml">
-  <div class="gd-page-spinner" *ngIf="!data"><i class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.
+  <div class="gd-page-spinner" *ngIf="!data">
+    <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
+    &nbsp;Loading... Please wait.
   </div>
 </div>

@@ -11,7 +11,7 @@ export class DndDirective {
   @Output() open = new EventEmitter<boolean>();
   @Input() isBackground = true;
 
-  @HostBinding('style.background') background = '#f8f8f8';
+  @HostBinding('style.background') background = 'transparent';
 
   constructor(private _uploadFilesService: UploadFilesService) {
   }

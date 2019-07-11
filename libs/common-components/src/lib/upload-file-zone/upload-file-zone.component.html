@@ -1,10 +1,12 @@
 <div class="gd-drag-n-drop-wrap" id="gd-dropZone" gdDnd (close)="onCloseUpload()" (click)="close($event)">
-  <div class="gd-drag-n-drop-icon"><i class="fa fa-cloud-download-alt fa-5x" aria-hidden="true"></i></div>
+  <div class="gd-drag-n-drop-icon">
+    <fa-icon [icon]="['fas','cloud-download-alt']" size="5x"></fa-icon>
+  </div>
   <h2>Drag &amp; Drop your files here</h2> 
   <h4>OR</h4> 
   <div class="gd-drag-n-drop-buttons"> 
     <label class="btn btn-primary"> 
-      <i class="fa fa-file"></i> 
+      <fa-icon [icon]="['fas','file']"></fa-icon>
       SELECT FILE 
       <input id="gd-upload-input" type="file" multiple style="display: none;" (change)="handleFileInput($event.target.files)">
       </label>

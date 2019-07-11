@@ -3,36 +3,38 @@
   "version": 1,
   "newProjectRoot": "",
   "projects": {
-    "total": {
-      "root": "apps/total/",
-      "sourceRoot": "apps/total/src",
+    "total-angular": {
       "projectType": "application",
-      "prefix": "groupdocs-total-angular",
       "schematics": {
-        "@nrwl/schematics:component": {
+        "@nrwl/workspace:component": {
           "style": "less"
         }
       },
+      "root": "apps/total-angular",
+      "sourceRoot": "apps/total-angular/src",
+      "prefix": "total-angular",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/total",
-            "index": "apps/total/src/index.html",
-            "main": "apps/total/src/main.ts",
-            "polyfills": "apps/total/src/polyfills.ts",
-            "tsConfig": "apps/total/tsconfig.app.json",
-            "assets": ["apps/total/src/favicon.ico", "apps/total/src/assets"],
-            "styles": ["apps/total/src/styles.less"],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "outputPath": "dist/apps/total-angular",
+            "index": "apps/total-angular/src/index.html",
+            "main": "apps/total-angular/src/main.ts",
+            "polyfills": "apps/total-angular/src/polyfills.ts",
+            "tsConfig": "apps/total-angular/tsconfig.app.json",
+            "assets": [
+              "apps/total-angular/src/favicon.ico",
+              "apps/total-angular/src/assets"
+            ],
+            "styles": ["apps/total-angular/src/styles.less"],
+            "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/total/src/environments/environment.ts",
-                  "with": "apps/total/src/environments/environment.prod.ts"
+                  "replace": "apps/total-angular/src/environments/environment.ts",
+                  "with": "apps/total-angular/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -57,37 +59,37 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "total:build"
+            "browserTarget": "total-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "total:build:production"
+              "browserTarget": "total-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "total:build"
+            "browserTarget": "total-angular:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/total/tsconfig.app.json",
-              "apps/total/tsconfig.spec.json"
+              "apps/total-angular/tsconfig.app.json",
+              "apps/total-angular/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/total-angular/**"]
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "apps/total/src/test.ts",
-            "tsConfig": "apps/total/tsconfig.spec.json",
-            "karmaConfig": "apps/total/karma.conf.js",
-            "polyfills": "apps/total/src/polyfills.ts",
+            "main": "apps/total-angular/src/test.ts",
+            "tsConfig": "apps/total-angular/tsconfig.spec.json",
+            "karmaConfig": "apps/total-angular/karma.conf.js",
+            "polyfills": "apps/total-angular/src/polyfills.ts",
             "styles": [],
             "scripts": [],
             "assets": []
@@ -95,158 +97,84 @@
         }
       }
     },
-    "total-e2e": {
-      "root": "apps/total-e2e",
+    "total-angular-e2e": {
+      "root": "apps/total-angular-e2e",
+      "sourceRoot": "apps/total-angular-e2e/src",
       "projectType": "application",
-      "prefix": "",
       "architect": {
         "e2e": {
-          "builder": "@nrwl/builders:cypress",
+          "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/total-e2e/cypress.json",
-            "tsConfig": "apps/total-e2e/tsconfig.e2e.json",
-            "devServerTarget": "total:serve"
+            "cypressConfig": "apps/total-angular-e2e/cypress.json",
+            "tsConfig": "apps/total-angular-e2e/tsconfig.e2e.json",
+            "devServerTarget": "total-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "total:serve:production"
+              "devServerTarget": "total-angular:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/total-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": "apps/total-angular-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**", "!apps/total-angular-e2e/**"]
           }
         }
       }
     },
     "viewer": {
-      "root": "apps/viewer/",
-      "sourceRoot": "apps/viewer/src",
-      "projectType": "application",
-      "prefix": "groupdocs-total-angular",
-      "schematics": {
-        "@nrwl/schematics:component": {
-          "style": "less"
-        }
-      },
+      "projectType": "library",
+      "root": "libs/viewer",
+      "sourceRoot": "libs/viewer/src",
+      "prefix": "gd",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "outputPath": "apps/viewer/dist",
-            "index": "apps/viewer/src/index.html",
-            "main": "apps/viewer/src/main.ts",
-            "polyfills": "apps/viewer/src/polyfills.ts",
-            "tsConfig": "apps/viewer/tsconfig.app.json",
-            "assets": ["apps/viewer/src/favicon.ico", "apps/viewer/src/assets"],
-            "styles": ["apps/viewer/src/styles.less"],
-            "scripts": ["./node_modules/jquery/dist/jquery.js"],
-            "es5BrowserSupport": false
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/viewer/src/environments/environment.ts",
-                  "with": "apps/viewer/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "none",
-              "sourceMap": true,
-              "extractCss": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": false,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "viewer:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "viewer:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "viewer:build"
+            "tsConfig": "libs/viewer/tsconfig.lib.json",
+            "project": "libs/viewer/ng-package.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/viewer/tsconfig.app.json",
-              "apps/viewer/tsconfig.spec.json"
+              "libs/viewer/tsconfig.lib.json",
+              "libs/viewer/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/viewer/**"]
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "apps/viewer/src/test.ts",
-            "tsConfig": "apps/viewer/tsconfig.spec.json",
-            "karmaConfig": "apps/viewer/karma.conf.js",
-            "polyfills": "apps/viewer/src/polyfills.ts",
-            "styles": [],
-            "scripts": [],
-            "assets": []
+            "main": "libs/viewer/src/test.ts",
+            "tsConfig": "libs/viewer/tsconfig.spec.json",
+            "karmaConfig": "libs/viewer/karma.conf.js"
           }
         }
-      }
-    },
-    "viewer-e2e": {
-      "root": "apps/viewer-e2e",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/builders:cypress",
-          "options": {
-            "cypressConfig": "apps/viewer-e2e/cypress.json",
-            "tsConfig": "apps/viewer-e2e/tsconfig.e2e.json",
-            "devServerTarget": "viewer:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "viewer:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "apps/viewer-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
-          }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "less"
         }
       }
     },
     "common-components": {
+      "projectType": "library",
       "root": "libs/common-components",
       "sourceRoot": "libs/common-components/src",
-      "projectType": "library",
-      "prefix": "groupdocs-total-angular",
+      "prefix": "gd",
       "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/common-components/tsconfig.lib.json",
+            "project": "libs/common-components/ng-package.json"
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -254,7 +182,7 @@
               "libs/common-components/tsconfig.lib.json",
               "libs/common-components/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/common-components/**"]
           }
         },
         "test": {
@@ -267,7 +195,7 @@
         }
       },
       "schematics": {
-        "@nrwl/schematics:component": {
+        "@nrwl/angular:component": {
           "styleext": "less"
         }
       }
@@ -278,15 +206,16 @@
       "typescriptMismatch": false,
       "versionMismatch": false
     },
-    "defaultCollection": "@nrwl/schematics"
+    "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
-    "@nrwl/schematics:application": {
-      "style": "less"
+    "@nrwl/angular:application": {
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "cypress"
     },
-    "@nrwl/schematics:library": {
-      "style": "less"
+    "@nrwl/angular:library": {
+      "unitTestRunner": "karma"
     }
   },
-  "defaultProject": "total"
+  "defaultProject": "total-angular"
 }
