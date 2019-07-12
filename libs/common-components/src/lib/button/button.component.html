@@ -1,4 +1,4 @@
 <div class="button" [ngClass]="className" (mouseenter)="onHovering()" (mouseleave)="onUnhovering()" gdDisabledCursor [dis]="disabled">
-  <i fa [name]="icon"></i>
+  <fa-icon [icon]="['fas',icon]"></fa-icon>
   <gd-tooltip [text]="tooltip" [show]="showToolTip" *ngIf="tooltip"></gd-tooltip>
 </div>

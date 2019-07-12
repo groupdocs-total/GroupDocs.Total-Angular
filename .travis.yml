@@ -1,5 +1,8 @@
 before_script:
   - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+  - nvm install v10.11.0
+  - nvm use v10.11.0
+  - node --version
 language: java
 sudo: false
 os:
@@ -64,8 +67,8 @@ matrix:
         - echo "releasing fix"
         - npm install -g npx
         - npm install
-        - npm run release_viewer
-        - npm run release_common
+        - npm run affected:build
+        - git add dist
         - git commit -am "Build new version" || true
         - git status
         - npx lerna publish patch --yes
@@ -85,8 +88,8 @@ matrix:
         - echo "releasing minor update"
         - npm install -g npx
         - npm install
-        - npm run release_viewer
-        - npm run release_common
+        - npm run affected:build
+        - git add dist
         - git commit -am "Build new version" || true
         - git status
         - npx lerna publish minor --yes
