@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
 import {EditorService} from "./editor.service";
 import {
   FileDescription,
@@ -18,6 +18,7 @@ import {
   EditHtmlService,
   RenderPrintService,
   WindowService,
+  LoadingMaskService,
 } from "@groupdocs.examples.angular/common-components";
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -28,7 +29,7 @@ import * as $ from 'jquery';
   templateUrl: './editor-app.component.html',
   styleUrls: ['./editor-app.component.less']
 })
-export class EditorAppComponent {
+export class EditorAppComponent implements AfterViewInit  {
   title = 'editor';
   files: FileModel[] = [];
   file: FileDescription;
@@ -46,6 +47,7 @@ export class EditorAppComponent {
   active = false;
   private textBackup: string;
   private isIE = false;
+  isLoading: boolean;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -58,7 +60,8 @@ export class EditorAppComponent {
               private _onCloseService: OnCloseService,
               private _selectionService: SelectionService,
               private _htmlService: EditHtmlService,
-              private _renderPrintService: RenderPrintService
+              private _renderPrintService: RenderPrintService,
+              private _loadingMaskService: LoadingMaskService,
   ) {
     this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     configService.updatedConfig.subscribe((editorConfig) => {
@@ -160,6 +163,12 @@ export class EditorAppComponent {
         this.textBackup = text;
       }
     });
+  }
+
+  ngAfterViewInit() {
+    this._loadingMaskService
+    .onLoadingChanged
+    .subscribe((loading: boolean) => this.isLoading = loading);
   }
 
   get rewriteConfig(): boolean {

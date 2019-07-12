@@ -41,3 +41,5 @@ export * from './lib/back-formatting.service'
 export * from './lib/on-close.service'
 export * from './lib/selection.service'
 export * from './lib/edit-html.service'
+export * from './lib/loading-mask.service'
+export * from './lib/loading-mask-interceptor.service';
