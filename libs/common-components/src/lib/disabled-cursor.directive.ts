@@ -10,10 +10,10 @@ export class DisabledCursorDirective implements OnInit, OnChanges {
   constructor() {
   }
 
-  @HostBinding('style.cursor') cursor: string;
+  @HostBinding('class.inactive') cursor: boolean;
 
   private updateCursor() {
-    this.cursor = this.dis ? 'not-allowed' : 'pointer';
+    this.cursor = this.dis ? true : false;
   }
 
   ngOnInit(): void {

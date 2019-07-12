@@ -1,5 +1,5 @@
 {
-  "npmScope": "groupdocs-total-angular",
+  "npmScope": "groupdocs.examples.angular",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -8,25 +8,19 @@
     "nx.json": "*"
   },
   "projects": {
-    "total": {
+    "total-angular-e2e": {
       "tags": []
     },
-    "total-e2e": {
+    "total-angular": {
       "tags": []
     },
     "viewer": {
-      "tags": []
-    },
-    "viewer-e2e": {
       "tags": []
     },
     "common-components": {
       "tags": []
     },
     "editor": {
-      "tags": []
-    },
-    "editor-e2e": {
       "tags": []
     }
   }

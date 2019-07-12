@@ -14,6 +14,8 @@ export class LoadingMaskInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this._loadingMaskService.onRequestStart(req);
-    return next.handle(req).pipe( finalize( () => this._loadingMaskService.onRequestFinish(req)));
+    return next.handle(req).pipe( finalize( function(){
+      this._loadingMaskService.onRequestFinish(req);
+    }));
   }
 }

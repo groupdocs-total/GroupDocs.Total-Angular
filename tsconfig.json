@@ -1,13 +1,14 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es5",
+    "target": "es2015",
     "module": "esnext",
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2017", "dom"],
@@ -15,13 +16,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@groupdocs.examples.angular/viewer": ["libs/viewer/src/index.ts"],
       "@groupdocs.examples.angular/common-components": [
+        "dist/libs/common-components",
         "libs/common-components/src/index.ts"
-      ]
+      ],
+      "@groupdocs.examples.angular/editor": ["libs/editor/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"],
-  "types": [
-    "jquery"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

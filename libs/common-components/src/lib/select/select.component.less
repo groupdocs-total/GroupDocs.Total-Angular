@@ -1,3 +1,5 @@
+@import "./../../styles/variables";
+
 .select {
   min-width: 50px;
   color: #959da5;
@@ -6,6 +8,11 @@
 .selected-value {
   font-size: 14px;
   cursor: pointer;
+}
+
+.selected-value.inactive{
+  cursor: not-allowed;
+  color: #CCC;
 }
 
 .nav-caret {
@@ -19,6 +26,11 @@
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
   cursor: pointer;
+}
+
+.nav-caret.inactive{
+  cursor: not-allowed;
+  color: #CCC;
 }
 
 .dropdown-menu {
@@ -47,6 +59,11 @@
   line-height: 1.42857143;
   white-space: nowrap;
   cursor: pointer;
+}
+
+.dropdown-menu .option:hover{
+  background-color: @nav-logo-background;
+  color: #FFF;
 }
 
 .dropdown-menu-separator {

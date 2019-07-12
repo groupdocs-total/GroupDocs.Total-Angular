@@ -8,7 +8,7 @@ export class SelectionService {
   isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
 
   restoreSelection() {
-    if(!this.selection.collapsed || this.isIE){
+    if(this.selection && !this.selection.collapsed || this.isIE){
       this.putSelection(this.selection  );
     }
   }

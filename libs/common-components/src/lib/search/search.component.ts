@@ -13,7 +13,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
   current = 0;
   total = 0;
 
-  @ViewChild('text') textElement: ElementRef;
+  @ViewChild('text',{
+    static : true
+  }) textElement: ElementRef;
 
   constructor(private _searchService: SearchService) {
     _searchService.totalChange.subscribe((total: number) => {

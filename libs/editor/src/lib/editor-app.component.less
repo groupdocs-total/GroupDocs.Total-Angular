@@ -1,0 +1,114 @@
+@import "~src/../../libs/common-components/src/styles/variables";
+
+.current-page-number {
+  margin: 0px 15px;
+  font-size: 14px;
+  color: #959da5;
+}
+*{
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: text;
+}
+.wrapper {
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.doc-panel {
+  display: flex;
+  height: inherit;
+}
+
+.gd-document {
+  width: 100%;
+  height: ~"calc(100% - @{editor-nav-height})";
+}
+
+.top-panel {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.toolbar-panel {
+  width: 100%;
+}
+
+/deep/ .gd-wrapper {
+  padding: 96px;
+  -webkit-user-select: text;  /* Chrome all / Safari all */
+  -moz-user-select: text;     /* Firefox all */
+  -ms-user-select: text;      /* IE 10+ */
+  user-select: text;
+  outline: none;
+}
+
+/deep/ .dropdown-menu {
+  min-width: unset !important;
+}
+
+.format-select {
+  margin: 0px 15px;
+}
+
+.palette {
+  position: absolute;
+  top: 90px;
+  z-index: 100;
+}
+
+.background-color-picker {
+  left: 700px;
+}
+
+.color-picker {
+  left: 750px;
+}
+
+.bg-color-pic {
+  border-radius: 100%;
+  border: 1px solid #CCC;
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  right: 6px;
+  bottom: 6px;
+}
+
+/deep/ .gd-editor-buttons .button .tooltip {
+  margin-top: 45px;
+  margin-left: -36px;
+}
+
+/deep/ .gd-edit.active {
+  background-color: #7E8991;
+  border-radius: 5px;
+}
+
+/deep/ .gd-edit.active i {
+  color: #FFFFFF;
+}
+
+/deep/ .page {
+  width: 800px;
+}
+
+/deep/ .save-as-button-icon {
+  font-size: 11px;
+  left: 22px !important;
+  top: 13px !important;
+}
+
+.save-button {
+  position: absolute;
+  top: -5px;
+  left: 21px;
+}

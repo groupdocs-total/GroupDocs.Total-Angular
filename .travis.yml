@@ -1,5 +1,8 @@
 before_script:
   - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+  - nvm install v10.11.0
+  - nvm use v10.11.0
+  - node --version
 language: java
 sudo: false
 os:
@@ -33,9 +36,7 @@ matrix:
         - cd ..
         - npm install
         - npm run e2e --headless
-        - npm run release_viewer
-        - npm run release_editor
-        - npm run ng_lint_viewer_and_editor
+        - npm run lint
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
       os: linux
       addons:
@@ -51,10 +52,8 @@ matrix:
         - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting to back-end..."; done
         - cd ..
         - npm install
-        - npm run e2e --headless
-        - npm run release_viewer
-        - npm run release_editor
-        - npm run ng_lint_viewer_and_editor
+        - npm run e2e
+        - npm run lint
     - stage: Release fix
       dist: trusty
       os: linux
@@ -70,8 +69,8 @@ matrix:
         - echo "releasing fix"
         - npm install -g npx
         - npm install
-        - npm run release_viewer
-        - npm run release_common
+        - npm run affected:build
+        - git add dist
         - git commit -am "Build new version" || true
         - git status
         - npx lerna publish patch --yes
@@ -91,8 +90,8 @@ matrix:
         - echo "releasing minor update"
         - npm install -g npx
         - npm install
-        - npm run release_viewer
-        - npm run release_common
+        - npm run affected:build
+        - git add dist
         - git commit -am "Build new version" || true
         - git status
         - npx lerna publish minor --yes

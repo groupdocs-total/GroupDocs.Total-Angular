@@ -1,0 +1,10 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { initializeApp, setupLoadingInterceptor, EditorModule, EditorAppComponent, EditorConfigService, EditorConfig, EditorService } from './index';
+export { CreateDocumentModalComponent as ɵa } from './lib/create.document-modal/create.document-modal.component';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZ3JvdXBkb2NzLmV4YW1wbGVzLmFuZ3VsYXItZWRpdG9yLmpzIiwic291cmNlUm9vdCI6Im5nOi8vQGdyb3VwZG9jcy5leGFtcGxlcy5hbmd1bGFyL2VkaXRvci8iLCJzb3VyY2VzIjpbImdyb3VwZG9jcy5leGFtcGxlcy5hbmd1bGFyLWVkaXRvci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBSUEsMklBQWMsU0FBUyxDQUFDO0FBRXhCLE9BQU8sRUFBQyw0QkFBNEIsSUFBSSxFQUFFLEVBQUMsTUFBTSw2REFBNkQsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogR2VuZXJhdGVkIGJ1bmRsZSBpbmRleC4gRG8gbm90IGVkaXQuXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9pbmRleCc7XG5cbmV4cG9ydCB7Q3JlYXRlRG9jdW1lbnRNb2RhbENvbXBvbmVudCBhcyDJtWF9IGZyb20gJy4vbGliL2NyZWF0ZS5kb2N1bWVudC1tb2RhbC9jcmVhdGUuZG9jdW1lbnQtbW9kYWwuY29tcG9uZW50JzsiXX0=

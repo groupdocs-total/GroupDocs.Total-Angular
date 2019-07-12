@@ -3,17 +3,22 @@
   font-size: 14px;
   color: #959da5;
   cursor: pointer;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 37px;
   height: 36px;
   text-align: center;
   position: relative; 
 }
 
-.button i {
-  position: absolute;
-  top: 11px;
-  left: 14px;
+.button.inactive{
+  cursor: not-allowed;
+  color: #CCC;
+}
+
+.button.active .ng-fa-icon{
+  color: #FFF;
 }
 
 @media (max-width: 1025px) {

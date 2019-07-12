@@ -1,7 +1,9 @@
 <gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
   <section id="gd-browse-section" (dragover)="showUploadFile = true;">
-    <div class="gd-dnd-wrap" *ngIf="showUploadFile" gdDnd [isBackground]="false" (open)="showUploadFile=$event">
-      <div class="gd-drag-n-drop-icon"><i class="fa fa-cloud-download-alt fa-5x" aria-hidden="true"></i></div>
+    <div class="gd-dnd-wrap" *ngIf="showUploadFile" gdDnd [isBackground]="false" (opening)="showUploadFile=$event">
+      <div class="gd-drag-n-drop-icon">
+        <fa-icon [icon]="['fas','cloud-download-alt']" size="5x" aria-hidden="true"></fa-icon>
+      </div>
       <h2>Drag &amp; Drop your files here</h2>
     </div>
     <div class="upload-panel" *ngIf="uploadConfig">
@@ -11,7 +13,7 @@
       <div class="upload-url" *ngIf="showUploadUrl">
         <input class="url-input" #url (keyup.enter)="uploadUrl(url.value)">
         <div class="url-check" (click)="uploadUrl(url.value)">
-          <i fa [name]="'check'"></i>
+            <fa-icon [icon]="['fas','check']"></fa-icon>
         </div>
       </div>
     </div>
@@ -23,12 +25,13 @@
       <div class="list-files-body">
       <div class="go-up" (click)="goUp()">
           <div class="go-up-icon">
-            <i class="fa fa-level-up-alt"></i>
+              <fa-icon [icon]="['fas','level-up-alt']"></fa-icon>
           </div>
           <div class="go-up-dots">...</div>
       </div>
       <div class="list-files-lines" *ngFor="let file of files" (click)="choose(file);">
-        <div class="file-description"><i fa [name]="getFormatIcon(file)"></i>
+        <div class="file-description">
+          <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>
           <div class="file-name-format">
             <div class="file-name">{{file?.name}}</div>
             <div class="file-format">{{getFormatName(file)}}</div>
@@ -40,8 +43,9 @@
       </div>
       </div>
     </div>
-    <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="showSpinner()"><i
-      class="fa fa-circle-o-notch fa-spin"></i> &nbsp;Loading... Please wait.
+    <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="showSpinner()">
+        <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
+      &nbsp;Loading... Please wait.
     </div>
   </section>
 </gd-modal>

@@ -1,0 +1,56 @@
+import {BrowserModule} from '@angular/platform-browser';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ViewerAppComponent} from './viewer-app.component';
+import {
+  CommonComponentsModule,
+  ErrorInterceptorService, LoadingMaskInterceptorService,
+  LoadingMaskService
+} from '@groupdocs.examples.angular/common-components';
+import {ViewerService} from "./viewer.service";
+import {ConfigService} from "@groupdocs.examples.angular/common-components";
+import {ViewerConfigService} from "./viewer-config.service";
+import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
+
+export function initializeApp(viewerConfigService: ViewerConfigService) {
+  const result =  () => viewerConfigService.load();
+  return result;
+}
+
+export function setupLoadingInterceptor(service: LoadingMaskService) {
+  const result =  () => new LoadingMaskInterceptorService(service);
+  return result;
+}
+
+@NgModule({
+  declarations: [ViewerAppComponent, ThumbnailsComponent],
+  imports: [
+    BrowserModule,
+    CommonComponentsModule,
+    HttpClientModule
+  ],
+  providers: [
+    ViewerService,
+    ConfigService,
+    ViewerConfigService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [ViewerConfigService], multi: true
+    },
+    LoadingMaskService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: setupLoadingInterceptor,
+      multi: true,
+      deps: [LoadingMaskService]
+    }
+  ]
+})
+export class ViewerModule {
+}

@@ -4,7 +4,10 @@ import {TopToolbarComponent} from './top-toolbar/top-toolbar.component';
 import {ButtonComponent} from './button/button.component';
 import {LogoComponent} from './logo/logo.component';
 import {TooltipComponent} from './tooltip/tooltip.component';
-import {Angular2FontawesomeModule} from 'angular2-fontawesome/angular2-fontawesome'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 import {Api, ConfigService,} from "./config.service";
 import {ModalService} from "./modal.service";
 import {ModalComponent} from './modal/modal.component';
@@ -80,7 +83,7 @@ const providers = [ConfigService,
   LoadingMaskService];
 
 @NgModule({
-  imports: [CommonModule, Angular2FontawesomeModule],
+  imports: [CommonModule, FontAwesomeModule],
   declarations: [
     TopToolbarComponent,
     ButtonComponent,
@@ -152,10 +155,7 @@ const providers = [ConfigService,
   providers: providers
 })
 export class CommonComponentsModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: CommonComponentsModule,
-      providers: providers
-    };
+  constructor(){
+    library.add(fas,far);
   }
 }

@@ -36,10 +36,19 @@ export * from './lib/tooltip/tooltip.component';
 export * from './lib/top-toolbar/top-toolbar.component';
 export * from './lib/upload-file-zone/upload-file-zone.component';
 export * from './lib/zoom.directive';
-export * from './lib/formatting.service'
-export * from './lib/back-formatting.service'
-export * from './lib/on-close.service'
-export * from './lib/selection.service'
-export * from './lib/edit-html.service'
-export * from './lib/loading-mask.service'
+export * from './lib/selection.service';
+export * from './lib/on-close.service';
+export * from './lib/loading-mask.service';
 export * from './lib/loading-mask-interceptor.service';
+export * from './lib/formatting.directive';
+export * from './lib/formatting.service';
+export * from './lib/back-formatting.service';
+export * from './lib/editor.directive';
+export * from './lib/edit-html.service';
+export * from './lib/color-picker/color-picker.component';
+export * from './lib/loading-mask/loading-mask.component';
+export * from './lib/success-modal/success-modal.component';
+export * from './lib/tab/tab.component';
+export * from './lib/tabbed-toolbars/tabbed-toolbars.component';
+
+

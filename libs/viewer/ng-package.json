@@ -1,0 +1,11 @@
+{
+  "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/libs/viewer",
+  "lib": {
+    "entryFile": "src/index.ts",
+    "umdModuleIds" : {
+      "@groupdocs.examples.angular/common-components" : "commonComponents",
+      "angular2-fontawesome": "angular2Fontawesome"
+    }
+  }
+}
