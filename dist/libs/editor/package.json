@@ -9,7 +9,11 @@
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0",
-    "@groupdocs.examples.angular/common-compoenents": "latest"
+    "@groupdocs.examples.angular/common-compoenents": "latest",
+    "@fortawesome/angular-fontawesome": "^0.4.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-regular-svg-icons": "^5.9.0",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0"
   },
   "main": "bundles/groupdocs.examples.angular-editor.umd.js",
   "module": "fesm5/groupdocs.examples.angular-editor.js",
