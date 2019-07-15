@@ -46,7 +46,6 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   onClose($event: MouseEvent) {
-    $event.preventDefault();
     $event.stopPropagation();
     if ($event && $event.target && (<Element>$event.target).id === 'modalDialog') {
       this.close();

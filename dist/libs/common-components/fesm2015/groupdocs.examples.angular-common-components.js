@@ -559,7 +559,6 @@ class ModalComponent {
      * @return {?}
      */
     onClose($event) {
-        $event.preventDefault();
         $event.stopPropagation();
         if ($event && $event.target && ((/** @type {?} */ ($event.target))).id === 'modalDialog') {
             this.close();
