@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "nx lint && ng lint",
     "e2e": "ng e2e --headless",
-    "build:packages" : "ng build common-components && ng build viewer && ng build editor",
+    "build:packages": "ng build common-components && ng build viewer && ng build editor",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
