@@ -1135,11 +1135,19 @@
         }
         ViewerModule.decorators = [
             { type: core.NgModule, args: [{
-                        declarations: [ViewerAppComponent, ThumbnailsComponent],
+                        declarations: [
+                            ViewerAppComponent,
+                            ThumbnailsComponent
+                        ],
                         imports: [
                             platformBrowser.BrowserModule,
                             commonComponents.CommonComponentsModule,
                             http.HttpClientModule
+                        ],
+                        exports: [
+                            ViewerAppComponent,
+                            ThumbnailsComponent,
+                            commonComponents.CommonComponentsModule
                         ],
                         providers: [
                             ViewerService,

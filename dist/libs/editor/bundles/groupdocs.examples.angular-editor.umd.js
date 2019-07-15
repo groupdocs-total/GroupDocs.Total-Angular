@@ -1301,6 +1301,11 @@
                             http.HttpClientModule,
                             angularFontawesome.FontAwesomeModule
                         ],
+                        exports: [
+                            CreateDocumentModalComponent,
+                            EditorAppComponent,
+                            commonComponents.CommonComponentsModule
+                        ],
                         providers: [
                             EditorService,
                             commonComponents.ConfigService,
@@ -1331,6 +1336,7 @@
         return EditorModule;
     }());
 
+    exports.CreateDocumentModalComponent = CreateDocumentModalComponent;
     exports.EditorAppComponent = EditorAppComponent;
     exports.EditorConfig = EditorConfig;
     exports.EditorConfigService = EditorConfigService;
@@ -1338,7 +1344,6 @@
     exports.EditorService = EditorService;
     exports.initializeApp = initializeApp;
     exports.setupLoadingInterceptor = setupLoadingInterceptor;
-    exports.ɵa = CreateDocumentModalComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

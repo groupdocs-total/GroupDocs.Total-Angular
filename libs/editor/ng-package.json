@@ -3,5 +3,13 @@
   "dest": "../../dist/libs/editor",
   "lib": {
     "entryFile": "src/index.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies" :[
+    "@groupdocs.examples.angular/common-components",
+    "@fortawesome/angular-fontawesome",
+    "@fortawesome/fontawesome-svg-core",
+    "@fortawesome/free-regular-svg-icons",
+    "@fortawesome/free-solid-svg-icons",
+    "jquery"
+  ]
 }
