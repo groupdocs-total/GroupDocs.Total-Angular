@@ -32,6 +32,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/dist/cypress
 
 # System Files
 .DS_Store
