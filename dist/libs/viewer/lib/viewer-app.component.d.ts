@@ -61,6 +61,7 @@ export declare class ViewerAppComponent implements AfterViewInit {
         value: number;
         name: string;
         separator: boolean;
+        prefix: string;
     }[];
     zoom: number;
     selectZoom($event: any): void;

@@ -1,0 +1,7 @@
+<div class="gd-tabs">
+  <div [ngClass]="(tab.active) ? 'gd-tab active' : 'gd-tab'" *ngFor="let tab of tabs" (mousedown)="selectTab(tab)">
+    <div class="title">{{tab.tabTitle}}</div>
+    <fa-icon [icon]="['fas',tab.icon]" [class]="'ng-fa-icon icon'"></fa-icon>
+  </div>
+</div>
+<ng-content></ng-content>

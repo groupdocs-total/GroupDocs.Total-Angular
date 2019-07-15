@@ -1,9 +1,9 @@
 <div class="select">
-  <span class="selected-value" gdDisabledCursor [dis]="disabled" (click)="toggle()">{{showSelected}}%</span>
-  <span class="nav-caret" gdDisabledCursor [dis]="disabled" (click)="toggle()"></span>
+  <span class="selected-value" gdDisabledCursor [dis]="disabled" (click)="toggle($event)">{{showSelected}}</span>
+  <span class="nav-caret" gdDisabledCursor [dis]="disabled" (click)="toggle($event)"></span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">
-      <div *ngIf="!option.separator" (click)="select(option.value)" class="option">{{option.name}}</div>
+      <div *ngIf="!option.separator" (click)="select($event, option.value, option.prefix)" class="option">{{option.name}}</div>
       <div *ngIf="option.separator" role="separator" class="dropdown-menu-separator"></div>
     </div>
   </div>

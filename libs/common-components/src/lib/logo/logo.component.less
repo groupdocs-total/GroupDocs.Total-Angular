@@ -1,19 +1,35 @@
+@import "./../../styles/variables";
+
 .logo {
-  background-color: #25c2d4;
-  height: 50px;
+  background-color: @nav-logo-background;
+  height: @nav-tabs-height-m;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.logo-text {
+.text {
   color: #FFFFFF;
   font-size: 15px;
   text-transform: uppercase;
   margin: 0px 14px;
 }
+.icon{
+  display: none;
+  font-size: 32px;
+  color: rgba(255,255,255,0.5);
+  margin: 14px;
+}
 
-@media (max-width: 1025px) {
+@media @phone-down {
   .logo {
-    height: 70px;
+    width: 60px;
+    height: @nav-tabs-height-m;
+    .text {
+      display: none;
+    }
+    .icon {
+      display: block;
+    }
   }
 }

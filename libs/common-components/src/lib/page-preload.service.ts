@@ -14,6 +14,8 @@ export class PagePreloadService {
   }
 
   changeLastPageInView(page: number) {
-    this._observer.next(page);
+    if(this._observer) {
+      this._observer.next(page);
+    }
   }
 }

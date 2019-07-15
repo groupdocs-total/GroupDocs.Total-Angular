@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/common-components",
-  "version": "0.2.0",
+  "version": "0.1.16",
   "description": "Common components for GroupDocs.Total Angular applications",
   "license": "MIT",
   "publishConfig": {
@@ -8,7 +8,12 @@
   },
   "peerDependencies": {
     "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0"
+    "@angular/core": "^8.0.0",
+    "@fortawesome/angular-fontawesome": "^0.4.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-regular-svg-icons": "^5.9.0",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "jquery": "^3.4.1"
   },
   "main": "bundles/groupdocs.examples.angular-common-components.umd.js",
   "module": "fesm5/groupdocs.examples.angular-common-components.js",

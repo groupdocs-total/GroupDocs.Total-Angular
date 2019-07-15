@@ -1,7 +1,7 @@
 {
   "extends": "../../tslint.json",
   "rules": {
-    "directive-selector": [true, "attribute", "totalAngular", "camelCase"],
-    "component-selector": [true, "element", "total-angular", "kebab-case"]
+    "directive-selector": [true, "attribute", "gd-total", "camelCase"],
+    "component-selector": [true, "element", "gd-total", "kebab-case"]
   }
 }

@@ -9,8 +9,10 @@ export class ButtonComponent {
 
   @Input() disabled = false;
   @Input() icon:string;
+  @Input() iconClass:string;
   @Input() tooltip:string;
   @Input() className: string;
+  @Input() toggle = false;
   showToolTip = false;
 
   constructor() { }

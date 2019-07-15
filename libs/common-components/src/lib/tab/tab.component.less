@@ -1,0 +1,19 @@
+@import "./../../styles/variables";
+
+.gd-editor-buttons {
+  ::ng-deep .toolbar-panel{
+    height: @nav-tabs-height-m;
+  }
+  height: @nav-tabs-height-m;
+  position: absolute;
+  background-color: #FFFFFF;
+  width: 100%;
+  left: 0;
+  line-height: @nav-tabs-height-m;
+  display: none;
+}
+
+.gd-editor-buttons.active {
+  display: flex;
+}
+

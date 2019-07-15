@@ -1,18 +1,22 @@
+@import "./../../styles/variables";
 .gd-modal-table {
   width: 100%;
   text-align: left;
   padding-top: 20px;
 }
 
+#gd-browse-section {
+  width: 1024px;
+  height: 628px;
+}
+
 .list-files-header {
   color: #ACACAC;
   font-size: 10px;
-  padding-left: 21px;
 }
-
-.header-size {
-  position: relative;
-  left: -24px;
+.header-size, .header-name {
+  padding: 10px 20px;
+  width: 90%;
 }
 
 .header-size, .file-size {
@@ -22,8 +26,8 @@
 
 .file-size, .file-description {
   font-size: 14px;
-  padding: 10px 6px;
-  margin-left: 12px;
+  padding: 10px 20px;
+  width: 10%;
 }
 
 .file-description {
@@ -70,11 +74,12 @@
 .upload-panel {
   display: flex;
   position: relative;
-  left: 20px;
+  padding: 20px 20px 0px 20px;
 }
 
 .file-description {
   display: flex;
+  width: 90%;
 }
 
 .file-description .ng-fa-icon.fa-file-pdf {
@@ -125,7 +130,7 @@
 .go-up-icon {
   width: 30px;
   height: 30px;
-  margin-left: 12px;
+  padding: 10px 20px;
 }
 
 .file-name {
@@ -169,26 +174,34 @@
   border-top: 1px solid #ccc;
 }
 
+.list-files-lines:hover{
+  background-color: @nav-accent-background;
+}
+
 .gd-dnd-wrap {
-  border: 2px dashed #ccc;
-  background-color: #f8f8f8;
+  background-color: #FFF;
   cursor: default;
   position: absolute;
-  width: 983px;
-  height: 626px;
+  width: inherit;
+  height: inherit;
   opacity: 0.9;
   z-index: 1;
-  left: 20px;
   display: flex;
   text-align: center;
   justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }
 
 .gd-dnd-wrap h2 {
   color: #959DA5;
   font-size: 15px;
   font-weight: 300;
-  margin-top: 50%;
+}
+
+.gd-drag-n-drop-icon .fa-cloud-download-alt {
+  color: #D1D1D1;
+  font-size: 110px;
 }
 
 @media (max-width: 1025px) {

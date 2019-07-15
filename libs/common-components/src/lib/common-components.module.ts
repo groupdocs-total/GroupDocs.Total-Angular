@@ -41,6 +41,19 @@ import {SearchableDirective} from './searchable.directive';
 import {SearchService} from "./search.service";
 import {WindowService} from "./window.service";
 import {ViewportService} from "./viewport.service";
+import {TabbedToolbarsComponent} from './tabbed-toolbars/tabbed-toolbars.component';
+import {TabComponent} from "./tab/tab.component";
+import {TabsComponent} from "./tabs/tabs.component";
+import {FormattingService} from "./formatting.service";
+import {ColorPickerComponent} from './color-picker/color-picker.component';
+import {FormattingDirective} from './formatting.directive';
+import {BackFormattingService} from "./back-formatting.service";
+import {OnCloseService} from "./on-close.service";
+import {SuccessModalComponent} from './success-modal/success-modal.component';
+import {EditorDirective} from './editor.directive';
+import {LoadingMaskComponent} from './loading-mask/loading-mask.component';
+import {LoadingMaskService} from './loading-mask.service';
+import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service";
 
 const providers = [ConfigService,
   Api,
@@ -62,7 +75,12 @@ const providers = [ConfigService,
   ErrorInterceptorService,
   SearchService,
   WindowService,
-  ViewportService];
+  ViewportService,
+  FormattingService,
+  BackFormattingService,
+  OnCloseService,
+  LoadingMaskInterceptorService,
+  LoadingMaskService];
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule],
@@ -93,6 +111,14 @@ const providers = [ConfigService,
     PasswordRequiredComponent,
     SearchComponent,
     SearchableDirective,
+    TabbedToolbarsComponent,
+    TabComponent,
+    TabsComponent,
+    ColorPickerComponent,
+    FormattingDirective,
+    SuccessModalComponent,
+    EditorDirective,
+    LoadingMaskComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -118,6 +144,13 @@ const providers = [ConfigService,
     PasswordRequiredComponent,
     SearchComponent,
     SearchableDirective,
+    TabbedToolbarsComponent,
+    TabComponent,
+    TabsComponent,
+    ColorPickerComponent,
+    FormattingDirective,
+    SuccessModalComponent,
+    LoadingMaskComponent
   ],
   providers: providers
 })

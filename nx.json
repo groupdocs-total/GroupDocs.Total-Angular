@@ -19,6 +19,9 @@
     },
     "common-components": {
       "tags": []
+    },
+    "editor": {
+      "tags": []
     }
   }
 }

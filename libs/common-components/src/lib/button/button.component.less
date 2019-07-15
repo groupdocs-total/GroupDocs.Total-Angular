@@ -1,8 +1,24 @@
 .button {
-  margin: 0px 15px;
+  margin: 0px 7px;
   font-size: 14px;
   color: #959da5;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 37px;
+  height: 36px;
+  text-align: center;
+  position: relative; 
+}
+
+.button.inactive{
+  cursor: not-allowed;
+  color: #CCC;
+}
+
+.button.active .ng-fa-icon{
+  color: #FFF;
 }
 
 @media (max-width: 1025px) {

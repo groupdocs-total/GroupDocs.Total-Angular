@@ -12,6 +12,7 @@ export declare class BrowseFilesModalComponent implements OnInit {
     selectedFileGuid: EventEmitter<string>;
     selectedDirectory: EventEmitter<string>;
     urlForUpload: EventEmitter<string>;
+    closing: EventEmitter<boolean>;
     private selectedFile;
     showUploadUrl: boolean;
     showUploadFile: boolean;

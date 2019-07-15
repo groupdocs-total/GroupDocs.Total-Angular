@@ -1,17 +1,16 @@
 import {Directive, EventEmitter, HostBinding, HostListener, Input, Output} from '@angular/core';
 import {UploadFilesService} from "./upload-files.service";
-import {isBlockScopeBoundary} from "tslint";
 
 @Directive({
   selector: '[gdDnd]'
 })
 export class DndDirective {
 
-  @Output() close = new EventEmitter<boolean>();
-  @Output() open = new EventEmitter<boolean>();
+  @Output() closing = new EventEmitter<boolean>();
+  @Output() opening = new EventEmitter<boolean>();
   @Input() isBackground = true;
 
-  @HostBinding('style.background') background = 'transparent';
+  @HostBinding('class.active') active = false;
 
   constructor(private _uploadFilesService: UploadFilesService) {
   }
@@ -21,9 +20,9 @@ export class DndDirective {
     evt.preventDefault();
     evt.stopPropagation();
     if (this.isBackground) {
-      this.background = '#999';
+      this.active = false;
     } else {
-      this.open.emit(true);
+      this.opening.emit(true);
     }
   }
 
@@ -32,10 +31,9 @@ export class DndDirective {
     evt.preventDefault();
     evt.stopPropagation();
     if (this.isBackground) {
-      this.background = '#f8f8f8';
+      this.active = true;
     } else {
-      // TODO: fix blinking
-      //this.open.emit(false);
+      this.closeArea();
     }
   }
 
@@ -45,10 +43,19 @@ export class DndDirective {
     evt.stopPropagation();
     const files = evt.dataTransfer.files;
     if (files.length > 0) {
-      this.background = '#f8f8f8';
+      this.active = true;
       this._uploadFilesService.changeFilesList(files);
-      this.close.emit(true);
-      this.open.emit(false);
+      this.closeArea();
     }
+  }
+
+  @HostListener('click', ['$event'])
+  public onClick(event) {
+    this.closeArea();
+  }
+
+  private closeArea() {
+    this.closing.emit(true);
+    this.opening.emit(false);
   }
 }

@@ -1,0 +1,23 @@
+@import "./../../styles/variables";
+
+
+.top-panel {
+  background: @nav-main-background ;
+  display: flex;
+  width: 100%;
+  height: @editor-nav-height;
+
+  ::ng-deep .logo{
+    height: @nav-tabs-height;
+    font-size: 16px;
+  }
+}
+
+@media @phone-down{
+  .top-panel {
+    height: @nav-tabs-height-m;
+    ::ng-deep .logo{
+      height: @nav-tabs-height-m;
+    }
+  }
+}

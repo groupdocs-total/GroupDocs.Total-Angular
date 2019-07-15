@@ -14,12 +14,17 @@ export class PageComponent implements OnInit, OnChanges {
   @Input() number: number;
   @Input() data: string;
   @Input() isHtml: boolean;
+  @Input() editable: boolean;
   imgData: string;
 
   constructor() {
   }
 
   ngOnInit() {
+    const isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    if(isIE && this.number === 0){
+      this.editable = false;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
