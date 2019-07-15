@@ -1077,6 +1077,11 @@ EditorModule.decorators = [
                     HttpClientModule,
                     FontAwesomeModule
                 ],
+                exports: [
+                    CreateDocumentModalComponent,
+                    EditorAppComponent,
+                    CommonComponentsModule
+                ],
                 providers: [
                     EditorService,
                     ConfigService,
@@ -1105,5 +1110,5 @@ EditorModule.decorators = [
 /** @nocollapse */
 EditorModule.ctorParameters = () => [];
 
-export { EditorAppComponent, EditorConfig, EditorConfigService, EditorModule, EditorService, initializeApp, setupLoadingInterceptor, CreateDocumentModalComponent as ɵa };
+export { CreateDocumentModalComponent, EditorAppComponent, EditorConfig, EditorConfigService, EditorModule, EditorService, initializeApp, setupLoadingInterceptor };
 //# sourceMappingURL=groupdocs.examples.angular-editor.js.map

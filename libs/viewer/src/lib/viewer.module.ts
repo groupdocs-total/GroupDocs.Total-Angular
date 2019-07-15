@@ -14,11 +14,18 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
 }
 
 @NgModule({
-  declarations: [ViewerAppComponent, ThumbnailsComponent],
+  declarations: [
+    ViewerAppComponent,
+    ThumbnailsComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule
+  ],
+  exports : [
+    ViewerAppComponent,
+    ThumbnailsComponent,
+    CommonComponentsModule
   ],
   providers: [
     ViewerService,

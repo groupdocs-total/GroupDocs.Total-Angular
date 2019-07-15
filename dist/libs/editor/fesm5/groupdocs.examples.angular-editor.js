@@ -1281,6 +1281,11 @@ var EditorModule = /** @class */ (function () {
                         HttpClientModule,
                         FontAwesomeModule
                     ],
+                    exports: [
+                        CreateDocumentModalComponent,
+                        EditorAppComponent,
+                        CommonComponentsModule
+                    ],
                     providers: [
                         EditorService,
                         ConfigService,
@@ -1311,5 +1316,5 @@ var EditorModule = /** @class */ (function () {
     return EditorModule;
 }());
 
-export { EditorAppComponent, EditorConfig, EditorConfigService, EditorModule, EditorService, initializeApp, setupLoadingInterceptor, CreateDocumentModalComponent as ɵa };
+export { CreateDocumentModalComponent, EditorAppComponent, EditorConfig, EditorConfigService, EditorModule, EditorService, initializeApp, setupLoadingInterceptor };
 //# sourceMappingURL=groupdocs.examples.angular-editor.js.map

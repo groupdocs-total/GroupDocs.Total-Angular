@@ -859,11 +859,19 @@ class ViewerModule {
 }
 ViewerModule.decorators = [
     { type: NgModule, args: [{
-                declarations: [ViewerAppComponent, ThumbnailsComponent],
+                declarations: [
+                    ViewerAppComponent,
+                    ThumbnailsComponent
+                ],
                 imports: [
                     BrowserModule,
                     CommonComponentsModule,
                     HttpClientModule
+                ],
+                exports: [
+                    ViewerAppComponent,
+                    ThumbnailsComponent,
+                    CommonComponentsModule
                 ],
                 providers: [
                     ViewerService,

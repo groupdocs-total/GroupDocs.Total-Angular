@@ -36,6 +36,11 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     HttpClientModule,
     FontAwesomeModule
   ],
+  exports : [
+    CreateDocumentModalComponent,
+    EditorAppComponent,
+    CommonComponentsModule
+  ],
   providers: [
     EditorService,
     ConfigService,
