@@ -2,8 +2,8 @@ import { EventEmitter } from '@angular/core';
 import { UploadFilesService } from "./upload-files.service";
 export declare class DndDirective {
     private _uploadFilesService;
-    close: EventEmitter<boolean>;
-    open: EventEmitter<boolean>;
+    closing: EventEmitter<boolean>;
+    opening: EventEmitter<boolean>;
     isBackground: boolean;
     background: string;
     constructor(_uploadFilesService: UploadFilesService);
