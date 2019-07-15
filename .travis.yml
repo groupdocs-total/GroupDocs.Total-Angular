@@ -26,7 +26,8 @@ matrix:
         hosts:
           - localhost
       language: java
-      script: 
+      script:
+        - git fetch origin master
         - npm install -g @angular/cli
         - git clone https://github.com/groupdocs-total/$BACKEND_REPO
         - cd $BACKEND_REPO
@@ -44,7 +45,8 @@ matrix:
         hosts:
           - localhost
       language: java
-      script: 
+      script:
+        - git fetch origin master
         - npm install -g @angular/cli
         - git clone https://github.com/groupdocs-total/$BACKEND_REPO
         - cd $BACKEND_REPO
