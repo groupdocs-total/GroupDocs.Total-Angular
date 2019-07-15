@@ -1,3 +1,4 @@
+@import "./../../styles/variables";
 .gd-modal-table {
   width: 100%;
   text-align: left;
@@ -6,7 +7,7 @@
 
 #gd-browse-section {
   width: 1024px;
-  height: 728px;
+  height: 628px;
 }
 
 .list-files-header {
@@ -14,7 +15,7 @@
   font-size: 10px;
 }
 .header-size, .header-name {
-  padding: 0px 6px;
+  padding: 10px 20px;
   width: 90%;
 }
 
@@ -25,7 +26,7 @@
 
 .file-size, .file-description {
   font-size: 14px;
-  padding: 10px 6px;
+  padding: 10px 20px;
   width: 10%;
 }
 
@@ -73,6 +74,7 @@
 .upload-panel {
   display: flex;
   position: relative;
+  padding: 20px 20px 0px 20px;
 }
 
 .file-description {
@@ -128,6 +130,7 @@
 .go-up-icon {
   width: 30px;
   height: 30px;
+  padding: 10px 20px;
 }
 
 .file-name {
@@ -171,16 +174,18 @@
   border-top: 1px solid #ccc;
 }
 
+.list-files-lines:hover{
+  background-color: @nav-accent-background;
+}
+
 .gd-dnd-wrap {
-  border: 2px dashed #ccc;
-  background-color: #f8f8f8;
+  background-color: #FFF;
   cursor: default;
   position: absolute;
-  width: 983px;
-  height: 626px;
+  width: inherit;
+  height: inherit;
   opacity: 0.9;
   z-index: 1;
-  left: 20px;
   display: flex;
   text-align: center;
   justify-content: center;
