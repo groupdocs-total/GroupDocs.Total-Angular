@@ -71,7 +71,7 @@ matrix:
         - echo "releasing fix"
         - npm install -g npx
         - npm install
-        - npm run affected:build
+        - npm run build
         - git add dist
         - git commit -am "Build new version" || true
         - git status
@@ -92,7 +92,7 @@ matrix:
         - echo "releasing minor update"
         - npm install -g npx
         - npm install
-        - npm run affected:build
+        - npm run build
         - git add dist
         - git commit -am "Build new version" || true
         - git status
