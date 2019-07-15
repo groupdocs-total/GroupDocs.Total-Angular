@@ -1130,18 +1130,6 @@
         function () { return viewerConfigService.load(); });
         return result;
     }
-    /**
-     * @param {?} service
-     * @return {?}
-     */
-    function setupLoadingInterceptor(service) {
-        /** @type {?} */
-        var result = (/**
-         * @return {?}
-         */
-        function () { return new commonComponents.LoadingMaskInterceptorService(service); });
-        return result;
-    }
     var ViewerModule = /** @class */ (function () {
         function ViewerModule() {
         }
@@ -1166,13 +1154,6 @@
                                 provide: core.APP_INITIALIZER,
                                 useFactory: initializeApp,
                                 deps: [ViewerConfigService], multi: true
-                            },
-                            commonComponents.LoadingMaskService,
-                            {
-                                provide: http.HTTP_INTERCEPTORS,
-                                useFactory: setupLoadingInterceptor,
-                                multi: true,
-                                deps: [commonComponents.LoadingMaskService]
                             }
                         ]
                     },] }
@@ -1185,7 +1166,6 @@
     exports.ViewerModule = ViewerModule;
     exports.ViewerService = ViewerService;
     exports.initializeApp = initializeApp;
-    exports.setupLoadingInterceptor = setupLoadingInterceptor;
     exports.ɵa = ThumbnailsComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });

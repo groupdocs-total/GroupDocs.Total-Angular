@@ -1259,17 +1259,14 @@ function initializeApp(editorConfigService) {
     function () { return editorConfigService.load(); });
     return result;
 }
+// NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
+// @dynamic
 /**
  * @param {?} service
  * @return {?}
  */
 function setupLoadingInterceptor(service) {
-    /** @type {?} */
-    var result = (/**
-     * @return {?}
-     */
-    function () { return new LoadingMaskInterceptorService(service); });
-    return result;
+    return new LoadingMaskInterceptorService(service);
 }
 var EditorModule = /** @class */ (function () {
     function EditorModule() {
@@ -1291,7 +1288,8 @@ var EditorModule = /** @class */ (function () {
                         {
                             provide: APP_INITIALIZER,
                             useFactory: initializeApp,
-                            deps: [EditorConfigService], multi: true
+                            deps: [EditorConfigService],
+                            multi: true
                         },
                         {
                             provide: HTTP_INTERCEPTORS,

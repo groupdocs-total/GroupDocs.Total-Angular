@@ -13,7 +13,8 @@
     "@fortawesome/angular-fontawesome": "^0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-regular-svg-icons": "^5.9.0",
-    "@fortawesome/free-solid-svg-icons": "^5.9.0"
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "jquery": "^3.4.1"
   },
   "main": "bundles/groupdocs.examples.angular-viewer.umd.js",
   "module": "fesm5/groupdocs.examples.angular-viewer.js",

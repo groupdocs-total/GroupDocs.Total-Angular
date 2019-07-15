@@ -22,9 +22,10 @@ export function initializeApp(editorConfigService: EditorConfigService) {
   return result;
 }
 
+// NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
+// @dynamic
 export function setupLoadingInterceptor(service: LoadingMaskService) {
-  const result =  () => new LoadingMaskInterceptorService(service);
-  return result;
+  return new LoadingMaskInterceptorService(service);
 }
 
 @NgModule({
@@ -42,7 +43,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
-      deps: [EditorConfigService], multi: true
+      deps: [EditorConfigService],
+      multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,

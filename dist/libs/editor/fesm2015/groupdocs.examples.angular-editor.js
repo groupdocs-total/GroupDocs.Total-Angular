@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, EventEmitter, Input, Output, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Api, ConfigService, CommonModals, Formatting, FormattingService, FileDescription, PageModel, FileCredentials, SaveFile, ModalService, UploadFilesService, PasswordService, WindowService, BackFormattingService, OnCloseService, SelectionService, EditHtmlService, RenderPrintService, LoadingMaskService, ExceptionMessageService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, Formatting, FormattingService, FileDescription, PageModel, FileCredentials, SaveFile, ModalService, UploadFilesService, PasswordService, WindowService, BackFormattingService, OnCloseService, SelectionService, EditHtmlService, RenderPrintService, LoadingMaskService, ExceptionMessageService, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
 import * as jquery from 'jquery';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -1054,17 +1054,14 @@ function initializeApp(editorConfigService) {
     () => editorConfigService.load());
     return result;
 }
+// NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
+// @dynamic
 /**
  * @param {?} service
  * @return {?}
  */
 function setupLoadingInterceptor(service) {
-    /** @type {?} */
-    const result = (/**
-     * @return {?}
-     */
-    () => new LoadingMaskInterceptorService(service));
-    return result;
+    return new LoadingMaskInterceptorService(service);
 }
 class EditorModule {
     constructor() {
@@ -1087,7 +1084,8 @@ EditorModule.decorators = [
                     {
                         provide: APP_INITIALIZER,
                         useFactory: initializeApp,
-                        deps: [EditorConfigService], multi: true
+                        deps: [EditorConfigService],
+                        multi: true
                     },
                     {
                         provide: HTTP_INTERCEPTORS,

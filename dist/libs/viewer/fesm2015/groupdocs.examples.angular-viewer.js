@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService, LoadingMaskInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
 
 /**
@@ -855,18 +855,6 @@ function initializeApp(viewerConfigService) {
     () => viewerConfigService.load());
     return result;
 }
-/**
- * @param {?} service
- * @return {?}
- */
-function setupLoadingInterceptor(service) {
-    /** @type {?} */
-    const result = (/**
-     * @return {?}
-     */
-    () => new LoadingMaskInterceptorService(service));
-    return result;
-}
 class ViewerModule {
 }
 ViewerModule.decorators = [
@@ -890,17 +878,10 @@ ViewerModule.decorators = [
                         provide: APP_INITIALIZER,
                         useFactory: initializeApp,
                         deps: [ViewerConfigService], multi: true
-                    },
-                    LoadingMaskService,
-                    {
-                        provide: HTTP_INTERCEPTORS,
-                        useFactory: setupLoadingInterceptor,
-                        multi: true,
-                        deps: [LoadingMaskService]
                     }
                 ]
             },] }
 ];
 
-export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, ThumbnailsComponent as ɵa };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map

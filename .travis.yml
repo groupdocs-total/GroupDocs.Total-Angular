@@ -36,6 +36,7 @@ matrix:
         - cd ..
         - npm install
         - npm run e2e --headless
+        - npm run affected:build
         - npm run lint
     - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
       os: linux
@@ -53,6 +54,7 @@ matrix:
         - cd ..
         - npm install
         - npm run e2e
+        - npm run affected:build
         - npm run lint
     - stage: Release fix
       dist: trusty

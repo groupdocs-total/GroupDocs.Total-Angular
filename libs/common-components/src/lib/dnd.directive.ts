@@ -6,8 +6,8 @@ import {UploadFilesService} from "./upload-files.service";
 })
 export class DndDirective {
 
-  @Output() closing = new EventEmitter<boolean>();
-  @Output() opening = new EventEmitter<boolean>();
+  @Output() close = new EventEmitter<boolean>();
+  @Output() open = new EventEmitter<boolean>();
   @Input() isBackground = true;
 
   @HostBinding('style.background') background = 'transparent';
@@ -22,7 +22,7 @@ export class DndDirective {
     if (this.isBackground) {
       this.background = '#999';
     } else {
-      this.opening.emit(true);
+      this.open.emit(true);
     }
   }
 
@@ -55,7 +55,7 @@ export class DndDirective {
   }
 
   private closeArea() {
-    this.closing.emit(true);
-    this.opening.emit(false);
+    this.close.emit(true);
+    this.open.emit(false);
   }
 }
