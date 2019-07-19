@@ -80,7 +80,7 @@
               "apps/total-angular/tsconfig.app.json",
               "apps/total-angular/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/total-angular/**"]
+            "exclude": ["**/node_modules/**/*", "!apps/total-angular/**"]
           }
         },
         "test": {
@@ -119,7 +119,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/total-angular-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**", "!apps/total-angular-e2e/**"]
+            "exclude": ["**/node_modules/**/*", "!apps/total-angular-e2e/**"]
           }
         }
       }
@@ -144,7 +144,7 @@
               "libs/viewer/tsconfig.lib.json",
               "libs/viewer/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/viewer/**"]
+            "exclude": ["**/node_modules/**/*", "!libs/viewer/**"]
           }
         },
         "test": {
@@ -182,7 +182,7 @@
               "libs/common-components/tsconfig.lib.json",
               "libs/common-components/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/common-components/**"]
+            "exclude": ["**/node_modules/**/*", "!libs/common-components/**"]
           }
         },
         "test": {
@@ -220,7 +220,7 @@
               "libs/editor/tsconfig.lib.json",
               "libs/editor/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/editor/**"]
+            "exclude": ["**/node_modules/**/*", "!libs/editor/**"]
           }
         },
         "test": {
