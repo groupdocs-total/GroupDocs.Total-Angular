@@ -477,6 +477,7 @@
         }
         Api.VIEWER_APP = '/viewer';
         Api.EDITOR_APP = '/editor';
+        Api.COMPARISON_APP = '/comparison';
         Api.DEFAULT_API_ENDPOINT = window.location.href;
         Api.LOAD_FILE_TREE = '/loadFileTree';
         Api.LOAD_CONFIG = '/loadConfig';
@@ -552,6 +553,15 @@
          */
         function () {
             return this._apiEndpoint.trim().endsWith(Api.EDITOR_APP) ? this._apiEndpoint : this._apiEndpoint + Api.EDITOR_APP;
+        };
+        /**
+         * @return {?}
+         */
+        ConfigService.prototype.getComparisonApiEndpoint = /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.EDITOR_APP;
         };
         ConfigService.decorators = [
             { type: core.Injectable }

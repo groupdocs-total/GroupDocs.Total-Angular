@@ -2,6 +2,7 @@ import { HttpHeaders } from "@angular/common/http";
 export declare class Api {
     static VIEWER_APP: string;
     static EDITOR_APP: string;
+    static COMPARISON_APP: string;
     static DEFAULT_API_ENDPOINT: string;
     static LOAD_FILE_TREE: string;
     static LOAD_CONFIG: string;
@@ -30,4 +31,5 @@ export declare class ConfigService {
     getConfigEndpoint(app: any): string;
     getViewerApiEndpoint(): string;
     getEditorApiEndpoint(): string;
+    getComparisonApiEndpoint(): string;
 }

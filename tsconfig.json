@@ -21,7 +21,8 @@
         "dist/libs/common-components",
         "libs/common-components/src/index.ts"
       ],
-      "@groupdocs.examples.angular/editor": ["libs/editor/src/index.ts"]
+      "@groupdocs.examples.angular/editor": ["libs/editor/src/index.ts"],
+      "@groupdocs.examples.angular/comparison": ["libs/comparison/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
