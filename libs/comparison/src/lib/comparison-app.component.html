@@ -1,14 +1,19 @@
 <div class="wrapper">
-  <div class="top-panel">
-    <gd-logo [logo]="'comparison'" icon="eye"></gd-logo>
-    <gd-top-toolbar class="toolbar-panel">
-      <gd-button [icon]="'play'" [tooltip]="'Compare'" ></gd-button>
-      <gd-button [icon]="'download'" [tooltip]="'Download'" ></gd-button>
-      <gd-button [icon]="'upload'" [tooltip]="'Upload'" ></gd-button>
-      <gd-button [icon]="'save'" [tooltip]="'Save'" ></gd-button>
-      
-      <gd-button class="plus-button" [icon]="'plus'" [tooltip]="'Add'" ></gd-button>
-    </gd-top-toolbar>
+  <div class="row">
+    <div class="column">
+      <div class="top-panel">
+        <gd-logo [logo]="'comparison'" icon="eye"></gd-logo>
+        <gd-top-toolbar class="toolbar-panel">
+          <gd-button [icon]="'play'" [tooltip]="'Compare'" ></gd-button>
+          <gd-button [icon]="'download'" [tooltip]="'Download'" ></gd-button>
+          <gd-button [icon]="'upload'" [tooltip]="'Upload'" ></gd-button>
+          <gd-button [icon]="'save'" [tooltip]="'Save'" ></gd-button>
+        </gd-top-toolbar>
+      </div>
+      <gd-init-state [icon]="'eye'" [text]="''" *ngIf="true"></gd-init-state>
+    </div>
+    <gd-side-panel [title]="'Differences'" [icon]="'info-circle'">
+      <gd-logo [logo]="'comparison'" icon="eye"></gd-logo>
+    </gd-side-panel>
   </div>
-  <gd-side-panel></gd-side-panel>
 </div>
