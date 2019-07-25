@@ -15,6 +15,7 @@ import {
   LoadingMaskInterceptorService
 } from "@groupdocs.examples.angular/common-components";
 import {ComparisonConfigService} from "./comparison-config.service";
+import { AddFilePanelComponent } from './add-file-panel/add-file-panel.component';
 
 export function initializeApp(comparisonConfigService: ComparisonConfigService) {
   const result =  () => comparisonConfigService.load();
@@ -28,7 +29,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations :[ComparisonAppComponent],
+  declarations :[ComparisonAppComponent, AddFilePanelComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
