@@ -1,1 +1,10 @@
-
+<div class="wrapper">
+  <div class="upload-wrapper" *ngIf="isEmpty()">
+    <gd-button [icon]="'arrow-right'" [tooltip]="'Upload file'" (click)="url ? uploadUrl(url.value) : ''" [disabled]="uploadDisabled" ></gd-button>
+    <input class="url-input" #url (keyup)="checkDisabled(url.value)" (keyup.enter)="uploadUrl(url.value)" placeholder="http://">
+  </div>
+  <fa-icon *ngIf="!isEmpty()" [icon]="['fas',getFormatIcon()]" [class]="'ng-fa-icon fa-' + getFormatIcon()"></fa-icon>
+  <span *ngIf="!isEmpty()" class="compare-file-name">{{fileName}}</span>
+  <gd-button [icon]="'folder-open'" [tooltip]="'Open file'" (click)="openModal()" *ngIf="isEmpty()"></gd-button>
+  <gd-button [icon]="'times'" [tooltip]="'Close file'" (click)="cleanFile()" *ngIf="!isEmpty()"></gd-button>
+</div>

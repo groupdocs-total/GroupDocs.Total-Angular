@@ -2,12 +2,12 @@
   <div class="gd-drag-n-drop-icon">
     <fa-icon [icon]="['fas','cloud-download-alt']" size="5x"></fa-icon>
   </div>
-  <h2>Drag &amp; Drop your files here</h2> 
-  <h4>OR</h4> 
-  <div class="gd-drag-n-drop-buttons"> 
+  <h2>Drag &amp; Drop your files here</h2>
+  <h4>OR</h4>
+  <div class="gd-drag-n-drop-buttons">
     <label class="btn btn-primary"> 
       <fa-icon [icon]="['fas','file']"></fa-icon>
-      SELECT FILE 
+      SELECT FILE
       <input id="gd-upload-input" type="file" multiple style="display: none;" (change)="handleFileInput($event.target.files)">
       </label>
   </div>

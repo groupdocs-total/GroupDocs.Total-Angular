@@ -1,3 +1,39 @@
+<!--<gd-loading-mask></gd-loading-mask>-->
 <div class="wrapper">
-  comparison
+  <div class="top-panel">
+    <gd-logo [logo]="'comparison'" icon="eye"></gd-logo>
+    <gd-top-toolbar class="toolbar-panel">
+      <gd-button [icon]="'play'" [tooltip]="'Compare'"></gd-button>
+      <gd-button [icon]="'download'" [tooltip]="'Download'"></gd-button>
+      <gd-button [icon]="'upload'" [tooltip]="'Upload'"></gd-button>
+      <gd-button [icon]="'save'" [tooltip]="'Save'"></gd-button>
+    </gd-top-toolbar>
+  </div>
+  <div class="open-file-panel">
+    <gd-add-file-panel class="compare-file" [fileName]="firstFileName" [panel]="first"
+                       (active)="activePanel = $event" (urlForUpload)="upload($event)" (cleanPanel)="clearData(first)"></gd-add-file-panel>
+    <gd-add-file-panel class="compare-file" [fileName]="secondFileName" [panel]="second"
+                       (active)="activePanel = $event" (urlForUpload)="upload($event)" (cleanPanel)="clearData(second)"></gd-add-file-panel>
+  </div>
+  <div class="files-panel">
+    <div class="compare-file upload-compare-file">
+      <gd-upload-file-panel class="upload-compare-file" [panel]="first" (active)="activePanel = $event"
+                            *ngIf="!firstFileName && !loadingFirstPanel"></gd-upload-file-panel>
+      <div class="upload-compare-file" *ngIf="loadingFirstPanel">
+        <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
+        <span>Loading... Please wait.</span>
+      </div>
+    </div>
+    <div class="compare-file upload-compare-file" gdDnd>
+      <gd-upload-file-panel class="upload-compare-file" [panel]="second" (active)="activePanel = $event"
+                            *ngIf="!secondFileName && !loadingSecondPanel"></gd-upload-file-panel>
+      <div class="upload-compare-file" *ngIf="loadingSecondPanel">
+        <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
+        <span>Loading... Please wait.</span>
+      </div>
+    </div>
+  </div>
+  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+                         (selectedFileGuid)="selectFile($event, null, browseFilesModal, activePanel)"></gd-browse-files-modal>
+  <gd-error-modal></gd-error-modal>
 </div>

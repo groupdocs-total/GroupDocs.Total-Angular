@@ -8,7 +8,7 @@ export class DndDirective {
 
   @Output() closing = new EventEmitter<boolean>();
   @Output() opening = new EventEmitter<boolean>();
-  @Input() isBackground = true;
+  @Output() dropped = new EventEmitter<boolean>();
 
   @HostBinding('class.active') active = false;
 
@@ -19,22 +19,16 @@ export class DndDirective {
   public onDragOver(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    if (this.isBackground) {
-      this.active = false;
-    } else {
-      this.opening.emit(true);
-    }
+    this.active = true;
+    this.opening.emit(true);
   }
 
   @HostListener('dragleave', ['$event'])
   public onDragLeave(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    if (this.isBackground) {
-      this.active = true;
-    } else {
-      this.closeArea();
-    }
+    this.active = false;
+    this.closeArea();
   }
 
   @HostListener('drop', ['$event'])
@@ -43,7 +37,8 @@ export class DndDirective {
     evt.stopPropagation();
     const files = evt.dataTransfer.files;
     if (files.length > 0) {
-      this.active = true;
+      this.active = false;
+      this.dropped.emit(true);
       this._uploadFilesService.changeFilesList(files);
       this.closeArea();
     }
