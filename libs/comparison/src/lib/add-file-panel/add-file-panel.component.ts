@@ -67,6 +67,8 @@ export class AddFilePanelComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.fileName) {
       this.state = States.Opened;
+    } else {
+      this.state = States.Empty;
     }
   }
 }
