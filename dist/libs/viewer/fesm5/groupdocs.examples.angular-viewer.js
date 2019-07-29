@@ -176,27 +176,12 @@ var ViewerConfig = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-/** @type {?} */
-var environment = {
-    production: false,
-    name: 'dev',
-    apiUrl: 'http://localhost:8080/',
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 var ViewerConfigService = /** @class */ (function () {
     function ViewerConfigService(_http, _config) {
         this._http = _http;
         this._config = _config;
         this._viewerConfig = new BehaviorSubject(new ViewerConfig());
         this._updatedConfig = this._viewerConfig.asObservable();
-        _config.apiEndpoint = environment.apiUrl;
     }
     Object.defineProperty(ViewerConfigService.prototype, "updatedConfig", {
         get: /**
@@ -1108,6 +1093,20 @@ function initializeApp(viewerConfigService) {
 var ViewerModule = /** @class */ (function () {
     function ViewerModule() {
     }
+    /**
+     * @param {?} apiEndpoint
+     * @return {?}
+     */
+    ViewerModule.forRoot = /**
+     * @param {?} apiEndpoint
+     * @return {?}
+     */
+    function (apiEndpoint) {
+        Api.DEFAULT_API_ENDPOINT = apiEndpoint;
+        return {
+            ngModule: ViewerModule
+        };
+    };
     ViewerModule.decorators = [
         { type: NgModule, args: [{
                     declarations: [
