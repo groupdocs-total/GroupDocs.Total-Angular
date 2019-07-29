@@ -5,7 +5,7 @@ import {
   FileCredentials,
   FileDescription,
   FileModel,
-  ModalService, PageModel, UploadFilesService
+  ModalService, PageModel, PagePreloadService, UploadFilesService
 } from "@groupdocs.examples.angular/common-components";
 import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
@@ -37,13 +37,22 @@ export class ComparisonAppComponent {
   secondFileName: string = undefined;
   loadingFirstPanel = false;
   loadingSecondPanel = false;
+  countPages = 0;
 
   constructor(private _comparisonService: ComparisonService,
               private configService: ComparisonConfigService,
               uploadFilesService: UploadFilesService,
+              pagePreloadService: PagePreloadService,
               private _modalService: ModalService) {
     configService.updatedConfig.subscribe((config) => {
       this.comparisonConfig = config;
+    });
+
+    pagePreloadService.checkPreload.subscribe((page: number) => {
+      if (this.comparisonConfig.preloadPageCount !== 0) {
+        this.checkPreload(this.first, page);
+        this.checkPreload(this.second, page);
+      }
     });
 
     uploadFilesService.uploadsChange.subscribe((uploads) => {
@@ -54,6 +63,7 @@ export class ComparisonAppComponent {
         for (i = 0; i < uploads.length; i++) {
           this._comparisonService.upload(uploads.item(i), '', this.rewriteConfig).subscribe((obj: FileCredentials) => {
             this.getFile(obj.guid, '', active);
+            this.selectDir('');
           });
         }
       }
@@ -73,12 +83,27 @@ export class ComparisonAppComponent {
   }
 
   selectDir($event: string) {
-    this._comparisonService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
+    this._comparisonService.loadFiles($event).subscribe((files: FileModel[]) => {
+      let nameExt: string;
+      if (this.credentials.get(this.first)) {
+        nameExt = this.credentials.get(this.first).guid.split('.').pop();
+      } else if (this.credentials.get(this.second)) {
+        nameExt = this.credentials.get(this.second).guid.split('.').pop();
+      }
+
+      if (nameExt) {
+        files = files.filter(function (value) {
+          return value.directory || value.guid.split('.').pop() == nameExt;
+        });
+      }
+      this.files = files || [];
+    });
   }
 
   selectFile($event: string, password: string, modalId: string, param: string) {
     this.setLoading(param, true);
     this.getFile($event, password, param);
+    this.selectDir('');
     this._modalService.close(modalId);
     this.clearData(param);
   }
@@ -90,15 +115,20 @@ export class ComparisonAppComponent {
         this.file.set(param, file);
         if (file) {
           const preloadPageCount = this.comparisonConfig.preloadPageCount;
-          const countPages = file.pages ? file.pages.length : 0;
+          this.countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
-            this.preloadPages(param, 1, preloadPageCount > countPages ? countPages : preloadPageCount);
+            this.preloadPages(param, 1, preloadPageCount > this.countPages ? this.countPages : preloadPageCount);
           }
         }
         this.updateFileNames();
         this.setLoading(param, false);
       }
     );
+  }
+
+  clearFile(param: string) {
+    this.clearData(param);
+    this.credentials.delete(param);
   }
 
   private clearData(param) {
@@ -142,5 +172,16 @@ export class ComparisonAppComponent {
   getFirstFileName() {
     const fileCredentials = this.credentials ? this.credentials.get(this.first) : undefined;
     return fileCredentials ? fileCredentials.guid.replace(/^.*[\\\/]/, '') : '';
+  }
+
+  private checkPreload(panel: string, page: number) {
+    if (!this.file.get(panel)) {
+      return
+    }
+    for (let i = page; i < page + 2; i++) {
+      if (i > 0 && i <= this.countPages && !this.file.get(panel).pages[i - 1].data) {
+        this.preloadPages(panel, i, i);
+      }
+    }
   }
 }
