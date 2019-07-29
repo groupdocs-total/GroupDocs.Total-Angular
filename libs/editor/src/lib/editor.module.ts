@@ -16,7 +16,6 @@ import {
   LoadingMaskInterceptorService, Api
 } from '@groupdocs.examples.angular/common-components';
 import {EditorConfigService} from "./editor-config.service";
-import { ViewerConfigService, ViewerService } from '@groupdocs.examples.angular/viewer';
 
 export function initializeApp(editorConfigService: EditorConfigService) {
   const result =  () => editorConfigService.load();

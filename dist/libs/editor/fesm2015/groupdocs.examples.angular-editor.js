@@ -96,20 +96,6 @@ class EditorConfig {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-/** @type {?} */
-const environment = {
-    production: false,
-    name: 'dev',
-    apiUrl: 'http://localhost:8080',
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 class EditorConfigService {
     /**
      * @param {?} _http
@@ -120,7 +106,6 @@ class EditorConfigService {
         this._config = _config;
         this._editorConfig = new BehaviorSubject(new EditorConfig());
         this._updatedConfig = this._editorConfig.asObservable();
-        _config.apiEndpoint = environment.apiUrl;
     }
     /**
      * @return {?}
@@ -1066,6 +1051,16 @@ function setupLoadingInterceptor(service) {
 class EditorModule {
     constructor() {
         library.add(fas, far);
+    }
+    /**
+     * @param {?} apiEndpoint
+     * @return {?}
+     */
+    static forRoot(apiEndpoint) {
+        Api.DEFAULT_API_ENDPOINT = apiEndpoint;
+        return {
+            ngModule: EditorModule
+        };
     }
 }
 EditorModule.decorators = [

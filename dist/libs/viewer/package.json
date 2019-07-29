@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/viewer",
-  "version": "0.2.4",
+  "version": "0.1.20",
   "description": "Angular application that allows to display and manipulate documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {
@@ -11,11 +11,11 @@
     "@angular/core": "^8.0.0"
   },
   "dependencies": {
+    "@groupdocs.examples.angular/common-components": "latest",
     "@fortawesome/angular-fontawesome": "^0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-regular-svg-icons": "^5.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "@groupdocs.examples.angular/common-components": "latest",
     "jquery": "^3.4.1",
     "tslib": "^1.9.0"
   },
