@@ -1,8 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ViewerAppComponent} from './viewer-app.component';
-import {CommonComponentsModule, ErrorInterceptorService} from "@groupdocs.examples.angular/common-components";
+import { Api, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -44,4 +44,10 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
   ]
 })
 export class ViewerModule {
+  static forRoot(apiEndpoint : string): ModuleWithProviders {
+    Api.DEFAULT_API_ENDPOINT = apiEndpoint
+    return {
+      ngModule: ViewerModule
+    };
+  }
 }
