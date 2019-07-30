@@ -1,6 +1,7 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TopToolbarComponent} from './top-toolbar/top-toolbar.component';
+import {SidePanelComponent} from './side-panel/side-panel.component';
 import {ButtonComponent} from './button/button.component';
 import {LogoComponent} from './logo/logo.component';
 import {TooltipComponent} from './tooltip/tooltip.component';
@@ -86,6 +87,7 @@ const providers = [ConfigService,
   imports: [CommonModule, FontAwesomeModule],
   declarations: [
     TopToolbarComponent,
+    SidePanelComponent,
     ButtonComponent,
     LogoComponent,
     TooltipComponent,
@@ -122,6 +124,7 @@ const providers = [ConfigService,
   ],
   exports: [
     TopToolbarComponent,
+    SidePanelComponent,
     ButtonComponent,
     LogoComponent,
     TooltipComponent,

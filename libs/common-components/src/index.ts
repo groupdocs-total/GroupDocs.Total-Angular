@@ -34,6 +34,7 @@ export * from './lib/searchable.directive';
 export * from './lib/select/select.component';
 export * from './lib/tooltip/tooltip.component';
 export * from './lib/top-toolbar/top-toolbar.component';
+export * from './lib/side-panel/side-panel.component';
 export * from './lib/upload-file-zone/upload-file-zone.component';
 export * from './lib/zoom.directive';
 export * from './lib/selection.service';
