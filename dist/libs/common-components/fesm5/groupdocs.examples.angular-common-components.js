@@ -317,6 +317,40 @@ var TopToolbarComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var SidePanelComponent = /** @class */ (function () {
+    function SidePanelComponent() {
+        this.hideSidePanel = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    SidePanelComponent.prototype.openSidePanel = /**
+     * @return {?}
+     */
+    function () {
+        this.hideSidePanel.emit(true);
+    };
+    SidePanelComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-side-panel',
+                    template: "<div class=\"gd-side-panel-wrapper\">\n  <div class=\"gd-side-panel-header\">\n    <fa-icon class=\"fas fa-info-circle\" [icon]=\"['fas',icon]\"></fa-icon>\n    <span>{{title}}</span>\n    <div class=\"close\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"openSidePanel()\"></gd-button>\n    </div>\n  </div>\n  <div class=\"gd-side-panel-body\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+                    styles: [".gd-side-panel-wrapper{margin-right:0;width:334px!important;z-index:999;background-color:#fff;transition:margin-right .2s}.gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-flow:row}.gd-side-panel-header>fa-icon:first-child{font-size:24px;color:#959da5;margin:12px 9px 18px 14px}.gd-side-panel-header span{font-size:13px;color:rgba(237,240,242,.57);margin:18px 176px 23px 0}.gd-side-panel-header .close{font-size:24px!important;margin-top:12px}"]
+                }] }
+    ];
+    /** @nocollapse */
+    SidePanelComponent.ctorParameters = function () { return []; };
+    SidePanelComponent.propDecorators = {
+        title: [{ type: Input }],
+        icon: [{ type: Input }],
+        hideSidePanel: [{ type: Output }]
+    };
+    return SidePanelComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var ButtonComponent = /** @class */ (function () {
     function ButtonComponent() {
         this.disabled = false;
@@ -330,6 +364,9 @@ var ButtonComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        if (!this.disabled) {
+            this.className += ' active';
+        }
         this.showToolTip = true;
     };
     /**
@@ -339,13 +376,16 @@ var ButtonComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        if (!this.disabled) {
+            this.className = this.className.replace(' active', '');
+        }
         this.showToolTip = false;
     };
     ButtonComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-button',
-                    template: "<div class=\"button\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" (mouseenter)=\"onHovering()\" (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <ng-content></ng-content>\n</div>\n",
-                    styles: [".button{margin:0 7px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;width:37px;height:36px;text-align:center;position:relative}.button.inactive{cursor:not-allowed;color:#ccc}.button.active .ng-fa-icon{color:#fff}@media (max-width:1025px){.button{font-size:20px;margin:0 6px}.arrow-button{margin:5px}}"]
+                    template: "<div class=\"button\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <ng-content></ng-content>\n</div>\n",
+                    styles: [".button{margin:0 7px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;width:37px;height:36px;text-align:center;position:relative}.button.inactive{cursor:not-allowed;color:#72787e}.button.active .ng-fa-icon{color:#fff}@media (max-width:1025px){.button{font-size:20px;margin:0 6px}.arrow-button{margin:5px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -458,6 +498,7 @@ var Api = /** @class */ (function () {
     Api.LOAD_THUMBNAILS = '/loadThumbnails';
     Api.LOAD_FORMATS = '/loadFormats';
     Api.SAVE_FILE = '/saveFile';
+    Api.COMPARE_FILES = '/compare';
     Api.httpOptionsJson = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -4878,6 +4919,7 @@ var CommonComponentsModule = /** @class */ (function () {
                     imports: [CommonModule, FontAwesomeModule],
                     declarations: [
                         TopToolbarComponent,
+                        SidePanelComponent,
                         ButtonComponent,
                         LogoComponent,
                         TooltipComponent,
@@ -4914,6 +4956,7 @@ var CommonComponentsModule = /** @class */ (function () {
                     ],
                     exports: [
                         TopToolbarComponent,
+                        SidePanelComponent,
                         ButtonComponent,
                         LogoComponent,
                         TooltipComponent,
@@ -4953,5 +4996,5 @@ var CommonComponentsModule = /** @class */ (function () {
     return CommonComponentsModule;
 }());
 
-export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SuccessModalComponent, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
+export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
