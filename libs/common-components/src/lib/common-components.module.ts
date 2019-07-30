@@ -153,7 +153,8 @@ const providers = [ConfigService,
     ColorPickerComponent,
     FormattingDirective,
     SuccessModalComponent,
-    LoadingMaskComponent
+    LoadingMaskComponent,
+    DndDirective
   ],
   providers: providers
 })

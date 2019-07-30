@@ -2,10 +2,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ComparisonAppComponent} from './comparison-app.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {fas} from '@fortawesome/free-solid-svg-icons';
+import {far} from '@fortawesome/free-regular-svg-icons';
 import {ComparisonService} from "./comparison.service";
 import {
   CommonComponentsModule,
@@ -15,9 +15,11 @@ import {
   LoadingMaskInterceptorService
 } from "@groupdocs.examples.angular/common-components";
 import {ComparisonConfigService} from "./comparison-config.service";
+import {AddFilePanelComponent} from './add-file-panel/add-file-panel.component';
+import {UploadFilePanelComponent} from './upload-file-panel/upload-file-panel.component';
 
 export function initializeApp(comparisonConfigService: ComparisonConfigService) {
-  const result =  () => comparisonConfigService.load();
+  const result = () => comparisonConfigService.load();
   return result;
 }
 
@@ -28,14 +30,14 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations :[ComparisonAppComponent],
+  declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
     FontAwesomeModule
   ],
-  exports : [
+  exports: [
     ComparisonAppComponent,
     CommonComponentsModule
   ],
@@ -43,12 +45,12 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     ComparisonService,
     ConfigService,
     ComparisonConfigService,
-    /*{
+    {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [ComparisonConfigService],
       multi: true
-    },*/
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
@@ -64,7 +66,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ]
 })
 export class ComparisonModule {
-  constructor(){
-    library.add(fas,far);
+  constructor() {
+    library.add(fas, far);
   }
 }
