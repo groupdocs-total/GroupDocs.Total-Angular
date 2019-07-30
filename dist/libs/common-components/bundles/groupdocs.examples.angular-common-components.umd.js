@@ -561,7 +561,7 @@
          * @return {?}
          */
         function () {
-            return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.EDITOR_APP;
+            return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
         };
         ConfigService.decorators = [
             { type: core.Injectable }
@@ -853,11 +853,11 @@
             'vdw': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
             'vstx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
             'vssx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'mpp': { 'format': 'Microsoft Project', 'icon': 'file-text' },
-            'mpt': { 'format': 'Microsoft Project', 'icon': 'file-text' },
-            'msg': { 'format': 'Microsoft Outlook', 'icon': 'file-text' },
-            'eml': { 'format': 'Microsoft Outlook', 'icon': 'file-text' },
-            'emlx': { 'format': 'Microsoft Outlook', 'icon': 'file-text' },
+            'mpp': { 'format': 'Microsoft Project', 'icon': 'file-alt' },
+            'mpt': { 'format': 'Microsoft Project', 'icon': 'file-alt' },
+            'msg': { 'format': 'Microsoft Outlook', 'icon': 'file-alt' },
+            'eml': { 'format': 'Microsoft Outlook', 'icon': 'file-alt' },
+            'emlx': { 'format': 'Microsoft Outlook', 'icon': 'file-alt' },
             'one': { 'format': 'Microsoft OneNote', 'icon': 'file-word' },
             'odt': { 'format': 'Open Document Text', 'icon': 'file-word' },
             'ott': { 'format': 'Open Document Text Template', 'icon': 'file-word' },
@@ -865,8 +865,8 @@
             'odp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
             'otp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
             'ots': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-            'rtf': { 'format': 'Rich Text Format', 'icon': 'file-text' },
-            'txt': { 'format': 'Plain Text File', 'icon': 'file-text' },
+            'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt' },
+            'txt': { 'format': 'Plain Text File', 'icon': 'file-alt' },
             'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel' },
             'html': { 'format': 'HyperText Markup Language', 'icon': 'file-word' },
             'mht': { 'format': 'HyperText Markup Language', 'icon': 'file-word' },
@@ -889,7 +889,7 @@
             'webp': { 'format': 'Compressed Image', 'icon': 'file-image' },
             'mobi': { 'format': 'Mobipocket eBook', 'icon': 'file-pdf' },
             'tex': { 'format': 'LaTeX Source Document', 'icon': 'file-pdf' },
-            'djvu': { 'format': 'Multi-Layer Raster Image', 'icon': 'file-text' },
+            'djvu': { 'format': 'Multi-Layer Raster Image', 'icon': 'file-alt' },
             'unknown': { 'format': 'This format is not supported', 'icon': 'file' },
         };
         return FileUtil;
@@ -1617,7 +1617,7 @@
         UploadFileZoneComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-upload-file-zone',
-                        template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\n  <div class=\"gd-drag-n-drop-icon\">\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\n  </div>\n  <h2>Drag &amp; Drop your files here</h2> \n  <h4>OR</h4> \n  <div class=\"gd-drag-n-drop-buttons\"> \n    <label class=\"btn btn-primary\"> \n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\n      SELECT FILE \n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\n      </label>\n  </div>\n</div>\n",
+                        template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\n  <div class=\"gd-drag-n-drop-icon\">\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\n  </div>\n  <h2>Drag &amp; Drop your files here</h2>\n  <h4>OR</h4>\n  <div class=\"gd-drag-n-drop-buttons\">\n    <label class=\"btn btn-primary\"> \n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\n      SELECT FILE\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\n      </label>\n  </div>\n</div>\n",
                         styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:flex;align-content:center;flex-direction:column;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
                     }] }
         ];
@@ -1640,7 +1640,7 @@
             this._uploadFilesService = _uploadFilesService;
             this.closing = new core.EventEmitter();
             this.opening = new core.EventEmitter();
-            this.isBackground = true;
+            this.dropped = new core.EventEmitter();
             this.active = false;
         }
         /**
@@ -1654,12 +1654,8 @@
         function (evt) {
             evt.preventDefault();
             evt.stopPropagation();
-            if (this.isBackground) {
-                this.active = false;
-            }
-            else {
-                this.opening.emit(true);
-            }
+            this.active = true;
+            this.opening.emit(true);
         };
         /**
          * @param {?} evt
@@ -1672,12 +1668,8 @@
         function (evt) {
             evt.preventDefault();
             evt.stopPropagation();
-            if (this.isBackground) {
-                this.active = true;
-            }
-            else {
-                this.closeArea();
-            }
+            this.active = false;
+            this.closeArea();
         };
         /**
          * @param {?} evt
@@ -1693,7 +1685,8 @@
             /** @type {?} */
             var files = evt.dataTransfer.files;
             if (files.length > 0) {
-                this.active = true;
+                this.active = false;
+                this.dropped.emit(true);
                 this._uploadFilesService.changeFilesList(files);
                 this.closeArea();
             }
@@ -1733,7 +1726,7 @@
         DndDirective.propDecorators = {
             closing: [{ type: core.Output }],
             opening: [{ type: core.Output }],
-            isBackground: [{ type: core.Input }],
+            dropped: [{ type: core.Output }],
             active: [{ type: core.HostBinding, args: ['class.active',] }],
             onDragOver: [{ type: core.HostListener, args: ['dragover', ['$event'],] }],
             onDragLeave: [{ type: core.HostListener, args: ['dragleave', ['$event'],] }],
@@ -4735,36 +4728,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var LoadingMaskComponent = /** @class */ (function () {
-        function LoadingMaskComponent() {
-            this.loadingMask = false;
-        }
-        /**
-         * @return {?}
-         */
-        LoadingMaskComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () { };
-        LoadingMaskComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-loading-mask',
-                        template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\n    <div class=\"loading-message\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;Loading... Please wait.\n    </div>\n</div>\n",
-                        styles: [".loading-wrapper{background:rgba(0,0,0,.5);width:100%;height:100%;font-size:14px;color:#fff;position:fixed;top:0;left:0;z-index:99999}.loading-message{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        LoadingMaskComponent.ctorParameters = function () { return []; };
-        LoadingMaskComponent.propDecorators = {
-            loadingMask: [{ type: core.Input }]
-        };
-        return LoadingMaskComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var LoadingMaskService = /** @class */ (function () {
         function LoadingMaskService() {
             this.onLoadingChanged = new core.EventEmitter();
@@ -4815,6 +4778,56 @@
         /** @nocollapse */
         LoadingMaskService.ctorParameters = function () { return []; };
         return LoadingMaskService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var LoadingMaskComponent = /** @class */ (function () {
+        function LoadingMaskComponent(_loadingMaskService) {
+            this._loadingMaskService = _loadingMaskService;
+            this.loadingMask = false;
+        }
+        /**
+         * @return {?}
+         */
+        LoadingMaskComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        /**
+         * @return {?}
+         */
+        LoadingMaskComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            this._loadingMaskService
+                .onLoadingChanged
+                .subscribe((/**
+             * @param {?} loading
+             * @return {?}
+             */
+            function (loading) { return _this.loadingMask = loading; }));
+        };
+        LoadingMaskComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-loading-mask',
+                        template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\n    <div class=\"loading-message\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;Loading... Please wait.\n    </div>\n</div>\n",
+                        styles: [".loading-wrapper{background:rgba(0,0,0,.5);width:100%;height:100%;font-size:14px;color:#fff;position:fixed;top:0;left:0;z-index:99999}.loading-message{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        LoadingMaskComponent.ctorParameters = function () { return [
+            { type: LoadingMaskService }
+        ]; };
+        LoadingMaskComponent.propDecorators = {
+            loadingMask: [{ type: core.Input }]
+        };
+        return LoadingMaskComponent;
     }());
 
     /**
@@ -4962,7 +4975,8 @@
                             ColorPickerComponent,
                             FormattingDirective,
                             SuccessModalComponent,
-                            LoadingMaskComponent
+                            LoadingMaskComponent,
+                            DndDirective
                         ],
                         providers: providers
                     },] }

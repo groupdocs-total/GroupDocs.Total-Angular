@@ -3,8 +3,10 @@
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 import { Component, Input } from '@angular/core';
+import { LoadingMaskService } from "../loading-mask.service";
 var LoadingMaskComponent = /** @class */ (function () {
-    function LoadingMaskComponent() {
+    function LoadingMaskComponent(_loadingMaskService) {
+        this._loadingMaskService = _loadingMaskService;
         this.loadingMask = false;
     }
     /**
@@ -13,7 +15,24 @@ var LoadingMaskComponent = /** @class */ (function () {
     LoadingMaskComponent.prototype.ngOnInit = /**
      * @return {?}
      */
-    function () { };
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    LoadingMaskComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this._loadingMaskService
+            .onLoadingChanged
+            .subscribe((/**
+         * @param {?} loading
+         * @return {?}
+         */
+        function (loading) { return _this.loadingMask = loading; }));
+    };
     LoadingMaskComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-loading-mask',
@@ -22,7 +41,9 @@ var LoadingMaskComponent = /** @class */ (function () {
                 }] }
     ];
     /** @nocollapse */
-    LoadingMaskComponent.ctorParameters = function () { return []; };
+    LoadingMaskComponent.ctorParameters = function () { return [
+        { type: LoadingMaskService }
+    ]; };
     LoadingMaskComponent.propDecorators = {
         loadingMask: [{ type: Input }]
     };
@@ -32,5 +53,10 @@ export { LoadingMaskComponent };
 if (false) {
     /** @type {?} */
     LoadingMaskComponent.prototype.loadingMask;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingMaskComponent.prototype._loadingMaskService;
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibG9hZGluZy1tYXNrLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0Bncm91cGRvY3MuZXhhbXBsZXMuYW5ndWxhci9jb21tb24tY29tcG9uZW50cy8iLCJzb3VyY2VzIjpbImxpYi9sb2FkaW5nLW1hc2svbG9hZGluZy1tYXNrLmNvbXBvbmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7O0FBQUEsT0FBTyxFQUFFLFNBQVMsRUFBRSxLQUFLLEVBQVUsTUFBTSxlQUFlLENBQUM7QUFFekQ7SUFTSTtRQUZTLGdCQUFXLEdBQUcsS0FBSyxDQUFDO0lBRWIsQ0FBQzs7OztJQUVqQix1Q0FBUTs7O0lBQVIsY0FBWSxDQUFDOztnQkFYaEIsU0FBUyxTQUFDO29CQUNQLFFBQVEsRUFBRSxpQkFBaUI7b0JBQzNCLHlPQUE0Qzs7aUJBRS9DOzs7Ozs4QkFHSSxLQUFLOztJQUtWLDJCQUFDO0NBQUEsQUFaRCxJQVlDO1NBTlksb0JBQW9COzs7SUFDN0IsMkNBQTZCIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQ29tcG9uZW50LCBJbnB1dCwgT25Jbml0IH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbkBDb21wb25lbnQoe1xuICAgIHNlbGVjdG9yOiAnZ2QtbG9hZGluZy1tYXNrJyxcbiAgICB0ZW1wbGF0ZVVybDogJy4vbG9hZGluZy1tYXNrLmNvbXBvbmVudC5odG1sJyxcbiAgICBzdHlsZVVybHM6IFsnLi9sb2FkaW5nLW1hc2suY29tcG9uZW50Lmxlc3MnXVxufSlcblxuZXhwb3J0IGNsYXNzIExvYWRpbmdNYXNrQ29tcG9uZW50IGltcGxlbWVudHMgT25Jbml0IHtcbiAgICBASW5wdXQoKSBsb2FkaW5nTWFzayA9IGZhbHNlO1xuXG4gICAgY29uc3RydWN0b3IgKCkge31cblxuICAgIG5nT25Jbml0KCkge31cbn0iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibG9hZGluZy1tYXNrLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0Bncm91cGRvY3MuZXhhbXBsZXMuYW5ndWxhci9jb21tb24tY29tcG9uZW50cy8iLCJzb3VyY2VzIjpbImxpYi9sb2FkaW5nLW1hc2svbG9hZGluZy1tYXNrLmNvbXBvbmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7O0FBQUEsT0FBTyxFQUFnQixTQUFTLEVBQUUsS0FBSyxFQUFTLE1BQU0sZUFBZSxDQUFDO0FBQ3RFLE9BQU8sRUFBQyxrQkFBa0IsRUFBQyxNQUFNLHlCQUF5QixDQUFDO0FBRTNEO0lBU0UsOEJBQW9CLG1CQUF1QztRQUF2Qyx3QkFBbUIsR0FBbkIsbUJBQW1CLENBQW9CO1FBRmxELGdCQUFXLEdBQUcsS0FBSyxDQUFDO0lBRzdCLENBQUM7Ozs7SUFFRCx1Q0FBUTs7O0lBQVI7SUFDQSxDQUFDOzs7O0lBRUQsOENBQWU7OztJQUFmO1FBQUEsaUJBSUM7UUFIQyxJQUFJLENBQUMsbUJBQW1CO2FBQ3JCLGdCQUFnQjthQUNoQixTQUFTOzs7O1FBQUMsVUFBQyxPQUFnQixJQUFLLE9BQUEsS0FBSSxDQUFDLFdBQVcsR0FBRyxPQUFPLEVBQTFCLENBQTBCLEVBQUMsQ0FBQztJQUNqRSxDQUFDOztnQkFuQkYsU0FBUyxTQUFDO29CQUNULFFBQVEsRUFBRSxpQkFBaUI7b0JBQzNCLHlPQUE0Qzs7aUJBRTdDOzs7O2dCQU5PLGtCQUFrQjs7OzhCQVN2QixLQUFLOztJQWFSLDJCQUFDO0NBQUEsQUFwQkQsSUFvQkM7U0FkWSxvQkFBb0I7OztJQUMvQiwyQ0FBNkI7Ozs7O0lBRWpCLG1EQUErQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7QWZ0ZXJWaWV3SW5pdCwgQ29tcG9uZW50LCBJbnB1dCwgT25Jbml0fSBmcm9tICdAYW5ndWxhci9jb3JlJztcbmltcG9ydCB7TG9hZGluZ01hc2tTZXJ2aWNlfSBmcm9tIFwiLi4vbG9hZGluZy1tYXNrLnNlcnZpY2VcIjtcblxuQENvbXBvbmVudCh7XG4gIHNlbGVjdG9yOiAnZ2QtbG9hZGluZy1tYXNrJyxcbiAgdGVtcGxhdGVVcmw6ICcuL2xvYWRpbmctbWFzay5jb21wb25lbnQuaHRtbCcsXG4gIHN0eWxlVXJsczogWycuL2xvYWRpbmctbWFzay5jb21wb25lbnQubGVzcyddXG59KVxuXG5leHBvcnQgY2xhc3MgTG9hZGluZ01hc2tDb21wb25lbnQgaW1wbGVtZW50cyBPbkluaXQsIEFmdGVyVmlld0luaXQge1xuICBASW5wdXQoKSBsb2FkaW5nTWFzayA9IGZhbHNlO1xuXG4gIGNvbnN0cnVjdG9yKHByaXZhdGUgX2xvYWRpbmdNYXNrU2VydmljZTogTG9hZGluZ01hc2tTZXJ2aWNlKSB7XG4gIH1cblxuICBuZ09uSW5pdCgpIHtcbiAgfVxuXG4gIG5nQWZ0ZXJWaWV3SW5pdCgpIHtcbiAgICB0aGlzLl9sb2FkaW5nTWFza1NlcnZpY2VcbiAgICAgIC5vbkxvYWRpbmdDaGFuZ2VkXG4gICAgICAuc3Vic2NyaWJlKChsb2FkaW5nOiBib29sZWFuKSA9PiB0aGlzLmxvYWRpbmdNYXNrID0gbG9hZGluZyk7XG4gIH1cbn1cbiJdfQ==

@@ -57,7 +57,7 @@ export class ConfigService {
   }
 
   getComparisonApiEndpoint() {
-    return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.EDITOR_APP;
+    return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
   }
 
   get apiEndpoint() {
