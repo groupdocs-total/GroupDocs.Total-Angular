@@ -16,6 +16,7 @@ export declare class Api {
     static LOAD_THUMBNAILS: string;
     static LOAD_FORMATS: string;
     static SAVE_FILE: string;
+    static COMPARE_FILES: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };

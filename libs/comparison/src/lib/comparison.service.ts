@@ -40,7 +40,7 @@ export class ComparisonService {
   }
 
   getDownloadUrl(credentials: FileCredentials) {
-    return this._config.getComparisonApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
+    return this._config.getComparisonApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?guid=' + credentials.guid;
   }
 
   loadPage(credentials: FileCredentials, page: number) {
@@ -49,5 +49,9 @@ export class ComparisonService {
       'password': credentials.password,
       'page': page
     }, Api.httpOptionsJson);
+  }
+
+  compare(arr: FileCredentials[]) {
+    return this._http.post(this._config.getComparisonApiEndpoint() + Api.COMPARE_FILES, {'guids': arr}, Api.httpOptionsJson);
   }
 }

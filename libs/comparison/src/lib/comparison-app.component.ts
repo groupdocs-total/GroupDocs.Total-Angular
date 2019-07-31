@@ -11,6 +11,7 @@ import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
 import {ComparisonConfig} from "./comparison-config";
 import {first} from "rxjs/operators";
+import {CompareResult} from "@groupdocs.examples.angular/comparison";
 
 const $ = jquery;
 
@@ -38,6 +39,10 @@ export class ComparisonAppComponent {
   loadingFirstPanel = false;
   loadingSecondPanel = false;
   countPages = 0;
+  result: CompareResult;
+  filesTab = 'files';
+  resultTab = 'result';
+  activeTab = this.filesTab;
 
   constructor(private _comparisonService: ComparisonService,
               private configService: ComparisonConfigService,
@@ -93,7 +98,7 @@ export class ComparisonAppComponent {
 
       if (nameExt) {
         files = files.filter(function (value) {
-          return value.directory || value.guid.split('.').pop() == nameExt;
+          return value.directory || value.guid.split('.').pop() === nameExt;
         });
       }
       this.files = files || [];
@@ -129,6 +134,8 @@ export class ComparisonAppComponent {
   clearFile(param: string) {
     this.clearData(param);
     this.credentials.delete(param);
+    this.result = null;
+    this.activeTab = this.filesTab;
   }
 
   private clearData(param) {
@@ -183,5 +190,30 @@ export class ComparisonAppComponent {
         this.preloadPages(panel, i, i);
       }
     }
+  }
+
+  compare() {
+    if (this.credentials.size !== 2) {
+      return;
+    }
+    const arr = [];
+    arr.push(this.credentials.get(this.first));
+    arr.push(this.credentials.get(this.second));
+    this._comparisonService.compare(arr).subscribe((result: CompareResult) => {
+      this.result = result;
+    });
+    this.activeTab = this.resultTab;
+  }
+
+  download() {
+    if (!this.result) {
+      return;
+    }
+    const credentials = {'guid': this.result.guid, 'password': ''};
+    window.location.assign(this._comparisonService.getDownloadUrl(credentials));
+  }
+
+  hideSidePanel($event) {
+    this.activeTab = $event ? this.filesTab : this.resultTab;
   }
 }

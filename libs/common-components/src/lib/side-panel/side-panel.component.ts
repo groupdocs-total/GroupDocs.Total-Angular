@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'gd-side-panel',
@@ -9,16 +9,12 @@ import {Component, Input} from '@angular/core';
 export class SidePanelComponent {
   @Input() title: string;
   @Input() icon: string;
-  // TODO: it should be false, now it's true for the simpler testing
-  showSidePanel = true;
+  @Output() hideSidePanel = new EventEmitter<boolean>();
 
   constructor() {
   }
 
   openSidePanel() {
-    if (this.showSidePanel) {
-      this.showSidePanel = false;
-      return;
-    }
+    this.hideSidePanel.emit(true);
   }
 }

@@ -18,10 +18,16 @@ export class ButtonComponent {
   constructor() { }
 
   onHovering() {
+    if (!this.disabled) {
+      this.className += ' active';
+    }
     this.showToolTip = true;
   }
 
   onUnhovering() {
+    if (!this.disabled) {
+      this.className = this.className.replace(' active', '');
+    }
     this.showToolTip = false;
   }
 }
