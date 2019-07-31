@@ -3561,60 +3561,34 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var TabsComponent = /** @class */ (function () {
-        function TabsComponent() {
-            this.tabs = [];
+    var TabActivatorService = /** @class */ (function () {
+        function TabActivatorService() {
+            this._observer = new rxjs.Subject();
+            this._activeTabChange = this._observer.asObservable();
         }
-        /**
-         * @return {?}
-         */
-        TabsComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @param {?} tab
-         * @return {?}
-         */
-        TabsComponent.prototype.addTab = /**
-         * @param {?} tab
-         * @return {?}
-         */
-        function (tab) {
-            if (this.tabs.length === 0) {
-                tab.active = true;
-            }
-            this.tabs.push(tab);
-        };
-        /**
-         * @param {?} tabComponent
-         * @return {?}
-         */
-        TabsComponent.prototype.selectTab = /**
-         * @param {?} tabComponent
-         * @return {?}
-         */
-        function (tabComponent) {
-            this.tabs.forEach((/**
-             * @param {?} tab
+        Object.defineProperty(TabActivatorService.prototype, "activeTabChange", {
+            get: /**
              * @return {?}
              */
-            function (tab) {
-                tab.active = false;
-            }));
-            tabComponent.active = true;
+            function () {
+                return this._activeTabChange;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {?} tabId
+         * @return {?}
+         */
+        TabActivatorService.prototype.changeActiveTab = /**
+         * @param {?} tabId
+         * @return {?}
+         */
+        function (tabId) {
+            console.log('changed ' + tabId);
+            this._observer.next(tabId);
         };
-        TabsComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-tabs',
-                        template: "<div class=\"gd-tabs\">\n  <div [ngClass]=\"(tab.active) ? 'gd-tab active' : 'gd-tab'\" *ngFor=\"let tab of tabs\" (mousedown)=\"selectTab(tab)\">\n    <div class=\"title\">{{tab.tabTitle}}</div>\n    <fa-icon [icon]=\"['fas',tab.icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  </div>\n</div>\n<ng-content></ng-content>\n",
-                        styles: [".gd-tabs{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:480px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        TabsComponent.ctorParameters = function () { return []; };
-        return TabsComponent;
+        return TabActivatorService;
     }());
 
     /**
@@ -3622,9 +3596,38 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var TabComponent = /** @class */ (function () {
-        function TabComponent(tabs) {
-            tabs.addTab(this);
+        function TabComponent(_tabActivatorService) {
+            var _this = this;
+            this._tabActivatorService = _tabActivatorService;
+            this.disabled = false;
+            this.active = false;
+            this.content = true;
+            this._tabActivatorService.activeTabChange.subscribe((/**
+             * @param {?} tabId
+             * @return {?}
+             */
+            function (tabId) {
+                _this.activation(tabId);
+            }));
         }
+        /**
+         * @private
+         * @param {?} tabId
+         * @return {?}
+         */
+        TabComponent.prototype.activation = /**
+         * @private
+         * @param {?} tabId
+         * @return {?}
+         */
+        function (tabId) {
+            if (this.id === tabId) {
+                this.active = true;
+            }
+            else {
+                this.active = false;
+            }
+        };
         /**
          * @return {?}
          */
@@ -3633,22 +3636,57 @@
          */
         function () {
         };
+        /**
+         * @return {?}
+         */
+        TabComponent.prototype.selectTab = /**
+         * @return {?}
+         */
+        function () {
+            if (this.disabled) {
+                return;
+            }
+            this._tabActivatorService.changeActiveTab(this.id);
+        };
         TabComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-tab',
-                        template: "<div [ngClass]=\"(active) ? 'gd-editor-buttons active' : 'gd-editor-buttons'\">\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [".gd-editor-buttons{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none}.gd-editor-buttons ::ng-deep .toolbar-panel{height:60px}.gd-editor-buttons.active{display:flex}"]
+                        template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'gd-editor-buttons active' : 'gd-editor-buttons'\">\n  <ng-content></ng-content>\n</div>\n\n",
+                        styles: [".gd-editor-buttons{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none}.gd-editor-buttons ::ng-deep .toolbar-panel{height:60px}.gd-editor-buttons.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:480px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
                     }] }
         ];
         /** @nocollapse */
         TabComponent.ctorParameters = function () { return [
-            { type: TabsComponent }
+            { type: TabActivatorService }
         ]; };
         TabComponent.propDecorators = {
+            id: [{ type: core.Input }],
             tabTitle: [{ type: core.Input }],
-            icon: [{ type: core.Input }]
+            icon: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            active: [{ type: core.Input }],
+            content: [{ type: core.Input }]
         };
         return TabComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var TabsComponent = /** @class */ (function () {
+        function TabsComponent() {
+        }
+        TabsComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-tabs',
+                        template: "<div class=\"gd-tabs\">\n  <ng-content></ng-content>\n</div>\n",
+                        styles: [".gd-tabs{display:flex}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        TabsComponent.ctorParameters = function () { return []; };
+        return TabsComponent;
     }());
 
     /**
@@ -4942,7 +4980,8 @@
         BackFormattingService,
         OnCloseService,
         LoadingMaskInterceptorService,
-        LoadingMaskService];
+        LoadingMaskService,
+        TabActivatorService];
     var CommonComponentsModule = /** @class */ (function () {
         function CommonComponentsModule() {
             fontawesomeSvgCore.library.add(freeSolidSvgIcons.fas, freeRegularSvgIcons.far);
@@ -5086,6 +5125,7 @@
     exports.SelectionService = SelectionService;
     exports.SidePanelComponent = SidePanelComponent;
     exports.SuccessModalComponent = SuccessModalComponent;
+    exports.TabActivatorService = TabActivatorService;
     exports.TabComponent = TabComponent;
     exports.TabbedToolbarsComponent = TabbedToolbarsComponent;
     exports.TooltipComponent = TooltipComponent;

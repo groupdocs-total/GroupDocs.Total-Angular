@@ -2900,49 +2900,26 @@ TabbedToolbarsComponent.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class TabsComponent {
+class TabActivatorService {
     constructor() {
-        this.tabs = [];
+        this._observer = new Subject();
+        this._activeTabChange = this._observer.asObservable();
     }
     /**
      * @return {?}
      */
-    ngOnInit() {
+    get activeTabChange() {
+        return this._activeTabChange;
     }
     /**
-     * @param {?} tab
+     * @param {?} tabId
      * @return {?}
      */
-    addTab(tab) {
-        if (this.tabs.length === 0) {
-            tab.active = true;
-        }
-        this.tabs.push(tab);
-    }
-    /**
-     * @param {?} tabComponent
-     * @return {?}
-     */
-    selectTab(tabComponent) {
-        this.tabs.forEach((/**
-         * @param {?} tab
-         * @return {?}
-         */
-        (tab) => {
-            tab.active = false;
-        }));
-        tabComponent.active = true;
+    changeActiveTab(tabId) {
+        console.log('changed ' + tabId);
+        this._observer.next(tabId);
     }
 }
-TabsComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'gd-tabs',
-                template: "<div class=\"gd-tabs\">\n  <div [ngClass]=\"(tab.active) ? 'gd-tab active' : 'gd-tab'\" *ngFor=\"let tab of tabs\" (mousedown)=\"selectTab(tab)\">\n    <div class=\"title\">{{tab.tabTitle}}</div>\n    <fa-icon [icon]=\"['fas',tab.icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  </div>\n</div>\n<ng-content></ng-content>\n",
-                styles: [".gd-tabs{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:480px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
-            }] }
-];
-/** @nocollapse */
-TabsComponent.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -2950,32 +2927,86 @@ TabsComponent.ctorParameters = () => [];
  */
 class TabComponent {
     /**
-     * @param {?} tabs
+     * @param {?} _tabActivatorService
      */
-    constructor(tabs) {
-        tabs.addTab(this);
+    constructor(_tabActivatorService) {
+        this._tabActivatorService = _tabActivatorService;
+        this.disabled = false;
+        this.active = false;
+        this.content = true;
+        this._tabActivatorService.activeTabChange.subscribe((/**
+         * @param {?} tabId
+         * @return {?}
+         */
+        (tabId) => {
+            this.activation(tabId);
+        }));
+    }
+    /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    activation(tabId) {
+        if (this.id === tabId) {
+            this.active = true;
+        }
+        else {
+            this.active = false;
+        }
     }
     /**
      * @return {?}
      */
     ngOnInit() {
     }
+    /**
+     * @return {?}
+     */
+    selectTab() {
+        if (this.disabled) {
+            return;
+        }
+        this._tabActivatorService.changeActiveTab(this.id);
+    }
 }
 TabComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-tab',
-                template: "<div [ngClass]=\"(active) ? 'gd-editor-buttons active' : 'gd-editor-buttons'\">\n  <ng-content></ng-content>\n</div>\n",
-                styles: [".gd-editor-buttons{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none}.gd-editor-buttons ::ng-deep .toolbar-panel{height:60px}.gd-editor-buttons.active{display:flex}"]
+                template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'gd-editor-buttons active' : 'gd-editor-buttons'\">\n  <ng-content></ng-content>\n</div>\n\n",
+                styles: [".gd-editor-buttons{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none}.gd-editor-buttons ::ng-deep .toolbar-panel{height:60px}.gd-editor-buttons.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:480px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
             }] }
 ];
 /** @nocollapse */
 TabComponent.ctorParameters = () => [
-    { type: TabsComponent }
+    { type: TabActivatorService }
 ];
 TabComponent.propDecorators = {
+    id: [{ type: Input }],
     tabTitle: [{ type: Input }],
-    icon: [{ type: Input }]
+    icon: [{ type: Input }],
+    disabled: [{ type: Input }],
+    active: [{ type: Input }],
+    content: [{ type: Input }]
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class TabsComponent {
+    constructor() {
+    }
+}
+TabsComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'gd-tabs',
+                template: "<div class=\"gd-tabs\">\n  <ng-content></ng-content>\n</div>\n",
+                styles: [".gd-tabs{display:flex}"]
+            }] }
+];
+/** @nocollapse */
+TabsComponent.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -4020,7 +4051,8 @@ const providers = [ConfigService,
     BackFormattingService,
     OnCloseService,
     LoadingMaskInterceptorService,
-    LoadingMaskService];
+    LoadingMaskService,
+    TabActivatorService];
 class CommonComponentsModule {
     constructor() {
         library.add(fas, far);
@@ -4106,5 +4138,5 @@ CommonComponentsModule.decorators = [
 /** @nocollapse */
 CommonComponentsModule.ctorParameters = () => [];
 
-export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
+export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
