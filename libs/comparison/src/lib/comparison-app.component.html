@@ -62,8 +62,6 @@
                    [icon]="'info-circle'">
       <div *ngFor="let change of result.changes; let i = index" class="gd-difference" data-id="{{i}}">
         <gd-comparison-difference [change]="change"></gd-comparison-difference>
-        <span class="gd-difference-page">Page {{change.pageInfo.id + 1}}</span>
-        <div class="gd-differentce-comment">{{change.text}}</div>
       </div>
     </gd-side-panel>
   </div>
