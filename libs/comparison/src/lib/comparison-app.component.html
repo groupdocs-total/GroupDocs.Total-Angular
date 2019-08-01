@@ -8,6 +8,16 @@
           <gd-button [icon]="'play'" [tooltip]="'Compare'" [disabled]="!file.get(first) || !file.get(second)"
                      (click)="compare()"></gd-button>
           <gd-button [icon]="'download'" [tooltip]="'Download'" [disabled]="!result" (click)="download()"></gd-button>
+          <div class="tabs-wrapper">
+            <div class="tabs">
+              <gd-tabs>
+                <gd-tab [id]="filesTab" tabTitle="Documents" [active]="true" [content]="false">
+                </gd-tab>
+                <gd-tab [id]="resultTab" tabTitle="Result" [disabled]="resultTabDisabled" [content]="false">
+                </gd-tab>
+              </gd-tabs>
+            </div>
+          </div>
         </gd-top-toolbar>
       </div>
       <div class="open-file-panel">
@@ -58,7 +68,8 @@
                      [htmlMode]="false"></gd-document>
       </div>
     </div>
-    <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab" [title]="'Differences'"
+    <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"
+                   [title]="'Differences'"
                    [icon]="'info-circle'">
       <div *ngFor="let change of result.changes; let i = index" class="gd-difference" data-id="{{i}}">
         <gd-comparison-difference [change]="change"></gd-comparison-difference>

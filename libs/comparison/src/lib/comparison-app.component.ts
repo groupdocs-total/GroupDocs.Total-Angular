@@ -5,7 +5,7 @@ import {
   FileCredentials,
   FileDescription,
   FileModel,
-  ModalService, PageModel, PagePreloadService, UploadFilesService
+  ModalService, PageModel, PagePreloadService, TabActivatorService, UploadFilesService
 } from "@groupdocs.examples.angular/common-components";
 import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
@@ -43,12 +43,14 @@ export class ComparisonAppComponent {
   filesTab = 'files';
   resultTab = 'result';
   activeTab = this.filesTab;
+  resultTabDisabled = true;
 
   constructor(private _comparisonService: ComparisonService,
               private configService: ComparisonConfigService,
               uploadFilesService: UploadFilesService,
               pagePreloadService: PagePreloadService,
-              private _modalService: ModalService) {
+              private _modalService: ModalService,
+              private _tabActivatorService: TabActivatorService) {
     configService.updatedConfig.subscribe((config) => {
       this.comparisonConfig = config;
     });
@@ -72,6 +74,10 @@ export class ComparisonAppComponent {
           });
         }
       }
+    });
+
+    _tabActivatorService.activeTabChange.subscribe((tabId: string) => {
+      this.activeTab = tabId;
     });
   }
 
@@ -135,7 +141,8 @@ export class ComparisonAppComponent {
     this.clearData(param);
     this.credentials.delete(param);
     this.result = null;
-    this.activeTab = this.filesTab;
+    this.resultTabDisabled = true;
+    this._tabActivatorService.changeActiveTab(this.filesTab);
   }
 
   private clearData(param) {
@@ -196,13 +203,17 @@ export class ComparisonAppComponent {
     if (this.credentials.size !== 2) {
       return;
     }
+    this.resultTabDisabled = false;
     const arr = [];
     arr.push(this.credentials.get(this.first));
     arr.push(this.credentials.get(this.second));
     this._comparisonService.compare(arr).subscribe((result: CompareResult) => {
       this.result = result;
-    });
-    this.activeTab = this.resultTab;
+    }, (err => {
+      this.resultTabDisabled = true;
+      this._tabActivatorService.changeActiveTab(this.filesTab);
+    }));
+    this._tabActivatorService.changeActiveTab(this.resultTab);
   }
 
   download() {
@@ -215,5 +226,6 @@ export class ComparisonAppComponent {
 
   hideSidePanel($event) {
     this.activeTab = $event ? this.filesTab : this.resultTab;
+    this._tabActivatorService.changeActiveTab(this.filesTab);
   }
 }

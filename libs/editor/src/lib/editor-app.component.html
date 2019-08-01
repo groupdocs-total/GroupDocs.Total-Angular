@@ -2,7 +2,7 @@
 <div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
   <gd-tabbed-toolbars>
     <gd-tabs>
-      <gd-tab tabTitle="File" [icon]="'folder-open'">
+      <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
         <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
           <gd-button [icon]="'file'" [tooltip]="'Create document'" (click)="createFile()"
                      *ngIf="createNewFileConfig"></gd-button>
@@ -18,7 +18,7 @@
           </gd-button>
         </gd-top-toolbar>
       </gd-tab>
-      <gd-tab tabTitle="Formatting" [icon]="'edit'">
+      <gd-tab [tabTitle]="'Formatting'" [icon]="'edit'" [id]="'2'">
         <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
 
           <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Undo'"
