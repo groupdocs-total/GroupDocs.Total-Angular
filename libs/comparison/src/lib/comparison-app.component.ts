@@ -20,6 +20,11 @@ export class Files {
   static SECOND = 'second';
 }
 
+export class Highlight {
+  id: string;
+  hidden = true;
+}
+
 @Component({
   selector: 'gd-comparison',
   templateUrl: './comparison-app.component.html',
@@ -44,6 +49,7 @@ export class ComparisonAppComponent {
   resultTab = 'result';
   activeTab = this.filesTab;
   resultTabDisabled = true;
+  highlights: Highlight[] = [];
 
   constructor(private _comparisonService: ComparisonService,
               private configService: ComparisonConfigService,
@@ -209,11 +215,27 @@ export class ComparisonAppComponent {
     arr.push(this.credentials.get(this.second));
     this._comparisonService.compare(arr).subscribe((result: CompareResult) => {
       this.result = result;
+      this.result.changes.forEach(function (change) {
+        change.id = this.generateRandomInteger();
+        this.highlights.push({id: change.id, hidden: true});
+      }, this);
     }, (err => {
       this.resultTabDisabled = true;
       this._tabActivatorService.changeActiveTab(this.filesTab);
     }));
     this._tabActivatorService.changeActiveTab(this.resultTab);
+  }
+
+  generateRandomInteger() {
+    function _p8(s) {
+        var p = (Math.random().toString(16) + "000000000").substr(2, 8);
+        return s ? "-" + p.substr(0, 4) + "-" + p.substr(4, 4) : p;
+    }
+    return _p8(null) + _p8(true) + _p8(true) + _p8(null);
+  }
+
+  hidden(id: string){
+    return this.highlights.find(h => h.id == id) && this.highlights.find(h => h.id == id).hidden;
   }
 
   download() {
@@ -227,5 +249,16 @@ export class ComparisonAppComponent {
   hideSidePanel($event) {
     this.activeTab = $event ? this.filesTab : this.resultTab;
     this._tabActivatorService.changeActiveTab(this.filesTab);
+  }
+
+  highlightDifference(id: string){
+    var highlight = this.highlights.find(h => h.id == id);
+    // TODO: in assumption that all highlights are hidden by default
+    highlight.hidden = false;
+    this.highlights.forEach(h => {
+      if (h.id != id){
+        h.hidden = true;
+      }
+    });
   }
 }

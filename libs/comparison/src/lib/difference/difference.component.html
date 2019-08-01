@@ -1,4 +1,5 @@
-<span [ngSwitch]="change.type" class="gd-difference-title-wrapper">
+<div  class="gd-difference">
+  <span [ngSwitch]="change.type" class="gd-difference-title-wrapper">
     <span *ngSwitchCase='1'>
       <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon><span class="gd-difference-title">Text edited</span>
     </span>
@@ -17,3 +18,4 @@
   </span>
   <span class="gd-difference-page">Page {{change.pageInfo.id + 1}}</span>
   <div class="gd-differentce-comment">{{change.text}}</div>
+</div>
