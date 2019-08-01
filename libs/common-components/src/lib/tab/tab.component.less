@@ -1,9 +1,10 @@
 @import "./../../styles/variables";
 
 .gd-editor-buttons {
-  ::ng-deep .toolbar-panel{
+  ::ng-deep .toolbar-panel {
     height: @nav-tabs-height-m;
   }
+
   height: @nav-tabs-height-m;
   position: absolute;
   background-color: #FFFFFF;
@@ -15,5 +16,50 @@
 
 .gd-editor-buttons.active {
   display: flex;
+}
+
+.gd-tab {
+  text-align: center;
+  font-size: 11px;
+  color: @nav-accent-background;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .icon {
+    display: none;
+    font-size: 14px;
+    margin: auto 23px;
+  }
+
+  .title {
+    margin: auto 23px;
+  }
+}
+
+.gd-tab.active {
+  background-color: #FFFFFF;
+  color: #3E4E5A;
+  font-weight: bold;
+}
+
+@media @phone-down {
+  .gd-tab {
+    height: @nav-tabs-height-m;
+    line-height: @nav-tabs-height-m;
+  }
+
+  .gd-tab {
+    .title {
+      display: none;
+    }
+
+    .icon {
+      display: block;
+    }
+  }
 }
 
