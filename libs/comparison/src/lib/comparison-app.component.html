@@ -58,7 +58,7 @@
           </gd-document>
         </div>
       </div>
-      <div class="result-panel" *ngIf="activeTab === resultTab">
+      <div class="result-panel" *ngIf="activeTab === resultTab && result">
         <div class="upload-compare-file" *ngIf="!result">
           <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
           <span>Loading... Please wait.</span>
@@ -66,6 +66,9 @@
         <gd-document class="gd-document" *ngIf="result" [file]="result" [mode]="false"
                      [preloadPageCount]="comparisonConfig?.preloadPageCount" gdRenderPrint
                      [htmlMode]="false"></gd-document>
+        <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}">
+            <gd-difference-highlight [change]="change"></gd-difference-highlight>
+          </div>
       </div>
     </div>
     <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"
