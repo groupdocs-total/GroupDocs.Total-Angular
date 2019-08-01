@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-//import {ChangeInfo} from "@groupdocs.examples.angular/comparison";
+import {ChangeInfo} from "../models";
 
 @Component({
   selector: 'gd-comparison-difference',
@@ -7,9 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./difference.component.less']
 })
 export class DifferenceComponent implements OnInit {
-  // TODO: this leads to `circular dependency detected` warning
-  //@Input() change: ChangeInfo;
-  @Input() change: any;
+  @Input() change: ChangeInfo;
 
   constructor() { }
 
