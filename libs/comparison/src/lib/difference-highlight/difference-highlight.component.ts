@@ -16,12 +16,12 @@ export class DifferenceHighlightComponent implements OnInit{
    }
 
    ngOnInit() {
-    var x = this.change.box.x;
-    var y = this.change.box.y;
+    const x = this.change.box.x;
+    const y = this.change.box.y;
 
     // TODO: take this widths&heights using jQuery
-    var xOffcet = (1569 - 794)/2;
-    var yOffcet = (60 + 37 + 20);
+    const xOffcet = (1569 - 794)/2;
+    const yOffcet = (60 + 37 + 20);
 
     this.left = xOffcet + x;
     this.top = yOffcet + y;

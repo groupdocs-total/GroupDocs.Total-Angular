@@ -228,14 +228,14 @@ export class ComparisonAppComponent {
 
   generateRandomInteger() {
     function _p8(s) {
-        var p = (Math.random().toString(16) + "000000000").substr(2, 8);
+        const p = (Math.random().toString(16) + "000000000").substr(2, 8);
         return s ? "-" + p.substr(0, 4) + "-" + p.substr(4, 4) : p;
     }
     return _p8(null) + _p8(true) + _p8(true) + _p8(null);
   }
 
   hidden(id: string){
-    return this.highlights.find(h => h.id == id) && this.highlights.find(h => h.id == id).hidden;
+    return this.highlights.find(h => h.id === id) && this.highlights.find(h => h.id === id).hidden;
   }
 
   download() {
@@ -252,11 +252,11 @@ export class ComparisonAppComponent {
   }
 
   highlightDifference(id: string){
-    var highlight = this.highlights.find(h => h.id == id);
+    const highlight = this.highlights.find(h => h.id === id);
     // TODO: in assumption that all highlights are hidden by default
     highlight.hidden = false;
     this.highlights.forEach(h => {
-      if (h.id != id){
+      if (h.id !== id){
         h.hidden = true;
       }
     });
