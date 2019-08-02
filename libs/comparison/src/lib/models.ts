@@ -11,6 +11,7 @@ export class ChangeInfo {
   text: string;
   type: number;
   box: Rectangle;
+  id: string;
 }
 
 export class Rectangle {

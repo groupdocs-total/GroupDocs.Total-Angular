@@ -6,6 +6,8 @@
   z-index: 999;
   background-color: #FFF;
   transition: margin-right 0.2s;
+  display: flex;
+  flex-flow: column;
 }
 
 .gd-side-panel-header {
@@ -13,6 +15,16 @@
   background-color: #222E35;
   display: flex;
   flex-flow: row;
+}
+
+.gd-side-panel-body {
+  display: flex;
+  flex-flow: column;
+  padding-top: 14px;
+  overflow: visible;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .gd-side-panel-header > fa-icon:first-child {

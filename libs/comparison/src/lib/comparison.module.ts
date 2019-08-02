@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ComparisonAppComponent} from './comparison-app.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -12,11 +12,14 @@ import {
   ErrorInterceptorService,
   ConfigService,
   LoadingMaskService,
-  LoadingMaskInterceptorService
+  LoadingMaskInterceptorService,
+  Api
 } from "@groupdocs.examples.angular/common-components";
 import {ComparisonConfigService} from "./comparison-config.service";
 import {AddFilePanelComponent} from './add-file-panel/add-file-panel.component';
 import {UploadFilePanelComponent} from './upload-file-panel/upload-file-panel.component';
+import {DifferenceComponent} from './difference/difference.component';
+import {DifferenceHighlightComponent} from './difference-highlight/difference-highlight.component';
 
 export function initializeApp(comparisonConfigService: ComparisonConfigService) {
   const result = () => comparisonConfigService.load();
@@ -30,7 +33,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent],
+  declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent, DifferenceComponent, DifferenceHighlightComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -68,5 +71,12 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 export class ComparisonModule {
   constructor() {
     library.add(fas, far);
+  }
+
+  static forRoot(apiEndpoint: string): ModuleWithProviders {
+    Api.DEFAULT_API_ENDPOINT = apiEndpoint;
+    return {
+      ngModule: ComparisonModule
+    };
   }
 }
