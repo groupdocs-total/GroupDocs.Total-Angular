@@ -1,0 +1,21 @@
+<div  class="gd-difference">
+  <span [ngSwitch]="change.type" class="gd-difference-title-wrapper">
+    <span *ngSwitchCase='1'>
+      <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon><span class="gd-difference-title">Text edited</span>
+    </span>
+    <span *ngSwitchCase='2'>
+      <fa-icon class="fas fa-arrow-right" [icon]="['fas','arrow-right']"></fa-icon><span class="gd-difference-title">Text added</span>
+    </span>
+    <span *ngSwitchCase='3'>
+      <fa-icon class="fas fa-times" [icon]="['fas','times']"></fa-icon><span class="gd-difference-title">Text deleted</span>
+    </span>
+    <span *ngSwitchCase='4'>
+      <fa-icon class="fas fa-arrow-right" [icon]="['fas','arrow-right']"></fa-icon><span class="gd-difference-title">Text added</span>
+    </span>
+    <span *ngSwitchCase='5'>
+      <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon><span class="gd-difference-title">Style changed</span>
+    </span>
+  </span>
+  <span class="gd-difference-page">Page {{change.pageInfo.id + 1}}</span>
+  <div class="gd-differentce-comment">{{change.text}}</div>
+</div>

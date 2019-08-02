@@ -18,6 +18,8 @@ import {
 import {ComparisonConfigService} from "./comparison-config.service";
 import {AddFilePanelComponent} from './add-file-panel/add-file-panel.component';
 import {UploadFilePanelComponent} from './upload-file-panel/upload-file-panel.component';
+import {DifferenceComponent} from './difference/difference.component';
+import {DifferenceHighlightComponent} from './difference-highlight/difference-highlight.component';
 
 export function initializeApp(comparisonConfigService: ComparisonConfigService) {
   const result = () => comparisonConfigService.load();
@@ -31,7 +33,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent],
+  declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent, DifferenceComponent, DifferenceHighlightComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,

@@ -58,7 +58,7 @@
           </gd-document>
         </div>
       </div>
-      <div class="result-panel" *ngIf="activeTab === resultTab">
+      <div class="result-panel" *ngIf="activeTab === resultTab && result">
         <div class="upload-compare-file" *ngIf="!result">
           <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
           <span>Loading... Please wait.</span>
@@ -66,12 +66,17 @@
         <gd-document class="gd-document" *ngIf="result" [file]="result" [mode]="false"
                      [preloadPageCount]="comparisonConfig?.preloadPageCount" gdRenderPrint
                      [htmlMode]="false"></gd-document>
+        <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" [hidden]="hidden(change.id)">
+            <gd-difference-highlight [change]="change"></gd-difference-highlight>
+          </div>
       </div>
     </div>
     <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"
                    [title]="'Differences'"
                    [icon]="'info-circle'">
-      <gd-logo [logo]="'comparison'" icon="eye"></gd-logo>
+      <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" (click)="highlightDifference(change.id)">
+        <gd-comparison-difference [change]="change"></gd-comparison-difference>
+      </div>
     </gd-side-panel>
   </div>
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
