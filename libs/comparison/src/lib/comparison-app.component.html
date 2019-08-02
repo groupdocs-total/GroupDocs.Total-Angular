@@ -40,7 +40,7 @@
             <span>Loading... Please wait.</span>
           </div>
           <gd-document class="gd-document" *ngIf="file.get(first)" [file]="file.get(first)" [mode]="false"
-                       [preloadResultPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
+                       [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
                        [htmlMode]="false">
           </gd-document>
         </div>
@@ -53,7 +53,7 @@
             <span>Loading... Please wait.</span>
           </div>
           <gd-document class="gd-document" *ngIf="file.get(second)" [file]="file.get(second)" [mode]="false"
-                       [preloadResultPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
+                       [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
                        [htmlMode]="false">
           </gd-document>
         </div>
@@ -64,7 +64,7 @@
           <span>Loading... Please wait.</span>
         </div>
         <gd-document class="gd-document" *ngIf="result" [file]="result" [mode]="false"
-                     [preloadResultPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
+                     [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
                      [htmlMode]="false"></gd-document>
       </div>
     </div>
