@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {ComparisonConfig} from "./comparison-config";
 import {Api, ConfigService} from "@groupdocs.examples.angular/common-components";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../environments/environment";
 import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
@@ -13,7 +12,6 @@ export class ComparisonConfigService {
   private _updatedConfig: Observable<ComparisonConfig> = this._comparisonConfig.asObservable();
 
   constructor(private _http: HttpClient, private _config: ConfigService) {
-    _config.apiEndpoint = environment.apiUrl;
   }
 
   get updatedConfig() {

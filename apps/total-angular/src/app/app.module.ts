@@ -14,7 +14,7 @@ import { ComparisonModule,ComparisonAppComponent } from '@groupdocs.examples.ang
     BrowserModule,
     ViewerModule.forRoot("http://localhost:8080"),
     EditorModule.forRoot("http://localhost:8080"),
-    ComparisonModule,
+    ComparisonModule.forRoot("http://localhost:8080"),
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
       {path: 'viewer', component: ViewerAppComponent},
