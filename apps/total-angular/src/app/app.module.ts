@@ -12,8 +12,8 @@ import { ComparisonModule,ComparisonAppComponent } from '@groupdocs.examples.ang
   declarations: [AppComponent, TotalNavComponent, TotalViewComponent],
   imports: [
     BrowserModule,
-    ViewerModule,
-    EditorModule,
+    ViewerModule.forRoot("http://localhost:8080"),
+    EditorModule.forRoot("http://localhost:8080"),
     ComparisonModule.forRoot("http://localhost:8080"),
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
