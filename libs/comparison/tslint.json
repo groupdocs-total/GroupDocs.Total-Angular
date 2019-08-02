@@ -10,7 +10,7 @@
     "component-selector": [
       true,
       "element",
-      "groupdocs.examples.angular",
+      "gd",
       "kebab-case"
     ]
   }
