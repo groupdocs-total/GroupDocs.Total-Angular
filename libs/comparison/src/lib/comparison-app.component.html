@@ -75,8 +75,8 @@
     <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"
                    [title]="'Differences'"
                    [icon]="'info-circle'">
-      <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}">
-        <gd-comparison-difference [change]="change"></gd-comparison-difference>
+      <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" (click)="highlightDifference(change.id)">
+        <gd-comparison-difference [change]="change" [active]="active(change.id)"></gd-comparison-difference>
       </div>
     </gd-side-panel>
   </div>

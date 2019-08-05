@@ -1,4 +1,4 @@
-<div  class="gd-difference" (click)="highlightDifference(change.id)">
+<div  class="gd-difference" [ngClass]="{'active': active}">
   <span [ngSwitch]="change.type" class="gd-difference-title-wrapper">
     <span *ngSwitchCase='1'>
       <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon><span class="gd-difference-title">Text edited</span>

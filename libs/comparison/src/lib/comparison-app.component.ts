@@ -251,11 +251,14 @@ export class ComparisonAppComponent {
     return this.highlights.find(h => h.id === id) && this.highlights.find(h => h.id === id).active;
   }
 
-  onActivated($event){
-    const activatedId = $event;
-    const highlight = this.highlights.find(h => h.id === activatedId);
-    if (highlight){
-      highlight.active = highlight.active ? false : true;
-    }
+  highlightDifference(id: string){
+    const highlight = this.highlights.find(h => h.id === id);
+    // TODO: in assumption that all highlights are not active by default
+    highlight.active = true;
+    this.highlights.forEach(h => {
+      if (h.id !== id){
+        h.active = false;
+      }
+    });
   }
 }

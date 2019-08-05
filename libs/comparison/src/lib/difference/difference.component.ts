@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {ChangeInfo} from "../models";
 
 @Component({
@@ -8,7 +8,7 @@ import {ChangeInfo} from "../models";
 })
 export class DifferenceComponent implements OnInit {
   @Input() change: ChangeInfo;
-  @Output() activated = new EventEmitter<string>();
+  @Input() active: boolean;
 
   constructor() { }
 
@@ -30,9 +30,5 @@ export class DifferenceComponent implements OnInit {
       comment = change.text;
     }
     return comment;
-  }
-
-  highlightDifference(id: string){
-    this.activated.emit(id);
   }
 }
