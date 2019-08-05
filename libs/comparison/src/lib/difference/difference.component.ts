@@ -16,7 +16,7 @@ export class DifferenceComponent implements OnInit {
 
   getChangeText(change: ChangeInfo) {
     let comment = "";
-    if (change.type == 0) {
+    if (change.type === 0) {
       return;
     }
     if (change.styleChanges && change.styleChanges.length > 0) {
