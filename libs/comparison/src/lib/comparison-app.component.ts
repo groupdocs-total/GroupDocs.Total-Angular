@@ -22,7 +22,7 @@ export class Files {
 
 export class Highlight {
   id: string;
-  hidden = true;
+  active = false;
 }
 
 @Component({
@@ -217,7 +217,7 @@ export class ComparisonAppComponent {
       this.result = result;
       this.result.changes.forEach(function (change) {
         change.id = this.generateRandomInteger();
-        this.highlights.push({id: change.id, hidden: true});
+        this.highlights.push({id: change.id, active: false});
       }, this);
     }, (err => {
       this.resultTabDisabled = true;
@@ -234,10 +234,6 @@ export class ComparisonAppComponent {
     return _p8(null) + _p8(true) + _p8(true) + _p8(null);
   }
 
-  hidden(id: string){
-    return this.highlights.find(h => h.id === id) && this.highlights.find(h => h.id === id).hidden;
-  }
-
   download() {
     if (!this.result) {
       return;
@@ -251,14 +247,15 @@ export class ComparisonAppComponent {
     this._tabActivatorService.changeActiveTab(this.filesTab);
   }
 
-  highlightDifference(id: string){
-    const highlight = this.highlights.find(h => h.id === id);
-    // TODO: in assumption that all highlights are hidden by default
-    highlight.hidden = false;
-    this.highlights.forEach(h => {
-      if (h.id !== id){
-        h.hidden = true;
-      }
-    });
+  active(id: string) {
+    return this.highlights.find(h => h.id === id) && this.highlights.find(h => h.id === id).active;
+  }
+
+  onActivated($event){
+    let activatedId = $event;
+    let highlight = this.highlights.find(h => h.id === activatedId);
+    if (highlight){
+      highlight.active = highlight.active ? false : true;
+    }
   }
 }

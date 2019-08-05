@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import {ChangeInfo} from "../models";
 import * as jquery from "jquery";
 const $ = jquery;
 
@@ -8,7 +9,8 @@ const $ = jquery;
   styleUrls: ['./difference-highlight.component.less']
 })
 export class DifferenceHighlightComponent implements OnInit{
-  @Input() change: any;
+  @Input() change: ChangeInfo;
+  @Input() active: boolean;
   left = 0;
   top = 0;
 

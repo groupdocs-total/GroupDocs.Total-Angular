@@ -66,8 +66,8 @@
         <gd-document class="gd-document" *ngIf="result" [file]="result" [mode]="false"
                      [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
                      [htmlMode]="false">
-                     <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" [hidden]="hidden(change.id)">
-                       <gd-difference-highlight [change]="change"></gd-difference-highlight>
+                     <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}">
+                       <gd-difference-highlight [change]="change" [active]="active(change.id)" (activated)="onActivated($event)"></gd-difference-highlight>
                      </div>
         </gd-document>
       </div>
@@ -75,7 +75,7 @@
     <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"
                    [title]="'Differences'"
                    [icon]="'info-circle'">
-      <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" (click)="highlightDifference(change.id)">
+      <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}">
         <gd-comparison-difference [change]="change"></gd-comparison-difference>
       </div>
     </gd-side-panel>
