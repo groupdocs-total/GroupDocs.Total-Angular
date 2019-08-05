@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 import * as jquery from 'jquery';
 import {
   CommonModals,
@@ -56,7 +56,8 @@ export class ComparisonAppComponent {
               uploadFilesService: UploadFilesService,
               pagePreloadService: PagePreloadService,
               private _modalService: ModalService,
-              private _tabActivatorService: TabActivatorService) {
+              private _tabActivatorService: TabActivatorService,
+              private _elementRef: ElementRef<HTMLElement>) {
     configService.updatedConfig.subscribe((config) => {
       this.comparisonConfig = config;
     });
@@ -260,5 +261,14 @@ export class ComparisonAppComponent {
         h.active = false;
       }
     });
+    const gdDocumentEl = $(this._elementRef.nativeElement).find(".document")[0];
+    const highlightEl = $(this._elementRef.nativeElement).find(`[id='${id}']`)[0];
+    if (highlightEl) {
+      const options = {
+        left: highlightEl.offsetLeft,
+        top: highlightEl.offsetTop - 20,
+      };
+      gdDocumentEl.scrollTo(options);
+    }
   }
 }
