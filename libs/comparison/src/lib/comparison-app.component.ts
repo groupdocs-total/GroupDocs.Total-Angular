@@ -252,8 +252,8 @@ export class ComparisonAppComponent {
   }
 
   onActivated($event){
-    let activatedId = $event;
-    let highlight = this.highlights.find(h => h.id === activatedId);
+    const activatedId = $event;
+    const highlight = this.highlights.find(h => h.id === activatedId);
     if (highlight){
       highlight.active = highlight.active ? false : true;
     }
