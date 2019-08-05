@@ -10,5 +10,5 @@ export class ComparisonConfig {
   filesDirectory: string;
   fontsDirectory: string;
   defaultDocument: string;
-  preloadPageCount: 0;
+  preloadResultPageCount: 0;
 }

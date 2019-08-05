@@ -11,7 +11,7 @@ import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
 import {ComparisonConfig} from "./comparison-config";
 import {first} from "rxjs/operators";
-import {CompareResult} from "@groupdocs.examples.angular/comparison";
+import {CompareResult} from "./models";
 
 const $ = jquery;
 
@@ -62,7 +62,7 @@ export class ComparisonAppComponent {
     });
 
     pagePreloadService.checkPreload.subscribe((page: number) => {
-      if (this.comparisonConfig.preloadPageCount !== 0) {
+      if (this.comparisonConfig.preloadResultPageCount !== 0) {
         this.checkPreload(this.first, page);
         this.checkPreload(this.second, page);
       }
@@ -131,10 +131,10 @@ export class ComparisonAppComponent {
     this._comparisonService.loadFile(credentials).subscribe((file: FileDescription) => {
         this.file.set(param, file);
         if (file) {
-          const preloadPageCount = this.comparisonConfig.preloadPageCount;
+          const preloadResultPageCount = this.comparisonConfig.preloadResultPageCount;
           this.countPages = file.pages ? file.pages.length : 0;
-          if (preloadPageCount > 0) {
-            this.preloadPages(param, 1, preloadPageCount > this.countPages ? this.countPages : preloadPageCount);
+          if (preloadResultPageCount > 0) {
+            this.preloadPages(param, 1, preloadResultPageCount > this.countPages ? this.countPages : preloadResultPageCount);
           }
         }
         this.updateFileNames();
