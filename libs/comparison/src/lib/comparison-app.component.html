@@ -65,10 +65,11 @@
         </div>
         <gd-document class="gd-document" *ngIf="result" [file]="result" [mode]="false"
                      [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
-                     [htmlMode]="false"></gd-document>
-        <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" [hidden]="hidden(change.id)">
-            <gd-difference-highlight [change]="change"></gd-difference-highlight>
-          </div>
+                     [htmlMode]="false">
+                     <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" [hidden]="hidden(change.id)">
+                       <gd-difference-highlight [change]="change"></gd-difference-highlight>
+                     </div>
+        </gd-document>
       </div>
     </div>
     <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"

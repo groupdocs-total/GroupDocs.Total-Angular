@@ -21,7 +21,7 @@ export class DifferenceHighlightComponent implements OnInit{
 
     // TODO: take this widths&heights using jQuery
     const xOffcet = (1569 - 794)/2;
-    const yOffcet = (60 + 37 + 20);
+    const yOffcet = 20;
 
     this.left = xOffcet + x;
     this.top = yOffcet + y;
