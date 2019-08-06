@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 import * as jquery from 'jquery';
 import {
   CommonModals,
@@ -22,7 +22,7 @@ export class Files {
 
 export class Highlight {
   id: string;
-  hidden = true;
+  active = false;
 }
 
 @Component({
@@ -56,7 +56,8 @@ export class ComparisonAppComponent {
               uploadFilesService: UploadFilesService,
               pagePreloadService: PagePreloadService,
               private _modalService: ModalService,
-              private _tabActivatorService: TabActivatorService) {
+              private _tabActivatorService: TabActivatorService,
+              private _elementRef: ElementRef<HTMLElement>) {
     configService.updatedConfig.subscribe((config) => {
       this.comparisonConfig = config;
     });
@@ -217,7 +218,7 @@ export class ComparisonAppComponent {
       this.result = result;
       this.result.changes.forEach(function (change) {
         change.id = this.generateRandomInteger();
-        this.highlights.push({id: change.id, hidden: true});
+        this.highlights.push({id: change.id, active: false});
       }, this);
     }, (err => {
       this.resultTabDisabled = true;
@@ -234,10 +235,6 @@ export class ComparisonAppComponent {
     return _p8(null) + _p8(true) + _p8(true) + _p8(null);
   }
 
-  hidden(id: string){
-    return this.highlights.find(h => h.id === id) && this.highlights.find(h => h.id === id).hidden;
-  }
-
   download() {
     if (!this.result) {
       return;
@@ -251,14 +248,27 @@ export class ComparisonAppComponent {
     this._tabActivatorService.changeActiveTab(this.filesTab);
   }
 
+  active(id: string) {
+    return this.highlights.find(h => h.id === id) && this.highlights.find(h => h.id === id).active;
+  }
+
   highlightDifference(id: string){
     const highlight = this.highlights.find(h => h.id === id);
-    // TODO: in assumption that all highlights are hidden by default
-    highlight.hidden = false;
+    // TODO: in assumption that all highlights are not active by default
+    highlight.active = true;
     this.highlights.forEach(h => {
       if (h.id !== id){
-        h.hidden = true;
+        h.active = false;
       }
     });
+    const gdDocumentEl = $(this._elementRef.nativeElement).find(".document")[0];
+    const highlightEl = $(this._elementRef.nativeElement).find(`[id='${id}']`)[0];
+    if (highlightEl) {
+      const options = {
+        left: highlightEl.offsetLeft,
+        top: highlightEl.offsetTop - 20,
+      };
+      gdDocumentEl.scrollTo(options);
+    }
   }
 }

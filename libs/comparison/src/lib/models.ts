@@ -12,6 +12,13 @@ export class ChangeInfo {
   type: number;
   box: Rectangle;
   id: string;
+  styleChanges: StyleChange[]
+}
+
+export class StyleChange {
+  changedProperty: string;
+  newValue: string;
+  oldValue: string;
 }
 
 export class Rectangle {

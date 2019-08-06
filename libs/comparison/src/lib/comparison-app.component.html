@@ -58,24 +58,25 @@
           </gd-document>
         </div>
       </div>
-      <div class="result-panel" *ngIf="activeTab === resultTab && result">
+      <div class="result-panel" *ngIf="activeTab === resultTab">
         <div class="upload-compare-file" *ngIf="!result">
           <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
           <span>Loading... Please wait.</span>
         </div>
         <gd-document class="gd-document" *ngIf="result" [file]="result" [mode]="false"
                      [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
-                     [htmlMode]="false"></gd-document>
-        <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" [hidden]="hidden(change.id)">
-            <gd-difference-highlight [change]="change"></gd-difference-highlight>
-          </div>
+                     [htmlMode]="false">
+                     <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}">
+                       <gd-difference-highlight [change]="change" [active]="active(change.id)" (activated)="onActivated($event)"></gd-difference-highlight>
+                     </div>
+        </gd-document>
       </div>
     </div>
     <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"
                    [title]="'Differences'"
                    [icon]="'info-circle'">
       <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" (click)="highlightDifference(change.id)">
-        <gd-comparison-difference [change]="change"></gd-comparison-difference>
+        <gd-comparison-difference [change]="change" [active]="active(change.id)"></gd-comparison-difference>
       </div>
     </gd-side-panel>
   </div>
