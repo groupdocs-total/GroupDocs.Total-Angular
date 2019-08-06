@@ -20,7 +20,7 @@
           </div>
         </gd-top-toolbar>
       </div>
-      <div class="open-file-panel">
+      <div class="open-file-panel" *ngIf="activeTab === filesTab">
         <gd-add-file-panel class="compare-file" [fileName]="firstFileName" [panel]="first"
                            (active)="activePanel = $event" (urlForUpload)="upload($event)"
                            (cleanPanel)="clearFile(first)">

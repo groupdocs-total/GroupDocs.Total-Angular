@@ -51,6 +51,9 @@ export class AddFilePanelComponent implements OnInit, OnChanges {
   }
 
   uploadUrl(url: string) {
+    if(this.uploadDisabled){
+      return
+    }
     if (url && (url.startsWith('http') || url.startsWith('file') || url.startsWith('ftp'))) {
       this.active.emit(this.panel);
       this.urlForUpload.emit(url);
