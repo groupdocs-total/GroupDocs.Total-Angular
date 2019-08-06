@@ -216,10 +216,25 @@ export class ComparisonAppComponent {
     arr.push(this.credentials.get(this.second));
     this._comparisonService.compare(arr).subscribe((result: CompareResult) => {
       this.result = result;
-      this.result.changes.forEach(function (change) {
+
+      this.result.changes.forEach( (change) => {
         change.id = this.generateRandomInteger();
         this.highlights.push({id: change.id, active: false});
-      }, this);
+        const zeroBasedId = change.pageInfo.id - 1;
+        if(!this.result.pages[zeroBasedId].changes){
+          this.result.pages[zeroBasedId].changes = [];
+        }
+        this.result.pages[zeroBasedId].changes.push(change);
+        change.normalized = {
+          x : change.box.x * 100 / change.pageInfo.width,
+          y : 100 - (change.box.y * 100 / change.pageInfo.height), // @TODO: remove 100-(y) once fixed on back-end
+          width: change.box.width * 100 / change.pageInfo.width,
+          height: change.box.height * 100 / change.pageInfo.height,
+        };
+        console.log("RESULT",this.result.pages,change.pageInfo.id - 1);
+      });
+
+
     }, (err => {
       this.resultTabDisabled = true;
       this._tabActivatorService.changeActiveTab(this.filesTab);

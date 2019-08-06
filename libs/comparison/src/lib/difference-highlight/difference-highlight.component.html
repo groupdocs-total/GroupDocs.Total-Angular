@@ -1,2 +1,13 @@
-<div class="gd-difference-{{change.type}} highlight-difference" [ngClass]="{'active': active}" [ngStyle]="{width: change.box.width + 'px', height: change.box.height + 'px', left: left + 'px', top: top + 'px'}" data-id="{{change.id}}"></div>
+<div
+  class="gd-difference-{{change.type}} highlight-difference"
+  [ngClass]="{'active': active}"
+  [ngStyle]="{
+    width: change.normalized.width + '%',
+    height: change.normalized.height + '%',
+    left: change.normalized.x + '%',
+    top: change.normalized.y + '%'
+  }"
+  data-id="{{change.id}}">
+
+</div>
 

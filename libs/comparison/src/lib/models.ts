@@ -1,8 +1,12 @@
 import {PageModel} from "@groupdocs.examples.angular/common-components";
 
+export class ComparedPageModel extends PageModel{
+  changes: ChangeInfo[]
+}
+
 export class CompareResult {
   changes: ChangeInfo[];
-  pages: PageModel[];
+  pages: ComparedPageModel[];
   guid: string;
 }
 
@@ -12,7 +16,8 @@ export class ChangeInfo {
   type: number;
   box: Rectangle;
   id: string;
-  styleChanges: StyleChange[]
+  styleChanges: StyleChange[];
+  normalized: Rectangle;
 }
 
 export class StyleChange {
@@ -30,4 +35,7 @@ export class Rectangle {
 
 export class PageInfo {
   id: number;
+  width: number;
+  height: number;
 }
+

@@ -13,13 +13,15 @@ import {
   ConfigService,
   LoadingMaskService,
   LoadingMaskInterceptorService,
-  Api
+  Api,
+  ZoomService
 } from "@groupdocs.examples.angular/common-components";
 import {ComparisonConfigService} from "./comparison-config.service";
 import {AddFilePanelComponent} from './add-file-panel/add-file-panel.component';
 import {UploadFilePanelComponent} from './upload-file-panel/upload-file-panel.component';
 import {DifferenceComponent} from './difference/difference.component';
 import {DifferenceHighlightComponent} from './difference-highlight/difference-highlight.component';
+import { ResultDocumentComponent } from './result-document/result-document.component';
 
 export function initializeApp(comparisonConfigService: ComparisonConfigService) {
   const result = () => comparisonConfigService.load();
@@ -33,7 +35,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent, DifferenceComponent, DifferenceHighlightComponent],
+  declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent, DifferenceComponent, DifferenceHighlightComponent, ResultDocumentComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -42,7 +44,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ],
   exports: [
     ComparisonAppComponent,
-    CommonComponentsModule
+    CommonComponentsModule,
+    ResultDocumentComponent
   ],
   providers: [
     ComparisonService,

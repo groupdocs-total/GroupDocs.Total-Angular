@@ -63,13 +63,17 @@
           <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
           <span>Loading... Please wait.</span>
         </div>
-        <gd-document class="gd-document" *ngIf="result" [file]="result" [mode]="false"
-                     [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
-                     [htmlMode]="false">
-                     <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}">
-                       <gd-difference-highlight [change]="change" [active]="active(change.id)" (activated)="onActivated($event)"></gd-difference-highlight>
-                     </div>
-        </gd-document>
+
+        <gd-result-document
+          class="gd-document"
+          *ngIf="result"
+          [file]="result"
+          [mode]="false"
+          [preloadPageCount]="comparisonConfig?.preloadResultPageCount"
+          gdRenderPrint
+          [htmlMode]="false">
+
+        </gd-result-document>
       </div>
     </div>
     <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"
