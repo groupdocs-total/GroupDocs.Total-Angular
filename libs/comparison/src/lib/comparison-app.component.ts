@@ -49,7 +49,6 @@ export class ComparisonAppComponent {
   resultTab = 'result';
   activeTab = this.filesTab;
   resultTabDisabled = true;
-  highlights: Highlight[] = [];
 
   constructor(private _comparisonService: ComparisonService,
               private configService: ComparisonConfigService,
@@ -219,7 +218,6 @@ export class ComparisonAppComponent {
 
       this.result.changes.forEach( (change) => {
         change.id = this.generateRandomInteger();
-        this.highlights.push({id: change.id, active: false});
         const zeroBasedId = change.pageInfo.id - 1;
         if(!this.result.pages[zeroBasedId].changes){
           this.result.pages[zeroBasedId].changes = [];
@@ -231,10 +229,7 @@ export class ComparisonAppComponent {
           width: change.box.width * 100 / change.pageInfo.width,
           height: change.box.height * 100 / change.pageInfo.height,
         };
-        console.log("RESULT",this.result.pages,change.pageInfo.id - 1);
       });
-
-
     }, (err => {
       this.resultTabDisabled = true;
       this._tabActivatorService.changeActiveTab(this.filesTab);
@@ -263,27 +258,6 @@ export class ComparisonAppComponent {
     this._tabActivatorService.changeActiveTab(this.filesTab);
   }
 
-  active(id: string) {
-    return this.highlights.find(h => h.id === id) && this.highlights.find(h => h.id === id).active;
-  }
 
-  highlightDifference(id: string){
-    const highlight = this.highlights.find(h => h.id === id);
-    // TODO: in assumption that all highlights are not active by default
-    highlight.active = true;
-    this.highlights.forEach(h => {
-      if (h.id !== id){
-        h.active = false;
-      }
-    });
-    const gdDocumentEl = $(this._elementRef.nativeElement).find(".document")[0];
-    const highlightEl = $(this._elementRef.nativeElement).find(`[id='${id}']`)[0];
-    if (highlightEl) {
-      const options = {
-        left: highlightEl.offsetLeft,
-        top: highlightEl.offsetTop - 20,
-      };
-      gdDocumentEl.scrollTo(options);
-    }
-  }
+
 }

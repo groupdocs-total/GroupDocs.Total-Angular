@@ -1,6 +1,6 @@
 <div class="wait" *ngIf="wait">Please wait...</div>
 <div id="document" class="document" gdScrollable [onRefresh]="refreshView">
-  <div class="panzoom" >
+  <div class="panzoom">
     <div [ngClass]="(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'" *ngFor="let page of file?.pages"
          [style.width.pt]="ifPdf() ? page.width : 'unset'"
          [style.height.pt]="(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'" gdRotation
@@ -10,11 +10,9 @@
       <div class="highlights">
         <gd-difference-highlight
           *ngFor="let change of page?.changes"
-          [change]="change"
-          (activated)="onActivated($event)">
+          [change]="change">
         </gd-difference-highlight>
       </div>
     </div>
   </div>
-  <ng-content></ng-content>
 </div>

@@ -1,21 +1,40 @@
 <div  class="gd-difference" [ngClass]="{'active': active}">
-  <span [ngSwitch]="change.type" class="gd-difference-title-wrapper">
-    <span *ngSwitchCase='1'>
-      <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon><span class="gd-difference-title">Text edited</span>
-    </span>
-    <span *ngSwitchCase='2'>
-      <fa-icon class="fas fa-arrow-right" [icon]="['fas','arrow-right']"></fa-icon><span class="gd-difference-title">Text added</span>
-    </span>
-    <span *ngSwitchCase='3'>
-      <fa-icon class="fas fa-times" [icon]="['fas','times']"></fa-icon><span class="gd-difference-title">Text deleted</span>
-    </span>
-    <span *ngSwitchCase='4'>
-      <fa-icon class="fas fa-arrow-right" [icon]="['fas','arrow-right']"></fa-icon><span class="gd-difference-title">Text added</span>
-    </span>
-    <span *ngSwitchCase='6'>
-      <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon><span class="gd-difference-title">Style changed</span>
-    </span>
-  </span>
-  <span class="gd-difference-page">Page {{change.pageInfo.id + 1}}</span>
-  <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+  <div [ngSwitch]="change.type" class="gd-difference-title-wrapper">
+    <ng-container *ngSwitchCase='1'>
+      <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon>
+      <div class="gd-difference-body">
+        <div class="gd-difference-title">Text edited</div>
+        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase='2'>
+      <fa-icon class="fas fa-arrow-right" [icon]="['fas','arrow-right']"></fa-icon>
+      <div class="gd-difference-body">
+        <div class="gd-difference-title">Text added</div>
+        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase='3'>
+      <fa-icon class="fas fa-times" [icon]="['fas','times']"></fa-icon>
+      <div class="gd-difference-body">
+        <div class="gd-difference-title">Text deleted</div>
+        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase='4'>
+      <fa-icon class="fas fa-arrow-right" [icon]="['fas','arrow-right']"></fa-icon>
+      <div class="gd-difference-body">
+        <div class="gd-difference-title">Text added</div>
+        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase='6'>
+      <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon>
+      <div class="gd-difference-body">
+        <div class="gd-difference-title">Style changed</div>
+        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+      </div>
+    </ng-container>
+    <div class="gd-difference-page">Page {{change.pageInfo.id + 1}}</div>
+  </div>
 </div>

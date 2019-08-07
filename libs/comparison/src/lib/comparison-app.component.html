@@ -36,7 +36,7 @@
                                 *ngIf="!firstFileName && !loadingFirstPanel">
           </gd-upload-file-panel>
           <div class="upload-compare-file" *ngIf="loadingFirstPanel">
-            <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
+            <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
             <span>Loading... Please wait.</span>
           </div>
           <gd-document class="gd-document" *ngIf="file.get(first)" [file]="file.get(first)" [mode]="false"
@@ -63,28 +63,30 @@
           <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
           <span>Loading... Please wait.</span>
         </div>
-
         <gd-result-document
           class="gd-document"
           *ngIf="result"
           [file]="result"
+          [highlights]="highlights"
           [mode]="false"
           [preloadPageCount]="comparisonConfig?.preloadResultPageCount"
           gdRenderPrint
           [htmlMode]="false">
-
         </gd-result-document>
       </div>
     </div>
-    <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"
+    <gd-side-panel (hideSidePanel)="hideSidePanel($event)"
+                   *ngIf="result && activeTab === resultTab"
                    [title]="'Differences'"
                    [icon]="'info-circle'">
-      <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" (click)="highlightDifference(change.id)">
-        <gd-comparison-difference [change]="change" [active]="active(change.id)"></gd-comparison-difference>
-      </div>
+      <gd-differences
+        [changes]="result.changes">
+      </gd-differences>
     </gd-side-panel>
   </div>
-  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+  <gd-browse-files-modal (urlForUpload)="upload($event)"
+                         [files]="files"
+                         (selectedDirectory)="selectDir($event)"
                          (selectedFileGuid)="selectFile($event, null, browseFilesModal, activePanel)">
   </gd-browse-files-modal>
   <gd-error-modal></gd-error-modal>

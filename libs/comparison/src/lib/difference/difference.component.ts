@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {ChangeInfo} from "../models";
+import { DifferencesService } from '../differences.service';
 
 @Component({
   selector: 'gd-comparison-difference',
@@ -8,11 +9,16 @@ import {ChangeInfo} from "../models";
 })
 export class DifferenceComponent implements OnInit {
   @Input() change: ChangeInfo;
-  @Input() active: boolean;
+  active: boolean;
 
-  constructor() { }
+  private changesService : DifferencesService;
+
+  constructor(changeService : DifferencesService) {
+    this.changesService = changeService;
+  }
 
   ngOnInit() {
+    this.changesService.activeChange.subscribe(activeID => this.active = this.change.id === activeID)
   }
 
   getChangeText(change: ChangeInfo) {
@@ -31,4 +37,5 @@ export class DifferenceComponent implements OnInit {
     }
     return comment;
   }
+
 }

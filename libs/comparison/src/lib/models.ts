@@ -18,6 +18,7 @@ export class ChangeInfo {
   id: string;
   styleChanges: StyleChange[];
   normalized: Rectangle;
+  active: boolean;
 }
 
 export class StyleChange {
