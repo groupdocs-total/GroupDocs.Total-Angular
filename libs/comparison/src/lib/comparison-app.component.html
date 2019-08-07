@@ -3,7 +3,7 @@
   <div class="row">
     <div class="column">
       <div class="top-panel">
-        <gd-logo [logo]="'comparison'" icon="eye"></gd-logo>
+        <gd-logo [logo]="'comparison'" icon="copy"></gd-logo>
         <gd-top-toolbar class="toolbar-panel">
           <gd-button [icon]="'play'" [tooltip]="'Compare'" [disabled]="!file.get(first) || !file.get(second)"
                      (click)="compare()"></gd-button>
@@ -11,9 +11,9 @@
           <div class="tabs-wrapper">
             <div class="tabs">
               <gd-tabs>
-                <gd-tab [id]="filesTab" tabTitle="Documents" [active]="true" [content]="false">
+                <gd-tab [id]="filesTab" tabTitle="Documents" [icon]="'file'" [active]="true" [content]="false">
                 </gd-tab>
-                <gd-tab [id]="resultTab" tabTitle="Result" [disabled]="resultTabDisabled" [content]="false">
+                <gd-tab [id]="resultTab" tabTitle="Result" [icon]="'file'" [disabled]="resultTabDisabled" [content]="false">
                 </gd-tab>
               </gd-tabs>
             </div>

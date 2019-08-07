@@ -218,7 +218,7 @@ export class ComparisonAppComponent {
 
       this.result.changes.forEach( (change) => {
         change.id = this.generateRandomInteger();
-        const zeroBasedId = change.pageInfo.id - 1;
+        const zeroBasedId = change.pageInfo.id === 0 ? change.pageInfo.id : change.pageInfo.id - 1;
         if(!this.result.pages[zeroBasedId].changes){
           this.result.pages[zeroBasedId].changes = [];
         }
