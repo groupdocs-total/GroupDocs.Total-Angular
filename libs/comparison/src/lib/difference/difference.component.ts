@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {ChangeInfo} from "../models";
+import { ChangeInfo, StyleChange } from '../models';
 import { DifferencesService } from '../differences.service';
 
 @Component({
@@ -21,21 +21,12 @@ export class DifferenceComponent implements OnInit {
     this.changesService.activeChange.subscribe(activeID => this.active = this.change.id === activeID)
   }
 
-  getChangeText(change: ChangeInfo) {
-    let comment = "";
-    if (change.type === 0) {
-      return;
-    }
-    if (change.styleChanges && change.styleChanges.length > 0) {
-      change.styleChanges.forEach(styleChange => {
-        comment = "Changed style: " + styleChange.changedProperty;
-        comment = comment + " From: " + styleChange.oldValue;
-        comment = comment + " To: " + styleChange.newValue;
-      });
-    } else {
-      comment = change.text;
-    }
-    return comment;
+  getChangeText(style : StyleChange) {
+      console.log("STYLE",style)
   }
 
+  getRgbaColor(value){
+    console.log(`rgba(${value.red},${value.green},${value.blue},${value.alpha})`)
+    return `rgba(${value.red},${value.green},${value.blue},${value.alpha})`;
+  }
 }

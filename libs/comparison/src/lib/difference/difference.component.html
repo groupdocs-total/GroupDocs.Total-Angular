@@ -4,35 +4,55 @@
       <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon>
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text edited</div>
-        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+        <div class="gd-differentce-comment">{{change.text}}</div>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='2'>
       <fa-icon class="fas fa-arrow-right" [icon]="['fas','arrow-right']"></fa-icon>
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text added</div>
-        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+        <div class="gd-differentce-comment">{{change.text}}</div>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='3'>
-      <fa-icon class="fas fa-times" [icon]="['fas','times']"></fa-icon>
+      <fa-icon class="fas fa-times" [icon]="['fas','trash']"></fa-icon>
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text deleted</div>
-        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+        <div class="gd-differentce-comment">{{change.text}}</div>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='4'>
       <fa-icon class="fas fa-arrow-right" [icon]="['fas','arrow-right']"></fa-icon>
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text added</div>
-        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+        <div class="gd-differentce-comment">{{change.text}}</div>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='6'>
       <fa-icon class="fas fa-pencil-alt" [icon]="['fas','pencil-alt']"></fa-icon>
       <div class="gd-difference-body">
         <div class="gd-difference-title">Style changed</div>
-        <div class="gd-differentce-comment">{{getChangeText(change)}}</div>
+        <div class="gd-differentce-comment">
+          <ng-container *ngFor="let style of change.styleChanges" [ngSwitch]="style.changedProperty">
+            {{getChangeText(style)}}
+            <div *ngSwitchCase="'HighlightColor'">
+              <span class="color" [style.backgroundColor]="getRgbaColor(style.oldValue)"></span>
+              &rarr;
+              <span class="color" [style.backgroundColor]="getRgbaColor(style.newValue)"></span>
+              <span class="property">Highlight Color</span>
+            </div>
+            <div *ngSwitchCase="'Color'">
+              <span class="color" [style.backgroundColor]="getRgbaColor(style.oldValue)"></span>
+              &rarr;
+              <span class="color" [style.backgroundColor]="getRgbaColor(style.newValue)"></span>
+              <span class="property">Color</span>
+            </div>
+            <div *ngSwitchCase="'Size'">
+              {{style.oldValue}} &rarr; {{style.newValue}}
+              <span class="property">Font size</span>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </ng-container>
     <div class="gd-difference-page">Page {{change.pageInfo.id + 1}}</div>

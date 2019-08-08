@@ -2,45 +2,55 @@
 
 .gd-side-panel-wrapper {
   margin-right: 0px;
-  width: 334px !important;
+  width: 334px;
   z-index: 999;
   background-color: #FFF;
   transition: margin-right 0.2s;
   display: flex;
   flex-flow: column;
   height: 100vh;
+
+  .gd-side-panel-header {
+    height: @nav-height;
+    background-color: #222E35;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    .icon {
+      font-size: 24px;
+      color: #959DA5;
+      margin: 12px 9px 18px 14px;
+    }
+    .title {
+      font-size: 14px;
+      font-weight: bold;
+      color: rgba(237,240,242,.57);
+      margin-top: 20px;
+      width: 100%;
+    }
+    .close {
+      font-size: 24px !important;
+      margin-top: 12px;
+    }
+  }
+
+  .gd-side-panel-body {
+    display: flex;
+    flex-flow: column;
+    overflow: visible;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+  }
 }
 
-.gd-side-panel-header {
-  height: @nav-height;
-  background-color: #222E35;
-  display: flex;
-  flex-flow: row;
+@media @phone-down {
+  .gd-side-panel-wrapper{
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+  }
 }
-
-.gd-side-panel-body {
-  display: flex;
-  flex-flow: column;
-  overflow: visible;
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 100%;
-}
-
-.gd-side-panel-header > fa-icon:first-child {
-  font-size: 24px;
-  color: #959DA5;
-  margin: 12px 9px 18px 14px;
-}
-
-.gd-side-panel-header span {
-  font-size: 13px;
-  color: rgba(237, 240, 242, 0.57);
-  margin: 18px 176px 23px 0;
-}
-
-.gd-side-panel-header .close {
-  font-size: 24px !important;
-  margin-top: 12px;
-}
-

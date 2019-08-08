@@ -16,18 +16,23 @@
   right: 0;
 }
 
-.compare-file {
-  width: 50%;
-  border-right: 2px solid #ddd;
+.loader{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .upload-compare-file {
   height: 100%;
+  width: 50%;
+  border-right: 1px solid #CCC;
   display: flex;
   align-content: center;
   flex-direction: column;
-  justify-content: center;
   text-align: center;
+  flex-grow: 0;
 }
 
 .open-file-panel {
@@ -38,6 +43,7 @@
 .files-panel {
   background-color: #E7E7E7;
   display: flex;
+  flex-direction: row;
   width: 100%;
   height: 100%;
 }
@@ -97,4 +103,15 @@
   margin-right: 30px;
   align-items: flex-end;
   justify-content: flex-end;
+}
+
+
+@media @phone-down {
+  .files-panel {
+    flex-direction: column;
+    .upload-compare-file{
+      width: 100%;
+      border-bottom: 1px solid #CCC;
+    }
+  }
 }
