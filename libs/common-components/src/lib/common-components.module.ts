@@ -56,6 +56,7 @@ import {LoadingMaskComponent} from './loading-mask/loading-mask.component';
 import {LoadingMaskService} from './loading-mask.service';
 import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service";
 import {TabActivatorService} from "./tab-activator.service";
+import { OutsideDirective } from './outside.directive';
 
 const providers = [ConfigService,
   Api,
@@ -122,7 +123,8 @@ const providers = [ConfigService,
     FormattingDirective,
     SuccessModalComponent,
     EditorDirective,
-    LoadingMaskComponent
+    LoadingMaskComponent,
+    OutsideDirective
   ],
   exports: [
     TopToolbarComponent,
@@ -156,7 +158,8 @@ const providers = [ConfigService,
     FormattingDirective,
     SuccessModalComponent,
     LoadingMaskComponent,
-    DndDirective
+    DndDirective,
+    OutsideDirective
   ],
   providers: providers
 })

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {ChangeInfo} from "../models";
+import { DifferencesService } from '../differences.service';
 import * as jquery from "jquery";
 const $ = jquery;
 
@@ -11,24 +12,22 @@ const $ = jquery;
 export class DifferenceHighlightComponent implements OnInit{
   @Input() change: ChangeInfo;
   @Input() active: boolean;
-  left = 0;
-  top = 0;
+  private changesService : DifferencesService;
 
-  constructor() {
-   }
+  constructor(changeService : DifferencesService) {
+    this.changesService = changeService;
+  }
+  ngOnInit(){
+    this.changesService.activeChange.subscribe(activeID => this.active = this.change.id === activeID);
+  }
 
-   ngOnInit() {
-    const x = this.change.box.x;
-    const y = this.change.box.y;
+  close(id : string, event: Event){
+    if(event && event['value'] === true) {
+      this.changesService.setActiveChange(null);
+    }
+  }
 
-    // TODO: take this widths&heights using jQuery
-    const xOffcet = (1569 - 794)/2; // .panzoom width - .gd-page-image width
-    const yOffcet = this.change.pageInfo.id === 0 ? 
-                    20 : // .page margin
-                    // borders + .page margin + .page margins + page number * .gd-page-image height
-                    5 + 20 + 40 + (this.change.pageInfo.id * 1123);
-
-    this.left = xOffcet + x;
-    this.top = yOffcet + y;
+  highlight(id : string){
+    this.changesService.setActiveChange(id);
   }
 }

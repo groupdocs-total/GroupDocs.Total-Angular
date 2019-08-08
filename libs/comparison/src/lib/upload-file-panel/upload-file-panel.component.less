@@ -1,5 +1,6 @@
 .gd-drag-n-drop-wrap {
   height: 100%;
+  width: 100%;
   background-color: #E7E7E7;
   text-align: center;
   cursor: default;
@@ -25,4 +26,14 @@
 .gd-drag-n-drop-icon {
   color: #959DA5;
   cursor: pointer;
+}
+
+:host{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-content: center;
+  height: 100%;
+  border-bottom: 1px solid #CCC;
 }

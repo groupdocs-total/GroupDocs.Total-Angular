@@ -49,7 +49,6 @@ export class ComparisonAppComponent {
   resultTab = 'result';
   activeTab = this.filesTab;
   resultTabDisabled = true;
-  highlights: Highlight[] = [];
 
   constructor(private _comparisonService: ComparisonService,
               private configService: ComparisonConfigService,
@@ -216,10 +215,21 @@ export class ComparisonAppComponent {
     arr.push(this.credentials.get(this.second));
     this._comparisonService.compare(arr).subscribe((result: CompareResult) => {
       this.result = result;
-      this.result.changes.forEach(function (change) {
+
+      this.result.changes.forEach( (change) => {
         change.id = this.generateRandomInteger();
-        this.highlights.push({id: change.id, active: false});
-      }, this);
+        const zeroBasedId = change.pageInfo.id === 0 ? change.pageInfo.id : change.pageInfo.id - 1;
+        if(!this.result.pages[zeroBasedId].changes){
+          this.result.pages[zeroBasedId].changes = [];
+        }
+        this.result.pages[zeroBasedId].changes.push(change);
+        change.normalized = {
+          x : change.box.x * 100 / change.pageInfo.width,
+          y : 100 - (change.box.y * 100 / change.pageInfo.height), // @TODO: remove 100-(y) once fixed on back-end
+          width: change.box.width * 100 / change.pageInfo.width,
+          height: change.box.height * 100 / change.pageInfo.height,
+        };
+      });
     }, (err => {
       this.resultTabDisabled = true;
       this._tabActivatorService.changeActiveTab(this.filesTab);
@@ -248,27 +258,6 @@ export class ComparisonAppComponent {
     this._tabActivatorService.changeActiveTab(this.filesTab);
   }
 
-  active(id: string) {
-    return this.highlights.find(h => h.id === id) && this.highlights.find(h => h.id === id).active;
-  }
 
-  highlightDifference(id: string){
-    const highlight = this.highlights.find(h => h.id === id);
-    // TODO: in assumption that all highlights are not active by default
-    highlight.active = true;
-    this.highlights.forEach(h => {
-      if (h.id !== id){
-        h.active = false;
-      }
-    });
-    const gdDocumentEl = $(this._elementRef.nativeElement).find(".document")[0];
-    const highlightEl = $(this._elementRef.nativeElement).find(`[id='${id}']`)[0];
-    if (highlightEl) {
-      const options = {
-        left: highlightEl.offsetLeft,
-        top: highlightEl.offsetTop - 20,
-      };
-      gdDocumentEl.scrollTo(options);
-    }
-  }
+
 }

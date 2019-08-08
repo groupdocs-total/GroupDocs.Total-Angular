@@ -3,7 +3,7 @@
   <div class="row">
     <div class="column">
       <div class="top-panel">
-        <gd-logo [logo]="'comparison'" icon="eye"></gd-logo>
+        <gd-logo [logo]="'comparison'" icon="copy"></gd-logo>
         <gd-top-toolbar class="toolbar-panel">
           <gd-button [icon]="'play'" [tooltip]="'Compare'" [disabled]="!file.get(first) || !file.get(second)"
                      (click)="compare()"></gd-button>
@@ -11,76 +11,95 @@
           <div class="tabs-wrapper">
             <div class="tabs">
               <gd-tabs>
-                <gd-tab [id]="filesTab" tabTitle="Documents" [active]="true" [content]="false">
+                <gd-tab [id]="filesTab" tabTitle="Documents" [icon]="'copy'" [active]="true" [content]="false">
                 </gd-tab>
-                <gd-tab [id]="resultTab" tabTitle="Result" [disabled]="resultTabDisabled" [content]="false">
+                <gd-tab [id]="resultTab" tabTitle="Result" [icon]="'poll'" [disabled]="resultTabDisabled" [content]="false">
                 </gd-tab>
               </gd-tabs>
             </div>
           </div>
         </gd-top-toolbar>
       </div>
-      <div class="open-file-panel">
-        <gd-add-file-panel class="compare-file" [fileName]="firstFileName" [panel]="first"
-                           (active)="activePanel = $event" (urlForUpload)="upload($event)"
-                           (cleanPanel)="clearFile(first)">
-        </gd-add-file-panel>
-        <gd-add-file-panel class="compare-file" [fileName]="secondFileName" [panel]="second"
-                           (active)="activePanel = $event" (urlForUpload)="upload($event)"
-                           (cleanPanel)="clearFile(second)">
-        </gd-add-file-panel>
-      </div>
       <div class="files-panel" *ngIf="activeTab === filesTab">
-        <div class="compare-file upload-compare-file">
-          <gd-upload-file-panel class="upload-compare-file" [panel]="first" (active)="activePanel = $event"
+        <div class="upload-compare-file">
+          <gd-add-file-panel class="compare-file"
+                             [fileName]="firstFileName"
+                             [panel]="first"
+                             (active)="activePanel = $event"
+                             (urlForUpload)="upload($event)"
+                             (cleanPanel)="clearFile(first)">
+          </gd-add-file-panel>
+          <gd-upload-file-panel
+                                [panel]="first"
+                                (active)="activePanel = $event"
                                 *ngIf="!firstFileName && !loadingFirstPanel">
           </gd-upload-file-panel>
-          <div class="upload-compare-file" *ngIf="loadingFirstPanel">
-            <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
+          <div *ngIf="loadingFirstPanel" class="loader">
+            <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
             <span>Loading... Please wait.</span>
           </div>
-          <gd-document class="gd-document" *ngIf="file.get(first)" [file]="file.get(first)" [mode]="false"
+          <gd-document class="gd-document"
+                       *ngIf="file.get(first)"
+                       [file]="file.get(first)"
+                       [mode]="false"
                        [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
                        [htmlMode]="false">
           </gd-document>
         </div>
-        <div class="compare-file upload-compare-file">
-          <gd-upload-file-panel class="upload-compare-file" [panel]="second" (active)="activePanel = $event"
+        <div class="upload-compare-file">
+          <gd-add-file-panel class="compare-file"
+                             [fileName]="secondFileName"
+                             [panel]="second"
+                             (active)="activePanel = $event"
+                             (urlForUpload)="upload($event)"
+                             (cleanPanel)="clearFile(second)">
+          </gd-add-file-panel>
+          <gd-upload-file-panel [panel]="second"
+                                (active)="activePanel = $event"
                                 *ngIf="!secondFileName && !loadingSecondPanel">
           </gd-upload-file-panel>
-          <div class="upload-compare-file" *ngIf="loadingSecondPanel">
+          <div *ngIf="loadingSecondPanel" class="loader">
             <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
             <span>Loading... Please wait.</span>
           </div>
-          <gd-document class="gd-document" *ngIf="file.get(second)" [file]="file.get(second)" [mode]="false"
+          <gd-document class="gd-document"
+                       *ngIf="file.get(second)"
+                       [file]="file.get(second)"
+                       [mode]="false"
                        [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
                        [htmlMode]="false">
           </gd-document>
         </div>
       </div>
       <div class="result-panel" *ngIf="activeTab === resultTab">
-        <div class="upload-compare-file" *ngIf="!result">
+        <div  class="loader" *ngIf="!result">
           <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon> &nbsp;
           <span>Loading... Please wait.</span>
         </div>
-        <gd-document class="gd-document" *ngIf="result" [file]="result" [mode]="false"
-                     [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
-                     [htmlMode]="false">
-                     <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}">
-                       <gd-difference-highlight [change]="change" [active]="active(change.id)" (activated)="onActivated($event)"></gd-difference-highlight>
-                     </div>
-        </gd-document>
+        <gd-result-document
+          class="gd-document"
+          *ngIf="result"
+          [file]="result"
+          [highlights]="highlights"
+          [mode]="false"
+          [preloadPageCount]="comparisonConfig?.preloadResultPageCount"
+          gdRenderPrint
+          [htmlMode]="false">
+        </gd-result-document>
       </div>
     </div>
-    <gd-side-panel (hideSidePanel)="hideSidePanel($event)" *ngIf="result && activeTab === resultTab"
+    <gd-side-panel (hideSidePanel)="hideSidePanel($event)"
+                   *ngIf="result && activeTab === resultTab"
                    [title]="'Differences'"
                    [icon]="'info-circle'">
-      <div *ngFor="let change of result.changes; let i = index" data-id="{{i}}" (click)="highlightDifference(change.id)">
-        <gd-comparison-difference [change]="change" [active]="active(change.id)"></gd-comparison-difference>
-      </div>
+      <gd-differences
+        [changes]="result.changes">
+      </gd-differences>
     </gd-side-panel>
   </div>
-  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+  <gd-browse-files-modal (urlForUpload)="upload($event)"
+                         [files]="files"
+                         (selectedDirectory)="selectDir($event)"
                          (selectedFileGuid)="selectFile($event, null, browseFilesModal, activePanel)">
   </gd-browse-files-modal>
   <gd-error-modal></gd-error-modal>

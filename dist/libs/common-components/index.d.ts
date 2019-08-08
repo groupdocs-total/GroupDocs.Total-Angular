@@ -52,3 +52,4 @@ export * from './lib/success-modal/success-modal.component';
 export * from './lib/tab/tab.component';
 export * from './lib/tabbed-toolbars/tabbed-toolbars.component';
 export * from './lib/tab-activator.service';
+export * from './lib/outside.directive';
