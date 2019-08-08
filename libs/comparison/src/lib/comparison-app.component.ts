@@ -218,14 +218,14 @@ export class ComparisonAppComponent {
 
       this.result.changes.forEach( (change) => {
         change.id = this.generateRandomInteger();
-        const zeroBasedId = change.pageInfo.id === 0 ? change.pageInfo.id : change.pageInfo.id - 1;
+        const zeroBasedId = change.pageInfo.id;
         if(!this.result.pages[zeroBasedId].changes){
           this.result.pages[zeroBasedId].changes = [];
         }
         this.result.pages[zeroBasedId].changes.push(change);
         change.normalized = {
           x : change.box.x * 100 / change.pageInfo.width,
-          y : 100 - (change.box.y * 100 / change.pageInfo.height), // @TODO: remove 100-(y) once fixed on back-end
+          y : change.box.y * 100 / change.pageInfo.height,
           width: change.box.width * 100 / change.pageInfo.width,
           height: change.box.height * 100 / change.pageInfo.height,
         };

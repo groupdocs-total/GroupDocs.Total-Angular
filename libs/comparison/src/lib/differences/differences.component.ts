@@ -12,7 +12,7 @@ export class DifferencesComponent implements OnInit {
 
   @Input() changes : ChangeInfo[] = [];
   private changesService : DifferencesService;
-  private navigateService
+  private navigateService;
 
   constructor(changeService : DifferencesService,navigateService: NavigateService,) {
     this.changesService = changeService;
@@ -25,6 +25,6 @@ export class DifferencesComponent implements OnInit {
   highlightDifference(id: string,page: number,event : MouseEvent){
     event.stopPropagation();
     this.changesService.setActiveChange(id);
-    this.navigateService.navigateTo(page);
+    this.navigateService.navigateTo(page+1);
   }
 }

@@ -21,12 +21,7 @@ export class DifferenceComponent implements OnInit {
     this.changesService.activeChange.subscribe(activeID => this.active = this.change.id === activeID)
   }
 
-  getChangeText(style : StyleChange) {
-      console.log("STYLE",style)
-  }
-
   getRgbaColor(value){
-    console.log(`rgba(${value.red},${value.green},${value.blue},${value.alpha})`)
     return `rgba(${value.red},${value.green},${value.blue},${value.alpha})`;
   }
 }

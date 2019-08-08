@@ -34,7 +34,6 @@
         <div class="gd-difference-title">Style changed</div>
         <div class="gd-differentce-comment">
           <ng-container *ngFor="let style of change.styleChanges" [ngSwitch]="style.changedProperty">
-            {{getChangeText(style)}}
             <div *ngSwitchCase="'HighlightColor'">
               <span class="color" [style.backgroundColor]="getRgbaColor(style.oldValue)"></span>
               &rarr;
