@@ -13,7 +13,7 @@ import {
   RenderPrintService,
   FileUtil,
   PasswordService,
-  FileCredentials, CommonModals
+  FileCredentials, CommonModals, OnCloseService
 } from "@groupdocs.examples.angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -51,6 +51,7 @@ export class ViewerAppComponent implements AfterViewInit {
               pagePreloadService: PagePreloadService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
+              private _onCloseService: OnCloseService,
               private _windowService: WindowService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
@@ -388,5 +389,18 @@ export class ViewerAppComponent implements AfterViewInit {
 
   private refreshZoom() {
     this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+  }
+
+  hideAll($event) {
+    if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
+      $event.target.parentElement.attributes['name'].value === 'button') ||
+      ($event.target.parentElement.parentElement &&
+        $event.target.parentElement.parentElement.attributes['name'] &&
+        $event.target.parentElement.parentElement.attributes['name'].value === 'button')) {
+
+      this._onCloseService.close(true);
+      return;
+    }
+    this._onCloseService.close(true);
   }
 }
