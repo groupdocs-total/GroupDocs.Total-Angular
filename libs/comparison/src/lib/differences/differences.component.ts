@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChangeInfo } from '@groupdocs.examples.angular/comparison';
+import { ChangeInfo } from './../models';
 import { DifferencesService } from '../differences.service';
 import { NavigateService } from '@groupdocs.examples.angular/common-components';
 

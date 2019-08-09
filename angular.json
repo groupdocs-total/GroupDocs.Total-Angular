@@ -244,6 +244,13 @@
       "sourceRoot": "libs/comparison/src",
       "prefix": "groupdocs.examples.angular",
       "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/comparison/tsconfig.lib.json",
+            "project": "libs/comparison/ng-package.json"
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {

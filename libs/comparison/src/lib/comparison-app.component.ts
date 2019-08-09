@@ -10,7 +10,6 @@ import {
 import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
 import {ComparisonConfig} from "./comparison-config";
-import {first} from "rxjs/operators";
 import {CompareResult} from "./models";
 
 const $ = jquery;
@@ -33,9 +32,9 @@ export class Highlight {
 export class ComparisonAppComponent {
   files: FileModel[] = [];
   browseFilesModal = CommonModals.BrowseFiles;
-  private credentials: Map<string, FileCredentials> = new Map<string, FileCredentials>();
-  private file: Map<string, FileDescription> = new Map<string, FileDescription>();
-  private comparisonConfig: ComparisonConfig;
+  credentials: Map<string, FileCredentials> = new Map<string, FileCredentials>();
+  file: Map<string, FileDescription> = new Map<string, FileDescription>();
+  comparisonConfig: ComparisonConfig;
   activePanel: string;
   first = Files.FIRST;
   second = Files.SECOND;
