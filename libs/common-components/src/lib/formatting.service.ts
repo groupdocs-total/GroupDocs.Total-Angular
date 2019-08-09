@@ -106,7 +106,7 @@ export class FormattingService {
   }
 
   static createFontSizeOption(val: number) {
-    return {value: val, name: val + 'px', separator: false, prefix: "px"}
+    return {value: val, name: val + 'px', separator: false}
   }
 
   static getFontSizeOptions() {
@@ -124,7 +124,7 @@ export class FormattingService {
   }
 
   static createFontOption(val: string) {
-    return {value: val, name: val, separator: false, prefix: ""}
+    return {value: val, name: val, separator: false}
   }
 
   static getFontOptions() {

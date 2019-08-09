@@ -6,7 +6,7 @@
                  *ngIf="browseConfig" ></gd-button>
 
       <gd-select [disabled]="formatDisabled" [options]="options" (selected)="selectZoom($event)"
-                 [showSelected]="zoom" *ngIf="zoomConfig" ></gd-select>
+                 [showSelected]="{ name: zoom+'%', value : zoom}" *ngIf="zoomConfig" ></gd-select>
       <gd-button [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"
                  *ngIf="zoomConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
