@@ -1,6 +1,9 @@
-import { OnInit } from '@angular/core';
-export declare class LoadingMaskComponent implements OnInit {
+import { AfterViewInit, OnInit } from '@angular/core';
+import { LoadingMaskService } from "../loading-mask.service";
+export declare class LoadingMaskComponent implements OnInit, AfterViewInit {
+    private _loadingMaskService;
     loadingMask: boolean;
-    constructor();
+    constructor(_loadingMaskService: LoadingMaskService);
     ngOnInit(): void;
+    ngAfterViewInit(): void;
 }

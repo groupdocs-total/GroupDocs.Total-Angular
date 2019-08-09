@@ -9,9 +9,8 @@ export declare class ZoomService {
     changeZoom(zoom: number): void;
     private createZoomOption;
     zoomOptions(width: any, height: any): {
-        value: number;
+        value: any;
         name: string;
         separator: boolean;
-        prefix: string;
     }[];
 }

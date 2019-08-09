@@ -1,4 +1,13 @@
-import {AfterViewChecked, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewEncapsulation
+} from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
 import * as jquery from 'jquery';

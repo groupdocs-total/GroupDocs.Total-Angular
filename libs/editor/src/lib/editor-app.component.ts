@@ -18,8 +18,8 @@ import {
   EditHtmlService,
   RenderPrintService,
   WindowService,
-  LoadingMaskService,
-} from "@groupdocs.examples.angular/common-components";
+  LoadingMaskService, Option
+} from '@groupdocs.examples.angular/common-components';
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import * as jquery from 'jquery';
@@ -293,7 +293,7 @@ export class EditorAppComponent implements AfterViewInit  {
     });
   }
 
-  selectFontSize($event: number) {
+  selectFontSize($event: Option) {
     if (this.formatDisabled)
       return;
     $(".gd-wrapper").off("keyup");
@@ -301,7 +301,7 @@ export class EditorAppComponent implements AfterViewInit  {
       this._selectionService.restoreSelection();
       this._selectionService.captureSelection();
     }
-    this._formattingService.changeFormatFontSize($event);
+    this._formattingService.changeFormatFontSize($event.value);
     $(".gd-wrapper").on("keyup", () => {
       const fontElements = document.getElementsByTagName("font");
       for (let i = 0, len = fontElements.length; i < len; ++i) {
@@ -313,7 +313,7 @@ export class EditorAppComponent implements AfterViewInit  {
     });
   }
 
-  selectFont($event: string) {
+  selectFont($event: Option) {
     if (this.formatDisabled)
       return;
     event.preventDefault();
@@ -322,7 +322,7 @@ export class EditorAppComponent implements AfterViewInit  {
       this._selectionService.restoreSelection();
       this._selectionService.captureSelection();
     }
-    this._formattingService.changeFormatFont($event);
+    this._formattingService.changeFormatFont($event.value);
   }
 
   toggleColorPicker(bg: boolean) {

@@ -9,12 +9,13 @@ export declare class SelectComponent {
     private _onCloseService;
     options: Option[];
     disabled: boolean;
-    showSelected: any;
+    showSelected: Option;
     selected: EventEmitter<any>;
     isOpen: boolean;
     constructor(_onCloseService: OnCloseService);
     open(): void;
     close(): void;
+    onClickOutside(event: Event): void;
     toggle($event: any): void;
-    select($event: any, value: any, prefix: string): void;
+    select($event: any, value: Option): void;
 }

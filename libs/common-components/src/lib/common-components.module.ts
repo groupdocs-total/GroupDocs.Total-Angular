@@ -1,13 +1,14 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TopToolbarComponent} from './top-toolbar/top-toolbar.component';
+import {SidePanelComponent} from './side-panel/side-panel.component';
 import {ButtonComponent} from './button/button.component';
 import {LogoComponent} from './logo/logo.component';
 import {TooltipComponent} from './tooltip/tooltip.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {fas} from '@fortawesome/free-solid-svg-icons';
+import {far} from '@fortawesome/free-regular-svg-icons';
 import {Api, ConfigService,} from "./config.service";
 import {ModalService} from "./modal.service";
 import {ModalComponent} from './modal/modal.component';
@@ -54,6 +55,8 @@ import {EditorDirective} from './editor.directive';
 import {LoadingMaskComponent} from './loading-mask/loading-mask.component';
 import {LoadingMaskService} from './loading-mask.service';
 import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service";
+import {TabActivatorService} from "./tab-activator.service";
+import { OutsideDirective } from './outside.directive';
 
 const providers = [ConfigService,
   Api,
@@ -80,12 +83,14 @@ const providers = [ConfigService,
   BackFormattingService,
   OnCloseService,
   LoadingMaskInterceptorService,
-  LoadingMaskService];
+  LoadingMaskService,
+  TabActivatorService];
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule],
   declarations: [
     TopToolbarComponent,
+    SidePanelComponent,
     ButtonComponent,
     LogoComponent,
     TooltipComponent,
@@ -118,10 +123,12 @@ const providers = [ConfigService,
     FormattingDirective,
     SuccessModalComponent,
     EditorDirective,
-    LoadingMaskComponent
+    LoadingMaskComponent,
+    OutsideDirective
   ],
   exports: [
     TopToolbarComponent,
+    SidePanelComponent,
     ButtonComponent,
     LogoComponent,
     TooltipComponent,
@@ -150,12 +157,14 @@ const providers = [ConfigService,
     ColorPickerComponent,
     FormattingDirective,
     SuccessModalComponent,
-    LoadingMaskComponent
+    LoadingMaskComponent,
+    DndDirective,
+    OutsideDirective
   ],
   providers: providers
 })
 export class CommonComponentsModule {
-  constructor(){
-    library.add(fas,far);
+  constructor() {
+    library.add(fas, far);
   }
 }
