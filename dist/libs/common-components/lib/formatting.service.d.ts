@@ -55,19 +55,16 @@ export declare class FormattingService {
         value: number;
         name: string;
         separator: boolean;
-        prefix: string;
     };
     static getFontSizeOptions(): {
         value: number;
         name: string;
         separator: boolean;
-        prefix: string;
     }[];
     static createFontOption(val: string): {
         value: string;
         name: string;
         separator: boolean;
-        prefix: string;
     };
     static getFontOptions(): any[];
     changeFormatFontSize($event: number): void;

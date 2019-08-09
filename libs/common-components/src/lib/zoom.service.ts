@@ -21,8 +21,8 @@ export class ZoomService {
     this._observer.next(zoom);
   }
 
-  private createZoomOption(val: number, name: string = val + '%', sep: boolean = false) {
-    return {value: val, name: name, separator: sep, prefix: "%"}
+  private createZoomOption(val: any, name: string = val, sep: boolean = false) {
+    return {value: val, name: name + '%', separator: sep}
   }
 
   zoomOptions(width, height) {

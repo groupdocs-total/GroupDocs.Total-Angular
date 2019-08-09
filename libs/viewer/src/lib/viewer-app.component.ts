@@ -278,11 +278,14 @@ export class ViewerAppComponent implements AfterViewInit {
   }
 
   get zoom() {
-    return this._zoom;
+    return {
+      name : this._zoom + '%',
+      value : this._zoom
+    };
   }
 
   selectZoom($event: any) {
-    this.zoom = $event;
+    this.zoom = $event.value;
   }
 
   rotate(deg: number) {

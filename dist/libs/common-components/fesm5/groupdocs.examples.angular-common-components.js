@@ -1217,9 +1217,9 @@ var ZoomService = /** @class */ (function () {
      * @return {?}
      */
     function (val, name, sep) {
-        if (name === void 0) { name = val + '%'; }
+        if (name === void 0) { name = val; }
         if (sep === void 0) { sep = false; }
-        return { value: val, name: name, separator: sep, prefix: "%" };
+        return { value: val, name: name + '%', separator: sep };
     };
     /**
      * @param {?} width
@@ -2446,26 +2446,24 @@ var SelectComponent = /** @class */ (function () {
     /**
      * @param {?} $event
      * @param {?} value
-     * @param {?} prefix
      * @return {?}
      */
     SelectComponent.prototype.select = /**
      * @param {?} $event
      * @param {?} value
-     * @param {?} prefix
      * @return {?}
      */
-    function ($event, value, prefix) {
+    function ($event, value) {
         $event.preventDefault();
         $event.stopPropagation();
-        this.showSelected = value + prefix;
+        console.log(value);
         this.selected.emit(value);
         this.close();
     };
     SelectComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-select',
-                    template: "<div class=\"select\">\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\" (click)=\"toggle($event)\">{{showSelected}}</span>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\" (click)=\"toggle($event)\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option.value, option.prefix)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
+                    template: "<div class=\"select\"  (click)=\"toggle($event)\">\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">{{showSelected?.name}}</span>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
                     styles: [".select{min-width:50px;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:160px;padding:5px 0;list-style:none;font-size:13px;text-align:left;background-color:#fff;border:1px solid rgba(0,0,0,.15);box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box}.dropdown-menu .option{display:block;padding:3px 20px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff}.dropdown-menu-separator{height:1px;margin:8px 0;overflow:hidden;background-color:#e5e5e5;padding:0!important}"]
                 }] }
     ];
@@ -3831,7 +3829,7 @@ var FormattingService = /** @class */ (function () {
      * @return {?}
      */
     function (val) {
-        return { value: val, name: val + 'px', separator: false, prefix: "px" };
+        return { value: val, name: val + 'px', separator: false };
     };
     /**
      * @return {?}
@@ -3861,7 +3859,7 @@ var FormattingService = /** @class */ (function () {
      * @return {?}
      */
     function (val) {
-        return { value: val, name: val, separator: false, prefix: "" };
+        return { value: val, name: val, separator: false };
     };
     /**
      * @return {?}
