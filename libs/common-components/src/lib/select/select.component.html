@@ -1,5 +1,11 @@
-<div class="select"  (click)="toggle($event)">
-  <span class="selected-value" gdDisabledCursor [dis]="disabled">{{showSelected?.name}}</span>
+<div class="select"
+     (click)="toggle($event)"
+     gdOutside
+     [clickOutsideEnabled]="isOpen"
+     (clickOutside)="onClickOutside($event)">
+  <span class="selected-value" gdDisabledCursor [dis]="disabled">
+    {{showSelected?.name}}
+  </span>
   <span class="nav-caret" gdDisabledCursor [dis]="disabled"></span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">

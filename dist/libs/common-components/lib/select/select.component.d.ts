@@ -15,6 +15,7 @@ export declare class SelectComponent {
     constructor(_onCloseService: OnCloseService);
     open(): void;
     close(): void;
+    onClickOutside(event: Event): void;
     toggle($event: any): void;
     select($event: any, value: Option): void;
 }

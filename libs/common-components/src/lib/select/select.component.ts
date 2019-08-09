@@ -36,6 +36,12 @@ export class SelectComponent {
     this.isOpen = false;
   }
 
+  onClickOutside(event : Event){
+    if(event && event['value'] === true) {
+      this.close();
+    }
+  }
+
   toggle($event) {
     $event.preventDefault();
     $event.stopPropagation();
