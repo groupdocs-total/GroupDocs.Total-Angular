@@ -2489,7 +2489,6 @@
         function ($event, value) {
             $event.preventDefault();
             $event.stopPropagation();
-            console.log(value);
             this.selected.emit(value);
             this.close();
         };
