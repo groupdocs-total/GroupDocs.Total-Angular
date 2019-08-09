@@ -620,7 +620,9 @@
              * @return {?}
              */
             function (x) { return x.id === id; }))[0];
-            modal.open();
+            if (modal) {
+                modal.open();
+            }
         };
         /**
          * @param {?} id
@@ -637,7 +639,9 @@
              * @return {?}
              */
             function (x) { return x.id === id; }))[0];
-            modal.close();
+            if (modal) {
+                modal.close();
+            }
         };
         return ModalService;
     }());
