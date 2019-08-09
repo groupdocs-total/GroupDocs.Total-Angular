@@ -1205,21 +1205,20 @@ var ZoomService = /** @class */ (function () {
     /**
      * @private
      * @param {?} val
-     * @param {?=} name
+     * @param {?} name
      * @param {?=} sep
      * @return {?}
      */
     ZoomService.prototype.createZoomOption = /**
      * @private
      * @param {?} val
-     * @param {?=} name
+     * @param {?} name
      * @param {?=} sep
      * @return {?}
      */
     function (val, name, sep) {
-        if (name === void 0) { name = val; }
         if (sep === void 0) { sep = false; }
-        return { value: val, name: name + '%', separator: sep };
+        return { value: val, name: name, separator: sep };
     };
     /**
      * @param {?} width
@@ -1232,12 +1231,12 @@ var ZoomService = /** @class */ (function () {
      * @return {?}
      */
     function (width, height) {
-        return [this.createZoomOption(25),
-            this.createZoomOption(50),
-            this.createZoomOption(100),
-            this.createZoomOption(150),
-            this.createZoomOption(200),
-            this.createZoomOption(300),
+        return [this.createZoomOption(25, '25%'),
+            this.createZoomOption(50, '50%'),
+            this.createZoomOption(100, '100%'),
+            this.createZoomOption(150, '150%'),
+            this.createZoomOption(200, '200%'),
+            this.createZoomOption(300, '300%'),
             this.createZoomOption(0, '', true),
             this.createZoomOption(width, 'Fit Width'),
             this.createZoomOption(height, 'Fit Height')];

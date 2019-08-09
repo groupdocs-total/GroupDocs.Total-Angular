@@ -21,17 +21,17 @@ export class ZoomService {
     this._observer.next(zoom);
   }
 
-  private createZoomOption(val: any, name: string = val, sep: boolean = false) {
-    return {value: val, name: name + '%', separator: sep}
+  private createZoomOption(val: any, name: string, sep: boolean = false) {
+    return {value: val, name: name, separator: sep}
   }
 
   zoomOptions(width, height) {
-    return [this.createZoomOption(25),
-      this.createZoomOption(50),
-      this.createZoomOption(100),
-      this.createZoomOption(150),
-      this.createZoomOption(200),
-      this.createZoomOption(300),
+    return [this.createZoomOption(25, '25%'),
+      this.createZoomOption(50, '50%'),
+      this.createZoomOption(100,'100%'),
+      this.createZoomOption(150, '150%'),
+      this.createZoomOption(200, '200%'),
+      this.createZoomOption(300, '300%'),
       this.createZoomOption(0, '', true),
       this.createZoomOption(width, 'Fit Width'),
       this.createZoomOption(height, 'Fit Height')];

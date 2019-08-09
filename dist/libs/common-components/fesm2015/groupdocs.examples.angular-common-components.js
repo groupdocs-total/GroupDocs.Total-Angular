@@ -998,12 +998,12 @@ class ZoomService {
     /**
      * @private
      * @param {?} val
-     * @param {?=} name
+     * @param {?} name
      * @param {?=} sep
      * @return {?}
      */
-    createZoomOption(val, name = val, sep = false) {
-        return { value: val, name: name + '%', separator: sep };
+    createZoomOption(val, name, sep = false) {
+        return { value: val, name: name, separator: sep };
     }
     /**
      * @param {?} width
@@ -1011,12 +1011,12 @@ class ZoomService {
      * @return {?}
      */
     zoomOptions(width, height) {
-        return [this.createZoomOption(25),
-            this.createZoomOption(50),
-            this.createZoomOption(100),
-            this.createZoomOption(150),
-            this.createZoomOption(200),
-            this.createZoomOption(300),
+        return [this.createZoomOption(25, '25%'),
+            this.createZoomOption(50, '50%'),
+            this.createZoomOption(100, '100%'),
+            this.createZoomOption(150, '150%'),
+            this.createZoomOption(200, '200%'),
+            this.createZoomOption(300, '300%'),
             this.createZoomOption(0, '', true),
             this.createZoomOption(width, 'Fit Width'),
             this.createZoomOption(height, 'Fit Height')];
