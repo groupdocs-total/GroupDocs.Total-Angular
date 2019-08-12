@@ -180,7 +180,9 @@ export class ViewerAppComponent implements AfterViewInit {
         }
       }
     );
-    this._modalService.close(modalId);
+    if (modalId) {
+      this._modalService.close(modalId);
+    }
     this.clearData();
   }
 
