@@ -536,7 +536,9 @@ var ViewerAppComponent = /** @class */ (function () {
                 _this.countPages = countPages;
             }
         }));
-        this._modalService.close(modalId);
+        if (modalId) {
+            this._modalService.close(modalId);
+        }
         this.clearData();
     };
     /**
