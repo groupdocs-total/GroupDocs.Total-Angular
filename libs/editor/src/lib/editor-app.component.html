@@ -2,7 +2,7 @@
 <div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
   <gd-tabbed-toolbars>
     <gd-tabs>
-      <gd-tab tabTitle="File" [icon]="'folder-open'">
+      <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
         <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
           <gd-button [icon]="'file'" [tooltip]="'Create document'" (click)="createFile()"
                      *ngIf="createNewFileConfig"></gd-button>
@@ -18,7 +18,7 @@
           </gd-button>
         </gd-top-toolbar>
       </gd-tab>
-      <gd-tab tabTitle="Formatting" [icon]="'edit'">
+      <gd-tab [tabTitle]="'Formatting'" [icon]="'edit'" [id]="'2'">
         <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
 
           <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Undo'"
@@ -27,10 +27,10 @@
                      (click)="toggleRedo()"></gd-button>
           <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontOptions"
                      (selected)="selectFont($event)"
-                     [showSelected]="formatting.font"></gd-select>
+                     [showSelected]="{name : formatting.font, value : formatting.font}"></gd-select>
           <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontSizeOptions"
                      (selected)="selectFontSize($event)"
-                     [showSelected]="formatting.fontSize + 'px'"></gd-select>
+                     [showSelected]="{name : formatting.fontSize + 'px', value : formatting.fontSize}"></gd-select>
           <gd-button [disabled]="formatDisabled" [icon]="'bold'" [tooltip]="'Bold'"
                      (click)="toggleBold($event)" [toggle]="formatting.bold"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'italic'" [tooltip]="'Italic'"

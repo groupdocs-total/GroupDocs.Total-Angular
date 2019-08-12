@@ -4,6 +4,7 @@ import {Injectable} from "@angular/core";
 export class Api {
   public static VIEWER_APP = '/viewer';
   public static EDITOR_APP = '/editor';
+  public static COMPARISON_APP = '/comparison';
   public static DEFAULT_API_ENDPOINT = window.location.href;
   public static LOAD_FILE_TREE = '/loadFileTree';
   public static LOAD_CONFIG = '/loadConfig';
@@ -17,6 +18,7 @@ export class Api {
   public static LOAD_THUMBNAILS = '/loadThumbnails';
   public static LOAD_FORMATS = '/loadFormats';
   public static SAVE_FILE = '/saveFile';
+  public static COMPARE_FILES = '/compare';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({
@@ -53,6 +55,10 @@ export class ConfigService {
 
   getEditorApiEndpoint() {
     return this._apiEndpoint.trim().endsWith(Api.EDITOR_APP) ? this._apiEndpoint : this._apiEndpoint + Api.EDITOR_APP;
+  }
+
+  getComparisonApiEndpoint() {
+    return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
   }
 
   get apiEndpoint() {

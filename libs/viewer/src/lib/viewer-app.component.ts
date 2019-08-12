@@ -274,7 +274,7 @@ export class ViewerAppComponent implements AfterViewInit {
     return this._zoomService.zoomOptions(width, height);
   }
 
-  set zoom(zoom: number) {
+  set zoom(zoom) {
     this._zoom = zoom;
     this._zoomService.changeZoom(this._zoom);
   }
@@ -284,7 +284,7 @@ export class ViewerAppComponent implements AfterViewInit {
   }
 
   selectZoom($event: any) {
-    this.zoom = $event;
+    this.zoom = $event.value;
   }
 
   rotate(deg: number) {

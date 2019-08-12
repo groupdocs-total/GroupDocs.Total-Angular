@@ -5,7 +5,7 @@
       <span>
         Select file type
       </span>
-      <gd-select [disabled]="false" [options]="formats" (selected)="selectFormat($event)" [showSelected]="format" class="gd-select-format"></gd-select>
+      <gd-select [disabled]="false" [options]="formats" (selected)="selectFormat($event)" [showSelected]="{name : format, value : format}" class="gd-select-format"></gd-select>
       <button class="btn btn-primary gd-create-submit" (click)="save(name.value)">Save</button>
     </div>
   </section>

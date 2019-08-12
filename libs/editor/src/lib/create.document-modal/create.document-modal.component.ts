@@ -42,7 +42,7 @@ export class CreateDocumentModalComponent implements OnInit {
   }
 
   selectFormat($event: any) {
-    this._format = $event;
+    this._format = $event.value;
   }
 
   createFormatOption(val: string) {

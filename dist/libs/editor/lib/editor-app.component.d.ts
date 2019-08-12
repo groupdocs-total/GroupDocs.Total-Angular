@@ -1,6 +1,6 @@
 import { AfterViewInit } from '@angular/core';
 import { EditorService } from "./editor.service";
-import { FileDescription, FileModel, ModalService, UploadFilesService, PasswordService, FileCredentials, FormattingService, Formatting, BackFormattingService, OnCloseService, SelectionService, EditHtmlService, RenderPrintService, WindowService, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
+import { FileDescription, FileModel, ModalService, UploadFilesService, PasswordService, FileCredentials, FormattingService, Formatting, BackFormattingService, OnCloseService, SelectionService, EditHtmlService, RenderPrintService, WindowService, LoadingMaskService, Option } from '@groupdocs.examples.angular/common-components';
 import { EditorConfig } from "./editor-config";
 import { EditorConfigService } from "./editor-config.service";
 export declare class EditorAppComponent implements AfterViewInit {
@@ -28,7 +28,6 @@ export declare class EditorAppComponent implements AfterViewInit {
         value: number;
         name: string;
         separator: boolean;
-        prefix: string;
     }[];
     fontOptions: any[];
     bgColorPickerShow: boolean;
@@ -57,8 +56,8 @@ export declare class EditorAppComponent implements AfterViewInit {
     private loadFile;
     private clearData;
     upload($event: string): void;
-    selectFontSize($event: number): void;
-    selectFont($event: string): void;
+    selectFontSize($event: Option): void;
+    selectFont($event: Option): void;
     toggleColorPicker(bg: boolean): void;
     selectColor($event: string): void;
     toggleBold(event: any): void;

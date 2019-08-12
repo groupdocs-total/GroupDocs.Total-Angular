@@ -15,7 +15,7 @@ or
 Add following code within `<body>` tag
 
 ```JS
-<gd-viewer></gd-viewers>
+<gd-viewer></gd-viewer>
 ```
 
 # Note

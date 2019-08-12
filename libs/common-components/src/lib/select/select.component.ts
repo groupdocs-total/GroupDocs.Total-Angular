@@ -16,7 +16,7 @@ export class SelectComponent {
 
   @Input() options: Option[];
   @Input() disabled = false;
-  @Input() showSelected: any;
+  @Input() showSelected: Option;
   @Output() selected: EventEmitter<any> = new EventEmitter();
   isOpen = false;
 
@@ -36,6 +36,12 @@ export class SelectComponent {
     this.isOpen = false;
   }
 
+  onClickOutside(event : Event){
+    if(event && event['value'] === true) {
+      this.close();
+    }
+  }
+
   toggle($event) {
     $event.preventDefault();
     $event.stopPropagation();
@@ -44,10 +50,9 @@ export class SelectComponent {
     }
   }
 
-  select($event, value: any, prefix: string) {
+  select($event, value: Option) {
     $event.preventDefault();
     $event.stopPropagation();
-    this.showSelected = value + prefix;
     this.selected.emit(value);
     this.close();
   }

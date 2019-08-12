@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/editor",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Angular application that allows to edit documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {

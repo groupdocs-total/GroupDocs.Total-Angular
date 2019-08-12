@@ -4,7 +4,7 @@ export declare class DndDirective {
     private _uploadFilesService;
     closing: EventEmitter<boolean>;
     opening: EventEmitter<boolean>;
-    isBackground: boolean;
+    dropped: EventEmitter<boolean>;
     active: boolean;
     constructor(_uploadFilesService: UploadFilesService);
     onDragOver(evt: any): void;

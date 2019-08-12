@@ -58,12 +58,11 @@ export declare class ViewerAppComponent implements AfterViewInit {
     private getFitToWidth;
     private getFitToHeight;
     zoomOptions(): {
-        value: number;
+        value: any;
         name: string;
         separator: boolean;
-        prefix: string;
     }[];
-    zoom: number;
+    zoom: any;
     selectZoom($event: any): void;
     rotate(deg: number): void;
     private changeAngle;
