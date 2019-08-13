@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 
 export class Api {
   public static VIEWER_APP = '/viewer';
+  public static SIGNATURE_APP = '/signature';
   public static EDITOR_APP = '/editor';
   public static COMPARISON_APP = '/comparison';
   public static DEFAULT_API_ENDPOINT = window.location.href;
@@ -63,5 +64,9 @@ export class ConfigService {
 
   get apiEndpoint() {
     return this._apiEndpoint;
+  }
+
+  getSignatureApiEndpoint() {
+    return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
   }
 }

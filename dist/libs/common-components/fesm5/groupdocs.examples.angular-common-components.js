@@ -483,6 +483,7 @@ var Api = /** @class */ (function () {
     function Api() {
     }
     Api.VIEWER_APP = '/viewer';
+    Api.SIGNATURE_APP = '/signature';
     Api.EDITOR_APP = '/editor';
     Api.COMPARISON_APP = '/comparison';
     Api.DEFAULT_API_ENDPOINT = window.location.href;
@@ -570,6 +571,15 @@ var ConfigService = /** @class */ (function () {
      */
     function () {
         return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getSignatureApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
     };
     ConfigService.decorators = [
         { type: Injectable }

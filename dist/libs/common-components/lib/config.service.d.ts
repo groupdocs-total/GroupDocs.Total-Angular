@@ -1,6 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 export declare class Api {
     static VIEWER_APP: string;
+    static SIGNATURE_APP: string;
     static EDITOR_APP: string;
     static COMPARISON_APP: string;
     static DEFAULT_API_ENDPOINT: string;
@@ -33,4 +34,5 @@ export declare class ConfigService {
     getViewerApiEndpoint(): string;
     getEditorApiEndpoint(): string;
     getComparisonApiEndpoint(): string;
+    getSignatureApiEndpoint(): string;
 }

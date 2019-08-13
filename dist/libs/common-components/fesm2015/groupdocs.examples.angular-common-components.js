@@ -412,6 +412,7 @@ TooltipComponent.propDecorators = {
 class Api {
 }
 Api.VIEWER_APP = '/viewer';
+Api.SIGNATURE_APP = '/signature';
 Api.EDITOR_APP = '/editor';
 Api.COMPARISON_APP = '/comparison';
 Api.DEFAULT_API_ENDPOINT = window.location.href;
@@ -480,6 +481,12 @@ class ConfigService {
      */
     get apiEndpoint() {
         return this._apiEndpoint;
+    }
+    /**
+     * @return {?}
+     */
+    getSignatureApiEndpoint() {
+        return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
     }
 }
 ConfigService.decorators = [
