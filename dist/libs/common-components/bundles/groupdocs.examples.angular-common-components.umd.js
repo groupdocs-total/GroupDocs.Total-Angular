@@ -5072,6 +5072,33 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var LeftSideBarComponent = /** @class */ (function () {
+        function LeftSideBarComponent() {
+        }
+        /**
+         * @return {?}
+         */
+        LeftSideBarComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        LeftSideBarComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-left-side-bar',
+                        template: "<div class=\"left-panel\"></div>\n",
+                        styles: [".left-panel{position:absolute;top:60px;left:0;bottom:0;z-index:99999}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        LeftSideBarComponent.ctorParameters = function () { return []; };
+        return LeftSideBarComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     /** @type {?} */
     var providers = [ConfigService,
         Api,
@@ -5143,7 +5170,8 @@
                             SuccessModalComponent,
                             EditorDirective,
                             LoadingMaskComponent,
-                            OutsideDirective
+                            OutsideDirective,
+                            LeftSideBarComponent
                         ],
                         exports: [
                             TopToolbarComponent,
@@ -5178,7 +5206,8 @@
                             SuccessModalComponent,
                             LoadingMaskComponent,
                             DndDirective,
-                            OutsideDirective
+                            OutsideDirective,
+                            LeftSideBarComponent
                         ],
                         providers: providers
                     },] }
@@ -5216,6 +5245,7 @@
     exports.HighlightSearchPipe = HighlightSearchPipe;
     exports.HttpError = HttpError;
     exports.InitStateComponent = InitStateComponent;
+    exports.LeftSideBarComponent = LeftSideBarComponent;
     exports.LoadingMaskComponent = LoadingMaskComponent;
     exports.LoadingMaskInterceptorService = LoadingMaskInterceptorService;
     exports.LoadingMaskService = LoadingMaskService;
