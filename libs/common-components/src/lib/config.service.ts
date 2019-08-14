@@ -62,7 +62,7 @@ export class ConfigService {
     return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
   }
 
-  getConverisonApiEndpoint() {
+  getConversionApiEndpoint() {
     return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
   }
 

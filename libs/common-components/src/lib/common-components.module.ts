@@ -27,6 +27,7 @@ import {PagePreloadService} from "./page-preload.service";
 import {ZoomDirective} from './zoom.directive';
 import {ZoomService} from "./zoom.service";
 import {SelectComponent} from './select/select.component';
+import {FileFormatSelectComponent} from './file-format-select/file-format-select.component';
 import {DisabledCursorDirective} from './disabled-cursor.directive';
 import {RotationDirective} from './rotation.directive';
 import {InitStateComponent} from './init-state/init-state.component';
@@ -108,6 +109,7 @@ const providers = [ConfigService,
     ScrollableDirective,
     ZoomDirective,
     SelectComponent,
+    FileFormatSelectComponent,
     DisabledCursorDirective,
     RotationDirective,
     InitStateComponent,
@@ -144,6 +146,7 @@ const providers = [ConfigService,
     UploadFileZoneComponent,
     ScrollableDirective,
     SelectComponent,
+    FileFormatSelectComponent,
     RotationDirective,
     InitStateComponent,
     RenderPrintDirective,

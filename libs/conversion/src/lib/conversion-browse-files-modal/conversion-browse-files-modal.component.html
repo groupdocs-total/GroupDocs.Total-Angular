@@ -1,0 +1,58 @@
+<gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
+  <section id="gd-browse-section" (dragover)="showUploadFile = true;">
+    <div class="gd-dnd-wrap" *ngIf="showUploadFile" gdDnd (opening)="showUploadFile=$event">
+      <div class="gd-drag-n-drop-icon">
+        <fa-icon [icon]="['fas','cloud-download-alt']" size="5x" aria-hidden="true"></fa-icon>
+      </div>
+      <h2>Drag &amp; Drop your files here</h2>
+    </div>
+    <div class="upload-panel" *ngIf="uploadConfig">
+      <input type="checkbox" class="gd-select-all gd-checkbox">
+      <gd-choice-button [name]="'Upload file'" [choices]="uploads" [icon]="'upload'"
+                        (selected)="selectUpload($event)"></gd-choice-button>
+      <input id="gd-upload-input" type="file" multiple style="display: none;" (change)="handleFileInput($event.target.files)">
+      <div class="upload-url" *ngIf="showUploadUrl">
+        <input class="url-input" #url (keyup.enter)="uploadUrl(url.value)">
+        <div class="url-check" (click)="uploadUrl(url.value)">
+            <fa-icon [icon]="['fas','check']"></fa-icon>
+        </div>
+      </div>
+    </div>
+    <div id="gd-modal-filebrowser" class="gd-modal-table">
+      <div class="list-files-header">
+        <div class="header-name">Document</div>
+        <div class="header-size">Size</div>
+      </div>
+      <div class="list-files-body">
+      <div class="go-up" (click)="goUp()">
+          <div class="go-up-icon">
+              <fa-icon [icon]="['fas','level-up-alt']"></fa-icon>
+          </div>
+          <div class="go-up-dots">...</div>
+      </div>
+      <div class="list-files-lines" *ngFor="let file of files" (click)="choose(file);">
+        <div class="gd-file-checkbox" [ngClass]="{'empty': file && file.isDirectory}">
+            <input *ngIf="file && !file.isDirectory" type="checkbox" id="{{file?.name}}" name="{{file?.name}}" class="gd-checkbox gd-checkbox-single">
+        </div>
+        <div class="file-description">
+          <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>
+          <div class="file-name-format">
+            <div class="file-name">{{file?.name}}</div>
+            <div class="file-format">{{getFormatName(file)}}</div>
+          </div>
+        </div>
+        <div class="file-size">
+          {{getSize(file?.size)}}
+        </div>
+        <div class="file-format-select" [ngClass]="{'empty': file && file.isDirectory}">
+          <gd-file-format-select (selected)="selectFormat($event, file)" *ngIf="file && !file.isDirectory" [disabled]="false" [options]="formatOptions(file.conversionTypes)" class="gd-select-format"></gd-file-format-select>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="showSpinner()">
+        <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
+      &nbsp;Loading... Please wait.
+    </div>
+  </section>
+</gd-modal>

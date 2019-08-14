@@ -10,6 +10,11 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ConversionService} from "./conversion.service";
 import {ConversionConfigService} from "./conversion-config.service";
 import {ConversionAppComponent} from "./conversion-app.component";
+import { ConversionBrowseFilesModalComponent } from './conversion-browse-files-modal/conversion-browse-files-modal.component';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {fas} from '@fortawesome/free-solid-svg-icons';
+import {far} from '@fortawesome/free-regular-svg-icons';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 export function initializeApp(conversionConfigService: ConversionConfigService) {
   const result = () => conversionConfigService.load();
@@ -17,11 +22,12 @@ export function initializeApp(conversionConfigService: ConversionConfigService) 
 }
 
 @NgModule({
-  declarations: [ConversionAppComponent],
-  exports: [ConversionAppComponent],
+  declarations: [ConversionAppComponent, ConversionBrowseFilesModalComponent],
+  exports: [ConversionAppComponent, ConversionBrowseFilesModalComponent],
   imports: [CommonModule,
     CommonComponentsModule,
-    HttpClientModule],
+    HttpClientModule,
+    FontAwesomeModule],
   providers: [
     ConversionService,
     ConfigService,
@@ -39,6 +45,10 @@ export function initializeApp(conversionConfigService: ConversionConfigService) 
   ]
 })
 export class СonversionModule {
+  constructor() {
+    library.add(fas, far);
+  }
+
   static forRoot(apiEndpoint: string): ModuleWithProviders {
     Api.DEFAULT_API_ENDPOINT = apiEndpoint;
     return {
