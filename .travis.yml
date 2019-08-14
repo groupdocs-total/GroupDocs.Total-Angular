@@ -1,5 +1,4 @@
 before_script:
-  - sudo apt install libgconf-2-4
   - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
   - nvm install v10.11.0
   - nvm use v10.11.0
@@ -26,6 +25,10 @@ matrix:
       addons:
         hosts:
           - localhost
+        chrome: stable
+        apt:
+          packages:
+          - libgconf-2-4
       language: java
       script:
         - git fetch origin master
@@ -45,6 +48,10 @@ matrix:
       addons:
         hosts:
           - localhost
+        chrome: stable
+        apt:
+          packages:
+          - libgconf-2-4
       language: java
       script:
         - git fetch origin master
