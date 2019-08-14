@@ -22,7 +22,8 @@
       ],
       "@groupdocs.examples.angular/viewer": ["libs/viewer/src/index.ts"],
       "@groupdocs.examples.angular/editor": ["libs/editor/src/index.ts"],
-      "@groupdocs.examples.angular/comparison": ["libs/comparison/src/index.ts"]
+      "@groupdocs.examples.angular/comparison": ["libs/comparison/src/index.ts"],
+      "@groupdocs.examples.angular/conversion": ["libs/conversion/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

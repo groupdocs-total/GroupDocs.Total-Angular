@@ -1,0 +1,18 @@
+<div class="wrapper" (contextmenu)="onRightClick($event)">
+  <div class="top-panel">
+    <gd-logo [logo]="'conversion'" icon="{{isLeftBarOpen() ? 'bars' : 'times'}}"></gd-logo>
+    <gd-top-toolbar class="toolbar-panel">
+      <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+      [disabled]="true" ></gd-button>
+
+      <gd-button [icon]="'exchange-alt'" [tooltip]="'Convert'" [disabled]="true"
+      (click)="convert()"></gd-button>
+
+    </gd-top-toolbar>
+  </div>
+
+  <gd-init-state [icon]="'exchange-alt'" [text]="''" *ngIf="true"></gd-init-state>
+
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
+</div>

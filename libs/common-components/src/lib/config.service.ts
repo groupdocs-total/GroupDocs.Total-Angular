@@ -5,6 +5,7 @@ export class Api {
   public static VIEWER_APP = '/viewer';
   public static EDITOR_APP = '/editor';
   public static COMPARISON_APP = '/comparison';
+  public static CONVERSION_APP = '/conversion';
   public static DEFAULT_API_ENDPOINT = window.location.href;
   public static LOAD_FILE_TREE = '/loadFileTree';
   public static LOAD_CONFIG = '/loadConfig';
@@ -59,6 +60,10 @@ export class ConfigService {
 
   getComparisonApiEndpoint() {
     return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
+  }
+
+  getConverisonApiEndpoint() {
+    return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
   }
 
   get apiEndpoint() {
