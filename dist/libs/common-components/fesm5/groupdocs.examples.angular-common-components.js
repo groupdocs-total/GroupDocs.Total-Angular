@@ -5039,6 +5039,33 @@ var OutsideDirective = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var LeftSideBarComponent = /** @class */ (function () {
+    function LeftSideBarComponent() {
+    }
+    /**
+     * @return {?}
+     */
+    LeftSideBarComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    LeftSideBarComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-left-side-bar',
+                    template: "<div class=\"left-panel\"></div>\n",
+                    styles: [".left-panel{position:absolute;top:60px;left:0;bottom:0;z-index:99999}"]
+                }] }
+    ];
+    /** @nocollapse */
+    LeftSideBarComponent.ctorParameters = function () { return []; };
+    return LeftSideBarComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 var providers = [ConfigService,
     Api,
@@ -5110,7 +5137,8 @@ var CommonComponentsModule = /** @class */ (function () {
                         SuccessModalComponent,
                         EditorDirective,
                         LoadingMaskComponent,
-                        OutsideDirective
+                        OutsideDirective,
+                        LeftSideBarComponent
                     ],
                     exports: [
                         TopToolbarComponent,
@@ -5145,7 +5173,8 @@ var CommonComponentsModule = /** @class */ (function () {
                         SuccessModalComponent,
                         LoadingMaskComponent,
                         DndDirective,
-                        OutsideDirective
+                        OutsideDirective,
+                        LeftSideBarComponent
                     ],
                     providers: providers
                 },] }
@@ -5155,5 +5184,5 @@ var CommonComponentsModule = /** @class */ (function () {
     return CommonComponentsModule;
 }());
 
-export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
+export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

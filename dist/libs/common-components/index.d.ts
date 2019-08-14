@@ -53,3 +53,4 @@ export * from './lib/tab/tab.component';
 export * from './lib/tabbed-toolbars/tabbed-toolbars.component';
 export * from './lib/tab-activator.service';
 export * from './lib/outside.directive';
+export * from './lib/left-side-bar/left-side-bar.component';

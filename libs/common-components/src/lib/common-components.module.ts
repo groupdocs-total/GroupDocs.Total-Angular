@@ -161,7 +161,8 @@ const providers = [ConfigService,
     SuccessModalComponent,
     LoadingMaskComponent,
     DndDirective,
-    OutsideDirective
+    OutsideDirective,
+    LeftSideBarComponent
   ],
   providers: providers
 })
