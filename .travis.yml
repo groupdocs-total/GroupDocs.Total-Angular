@@ -5,6 +5,10 @@ before_script:
   - node --version
 language: java
 sudo: false
+addons:
+  apt:
+    packages:
+    - libgconf-2-4
 os:
   - linux
 env :
