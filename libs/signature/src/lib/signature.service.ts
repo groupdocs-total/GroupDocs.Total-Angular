@@ -54,4 +54,12 @@ export class SignatureService {
       'password': credentials.password,
     }, Api.httpOptionsJsonResponseTypeBlob);
   }
+
+  getSignatures(path: string, type: string) {
+    return this._http.post(this._config.getSignatureApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path, 'signatureType': type}, Api.httpOptionsJson);
+  }
+
+  removeSignatures(guid: string, type: string) {
+    return this._http.post(this._config.getSignatureApiEndpoint() + Api.DELETE_SIGNATURE_FILE, {'guid': guid, 'signatureType': type}, Api.httpOptionsJson);
+  }
 }

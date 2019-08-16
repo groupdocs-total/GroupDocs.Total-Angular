@@ -12,11 +12,13 @@ import {
   RenderPrintService,
   FileUtil,
   PasswordService,
-  FileCredentials, CommonModals
+  FileCredentials,
+  CommonModals
 } from "@groupdocs.examples.angular/common-components";
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
+import {Signature, SignatureType} from "./signature-models";
 
 @Component({
   selector: 'gd-signature',
@@ -34,6 +36,15 @@ export class SignatureAppComponent implements AfterViewInit {
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
   leftBarOpen = false;
+  signatureTypes = [
+    SignatureType.TEXT,
+    SignatureType.IMAGE,
+    SignatureType.DIGITAL,
+    SignatureType.QR_CODE,
+    SignatureType.BAR_CODE,
+    SignatureType.STAMP,
+    SignatureType.HAND,
+  ];
 
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -119,6 +130,34 @@ export class SignatureAppComponent implements AfterViewInit {
 
   get enableRightClickConfig(): boolean {
     return this.signatureConfig ? this.signatureConfig.enableRightClick : true;
+  }
+
+  get textSignatureConfig(): boolean {
+    return this.signatureConfig ? this.signatureConfig.textSignature : true;
+  }
+
+  get imageSignatureConfig(): boolean {
+    return this.signatureConfig ? this.signatureConfig.imageSignature : true;
+  }
+
+  get digitalSignatureConfig(): boolean {
+    return this.signatureConfig ? this.signatureConfig.digitalSignature : true;
+  }
+
+  get qrCodeSignatureConfig(): boolean {
+    return this.signatureConfig ? this.signatureConfig.qrCodeSignature : true;
+  }
+
+  get barCodeSignatureConfig(): boolean {
+    return this.signatureConfig ? this.signatureConfig.barCodeSignature : true;
+  }
+
+  get stampSignatureConfig(): boolean {
+    return this.signatureConfig ? this.signatureConfig.stampSignature : true;
+  }
+
+  get handSignatureConfig(): boolean {
+    return this.signatureConfig ? this.signatureConfig.handSignature : true;
   }
 
   get currentPage(): number {
@@ -248,5 +287,24 @@ export class SignatureAppComponent implements AfterViewInit {
 
   isLeftBarOpen() {
     return this.isDesktop ? true : this.leftBarOpen;
+  }
+
+  getSignatureTypeConfig(id: string) {
+    switch (id) {
+      case SignatureType.TEXT.id:
+        return this.textSignatureConfig;
+      case SignatureType.IMAGE.id:
+        return this.imageSignatureConfig;
+      case SignatureType.DIGITAL.id:
+        return this.digitalSignatureConfig;
+      case SignatureType.QR_CODE.id:
+        return this.qrCodeSignatureConfig;
+      case SignatureType.BAR_CODE.id:
+        return this.barCodeSignatureConfig;
+      case SignatureType.STAMP.id:
+        return this.stampSignatureConfig;
+      case SignatureType.HAND.id:
+        return this.handSignatureConfig;
+    }
   }
 }

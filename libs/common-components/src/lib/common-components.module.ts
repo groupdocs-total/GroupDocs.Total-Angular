@@ -1,4 +1,4 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TopToolbarComponent} from './top-toolbar/top-toolbar.component';
 import {SidePanelComponent} from './side-panel/side-panel.component';
@@ -56,8 +56,9 @@ import {LoadingMaskComponent} from './loading-mask/loading-mask.component';
 import {LoadingMaskService} from './loading-mask.service';
 import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service";
 import {TabActivatorService} from "./tab-activator.service";
-import { OutsideDirective } from './outside.directive';
-import { LeftSideBarComponent } from './left-side-bar/left-side-bar.component';
+import {OutsideDirective} from './outside.directive';
+import {LeftSideBarComponent} from './left-side-bar/left-side-bar.component';
+import { TooltipDirective } from './tooltip.directive';
 
 const providers = [ConfigService,
   Api,
@@ -126,7 +127,8 @@ const providers = [ConfigService,
     EditorDirective,
     LoadingMaskComponent,
     OutsideDirective,
-    LeftSideBarComponent
+    LeftSideBarComponent,
+    TooltipDirective
   ],
   exports: [
     TopToolbarComponent,
@@ -162,7 +164,8 @@ const providers = [ConfigService,
     LoadingMaskComponent,
     DndDirective,
     OutsideDirective,
-    LeftSideBarComponent
+    LeftSideBarComponent,
+    TooltipDirective
   ],
   providers: providers
 })

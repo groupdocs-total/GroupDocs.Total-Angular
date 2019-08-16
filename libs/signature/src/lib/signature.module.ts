@@ -10,6 +10,12 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {SignatureService} from "./signature.service";
 import {SignatureConfigService} from "./signature-config.service";
 import {SignatureAppComponent} from "./signature-app.component";
+import {SignatureListPanelComponent} from './signature-list-panel/signature-list-panel.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {fas} from '@fortawesome/free-solid-svg-icons';
+import {far} from '@fortawesome/free-regular-svg-icons';
+import { SignatureTabComponent } from './signature-tab/signature-tab.component';
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -17,11 +23,16 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
 }
 
 @NgModule({
-  declarations: [SignatureAppComponent],
-  exports: [SignatureAppComponent],
+  declarations: [SignatureAppComponent,
+    SignatureListPanelComponent,
+    SignatureTabComponent],
+  exports: [SignatureAppComponent,
+    SignatureListPanelComponent,
+    SignatureTabComponent],
   imports: [CommonModule,
     CommonComponentsModule,
-    HttpClientModule],
+    HttpClientModule,
+    FontAwesomeModule],
   providers: [
     SignatureService,
     ConfigService,
@@ -39,6 +50,10 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
   ]
 })
 export class SignatureModule {
+  constructor() {
+    library.add(fas, far);
+  }
+
   static forRoot(apiEndpoint: string): ModuleWithProviders {
     Api.DEFAULT_API_ENDPOINT = apiEndpoint;
     return {

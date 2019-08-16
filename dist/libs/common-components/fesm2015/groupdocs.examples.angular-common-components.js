@@ -314,7 +314,6 @@ class ButtonComponent {
         if (!this.disabled) {
             this.className += ' active';
         }
-        this.showToolTip = true;
     }
     /**
      * @return {?}
@@ -323,13 +322,12 @@ class ButtonComponent {
         if (!this.disabled) {
             this.className = this.className.replace(' active', '');
         }
-        this.showToolTip = false;
     }
 }
 ButtonComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-button',
-                template: "<div class=\"button\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <ng-content></ng-content>\n</div>\n",
+                template: "<div class=\"button\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" gdTooltip\n     (showToolTip)=\"showToolTip = $event\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <ng-content></ng-content>\n</div>\n",
                 styles: [".button{margin:0 7px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;width:37px;height:36px;text-align:center;position:relative}.button.inactive{cursor:not-allowed;opacity:.4}.button.active .ng-fa-icon{color:#ccd0d4}@media (max-width:1025px){.button{font-size:20px;margin:0 6px}.arrow-button{margin:5px}}"]
             }] }
 ];
@@ -429,6 +427,7 @@ Api.LOAD_THUMBNAILS = '/loadThumbnails';
 Api.LOAD_FORMATS = '/loadFormats';
 Api.SAVE_FILE = '/saveFile';
 Api.COMPARE_FILES = '/compare';
+Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
 Api.httpOptionsJson = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -2990,8 +2989,8 @@ class TabComponent {
 TabComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-tab',
-                template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'gd-editor-buttons active' : 'gd-editor-buttons'\">\n  <ng-content></ng-content>\n</div>\n",
-                styles: [".gd-editor-buttons{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.gd-editor-buttons ::ng-deep .toolbar-panel{height:60px}.gd-editor-buttons.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:480px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
+                template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\n  <ng-content></ng-content>\n</div>\n",
+                styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:480px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
             }] }
 ];
 /** @nocollapse */
@@ -4126,6 +4125,7 @@ OutsideDirective.propDecorators = {
  */
 class LeftSideBarComponent {
     constructor() {
+        this.showSpinner = false;
     }
     /**
      * @return {?}
@@ -4136,12 +4136,49 @@ class LeftSideBarComponent {
 LeftSideBarComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-left-side-bar',
-                template: "<div class=\"left-panel\"></div>\n",
-                styles: [".left-panel{position:absolute;top:60px;left:0;bottom:0;z-index:99999}"]
+                template: "<div class=\"left-panel\">\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
+                styles: [".left-panel{position:absolute;top:60px;left:0;bottom:0;height:100%;background:#fff;border-radius:0;float:left;z-index:1;display:flex;flex-direction:column}.gd-left-bar-fade{position:fixed;margin:auto;display:none;overflow:hidden;top:50px;width:315px;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(255,255,255,.5)}.gd-left-bar-spinner{left:30%;top:50%;position:absolute}@media (max-width:480px){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
             }] }
 ];
 /** @nocollapse */
 LeftSideBarComponent.ctorParameters = () => [];
+LeftSideBarComponent.propDecorators = {
+    showSpinner: [{ type: Input }]
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class TooltipDirective {
+    constructor() {
+        this.showToolTip = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    onHovering() {
+        this.showToolTip.emit(true);
+    }
+    /**
+     * @return {?}
+     */
+    onUnhovering() {
+        this.showToolTip.emit(false);
+    }
+}
+TooltipDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[gdTooltip]'
+            },] }
+];
+/** @nocollapse */
+TooltipDirective.ctorParameters = () => [];
+TooltipDirective.propDecorators = {
+    showToolTip: [{ type: Output }],
+    onHovering: [{ type: HostListener, args: ['mouseenter',] }],
+    onUnhovering: [{ type: HostListener, args: ['mouseleave',] }]
+};
 
 /**
  * @fileoverview added by tsickle
@@ -4220,7 +4257,8 @@ CommonComponentsModule.decorators = [
                     EditorDirective,
                     LoadingMaskComponent,
                     OutsideDirective,
-                    LeftSideBarComponent
+                    LeftSideBarComponent,
+                    TooltipDirective
                 ],
                 exports: [
                     TopToolbarComponent,
@@ -4256,7 +4294,8 @@ CommonComponentsModule.decorators = [
                     LoadingMaskComponent,
                     DndDirective,
                     OutsideDirective,
-                    LeftSideBarComponent
+                    LeftSideBarComponent,
+                    TooltipDirective
                 ],
                 providers: providers
             },] }
@@ -4264,5 +4303,5 @@ CommonComponentsModule.decorators = [
 /** @nocollapse */
 CommonComponentsModule.ctorParameters = () => [];
 
-export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
+export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

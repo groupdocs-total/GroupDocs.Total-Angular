@@ -20,6 +20,7 @@ export class Api {
   public static LOAD_FORMATS = '/loadFormats';
   public static SAVE_FILE = '/saveFile';
   public static COMPARE_FILES = '/compare';
+  public static DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

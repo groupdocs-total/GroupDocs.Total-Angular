@@ -1,0 +1,114 @@
+@import "../../../../common-components/src/styles/variables";
+
+.tab-content {
+  height: 95vh;
+  left: 53px;
+  top: 0px;
+  line-height: unset;
+  position: absolute;
+  background-color: #FFFFFF;
+  width: 100%;
+  z-index: 9;
+}
+
+.gd-tab {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: transparent;
+  border-radius: 3px;
+  position: relative;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  outline: none;
+  display: inline-block;
+  margin: 13px 10px 10px 11px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+
+  .icon {
+    display: block;
+    color: #959da5;
+  }
+
+  .icon.active {
+    background-color: #FFFFFF;
+    color: #3E4E5A;
+    font-weight: bold;
+  }
+
+  ::ng-deep .tooltip {
+    display: inline-block;
+    position: absolute;
+    left: 35px;
+    top: 10px;
+    padding: 3px 0.5em;
+    background-color: #08090a;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    z-index: 20;
+    font-size: 12px;
+    margin: 0px;
+  }
+
+  ::ng-deep .shown:after {
+    right: 100%;
+    top: 50%;
+    left: unset;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border: 5px solid rgba(0, 0, 0, 0);
+    border-right-color: #000000;
+    margin-top: -5px;
+  }
+
+  .title {
+    margin: auto 23px;
+  }
+}
+
+@media @phone-down {
+  .gd-tab {
+    white-space: nowrap;
+    text-align: left;
+    width: 100%;
+    height: auto;
+    padding: 23px;
+    margin: 0;
+
+    .title {
+      display: none;
+    }
+
+    .icon {
+      font-size: 14px;
+      width: auto;
+      height: auto;
+      color: #959da5;
+    }
+
+    ::ng-deep .shown:after {
+      display: none;
+    }
+
+    ::ng-deep .tooltip {
+      color: rgba(0, 0, 0, 0.41);
+      background-color: #fff;
+      font-size: 14px;
+      position: relative;
+      left: 0px;
+      padding: 0px;
+      text-align: left;
+      top: 0px;
+    }
+  }
+}
+

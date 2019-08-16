@@ -1,0 +1,31 @@
+<div class="gd-signature-context-panel">
+  <div class="gd-signature-context-pane-wrapper">
+    <ng-content></ng-content>
+    <div class="gd-signature-list-title">
+      <fa-icon [icon]="['fa','plus']" [class]="'ng-fa-icon icon'" (click)="newSignature()"></fa-icon>
+      <div class="gd-signature-context-panel-title">{{title}}
+      </div>
+    </div>
+    <div class="gd-signature-list-wrapper">
+      <div class="gd-signature-list gd-signature-list-scroll" *ngIf="signatures">
+        <div *ngFor="let signature of signatures">
+          <div class="gd-signature-item">
+            <div class="gd-signature-thumbnail-digital" *ngIf="isDigital()">
+              <fa-icon [icon]="['fa','fingerprint']" [class]="'ng-fa-icon icon'"></fa-icon>
+            </div>
+            <img *ngIf="signature.image" [ngClass]="'gd-signature-thumbnail-' + signatureType"
+                 [attr.src]="getImage(signature.image) | safeResourceHtml" alt="">
+            <div class="gd-signature-title" [ngClass]="signatureType">
+              <label class="gd-signature-name">{{signature.text ? signature.text : signature.name}}</label>
+            </div>
+            <fa-icon [icon]="['far','trash-alt']" [class]="'ng-fa-icon icon'" (click)="deleteSign(signature.guid)"></fa-icon>
+          </div>
+        </div>
+      </div>
+      <div class="gd-signature-empty-list" *ngIf="!signatures">
+        <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'"></fa-icon>
+        <span class="gd-empty-list-text">There is no {{signatureType}}} signatures yet.</span>
+      </div>
+    </div>
+  </div>
+</div>
