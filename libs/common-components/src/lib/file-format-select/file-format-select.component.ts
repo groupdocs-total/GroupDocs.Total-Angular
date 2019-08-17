@@ -54,5 +54,4 @@ export class FileFormatSelectComponent {
     this.selected.emit(value);
     this.close();
   }
-
 }

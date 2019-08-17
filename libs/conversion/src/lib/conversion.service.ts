@@ -4,32 +4,24 @@ import {
   Api, ConfigService, FileCredentials, SaveFile, FileModel
 } from "@groupdocs.examples.angular/common-components";
 import {Observable, BehaviorSubject, Observer} from "rxjs";
-import {FileFormatModel} from "./models"
+import {ConversionItemModel} from "./models";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ConversionService {
-  private _selectedFormat: BehaviorSubject<FileFormatModel> = new BehaviorSubject(new FileFormatModel());
-  private _selectFormat: Observable<FileFormatModel> = this._selectedFormat.asObservable();
+  private _selectedFormat: BehaviorSubject<ConversionItemModel> = new BehaviorSubject(new ConversionItemModel());
+  private _selectFormat: Observable<ConversionItemModel> = this._selectedFormat.asObservable();
 
   constructor(private _http: HttpClient, private _config: ConfigService) {
   }
 
-  get selectedFormat() {
+  get selectedItem() {
     return this._selectFormat;
   }
 
-  selectFormat(value: any, file: FileModel) {
-    let fileToConvert: FileFormatModel = {
-      guid: file.guid,
-      directory: file.directory,
-      size: file.size,
-      name: file.name,
-      format: value
-    };
-
+  selectItem(fileToConvert: ConversionItemModel) {
     this._selectedFormat.next(fileToConvert);
   }
 

@@ -1,0 +1,13 @@
+<div id="gd-convert-queue">
+  <div class="gd-queue-header">
+    <div class="gd-placeholder"></div>
+    <div>Source</div>
+    <div>Size</div>
+    <div>State</div>
+    <div>Target</div>
+    <div class="gd-queue-last-placeholder"></div>
+  </div>
+  <div *ngFor="let item of items">
+      <gd-conversion-item [item]="item"></gd-conversion-item>
+  </div>
+</div>

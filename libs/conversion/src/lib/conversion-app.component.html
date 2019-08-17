@@ -11,11 +11,9 @@
     </gd-top-toolbar>
   </div>
 
-  <gd-init-state [icon]="'exchange-alt'" [text]="''" *ngIf="formats.length == 0"></gd-init-state>
+  <gd-init-state [icon]="'exchange-alt'" [text]="''" *ngIf="conversionItems.length == 0"></gd-init-state>
 
-  <div class="list-files-lines" *ngFor="let format of formats">
-    <div>{{format?.name}}</div>
-  </div>
+  <gd-conversion-queue [items]="conversionItems"></gd-conversion-queue>
 
   <gd-conversion-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
                                     [uploadConfig]="uploadConfig"></gd-conversion-browse-files-modal>

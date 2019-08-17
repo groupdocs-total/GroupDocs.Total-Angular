@@ -8,7 +8,7 @@ import { ModalService,
   UploadFilesService
 } from "@groupdocs.examples.angular/common-components";
 import {ConversionConfig} from "./conversion-config";
-import {FileFormatModel} from "./models"
+import {ConversionItemModel} from "./models"
 
 const $ = jquery;
 
@@ -20,7 +20,7 @@ const $ = jquery;
 export class ConversionAppComponent {
   title = 'conversion';
   files: FileModel[] = [];
-  formats: FileFormatModel[] = [];
+  conversionItems: ConversionItemModel[] = [];
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
   leftBarOpen = false;
@@ -46,9 +46,9 @@ export class ConversionAppComponent {
       }
     });
 
-    _conversionService.selectedFormat.subscribe((selectedFormat) => {
+    _conversionService.selectedItem.subscribe((selectedFormat) => {
       if (Object.keys(selectedFormat).length > 0) {
-        this.formats.push(selectedFormat as FileFormatModel);
+        this.conversionItems.push(selectedFormat as ConversionItemModel);
       }
     });
   }

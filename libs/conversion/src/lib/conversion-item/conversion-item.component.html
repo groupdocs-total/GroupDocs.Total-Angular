@@ -1,0 +1,21 @@
+<div class="gd-convert-item">
+  <div class="gd-convert-remove">
+    <fa-icon [icon]="['fas','times']"></fa-icon>
+  </div>
+  <div class="gd-filequeue-name disabled">
+    <fa-icon [icon]="['fas', item.sourceIcon]" [class]="'ng-fa-icon fa-' + item.sourceIcon"></fa-icon>
+    <div class="gd-file-name gd-queue-name">{{item.name}}<div class="gd-file-format">{{item.sourceFormatName}}</div></div>
+  </div>
+  <div class="gd-file-size gd-queue-size">{{item.sizeString}}</div>
+  <div class="gd-convert-status">
+      <fa-icon [icon]="['far','clock']"></fa-icon>
+    <!-- <i class="fas fa-check gd-conversion-complite"></i>
+    <i class="gd-convert-progress fa fa-circle-o-notch fa-spin"></i> -->
+  </div>
+  <div class="gd-filequeue-name disabled gd-destination-file">
+      <fa-icon [icon]="['fas', item.destinationIcon]" [class]="'ng-fa-icon fa-' + item.destinationIcon"></fa-icon>
+    <div class="gd-file-name gd-queue-name">{{item.destinationFileName}}<div class="gd-file-format">{{item.destinationFormatName}}</div></div>
+  </div>
+  <div class="gd-convert-single"><fa-icon [icon]="['fas','exchange-alt']"></fa-icon></div>
+  <!-- <div class="gd-download-single"><i class="fas fa-download"></i></div> -->
+</div>

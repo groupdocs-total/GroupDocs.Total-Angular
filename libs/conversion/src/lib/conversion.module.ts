@@ -15,6 +15,8 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {ConversionQueueComponent} from './conversion-queue/conversion-queue.component';
+import {ConversionItemComponent} from './conversion-item/conversion-item.component';
 
 export function initializeApp(conversionConfigService: ConversionConfigService) {
   const result = () => conversionConfigService.load();
@@ -22,8 +24,8 @@ export function initializeApp(conversionConfigService: ConversionConfigService) 
 }
 
 @NgModule({
-  declarations: [ConversionAppComponent, ConversionBrowseFilesModalComponent],
-  exports: [ConversionAppComponent, ConversionBrowseFilesModalComponent],
+  declarations: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent, ConversionItemComponent],
+  exports: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent],
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,
