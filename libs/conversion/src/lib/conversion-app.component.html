@@ -13,7 +13,7 @@
 
   <gd-init-state [icon]="'exchange-alt'" [text]="''" *ngIf="conversionItems.length == 0"></gd-init-state>
 
-  <gd-conversion-queue [items]="conversionItems"></gd-conversion-queue>
+  <gd-conversion-queue [items]="conversionItems" (selectedItemToConvert)="convertSingleItem($event)"></gd-conversion-queue>
 
   <gd-conversion-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
                                     [uploadConfig]="uploadConfig"></gd-conversion-browse-files-modal>

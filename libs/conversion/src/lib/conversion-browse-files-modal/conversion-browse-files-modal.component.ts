@@ -20,23 +20,27 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
 
   selectFormat($event: any, file: FileModel) {
     this._format = $event.value;
-    let extension = file.guid.replace(/^.*\./, '');
-    let destinationGuid = file.guid.replace(extension, this._format);
-    let destinationFileName = destinationGuid.replace(/^.*[\\\/]/, '');
+    const extension = file.guid.replace(/^.*\./, '');
+    const destinationGuid = file.guid.replace(extension, this._format);
+    const destinationFileName = destinationGuid.replace(/^.*[\\\/]/, '');
 
-    let conversionItem: ConversionItemModel = {
+    const conversionItem: ConversionItemModel = {
       guid: file.guid,
       directory: file.directory,
       size: file.size,
       name: file.name,
-      format: $event.value,
+      destinationType: $event.value,
       sizeString: this.getSize(file.size),
-      destinationFileName: destinationFileName,
-      destinationFormatName: this.getFormatName({name: destinationFileName, directory: false} as FileModel),
       sourceIcon: this.getFormatIcon(file),
       sourceFormatName: this.getFormatName(file),
-      destinationIcon: this.getFormatIcon({name: destinationFileName, directory: false} as FileModel)
+      destinationFileName: destinationFileName,
+      destinationFormatName: this.getFormatName({name: destinationFileName, directory: false} as FileModel),
+      destinationIcon: this.getFormatIcon({name: destinationFileName, directory: false} as FileModel),
+      converted: false,
+      // TODO: add proper processing state
+      //converting: false
     };
+
     this._conversionService.selectItem(conversionItem);
     this._modalService.close(CommonModals.BrowseFiles);
   }

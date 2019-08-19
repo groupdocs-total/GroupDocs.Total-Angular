@@ -1,21 +1,21 @@
 <div class="gd-convert-item">
-  <div class="gd-convert-remove">
+  <div class="gd-convert-remove" (click)="removeItemFromQueue($event, item)">
     <fa-icon [icon]="['fas','times']"></fa-icon>
   </div>
   <div class="gd-filequeue-name disabled">
-    <fa-icon [icon]="['fas', item.sourceIcon]" [class]="'ng-fa-icon fa-' + item.sourceIcon"></fa-icon>
+    <fa-icon [icon]="['far', item.sourceIcon]" [class]="'ng-fa-icon'"></fa-icon>
     <div class="gd-file-name gd-queue-name">{{item.name}}<div class="gd-file-format">{{item.sourceFormatName}}</div></div>
   </div>
   <div class="gd-file-size gd-queue-size">{{item.sizeString}}</div>
   <div class="gd-convert-status">
-      <fa-icon [icon]="['far','clock']"></fa-icon>
-    <!-- <i class="fas fa-check gd-conversion-complite"></i>
-    <i class="gd-convert-progress fa fa-circle-o-notch fa-spin"></i> -->
+      <fa-icon class="gd-conversion-pending" [icon]="['far','clock']" [hidden]="item.converted"></fa-icon>
+      <!-- <fa-icon class="gd-conversion-progress" [icon]="['fas','circle-notch']" [spin]="true" [hidden]="!item.converting"></fa-icon> -->
+      <fa-icon class="gd-conversion-complete" [icon]="['fas','check']" [hidden]="!item.converted"></fa-icon>
   </div>
   <div class="gd-filequeue-name disabled gd-destination-file">
-      <fa-icon [icon]="['fas', item.destinationIcon]" [class]="'ng-fa-icon fa-' + item.destinationIcon"></fa-icon>
+      <fa-icon [icon]="['far', item.destinationIcon]" [class]="'ng-fa-icon'" [ngClass]="[item.converted ? 'fa-' + item.destinationIcon : '']"></fa-icon>
     <div class="gd-file-name gd-queue-name">{{item.destinationFileName}}<div class="gd-file-format">{{item.destinationFormatName}}</div></div>
   </div>
-  <div class="gd-convert-single"><fa-icon [icon]="['fas','exchange-alt']"></fa-icon></div>
-  <!-- <div class="gd-download-single"><i class="fas fa-download"></i></div> -->
+  <div (click)="convert($event, item)" class="gd-convert-single" [hidden]="item.converted"><fa-icon [icon]="['fas','exchange-alt']"></fa-icon></div>
+  <div (click)="downloadFile($event, item)" class="gd-convert-single" [hidden]="!item.converted"><fa-icon [icon]="['fas','download']"></fa-icon></div>
 </div>

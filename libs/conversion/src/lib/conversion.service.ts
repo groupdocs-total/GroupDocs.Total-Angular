@@ -14,6 +14,12 @@ export class ConversionService {
   private _selectedFormat: BehaviorSubject<ConversionItemModel> = new BehaviorSubject(new ConversionItemModel());
   private _selectFormat: Observable<ConversionItemModel> = this._selectedFormat.asObservable();
 
+  private _itemToConvert = new BehaviorSubject<ConversionItemModel>(null);
+  itemToConvert = this._itemToConvert.asObservable();
+
+  private _itemToRemove = new BehaviorSubject<ConversionItemModel>(null);
+  itemToRemove = this._itemToRemove.asObservable();
+
   constructor(private _http: HttpClient, private _config: ConfigService) {
   }
 
@@ -38,5 +44,21 @@ export class ConversionService {
     }
 
     return this._http.post(this._config.getConversionApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
+  }
+
+  convert(file: ConversionItemModel) {
+    return this._http.post(this._config.getConversionApiEndpoint() + Api.CONVERT_FILE, file);
+  }
+
+  getDownloadUrl(guid: string) {
+    return this._config.getConversionApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + guid;
+  }
+
+  selectedItemToConvert(item: ConversionItemModel) {
+    this._itemToConvert.next(item);
+  }
+
+  selectedItemToRemove(item: ConversionItemModel) {
+    this._itemToRemove.next(item);
   }
 }

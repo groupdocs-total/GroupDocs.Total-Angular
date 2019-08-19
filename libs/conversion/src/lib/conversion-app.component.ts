@@ -1,5 +1,4 @@
-import {Component, ElementRef, Input} from '@angular/core';
-import * as jquery from 'jquery';
+import {Component, OnInit} from '@angular/core';
 import {ConversionConfigService} from "./conversion-config.service";
 import {ConversionService} from "./conversion.service";
 import { ModalService,
@@ -10,14 +9,13 @@ import { ModalService,
 import {ConversionConfig} from "./conversion-config";
 import {ConversionItemModel} from "./models"
 
-const $ = jquery;
-
 @Component({
   selector: 'gd-conversion',
   templateUrl: './conversion-app.component.html',
   styleUrls: ['./conversion-app.component.less']
 })
-export class ConversionAppComponent {
+export class ConversionAppComponent implements OnInit {
+
   title = 'conversion';
   files: FileModel[] = [];
   conversionItems: ConversionItemModel[] = [];
@@ -25,10 +23,11 @@ export class ConversionAppComponent {
   isDesktop: boolean;
   leftBarOpen = false;
   conversionConfig: ConversionConfig;
+  result: any;
 
   constructor(private _modalService: ModalService,
               private _conversionService: ConversionService,
-              private configService: ConversionConfigService,
+              configService: ConversionConfigService,
               uploadFilesService: UploadFilesService) {
 
     configService.updatedConfig.subscribe((config) => {
@@ -51,6 +50,11 @@ export class ConversionAppComponent {
         this.conversionItems.push(selectedFormat as ConversionItemModel);
       }
     });
+  }
+
+  ngOnInit(): void {
+    this._conversionService.itemToConvert.subscribe(item => this.convertSingleItem(item));
+    this._conversionService.itemToRemove.subscribe(item => this.removeItemFromQueue(item));
   }
 
   get rewriteConfig(): boolean {
@@ -83,7 +87,27 @@ export class ConversionAppComponent {
     this._conversionService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
   }
 
-  convert() {
+  convertSingleItem(item) {
+    // TODO: reconcider following check (and in the method below)
+    if (this.conversionItems.length > 0) {
+      const workItem = this.conversionItems.find(x => x.guid == item.guid);
+      // workItem.converting = true;
+      this._conversionService.convert(item).subscribe(() => {
+        // workItem.converting = false;
+        workItem.converted = true;
+      }, (() => {
+        // TODO: add error handling?
+        // workItem.converting = false;
+      }));
+    }
+  }
+
+  removeItemFromQueue(item: ConversionItemModel): void {
+    if (this.conversionItems.length > 0) {
+      this.conversionItems.forEach( (x, index) => {
+        if(x.guid == item.guid && x.destinationType == item.destinationType) this.conversionItems.splice(index, 1);
+      });
+    }
   }
 
   isLeftBarOpen() {

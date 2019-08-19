@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ConversionItemModel } from '../models';
 
 @Component({
@@ -9,10 +9,15 @@ import { ConversionItemModel } from '../models';
 
 export class ConversionQueueComponent implements OnInit {
   @Input() items: ConversionItemModel[] = [];
+  @Output() selectedItemToConvert = new EventEmitter<ConversionItemModel>();
 
   constructor() {
   }
   
   ngOnInit(): void {
+  }
+
+  convertSingleItem($event: ConversionItemModel) {
+    this.selectedItemToConvert.emit($event);
   }
 }

@@ -5,11 +5,13 @@ export class ConversionItemModel implements FileModel {
     directory: boolean;
     size: number;
     name: string;
-    format: string;
+    destinationType: string;
     sizeString: string;
     destinationFileName: string;
     destinationFormatName: string;
     sourceIcon: string;
     sourceFormatName: string;
     destinationIcon: string;
+    converted: boolean;
+    //converting: boolean;
   }
