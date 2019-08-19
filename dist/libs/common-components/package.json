@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/common-components",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Common components for GroupDocs.Total Angular applications",
   "license": "MIT",
   "publishConfig": {
