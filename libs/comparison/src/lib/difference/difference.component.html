@@ -50,6 +50,18 @@
               {{style.oldValue}} &rarr; {{style.newValue}}
               <span class="property">Font size</span>
             </div>
+            <div *ngSwitchCase="'Bold'">
+              <span [style.fontWeight]="style.oldValue ? 'bold' : ''">{{change.text}}</span> &rarr; <span [style.fontWeight]="style.newValue ? 'bold' : ''">{{change.text}}</span>
+              <span class="property">Bold</span>
+            </div>
+            <div *ngSwitchCase="'Italic'">
+              <span [style.fontStyle]="style.oldValue ? 'italic' : ''">{{change.text}}</span> &rarr; <span [style.fontStyle]="style.newValue ? 'italic' : ''">{{change.text}}</span>
+              <span class="property">Italic</span>
+            </div>
+            <div *ngSwitchCase="'cS'">
+              <span [style.textDecoration]="style.oldValue === 'SINGLE' ? 'underline' : ''">{{change.text}}</span> &rarr; <span [style.textDecoration]="style.newValue === 'SINGLE' ? 'underline' : ''">{{change.text}}</span>
+              <span class="property">Underline</span>
+            </div>
           </ng-container>
         </div>
       </div>

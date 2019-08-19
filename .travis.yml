@@ -25,6 +25,10 @@ matrix:
       addons:
         hosts:
           - localhost
+        chrome: stable
+        apt:
+          packages:
+          - libgconf-2-4
       language: java
       script:
         - git fetch origin master
@@ -44,6 +48,10 @@ matrix:
       addons:
         hosts:
           - localhost
+        chrome: stable
+        apt:
+          packages:
+          - libgconf-2-4
       language: java
       script:
         - git fetch origin master

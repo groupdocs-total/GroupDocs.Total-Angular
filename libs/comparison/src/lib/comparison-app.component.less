@@ -1,5 +1,5 @@
 @import "../../../common-components/src/styles/variables";
-@import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import (css) url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap');
 
 :host * {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
@@ -113,5 +113,11 @@
       width: 100%;
       border-bottom: 1px solid #CCC;
     }
+  }
+
+  /deep/ .gd-side-panel-wrapper{
+      height: 50% !important;
+      top: inherit !important;
+      bottom: 0px !important;
   }
 }
