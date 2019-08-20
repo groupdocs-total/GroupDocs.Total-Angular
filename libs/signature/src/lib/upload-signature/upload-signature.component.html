@@ -1,0 +1,10 @@
+<div class="gd-upload-signature" gdDndSignature (files)="setFiles($event)" >
+  <div class="gd-upload-container">
+    <div class="gd-upload-inputs">
+      <input type="file" class="gd-upload-input" (change)="handleFileInput($event.target.files)"/>
+      <fa-icon [icon]="['fas','file-upload']" [class]="'ng-fa-icon icon'"></fa-icon>
+      <div class="gd-upload-title">{{names ? names : 'Upload file'}}</div>
+    </div>
+    <div class="gd-add-upload-file" [ngClass]="addActive ? 'active' : ''" (click)="addFiles()">Add</div>
+  </div>
+</div>

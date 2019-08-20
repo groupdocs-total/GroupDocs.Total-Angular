@@ -25,7 +25,7 @@
   <gd-left-side-bar>
     <div *ngFor="let signatureType of signatureTypes">
       <gd-signature-tab *ngIf="getSignatureTypeConfig(signatureType.id)" [icon]="signatureType.icon"
-                        [id]="signatureType.id" [tooltip]="signatureType.name">
+                        [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig">
       </gd-signature-tab>
     </div>
   </gd-left-side-bar>

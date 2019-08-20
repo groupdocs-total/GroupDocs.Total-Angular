@@ -428,6 +428,7 @@ Api.LOAD_FORMATS = '/loadFormats';
 Api.SAVE_FILE = '/saveFile';
 Api.COMPARE_FILES = '/compare';
 Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
 Api.httpOptionsJson = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',

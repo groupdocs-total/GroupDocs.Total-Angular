@@ -1,0 +1,140 @@
+@import "../../../../common-components/src/styles/variables";
+
+.gd-sign-digital.active {
+  background-color: #3787F5;
+}
+
+.gd-sign-digital {
+  height: 27px;
+  background-color: #969696;
+  margin: 9px 8px 7px 8px;
+  border-radius: 3px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px;
+  box-shadow: 0 0 3px #ddd;
+  cursor: pointer;
+  padding-top: 5px;
+}
+
+.gd-qr-container {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #ffffff;
+  border: 1px solid #3787F5;
+  border-radius: 5px;
+  margin: 10px 10px 14px 12px;
+  padding: 5px;
+}
+
+.gd-qr-container input:focus {
+  border: 2px solid #00c4d7;
+  transition: border-color 0.3s linear;
+}
+
+.gd-qr-preview-container {
+  text-align: center;
+
+  .gd-empty-code {
+    color: #CCCCCC;
+    line-height: 266px;
+    text-align: center;
+    font-size: 60px;
+    width: 266px;
+    height: 266px;
+    border: 1px solid #EEE;
+  }
+
+  .gd-signature-thumbnail-image {
+    min-width: 41px;
+    width: 266px;
+    height: 266px;
+    border: 1px solid #EEE;
+    margin: 0px;
+  }
+}
+
+.new-signature-input-group {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.gd-qr-property {
+  font-size: 12px;
+  width: 100%;
+  border: 2px solid #DDD;
+  border-radius: 3px;
+  padding: 5px;
+  outline: none;
+  color: #3a4e5b;
+  transition: border-color 0.3s linear;
+  margin: 5px 0px 0px 0px;
+}
+
+.gd-add-optical.active {
+  background-color: #3787F5;
+}
+
+.gd-add-optical.inactive {
+  background-color: #646464;
+}
+
+.gd-add-optical {
+  display: block;
+  width: 32px;
+  height: 28px;
+  border-radius: 3px;
+  text-align: center;
+  background-color: #3787F5;
+  margin: 5px 0px 0px 5px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 3px;
+  cursor: pointer;
+
+  .icon {
+    color: white;
+    line-height: 28px;
+  }
+}
+
+.gd-add-optical:hover {
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 3px;
+}
+
+@media @phone-down {
+  .gd-qr-container {
+    margin: 0px 13px 0px 12px;
+    border-radius: 5px;
+  }
+
+  .gd-qr-preview-container {
+    width: 100%;
+    height: auto;
+    text-align: center;
+
+    .gd-empty-code {
+      width: 100%;
+      height: auto;
+      border: 0px;
+    }
+
+    .gd-signature-thumbnail-image {
+      width: 44px;
+      height: 44px;
+      margin: 0px;
+    }
+  }
+
+  .gd-qr-property {
+    font-size: 14px;
+  }
+
+  .gd-add-optical {
+    width: 34px;
+    height: 30px;
+
+    .icon {
+      font-size: 14px;
+    }
+  }
+
+}

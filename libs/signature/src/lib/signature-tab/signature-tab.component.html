@@ -1,10 +1,24 @@
 <div class="gd-tab" (mousedown)="toggleTab()" gdTooltip
      (showToolTip)="showToolTip = $event">
-  <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'" [ngClass]="(active) ? 'active' : ''"></fa-icon>
+  <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'"
+           [ngClass]="(active) ? 'active' : ''"></fa-icon>
   <gd-tooltip [text]="tooltip" [show]="showToolTip"
               *ngIf="tooltip"></gd-tooltip>
 </div>
 <div *ngIf="active" class="tab-content">
-  <gd-signature-list-panel [icon]="icon" [title]="tooltip" [signatureType]="id" [signatures]="signatures"
-                           (removeSignatureEvent)="removeSignature($event, id)"></gd-signature-list-panel>
+  <div class="gd-signature-context-panel">
+    <div class="gd-signature-context-pane-wrapper">
+      <div class="gd-signature-list-title">
+        <fa-icon [icon]="['fa',getTitleIcon()]" [class]="'ng-fa-icon icon'" (click)="toggleNewSignature()"></fa-icon>
+        <div class="gd-signature-context-panel-title">{{getTitle()}}
+        </div>
+      </div>
+      <gd-upload-signature (closePanel)="closeUploadPanel($event)" [rewrite]="rewrite" [signatureType]="id"
+                           *ngIf="showUpload"></gd-upload-signature>
+      <gd-new-bar-qr-code (closePanel)="closeCodePanel($event)" [type]="id" [icon]="icon" [name]="getCodeName()"
+                          *ngIf="showNewCode"></gd-new-bar-qr-code>
+      <gd-signature-list-panel [icon]="icon" [signatureType]="id" [signatures]="signatures"
+                               (removeSignatureEvent)="removeSignature($event, id)"></gd-signature-list-panel>
+    </div>
+  </div>
 </div>

@@ -4,7 +4,7 @@
     "directive-selector": [
       true,
       "attribute",
-      "groupdocsExamplesAngular",
+      "gd",
       "camelCase"
     ],
     "component-selector": [

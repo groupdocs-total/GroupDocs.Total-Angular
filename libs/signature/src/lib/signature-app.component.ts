@@ -65,7 +65,7 @@ export class SignatureAppComponent implements AfterViewInit {
       if (uploads) {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
-          this._signatureService.upload(uploads.item(i), '', this.signatureConfig.rewrite).subscribe(() => {
+          this._signatureService.upload(uploads.item(i), '', this.rewriteConfig, null).subscribe(() => {
             this.selectDir('');
           });
         }
@@ -73,7 +73,7 @@ export class SignatureAppComponent implements AfterViewInit {
     });
 
     pagePreloadService.checkPreload.subscribe((page: number) => {
-      if (this.signatureConfig.preloadPageCount !== 0) {
+      if (this.preloadPageCountConfig !== 0) {
         for (let i = page; i < page + 2; i++) {
           if (i > 0 && i <= this.countPages && !this.file.pages[i - 1].data) {
             this.preloadPages(i, i);
@@ -212,7 +212,7 @@ export class SignatureAppComponent implements AfterViewInit {
         this.file = file;
         this.formatDisabled = !this.file;
         if (file) {
-          const preloadPageCount = this.signatureConfig.preloadPageCount;
+          const preloadPageCount = this.preloadPageCountConfig;
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
@@ -238,7 +238,7 @@ export class SignatureAppComponent implements AfterViewInit {
   }
 
   upload($event: string) {
-    this._signatureService.upload(null, $event, this.rewriteConfig).subscribe(() => {
+    this._signatureService.upload(null, $event, this.rewriteConfig, null).subscribe(() => {
       this.selectDir('');
     });
   }
@@ -252,7 +252,7 @@ export class SignatureAppComponent implements AfterViewInit {
   printFile() {
     if (this.formatDisabled)
       return;
-    if (this.signatureConfig.preloadPageCount !== 0) {
+    if (this.preloadPageCountConfig !== 0) {
       if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
         this._signatureService.loadPrintPdf(this.credentials).subscribe(blob => {
           const file = new Blob([blob], {type: 'application/pdf'});

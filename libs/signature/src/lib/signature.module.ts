@@ -15,7 +15,10 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
-import { SignatureTabComponent } from './signature-tab/signature-tab.component';
+import {SignatureTabComponent} from './signature-tab/signature-tab.component';
+import {NewBarQrCodeComponent} from './new-bar-qr-code/new-bar-qr-code.component';
+import {UploadSignatureComponent} from './upload-signature/upload-signature.component';
+import {DndSignatureDirective} from './dnd-signature.directive';
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -25,10 +28,16 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
 @NgModule({
   declarations: [SignatureAppComponent,
     SignatureListPanelComponent,
-    SignatureTabComponent],
+    SignatureTabComponent,
+    NewBarQrCodeComponent,
+    UploadSignatureComponent,
+    DndSignatureDirective],
   exports: [SignatureAppComponent,
     SignatureListPanelComponent,
-    SignatureTabComponent],
+    SignatureTabComponent,
+    NewBarQrCodeComponent,
+    UploadSignatureComponent,
+    DndSignatureDirective],
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,

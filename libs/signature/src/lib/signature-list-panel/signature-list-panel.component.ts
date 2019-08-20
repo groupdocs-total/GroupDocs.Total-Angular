@@ -10,19 +10,13 @@ export class SignatureListPanelComponent implements OnInit {
 
   @Input() signatures: Signature[];
   @Input() icon: string;
-  @Input() title: string;
   @Input() signatureType: string;
-  @Output() newSignatureEvent = new EventEmitter<string>();
   @Output() removeSignatureEvent = new EventEmitter<string>();
 
   constructor() {
   }
 
   ngOnInit() {
-  }
-
-  newSignature() {
-    this.newSignatureEvent.emit(this.signatureType);
   }
 
   getImage(data: string) {

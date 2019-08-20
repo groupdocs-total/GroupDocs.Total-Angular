@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TabActivatorService} from "@groupdocs.examples.angular/common-components";
-import {Signature} from "../signature-models";
+import {Signature, SignatureType} from "../signature-models";
 import {SignatureService} from "../signature.service";
 
 @Component({
@@ -14,6 +14,11 @@ export class SignatureTabComponent implements OnInit {
   @Input() disabled = false;
   @Input() active = false;
   @Input() tooltip: string;
+  @Input() newTitle: string;
+  @Input() rewrite: boolean;
+  @Output() newSignatureEvent = new EventEmitter<string>();
+  public showNewCode = false;
+  public showUpload = false;
   public showToolTip = false;
 
   signatures: Signature[];
@@ -31,6 +36,8 @@ export class SignatureTabComponent implements OnInit {
       if (this.active) {
         this.signatures = [];
         this.getSignatures(tabId);
+        this.showNewCode = false;
+        this.showUpload = false;
       }
     } else {
       this.active = false;
@@ -48,10 +55,44 @@ export class SignatureTabComponent implements OnInit {
   }
 
   getSignatures(tabId: string) {
-    this._signatureService.getSignatures('', tabId).subscribe((signatures: Signature[]) => this.signatures = signatures || []);
+    this._signatureService.getSignatures('', tabId).subscribe((signatures: Signature[]) => {
+      this.signatures = signatures || [];
+    });
   }
 
   removeSignature($event: string, type: string) {
     this._signatureService.removeSignatures($event, type).subscribe(() => this.getSignatures(type));
+  }
+
+  toggleNewSignature() {
+    if (SignatureType.DIGITAL.id === this.id || SignatureType.IMAGE.id === this.id) {
+      this.showUpload = !this.showUpload;
+    } else if (SignatureType.BAR_CODE.id === this.id || SignatureType.QR_CODE.id === this.id) {
+      this.showNewCode = !this.showNewCode;
+    } else {
+      this.newSignatureEvent.emit(this.id);
+    }
+  }
+
+  getCodeName() {
+    return SignatureType.QR_CODE.id === this.id ? 'Qr Code' : (SignatureType.BAR_CODE.id === this.id ? 'Bar Code' : '');
+  }
+
+  getTitle() {
+    return this.showUpload || this.showNewCode ? SignatureType.getSignatureType(this.id).title : this.tooltip;
+  }
+
+  getTitleIcon() {
+    return this.showUpload || this.showNewCode ? 'times' : 'plus';
+  }
+
+  closeUploadPanel($event: boolean) {
+    this.showUpload = !$event;
+    this.getSignatures(this.id);
+  }
+
+  closeCodePanel($event: boolean) {
+    this.showNewCode = !$event;
+    this.getSignatures(this.id);
   }
 }

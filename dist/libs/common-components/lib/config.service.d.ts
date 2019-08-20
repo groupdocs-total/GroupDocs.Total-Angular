@@ -19,6 +19,7 @@ export declare class Api {
     static SAVE_FILE: string;
     static COMPARE_FILES: string;
     static DELETE_SIGNATURE_FILE: string;
+    static SAVE_OPTICAL_CODE: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };

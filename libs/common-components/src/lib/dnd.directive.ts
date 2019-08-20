@@ -12,7 +12,7 @@ export class DndDirective {
 
   @HostBinding('class.active') active = false;
 
-  constructor(private _uploadFilesService: UploadFilesService) {
+  constructor(protected _uploadFilesService: UploadFilesService) {
   }
 
   @HostListener('dragover', ['$event'])
