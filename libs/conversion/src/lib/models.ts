@@ -15,3 +15,14 @@ export class ConversionItemModel implements FileModel {
     converted: boolean;
     //converting: boolean;
   }
+
+  export class ExtendedFileModel implements FileModel {
+    guid: string;
+    // TODO: fix dublicates below
+    directory: boolean;
+    isDirectory: boolean;
+    size: number;
+    name: string;
+    selected: boolean;
+    conversionTypes: any;
+  }

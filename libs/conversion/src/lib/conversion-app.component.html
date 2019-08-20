@@ -5,8 +5,8 @@
       <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                  *ngIf="browseConfig" ></gd-button>
 
-      <gd-button [icon]="'exchange-alt'" [tooltip]="'Convert'" [disabled]="true"
-      (click)="convert()"></gd-button>
+      <gd-button [icon]="'exchange-alt'" [tooltip]="'Convert'" [disabled]="convertAllUnavailable()"
+      (click)="convertAll()"></gd-button>
 
     </gd-top-toolbar>
   </div>
@@ -16,7 +16,7 @@
   <gd-conversion-queue [items]="conversionItems" (selectedItemToConvert)="convertSingleItem($event)"></gd-conversion-queue>
 
   <gd-conversion-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
-                                    [uploadConfig]="uploadConfig"></gd-conversion-browse-files-modal>
+                                    [uploadConfig]="uploadConfig" (selectAll)="selectAllItems($event)"></gd-conversion-browse-files-modal>
 
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>

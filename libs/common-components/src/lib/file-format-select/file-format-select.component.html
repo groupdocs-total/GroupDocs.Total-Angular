@@ -9,7 +9,11 @@
   <span class="nav-caret" gdDisabledCursor [dis]="disabled"><fa-icon [icon]="['fas','plus']"></fa-icon></span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">
-      <div (click)="select($event, option)" class="option">{{option.name}}</div>
+      <div (click)="select($event, option)" class="option">{{option.name}}
+        <div *ngIf="option.warning" class="gd-type-warning" title="1 selected file(s) can’t be converted to {{option.name}} format">
+          <fa-icon [icon]="['fas','exclamation-triangle']"></fa-icon>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -11,8 +11,8 @@ import {ConversionItemModel} from "./models";
 })
 
 export class ConversionService {
-  private _selectedFormat: BehaviorSubject<ConversionItemModel> = new BehaviorSubject(new ConversionItemModel());
-  private _selectFormat: Observable<ConversionItemModel> = this._selectedFormat.asObservable();
+  private _selectedFormat: BehaviorSubject<ConversionItemModel[]> = new BehaviorSubject(new Array<ConversionItemModel>());
+  private _selectFormats: Observable<ConversionItemModel[]> = this._selectedFormat.asObservable();
 
   private _itemToConvert = new BehaviorSubject<ConversionItemModel>(null);
   itemToConvert = this._itemToConvert.asObservable();
@@ -23,12 +23,12 @@ export class ConversionService {
   constructor(private _http: HttpClient, private _config: ConfigService) {
   }
 
-  get selectedItem() {
-    return this._selectFormat;
+  get selectedItems() {
+    return this._selectFormats;
   }
 
-  selectItem(fileToConvert: ConversionItemModel) {
-    this._selectedFormat.next(fileToConvert);
+  selectItems(filesToConvert: ConversionItemModel[]) {
+    this._selectedFormat.next(filesToConvert);
   }
 
   loadFiles(path: string) {

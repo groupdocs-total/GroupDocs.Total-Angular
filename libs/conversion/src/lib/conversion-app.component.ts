@@ -7,7 +7,7 @@ import { ModalService,
   UploadFilesService
 } from "@groupdocs.examples.angular/common-components";
 import {ConversionConfig} from "./conversion-config";
-import {ConversionItemModel} from "./models"
+import {ConversionItemModel, ExtendedFileModel} from "./models"
 
 @Component({
   selector: 'gd-conversion',
@@ -17,7 +17,7 @@ import {ConversionItemModel} from "./models"
 export class ConversionAppComponent implements OnInit {
 
   title = 'conversion';
-  files: FileModel[] = [];
+  files: ExtendedFileModel[] = [];
   conversionItems: ConversionItemModel[] = [];
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
@@ -45,10 +45,12 @@ export class ConversionAppComponent implements OnInit {
       }
     });
 
-    _conversionService.selectedItem.subscribe((selectedFormat) => {
-      if (Object.keys(selectedFormat).length > 0) {
-        this.conversionItems.push(selectedFormat as ConversionItemModel);
-      }
+    _conversionService.selectedItems.subscribe((selectedFormats) => {
+      selectedFormats.forEach((selectedFormat) => {
+        if (Object.keys(selectedFormat).length > 0) {
+          this.conversionItems.push(selectedFormat as ConversionItemModel);
+        }
+      });
     });
   }
 
@@ -84,7 +86,7 @@ export class ConversionAppComponent implements OnInit {
   }
 
   selectDir($event: string) {
-    this._conversionService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
+    this._conversionService.loadFiles($event).subscribe((files: ExtendedFileModel[]) => this.files = files || []);
   }
 
   convertSingleItem(item) {
@@ -102,10 +104,32 @@ export class ConversionAppComponent implements OnInit {
     }
   }
 
+  convertAll(){
+    if (this.conversionItems.length > 0) {
+      this.conversionItems.forEach((item) => {
+        this.convertSingleItem(item);
+      });
+    }
+  }
+
+  convertAllUnavailable(){
+    return this.conversionItems.length == 0 || this.conversionItems.filter(ci => ci.converted !== true).length == 0;
+  }
+
   removeItemFromQueue(item: ConversionItemModel): void {
     if (this.conversionItems.length > 0) {
-      this.conversionItems.forEach( (x, index) => {
-        if(x.guid == item.guid && x.destinationType == item.destinationType) this.conversionItems.splice(index, 1);
+      this.conversionItems.forEach( (ci, index) => {
+        if(ci.guid == item.guid && ci.destinationType == item.destinationType) this.conversionItems.splice(index, 1);
+      });
+    }
+  }
+
+  selectAllItems(checked: boolean) {
+    let check = checked;
+
+    if (this.files.length > 0) {
+      this.files.forEach( (f) => {
+        f.selected = checked;
       });
     }
   }

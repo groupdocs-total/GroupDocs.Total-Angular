@@ -7,7 +7,8 @@
       <h2>Drag &amp; Drop your files here</h2>
     </div>
     <div class="upload-panel" *ngIf="uploadConfig">
-      <input type="checkbox" class="gd-select-all gd-checkbox">
+      <input type="checkbox" class="gd-select-all gd-checkbox" [checked]="selectAllChecked" (change)="selectAllItems($event.target.checked);">
+      <gd-file-format-select (selected)="selectFormat($event, file)" [options]="dynamicOptions" class="gd-select-format"></gd-file-format-select>
       <gd-choice-button [name]="'Upload file'" [choices]="uploads" [icon]="'upload'"
                         (selected)="selectUpload($event)"></gd-choice-button>
       <input id="gd-upload-input" type="file" multiple style="display: none;" (change)="handleFileInput($event.target.files)">
@@ -32,7 +33,7 @@
       </div>
       <div class="list-files-lines" *ngFor="let file of files" (click)="choose(file);">
         <div class="gd-file-checkbox" [ngClass]="{'empty': file && file.isDirectory}">
-            <input *ngIf="file && !file.isDirectory" type="checkbox" id="{{file?.name}}" name="{{file?.name}}" class="gd-checkbox gd-checkbox-single">
+            <input *ngIf="file && !file.isDirectory" type="checkbox" [checked]="file.selected" (change)="selectSingleItem($event.target.checked, file);" class="gd-checkbox gd-checkbox-single">
         </div>
         <div class="file-description">
           <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>
@@ -45,7 +46,7 @@
           {{getSize(file?.size)}}
         </div>
         <div class="file-format-select" [ngClass]="{'empty': file && file.isDirectory}">
-          <gd-file-format-select (selected)="selectFormat($event, file)" *ngIf="file && !file.isDirectory" [disabled]="false" [options]="formatOptions(file.conversionTypes)" class="gd-select-format"></gd-file-format-select>
+          <gd-file-format-select (selected)="selectFormat($event, file)" *ngIf="file && !file.isDirectory" [options]="formatOptions(file.conversionTypes)" class="gd-select-format"></gd-file-format-select>
         </div>
       </div>
       </div>
