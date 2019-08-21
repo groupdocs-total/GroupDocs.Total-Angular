@@ -3,9 +3,6 @@
      gdOutside
      [clickOutsideEnabled]="isOpen"
      (clickOutside)="onClickOutside($event)">
-  <!-- <span class="selected-value" gdDisabledCursor [dis]="disabled">
-    {{showSelected?.name}}
-  </span> -->
   <span class="nav-caret" gdDisabledCursor [dis]="disabled">
     <fa-icon [ngClass]="{'multi-select': isMulti}" [icon]="['fas','plus']"></fa-icon>
     <label *ngIf="isMulti">{{label}}</label>

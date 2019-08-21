@@ -93,13 +93,13 @@ export class ConversionAppComponent implements OnInit {
     // TODO: reconsider following check (and in the method below)
     if (this.conversionItems.length > 0) {
       const workItem = this.conversionItems.find(x => x.guid == item.guid);
-      // workItem.converting = true;
+      workItem.converting = true;
       this._conversionService.convert(item).subscribe(() => {
-        // workItem.converting = false;
+        workItem.converting = false;
         workItem.converted = true;
       }, (() => {
         // TODO: add error handling?
-        // workItem.converting = false;
+        workItem.converting = false;
       }));
     }
   }

@@ -13,7 +13,7 @@ export class ConversionItemModel implements FileModel {
     sourceFormatName: string;
     destinationIcon: string;
     converted: boolean;
-    //converting: boolean;
+    converting: boolean;
   }
 
   export class ExtendedFileModel implements FileModel {

@@ -8,9 +8,9 @@
   </div>
   <div class="gd-file-size gd-queue-size">{{item.sizeString}}</div>
   <div class="gd-convert-status">
-      <fa-icon class="gd-conversion-pending" [icon]="['far','clock']" [hidden]="item.converted"></fa-icon>
-      <!-- <fa-icon class="gd-conversion-progress" [icon]="['fas','circle-notch']" [spin]="true" [hidden]="!item.converting"></fa-icon> -->
-      <fa-icon class="gd-conversion-complete" [icon]="['fas','check']" [hidden]="!item.converted"></fa-icon>
+      <fa-icon class="gd-conversion-pending" [icon]="['far','clock']" [hidden]="item.converted || item.converting"></fa-icon>
+      <fa-icon class="gd-conversion-progress" [icon]="['fas','circle-notch']" [spin]="true" [hidden]="!item.converting"></fa-icon>
+      <fa-icon class="gd-conversion-complete" [icon]="['fas','check']" [hidden]="!item.converted || item.converting"></fa-icon>
   </div>
   <div class="gd-filequeue-name disabled gd-destination-file">
       <fa-icon [icon]="['far', item.destinationIcon]" [class]="'ng-fa-icon'" [ngClass]="[item.converted ? 'fa-' + item.destinationIcon : '']"></fa-icon>

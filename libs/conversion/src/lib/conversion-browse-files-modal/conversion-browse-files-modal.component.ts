@@ -120,8 +120,8 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
             destinationFormatName: this.getFormatName({name: destinationFileName, directory: false} as FileModel),
             destinationIcon: this.getFormatIcon({name: destinationFileName, directory: false} as FileModel),
             converted: false,
-            // TODO: add proper processing state
-            //converting: false
+            // TODO: reconsider following field usage
+            converting: false
           };
 
           conversionItems.push(conversionItem);
