@@ -6,7 +6,10 @@
   <!-- <span class="selected-value" gdDisabledCursor [dis]="disabled">
     {{showSelected?.name}}
   </span> -->
-  <span class="nav-caret" gdDisabledCursor [dis]="disabled"><fa-icon [icon]="['fas','plus']"></fa-icon></span>
+  <span class="nav-caret" gdDisabledCursor [dis]="disabled">
+    <fa-icon [ngClass]="{'multi-select': isMulti}" [icon]="['fas','plus']"></fa-icon>
+    <label *ngIf="isMulti">{{label}}</label>
+  </span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">
       <div (click)="select($event, option)" class="option">{{option.name}}

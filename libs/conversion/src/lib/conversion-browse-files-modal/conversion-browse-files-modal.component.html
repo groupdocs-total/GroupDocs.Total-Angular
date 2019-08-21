@@ -8,7 +8,15 @@
     </div>
     <div class="upload-panel" *ngIf="uploadConfig">
       <input type="checkbox" class="gd-select-all gd-checkbox" [checked]="selectAllChecked" (change)="selectAllItems($event.target.checked);">
-      <gd-file-format-select (selected)="selectFormat($event, file)" [options]="dynamicOptions" class="gd-select-format"></gd-file-format-select>
+      <div class="gd-add-selected" [ngClass]="{'active': anyItemSelected()}">
+        <gd-file-format-select 
+          (selected)="selectFormat($event, file)" 
+          [disabled]="!anyItemSelected()" 
+          [isMulti]="true" 
+          [options]="dynamicOptions" 
+          [label]="getLabelString()"
+          class="gd-select-format"></gd-file-format-select>
+      </div>
       <gd-choice-button [name]="'Upload file'" [choices]="uploads" [icon]="'upload'"
                         (selected)="selectUpload($event)"></gd-choice-button>
       <input id="gd-upload-input" type="file" multiple style="display: none;" (change)="handleFileInput($event.target.files)">
@@ -33,7 +41,7 @@
       </div>
       <div class="list-files-lines" *ngFor="let file of files" (click)="choose(file);">
         <div class="gd-file-checkbox" [ngClass]="{'empty': file && file.isDirectory}">
-            <input *ngIf="file && !file.isDirectory" type="checkbox" [checked]="file.selected" (change)="selectSingleItem($event.target.checked, file);" class="gd-checkbox gd-checkbox-single">
+            <input type="checkbox" *ngIf="file && !file.isDirectory" [checked]="file.selected" (change)="selectSingleItem($event.target.checked, file);" class="gd-checkbox gd-checkbox-single">
         </div>
         <div class="file-description">
           <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>

@@ -31,25 +31,37 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   selectAllItems(checked: boolean){
     this.selectAll.emit(checked);
 
-    if (checked){
-      this.dynamicOptions = this.prepareMultipleConversionTypes();
-    }
+    this.dynamicOptions = this.prepareMultipleConversionTypes();
   }
 
   selectSingleItem(checked: boolean, file: ExtendedFileModel){
-    file.selected = true;
+    // TODO: refactor
+    let selectedFiles = this.files.filter(f => f.guid == file.guid);
+    if (selectedFiles.length == 1){
+      selectedFiles[0].selected = checked;
+    }
 
-    if (checked){
-      this.dynamicOptions = this.prepareMultipleConversionTypes();
+    this.dynamicOptions = this.prepareMultipleConversionTypes();
+  }
+
+  getLabelString(){
+    if (this.files && this.files.length > 0) {
+      const selectedCount = this.files.filter(file => file.selected).length;
+      if (selectedCount > 0) {
+      return 'Add ' + selectedCount + ' selected'
+      }
+      else {
+        return 'Add selected'
+      }
     }
   }
 
   prepareMultipleConversionTypes() {
-    let allTypes = [];
+    var allTypes = [];
 
-    this.files.forEach((f) => {
+    this.files.filter(file => file.selected).forEach((f) => {
       if (f.conversionTypes.length > 0) {
-        let types = f.conversionTypes;
+        var types = f.conversionTypes;
         allTypes.push(types);
       }
     });
@@ -66,7 +78,8 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
       var counter = 0;
         for (var i = 0; i < longestArray.length; i++) {
           var type = (longestArray[i].value) ? longestArray[i].value : longestArray[i];
-          if (typesArr.indexOf(type) == -1) {
+          // TODO: remove second check
+          if (typesArr.indexOf(type) == -1 && typesArr.filter(t => t.name == type).length == 0) {
               counter = counter + 1;
               longestArray[i] = { value: type, name: type, warning: true };
           } else {
@@ -132,5 +145,12 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
       allTypes.push(this.createFormatOption(formats[i]));
     }
     return allTypes;
+  }
+
+  anyItemSelected() {
+    if (this.files && this.files.length > 0) {
+      return this.files.filter(file => file.selected).length > 0;
+    }
+    else return false;
   }
 }

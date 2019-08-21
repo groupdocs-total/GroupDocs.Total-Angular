@@ -12,9 +12,10 @@ export interface Option {
   styleUrls: ['./file-format-select.component.less']
 })
 export class FileFormatSelectComponent {
-
   @Input() options: Option[];
   @Input() disabled = false;
+  @Input() isMulti = false;
+  @Input() label: string;
   @Output() selected: EventEmitter<any> = new EventEmitter();
   isOpen = false;
 

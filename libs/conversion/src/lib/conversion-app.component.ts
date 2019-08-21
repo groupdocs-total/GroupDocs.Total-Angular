@@ -129,7 +129,7 @@ export class ConversionAppComponent implements OnInit {
 
     if (this.files.length > 0) {
       this.files.forEach( (f) => {
-        f.selected = checked;
+        if (!f.isDirectory) f.selected = checked;
       });
     }
   }
