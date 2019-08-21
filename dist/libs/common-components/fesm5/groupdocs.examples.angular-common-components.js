@@ -1,4 +1,4 @@
-import { Injectable, ɵɵdefineInjectable, Component, ElementRef, ChangeDetectorRef, Input, Output, EventEmitter, ViewEncapsulation, Pipe, Directive, HostBinding, HostListener, ɵɵinject, ViewChild, NgModule } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, Component, ElementRef, ChangeDetectorRef, Input, Output, EventEmitter, ViewEncapsulation, Pipe, Directive, HostBinding, HostListener, ɵɵinject, ViewChild, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as jquery from 'jquery';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -500,6 +500,7 @@ var Api = /** @class */ (function () {
     Api.COMPARE_FILES = '/compare';
     Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
     Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
+    Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
     Api.httpOptionsJson = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -1406,7 +1407,7 @@ var PageComponent = /** @class */ (function () {
     PageComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-page',
-                    template: "<div id=\"page-{{number}}\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
+                    template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
                     encapsulation: ViewEncapsulation.None,
                     styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}.gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%!important;width:100%!important}"]
                 }] }
@@ -5111,6 +5112,160 @@ var TooltipDirective = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var AddDynamicComponentService = /** @class */ (function () {
+    function AddDynamicComponentService(_factoryResolver, _appRef) {
+        this._factoryResolver = _factoryResolver;
+        this._appRef = _appRef;
+    }
+    /**
+     * @param {?} viewContainerRef
+     * @param {?} component
+     * @return {?}
+     */
+    AddDynamicComponentService.prototype.addDynamicComponent = /**
+     * @param {?} viewContainerRef
+     * @param {?} component
+     * @return {?}
+     */
+    function (viewContainerRef, component) {
+        var _this = this;
+        /** @type {?} */
+        var factory = this._factoryResolver.resolveComponentFactory(component);
+        /** @type {?} */
+        var componentRef = viewContainerRef.createComponent(factory);
+        componentRef.onDestroy((/**
+         * @return {?}
+         */
+        function () {
+            _this._appRef.detachView(componentRef.hostView);
+        }));
+        return componentRef;
+    };
+    AddDynamicComponentService.decorators = [
+        { type: Injectable, args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    AddDynamicComponentService.ctorParameters = function () { return [
+        { type: ComponentFactoryResolver },
+        { type: ApplicationRef }
+    ]; };
+    /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(ɵɵinject(ComponentFactoryResolver), ɵɵinject(ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
+    return AddDynamicComponentService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var HostingDynamicComponentService = /** @class */ (function () {
+    function HostingDynamicComponentService() {
+        this.hosts = [];
+    }
+    /**
+     * @param {?} host
+     * @return {?}
+     */
+    HostingDynamicComponentService.prototype.add = /**
+     * @param {?} host
+     * @return {?}
+     */
+    function (host) {
+        this.hosts = this.hosts.filter((/**
+         * @param {?} h
+         * @return {?}
+         */
+        function (h) {
+            return h.ident !== host.ident;
+        }));
+        this.hosts.push(host);
+    };
+    /**
+     * @param {?} host
+     * @return {?}
+     */
+    HostingDynamicComponentService.prototype.remove = /**
+     * @param {?} host
+     * @return {?}
+     */
+    function (host) {
+        this.hosts = this.hosts.filter((/**
+         * @param {?} h
+         * @return {?}
+         */
+        function (h) {
+            return h.ident !== host.ident;
+        }));
+    };
+    /**
+     * @param {?} ident
+     * @return {?}
+     */
+    HostingDynamicComponentService.prototype.find = /**
+     * @param {?} ident
+     * @return {?}
+     */
+    function (ident) {
+        return this.hosts.find((/**
+         * @param {?} h
+         * @return {?}
+         */
+        function (h) {
+            return h.ident === ident;
+        }));
+    };
+    return HostingDynamicComponentService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var HostDynamicDirective = /** @class */ (function () {
+    function HostDynamicDirective(viewContainerRef, _hostingService) {
+        this.viewContainerRef = viewContainerRef;
+        this._hostingService = _hostingService;
+    }
+    /**
+     * @return {?}
+     */
+    HostDynamicDirective.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        this._hostingService.add(this);
+    };
+    /**
+     * @return {?}
+     */
+    HostDynamicDirective.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._hostingService.remove(this);
+        this.viewContainerRef.clear();
+    };
+    HostDynamicDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[gdHostDynamic]'
+                },] }
+    ];
+    /** @nocollapse */
+    HostDynamicDirective.ctorParameters = function () { return [
+        { type: ViewContainerRef },
+        { type: HostingDynamicComponentService }
+    ]; };
+    HostDynamicDirective.propDecorators = {
+        ident: [{ type: Input }]
+    };
+    return HostDynamicDirective;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 var providers = [ConfigService,
     Api,
@@ -5138,7 +5293,9 @@ var providers = [ConfigService,
     OnCloseService,
     LoadingMaskInterceptorService,
     LoadingMaskService,
-    TabActivatorService];
+    TabActivatorService,
+    AddDynamicComponentService,
+    HostingDynamicComponentService];
 var CommonComponentsModule = /** @class */ (function () {
     function CommonComponentsModule() {
         library.add(fas, far);
@@ -5184,7 +5341,8 @@ var CommonComponentsModule = /** @class */ (function () {
                         LoadingMaskComponent,
                         OutsideDirective,
                         LeftSideBarComponent,
-                        TooltipDirective
+                        TooltipDirective,
+                        HostDynamicDirective
                     ],
                     exports: [
                         TopToolbarComponent,
@@ -5231,5 +5389,5 @@ var CommonComponentsModule = /** @class */ (function () {
     return CommonComponentsModule;
 }());
 
-export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

@@ -13,12 +13,17 @@ import {
   FileUtil,
   PasswordService,
   FileCredentials,
-  CommonModals
+  CommonModals,
+  TabActivatorService,
+  HostingDynamicComponentService,
+  AddDynamicComponentService
 } from "@groupdocs.examples.angular/common-components";
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
-import {Signature, SignatureType} from "./signature-models";
+import {AddedSignature, DraggableSignature, SignatureType} from "./signature-models";
+import {SelectSignatureService} from "./select-signature.service";
+import {Signature} from "./signature/signature.component";
 
 @Component({
   selector: 'gd-signature',
@@ -55,7 +60,11 @@ export class SignatureAppComponent implements AfterViewInit {
               pagePreloadService: PagePreloadService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
-              private _windowService: WindowService) {
+              private _windowService: WindowService,
+              private _selectSignatureService: SelectSignatureService,
+              private _tabActivationService: TabActivatorService,
+              private _hostingComponentsService: HostingDynamicComponentService,
+              private _addDynamicComponentService: AddDynamicComponentService) {
 
     configService.updatedConfig.subscribe((signatureConfig) => {
       this.signatureConfig = signatureConfig;
@@ -84,6 +93,19 @@ export class SignatureAppComponent implements AfterViewInit {
 
     passwordService.passChange.subscribe((pass: string) => {
       this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
+    });
+
+    _selectSignatureService.selectSignature.subscribe((sign: DraggableSignature) => {
+      this._signatureService.loadSignatureImage(sign).subscribe((signature: AddedSignature) => {
+        const dynamicDirective = this._hostingComponentsService.find(sign.pageNumber);
+        if (dynamicDirective) {
+          const viewContainerRef = dynamicDirective.viewContainerRef;
+          const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
+          (<Signature>selectSignature.instance).data = signature;
+          (<Signature>selectSignature.instance).position = sign.position;
+        }
+        this._tabActivationService.changeActiveTab(sign.type);
+      });
     });
 
     this.isDesktop = _windowService.isDesktop();

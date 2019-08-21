@@ -54,3 +54,34 @@ export class OpticalCodeModel {
   text: string;
   temp: boolean;
 }
+
+export class DraggableSignature {
+  guid: string;
+  type: string;
+  position: Position;
+  pageNumber: number;
+}
+
+export class Position {
+  left: number;
+  top: number;
+
+  constructor(left: number, top: number) {
+    this.left = left;
+    this.top = top;
+  }
+}
+
+export class AddedSignature {
+  props: SignatureProps;
+  data: string;
+  width: number;
+  height: number;
+}
+
+export class SignatureProps {
+  imageGuid: string;
+  text: string;
+  width: number;
+  height: number;
+}

@@ -1,0 +1,7 @@
+<div class="gd-signature" [style.left.px]="position.left" [style.top.px]="position.top"
+     [style.width.px]="data.width ? data.width : undefined"
+     [style.height.px]="data.height ? data.height : undefined"
+     [draggable]="true">
+  <gd-context-menu></gd-context-menu>
+  <img class="gd-signature-image" [draggable]="false" [attr.src]="getData()" alt>
+</div>

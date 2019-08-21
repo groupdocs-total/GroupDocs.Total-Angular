@@ -19,6 +19,9 @@ import {SignatureTabComponent} from './signature-tab/signature-tab.component';
 import {NewBarQrCodeComponent} from './new-bar-qr-code/new-bar-qr-code.component';
 import {UploadSignatureComponent} from './upload-signature/upload-signature.component';
 import {DndSignatureDirective} from './dnd-signature.directive';
+import {Signature} from './signature/signature.component';
+import {ContextMenuComponent} from './context-menu/context-menu.component';
+import {SelectSignatureService} from "./select-signature.service";
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -31,13 +34,17 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     SignatureTabComponent,
     NewBarQrCodeComponent,
     UploadSignatureComponent,
-    DndSignatureDirective],
+    DndSignatureDirective,
+    Signature,
+    ContextMenuComponent],
   exports: [SignatureAppComponent,
     SignatureListPanelComponent,
     SignatureTabComponent,
     NewBarQrCodeComponent,
     UploadSignatureComponent,
-    DndSignatureDirective],
+    DndSignatureDirective,
+    Signature,
+    ContextMenuComponent],
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,
@@ -46,6 +53,7 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     SignatureService,
     ConfigService,
     SignatureConfigService,
+    SelectSignatureService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
@@ -56,6 +64,9 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
       useFactory: initializeApp,
       deps: [SignatureConfigService], multi: true
     }
+  ],
+  entryComponents: [
+    Signature
   ]
 })
 export class SignatureModule {

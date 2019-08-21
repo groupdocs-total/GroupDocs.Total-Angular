@@ -22,6 +22,7 @@ export class Api {
   public static COMPARE_FILES = '/compare';
   public static DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
   public static SAVE_OPTICAL_CODE = '/saveOpticalCode';
+  public static LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

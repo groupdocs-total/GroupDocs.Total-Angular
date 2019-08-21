@@ -1,4 +1,4 @@
-<div id="page-{{number}}">
+<div id="page-{{number}}" gdHostDynamic [ident]="number">
   <div class="gd-wrapper" [innerHTML]="data | safeHtml" *ngIf="data && isHtml" [contentEditable]="(editable) ? true : false"
       gdEditor [text]="data"></div>
   <img class="gd-page-image" [style.width.px]="width" [style.height.px]="height" [attr.src]="imgData | safeResourceHtml"

@@ -58,7 +58,10 @@ import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service"
 import {TabActivatorService} from "./tab-activator.service";
 import {OutsideDirective} from './outside.directive';
 import {LeftSideBarComponent} from './left-side-bar/left-side-bar.component';
-import { TooltipDirective } from './tooltip.directive';
+import {TooltipDirective} from './tooltip.directive';
+import {AddDynamicComponentService} from "./add-dynamic-component.service";
+import {HostDynamicDirective} from './host-dynamic.directive';
+import {HostingDynamicComponentService} from "./hosting-dynamic-component.service";
 
 const providers = [ConfigService,
   Api,
@@ -86,7 +89,9 @@ const providers = [ConfigService,
   OnCloseService,
   LoadingMaskInterceptorService,
   LoadingMaskService,
-  TabActivatorService];
+  TabActivatorService,
+  AddDynamicComponentService,
+  HostingDynamicComponentService];
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule],
@@ -128,7 +133,8 @@ const providers = [ConfigService,
     LoadingMaskComponent,
     OutsideDirective,
     LeftSideBarComponent,
-    TooltipDirective
+    TooltipDirective,
+    HostDynamicDirective
   ],
   exports: [
     TopToolbarComponent,
