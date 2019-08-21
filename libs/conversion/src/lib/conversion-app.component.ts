@@ -90,7 +90,7 @@ export class ConversionAppComponent implements OnInit {
   }
 
   convertSingleItem(item) {
-    // TODO: reconcider following check (and in the method below)
+    // TODO: reconsider following check (and in the method below)
     if (this.conversionItems.length > 0) {
       const workItem = this.conversionItems.find(x => x.guid == item.guid);
       // workItem.converting = true;

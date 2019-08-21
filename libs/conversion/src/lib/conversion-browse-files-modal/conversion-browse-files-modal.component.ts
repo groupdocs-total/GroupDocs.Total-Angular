@@ -61,26 +61,24 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
 
     this.files.filter(file => file.selected).forEach((f) => {
       if (f.conversionTypes.length > 0) {
-        var types = f.conversionTypes;
+        var types = Object.assign([], f.conversionTypes);
         allTypes.push(types);
       }
     });
-    //get longest array of types
-    var longestArray = allTypes[0];
-    allTypes.forEach((typesArr) => {
-        if (longestArray.length < typesArr.length) {
-            longestArray = typesArr;
-        }
+
+    var longestArray = [];
+    allTypes.forEach((item) => {
+      if(item.length >= longestArray.length){
+        longestArray = item;
+      }
     });
 
     //add warnings
     allTypes.forEach(typesArr => {
-      var counter = 0;
         for (var i = 0; i < longestArray.length; i++) {
           var type = (longestArray[i].value) ? longestArray[i].value : longestArray[i];
-          // TODO: remove second check
+          // TODO: reconsider second check
           if (typesArr.indexOf(type) == -1 && typesArr.filter(t => t.name == type).length == 0) {
-              counter = counter + 1;
               longestArray[i] = { value: type, name: type, warning: true };
           } else {
             if(!longestArray[i].warning) {
@@ -88,7 +86,6 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
             }
           }
         }
-        longestArray.filesCounter = counter;
     }); 
 
     return longestArray;
