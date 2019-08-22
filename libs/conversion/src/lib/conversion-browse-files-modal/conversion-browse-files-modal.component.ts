@@ -34,8 +34,8 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   selectSingleItem(checked: boolean, file: ExtendedFileModel){
-    // TODO: refactor
-    let selectedFiles = this.files.filter(f => f.guid == file.guid);
+    // TODO: refactor?
+    const selectedFiles = this.files.filter(f => f.guid == file.guid);
     if (selectedFiles.length == 1){
       selectedFiles[0].selected = checked;
     }
@@ -105,11 +105,8 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
     if (file) file.selected = true;
     
     this._format = $event.value;
-
     let conversionItems = new Array<ConversionItemModel>();
 
-    // TODO: try filter method
-    // TODO: add check that item was already added
     this.files.forEach((file) => {
         if (file.selected && !file.isDirectory){
           const extension = file.guid.replace(/^.*\./, '');
@@ -129,7 +126,7 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
             destinationFormatName: this.getFormatName({name: destinationFileName, directory: false} as FileModel),
             destinationIcon: this.getFormatIcon({name: destinationFileName, directory: false} as FileModel),
             converted: false,
-            // TODO: reconsider following field usage
+            // TODO: maybe there is a more beauty way?
             converting: false
           };
 
@@ -158,6 +155,7 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   anyItemSelected() {
+    // TODO: reconsider such checks
     if (this.files && this.files.length > 0) {
       return this.files.filter(file => file.selected).length > 0;
     }

@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ConversionConfigService} from "./conversion-config.service";
 import {ConversionService} from "./conversion.service";
 import { ModalService,
-  FileModel,
   CommonModals,
   UploadFilesService
 } from "@groupdocs.examples.angular/common-components";
@@ -14,8 +13,7 @@ import {ConversionItemModel, ExtendedFileModel} from "./models"
   templateUrl: './conversion-app.component.html',
   styleUrls: ['./conversion-app.component.less']
 })
-export class ConversionAppComponent implements OnInit {
-
+export class ConversionAppComponent {
   title = 'conversion';
   files: ExtendedFileModel[] = [];
   conversionItems: ConversionItemModel[] = [];
@@ -47,16 +45,19 @@ export class ConversionAppComponent implements OnInit {
 
     _conversionService.selectedItems.subscribe((selectedFormats) => {
       selectedFormats.forEach((selectedFormat) => {
-        if (Object.keys(selectedFormat).length > 0) {
+        if (Object.keys(selectedFormat).length > 0 && !this.itemAlreadyAdded(selectedFormat)) {
           this.conversionItems.push(selectedFormat as ConversionItemModel);
         }
       });
     });
-  }
 
-  ngOnInit(): void {
-    this._conversionService.itemToConvert.subscribe(item => this.convertSingleItem(item));
-    this._conversionService.itemToRemove.subscribe(item => this.removeItemFromQueue(item));
+    _conversionService.itemToConvert.subscribe(item => {
+      if (item) this.convertSingleItem(item);
+    });
+
+    _conversionService.itemToRemove.subscribe(item => {
+        if (item) this.removeItemFromQueue(item);
+    });
   }
 
   get rewriteConfig(): boolean {
@@ -90,26 +91,21 @@ export class ConversionAppComponent implements OnInit {
   }
 
   convertSingleItem(item) {
-    // TODO: reconsider following check (and in the method below)
-    if (this.conversionItems.length > 0) {
-      const workItem = this.conversionItems.find(x => x.guid == item.guid);
-      workItem.converting = true;
-      this._conversionService.convert(item).subscribe(() => {
-        workItem.converting = false;
-        workItem.converted = true;
-      }, (() => {
-        // TODO: add error handling?
-        workItem.converting = false;
-      }));
-    }
+    const workItem = this.conversionItems.find(x => x.guid == item.guid);
+    workItem.converting = true;
+    this._conversionService.convert(item).subscribe(() => {
+      workItem.converting = false;
+      workItem.converted = true;
+    }, (() => {
+      // TODO: add error handling?
+      workItem.converting = false;
+    }));
   }
 
   convertAll(){
-    if (this.conversionItems.length > 0) {
       this.conversionItems.forEach((item) => {
         this.convertSingleItem(item);
       });
-    }
   }
 
   convertAllUnavailable(){
@@ -125,13 +121,14 @@ export class ConversionAppComponent implements OnInit {
   }
 
   selectAllItems(checked: boolean) {
-    let check = checked;
+    this.files.forEach( (f) => {
+      if (!f.isDirectory) f.selected = checked;
+    });
+  }
 
-    if (this.files.length > 0) {
-      this.files.forEach( (f) => {
-        if (!f.isDirectory) f.selected = checked;
-      });
-    }
+  itemAlreadyAdded(selectedFormat: ConversionItemModel) : boolean {
+    return this.conversionItems.filter(ci => ci.destinationType == selectedFormat.destinationType 
+      && ci.guid == selectedFormat.guid).length == 1;
   }
 
   isLeftBarOpen() {

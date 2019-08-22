@@ -18,7 +18,7 @@ export class ConversionItemModel implements FileModel {
 
   export class ExtendedFileModel implements FileModel {
     guid: string;
-    // TODO: fix dublicates below
+    // TODO: fix dublicates below (question)
     directory: boolean;
     isDirectory: boolean;
     size: number;

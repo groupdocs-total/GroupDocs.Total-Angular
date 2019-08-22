@@ -24,7 +24,7 @@ export class ConversionItemComponent implements OnInit {
   }
 
   downloadFile($event, item: ConversionItemModel) {
-    // TODO: need to be simplified
+    // TODO: maybe need to be simplified?
     let conversionFolderPath = item.guid.substring(0, item.guid.lastIndexOf("\\"));
     let extension = item.guid.replace(/^.*\./, '');
     let convertedFilePath = conversionFolderPath + '\\converted\\' + item.name;
