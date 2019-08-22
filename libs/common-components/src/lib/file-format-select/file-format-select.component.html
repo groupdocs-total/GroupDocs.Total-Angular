@@ -1,4 +1,4 @@
-<div class="select"
+<div class="select" [ngClass]="{'single': !isMulti}"
      (click)="toggle($event)"
      gdOutside
      [clickOutsideEnabled]="isOpen"
@@ -9,7 +9,9 @@
   </span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">
-      <div (click)="select($event, option)" class="option">{{option.name}}
+      <div (click)="select($event, option)" class="option">
+        <fa-icon [icon]="['far', option.icon]"></fa-icon>
+        <div class="gd-type">{{option.name}}</div>
         <div *ngIf="option.warning" class="gd-type-warning" title="1 selected file(s) can’t be converted to {{option.name}} format">
           <fa-icon [icon]="['fas','exclamation-triangle']"></fa-icon>
         </div>

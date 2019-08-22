@@ -20,7 +20,6 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   @Output() selectAll = new EventEmitter<boolean>();
 
   dynamicOptions: Option[] = [];
-  selectAllChecked: boolean = false;
 
   constructor(_uploadService: UploadFilesService,
     private _conversionService: ConversionService,
@@ -79,10 +78,20 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
           var type = (longestArray[i].value) ? longestArray[i].value : longestArray[i];
           // TODO: reconsider second check
           if (typesArr.indexOf(type) == -1 && typesArr.filter(t => t.name == type).length == 0) {
-              longestArray[i] = { value: type, name: type, warning: true };
+              longestArray[i] = {
+                value: type,
+                name: type,
+                warning: true,
+                icon: this.getFormatIcon({name: 'dummyName.' + type, directory: false} as FileModel)
+              };
           } else {
             if(!longestArray[i].warning) {
-              longestArray[i] = { value: type, name: type, warning: false };
+              longestArray[i] = {
+                value: type,
+                name: type,
+                warning: false,
+                icon: this.getFormatIcon({name: 'dummyName.' + type, directory: false} as FileModel)
+              };
             }
           }
         }
@@ -133,7 +142,11 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   createFormatOption(val: string) {
-    return {value: val, name: val}
+    return {
+      value: val,
+      name: val,
+      icon: this.getFormatIcon({name: 'dummyName.' + val, directory: false} as FileModel)
+    }
   }
 
   formatOptions(formats) {
@@ -149,5 +162,11 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
       return this.files.filter(file => file.selected).length > 0;
     }
     else return false;
+  }
+
+  allItemsSelected() {
+    if (this.files && this.files.length > 0) {
+      return this.files.filter(file => !file.isDirectory && file.selected).length == this.files.filter(file => !file.isDirectory).length;
+    }
   }
 }

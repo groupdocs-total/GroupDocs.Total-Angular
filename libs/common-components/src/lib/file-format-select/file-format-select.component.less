@@ -1,8 +1,8 @@
 @import "./../../styles/variables";
 
-.select {
-  min-width: 50px;
+.single {
   color: #959da5;
+  min-width: 50px;
 }
 
 .nav-caret {
@@ -21,9 +21,6 @@
   float: left;
   min-width: 160px;
   padding: 5px 0;
-  list-style: none;
-  font-size: 13px;
-  text-align: left;
   background-color: #ffffff;
   border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -40,13 +37,19 @@
 }
 
 .dropdown-menu .option {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: normal;
-  line-height: 1.42857143;
-  white-space: nowrap;
+  color: #959DA5;
+  height: 25px;
+  display: flex;
   cursor: pointer;
+  fa-icon {
+    margin: 6px 10px;
+    color: #959DA5;
+    font-size: 12px;
+    height: 12px;
+  }
+  &:hover .gd-type-warning fa-icon {
+    color: #f2fa23;
+  }
 }
 
 .dropdown-menu .option:hover{
@@ -70,4 +73,10 @@
   font-size: 13px;
   line-height: 36px;
   position: absolute;
+}
+
+.gd-type {
+  font-size: 13px;
+  line-height: 26px;
+  width: 27px;
 }
