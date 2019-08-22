@@ -1,7 +1,10 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
-import {Position, AddedSignature, Utils} from "../signature-models";
+import {Component, Input, OnInit} from '@angular/core';
+import {Position, AddedSignature, Utils, SignatureType, SignatureProps} from "../signature-models";
 import {DragSignatureService} from "../drag-signature.service";
 import * as jquery from 'jquery';
+import {Formatting} from "@groupdocs.examples.angular/common-components";
+import {SignatureService} from "../signature.service";
+import {RemoveSignatureService} from "../remove-signature.service";
 
 const $ = jquery;
 
@@ -11,11 +14,14 @@ const $ = jquery;
   styleUrls: ['./signature.component.less']
 })
 export class Signature implements OnInit {
+  @Input() id: number;
   @Input() data: AddedSignature;
   @Input() position: Position;
+  @Input() type: string;
 
-  constructor(private _elementRef: ElementRef,
-              private _dragSignatureService: DragSignatureService) {
+  constructor(private _dragSignatureService: DragSignatureService,
+              private _signatureService: SignatureService,
+              private _removeSignature: RemoveSignatureService) {
   }
 
   ngOnInit() {
@@ -31,7 +37,7 @@ export class Signature implements OnInit {
   }
 
   dragStart($event: DragEvent) {
-    this._dragSignatureService.element = this._elementRef;
+    this._dragSignatureService.id = this.id;
   }
 
   dragging($event) {
@@ -43,10 +49,48 @@ export class Signature implements OnInit {
       const documentPage = $(currentPage).parent().parent()[0];
       const left = position.x - $(documentPage).offset().left;
       const top = position.y - $(documentPage).offset().top;
-      const child = this._elementRef.nativeElement.children[0];
-      child.style.left = left - child.clientWidth / 2 + 'px';
-      child.style.top = top - child.clientHeight / 2 + 'px';
+      this.position.left = left;
+      this.position.top = top;
     }
   }
 
+  isText() {
+    return SignatureType.TEXT.id === this.type;
+  }
+
+  getFormatting() {
+    const f = this.data.props;
+    const formatting = Formatting.DEFAULT;
+    if (f) {
+      formatting.fontSize = f.fontSize;
+      formatting.font = f.font;
+      formatting.color = f.fontColor;
+      formatting.bold = f.bold;
+      formatting.underline = f.underline;
+      formatting.italic = f.italic;
+    }
+    return formatting;
+  }
+
+  saveTextSignature($event: Formatting) {
+    if (this.data.props) {
+      this.fillFormatting($event);
+      this._signatureService.saveTextSignature(this.data).subscribe((p: SignatureProps) => {
+        this.data.props = p;
+      });
+    }
+  }
+
+  private fillFormatting(formatting: Formatting) {
+    this.data.props.fontSize = formatting.fontSize;
+    this.data.props.font = formatting.font;
+    this.data.props.bold = formatting.bold;
+    this.data.props.italic = formatting.italic;
+    this.data.props.underline = formatting.underline;
+    this.data.props.fontColor = formatting.color;
+  }
+
+  remove() {
+    this._removeSignature.remove(this.id);
+  }
 }

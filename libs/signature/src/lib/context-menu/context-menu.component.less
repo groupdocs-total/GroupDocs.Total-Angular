@@ -1,0 +1,116 @@
+@import "../../../../common-components/src/styles/variables";
+
+.gd-delete-signature {
+  cursor: pointer;
+}
+
+.gd-context-menu-top {
+  top: -44px;
+}
+
+.gd-context-menu-bottom {
+  bottom: -40px;
+}
+
+.gd-context-menu {
+  box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  cursor: default;
+  width: max-content;
+  width: -moz-max-content;
+  width: -webkit-max-content;
+  display: flex;
+  flex-direction: row;
+
+  .arrows {
+    cursor: move;
+  }
+
+  .icon {
+    color: #5c737f;
+    padding: 10px 7px 10px 10px;
+    font-size: 14px;
+    border-radius: 3px;
+  }
+
+  .icon:last-child {
+    padding: 10px 10px 10px 10px;
+  }
+
+  .gd-text-color-picker {
+    margin: 7px 0px 7px 7px;
+  }
+
+  ::ng-deep .active {
+    background-color: #e7e7e7;
+  }
+
+  .gd-text-menu {
+    display: flex;
+    flex-direction: row;
+
+    .format-select {
+      margin: 7px 15px;
+    }
+  }
+
+  .bg-color-pic {
+    border-radius: 100%;
+    border: 1px solid #CCC;
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    right: 6px;
+    bottom: 6px;
+  }
+
+  .background-color-picker {
+    left: 700px;
+  }
+
+  .palette {
+    position: absolute;
+    top: 40px;
+    left: 5px;
+    z-index: 100;
+  }
+
+}
+
+@media @phone-down {
+  .gd-context-menu {
+    ::ng-deep .active {
+      background-color: #959da5;
+    }
+
+    .icon {
+      padding: 10px 7px 10px 10px;
+    }
+  }
+
+  .gd-context-menu-top {
+    top: -34px;
+  }
+
+  .gd-text-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    align-items: baseline;
+    padding: 0px;
+    margin: 0px;
+
+    .icon {
+      color: white;
+      margin: 0 9px 0 9px;
+    }
+  }
+}

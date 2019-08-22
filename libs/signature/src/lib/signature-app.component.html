@@ -1,4 +1,4 @@
-<div class="wrapper" (contextmenu)="onRightClick($event)">
+<div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
   <div class="top-panel">
     <gd-logo [logo]="'signature'" icon="{{isLeftBarOpen() ? 'bars' : 'times'}}"></gd-logo>
     <gd-top-toolbar class="toolbar-panel">

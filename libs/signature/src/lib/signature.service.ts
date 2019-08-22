@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Api, ConfigService, FileCredentials} from "@groupdocs.examples.angular/common-components";
-import {DraggableSignature, FileListWithParams} from "./signature-models";
+import {AddedSignature, DraggableSignature, FileListWithParams} from "./signature-models";
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +95,12 @@ export class SignatureService {
       'page': sign.pageNumber,
       'signatureType': sign.type,
       'password': ''
+    }, Api.httpOptionsJson);
+  }
+
+  saveTextSignature(data: AddedSignature) {
+    return this._http.post(this._config.getSignatureApiEndpoint() + Api.SAVE_TEXT, {
+      'properties': data.props
     }, Api.httpOptionsJson);
   }
 }

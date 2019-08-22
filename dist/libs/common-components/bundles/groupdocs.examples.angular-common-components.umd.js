@@ -533,6 +533,7 @@
         Api.COMPARE_FILES = '/compare';
         Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
         Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
+        Api.SAVE_TEXT = '/saveText';
         Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
         Api.httpOptionsJson = {
             headers: new http.HttpHeaders({

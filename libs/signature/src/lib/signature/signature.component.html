@@ -1,9 +1,19 @@
 <div class="gd-signature" [style.left.px]="position.left" [style.top.px]="position.top"
      [style.width.px]="data.width ? data.width : undefined"
      [style.height.px]="data.height ? data.height : undefined"
-     [draggable]="false">
-  <gd-context-menu></gd-context-menu>
-  <img class="gd-signature-image" [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
-       (drag)="dragging($event)"
+     [draggable]="false" [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
+     (drag)="dragging($event)">
+  <gd-context-menu [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
+                   (changeFormatting)="saveTextSignature($event)" (removeSign)="remove()"></gd-context-menu>
+  <img class="gd-signature-image" *ngIf="!isText()"
        [attr.src]="getData()" alt>
+  <textarea class="gd-text" *ngIf="isText()" [value]="data.props?.text"
+            [style.text-decoration]="data.props?.underline ? 'underline' : 'unset'"
+            [style.font-style]="data.props?.italic ? 'italic' : 'unset'"
+            [style.font-weight]="data.props?.bold ? 'bold' : 'unset'"
+            [style.color]="data.props?.fontColor"
+            [style.font-family]="data?.props.font"
+            [style.font-size.px]="data?.props.fontSize"
+            [style.width.px]="data.props?.width ? data.props.width : undefined"
+            [style.height.px]="data.props?.height ? data.props.height : undefined"></textarea>
 </div>

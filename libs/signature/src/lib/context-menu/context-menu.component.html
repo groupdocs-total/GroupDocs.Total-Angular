@@ -1,0 +1,26 @@
+<div class="gd-context-menu" [ngClass]="topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'">
+  <fa-icon [icon]="['fas','arrows-alt']" [class]="'ng-fa-icon icon arrows'" [size]="'sm'"></fa-icon>
+  <div class="gd-text-menu" *ngIf="textMenu">
+    <gd-select class="format-select" [options]="fontOptions"
+               (selected)="selectFont($event)"
+               [showSelected]="{name : formatting.font, value : formatting.font}"></gd-select>
+    <gd-select class="format-select" [options]="fontSizeOptions"
+               (selected)="selectFontSize($event)"
+               [showSelected]="{name : formatting.fontSize + 'px', value : formatting.fontSize}"></gd-select>
+    <gd-button [icon]="'bold'" [tooltip]="'Bold'"
+               (click)="toggleBold($event)" [toggle]="formatting.bold"></gd-button>
+    <gd-button [icon]="'italic'" [tooltip]="'Italic'"
+               (click)="toggleItalic($event)" [toggle]="formatting.italic"></gd-button>
+    <gd-button [icon]="'underline'" [tooltip]="'Underline'"
+               (click)="toggleUnderline($event)" [toggle]="formatting.underline"></gd-button>
+    <gd-button name="button" [icon]="'font'" [tooltip]="'Color'" (click)="toggleColorPicker()">
+      <div class="bg-color-pic" [style.background-color]="formatting.color"></div>
+      <gd-color-picker *ngIf="colorPickerShow"
+                       [className]="'palette'"
+                       (selectedColor)="selectColor($event)"></gd-color-picker>
+    </gd-button>
+  </div>
+  <fa-icon [icon]="['fas','unlock']" [class]="'ng-fa-icon icon'"></fa-icon>
+  <fa-icon [icon]="['fas','trash']" [class]="'ng-fa-icon icon'" [size]="'sm'" class="gd-delete-signature"
+           (click)="deleteSign()"></fa-icon>
+</div>

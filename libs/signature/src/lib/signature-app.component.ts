@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, ComponentRef} from '@angular/core';
 import {SignatureService} from "./signature.service";
 import {
   FileDescription,
@@ -16,7 +16,8 @@ import {
   CommonModals,
   TabActivatorService,
   HostingDynamicComponentService,
-  AddDynamicComponentService
+  AddDynamicComponentService,
+  OnCloseService
 } from "@groupdocs.examples.angular/common-components";
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
@@ -25,6 +26,7 @@ import {AddedSignature, DraggableSignature, Position, SignatureType, Utils} from
 import {SelectSignatureService} from "./select-signature.service";
 import {Signature} from "./signature/signature.component";
 import {DragSignatureService} from "./drag-signature.service";
+import {RemoveSignatureService} from "./remove-signature.service";
 import * as jquery from 'jquery';
 
 const $ = jquery;
@@ -54,6 +56,7 @@ export class SignatureAppComponent implements AfterViewInit {
     SignatureType.STAMP,
     SignatureType.HAND,
   ];
+  signatureComponents = new Map<number, ComponentRef<any>>();
 
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -69,7 +72,15 @@ export class SignatureAppComponent implements AfterViewInit {
               private _tabActivationService: TabActivatorService,
               private _hostingComponentsService: HostingDynamicComponentService,
               private _addDynamicComponentService: AddDynamicComponentService,
-              private _dragSignatureService: DragSignatureService) {
+              private _dragSignatureService: DragSignatureService,
+              private _onCloseService: OnCloseService,
+              _removeSignature: RemoveSignatureService) {
+
+    _removeSignature.removeSignature.subscribe((id: number) => {
+      const componentRef = this.signatureComponents.get(id);
+      componentRef.destroy();
+      this.signatureComponents.delete(id);
+    });
 
     configService.updatedConfig.subscribe((signatureConfig) => {
       this.signatureConfig = signatureConfig;
@@ -341,19 +352,18 @@ export class SignatureAppComponent implements AfterViewInit {
       const documentPage = $(currentPage).parent().parent()[0];
       const left = position.x - $(documentPage).offset().left;
       const top = position.y - $(documentPage).offset().top;
+      const currentPosition = new Position(left, top);
       const sign = this._dragSignatureService.sign;
       if (sign) {
-        sign.position = new Position(left, top);
+        sign.position = currentPosition;
         this.selectSignature(sign);
         this._dragSignatureService.sign = null;
       } else {
-        const element = this._dragSignatureService.element;
-        if (element) {
-          const child = element.nativeElement.children[0];
-          child.style.left = left - child.clientWidth / 2 + 'px';
-          child.style.top = top - child.clientHeight / 2 + 'px';
+        if (this._dragSignatureService.id) {
+          const element = this.signatureComponents.get(this._dragSignatureService.id);
+          (<Signature>element.instance).position = currentPosition;
         }
-        this._dragSignatureService.element = null;
+        this._dragSignatureService.id = null;
       }
     }
   }
@@ -364,10 +374,28 @@ export class SignatureAppComponent implements AfterViewInit {
       if (dynamicDirective) {
         const viewContainerRef = dynamicDirective.viewContainerRef;
         const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
+        const id = this.signatureComponents.size + 1;
+        (<Signature>selectSignature.instance).id = id;
         (<Signature>selectSignature.instance).data = signature;
         (<Signature>selectSignature.instance).position = sign.position;
+        (<Signature>selectSignature.instance).type = sign.type;
+        this.signatureComponents.set(id, selectSignature);
       }
       this._tabActivationService.changeActiveTab(sign.type);
     });
+  }
+
+  hideAll($event) {
+    if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
+      $event.target.parentElement.attributes['name'].value === 'button') ||
+      ($event.target.parentElement.parentElement &&
+        $event.target.parentElement.parentElement.attributes['name'] &&
+        $event.target.parentElement.parentElement.attributes['name'].value === 'button') ||
+      ($event.target.parentElement.parentElement.parentElement.parentElement.attributes['name'] &&
+        $event.target.parentElement.parentElement.parentElement.parentElement.attributes['name'].value === 'button')) {
+
+      return;
+    }
+    this._onCloseService.close(true);
   }
 }

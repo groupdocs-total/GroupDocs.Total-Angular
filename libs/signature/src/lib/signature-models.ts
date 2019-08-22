@@ -1,8 +1,11 @@
+import {Formatting} from "@groupdocs.examples.angular/common-components";
+
 export class Signature {
   guid: string;
   image: string;
   name: string;
   text: string;
+  fontColor: string;
 }
 
 export class SignatureType {
@@ -84,6 +87,12 @@ export class SignatureProps {
   text: string;
   width: number;
   height: number;
+  bold: boolean;
+  italic: boolean;
+  underline: boolean;
+  font: string;
+  fontSize: number;
+  fontColor: string;
 }
 
 export class Utils {
@@ -93,7 +102,7 @@ export class Utils {
       y: 0
     };
     const ev = event || window.event; //Moz || IE
-    if (ev.pageX || ev.touches[0].pageX) { //Moz
+    if (ev.pageX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
       mouse.x = (typeof ev.pageX !== "undefined" && ev.pageX !== 0) ? ev.pageX : ev.touches[0].pageX;
       mouse.y = (typeof ev.pageY !== "undefined" && ev.pageY !== 0) ? ev.pageY : ev.touches[0].pageY;
     } else if (ev.clientX) { //IE
