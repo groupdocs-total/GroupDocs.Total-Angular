@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DraggableSignature, Position, Signature, SignatureType} from "../signature-models";
-import * as jquery from 'jquery';
 import {NavigateService} from "@groupdocs.examples.angular/common-components";
 import {SelectSignatureService} from "../select-signature.service";
+import {DragSignatureService} from "../drag-signature.service";
 
-const $ = jquery;
 
 @Component({
   selector: 'gd-signature-list-panel',
@@ -19,7 +18,8 @@ export class SignatureListPanelComponent implements OnInit {
   @Output() removeSignatureEvent = new EventEmitter<string>();
 
   constructor(private _navigateService: NavigateService,
-              private _selectSignatureService: SelectSignatureService) {
+              private _selectSignatureService: SelectSignatureService,
+              private _dragSignatureService: DragSignatureService) {
   }
 
   ngOnInit() {
@@ -38,39 +38,6 @@ export class SignatureListPanelComponent implements OnInit {
     return SignatureType.DIGITAL.id === this.signatureType;
   }
 
-  drop($event: DragEvent, guid: string) {
-    const target = $event.target;
-    const sign = this.getSign(guid);
-    const position = this.getMousePosition($event);
-
-    const currentPage = document.elementFromPoint(position.x, position.y);
-    if (currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().hasClass("gd-page")) {
-      const documentPage = $(currentPage).parent().parent()[0];
-      const left = position.x - $(documentPage).offset().left - ($(target)[0].clientWidth / 2);
-      const top = position.y - $(documentPage).offset().top - ($(target)[0].clientHeight / 2);
-      sign.position = new Position(left, top);
-      this.selectSignature(sign);
-    } else {
-      $(this)[0].style = 'position: relative';
-    }
-  }
-
-  private getMousePosition(event) {
-    const mouse = {
-      x: 0,
-      y: 0
-    };
-    const ev = event || window.event; //Moz || IE
-    if (ev.pageX || ev.touches[0].pageX) { //Moz
-      mouse.x = (typeof ev.pageX !== "undefined" && ev.pageX !== 0) ? ev.pageX : ev.touches[0].pageX;
-      mouse.y = (typeof ev.pageY !== "undefined" && ev.pageY !== 0) ? ev.pageY : ev.touches[0].pageY;
-    } else if (ev.clientX) { //IE
-      mouse.x = ev.clientX + document.body.scrollLeft;
-      mouse.y = ev.clientY + document.body.scrollTop;
-    }
-    return mouse;
-  }
-
   private selectSignature(sign: DraggableSignature) {
     this._selectSignatureService.select(sign);
   }
@@ -87,5 +54,14 @@ export class SignatureListPanelComponent implements OnInit {
   select(guid: string) {
     const sign = this.getSign(guid);
     this.selectSignature(sign);
+  }
+
+  dragOver($event: DragEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+
+  dragLeave($event: DragEvent, guid: string) {
+    this._dragSignatureService.sign = this.getSign(guid);
   }
 }

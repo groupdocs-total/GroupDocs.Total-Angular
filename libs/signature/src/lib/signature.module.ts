@@ -22,6 +22,7 @@ import {DndSignatureDirective} from './dnd-signature.directive';
 import {Signature} from './signature/signature.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {SelectSignatureService} from "./select-signature.service";
+import {DragSignatureService} from "./drag-signature.service";
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -54,6 +55,7 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     ConfigService,
     SignatureConfigService,
     SelectSignatureService,
+    DragSignatureService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

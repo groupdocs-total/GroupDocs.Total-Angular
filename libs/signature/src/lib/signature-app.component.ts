@@ -21,9 +21,13 @@ import {
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
-import {AddedSignature, DraggableSignature, SignatureType} from "./signature-models";
+import {AddedSignature, DraggableSignature, Position, SignatureType, Utils} from "./signature-models";
 import {SelectSignatureService} from "./select-signature.service";
 import {Signature} from "./signature/signature.component";
+import {DragSignatureService} from "./drag-signature.service";
+import * as jquery from 'jquery';
+
+const $ = jquery;
 
 @Component({
   selector: 'gd-signature',
@@ -64,7 +68,8 @@ export class SignatureAppComponent implements AfterViewInit {
               private _selectSignatureService: SelectSignatureService,
               private _tabActivationService: TabActivatorService,
               private _hostingComponentsService: HostingDynamicComponentService,
-              private _addDynamicComponentService: AddDynamicComponentService) {
+              private _addDynamicComponentService: AddDynamicComponentService,
+              private _dragSignatureService: DragSignatureService) {
 
     configService.updatedConfig.subscribe((signatureConfig) => {
       this.signatureConfig = signatureConfig;
@@ -96,16 +101,7 @@ export class SignatureAppComponent implements AfterViewInit {
     });
 
     _selectSignatureService.selectSignature.subscribe((sign: DraggableSignature) => {
-      this._signatureService.loadSignatureImage(sign).subscribe((signature: AddedSignature) => {
-        const dynamicDirective = this._hostingComponentsService.find(sign.pageNumber);
-        if (dynamicDirective) {
-          const viewContainerRef = dynamicDirective.viewContainerRef;
-          const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
-          (<Signature>selectSignature.instance).data = signature;
-          (<Signature>selectSignature.instance).position = sign.position;
-        }
-        this._tabActivationService.changeActiveTab(sign.type);
-      });
+      this.selectSignature(sign);
     });
 
     this.isDesktop = _windowService.isDesktop();
@@ -328,5 +324,50 @@ export class SignatureAppComponent implements AfterViewInit {
       case SignatureType.HAND.id:
         return this.handSignatureConfig;
     }
+  }
+
+  dragOver($event: DragEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+
+  dropSignature($event: DragEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    const position = Utils.getMousePosition($event);
+
+    const currentPage = document.elementFromPoint(position.x, position.y);
+    if (currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().parent().hasClass("page")) {
+      const documentPage = $(currentPage).parent().parent()[0];
+      const left = position.x - $(documentPage).offset().left;
+      const top = position.y - $(documentPage).offset().top;
+      const sign = this._dragSignatureService.sign;
+      if (sign) {
+        sign.position = new Position(left, top);
+        this.selectSignature(sign);
+        this._dragSignatureService.sign = null;
+      } else {
+        const element = this._dragSignatureService.element;
+        if (element) {
+          const child = element.nativeElement.children[0];
+          child.style.left = left - child.clientWidth / 2 + 'px';
+          child.style.top = top - child.clientHeight / 2 + 'px';
+        }
+        this._dragSignatureService.element = null;
+      }
+    }
+  }
+
+  private selectSignature(sign: DraggableSignature) {
+    this._signatureService.loadSignatureImage(sign).subscribe((signature: AddedSignature) => {
+      const dynamicDirective = this._hostingComponentsService.find(sign.pageNumber);
+      if (dynamicDirective) {
+        const viewContainerRef = dynamicDirective.viewContainerRef;
+        const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
+        (<Signature>selectSignature.instance).data = signature;
+        (<Signature>selectSignature.instance).position = sign.position;
+      }
+      this._tabActivationService.changeActiveTab(sign.type);
+    });
   }
 }

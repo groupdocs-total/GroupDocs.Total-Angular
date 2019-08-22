@@ -1,17 +1,20 @@
 <div class="gd-signature-list-wrapper">
-  <div class="gd-signature-list gd-signature-list-scroll" *ngIf="signatures">
-    <div *ngFor="let signature of signatures">
-      <div class="gd-signature-item" [draggable]="true" (drop)="drop($event, signature.guid)" (click)="select(signature.guid)">
-        <div class="gd-signature-thumbnail-digital" *ngIf="isDigital()">
-          <fa-icon [icon]="['fa','fingerprint']" [class]="'ng-fa-icon icon'"></fa-icon>
+  <div class="gd-signature-list-scroll" *ngIf="signatures">
+    <div class="gd-signature-list" *ngIf="signatures">
+      <div *ngFor="let signature of signatures">
+        <div class="gd-signature-item" [draggable]="true" (dragend)="dragOver($event)" (dragover)="dragOver($event)"
+             (dragleave)="dragLeave($event, signature.guid)" (click)="select(signature.guid)">
+          <div class="gd-signature-thumbnail-digital" *ngIf="isDigital()">
+            <fa-icon [icon]="['fa','fingerprint']" [class]="'ng-fa-icon icon'"></fa-icon>
+          </div>
+          <img *ngIf="signature.image" [ngClass]="'gd-signature-thumbnail-' + signatureType"
+               [attr.src]="getImage(signature.image) | safeResourceHtml" alt="" [draggable]="false">
+          <div class="gd-signature-title" [ngClass]="signatureType">
+            <label class="gd-signature-name">{{signature.text ? signature.text : signature.name}}</label>
+          </div>
+          <fa-icon [icon]="['far','trash-alt']" [class]="'ng-fa-icon icon'"
+                   (click)="deleteSign(signature.guid)"></fa-icon>
         </div>
-        <img *ngIf="signature.image" [ngClass]="'gd-signature-thumbnail-' + signatureType"
-             [attr.src]="getImage(signature.image) | safeResourceHtml" alt="" [draggable]="false">
-        <div class="gd-signature-title" [ngClass]="signatureType">
-          <label class="gd-signature-name">{{signature.text ? signature.text : signature.name}}</label>
-        </div>
-        <fa-icon [icon]="['far','trash-alt']" [class]="'ng-fa-icon icon'"
-                 (click)="deleteSign(signature.guid)"></fa-icon>
       </div>
     </div>
   </div>
