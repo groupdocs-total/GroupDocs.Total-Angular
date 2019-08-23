@@ -1,6 +1,7 @@
 <div class="gd-context-menu" [ngClass]="topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'">
   <fa-icon [icon]="['fas','arrows-alt']" [class]="'ng-fa-icon icon arrows'" [size]="'sm'"></fa-icon>
   <div class="gd-text-menu" *ngIf="textMenu">
+    <div class="gd-blur" *ngIf="isMobile"></div>
     <gd-select class="format-select" [options]="fontOptions"
                (selected)="selectFont($event)"
                [showSelected]="{name : formatting.font, value : formatting.font}"></gd-select>

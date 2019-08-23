@@ -24,6 +24,7 @@ import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {SelectSignatureService} from "./select-signature.service";
 import {DragSignatureService} from "./drag-signature.service";
 import {RemoveSignatureService} from "./remove-signature.service";
+import {ActiveSignatureService} from "./active-signature.service";
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -58,6 +59,7 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     SelectSignatureService,
     DragSignatureService,
     RemoveSignatureService,
+    ActiveSignatureService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

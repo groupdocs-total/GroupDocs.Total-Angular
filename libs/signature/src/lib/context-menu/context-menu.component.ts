@@ -1,5 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Formatting, FormattingService, OnCloseService, Option} from "@groupdocs.examples.angular/common-components";
+import {
+  Formatting,
+  FormattingService,
+  OnCloseService,
+  Option,
+  WindowService
+} from "@groupdocs.examples.angular/common-components";
 import * as jquery from 'jquery';
 
 const $ = jquery;
@@ -19,10 +25,17 @@ export class ContextMenuComponent implements OnInit {
   fontSizeOptions = FormattingService.getFontSizeOptions();
   fontOptions = FormattingService.getFontOptions();
   colorPickerShow = false;
+  isMobile: boolean;
 
-  constructor(private _onCloseService: OnCloseService) {
+  constructor(private _onCloseService: OnCloseService,
+              private _windowService: WindowService) {
     _onCloseService.onClose.subscribe(() => {
       this.colorPickerShow = false;
+    });
+
+    this.isMobile = _windowService.isMobile();
+    _windowService.onResize.subscribe((w) => {
+      this.isMobile = _windowService.isMobile();
     });
   }
 

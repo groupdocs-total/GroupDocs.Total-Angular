@@ -28,6 +28,8 @@ import {Signature} from "./signature/signature.component";
 import {DragSignatureService} from "./drag-signature.service";
 import {RemoveSignatureService} from "./remove-signature.service";
 import * as jquery from 'jquery';
+import {SignatureTabComponent} from "./signature-tab/signature-tab.component";
+import {ActiveSignatureService} from "./active-signature.service";
 
 const $ = jquery;
 
@@ -74,7 +76,8 @@ export class SignatureAppComponent implements AfterViewInit {
               private _addDynamicComponentService: AddDynamicComponentService,
               private _dragSignatureService: DragSignatureService,
               private _onCloseService: OnCloseService,
-              _removeSignature: RemoveSignatureService) {
+              _removeSignature: RemoveSignatureService,
+              private _activeSignatureService: ActiveSignatureService) {
 
     _removeSignature.removeSignature.subscribe((id: number) => {
       const componentRef = this.signatureComponents.get(id);
@@ -380,22 +383,41 @@ export class SignatureAppComponent implements AfterViewInit {
         (<Signature>selectSignature.instance).position = sign.position;
         (<Signature>selectSignature.instance).type = sign.type;
         this.signatureComponents.set(id, selectSignature);
+        this._activeSignatureService.changeActive(id);
       }
       this._tabActivationService.changeActiveTab(sign.type);
+      if (!this.isDesktop) {
+        this.leftBarOpen = false;
+      }
     });
   }
 
   hideAll($event) {
     if (($event.target.parentElement && $event.target.parentElement.attributes['name'] &&
       $event.target.parentElement.attributes['name'].value === 'button') ||
-      ($event.target.parentElement.parentElement &&
+      ($event.target.parentElement &&
+        $event.target.parentElement.parentElement &&
         $event.target.parentElement.parentElement.attributes['name'] &&
         $event.target.parentElement.parentElement.attributes['name'].value === 'button') ||
-      ($event.target.parentElement.parentElement.parentElement.parentElement.attributes['name'] &&
+      ($event.target.parentElement &&
+        $event.target.parentElement.parentElement &&
+        $event.target.parentElement.parentElement.parentElement &&
+        $event.target.parentElement.parentElement.parentElement.parentElement &&
+        $event.target.parentElement.parentElement.parentElement.parentElement.attributes['name'] &&
         $event.target.parentElement.parentElement.parentElement.parentElement.attributes['name'].value === 'button')) {
 
       return;
     }
     this._onCloseService.close(true);
+  }
+
+  toggleLeftBar() {
+    if (!this.isDesktop) {
+      this.leftBarOpen = !this.leftBarOpen;
+      if (this.leftBarOpen) {
+        SignatureTabComponent.showToolTipMobile = true;
+        this._activeSignatureService.changeActive(0);
+      }
+    }
   }
 }

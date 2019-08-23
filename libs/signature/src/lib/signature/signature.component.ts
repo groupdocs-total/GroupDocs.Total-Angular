@@ -5,6 +5,7 @@ import * as jquery from 'jquery';
 import {Formatting} from "@groupdocs.examples.angular/common-components";
 import {SignatureService} from "../signature.service";
 import {RemoveSignatureService} from "../remove-signature.service";
+import {ActiveSignatureService} from "../active-signature.service";
 
 const $ = jquery;
 
@@ -18,10 +19,20 @@ export class Signature implements OnInit {
   @Input() data: AddedSignature;
   @Input() position: Position;
   @Input() type: string;
+  active = true;
 
   constructor(private _dragSignatureService: DragSignatureService,
               private _signatureService: SignatureService,
-              private _removeSignature: RemoveSignatureService) {
+              private _removeSignature: RemoveSignatureService,
+              private _activeSignatureService: ActiveSignatureService) {
+
+    this._activeSignatureService.activeChange.subscribe((id: number) => {
+      if (this.id === id) {
+        this.active = true;
+      } else {
+        this.active = false;
+      }
+    });
   }
 
   ngOnInit() {
@@ -92,5 +103,9 @@ export class Signature implements OnInit {
 
   remove() {
     this._removeSignature.remove(this.id);
+  }
+
+  activation() {
+    this._activeSignatureService.changeActive(this.id);
   }
 }

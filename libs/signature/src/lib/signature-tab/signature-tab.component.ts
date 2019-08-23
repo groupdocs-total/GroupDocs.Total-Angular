@@ -1,5 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TabActivatorService} from "@groupdocs.examples.angular/common-components";
+import {
+  CommonModals,
+  ExceptionMessageService, ModalService,
+  TabActivatorService,
+  WindowService
+} from "@groupdocs.examples.angular/common-components";
 import {Signature, SignatureType} from "../signature-models";
 import {SignatureService} from "../signature.service";
 
@@ -9,6 +14,8 @@ import {SignatureService} from "../signature.service";
   styleUrls: ['./signature-tab.component.less']
 })
 export class SignatureTabComponent implements OnInit {
+  public static showToolTipMobile = true;
+
   @Input() id: string;
   @Input() icon: string;
   @Input() disabled = false;
@@ -17,17 +24,36 @@ export class SignatureTabComponent implements OnInit {
   @Input() newTitle: string;
   @Input() rewrite: boolean;
   @Output() newSignatureEvent = new EventEmitter<string>();
+  isDesktop: boolean;
   public showNewCode = false;
   public showUpload = false;
-  public showToolTip = false;
+  public _showToolTip = false;
 
   signatures: Signature[];
 
   constructor(private _tabActivatorService: TabActivatorService,
-              private _signatureService: SignatureService) {
+              private _windowService: WindowService,
+              private _signatureService: SignatureService,
+              private _modalService: ModalService,
+              private _excMessageService: ExceptionMessageService) {
     this._tabActivatorService.activeTabChange.subscribe((tabId: string) => {
       this.activation(tabId);
     });
+
+    this.isDesktop = _windowService.isDesktop();
+    _windowService.onResize.subscribe((w) => {
+      this.isDesktop = _windowService.isDesktop();
+    });
+  }
+
+  get showToolTip() {
+    return this.isDesktop ? this._showToolTip : SignatureTabComponent.showToolTipMobile;
+  }
+
+  set showToolTip($event) {
+    if (this.isDesktop) {
+      this._showToolTip = $event;
+    }
   }
 
   private activation(tabId: string) {
@@ -38,6 +64,13 @@ export class SignatureTabComponent implements OnInit {
         this.getSignatures(tabId);
         this.showNewCode = false;
         this.showUpload = false;
+        if (!this.isDesktop) {
+          SignatureTabComponent.showToolTipMobile = false;
+        }
+      } else {
+        if (!this.isDesktop) {
+          SignatureTabComponent.showToolTipMobile = true;
+        }
       }
     } else {
       this.active = false;
@@ -49,6 +82,8 @@ export class SignatureTabComponent implements OnInit {
 
   toggleTab() {
     if (this.disabled) {
+      this._modalService.open(CommonModals.ErrorMessage);
+      this._excMessageService.changeMessage("Please open document first");
       return;
     }
     this._tabActivatorService.changeActiveTab(this.id);

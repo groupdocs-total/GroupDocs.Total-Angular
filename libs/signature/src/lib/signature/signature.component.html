@@ -2,8 +2,8 @@
      [style.width.px]="data.width ? data.width : undefined"
      [style.height.px]="data.height ? data.height : undefined"
      [draggable]="false" [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
-     (drag)="dragging($event)">
-  <gd-context-menu [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
+     (drag)="dragging($event)" (click)="activation()">
+  <gd-context-menu *ngIf="active" [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
                    (changeFormatting)="saveTextSignature($event)" (removeSign)="remove()"></gd-context-menu>
   <img class="gd-signature-image" *ngIf="!isText()"
        [attr.src]="getData()" alt>

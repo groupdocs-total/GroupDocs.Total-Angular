@@ -1,19 +1,19 @@
 <div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
   <div class="top-panel">
-    <gd-logo [logo]="'signature'" icon="{{isLeftBarOpen() ? 'bars' : 'times'}}"></gd-logo>
+    <gd-logo [logo]="'signature'" icon="{{isLeftBarOpen() ? 'times' : 'bars'}}" (click)="toggleLeftBar()"></gd-logo>
     <gd-top-toolbar class="toolbar-panel">
       <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                  *ngIf="browseConfig"></gd-button>
 
       <gd-button [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
-                 (click)="toFirstPage()" *ngIf="pageSelectorConfig"></gd-button>
+                 (click)="toFirstPage()" *ngIf="isDesktop && pageSelectorConfig"></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
-                 (click)="prevPage()" *ngIf="pageSelectorConfig"></gd-button>
-      <div class="current-page-number">{{currentPage}}/{{countPages}}</div>
+                 (click)="prevPage()" *ngIf="isDesktop && pageSelectorConfig"></gd-button>
+      <div class="current-page-number" *ngIf="isDesktop">{{currentPage}}/{{countPages}}</div>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
-                 (click)="nextPage()" *ngIf="pageSelectorConfig"></gd-button>
+                 (click)="nextPage()" *ngIf="isDesktop && pageSelectorConfig"></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
-                 (click)="toLastPage()" *ngIf="pageSelectorConfig"></gd-button>
+                 (click)="toLastPage()" *ngIf="isDesktop && pageSelectorConfig"></gd-button>
 
       <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                  (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
@@ -22,15 +22,16 @@
 
     </gd-top-toolbar>
   </div>
-  <gd-left-side-bar>
+  <gd-left-side-bar *ngIf="isDesktop || leftBarOpen">
     <div *ngFor="let signatureType of signatureTypes">
-      <gd-signature-tab *ngIf="getSignatureTypeConfig(signatureType.id)" [icon]="signatureType.icon"
+      <gd-signature-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)" [icon]="signatureType.icon"
                         [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig">
       </gd-signature-tab>
     </div>
   </gd-left-side-bar>
   <div class="doc-panel" *ngIf="file">
-    <gd-document (drop)="dropSignature($event)" (dragover)="dragOver($event)" class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig"
+    <gd-document (drop)="dropSignature($event)" (dragover)="dragOver($event)" class="gd-document" *ngIf="file"
+                 [file]="file" [mode]="htmlModeConfig"
                  [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
   </div>
 

@@ -5,3 +5,4 @@ export * from './lib/signature-config.service';
 export * from './lib/signature-list-panel/signature-list-panel.component'
 export * from './lib/select-signature.service'
 export * from './lib/remove-signature.service'
+export * from './lib/active-signature.service'
