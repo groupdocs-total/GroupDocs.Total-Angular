@@ -89,6 +89,18 @@ export declare class FileUtil {
             'format': string;
             'icon': string;
         };
+        'xls2003': {
+            'format': string;
+            'icon': string;
+        };
+        'xltx': {
+            'format': string;
+            'icon': string;
+        };
+        'xltm': {
+            'format': string;
+            'icon': string;
+        };
         'ppt': {
             'format': string;
             'icon': string;
@@ -193,6 +205,22 @@ export declare class FileUtil {
             'format': string;
             'icon': string;
         };
+        'potx': {
+            'format': string;
+            'icon': string;
+        };
+        'potm': {
+            'format': string;
+            'icon': string;
+        };
+        'pptm': {
+            'format': string;
+            'icon': string;
+        };
+        'ppsm': {
+            'format': string;
+            'icon': string;
+        };
         'rtf': {
             'format': string;
             'icon': string;
@@ -266,6 +294,18 @@ export declare class FileUtil {
             'icon': string;
         };
         'tif': {
+            'format': string;
+            'icon': string;
+        };
+        'psd': {
+            'format': string;
+            'icon': string;
+        };
+        'svg': {
+            'format': string;
+            'icon': string;
+        };
+        'jp2': {
             'format': string;
             'icon': string;
         };
