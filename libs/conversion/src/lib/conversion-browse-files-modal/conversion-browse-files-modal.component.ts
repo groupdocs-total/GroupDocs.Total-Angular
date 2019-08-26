@@ -147,11 +147,13 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   formatOptions(formats) {
-    const allTypes = new Array();
-    for (let i = 0; i < formats.length; i++) {
-      allTypes.push(this.createFormatOption(formats[i]));
+    if (formats) {
+      const allTypes = new Array();
+      for (let i = 0; i < formats.length; i++) {
+        allTypes.push(this.createFormatOption(formats[i]));
+      }
+      return allTypes;
     }
-    return allTypes;
   }
 
   anyItemSelected() {
@@ -163,8 +165,9 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   allItemsSelected() {
-    if (this.files && this.files.length > 0) {
+    if (this.files && this.files.filter(file => !file.isDirectory).length > 0 && this.files.length > 0) {
       return this.files.filter(file => !file.isDirectory && file.selected).length == this.files.filter(file => !file.isDirectory).length;
     }
+    else return false;
   }
 }

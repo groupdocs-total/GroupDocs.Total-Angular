@@ -20,7 +20,7 @@ export class ConversionConfigService {
 
   load() {
     return new Promise<void>((resolve, reject) => {
-      const configEndpoint = this._config.getConfigEndpoint(Api.COMPARISON_APP);
+      const configEndpoint = this._config.getConfigEndpoint(Api.CONVERSION_APP);
       this._http.get(configEndpoint, Api.httpOptionsJson).toPromise().then((response: ConversionConfig) => {
         const conversionConfig = <ConversionConfig>response;
         this._conversionConfig.next(conversionConfig);
