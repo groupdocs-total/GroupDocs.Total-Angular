@@ -122,7 +122,7 @@ export class ConversionAppComponent {
 
   selectAllItems(checked: boolean) {
     this.files.forEach( (f) => {
-      if (!f.isDirectory) f.selected = checked;
+      if (!f.isDirectory && !f.directory) f.selected = checked;
     });
   }
 

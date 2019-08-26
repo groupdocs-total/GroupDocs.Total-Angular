@@ -101,14 +101,17 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   selectFormat($event: any, file: ExtendedFileModel) {
-    // the case when we selecting format inline on the single
-    if (file) file.selected = true;
+    // the case when we selecting format inline on the single file
+    if (file) {
+      this.selectAll.emit(false);
+      file.selected = true;
+    }
     
     this._format = $event.value;
     const conversionItems = new Array<ConversionItemModel>();
 
     this.files.forEach((f) => {
-        if (f.selected && !f.isDirectory){
+        if (f.selected && !f.isDirectory && !f.directory){
           const extension = f.guid.replace(/^.*\./, '');
           const destinationGuid = f.guid.replace(extension, this._format);
           const destinationFileName = destinationGuid.replace(/^.*[\\\/]/, '');
@@ -165,8 +168,9 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   allItemsSelected() {
-    if (this.files && this.files.filter(file => !file.isDirectory).length > 0 && this.files.length > 0) {
-      return this.files.filter(file => !file.isDirectory && file.selected).length === this.files.filter(file => !file.isDirectory).length;
+    if (this.files && this.files.filter(file => !file.isDirectory && !file.directory).length > 0 && this.files.length > 0) {
+      return this.files.filter(file => !file.isDirectory && !file.directory && file.selected).length 
+         === this.files.filter(file => !file.isDirectory && !file.directory).length;
     }
     else return false;
   }

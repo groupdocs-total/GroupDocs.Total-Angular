@@ -40,8 +40,8 @@
           <div class="go-up-dots">...</div>
       </div>
       <div class="list-files-lines" *ngFor="let file of files" (click)="choose(file);">
-        <div class="gd-file-checkbox" [ngClass]="{'empty': file && file.isDirectory}">
-            <input type="checkbox" *ngIf="file && !file.isDirectory" [checked]="file.selected" (change)="selectSingleItem($event.target.checked, file);" class="gd-checkbox gd-checkbox-single">
+        <div class="gd-file-checkbox" [ngClass]="{'empty': file && (file.isDirectory || file.directory)}">
+            <input type="checkbox" *ngIf="file && !file.isDirectory && !file.directory" [checked]="file.selected" (change)="selectSingleItem($event.target.checked, file);" class="gd-checkbox gd-checkbox-single">
         </div>
         <div class="file-description">
           <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>
@@ -53,8 +53,8 @@
         <div class="file-size">
           {{getSize(file?.size)}}
         </div>
-        <div class="file-format-select" [ngClass]="{'empty': file && file.isDirectory}">
-          <gd-file-format-select (selected)="selectFormat($event, file)" *ngIf="file && !file.isDirectory" [options]="formatOptions(file.conversionTypes)" class="gd-select-format"></gd-file-format-select>
+        <div class="file-format-select" [ngClass]="{'empty': file && (file.isDirectory || file.directory)}">
+          <gd-file-format-select (selected)="selectFormat($event, file)" *ngIf="file && !file.isDirectory && !file.directory" [options]="formatOptions(file.conversionTypes)" class="gd-select-format"></gd-file-format-select>
         </div>
       </div>
       </div>
