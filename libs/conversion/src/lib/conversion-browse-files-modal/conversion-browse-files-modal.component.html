@@ -10,7 +10,7 @@
       <input type="checkbox" class="gd-select-all gd-checkbox" [checked]="allItemsSelected()" (change)="selectAllItems($event.target.checked);">
       <div class="gd-add-selected" [ngClass]="{'active': anyItemSelected()}">
         <gd-file-format-select 
-          (selected)="selectFormat($event, file)"
+          (selected)="selectFormat($event, null)"
           [disabled]="!anyItemSelected()" 
           [isMulti]="true" 
           [options]="dynamicOptions" 

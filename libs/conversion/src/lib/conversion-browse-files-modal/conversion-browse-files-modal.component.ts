@@ -35,8 +35,8 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
 
   selectSingleItem(checked: boolean, file: ExtendedFileModel){
     // TODO: refactor?
-    const selectedFiles = this.files.filter(f => f.guid == file.guid);
-    if (selectedFiles.length == 1){
+    const selectedFiles = this.files.filter(f => f.guid === file.guid);
+    if (selectedFiles.length === 1){
       selectedFiles[0].selected = checked;
     }
 
@@ -56,16 +56,16 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   prepareMultipleConversionTypes() {
-    var allTypes = [];
+    const allTypes = [];
 
     this.files.filter(file => file.selected).forEach((f) => {
       if (f.conversionTypes.length > 0) {
-        var types = Object.assign([], f.conversionTypes);
+        const types = Object.assign([], f.conversionTypes);
         allTypes.push(types);
       }
     });
 
-    var longestArray = [];
+    let longestArray = [];
     allTypes.forEach((item) => {
       if(item.length >= longestArray.length){
         longestArray = item;
@@ -74,10 +74,10 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
 
     //add warnings
     allTypes.forEach(typesArr => {
-        for (var i = 0; i < longestArray.length; i++) {
-          var type = (longestArray[i].value) ? longestArray[i].value : longestArray[i];
+        for (let i = 0; i < longestArray.length; i++) {
+          const type = (longestArray[i].value) ? longestArray[i].value : longestArray[i];
           // TODO: reconsider second check
-          if (typesArr.indexOf(type) == -1 && typesArr.filter(t => t.name == type).length == 0) {
+          if (typesArr.indexOf(type) === -1 && typesArr.filter(t => t.name === type).length === 0) {
               longestArray[i] = {
                 value: type,
                 name: type,
@@ -105,23 +105,23 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
     if (file) file.selected = true;
     
     this._format = $event.value;
-    let conversionItems = new Array<ConversionItemModel>();
+    const conversionItems = new Array<ConversionItemModel>();
 
-    this.files.forEach((file) => {
-        if (file.selected && !file.isDirectory){
-          const extension = file.guid.replace(/^.*\./, '');
-          const destinationGuid = file.guid.replace(extension, this._format);
+    this.files.forEach((f) => {
+        if (f.selected && !f.isDirectory){
+          const extension = f.guid.replace(/^.*\./, '');
+          const destinationGuid = f.guid.replace(extension, this._format);
           const destinationFileName = destinationGuid.replace(/^.*[\\\/]/, '');
 
           const conversionItem: ConversionItemModel = {
-            guid: file.guid,
-            directory: file.directory,
-            size: file.size,
-            name: file.name,
+            guid: f.guid,
+            directory: f.directory,
+            size: f.size,
+            name: f.name,
             destinationType: $event.value,
-            sizeString: this.getSize(file.size),
-            sourceIcon: this.getFormatIcon(file),
-            sourceFormatName: this.getFormatName(file),
+            sizeString: this.getSize(f.size),
+            sourceIcon: this.getFormatIcon(f),
+            sourceFormatName: this.getFormatName(f),
             destinationFileName: destinationFileName,
             destinationFormatName: this.getFormatName({name: destinationFileName, directory: false} as FileModel),
             destinationIcon: this.getFormatIcon({name: destinationFileName, directory: false} as FileModel),
@@ -166,7 +166,7 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
 
   allItemsSelected() {
     if (this.files && this.files.filter(file => !file.isDirectory).length > 0 && this.files.length > 0) {
-      return this.files.filter(file => !file.isDirectory && file.selected).length == this.files.filter(file => !file.isDirectory).length;
+      return this.files.filter(file => !file.isDirectory && file.selected).length === this.files.filter(file => !file.isDirectory).length;
     }
     else return false;
   }

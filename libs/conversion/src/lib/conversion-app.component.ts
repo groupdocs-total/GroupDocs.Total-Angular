@@ -91,7 +91,7 @@ export class ConversionAppComponent {
   }
 
   convertSingleItem(item) {
-    const workItem = this.conversionItems.find(x => x.guid == item.guid);
+    const workItem = this.conversionItems.find(x => x.guid === item.guid);
     workItem.converting = true;
     this._conversionService.convert(item).subscribe(() => {
       workItem.converting = false;
@@ -109,13 +109,13 @@ export class ConversionAppComponent {
   }
 
   convertAllUnavailable(){
-    return this.conversionItems.length == 0 || this.conversionItems.filter(ci => ci.converted !== true).length == 0;
+    return this.conversionItems.length === 0 || this.conversionItems.filter(ci => ci.converted !== true).length === 0;
   }
 
   removeItemFromQueue(item: ConversionItemModel): void {
     if (this.conversionItems.length > 0) {
       this.conversionItems.forEach( (ci, index) => {
-        if(ci.guid == item.guid && ci.destinationType == item.destinationType) this.conversionItems.splice(index, 1);
+        if(ci.guid === item.guid && ci.destinationType === item.destinationType) this.conversionItems.splice(index, 1);
       });
     }
   }
@@ -127,8 +127,8 @@ export class ConversionAppComponent {
   }
 
   itemAlreadyAdded(selectedFormat: ConversionItemModel) : boolean {
-    return this.conversionItems.filter(ci => ci.destinationType == selectedFormat.destinationType 
-      && ci.guid == selectedFormat.guid).length == 1;
+    return this.conversionItems.filter(ci => ci.destinationType === selectedFormat.destinationType 
+      && ci.guid === selectedFormat.guid).length === 1;
   }
 
   isLeftBarOpen() {
