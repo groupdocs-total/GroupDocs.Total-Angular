@@ -11,7 +11,7 @@
     </gd-top-toolbar>
   </div>
 
-  <gd-init-state [icon]="'exchange-alt'" [text]="''" *ngIf="conversionItems.length == 0"></gd-init-state>
+  <dnd-init-state [icon]="'exchange-alt'"></dnd-init-state>
 
   <gd-conversion-queue [items]="conversionItems" (selectedItemToConvert)="convertSingleItem($event)"></gd-conversion-queue>
 
