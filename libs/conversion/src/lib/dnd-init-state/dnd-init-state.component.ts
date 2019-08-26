@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CommonModals, ModalService} from "@groupdocs.examples.angular/common-components";
 
 @Component({
-  selector: 'dnd-init-state',
+  selector: 'gd-dnd-init-state',
   templateUrl: './dnd-init-state.component.html',
   styleUrls: ['./dnd-init-state.component.less']
 })
