@@ -46,7 +46,7 @@
         <div class="file-description">
           <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>
           <div class="file-name-format">
-            <div class="file-name">{{file?.name}}</div>
+            <div class="file-name" [ngClass]="{'gd-folder-name' : file.isDirectory || file.directory}">{{file?.name}}</div>
             <div class="file-format">{{getFormatName(file)}}</div>
           </div>
         </div>

@@ -1,11 +1,11 @@
-<div class="select" [ngClass]="{'single': !isMulti}"
+<div class="select"
      (click)="toggle($event)"
      gdOutside
      [clickOutsideEnabled]="isOpen"
      (clickOutside)="onClickOutside($event)">
   <span class="nav-caret" gdDisabledCursor [dis]="disabled">
     <fa-icon [ngClass]="{'multi-select': isMulti}" [icon]="['fas','plus']"></fa-icon>
-    <label *ngIf="isMulti">{{label}}</label>
+    <span class="label" *ngIf="isMulti">{{label}}</span>
   </span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">
