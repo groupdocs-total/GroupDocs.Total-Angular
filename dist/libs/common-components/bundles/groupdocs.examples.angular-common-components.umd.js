@@ -518,6 +518,7 @@
         Api.VIEWER_APP = '/viewer';
         Api.EDITOR_APP = '/editor';
         Api.COMPARISON_APP = '/comparison';
+        Api.CONVERSION_APP = '/conversion';
         Api.DEFAULT_API_ENDPOINT = window.location.href;
         Api.LOAD_FILE_TREE = '/loadFileTree';
         Api.LOAD_CONFIG = '/loadConfig';
@@ -532,6 +533,7 @@
         Api.LOAD_FORMATS = '/loadFormats';
         Api.SAVE_FILE = '/saveFile';
         Api.COMPARE_FILES = '/compare';
+        Api.CONVERT_FILE = '/convert';
         Api.httpOptionsJson = {
             headers: new http.HttpHeaders({
                 'Content-Type': 'application/json',
@@ -603,6 +605,15 @@
          */
         function () {
             return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
+        };
+        /**
+         * @return {?}
+         */
+        ConfigService.prototype.getConversionApiEndpoint = /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
         };
         ConfigService.decorators = [
             { type: core.Injectable }
@@ -771,8 +782,8 @@
         ModalComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-modal',
-                        template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n  <div class=\"gd-modal-dialog\">\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \n\n      <div class=\"gd-modal-header\"> \n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\n        </div> \n\n      <div class=\"gd-modal-body\">\n        <ng-content></ng-content>\n        </div> \n\n      <div class=\"gd-modal-footer\"> \n\n        </div> \n      </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog --> \n  </div>\n\n",
-                        styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{padding:1px 20px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:20px;top:13px;font-size:21px;cursor:pointer;color:#959da5}.gd-modal-title{font-size:16px;font-weight:400;padding-top:16px;padding-bottom:16px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1025px){.gd-modal-dialog{width:100%;height:100%}}"]
+                        template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \n\n      <div class=\"gd-modal-header\"> \n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\n        </div> \n\n      <div class=\"gd-modal-body\">\n        <ng-content></ng-content>\n        </div> \n\n      <div class=\"gd-modal-footer\"> \n\n        </div> \n      </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog --> \n\n",
+                        styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{padding:1px 20px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:20px;top:13px;font-size:21px;cursor:pointer;color:#959da5}.gd-modal-title{font-size:16px;font-weight:400;padding-top:16px;padding-bottom:16px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1025px){.gd-modal-dialog{width:100%;height:100%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -927,8 +938,8 @@
             'jpeg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
             'jfif': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
             'png': { 'format': 'Portable Network Graphics', 'icon': 'file-image' },
-            'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-photo' },
-            'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-photo' },
+            'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
+            'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
             'epub': { 'format': 'Electronic Publication', 'icon': 'file-pdf' },
             'ico': { 'format': 'Windows Icon', 'icon': 'file-image' },
             'webp': { 'format': 'Compressed Image', 'icon': 'file-image' },
@@ -2526,6 +2537,110 @@
             selected: [{ type: core.Output }]
         };
         return SelectComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var FileFormatSelectComponent = /** @class */ (function () {
+        function FileFormatSelectComponent(_onCloseService) {
+            var _this = this;
+            this._onCloseService = _onCloseService;
+            this.disabled = false;
+            this.isMulti = false;
+            this.selected = new core.EventEmitter();
+            this.isOpen = false;
+            _onCloseService.onClose.subscribe((/**
+             * @return {?}
+             */
+            function () {
+                _this.close();
+            }));
+        }
+        /**
+         * @return {?}
+         */
+        FileFormatSelectComponent.prototype.open = /**
+         * @return {?}
+         */
+        function () {
+            if (!this.disabled) {
+                this.isOpen = true;
+            }
+        };
+        /**
+         * @return {?}
+         */
+        FileFormatSelectComponent.prototype.close = /**
+         * @return {?}
+         */
+        function () {
+            this.isOpen = false;
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        FileFormatSelectComponent.prototype.onClickOutside = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            if (event && event['value'] === true) {
+                this.close();
+            }
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        FileFormatSelectComponent.prototype.toggle = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            if (!this.disabled) {
+                this.isOpen = !this.isOpen;
+            }
+        };
+        /**
+         * @param {?} $event
+         * @param {?} value
+         * @return {?}
+         */
+        FileFormatSelectComponent.prototype.select = /**
+         * @param {?} $event
+         * @param {?} value
+         * @return {?}
+         */
+        function ($event, value) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            this.selected.emit(value);
+            this.close();
+        };
+        FileFormatSelectComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-file-format-select',
+                        template: "<div class=\"select\" [ngClass]=\"{'single': !isMulti}\"\n     (click)=\"toggle($event)\"\n     gdOutside\n     [clickOutsideEnabled]=\"isOpen\"\n     (clickOutside)=\"onClickOutside($event)\">\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\">\n    <fa-icon [ngClass]=\"{'multi-select': isMulti}\" [icon]=\"['fas','plus']\"></fa-icon>\n    <label *ngIf=\"isMulti\">{{label}}</label>\n  </span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div (click)=\"select($event, option)\" class=\"option\">\n        <fa-icon [icon]=\"['far', option.icon]\"></fa-icon>\n        <div class=\"gd-type\">{{option.name}}</div>\n        <div *ngIf=\"option.warning\" class=\"gd-type-warning\" title=\"1 selected file(s) can\u2019t be converted to {{option.name}} format\">\n          <fa-icon [icon]=\"['fas','exclamation-triangle']\"></fa-icon>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n",
+                        styles: [".single{color:#959da5;min-width:50px}.nav-caret{vertical-align:-webkit-baseline-middle;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;z-index:1000;float:left;min-width:160px;padding:5px 0;background-color:#fff;border:1px solid rgba(0,0,0,.15);box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;max-height:300px;overflow-y:auto}.gd-type-warning{display:inline-block;margin-left:65px}.dropdown-menu .option{color:#959da5;height:25px;display:flex;cursor:pointer}.dropdown-menu .option fa-icon{margin:6px 10px;color:#959da5;font-size:12px;height:12px}.dropdown-menu .option:hover .gd-type-warning fa-icon{color:#f2fa23}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff}.dropdown-menu-separator{height:1px;margin:8px 0;overflow:hidden;background-color:#e5e5e5;padding:0!important}.multi-select{margin:8px 12px 7px 8px}.select label{font-size:13px;line-height:36px;position:absolute}.gd-type{font-size:13px;line-height:26px;width:27px}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        FileFormatSelectComponent.ctorParameters = function () { return [
+            { type: OnCloseService }
+        ]; };
+        FileFormatSelectComponent.propDecorators = {
+            options: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            isMulti: [{ type: core.Input }],
+            label: [{ type: core.Input }],
+            selected: [{ type: core.Output }]
+        };
+        return FileFormatSelectComponent;
     }());
 
     /**
@@ -5117,6 +5232,7 @@
                             ScrollableDirective,
                             ZoomDirective,
                             SelectComponent,
+                            FileFormatSelectComponent,
                             DisabledCursorDirective,
                             RotationDirective,
                             InitStateComponent,
@@ -5153,6 +5269,7 @@
                             UploadFileZoneComponent,
                             ScrollableDirective,
                             SelectComponent,
+                            FileFormatSelectComponent,
                             RotationDirective,
                             InitStateComponent,
                             RenderPrintDirective,
@@ -5247,7 +5364,8 @@
     exports.WindowService = WindowService;
     exports.ZoomDirective = ZoomDirective;
     exports.ZoomService = ZoomService;
-    exports.ɵa = TabsComponent;
+    exports.ɵa = FileFormatSelectComponent;
+    exports.ɵb = TabsComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
