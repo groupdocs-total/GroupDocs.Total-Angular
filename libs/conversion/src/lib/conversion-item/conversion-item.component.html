@@ -1,6 +1,6 @@
 <div class="gd-convert-item">
   <div class="gd-convert-remove" (click)="removeItemFromQueue($event, item)">
-    <fa-icon [icon]="['fas','times']"></fa-icon>
+    <span>&times;</span>
   </div>
   <div class="gd-filequeue-name disabled">
     <fa-icon [icon]="['far', item.sourceIcon]" [class]="'ng-fa-icon'"></fa-icon>
@@ -16,6 +16,6 @@
       <fa-icon [icon]="['far', item.destinationIcon]" [class]="'ng-fa-icon'" [ngClass]="[item.converted ? 'fa-' + item.destinationIcon : '']"></fa-icon>
     <div class="gd-file-name gd-queue-name">{{item.destinationFileName}}<div class="gd-file-format">{{item.destinationFormatName}}</div></div>
   </div>
-  <div (click)="convert($event, item)" class="gd-convert-single" [hidden]="item.converted"><fa-icon [icon]="['fas','exchange-alt']"></fa-icon></div>
+  <div (click)="convert($event, item)" class="gd-convert-single" [ngClass]="{'disabled': item.converting}" [hidden]="item.converted"><fa-icon [icon]="['fas','exchange-alt']"></fa-icon></div>
   <div (click)="downloadFile($event, item)" class="gd-convert-single" [hidden]="!item.converted"><fa-icon [icon]="['fas','download']"></fa-icon></div>
 </div>
