@@ -1,4 +1,5 @@
 @import "./../../../../common-components/src/styles/variables.less";
+
 .gd-modal-table {
   width: 100%;
   text-align: left;
@@ -6,8 +7,10 @@
 }
 
 #gd-browse-section {
-  width: 1024px;
+  width: 100%;
   height: 628px;
+  overflow-y: scroll;
+  margin-top: 20px;
 }
 
 .list-files-header {
@@ -23,7 +26,8 @@
 }
 
 .header-size {
-  padding-left: 707px;
+  margin-left: 600px;
+  margin-right: 153px;
 }
 
 .file-size {
@@ -76,7 +80,7 @@
 .upload-panel {
   display: flex;
   position: relative;
-  padding: 20px 20px 0px 20px;
+  padding: 20px 20px 0px 25px;
 }
 
 .file-description {
@@ -263,7 +267,7 @@
 .gd-select-all {
   position: relative;
   top: 6px;
-  margin-right: 20px;
+  margin-right: 23px;
 }
 
 .gd-add-selected.active {
@@ -286,11 +290,38 @@
   margin-top: 8px;
 }
 
+/deep/ .gd-modal-body {
+  overflow-y: hidden !important;
+}
+
 @media (max-width: 1025px) {
-  .header-size, .file-size {
+  .header-size {
     width: 18%;
   }
+
   .gd-dnd-wrap {
     width: 95%;
+  }
+
+  .header-size, .file-size {
+    display: none;
+  }
+
+  .file-name-format {
+    width: 80%;
+  }
+
+  .file-description {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .upload-panel {
+    white-space: nowrap;
+  }
+
+  #gd-browse-section {
+    overflow-y: scroll;
+    height: calc(100% - 57px);
   }
 }

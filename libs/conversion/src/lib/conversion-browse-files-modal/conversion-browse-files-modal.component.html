@@ -1,31 +1,31 @@
 <gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
+  <div class="upload-panel" *ngIf="uploadConfig">
+    <input type="checkbox" class="gd-select-all gd-checkbox" [checked]="allItemsSelected()" (change)="selectAllItems($event.target.checked);">
+    <div class="gd-add-selected" [ngClass]="{'active': anyItemSelected()}">
+      <gd-file-format-select 
+        (selected)="selectFormat($event, null)"
+        [disabled]="!anyItemSelected()" 
+        [isMulti]="true" 
+        [options]="dynamicOptions" 
+        [label]="getLabelString()"
+        class="gd-select-format"></gd-file-format-select>
+    </div>
+    <gd-choice-button [name]="'Upload file'" [choices]="uploads" [icon]="'upload'"
+                      (selected)="selectUpload($event)"></gd-choice-button>
+    <input id="gd-upload-input" type="file" multiple style="display: none;" (change)="handleFileInput($event.target.files)">
+    <div class="upload-url" *ngIf="showUploadUrl">
+      <input class="url-input" #url (keyup.enter)="uploadUrl(url.value)">
+      <div class="url-check" (click)="uploadUrl(url.value)">
+          <fa-icon [icon]="['fas','check']"></fa-icon>
+      </div>
+    </div>
+  </div>
   <section id="gd-browse-section" (dragover)="showUploadFile = true;">
     <div class="gd-dnd-wrap" *ngIf="showUploadFile" gdDnd (opening)="showUploadFile=$event">
       <div class="gd-drag-n-drop-icon">
         <fa-icon [icon]="['fas','cloud-download-alt']" size="5x" aria-hidden="true"></fa-icon>
       </div>
       <h2>Drag &amp; Drop your files here</h2>
-    </div>
-    <div class="upload-panel" *ngIf="uploadConfig">
-      <input type="checkbox" class="gd-select-all gd-checkbox" [checked]="allItemsSelected()" (change)="selectAllItems($event.target.checked);">
-      <div class="gd-add-selected" [ngClass]="{'active': anyItemSelected()}">
-        <gd-file-format-select 
-          (selected)="selectFormat($event, null)"
-          [disabled]="!anyItemSelected()" 
-          [isMulti]="true" 
-          [options]="dynamicOptions" 
-          [label]="getLabelString()"
-          class="gd-select-format"></gd-file-format-select>
-      </div>
-      <gd-choice-button [name]="'Upload file'" [choices]="uploads" [icon]="'upload'"
-                        (selected)="selectUpload($event)"></gd-choice-button>
-      <input id="gd-upload-input" type="file" multiple style="display: none;" (change)="handleFileInput($event.target.files)">
-      <div class="upload-url" *ngIf="showUploadUrl">
-        <input class="url-input" #url (keyup.enter)="uploadUrl(url.value)">
-        <div class="url-check" (click)="uploadUrl(url.value)">
-            <fa-icon [icon]="['fas','check']"></fa-icon>
-        </div>
-      </div>
     </div>
     <div id="gd-modal-filebrowser" class="gd-modal-table">
       <div class="list-files-header">
