@@ -1,3 +1,5 @@
+@import "../../../../common-components/src/styles/variables";
+
 .gd-convert-item {
   display: flex;
   width: 100%;
@@ -53,12 +55,18 @@
   font-size: 32px !important;
   margin-top: -5px;
   color: #007aff;
+  &.mobile {
+    display: none;
+  }
 }
 .gd-convert-single, .gd-download-single {
   font-size: 16px;
   color: #808080;
   margin: 29px 52px;
   cursor: pointer;
+  &.mobile {
+    display: none;
+  }
 }
 
 .gd-file-format {
@@ -105,4 +113,29 @@
 .gd-filequeue-name fa-icon {
   font-size: 32px;
   margin: 16px 21px 0 0;
+}
+
+@media @phone-down {
+  .gd-file-size, .gd-convert-status, .gd-destination-file {
+      display: none;
+  }
+
+  .gd-conversion-progress {
+    &.mobile {
+      display: block;
+      margin: 16px 45px;
+    }
+  }
+
+  .gd-convert-single {
+    &.mobile {
+      display: block;
+    }
+  }
+
+  .gd-convert-single {
+    &:not(.mobile) {
+      display: none;
+    }
+  }
 }
