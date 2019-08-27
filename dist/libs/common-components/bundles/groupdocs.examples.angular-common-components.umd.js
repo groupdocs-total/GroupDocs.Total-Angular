@@ -1091,8 +1091,8 @@
          */
         function (file) {
             this.selectedFile = file;
-            if (file.directory) {
-                this.selectedDirectory.emit(file.guid);
+            if (file.directory || file.isDirectory) {
+                this.selectedDirectory.emit(file.name);
             }
             else {
                 this.selectedFileGuid.emit(file.guid);

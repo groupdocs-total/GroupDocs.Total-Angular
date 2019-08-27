@@ -122,6 +122,7 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
             size: f.size,
             name: f.name,
             destinationType: $event.value,
+            isDirectory: f.isDirectory,
             sizeString: this.getSize(f.size),
             sourceIcon: this.getFormatIcon(f),
             sourceFormatName: this.getFormatName(f),
