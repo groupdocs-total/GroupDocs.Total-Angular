@@ -17,7 +17,6 @@ import {FileModel, FileService, FileUtil} from "./file.service";
 import {DocumentComponent} from './document/document.component';
 import {PageComponent} from './page/page.component';
 import {HighlightSearchPipe, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe} from "./pipes";
-import {ChoiceButtonComponent} from './choice-button/choice-button.component';
 import {UploadFileZoneComponent} from './upload-file-zone/upload-file-zone.component';
 import {UploadFilesService} from "./upload-files.service";
 import {DndDirective} from './dnd.directive';
@@ -27,7 +26,6 @@ import {PagePreloadService} from "./page-preload.service";
 import {ZoomDirective} from './zoom.directive';
 import {ZoomService} from "./zoom.service";
 import {SelectComponent} from './select/select.component';
-import {FileFormatSelectComponent} from './file-format-select/file-format-select.component';
 import {DisabledCursorDirective} from './disabled-cursor.directive';
 import {RotationDirective} from './rotation.directive';
 import {InitStateComponent} from './init-state/init-state.component';
@@ -58,6 +56,7 @@ import {LoadingMaskService} from './loading-mask.service';
 import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service";
 import {TabActivatorService} from "./tab-activator.service";
 import { OutsideDirective } from './outside.directive';
+import { DropDownComponent,DropDownItemComponent,DropDownItemsComponent,DropDownToggleComponent } from './drop-down/drop-down.component';
 
 const providers = [ConfigService,
   Api,
@@ -103,13 +102,11 @@ const providers = [ConfigService,
     SanitizeResourceHtmlPipe,
     SanitizeStylePipe,
     HighlightSearchPipe,
-    ChoiceButtonComponent,
     UploadFileZoneComponent,
     DndDirective,
     ScrollableDirective,
     ZoomDirective,
     SelectComponent,
-    FileFormatSelectComponent,
     DisabledCursorDirective,
     RotationDirective,
     InitStateComponent,
@@ -126,7 +123,11 @@ const providers = [ConfigService,
     SuccessModalComponent,
     EditorDirective,
     LoadingMaskComponent,
-    OutsideDirective
+    OutsideDirective,
+    DropDownComponent,
+    DropDownItemComponent,
+    DropDownItemsComponent,
+    DropDownToggleComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -142,11 +143,9 @@ const providers = [ConfigService,
     SanitizeStylePipe,
     HighlightSearchPipe,
     SanitizeHtmlPipe,
-    ChoiceButtonComponent,
     UploadFileZoneComponent,
     ScrollableDirective,
     SelectComponent,
-    FileFormatSelectComponent,
     RotationDirective,
     InitStateComponent,
     RenderPrintDirective,
@@ -162,7 +161,11 @@ const providers = [ConfigService,
     SuccessModalComponent,
     LoadingMaskComponent,
     DndDirective,
-    OutsideDirective
+    OutsideDirective,
+    DropDownComponent,
+    DropDownItemComponent,
+    DropDownItemsComponent,
+    DropDownToggleComponent
   ],
   providers: providers
 })

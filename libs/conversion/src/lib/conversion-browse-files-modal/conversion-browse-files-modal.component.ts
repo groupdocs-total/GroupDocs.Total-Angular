@@ -27,6 +27,10 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
     super(_uploadService);
   }
 
+  selectDD(entry){
+    console.log('SELECTED DD',entry);
+  }
+
   selectAllItems(checked: boolean){
     this.selectAll.emit(checked);
 

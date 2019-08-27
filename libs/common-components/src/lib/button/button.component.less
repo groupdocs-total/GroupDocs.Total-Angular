@@ -1,30 +1,57 @@
+@import "./../../styles/variables";
+
+
+
 .button {
-  margin: 0px 7px;
+  padding: 0px 10px;
   font-size: 14px;
   color: #959da5;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 37px;
+  justify-content: flex-end;
+  min-width: 36px;
   height: 36px;
   text-align: center;
-  position: relative; 
+  position: relative;
+  white-space: nowrap;
+
+  &.inactive{
+    cursor: not-allowed;
+    opacity: .4;
+  }
+  &.active *{
+    color: lighten(rgb(149,157,165),20%);
+  }
+
+  &.primary{
+    background-color: @primary;
+    color: #FFF;
+    &.active{
+      color: #FFF;
+      background-color: lighten(@primary,20%);
+    }
+  }
+
+  &.brand{
+    background-color: @brand;
+    color: #FFF;
+    &.active{
+      color: #FFF;
+      background-color: lighten(@primary,20%);
+    }
+  }
+
+  .text{
+    font-size: 13px;
+    padding-left: 10px;
+  }
 }
 
-.button.inactive{
-  cursor: not-allowed;
-  opacity: .4;
-}
-
-.button.active .ng-fa-icon{
-  color: lighten(rgb(149,157,165),20%);
-}
 
 @media (max-width: 1025px) {
   .button {
     font-size: 20px;
-    margin: 0px 6px;
   }
 
   .arrow-button {

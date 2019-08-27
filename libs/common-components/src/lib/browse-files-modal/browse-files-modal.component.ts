@@ -4,9 +4,9 @@ import {UploadFilesService} from "../upload-files.service";
 import * as jquery from "jquery";
 const $ = jquery;
 
-const upload_disc = 'Disc';
+const upload_disc = 'From Disc';
 
-const upload_url = 'url';
+const upload_url = 'From URL';
 
 const uploads_choices = [{name: upload_disc, icon: 'hdd'}, {name: upload_url, icon: 'link'}];
 

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'gd-button',
@@ -7,15 +7,28 @@ import {Component, Input} from '@angular/core';
 })
 export class ButtonComponent {
 
-  @Input() disabled = false;
-  @Input() icon:string;
-  @Input() iconClass:string;
-  @Input() tooltip:string;
-  @Input() className: string;
-  @Input() toggle = false;
-  showToolTip = false;
+  @Input()
+  intent = 'default';
 
-  constructor() { }
+  @Input()
+  disabled = false;
+
+  @Input()
+  icon : string;
+
+  @Input()
+  iconClass : string;
+
+  @Input()
+  tooltip : string;
+
+  @Input()
+  className: string;
+
+  @Input()
+  toggle = false;
+
+  showToolTip = false;
 
   onHovering() {
     if (!this.disabled) {

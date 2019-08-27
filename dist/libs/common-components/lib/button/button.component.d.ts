@@ -1,4 +1,5 @@
 export declare class ButtonComponent {
+    intent: string;
     disabled: boolean;
     icon: string;
     iconClass: string;
@@ -6,7 +7,6 @@ export declare class ButtonComponent {
     className: string;
     toggle: boolean;
     showToolTip: boolean;
-    constructor();
     onHovering(): void;
     onUnhovering(): void;
 }

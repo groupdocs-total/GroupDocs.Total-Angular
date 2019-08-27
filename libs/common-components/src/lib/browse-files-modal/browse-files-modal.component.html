@@ -7,13 +7,32 @@
       <h2>Drag &amp; Drop your files here</h2>
     </div>
     <div class="upload-panel" *ngIf="uploadConfig">
-      <gd-choice-button [name]="'Upload file'" [choices]="uploads" [icon]="'upload'"
-                        (selected)="selectUpload($event)"></gd-choice-button>
-      <input id="gd-upload-input" type="file" multiple style="display: none;" (change)="handleFileInput($event.target.files)">
-      <div class="upload-url" *ngIf="showUploadUrl">
-        <input class="url-input" #url (keyup.enter)="uploadUrl(url.value)">
-        <div class="url-check" (click)="uploadUrl(url.value)">
-            <fa-icon [icon]="['fas','check']"></fa-icon>
+      <input id="gd-upload-input" type="file" multiple style="display: none;"
+             (change)="handleFileInput($event.target.files)">
+
+      <div class="context">
+        <div class="context-actions">
+          <gd-drop-down>
+            <gd-drop-down-toggle>
+              <gd-button [icon]="'upload'" [intent]="'brand'">
+                Upload file
+              </gd-button>
+            </gd-drop-down-toggle>
+            <gd-drop-down-items>
+              <gd-drop-down-item (select)="selectUpload(item.name)" *ngFor="let item of uploads">
+                <fa-icon [icon]="['fas', item.icon]"></fa-icon>
+                <div class="text">{{item.name}}</div>
+              </gd-drop-down-item>
+            </gd-drop-down-items>
+          </gd-drop-down>
+        </div>
+        <div class="context-panel">
+          <div class="upload-url" *ngIf="showUploadUrl">
+            <input class="url-input" placeholder="http://" #url (keyup.enter)="uploadUrl(url.value)">
+            <div class="url-check" (click)="uploadUrl(url.value)">
+              <fa-icon [icon]="['fas','check']"></fa-icon>
+            </div>
+          </div>
         </div>
       </div>
     </div>
