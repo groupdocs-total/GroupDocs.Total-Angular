@@ -15,7 +15,7 @@ TabbedToolbarsComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-tabbed-toolbars',
                 template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"'editor'\" [icon]=\"'pen-square'\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
-                styles: [".top-panel{background:#3e4e5a;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:480px){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
+                styles: [".top-panel{background:#3e4e5a;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
             }] }
 ];
 /** @nocollapse */

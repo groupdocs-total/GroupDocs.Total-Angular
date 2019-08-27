@@ -59,6 +59,7 @@ export class SignatureAppComponent implements AfterViewInit {
     SignatureType.HAND,
   ];
   signatureComponents = new Map<number, ComponentRef<any>>();
+  showNewHandSign = false;
 
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -418,6 +419,13 @@ export class SignatureAppComponent implements AfterViewInit {
         SignatureTabComponent.showToolTipMobile = true;
         this._activeSignatureService.changeActive(0);
       }
+    }
+  }
+
+  newSign($event: string) {
+    if (SignatureType.HAND.id === $event) {
+      this.showNewHandSign = true;
+      this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
     }
   }
 }

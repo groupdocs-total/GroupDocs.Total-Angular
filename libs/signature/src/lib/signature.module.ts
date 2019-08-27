@@ -25,6 +25,8 @@ import {SelectSignatureService} from "./select-signature.service";
 import {DragSignatureService} from "./drag-signature.service";
 import {RemoveSignatureService} from "./remove-signature.service";
 import {ActiveSignatureService} from "./active-signature.service";
+import {HandLightboxComponent} from './hand-lightbox/hand-lightbox.component';
+import {CanvasComponent} from './canvas/canvas.component';
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -39,7 +41,9 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     UploadSignatureComponent,
     DndSignatureDirective,
     Signature,
-    ContextMenuComponent],
+    ContextMenuComponent,
+    HandLightboxComponent,
+    CanvasComponent],
   exports: [SignatureAppComponent,
     SignatureListPanelComponent,
     SignatureTabComponent,
@@ -47,7 +51,9 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     UploadSignatureComponent,
     DndSignatureDirective,
     Signature,
-    ContextMenuComponent],
+    ContextMenuComponent,
+    HandLightboxComponent,
+    CanvasComponent],
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,

@@ -1,0 +1,27 @@
+<div class="gd-modal-lightbox fade"><!--(click)="close()"-->
+  <div class="gd-modal-dialog-lightbox">
+    <div class="gd-modal-content">
+      <div class="gd-modal-header-lightbox">
+        <div class="gd-modal-header-title">
+          <div class="gd-lightbox-close" (click)="close()">
+            <fa-icon *ngIf="isMobile" [icon]="['fas','arrow-left']"></fa-icon>
+            <span *ngIf="!isMobile">&times;</span>
+          </div>
+          <h4 class="gd-modal-title-lightbox">{{title}}</h4>
+        </div>
+        <div class="gd-lightbox-header">
+          <ng-content select="[header]"></ng-content>
+        </div>
+      </div>
+      <div class="gd-lightbox-body">
+        <ng-content select="[body]"></ng-content>
+      </div>
+      <div class="gd-modal-footer">
+        <ng-content select="[footer]"></ng-content>
+      </div>
+    </div>
+  </div>
+  <div class="gd-mobile-portrait">
+    <div class="gd-mobile-turn-image"></div>
+  </div>
+</div>

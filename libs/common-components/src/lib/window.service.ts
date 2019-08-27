@@ -2,6 +2,7 @@ import {fromEvent, Observable, Subject} from "rxjs";
 import {debounceTime, distinctUntilChanged, startWith, tap} from "rxjs/operators";
 
 const MOBILE_MAX_WIDTH = 425;
+const MOBILE_MAX_HEIGHT = 1000;
 const TABLET_MAX_WIDTH = 1024;
 
 export class WindowService {
@@ -34,7 +35,7 @@ export class WindowService {
   }
 
   isMobile() {
-    return this.width <= MOBILE_MAX_WIDTH;
+    return this.width <= MOBILE_MAX_WIDTH || this.height < MOBILE_MAX_HEIGHT;
   }
 
   isTablet() {
@@ -43,5 +44,13 @@ export class WindowService {
 
   isDesktop() {
     return !this.isMobile() && !this.isTablet();
+  }
+
+  getWidth() {
+    return this.width;
+  }
+
+  getHeight() {
+    return this.height;
   }
 }

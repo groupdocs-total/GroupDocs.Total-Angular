@@ -62,6 +62,7 @@ import {TooltipDirective} from './tooltip.directive';
 import {AddDynamicComponentService} from "./add-dynamic-component.service";
 import {HostDynamicDirective} from './host-dynamic.directive';
 import {HostingDynamicComponentService} from "./hosting-dynamic-component.service";
+import {LightboxComponent} from './lightbox/lightbox.component';
 
 const providers = [ConfigService,
   Api,
@@ -134,7 +135,8 @@ const providers = [ConfigService,
     OutsideDirective,
     LeftSideBarComponent,
     TooltipDirective,
-    HostDynamicDirective
+    HostDynamicDirective,
+    LightboxComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -171,7 +173,8 @@ const providers = [ConfigService,
     DndDirective,
     OutsideDirective,
     LeftSideBarComponent,
-    TooltipDirective
+    TooltipDirective,
+    LightboxComponent
   ],
   providers: providers
 })

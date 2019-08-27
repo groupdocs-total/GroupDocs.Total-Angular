@@ -1,0 +1,166 @@
+@import "./../../styles/variables";
+
+.gd-modal-lightbox {
+  overflow: hidden;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.gd-modal-lightbox.fade {
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+}
+
+.gd-modal-lightbox.in {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+
+.gd-modal-dialog-lightbox {
+  width: 1079px;
+  height: 592px;
+  margin: auto;
+  box-shadow: #0005 0px 0px 10px;
+}
+
+.gd-modal-content {
+  background-color: #ffffff;
+  height: 100%;
+  width: inherit;
+}
+
+.gd-modal-header-lightbox {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  justify-content: space-between;
+  background-color: @nav-main-background;
+}
+
+.gd-modal-header-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.gd-lightbox-close {
+  font-size: 21px;
+  width: fit-content;
+  color: #959da5;
+  margin: 13px 16px 0px 16px;
+  cursor: pointer;
+}
+
+.gd-modal-title-lightbox {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 52px;
+  color: #ffffff;
+  margin: 0px;
+}
+
+.gd-lightbox-body {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../styles/images/stampBackground.png) !important;
+  /*important! for right draggable positions*/
+  position: absolute;
+  padding: 0 !important;
+  background-color: #fff;
+  overflow: hidden;
+  overflow-y: auto;
+  width: inherit;
+}
+
+.gd-modal-footer {
+  height: 25px;
+}
+
+@media @phone-down {
+  .gd-modal-lightbox {
+    padding-left: 0px;
+    padding-top: 0px;
+  }
+
+  .gd-modal-dialog-lightbox {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0px;
+    top: 0px;
+  }
+
+  .gd-lightbox-close {
+    background-color: #00c4d7;
+    width: 50px;
+    height: 50px;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    line-height: 60px;
+  }
+
+  .gd-lightbox-close span {
+    color: #FFFFFF;
+  }
+
+  .gd-modal-title-lightbox {
+    font-size: 14px;
+    line-height: 50px;
+    padding: 0 0 0 10px;
+  }
+
+  .gd-lightbox-body {
+    max-height: ~"calc(100% - 53px)";
+    min-height: 100%;
+  }
+}
+
+
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+  .gd-modal-dialog-lightbox {
+    position: fixed;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    left: 0px;
+    top: 0px;
+  }
+
+  .gd-mobile-portrait {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+  .gd-modal-dialog-lightbox {
+    display: none;
+  }
+
+  .gd-mobile-portrait {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .gd-mobile-turn-image {
+    background-image: url('../../styles/images/noun_landscape_orientation.png') !important;
+    width: 215px;
+    height: 215px;
+  }
+}

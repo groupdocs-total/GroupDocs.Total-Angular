@@ -25,7 +25,8 @@
   <gd-left-side-bar *ngIf="isDesktop || leftBarOpen">
     <div *ngFor="let signatureType of signatureTypes">
       <gd-signature-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)" [icon]="signatureType.icon"
-                        [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig">
+                        [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig"
+                        (newSignatureEvent)="newSign($event)">
       </gd-signature-tab>
     </div>
   </gd-left-side-bar>
@@ -34,6 +35,7 @@
                  [file]="file" [mode]="htmlModeConfig"
                  [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
   </div>
+  <gd-hand-lightbox *ngIf="showNewHandSign" (opening)="showNewHandSign = $event"></gd-hand-lightbox>
 
   <gd-init-state [icon]="'signature'" [text]="''" *ngIf="!file"></gd-init-state>
 

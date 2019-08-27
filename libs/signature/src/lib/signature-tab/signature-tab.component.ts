@@ -21,7 +21,6 @@ export class SignatureTabComponent implements OnInit {
   @Input() disabled = false;
   @Input() active = false;
   @Input() tooltip: string;
-  @Input() newTitle: string;
   @Input() rewrite: boolean;
   @Output() newSignatureEvent = new EventEmitter<string>();
   isDesktop: boolean;
@@ -114,7 +113,7 @@ export class SignatureTabComponent implements OnInit {
   }
 
   getTitle() {
-    return this.showUpload || this.showNewCode ? SignatureType.getSignatureType(this.id).title : this.tooltip;
+    return (this.showUpload || this.showNewCode) ? SignatureType.getSignatureType(this.id).title : this.tooltip;
   }
 
   getTitleIcon() {

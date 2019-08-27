@@ -1,0 +1,20 @@
+<gd-lightbox [title]="'Draw signature'" (opening)="clear(canvasComponent, $event)">
+  <div header>
+    <div class="bc-paint-header">
+      <div class="bc-paint-palette">
+        <div *ngFor="let color of colors">
+          <div class="bc-paint-palette-color" [ngClass]="selectedColor === color ? 'selected' : ''"
+               [style.background-color]="color" (click)="selectColor(color)"></div>
+        </div>
+      </div>
+      <div class="bc-paint-export" (click)="saveSign(canvasComponent)">
+        <fa-icon [icon]="['fa','check']"></fa-icon>
+      </div>
+    </div>
+  </div>
+  <div body>
+    <div class="gd-draw-image">
+      <gd-canvas #canvasComponent [color]="selectedColor"></gd-canvas>
+    </div>
+  </div>
+</gd-lightbox>

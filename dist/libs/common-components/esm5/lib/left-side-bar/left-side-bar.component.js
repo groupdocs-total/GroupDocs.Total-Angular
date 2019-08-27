@@ -19,7 +19,7 @@ var LeftSideBarComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-left-side-bar',
                     template: "<div class=\"left-panel\">\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
-                    styles: [".left-panel{position:absolute;top:60px;left:0;bottom:0;height:100%;background:#fff;border-radius:0;float:left;z-index:1;display:flex;flex-direction:column}.gd-left-bar-fade{position:fixed;margin:auto;display:none;overflow:hidden;top:50px;width:315px;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(255,255,255,.5)}.gd-left-bar-spinner{left:30%;top:50%;position:absolute}@media (max-width:480px){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
+                    styles: [".left-panel{position:absolute;top:60px;left:0;bottom:0;height:100%;background:#fff;border-radius:0;float:left;z-index:1;display:flex;flex-direction:column}.gd-left-bar-fade{position:fixed;margin:auto;display:none;overflow:hidden;top:50px;width:315px;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(255,255,255,.5)}.gd-left-bar-spinner{left:30%;top:50%;position:absolute}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
                 }] }
     ];
     /** @nocollapse */

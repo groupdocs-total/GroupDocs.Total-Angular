@@ -103,4 +103,10 @@ export class SignatureService {
       'properties': data.props
     }, Api.httpOptionsJson);
   }
+
+  saveImage(img: string) {
+    return this._http.post(this._config.getSignatureApiEndpoint() + Api.SAVE_IMAGE, {
+      'image': img
+    }, Api.httpOptionsJson);
+  }
 }
