@@ -14,6 +14,7 @@ export class ConversionItemModel implements FileModel {
     destinationIcon: string;
     converted: boolean;
     converting: boolean;
+    isDirectory: boolean;
   }
 
   export class ExtendedFileModel implements FileModel {

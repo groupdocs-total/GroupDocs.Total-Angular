@@ -1,3 +1,5 @@
+@import "../../../../common-components/src/styles/variables";
+
 #gd-convert-queue {
 flex-direction: column;
 height: 100%;
@@ -40,4 +42,10 @@ text-align: left;
 
 .gd-queue-last-placeholder{
 margin: 0px 52px;
+}
+
+@media @phone-down {
+    .gd-queue-header {
+        display: none;
+    }
 }
