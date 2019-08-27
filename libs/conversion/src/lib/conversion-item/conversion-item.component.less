@@ -71,6 +71,9 @@
 
 .gd-file-format {
   font-size: 11px;
+  &.mobile {
+    display: none;
+  }
 }
   
 .gd-file-size {
@@ -134,6 +137,27 @@
   }
 
   .gd-convert-single {
+    &:not(.mobile) {
+      display: none;
+    }
+  }
+
+  .gd-file-format {
+    font-size: 11px;
+    &.mobile {
+      display: block;
+      > fa-icon{
+        color: #bebebe;
+      }
+      fa-icon {
+        font-size: 11px;
+        margin-right: 6px;
+      }
+    }
+  }
+
+  .gd-file-format {
+    font-size: 11px;
     &:not(.mobile) {
       display: none;
     }
