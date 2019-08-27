@@ -17,5 +17,5 @@
     <div class="gd-file-name gd-queue-name">{{item.destinationFileName}}<div class="gd-file-format">{{item.destinationFormatName}}</div></div>
   </div>
   <div (click)="convert($event, item)" class="gd-convert-single" [ngClass]="{'disabled': item.converting}" [hidden]="item.converted"><fa-icon [icon]="['fas','exchange-alt']"></fa-icon></div>
-  <div (click)="downloadFile($event, item)" class="gd-convert-single" [hidden]="!item.converted"><fa-icon [icon]="['fas','download']"></fa-icon></div>
+  <div (click)="downloadFile(item)" class="gd-convert-single" [hidden]="!item.converted"><fa-icon [icon]="['fas','download']"></fa-icon></div>
 </div>
