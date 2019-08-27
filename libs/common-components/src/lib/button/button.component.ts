@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, ContentChild, ElementRef, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'gd-button',
@@ -6,6 +6,8 @@ import { Component, HostBinding, Input } from '@angular/core';
   styleUrls: ['./button.component.less']
 })
 export class ButtonComponent {
+  @Input()
+  iconOnly = true;
 
   @Input()
   intent = 'default';
@@ -29,6 +31,10 @@ export class ButtonComponent {
   toggle = false;
 
   showToolTip = false;
+
+  iconButtonClass(){
+    return this.iconOnly ? 'icon-button' : '';
+  }
 
   onHovering() {
     if (!this.disabled) {
