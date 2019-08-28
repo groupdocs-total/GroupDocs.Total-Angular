@@ -24,7 +24,7 @@ export declare class DropDownItemsComponent {
 export declare class DropDownItemComponent {
     dropdown: any;
     class: string;
-    select: EventEmitter<{}>;
+    selected: EventEmitter<{}>;
     click: () => void;
     constructor(dropdown: any);
     selectEntry(): void;
@@ -37,7 +37,7 @@ export declare class DropDownComponent {
         h: string;
         v: string;
     };
-    _open: boolean;
+    open: boolean;
     class: string;
     close(): void;
     toggle(event: MouseEvent): void;
