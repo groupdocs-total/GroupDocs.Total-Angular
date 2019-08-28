@@ -71,7 +71,7 @@ export class DropDownItemsComponent{
   }
 
   get isOpen(){
-    return this.dropdown._open;
+    return this.dropdown.open;
   }
 
   constructor(@Inject(forwardRef(() => DropDownComponent)) public dropdown) {}
@@ -94,7 +94,7 @@ export class DropDownItemComponent{
   class = 'drop-down-item';
 
   @Output()
-  select = new EventEmitter();
+  selected = new EventEmitter();
 
   @HostListener('click')
   click = () => this.selectEntry();
@@ -102,7 +102,7 @@ export class DropDownItemComponent{
   constructor(@Inject(forwardRef(() => DropDownComponent)) public dropdown) {}
 
   selectEntry(){
-    this.select.next();
+    this.selected.next();
     this.dropdown.close();
   }
 }
@@ -124,20 +124,20 @@ export class DropDownComponent{
   };
 
 
-  @Input('open')
+  @Input()
   @HostBinding('class.show')
-  _open = false;
+  open = false;
 
   @HostBinding('class')
   class = 'drop-down';
 
   close(){
-    this._open = false;
+    this.open = false;
   }
 
   toggle(event : MouseEvent){
     event.stopPropagation();
-    this._open = !this._open;
+    this.open = !this.open;
     document.body.click();
   }
 

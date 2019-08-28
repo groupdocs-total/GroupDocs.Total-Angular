@@ -24,7 +24,7 @@
               </gd-button>
             </gd-drop-down-toggle>
             <gd-drop-down-items>
-              <gd-drop-down-item (select)="selectFormat(item, null)" *ngFor="let item of dynamicOptions">
+              <gd-drop-down-item (selected)="selectFormat(item, null)" *ngFor="let item of dynamicOptions">
                 <fa-icon [icon]="['far', item.icon]"></fa-icon>
                 <div class="text">{{item.name}}</div>
                 <div *ngIf="item.warning" class="gd-type-warning"
@@ -42,7 +42,7 @@
               </gd-button>
             </gd-drop-down-toggle>
             <gd-drop-down-items>
-              <gd-drop-down-item (select)="selectUpload(item.name)" *ngFor="let item of uploads">
+              <gd-drop-down-item (selected)="selectUpload(item.name)" *ngFor="let item of uploads">
                 <fa-icon [icon]="['fas', item.icon]"></fa-icon>
                 <div class="text">{{item.name}}</div>
               </gd-drop-down-item>
@@ -96,7 +96,7 @@
                 </gd-button>
               </gd-drop-down-toggle>
               <gd-drop-down-items>
-                <gd-drop-down-item (select)="selectFormat(item, file)" *ngFor="let item of formatOptions(file.conversionTypes)">
+                <gd-drop-down-item (selected)="selectFormat(item, file)" *ngFor="let item of formatOptions(file.conversionTypes)">
                   <fa-icon [icon]="['far', item.icon]"></fa-icon>
                   <div class="text">{{item.name}}</div>
                 </gd-drop-down-item>

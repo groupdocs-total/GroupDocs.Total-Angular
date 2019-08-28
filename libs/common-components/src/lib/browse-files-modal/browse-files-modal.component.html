@@ -19,7 +19,7 @@
               </gd-button>
             </gd-drop-down-toggle>
             <gd-drop-down-items>
-              <gd-drop-down-item (select)="selectUpload(item.name)" *ngFor="let item of uploads">
+              <gd-drop-down-item (selected)="selectUpload(item.name)" *ngFor="let item of uploads">
                 <fa-icon [icon]="['fas', item.icon]"></fa-icon>
                 <div class="text">{{item.name}}</div>
               </gd-drop-down-item>
