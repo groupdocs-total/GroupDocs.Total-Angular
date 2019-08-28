@@ -9,6 +9,7 @@ import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, fromEvent, BehaviorSubject, throwError } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 /**
  * @fileoverview added by tsickle
@@ -2015,7 +2016,7 @@ class SelectComponent {
 SelectComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-select',
-                template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     gdOutside\n     [clickOutsideEnabled]=\"isOpen\"\n     (clickOutside)=\"onClickOutside($event)\">\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </span>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
+                template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [clickOutsideEnabled]=\"isOpen\"\n     >\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </span>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
                 styles: [".select{min-width:50px;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:160px;padding:5px 0;list-style:none;font-size:13px;text-align:left;background-color:#fff;border:1px solid rgba(0,0,0,.15);box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box}.dropdown-menu .option{display:block;padding:3px 20px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff}.dropdown-menu-separator{height:1px;margin:8px 0;overflow:hidden;background-color:#e5e5e5;padding:0!important}"]
             }] }
 ];
@@ -4016,88 +4017,6 @@ LoadingMaskInterceptorService.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class OutsideDirective {
-    /**
-     * @param {?} _elRef
-     */
-    constructor(_elRef) {
-        this._elRef = _elRef;
-        this.clickOutside = new EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this.globalClick = fromEvent(document, 'click');
-        this.globalClick.subscribe((/**
-         * @param {?} event
-         * @return {?}
-         */
-        (event) => {
-            this.onGlobalClick(event);
-        }));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() { }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    onGlobalClick(event) {
-        if (event instanceof MouseEvent && this.clickOutsideEnabled === true) {
-            if (this.isDescendant(this._elRef.nativeElement, event.target) === true) {
-                this.clickOutside.emit({
-                    target: (event.target || null),
-                    value: false
-                });
-            }
-            else {
-                this.clickOutside.emit({
-                    target: (event.target || null),
-                    value: true
-                });
-            }
-        }
-    }
-    /**
-     * @param {?} parent
-     * @param {?} child
-     * @return {?}
-     */
-    isDescendant(parent, child) {
-        /** @type {?} */
-        let node = child;
-        while (node !== null) {
-            if (node === parent) {
-                return true;
-            }
-            else {
-                node = node.parentNode;
-            }
-        }
-        return false;
-    }
-}
-OutsideDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[gdOutside]'
-            },] }
-];
-/** @nocollapse */
-OutsideDirective.ctorParameters = () => [
-    { type: ElementRef }
-];
-OutsideDirective.propDecorators = {
-    clickOutsideEnabled: [{ type: Input }],
-    clickOutside: [{ type: Output }]
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /** @type {?} */
 const horizontalAlignment = {
     center: {
@@ -4144,7 +4063,7 @@ DropDownToggleComponent.decorators = [
                 selector: 'gd-drop-down-toggle',
                 template: '<ng-content></ng-content>',
                 encapsulation: ViewEncapsulation.None,
-                styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto}.show .drop-down-items .drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text{width:100%}.show .drop-down-items .drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
             }] }
 ];
 /** @nocollapse */
@@ -4190,17 +4109,15 @@ class DropDownItemsComponent {
      * @return {?}
      */
     onClickOutside(event) {
-        if (event && event['value'] === true) {
-            this.dropdown.close();
-        }
+        this.dropdown.close();
     }
 }
 DropDownItemsComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-drop-down-items',
-                template: '<div class="drop-down-items" gdOutside [clickOutsideEnabled]="isOpen" (clickOutside)="onClickOutside($event)" [style.right]="horizontalAlign" [style.top]="verticalAlign"><ng-content></ng-content></div>',
+                template: '<div class="drop-down-items" (clickOutside)="onClickOutside($event)" [clickOutsideEnabled]="isOpen" [style.right]="horizontalAlign" [style.top]="verticalAlign"><ng-content></ng-content></div>',
                 encapsulation: ViewEncapsulation.None,
-                styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto}.show .drop-down-items .drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text{width:100%}.show .drop-down-items .drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
             }] }
 ];
 /** @nocollapse */
@@ -4238,8 +4155,7 @@ DropDownItemComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-drop-down-item',
                 template: '<div class="drop-down-item"><ng-content></ng-content></div>',
-                encapsulation: ViewEncapsulation.None,
-                styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto}.show .drop-down-items .drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text{width:100%}.show .drop-down-items .drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
             }] }
 ];
 /** @nocollapse */
@@ -4293,7 +4209,7 @@ DropDownComponent.decorators = [
                 selector: 'gd-drop-down',
                 template: '<div class="drop-down"><ng-content></ng-content></div>',
                 encapsulation: ViewEncapsulation.None,
-                styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto}.show .drop-down-items .drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text{width:100%}.show .drop-down-items .drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
             }] }
 ];
 DropDownComponent.propDecorators = {
@@ -4341,7 +4257,7 @@ class CommonComponentsModule {
 }
 CommonComponentsModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, FontAwesomeModule],
+                imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
                 declarations: [
                     TopToolbarComponent,
                     SidePanelComponent,
@@ -4377,7 +4293,6 @@ CommonComponentsModule.decorators = [
                     SuccessModalComponent,
                     EditorDirective,
                     LoadingMaskComponent,
-                    OutsideDirective,
                     DropDownComponent,
                     DropDownItemComponent,
                     DropDownItemsComponent,
@@ -4415,7 +4330,6 @@ CommonComponentsModule.decorators = [
                     SuccessModalComponent,
                     LoadingMaskComponent,
                     DndDirective,
-                    OutsideDirective,
                     DropDownComponent,
                     DropDownItemComponent,
                     DropDownItemsComponent,
@@ -4427,5 +4341,5 @@ CommonComponentsModule.decorators = [
 /** @nocollapse */
 CommonComponentsModule.ctorParameters = () => [];
 
-export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
+export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

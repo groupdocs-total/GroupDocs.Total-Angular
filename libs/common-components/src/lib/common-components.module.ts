@@ -55,8 +55,8 @@ import {LoadingMaskComponent} from './loading-mask/loading-mask.component';
 import {LoadingMaskService} from './loading-mask.service';
 import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service";
 import {TabActivatorService} from "./tab-activator.service";
-import { OutsideDirective } from './outside.directive';
 import { DropDownComponent,DropDownItemComponent,DropDownItemsComponent,DropDownToggleComponent } from './drop-down/drop-down.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 const providers = [ConfigService,
   Api,
@@ -87,7 +87,7 @@ const providers = [ConfigService,
   TabActivatorService];
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
   declarations: [
     TopToolbarComponent,
     SidePanelComponent,
@@ -123,7 +123,6 @@ const providers = [ConfigService,
     SuccessModalComponent,
     EditorDirective,
     LoadingMaskComponent,
-    OutsideDirective,
     DropDownComponent,
     DropDownItemComponent,
     DropDownItemsComponent,
@@ -161,7 +160,6 @@ const providers = [ConfigService,
     SuccessModalComponent,
     LoadingMaskComponent,
     DndDirective,
-    OutsideDirective,
     DropDownComponent,
     DropDownItemComponent,
     DropDownItemsComponent,

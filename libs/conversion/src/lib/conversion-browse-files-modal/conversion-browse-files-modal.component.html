@@ -19,7 +19,7 @@
         <div class="context-actions">
           <gd-drop-down>
             <gd-drop-down-toggle>
-              <gd-button [icon]="'plus'" [disabled]="!anyItemSelected()" [intent]="'primary'">
+              <gd-button [icon]="'plus'" [disabled]="!anyItemSelected()" [intent]="'primary'" [iconOnly]="false">
                 {{getLabelString()}}
               </gd-button>
             </gd-drop-down-toggle>
@@ -37,7 +37,7 @@
 
           <gd-drop-down>
             <gd-drop-down-toggle>
-              <gd-button [icon]="'upload'" [intent]="'brand'">
+              <gd-button [icon]="'upload'" [intent]="'brand'" [iconOnly]="false">
                 Upload file
               </gd-button>
             </gd-drop-down-toggle>

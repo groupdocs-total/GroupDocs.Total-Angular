@@ -16,8 +16,9 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
   overflow-y: auto;
+  overflow-x: hidden;
 
-  .drop-down-item{
+  .drop-down-item, gd-drop-down-item{
     color: #959DA5;
     display: flex;
     flex-direction: row;
@@ -25,6 +26,7 @@
     cursor: pointer;
     font-size: 13px;
     line-height: 26px;
+    min-height: 26px;
     width: 100%;
 
     fa-icon svg{
@@ -34,6 +36,7 @@
 
     .text{
       width: 100%;
+      margin-right: 10px;
     }
 
     &:hover{

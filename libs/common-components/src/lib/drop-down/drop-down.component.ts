@@ -56,7 +56,7 @@ export class DropDownToggleComponent{
  */
 @Component({
   selector: 'gd-drop-down-items',
-  template: '<div class="drop-down-items" gdOutside [clickOutsideEnabled]="isOpen" (clickOutside)="onClickOutside($event)" [style.right]="horizontalAlign" [style.top]="verticalAlign"><ng-content></ng-content></div>',
+  template: '<div class="drop-down-items" (clickOutside)="onClickOutside($event)" [clickOutsideEnabled]="isOpen" [style.right]="horizontalAlign" [style.top]="verticalAlign"><ng-content></ng-content></div>',
   styleUrls: ['./drop-down.component.less'],
   encapsulation : ViewEncapsulation.None
 })
@@ -77,9 +77,7 @@ export class DropDownItemsComponent{
   constructor(@Inject(forwardRef(() => DropDownComponent)) public dropdown) {}
 
   onClickOutside(event : Event  ){
-    if(event && event['value'] === true) {
       this.dropdown.close();
-    }
   }
 }
 
@@ -90,7 +88,6 @@ export class DropDownItemsComponent{
   selector: 'gd-drop-down-item',
   template: '<div class="drop-down-item"><ng-content></ng-content></div>',
   styleUrls: ['./drop-down.component.less'],
-  encapsulation : ViewEncapsulation.None
 })
 export class DropDownItemComponent{
   @HostBinding('class')
