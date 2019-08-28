@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "nx lint && ng lint",
     "e2e": "ng e2e --headless",
-    "build:packages": "ng build common-components && ng build viewer && ng build editor && ng build comparison",
+    "build:packages": "ng build common-components && ng build viewer && ng build editor && ng build comparison && ng build conversion",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
@@ -44,6 +44,7 @@
     "@nrwl/angular": "^8.4.4",
     "core-js": "^2.5.4",
     "jquery": "^3.4.1",
+    "ng-click-outside": "^5.1.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "^0.9.1"

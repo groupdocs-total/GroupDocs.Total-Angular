@@ -7,6 +7,6 @@ export declare class DifferenceHighlightComponent implements OnInit {
     private changesService;
     constructor(changeService: DifferencesService);
     ngOnInit(): void;
-    close(id: string, event: Event): void;
+    close(event: Event): void;
     highlight(id: string): void;
 }
