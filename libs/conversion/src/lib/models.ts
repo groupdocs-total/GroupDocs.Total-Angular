@@ -1,5 +1,12 @@
 import {FileModel} from "@groupdocs.examples.angular/common-components";
 
+export class ConversionRequestModel{
+  added: boolean;
+  destinationType: string;
+  guid: string;
+  size: number;
+}
+
 export class ConversionItemModel implements FileModel {
     guid: string;
     directory: boolean;

@@ -13,6 +13,26 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var ConversionRequestModel = /** @class */ (function () {
+    function ConversionRequestModel() {
+    }
+    return ConversionRequestModel;
+}());
+var ConversionItemModel = /** @class */ (function () {
+    function ConversionItemModel() {
+    }
+    return ConversionItemModel;
+}());
+var ExtendedFileModel = /** @class */ (function () {
+    function ExtendedFileModel() {
+    }
+    return ExtendedFileModel;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var ConversionService = /** @class */ (function () {
     function ConversionService(_http, _config) {
         this._http = _http;
@@ -87,7 +107,13 @@ var ConversionService = /** @class */ (function () {
      * @return {?}
      */
     function (file) {
-        return this._http.post(this._config.getConversionApiEndpoint() + Api.CONVERT_FILE, file);
+        /** @type {?} */
+        var req = new ConversionRequestModel();
+        req.added = true;
+        req.destinationType = file.destinationType;
+        req.guid = file.guid;
+        req.size = file.size;
+        return this._http.post(this._config.getConversionApiEndpoint() + Api.CONVERT_FILE, req);
     };
     /**
      * @param {?} guid
@@ -870,21 +896,6 @@ var ConversionQueueComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var ConversionItemModel = /** @class */ (function () {
-    function ConversionItemModel() {
-    }
-    return ConversionItemModel;
-}());
-var ExtendedFileModel = /** @class */ (function () {
-    function ExtendedFileModel() {
-    }
-    return ExtendedFileModel;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 var ConversionItemComponent = /** @class */ (function () {
     function ConversionItemComponent(_conversionService) {
         this._conversionService = _conversionService;
@@ -1066,5 +1077,5 @@ var СonversionModule = /** @class */ (function () {
     return СonversionModule;
 }());
 
-export { ConversionAppComponent, ConversionConfigService, ConversionItemModel, ConversionService, ExtendedFileModel, initializeApp, ConversionBrowseFilesModalComponent as ɵa, ConversionQueueComponent as ɵb, ConversionItemComponent as ɵc, DndInitStateComponent as ɵd, СonversionModule };
+export { ConversionAppComponent, ConversionConfigService, ConversionItemModel, ConversionRequestModel, ConversionService, ExtendedFileModel, initializeApp, ConversionBrowseFilesModalComponent as ɵa, ConversionQueueComponent as ɵb, ConversionItemComponent as ɵc, DndInitStateComponent as ɵd, СonversionModule };
 //# sourceMappingURL=groupdocs.examples.angular-conversion.js.map
