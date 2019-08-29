@@ -105,7 +105,7 @@ describe('Viewer', () => {
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
     cy.get('#tools > gd-button.thumbnails-button').click();
-    cy.get('.gd-thumbnails').should('be.visible');
+    cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
     cy.get('#gd-thumbnails-page-3').should('be.visible').click();
     cy.get('#page-3').should('be.visible');
 
