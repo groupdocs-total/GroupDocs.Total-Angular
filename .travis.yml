@@ -17,7 +17,6 @@ matrix:
     addons:
       hosts:
       - localhost
-      chrome: stable
       apt:
         packages:
         - libgconf-2-4
