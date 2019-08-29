@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ConversionItemComponent } from './conversion-item.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfigService } from '@groupdocs.examples.angular/common-components';
 
 describe('ConversionItemComponent', () => {
   let component: ConversionItemComponent;
@@ -8,7 +10,9 @@ describe('ConversionItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConversionItemComponent ]
+      declarations: [ ConversionItemComponent ],
+      imports: [ FontAwesomeModule, HttpClientModule ],
+      providers: [ ConfigService ]
     })
     .compileComponents();
   }));

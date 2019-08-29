@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DndInitStateComponent } from './dnd-init-state.component';
+import { ModalService } from '@groupdocs.examples.angular/common-components';
 
 describe('DndInitStateComponent', () => {
   let component: DndInitStateComponent;
@@ -9,6 +10,7 @@ describe('DndInitStateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DndInitStateComponent ],
+      providers: [ ModalService ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ],

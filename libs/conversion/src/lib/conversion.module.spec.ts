@@ -1,14 +1,14 @@
 import { async, TestBed } from '@angular/core/testing';
-import { ConverisonModule } from './conversion.module';
+import { ConversionModule } from './conversion.module';
 
-describe('ConverisonModule', () => {
+describe('ConversionModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ConverisonModule]
+      imports: [ConversionModule]
     }).compileComponents();
   }));
 
   it('should create', () => {
-    expect(ConverisonModule).toBeDefined();
+    expect(ConversionModule).toBeDefined();
   });
 });
