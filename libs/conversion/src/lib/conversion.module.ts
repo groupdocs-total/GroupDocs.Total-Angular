@@ -47,7 +47,7 @@ export function initializeApp(conversionConfigService: ConversionConfigService) 
     }
   ]
 })
-export class СonversionModule {
+export class ConversionModule {
   constructor() {
     library.add(fas, far);
   }
@@ -55,7 +55,7 @@ export class СonversionModule {
   static forRoot(apiEndpoint: string): ModuleWithProviders {
     Api.DEFAULT_API_ENDPOINT = apiEndpoint;
     return {
-      ngModule: СonversionModule
+      ngModule: ConversionModule
     };
   }
 }
