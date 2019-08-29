@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { ConfigService } from "@groupdocs.examples.angular/common-components";
 import { Observable } from "rxjs";
-import { ConversionItemModel } from "./models";
+import { ConversionItemModel } from './models';
 export declare class ConversionService {
     private _http;
     private _config;

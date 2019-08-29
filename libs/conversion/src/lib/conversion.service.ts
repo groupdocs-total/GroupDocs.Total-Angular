@@ -4,7 +4,7 @@ import {
   Api, ConfigService, FileCredentials, SaveFile, FileModel
 } from "@groupdocs.examples.angular/common-components";
 import {Observable, BehaviorSubject, Observer} from "rxjs";
-import {ConversionItemModel} from "./models";
+import { ConversionItemModel, ConversionRequestModel } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +47,12 @@ export class ConversionService {
   }
 
   convert(file: ConversionItemModel) {
-    return this._http.post(this._config.getConversionApiEndpoint() + Api.CONVERT_FILE, file);
+    const req = new ConversionRequestModel();
+    req.added = true;
+    req.destinationType = file.destinationType;
+    req.guid = file.guid;
+    req.size = file.size;
+    return this._http.post(this._config.getConversionApiEndpoint() + Api.CONVERT_FILE, req);
   }
 
   getDownloadUrl(guid: string) {

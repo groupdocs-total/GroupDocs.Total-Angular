@@ -37,6 +37,26 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var ConversionRequestModel = /** @class */ (function () {
+        function ConversionRequestModel() {
+        }
+        return ConversionRequestModel;
+    }());
+    var ConversionItemModel = /** @class */ (function () {
+        function ConversionItemModel() {
+        }
+        return ConversionItemModel;
+    }());
+    var ExtendedFileModel = /** @class */ (function () {
+        function ExtendedFileModel() {
+        }
+        return ExtendedFileModel;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var ConversionService = /** @class */ (function () {
         function ConversionService(_http, _config) {
             this._http = _http;
@@ -111,7 +131,13 @@
          * @return {?}
          */
         function (file) {
-            return this._http.post(this._config.getConversionApiEndpoint() + commonComponents.Api.CONVERT_FILE, file);
+            /** @type {?} */
+            var req = new ConversionRequestModel();
+            req.added = true;
+            req.destinationType = file.destinationType;
+            req.guid = file.guid;
+            req.size = file.size;
+            return this._http.post(this._config.getConversionApiEndpoint() + commonComponents.Api.CONVERT_FILE, req);
         };
         /**
          * @param {?} guid
@@ -894,21 +920,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var ConversionItemModel = /** @class */ (function () {
-        function ConversionItemModel() {
-        }
-        return ConversionItemModel;
-    }());
-    var ExtendedFileModel = /** @class */ (function () {
-        function ExtendedFileModel() {
-        }
-        return ExtendedFileModel;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var ConversionItemComponent = /** @class */ (function () {
         function ConversionItemComponent(_conversionService) {
             this._conversionService = _conversionService;
@@ -1093,6 +1104,7 @@
     exports.ConversionAppComponent = ConversionAppComponent;
     exports.ConversionConfigService = ConversionConfigService;
     exports.ConversionItemModel = ConversionItemModel;
+    exports.ConversionRequestModel = ConversionRequestModel;
     exports.ConversionService = ConversionService;
     exports.ExtendedFileModel = ExtendedFileModel;
     exports.initializeApp = initializeApp;
