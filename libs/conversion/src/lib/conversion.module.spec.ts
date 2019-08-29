@@ -8,7 +8,7 @@ describe('ConversionModule', () => {
     }).compileComponents();
   }));
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(ConversionModule).toBeDefined();
   });
 });
