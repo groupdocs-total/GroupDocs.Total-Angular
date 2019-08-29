@@ -858,7 +858,7 @@ function initializeApp(conversionConfigService) {
     () => conversionConfigService.load());
     return result;
 }
-class СonversionModule {
+class ConversionModule {
     constructor() {
         library.add(fas, far);
     }
@@ -869,11 +869,11 @@ class СonversionModule {
     static forRoot(apiEndpoint) {
         Api.DEFAULT_API_ENDPOINT = apiEndpoint;
         return {
-            ngModule: СonversionModule
+            ngModule: ConversionModule
         };
     }
 }
-СonversionModule.decorators = [
+ConversionModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent, ConversionItemComponent, DndInitStateComponent],
                 exports: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent],
@@ -899,7 +899,7 @@ class СonversionModule {
             },] }
 ];
 /** @nocollapse */
-СonversionModule.ctorParameters = () => [];
+ConversionModule.ctorParameters = () => [];
 
-export { ConversionAppComponent, ConversionConfigService, ConversionItemModel, ConversionRequestModel, ConversionService, ExtendedFileModel, initializeApp, ConversionBrowseFilesModalComponent as ɵa, ConversionQueueComponent as ɵb, ConversionItemComponent as ɵc, DndInitStateComponent as ɵd, СonversionModule };
+export { ConversionAppComponent, ConversionConfigService, ConversionItemModel, ConversionModule, ConversionRequestModel, ConversionService, ExtendedFileModel, initializeApp, ConversionBrowseFilesModalComponent as ɵa, ConversionQueueComponent as ɵb, ConversionItemComponent as ɵc, DndInitStateComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-conversion.js.map

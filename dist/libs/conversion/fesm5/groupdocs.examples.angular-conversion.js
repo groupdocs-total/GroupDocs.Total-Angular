@@ -1029,25 +1029,25 @@ function initializeApp(conversionConfigService) {
     function () { return conversionConfigService.load(); });
     return result;
 }
-var СonversionModule = /** @class */ (function () {
-    function СonversionModule() {
+var ConversionModule = /** @class */ (function () {
+    function ConversionModule() {
         library.add(fas, far);
     }
     /**
      * @param {?} apiEndpoint
      * @return {?}
      */
-    СonversionModule.forRoot = /**
+    ConversionModule.forRoot = /**
      * @param {?} apiEndpoint
      * @return {?}
      */
     function (apiEndpoint) {
         Api.DEFAULT_API_ENDPOINT = apiEndpoint;
         return {
-            ngModule: СonversionModule
+            ngModule: ConversionModule
         };
     };
-    СonversionModule.decorators = [
+    ConversionModule.decorators = [
         { type: NgModule, args: [{
                     declarations: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent, ConversionItemComponent, DndInitStateComponent],
                     exports: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent],
@@ -1073,9 +1073,9 @@ var СonversionModule = /** @class */ (function () {
                 },] }
     ];
     /** @nocollapse */
-    СonversionModule.ctorParameters = function () { return []; };
-    return СonversionModule;
+    ConversionModule.ctorParameters = function () { return []; };
+    return ConversionModule;
 }());
 
-export { ConversionAppComponent, ConversionConfigService, ConversionItemModel, ConversionRequestModel, ConversionService, ExtendedFileModel, initializeApp, ConversionBrowseFilesModalComponent as ɵa, ConversionQueueComponent as ɵb, ConversionItemComponent as ɵc, DndInitStateComponent as ɵd, СonversionModule };
+export { ConversionAppComponent, ConversionConfigService, ConversionItemModel, ConversionModule, ConversionRequestModel, ConversionService, ExtendedFileModel, initializeApp, ConversionBrowseFilesModalComponent as ɵa, ConversionQueueComponent as ɵb, ConversionItemComponent as ɵc, DndInitStateComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-conversion.js.map

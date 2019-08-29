@@ -5,7 +5,7 @@
 /**
  * Generated bundle index. Do not edit.
  */
-export { initializeApp, СonversionModule, ConversionAppComponent, ConversionService, ConversionConfigService, ConversionRequestModel, ConversionItemModel, ExtendedFileModel } from './index';
+export { initializeApp, ConversionModule, ConversionAppComponent, ConversionService, ConversionConfigService, ConversionRequestModel, ConversionItemModel, ExtendedFileModel } from './index';
 export { ConversionBrowseFilesModalComponent as ɵa } from './lib/conversion-browse-files-modal/conversion-browse-files-modal.component';
 export { ConversionItemComponent as ɵc } from './lib/conversion-item/conversion-item.component';
 export { ConversionQueueComponent as ɵb } from './lib/conversion-queue/conversion-queue.component';

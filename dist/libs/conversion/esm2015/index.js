@@ -2,7 +2,7 @@
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-export { initializeApp, СonversionModule } from './lib/conversion.module';
+export { initializeApp, ConversionModule } from './lib/conversion.module';
 export { ConversionAppComponent } from './lib/conversion-app.component';
 export { ConversionService } from './lib/conversion.service';
 export { ConversionConfigService } from './lib/conversion-config.service';

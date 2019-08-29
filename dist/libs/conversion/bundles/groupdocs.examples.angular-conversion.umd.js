@@ -1053,25 +1053,25 @@
         function () { return conversionConfigService.load(); });
         return result;
     }
-    var СonversionModule = /** @class */ (function () {
-        function СonversionModule() {
+    var ConversionModule = /** @class */ (function () {
+        function ConversionModule() {
             fontawesomeSvgCore.library.add(freeSolidSvgIcons.fas, freeRegularSvgIcons.far);
         }
         /**
          * @param {?} apiEndpoint
          * @return {?}
          */
-        СonversionModule.forRoot = /**
+        ConversionModule.forRoot = /**
          * @param {?} apiEndpoint
          * @return {?}
          */
         function (apiEndpoint) {
             commonComponents.Api.DEFAULT_API_ENDPOINT = apiEndpoint;
             return {
-                ngModule: СonversionModule
+                ngModule: ConversionModule
             };
         };
-        СonversionModule.decorators = [
+        ConversionModule.decorators = [
             { type: core.NgModule, args: [{
                         declarations: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent, ConversionItemComponent, DndInitStateComponent],
                         exports: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent],
@@ -1097,13 +1097,14 @@
                     },] }
         ];
         /** @nocollapse */
-        СonversionModule.ctorParameters = function () { return []; };
-        return СonversionModule;
+        ConversionModule.ctorParameters = function () { return []; };
+        return ConversionModule;
     }());
 
     exports.ConversionAppComponent = ConversionAppComponent;
     exports.ConversionConfigService = ConversionConfigService;
     exports.ConversionItemModel = ConversionItemModel;
+    exports.ConversionModule = ConversionModule;
     exports.ConversionRequestModel = ConversionRequestModel;
     exports.ConversionService = ConversionService;
     exports.ExtendedFileModel = ExtendedFileModel;
@@ -1112,7 +1113,6 @@
     exports.ɵb = ConversionQueueComponent;
     exports.ɵc = ConversionItemComponent;
     exports.ɵd = DndInitStateComponent;
-    exports.СonversionModule = СonversionModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
