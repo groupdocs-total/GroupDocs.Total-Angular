@@ -9,6 +9,7 @@
     "test": "ng test",
     "lint": "nx lint && ng lint",
     "e2e": "ng e2e --headless",
+    "e2e:dev": "ng e2e total-angular-e2e --watch",
     "build:packages": "ng build common-components && ng build viewer && ng build editor && ng build comparison && ng build conversion",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
@@ -25,6 +26,7 @@
     "update:check": "ng update",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
+    "cypress:open": "cypress open",
     "help": "nx help"
   },
   "private": true,
