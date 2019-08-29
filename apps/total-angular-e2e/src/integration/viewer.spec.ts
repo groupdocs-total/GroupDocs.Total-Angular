@@ -1,4 +1,4 @@
-
+/// <reference types="Cypress" />
 
 describe('Viewer', () => {
   beforeEach(function () {
@@ -83,7 +83,7 @@ describe('Viewer', () => {
     cy.get('.gd-dnd-wrap').should('not.exist');
   });
 
-  it('should open file when clicked on file in file dialog and display 5 pages', () => {
+  it('should open file when clicked on file in dialog and display 5 pages', () => {
     cy.visit('/viewer');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
@@ -97,7 +97,7 @@ describe('Viewer', () => {
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
     cy.get('#tools > gd-button.thumbnails-button').click();
-    cy.get('body > gd-total > div > gd-viewer > div > div.doc-panel > gd-thumbnails > div').should('be.visible');
+    cy.get('.gd-thumbnails').should('be.visible');
   });
   it('should scroll last page into view when clicked on last thumbnail', () => {
     cy.visit('/viewer');
@@ -105,7 +105,8 @@ describe('Viewer', () => {
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
     cy.get('#tools > gd-button.thumbnails-button').click();
-    cy.get('#gd-thumbnails-page-3').click();
+    cy.get('.gd-thumbnails').should('be.visible');
+    cy.get('#gd-thumbnails-page-3').should('be.visible').click();
     cy.get('#page-3').should('be.visible');
 
   });

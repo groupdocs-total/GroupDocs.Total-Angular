@@ -5,67 +5,28 @@ before_script:
   - node --version
 language: java
 sudo: false
-os:
-  - linux
-env :
-  - BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
-  - BACKEND_REPO=GroupDocs.Total-for-Java-Spring
 cache:
   directories:
     - ~/.npm
     - ~/.cache
     - $HOME/.m2
-matrix:
-  exclude:
-    - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
-    - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
+os: linux
+addons:
+  hosts:
+    - localhost
+  chrome: stable
+  apt:
+    packages:
+    - libgconf-2-4
+script:
+  - git fetch origin master
+  - npm install -g @angular/cli
+  - npm install
+  - npm run e2e --headless
+  - npm run build:packages
+  - npm run lint
+jobs:
   include:
-    - env: BACKEND_REPO=GroupDocs.Total-for-Java-DropWizard
-      os: linux
-      addons:
-        hosts:
-          - localhost
-        chrome: stable
-        apt:
-          packages:
-          - libgconf-2-4
-      language: java
-      script:
-        - git fetch origin master
-        - npm install -g @angular/cli
-        - git clone https://github.com/groupdocs-total/$BACKEND_REPO
-        - cd $BACKEND_REPO
-        - if git ls-remote --exit-code --heads https://github.com/groupdocs-total/$BACKEND_REPO $TRAVIS_BRANCH; then echo "testing with Branch"; git checkout $TRAVIS_BRANCH; else echo "testing with  Master"; fi
-        - mvn -q clean compile exec:java &
-        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5; echo "waiting to back-end..."; done
-        - cd ..
-        - npm install
-        - npm run e2e --headless
-        - npm run build:packages
-        - npm run lint
-    - env: BACKEND_REPO=GroupDocs.Total-for-Java-Spring
-      os: linux
-      addons:
-        hosts:
-          - localhost
-        chrome: stable
-        apt:
-          packages:
-          - libgconf-2-4
-      language: java
-      script:
-        - git fetch origin master
-        - npm install -g @angular/cli
-        - git clone https://github.com/groupdocs-total/$BACKEND_REPO
-        - cd $BACKEND_REPO
-        - if git ls-remote --exit-code --heads https://github.com/groupdocs-total/$BACKEND_REPO $TRAVIS_BRANCH; then echo "testing with Branch"; git checkout $TRAVIS_BRANCH; else echo "testing with  Master"; fi
-        - mvn -q clean spring-boot:run &
-        - while ! curl -s http://localhost:8080  > /dev/null ; do sleep 5 ; echo "waiting to back-end..."; done
-        - cd ..
-        - npm install
-        - npm run e2e
-        - npm run build:packages
-        - npm run lint
     - stage: Release fix
       dist: trusty
       os: linux
