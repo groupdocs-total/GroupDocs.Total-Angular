@@ -91,6 +91,7 @@ describe('Viewer', () => {
     cy.get('.page').its('length').should('eq',5);
   });
 
+  /*
   it('for opened file when thumbnail button clicked should open thumbnail panel', () => {
     cy.visit('/viewer');
     cy.get('#tools > gd-button:nth-child(1)').click();
@@ -99,6 +100,7 @@ describe('Viewer', () => {
     cy.get('#tools > gd-button.thumbnails-button').click();
     cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
   });
+
   it('should scroll last page into view when clicked on last thumbnail', () => {
     cy.visit('/viewer');
     cy.get('#tools > gd-button:nth-child(1)').click();
@@ -110,4 +112,5 @@ describe('Viewer', () => {
     cy.get('#page-3').should('be.visible');
 
   });
+  */
 });
