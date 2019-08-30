@@ -11,7 +11,12 @@
     "name": "TestWord.docx",
     "docType": "Words",
     "size": 11912,
-    "directory": false
+    "directory": false,
+    "conversionTypes": [
+      "xls",
+      "csv",
+      "jpg"
+    ]
   },
   {
     "guid": "/TestPDF.pdf",
