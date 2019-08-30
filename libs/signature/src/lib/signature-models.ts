@@ -161,6 +161,6 @@ export class Border {
   }
 
   public static widthOption(width: number) {
-    return {value: width, name: width, separator: false}
+    return {value: width, name: width + 'px', separator: false}
   }
 }
