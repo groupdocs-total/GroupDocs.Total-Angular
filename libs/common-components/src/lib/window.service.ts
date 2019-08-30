@@ -2,7 +2,7 @@ import {fromEvent, Observable, Subject} from "rxjs";
 import {debounceTime, distinctUntilChanged, startWith, tap} from "rxjs/operators";
 
 const MOBILE_MAX_WIDTH = 425;
-const MOBILE_MAX_HEIGHT = 1000;
+const MOBILE_MAX_HEIGHT = 450;
 const TABLET_MAX_WIDTH = 1024;
 
 export class WindowService {

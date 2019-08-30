@@ -109,4 +109,11 @@ export class SignatureService {
       'image': img
     }, Api.httpOptionsJson);
   }
+
+  saveStamp(img: string, props: any[]) {
+    return this._http.post(this._config.getSignatureApiEndpoint() + Api.SAVE_STAMP, {
+      'image': img,
+      'stampData': props
+    }, Api.httpOptionsJson);
+  }
 }

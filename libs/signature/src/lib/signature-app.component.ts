@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ComponentRef} from '@angular/core';
+import {AfterViewInit, Component, ComponentRef, OnDestroy} from '@angular/core';
 import {SignatureService} from "./signature.service";
 import {
   FileDescription,
@@ -38,7 +38,7 @@ const $ = jquery;
   templateUrl: './signature-app.component.html',
   styleUrls: ['./signature-app.component.less']
 })
-export class SignatureAppComponent implements AfterViewInit {
+export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   title = 'signature';
   files: FileModel[] = [];
   file: FileDescription;
@@ -60,6 +60,7 @@ export class SignatureAppComponent implements AfterViewInit {
   ];
   signatureComponents = new Map<number, ComponentRef<any>>();
   showNewHandSign = false;
+  showNewStampSign = false;
 
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -426,6 +427,16 @@ export class SignatureAppComponent implements AfterViewInit {
     if (SignatureType.HAND.id === $event) {
       this.showNewHandSign = true;
       this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
+    } else if (SignatureType.STAMP.id === $event) {
+      this.showNewStampSign = true;
+      this._tabActivationService.changeActiveTab(SignatureType.STAMP.id);
     }
+  }
+
+  ngOnDestroy(): void {
+    for (const componentRef of this.signatureComponents.values()) {
+      componentRef.destroy();
+    }
+    this.signatureComponents = new Map<number, ComponentRef<any>>();
   }
 }

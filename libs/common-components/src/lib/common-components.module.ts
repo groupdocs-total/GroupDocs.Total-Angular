@@ -174,7 +174,8 @@ const providers = [ConfigService,
     OutsideDirective,
     LeftSideBarComponent,
     TooltipDirective,
-    LightboxComponent
+    LightboxComponent,
+    HostDynamicDirective
   ],
   providers: providers
 })

@@ -24,6 +24,7 @@ export class Api {
   public static SAVE_OPTICAL_CODE = '/saveOpticalCode';
   public static SAVE_TEXT = '/saveText';
   public static SAVE_IMAGE = '/saveImage';
+  public static SAVE_STAMP = '/saveStamp';
   public static LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
 
   public static httpOptionsJson = {

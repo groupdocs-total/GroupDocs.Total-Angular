@@ -1,5 +1,3 @@
-import {Formatting} from "@groupdocs.examples.angular/common-components";
-
 export class Signature {
   guid: string;
   image: string;
@@ -110,5 +108,59 @@ export class Utils {
       mouse.y = ev.clientY + document.body.scrollTop;
     }
     return mouse;
+  }
+}
+
+export class StampCanvasProps {
+  id: number;
+  text: string;
+  width: number;
+  height: number;
+  zIndex: number;
+  backgroundColor: string;
+  strokeColor: string;
+  strokeWidth: number;
+  fontSize: number;
+  font: string;
+  textColor: string;
+  radius: number;
+  bold: boolean;
+  italic: boolean;
+  underline: boolean;
+  textExpansion = 0.173;
+  textRepeat = 1;
+
+  constructor() {
+  }
+
+  init(isMobile) {
+    this.text = "";
+    this.width = isMobile ? 103 : 153;
+    this.height = isMobile ? 103 : 153;
+    this.zIndex = 10;
+    this.backgroundColor = "rgb(255, 255, 255)";
+    this.strokeColor = "rgb(51, 51, 51)";
+    this.strokeWidth = 1;
+    this.fontSize = 19;
+    this.font = "Arial";
+    this.textColor = "rgb(51, 51, 51)";
+    this.radius = 76.5;
+    this.bold = false;
+    this.italic = false;
+    this.underline = false;
+  }
+}
+
+export class Border {
+  public static widthOptions() {
+    const ret = []
+    for (let i = 1; i <= 10; i++) {
+      ret.push(this.widthOption(i));
+    }
+    return ret;
+  }
+
+  public static widthOption(width: number) {
+    return {value: width, name: width, separator: false}
   }
 }

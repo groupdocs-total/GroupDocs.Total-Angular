@@ -27,6 +27,11 @@ import {RemoveSignatureService} from "./remove-signature.service";
 import {ActiveSignatureService} from "./active-signature.service";
 import {HandLightboxComponent} from './hand-lightbox/hand-lightbox.component';
 import {CanvasComponent} from './canvas/canvas.component';
+import {StampLightboxComponent} from './stamp-lightbox/stamp-lightbox.component';
+import {StampCanvasComponent} from './stamp-canvas/stamp-canvas.component';
+import {ActiveCanvasService} from "./active-canvas.service";
+import {RemoveCanvasService} from "./remove-canvas.service";
+import {TextMenuComponent} from './text-menu/text-menu.component';
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -43,7 +48,10 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     Signature,
     ContextMenuComponent,
     HandLightboxComponent,
-    CanvasComponent],
+    CanvasComponent,
+    StampLightboxComponent,
+    StampCanvasComponent,
+    TextMenuComponent],
   exports: [SignatureAppComponent,
     SignatureListPanelComponent,
     SignatureTabComponent,
@@ -53,7 +61,10 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     Signature,
     ContextMenuComponent,
     HandLightboxComponent,
-    CanvasComponent],
+    CanvasComponent,
+    StampLightboxComponent,
+    StampCanvasComponent,
+    TextMenuComponent],
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,
@@ -66,6 +77,8 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     DragSignatureService,
     RemoveSignatureService,
     ActiveSignatureService,
+    ActiveCanvasService,
+    RemoveCanvasService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
@@ -78,7 +91,8 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     }
   ],
   entryComponents: [
-    Signature
+    Signature,
+    StampCanvasComponent
   ]
 })
 export class SignatureModule {

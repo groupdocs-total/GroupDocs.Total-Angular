@@ -1,0 +1,133 @@
+@import "../../../../common-components/src/styles/variables";
+
+.gd-context-menu {
+  display: flex;
+  height: 34px;
+  top: -40px;
+  padding: 0;
+  box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+
+  .icon {
+    font-size: 14px;
+    padding: 7px 7px 10px 10px;
+    cursor: pointer;
+    color: #959da5;
+  }
+
+  ::ng-deep .dropdown-menu {
+    top: -250px !important;
+  }
+}
+
+.gd-stamp-box {
+  position: absolute;
+}
+
+.palette {
+  position: absolute;
+  top: -100px;
+}
+
+.csg-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.csg-bounding-box {
+  border: 1px solid #679FFA;
+  position: absolute;
+}
+
+.csg-border-width {
+  width: 14px !important;
+  height: 14px !important;
+  margin: 5px 21px 10px 7px;
+}
+
+.select {
+  position: absolute;
+  width: 27px;
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+::ng-deep .gd-text-menu {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50px;
+  align-items: baseline;
+  padding: 0px;
+  margin: 0px;
+  z-index: 999999;
+
+  ::ng-deep .gd-blur {
+    height: 50px !important;
+  }
+
+  .icon {
+    color: white;
+    margin: 0 9px 0 9px;
+  }
+
+  ::ng-deep .bcPicker-palette {
+    width: 286px !important;
+
+    .bcPicker-color {
+      width: 42px !important;
+      height: 24px !important;
+    }
+  }
+
+  ::ng-deep .palette {
+    top: -300px !important;
+  }
+
+  ::ng-deep .dropdown-menu {
+    top: -230px !important;
+    color: #959da5 !important;
+  }
+
+  ::ng-deep .button {
+    color: #FFFFFF !important;
+  }
+
+  ::ng-deep .select {
+    color: #FFFFFF !important;
+  }
+}
+
+::ng-deep .gd-blur {
+  width: 100%;
+  height: 60px;
+  background-color: #3E4E5A;
+  opacity: 0.7;
+  position: absolute;
+  z-index: -1;
+}
+
+@media @phone-down {
+  .gd-context-menu {
+    top: -37px;
+    margin: auto;
+  }
+
+  .csg-border-width {
+    width: 18px !important;
+    height: 16px !important;
+    margin-left: 8px;
+
+    .select {
+      width: 21px;
+    }
+  }
+
+}

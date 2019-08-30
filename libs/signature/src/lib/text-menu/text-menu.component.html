@@ -1,0 +1,21 @@
+<div class="gd-text-menu">
+  <div class="gd-blur" *ngIf="blur"></div>
+  <gd-select class="format-select" [options]="fontOptions"
+             (selected)="selectFont($event)"
+             [showSelected]="{name : font, value : font}"></gd-select>
+  <gd-select class="format-select" [options]="fontSizeOptions"
+             (selected)="selectFontSize($event)"
+             [showSelected]="{name : fontSize + 'px', value : fontSize}"></gd-select>
+  <gd-button [icon]="'bold'" [tooltip]="'Bold'"
+             (click)="toggleBold($event)" [toggle]="bold"></gd-button>
+  <gd-button [icon]="'italic'" [tooltip]="'Italic'"
+             (click)="toggleItalic($event)" [toggle]="italic"></gd-button>
+  <gd-button [icon]="'underline'" [tooltip]="'Underline'"
+             (click)="toggleUnderline($event)" [toggle]="underline"></gd-button>
+  <gd-button name="button" [icon]="'font'" [tooltip]="'Color'" (click)="toggleColorPicker()">
+    <div class="bg-color-pic" [style.background-color]="color"></div>
+    <gd-color-picker *ngIf="colorPickerShow"
+                     [className]="'palette'"
+                     (selectedColor)="selectColor($event)"></gd-color-picker>
+  </gd-button>
+</div>

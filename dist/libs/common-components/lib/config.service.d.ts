@@ -22,6 +22,7 @@ export declare class Api {
     static SAVE_OPTICAL_CODE: string;
     static SAVE_TEXT: string;
     static SAVE_IMAGE: string;
+    static SAVE_STAMP: string;
     static LOAD_SIGNATURE_IMAGE: string;
     static httpOptionsJson: {
         headers: HttpHeaders;

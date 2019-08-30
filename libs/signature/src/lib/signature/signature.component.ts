@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Position, AddedSignature, Utils, SignatureType, SignatureProps} from "../signature-models";
 import {DragSignatureService} from "../drag-signature.service";
-import * as jquery from 'jquery';
 import {Formatting} from "@groupdocs.examples.angular/common-components";
 import {SignatureService} from "../signature.service";
 import {RemoveSignatureService} from "../remove-signature.service";
 import {ActiveSignatureService} from "../active-signature.service";
+import * as jquery from 'jquery';
 
 const $ = jquery;
 

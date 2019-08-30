@@ -1,0 +1,83 @@
+@import "../../../../common-components/src/styles/variables";
+
+
+::ng-deep .active {
+  background-color: #e7e7e7;
+}
+
+.gd-text-menu {
+  display: flex;
+  flex-direction: row;
+
+  .format-select {
+    margin: 7px 15px;
+  }
+}
+
+.bg-color-pic {
+  border-radius: 100%;
+  border: 1px solid #CCC;
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  right: 6px;
+  bottom: 6px;
+}
+
+.palette {
+  position: absolute;
+  top: 40px;
+  left: 5px;
+  z-index: 100;
+}
+
+
+@media @phone-down {
+  .gd-text-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    align-items: baseline;
+    padding: 0px;
+    margin: 0px;
+    z-index: 999999;
+
+    .icon {
+      color: white;
+      margin: 0 9px 0 9px;
+    }
+
+    ::ng-deep .bcPicker-palette {
+      width: 286px !important;
+
+      .bcPicker-color {
+        width: 42px !important;
+        height: 24px !important;
+      }
+    }
+
+    .palette {
+      top: unset;
+      bottom: 40px;
+      left: unset;
+      right: 5px;
+    }
+
+    ::ng-deep .dropdown-menu {
+      bottom: 40px;
+      top: unset;
+    }
+  }
+
+  .gd-blur {
+    width: 100%;
+    height: 60px;
+    background-color: #3E4E5A;
+    opacity: 0.7;
+    position: absolute;
+    z-index: -1;
+  }
+}

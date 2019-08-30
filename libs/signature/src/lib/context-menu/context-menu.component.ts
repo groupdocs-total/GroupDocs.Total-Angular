@@ -1,14 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   Formatting,
-  FormattingService,
-  OnCloseService,
-  Option,
   WindowService
 } from "@groupdocs.examples.angular/common-components";
-import * as jquery from 'jquery';
-
-const $ = jquery;
 
 @Component({
   selector: 'gd-context-menu',
@@ -22,17 +16,9 @@ export class ContextMenuComponent implements OnInit {
   @Output() changeFormatting = new EventEmitter<Formatting>();
   @Output() removeSign = new EventEmitter<boolean>();
 
-  fontSizeOptions = FormattingService.getFontSizeOptions();
-  fontOptions = FormattingService.getFontOptions();
-  colorPickerShow = false;
   isMobile: boolean;
 
-  constructor(private _onCloseService: OnCloseService,
-              private _windowService: WindowService) {
-    _onCloseService.onClose.subscribe(() => {
-      this.colorPickerShow = false;
-    });
-
+  constructor(private _windowService: WindowService) {
     this.isMobile = _windowService.isMobile();
     _windowService.onResize.subscribe((w) => {
       this.isMobile = _windowService.isMobile();
@@ -46,56 +32,33 @@ export class ContextMenuComponent implements OnInit {
     this.changeFormatting.emit(this.formatting);
   }
 
-  selectFontSize($event: Option) {
-    $(".gd-wrapper").off("keyup");
-    this.formatting.fontSize = $event.value;
-    this.saveChanges();
-    $(".gd-wrapper").on("keyup", () => {
-      const fontElements = document.getElementsByTagName("font");
-      for (let i = 0, len = fontElements.length; i < len; ++i) {
-        if (fontElements[i].getAttribute('size') === "7") {
-          fontElements[i].removeAttribute("size");
-          fontElements[i].style.fontSize = $event + "px";
-        }
-      }
-    });
-  }
-
-  selectFont($event: Option) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.formatting.font = $event.value;
+  selectFontSize($event: number) {
+    this.formatting.fontSize = $event;
     this.saveChanges();
   }
 
-  toggleColorPicker() {
-    this.colorPickerShow = !this.colorPickerShow;
+  selectFont($event: string) {
+    this.formatting.font = $event;
+    this.saveChanges();
   }
 
   selectColor($event: string) {
-    this.colorPickerShow = false;
     this.formatting.color = $event;
     this.saveChanges();
   }
 
-  toggleBold(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.formatting.bold = !this.formatting.bold;
+  toggleBold($event) {
+    this.formatting.bold = $event;
     this.saveChanges();
   }
 
-  toggleItalic(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.formatting.italic = !this.formatting.italic;
+  toggleItalic($event) {
+    this.formatting.italic = $event;
     this.saveChanges();
   }
 
-  toggleUnderline(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.formatting.underline = !this.formatting.underline;
+  toggleUnderline($event) {
+    this.formatting.underline = $event;
     this.saveChanges();
   }
 
