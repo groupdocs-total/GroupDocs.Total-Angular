@@ -1,0 +1,12 @@
+{
+  "pageSelector": true,
+  "download": true,
+  "upload": true,
+  "print": true,
+  "browse": true,
+  "rewrite": true,
+  "enableRightClick": true,
+  "filesDirectory": "/fonts",
+  "resultDirectory": "/Temp",
+  "preloadResultPageCount": 2
+}
