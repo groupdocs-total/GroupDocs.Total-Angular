@@ -23,7 +23,12 @@
     "name": "TestPDF.pdf",
     "docType": "Pdf",
     "size": 101950,
-    "directory": false
+    "directory": false,
+    "conversionTypes": [
+      "jpg",
+      "html",
+      "txt"
+    ]
   },
   {
     "guid": "/TestJPG.jpg",
