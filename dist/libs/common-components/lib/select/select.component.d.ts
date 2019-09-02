@@ -6,7 +6,7 @@ export interface Option {
     separator: boolean;
 }
 export declare class SelectComponent {
-    private _onCloseService;
+    protected _onCloseService: OnCloseService;
     options: Option[];
     disabled: boolean;
     showSelected: Option;
@@ -15,7 +15,7 @@ export declare class SelectComponent {
     constructor(_onCloseService: OnCloseService);
     open(): void;
     close(): void;
-    onClickOutside(event: Event): void;
+    onClickOutside(event: any): void;
     toggle($event: any): void;
     select($event: any, value: Option): void;
 }

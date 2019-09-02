@@ -17,12 +17,21 @@ import {
   TabActivatorService,
   HostingDynamicComponentService,
   AddDynamicComponentService,
-  OnCloseService
+  OnCloseService,
+  ExceptionMessageService,
+  WindowService
 } from "@groupdocs.examples.angular/common-components";
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
-import {WindowService} from "@groupdocs.examples.angular/common-components";
-import {AddedSignature, DraggableSignature, Position, SignatureType, Utils} from "./signature-models";
+import {
+  AddedSignature,
+  Downloads,
+  DraggableSignature,
+  Position,
+  SignatureData,
+  SignatureType,
+  Utils
+} from "./signature-models";
 import {SelectSignatureService} from "./select-signature.service";
 import {Signature} from "./signature/signature.component";
 import {DragSignatureService} from "./drag-signature.service";
@@ -61,6 +70,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   signatureComponents = new Map<number, ComponentRef<any>>();
   showNewHandSign = false;
   showNewStampSign = false;
+  downloads = [];
 
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -79,7 +89,8 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
               private _dragSignatureService: DragSignatureService,
               private _onCloseService: OnCloseService,
               _removeSignature: RemoveSignatureService,
-              private _activeSignatureService: ActiveSignatureService) {
+              private _activeSignatureService: ActiveSignatureService,
+              private _excMessageService: ExceptionMessageService) {
 
     _removeSignature.removeSignature.subscribe((id: number) => {
       const componentRef = this.signatureComponents.get(id);
@@ -89,6 +100,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
 
     configService.updatedConfig.subscribe((signatureConfig) => {
       this.signatureConfig = signatureConfig;
+      this.setDownloadOptions();
     });
 
     uploadFilesService.uploadsChange.subscribe((uploads) => {
@@ -124,6 +136,8 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
     });
+
+    this.setDownloadOptions();
   }
 
   get rewriteConfig(): boolean {
@@ -144,6 +158,14 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
 
   get downloadConfig(): boolean {
     return this.signatureConfig ? this.signatureConfig.download : true;
+  }
+
+  get downloadOriginalConfig(): boolean {
+    return this.signatureConfig ? this.signatureConfig.downloadOriginal : true;
+  }
+
+  get downloadSingedConfig(): boolean {
+    return this.signatureConfig ? this.signatureConfig.downloadSigned : true;
   }
 
   get uploadConfig(): boolean {
@@ -254,6 +276,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = 1;
           this.countPages = countPages;
+          this.cleanSignatures();
         }
       }
     );
@@ -434,9 +457,70 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.cleanSignatures();
+  }
+
+  private cleanSignatures() {
     for (const componentRef of this.signatureComponents.values()) {
       componentRef.destroy();
     }
     this.signatureComponents = new Map<number, ComponentRef<any>>();
+  }
+
+  sign() {
+    const signatures = this.prepareSignaturesData();
+    this._signatureService.sign(this.credentials, signatures).subscribe(() => {
+      this._modalService.open(CommonModals.OperationSuccess);
+    });
+  }
+
+  private prepareSignaturesData() {
+    const signatures = [];
+    for (const componentRef of this.signatureComponents.values()) {
+      // @ts-ignore
+      const sign = (<Signature>componentRef).instance;
+      const data = sign.data;
+      const position = sign.position;
+      const type = sign.type;
+
+      signatures.push(SignatureData.map(data, type, position));
+    }
+    return signatures;
+  }
+
+  download($event) {
+    if ($event.value === Downloads.original) {
+      this.downloadFile();
+    } else if ($event.value === Downloads.signed) {
+      const signatures = this.prepareSignaturesData();
+      this._signatureService.downloadSigned(this.credentials, signatures).subscribe((response) => {
+        const guid = this.credentials.guid;
+        const filename = guid.replace(/\\/g, "/").split('/').pop();
+        // The actual download
+        const blob = new Blob([response], {type: 'application/' + guid.split('.').pop().toLowerCase()});
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = filename;
+        // for ff we should append element and then remove it
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+      });
+    } else {
+      this._modalService.open(CommonModals.ErrorMessage);
+      this._excMessageService.changeMessage("Something went wrong!");
+    }
+  }
+
+  private setDownloadOptions() {
+    this.downloads = [];
+    if (this.downloadOriginalConfig) {
+      this.downloads.push({value: Downloads.original, name: 'Download Original', separator: false})
+    }
+    if (this.downloadSingedConfig) {
+      this.downloads.push({value: Downloads.signed, name: 'Download Signed', separator: false})
+    }
   }
 }

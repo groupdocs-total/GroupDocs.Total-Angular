@@ -15,10 +15,11 @@
       <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
                  (click)="toLastPage()" *ngIf="isDesktop && pageSelectorConfig"></gd-button>
 
-      <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
-                 (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
+      <gd-button-select [options]="downloads" [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+                        (selected)="download($event)" *ngIf="downloadConfig"></gd-button-select>
       <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
                  *ngIf="printConfig"></gd-button>
+      <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="sign()"></gd-button>
 
     </gd-top-toolbar>
   </div>

@@ -73,11 +73,50 @@ export class Position {
   }
 }
 
+export class SignatureData {
+  reason: string;
+  contact: string;
+  address: string;
+  date: string;
+  signaturePassword: string;
+  signatureGuid: string;
+  signatureType: string;
+  pageNumber: number;
+  left: number;
+  top: number;
+  imageWidth: number;
+  imageHeight: number;
+  angle: number;
+
+  public static map(data: AddedSignature, type: string, position: Position) {
+    const ret = new SignatureData();
+    //ret.reason = data.
+    //ret.contact = data.
+    //ret.address = data.
+    //ret.signaturePassword
+    //ret.angle = data.props.
+    //ret.date = new Date().toString();
+    ret.signatureType = type;
+    ret.pageNumber = data.number + 1;
+    ret.left = position.left;
+    ret.top = position.top;
+    ret.signatureGuid = data.guid;
+    if (data.props) {
+      ret.imageWidth = data.props.width;
+      ret.imageHeight = data.props.height;
+    }
+
+    return ret;
+  }
+}
+
 export class AddedSignature {
+  guid: string
   props: SignatureProps;
   data: string;
   width: number;
   height: number;
+  number: number;
 }
 
 export class SignatureProps {
@@ -163,4 +202,9 @@ export class Border {
   public static widthOption(width: number) {
     return {value: width, name: width + 'px', separator: false}
   }
+}
+
+export class Downloads {
+  public static original = 'original';
+  public static signed = 'signed';
 }

@@ -23,6 +23,8 @@ export declare class Api {
     static SAVE_TEXT: string;
     static SAVE_IMAGE: string;
     static SAVE_STAMP: string;
+    static SIGN: string;
+    static DOWNLOAD_SIGNED: string;
     static LOAD_SIGNATURE_IMAGE: string;
     static httpOptionsJson: {
         headers: HttpHeaders;

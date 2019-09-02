@@ -1,0 +1,73 @@
+@import "./../../styles/variables";
+
+.select {
+  min-width: 50px;
+  color: #959da5;
+}
+
+.select.inactive {
+  cursor: not-allowed;
+  opacity: .4;
+}
+
+.select.active .ng-fa-icon {
+  color: lighten(rgb(149, 157, 165), 20%);
+}
+
+.nav-caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid \9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+}
+
+.nav-caret.inactive {
+  cursor: not-allowed;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 49px;
+  z-index: 1000;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  list-style: none;
+  font-size: 13px;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+
+.dropdown-menu .option {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.dropdown-menu .option:hover {
+  background-color: @nav-logo-background;
+  color: #FFF;
+}
+
+.dropdown-menu-separator {
+  height: 1px;
+  margin: 8px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  padding: 0 !important;
+}

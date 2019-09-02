@@ -20,7 +20,7 @@ export class SelectComponent {
   @Output() selected: EventEmitter<any> = new EventEmitter();
   isOpen = false;
 
-  constructor(private _onCloseService: OnCloseService) {
+  constructor(protected _onCloseService: OnCloseService) {
     _onCloseService.onClose.subscribe(() => {
       this.close();
     });
@@ -36,7 +36,7 @@ export class SelectComponent {
     this.isOpen = false;
   }
 
-  onClickOutside(event : Event){
+  onClickOutside(event){
     if(event && event['value'] === true) {
       this.close();
     }
