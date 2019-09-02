@@ -13,7 +13,7 @@ import {
   RenderPrintService,
   FileUtil,
   PasswordService,
-  FileCredentials, CommonModals
+  FileCredentials, CommonModals, LoadingMaskService
 } from "@groupdocs.examples.angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -36,6 +36,7 @@ export class ViewerAppComponent implements AfterViewInit {
   browseFilesModal = CommonModals.BrowseFiles;
   showSearch = false;
   isDesktop: boolean;
+  isLoading: boolean;
 
   _zoom = 100;
   _pageWidth: number;
@@ -51,7 +52,8 @@ export class ViewerAppComponent implements AfterViewInit {
               pagePreloadService: PagePreloadService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
-              private _windowService: WindowService) {
+              private _windowService: WindowService,
+              private _loadingMaskService: LoadingMaskService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -61,8 +63,8 @@ export class ViewerAppComponent implements AfterViewInit {
       if (uploads) {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
-          this._viewerService.upload(uploads.item(i), '', this.viewerConfig.rewrite).subscribe(() => {
-            this.selectDir('');
+          this._viewerService.upload(uploads.item(i), '', this.viewerConfig.rewrite).subscribe((obj: FileCredentials) => {
+            this.fileDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
           });
         }
       }
@@ -87,6 +89,14 @@ export class ViewerAppComponent implements AfterViewInit {
       this.isDesktop = _windowService.isDesktop();
       this.refreshZoom();
     });
+  }
+
+  ngAfterViewInit() {
+    this._loadingMaskService
+    .onLoadingChanged
+    .subscribe((loading: boolean) => this.isLoading = loading);
+
+    this.refreshZoom();
   }
 
   get rewriteConfig(): boolean {
@@ -246,6 +256,10 @@ export class ViewerAppComponent implements AfterViewInit {
     }
   }
 
+  fileDropped($event){
+    this.fileDropped = $event;
+  }
+
   private ptToPx(pt: number) {
     //pt * 96 / 72 = px.
     return pt * 96 / 72;
@@ -382,10 +396,6 @@ export class ViewerAppComponent implements AfterViewInit {
     if (this.formatDisabled)
       return;
     this.showSearch = !this.showSearch;
-  }
-
-  ngAfterViewInit(): void {
-    this.refreshZoom();
   }
 
   private refreshZoom() {

@@ -1,3 +1,4 @@
+<gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
 <div class="wrapper" (contextmenu)="onRightClick($event)">
   <div class="top-panel">
     <gd-logo [logo]="'viewer'" icon="eye"></gd-logo>
@@ -48,7 +49,9 @@
                  [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
   </div>
 
-  <gd-init-state [icon]="'eye'" [text]="''" *ngIf="!file"></gd-init-state>
+  <gd-init-state [icon]="'eye'" [text]="''" *ngIf="!file" (fileDropped)="fileDropped($event)">
+    Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file
+  </gd-init-state>
 
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
                          (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
