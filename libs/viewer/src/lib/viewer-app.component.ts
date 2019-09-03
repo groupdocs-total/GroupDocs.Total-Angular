@@ -42,6 +42,7 @@ export class ViewerAppComponent implements AfterViewInit {
   _pageWidth: number;
   _pageHeight: number;
   options;
+  fileWasDropped = false;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -64,7 +65,7 @@ export class ViewerAppComponent implements AfterViewInit {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
           this._viewerService.upload(uploads.item(i), '', this.viewerConfig.rewrite).subscribe((obj: FileCredentials) => {
-            this.fileDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
+            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
           });
         }
       }
@@ -257,7 +258,7 @@ export class ViewerAppComponent implements AfterViewInit {
   }
 
   fileDropped($event){
-    this.fileDropped = $event;
+    this.fileWasDropped = $event;
   }
 
   private ptToPx(pt: number) {

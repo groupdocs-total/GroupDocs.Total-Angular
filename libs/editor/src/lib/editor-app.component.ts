@@ -49,6 +49,7 @@ export class EditorAppComponent implements AfterViewInit  {
   private textBackup: string;
   private isIE = false;
   isLoading: boolean;
+  fileWasDropped: false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -73,8 +74,8 @@ export class EditorAppComponent implements AfterViewInit  {
       if (uploads) {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
-          this._editorService.upload(uploads.item(i), '', this.editorConfig.rewrite).subscribe(() => {
-            this.selectDir('');
+          this._editorService.upload(uploads.item(i), '', this.editorConfig.rewrite).subscribe((obj: FileCredentials) => {
+            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
           });
         }
       }
@@ -264,6 +265,10 @@ export class EditorAppComponent implements AfterViewInit  {
     );
     this.clearData();
     this._modalService.close(modalId);
+  }
+
+  fileDropped($event){
+    this.fileWasDropped = $event;
   }
 
   private loadFile(file: FileDescription) {

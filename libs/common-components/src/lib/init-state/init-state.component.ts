@@ -9,6 +9,7 @@ export class InitStateComponent implements OnInit {
   @Input() icon: string;
   @Input() text: string;
   @Output() fileDropped = new EventEmitter<boolean>();
+  showUploadFile = false;
 
   constructor() {
   }
@@ -19,6 +20,7 @@ export class InitStateComponent implements OnInit {
   dropped($event) {
     if ($event) {
       this.fileDropped.emit($event);
+      this.showUploadFile = false;
     }
   }
 }

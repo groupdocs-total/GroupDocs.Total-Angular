@@ -2635,6 +2635,7 @@ var RotationDirective = /** @class */ (function () {
 var InitStateComponent = /** @class */ (function () {
     function InitStateComponent() {
         this.fileDropped = new EventEmitter();
+        this.showUploadFile = false;
     }
     /**
      * @return {?}
@@ -2655,12 +2656,13 @@ var InitStateComponent = /** @class */ (function () {
     function ($event) {
         if ($event) {
             this.fileDropped.emit($event);
+            this.showUploadFile = false;
         }
     };
     InitStateComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-init-state',
-                    template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\">\r\n  <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <span class=\"text\">{{text}}</span>\r\n  <span class=\"start\">\r\n    <ng-content></ng-content>\r\n  </span>\r\n</div>\r\n",
+                    template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\r\n  <fa-icon *ngIf=\"!showUploadFile\" class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <fa-icon *ngIf=\"showUploadFile\" class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n  <span class=\"text\">{{text}}</span>\r\n  <span class=\"start\">\r\n    <ng-content></ng-content>\r\n  </span>\r\n</div>\r\n",
                     styles: [".wrapper{color:#959da5;background-color:#e7e7e7;display:flex;flex-direction:column;justify-content:center;align-content:center;width:100%;height:100%}.icon{font-size:65px;text-align:center;margin-bottom:38px}.start,.text{font-size:15px;text-align:center}.gd-drag-n-drop-wrap.active{background-color:#bababa}"]
                 }] }
     ];
@@ -4121,7 +4123,11 @@ var SelectionService = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.selection = window.getSelection().getRangeAt(0);
+        /** @type {?} */
+        var selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            this.selection = selection.getRangeAt(0);
+        }
     };
     /**
      * @private
