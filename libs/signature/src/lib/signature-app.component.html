@@ -27,7 +27,7 @@
     <div *ngFor="let signatureType of signatureTypes">
       <gd-signature-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)" [icon]="signatureType.icon"
                         [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig"
-                        (newSignatureEvent)="newSign($event)">
+                        (newSignatureEvent)="newSign($event)" [isPdf]="isPdf()">
       </gd-signature-tab>
     </div>
   </gd-left-side-bar>
@@ -47,4 +47,5 @@
 
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>
+  <gd-success-modal></gd-success-modal>
 </div>

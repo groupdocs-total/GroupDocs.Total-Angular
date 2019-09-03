@@ -1,5 +1,5 @@
 import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {
   Api,
   CommonComponentsModule,
@@ -32,6 +32,7 @@ import {StampCanvasComponent} from './stamp-canvas/stamp-canvas.component';
 import {ActiveCanvasService} from "./active-canvas.service";
 import {RemoveCanvasService} from "./remove-canvas.service";
 import {TextMenuComponent} from './text-menu/text-menu.component';
+import {SignaturesHolderService} from "./signatures-holder.service";
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -79,6 +80,8 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     ActiveSignatureService,
     ActiveCanvasService,
     RemoveCanvasService,
+    DatePipe,
+    SignaturesHolderService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

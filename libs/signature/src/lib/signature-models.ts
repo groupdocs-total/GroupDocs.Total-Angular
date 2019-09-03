@@ -61,6 +61,7 @@ export class DraggableSignature {
   type: string;
   position: Position;
   pageNumber: number;
+  digitalProps: DigitalSign;
 }
 
 export class Position {
@@ -90,12 +91,6 @@ export class SignatureData {
 
   public static map(data: AddedSignature, type: string, position: Position) {
     const ret = new SignatureData();
-    //ret.reason = data.
-    //ret.contact = data.
-    //ret.address = data.
-    //ret.signaturePassword
-    //ret.angle = data.props.
-    //ret.date = new Date().toString();
     ret.signatureType = type;
     ret.pageNumber = data.number + 1;
     ret.left = position.left;
@@ -105,9 +100,24 @@ export class SignatureData {
       ret.imageWidth = data.props.width;
       ret.imageHeight = data.props.height;
     }
+    if (data.digitalProps) {
+      ret.reason = data.digitalProps.reason;
+      ret.contact = data.digitalProps.contact;
+      ret.address = data.digitalProps.address;
+      ret.signaturePassword = data.digitalProps.signaturePassword;
+      ret.date = data.digitalProps.date;
+    }
 
     return ret;
   }
+}
+
+export class DigitalSign {
+  reason: string;
+  contact: string;
+  address: string;
+  date: string;
+  signaturePassword: string;
 }
 
 export class AddedSignature {
@@ -117,6 +127,7 @@ export class AddedSignature {
   width: number;
   height: number;
   number: number;
+  digitalProps: DigitalSign
 }
 
 export class SignatureProps {
@@ -130,6 +141,10 @@ export class SignatureProps {
   font: string;
   fontSize: number;
   fontColor: string;
+}
+
+export class RemoveSign {
+  guid: string;
 }
 
 export class Utils {

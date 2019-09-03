@@ -27,7 +27,7 @@ import {
   AddedSignature,
   Downloads,
   DraggableSignature,
-  Position,
+  Position, RemoveSign,
   SignatureData,
   SignatureType,
   Utils
@@ -39,6 +39,7 @@ import {RemoveSignatureService} from "./remove-signature.service";
 import * as jquery from 'jquery';
 import {SignatureTabComponent} from "./signature-tab/signature-tab.component";
 import {ActiveSignatureService} from "./active-signature.service";
+import {SignaturesHolderService} from "./signatures-holder.service";
 
 const $ = jquery;
 
@@ -90,12 +91,17 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
               private _onCloseService: OnCloseService,
               _removeSignature: RemoveSignatureService,
               private _activeSignatureService: ActiveSignatureService,
-              private _excMessageService: ExceptionMessageService) {
+              private _excMessageService: ExceptionMessageService,
+              private _signaturesHolderService: SignaturesHolderService) {
 
-    _removeSignature.removeSignature.subscribe((id: number) => {
-      const componentRef = this.signatureComponents.get(id);
-      componentRef.destroy();
-      this.signatureComponents.delete(id);
+    _removeSignature.removeSignature.subscribe((del: RemoveSign) => {
+      const ids = this._signaturesHolderService.get(del.guid);
+      for (const id of ids) {
+        const componentRef = this.signatureComponents.get(id);
+        componentRef.destroy();
+        this.signatureComponents.delete(id);
+      }
+      this._signaturesHolderService.delete(del.guid);
     });
 
     configService.updatedConfig.subscribe((signatureConfig) => {
@@ -397,24 +403,47 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   }
 
   private selectSignature(sign: DraggableSignature) {
-    this._signatureService.loadSignatureImage(sign).subscribe((signature: AddedSignature) => {
-      const dynamicDirective = this._hostingComponentsService.find(sign.pageNumber);
-      if (dynamicDirective) {
-        const viewContainerRef = dynamicDirective.viewContainerRef;
-        const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
-        const id = this.signatureComponents.size + 1;
-        (<Signature>selectSignature.instance).id = id;
-        (<Signature>selectSignature.instance).data = signature;
-        (<Signature>selectSignature.instance).position = sign.position;
-        (<Signature>selectSignature.instance).type = sign.type;
-        this.signatureComponents.set(id, selectSignature);
-        this._activeSignatureService.changeActive(id);
+    if (sign.type === SignatureType.DIGITAL.id) {
+      const addedSignature = new AddedSignature();
+      addedSignature.digitalProps = sign.digitalProps;
+      addedSignature.guid = sign.guid;
+      addedSignature.number = sign.pageNumber;
+      for (const page of this.file.pages) {
+        const id = this.addSignatureComponent(addedSignature, sign, page.number);
+        this._signaturesHolderService.addId(sign.guid, id);
       }
-      this._tabActivationService.changeActiveTab(sign.type);
-      if (!this.isDesktop) {
-        this.leftBarOpen = false;
-      }
-    });
+      this.closeTab(sign.type);
+    } else {
+      this._signatureService.loadSignatureImage(sign).subscribe((signature: AddedSignature) => {
+        const id = this.addSignatureComponent(signature, sign, sign.pageNumber);
+        this._signaturesHolderService.addId(sign.guid, id);
+        this.closeTab(sign.type);
+      });
+    }
+  }
+
+  private addSignatureComponent(addedSignature: AddedSignature, sign: DraggableSignature, pageNumber: number) {
+    const dynamicDirective = this._hostingComponentsService.find(pageNumber);
+    if (dynamicDirective) {
+      const viewContainerRef = dynamicDirective.viewContainerRef;
+      const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
+      const id = this.signatureComponents.size + 1;
+      (<Signature>selectSignature.instance).id = id;
+      (<Signature>selectSignature.instance).data = addedSignature;
+      (<Signature>selectSignature.instance).position = sign.position;
+      (<Signature>selectSignature.instance).type = sign.type;
+      this.signatureComponents.set(id, selectSignature);
+      this._activeSignatureService.changeActive(id);
+      return id;
+    }
+    return null;
+  }
+
+  private closeTab(type: string) {
+    this._tabActivationService.changeActiveTab(type);
+    if (!this.isDesktop) {
+      this.leftBarOpen = false;
+    }
   }
 
   hideAll($event) {
@@ -465,6 +494,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
       componentRef.destroy();
     }
     this.signatureComponents = new Map<number, ComponentRef<any>>();
+    this._signaturesHolderService.clear();
   }
 
   sign() {
@@ -476,7 +506,9 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
 
   private prepareSignaturesData() {
     const signatures = [];
-    for (const componentRef of this.signatureComponents.values()) {
+    for (const ids of this._signaturesHolderService.values()) {
+      const id = ids.pop();
+      const componentRef = this.signatureComponents.get(id);
       // @ts-ignore
       const sign = (<Signature>componentRef).instance;
       const data = sign.data;
@@ -522,5 +554,14 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
     if (this.downloadSingedConfig) {
       this.downloads.push({value: Downloads.signed, name: 'Download Signed', separator: false})
     }
+  }
+
+  isPdf() {
+    if (this.file) {
+      if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
+        return true;
+      }
+    }
+    return false;
   }
 }

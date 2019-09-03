@@ -1,17 +1,18 @@
 import {Observable, Subject} from "rxjs";
+import {RemoveSign} from "./signature-models";
 
 export class RemoveSignatureService {
-  private _observer: Subject<number> = new Subject();
-  private readonly _removeSignature: Observable<number> = this._observer.asObservable();
+  private _observer: Subject<RemoveSign> = new Subject();
+  private readonly _removeSignature: Observable<RemoveSign> = this._observer.asObservable();
 
   constructor() {
   }
 
-  get removeSignature(): Observable<number> {
+  get removeSignature(): Observable<RemoveSign> {
     return this._removeSignature;
   }
 
-  remove(id: number): void {
+  remove(id: RemoveSign): void {
     this._observer.next(id);
   }
 }

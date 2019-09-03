@@ -167,7 +167,7 @@ export class SignatureService {
     const docType = FileUtil.find(credentials.guid, false).format;
     return this._http.post(this._config.getSignatureApiEndpoint() + Api.SIGN, {
       guid: credentials.guid,
-      password: credentials.password,
+      password: credentials.password ? credentials.password : "",
       signaturesData: signatures,
       documentType: docType
     }, Api.httpOptionsJson);

@@ -22,6 +22,7 @@ export class SignatureTabComponent implements OnInit {
   @Input() active = false;
   @Input() tooltip: string;
   @Input() rewrite: boolean;
+  @Input() isPdf: boolean;
   @Output() newSignatureEvent = new EventEmitter<string>();
   isDesktop: boolean;
   public showNewCode = false;

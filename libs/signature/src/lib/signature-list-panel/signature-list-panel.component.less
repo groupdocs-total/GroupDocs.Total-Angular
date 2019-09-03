@@ -54,6 +54,14 @@
   padding: 0px 11px 12px 12px;
 }
 
+.gd-signature {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.75);
+  width: 100%;
+  border-radius: 3px;
+}
+
 .gd-signature-empty-list {
   flex-direction: column;
   display: flex;
@@ -125,6 +133,45 @@
   }
 }
 
+.gd-digital-input-wrapper {
+  margin: 0px 5px 8px 8px;
+  display: flex;
+}
+
+.gd-sign-digital {
+  height: 27px;
+  background-color: #969696;
+  margin: 9px 8px 7px 8px;
+  border-radius: 3px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px;
+  box-shadow: 0 0 3px #ddd;
+  cursor: pointer;
+  padding-top: 5px;
+}
+
+.gd-sign-digital.active {
+  background-color: #3787F5;
+}
+
+.gd-digital-inputs input {
+  width: 263px;
+  height: 27px;
+  border: 1px solid rgba(92, 115, 127, 0.3);
+  border-radius: 3px;
+  padding-left: 28px;
+}
+
+.gd-digital-inputs {
+  .icon {
+    position: absolute;
+    font-size: 12px;
+    margin: 7px 0px 7px 7px;
+    color: #ccc !important;
+  }
+}
+
 @media @phone-down {
   .gd-signature-thumbnail-text, .gd-signature-thumbnail-image, .gd-signature-thumbnail-hand {
     margin: 0;
@@ -160,5 +207,15 @@
     .icon {
       font-size: 30px !important;
     }
+  }
+
+  .gd-digital-inputs {
+    .icon {
+      font-size: 13px;
+    }
+  }
+
+  .gd-digital-input-wrapper {
+    width: fit-content;
   }
 }

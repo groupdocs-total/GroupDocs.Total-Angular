@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Position, AddedSignature, Utils, SignatureType, SignatureProps} from "../signature-models";
+import {Position, AddedSignature, Utils, SignatureType, SignatureProps, RemoveSign} from "../signature-models";
 import {DragSignatureService} from "../drag-signature.service";
 import {Formatting} from "@groupdocs.examples.angular/common-components";
 import {SignatureService} from "../signature.service";
@@ -102,10 +102,16 @@ export class Signature implements OnInit {
   }
 
   remove() {
-    this._removeSignature.remove(this.id);
+    const del = new RemoveSign();
+    del.guid = this.data.guid;
+    this._removeSignature.remove(del);
   }
 
   activation() {
     this._activeSignatureService.changeActive(this.id);
+  }
+
+  isDigital() {
+    return this.type === SignatureType.DIGITAL.id;
   }
 }

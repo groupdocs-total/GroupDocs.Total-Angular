@@ -1,4 +1,5 @@
-<div class="gd-signature" [style.left.px]="position.left" [style.top.px]="position.top"
+<div class="gd-signature" *ngIf="!isDigital()"
+     [style.left.px]="position.left" [style.top.px]="position.top"
      [style.width.px]="data.width ? data.width : undefined"
      [style.height.px]="data.height ? data.height : undefined"
      [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
@@ -16,4 +17,8 @@
             [style.font-size.px]="data?.props.fontSize"
             [style.width.px]="data.props?.width ? data.props.width : undefined"
             [style.height.px]="data.props?.height ? data.props.height : undefined"></textarea>
+</div>
+<div class="gd-digital-marker" *ngIf="isDigital()">
+  <fa-icon [icon]="['fas','info-circle']" [class]="'ng-fa-icon icon'"></fa-icon>
+  <div>Digitally signed : {{data.digitalProps.contact ? data.digitalProps.contact : data.digitalProps.reason}}</div>
 </div>
