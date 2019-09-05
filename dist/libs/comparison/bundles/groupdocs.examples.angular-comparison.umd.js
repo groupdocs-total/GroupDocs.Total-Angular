@@ -611,6 +611,12 @@
              */
             function (result) {
                 _this.result = result;
+                /** @type {?} */
+                var isZeroBasedPageId = _this.result.changes.find((/**
+                 * @param {?} change
+                 * @return {?}
+                 */
+                function (change) { return change.pageInfo.id === 0; }));
                 _this.result.changes.forEach((/**
                  * @param {?} change
                  * @return {?}
@@ -618,7 +624,8 @@
                 function (change) {
                     change.id = _this.generateRandomInteger();
                     /** @type {?} */
-                    var zeroBasedId = change.pageInfo.id;
+                    var zeroBasedId = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
+                    change.pageInfo.id = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
                     if (!_this.result.pages[zeroBasedId].changes) {
                         _this.result.pages[zeroBasedId].changes = [];
                     }

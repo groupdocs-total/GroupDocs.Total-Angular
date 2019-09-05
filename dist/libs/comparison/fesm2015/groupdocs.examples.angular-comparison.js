@@ -479,6 +479,12 @@ class ComparisonAppComponent {
          */
         (result) => {
             this.result = result;
+            /** @type {?} */
+            const isZeroBasedPageId = this.result.changes.find((/**
+             * @param {?} change
+             * @return {?}
+             */
+            (change) => change.pageInfo.id === 0));
             this.result.changes.forEach((/**
              * @param {?} change
              * @return {?}
@@ -486,7 +492,8 @@ class ComparisonAppComponent {
             (change) => {
                 change.id = this.generateRandomInteger();
                 /** @type {?} */
-                const zeroBasedId = change.pageInfo.id;
+                const zeroBasedId = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
+                change.pageInfo.id = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
                 if (!this.result.pages[zeroBasedId].changes) {
                     this.result.pages[zeroBasedId].changes = [];
                 }
