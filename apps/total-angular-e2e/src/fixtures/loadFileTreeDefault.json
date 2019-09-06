@@ -1,0 +1,37 @@
+[
+  {
+    "guid": "/SubFolder",
+    "name": "SubFolder",
+    "docType": null,
+    "size": 11912,
+    "directory": true
+  },
+  {
+    "guid": "/TestWord.docx",
+    "name": "TestWord.docx",
+    "docType": "Words",
+    "size": 11912,
+    "directory": false
+  },
+  {
+    "guid": "/TestPDF.pdf",
+    "name": "TestPDF.pdf",
+    "docType": "Pdf",
+    "size": 101950,
+    "directory": false
+  },
+  {
+    "guid": "/TestJPG.jpg",
+    "name": "TestJPG.jpg",
+    "docType": "Image",
+    "size": 4998864,
+    "directory": false
+  },
+  {
+    "guid": "/TestPNG.png",
+    "name": "TestPNG.png",
+    "docType": "Image",
+    "size": 63492,
+    "directory": false
+  }
+]
