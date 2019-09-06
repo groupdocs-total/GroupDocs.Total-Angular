@@ -64,7 +64,7 @@ describe('ConversionBrowseFilesModalComponent', () => {
     } as ExtendedFileModel);
     component.files = filesStub;
 
-    let selectedFile = {selected: false} as ExtendedFileModel;
+    const selectedFile = {selected: false} as ExtendedFileModel;
     const selectedFormat = {value: "docx"};
     
     component.selectFormat(selectedFormat, selectedFile);
