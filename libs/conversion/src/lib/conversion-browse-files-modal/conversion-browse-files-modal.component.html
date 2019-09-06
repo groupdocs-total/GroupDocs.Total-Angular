@@ -80,15 +80,11 @@
           <div class="file-description">
             <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>
             <div class="file-name-format">
-              <div class="file-name" [ngClass]="{'gd-folder-name' : file.isDirectory || file.directory}">
-                {{file?.name}}
-              </div>
+              <div class="file-name" [ngClass]="{'gd-folder-name' : file.isDirectory || file.directory}">{{file?.name}}</div>
               <div class="file-format">{{getFormatName(file)}}</div>
             </div>
           </div>
-          <div class="file-size">
-            {{getSize(file?.size)}}
-          </div>
+          <div class="file-size">{{getSize(file?.size)}}</div>
           <div class="file-format-select" [ngClass]="{'empty': file && (file.isDirectory || file.directory)}">
             <gd-drop-down *ngIf="!(file.isDirectory || file.directory)" [placement]="{h:'left',v:'center'}">
               <gd-drop-down-toggle>
