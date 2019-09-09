@@ -5,7 +5,7 @@
   <div [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
        (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="drop($event)" (click)="activation()">
     <gd-context-menu *ngIf="active" [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
-                     (changeFormatting)="saveTextSignature($event)" (removeSign)="remove()"></gd-context-menu>
+                     (changeFormatting)="saveTextSignature($event)" (removeSign)="remove()" (lockOut)="unlock = !$event"></gd-context-menu>
     <img class="gd-signature-image" *ngIf="!isText()" [attr.src]="getData()" alt>
     <textarea class="gd-text" *ngIf="isText()" [value]="data.props?.text"
               [style.text-decoration]="data.props?.underline ? 'underline' : 'unset'"
@@ -20,7 +20,7 @@
   <gd-resizing [id]="id" *ngIf="active"
                (offsetX)="width($event)" (offsetY)="height($event)"
                (offsetTop)="top($event)" (offsetLeft)="left($event)"
-               [se]="true" [sw]="true" [ne]="true" [nw]="true"></gd-resizing>
+               [se]="true" [sw]="unlock" [ne]="unlock" [nw]="unlock"></gd-resizing>
 </div>
 <div class="gd-digital-marker" *ngIf="isDigital()">
   <fa-icon [icon]="['fas','info-circle']" [class]="'ng-fa-icon icon'"></fa-icon>

@@ -6,7 +6,7 @@
                 (outUnderline)="toggleUnderline($event)" (outItalic)="toggleItalic($event)"
                 (outColor)="selectColor($event)" (outFont)="selectFont($event)"
                 (outFontSize)="selectFontSize($event)"></gd-text-menu>
-  <fa-icon [icon]="['fas','unlock']" [class]="'ng-fa-icon icon'"></fa-icon>
+  <fa-icon [icon]="['fas',lock ? 'lock' : 'unlock']" [class]="'ng-fa-icon icon'" (click)="toggleLock()"></fa-icon>
   <fa-icon [icon]="['fas','trash']" [class]="'ng-fa-icon icon'" [size]="'sm'" class="gd-delete-signature"
            (click)="deleteSign()"></fa-icon>
 </div>

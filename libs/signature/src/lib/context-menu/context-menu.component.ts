@@ -15,8 +15,10 @@ export class ContextMenuComponent implements OnInit {
   @Input() topPosition: number;
   @Output() changeFormatting = new EventEmitter<Formatting>();
   @Output() removeSign = new EventEmitter<boolean>();
+  @Output() lockOut = new EventEmitter<boolean>();
 
   isMobile: boolean;
+  lock = false;
 
   constructor(private _windowService: WindowService) {
     this.isMobile = _windowService.isMobile();
@@ -64,5 +66,10 @@ export class ContextMenuComponent implements OnInit {
 
   deleteSign() {
     this.removeSign.emit(true);
+  }
+
+  toggleLock() {
+    this.lock = !this.lock;
+    this.lockOut.emit(this.lock);
   }
 }

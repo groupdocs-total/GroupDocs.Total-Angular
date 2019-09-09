@@ -20,6 +20,7 @@ export class Signature implements OnInit {
   @Input() type: string;
   active = true;
   private oldPosition: { x: number; y: number };
+  unlock = true;
 
   constructor(private _signatureService: SignatureService,
               private _removeSignature: RemoveSignatureService,
@@ -120,18 +121,28 @@ export class Signature implements OnInit {
 
   width($event) {
     this.data.width += $event;
+    if (!this.unlock) {
+      this.data.height += $event;
+    }
   }
 
   height($event) {
     this.data.height += $event;
+    if (!this.unlock) {
+      this.data.width += $event;
+    }
   }
 
   left($event) {
-    this.position.left += $event;
+    if (this.unlock) {
+      this.position.left += $event;
+    }
   }
 
   top($event) {
-    this.position.top += $event;
+    if (this.unlock) {
+      this.position.top += $event;
+    }
   }
 
   drop($event: DragEvent) {
