@@ -13,12 +13,12 @@ export class ContextMenuComponent implements OnInit {
   @Input() formatting: Formatting = Formatting.DEFAULT;
   @Input() textMenu: boolean;
   @Input() topPosition: number;
+  @Input() lock = false;
   @Output() changeFormatting = new EventEmitter<Formatting>();
   @Output() removeSign = new EventEmitter<boolean>();
   @Output() lockOut = new EventEmitter<boolean>();
 
   isMobile: boolean;
-  lock = false;
 
   constructor(private _windowService: WindowService) {
     this.isMobile = _windowService.isMobile();

@@ -1,5 +1,6 @@
 import { AfterViewInit, EventEmitter, OnInit } from '@angular/core';
 export declare class ResizingComponent implements OnInit, AfterViewInit {
+    init: boolean;
     id: number;
     se: boolean;
     ne: boolean;

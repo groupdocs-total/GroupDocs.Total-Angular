@@ -11,6 +11,7 @@ const $ = jquery;
 })
 export class ResizingComponent implements OnInit, AfterViewInit {
 
+  @Input() init: boolean;
   @Input() id: number;
   @Input() se = false;
   @Input() ne = false;
@@ -34,10 +35,16 @@ export class ResizingComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const width = $(this.getElementId(this.SE)).offset().left - $(this.getElementId(this.NW)).offset().left;
-    const height = $(this.getElementId(this.SE)).offset().top - $(this.getElementId(this.NW)).offset().top;
-    this.offsetX.emit(width);
-    this.offsetY.emit(height);
+    const elSE = $(this.getElementId(this.SE));
+    const elNW = $(this.getElementId(this.NW));
+    if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
+      const width = elSE.offset().left - elNW.offset().left;
+      const height = elSE.offset().top - elNW.offset().top;
+      setTimeout(() => {
+        this.offsetX.emit(width);
+        this.offsetY.emit(height);
+      }, 100);
+    }
   }
 
   ngOnInit() {
@@ -92,17 +99,6 @@ export class ResizingComponent implements OnInit, AfterViewInit {
     $event.stopPropagation();
     $event.preventDefault();
   }
-
-  /*private getPosition($event: DragEvent, el: string) {
-    let left = $event.clientX;
-    let top = $event.clientY;
-    if (!left || !top) {// ff
-      const event1: DragEvent = <DragEvent>window.event;
-      left = event1.screenX;
-      top = event1.screenY;
-    }
-    return {x: left, y: top};
-  }*/
 
   private getElementId(el: string) {
     return "#" + el + "-" + this.id;

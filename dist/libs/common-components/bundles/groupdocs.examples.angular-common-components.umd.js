@@ -5474,12 +5474,24 @@
          * @return {?}
          */
         function () {
+            var _this = this;
             /** @type {?} */
-            var width = $$7(this.getElementId(this.SE)).offset().left - $$7(this.getElementId(this.NW)).offset().left;
+            var elSE = $$7(this.getElementId(this.SE));
             /** @type {?} */
-            var height = $$7(this.getElementId(this.SE)).offset().top - $$7(this.getElementId(this.NW)).offset().top;
-            this.offsetX.emit(width);
-            this.offsetY.emit(height);
+            var elNW = $$7(this.getElementId(this.NW));
+            if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
+                /** @type {?} */
+                var width_1 = elSE.offset().left - elNW.offset().left;
+                /** @type {?} */
+                var height_1 = elSE.offset().top - elNW.offset().top;
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
+                    _this.offsetX.emit(width_1);
+                    _this.offsetY.emit(height_1);
+                }), 100);
+            }
         };
         /**
          * @return {?}
@@ -5596,42 +5608,12 @@
             $event.stopPropagation();
             $event.preventDefault();
         };
-        /*private getPosition($event: DragEvent, el: string) {
-          let left = $event.clientX;
-          let top = $event.clientY;
-          if (!left || !top) {// ff
-            const event1: DragEvent = <DragEvent>window.event;
-            left = event1.screenX;
-            top = event1.screenY;
-          }
-          return {x: left, y: top};
-        }*/
-        /*private getPosition($event: DragEvent, el: string) {
-            let left = $event.clientX;
-            let top = $event.clientY;
-            if (!left || !top) {// ff
-              const event1: DragEvent = <DragEvent>window.event;
-              left = event1.screenX;
-              top = event1.screenY;
-            }
-            return {x: left, y: top};
-          }*/
         /**
          * @private
          * @param {?} el
          * @return {?}
          */
-        ResizingComponent.prototype.getElementId = /*private getPosition($event: DragEvent, el: string) {
-            let left = $event.clientX;
-            let top = $event.clientY;
-            if (!left || !top) {// ff
-              const event1: DragEvent = <DragEvent>window.event;
-              left = event1.screenX;
-              top = event1.screenY;
-            }
-            return {x: left, y: top};
-          }*/
-        /**
+        ResizingComponent.prototype.getElementId = /**
          * @private
          * @param {?} el
          * @return {?}
@@ -5649,6 +5631,7 @@
         /** @nocollapse */
         ResizingComponent.ctorParameters = function () { return []; };
         ResizingComponent.propDecorators = {
+            init: [{ type: core.Input }],
             id: [{ type: core.Input }],
             se: [{ type: core.Input }],
             ne: [{ type: core.Input }],

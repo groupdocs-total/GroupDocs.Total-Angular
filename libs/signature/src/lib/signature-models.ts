@@ -145,6 +145,8 @@ export class SignatureProps {
 
 export class RemoveSign {
   guid: string;
+  id: number;
+  type: string;
 }
 
 export class StampCanvasProps {

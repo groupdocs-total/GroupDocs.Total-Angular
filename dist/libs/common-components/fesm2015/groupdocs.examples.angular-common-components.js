@@ -4476,11 +4476,22 @@ class ResizingComponent {
      */
     ngAfterViewInit() {
         /** @type {?} */
-        const width = $$7(this.getElementId(this.SE)).offset().left - $$7(this.getElementId(this.NW)).offset().left;
+        const elSE = $$7(this.getElementId(this.SE));
         /** @type {?} */
-        const height = $$7(this.getElementId(this.SE)).offset().top - $$7(this.getElementId(this.NW)).offset().top;
-        this.offsetX.emit(width);
-        this.offsetY.emit(height);
+        const elNW = $$7(this.getElementId(this.NW));
+        if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
+            /** @type {?} */
+            const width = elSE.offset().left - elNW.offset().left;
+            /** @type {?} */
+            const height = elSE.offset().top - elNW.offset().top;
+            setTimeout((/**
+             * @return {?}
+             */
+            () => {
+                this.offsetX.emit(width);
+                this.offsetY.emit(height);
+            }), 100);
+        }
     }
     /**
      * @return {?}
@@ -4565,16 +4576,6 @@ class ResizingComponent {
         $event.stopPropagation();
         $event.preventDefault();
     }
-    /*private getPosition($event: DragEvent, el: string) {
-        let left = $event.clientX;
-        let top = $event.clientY;
-        if (!left || !top) {// ff
-          const event1: DragEvent = <DragEvent>window.event;
-          left = event1.screenX;
-          top = event1.screenY;
-        }
-        return {x: left, y: top};
-      }*/
     /**
      * @private
      * @param {?} el
@@ -4594,6 +4595,7 @@ ResizingComponent.decorators = [
 /** @nocollapse */
 ResizingComponent.ctorParameters = () => [];
 ResizingComponent.propDecorators = {
+    init: [{ type: Input }],
     id: [{ type: Input }],
     se: [{ type: Input }],
     ne: [{ type: Input }],

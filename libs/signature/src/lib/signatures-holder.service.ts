@@ -36,4 +36,17 @@ export class SignaturesHolderService {
   get(key: string) {
     return this.map.get(key);
   }
+
+  remove(key: string, id: number) {
+    const items = this.map.get(key);
+    this.delete(key);
+    if (items.length !== 1) {
+      this.add(key);
+      for (const elem of items) {
+        if (elem !== id) {
+          this.map.get(key).push(elem);
+        }
+      }
+    }
+  }
 }
