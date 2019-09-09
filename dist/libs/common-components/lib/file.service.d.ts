@@ -39,6 +39,12 @@ export declare class HttpError {
     static Conflict: number;
     static InternalServerError: number;
 }
+export declare class Utils {
+    static getMousePosition(event: any): {
+        x: number;
+        y: number;
+    };
+}
 export declare class FileUtil {
     static map: {
         'folder': {

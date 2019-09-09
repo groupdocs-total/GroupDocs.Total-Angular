@@ -23,9 +23,6 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
   colorPickerC = false;
   borderWidth = Border.widthOptions();
 
-  private grab = false;
-  private oldX: number;
-
   constructor(private _activeCanvasService: ActiveCanvasService,
               private _removeCanvas: RemoveCanvasService,
               private _onCloseService: OnCloseService) {
@@ -214,29 +211,8 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
     return ((this.height - this.props.height) / 2 - (this.active ? 34 : 0));
   }
 
-  catchUp($event: DragEvent) {
-    this.grab = true;
-    this.oldX = $event.clientX;
-  }
-
-  resize($event: DragEvent) {
-    if (!this.grab || !$event.clientX) {
-      return;
-    }
-    const offset = $event.clientX - this.oldX;
-    this.props.width += offset;
-    this.props.height += offset;
-
-    this.oldX = $event.clientX;
-  }
-
-  release($event: DragEvent) {
-    this.redrawCanvas();
-    this.grab = false;
-  }
-
-  start($event: DragEvent) {
-    $event.stopPropagation();
-    $event.preventDefault();
+  resize($event) {
+    this.props.width += $event;
+    this.props.height += $event;
   }
 }

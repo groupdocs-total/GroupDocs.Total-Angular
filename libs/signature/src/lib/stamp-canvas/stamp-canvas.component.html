@@ -26,8 +26,7 @@
     </div>
     <div class="csg-bounding-box" [style.width.px]="props.width" [style.height.px]="props.height">
       <canvas #canvas (click)="activation()" class="csg-preview" [width]="props.width" [height]="props.height"></canvas>
-      <div class="ui-resizable-handle se-resize" [draggable]="true" (dragover)="start($event)"
-           (drag)="resize($event)" (dragend)="release($event)" (dragstart)="catchUp($event)"></div>
+      <gd-resizing (offsetX)="resize($event)" [se]="true" (release)="redrawCanvas()"></gd-resizing>
     </div>
   </div>
 </div>

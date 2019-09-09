@@ -54,6 +54,29 @@ export class HttpError {
   static InternalServerError = 500;
 }
 
+export class Utils {
+  public static getMousePosition(event) {
+    const mouse = {
+      x: 0,
+      y: 0
+    };
+    const wEvent: DragEvent = <DragEvent>window.event;
+    const ev = event || wEvent; //Moz || IE
+    if (ev.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
+      const pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0;
+      const pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0;
+      const screenX = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
+      const screenY = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
+      mouse.x = pageX ? ev.pageX : (screenX ? wEvent.screenX : ev.touches[0].pageX);
+      mouse.y = pageY ? ev.pageY : (screenY ? wEvent.screenY : ev.touches[0].pageY);
+    } else if (ev.clientX) { //IE
+      mouse.x = ev.clientX + document.body.scrollLeft;
+      mouse.y = ev.clientY + document.body.scrollTop;
+    }
+    return mouse;
+  }
+}
+
 export class FileUtil {
   public static map = {
     'folder': {'format': '', 'icon': 'folder'},

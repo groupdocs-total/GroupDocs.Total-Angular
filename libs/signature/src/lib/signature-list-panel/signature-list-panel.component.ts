@@ -93,4 +93,8 @@ export class SignatureListPanelComponent implements OnInit {
   isActive(guid: string) {
     return !this._signaturesHolderService.has(guid);
   }
+
+  dragStart($event: DragEvent) { // ff
+    $event.dataTransfer.setData('text', 'foo');
+  }
 }

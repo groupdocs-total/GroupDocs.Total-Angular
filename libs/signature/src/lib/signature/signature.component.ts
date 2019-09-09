@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Position, AddedSignature, Utils, SignatureType, SignatureProps, RemoveSign} from "../signature-models";
-import {DragSignatureService} from "../drag-signature.service";
-import {Formatting} from "@groupdocs.examples.angular/common-components";
+import {Position, AddedSignature, SignatureType, SignatureProps, RemoveSign} from "../signature-models";
+import {Formatting, Utils} from "@groupdocs.examples.angular/common-components";
 import {SignatureService} from "../signature.service";
 import {RemoveSignatureService} from "../remove-signature.service";
 import {ActiveSignatureService} from "../active-signature.service";
@@ -20,9 +19,9 @@ export class Signature implements OnInit {
   @Input() position: Position;
   @Input() type: string;
   active = true;
+  private oldPosition: { x: number; y: number };
 
-  constructor(private _dragSignatureService: DragSignatureService,
-              private _signatureService: SignatureService,
+  constructor(private _signatureService: SignatureService,
               private _removeSignature: RemoveSignatureService,
               private _activeSignatureService: ActiveSignatureService) {
 
@@ -48,21 +47,25 @@ export class Signature implements OnInit {
   }
 
   dragStart($event: DragEvent) {
-    this._dragSignatureService.id = this.id;
+    this.oldPosition = Utils.getMousePosition($event);
+    $event.dataTransfer.setData('text', 'foo');
   }
 
   dragging($event) {
     $event.preventDefault();
     const position = Utils.getMousePosition($event);
-
-    const currentPage = document.elementFromPoint(position.x, position.y);
-    if (currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().parent().hasClass("page")) {
-      const documentPage = $(currentPage).parent().parent()[0];
-      const left = position.x - $(documentPage).offset().left;
-      const top = position.y - $(documentPage).offset().top;
-      this.position.left = left;
-      this.position.top = top;
+    if (position.x && position.y && this.isOnPage(position)) {
+      const left = position.x - this.oldPosition.x;
+      const top = position.y - this.oldPosition.y;
+      this.position.left += left;
+      this.position.top += top;
+      this.oldPosition = position;
     }
+  }
+
+  isOnPage(position) {
+    const currentPage = document.elementFromPoint(position.x, position.y);
+    return currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().parent().hasClass("page");
   }
 
   isText() {
@@ -113,5 +116,26 @@ export class Signature implements OnInit {
 
   isDigital() {
     return this.type === SignatureType.DIGITAL.id;
+  }
+
+  width($event) {
+    this.data.width += $event;
+  }
+
+  height($event) {
+    this.data.height += $event;
+  }
+
+  left($event) {
+    this.position.left += $event;
+  }
+
+  top($event) {
+    this.position.top += $event;
+  }
+
+  drop($event: DragEvent) {
+    $event.stopPropagation();
+    $event.preventDefault();
   }
 }

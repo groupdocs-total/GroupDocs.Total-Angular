@@ -19,7 +19,7 @@ import {
   AddDynamicComponentService,
   OnCloseService,
   ExceptionMessageService,
-  WindowService
+  WindowService, Utils
 } from "@groupdocs.examples.angular/common-components";
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
@@ -29,8 +29,7 @@ import {
   DraggableSignature,
   Position, RemoveSign,
   SignatureData,
-  SignatureType,
-  Utils
+  SignatureType
 } from "./signature-models";
 import {SelectSignatureService} from "./select-signature.service";
 import {Signature} from "./signature/signature.component";
@@ -392,12 +391,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
         sign.position = currentPosition;
         this.selectSignature(sign);
         this._dragSignatureService.sign = null;
-      } else {
-        if (this._dragSignatureService.id) {
-          const element = this.signatureComponents.get(this._dragSignatureService.id);
-          (<Signature>element.instance).position = currentPosition;
-        }
-        this._dragSignatureService.id = null;
       }
     }
   }

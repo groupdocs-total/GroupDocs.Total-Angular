@@ -689,6 +689,41 @@ HttpError.NotFound = 404;
 HttpError.TimeOut = 408;
 HttpError.Conflict = 409;
 HttpError.InternalServerError = 500;
+class Utils {
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    static getMousePosition(event) {
+        /** @type {?} */
+        const mouse = {
+            x: 0,
+            y: 0
+        };
+        /** @type {?} */
+        const wEvent = (/** @type {?} */ (window.event));
+        /** @type {?} */
+        const ev = event || wEvent;
+        if (ev.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
+            //Moz
+            /** @type {?} */
+            const pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0;
+            /** @type {?} */
+            const pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0;
+            /** @type {?} */
+            const screenX = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
+            /** @type {?} */
+            const screenY = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
+            mouse.x = pageX ? ev.pageX : (screenX ? wEvent.screenX : ev.touches[0].pageX);
+            mouse.y = pageY ? ev.pageY : (screenY ? wEvent.screenY : ev.touches[0].pageY);
+        }
+        else if (ev.clientX) { //IE
+            mouse.x = ev.clientX + document.body.scrollLeft;
+            mouse.y = ev.clientY + document.body.scrollTop;
+        }
+        return mouse;
+    }
+}
 class FileUtil {
     /**
      * @param {?} filename
@@ -4418,12 +4453,171 @@ ButtonSelectComponent.propDecorators = {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
+const $$7 = jquery;
+class ResizingComponent {
+    constructor() {
+        this.se = false;
+        this.ne = false;
+        this.sw = false;
+        this.nw = false;
+        this.SE = 'se';
+        this.NE = 'ne';
+        this.SW = 'sw';
+        this.NW = 'nw';
+        this.offsetX = new EventEmitter();
+        this.offsetY = new EventEmitter();
+        this.offsetTop = new EventEmitter();
+        this.offsetLeft = new EventEmitter();
+        this.release = new EventEmitter();
+        this.grab = false;
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        /** @type {?} */
+        const width = $$7(this.getElementId(this.SE)).offset().left - $$7(this.getElementId(this.NW)).offset().left;
+        /** @type {?} */
+        const height = $$7(this.getElementId(this.SE)).offset().top - $$7(this.getElementId(this.NW)).offset().top;
+        this.offsetX.emit(width);
+        this.offsetY.emit(height);
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    catchUp($event) {
+        // ff
+        $event.dataTransfer.setData('text', 'foo');
+        this.grab = true;
+        this.oldPosition = Utils.getMousePosition($event);
+    }
+    /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    resize($event, el) {
+        if (!this.grab) {
+            return;
+        }
+        /** @type {?} */
+        const position = Utils.getMousePosition($event);
+        if (position.x === 0 && position.y === 0) {
+            return;
+        }
+        /** @type {?} */
+        const notSW = this.NE === el || this.NW === el;
+        /** @type {?} */
+        const notNE = this.SW === el || this.NW === el;
+        this.setOffsets(position, notNE, notSW);
+        if (notSW) {
+            this.offsetTop.emit(position.y - this.oldPosition.y);
+        }
+        if (notNE) {
+            this.offsetLeft.emit(position.x - this.oldPosition.x);
+        }
+        this.oldPosition = position;
+    }
+    /**
+     * @private
+     * @param {?} position
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    setOffsets(position, x, y) {
+        /** @type {?} */
+        const offsetX = x ? this.oldPosition.x - position.x : position.x - this.oldPosition.x;
+        /** @type {?} */
+        const offsetY = y ? this.oldPosition.y - position.y : position.y - this.oldPosition.y;
+        this.offsetX.emit(offsetX);
+        this.offsetY.emit(offsetY);
+    }
+    /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    end($event, el) {
+        // ff
+        this.resize($event, el);
+        this.release.emit(true);
+        this.grab = false;
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    start($event) {
+        this.drop($event);
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    drop($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+    }
+    /*private getPosition($event: DragEvent, el: string) {
+        let left = $event.clientX;
+        let top = $event.clientY;
+        if (!left || !top) {// ff
+          const event1: DragEvent = <DragEvent>window.event;
+          left = event1.screenX;
+          top = event1.screenY;
+        }
+        return {x: left, y: top};
+      }*/
+    /**
+     * @private
+     * @param {?} el
+     * @return {?}
+     */
+    getElementId(el) {
+        return "#" + el + "-" + this.id;
+    }
+}
+ResizingComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'gd-resizing',
+                template: "<div class=\"ui-resizable-handle se-resize\" id=\"se-{{id}}\" *ngIf=\"se\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SE)\" (dragend)=\"end($event, SE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"></div>\n\n<div class=\"ui-resizable-handle ne-resize\" id=\"ne-{{id}}\" *ngIf=\"ne\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NE)\" (dragend)=\"end($event, NE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"></div>\n\n<div class=\"ui-resizable-handle sw-resize\" id=\"sw-{{id}}\" *ngIf=\"sw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SW)\" (dragend)=\"end($event, SW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"></div>\n\n<div class=\"ui-resizable-handle nw-resize\" id=\"nw-{{id}}\" *ngIf=\"nw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NW)\" (dragend)=\"end($event, NW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"></div>\n",
+                styles: [".ui-resizable-handle{background-color:#679ffa;width:8px;height:8px;border-radius:100%;position:absolute;font-size:.1px;display:block}.se-resize{bottom:-5px;right:-5px;cursor:se-resize}.ne-resize{top:-5px;right:-5px;cursor:ne-resize}.sw-resize{bottom:-5px;left:-5px;cursor:sw-resize}.nw-resize{top:-5px;left:-5px;cursor:nw-resize}"]
+            }] }
+];
+/** @nocollapse */
+ResizingComponent.ctorParameters = () => [];
+ResizingComponent.propDecorators = {
+    id: [{ type: Input }],
+    se: [{ type: Input }],
+    ne: [{ type: Input }],
+    sw: [{ type: Input }],
+    nw: [{ type: Input }],
+    offsetX: [{ type: Output }],
+    offsetY: [{ type: Output }],
+    offsetTop: [{ type: Output }],
+    offsetLeft: [{ type: Output }],
+    release: [{ type: Output }]
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
 const providers = [ConfigService,
     Api,
     ModalService,
     FileService,
     FileModel,
     FileUtil,
+    Utils,
     SanitizeHtmlPipe,
     SanitizeResourceHtmlPipe,
     SanitizeStylePipe,
@@ -4496,7 +4690,8 @@ CommonComponentsModule.decorators = [
                     TooltipDirective,
                     HostDynamicDirective,
                     LightboxComponent,
-                    ButtonSelectComponent
+                    ButtonSelectComponent,
+                    ResizingComponent
                 ],
                 exports: [
                     TopToolbarComponent,
@@ -4536,7 +4731,8 @@ CommonComponentsModule.decorators = [
                     TooltipDirective,
                     LightboxComponent,
                     HostDynamicDirective,
-                    ButtonSelectComponent
+                    ButtonSelectComponent,
+                    ResizingComponent
                 ],
                 providers: providers
             },] }
@@ -4544,5 +4740,5 @@ CommonComponentsModule.decorators = [
 /** @nocollapse */
 CommonComponentsModule.ctorParameters = () => [];
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, LightboxComponent as ɵc, ButtonSelectComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, LightboxComponent as ɵc, ButtonSelectComponent as ɵd, ResizingComponent as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

@@ -147,24 +147,6 @@ export class RemoveSign {
   guid: string;
 }
 
-export class Utils {
-  public static getMousePosition(event) {
-    const mouse = {
-      x: 0,
-      y: 0
-    };
-    const ev = event || window.event; //Moz || IE
-    if (ev.pageX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
-      mouse.x = (typeof ev.pageX !== "undefined" && ev.pageX !== 0) ? ev.pageX : ev.touches[0].pageX;
-      mouse.y = (typeof ev.pageY !== "undefined" && ev.pageY !== 0) ? ev.pageY : ev.touches[0].pageY;
-    } else if (ev.clientX) { //IE
-      mouse.x = ev.clientX + document.body.scrollLeft;
-      mouse.y = ev.clientY + document.body.scrollTop;
-    }
-    return mouse;
-  }
-}
-
 export class StampCanvasProps {
   id: number;
   text: string;

@@ -13,7 +13,7 @@ import {Api, ConfigService,} from "./config.service";
 import {ModalService} from "./modal.service";
 import {ModalComponent} from './modal/modal.component';
 import {BrowseFilesModalComponent} from './browse-files-modal/browse-files-modal.component';
-import {FileModel, FileService, FileUtil} from "./file.service";
+import {FileModel, FileService, FileUtil, Utils} from "./file.service";
 import {DocumentComponent} from './document/document.component';
 import {PageComponent} from './page/page.component';
 import {HighlightSearchPipe, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe} from "./pipes";
@@ -63,7 +63,8 @@ import {AddDynamicComponentService} from "./add-dynamic-component.service";
 import {HostDynamicDirective} from './host-dynamic.directive';
 import {HostingDynamicComponentService} from "./hosting-dynamic-component.service";
 import {LightboxComponent} from './lightbox/lightbox.component';
-import { ButtonSelectComponent } from './button-select/button-select.component';
+import {ButtonSelectComponent} from './button-select/button-select.component';
+import {ResizingComponent} from './resizing/resizing.component';
 
 const providers = [ConfigService,
   Api,
@@ -71,6 +72,7 @@ const providers = [ConfigService,
   FileService,
   FileModel,
   FileUtil,
+  Utils,
   SanitizeHtmlPipe,
   SanitizeResourceHtmlPipe,
   SanitizeStylePipe,
@@ -138,7 +140,8 @@ const providers = [ConfigService,
     TooltipDirective,
     HostDynamicDirective,
     LightboxComponent,
-    ButtonSelectComponent
+    ButtonSelectComponent,
+    ResizingComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -178,7 +181,8 @@ const providers = [ConfigService,
     TooltipDirective,
     LightboxComponent,
     HostDynamicDirective,
-    ButtonSelectComponent
+    ButtonSelectComponent,
+    ResizingComponent
   ],
   providers: providers
 })
