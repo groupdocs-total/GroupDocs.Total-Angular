@@ -26,7 +26,7 @@
             </gd-drop-down-items>
           </gd-drop-down>
         </div>
-        <div class="context-panel">
+        <div class="context-panel" *ngIf="showUploadUrl">
           <div class="upload-url" *ngIf="showUploadUrl">
             <input class="url-input" placeholder="http://" #url (keyup.enter)="uploadUrl(url.value)">
             <div class="url-check" (click)="uploadUrl(url.value)">
@@ -38,16 +38,10 @@
     </div>
     <div id="gd-modal-filebrowser" class="gd-modal-table">
       <div class="list-files-header">
-        <div class="header-name">Document</div>
-        <div class="header-size">Size</div>
+        <div class="header-name">FILE</div>
+        <div class="header-size">SIZE</div>
       </div>
       <div class="list-files-body">
-      <div class="go-up" (click)="goUp()">
-          <div class="go-up-icon">
-              <fa-icon [icon]="['fas','level-up-alt']"></fa-icon>
-          </div>
-          <div class="go-up-dots">...</div>
-      </div>
       <div class="list-files-lines" *ngFor="let file of files" (click)="choose(file);">
         <div class="file-description">
           <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>
