@@ -762,7 +762,7 @@ var ModalComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-modal',
                     template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\r\n</div>\r\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\r\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \r\n\r\n      <div class=\"gd-modal-header\"> \r\n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\r\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\r\n        </div> \r\n\r\n      <div class=\"gd-modal-body\">\r\n        <ng-content></ng-content>\r\n        </div> \r\n\r\n      <div class=\"gd-modal-footer\"> \r\n\r\n        </div> \r\n      </div><!-- /.modal-content -->\r\n    </div><!-- /.modal-dialog --> \r\n\r\n",
-                    styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 25px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:20px;top:13px;cursor:pointer;color:#959da5}.gd-modal-close span{font-size:14px;font-weight:700}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1025px){.gd-modal-dialog{width:100%;height:100%}}"]
+                    styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{padding:1px 20px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:20px;top:13px;font-size:21px;cursor:pointer;color:#959da5}.gd-modal-title{font-size:16px;font-weight:400;padding-top:16px;padding-bottom:16px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1025px){.gd-modal-dialog{width:100%;height:100%}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -2542,7 +2542,7 @@ var RotationDirective = /** @class */ (function () {
      */
     function () {
         if (typeof this.angle === "string") {
-            this.angle = parseInt(this.angle);
+            this.angle = parseInt(this.angle, 10);
         }
         if (this.angle) {
             this.animation = 'none';
