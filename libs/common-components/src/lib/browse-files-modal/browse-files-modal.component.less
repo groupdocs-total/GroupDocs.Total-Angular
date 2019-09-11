@@ -2,20 +2,23 @@
 .gd-modal-table {
   width: 100%;
   text-align: left;
-  padding-top: 20px;
+  padding-top: 24px;
+  &.upload-url {
+    padding-top: 20px;
+  }
 }
 
 #gd-browse-section {
-  width: 1024px;
-  height: 628px;
+  width: 1036px;
+  height: 706px;
 }
 
 .list-files-header {
   height: 60px;
-  color: #6E6E6E;
+  color: @dove-gray;
   font-size: 13px;
   font-weight: bold;
-  background-color: #F4F4F4;
+  background-color: @wild-sand;
 }
 
 .header-name {
@@ -133,6 +136,8 @@
           width: 100%;
           height: 27px;
           border: 1px solid #25C2D4;
+          font-size: 14px;
+          padding-left: 6px;
         }
 
         .url-check {
@@ -177,7 +182,9 @@
   color: @image;
 }
 
-.file-description .ng-fa-icon.fa-file-text .fa-folder {
+.file-description .ng-fa-icon.fa-file-text .fa-folder,
+.file-description .ng-fa-icon.fa-file,
+.file-description .ng-fa-icon.fa-file-alt {
   color: @folder;
 }
 
@@ -197,11 +204,11 @@
 .file-format {
   font-size: 10px;
   padding-top: 3px;
-  color: @file-format;
+  color: @silver-chalice;
 }
 
 .list-files-lines {
-  border-bottom: 1px solid #e7e7e7;
+  border-bottom: 1px solid @mercury;
 }
 
 .list-files-lines:hover{
@@ -214,18 +221,27 @@
   position: absolute;
   width: inherit;
   height: inherit;
-  opacity: 0.9;
+  background: rgba(255,255,255,0.7);
   z-index: 1;
   display: flex;
   text-align: center;
   justify-content: center;
   align-content: center;
   flex-direction: column;
+  fa-icon {
+    color: @primary;
+    font-size: 90px;
+  }
+}
+
+.gd-drag-n-drop-icon {
+  margin-top: -50px;
 }
 
 .gd-dnd-wrap h2 {
-  color: #959DA5;
-  font-size: 15px;
+  color: @dove-gray;
+  margin-top: 20px;
+  font-size: 14px;
   font-weight: 300;
 }
 
@@ -234,7 +250,7 @@
   font-size: 110px;
 }
 
-@media (max-width: 1025px) {
+@media (max-width: 1037px) {
   .header-size, .file-size {
     width: 18%;
   }
