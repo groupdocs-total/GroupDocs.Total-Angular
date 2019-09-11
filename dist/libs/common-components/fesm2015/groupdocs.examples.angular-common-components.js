@@ -2084,6 +2084,9 @@ class RotationDirective {
      * @return {?}
      */
     updateCursor() {
+        if (typeof this.angle === "string") {
+            this.angle = parseInt(this.angle, 10);
+        }
         if (this.angle) {
             this.animation = 'none';
             this.transition = 'none';
