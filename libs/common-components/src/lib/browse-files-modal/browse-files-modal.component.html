@@ -2,7 +2,7 @@
   <section id="gd-browse-section" (dragover)="showUploadFile = true;">
     <div class="gd-dnd-wrap" *ngIf="showUploadFile" gdDnd (opening)="showUploadFile=$event">
       <div class="gd-drag-n-drop-icon">
-        <fa-icon [icon]="['fas','cloud-download-alt']" size="5x" aria-hidden="true"></fa-icon>
+        <fa-icon [icon]="['fas','cloud-download-alt']" aria-hidden="true"></fa-icon>
       </div>
       <h2>Drag &amp; Drop your files here</h2>
     </div>
@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div id="gd-modal-filebrowser" class="gd-modal-table">
+    <div id="gd-modal-filebrowser" class="gd-modal-table" [ngClass]="{'upload-url': showUploadUrl}">
       <div class="list-files-header">
         <div class="header-name">FILE</div>
         <div class="header-size">SIZE</div>
