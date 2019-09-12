@@ -410,6 +410,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
       this.closeTab(sign.type);
     } else {
       this._signatureService.loadSignatureImage(sign).subscribe((signature: AddedSignature) => {
+        signature.number = sign.pageNumber;
         const id = this.addSignatureComponent(signature, sign, sign.pageNumber);
         this._signaturesHolderService.addId(sign.guid, id);
         this.closeTab(sign.type);
@@ -494,8 +495,9 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
 
   sign() {
     const signatures = this.prepareSignaturesData();
-    this._signatureService.sign(this.credentials, signatures).subscribe(() => {
+    this._signatureService.sign(this.credentials, signatures).subscribe((ret: any) => {
       this._modalService.open(CommonModals.OperationSuccess);
+      this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
     });
   }
 

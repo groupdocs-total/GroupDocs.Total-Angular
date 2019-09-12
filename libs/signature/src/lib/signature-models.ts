@@ -92,13 +92,16 @@ export class SignatureData {
   public static map(data: AddedSignature, type: string, position: Position) {
     const ret = new SignatureData();
     ret.signatureType = type;
-    ret.pageNumber = data.number + 1;
+    ret.pageNumber = data.number;
     ret.left = position.left;
     ret.top = position.top;
     ret.signatureGuid = data.guid;
     if (data.props) {
       ret.imageWidth = data.props.width;
       ret.imageHeight = data.props.height;
+    } else {
+      ret.imageWidth = data.width;
+      ret.imageHeight = data.height;
     }
     if (data.digitalProps) {
       ret.reason = data.digitalProps.reason;
@@ -121,13 +124,13 @@ export class DigitalSign {
 }
 
 export class AddedSignature {
-  guid: string
+  guid: string;
   props: SignatureProps;
   data: string;
   width: number;
   height: number;
   number: number;
-  digitalProps: DigitalSign
+  digitalProps: DigitalSign;
 }
 
 export class SignatureProps {
