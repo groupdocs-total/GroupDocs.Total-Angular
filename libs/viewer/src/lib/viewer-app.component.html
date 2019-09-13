@@ -16,7 +16,7 @@
                  (click)="toFirstPage()" *ngIf="pageSelectorConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
                  (click)="prevPage()" *ngIf="pageSelectorConfig" ></gd-button>
-      <div class="current-page-number">{{currentPage}}/{{countPages}}</div>
+      <div class="current-page-number" [ngClass]="{'active': !formatDisabled}">{{currentPage}}/{{countPages}}</div>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
                  (click)="nextPage()" *ngIf="pageSelectorConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"

@@ -1,70 +1,82 @@
+@import "./../../styles/variables";
 .gd-nav-search-btn {
   float: left;
-  margin: 0px 10px;
-  padding: 3px 5px;
   cursor: pointer;
+  padding-left: 7px;
   color: rgb(149, 157, 165);
+  font-size: 14px;
+  width: 37px;
+  height: 37px;
+  line-height: 37px;
+  text-align: center;
+  margin: 3px 0px 4px 0px;
 }
 
 .gd-nav-search-cancel {
-  font-size: 15px;
-  width: 10px;
-  margin-left: 1px;
-  margin-top: -2px;
+  color: #fff;
+  font-size: 14px;
+  width: 37px;
+  padding-right: 4px;
 }
 
 .gd-search-count {
-  color: #959DA5;
-  font-size: 11px;
+  color: @regent-gray;
+  font-size: 12px;
   position: absolute;
-  left: 221px;
-  top: 13px;
+  left: 206px;
+  top: 14px;
   text-align: right;
   width: 62px;
 }
 
 .gd-nav-search-container {
-	background-color: #3e4e5a;
-    min-width: 330px;
-    padding: 8px 0px 7px 7px;
-    position: absolute;
-    left: 328px;
-    top: 49px;
-    z-index: 1;
+  background-color: @nav-main-background;
+  width: 410px;
+  position: fixed;
+  left: 50%;
+  top: 60px;
+  z-index: 2;
+  transform: translate(-50%, 0);
 }
 
 .gd-search-input {
-    float: left;
-    height: 11px;
-    width: 215px;
-	padding: 5px 65px 5px 5px;
+  float: left;
+  height: 17px;
+  width: 258px;
+  font-size: 14px;
+  padding: 5px 0px 6px 7px;
+  color: @dove-gray;
+  border: 1px solid @brand;
+  margin: 7px 0px 7px 7px;
 }
 
-
-@media (max-width: 1025px) {
-  .gd-nav-search-container {   
-    top: 70px;
-	left: 45%;
-  }
-  .gd-search-input {
-    width: auto;
-  }
-  .gd-search-count {
-    left: 48%;
-  }
-}
 @media (min-width: 401px) and (max-width: 700px) {
   .gd-search-input {
-    width: 226px;
+    width: 231px;
+  }
+  .gd-nav-search-cancel {
+    padding-right: 7px;
   }
   .gd-search-count {
-    left: 55%;
+    left: 179px;
+  }
+  .gd-nav-search-container {
+    width: 386px;
   }
 }
 
 @media (max-width: 500px) {
+  // TODO: make more dry
+  .gd-search-input {
+    width: 231px;
+  }
+  .gd-nav-search-cancel {
+    padding-right: 7px;
+  }
+  .gd-search-count {
+    left: 179px;
+  }
   .gd-nav-search-container {
-	width: 100%;
-	left: 0;
+    width: 100%;
   }
 }
