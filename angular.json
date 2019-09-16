@@ -306,6 +306,44 @@
           "styleext": "less"
         }
       }
+    },
+    "conversion": {
+      "projectType": "library",
+      "root": "libs/conversion",
+      "sourceRoot": "libs/conversion/src",
+      "prefix": "groupdocs.examples.angular",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/conversion/tsconfig.lib.json",
+            "project": "libs/conversion/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/conversion/tsconfig.lib.json",
+              "libs/conversion/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/conversion/**"]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/conversion/src/test.ts",
+            "tsConfig": "libs/conversion/tsconfig.spec.json",
+            "karmaConfig": "libs/conversion/karma.conf.js"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "less"
+        }
+      }
     }
   },
   "cli": {

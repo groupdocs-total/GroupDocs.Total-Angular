@@ -215,9 +215,12 @@ export class ComparisonAppComponent {
     this._comparisonService.compare(arr).subscribe((result: CompareResult) => {
       this.result = result;
 
+      const isZeroBasedPageId = this.result.changes.find((change) => change.pageInfo.id === 0);
+
       this.result.changes.forEach( (change) => {
         change.id = this.generateRandomInteger();
-        const zeroBasedId = change.pageInfo.id;
+        const zeroBasedId = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
+        change.pageInfo.id = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
         if(!this.result.pages[zeroBasedId].changes){
           this.result.pages[zeroBasedId].changes = [];
         }

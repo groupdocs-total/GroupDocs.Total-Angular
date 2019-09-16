@@ -1,8 +1,7 @@
 <div
   class="gd-difference-{{change.type}} highlight-difference"
-  gdOutside
+  (clickOutside)="close($event)"
   [clickOutsideEnabled]="active"
-  (clickOutside)="close(change.id,$event)"
   (click)="highlight(change.id)"
   [ngClass]="{'active': active}"
   [ngStyle]="{

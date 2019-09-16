@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common/http'), require('jquery'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/comparison', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common/http', 'jquery', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.comparison = {}), global.ng.platformBrowser, global.ng.core, global.ng.common.http, null, global.commonComponents, global.rxjs, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons));
-}(this, function (exports, platformBrowser, core, http, jquery, commonComponents, rxjs, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common/http'), require('jquery'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('ng-click-outside')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/comparison', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common/http', 'jquery', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', 'ng-click-outside'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.comparison = {}), global.ng.platformBrowser, global.ng.core, global.ng.common.http, null, global.commonComponents, global.rxjs, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ngClickOutside));
+}(this, function (exports, platformBrowser, core, http, jquery, commonComponents, rxjs, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, ngClickOutside) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -611,6 +611,12 @@
              */
             function (result) {
                 _this.result = result;
+                /** @type {?} */
+                var isZeroBasedPageId = _this.result.changes.find((/**
+                 * @param {?} change
+                 * @return {?}
+                 */
+                function (change) { return change.pageInfo.id === 0; }));
                 _this.result.changes.forEach((/**
                  * @param {?} change
                  * @return {?}
@@ -618,7 +624,8 @@
                 function (change) {
                     change.id = _this.generateRandomInteger();
                     /** @type {?} */
-                    var zeroBasedId = change.pageInfo.id;
+                    var zeroBasedId = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
+                    change.pageInfo.id = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
                     if (!_this.result.pages[zeroBasedId].changes) {
                         _this.result.pages[zeroBasedId].changes = [];
                     }
@@ -1042,19 +1049,15 @@
             function (activeID) { return _this.active = _this.change.id === activeID; }));
         };
         /**
-         * @param {?} id
          * @param {?} event
          * @return {?}
          */
         DifferenceHighlightComponent.prototype.close = /**
-         * @param {?} id
          * @param {?} event
          * @return {?}
          */
-        function (id, event) {
-            if (event && event['value'] === true) {
-                this.changesService.setActiveChange(null);
-            }
+        function (event) {
+            this.changesService.setActiveChange(null);
         };
         /**
          * @param {?} id
@@ -1070,7 +1073,7 @@
         DifferenceHighlightComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-difference-highlight',
-                        template: "<div\n  class=\"gd-difference-{{change.type}} highlight-difference\"\n  gdOutside\n  [clickOutsideEnabled]=\"active\"\n  (clickOutside)=\"close(change.id,$event)\"\n  (click)=\"highlight(change.id)\"\n  [ngClass]=\"{'active': active}\"\n  [ngStyle]=\"{\n    width: change.normalized.width + '%',\n    height: change.normalized.height + '%',\n    left: change.normalized.x + '%',\n    top: change.normalized.y + '%'\n  }\"\n  data-id=\"{{change.id}}\">\n\n</div>\n\n",
+                        template: "<div\n  class=\"gd-difference-{{change.type}} highlight-difference\"\n  (clickOutside)=\"close($event)\"\n  [clickOutsideEnabled]=\"active\"\n  (click)=\"highlight(change.id)\"\n  [ngClass]=\"{'active': active}\"\n  [ngStyle]=\"{\n    width: change.normalized.width + '%',\n    height: change.normalized.height + '%',\n    left: change.normalized.x + '%',\n    top: change.normalized.y + '%'\n  }\"\n  data-id=\"{{change.id}}\">\n\n</div>\n\n",
                         styles: [".highlight-difference{position:absolute;cursor:pointer;z-index:1}.gd-difference.active,.highlight-difference.active{box-shadow:0 0 0 9999px rgba(0,0,0,.5);z-index:999}.gd-difference-1{background-color:rgba(0,122,255,.4)}.gd-difference-2,.gd-difference-4{background-color:rgba(46,237,0,.4)}.gd-difference-3{background-color:rgba(237,0,0,.4)}.gd-difference-6{background-color:rgba(215,224,0,.4)}"]
                     }] }
         ];
@@ -1234,7 +1237,8 @@
                             platformBrowser.BrowserModule,
                             commonComponents.CommonComponentsModule,
                             http.HttpClientModule,
-                            angularFontawesome.FontAwesomeModule
+                            angularFontawesome.FontAwesomeModule,
+                            ngClickOutside.ClickOutsideModule
                         ],
                         exports: [
                             ComparisonAppComponent,

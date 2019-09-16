@@ -16,6 +16,7 @@ Add following code within `<body>` tag
 
 ```JS
 <gd-editor></gd-editor>
+
 ```
 
 # Note

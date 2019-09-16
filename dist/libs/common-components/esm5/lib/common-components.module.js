@@ -21,7 +21,6 @@ import { FileModel, FileService, FileUtil, Utils } from "./file.service";
 import { DocumentComponent } from './document/document.component';
 import { PageComponent } from './page/page.component';
 import { HighlightSearchPipe, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe } from "./pipes";
-import { ChoiceButtonComponent } from './choice-button/choice-button.component';
 import { UploadFileZoneComponent } from './upload-file-zone/upload-file-zone.component';
 import { UploadFilesService } from "./upload-files.service";
 import { DndDirective } from './dnd.directive';
@@ -60,6 +59,8 @@ import { LoadingMaskComponent } from './loading-mask/loading-mask.component';
 import { LoadingMaskService } from './loading-mask.service';
 import { LoadingMaskInterceptorService } from "./loading-mask-interceptor.service";
 import { TabActivatorService } from "./tab-activator.service";
+import { DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent } from './drop-down/drop-down.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 import { OutsideDirective } from './outside.directive';
 import { LeftSideBarComponent } from './left-side-bar/left-side-bar.component';
 import { TooltipDirective } from './tooltip.directive';
@@ -106,7 +107,7 @@ var CommonComponentsModule = /** @class */ (function () {
     }
     CommonComponentsModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule, FontAwesomeModule],
+                    imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
                     declarations: [
                         TopToolbarComponent,
                         SidePanelComponent,
@@ -121,7 +122,6 @@ var CommonComponentsModule = /** @class */ (function () {
                         SanitizeResourceHtmlPipe,
                         SanitizeStylePipe,
                         HighlightSearchPipe,
-                        ChoiceButtonComponent,
                         UploadFileZoneComponent,
                         DndDirective,
                         ScrollableDirective,
@@ -143,6 +143,10 @@ var CommonComponentsModule = /** @class */ (function () {
                         SuccessModalComponent,
                         EditorDirective,
                         LoadingMaskComponent,
+                        DropDownComponent,
+                        DropDownItemComponent,
+                        DropDownItemsComponent,
+                        DropDownToggleComponent
                         OutsideDirective,
                         LeftSideBarComponent,
                         TooltipDirective,
@@ -165,7 +169,6 @@ var CommonComponentsModule = /** @class */ (function () {
                         SanitizeStylePipe,
                         HighlightSearchPipe,
                         SanitizeHtmlPipe,
-                        ChoiceButtonComponent,
                         UploadFileZoneComponent,
                         ScrollableDirective,
                         SelectComponent,
@@ -191,6 +194,10 @@ var CommonComponentsModule = /** @class */ (function () {
                         HostDynamicDirective,
                         ButtonSelectComponent,
                         ResizingComponent
+                        DropDownComponent,
+                        DropDownItemComponent,
+                        DropDownItemsComponent,
+                        DropDownToggleComponent
                     ],
                     providers: providers
                 },] }

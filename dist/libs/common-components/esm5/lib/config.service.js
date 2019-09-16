@@ -11,6 +11,7 @@ var Api = /** @class */ (function () {
     Api.SIGNATURE_APP = '/signature';
     Api.EDITOR_APP = '/editor';
     Api.COMPARISON_APP = '/comparison';
+    Api.CONVERSION_APP = '/conversion';
     Api.DEFAULT_API_ENDPOINT = window.location.href;
     Api.LOAD_FILE_TREE = '/loadFileTree';
     Api.LOAD_CONFIG = '/loadConfig';
@@ -25,6 +26,7 @@ var Api = /** @class */ (function () {
     Api.LOAD_FORMATS = '/loadFormats';
     Api.SAVE_FILE = '/saveFile';
     Api.COMPARE_FILES = '/compare';
+    Api.CONVERT_FILE = '/convert';
     Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
     Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
     Api.SAVE_TEXT = '/saveText';
@@ -56,6 +58,8 @@ if (false) {
     Api.EDITOR_APP;
     /** @type {?} */
     Api.COMPARISON_APP;
+    /** @type {?} */
+    Api.CONVERSION_APP;
     /** @type {?} */
     Api.DEFAULT_API_ENDPOINT;
     /** @type {?} */
@@ -100,6 +104,8 @@ if (false) {
     Api.DOWNLOAD_SIGNED;
     /** @type {?} */
     Api.LOAD_SIGNATURE_IMAGE;
+    /** @type {?} */
+    Api.CONVERT_FILE;
     /** @type {?} */
     Api.httpOptionsJson;
     /** @type {?} */
@@ -163,6 +169,15 @@ var ConfigService = /** @class */ (function () {
      */
     function () {
         return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getConversionApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
     };
     /**
      * @return {?}

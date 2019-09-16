@@ -1,0 +1,9 @@
+[
+  {
+    "guid": "/SubFolder/FileInSubFolder",
+    "name": "FileInSubFolder.docx",
+    "docType": "Words",
+    "size": 11912,
+    "directory": false
+  }
+]

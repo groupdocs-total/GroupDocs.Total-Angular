@@ -17,7 +17,6 @@ import {FileModel, FileService, FileUtil, Utils} from "./file.service";
 import {DocumentComponent} from './document/document.component';
 import {PageComponent} from './page/page.component';
 import {HighlightSearchPipe, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe} from "./pipes";
-import {ChoiceButtonComponent} from './choice-button/choice-button.component';
 import {UploadFileZoneComponent} from './upload-file-zone/upload-file-zone.component';
 import {UploadFilesService} from "./upload-files.service";
 import {DndDirective} from './dnd.directive';
@@ -56,7 +55,13 @@ import {LoadingMaskComponent} from './loading-mask/loading-mask.component';
 import {LoadingMaskService} from './loading-mask.service';
 import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service";
 import {TabActivatorService} from "./tab-activator.service";
-import {OutsideDirective} from './outside.directive';
+import {
+  DropDownComponent,
+  DropDownItemComponent,
+  DropDownItemsComponent,
+  DropDownToggleComponent
+} from './drop-down/drop-down.component';
+import {ClickOutsideModule} from 'ng-click-outside';
 import {LeftSideBarComponent} from './left-side-bar/left-side-bar.component';
 import {TooltipDirective} from './tooltip.directive';
 import {AddDynamicComponentService} from "./add-dynamic-component.service";
@@ -98,7 +103,7 @@ const providers = [ConfigService,
   HostingDynamicComponentService];
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
   declarations: [
     TopToolbarComponent,
     SidePanelComponent,
@@ -113,7 +118,6 @@ const providers = [ConfigService,
     SanitizeResourceHtmlPipe,
     SanitizeStylePipe,
     HighlightSearchPipe,
-    ChoiceButtonComponent,
     UploadFileZoneComponent,
     DndDirective,
     ScrollableDirective,
@@ -135,7 +139,10 @@ const providers = [ConfigService,
     SuccessModalComponent,
     EditorDirective,
     LoadingMaskComponent,
-    OutsideDirective,
+    DropDownComponent,
+    DropDownItemComponent,
+    DropDownItemsComponent,
+    DropDownToggleComponent,
     LeftSideBarComponent,
     TooltipDirective,
     HostDynamicDirective,
@@ -157,7 +164,6 @@ const providers = [ConfigService,
     SanitizeStylePipe,
     HighlightSearchPipe,
     SanitizeHtmlPipe,
-    ChoiceButtonComponent,
     UploadFileZoneComponent,
     ScrollableDirective,
     SelectComponent,
@@ -176,7 +182,10 @@ const providers = [ConfigService,
     SuccessModalComponent,
     LoadingMaskComponent,
     DndDirective,
-    OutsideDirective,
+    DropDownComponent,
+    DropDownItemComponent,
+    DropDownItemsComponent,
+    DropDownToggleComponent,
     LeftSideBarComponent,
     TooltipDirective,
     LightboxComponent,

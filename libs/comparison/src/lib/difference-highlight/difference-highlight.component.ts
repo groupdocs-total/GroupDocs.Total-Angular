@@ -21,10 +21,8 @@ export class DifferenceHighlightComponent implements OnInit{
     this.changesService.activeChange.subscribe(activeID => this.active = this.change.id === activeID);
   }
 
-  close(id : string, event: Event){
-    if(event && event['value'] === true) {
+  close(event: Event){
       this.changesService.setActiveChange(null);
-    }
   }
 
   highlight(id : string){

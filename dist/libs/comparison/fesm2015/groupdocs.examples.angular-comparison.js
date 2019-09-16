@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 /**
  * @fileoverview added by tsickle
@@ -478,6 +479,12 @@ class ComparisonAppComponent {
          */
         (result) => {
             this.result = result;
+            /** @type {?} */
+            const isZeroBasedPageId = this.result.changes.find((/**
+             * @param {?} change
+             * @return {?}
+             */
+            (change) => change.pageInfo.id === 0));
             this.result.changes.forEach((/**
              * @param {?} change
              * @return {?}
@@ -485,7 +492,8 @@ class ComparisonAppComponent {
             (change) => {
                 change.id = this.generateRandomInteger();
                 /** @type {?} */
-                const zeroBasedId = change.pageInfo.id;
+                const zeroBasedId = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
+                change.pageInfo.id = isZeroBasedPageId ? change.pageInfo.id : change.pageInfo.id - 1;
                 if (!this.result.pages[zeroBasedId].changes) {
                     this.result.pages[zeroBasedId].changes = [];
                 }
@@ -832,14 +840,11 @@ class DifferenceHighlightComponent {
         activeID => this.active = this.change.id === activeID));
     }
     /**
-     * @param {?} id
      * @param {?} event
      * @return {?}
      */
-    close(id, event) {
-        if (event && event['value'] === true) {
-            this.changesService.setActiveChange(null);
-        }
+    close(event) {
+        this.changesService.setActiveChange(null);
     }
     /**
      * @param {?} id
@@ -852,7 +857,7 @@ class DifferenceHighlightComponent {
 DifferenceHighlightComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-difference-highlight',
-                template: "<div\n  class=\"gd-difference-{{change.type}} highlight-difference\"\n  gdOutside\n  [clickOutsideEnabled]=\"active\"\n  (clickOutside)=\"close(change.id,$event)\"\n  (click)=\"highlight(change.id)\"\n  [ngClass]=\"{'active': active}\"\n  [ngStyle]=\"{\n    width: change.normalized.width + '%',\n    height: change.normalized.height + '%',\n    left: change.normalized.x + '%',\n    top: change.normalized.y + '%'\n  }\"\n  data-id=\"{{change.id}}\">\n\n</div>\n\n",
+                template: "<div\n  class=\"gd-difference-{{change.type}} highlight-difference\"\n  (clickOutside)=\"close($event)\"\n  [clickOutsideEnabled]=\"active\"\n  (click)=\"highlight(change.id)\"\n  [ngClass]=\"{'active': active}\"\n  [ngStyle]=\"{\n    width: change.normalized.width + '%',\n    height: change.normalized.height + '%',\n    left: change.normalized.x + '%',\n    top: change.normalized.y + '%'\n  }\"\n  data-id=\"{{change.id}}\">\n\n</div>\n\n",
                 styles: [".highlight-difference{position:absolute;cursor:pointer;z-index:1}.gd-difference.active,.highlight-difference.active{box-shadow:0 0 0 9999px rgba(0,0,0,.5);z-index:999}.gd-difference-1{background-color:rgba(0,122,255,.4)}.gd-difference-2,.gd-difference-4{background-color:rgba(46,237,0,.4)}.gd-difference-3{background-color:rgba(237,0,0,.4)}.gd-difference-6{background-color:rgba(215,224,0,.4)}"]
             }] }
 ];
@@ -1001,7 +1006,8 @@ ComparisonModule.decorators = [
                     BrowserModule,
                     CommonComponentsModule,
                     HttpClientModule,
-                    FontAwesomeModule
+                    FontAwesomeModule,
+                    ClickOutsideModule
                 ],
                 exports: [
                     ComparisonAppComponent,

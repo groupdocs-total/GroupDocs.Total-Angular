@@ -6,16 +6,22 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./button.component.less']
 })
 export class ButtonComponent {
-
+  @Input() iconOnly = true;
+  @Input() intent = 'default';
   @Input() disabled = false;
   @Input() icon: string;
   @Input() iconClass: string;
   @Input() tooltip: string;
   @Input() className: string;
   @Input() toggle = false;
+
   showToolTip = false;
 
   constructor() {
+  }
+
+  iconButtonClass() {
+    return this.iconOnly ? 'icon-button' : '';
   }
 
   onHovering() {

@@ -4,6 +4,7 @@ export declare class Api {
     static SIGNATURE_APP: string;
     static EDITOR_APP: string;
     static COMPARISON_APP: string;
+    static CONVERSION_APP: string;
     static DEFAULT_API_ENDPOINT: string;
     static LOAD_FILE_TREE: string;
     static LOAD_CONFIG: string;
@@ -18,6 +19,7 @@ export declare class Api {
     static LOAD_FORMATS: string;
     static SAVE_FILE: string;
     static COMPARE_FILES: string;
+    static CONVERT_FILE: string;
     static DELETE_SIGNATURE_FILE: string;
     static SAVE_OPTICAL_CODE: string;
     static SAVE_TEXT: string;
@@ -42,5 +44,6 @@ export declare class ConfigService {
     getViewerApiEndpoint(): string;
     getEditorApiEndpoint(): string;
     getComparisonApiEndpoint(): string;
+    getConversionApiEndpoint(): string;
     getSignatureApiEndpoint(): string;
 }

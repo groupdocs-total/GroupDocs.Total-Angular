@@ -1,0 +1,37 @@
+<div *ngIf="item" class="gd-convert-item">
+  <div class="gd-convert-remove" (click)="removeItemFromQueue($event, item)">
+    <span>&times;</span>
+  </div>
+  <div class="gd-filequeue-name disabled">
+    <fa-icon [icon]="['far', item.sourceIcon]" [class]="'ng-fa-icon'"></fa-icon>
+    <div class="gd-file-name gd-queue-name">{{item.name}}
+      <div class="gd-file-format">{{item.sourceFormatName}}</div>
+      <div class="gd-file-format mobile">
+        <fa-icon [icon]="['fas','arrow-right']"></fa-icon> 
+        <fa-icon [icon]="['fas', item.destinationIcon]" [class]="'ng-fa-icon'" [ngClass]="['fa-' + item.destinationIcon]"></fa-icon>{{item.destinationFileName}}
+      </div>
+    </div>
+  </div>
+  <div class="gd-file-size gd-queue-size">{{item.sizeString}}</div>
+  <div class="gd-convert-status">
+      <fa-icon class="gd-conversion-pending" [icon]="['far','clock']" [hidden]="item.converted || item.converting"></fa-icon>
+      <fa-icon class="gd-conversion-progress" [icon]="['fas','circle-notch']" [spin]="true" [hidden]="!item.converting"></fa-icon>
+      <fa-icon class="gd-conversion-complete" [icon]="['fas','check']" [hidden]="!item.converted || item.converting"></fa-icon>
+  </div>
+  <div class="gd-filequeue-name disabled gd-destination-file">
+      <fa-icon [icon]="['far', item.destinationIcon]" [class]="'ng-fa-icon'" [ngClass]="[item.converted ? 'fa-' + item.destinationIcon : '']"></fa-icon>
+    <div class="gd-file-name gd-queue-name">{{item.destinationFileName}}<div class="gd-file-format">{{item.destinationFormatName}}</div></div>
+  </div>
+  <div (click)="convert($event, item)" class="gd-convert-single" 
+      [ngClass]="{'disabled': item.converting}" [hidden]="item.converted">
+      <fa-icon [icon]="['fas','exchange-alt']"></fa-icon>
+  </div>
+  <div (click)="convert($event, item)" class="gd-convert-single mobile" 
+    [ngClass]="{'disabled': item.converting}" *ngIf="!item.converted && !item.converting">
+    <fa-icon [icon]="['fas','exchange-alt']"></fa-icon>
+  </div>
+  <fa-icon class="gd-conversion-progress mobile" [icon]="['fas','circle-notch']" [spin]="true" *ngIf="item.converting"></fa-icon>
+  <div (click)="downloadFile(item)" class="gd-download-single" [hidden]="!item.converted">
+    <fa-icon [icon]="['fas','download']"></fa-icon>
+  </div>
+</div>

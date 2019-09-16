@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <div class="top-panel">
+    <gd-logo [logo]="'conversion'" [icon]="'exchange-alt'"></gd-logo>
+    <gd-top-toolbar class="toolbar-panel">
+      <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                 *ngIf="browseConfig" ></gd-button>
+
+      <gd-button [icon]="'exchange-alt'" [tooltip]="'Convert'" [disabled]="convertAllUnavailable()"
+      (click)="convertAll()"></gd-button>
+
+    </gd-top-toolbar>
+  </div>
+
+  <gd-dnd-init-state [icon]="'exchange-alt'" *ngIf="conversionItems.length == 0"></gd-dnd-init-state>
+
+  <gd-conversion-queue [items]="conversionItems" (selectedItemToConvert)="convertSingleItem($event)"></gd-conversion-queue>
+
+  <gd-conversion-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+                                    [uploadConfig]="uploadConfig" (selectAll)="selectAllItems($event)"></gd-conversion-browse-files-modal>
+
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
+</div>

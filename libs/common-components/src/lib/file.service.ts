@@ -42,6 +42,7 @@ export class FileModel {
   name: string;
   directory: boolean;
   size: number;
+  isDirectory: boolean;
 }
 
 export class HttpError {
@@ -91,6 +92,9 @@ export class FileUtil {
     'xlsx': {'format': 'Microsoft Excel', 'icon': 'file-excel'},
     'xlsm': {'format': 'Microsoft Excel', 'icon': 'file-excel'},
     'xlsb': {'format': 'Microsoft Excel', 'icon': 'file-excel'},
+    'xls2003': {'format': 'Microsoft Excel', 'icon': 'file-excel'},
+    'xltx': {'format': 'Microsoft Excel', 'icon': 'file-excel'},
+    'xltm': {'format': 'Microsoft Excel', 'icon': 'file-excel'},
     'ppt': {'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint'},
     'pptx': {'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint'},
     'pps': {'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint'},
@@ -117,6 +121,10 @@ export class FileUtil {
     'odp': {'format': 'Open Document Presentation', 'icon': 'file-powerpoint'},
     'otp': {'format': 'Open Document Presentation', 'icon': 'file-powerpoint'},
     'ots': {'format': 'Open Document Presentation', 'icon': 'file-powerpoint'},
+    'potx': {'format': 'Open Document Presentation', 'icon': 'file-powerpoint'},
+    'potm': {'format': 'Open Document Presentation', 'icon': 'file-powerpoint'},
+    'pptm': {'format': 'Open Document Presentation', 'icon': 'file-powerpoint'},
+    'ppsm': {'format': 'Open Document Presentation', 'icon': 'file-powerpoint'},
     'rtf': {'format': 'Rich Text Format', 'icon': 'file-alt'},
     'txt': {'format': 'Plain Text File', 'icon': 'file-alt'},
     'csv': {'format': 'Comma-Separated Values', 'icon': 'file-excel'},
@@ -134,8 +142,11 @@ export class FileUtil {
     'jpeg': {'format': 'Joint Photographic Experts Group', 'icon': 'file-image'},
     'jfif': {'format': 'Joint Photographic Experts Group', 'icon': 'file-image'},
     'png': {'format': 'Portable Network Graphics', 'icon': 'file-image'},
-    'tiff': {'format': 'Tagged Image File Format', 'icon': 'file-photo'},
-    'tif': {'format': 'Tagged Image File Format', 'icon': 'file-photo'},
+    'tiff': {'format': 'Tagged Image File Format', 'icon': 'file-image'},
+    'tif': {'format': 'Tagged Image File Format', 'icon': 'file-image'},
+    'psd': {'format': 'Tagged Image File Format', 'icon': 'file-image'},
+    'svg': {'format': 'Tagged Image File Format', 'icon': 'file-image'},
+    'jp2': {'format': 'Tagged Image File Format', 'icon': 'file-image'},
     'epub': {'format': 'Electronic Publication', 'icon': 'file-pdf'},
     'ico': {'format': 'Windows Icon', 'icon': 'file-image'},
     'webp': {'format': 'Compressed Image', 'icon': 'file-image'},
@@ -150,7 +161,7 @@ export class FileUtil {
       const strings = filename.split('.');
       const name = strings.pop().toLowerCase();
       if (typeof FileUtil.map[name] === "undefined") {
-        return strings.length > 1 ? FileUtil.map['unknown'] : FileUtil.map['folder'];
+        return strings.length > 0 ? FileUtil.map['unknown'] : FileUtil.map['folder'];
       } else {
         return FileUtil.map[name];
       }

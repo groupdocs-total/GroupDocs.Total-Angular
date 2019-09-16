@@ -1,8 +1,8 @@
 <div class="select"
      (click)="toggle($event)"
-     gdOutside
+     (clickOutside)="onClickOutside($event)"
      [clickOutsideEnabled]="isOpen"
-     (clickOutside)="onClickOutside($event)">
+     >
   <span class="selected-value" gdDisabledCursor [dis]="disabled">
     {{showSelected?.name}}
   </span>

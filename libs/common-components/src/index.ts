@@ -15,7 +15,6 @@ export * from './lib/window.service';
 export * from './lib/viewport.service';
 export * from './lib/browse-files-modal/browse-files-modal.component';
 export * from './lib/button/button.component';
-export * from './lib/choice-button/choice-button.component';
 export * from './lib/disabled-cursor.directive';
 export * from './lib/dnd.directive';
 export * from './lib/document/document.component';
@@ -52,6 +51,8 @@ export * from './lib/success-modal/success-modal.component';
 export * from './lib/tab/tab.component';
 export * from './lib/tabbed-toolbars/tabbed-toolbars.component';
 export * from './lib/tab-activator.service';
+export * from './lib/drop-down/drop-down.component';
+
 export * from './lib/outside.directive';
 export * from './lib/left-side-bar/left-side-bar.component'
 export * from './lib/add-dynamic-component.service'

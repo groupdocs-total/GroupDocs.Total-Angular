@@ -10,6 +10,7 @@ import { __extends, __values } from 'tslib';
 import { Observable, Subject, fromEvent, BehaviorSubject, throwError } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 /**
  * @fileoverview added by tsickle
@@ -353,10 +354,21 @@ var SidePanelComponent = /** @class */ (function () {
  */
 var ButtonComponent = /** @class */ (function () {
     function ButtonComponent() {
+        this.iconOnly = true;
+        this.intent = 'default';
         this.disabled = false;
         this.toggle = false;
         this.showToolTip = false;
     }
+    /**
+     * @return {?}
+     */
+    ButtonComponent.prototype.iconButtonClass = /**
+     * @return {?}
+     */
+    function () {
+        return this.iconOnly ? 'icon-button' : '';
+    };
     /**
      * @return {?}
      */
@@ -386,9 +398,9 @@ var ButtonComponent = /** @class */ (function () {
                     styles: [".button{margin:0 7px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;width:37px;height:36px;text-align:center;position:relative}.button.inactive{cursor:not-allowed;opacity:.4}.button.active .ng-fa-icon{color:#ccd0d4}@media (max-width:1025px){.button{font-size:20px;margin:0 6px}.arrow-button{margin:5px}}"]
                 }] }
     ];
-    /** @nocollapse */
-    ButtonComponent.ctorParameters = function () { return []; };
     ButtonComponent.propDecorators = {
+        iconOnly: [{ type: Input }],
+        intent: [{ type: Input }],
         disabled: [{ type: Input }],
         icon: [{ type: Input }],
         iconClass: [{ type: Input }],
@@ -484,6 +496,7 @@ var Api = /** @class */ (function () {
     Api.SIGNATURE_APP = '/signature';
     Api.EDITOR_APP = '/editor';
     Api.COMPARISON_APP = '/comparison';
+    Api.CONVERSION_APP = '/conversion';
     Api.DEFAULT_API_ENDPOINT = window.location.href;
     Api.LOAD_FILE_TREE = '/loadFileTree';
     Api.LOAD_CONFIG = '/loadConfig';
@@ -498,6 +511,7 @@ var Api = /** @class */ (function () {
     Api.LOAD_FORMATS = '/loadFormats';
     Api.SAVE_FILE = '/saveFile';
     Api.COMPARE_FILES = '/compare';
+    Api.CONVERT_FILE = '/convert';
     Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
     Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
     Api.SAVE_TEXT = '/saveText';
@@ -577,6 +591,15 @@ var ConfigService = /** @class */ (function () {
      */
     function () {
         return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getConversionApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
     };
     /**
      * @return {?}
@@ -754,8 +777,8 @@ var ModalComponent = /** @class */ (function () {
     ModalComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-modal',
-                    template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n  <div class=\"gd-modal-dialog\">\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \n\n      <div class=\"gd-modal-header\"> \n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\n        </div> \n\n      <div class=\"gd-modal-body\">\n        <ng-content></ng-content>\n        </div> \n\n      <div class=\"gd-modal-footer\"> \n\n        </div> \n      </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog --> \n  </div>\n\n",
-                    styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{padding:1px 20px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:20px;top:13px;font-size:21px;cursor:pointer;color:#959da5}.gd-modal-title{font-size:16px;font-weight:400;padding-top:16px;padding-bottom:16px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1025px){.gd-modal-dialog{width:100%;height:100%}}"]
+                    template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \n\n      <div class=\"gd-modal-header\"> \n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\n        </div> \n\n      <div class=\"gd-modal-body\">\n        <ng-content></ng-content>\n        </div> \n\n      <div class=\"gd-modal-footer\"> \n\n        </div> \n      </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog --> \n\n",
+                    styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{padding:1px 20px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:20px;top:13px;font-size:21px;cursor:pointer;color:#959da5}.gd-modal-title{font-size:16px;font-weight:400;padding-top:16px;padding-bottom:16px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1025px){.gd-modal-dialog{width:100%;height:100%}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -886,7 +909,7 @@ var FileUtil = /** @class */ (function () {
             /** @type {?} */
             var name_1 = strings.pop().toLowerCase();
             if (typeof FileUtil.map[name_1] === "undefined") {
-                return strings.length > 1 ? FileUtil.map['unknown'] : FileUtil.map['folder'];
+                return strings.length > 0 ? FileUtil.map['unknown'] : FileUtil.map['folder'];
             }
             else {
                 return FileUtil.map[name_1];
@@ -909,6 +932,9 @@ var FileUtil = /** @class */ (function () {
         'xlsx': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
         'xlsm': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
         'xlsb': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
+        'xls2003': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
+        'xltx': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
+        'xltm': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
         'ppt': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
         'pptx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
         'pps': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
@@ -935,6 +961,10 @@ var FileUtil = /** @class */ (function () {
         'odp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
         'otp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
         'ots': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
+        'potx': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
+        'potm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
+        'pptm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
+        'ppsm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
         'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt' },
         'txt': { 'format': 'Plain Text File', 'icon': 'file-alt' },
         'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel' },
@@ -952,8 +982,11 @@ var FileUtil = /** @class */ (function () {
         'jpeg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
         'jfif': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
         'png': { 'format': 'Portable Network Graphics', 'icon': 'file-image' },
-        'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-photo' },
-        'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-photo' },
+        'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
+        'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
+        'psd': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
+        'svg': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
+        'jp2': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
         'epub': { 'format': 'Electronic Publication', 'icon': 'file-pdf' },
         'ico': { 'format': 'Windows Icon', 'icon': 'file-image' },
         'webp': { 'format': 'Compressed Image', 'icon': 'file-image' },
@@ -1016,9 +1049,9 @@ var UploadFilesService = /** @class */ (function () {
 /** @type {?} */
 var $$2 = jquery;
 /** @type {?} */
-var upload_disc = 'Disc';
+var upload_disc = 'From Disc';
 /** @type {?} */
-var upload_url = 'url';
+var upload_url = 'From URL';
 /** @type {?} */
 var uploads_choices = [{ name: upload_disc, icon: 'hdd' }, { name: upload_url, icon: 'link' }];
 var BrowseFilesModalComponent = /** @class */ (function () {
@@ -1095,8 +1128,8 @@ var BrowseFilesModalComponent = /** @class */ (function () {
      */
     function (file) {
         this.selectedFile = file;
-        if (file.directory) {
-            this.selectedDirectory.emit(file.guid);
+        if (file.directory || file.isDirectory) {
+            this.selectedDirectory.emit(file.name);
         }
         else {
             this.selectedFileGuid.emit(file.guid);
@@ -1204,8 +1237,8 @@ var BrowseFilesModalComponent = /** @class */ (function () {
     BrowseFilesModalComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-browse-files-modal',
-                    template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\n    <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\n      <div class=\"gd-drag-n-drop-icon\">\n        <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\" aria-hidden=\"true\"></fa-icon>\n      </div>\n      <h2>Drag &amp; Drop your files here</h2>\n    </div>\n    <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\n      <gd-choice-button [name]=\"'Upload file'\" [choices]=\"uploads\" [icon]=\"'upload'\"\n                        (selected)=\"selectUpload($event)\"></gd-choice-button>\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\n      <div class=\"upload-url\" *ngIf=\"showUploadUrl\">\n        <input class=\"url-input\" #url (keyup.enter)=\"uploadUrl(url.value)\">\n        <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\n        </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\n      <div class=\"list-files-header\">\n        <div class=\"header-name\">Document</div>\n        <div class=\"header-size\">Size</div>\n      </div>\n      <div class=\"list-files-body\">\n      <div class=\"go-up\" (click)=\"goUp()\">\n          <div class=\"go-up-icon\">\n              <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\n          </div>\n          <div class=\"go-up-dots\">...</div>\n      </div>\n      <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\n        <div class=\"file-description\">\n          <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\n          <div class=\"file-name-format\">\n            <div class=\"file-name\">{{file?.name}}</div>\n            <div class=\"file-format\">{{getFormatName(file)}}</div>\n          </div>\n        </div>\n        <div class=\"file-size\">\n          {{getSize(file?.size)}}\n        </div>\n      </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n      &nbsp;Loading... Please wait.\n    </div>\n  </section>\n</gd-modal>\n",
-                    styles: [".gd-modal-table{width:100%;text-align:left;padding-top:20px}#gd-browse-section{width:1024px;height:628px}.list-files-header{color:#acacac;font-size:10px}.header-name,.header-size{padding:10px 20px;width:90%}.file-size,.header-size{width:10%;color:#777}.file-description,.file-size{font-size:14px;padding:10px 20px;width:10%}.list-files-header,.list-files-lines{display:flex;width:100%;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{cursor:pointer;display:flex;font-size:16px}.upload-panel{display:flex;position:relative;padding:20px 20px 0}.file-description{cursor:pointer;overflow:hidden;display:flex;width:90%}.file-description .ng-fa-icon.fa-file-pdf{color:#e21717}.file-description .ng-fa-icon.fa-file-word{color:#6979b9}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29417}.file-description .ng-fa-icon.fa-file-excel{color:#3fa300}.file-description .ng-fa-icon.fa-file-image{color:#e217da}.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#5d6a75}.file-description .ng-fa-icon{font-size:32px}.go-up-dots{margin-left:10px;margin-top:8px;font-size:20px}.go-up-icon .ng-fa-icon{padding:8px;display:block}.go-up-icon{width:30px;height:30px;padding:10px 20px}.file-name{font-size:16px;color:#6e6e6e}.file-name-format{padding-left:10px}.file-format{font-size:10px}.url-input{width:358px;margin-left:8px;height:27px;border:1px solid #25c2d4}.url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.url-check .ng-fa-icon{display:block;padding:8px}.upload-url{display:flex}.list-files-lines{border-top:1px solid #ccc}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:inherit;height:inherit;opacity:.9;z-index:1;display:flex;text-align:center;justify-content:center;align-content:center;flex-direction:column}.gd-dnd-wrap h2{color:#959da5;font-size:15px;font-weight:300}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}@media (max-width:1025px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}}"]
+                    template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\n    <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\n      <div class=\"gd-drag-n-drop-icon\">\n        <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\" aria-hidden=\"true\"></fa-icon>\n      </div>\n      <h2>Drag &amp; Drop your files here</h2>\n    </div>\n    <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\n             (change)=\"handleFileInput($event.target.files)\">\n\n      <div class=\"context\">\n        <div class=\"context-actions\">\n          <gd-drop-down>\n            <gd-drop-down-toggle>\n              <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\n                Upload file\n              </gd-button>\n            </gd-drop-down-toggle>\n            <gd-drop-down-items>\n              <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\n                <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\n                <div class=\"text\">{{item.name}}</div>\n              </gd-drop-down-item>\n            </gd-drop-down-items>\n          </gd-drop-down>\n        </div>\n        <div class=\"context-panel\">\n          <div class=\"upload-url\" *ngIf=\"showUploadUrl\">\n            <input class=\"url-input\" placeholder=\"http://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\n            <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\n              <fa-icon [icon]=\"['fas','check']\"></fa-icon>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\n      <div class=\"list-files-header\">\n        <div class=\"header-name\">Document</div>\n        <div class=\"header-size\">Size</div>\n      </div>\n      <div class=\"list-files-body\">\n      <div class=\"go-up\" (click)=\"goUp()\">\n          <div class=\"go-up-icon\">\n              <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\n          </div>\n          <div class=\"go-up-dots\">...</div>\n      </div>\n      <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\n        <div class=\"file-description\">\n          <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\n          <div class=\"file-name-format\">\n            <div class=\"file-name\">{{file?.name}}</div>\n            <div class=\"file-format\">{{getFormatName(file)}}</div>\n          </div>\n        </div>\n        <div class=\"file-size\">\n          {{getSize(file?.size)}}\n        </div>\n      </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n      &nbsp;Loading... Please wait.\n    </div>\n  </section>\n</gd-modal>\n",
+                    styles: [".gd-modal-table{width:100%;text-align:left;padding-top:20px}#gd-browse-section{width:1024px;height:628px}.list-files-header{color:#acacac;font-size:10px}.header-name,.header-size{padding:10px 20px;width:90%}.file-size,.header-size{width:10%;color:#777}.file-description,.file-size{font-size:14px;padding:10px 20px;width:10%}.list-files-header,.list-files-lines{display:flex;width:100%;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{cursor:pointer;display:flex;font-size:16px}.upload-panel{display:flex;position:relative;width:100%}.upload-panel .context{display:flex;flex-direction:column;width:100%;margin-left:20px;margin-top:20px;margin-right:20px}.upload-panel .context .context-actions{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-panel{display:flex;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description{cursor:pointer;overflow:hidden;display:flex;width:90%}.file-description .ng-fa-icon.fa-file-pdf{color:#e21717}.file-description .ng-fa-icon.fa-file-word{color:#6979b9}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29417}.file-description .ng-fa-icon.fa-file-excel{color:#3fa300}.file-description .ng-fa-icon.fa-file-image{color:#e217da}.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#5d6a75}.file-description .ng-fa-icon{font-size:32px}.go-up-dots{margin-left:10px;margin-top:8px;font-size:20px}.go-up-icon .ng-fa-icon{padding:8px;display:block}.go-up-icon{width:30px;height:30px;padding:10px 20px}.file-name{font-size:16px;color:#6e6e6e}.file-name-format{padding-left:10px}.file-format{font-size:10px}.list-files-lines{border-top:1px solid #ccc}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:inherit;height:inherit;opacity:.9;z-index:1;display:flex;text-align:center;justify-content:center;align-content:center;flex-direction:column}.gd-dnd-wrap h2{color:#959da5;font-size:15px;font-weight:300}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}@media (max-width:1025px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1574,62 +1607,6 @@ var HighlightSearchPipe = /** @class */ (function () {
         { type: Pipe, args: [{ name: 'highlight' },] }
     ];
     return HighlightSearchPipe;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var ChoiceButtonComponent = /** @class */ (function () {
-    function ChoiceButtonComponent() {
-        this.selected = new EventEmitter();
-        this.open = false;
-    }
-    /**
-     * @return {?}
-     */
-    ChoiceButtonComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-    };
-    /**
-     * @return {?}
-     */
-    ChoiceButtonComponent.prototype.openChoices = /**
-     * @return {?}
-     */
-    function () {
-        this.open = !this.open;
-    };
-    /**
-     * @param {?} choice
-     * @return {?}
-     */
-    ChoiceButtonComponent.prototype.select = /**
-     * @param {?} choice
-     * @return {?}
-     */
-    function (choice) {
-        this.selected.emit(choice);
-        this.open = false;
-    };
-    ChoiceButtonComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'gd-choice-button',
-                    template: "<div class=\"choice-button\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <span class=\"button-name\">{{name}}</span>\n  <div class=\"down\">\n    <fa-icon [icon]=\"['fas','angle-down']\" (click)=\"openChoices()\"></fa-icon>\n  </div>\n  <div class=\"choices\" *ngIf=\"open\">\n    <div class=\"upload-from\">Upload from:</div>\n    <div class=\"choice\" *ngFor=\"let choice of choices\" (click)=\"select(choice.name)\">\n        <fa-icon [icon]=\"['fas',choice.icon]\"></fa-icon>\n      {{choice.name}}\n    </div>\n  </div>\n</div>\n",
-                    styles: [".choice-button{color:#fff;background-color:#25c2d4;display:flex}.choice-button .ng-fa-icon{padding:8px;font-size:15px}.down{cursor:pointer;background-color:#1fa5b4;width:31px;font-size:10px;display:flex;justify-content:center}.button-name{font-size:12px;padding-top:11px;padding-right:27px}.choices{color:#b2b8bd;top:33px;left:109px;position:absolute;padding:5px;margin:0;background-color:#fff;width:80px;border:0;border-radius:0;box-shadow:0 0 6px #ccc}.choice{cursor:pointer;font-size:12px;padding:3px}.choice i{color:#959da5}.upload-from{font-size:7px}"]
-                }] }
-    ];
-    /** @nocollapse */
-    ChoiceButtonComponent.ctorParameters = function () { return []; };
-    ChoiceButtonComponent.propDecorators = {
-        name: [{ type: Input }],
-        icon: [{ type: Input }],
-        choices: [{ type: Input }],
-        selected: [{ type: Output }]
-    };
-    return ChoiceButtonComponent;
 }());
 
 /**
@@ -2556,7 +2533,7 @@ var SelectComponent = /** @class */ (function () {
     SelectComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-select',
-                    template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     gdOutside\n     [clickOutsideEnabled]=\"isOpen\"\n     (clickOutside)=\"onClickOutside($event)\">\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </span>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
+                    template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [clickOutsideEnabled]=\"isOpen\"\n     >\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </span>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
                     styles: [".select{min-width:50px;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:160px;padding:5px 0;list-style:none;font-size:13px;text-align:left;background-color:#fff;border:1px solid rgba(0,0,0,.15);box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box}.dropdown-menu .option{display:block;padding:3px 20px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff}.dropdown-menu-separator{height:1px;margin:8px 0;overflow:hidden;background-color:#e5e5e5;padding:0!important}"]
                 }] }
     ];
@@ -2642,6 +2619,9 @@ var RotationDirective = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        if (typeof this.angle === "string") {
+            this.angle = parseInt(this.angle, 10);
+        }
         if (this.angle) {
             this.animation = 'none';
             this.transition = 'none';
@@ -5011,96 +4991,231 @@ var LoadingMaskInterceptorService = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var OutsideDirective = /** @class */ (function () {
-    function OutsideDirective(_elRef) {
-        this._elRef = _elRef;
-        this.clickOutside = new EventEmitter();
+/** @type {?} */
+var horizontalAlignment = {
+    center: {
+        right: 'auto'
+    },
+    left: {
+        right: '100%'
+    },
+    right: {
+        right: '-100%'
     }
-    /**
-     * @return {?}
-     */
-    OutsideDirective.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
+};
+/** @type {?} */
+var verticalAlignment = {
+    center: {
+        top: '0px',
+    },
+    top: {
+        top: '-100%',
+        right: '100%'
+    },
+    bottom: {
+        top: 'autos'
+    }
+};
+/**
+ *  DropDownToggleComponent
+ */
+var DropDownToggleComponent = /** @class */ (function () {
+    function DropDownToggleComponent(dropdown) {
         var _this = this;
-        this.globalClick = fromEvent(document, 'click');
-        this.globalClick.subscribe((/**
+        this.dropdown = dropdown;
+        this.click = (/**
          * @param {?} event
          * @return {?}
          */
-        function (event) {
-            _this.onGlobalClick(event);
-        }));
+        function (event) { return _this.dropdown.toggle(event); });
+    }
+    DropDownToggleComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-drop-down-toggle',
+                    template: '<ng-content></ng-content>',
+                    encapsulation: ViewEncapsulation.None,
+                    styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                }] }
+    ];
+    /** @nocollapse */
+    DropDownToggleComponent.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: Inject, args: [forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return DropDownComponent; })),] }] }
+    ]; };
+    DropDownToggleComponent.propDecorators = {
+        click: [{ type: HostListener, args: ['click', ['$event'],] }]
     };
-    /**
-     * @return {?}
-     */
-    OutsideDirective.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () { };
+    return DropDownToggleComponent;
+}());
+/**
+ *  DropDownItemsComponent
+ */
+var DropDownItemsComponent = /** @class */ (function () {
+    function DropDownItemsComponent(dropdown) {
+        this.dropdown = dropdown;
+    }
+    Object.defineProperty(DropDownItemsComponent.prototype, "horizontalAlign", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return horizontalAlignment[this.dropdown.getPlacement().h].right;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DropDownItemsComponent.prototype, "verticalAlign", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return verticalAlignment[this.dropdown.getPlacement().v].top;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DropDownItemsComponent.prototype, "isOpen", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.dropdown.open;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} event
      * @return {?}
      */
-    OutsideDirective.prototype.onGlobalClick = /**
+    DropDownItemsComponent.prototype.onClickOutside = /**
      * @param {?} event
      * @return {?}
      */
     function (event) {
-        if (event instanceof MouseEvent && this.clickOutsideEnabled === true) {
-            if (this.isDescendant(this._elRef.nativeElement, event.target) === true) {
-                this.clickOutside.emit({
-                    target: (event.target || null),
-                    value: false
-                });
-            }
-            else {
-                this.clickOutside.emit({
-                    target: (event.target || null),
-                    value: true
-                });
-            }
-        }
+        this.dropdown.close();
     };
-    /**
-     * @param {?} parent
-     * @param {?} child
-     * @return {?}
-     */
-    OutsideDirective.prototype.isDescendant = /**
-     * @param {?} parent
-     * @param {?} child
-     * @return {?}
-     */
-    function (parent, child) {
-        /** @type {?} */
-        var node = child;
-        while (node !== null) {
-            if (node === parent) {
-                return true;
-            }
-            else {
-                node = node.parentNode;
-            }
-        }
-        return false;
-    };
-    OutsideDirective.decorators = [
-        { type: Directive, args: [{
-                    selector: '[gdOutside]'
-                },] }
+    DropDownItemsComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-drop-down-items',
+                    template: '<div class="drop-down-items" (clickOutside)="onClickOutside($event)" [clickOutsideEnabled]="isOpen" [style.right]="horizontalAlign" [style.top]="verticalAlign"><ng-content></ng-content></div>',
+                    encapsulation: ViewEncapsulation.None,
+                    styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                }] }
     ];
     /** @nocollapse */
-    OutsideDirective.ctorParameters = function () { return [
-        { type: ElementRef }
+    DropDownItemsComponent.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: Inject, args: [forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return DropDownComponent; })),] }] }
     ]; };
-    OutsideDirective.propDecorators = {
-        clickOutsideEnabled: [{ type: Input }],
-        clickOutside: [{ type: Output }]
+    return DropDownItemsComponent;
+}());
+/**
+ *  DropDownItemComponent
+ */
+var DropDownItemComponent = /** @class */ (function () {
+    function DropDownItemComponent(dropdown) {
+        var _this = this;
+        this.dropdown = dropdown;
+        this.class = 'drop-down-item';
+        this.selected = new EventEmitter();
+        this.click = (/**
+         * @return {?}
+         */
+        function () { return _this.selectEntry(); });
+    }
+    /**
+     * @return {?}
+     */
+    DropDownItemComponent.prototype.selectEntry = /**
+     * @return {?}
+     */
+    function () {
+        this.selected.next();
+        this.dropdown.close();
     };
-    return OutsideDirective;
+    DropDownItemComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-drop-down-item',
+                    template: '<div class="drop-down-item"><ng-content></ng-content></div>',
+                    styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                }] }
+    ];
+    /** @nocollapse */
+    DropDownItemComponent.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: Inject, args: [forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return DropDownComponent; })),] }] }
+    ]; };
+    DropDownItemComponent.propDecorators = {
+        class: [{ type: HostBinding, args: ['class',] }],
+        selected: [{ type: Output }],
+        click: [{ type: HostListener, args: ['click',] }]
+    };
+    return DropDownItemComponent;
+}());
+/**
+ *  DropDownComponent
+ */
+var DropDownComponent = /** @class */ (function () {
+    function DropDownComponent() {
+        this.placement = {
+            h: "center",
+            v: "bottom"
+        };
+        this.open = false;
+        this.class = 'drop-down';
+    }
+    /**
+     * @return {?}
+     */
+    DropDownComponent.prototype.close = /**
+     * @return {?}
+     */
+    function () {
+        this.open = false;
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    DropDownComponent.prototype.toggle = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.stopPropagation();
+        this.open = !this.open;
+        document.body.click();
+    };
+    /**
+     * @return {?}
+     */
+    DropDownComponent.prototype.getPlacement = /**
+     * @return {?}
+     */
+    function () {
+        return this.placement;
+    };
+    DropDownComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-drop-down',
+                    template: '<div class="drop-down"><ng-content></ng-content></div>',
+                    encapsulation: ViewEncapsulation.None,
+                    styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                }] }
+    ];
+    DropDownComponent.propDecorators = {
+        placement: [{ type: Input }],
+        open: [{ type: Input }, { type: HostBinding, args: ['class.show',] }],
+        class: [{ type: HostBinding, args: ['class',] }]
+    };
+    return DropDownComponent;
 }());
 
 /**
@@ -5654,7 +5769,7 @@ var CommonComponentsModule = /** @class */ (function () {
     }
     CommonComponentsModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule, FontAwesomeModule],
+                    imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
                     declarations: [
                         TopToolbarComponent,
                         SidePanelComponent,
@@ -5669,7 +5784,6 @@ var CommonComponentsModule = /** @class */ (function () {
                         SanitizeResourceHtmlPipe,
                         SanitizeStylePipe,
                         HighlightSearchPipe,
-                        ChoiceButtonComponent,
                         UploadFileZoneComponent,
                         DndDirective,
                         ScrollableDirective,
@@ -5698,6 +5812,10 @@ var CommonComponentsModule = /** @class */ (function () {
                         LightboxComponent,
                         ButtonSelectComponent,
                         ResizingComponent
+                        DropDownComponent,
+                        DropDownItemComponent,
+                        DropDownItemsComponent,
+                        DropDownToggleComponent
                     ],
                     exports: [
                         TopToolbarComponent,
@@ -5713,7 +5831,6 @@ var CommonComponentsModule = /** @class */ (function () {
                         SanitizeStylePipe,
                         HighlightSearchPipe,
                         SanitizeHtmlPipe,
-                        ChoiceButtonComponent,
                         UploadFileZoneComponent,
                         ScrollableDirective,
                         SelectComponent,
@@ -5739,6 +5856,10 @@ var CommonComponentsModule = /** @class */ (function () {
                         HostDynamicDirective,
                         ButtonSelectComponent,
                         ResizingComponent
+                        DropDownComponent,
+                        DropDownItemComponent,
+                        DropDownItemsComponent,
+                        DropDownToggleComponent
                     ],
                     providers: providers
                 },] }
@@ -5748,5 +5869,5 @@ var CommonComponentsModule = /** @class */ (function () {
     return CommonComponentsModule;
 }());
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ChoiceButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, OutsideDirective, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, LightboxComponent as ɵc, ButtonSelectComponent as ɵd, ResizingComponent as ɵe };
+export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
