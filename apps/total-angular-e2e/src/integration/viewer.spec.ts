@@ -52,10 +52,10 @@ describe('Viewer', () => {
     cy.visit('/viewer');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(2) > div.file-description > div > div.file-name').should('have.text', 'TestWord.docx');
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(2) > div.file-description > div > div.file-format').should('have.text', 'Microsoft Word');
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(2) > div.file-size').should('have.text', ' 11.63 KB '); // @TODO: trim spaces around size
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(2) > div.file-description > fa-icon').should('have.class', 'fa-file-word');
+    cy.get(':nth-child(3) > .file-description > .file-name-format > .file-name').should('have.text', 'TestWord.docx');
+    cy.get(':nth-child(3) > .file-description > .file-name-format > .file-format').should('have.text', 'Microsoft Word');
+    cy.get(':nth-child(3) > .file-size').should('have.text', ' 11.63 KB '); // @TODO: trim spaces around size
+    cy.get(':nth-child(3) > div.file-description > fa-icon').should('have.class', 'fa-file-word');
   });
 
   it('should be able to open sub folder', () => {
@@ -64,11 +64,11 @@ describe('Viewer', () => {
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
     cy.route('POST','http://localhost:8080/viewer/loadFileTree',"@loadFileTreeSubFolder");
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(1)').click();
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(1) > div.file-description > div > div.file-name').should('have.text', 'FileInSubFolder.docx');
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(1) > div.file-description > div > div.file-format').should('have.text', 'Microsoft Word');
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(1) > div.file-size').should('have.text', ' 11.63 KB '); // @TODO: trim spaces around size
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(1) > div.file-description > fa-icon').should('have.class', 'fa-file-word');
+    cy.get('#gd-modal-filebrowser > div > div:nth-child(2)').click();
+    cy.get('#gd-modal-filebrowser > div > div:nth-child(2) > div.file-description > div > div.file-name').should('have.text', 'FileInSubFolder.docx');
+    cy.get('#gd-modal-filebrowser > div > div:nth-child(2) > div.file-description > div > div.file-format').should('have.text', 'Microsoft Word');
+    cy.get('#gd-modal-filebrowser > div > div:nth-child(2) > div.file-size').should('have.text', ' 11.63 KB '); // @TODO: trim spaces around size
+    cy.get('#gd-modal-filebrowser > div > div:nth-child(2) > div.file-description > fa-icon').should('have.class', 'fa-file-word');
   });
 
 

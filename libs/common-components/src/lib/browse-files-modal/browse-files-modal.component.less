@@ -2,15 +2,12 @@
 .gd-modal-table {
   width: 100%;
   text-align: left;
-  padding-top: 24px;
-  &.upload-url {
-    padding-top: 20px;
-  }
 }
 
 #gd-browse-section {
   width: 1036px;
-  height: 706px;
+  height: 561px;
+  overflow-y: auto;
 }
 
 .list-files-header {
@@ -19,6 +16,10 @@
   font-size: 13px;
   font-weight: bold;
   background-color: @wild-sand;
+  margin-top: 24px;
+  &.upload-url {
+    margin-top: 20px;
+  }
 }
 
 .header-name {
@@ -30,6 +31,7 @@
 .header-size {
   padding-right: 27px;
   line-height: 60px;
+  // TODO: add overflow-y: scroll if scroll-bar in files appears
 }
 
 .header-size, .file-size {
@@ -88,6 +90,25 @@
   overflow: hidden;
   width: 100%;
   text-overflow: ellipsis;
+}
+
+.go-up {
+  display: flex;
+  font-size: 26px;
+  cursor: pointer;
+  color: @folder;
+  height: 79px;
+}
+
+.go-up-dots {
+  margin-left: 20px;
+  margin-top: 22px;
+  font-size: 16px;
+}
+
+.go-up-icon {
+  display: block;
+  padding: 18px 0px 18px 24px;
 }
 
 .upload-panel {
@@ -211,7 +232,7 @@
   color: @silver-chalice;
 }
 
-.list-files-lines {
+.list-files-lines, .go-up {
   border-bottom: 1px solid @mercury;
 }
 
@@ -263,6 +284,6 @@
   }
   #gd-browse-section{
     width: 100%;
-    min-width: 375px;
+    height: calc(100% - 146px);
   }
 }
