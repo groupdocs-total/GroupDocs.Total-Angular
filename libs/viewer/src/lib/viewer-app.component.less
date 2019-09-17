@@ -50,11 +50,17 @@
 }
 
 ::ng-deep .tools {
-  .button {
+  .button, .selected-value, .nav-caret {
     color: #fff !important;
     &.inactive{
-      color: @regent-gray;
+      color: @regent-gray !important;
     }
+  }
+  .dropdown-menu .option{
+    color: @dove-gray !important;
+  }
+  .dropdown-menu .option:hover{
+    background-color: @folder !important;
   }
 }
 
