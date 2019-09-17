@@ -1,9 +1,9 @@
-<div class="gd-modal-lightbox fade"><!--(click)="close()"-->
+<div class="gd-modal-lightbox fade" (click)="close($event);">
   <div class="gd-modal-dialog-lightbox">
     <div class="gd-modal-content">
       <div class="gd-modal-header-lightbox">
         <div class="gd-modal-header-title">
-          <div class="gd-lightbox-close" (click)="close()">
+          <div class="gd-lightbox-close" (click)="close($event)">
             <fa-icon *ngIf="isMobile" [icon]="['fas','arrow-left']"></fa-icon>
             <span *ngIf="!isMobile">&times;</span>
           </div>

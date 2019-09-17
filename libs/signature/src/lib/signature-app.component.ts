@@ -522,6 +522,11 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
       this.downloadFile();
     } else if ($event.value === Downloads.signed) {
       const signatures = this.prepareSignaturesData();
+      if (!signatures || signatures.length === 0) {
+        this._modalService.open(CommonModals.ErrorMessage);
+        this._excMessageService.changeMessage("There is no signatures!");
+        return;
+      }
       this._signatureService.downloadSigned(this.credentials, signatures).subscribe((response) => {
         const guid = this.credentials.guid;
         const filename = guid.replace(/\\/g, "/").split('/').pop();

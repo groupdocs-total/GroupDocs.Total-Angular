@@ -8,6 +8,7 @@ export declare class ButtonComponent {
     className: string;
     toggle: boolean;
     showToolTip: boolean;
+    constructor();
     iconButtonClass(): "icon-button" | "";
     onHovering(): void;
     onUnhovering(): void;

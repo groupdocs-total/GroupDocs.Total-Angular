@@ -1,4 +1,4 @@
-import { Injectable, ɵɵdefineInjectable, Component, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output, ViewEncapsulation, Pipe, Directive, HostBinding, HostListener, ɵɵinject, ViewChild, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, Component, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output, ViewEncapsulation, Pipe, Directive, HostBinding, HostListener, ɵɵinject, ViewChild, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as jquery from 'jquery';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -336,10 +336,12 @@ class ButtonComponent {
 ButtonComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-button',
-                template: "<div class=\"button\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" gdTooltip\n     (showToolTip)=\"showToolTip = $event\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <ng-content></ng-content>\n</div>\n",
-                styles: [".button{margin:0 7px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;width:37px;height:36px;text-align:center;position:relative}.button.inactive{cursor:not-allowed;opacity:.4}.button.active .ng-fa-icon{color:#ccd0d4}@media (max-width:1025px){.button{font-size:20px;margin:0 6px}.arrow-button{margin:5px}}"]
+                template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <div class=\"text\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+                styles: [".icon-button{padding:0!important;margin:0 10px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1025px){.button{font-size:20px}.arrow-button{margin:5px}}"]
             }] }
 ];
+/** @nocollapse */
+ButtonComponent.ctorParameters = () => [];
 ButtonComponent.propDecorators = {
     iconOnly: [{ type: Input }],
     intent: [{ type: Input }],
@@ -1226,7 +1228,7 @@ PageComponent.decorators = [
                 selector: 'gd-page',
                 template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
                 encapsulation: ViewEncapsulation.None,
-                styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}.gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%;width:100%}"]
+                styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}.gd-highlight-select{background-color:#ff9b00}"]
             }] }
 ];
 /** @nocollapse */
@@ -4483,6 +4485,8 @@ HostDynamicDirective.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const $$7 = jquery;
 class LightboxComponent {
     /**
      * @param {?} _windowService
@@ -4505,16 +4509,23 @@ class LightboxComponent {
     ngOnInit() {
     }
     /**
+     * @param {?} $event
      * @return {?}
      */
-    close() {
-        this.opening.emit(false);
+    close($event) {
+        /** @type {?} */
+        const position = Utils.getMousePosition($event);
+        /** @type {?} */
+        const element = document.elementFromPoint(position.x, position.y);
+        if (element && $$7(element).hasClass('fade')) {
+            this.opening.emit(false);
+        }
     }
 }
 LightboxComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-lightbox',
-                template: "<div class=\"gd-modal-lightbox fade\"><!--(click)=\"close()\"-->\n  <div class=\"gd-modal-dialog-lightbox\">\n    <div class=\"gd-modal-content\">\n      <div class=\"gd-modal-header-lightbox\">\n        <div class=\"gd-modal-header-title\">\n          <div class=\"gd-lightbox-close\" (click)=\"close()\">\n            <fa-icon *ngIf=\"isMobile\" [icon]=\"['fas','arrow-left']\"></fa-icon>\n            <span *ngIf=\"!isMobile\">&times;</span>\n          </div>\n          <h4 class=\"gd-modal-title-lightbox\">{{title}}</h4>\n        </div>\n        <div class=\"gd-lightbox-header\">\n          <ng-content select=\"[header]\"></ng-content>\n        </div>\n      </div>\n      <div class=\"gd-lightbox-body\">\n        <ng-content select=\"[body]\"></ng-content>\n      </div>\n      <div class=\"gd-modal-footer\">\n        <ng-content select=\"[footer]\"></ng-content>\n      </div>\n    </div>\n  </div>\n  <div class=\"gd-mobile-portrait\">\n    <div class=\"gd-mobile-turn-image\"></div>\n  </div>\n</div>\n",
+                template: "<div class=\"gd-modal-lightbox fade\" (click)=\"close($event);\">\n  <div class=\"gd-modal-dialog-lightbox\">\n    <div class=\"gd-modal-content\">\n      <div class=\"gd-modal-header-lightbox\">\n        <div class=\"gd-modal-header-title\">\n          <div class=\"gd-lightbox-close\" (click)=\"close($event)\">\n            <fa-icon *ngIf=\"isMobile\" [icon]=\"['fas','arrow-left']\"></fa-icon>\n            <span *ngIf=\"!isMobile\">&times;</span>\n          </div>\n          <h4 class=\"gd-modal-title-lightbox\">{{title}}</h4>\n        </div>\n        <div class=\"gd-lightbox-header\">\n          <ng-content select=\"[header]\"></ng-content>\n        </div>\n      </div>\n      <div class=\"gd-lightbox-body\">\n        <ng-content select=\"[body]\"></ng-content>\n      </div>\n      <div class=\"gd-modal-footer\">\n        <ng-content select=\"[footer]\"></ng-content>\n      </div>\n    </div>\n  </div>\n  <div class=\"gd-mobile-portrait\">\n    <div class=\"gd-mobile-turn-image\"></div>\n  </div>\n</div>\n",
                 styles: [".gd-modal-lightbox{overflow:hidden;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5);position:fixed;top:0;right:0;bottom:0;left:0;display:flex;justify-content:center}.gd-modal-lightbox.fade{transition:transform .3s ease-out}.gd-modal-lightbox.in{transform:translate(0,0)}.gd-modal-dialog-lightbox{width:1079px;height:590px;margin:auto;box-shadow:#0005 0 0 10px}.gd-modal-content{background-color:#fff;height:100%;width:inherit}.gd-modal-header-lightbox{display:flex;flex-direction:row;height:50px;justify-content:space-between;background-color:#3e4e5a}.gd-modal-header-title{display:flex;flex-direction:row}.gd-lightbox-close{font-size:21px;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;color:#959da5;margin:13px 16px 0;cursor:pointer}.gd-modal-title-lightbox{font-size:16px;font-weight:400;line-height:52px;color:#fff;margin:0}.gd-lightbox-body{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC)!important;position:absolute;padding:0!important;background-color:#fff;overflow:hidden;overflow-y:auto;width:inherit}.gd-modal-footer{height:25px}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.gd-modal-lightbox{padding-left:0;padding-top:0}.gd-modal-dialog-lightbox{width:100%!important;height:100%!important;left:0;top:0}.gd-lightbox-close{background-color:#00c4d7;width:50px;height:50px;color:#fff;text-align:center;margin:0;line-height:60px}.gd-lightbox-close span{color:#fff}.gd-modal-title-lightbox{font-size:14px;line-height:50px;padding:0 0 0 10px}.gd-lightbox-body{max-height:calc(100% - 53px);min-height:100%}}@media screen and (max-width:1024px) and (orientation:landscape){.gd-modal-dialog-lightbox{position:fixed;display:block;width:100%!important;height:100%!important;left:0;top:0}.gd-mobile-portrait{display:none}}@media screen and (max-width:1024px) and (orientation:portrait){.gd-modal-dialog-lightbox{display:none}.gd-mobile-portrait{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;justify-content:center;align-items:center}.gd-mobile-turn-image{background-image:url(../../styles/images/noun_landscape_orientation.png)!important;width:215px;height:215px}}"]
             }] }
 ];
@@ -4561,7 +4572,7 @@ ButtonSelectComponent.propDecorators = {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$7 = jquery;
+const $$8 = jquery;
 class ResizingComponent {
     constructor() {
         this.se = false;
@@ -4584,9 +4595,9 @@ class ResizingComponent {
      */
     ngAfterViewInit() {
         /** @type {?} */
-        const elSE = $$7(this.getElementId(this.SE));
+        const elSE = $$8(this.getElementId(this.SE));
         /** @type {?} */
-        const elNW = $$7(this.getElementId(this.NW));
+        const elNW = $$8(this.getElementId(this.NW));
         if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
             /** @type {?} */
             const width = elSE.offset().left - elNW.offset().left;
@@ -4794,17 +4805,16 @@ CommonComponentsModule.decorators = [
                     SuccessModalComponent,
                     EditorDirective,
                     LoadingMaskComponent,
-                    OutsideDirective,
+                    DropDownComponent,
+                    DropDownItemComponent,
+                    DropDownItemsComponent,
+                    DropDownToggleComponent,
                     LeftSideBarComponent,
                     TooltipDirective,
                     HostDynamicDirective,
                     LightboxComponent,
                     ButtonSelectComponent,
                     ResizingComponent
-                    DropDownComponent,
-                    DropDownItemComponent,
-                    DropDownItemsComponent,
-                    DropDownToggleComponent
                 ],
                 exports: [
                     TopToolbarComponent,
@@ -4838,17 +4848,16 @@ CommonComponentsModule.decorators = [
                     SuccessModalComponent,
                     LoadingMaskComponent,
                     DndDirective,
-                    OutsideDirective,
+                    DropDownComponent,
+                    DropDownItemComponent,
+                    DropDownItemsComponent,
+                    DropDownToggleComponent,
                     LeftSideBarComponent,
                     TooltipDirective,
                     LightboxComponent,
                     HostDynamicDirective,
                     ButtonSelectComponent,
                     ResizingComponent
-                    DropDownComponent,
-                    DropDownItemComponent,
-                    DropDownItemsComponent,
-                    DropDownToggleComponent
                 ],
                 providers: providers
             },] }
@@ -4856,5 +4865,5 @@ CommonComponentsModule.decorators = [
 /** @nocollapse */
 CommonComponentsModule.ctorParameters = () => [];
 
-export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, LightboxComponent as ɵc, ButtonSelectComponent as ɵd, ResizingComponent as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

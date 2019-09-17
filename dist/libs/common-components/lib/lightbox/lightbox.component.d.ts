@@ -7,5 +7,5 @@ export declare class LightboxComponent implements OnInit {
     isMobile: boolean;
     constructor(_windowService: WindowService);
     ngOnInit(): void;
-    close(): void;
+    close($event: any): void;
 }
