@@ -1,12 +1,34 @@
+@import "../../../../common-components/src/styles/variables";
+
 .gd-create-wrap {
   display: flex;
-  padding: 20px;
+  flex-direction: column;
+  margin: 24px;
+  label {
+    font-size: 14px;
+    color: @silver-chalice;
+    padding-bottom: 12px;
+  }
+  input {
+    height: 30px;
+    margin-bottom: 20px;
+  }
+  gd-button {
+    align-self: flex-end;
+  }
+  ::ng-deep .button {
+    ::ng-deep .text {
+      font-size: 10px !important;
+    }
+  }
 }
+
+#gd-create-document-section {
+  min-width: 468px;
+}
+
 .gd-create-wrap div {
   display: flex;
-}
-.gd-create-wrap input {
-  width: 204px;
 }
 
 span {
@@ -17,8 +39,7 @@ span {
   height: 150px;
   overflow: hidden;
   overflow-y: auto;
-  top: 89px !important;
-  left: 356px;
+  top: 200px !important;
   min-width: 0 !important;
   width: 90px;
 }
