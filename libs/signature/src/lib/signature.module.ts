@@ -33,6 +33,7 @@ import {ActiveCanvasService} from "./active-canvas.service";
 import {RemoveCanvasService} from "./remove-canvas.service";
 import {TextMenuComponent} from './text-menu/text-menu.component';
 import {SignaturesHolderService} from "./signatures-holder.service";
+import {SignatureTabActivatorService} from "./signature-tab-activator.service";
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -82,6 +83,7 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     RemoveCanvasService,
     DatePipe,
     SignaturesHolderService,
+    SignatureTabActivatorService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

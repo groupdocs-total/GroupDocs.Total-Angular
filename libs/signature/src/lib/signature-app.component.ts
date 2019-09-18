@@ -25,7 +25,6 @@ import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
 import {
   AddedSignature,
-  Downloads,
   DraggableSignature,
   Position, RemoveSign,
   SignatureData,
@@ -36,7 +35,6 @@ import {Signature} from "./signature/signature.component";
 import {DragSignatureService} from "./drag-signature.service";
 import {RemoveSignatureService} from "./remove-signature.service";
 import * as jquery from 'jquery';
-import {SignatureTabComponent} from "./signature-tab/signature-tab.component";
 import {ActiveSignatureService} from "./active-signature.service";
 import {SignaturesHolderService} from "./signatures-holder.service";
 
@@ -67,10 +65,14 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
     SignatureType.STAMP,
     SignatureType.HAND,
   ];
+  signatureTypeCodes = [
+    SignatureType.QR_CODE,
+    SignatureType.BAR_CODE,
+  ];
+
   signatureComponents = new Map<number, ComponentRef<any>>();
   showNewHandSign = false;
   showNewStampSign = false;
-  downloads = [];
 
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -107,7 +109,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
 
     configService.updatedConfig.subscribe((signatureConfig) => {
       this.signatureConfig = signatureConfig;
-      this.setDownloadOptions();
     });
 
     uploadFilesService.uploadsChange.subscribe((uploads) => {
@@ -144,7 +145,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
       this.isDesktop = _windowService.isDesktop();
     });
 
-    this.setDownloadOptions();
   }
 
   get rewriteConfig(): boolean {
@@ -227,36 +227,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
     return this._navigateService.currentPage;
   }
 
-  nextPage() {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.nextPage();
-  }
-
-  prevPage() {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.prevPage();
-  }
-
-  toLastPage() {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.toLastPage();
-  }
-
-  toFirstPage() {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.toFirstPage();
-  }
-
-  navigateToPage(page: number) {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.navigateTo(page);
-  }
-
   openModal(id: string) {
     this._modalService.open(id);
   }
@@ -313,26 +283,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
     window.location.assign(this._signatureService.getDownloadUrl(this.credentials));
   }
 
-  printFile() {
-    if (this.formatDisabled)
-      return;
-    if (this.preloadPageCountConfig !== 0) {
-      if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
-        this._signatureService.loadPrintPdf(this.credentials).subscribe(blob => {
-          const file = new Blob([blob], {type: 'application/pdf'});
-          this._renderPrintService.changeBlob(file);
-        });
-      } else {
-        this._signatureService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
-          this.file.pages = data.pages;
-          this._renderPrintService.changePages(this.file.pages);
-        });
-      }
-    } else {
-      this._renderPrintService.changePages(this.file.pages);
-    }
-  }
-
   private clearData() {
     if (!this.file || !this.file.pages) {
       return;
@@ -347,10 +297,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-  }
-
-  isLeftBarOpen() {
-    return this.isDesktop ? true : this.leftBarOpen;
   }
 
   getSignatureTypeConfig(id: string) {
@@ -461,16 +407,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
     this._onCloseService.close(true);
   }
 
-  toggleLeftBar() {
-    if (!this.isDesktop) {
-      this.leftBarOpen = !this.leftBarOpen;
-      if (this.leftBarOpen) {
-        SignatureTabComponent.showToolTipMobile = true;
-        this._activeSignatureService.changeActive(0);
-      }
-    }
-  }
-
   newSign($event: string) {
     if (SignatureType.HAND.id === $event) {
       this.showNewHandSign = true;
@@ -517,47 +453,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
     return signatures;
   }
 
-  download($event) {
-    if ($event.value === Downloads.original) {
-      this.downloadFile();
-    } else if ($event.value === Downloads.signed) {
-      const signatures = this.prepareSignaturesData();
-      if (!signatures || signatures.length === 0) {
-        this._modalService.open(CommonModals.ErrorMessage);
-        this._excMessageService.changeMessage("There is no signatures!");
-        return;
-      }
-      this._signatureService.downloadSigned(this.credentials, signatures).subscribe((response) => {
-        const guid = this.credentials.guid;
-        const filename = guid.replace(/\\/g, "/").split('/').pop();
-        // The actual download
-        const blob = new Blob([response], {type: 'application/' + guid.split('.').pop().toLowerCase()});
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = filename;
-        // for ff we should append element and then remove it
-        document.body.appendChild(link);
-
-        link.click();
-
-        document.body.removeChild(link);
-      });
-    } else {
-      this._modalService.open(CommonModals.ErrorMessage);
-      this._excMessageService.changeMessage("Something went wrong!");
-    }
-  }
-
-  private setDownloadOptions() {
-    this.downloads = [];
-    if (this.downloadOriginalConfig) {
-      this.downloads.push({value: Downloads.original, name: 'Download Original', separator: false})
-    }
-    if (this.downloadSingedConfig) {
-      this.downloads.push({value: Downloads.signed, name: 'Download Signed', separator: false})
-    }
-  }
-
   isPdf() {
     if (this.file) {
       if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
@@ -565,5 +460,14 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
       }
     }
     return false;
+  }
+
+  codesConfig() {
+    return this.getSignatureTypeConfig(SignatureType.BAR_CODE.id) || this.getSignatureTypeConfig(SignatureType.QR_CODE.id);
+  }
+
+  isVisible(id: string) {
+    const notCode = id !== SignatureType.BAR_CODE.id && id !== SignatureType.QR_CODE.id;
+    return this.getSignatureTypeConfig(id) && (this.isDesktop || notCode);
   }
 }

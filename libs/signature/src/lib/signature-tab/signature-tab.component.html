@@ -1,7 +1,6 @@
 <div class="gd-tab" (mousedown)="toggleTab()" gdTooltip
-     (showToolTip)="showToolTip = $event">
-  <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'"
-           [ngClass]="(active) ? 'active' : ''"></fa-icon>
+     (showToolTip)="showToolTip = $event" [ngClass]="(active) ? 'active' : ''">
+  <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'"></fa-icon>
   <gd-tooltip [text]="tooltip" [show]="showToolTip"
               *ngIf="tooltip"></gd-tooltip>
 </div>
@@ -18,7 +17,8 @@
       <gd-new-bar-qr-code (closePanel)="closeCodePanel($event)" [type]="id" [icon]="icon" [name]="getCodeName()"
                           *ngIf="showNewCode"></gd-new-bar-qr-code>
       <gd-signature-list-panel class="gd-signatures-scroll" [icon]="icon" [signatureType]="id" [signatures]="signatures"
-                               (removeSignatureEvent)="removeSignature($event, id)" [isPdf]="isPdf"></gd-signature-list-panel>
+                               (removeSignatureEvent)="removeSignature($event, id)"
+                               [isPdf]="isPdf"></gd-signature-list-panel>
     </div>
   </div>
 </div>

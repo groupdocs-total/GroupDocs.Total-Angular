@@ -1,36 +1,41 @@
 <div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
-  <div class="top-panel">
-    <gd-logo [logo]="'signature'" icon="{{isLeftBarOpen() ? 'times' : 'bars'}}" (click)="toggleLeftBar()"></gd-logo>
-    <gd-top-toolbar class="toolbar-panel">
-      <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
-                 *ngIf="browseConfig"></gd-button>
+  <gd-tabbed-toolbars [logo]="'signature'" [icon]="'pen-square'">
+    <gd-tabs>
+      <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
+        <div class="toolbar-panel">
+          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                     *ngIf="browseConfig"></gd-button>
 
-      <gd-button [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
-                 (click)="toFirstPage()" *ngIf="isDesktop && pageSelectorConfig"></gd-button>
-      <gd-button [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
-                 (click)="prevPage()" *ngIf="isDesktop && pageSelectorConfig"></gd-button>
-      <div class="current-page-number" *ngIf="isDesktop">{{currentPage}}/{{countPages}}</div>
-      <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
-                 (click)="nextPage()" *ngIf="isDesktop && pageSelectorConfig"></gd-button>
-      <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
-                 (click)="toLastPage()" *ngIf="isDesktop && pageSelectorConfig"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+                     (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="sign()"></gd-button>
 
-      <gd-button-select [options]="downloads" [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
-                        (selected)="download($event)" *ngIf="downloadConfig"></gd-button-select>
-      <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
-                 *ngIf="printConfig"></gd-button>
-      <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="sign()"></gd-button>
-
-    </gd-top-toolbar>
-  </div>
-  <gd-left-side-bar *ngIf="isDesktop || leftBarOpen">
-    <div *ngFor="let signatureType of signatureTypes">
-      <gd-signature-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)" [icon]="signatureType.icon"
-                        [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig"
-                        (newSignatureEvent)="newSign($event)" [isPdf]="isPdf()">
-      </gd-signature-tab>
-    </div>
-  </gd-left-side-bar>
+        </div>
+      </gd-tab>
+      <gd-tab [tabTitle]="'Signatures'" [icon]="'signature'" [id]="'2'">
+        <div class="toolbar-panel">
+          <div *ngFor="let signatureType of signatureTypes">
+            <gd-signature-tab [disabled]="!file" *ngIf="isVisible(signatureType.id)"
+                              [icon]="signatureType.icon"
+                              [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig"
+                              (newSignatureEvent)="newSign($event)" [isPdf]="isPdf()">
+            </gd-signature-tab>
+          </div>
+        </div>
+      </gd-tab>
+      <gd-tab [tabTitle]="''" [icon]="'qrcode'" [id]="'3'" *ngIf="!isDesktop && codesConfig()">
+        <div class="toolbar-panel">
+          <div *ngFor="let signatureType of signatureTypeCodes">
+            <gd-signature-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)"
+                              [icon]="signatureType.icon"
+                              [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig"
+                              (newSignatureEvent)="newSign($event)" [isPdf]="isPdf()">
+            </gd-signature-tab>
+          </div>
+        </div>
+      </gd-tab>
+    </gd-tabs>
+  </gd-tabbed-toolbars>
   <div class="doc-panel" *ngIf="file">
     <gd-document (drop)="dropSignature($event)" (dragover)="dragOver($event)" class="gd-document" *ngIf="file"
                  [file]="file" [mode]="htmlModeConfig"

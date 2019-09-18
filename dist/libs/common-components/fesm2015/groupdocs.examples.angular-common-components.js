@@ -2939,7 +2939,8 @@ SearchableDirective.ctorParameters = () => [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class TabbedToolbarsComponent {
-    constructor() { }
+    constructor() {
+    }
     /**
      * @return {?}
      */
@@ -2949,12 +2950,16 @@ class TabbedToolbarsComponent {
 TabbedToolbarsComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-tabbed-toolbars',
-                template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"'editor'\" [icon]=\"'pen-square'\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
+                template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
                 styles: [".top-panel{background:#3e4e5a;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
             }] }
 ];
 /** @nocollapse */
 TabbedToolbarsComponent.ctorParameters = () => [];
+TabbedToolbarsComponent.propDecorators = {
+    logo: [{ type: Input }],
+    icon: [{ type: Input }]
+};
 
 /**
  * @fileoverview added by tsickle

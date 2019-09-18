@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   CommonModals,
   ExceptionMessageService, ModalService,
-  TabActivatorService,
   WindowService
 } from "@groupdocs.examples.angular/common-components";
 import {Signature, SignatureType} from "../signature-models";
 import {SignatureService} from "../signature.service";
+import {SignatureTabActivatorService} from "../signature-tab-activator.service";
 
 @Component({
   selector: 'gd-signature-tab',
@@ -14,8 +14,6 @@ import {SignatureService} from "../signature.service";
   styleUrls: ['./signature-tab.component.less']
 })
 export class SignatureTabComponent implements OnInit {
-  public static showToolTipMobile = true;
-
   @Input() id: string;
   @Input() icon: string;
   @Input() disabled = false;
@@ -27,11 +25,11 @@ export class SignatureTabComponent implements OnInit {
   isDesktop: boolean;
   public showNewCode = false;
   public showUpload = false;
-  public _showToolTip = false;
+  public showToolTip = false;
 
   signatures: Signature[];
 
-  constructor(private _tabActivatorService: TabActivatorService,
+  constructor(private _tabActivatorService: SignatureTabActivatorService,
               private _windowService: WindowService,
               private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -46,14 +44,8 @@ export class SignatureTabComponent implements OnInit {
     });
   }
 
-  get showToolTip() {
-    return this.isDesktop ? this._showToolTip : SignatureTabComponent.showToolTipMobile;
-  }
-
-  set showToolTip($event) {
-    if (this.isDesktop) {
-      this._showToolTip = $event;
-    }
+  setShowToolTip($event) {
+    this.showToolTip = $event;
   }
 
   private activation(tabId: string) {
@@ -64,13 +56,6 @@ export class SignatureTabComponent implements OnInit {
         this.getSignatures(tabId);
         this.showNewCode = false;
         this.showUpload = false;
-        if (!this.isDesktop) {
-          SignatureTabComponent.showToolTipMobile = false;
-        }
-      } else {
-        if (!this.isDesktop) {
-          SignatureTabComponent.showToolTipMobile = true;
-        }
       }
     } else {
       this.active = false;
