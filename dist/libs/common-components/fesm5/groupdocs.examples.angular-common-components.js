@@ -528,7 +528,7 @@ var Api = /** @class */ (function () {
 }());
 var ConfigService = /** @class */ (function () {
     function ConfigService() {
-        this._apiEndpoint = Api.DEFAULT_API_ENDPOINT;
+        this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
     }
     Object.defineProperty(ConfigService.prototype, "apiEndpoint", {
         get: /**
