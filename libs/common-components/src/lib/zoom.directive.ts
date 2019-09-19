@@ -8,14 +8,8 @@ import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() zoomActive = true;
-
-  @HostBinding('style.zoom') zoomStr: string;
-  @HostBinding('style.zoom') zoomInt: number;
-  @HostBinding('style.-moz-transform') mozTransform: string;
-  @HostBinding('style.-moz-transform-origin') mozTransformOrigin: string;
-  @HostBinding('style.-webkit-transform') webkitTransform: SafeStyle;
-  @HostBinding('style.-ms-transform') msTransform: SafeStyle;
-  @HostBinding('style.-o-transform') oTransform: SafeStyle;
+  @HostBinding('style.transform') Transform: SafeStyle;
+  @HostBinding('style.transform-origin') TransformOrigin: string;
 
   constructor(private _zoomService: ZoomService, private _sanitizer: DomSanitizer) {
   }
@@ -24,9 +18,6 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if (! this.zoomActive) {
-      return;
-    }
     this.setStyles(this._zoomService.zoom);
     this._zoomService.zoomChange.subscribe((zoom) => {
       this.setStyles(zoom);
@@ -34,17 +25,10 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private setStyles(zoom) {
-    if (! this.zoomActive) {
-      return;
-    }
-    this.zoomStr = Math.round(zoom) + '%';
-    this.zoomInt = zoom === 100 ? 1 : zoom / 100;
-    this.mozTransform = 'scale(' + this.zoomInt + ', ' + this.zoomInt + ')';
-    this.mozTransformOrigin = 'top';
-    const transform = this._sanitizer.bypassSecurityTrustStyle('(' + this.zoomInt + ', ' + this.zoomInt + ')');
-    this.webkitTransform = transform;
-    this.msTransform = transform;
-    this.oTransform = transform;
+    const zoomInt = zoom === 100 ? 1 : zoom / 100;
+
+    this.Transform = 'scale(' + zoomInt + ')';
+    this.TransformOrigin = 'top';
   }
 
   ngAfterViewInit(): void {
