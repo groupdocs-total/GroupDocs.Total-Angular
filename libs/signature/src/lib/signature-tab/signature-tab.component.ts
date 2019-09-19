@@ -1,11 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   CommonModals,
-  ExceptionMessageService, ModalService,
-  WindowService
+  ExceptionMessageService, ModalService
 } from "@groupdocs.examples.angular/common-components";
-import {Signature, SignatureType} from "../signature-models";
-import {SignatureService} from "../signature.service";
 import {SignatureTabActivatorService} from "../signature-tab-activator.service";
 
 @Component({
@@ -17,45 +14,26 @@ export class SignatureTabComponent implements OnInit {
   @Input() id: string;
   @Input() icon: string;
   @Input() disabled = false;
-  @Input() active = false;
   @Input() tooltip: string;
-  @Input() rewrite: boolean;
-  @Input() isPdf: boolean;
-  @Output() newSignatureEvent = new EventEmitter<string>();
-  isDesktop: boolean;
-  public showNewCode = false;
-  public showUpload = false;
+  @Output() activeTab = new EventEmitter<string>();
+  public active = false;
   public showToolTip = false;
 
-  signatures: Signature[];
-
   constructor(private _tabActivatorService: SignatureTabActivatorService,
-              private _windowService: WindowService,
-              private _signatureService: SignatureService,
               private _modalService: ModalService,
               private _excMessageService: ExceptionMessageService) {
     this._tabActivatorService.activeTabChange.subscribe((tabId: string) => {
       this.activation(tabId);
     });
-
-    this.isDesktop = _windowService.isDesktop();
-    _windowService.onResize.subscribe((w) => {
-      this.isDesktop = _windowService.isDesktop();
-    });
-  }
-
-  setShowToolTip($event) {
-    this.showToolTip = $event;
   }
 
   private activation(tabId: string) {
     if (this.id === tabId) {
       this.active = !this.active;
       if (this.active) {
-        this.signatures = [];
-        this.getSignatures(tabId);
-        this.showNewCode = false;
-        this.showUpload = false;
+        this.activeTab.emit(this.id);
+      } else {
+        this.activeTab.emit("");
       }
     } else {
       this.active = false;
@@ -74,45 +52,4 @@ export class SignatureTabComponent implements OnInit {
     this._tabActivatorService.changeActiveTab(this.id);
   }
 
-  getSignatures(tabId: string) {
-    this._signatureService.getSignatures('', tabId).subscribe((signatures: Signature[]) => {
-      this.signatures = signatures || [];
-    });
-  }
-
-  removeSignature($event: string, type: string) {
-    this._signatureService.removeSignatures($event, type).subscribe(() => this.getSignatures(type));
-  }
-
-  toggleNewSignature() {
-    if (SignatureType.DIGITAL.id === this.id || SignatureType.IMAGE.id === this.id) {
-      this.showUpload = !this.showUpload;
-    } else if (SignatureType.BAR_CODE.id === this.id || SignatureType.QR_CODE.id === this.id) {
-      this.showNewCode = !this.showNewCode;
-    } else {
-      this.newSignatureEvent.emit(this.id);
-    }
-  }
-
-  getCodeName() {
-    return SignatureType.QR_CODE.id === this.id ? 'Qr Code' : (SignatureType.BAR_CODE.id === this.id ? 'Bar Code' : '');
-  }
-
-  getTitle() {
-    return (this.showUpload || this.showNewCode) ? SignatureType.getSignatureType(this.id).title : this.tooltip;
-  }
-
-  getTitleIcon() {
-    return this.showUpload || this.showNewCode ? 'times' : 'plus';
-  }
-
-  closeUploadPanel($event: boolean) {
-    this.showUpload = !$event;
-    this.getSignatures(this.id);
-  }
-
-  closeCodePanel($event: boolean) {
-    this.showNewCode = !$event;
-    this.getSignatures(this.id);
-  }
 }

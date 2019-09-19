@@ -14,7 +14,6 @@ import {
   PasswordService,
   FileCredentials,
   CommonModals,
-  TabActivatorService,
   HostingDynamicComponentService,
   AddDynamicComponentService,
   OnCloseService,
@@ -37,6 +36,7 @@ import {RemoveSignatureService} from "./remove-signature.service";
 import * as jquery from 'jquery';
 import {ActiveSignatureService} from "./active-signature.service";
 import {SignaturesHolderService} from "./signatures-holder.service";
+import {SignatureTabActivatorService} from "./signature-tab-activator.service";
 
 const $ = jquery;
 
@@ -55,7 +55,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
-  leftBarOpen = false;
   signatureTypes = [
     SignatureType.TEXT,
     SignatureType.IMAGE,
@@ -73,6 +72,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   signatureComponents = new Map<number, ComponentRef<any>>();
   showNewHandSign = false;
   showNewStampSign = false;
+  activeSignatureTab: string;
 
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -85,7 +85,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
               passwordService: PasswordService,
               private _windowService: WindowService,
               private _selectSignatureService: SelectSignatureService,
-              private _tabActivationService: TabActivatorService,
+              private _signatureTabActivationService: SignatureTabActivatorService,
               private _hostingComponentsService: HostingDynamicComponentService,
               private _addDynamicComponentService: AddDynamicComponentService,
               private _dragSignatureService: DragSignatureService,
@@ -382,10 +382,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   }
 
   private closeTab(type: string) {
-    this._tabActivationService.changeActiveTab(type);
-    if (!this.isDesktop) {
-      this.leftBarOpen = false;
-    }
+    this._signatureTabActivationService.changeActiveTab(type);
   }
 
   hideAll($event) {
@@ -410,10 +407,10 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   newSign($event: string) {
     if (SignatureType.HAND.id === $event) {
       this.showNewHandSign = true;
-      this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
+      this._signatureTabActivationService.changeActiveTab(SignatureType.HAND.id);
     } else if (SignatureType.STAMP.id === $event) {
       this.showNewStampSign = true;
-      this._tabActivationService.changeActiveTab(SignatureType.STAMP.id);
+      this._signatureTabActivationService.changeActiveTab(SignatureType.STAMP.id);
     }
   }
 
@@ -469,5 +466,9 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   isVisible(id: string) {
     const notCode = id !== SignatureType.BAR_CODE.id && id !== SignatureType.QR_CODE.id;
     return this.getSignatureTypeConfig(id) && (this.isDesktop || notCode);
+  }
+
+  activeTab($event: string) {
+    this.activeSignatureTab = $event;
   }
 }

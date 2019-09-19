@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CanvasComponent} from "../canvas/canvas.component";
 import {SignatureService} from "../signature.service";
 import {SignatureType} from "../signature-models";
-import {TabActivatorService} from "@groupdocs.examples.angular/common-components";
+import {SignatureTabActivatorService} from "../signature-tab-activator.service";
 
 @Component({
   selector: 'gd-hand-lightbox',
@@ -19,7 +19,7 @@ export class HandLightboxComponent implements OnInit {
   ];
 
   constructor(private _signatureService: SignatureService,
-              private _tabActivationService: TabActivatorService) {
+              private _tabActivationService: SignatureTabActivatorService) {
   }
 
   ngOnInit() {

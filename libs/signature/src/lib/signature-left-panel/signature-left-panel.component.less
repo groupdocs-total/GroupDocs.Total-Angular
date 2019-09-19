@@ -1,0 +1,81 @@
+@import "../../../../common-components/src/styles/variables";
+
+::ng-deep .left-panel {
+  width: 350px;
+}
+
+::ng-deep .gd-left-bar-fade {
+  width: 350px !important;
+}
+
+.tab-content {
+  height: 95vh;
+  line-height: unset;
+  position: absolute;
+  background-color: #FFFFFF;
+}
+
+.gd-signature-context-panel {
+  background-color: #F3F3F3;
+  width: 350px;
+  height: 100%;
+  position: absolute;
+}
+
+.gd-signatures-scroll {
+  height: inherit;
+}
+
+.gd-signature-context-upload-title, .gd-signature-context-panel-title {
+  color: #AAAAAA;
+  font-size: 12px;
+  font-family: Helvetica;
+  font-weight: bold;
+  margin: 5px 12px 5px 12px;
+}
+
+.gd-signature-list-title {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+
+  .icon {
+    padding: 20px 15px 20px 15px;
+    color: #676767;
+    cursor: pointer;
+    width: 12px;
+    height: 20px;
+    font-size: 12px;
+  }
+}
+
+.gd-signature-context-pane-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  height: 95vh;
+}
+
+@media @phone-down {
+  .tab-content {
+    width: 100%;
+  }
+
+  .gd-signature-context-panel {
+    left: 0px;
+    right: 0px;
+    width: auto;
+  }
+
+  .gd-signature-context-panel-title {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 16px 0 14px 12px;
+  }
+
+  .gd-signature-context-panel-title, .gd-signature-context-upload-title {
+    width: unset;
+  }
+}

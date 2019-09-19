@@ -10,14 +10,14 @@ import {
 } from '@angular/core';
 import {
   AddDynamicComponentService,
-  HostDynamicDirective, TabActivatorService,
-  WindowService
+  HostDynamicDirective, WindowService
 } from "@groupdocs.examples.angular/common-components";
 import {StampCanvasComponent} from "../stamp-canvas/stamp-canvas.component";
 import {ActiveCanvasService} from "../active-canvas.service";
 import {SignatureType, StampCanvasProps} from "../signature-models";
 import {RemoveCanvasService} from "../remove-canvas.service";
 import {SignatureService} from "../signature.service";
+import {SignatureTabActivatorService} from "../signature-tab-activator.service";
 
 @Component({
   selector: 'gd-stamp-lightbox',
@@ -43,7 +43,7 @@ export class StampLightboxComponent implements OnInit, OnDestroy {
               private _removeCanvas: RemoveCanvasService,
               private _elementRef: ElementRef,
               private _signatureService: SignatureService,
-              private _tabActivationService: TabActivatorService) {
+              private _tabActivationService: SignatureTabActivatorService) {
 
     this._removeCanvas.removeCanvas.subscribe((id: number) => {
       const componentRef = this.stampCircles.get(id);

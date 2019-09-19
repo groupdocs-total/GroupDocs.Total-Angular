@@ -16,9 +16,8 @@
         <div class="toolbar-panel">
           <div *ngFor="let signatureType of signatureTypes">
             <gd-signature-tab [disabled]="!file" *ngIf="isVisible(signatureType.id)"
-                              [icon]="signatureType.icon"
-                              [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig"
-                              (newSignatureEvent)="newSign($event)" [isPdf]="isPdf()">
+                              [icon]="signatureType.icon" (activeTab)="activeTab($event)"
+                              [id]="signatureType.id" [tooltip]="signatureType.name">
             </gd-signature-tab>
           </div>
         </div>
@@ -27,15 +26,17 @@
         <div class="toolbar-panel">
           <div *ngFor="let signatureType of signatureTypeCodes">
             <gd-signature-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)"
-                              [icon]="signatureType.icon"
-                              [id]="signatureType.id" [tooltip]="signatureType.name" [rewrite]="rewriteConfig"
-                              (newSignatureEvent)="newSign($event)" [isPdf]="isPdf()">
+                              [icon]="signatureType.icon" (activeTab)="activeTab($event)"
+                              [id]="signatureType.id" [tooltip]="signatureType.name">
             </gd-signature-tab>
           </div>
         </div>
       </gd-tab>
     </gd-tabs>
   </gd-tabbed-toolbars>
+  <gd-signature-left-panel *ngIf="activeSignatureTab" [rewrite]="rewriteConfig" (newSignatureEvent)="newSign($event)"
+                           [isPdf]="isPdf()" [id]="activeSignatureTab">
+  </gd-signature-left-panel>
   <div class="doc-panel" *ngIf="file">
     <gd-document (drop)="dropSignature($event)" (dragover)="dragOver($event)" class="gd-document" *ngIf="file"
                  [file]="file" [mode]="htmlModeConfig"

@@ -34,6 +34,7 @@ import {RemoveCanvasService} from "./remove-canvas.service";
 import {TextMenuComponent} from './text-menu/text-menu.component';
 import {SignaturesHolderService} from "./signatures-holder.service";
 import {SignatureTabActivatorService} from "./signature-tab-activator.service";
+import { SignatureLeftPanelComponent } from './signature-left-panel/signature-left-panel.component';
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -53,7 +54,8 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     CanvasComponent,
     StampLightboxComponent,
     StampCanvasComponent,
-    TextMenuComponent],
+    TextMenuComponent,
+    SignatureLeftPanelComponent],
   exports: [SignatureAppComponent,
     SignatureListPanelComponent,
     SignatureTabComponent,
@@ -66,11 +68,12 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     CanvasComponent,
     StampLightboxComponent,
     StampCanvasComponent,
-    TextMenuComponent],
+    TextMenuComponent,
+    SignatureLeftPanelComponent],
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule],
+    FontAwesomeModule, CommonComponentsModule],
   providers: [
     SignatureService,
     ConfigService,

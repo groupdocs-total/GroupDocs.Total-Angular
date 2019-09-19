@@ -1,15 +1,5 @@
 @import "../../../../common-components/src/styles/variables";
 
-.tab-content {
-  height: 95vh;
-  line-height: unset;
-  position: absolute;
-  background-color: #FFFFFF;
-  z-index: 9;
-  left: 0px;
-  top: 60px;
-}
-
 .gd-tab {
   font-size: 14px;
   color: #959da5;
@@ -41,70 +31,7 @@
   }
 }
 
-.gd-signature-context-panel {
-  background-color: #F3F3F3;
-  width: 350px;
-  height: 100%;
-  position: absolute;
-}
-
-.gd-signatures-scroll {
-  height: inherit;
-}
-
-.gd-signature-context-upload-title, .gd-signature-context-panel-title {
-  color: #AAAAAA;
-  font-size: 12px;
-  font-family: Helvetica;
-  font-weight: bold;
-  margin: 5px 12px 5px 12px;
-}
-
-.gd-signature-list-title {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-
-  .icon {
-    padding: 0px 15px 0px 15px;
-    color: #676767;
-    cursor: pointer;
-    width: 12px;
-    height: 20px;
-    font-size: 12px;
-  }
-}
-
-.gd-signature-context-pane-wrapper {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: stretch;
-  height: 95vh;
-}
-
 @media @phone-down {
-  .tab-content {
-    left: 60px;
-    width: ~"calc(100% - 60px)";
-  }
-
-  .gd-signature-context-panel {
-    left: 0px;
-    right: 0px;
-    width: auto;
-  }
-
-  .gd-signature-context-panel-title {
-    font-size: 12px;
-    line-height: 18px;
-    margin: 16px 0 14px 12px;
-  }
-
-  .gd-signature-context-panel-title, .gd-signature-context-upload-title {
-    width: unset;
-  }
-
   .gd-tab {
     white-space: nowrap;
     text-align: left;

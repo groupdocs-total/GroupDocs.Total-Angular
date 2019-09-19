@@ -4,21 +4,3 @@
   <gd-tooltip [text]="tooltip" [show]="showToolTip"
               *ngIf="tooltip"></gd-tooltip>
 </div>
-<div *ngIf="active" class="tab-content">
-  <div class="gd-signature-context-panel">
-    <div class="gd-signature-context-pane-wrapper">
-      <div class="gd-signature-list-title">
-        <fa-icon [icon]="['fa',getTitleIcon()]" [class]="'ng-fa-icon icon'" (click)="toggleNewSignature()"></fa-icon>
-        <div class="gd-signature-context-panel-title">{{getTitle()}}
-        </div>
-      </div>
-      <gd-upload-signature (closePanel)="closeUploadPanel($event)" [rewrite]="rewrite" [signatureType]="id"
-                           *ngIf="showUpload"></gd-upload-signature>
-      <gd-new-bar-qr-code (closePanel)="closeCodePanel($event)" [type]="id" [icon]="icon" [name]="getCodeName()"
-                          *ngIf="showNewCode"></gd-new-bar-qr-code>
-      <gd-signature-list-panel class="gd-signatures-scroll" [icon]="icon" [signatureType]="id" [signatures]="signatures"
-                               (removeSignatureEvent)="removeSignature($event, id)"
-                               [isPdf]="isPdf"></gd-signature-list-panel>
-    </div>
-  </div>
-</div>
