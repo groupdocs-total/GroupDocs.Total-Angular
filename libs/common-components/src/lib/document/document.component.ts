@@ -58,6 +58,10 @@ export class DocumentComponent implements OnInit, OnChanges, AfterViewChecked {
     return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   }
 
+  ifEdge() {
+    return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+  }
+
   ngAfterViewChecked(): void {
     const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
     const element = elementNodeListOf.item(0);

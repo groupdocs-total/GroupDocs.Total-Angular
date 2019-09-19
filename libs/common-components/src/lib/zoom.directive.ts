@@ -8,6 +8,8 @@ import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() zoomActive = true;
+  @Input() isEdge = true;
+  @HostBinding('style.zoom') zoomInt: number;
   @HostBinding('style.transform') Transform: SafeStyle;
   @HostBinding('style.transform-origin') TransformOrigin: string;
 
@@ -18,6 +20,9 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    if (!this.zoomActive) {
+      return;
+    }
     this.setStyles(this._zoomService.zoom);
     this._zoomService.zoomChange.subscribe((zoom) => {
       this.setStyles(zoom);
@@ -26,9 +31,14 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
 
   private setStyles(zoom) {
     const zoomInt = zoom === 100 ? 1 : zoom / 100;
-
-    this.Transform = 'scale(' + zoomInt + ')';
-    this.TransformOrigin = 'top';
+    
+    if (this.isEdge) {
+      this.zoomInt = zoomInt;
+    }
+    else {
+      this.Transform = 'scale(' + zoomInt + ')';
+      this.TransformOrigin = 'top';
+      }
   }
 
   ngAfterViewInit(): void {

@@ -1390,6 +1390,15 @@
         /**
          * @return {?}
          */
+        DocumentComponent.prototype.ifEdge = /**
+         * @return {?}
+         */
+        function () {
+            return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+        };
+        /**
+         * @return {?}
+         */
         DocumentComponent.prototype.ngAfterViewChecked = /**
          * @return {?}
          */
@@ -1405,7 +1414,7 @@
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom gdSearchable>\r\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\r\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"!ifEdge()\" [isEdge]=\"ifEdge()\" gdSearchable>\r\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"ifEdge()\" [isEdge]=\"ifEdge()\"\r\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\r\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
                         styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 4px 12px -4px rgba(0,0,0,.38);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}@media (max-width:1025px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
@@ -2276,6 +2285,7 @@
             this._zoomService = _zoomService;
             this._sanitizer = _sanitizer;
             this.zoomActive = true;
+            this.isEdge = true;
         }
         /**
          * @return {?}
@@ -2293,6 +2303,9 @@
          */
         function () {
             var _this = this;
+            if (!this.zoomActive) {
+                return;
+            }
             this.setStyles(this._zoomService.zoom);
             this._zoomService.zoomChange.subscribe((/**
              * @param {?} zoom
@@ -2313,17 +2326,15 @@
          * @return {?}
          */
         function (zoom) {
-            //const zoomStr = Math.round(zoom) + '%';
             /** @type {?} */
             var zoomInt = zoom === 100 ? 1 : zoom / 100;
-            // this.mozTransform = 'scale(' + zoomInt + ', ' + zoomInt + ')';
-            // this.mozTransformOrigin = 'top';
-            // const transform = this._sanitizer.bypassSecurityTrustStyle('(' + zoomInt + ', ' + zoomInt + ')');
-            // this.webkitTransform = transform;
-            // this.msTransform = transform;
-            // this.oTransform = transform;
-            this.Transform = 'scale(' + zoomInt + ')';
-            this.TransformOrigin = 'top';
+            if (this.isEdge) {
+                this.zoomInt = zoomInt;
+            }
+            else {
+                this.Transform = 'scale(' + zoomInt + ')';
+                this.TransformOrigin = 'top';
+            }
         };
         /**
          * @return {?}
@@ -2346,6 +2357,8 @@
         ]; };
         ZoomDirective.propDecorators = {
             zoomActive: [{ type: core.Input }],
+            isEdge: [{ type: core.Input }],
+            zoomInt: [{ type: core.HostBinding, args: ['style.zoom',] }],
             Transform: [{ type: core.HostBinding, args: ['style.transform',] }],
             TransformOrigin: [{ type: core.HostBinding, args: ['style.transform-origin',] }]
         };

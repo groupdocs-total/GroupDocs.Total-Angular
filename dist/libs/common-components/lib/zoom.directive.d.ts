@@ -5,6 +5,8 @@ export declare class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
     private _zoomService;
     private _sanitizer;
     zoomActive: boolean;
+    isEdge: boolean;
+    zoomInt: number;
     Transform: SafeStyle;
     TransformOrigin: string;
     constructor(_zoomService: ZoomService, _sanitizer: DomSanitizer);
