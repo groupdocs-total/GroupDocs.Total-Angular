@@ -411,6 +411,9 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
     } else if (SignatureType.STAMP.id === $event) {
       this.showNewStampSign = true;
       this._signatureTabActivationService.changeActiveTab(SignatureType.STAMP.id);
+    } else if (SignatureType.TEXT.id === $event) {
+      //TODO:
+      this._signatureTabActivationService.changeActiveTab(SignatureType.TEXT.id);
     }
   }
 

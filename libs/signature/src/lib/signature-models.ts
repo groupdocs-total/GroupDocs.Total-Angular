@@ -8,7 +8,7 @@ export class Signature {
 
 export class SignatureType {
   public static TEXT = {id: 'text', name: 'Text signatures', icon: 'font', title: ''};
-  public static IMAGE = {id: 'image', name: 'Uploaded Images', icon: 'image', title: 'New image signature'};
+  public static IMAGE = {id: 'image', name: 'Uploaded Images', icon: 'image', title: 'Add image signature'};
   public static QR_CODE = {id: 'qrCode', name: 'QR codes', icon: 'qrcode', title: 'New QR code'};
   public static BAR_CODE = {id: 'barCode', name: 'Bar codes', icon: 'barcode', title: 'New Bar code'};
   public static DIGITAL = {

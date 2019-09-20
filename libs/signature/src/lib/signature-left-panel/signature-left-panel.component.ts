@@ -51,18 +51,16 @@ export class SignatureLeftPanelComponent implements OnInit, OnChanges {
     return (this.showUpload || this.showNewCode) ? signatureType.title : signatureType.name;
   }
 
-  removeSignature($event: string, type: string) {
-    this._signatureService.removeSignatures($event, type).subscribe(() => this.getSignatures(type));
+  getName() {
+    if (!this.id) {
+      return "";
+    }
+    const signatureType = SignatureType.getSignatureType(this.id);
+    return signatureType.name;
   }
 
-  toggleNewSignature() {
-    if (SignatureType.DIGITAL.id === this.id || SignatureType.IMAGE.id === this.id) {
-      this.showUpload = !this.showUpload;
-    } else if (SignatureType.BAR_CODE.id === this.id || SignatureType.QR_CODE.id === this.id) {
-      this.showNewCode = !this.showNewCode;
-    } else {
-      this.newSignatureEvent.emit(this.id);
-    }
+  removeSignature($event: string, type: string) {
+    this._signatureService.removeSignatures($event, type).subscribe(() => this.getSignatures(type));
   }
 
   closeUploadPanel($event: boolean) {
@@ -91,5 +89,26 @@ export class SignatureLeftPanelComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.init();
+  }
+
+  closeNewSignature() {
+    if (SignatureType.DIGITAL.id === this.id || SignatureType.IMAGE.id === this.id) {
+      this.showUpload = false;
+    } else if (SignatureType.BAR_CODE.id === this.id || SignatureType.QR_CODE.id === this.id) {
+      this.showNewCode = false;
+    }
+  }
+
+  openNewSignature() {
+    if (this.showUpload || this.showNewCode) {
+      return;
+    }
+    if (SignatureType.DIGITAL.id === this.id || SignatureType.IMAGE.id === this.id) {
+      this.showUpload = true;
+    } else if (SignatureType.BAR_CODE.id === this.id || SignatureType.QR_CODE.id === this.id) {
+      this.showNewCode = true;
+    } else {
+      this.newSignatureEvent.emit(this.id);
+    }
   }
 }
