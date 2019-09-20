@@ -1,3 +1,5 @@
+import {Formatting} from "@groupdocs.examples.angular/common-components";
+
 export class Signature {
   guid: string;
   image: string;
@@ -57,6 +59,7 @@ export class OpticalCodeModel {
 }
 
 export class DraggableSignature {
+  public static TEMP = "temp";
   guid: string;
   type: string;
   position: Position;
@@ -144,6 +147,19 @@ export class SignatureProps {
   font: string;
   fontSize: number;
   fontColor: string;
+
+  public static getDefault(): SignatureProps {
+    const props = new SignatureProps();
+    props.text = "";
+    const f = Formatting.DEFAULT;
+    props.fontColor = f.color;
+    props.font = f.font;
+    props.fontSize = f.fontSize;
+    props.underline = f.underline;
+    props.bold = f.bold;
+    props.italic = f.italic;
+    return props;
+  }
 }
 
 export class RemoveSign {

@@ -1,10 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Position, AddedSignature, SignatureType, SignatureProps, RemoveSign} from "../signature-models";
+import {
+  Position,
+  AddedSignature,
+  SignatureType,
+  SignatureProps,
+  RemoveSign,
+  DraggableSignature
+} from "../signature-models";
 import {Formatting, Utils} from "@groupdocs.examples.angular/common-components";
 import {SignatureService} from "../signature.service";
 import {RemoveSignatureService} from "../remove-signature.service";
 import {ActiveSignatureService} from "../active-signature.service";
 import * as jquery from 'jquery';
+import {SignaturesHolderService} from "../signatures-holder.service";
 
 const $ = jquery;
 
@@ -24,7 +32,8 @@ export class Signature implements OnInit {
 
   constructor(private _signatureService: SignatureService,
               private _removeSignature: RemoveSignatureService,
-              private _activeSignatureService: ActiveSignatureService) {
+              private _activeSignatureService: ActiveSignatureService,
+              private _signaturesHolderService: SignaturesHolderService) {
 
     this._activeSignatureService.activeChange.subscribe((id: number) => {
       if (this.id === id) {
@@ -91,6 +100,10 @@ export class Signature implements OnInit {
     if (this.data.props) {
       this.fillFormatting($event);
       this._signatureService.saveTextSignature(this.data).subscribe((p: SignatureProps) => {
+        if (DraggableSignature.TEMP === this.data.guid) {
+          this._signaturesHolderService.changeTemp(p.imageGuid, this.id);
+          this.data.guid = p.imageGuid;
+        }
         this.data.props = p;
       });
     }

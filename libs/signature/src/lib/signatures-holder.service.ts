@@ -1,3 +1,5 @@
+import {DraggableSignature} from "./signature-models";
+
 export class SignaturesHolderService {
 
   private map = new Map<string, number[]>();
@@ -48,5 +50,10 @@ export class SignaturesHolderService {
         }
       }
     }
+  }
+
+  changeTemp(imageGuid: string, id: number) {
+    this.remove(DraggableSignature.TEMP, id);
+    this.addId(imageGuid, id);
   }
 }

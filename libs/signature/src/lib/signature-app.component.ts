@@ -26,7 +26,7 @@ import {
   AddedSignature,
   DraggableSignature,
   Position, RemoveSign,
-  SignatureData,
+  SignatureData, SignatureProps,
   SignatureType
 } from "./signature-models";
 import {SelectSignatureService} from "./select-signature.service";
@@ -412,9 +412,22 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
       this.showNewStampSign = true;
       this._signatureTabActivationService.changeActiveTab(SignatureType.STAMP.id);
     } else if (SignatureType.TEXT.id === $event) {
-      //TODO:
+      this.addTextSign();
       this._signatureTabActivationService.changeActiveTab(SignatureType.TEXT.id);
     }
+  }
+
+  private addTextSign() {
+    const signature = new AddedSignature();
+    signature.props = SignatureProps.getDefault();
+    signature.guid = DraggableSignature.TEMP;
+    const sign = new DraggableSignature();
+    sign.guid = DraggableSignature.TEMP;
+    sign.position = new Position(0, 0);
+    sign.type = SignatureType.TEXT.id;
+    const pageNumber = this._navigateService.currentPage;
+    const id = this.addSignatureComponent(signature, sign, pageNumber);
+    this._signaturesHolderService.addId(sign.guid, id);
   }
 
   ngOnDestroy(): void {
@@ -448,7 +461,9 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
       const position = sign.position;
       const type = sign.type;
 
-      signatures.push(SignatureData.map(data, type, position));
+      if (DraggableSignature.TEMP !== data.guid) {
+        signatures.push(SignatureData.map(data, type, position));
+      }
     }
     return signatures;
   }
