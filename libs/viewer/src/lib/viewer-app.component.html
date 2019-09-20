@@ -40,7 +40,7 @@
                  (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop"></gd-button>
     </gd-top-toolbar>
   </div>
-  <div class="doc-panel" *ngIf="file">
+  <div class="doc-panel" *ngIf="file" #docPanel (pinchin)="onPinchIn($event)" (pinchout)="onPinchOut($event)">
     <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="htmlModeConfig"
                    [guid]="file.guid" [mode]="htmlModeConfig"></gd-thumbnails>
 
