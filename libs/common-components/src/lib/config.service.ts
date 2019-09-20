@@ -47,9 +47,10 @@ export class Api {
 @Injectable()
 export class ConfigService {
 
-  private _apiEndpoint = Api.DEFAULT_API_ENDPOINT;
+  private _apiEndpoint: string;
 
   constructor() {
+    this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
   }
 
   set apiEndpoint(url: string) {

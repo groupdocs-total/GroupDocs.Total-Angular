@@ -461,7 +461,7 @@ Api.httpOptionsJsonResponseTypeBlob = {
 };
 class ConfigService {
     constructor() {
-        this._apiEndpoint = Api.DEFAULT_API_ENDPOINT;
+        this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
     }
     /**
      * @param {?} url
