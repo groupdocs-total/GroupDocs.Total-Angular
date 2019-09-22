@@ -4,9 +4,13 @@
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 .current-page-number {
-  margin: 0px 15px;
+  margin-left: 7px;
   font-size: 14px;
   color: @regent-gray;
+  width: 37px;
+  height: 37px;
+  line-height: 37px;
+  text-align: center;
   &.active{
     color: #fff;
   }
@@ -56,11 +60,24 @@
       color: @regent-gray !important;
     }
   }
+  .button {
+    flex-flow: column;
+  }
   .dropdown-menu .option{
     color: @dove-gray !important;
   }
   .dropdown-menu .option:hover{
     background-color: @folder !important;
+  }
+  .icon-button{
+    margin: 0px 0px 0px 7px !important;
+  }
+  .select {
+    width: 65px;
+    height: 37px;
+    margin-left: 7px;
+    line-height: 37px;
+    text-align: center;
   }
 }
 

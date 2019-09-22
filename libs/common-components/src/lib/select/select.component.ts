@@ -37,9 +37,7 @@ export class SelectComponent {
   }
 
   onClickOutside(event : Event){
-    if(event && event['value'] === true) {
-      this.close();
-    }
+    this.close();
   }
 
   toggle($event) {
