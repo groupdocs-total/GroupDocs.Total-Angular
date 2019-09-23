@@ -452,7 +452,7 @@ Api.httpOptionsJsonResponseTypeBlob = {
 };
 class ConfigService {
     constructor() {
-        this._apiEndpoint = Api.DEFAULT_API_ENDPOINT;
+        this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
     }
     /**
      * @param {?} url
@@ -2084,6 +2084,9 @@ class RotationDirective {
      * @return {?}
      */
     updateCursor() {
+        if (typeof this.angle === "string") {
+            this.angle = parseInt(this.angle, 10);
+        }
         if (this.angle) {
             this.animation = 'none';
             this.transition = 'none';

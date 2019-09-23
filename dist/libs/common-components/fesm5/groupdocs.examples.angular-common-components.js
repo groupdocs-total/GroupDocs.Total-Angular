@@ -528,7 +528,7 @@ var Api = /** @class */ (function () {
 }());
 var ConfigService = /** @class */ (function () {
     function ConfigService() {
-        this._apiEndpoint = Api.DEFAULT_API_ENDPOINT;
+        this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
     }
     Object.defineProperty(ConfigService.prototype, "apiEndpoint", {
         get: /**
@@ -2541,6 +2541,9 @@ var RotationDirective = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        if (typeof this.angle === "string") {
+            this.angle = parseInt(this.angle, 10);
+        }
         if (this.angle) {
             this.animation = 'none';
             this.transition = 'none';
