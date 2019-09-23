@@ -97,4 +97,8 @@ export class SignatureListPanelComponent implements OnInit {
   dragStart($event: DragEvent) { // ff
     $event.dataTransfer.setData('text', 'foo');
   }
+
+  empty() {
+    return !this.signatures || this.signatures.length === 0;
+  }
 }

@@ -47,8 +47,8 @@
       </div>
     </div>
   </div>
-  <div class="gd-signature-empty-list" *ngIf="!signatures">
+  <div class="gd-signature-empty-list" *ngIf="empty()">
     <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'"></fa-icon>
-    <span class="gd-empty-list-text">There is no {{signatureType}}} signatures yet.</span>
+    <span class="gd-empty-list-text">There is no entries yet</span>
   </div>
 </div>
