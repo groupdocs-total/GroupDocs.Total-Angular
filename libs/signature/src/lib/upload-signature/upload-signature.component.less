@@ -1,73 +1,41 @@
 @import "../../../../common-components/src/styles/variables";
 
-.gd-upload-container {
-  background-color: #ffffff;
-  height: 252px;
-  border: 1px solid #3787f5;
-  border-radius: 5px;
-  margin: 0px 10px 0px 12px;
-}
-
 .gd-upload-inputs {
-  height: 201px;
+  height: 350px;
   text-align: center;
-  margin: 7px 8px 9px 6px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.16);
-  border-radius: 3px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  background-color: #FFF;
 
   .icon {
     font-size: 52px;
     color: #959DA5;
   }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    width: fit-content;
+    height: 203px;
+  }
 }
 
 .gd-upload-title {
-  color: #5C737F;
+  color: #bababa;
   font-size: 13px;
   margin: 10px 0px 0px 0px;
 }
 
-.gd-upload-inputs input {
-  opacity: 0;
-  position: absolute;
-  cursor: pointer;
-  width: fit-content;
-  height: 203px;
-}
-
-.gd-upload-title {
-  color: #5C737F;
-  font-size: 13px;
-  margin: 10px 0px 0px 0px;
-}
-
-.gd-add-upload-file.active {
-  background-color: #3787F5;
-}
-
-.gd-add-upload-file {
-  height: 27px;
-  background-color: #969696;
-  margin: 9px 8px 7px 8px;
-  border-radius: 3px;
+.text {
+  font-size: 12px;
   text-align: center;
-  color: #ffffff;
-  font-size: 13px;
-  box-shadow: 0 0 3px #ddd;
-  cursor: pointer;
-  padding-top: 5px;
+  font-style: italic;
 }
 
 @media @phone-down {
-
-  .gd-upload-container {
-    width: -webkit-fill-available;
-    height: auto;
-  }
 
   .gd-upload-inputs {
     width: -webkit-fill-available;
