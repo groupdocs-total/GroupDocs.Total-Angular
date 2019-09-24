@@ -20,9 +20,6 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if (!this.zoomActive) {
-      return;
-    }
     this.setStyles(this._zoomService.zoom);
     this._zoomService.zoomChange.subscribe((zoom) => {
       this.setStyles(zoom);
@@ -30,6 +27,10 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private setStyles(zoom) {
+    if (!this.zoomActive) {
+      return;
+    }
+
     const zoomInt = zoom === 100 ? 1 : zoom / 100;
     
     if (this.isEdge) {

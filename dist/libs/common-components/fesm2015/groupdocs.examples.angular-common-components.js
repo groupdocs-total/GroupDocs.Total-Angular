@@ -1863,9 +1863,6 @@ class ZoomDirective {
      * @return {?}
      */
     ngOnInit() {
-        if (!this.zoomActive) {
-            return;
-        }
         this.setStyles(this._zoomService.zoom);
         this._zoomService.zoomChange.subscribe((/**
          * @param {?} zoom
@@ -1881,6 +1878,9 @@ class ZoomDirective {
      * @return {?}
      */
     setStyles(zoom) {
+        if (!this.zoomActive) {
+            return;
+        }
         /** @type {?} */
         const zoomInt = zoom === 100 ? 1 : zoom / 100;
         if (this.isEdge) {
