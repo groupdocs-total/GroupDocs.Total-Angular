@@ -18,7 +18,7 @@ import {
   AddDynamicComponentService,
   OnCloseService,
   ExceptionMessageService,
-  WindowService, Utils
+  WindowService, Utils, TabActivatorService
 } from "@groupdocs.examples.angular/common-components";
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
@@ -93,7 +93,17 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
               _removeSignature: RemoveSignatureService,
               private _activeSignatureService: ActiveSignatureService,
               private _excMessageService: ExceptionMessageService,
-              private _signaturesHolderService: SignaturesHolderService) {
+              private _signaturesHolderService: SignaturesHolderService,
+              private _tabActivatorService: TabActivatorService) {
+
+    this._tabActivatorService.activeTabChange.subscribe((tabId: string) => {
+      if (tabId === '1') {
+        if (this.activeSignatureTab) {
+          this._signatureTabActivationService.changeActiveTab(this.activeSignatureTab);
+        }
+        this.activeSignatureTab = null;
+      }
+    });
 
     _removeSignature.removeSignature.subscribe((del: RemoveSign) => {
       const ids = this._signaturesHolderService.get(del.guid);

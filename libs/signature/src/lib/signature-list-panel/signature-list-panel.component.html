@@ -41,7 +41,9 @@
             <input type="date" #date (input)="digitalProps.date=parseDate(date.value)" placeholder="Date">
           </div>
           <div class="gd-sign-digital" [ngClass]="isActive(signature.guid) ? 'active' : ''"
-               (click)="selectDigital(signature.guid)">Sign
+               (click)="selectDigital(signature.guid)">
+            <fa-icon [icon]="['fas','save']"></fa-icon>
+            <span class="digital-apply">Apply</span>
           </div>
         </div>
       </div>
