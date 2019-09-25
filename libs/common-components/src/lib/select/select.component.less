@@ -9,11 +9,10 @@
   font-size: 14px;
   cursor: pointer;
   white-space: nowrap;
-}
-
-.selected-value.inactive{
-  cursor: not-allowed;
-  color: #CCC;
+  &.inactive {
+    cursor: not-allowed;
+    color: #ccc;
+  }
 }
 
 .nav-caret {
@@ -27,11 +26,10 @@
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
   cursor: pointer;
-}
-
-.nav-caret.inactive{
-  cursor: not-allowed;
-  color: #CCC;
+  &.inactive {
+    cursor: not-allowed;
+    color: #ccc;
+  }
 }
 
 .dropdown-menu {
@@ -39,14 +37,11 @@
   top: 49px;
   z-index: 1000;
   float: left;
-  min-width: 160px;
-  padding: 5px 0;
+  min-width: 96px;
   list-style: none;
   font-size: 13px;
   text-align: left;
   background-color: #ffffff;
-  border: 1px solid #cccccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
@@ -54,22 +49,22 @@
 
 .dropdown-menu .option {
   display: block;
-  padding: 3px 20px;
+  padding: 7px 0px 7px 7px;
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
   white-space: nowrap;
   cursor: pointer;
+  font-size: 10px;
 }
 
 .dropdown-menu .option:hover{
   background-color: @nav-logo-background;
-  color: #FFF;
+  color: #FFF !important;
 }
 
 .dropdown-menu-separator {
   height: 1px;
-  margin: 8px 0;
   overflow: hidden;
   background-color: #e5e5e5;
   padding: 0 !important;

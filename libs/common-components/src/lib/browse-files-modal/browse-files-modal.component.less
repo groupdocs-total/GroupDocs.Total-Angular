@@ -2,32 +2,57 @@
 .gd-modal-table {
   width: 100%;
   text-align: left;
-  padding-top: 20px;
 }
 
 #gd-browse-section {
-  width: 1024px;
-  height: 628px;
+  width: 1036px;
+  height: 561px;
+  overflow-y: auto;
 }
 
 .list-files-header {
-  color: #ACACAC;
-  font-size: 10px;
+  height: 60px;
+  color: @dove-gray;
+  font-size: 13px;
+  font-weight: bold;
+  background-color: @wild-sand;
+  margin-top: 24px;
+  &.upload-url {
+    margin-top: 20px;
+  }
 }
-.header-size, .header-name {
-  padding: 10px 20px;
+
+.header-name {
+  padding-left: 24px;
   width: 90%;
+  line-height: 60px;
+}
+
+.header-size {
+  padding-right: 27px;
+  line-height: 60px;
+  // TODO: add overflow-y: scroll if scroll-bar in files appears
 }
 
 .header-size, .file-size {
   width: 10%;
   color: #777777;
+  text-align: right;
 }
 
-.file-size, .file-description {
+.file-description {
+  display: flex;
+  width: 90%;
+  padding: 18px 0px 18px 24px;
   font-size: 14px;
-  padding: 10px 20px;
+  flex: 1;
+}
+
+.file-size {
+  font-size: 12px;
+  padding: 0px 27px 0px 0px;
   width: 10%;
+  line-height: 79px;
 }
 
 .file-description {
@@ -68,7 +93,22 @@
 }
 
 .go-up {
+  display: flex;
+  font-size: 26px;
   cursor: pointer;
+  color: @folder;
+  height: 79px;
+}
+
+.go-up-dots {
+  margin-left: 20px;
+  margin-top: 22px;
+  font-size: 16px;
+}
+
+.go-up-icon {
+  display: block;
+  padding: 18px 0px 18px 24px;
 }
 
 .upload-panel {
@@ -80,9 +120,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-left: 20px;
-    margin-top: 20px;
-    margin-right: 20px;
+    margin-left: 24px;
+    margin-top: 24px;
+    margin-right: 24px;
 
     .context-actions{
       display: flex;
@@ -91,6 +131,15 @@
 
       *:last-child{
         margin-right: 0px;
+      }
+      ::ng-deep .button {
+        height: 37px;
+        width: 96px;
+        padding: 0px;
+        justify-content: center;
+        ::ng-deep .text {
+          font-size: 10px;
+        }
       }
     }
     .context-panel{
@@ -108,7 +157,9 @@
         .url-input {
           width: 100%;
           height: 27px;
-          border: 1px solid #25C2D4;
+          border: 1px solid @brand;
+          font-size: 14px;
+          padding-left: 6px;
         }
 
         .url-check {
@@ -116,7 +167,7 @@
           height: 31px;
           color: #FFFFFF;
           font-size: 15px;
-          background-color: #25C2D4;
+          background-color: @brand;
         }
 
         .url-check .ng-fa-icon {
@@ -133,77 +184,56 @@
   }
 }
 
-.file-description {
-  display: flex;
-  width: 90%;
-}
-
 .file-description .ng-fa-icon.fa-file-pdf {
-  color: #E21717;
+  color: @pdf;
 }
-
 
 .file-description .ng-fa-icon.fa-file-word {
-  color: #6979B9;
+  color: @word;
 }
 
 .file-description .ng-fa-icon.fa-file-powerpoint {
-  color: #E29417;
+  color: @powerpoint;
 }
 
 .file-description .ng-fa-icon.fa-file-excel {
-  color: #3FA300;
+  color: @excel;
 }
 
 .file-description .ng-fa-icon.fa-file-image {
-  color: #E217DA;
+  color: @image;
 }
 
-.file-description .ng-fa-icon.fa-file-text .fa-folder {
-  color: #5D6A75;
+.file-description .ng-fa-icon.fa-file-text .fa-folder,
+.file-description .ng-fa-icon.fa-file,
+.file-description .ng-fa-icon.fa-file-alt {
+  color: @folder;
 }
 
 .file-description  .ng-fa-icon {
   font-size: 32px;
 }
 
-.go-up {
-  display: flex;
-  font-size: 16px;
-}
-
-.go-up-dots {
-  margin-left: 10px;
-  margin-top: 8px;
-  font-size: 20px;
-}
-
-.go-up-icon .ng-fa-icon {
-  padding: 8px;
-  display: block;
-}
-
-.go-up-icon {
-  width: 30px;
-  height: 30px;
-  padding: 10px 20px;
-}
-
 .file-name {
   font-size: 16px;
-  color: #6E6E6E;
+  color: @dove-gray;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .file-name-format {
-  padding-left: 10px;
+  padding-left: 11px;
+  overflow: hidden;
 }
 
 .file-format {
   font-size: 10px;
+  padding-top: 3px;
+  color: @silver-chalice;
 }
 
-.list-files-lines {
-  border-top: 1px solid #ccc;
+.list-files-lines, .go-up {
+  border-bottom: 1px solid @mercury;
 }
 
 .list-files-lines:hover{
@@ -216,18 +246,27 @@
   position: absolute;
   width: inherit;
   height: inherit;
-  opacity: 0.9;
+  background: rgba(255,255,255,0.7);
   z-index: 1;
   display: flex;
   text-align: center;
   justify-content: center;
   align-content: center;
   flex-direction: column;
+  fa-icon {
+    color: @primary;
+    font-size: 90px;
+  }
+}
+
+.gd-drag-n-drop-icon {
+  margin-top: -50px;
 }
 
 .gd-dnd-wrap h2 {
-  color: #959DA5;
-  font-size: 15px;
+  color: @dove-gray;
+  margin-top: 20px;
+  font-size: 14px;
   font-weight: 300;
 }
 
@@ -236,7 +275,7 @@
   font-size: 110px;
 }
 
-@media (max-width: 1025px) {
+@media (max-width: 1037px) {
   .header-size, .file-size {
     width: 18%;
   }
@@ -244,6 +283,7 @@
     width: 95%;
   }
   #gd-browse-section{
-    width: 100% ;
+    width: 100%;
+    height: calc(100% - 146px);
   }
 }

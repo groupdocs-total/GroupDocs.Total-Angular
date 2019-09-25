@@ -1,12 +1,11 @@
 <gd-modal id="gd-create-document" [title]="'Save document'" (visible)="refresh($event)">
   <section id="gd-create-document-section" class="tab-slider-body">
-    <div class="inner-addon left-addon btn gd-create-wrap" id="gd-create-wrap">
-      <input type="text" class="form-control" placeholder="Enter file name without extension" [value]="!file ? '' : file.guid.replace(FILE_NAME_REGEX, '').split('.')[0]" #name autofocus/>
-      <span>
-        Select file type
-      </span>
-      <gd-select [disabled]="false" [options]="formats" (selected)="selectFormat($event)" [showSelected]="{name : format, value : format}" class="gd-select-format"></gd-select>
-      <button class="btn btn-primary gd-create-submit" (click)="save(name.value)">Save</button>
+    <div class="gd-create-wrap">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" [value]="!file ? '' : file.guid.replace(FILE_NAME_REGEX, '').split('.')[0]" #name autofocus/>
+      <label for="format">Format</label>
+      <gd-select id="format" [disabled]="false" [options]="formats" (selected)="selectFormat($event)" [showSelected]="{name : format, value : format}" class="gd-select-format"></gd-select>
+      <gd-button [icon]="'save'" [intent]="'brand'" [iconOnly]="false" (click)="save(name.value)">Save</gd-button>
     </div>
   </section>
 </gd-modal>

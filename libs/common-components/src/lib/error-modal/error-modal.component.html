@@ -1,3 +1,6 @@
-<gd-modal id="gd-error-message" [title]="'Error message'">
-  <div class="gd-modal-error">{{message ? message : 'Server is not available'}}</div>
+<gd-modal id="gd-error-message" [title]="'Error'">
+  <section id="gd-error-section">
+    <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+    <div class="gd-modal-error">{{message ? message : 'Server is not available'}}</div>
+  </section>
 </gd-modal>

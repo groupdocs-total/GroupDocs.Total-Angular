@@ -36,10 +36,8 @@ export class SelectComponent {
     this.isOpen = false;
   }
 
-  onClickOutside(event){
-    if(event && event['value'] === true) {
-      this.close();
-    }
+  onClickOutside(event : Event){
+    this.close();
   }
 
   toggle($event) {

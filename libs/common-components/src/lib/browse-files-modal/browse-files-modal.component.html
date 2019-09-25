@@ -1,65 +1,64 @@
 <gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
+  <div class="upload-panel" *ngIf="uploadConfig">
+    <input id="gd-upload-input" type="file" multiple style="display: none;"
+            (change)="handleFileInput($event.target.files)">
+    <div class="context">
+      <div class="context-actions">
+        <gd-drop-down>
+          <gd-drop-down-toggle>
+            <gd-button [icon]="'upload'" [intent]="'brand'" [iconOnly]="false">
+              Upload file
+            </gd-button>
+          </gd-drop-down-toggle>
+          <gd-drop-down-items>
+            <gd-drop-down-item (selected)="selectUpload(item.name)" *ngFor="let item of uploads">
+              <fa-icon [icon]="['fas', item.icon]"></fa-icon>
+              <div class="text">{{item.name}}</div>
+            </gd-drop-down-item>
+          </gd-drop-down-items>
+        </gd-drop-down>
+      </div>
+      <div class="context-panel" *ngIf="showUploadUrl">
+        <div class="upload-url">
+          <input class="url-input" placeholder="http://" #url (keyup.enter)="uploadUrl(url.value)">
+          <div class="url-check" (click)="uploadUrl(url.value)">
+            <fa-icon [icon]="['fas','check']"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="list-files-header" [ngClass]="{'upload-url': showUploadUrl}">
+    <div class="header-name">FILE</div>
+    <div class="header-size">SIZE</div>
+  </div>
   <section id="gd-browse-section" (dragover)="showUploadFile = true;">
     <div class="gd-dnd-wrap" *ngIf="showUploadFile" gdDnd (opening)="showUploadFile=$event">
       <div class="gd-drag-n-drop-icon">
-        <fa-icon [icon]="['fas','cloud-download-alt']" size="5x" aria-hidden="true"></fa-icon>
+        <fa-icon [icon]="['fas','cloud-download-alt']" aria-hidden="true"></fa-icon>
       </div>
       <h2>Drag &amp; Drop your files here</h2>
     </div>
-    <div class="upload-panel" *ngIf="uploadConfig">
-      <input id="gd-upload-input" type="file" multiple style="display: none;"
-             (change)="handleFileInput($event.target.files)">
-
-      <div class="context">
-        <div class="context-actions">
-          <gd-drop-down>
-            <gd-drop-down-toggle>
-              <gd-button [icon]="'upload'" [intent]="'brand'" [iconOnly]="false">
-                Upload file
-              </gd-button>
-            </gd-drop-down-toggle>
-            <gd-drop-down-items>
-              <gd-drop-down-item (selected)="selectUpload(item.name)" *ngFor="let item of uploads">
-                <fa-icon [icon]="['fas', item.icon]"></fa-icon>
-                <div class="text">{{item.name}}</div>
-              </gd-drop-down-item>
-            </gd-drop-down-items>
-          </gd-drop-down>
+    <div id="gd-modal-filebrowser" class="gd-modal-table">
+      <div class="list-files-body">
+        <div class="go-up" (click)="goUp()">
+            <div class="go-up-icon">
+                <fa-icon [icon]="['fas','level-up-alt']"></fa-icon>
+            </div>
+            <div class="go-up-dots">..</div>
         </div>
-        <div class="context-panel">
-          <div class="upload-url" *ngIf="showUploadUrl">
-            <input class="url-input" placeholder="http://" #url (keyup.enter)="uploadUrl(url.value)">
-            <div class="url-check" (click)="uploadUrl(url.value)">
-              <fa-icon [icon]="['fas','check']"></fa-icon>
+        <div class="list-files-lines" *ngFor="let file of files" (click)="choose(file);">
+          <div class="file-description">
+            <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>
+            <div class="file-name-format">
+              <div class="file-name">{{file?.name}}</div>
+              <div class="file-format">{{getFormatName(file)}}</div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div id="gd-modal-filebrowser" class="gd-modal-table">
-      <div class="list-files-header">
-        <div class="header-name">Document</div>
-        <div class="header-size">Size</div>
-      </div>
-      <div class="list-files-body">
-      <div class="go-up" (click)="goUp()">
-          <div class="go-up-icon">
-              <fa-icon [icon]="['fas','level-up-alt']"></fa-icon>
-          </div>
-          <div class="go-up-dots">...</div>
-      </div>
-      <div class="list-files-lines" *ngFor="let file of files" (click)="choose(file);">
-        <div class="file-description">
-          <fa-icon [icon]="['fas',getFormatIcon(file)]" [class]="'ng-fa-icon fa-' + getFormatIcon(file)"></fa-icon>
-          <div class="file-name-format">
-            <div class="file-name">{{file?.name}}</div>
-            <div class="file-format">{{getFormatName(file)}}</div>
+          <div class="file-size">
+            {{getSize(file?.size)}}
           </div>
         </div>
-        <div class="file-size">
-          {{getSize(file?.size)}}
-        </div>
-      </div>
       </div>
     </div>
     <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="showSpinner()">

@@ -331,7 +331,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-top-toolbar',
                         template: "<div class=\"top-toolbar\">\n  <gd-button [className]=\"'arrow-button'\" class=\"arrow-left\" id=\"left\" [icon]=\"'caret-left'\" [tooltip]=\"'Scroll left'\"\n             (click)=\"moveLeft()\"\n             *ngIf=\"showLeft\"></gd-button>\n  <div id=\"tools\" class=\"tools\">\n    <ng-content></ng-content>\n  </div>\n  <gd-button [className]=\"'arrow-button'\" class=\"arrow-right\" id=\"right\" [icon]=\"'caret-right'\"\n             [tooltip]=\"'Scroll right'\" (click)=\"moveRight()\"\n             *ngIf=\"showRight\"></gd-button>\n</div>\n",
-                        styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.top-toolbar{height:60px}.arrow-right{position:absolute;right:0}.arrow-left{position:absolute;left:0}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
+                        styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.arrow-right{position:absolute;right:0}.arrow-left{position:absolute;left:0}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -367,7 +367,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-side-panel',
                         template: "<div class=\"gd-side-panel-wrapper\">\n  <div class=\"gd-side-panel-header\">\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\n    <div class=\"title\">{{title}}</div>\n    <div class=\"close\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"openSidePanel()\"></gd-button>\n    </div>\n  </div>\n  <div class=\"gd-side-panel-body\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-                        styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:12px 9px 18px 14px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:14px;font-weight:700;color:rgba(237,240,242,.57);margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close{font-size:24px!important;margin-top:12px}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}}"]
+                        styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:12px 9px 18px 14px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:14px;font-weight:700;color:rgba(237,240,242,.57);margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close{font-size:24px!important;margin-top:12px}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -411,6 +411,7 @@
             if (!this.disabled) {
                 this.className += ' active';
             }
+            this.showToolTip = true;
         };
         /**
          * @return {?}
@@ -422,16 +423,15 @@
             if (!this.disabled) {
                 this.className = this.className.replace(' active', '');
             }
+            this.showToolTip = false;
         };
         ButtonComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-button',
-                        template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <div class=\"text\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-                        styles: [".icon-button{padding:0!important;margin:0 10px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1025px){.button{font-size:20px}.arrow-button{margin:5px}}"]
+                        template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <div class=\"text\"><ng-content></ng-content></div>\n</div>\n",
+                        styles: [".icon-button{padding:0!important;margin:0 10px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1025px){.button{font-size:20px}.arrow-button{margin:5px}}"]
                     }] }
         ];
-        /** @nocollapse */
-        ButtonComponent.ctorParameters = function () { return []; };
         ButtonComponent.propDecorators = {
             iconOnly: [{ type: core.Input }],
             intent: [{ type: core.Input }],
@@ -464,7 +464,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-logo',
                         template: "<div id=\"gd-header-logo\" class=\"logo\">\n  <span class=\"text\" [innerHTML]=\"logo\"></span>\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n\n",
-                        styles: [".logo{background-color:#25c2d4;height:60px;display:flex;align-items:center;justify-content:center}.text{color:#fff;font-size:15px;text-transform:uppercase;margin:0 14px}.icon{display:none;font-size:32px;color:rgba(255,255,255,.5);margin:14px}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.logo{width:60px;height:60px}.logo .text{display:none}.logo .icon{display:block}}"]
+                        styles: [".logo{background-color:#25c2d4;height:60px;display:flex;align-items:center;justify-content:center}.text{color:#fff;font-size:15px;text-transform:uppercase;margin:0 14px}.icon{display:none;font-size:32px;color:rgba(255,255,255,.5);margin:14px}@media (max-width:1037px){.logo{width:60px;height:60px}.logo .text{display:none}.logo .icon{display:block}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -527,7 +527,6 @@
         function Api() {
         }
         Api.VIEWER_APP = '/viewer';
-        Api.SIGNATURE_APP = '/signature';
         Api.EDITOR_APP = '/editor';
         Api.COMPARISON_APP = '/comparison';
         Api.CONVERSION_APP = '/conversion';
@@ -546,14 +545,6 @@
         Api.SAVE_FILE = '/saveFile';
         Api.COMPARE_FILES = '/compare';
         Api.CONVERT_FILE = '/convert';
-        Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
-        Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
-        Api.SAVE_TEXT = '/saveText';
-        Api.SAVE_IMAGE = '/saveImage';
-        Api.SAVE_STAMP = '/saveStamp';
-        Api.SIGN = '/sign';
-        Api.DOWNLOAD_SIGNED = '/downloadSigned';
-        Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
         Api.httpOptionsJson = {
             headers: new http.HttpHeaders({
                 'Content-Type': 'application/json',
@@ -634,15 +625,6 @@
          */
         function () {
             return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
-        };
-        /**
-         * @return {?}
-         */
-        ConfigService.prototype.getSignatureApiEndpoint = /**
-         * @return {?}
-         */
-        function () {
-            return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
         };
         ConfigService.decorators = [
             { type: core.Injectable }
@@ -812,7 +794,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-modal',
                         template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \n\n      <div class=\"gd-modal-header\"> \n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\n        </div> \n\n      <div class=\"gd-modal-body\">\n        <ng-content></ng-content>\n        </div> \n\n      <div class=\"gd-modal-footer\"> \n\n        </div> \n      </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog --> \n\n",
-                        styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{padding:1px 20px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:20px;top:13px;font-size:21px;cursor:pointer;color:#959da5}.gd-modal-title{font-size:16px;font-weight:400;padding-top:16px;padding-bottom:16px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1025px){.gd-modal-dialog{width:100%;height:100%}}"]
+                        styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#959da5;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:14px;font-weight:400;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -880,48 +862,6 @@
         HttpError.Conflict = 409;
         HttpError.InternalServerError = 500;
         return HttpError;
-    }());
-    var Utils = /** @class */ (function () {
-        function Utils() {
-        }
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        Utils.getMousePosition = /**
-         * @param {?} event
-         * @return {?}
-         */
-        function (event) {
-            /** @type {?} */
-            var mouse = {
-                x: 0,
-                y: 0
-            };
-            /** @type {?} */
-            var wEvent = (/** @type {?} */ (window.event));
-            /** @type {?} */
-            var ev = event || wEvent;
-            if (ev.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
-                //Moz
-                /** @type {?} */
-                var pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0;
-                /** @type {?} */
-                var pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0;
-                /** @type {?} */
-                var screenX_1 = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
-                /** @type {?} */
-                var screenY_1 = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
-                mouse.x = pageX ? ev.pageX : (screenX_1 ? wEvent.screenX : ev.touches[0].pageX);
-                mouse.y = pageY ? ev.pageY : (screenY_1 ? wEvent.screenY : ev.touches[0].pageY);
-            }
-            else if (ev.clientX) { //IE
-                mouse.x = ev.clientX + document.body.scrollLeft;
-                mouse.y = ev.clientY + document.body.scrollTop;
-            }
-            return mouse;
-        };
-        return Utils;
     }());
     var FileUtil = /** @class */ (function () {
         function FileUtil() {
@@ -1083,9 +1023,9 @@
     /** @type {?} */
     var $$2 = jquery;
     /** @type {?} */
-    var upload_disc = 'From Disc';
+    var upload_disc = 'Disc';
     /** @type {?} */
-    var upload_url = 'From URL';
+    var upload_url = 'URL';
     /** @type {?} */
     var uploads_choices = [{ name: upload_disc, icon: 'hdd' }, { name: upload_url, icon: 'link' }];
     var BrowseFilesModalComponent = /** @class */ (function () {
@@ -1271,8 +1211,8 @@
         BrowseFilesModalComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-browse-files-modal',
-                        template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\n    <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\n      <div class=\"gd-drag-n-drop-icon\">\n        <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\" aria-hidden=\"true\"></fa-icon>\n      </div>\n      <h2>Drag &amp; Drop your files here</h2>\n    </div>\n    <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\n             (change)=\"handleFileInput($event.target.files)\">\n\n      <div class=\"context\">\n        <div class=\"context-actions\">\n          <gd-drop-down>\n            <gd-drop-down-toggle>\n              <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\n                Upload file\n              </gd-button>\n            </gd-drop-down-toggle>\n            <gd-drop-down-items>\n              <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\n                <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\n                <div class=\"text\">{{item.name}}</div>\n              </gd-drop-down-item>\n            </gd-drop-down-items>\n          </gd-drop-down>\n        </div>\n        <div class=\"context-panel\">\n          <div class=\"upload-url\" *ngIf=\"showUploadUrl\">\n            <input class=\"url-input\" placeholder=\"http://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\n            <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\n              <fa-icon [icon]=\"['fas','check']\"></fa-icon>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\n      <div class=\"list-files-header\">\n        <div class=\"header-name\">Document</div>\n        <div class=\"header-size\">Size</div>\n      </div>\n      <div class=\"list-files-body\">\n      <div class=\"go-up\" (click)=\"goUp()\">\n          <div class=\"go-up-icon\">\n              <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\n          </div>\n          <div class=\"go-up-dots\">...</div>\n      </div>\n      <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\n        <div class=\"file-description\">\n          <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\n          <div class=\"file-name-format\">\n            <div class=\"file-name\">{{file?.name}}</div>\n            <div class=\"file-format\">{{getFormatName(file)}}</div>\n          </div>\n        </div>\n        <div class=\"file-size\">\n          {{getSize(file?.size)}}\n        </div>\n      </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n      &nbsp;Loading... Please wait.\n    </div>\n  </section>\n</gd-modal>\n",
-                        styles: [".gd-modal-table{width:100%;text-align:left;padding-top:20px}#gd-browse-section{width:1024px;height:628px}.list-files-header{color:#acacac;font-size:10px}.header-name,.header-size{padding:10px 20px;width:90%}.file-size,.header-size{width:10%;color:#777}.file-description,.file-size{font-size:14px;padding:10px 20px;width:10%}.list-files-header,.list-files-lines{display:flex;width:100%;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{cursor:pointer;display:flex;font-size:16px}.upload-panel{display:flex;position:relative;width:100%}.upload-panel .context{display:flex;flex-direction:column;width:100%;margin-left:20px;margin-top:20px;margin-right:20px}.upload-panel .context .context-actions{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-panel{display:flex;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description{cursor:pointer;overflow:hidden;display:flex;width:90%}.file-description .ng-fa-icon.fa-file-pdf{color:#e21717}.file-description .ng-fa-icon.fa-file-word{color:#6979b9}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29417}.file-description .ng-fa-icon.fa-file-excel{color:#3fa300}.file-description .ng-fa-icon.fa-file-image{color:#e217da}.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#5d6a75}.file-description .ng-fa-icon{font-size:32px}.go-up-dots{margin-left:10px;margin-top:8px;font-size:20px}.go-up-icon .ng-fa-icon{padding:8px;display:block}.go-up-icon{width:30px;height:30px;padding:10px 20px}.file-name{font-size:16px;color:#6e6e6e}.file-name-format{padding-left:10px}.file-format{font-size:10px}.list-files-lines{border-top:1px solid #ccc}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:inherit;height:inherit;opacity:.9;z-index:1;display:flex;text-align:center;justify-content:center;align-content:center;flex-direction:column}.gd-dnd-wrap h2{color:#959da5;font-size:15px;font-weight:300}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}@media (max-width:1025px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%}}"]
+                        template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\n            (change)=\"handleFileInput($event.target.files)\">\n    <div class=\"context\">\n      <div class=\"context-actions\">\n        <gd-drop-down>\n          <gd-drop-down-toggle>\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\n              Upload file\n            </gd-button>\n          </gd-drop-down-toggle>\n          <gd-drop-down-items>\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\n              <div class=\"text\">{{item.name}}</div>\n            </gd-drop-down-item>\n          </gd-drop-down-items>\n        </gd-drop-down>\n      </div>\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\n        <div class=\"upload-url\">\n          <input class=\"url-input\" placeholder=\"http://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\n    <div class=\"header-name\">FILE</div>\n    <div class=\"header-size\">SIZE</div>\n  </div>\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\n    <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\n      <div class=\"gd-drag-n-drop-icon\">\n        <fa-icon [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n      </div>\n      <h2>Drag &amp; Drop your files here</h2>\n    </div>\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\n      <div class=\"list-files-body\">\n        <div class=\"go-up\" (click)=\"goUp()\">\n            <div class=\"go-up-icon\">\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\n            </div>\n            <div class=\"go-up-dots\">..</div>\n        </div>\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\n          <div class=\"file-description\">\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\n            <div class=\"file-name-format\">\n              <div class=\"file-name\">{{file?.name}}</div>\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\n            </div>\n          </div>\n          <div class=\"file-size\">\n            {{getSize(file?.size)}}\n          </div>\n        </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n      &nbsp;Loading... Please wait.\n    </div>\n  </section>\n</gd-modal>\n",
+                        styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:flex;width:100%;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:flex;position:relative;width:100%}.upload-panel .context{display:flex;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;width:96px;padding:0;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:flex;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:inherit;height:inherit;background:rgba(255,255,255,.7);z-index:1;display:flex;text-align:center;justify-content:center;align-content:center;flex-direction:column}.gd-dnd-wrap fa-icon{color:#3e4e5a;font-size:90px}.gd-drag-n-drop-icon{margin-top:-50px}.gd-dnd-wrap h2{color:#6e6e6e;margin-top:20px;font-size:14px;font-weight:300}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1450,6 +1390,15 @@
         /**
          * @return {?}
          */
+        DocumentComponent.prototype.ifEdge = /**
+         * @return {?}
+         */
+        function () {
+            return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+        };
+        /**
+         * @return {?}
+         */
         DocumentComponent.prototype.ngAfterViewChecked = /**
          * @return {?}
          */
@@ -1465,8 +1414,8 @@
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"ifFirefox()\" gdSearchable>\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"!ifFirefox()\"\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 4px 12px -4px rgba(0,0,0,.38);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}@media (max-width:1025px){.document{overflow-x:auto!important}.panzoom{flex-direction:column}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"!ifEdge()\" [isEdge]=\"ifEdge()\" gdSearchable>\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"ifEdge()\" [isEdge]=\"ifEdge()\"\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
+                        styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 4px 12px -4px rgba(0,0,0,.38);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}@media (max-width:1025px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1521,9 +1470,9 @@
         PageComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-page',
-                        template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
+                        template: "<div id=\"page-{{number}}\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
                         encapsulation: core.ViewEncapsulation.None,
-                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}.gd-highlight-select{background-color:#ff9b00}"]
+                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}.gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%!important;width:100%!important}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1996,8 +1945,6 @@
     /** @type {?} */
     var MOBILE_MAX_WIDTH = 425;
     /** @type {?} */
-    var MOBILE_MAX_HEIGHT = 450;
-    /** @type {?} */
     var TABLET_MAX_WIDTH = 1024;
     var WindowService = /** @class */ (function () {
         function WindowService() {
@@ -2034,7 +1981,7 @@
          * @return {?}
          */
         function () {
-            return this.width <= MOBILE_MAX_WIDTH || this.height < MOBILE_MAX_HEIGHT;
+            return this.width <= MOBILE_MAX_WIDTH;
         };
         /**
          * @return {?}
@@ -2053,24 +2000,6 @@
          */
         function () {
             return !this.isMobile() && !this.isTablet();
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.getWidth = /**
-         * @return {?}
-         */
-        function () {
-            return this.width;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.getHeight = /**
-         * @return {?}
-         */
-        function () {
-            return this.height;
         };
         return WindowService;
     }());
@@ -2356,6 +2285,7 @@
             this._zoomService = _zoomService;
             this._sanitizer = _sanitizer;
             this.zoomActive = true;
+            this.isEdge = true;
         }
         /**
          * @return {?}
@@ -2373,9 +2303,6 @@
          */
         function () {
             var _this = this;
-            if (!this.zoomActive) {
-                return;
-            }
             this.setStyles(this._zoomService.zoom);
             this._zoomService.zoomChange.subscribe((/**
              * @param {?} zoom
@@ -2399,15 +2326,15 @@
             if (!this.zoomActive) {
                 return;
             }
-            this.zoomStr = Math.round(zoom) + '%';
-            this.zoomInt = zoom === 100 ? 1 : zoom / 100;
-            this.mozTransform = 'scale(' + this.zoomInt + ', ' + this.zoomInt + ')';
-            this.mozTransformOrigin = 'top';
             /** @type {?} */
-            var transform = this._sanitizer.bypassSecurityTrustStyle('(' + this.zoomInt + ', ' + this.zoomInt + ')');
-            this.webkitTransform = transform;
-            this.msTransform = transform;
-            this.oTransform = transform;
+            var zoomInt = zoom === 100 ? 1 : zoom / 100;
+            if (this.isEdge) {
+                this.zoomInt = zoomInt;
+            }
+            else {
+                this.Transform = 'scale(' + zoomInt + ')';
+                this.TransformOrigin = 'top';
+            }
         };
         /**
          * @return {?}
@@ -2430,13 +2357,10 @@
         ]; };
         ZoomDirective.propDecorators = {
             zoomActive: [{ type: core.Input }],
-            zoomStr: [{ type: core.HostBinding, args: ['style.zoom',] }],
+            isEdge: [{ type: core.Input }],
             zoomInt: [{ type: core.HostBinding, args: ['style.zoom',] }],
-            mozTransform: [{ type: core.HostBinding, args: ['style.-moz-transform',] }],
-            mozTransformOrigin: [{ type: core.HostBinding, args: ['style.-moz-transform-origin',] }],
-            webkitTransform: [{ type: core.HostBinding, args: ['style.-webkit-transform',] }],
-            msTransform: [{ type: core.HostBinding, args: ['style.-ms-transform',] }],
-            oTransform: [{ type: core.HostBinding, args: ['style.-o-transform',] }]
+            Transform: [{ type: core.HostBinding, args: ['style.transform',] }],
+            TransformOrigin: [{ type: core.HostBinding, args: ['style.transform-origin',] }]
         };
         return ZoomDirective;
     }());
@@ -2529,9 +2453,7 @@
          * @return {?}
          */
         function (event) {
-            if (event && event['value'] === true) {
-                this.close();
-            }
+            this.close();
         };
         /**
          * @param {?} $event
@@ -2568,7 +2490,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-select',
                         template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [clickOutsideEnabled]=\"isOpen\"\n     >\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </span>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
-                        styles: [".select{min-width:50px;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:160px;padding:5px 0;list-style:none;font-size:13px;text-align:left;background-color:#fff;border:1px solid rgba(0,0,0,.15);box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box}.dropdown-menu .option{display:block;padding:3px 20px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff}.dropdown-menu-separator{height:1px;margin:8px 0;overflow:hidden;background-color:#e5e5e5;padding:0!important}"]
+                        styles: [".select{min-width:50px;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#e5e5e5;padding:0!important}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3049,8 +2971,8 @@
         ErrorModalComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-error-modal',
-                        template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error message'\">\n  <div class=\"gd-modal-error\">{{message ? message : 'Server is not available'}}</div>\n</gd-modal>\n",
-                        styles: [".gd-modal-error{position:absolute;background-color:#fff;font-size:13px;padding:20px}"]
+                        template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\n  <section id=\"gd-error-section\">\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\n    <div class=\"gd-modal-error\">{{message ? message : 'Server is not available'}}</div>\n  </section>\n</gd-modal>\n",
+                        styles: [".gd-modal-error{background-color:#fff;font-size:12px;padding:14px 24px 24px 0}#gd-error-section{max-width:469px;max-height:204px;display:flex}#gd-error-section fa-icon{color:#e04e4e;font-size:40px;margin:13px 23px 90px}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3129,8 +3051,8 @@
         PasswordRequiredComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-password-required',
-                        template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password required'\">\n  <section id=\"gd-password-section\" class=\"tab-slider-body\">\n    <div class=\"inner-addon left-addon btn gd-password-wrap\" id=\"gd-password-wrap\">\n      <input type=\"password\" class=\"form-control\" placeholder=\"Enter password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <button class=\"btn btn-primary gd-password-submit\" (click)=\"setPassword(pass.value)\">Submit</button>\n      <span class=\"gd-password-error\">{{message}}</span>\n    </div>\n  </section>\n</gd-modal>\n",
-                        styles: [".gd-password-wrap{position:relative}.gd-password-wrap>input{padding-left:12px;width:454px;height:32px;color:#585858;float:left}.gd-password-submit{color:#fff;background-color:#3e4d59;padding:7px 16px 6px;font-size:12px;cursor:pointer;float:left}.gd-password-error{color:red;padding-top:10px;float:left}@media (max-width:1025px){.gd-password-wrap>input{width:50%}}"]
+                        template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n          Open\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
+                        styles: ["#gd-password-section{min-width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1025px){#gd-password-section{min-width:375px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3390,7 +3312,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-search',
                         template: "<div class=\"gd-nav-search-container\">\n  <input type=\"text\" class=\"gd-search-input\" #text (input)=\"setText(text.value)\"/>\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\n  <div class=\"gd-nav-search-btn\" (click)=\"prev()\">\n    <fa-icon [icon]=\"['fas','chevron-left']\"></fa-icon>\n  </div>\n  <div class=\"gd-nav-search-btn\" (click)=\"next()\">\n    <fa-icon [icon]=\"['fas','chevron-right']\"></fa-icon>\n  </div>\n  <div class=\"gd-nav-search-btn gd-nav-search-cancel\" (click)=\"hide()\">\n    <fa-icon [icon]=\"['fas','times']\"></fa-icon>\n  </div>\n</div>\n",
-                        styles: [".gd-nav-search-btn{float:left;margin:0 10px;padding:3px 5px;cursor:pointer;color:#959da5}.gd-nav-search-cancel{font-size:15px;width:10px;margin-left:1px;margin-top:-2px}.gd-search-count{color:#959da5;font-size:11px;position:absolute;left:221px;top:13px;text-align:right;width:62px}.gd-nav-search-container{background-color:#3e4e5a;min-width:330px;padding:8px 0 7px 7px;position:absolute;left:328px;top:49px;z-index:1}.gd-search-input{float:left;height:11px;width:215px;padding:5px 65px 5px 5px}@media (max-width:1025px){.gd-nav-search-container{top:70px;left:45%}.gd-search-input{width:auto}.gd-search-count{left:48%}}@media (min-width:401px) and (max-width:700px){.gd-search-input{width:226px}.gd-search-count{left:55%}}@media (max-width:500px){.gd-nav-search-container{width:100%;left:0}}"]
+                        styles: [".gd-nav-search-btn{float:left;cursor:pointer;padding-left:7px;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px;padding-right:4px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;left:206px;top:14px;text-align:right;width:62px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:17px;width:258px;font-size:14px;padding:5px 0 6px 7px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px}@media (min-width:401px) and (max-width:700px){.gd-search-input{width:231px}.gd-nav-search-cancel{padding-right:7px}.gd-search-count{left:179px}.gd-nav-search-container{width:386px}}@media (max-width:500px){.gd-search-input{width:231px}.gd-nav-search-cancel{padding-right:7px}.gd-search-count{left:179px}.gd-nav-search-container{width:100%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3620,16 +3542,12 @@
         TabbedToolbarsComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-tabbed-toolbars',
-                        template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [".top-panel{background:#3e4e5a;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
+                        template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"'editor'\" [icon]=\"'pen-square'\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
+                        styles: [".top-panel{background:#3e4e5a;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:1037px){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
                     }] }
         ];
         /** @nocollapse */
         TabbedToolbarsComponent.ctorParameters = function () { return []; };
-        TabbedToolbarsComponent.propDecorators = {
-            logo: [{ type: core.Input }],
-            icon: [{ type: core.Input }]
-        };
         return TabbedToolbarsComponent;
     }());
 
@@ -3726,8 +3644,8 @@
         TabComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-tab',
-                        template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
+                        template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'gd-editor-buttons active' : 'gd-editor-buttons'\">\n  <ng-content></ng-content>\n</div>\n",
+                        styles: [".gd-editor-buttons{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.gd-editor-buttons ::ng-deep .toolbar-panel{height:60px}.gd-editor-buttons.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -4748,7 +4666,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-success-modal',
                         template: "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\n    <div class=\"sa-icon sa-success animate\">\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\n        <div class=\"sa-placeholder\"></div>\n        <div class=\"sa-fix\"></div>\n      </div>\n  </div></div>\n  </gd-modal>\n",
-                        styles: [".check_mark{margin:0 auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:flex;overflow:hidden;padding:20px}.sa-icon.sa-success{border-color:#4caf50}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;transform:rotate(-45deg);transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;transform:rotate(-45deg);transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1025px){#gd-modal-success{left:50%;top:50%;position:relative;transform:translate(-50%,-50%)}}"]
+                        styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;transform:rotate(-45deg);transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;transform:rotate(-45deg);transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1025px){#gd-modal-success{left:50%;top:50%;position:relative;transform:translate(-50%,-50%)}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5072,7 +4990,7 @@
                         selector: 'gd-drop-down-toggle',
                         template: '<ng-content></ng-content>',
                         encapsulation: core.ViewEncapsulation.None,
-                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5140,7 +5058,7 @@
                         selector: 'gd-drop-down-items',
                         template: '<div class="drop-down-items" (clickOutside)="onClickOutside($event)" [clickOutsideEnabled]="isOpen" [style.right]="horizontalAlign" [style.top]="verticalAlign"><ng-content></ng-content></div>',
                         encapsulation: core.ViewEncapsulation.None,
-                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5180,7 +5098,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-drop-down-item',
                         template: '<div class="drop-down-item"><ng-content></ng-content></div>',
-                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5245,7 +5163,7 @@
                         selector: 'gd-drop-down',
                         template: '<div class="drop-down"><ng-content></ng-content></div>',
                         encapsulation: core.ViewEncapsulation.None,
-                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:13px;line-height:26px;min-height:26px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
                     }] }
         ];
         DropDownComponent.propDecorators = {
@@ -5260,526 +5178,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var LeftSideBarComponent = /** @class */ (function () {
-        function LeftSideBarComponent() {
-            this.showSpinner = false;
-        }
-        /**
-         * @return {?}
-         */
-        LeftSideBarComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        LeftSideBarComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-left-side-bar',
-                        template: "<div class=\"left-panel\">\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [".left-panel{height:100%;border-radius:0;float:left}.gd-left-bar-fade{margin:auto;overflow:hidden;-webkit-overflow-scrolling:touch;transition:transform .3s ease-out;width:100%;height:100%;display:flex;justify-content:center;align-items:center;position:fixed;z-index:1000}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        LeftSideBarComponent.ctorParameters = function () { return []; };
-        LeftSideBarComponent.propDecorators = {
-            showSpinner: [{ type: core.Input }]
-        };
-        return LeftSideBarComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var TooltipDirective = /** @class */ (function () {
-        function TooltipDirective() {
-            this.showToolTip = new core.EventEmitter();
-        }
-        /**
-         * @return {?}
-         */
-        TooltipDirective.prototype.onHovering = /**
-         * @return {?}
-         */
-        function () {
-            this.showToolTip.emit(true);
-        };
-        /**
-         * @return {?}
-         */
-        TooltipDirective.prototype.onUnhovering = /**
-         * @return {?}
-         */
-        function () {
-            this.showToolTip.emit(false);
-        };
-        TooltipDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[gdTooltip]'
-                    },] }
-        ];
-        /** @nocollapse */
-        TooltipDirective.ctorParameters = function () { return []; };
-        TooltipDirective.propDecorators = {
-            showToolTip: [{ type: core.Output }],
-            onHovering: [{ type: core.HostListener, args: ['mouseenter',] }],
-            onUnhovering: [{ type: core.HostListener, args: ['mouseleave',] }]
-        };
-        return TooltipDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var AddDynamicComponentService = /** @class */ (function () {
-        function AddDynamicComponentService(_factoryResolver, _appRef) {
-            this._factoryResolver = _factoryResolver;
-            this._appRef = _appRef;
-        }
-        /**
-         * @param {?} viewContainerRef
-         * @param {?} component
-         * @return {?}
-         */
-        AddDynamicComponentService.prototype.addDynamicComponent = /**
-         * @param {?} viewContainerRef
-         * @param {?} component
-         * @return {?}
-         */
-        function (viewContainerRef, component) {
-            var _this = this;
-            /** @type {?} */
-            var factory = this._factoryResolver.resolveComponentFactory(component);
-            /** @type {?} */
-            var componentRef = viewContainerRef.createComponent(factory);
-            componentRef.onDestroy((/**
-             * @return {?}
-             */
-            function () {
-                _this._appRef.detachView(componentRef.hostView);
-            }));
-            return componentRef;
-        };
-        AddDynamicComponentService.decorators = [
-            { type: core.Injectable, args: [{
-                        providedIn: 'root'
-                    },] }
-        ];
-        /** @nocollapse */
-        AddDynamicComponentService.ctorParameters = function () { return [
-            { type: core.ComponentFactoryResolver },
-            { type: core.ApplicationRef }
-        ]; };
-        /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(core.ɵɵinject(core.ComponentFactoryResolver), core.ɵɵinject(core.ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
-        return AddDynamicComponentService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var HostingDynamicComponentService = /** @class */ (function () {
-        function HostingDynamicComponentService() {
-            this.hosts = [];
-        }
-        /**
-         * @param {?} host
-         * @return {?}
-         */
-        HostingDynamicComponentService.prototype.add = /**
-         * @param {?} host
-         * @return {?}
-         */
-        function (host) {
-            this.hosts = this.hosts.filter((/**
-             * @param {?} h
-             * @return {?}
-             */
-            function (h) {
-                return h.ident !== host.ident;
-            }));
-            this.hosts.push(host);
-        };
-        /**
-         * @param {?} host
-         * @return {?}
-         */
-        HostingDynamicComponentService.prototype.remove = /**
-         * @param {?} host
-         * @return {?}
-         */
-        function (host) {
-            this.hosts = this.hosts.filter((/**
-             * @param {?} h
-             * @return {?}
-             */
-            function (h) {
-                return h.ident !== host.ident;
-            }));
-        };
-        /**
-         * @param {?} ident
-         * @return {?}
-         */
-        HostingDynamicComponentService.prototype.find = /**
-         * @param {?} ident
-         * @return {?}
-         */
-        function (ident) {
-            return this.hosts.find((/**
-             * @param {?} h
-             * @return {?}
-             */
-            function (h) {
-                return h.ident === ident;
-            }));
-        };
-        return HostingDynamicComponentService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var HostDynamicDirective = /** @class */ (function () {
-        function HostDynamicDirective(viewContainerRef, _hostingService) {
-            this.viewContainerRef = viewContainerRef;
-            this._hostingService = _hostingService;
-        }
-        /**
-         * @return {?}
-         */
-        HostDynamicDirective.prototype.ngAfterViewInit = /**
-         * @return {?}
-         */
-        function () {
-            this._hostingService.add(this);
-        };
-        /**
-         * @return {?}
-         */
-        HostDynamicDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-        function () {
-            this._hostingService.remove(this);
-            this.viewContainerRef.clear();
-        };
-        HostDynamicDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[gdHostDynamic]'
-                    },] }
-        ];
-        /** @nocollapse */
-        HostDynamicDirective.ctorParameters = function () { return [
-            { type: core.ViewContainerRef },
-            { type: HostingDynamicComponentService }
-        ]; };
-        HostDynamicDirective.propDecorators = {
-            ident: [{ type: core.Input }]
-        };
-        return HostDynamicDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var $$7 = jquery;
-    var LightboxComponent = /** @class */ (function () {
-        function LightboxComponent(_windowService) {
-            var _this = this;
-            this._windowService = _windowService;
-            this.opening = new core.EventEmitter();
-            this.isMobile = _windowService.isMobile();
-            _windowService.onResize.subscribe((/**
-             * @param {?} w
-             * @return {?}
-             */
-            function (w) {
-                _this.isMobile = _windowService.isMobile();
-            }));
-        }
-        /**
-         * @return {?}
-         */
-        LightboxComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        LightboxComponent.prototype.close = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            /** @type {?} */
-            var position = Utils.getMousePosition($event);
-            /** @type {?} */
-            var element = document.elementFromPoint(position.x, position.y);
-            if (element && $$7(element).hasClass('fade')) {
-                this.opening.emit(false);
-            }
-        };
-        LightboxComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-lightbox',
-                        template: "<div class=\"gd-modal-lightbox fade\" (click)=\"close($event);\">\n  <div class=\"gd-modal-dialog-lightbox\">\n    <div class=\"gd-modal-content\">\n      <div class=\"gd-modal-header-lightbox\">\n        <div class=\"gd-modal-header-title\">\n          <div class=\"gd-lightbox-close\" (click)=\"close($event)\">\n            <fa-icon *ngIf=\"isMobile\" [icon]=\"['fas','arrow-left']\"></fa-icon>\n            <span *ngIf=\"!isMobile\">&times;</span>\n          </div>\n          <h4 class=\"gd-modal-title-lightbox\">{{title}}</h4>\n        </div>\n        <div class=\"gd-lightbox-header\">\n          <ng-content select=\"[header]\"></ng-content>\n        </div>\n      </div>\n      <div class=\"gd-lightbox-body\">\n        <ng-content select=\"[body]\"></ng-content>\n      </div>\n      <div class=\"gd-modal-footer\">\n        <ng-content select=\"[footer]\"></ng-content>\n      </div>\n    </div>\n  </div>\n  <div class=\"gd-mobile-portrait\">\n    <div class=\"gd-mobile-turn-image\"></div>\n  </div>\n</div>\n",
-                        styles: [".gd-modal-lightbox{overflow:hidden;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5);position:fixed;top:0;right:0;bottom:0;left:0;display:flex;justify-content:center}.gd-modal-lightbox.fade{transition:transform .3s ease-out}.gd-modal-lightbox.in{transform:translate(0,0)}.gd-modal-dialog-lightbox{width:1079px;height:590px;margin:auto;box-shadow:#0005 0 0 10px}.gd-modal-content{background-color:#fff;height:100%;width:inherit}.gd-modal-header-lightbox{display:flex;flex-direction:row;height:50px;justify-content:space-between;background-color:#3e4e5a}.gd-modal-header-title{display:flex;flex-direction:row}.gd-lightbox-close{font-size:21px;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;color:#959da5;margin:13px 16px 0;cursor:pointer}.gd-modal-title-lightbox{font-size:16px;font-weight:400;line-height:52px;color:#fff;margin:0}.gd-lightbox-body{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC)!important;position:absolute;padding:0!important;background-color:#fff;overflow:hidden;overflow-y:auto;width:inherit}.gd-modal-footer{height:25px}@media (max-width:480px),screen and (max-width:1024px) and (orientation:landscape){.gd-modal-lightbox{padding-left:0;padding-top:0}.gd-modal-dialog-lightbox{width:100%!important;height:100%!important;left:0;top:0}.gd-lightbox-close{background-color:#00c4d7;width:50px;height:50px;color:#fff;text-align:center;margin:0;line-height:60px}.gd-lightbox-close span{color:#fff}.gd-modal-title-lightbox{font-size:14px;line-height:50px;padding:0 0 0 10px}.gd-lightbox-body{max-height:calc(100% - 53px);min-height:100%}}@media screen and (max-width:1024px) and (orientation:landscape){.gd-modal-dialog-lightbox{position:fixed;display:block;width:100%!important;height:100%!important;left:0;top:0}.gd-mobile-portrait{display:none}}@media screen and (max-width:1024px) and (orientation:portrait){.gd-modal-dialog-lightbox{display:none}.gd-mobile-portrait{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;justify-content:center;align-items:center}.gd-mobile-turn-image{background-image:url(../../styles/images/noun_landscape_orientation.png)!important;width:215px;height:215px}}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        LightboxComponent.ctorParameters = function () { return [
-            { type: WindowService }
-        ]; };
-        LightboxComponent.propDecorators = {
-            opening: [{ type: core.Output }],
-            title: [{ type: core.Input }]
-        };
-        return LightboxComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var ButtonSelectComponent = /** @class */ (function (_super) {
-        __extends(ButtonSelectComponent, _super);
-        function ButtonSelectComponent(_onCloseService) {
-            var _this = _super.call(this, _onCloseService) || this;
-            _this.showToolTip = false;
-            return _this;
-        }
-        ButtonSelectComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-button-select',
-                        template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     gdOutside\n     [clickOutsideEnabled]=\"isOpen\"\n     (clickOutside)=\"onClickOutside($event)\"\n     gdTooltip\n     (showToolTip)=\"showToolTip = $event\"\n     gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
-                        styles: [".select{min-width:50px;color:#959da5}.select.inactive{cursor:not-allowed;opacity:.4}.select.active .ng-fa-icon{color:#ccd0d4}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:160px;padding:5px 0;list-style:none;font-size:13px;text-align:left;background-color:#fff;border:1px solid rgba(0,0,0,.15);box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box}.dropdown-menu .option{display:block;padding:3px 20px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff}.dropdown-menu-separator{height:1px;margin:8px 0;overflow:hidden;background-color:#e5e5e5;padding:0!important}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        ButtonSelectComponent.ctorParameters = function () { return [
-            { type: OnCloseService }
-        ]; };
-        ButtonSelectComponent.propDecorators = {
-            icon: [{ type: core.Input }],
-            tooltip: [{ type: core.Input }]
-        };
-        return ButtonSelectComponent;
-    }(SelectComponent));
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var $$8 = jquery;
-    var ResizingComponent = /** @class */ (function () {
-        function ResizingComponent() {
-            this.se = false;
-            this.ne = false;
-            this.sw = false;
-            this.nw = false;
-            this.SE = 'se';
-            this.NE = 'ne';
-            this.SW = 'sw';
-            this.NW = 'nw';
-            this.offsetX = new core.EventEmitter();
-            this.offsetY = new core.EventEmitter();
-            this.offsetTop = new core.EventEmitter();
-            this.offsetLeft = new core.EventEmitter();
-            this.release = new core.EventEmitter();
-            this.grab = false;
-        }
-        /**
-         * @return {?}
-         */
-        ResizingComponent.prototype.ngAfterViewInit = /**
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            /** @type {?} */
-            var elSE = $$8(this.getElementId(this.SE));
-            /** @type {?} */
-            var elNW = $$8(this.getElementId(this.NW));
-            if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
-                /** @type {?} */
-                var width_1 = elSE.offset().left - elNW.offset().left;
-                /** @type {?} */
-                var height_1 = elSE.offset().top - elNW.offset().top;
-                setTimeout((/**
-                 * @return {?}
-                 */
-                function () {
-                    _this.offsetX.emit(width_1);
-                    _this.offsetY.emit(height_1);
-                }), 100);
-            }
-        };
-        /**
-         * @return {?}
-         */
-        ResizingComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        ResizingComponent.prototype.catchUp = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            // ff
-            $event.dataTransfer.setData('text', 'foo');
-            this.grab = true;
-            this.oldPosition = Utils.getMousePosition($event);
-        };
-        /**
-         * @param {?} $event
-         * @param {?} el
-         * @return {?}
-         */
-        ResizingComponent.prototype.resize = /**
-         * @param {?} $event
-         * @param {?} el
-         * @return {?}
-         */
-        function ($event, el) {
-            if (!this.grab) {
-                return;
-            }
-            /** @type {?} */
-            var position = Utils.getMousePosition($event);
-            if (position.x === 0 && position.y === 0) {
-                return;
-            }
-            /** @type {?} */
-            var notSW = this.NE === el || this.NW === el;
-            /** @type {?} */
-            var notNE = this.SW === el || this.NW === el;
-            this.setOffsets(position, notNE, notSW);
-            if (notSW) {
-                this.offsetTop.emit(position.y - this.oldPosition.y);
-            }
-            if (notNE) {
-                this.offsetLeft.emit(position.x - this.oldPosition.x);
-            }
-            this.oldPosition = position;
-        };
-        /**
-         * @private
-         * @param {?} position
-         * @param {?} x
-         * @param {?} y
-         * @return {?}
-         */
-        ResizingComponent.prototype.setOffsets = /**
-         * @private
-         * @param {?} position
-         * @param {?} x
-         * @param {?} y
-         * @return {?}
-         */
-        function (position, x, y) {
-            /** @type {?} */
-            var offsetX = x ? this.oldPosition.x - position.x : position.x - this.oldPosition.x;
-            /** @type {?} */
-            var offsetY = y ? this.oldPosition.y - position.y : position.y - this.oldPosition.y;
-            this.offsetX.emit(offsetX);
-            this.offsetY.emit(offsetY);
-        };
-        /**
-         * @param {?} $event
-         * @param {?} el
-         * @return {?}
-         */
-        ResizingComponent.prototype.end = /**
-         * @param {?} $event
-         * @param {?} el
-         * @return {?}
-         */
-        function ($event, el) {
-            // ff
-            this.resize($event, el);
-            this.release.emit(true);
-            this.grab = false;
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        ResizingComponent.prototype.start = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            this.drop($event);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        ResizingComponent.prototype.drop = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            $event.stopPropagation();
-            $event.preventDefault();
-        };
-        /**
-         * @private
-         * @param {?} el
-         * @return {?}
-         */
-        ResizingComponent.prototype.getElementId = /**
-         * @private
-         * @param {?} el
-         * @return {?}
-         */
-        function (el) {
-            return "#" + el + "-" + this.id;
-        };
-        ResizingComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-resizing',
-                        template: "<div class=\"ui-resizable-handle se-resize\" id=\"se-{{id}}\" *ngIf=\"se\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SE)\" (dragend)=\"end($event, SE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"></div>\n\n<div class=\"ui-resizable-handle ne-resize\" id=\"ne-{{id}}\" *ngIf=\"ne\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NE)\" (dragend)=\"end($event, NE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"></div>\n\n<div class=\"ui-resizable-handle sw-resize\" id=\"sw-{{id}}\" *ngIf=\"sw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SW)\" (dragend)=\"end($event, SW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"></div>\n\n<div class=\"ui-resizable-handle nw-resize\" id=\"nw-{{id}}\" *ngIf=\"nw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NW)\" (dragend)=\"end($event, NW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"></div>\n",
-                        styles: [".ui-resizable-handle{background-color:#679ffa;width:8px;height:8px;border-radius:100%;position:absolute;font-size:.1px;display:block}.se-resize{bottom:-5px;right:-5px;cursor:se-resize}.ne-resize{top:-5px;right:-5px;cursor:ne-resize}.sw-resize{bottom:-5px;left:-5px;cursor:sw-resize}.nw-resize{top:-5px;left:-5px;cursor:nw-resize}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        ResizingComponent.ctorParameters = function () { return []; };
-        ResizingComponent.propDecorators = {
-            init: [{ type: core.Input }],
-            id: [{ type: core.Input }],
-            se: [{ type: core.Input }],
-            ne: [{ type: core.Input }],
-            sw: [{ type: core.Input }],
-            nw: [{ type: core.Input }],
-            offsetX: [{ type: core.Output }],
-            offsetY: [{ type: core.Output }],
-            offsetTop: [{ type: core.Output }],
-            offsetLeft: [{ type: core.Output }],
-            release: [{ type: core.Output }]
-        };
-        return ResizingComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     /** @type {?} */
     var providers = [ConfigService,
         Api,
@@ -5787,7 +5185,6 @@
         FileService,
         FileModel,
         FileUtil,
-        Utils,
         SanitizeHtmlPipe,
         SanitizeResourceHtmlPipe,
         SanitizeStylePipe,
@@ -5808,9 +5205,7 @@
         OnCloseService,
         LoadingMaskInterceptorService,
         LoadingMaskService,
-        TabActivatorService,
-        AddDynamicComponentService,
-        HostingDynamicComponentService];
+        TabActivatorService];
     var CommonComponentsModule = /** @class */ (function () {
         function CommonComponentsModule() {
             fontawesomeSvgCore.library.add(freeSolidSvgIcons.fas, freeRegularSvgIcons.far);
@@ -5856,13 +5251,7 @@
                             DropDownComponent,
                             DropDownItemComponent,
                             DropDownItemsComponent,
-                            DropDownToggleComponent,
-                            LeftSideBarComponent,
-                            TooltipDirective,
-                            HostDynamicDirective,
-                            LightboxComponent,
-                            ButtonSelectComponent,
-                            ResizingComponent
+                            DropDownToggleComponent
                         ],
                         exports: [
                             TopToolbarComponent,
@@ -5899,13 +5288,7 @@
                             DropDownComponent,
                             DropDownItemComponent,
                             DropDownItemsComponent,
-                            DropDownToggleComponent,
-                            LeftSideBarComponent,
-                            TooltipDirective,
-                            LightboxComponent,
-                            HostDynamicDirective,
-                            ButtonSelectComponent,
-                            ResizingComponent
+                            DropDownToggleComponent
                         ],
                         providers: providers
                     },] }
@@ -5915,7 +5298,6 @@
         return CommonComponentsModule;
     }());
 
-    exports.AddDynamicComponentService = AddDynamicComponentService;
     exports.Api = Api;
     exports.BackFormattingService = BackFormattingService;
     exports.BrowseFilesModalComponent = BrowseFilesModalComponent;
@@ -5945,11 +5327,8 @@
     exports.FormattingDirective = FormattingDirective;
     exports.FormattingService = FormattingService;
     exports.HighlightSearchPipe = HighlightSearchPipe;
-    exports.HostDynamicDirective = HostDynamicDirective;
-    exports.HostingDynamicComponentService = HostingDynamicComponentService;
     exports.HttpError = HttpError;
     exports.InitStateComponent = InitStateComponent;
-    exports.LeftSideBarComponent = LeftSideBarComponent;
     exports.LoadingMaskComponent = LoadingMaskComponent;
     exports.LoadingMaskInterceptorService = LoadingMaskInterceptorService;
     exports.LoadingMaskService = LoadingMaskService;
@@ -5986,16 +5365,11 @@
     exports.TopToolbarComponent = TopToolbarComponent;
     exports.UploadFileZoneComponent = UploadFileZoneComponent;
     exports.UploadFilesService = UploadFilesService;
-    exports.Utils = Utils;
     exports.ViewportService = ViewportService;
     exports.WindowService = WindowService;
     exports.ZoomDirective = ZoomDirective;
     exports.ZoomService = ZoomService;
     exports.ɵa = TabsComponent;
-    exports.ɵb = TooltipDirective;
-    exports.ɵc = LightboxComponent;
-    exports.ɵd = ButtonSelectComponent;
-    exports.ɵe = ResizingComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
