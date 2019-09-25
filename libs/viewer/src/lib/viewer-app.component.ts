@@ -100,6 +100,14 @@ export class ViewerAppComponent implements AfterViewInit {
     .subscribe((loading: boolean) => this.isLoading = loading);
 
     this.refreshZoom();
+
+    this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
+    {
+      comps.toArray().forEach((item) => {
+        const hammer = new Hammer(item.nativeElement);
+        hammer.get('pinch').set({ enable: true });
+      });
+    });
   }
 
   get rewriteConfig(): boolean {
@@ -399,18 +407,6 @@ export class ViewerAppComponent implements AfterViewInit {
     if (this.formatDisabled)
       return;
     this.showSearch = !this.showSearch;
-  }
-
-  ngAfterViewInit(): void {
-    this.refreshZoom();
-
-    this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
-    {
-      comps.toArray().forEach((item) => {
-        const hammer = new Hammer(item.nativeElement);
-        hammer.get('pinch').set({ enable: true });
-      });
-    });
   }
 
   onPinchIn($event){
