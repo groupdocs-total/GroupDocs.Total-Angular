@@ -1,10 +1,12 @@
 <div class="wrapper gd-drag-n-drop-wrap" gdDnd (dropped)="dropped($event)" (opening)="showUploadFile=$event">
   <div class="init-state-wrapper">
-    <fa-icon *ngIf="!showUploadFile" class="icon" [icon]="['fas',icon]"></fa-icon>
-    <fa-icon *ngIf="showUploadFile" class="icon" [icon]="['fas','cloud-download-alt']" aria-hidden="true"></fa-icon>
-    <span *ngIf="showUploadFile" class="text">{{text}}</span>
-    <span *ngIf="!showUploadFile" class="start">
+    <fa-icon class="icon" [icon]="['fas',icon]"></fa-icon>
+    <span class="start">
       <ng-content></ng-content>
     </span>
+  </div>
+  <div *ngIf="showUploadFile" class="init-state-dnd-wrapper">
+    <fa-icon  class="icon" [icon]="['fas','cloud-download-alt']" aria-hidden="true"></fa-icon>
+    <span class="text">{{text}}</span>
   </div>
 </div>
