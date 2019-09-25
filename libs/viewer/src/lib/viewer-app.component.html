@@ -16,7 +16,7 @@
                  (click)="toFirstPage()" *ngIf="pageSelectorConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
                  (click)="prevPage()" *ngIf="pageSelectorConfig" ></gd-button>
-      <div class="current-page-number">{{currentPage}}/{{countPages}}</div>
+      <div class="current-page-number" [ngClass]="{'active': !formatDisabled}">{{currentPage}}/{{countPages}}</div>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
                  (click)="nextPage()" *ngIf="pageSelectorConfig" ></gd-button>
       <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
@@ -40,7 +40,7 @@
                  (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop"></gd-button>
     </gd-top-toolbar>
   </div>
-  <div class="doc-panel" *ngIf="file">
+  <div class="doc-panel" *ngIf="file" #docPanel (pinchin)="onPinchIn($event)" (pinchout)="onPinchOut($event)">
     <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="htmlModeConfig"
                    [guid]="file.guid" [mode]="htmlModeConfig"></gd-thumbnails>
 

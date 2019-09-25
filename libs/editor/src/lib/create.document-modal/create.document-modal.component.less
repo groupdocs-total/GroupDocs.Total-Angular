@@ -1,33 +1,69 @@
+@import "../../../../common-components/src/styles/variables";
+
 .gd-create-wrap {
   display: flex;
-  padding: 20px;
-}
-.gd-create-wrap div {
-  display: flex;
-}
-.gd-create-wrap input {
-  width: 204px;
+  flex-direction: column;
+  margin: 24px;
+  label {
+    font-size: 14px;
+    color: @silver-chalice;
+    padding-bottom: 12px;
+  }
+  input {
+    margin-bottom: 20px;
+    border: 1px solid #6e6e6e !important;
+    padding: 9px 0px 9px 10px;
+    font-size: 14px;
+  }
+  gd-button {
+    align-self: flex-end;
+  }
+  ::ng-deep .button {
+    ::ng-deep .text {
+      font-size: 10px !important;
+    }
+  }
 }
 
-span {
-   margin-left: 15px;
-   margin-right: 15px;
+#gd-create-document-section {
+  width: 468px;
 }
-/deep/ .gd-select-format .dropdown-menu {
-  height: 150px;
+
+::ng-deep .gd-select-format .dropdown-menu {
+  height: 167px;
   overflow: hidden;
   overflow-y: auto;
-  top: 89px !important;
-  left: 356px;
+  top: 239px !important;
   min-width: 0 !important;
-  width: 90px;
+  width: 65px;
+  .option {
+    font-size: 10px;
+    color: @dove-gray;
+  }
+  .option:hover{
+    background-color: @folder !important;
+  }
+  border: none !important;
 }
 
-.gd-create-submit {
-  margin-left: 10px;
-  width: 49px;
-  height: 24px;
-  color: #FFF;
-  background-color: #25C2D4;
-  border: 0;
+::ng-deep .select {
+  height: 35px;
+  width: 63px;
+  border: 1px solid @dove-gray;
+  color: @dove-gray !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .selected-value {
+    padding: 9px 0px 9px 8px;
+  }
+  .nav-caret {
+    margin-right: 8px;
+  }
+}
+
+@media @phone-down {
+  #gd-create-document-section {
+    width: 100%;
+  }
 }

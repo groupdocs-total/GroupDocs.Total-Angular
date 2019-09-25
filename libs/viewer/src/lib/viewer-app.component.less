@@ -1,11 +1,19 @@
 @import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import "../../../common-components/src/styles/variables";
 :host * {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 .current-page-number {
-  margin: 0px 15px;
+  margin-left: 7px;
   font-size: 14px;
-  color: #959da5;
+  color: @regent-gray;
+  width: 37px;
+  height: 37px;
+  line-height: 37px;
+  text-align: center;
+  &.active{
+    color: #fff;
+  }
 }
 
 .wrapper {
@@ -41,7 +49,35 @@
 }
 
 .toolbar-panel {
-  background-color: #3e4e5a;
+  background-color: @nav-main-background;
   width: 100%;
+}
+
+::ng-deep .tools {
+  .button, .selected-value, .nav-caret {
+    color: #fff !important;
+    &.inactive{
+      color: @regent-gray !important;
+    }
+  }
+  .button {
+    flex-flow: column;
+  }
+  .dropdown-menu .option{
+    color: @dove-gray !important;
+  }
+  .dropdown-menu .option:hover{
+    background-color: @folder !important;
+  }
+  .icon-button{
+    margin: 0px 0px 0px 7px !important;
+  }
+  .select {
+    width: 65px;
+    height: 37px;
+    margin-left: 7px;
+    line-height: 37px;
+    text-align: center;
+  }
 }
 
