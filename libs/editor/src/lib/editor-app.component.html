@@ -66,14 +66,11 @@
                    [className]="'palette ' + (bgColorPickerShow ? 'background-color-picker' : 'color-picker')"
                    (selectedColor)="selectColor($event)"></gd-color-picker>
   <div class="doc-panel" *ngIf="file">
-
     <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="true" [htmlMode]="true"
                  [preloadPageCount]="0" gdFormatting gdRenderPrint>
-
     </gd-document>
-
   </div>
-  <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">
+  <gd-init-state [icon]="'pen-square'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">
       Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
       Or drop file here
   </gd-init-state>
