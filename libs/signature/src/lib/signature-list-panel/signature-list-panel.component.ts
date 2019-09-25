@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {DigitalSign, DraggableSignature, Position, Signature, SignatureType} from "../signature-models";
 import {NavigateService} from "@groupdocs.examples.angular/common-components";
 import {SelectSignatureService} from "../select-signature.service";
@@ -12,15 +12,17 @@ import {SignaturesHolderService} from "../signatures-holder.service";
   templateUrl: './signature-list-panel.component.html',
   styleUrls: ['./signature-list-panel.component.less']
 })
-export class SignatureListPanelComponent implements OnInit {
+export class SignatureListPanelComponent implements OnInit, OnChanges {
 
   @Input() signatures: Signature[];
   @Input() icon: string;
   @Input() signatureType: string;
   @Input() isPdf: boolean;
+  @Input() loading: boolean;
   @Output() removeSignatureEvent = new EventEmitter<string>();
   showDigitalInputs = false;
   digitalProps = new DigitalSign();
+  digitalId: string;
 
   constructor(private _navigateService: NavigateService,
               private _selectSignatureService: SelectSignatureService,
@@ -61,7 +63,8 @@ export class SignatureListPanelComponent implements OnInit {
 
   select(guid: string) {
     if (this.signatureType === SignatureType.DIGITAL.id) {
-      this.showDigitalInputs = !this.showDigitalInputs;
+      this.showDigitalInputs = this.digitalId !== guid;
+      this.digitalId = this.digitalId === guid ? null : guid;
     } else {
       const sign = this.getSign(guid);
       this.selectSignature(sign);
@@ -99,6 +102,12 @@ export class SignatureListPanelComponent implements OnInit {
   }
 
   empty() {
-    return !this.signatures || this.signatures.length === 0;
+    return !this.loading && (!this.signatures || this.signatures.length === 0);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.showDigitalInputs) {
+      this.showDigitalInputs = this.signatureType === SignatureType.DIGITAL.id;
+    }
   }
 }

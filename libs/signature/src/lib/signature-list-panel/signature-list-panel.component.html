@@ -18,7 +18,7 @@
           <fa-icon [icon]="['far','trash-alt']" [class]="'ng-fa-icon icon'"
                    (click)="deleteSign(signature.guid)"></fa-icon>
         </div>
-        <div class="gd-digital-inputs" *ngIf="showDigitalInputs">
+        <div class="gd-digital-inputs" *ngIf="showDigitalInputs && digitalId === signature.guid">
           <div class="gd-digital-input-wrapper">
             <fa-icon [icon]="['fas','comment']" [class]="'ng-fa-icon icon'"></fa-icon>
             <input #reason (input)="digitalProps.reason = reason.value" type="text" placeholder="Reason">

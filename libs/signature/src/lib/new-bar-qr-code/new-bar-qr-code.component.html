@@ -7,7 +7,7 @@
   </div>
   <div class="new-signature-input-group">
     <input type="text" class="gd-qr-property" #text (keyup)="saveTemp(text.value)" (keyup.enter)="addSign(text.value)"
-           placeholder="{{name}}"/>
+           placeholder="{{name}}" id="text-input"/>
     <div class="gd-add-optical" [ngClass]="text.value ? 'active' : 'inactive'">
       <fa-icon [icon]="['fa','plus']" [class]="'ng-fa-icon icon'" (click)="addSign(text.value)"></fa-icon>
     </div>

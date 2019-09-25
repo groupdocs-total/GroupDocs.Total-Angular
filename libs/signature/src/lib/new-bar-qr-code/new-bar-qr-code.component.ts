@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SignatureService} from "../signature.service";
 import {OpticalCodeModel} from "../signature-models";
 import {Subject} from "rxjs";
@@ -18,7 +18,8 @@ export class NewBarQrCodeComponent implements OnInit {
 
   private subject: Subject<string> = new Subject();
 
-  constructor(private _signatureService: SignatureService) {
+  constructor(private _signatureService: SignatureService,
+              private _elementRef: ElementRef) {
     this.subject.pipe(
       debounceTime(500)
     ).subscribe(text => {
@@ -45,6 +46,10 @@ export class NewBarQrCodeComponent implements OnInit {
 
   ngOnInit() {
     this.clean();
+    setTimeout(() => {
+      const element = this._elementRef.nativeElement.querySelector("#text-input");
+      element.focus();
+    }, 100);
   }
 
   addSign(text: string) {
