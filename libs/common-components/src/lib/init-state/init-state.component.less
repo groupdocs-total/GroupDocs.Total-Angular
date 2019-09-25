@@ -1,8 +1,8 @@
 @import "./../../styles/variables";
 
 .wrapper {
-  color: #959DA5;
-  background-color: #E7E7E7;
+  color: @regent-gray;
+  background-color: @mercury;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,17 +14,16 @@
 .icon {
   font-size: 65px;
   margin-bottom: 43px;
-  width: 73px;
+  width: 65px;
   height: 65px;
   display: flex;
-  // TODO: use variables
-  color: #959DA5;
+  color: @regent-gray;
 }
 
 .start {
   font-size: 14px;
   text-align: center;
-  color: #959DA5;
+  color: @regent-gray;
 }
 
 .gd-drag-n-drop-wrap {
@@ -42,11 +41,15 @@
       top: 0px;
       z-index: 999;
       .icon {
-        color: #3E4E5A;
+        width: 113px;
+        height: 90px;
+        font-size: 90px;
+        color: @primary;
+        margin-bottom: 30px;
       }
     }
     .text {
-      color: #3E4E5A;
+      color: @primary;
       font-size: 14px;
     }
   }
