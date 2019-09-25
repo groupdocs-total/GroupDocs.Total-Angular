@@ -1,6 +1,6 @@
 import { AfterViewInit, ElementRef, QueryList } from '@angular/core';
 import { ViewerService } from "./viewer.service";
-import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials } from "@groupdocs.examples.angular/common-components";
+import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
 import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
 import { WindowService } from "@groupdocs.examples.angular/common-components";
@@ -11,6 +11,7 @@ export declare class ViewerAppComponent implements AfterViewInit {
     private _zoomService;
     private _renderPrintService;
     private _windowService;
+    private _loadingMaskService;
     title: string;
     files: FileModel[];
     file: FileDescription;
@@ -22,12 +23,15 @@ export declare class ViewerAppComponent implements AfterViewInit {
     browseFilesModal: string;
     showSearch: boolean;
     isDesktop: boolean;
+    isLoading: boolean;
     _zoom: number;
     _pageWidth: number;
     _pageHeight: number;
     options: any;
     docPanelComponent: QueryList<ElementRef>;
-    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService);
+    fileWasDropped: boolean;
+    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
+    ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
     readonly zoomConfig: boolean;
     readonly pageSelectorConfig: boolean;
@@ -55,6 +59,7 @@ export declare class ViewerAppComponent implements AfterViewInit {
     navigateToPage(page: number): void;
     zoomIn(): void;
     zoomOut(): void;
+    fileDropped($event: any): void;
     private ptToPx;
     private getFitToWidth;
     private getFitToHeight;
@@ -73,7 +78,6 @@ export declare class ViewerAppComponent implements AfterViewInit {
     private clearData;
     onRightClick($event: MouseEvent): boolean;
     openSearch(): void;
-    ngAfterViewInit(): void;
     onPinchIn($event: any): void;
     onPinchOut($event: any): void;
     private refreshZoom;
