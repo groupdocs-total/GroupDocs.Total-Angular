@@ -5,13 +5,10 @@ export declare class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
     private _zoomService;
     private _sanitizer;
     zoomActive: boolean;
-    zoomStr: string;
+    isEdge: boolean;
     zoomInt: number;
-    mozTransform: string;
-    mozTransformOrigin: string;
-    webkitTransform: SafeStyle;
-    msTransform: SafeStyle;
-    oTransform: SafeStyle;
+    Transform: SafeStyle;
+    TransformOrigin: string;
     constructor(_zoomService: ZoomService, _sanitizer: DomSanitizer);
     ngOnDestroy(): void;
     ngOnInit(): void;

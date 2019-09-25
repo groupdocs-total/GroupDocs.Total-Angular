@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -18,6 +18,7 @@ import {
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
+import * as Hammer from 'hammerjs';
 
 @Component({
   selector: 'gd-viewer',
@@ -42,6 +43,7 @@ export class ViewerAppComponent implements AfterViewInit {
   _pageWidth: number;
   _pageHeight: number;
   options;
+  @ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
   fileWasDropped = false;
 
   constructor(private _viewerService: ViewerService,
@@ -397,6 +399,26 @@ export class ViewerAppComponent implements AfterViewInit {
     if (this.formatDisabled)
       return;
     this.showSearch = !this.showSearch;
+  }
+
+  ngAfterViewInit(): void {
+    this.refreshZoom();
+
+    this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
+    {
+      comps.toArray().forEach((item) => {
+        const hammer = new Hammer(item.nativeElement);
+        hammer.get('pinch').set({ enable: true });
+      });
+    });
+  }
+
+  onPinchIn($event){
+    this.zoomOut();
+  }
+
+  onPinchOut($event){
+    this.zoomIn();
   }
 
   private refreshZoom() {
