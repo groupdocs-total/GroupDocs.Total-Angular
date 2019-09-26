@@ -1,3 +1,5 @@
+@import "./../../../../common-components/src/styles/variables.less";
+
 .document {
   background-color: #e7e7e7;
   width: 100%;
@@ -39,7 +41,7 @@
   margin: 10px 98px;
 }
 
-@media (max-width: 1025px) {
+@media @phone-down {
   .document {
     overflow-x: auto !important;
   }

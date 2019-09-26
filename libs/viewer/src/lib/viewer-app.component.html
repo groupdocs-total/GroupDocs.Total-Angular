@@ -6,26 +6,26 @@
       <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                  *ngIf="browseConfig" ></gd-button>
 
-      <gd-select [disabled]="formatDisabled" [options]="options" (selected)="selectZoom($event)"
+      <gd-select class="mobile-hide" [disabled]="formatDisabled" [options]="options" (selected)="selectZoom($event)"
                  [showSelected]="{ name: zoom+'%', value : zoom}" *ngIf="zoomConfig" ></gd-select>
-      <gd-button [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"
+      <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"
                  *ngIf="zoomConfig" ></gd-button>
-      <gd-button [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
+      <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
                  (click)="zoomOut()" *ngIf="zoomConfig" ></gd-button>
 
-      <gd-button [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
+      <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
                  (click)="toFirstPage()" *ngIf="pageSelectorConfig" ></gd-button>
-      <gd-button [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
+      <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
                  (click)="prevPage()" *ngIf="pageSelectorConfig" ></gd-button>
       <div class="current-page-number" [ngClass]="{'active': !formatDisabled}">{{currentPage}}/{{countPages}}</div>
-      <gd-button [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
+      <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
                  (click)="nextPage()" *ngIf="pageSelectorConfig" ></gd-button>
-      <gd-button [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
+      <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
                  (click)="toLastPage()" *ngIf="pageSelectorConfig" ></gd-button>
 
-      <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Rotate CCW'" (click)="rotate(-90)"
+      <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Rotate CCW'" (click)="rotate(-90)"
                  *ngIf="rotateConfig" ></gd-button>
-      <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Rotate CW'" (click)="rotate(90)"
+      <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Rotate CW'" (click)="rotate(90)"
                  *ngIf="rotateConfig" ></gd-button>
 
       <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
