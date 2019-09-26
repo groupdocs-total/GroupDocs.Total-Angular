@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 const DEFAULT_COLORS = ['#000000', '#993300', '#333300', '#000080', '#333399', '#333333',
   '#800000', '#FF6600', '#808000', '#008000', '#008080', '#0000FF',
@@ -14,6 +14,7 @@ const DEFAULT_COLORS = ['#000000', '#993300', '#333300', '#000080', '#333399', '
   styleUrls: ['./color-picker.component.less']
 })
 export class ColorPickerComponent implements OnInit {
+  @Input() isOpen = false;
   @Output() selectedColor = new EventEmitter<string>();
   colors: any = DEFAULT_COLORS;
 
@@ -27,5 +28,9 @@ export class ColorPickerComponent implements OnInit {
     $event.preventDefault();
     $event.stopPropagation();
     this.selectedColor.emit(color);
+  }
+
+  close() {
+    this.isOpen = false;
   }
 }

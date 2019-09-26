@@ -70,8 +70,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
   ];
 
   signatureComponents = new Map<number, ComponentRef<any>>();
-  showNewHandSign = false;
-  showNewStampSign = false;
   activeSignatureTab: string;
 
   constructor(private _signatureService: SignatureService,
@@ -416,10 +414,10 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
 
   newSign($event: string) {
     if (SignatureType.HAND.id === $event) {
-      this.showNewHandSign = true;
+      this._modalService.open(CommonModals.DrawHandSignature);
       this._signatureTabActivationService.changeActiveTab(SignatureType.HAND.id);
     } else if (SignatureType.STAMP.id === $event) {
-      this.showNewStampSign = true;
+      this._modalService.open(CommonModals.DrawStampSignature);
       this._signatureTabActivationService.changeActiveTab(SignatureType.STAMP.id);
     } else if (SignatureType.TEXT.id === $event) {
       this.addTextSign();

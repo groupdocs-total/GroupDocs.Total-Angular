@@ -35,6 +35,7 @@ import {TextMenuComponent} from './text-menu/text-menu.component';
 import {SignaturesHolderService} from "./signatures-holder.service";
 import {SignatureTabActivatorService} from "./signature-tab-activator.service";
 import { SignatureLeftPanelComponent } from './signature-left-panel/signature-left-panel.component';
+import { HandModalComponent } from './hand-modal/hand-modal.component';
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -55,7 +56,8 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     StampLightboxComponent,
     StampCanvasComponent,
     TextMenuComponent,
-    SignatureLeftPanelComponent],
+    SignatureLeftPanelComponent,
+    HandModalComponent],
   exports: [SignatureAppComponent,
     SignatureListPanelComponent,
     SignatureTabComponent,
@@ -69,7 +71,8 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     StampLightboxComponent,
     StampCanvasComponent,
     TextMenuComponent,
-    SignatureLeftPanelComponent],
+    SignatureLeftPanelComponent,
+    HandModalComponent],
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,

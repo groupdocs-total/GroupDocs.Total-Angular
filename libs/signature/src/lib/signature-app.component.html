@@ -42,8 +42,6 @@
                  [file]="file" [mode]="htmlModeConfig"
                  [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
   </div>
-  <gd-hand-lightbox *ngIf="showNewHandSign" (opening)="showNewHandSign = $event"></gd-hand-lightbox>
-  <gd-stamp-lightbox *ngIf="showNewStampSign" (opening)="showNewStampSign = $event"></gd-stamp-lightbox>
 
   <gd-init-state [icon]="'signature'" [text]="''" *ngIf="!file"></gd-init-state>
 
@@ -51,6 +49,7 @@
                          (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
                          [uploadConfig]="uploadConfig"></gd-browse-files-modal>
 
+  <gd-hand-modal></gd-hand-modal>
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>
   <gd-success-modal></gd-success-modal>
