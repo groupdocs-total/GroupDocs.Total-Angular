@@ -1,12 +1,12 @@
-import { Injectable, ɵɵdefineInjectable, Component, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output, ViewEncapsulation, Pipe, Directive, HostBinding, HostListener, ɵɵinject, ViewChild, Inject, forwardRef, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Injectable, ElementRef, ViewEncapsulation, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, Inject, forwardRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import * as jquery from 'jquery';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, fromEvent, BehaviorSubject, throwError } from 'rxjs';
+import * as jquery from 'jquery';
 import { DomSanitizer } from '@angular/platform-browser';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
 import { ClickOutsideModule } from 'ng-click-outside';
@@ -15,258 +15,19 @@ import { ClickOutsideModule } from 'ng-click-outside';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const $ = jquery;
-class ViewportService {
-    constructor() {
-    }
-    /**
-     * @param {?} el
-     * @param {?=} zoom
-     * @param {?=} leftOffset
-     * @param {?=} deltaX
-     * @return {?}
-     */
-    checkInViewport(el, zoom = 100, leftOffset = 0, deltaX = 0.5) {
-        if (!el) {
-            return false;
-        }
-        /** @type {?} */
-        const x = deltaX;
-        /** @type {?} */
-        const y = 0.5;
-        /** @type {?} */
-        const win = $(window);
-        /** @type {?} */
-        const viewport = {
-            top: win.scrollTop(),
-            left: win.scrollLeft() + leftOffset,
-            right: win.scrollLeft() + win.width() - 10,
-            bottom: win.scrollTop() + win.height()
-        };
-        if (isNaN(zoom)) {
-            zoom = 100;
-        }
-        /** @type {?} */
-        const zoomN = zoom / 100;
-        /** @type {?} */
-        const height = $(el).outerHeight() * (zoomN);
-        /** @type {?} */
-        const width = $(el).outerWidth() * (zoomN);
-        if (!width || !height) {
-            return false;
-        }
-        /** @type {?} */
-        const bounds = $(el).offset();
-        /** @type {?} */
-        const right = (bounds.left * (zoomN)) + width;
-        /** @type {?} */
-        const bottom = (bounds.top * (zoomN)) + height;
-        /** @type {?} */
-        const visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
-        if (!visible) {
-            return false;
-        }
-        /** @type {?} */
-        const deltas = {
-            top: Math.min(1, (bottom - viewport.top) / height),
-            bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
-            left: Math.min(1, (right - viewport.left) / width),
-            right: Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width)
-        };
-        return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
-    }
-}
-ViewportService.decorators = [
-    { type: Injectable, args: [{
-                providedIn: 'root'
-            },] }
-];
-/** @nocollapse */
-ViewportService.ctorParameters = () => [];
-/** @nocollapse */ ViewportService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ViewportService_Factory() { return new ViewportService(); }, token: ViewportService, providedIn: "root" });
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const $$1 = jquery;
 class TopToolbarComponent {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _viewportService
-     * @param {?} _cdRef
-     */
-    constructor(_elementRef, _viewportService, _cdRef) {
-        this._elementRef = _elementRef;
-        this._viewportService = _viewportService;
-        this._cdRef = _cdRef;
-        this.leftOffset = true;
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this.refresh();
-        /** @type {?} */
-        const el = this.getToolsElem();
-        /** @type {?} */
-        const $this = this;
-        el.addEventListener('scroll', (/**
-         * @return {?}
-         */
-        function () {
-            $this.refresh();
-        }));
-    }
-    /**
-     * @return {?}
-     */
-    moveLeft() {
-        /** @type {?} */
-        const el = this.getToolsElem();
-        if (el) {
-            /** @type {?} */
-            const elem = this.canMoveTo(true);
-            if (elem) {
-                /** @type {?} */
-                const options = {
-                    left: $$1(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
-                    top: 0,
-                };
-                el.scrollTo(options);
-            }
-        }
-    }
-    /**
-     * @return {?}
-     */
-    moveRight() {
-        /** @type {?} */
-        const el = this.getToolsElem();
-        if (el) {
-            /** @type {?} */
-            const elem = this.canMoveTo(false);
-            if (elem) {
-                /** @type {?} */
-                const options = {
-                    left: $$1(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
-                    top: 0,
-                };
-                el.scrollTo(options);
-            }
-        }
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    getToolsElem() {
-        return this._elementRef ? this._elementRef.nativeElement.children[0].querySelector('#tools') : null;
-    }
-    /**
-     * @private
-     * @param {?} left
-     * @return {?}
-     */
-    canMoveTo(left) {
-        /** @type {?} */
-        let elem;
-        /** @type {?} */
-        const children = this.getChildren();
-        /** @type {?} */
-        const countElem = children.length;
-        for (elem = 0; elem < countElem; elem++) {
-            /** @type {?} */
-            const element = this.getElem(elem);
-            if (this._viewportService.checkInViewport(element, 100, this.getLeftOffset())) {
-                if (left) {
-                    return elem > 0 ? children.item(elem - 1) : null;
-                }
-                else {
-                    return elem + 1 < countElem ? children.item(elem + 1) : null;
-                }
-            }
-        }
-        return;
-    }
-    /**
-     * @private
-     * @param {?} num
-     * @return {?}
-     */
-    getElem(num) {
-        /** @type {?} */
-        const elems = this.getChildren();
-        return elems.item(num !== null ? num : elems.length - 1);
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    getChildren() {
-        /** @type {?} */
-        const el = this.getToolsElem();
-        if (!el) {
-            return;
-        }
-        return el.children;
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    getLeftOffset() {
-        if (!this.leftOffset) {
-            return 0;
-        }
-        /** @type {?} */
-        const el = this._elementRef.nativeElement ? this._elementRef.nativeElement.parentElement.children[0] : null;
-        if (!el) {
-            return 0;
-        }
-        return el.clientWidth;
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    refresh() {
-        this.showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
-        this.showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewChecked() {
-        /** @type {?} */
-        const showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
-        /** @type {?} */
-        const showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
-        if (showLeft !== this.showLeft || showRight !== this.showRight) {
-            this.showLeft = showLeft;
-            this.showRight = showRight;
-            this._cdRef.detectChanges();
-        }
+    constructor() {
     }
 }
 TopToolbarComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-top-toolbar',
-                template: "<div class=\"top-toolbar\">\r\n  <gd-button [className]=\"'arrow-button'\" class=\"arrow-left\" id=\"left\" [icon]=\"'caret-left'\" [tooltip]=\"'Scroll left'\"\r\n             (click)=\"moveLeft()\"\r\n             *ngIf=\"showLeft\"></gd-button>\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n  <gd-button [className]=\"'arrow-button'\" class=\"arrow-right\" id=\"right\" [icon]=\"'caret-right'\"\r\n             [tooltip]=\"'Scroll right'\" (click)=\"moveRight()\"\r\n             *ngIf=\"showRight\"></gd-button>\r\n</div>\r\n",
-                styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.arrow-right{position:absolute;right:0}.arrow-left{position:absolute;left:0}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
+                template: "<div class=\"top-toolbar\">\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
             }] }
 ];
 /** @nocollapse */
-TopToolbarComponent.ctorParameters = () => [
-    { type: ElementRef },
-    { type: ViewportService },
-    { type: ChangeDetectorRef }
-];
-TopToolbarComponent.propDecorators = {
-    leftOffset: [{ type: Input }]
-};
+TopToolbarComponent.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -339,7 +100,7 @@ ButtonComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-button',
                 template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\r\n  <div class=\"text\"><ng-content></ng-content></div>\r\n</div>\r\n",
-                styles: [".icon-button{padding:0!important;margin:0 10px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1025px){.button{font-size:20px}.arrow-button{margin:5px}}"]
+                styles: [".icon-button{padding:0!important;margin:0 10px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
             }] }
 ];
 ButtonComponent.propDecorators = {
@@ -830,7 +591,7 @@ class UploadFilesService {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$2 = jquery;
+const $ = jquery;
 /** @type {?} */
 const upload_disc = 'Disc';
 /** @type {?} */
@@ -928,7 +689,7 @@ class BrowseFilesModalComponent {
         }
         else {
             this.showUploadUrl = false;
-            $$2("#gd-upload-input").trigger('click');
+            $("#gd-upload-input").trigger('click');
         }
     }
     /**
@@ -1059,7 +820,7 @@ class ZoomService {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$3 = jquery;
+const $$1 = jquery;
 class DocumentComponent {
     /**
      * @param {?} _elementRef
@@ -1127,7 +888,7 @@ class DocumentComponent {
         /** @type {?} */
         const element = elementNodeListOf.item(0);
         if (element) {
-            $$3(element).trigger('focus');
+            $$1(element).trigger('focus');
         }
     }
 }
@@ -1135,7 +896,7 @@ DocumentComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-document',
                 template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"!ifEdge()\" [isEdge]=\"ifEdge()\" gdSearchable>\r\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"ifEdge()\" [isEdge]=\"ifEdge()\"\r\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\r\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}@media (max-width:1025px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
             }] }
 ];
 /** @nocollapse */
@@ -1619,7 +1380,82 @@ class WindowService {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$4 = jquery;
+const $$2 = jquery;
+class ViewportService {
+    constructor() {
+    }
+    /**
+     * @param {?} el
+     * @param {?=} zoom
+     * @param {?=} leftOffset
+     * @param {?=} deltaX
+     * @return {?}
+     */
+    checkInViewport(el, zoom = 100, leftOffset = 0, deltaX = 0.5) {
+        if (!el) {
+            return false;
+        }
+        /** @type {?} */
+        const x = deltaX;
+        /** @type {?} */
+        const y = 0.5;
+        /** @type {?} */
+        const win = $$2(window);
+        /** @type {?} */
+        const viewport = {
+            top: win.scrollTop(),
+            left: win.scrollLeft() + leftOffset,
+            right: win.scrollLeft() + win.width() - 10,
+            bottom: win.scrollTop() + win.height()
+        };
+        if (isNaN(zoom)) {
+            zoom = 100;
+        }
+        /** @type {?} */
+        const zoomN = zoom / 100;
+        /** @type {?} */
+        const height = $$2(el).outerHeight() * (zoomN);
+        /** @type {?} */
+        const width = $$2(el).outerWidth() * (zoomN);
+        if (!width || !height) {
+            return false;
+        }
+        /** @type {?} */
+        const bounds = $$2(el).offset();
+        /** @type {?} */
+        const right = (bounds.left * (zoomN)) + width;
+        /** @type {?} */
+        const bottom = (bounds.top * (zoomN)) + height;
+        /** @type {?} */
+        const visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
+        if (!visible) {
+            return false;
+        }
+        /** @type {?} */
+        const deltas = {
+            top: Math.min(1, (bottom - viewport.top) / height),
+            bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
+            left: Math.min(1, (right - viewport.left) / width),
+            right: Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width)
+        };
+        return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
+    }
+}
+ViewportService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root'
+            },] }
+];
+/** @nocollapse */
+ViewportService.ctorParameters = () => [];
+/** @nocollapse */ ViewportService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ViewportService_Factory() { return new ViewportService(); }, token: ViewportService, providedIn: "root" });
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const $$3 = jquery;
 class ScrollableDirective {
     /**
      * @param {?} _elementRef
@@ -1686,7 +1522,7 @@ class ScrollableDirective {
         /** @type {?} */
         const prev = pageNumber > 0 ? this.getPage(pageNumber - 1) : null;
         /** @type {?} */
-        const isSameTop = (prev && $$4(prev).offset().top === $$4(page).offset().top);
+        const isSameTop = (prev && $$3(prev).offset().top === $$3(page).offset().top);
         if (this._viewportService.checkInViewport(page, this.zoom) && isSameTop) {
             return;
         }
@@ -2476,7 +2312,7 @@ PasswordRequiredComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-password-required',
                 template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\">\r\n  <section id=\"gd-password-section\">\r\n    <div class=\"gd-password-wrap\">\r\n      <label for=\"password\">Password</label>\r\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\r\n             (keyup.enter)=\"setPassword(pass.value)\">\r\n      <span class=\"gd-password-error\">{{message}}</span>\r\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\r\n          Open\r\n      </gd-button>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                styles: ["#gd-password-section{min-width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1025px){#gd-password-section{min-width:375px}}"]
+                styles: ["#gd-password-section{min-width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2690,7 +2526,7 @@ SearchComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-search',
                 template: "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <div class=\"gd-nav-search-btn\" (click)=\"prev()\">\r\n    <fa-icon [icon]=\"['fas','chevron-left']\"></fa-icon>\r\n  </div>\r\n  <div class=\"gd-nav-search-btn\" (click)=\"next()\">\r\n    <fa-icon [icon]=\"['fas','chevron-right']\"></fa-icon>\r\n  </div>\r\n  <div class=\"gd-nav-search-btn gd-nav-search-cancel\" (click)=\"hide()\">\r\n    <fa-icon [icon]=\"['fas','times']\"></fa-icon>\r\n  </div>\r\n</div>\r\n",
-                styles: [".gd-nav-search-btn{float:left;cursor:pointer;padding-left:7px;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px;padding-right:4px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;left:206px;top:14px;text-align:right;width:62px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:17px;width:258px;font-size:14px;padding:5px 0 6px 7px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px}@media (min-width:401px) and (max-width:700px){.gd-search-input{width:231px}.gd-nav-search-cancel{padding-right:7px}.gd-search-count{left:179px}.gd-nav-search-container{width:386px}}@media (max-width:500px){.gd-search-input{width:231px}.gd-nav-search-cancel{padding-right:7px}.gd-search-count{left:179px}.gd-nav-search-container{width:100%}}"]
+                styles: [".gd-nav-search-btn{float:left;cursor:pointer;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px 7px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;left:232px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:194px;top:15px}.gd-nav-search-container{width:100%}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2709,7 +2545,7 @@ SearchComponent.propDecorators = {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$5 = jquery;
+const $$4 = jquery;
 class SearchableDirective {
     /**
      * @param {?} _elementRef
@@ -2791,16 +2627,16 @@ class SearchableDirective {
              * @return {?}
              */
             function (value) {
-                $$5(value).removeClass('gd-highlight-select');
+                $$4(value).removeClass('gd-highlight-select');
             }));
             /** @type {?} */
             const currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-            $$5(currentEl).addClass('gd-highlight-select');
+            $$4(currentEl).addClass('gd-highlight-select');
             if (currentEl) {
                 /** @type {?} */
                 const options = {
                     left: 0,
-                    top: ($$5(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
+                    top: ($$4(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
                 };
                 el.parentElement.scrollTo(options);
             }
@@ -2813,7 +2649,7 @@ class SearchableDirective {
      */
     highlightEl(el) {
         /** @type {?} */
-        const textNodes = $$5(el).find('*').contents().filter((/**
+        const textNodes = $$4(el).find('*').contents().filter((/**
          * @return {?}
          */
         function () {
@@ -2838,7 +2674,7 @@ class SearchableDirective {
          */
         function () {
             /** @type {?} */
-            const $this = $$5(this);
+            const $this = $$4(this);
             /** @type {?} */
             let content = $this.text();
             content = highlight.transform(content, text);
@@ -3397,7 +3233,7 @@ SelectionService.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$6 = jquery;
+const $$5 = jquery;
 class FormattingDirective {
     /**
      * @param {?} _formattingService
@@ -3428,7 +3264,7 @@ class FormattingDirective {
         this.list = this.checkList();
         //fix required by FireFox to get correct background color
         if (this.bgColor === "transparent") {
-            this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+            this.bgColor = $$5(window.getSelection().focusNode.parentNode).css('background-color').toString();
         }
         this.font = document.queryCommandValue("FontName").replace(/"/g, '');
         if (this.font.split(",").length > 1) {
@@ -3746,7 +3582,7 @@ class FormattingDirective {
         if (align === "full") {
             align = "justify";
         }
-        $$6(selection).css("text-align", align);
+        $$5(selection).css("text-align", align);
         this._selectionService.refreshSelection();
     }
     /**
@@ -3797,7 +3633,7 @@ SuccessModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-success-modal',
                 template: "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\r\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\r\n    <div class=\"sa-icon sa-success animate\">\r\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\r\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\r\n        <div class=\"sa-placeholder\"></div>\r\n        <div class=\"sa-fix\"></div>\r\n      </div>\r\n  </div></div>\r\n  </gd-modal>\r\n",
-                styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;transform:rotate(-45deg);transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;transform:rotate(-45deg);transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1025px){#gd-modal-success{left:50%;top:50%;position:relative;transform:translate(-50%,-50%)}}"]
+                styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;transform:rotate(-45deg);transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;transform:rotate(-45deg);transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1037px){#gd-modal-success{left:50%;top:50%;position:relative;transform:translate(-50%,-50%)}}"]
             }] }
 ];
 /** @nocollapse */

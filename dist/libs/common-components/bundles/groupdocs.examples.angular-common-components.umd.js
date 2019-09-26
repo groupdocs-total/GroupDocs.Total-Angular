@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('jquery'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('rxjs'), require('@angular/platform-browser'), require('rxjs/operators'), require('ng-click-outside')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', 'jquery', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'rxjs', '@angular/platform-browser', 'rxjs/operators', 'ng-click-outside'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.jquery, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.rxjs, global.ng.platformBrowser, global.rxjs.operators, global.ngClickOutside));
-}(this, function (exports, core, common, jquery, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, rxjs, platformBrowser, operators, ngClickOutside) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('rxjs'), require('jquery'), require('@angular/platform-browser'), require('rxjs/operators'), require('ng-click-outside')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'rxjs', 'jquery', '@angular/platform-browser', 'rxjs/operators', 'ng-click-outside'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.rxjs, global.jquery, global.ng.platformBrowser, global.rxjs.operators, global.ngClickOutside));
+}(this, function (exports, core, common, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, rxjs, jquery, platformBrowser, operators, ngClickOutside) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -48,301 +48,18 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /** @type {?} */
-    var $ = jquery;
-    var ViewportService = /** @class */ (function () {
-        function ViewportService() {
-        }
-        /**
-         * @param {?} el
-         * @param {?=} zoom
-         * @param {?=} leftOffset
-         * @param {?=} deltaX
-         * @return {?}
-         */
-        ViewportService.prototype.checkInViewport = /**
-         * @param {?} el
-         * @param {?=} zoom
-         * @param {?=} leftOffset
-         * @param {?=} deltaX
-         * @return {?}
-         */
-        function (el, zoom, leftOffset, deltaX) {
-            if (zoom === void 0) { zoom = 100; }
-            if (leftOffset === void 0) { leftOffset = 0; }
-            if (deltaX === void 0) { deltaX = 0.5; }
-            if (!el) {
-                return false;
-            }
-            /** @type {?} */
-            var x = deltaX;
-            /** @type {?} */
-            var y = 0.5;
-            /** @type {?} */
-            var win = $(window);
-            /** @type {?} */
-            var viewport = {
-                top: win.scrollTop(),
-                left: win.scrollLeft() + leftOffset,
-                right: win.scrollLeft() + win.width() - 10,
-                bottom: win.scrollTop() + win.height()
-            };
-            if (isNaN(zoom)) {
-                zoom = 100;
-            }
-            /** @type {?} */
-            var zoomN = zoom / 100;
-            /** @type {?} */
-            var height = $(el).outerHeight() * (zoomN);
-            /** @type {?} */
-            var width = $(el).outerWidth() * (zoomN);
-            if (!width || !height) {
-                return false;
-            }
-            /** @type {?} */
-            var bounds = $(el).offset();
-            /** @type {?} */
-            var right = (bounds.left * (zoomN)) + width;
-            /** @type {?} */
-            var bottom = (bounds.top * (zoomN)) + height;
-            /** @type {?} */
-            var visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
-            if (!visible) {
-                return false;
-            }
-            /** @type {?} */
-            var deltas = {
-                top: Math.min(1, (bottom - viewport.top) / height),
-                bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
-                left: Math.min(1, (right - viewport.left) / width),
-                right: Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width)
-            };
-            return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
-        };
-        ViewportService.decorators = [
-            { type: core.Injectable, args: [{
-                        providedIn: 'root'
-                    },] }
-        ];
-        /** @nocollapse */
-        ViewportService.ctorParameters = function () { return []; };
-        /** @nocollapse */ ViewportService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ViewportService_Factory() { return new ViewportService(); }, token: ViewportService, providedIn: "root" });
-        return ViewportService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var $$1 = jquery;
     var TopToolbarComponent = /** @class */ (function () {
-        function TopToolbarComponent(_elementRef, _viewportService, _cdRef) {
-            this._elementRef = _elementRef;
-            this._viewportService = _viewportService;
-            this._cdRef = _cdRef;
-            this.leftOffset = true;
+        function TopToolbarComponent() {
         }
-        /**
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-            this.refresh();
-            /** @type {?} */
-            var el = this.getToolsElem();
-            /** @type {?} */
-            var $this = this;
-            el.addEventListener('scroll', (/**
-             * @return {?}
-             */
-            function () {
-                $this.refresh();
-            }));
-        };
-        /**
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.moveLeft = /**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var el = this.getToolsElem();
-            if (el) {
-                /** @type {?} */
-                var elem = this.canMoveTo(true);
-                if (elem) {
-                    /** @type {?} */
-                    var options = {
-                        left: $$1(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
-                        top: 0,
-                    };
-                    el.scrollTo(options);
-                }
-            }
-        };
-        /**
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.moveRight = /**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var el = this.getToolsElem();
-            if (el) {
-                /** @type {?} */
-                var elem = this.canMoveTo(false);
-                if (elem) {
-                    /** @type {?} */
-                    var options = {
-                        left: $$1(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
-                        top: 0,
-                    };
-                    el.scrollTo(options);
-                }
-            }
-        };
-        /**
-         * @private
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.getToolsElem = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            return this._elementRef ? this._elementRef.nativeElement.children[0].querySelector('#tools') : null;
-        };
-        /**
-         * @private
-         * @param {?} left
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.canMoveTo = /**
-         * @private
-         * @param {?} left
-         * @return {?}
-         */
-        function (left) {
-            /** @type {?} */
-            var elem;
-            /** @type {?} */
-            var children = this.getChildren();
-            /** @type {?} */
-            var countElem = children.length;
-            for (elem = 0; elem < countElem; elem++) {
-                /** @type {?} */
-                var element = this.getElem(elem);
-                if (this._viewportService.checkInViewport(element, 100, this.getLeftOffset())) {
-                    if (left) {
-                        return elem > 0 ? children.item(elem - 1) : null;
-                    }
-                    else {
-                        return elem + 1 < countElem ? children.item(elem + 1) : null;
-                    }
-                }
-            }
-            return;
-        };
-        /**
-         * @private
-         * @param {?} num
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.getElem = /**
-         * @private
-         * @param {?} num
-         * @return {?}
-         */
-        function (num) {
-            /** @type {?} */
-            var elems = this.getChildren();
-            return elems.item(num !== null ? num : elems.length - 1);
-        };
-        /**
-         * @private
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.getChildren = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var el = this.getToolsElem();
-            if (!el) {
-                return;
-            }
-            return el.children;
-        };
-        /**
-         * @private
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.getLeftOffset = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            if (!this.leftOffset) {
-                return 0;
-            }
-            /** @type {?} */
-            var el = this._elementRef.nativeElement ? this._elementRef.nativeElement.parentElement.children[0] : null;
-            if (!el) {
-                return 0;
-            }
-            return el.clientWidth;
-        };
-        /**
-         * @private
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.refresh = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            this.showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
-            this.showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
-        };
-        /**
-         * @return {?}
-         */
-        TopToolbarComponent.prototype.ngAfterViewChecked = /**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
-            /** @type {?} */
-            var showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
-            if (showLeft !== this.showLeft || showRight !== this.showRight) {
-                this.showLeft = showLeft;
-                this.showRight = showRight;
-                this._cdRef.detectChanges();
-            }
-        };
         TopToolbarComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-top-toolbar',
-                        template: "<div class=\"top-toolbar\">\r\n  <gd-button [className]=\"'arrow-button'\" class=\"arrow-left\" id=\"left\" [icon]=\"'caret-left'\" [tooltip]=\"'Scroll left'\"\r\n             (click)=\"moveLeft()\"\r\n             *ngIf=\"showLeft\"></gd-button>\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n  <gd-button [className]=\"'arrow-button'\" class=\"arrow-right\" id=\"right\" [icon]=\"'caret-right'\"\r\n             [tooltip]=\"'Scroll right'\" (click)=\"moveRight()\"\r\n             *ngIf=\"showRight\"></gd-button>\r\n</div>\r\n",
-                        styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.arrow-right{position:absolute;right:0}.arrow-left{position:absolute;left:0}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
+                        template: "<div class=\"top-toolbar\">\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                        styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
                     }] }
         ];
         /** @nocollapse */
-        TopToolbarComponent.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: ViewportService },
-            { type: core.ChangeDetectorRef }
-        ]; };
-        TopToolbarComponent.propDecorators = {
-            leftOffset: [{ type: core.Input }]
-        };
+        TopToolbarComponent.ctorParameters = function () { return []; };
         return TopToolbarComponent;
     }());
 
@@ -1021,7 +738,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$2 = jquery;
+    var $ = jquery;
     /** @type {?} */
     var upload_disc = 'Disc';
     /** @type {?} */
@@ -1142,7 +859,7 @@
             }
             else {
                 this.showUploadUrl = false;
-                $$2("#gd-upload-input").trigger('click');
+                $("#gd-upload-input").trigger('click');
             }
         };
         /**
@@ -1318,7 +1035,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$3 = jquery;
+    var $$1 = jquery;
     var DocumentComponent = /** @class */ (function () {
         function DocumentComponent(_elementRef, zoomService) {
             var _this = this;
@@ -1408,7 +1125,7 @@
             /** @type {?} */
             var element = elementNodeListOf.item(0);
             if (element) {
-                $$3(element).trigger('focus');
+                $$1(element).trigger('focus');
             }
         };
         DocumentComponent.decorators = [
@@ -2009,7 +1726,93 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$4 = jquery;
+    var $$2 = jquery;
+    var ViewportService = /** @class */ (function () {
+        function ViewportService() {
+        }
+        /**
+         * @param {?} el
+         * @param {?=} zoom
+         * @param {?=} leftOffset
+         * @param {?=} deltaX
+         * @return {?}
+         */
+        ViewportService.prototype.checkInViewport = /**
+         * @param {?} el
+         * @param {?=} zoom
+         * @param {?=} leftOffset
+         * @param {?=} deltaX
+         * @return {?}
+         */
+        function (el, zoom, leftOffset, deltaX) {
+            if (zoom === void 0) { zoom = 100; }
+            if (leftOffset === void 0) { leftOffset = 0; }
+            if (deltaX === void 0) { deltaX = 0.5; }
+            if (!el) {
+                return false;
+            }
+            /** @type {?} */
+            var x = deltaX;
+            /** @type {?} */
+            var y = 0.5;
+            /** @type {?} */
+            var win = $$2(window);
+            /** @type {?} */
+            var viewport = {
+                top: win.scrollTop(),
+                left: win.scrollLeft() + leftOffset,
+                right: win.scrollLeft() + win.width() - 10,
+                bottom: win.scrollTop() + win.height()
+            };
+            if (isNaN(zoom)) {
+                zoom = 100;
+            }
+            /** @type {?} */
+            var zoomN = zoom / 100;
+            /** @type {?} */
+            var height = $$2(el).outerHeight() * (zoomN);
+            /** @type {?} */
+            var width = $$2(el).outerWidth() * (zoomN);
+            if (!width || !height) {
+                return false;
+            }
+            /** @type {?} */
+            var bounds = $$2(el).offset();
+            /** @type {?} */
+            var right = (bounds.left * (zoomN)) + width;
+            /** @type {?} */
+            var bottom = (bounds.top * (zoomN)) + height;
+            /** @type {?} */
+            var visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
+            if (!visible) {
+                return false;
+            }
+            /** @type {?} */
+            var deltas = {
+                top: Math.min(1, (bottom - viewport.top) / height),
+                bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
+                left: Math.min(1, (right - viewport.left) / width),
+                right: Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width)
+            };
+            return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
+        };
+        ViewportService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        ViewportService.ctorParameters = function () { return []; };
+        /** @nocollapse */ ViewportService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ViewportService_Factory() { return new ViewportService(); }, token: ViewportService, providedIn: "root" });
+        return ViewportService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var $$3 = jquery;
     var ScrollableDirective = /** @class */ (function () {
         function ScrollableDirective(_elementRef, _navigateService, _pagePreloadService, _zoomService, _windowService, _viewportService) {
             var _this = this;
@@ -2083,7 +1886,7 @@
             /** @type {?} */
             var prev = pageNumber > 0 ? this.getPage(pageNumber - 1) : null;
             /** @type {?} */
-            var isSameTop = (prev && $$4(prev).offset().top === $$4(page).offset().top);
+            var isSameTop = (prev && $$3(prev).offset().top === $$3(page).offset().top);
             if (this._viewportService.checkInViewport(page, this.zoom) && isSameTop) {
                 return;
             }
@@ -3329,7 +3132,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-search',
                         template: "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <div class=\"gd-nav-search-btn\" (click)=\"prev()\">\r\n    <fa-icon [icon]=\"['fas','chevron-left']\"></fa-icon>\r\n  </div>\r\n  <div class=\"gd-nav-search-btn\" (click)=\"next()\">\r\n    <fa-icon [icon]=\"['fas','chevron-right']\"></fa-icon>\r\n  </div>\r\n  <div class=\"gd-nav-search-btn gd-nav-search-cancel\" (click)=\"hide()\">\r\n    <fa-icon [icon]=\"['fas','times']\"></fa-icon>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-nav-search-btn{float:left;cursor:pointer;padding-left:7px;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px;padding-right:4px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;left:206px;top:14px;text-align:right;width:62px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:17px;width:258px;font-size:14px;padding:5px 0 6px 7px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px}@media (min-width:401px) and (max-width:700px){.gd-search-input{width:231px}.gd-nav-search-cancel{padding-right:7px}.gd-search-count{left:179px}.gd-nav-search-container{width:386px}}@media (max-width:500px){.gd-search-input{width:231px}.gd-nav-search-cancel{padding-right:7px}.gd-search-count{left:179px}.gd-nav-search-container{width:100%}}"]
+                        styles: [".gd-nav-search-btn{float:left;cursor:pointer;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px 7px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;left:232px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:194px;top:15px}.gd-nav-search-container{width:100%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3350,7 +3153,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$5 = jquery;
+    var $$4 = jquery;
     var SearchableDirective = /** @class */ (function () {
         function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
             var _this = this;
@@ -3435,16 +3238,16 @@
                  * @return {?}
                  */
                 function (value) {
-                    $$5(value).removeClass('gd-highlight-select');
+                    $$4(value).removeClass('gd-highlight-select');
                 }));
                 /** @type {?} */
                 var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-                $$5(currentEl).addClass('gd-highlight-select');
+                $$4(currentEl).addClass('gd-highlight-select');
                 if (currentEl) {
                     /** @type {?} */
                     var options = {
                         left: 0,
-                        top: ($$5(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
+                        top: ($$4(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
                     };
                     el.parentElement.scrollTo(options);
                 }
@@ -3462,7 +3265,7 @@
          */
         function (el) {
             /** @type {?} */
-            var textNodes = $$5(el).find('*').contents().filter((/**
+            var textNodes = $$4(el).find('*').contents().filter((/**
              * @return {?}
              */
             function () {
@@ -3487,7 +3290,7 @@
              */
             function () {
                 /** @type {?} */
-                var $this = $$5(this);
+                var $this = $$4(this);
                 /** @type {?} */
                 var content = $this.text();
                 content = highlight.transform(content, text);
@@ -4206,7 +4009,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$6 = jquery;
+    var $$5 = jquery;
     var FormattingDirective = /** @class */ (function () {
         function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
             this._formattingService = _formattingService;
@@ -4235,7 +4038,7 @@
             this.list = this.checkList();
             //fix required by FireFox to get correct background color
             if (this.bgColor === "transparent") {
-                this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+                this.bgColor = $$5(window.getSelection().focusNode.parentNode).css('background-color').toString();
             }
             this.font = document.queryCommandValue("FontName").replace(/"/g, '');
             if (this.font.split(",").length > 1) {
@@ -4627,7 +4430,7 @@
             if (align === "full") {
                 align = "justify";
             }
-            $$6(selection).css("text-align", align);
+            $$5(selection).css("text-align", align);
             this._selectionService.refreshSelection();
         };
         /**
