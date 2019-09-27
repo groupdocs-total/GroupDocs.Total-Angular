@@ -1,0 +1,99 @@
+@import "../../../../common-components/src/styles/variables";
+
+.stamp-body {
+  width: 1036px;
+  height: 561px;
+
+
+  .csg-text-input {
+    padding: 5px;
+    background-color: #e6e6e6;
+    position: absolute;
+    top: 120px;
+    left: 0px;
+    width: ~"calc(100% - 10px)";
+    flex-direction: row;
+    display: flex;
+    z-index: 99999;
+  }
+
+  .csg-text-input::after {
+    content: " ";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 4px 5px 4px;
+    border-color: transparent transparent #e6e6e6 transparent;
+    position: absolute;
+    top: -5px;
+    right: 110px;
+  }
+
+  .csg-text-input input {
+    height: 20px;
+    width: 100%;
+    padding: 0;
+    margin: 0px 10px 0px 0px;
+  }
+
+  .csg-insert-text {
+    width: 27px;
+    height: 27px;
+    background-color: #3787F5;
+    margin: 0px;
+
+    .icon {
+      padding: 5px;
+      color: white;
+    }
+  }
+}
+
+.stamp-header {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-buttons {
+  display: flex;
+
+  .plus {
+    position: absolute;
+    height: 5px;
+    width: 5px;
+    right: 10px;
+    bottom: 10px;
+  }
+}
+
+.stamp-export {
+  background-color: @brand;
+  margin-right: 10px;
+  width: 68px;
+  height: 37px;
+  display: flex;
+  justify-content: space-between;
+  color: #FFF;
+  align-items: center;
+
+  .icon {
+    margin-left: 5px;
+  }
+
+  .save-button {
+    margin-right: 5px;
+  }
+}
+
+.gd-draw-stamp {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC) !important;
+  position: absolute;
+  padding: 0 !important;
+  background-color: #fff;
+  overflow: hidden;
+  overflow-y: auto;
+  width: inherit;
+}

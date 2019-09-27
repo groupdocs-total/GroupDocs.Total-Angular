@@ -1,0 +1,28 @@
+<gd-modal [id]="'gd-draw-stamp-signature'" [title]="'Compose stamp'">
+  <div class="stamp-body">
+    <div class="stamp-header">
+      <div class="header-buttons">
+        <gd-button [icon]="'circle'" (click)="addCanvas()">
+          <fa-icon class="plus" [icon]="['fas','plus']"></fa-icon>
+        </gd-button>
+        <gd-button [icon]="'font'" (click)="toggleText()">
+          <fa-icon class="plus" [icon]="['fas','plus']"></fa-icon>
+        </gd-button>
+      </div>
+      <div class="stamp-export" (click)="saveSign()">
+        <fa-icon [icon]="['fa','save']" [class]="'ng-fa-icon icon'"></fa-icon>
+        <span class="save-button">Save</span>
+      </div>
+    </div>
+    <div class="csg-text-input" *ngIf="showText">
+      <input placeholder="Type your text" id="text-input" #text (keyup.enter)="addText(text.value)"
+             [value]="textString" type="text">
+      <div class="csg-insert-text" (click)="addText(text.value)">
+        <fa-icon [icon]="'plus'" [class]="'ng-fa-icon icon'"></fa-icon>
+      </div>
+    </div>
+    <div class="gd-draw-stamp" [style.width.px]="getWidth()" [style.height.px]="getHeight()">
+      <div gdHostDynamic [ident]="999999"></div>
+    </div>
+  </div>
+</gd-modal>
