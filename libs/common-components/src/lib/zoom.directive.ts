@@ -8,14 +8,20 @@ import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() zoomActive = true;
+  @Input() ifEdge = true;
+  @Input() ifFirefox = true;
+  @Input() ifPdf = true;
 
   @HostBinding('style.zoom') zoomStr: string;
   @HostBinding('style.zoom') zoomInt: number;
   @HostBinding('style.-moz-transform') mozTransform: string;
+  @HostBinding('style.transform') transform: string;
   @HostBinding('style.-moz-transform-origin') mozTransformOrigin: string;
+  @HostBinding('style.transform-origin') transformOrigin: string;
   @HostBinding('style.-webkit-transform') webkitTransform: SafeStyle;
   @HostBinding('style.-ms-transform') msTransform: SafeStyle;
   @HostBinding('style.-o-transform') oTransform: SafeStyle;
+  @HostBinding('class.mobile-flex-direction') isMobileFlex = false;
 
   constructor(private _zoomService: ZoomService, private _sanitizer: DomSanitizer) {
   }
@@ -38,10 +44,25 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     this.zoomStr = Math.round(zoom) + '%';
-    this.zoomInt = zoom === 100 ? 1 : zoom / 100;
-    this.mozTransform = 'scale(' + this.zoomInt + ', ' + this.zoomInt + ')';
+    const zoomInt = zoom === 100 ? 1 : zoom / 100;
+    
+    if (this.ifEdge || this.ifPdf) {
+      this.zoomInt = zoomInt;
+    }
+
+    this.mozTransform = 'scale(' + zoomInt + ', ' + zoomInt + ')';
     this.mozTransformOrigin = 'top';
-    const transform = this._sanitizer.bypassSecurityTrustStyle('(' + this.zoomInt + ', ' + this.zoomInt + ')');
+    
+    if (!this.ifEdge && !this.ifPdf) {
+      this.transform = 'scale(' + zoomInt + ')';
+      this.transformOrigin = 'top';
+    }
+
+    if (this.ifFirefox && this.ifPdf){
+      this.isMobileFlex = true;
+    }
+
+    const transform = this._sanitizer.bypassSecurityTrustStyle('(' + zoomInt + ', ' + zoomInt + ')');
     this.webkitTransform = transform;
     this.msTransform = transform;
     this.oTransform = transform;
