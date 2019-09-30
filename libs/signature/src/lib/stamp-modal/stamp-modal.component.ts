@@ -6,10 +6,12 @@ import {SignatureTabActivatorService} from "./../signature-tab-activator.service
 import {RemoveCanvasService} from "../remove-canvas.service";
 import {StampCanvasComponent} from "../stamp-canvas/stamp-canvas.component";
 import {
-  AddDynamicComponentService, CommonModals,
+  AddDynamicComponentService, CommonModals, Formatting,
   HostDynamicDirective, ModalService,
   WindowService
 } from "@groupdocs.examples.angular/common-components";
+import * as jquery from "jquery";
+const $ = jquery;
 
 @Component({
   selector: 'gd-stamp-modal',
@@ -18,20 +20,20 @@ import {
 })
 export class StampModalComponent implements OnInit, OnDestroy {
   stampCircles = new Map<number, ComponentRef<any>>();
-  textString: string;
+  textString = '';
   showText = false;
 
   @ViewChild(HostDynamicDirective, {static: true}) dynamicDirective: HostDynamicDirective;
-  private defaultProps = new StampCanvasProps();
+
   private isMobile: boolean;
   private sizeMagnifier = 40;
   private activeId: number;
+  textProps = Formatting.DEFAULT;
 
   constructor(private _addDynamicComponentService: AddDynamicComponentService,
               private _activeCanvasService: ActiveCanvasService,
               private _windowService: WindowService,
               private _removeCanvas: RemoveCanvasService,
-              private _elementRef: ElementRef,
               private _signatureService: SignatureService,
               private _tabActivationService: SignatureTabActivatorService,
               private _modalService: ModalService) {
@@ -48,24 +50,11 @@ export class StampModalComponent implements OnInit, OnDestroy {
     });
 
     this._activeCanvasService.activeChange.subscribe((id: number) => {
-      const element = this._elementRef.nativeElement.querySelector("#text-input");
-      if (element) {
-        element.value = '';
-      }
       this.activeId = id;
-      const comp = this.stampCircles.get(id);
-      if (comp) {
-        this.textString = (<StampCanvasComponent>comp.instance).props.text;
-      }
     });
-
-    this.defaultProps.init(this.isMobile);
   }
 
   ngOnInit() {
-    const props = this.defaultProps;
-    props.id = this.stampCircles.size + 1;
-    this.addCircle(props, true);
   }
 
   saveSign() {
@@ -97,12 +86,22 @@ export class StampModalComponent implements OnInit, OnDestroy {
     this._modalService.close(CommonModals.DrawStampSignature);
   }
 
-  clear($event) {
+  onCloseOpen($event) {
+    if ($event) {
+      this.textString = '';
+      const props = new StampCanvasProps().init(this.isMobile);
+      props.id = this.stampCircles.size + 1;
+      this.addCircle(props, true);
+    } else {
+      this.clear();
+    }
+  }
+
+  clear() {
     for (const comp of this.stampCircles.values()) {
       comp.destroy();
     }
     this.stampCircles = new Map<number, ComponentRef<any>>();
-    this.close();
   }
 
   private addCircle(props: StampCanvasProps, theFirst: boolean) {
@@ -132,20 +131,21 @@ export class StampModalComponent implements OnInit, OnDestroy {
       props.zIndex = lastProps.zIndex - 1;
     }
     this.addCircle(props, false);
-    this.textString = '';
     this.showText = false;
   }
 
   ngOnDestroy(): void {
-    this.clear(false);
+    this.clear();
   }
 
   addText(value: string) {
-    const componentRef = this.stampCircles.get(this.activeId);
+    this.textString = value;
+    const componentRef = this.stampCircles.get(1);
     if (componentRef) {
       const props = (<StampCanvasComponent>componentRef.instance).props;
       props.text = value;
       (<StampCanvasComponent>componentRef.instance).redrawCanvas();
+      this.showText = false;
     }
   }
 
@@ -153,9 +153,71 @@ export class StampModalComponent implements OnInit, OnDestroy {
     this.showText = !this.showText;
     if (this.showText) {
       setTimeout(() => {
-        const element = this._elementRef.nativeElement.querySelector("#text-input");
-        element.focus();
+        const element = $("#text-input");
+        if (element) {
+          element.focus();
+        }
       }, 100);
+    }
+  }
+
+  toggleUnderline($event: boolean) {
+    this.textProps.underline = $event;
+    const componentRef = this.stampCircles.get(1);
+    if (componentRef) {
+      const props = (<StampCanvasComponent>componentRef.instance).props;
+      props.underline = $event;
+      (<StampCanvasComponent>componentRef.instance).redrawCanvas();
+    }
+  }
+
+  toggleBold($event: boolean) {
+    this.textProps.bold = $event;
+    const componentRef = this.stampCircles.get(1);
+    if (componentRef) {
+      const props = (<StampCanvasComponent>componentRef.instance).props;
+      props.bold = $event;
+      (<StampCanvasComponent>componentRef.instance).redrawCanvas();
+    }
+  }
+
+  toggleItalic($event: boolean) {
+    this.textProps.italic = $event;
+    const componentRef = this.stampCircles.get(1);
+    if (componentRef) {
+      const props = (<StampCanvasComponent>componentRef.instance).props;
+      props.italic = $event;
+      (<StampCanvasComponent>componentRef.instance).redrawCanvas();
+    }
+  }
+
+  selectTextColor($event: string) {
+    this.textProps.color = $event;
+    const componentRef = this.stampCircles.get(1);
+    if (componentRef) {
+      const props = (<StampCanvasComponent>componentRef.instance).props;
+      props.textColor = $event;
+      (<StampCanvasComponent>componentRef.instance).redrawCanvas();
+    }
+  }
+
+  selectFont($event: string) {
+    this.textProps.font = $event;
+    const componentRef = this.stampCircles.get(1);
+    if (componentRef) {
+      const props = (<StampCanvasComponent>componentRef.instance).props;
+      props.font = $event;
+      (<StampCanvasComponent>componentRef.instance).redrawCanvas();
+    }
+  }
+
+  selectFontSize($event: number) {
+    this.textProps.fontSize = $event;
+    const componentRef = this.stampCircles.get(1);
+    if (componentRef) {
+      const props = (<StampCanvasComponent>componentRef.instance).props;
+      props.fontSize = $event;
+      (<StampCanvasComponent>componentRef.instance).redrawCanvas();
     }
   }
 
@@ -166,4 +228,15 @@ export class StampModalComponent implements OnInit, OnDestroy {
   getHeight() {
     return this.isMobile ? this._windowService.getHeight() : 501;
   }
+
+  deleteText() {
+    const componentRef = this.stampCircles.get(1);
+    if (componentRef) {
+      const props = (<StampCanvasComponent>componentRef.instance).props;
+      props.text = "";
+      (<StampCanvasComponent>componentRef.instance).redrawCanvas();
+      this.showText = false;
+    }
+  }
+
 }

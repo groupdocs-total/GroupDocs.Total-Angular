@@ -1,32 +1,26 @@
 <div>
-  <gd-text-menu *ngIf="active" [blur]="true" [color]="props.textColor" [bold]="props.bold"
-                [font]="props.font" [fontSize]="props.fontSize" [italic]="props.italic"
-                [underline]="props.underline" (outBold)="toggleBold($event)"
-                (outUnderline)="toggleUnderline($event)" (outItalic)="toggleItalic($event)"
-                (outColor)="selectTextColor($event)" (outFont)="selectFont($event)"
-                (outFontSize)="selectFontSize($event)"></gd-text-menu>
   <div class="gd-stamp-box" [style.left.px]="getLeft()" [style.top.px]="getTop()" [style.z-index]="props.zIndex">
     <div class="gd-context-menu" *ngIf="active">
-      <gd-button name="button" [icon]="'fill-drip'" [tooltip]="'Color'" (click)="toggleColorPicker(true)">
+      <gd-button name="button" [icon]="'fill-drip'" [tooltip]="'Color'" (click)="toggleColorPicker($event, true)">
         <div class="bg-color-pic" [style.background-color]="props.backgroundColor"></div>
-        <gd-color-picker *ngIf="colorPickerBG"
-                         [className]="'palette'"
-                         (selectedColor)="selectColor(true, $event)"></gd-color-picker>
       </gd-button>
+      <gd-color-picker [isOpen]="colorPickerBG"
+                       [className]="'palette'"
+                       (selectedColor)="selectColor(true, $event)"></gd-color-picker>
       <gd-select class="csg-border-width" [options]="borderWidth" (selected)="selectBorderWidth($event)"
                  [showSelected]="{name: props.strokeWidth + 'px', value: props.strokeWidth}"></gd-select>
-      <gd-button name="button" [icon]="'square'" [tooltip]="'Color'" (click)="toggleColorPicker(false)">
+      <gd-button name="button" [icon]="'square'" [tooltip]="'Color'" (click)="toggleColorPicker($event, false)">
         <div class="bg-color-pic" [style.background-color]="props.strokeColor"></div>
-        <gd-color-picker *ngIf="colorPickerC"
-                         [className]="'palette'"
-                         (selectedColor)="selectColor(false, $event)"></gd-color-picker>
       </gd-button>
+      <gd-color-picker [isOpen]="colorPickerC"
+                       [className]="'palette'"
+                       (selectedColor)="selectColor(false, $event)"></gd-color-picker>
       <fa-icon [icon]="['fas','trash-alt']" [class]="'ng-fa-icon icon'" [size]="'sm'" class="csg-delete-shape"
                (click)="deleteCanvas()"></fa-icon>
     </div>
     <div class="csg-bounding-box" [style.width.px]="props.width" [style.height.px]="props.height">
       <canvas #canvas (click)="activation()" class="csg-preview" [width]="props.width" [height]="props.height"></canvas>
-      <gd-resizing (offsetX)="resize($event)" [se]="true" (release)="redrawCanvas()"></gd-resizing>
+      <gd-resizing [init]="false" [id]="999" (offsetX)="resize($event)" [se]="true" (release)="redrawCanvas()"></gd-resizing>
     </div>
   </div>
 </div>

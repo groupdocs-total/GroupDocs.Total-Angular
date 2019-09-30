@@ -2,21 +2,20 @@
 
 .gd-context-menu {
   display: flex;
-  height: 34px;
+  height: 37px;
   top: -40px;
   padding: 0;
   box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;
   background-color: #FFFFFF;
   border-radius: 3px;
   cursor: default;
-  display: flex;
   flex-direction: row;
 
   .icon {
     font-size: 14px;
     padding: 7px 7px 10px 10px;
     cursor: pointer;
-    color: #959da5;
+    color: @primary !important;
   }
 
   ::ng-deep .dropdown-menu {
@@ -49,65 +48,22 @@
   margin: 5px 21px 10px 7px;
 }
 
+.bg-color-pic {
+  border-radius: 100%;
+  border: 1px solid #CCC;
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  right: 6px;
+  bottom: 6px;
+}
+
 .select {
   position: absolute;
   width: 27px;
   border: 0;
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
-}
-
-::ng-deep .gd-text-menu {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 50px;
-  align-items: baseline;
-  padding: 0px;
-  margin: 0px;
-  z-index: 999999;
-
-  .icon {
-    color: white;
-    margin: 0 9px 0 9px;
-  }
-
-  ::ng-deep .bcPicker-palette {
-    width: 286px !important;
-
-    .bcPicker-color {
-      width: 42px !important;
-      height: 24px !important;
-    }
-  }
-
-  ::ng-deep .palette {
-    top: -300px !important;
-  }
-
-  ::ng-deep .dropdown-menu {
-    top: -230px !important;
-    color: #959da5 !important;
-  }
-
-  ::ng-deep .button {
-    color: #FFFFFF !important;
-  }
-
-  ::ng-deep .select {
-    color: #FFFFFF !important;
-  }
-}
-
-::ng-deep .gd-blur {
-  width: 100%;
-  height: 50px;
-  background-color: #3E4E5A;
-  opacity: 0.7;
-  position: absolute;
-  z-index: -1;
 }
 
 @media @phone-down {

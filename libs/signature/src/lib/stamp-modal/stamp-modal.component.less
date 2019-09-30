@@ -93,7 +93,41 @@
   position: absolute;
   padding: 0 !important;
   background-color: #fff;
-  overflow: hidden;
-  overflow-y: auto;
-  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    z-index: 1000;
+    width: 100px;
+    height: 30px;
+    outline: 2px solid #679FFA;
+  }
+}
+
+::ng-deep .gd-text-menu {
+  height: 37px;
+  top: 180px;
+  padding: 0;
+  box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  cursor: default;
+  position: absolute;
+  z-index: 99999;
+
+  .icon {
+    font-size: 14px;
+    padding: 7px 7px 10px 10px;
+    cursor: pointer;
+    color: @primary !important;
+  }
+}
+
+::ng-deep .select {
+  color: @primary !important;
+}
+
+::ng-deep gd-drop-down {
+  z-index: 999999 !important;
 }

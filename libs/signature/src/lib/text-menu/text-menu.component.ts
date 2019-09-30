@@ -59,7 +59,9 @@ export class TextMenuComponent implements OnInit {
     this.outFont.emit($event.value);
   }
 
-  toggleColorPicker() {
+  toggleColorPicker($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
     this.colorPickerShow = !this.colorPickerShow;
   }
 

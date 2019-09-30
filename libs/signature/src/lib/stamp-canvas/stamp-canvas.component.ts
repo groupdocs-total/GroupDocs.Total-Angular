@@ -60,16 +60,18 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
   redrawCanvas() {
     this.refreshRadius();
     this.drawCircle();
-    if (this.theFirst) {
-      this._ctx.fillStyle = this.props.textColor;
-      this._ctx.font = this.fontDecoration() + " " + this.props.fontSize + 'px ' + this.props.font;
-      this._ctx.textAlign = 'center';
-      this._ctx.fillText(this.props.text, this.props.width / 2, this.props.height / 2 + this.props.fontSize / 2);
-      if (this.props.underline) {
-        this.makeTextUnderline();
+    if (this.props.text) {
+      if (this.theFirst) {
+        this._ctx.fillStyle = this.props.textColor;
+        this._ctx.font = this.fontDecoration() + " " + this.props.fontSize + 'px ' + this.props.font;
+        this._ctx.textAlign = 'center';
+        this._ctx.fillText(this.props.text, this.props.width / 2, this.props.height / 2 + this.props.fontSize / 2);
+        if (this.props.underline) {
+          this.makeTextUnderline();
+        }
+      } else {
+        this.drawTextCircle();
       }
-    } else {
-      this.drawTextCircle();
     }
   }
 
@@ -144,7 +146,9 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  toggleColorPicker(bg: boolean) {
+  toggleColorPicker($event, bg: boolean) {
+    $event.preventDefault();
+    $event.stopPropagation();
     if (bg) {
       this.colorPickerBG = !this.colorPickerBG;
     } else {
@@ -170,36 +174,6 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
 
   deleteCanvas() {
     this._removeCanvas.remove(this.id);
-    this.redrawCanvas();
-  }
-
-  toggleUnderline($event: boolean) {
-    this.props.underline = $event;
-    this.redrawCanvas();
-  }
-
-  toggleBold($event: boolean) {
-    this.props.bold = $event;
-    this.redrawCanvas();
-  }
-
-  toggleItalic($event: boolean) {
-    this.props.italic = $event;
-    this.redrawCanvas();
-  }
-
-  selectTextColor($event: string) {
-    this.props.textColor = $event;
-    this.redrawCanvas();
-  }
-
-  selectFont($event: string) {
-    this.props.font = $event;
-    this.redrawCanvas();
-  }
-
-  selectFontSize($event: number) {
-    this.props.fontSize = $event;
     this.redrawCanvas();
   }
 

@@ -205,6 +205,7 @@ export class StampCanvasProps {
     this.bold = false;
     this.italic = false;
     this.underline = false;
+    return this;
   }
 }
 
