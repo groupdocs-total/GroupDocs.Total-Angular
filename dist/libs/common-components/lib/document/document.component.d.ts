@@ -16,6 +16,5 @@ export declare class DocumentComponent implements OnInit, OnChanges, AfterViewCh
     ngOnChanges(changes: SimpleChanges): void;
     ifChromeOrFirefox(): boolean;
     ifFirefox(): boolean;
-    ifEdge(): boolean;
     ngAfterViewChecked(): void;
 }

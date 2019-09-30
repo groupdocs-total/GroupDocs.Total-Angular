@@ -8,8 +8,8 @@ import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() zoomActive = true;
-  @Input() ifEdge = true;
-  @Input() ifFirefox = true;
+  ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+  ifFirefox = window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   @Input() ifPdf = true;
 
   @HostBinding('style.zoom') zoomStr: string;

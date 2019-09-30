@@ -1075,15 +1075,6 @@ var DocumentComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    DocumentComponent.prototype.ifEdge = /**
-     * @return {?}
-     */
-    function () {
-        return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-    };
-    /**
-     * @return {?}
-     */
     DocumentComponent.prototype.ngAfterViewChecked = /**
      * @return {?}
      */
@@ -1099,8 +1090,8 @@ var DocumentComponent = /** @class */ (function () {
     DocumentComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-document',
-                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"ifChromeOrFirefox()\" [ifEdge]=\"ifEdge()\" [ifFirefox]=\"ifFirefox()\" [ifPdf]=\"ifPdf()\" gdSearchable>\r\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"!ifChromeOrFirefox()\" [ifEdge]=\"ifEdge()\" [ifPdf]=\"ifPdf()\"\r\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\r\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}@media (max-width:1037px){.document{overflow-x:auto!important}.mobile-flex-direction{flex-direction:column;transform-origin:top center 0}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"ifChromeOrFirefox()\" [ifPdf]=\"ifPdf()\" gdSearchable>\r\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"!ifChromeOrFirefox()\" [ifPdf]=\"ifPdf()\"\r\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\r\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:top center 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}@media (max-width:1037px){.document{overflow-x:auto!important}.mobile-flex-direction{flex-direction:column;width:0}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -2056,8 +2047,8 @@ var ZoomDirective = /** @class */ (function () {
         this._zoomService = _zoomService;
         this._sanitizer = _sanitizer;
         this.zoomActive = true;
-        this.ifEdge = true;
-        this.ifFirefox = true;
+        this.ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+        this.ifFirefox = window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         this.ifPdf = true;
         this.isMobileFlex = false;
     }
@@ -2145,8 +2136,6 @@ var ZoomDirective = /** @class */ (function () {
     ]; };
     ZoomDirective.propDecorators = {
         zoomActive: [{ type: Input }],
-        ifEdge: [{ type: Input }],
-        ifFirefox: [{ type: Input }],
         ifPdf: [{ type: Input }],
         zoomStr: [{ type: HostBinding, args: ['style.zoom',] }],
         zoomInt: [{ type: HostBinding, args: ['style.zoom',] }],
