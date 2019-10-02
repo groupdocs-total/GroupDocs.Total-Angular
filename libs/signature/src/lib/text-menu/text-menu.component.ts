@@ -17,6 +17,7 @@ export class TextMenuComponent implements OnInit {
   @Input() italic: boolean;
   @Input() underline: boolean;
   @Input() color: string;
+  @Input() decoration = true;
 
   @Output() outFontSize = new EventEmitter<number>();
   @Output() outFont = new EventEmitter<string>();

@@ -14,6 +14,7 @@ export class ButtonComponent {
   @Input() tooltip: string;
   @Input() className: string;
   @Input() toggle = false;
+  @Input() iconSize: string;
 
   showToolTip = false;
 

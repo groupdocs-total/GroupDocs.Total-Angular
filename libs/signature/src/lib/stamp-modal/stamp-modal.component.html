@@ -16,15 +16,16 @@
     </div>
     <div class="gd-draw-stamp" [style.width.px]="getWidth()" [style.height.px]="getHeight()">
       <div gdHostDynamic [ident]="999999"></div>
-      <gd-text-menu *ngIf="showText" [blur]="true" [color]="textProps.color" [bold]="textProps.bold"
-                    [font]="textProps.font" [fontSize]="textProps.fontSize" [italic]="textProps.italic"
-                    [underline]="textProps.underline" (outBold)="toggleBold($event)"
-                    (outUnderline)="toggleUnderline($event)" (outItalic)="toggleItalic($event)"
-                    (outColor)="selectTextColor($event)" (outFont)="selectFont($event)"
-                    (outFontSize)="selectFontSize($event)">
-        <fa-icon [icon]="['fas','trash']" [class]="'ng-fa-icon icon'" [size]="'sm'" class="gd-delete-signature"
-                 (click)="deleteText()"></fa-icon>
-      </gd-text-menu>
+      <div class="gd-text-menu-context">
+        <gd-text-menu *ngIf="showText" [blur]="true" [color]="textProps.color" [bold]="textProps.bold"
+                      [font]="textProps.font" [fontSize]="textProps.fontSize" [italic]="textProps.italic"
+                      [underline]="textProps.underline" (outBold)="toggleBold($event)"
+                      (outUnderline)="toggleUnderline($event)" (outItalic)="toggleItalic($event)"
+                      (outColor)="selectTextColor($event)" (outFont)="selectFont($event)"
+                      (outFontSize)="selectFontSize($event)" [decoration]="false">
+          <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon'" [iconSize]="'sm'" (click)="deleteText()"></gd-button>
+        </gd-text-menu>
+      </div>
       <input *ngIf="showText" placeholder="Type your text" id="text-input"
              #text (keyup.enter)="addText(text.value)"
              [style.text-decoration]="textProps?.underline ? 'underline' : 'unset'"

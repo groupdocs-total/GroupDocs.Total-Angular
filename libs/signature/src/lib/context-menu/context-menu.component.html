@@ -1,12 +1,11 @@
 <div class="gd-context-menu" [ngClass]="topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'">
-  <fa-icon [icon]="['fas','arrows-alt']" [class]="'ng-fa-icon icon arrows'" [size]="'sm'"></fa-icon>
+  <gd-button [icon]="'arrows-alt'" [class]="'ng-fa-icon icon arrows'" [iconSize]="'sm'"></gd-button>
   <gd-text-menu *ngIf="textMenu" [blur]="isMobile" [color]="formatting.color" [bold]="formatting.bold"
                 [font]="formatting.font" [fontSize]="formatting.fontSize" [italic]="formatting.italic"
                 [underline]="formatting.underline" (outBold)="toggleBold($event)"
                 (outUnderline)="toggleUnderline($event)" (outItalic)="toggleItalic($event)"
                 (outColor)="selectColor($event)" (outFont)="selectFont($event)"
                 (outFontSize)="selectFontSize($event)"></gd-text-menu>
-  <fa-icon [icon]="['fas',lock ? 'lock' : 'unlock']" [class]="'ng-fa-icon icon'" (click)="toggleLock()"></fa-icon>
-  <fa-icon [icon]="['fas','trash']" [class]="'ng-fa-icon icon'" [size]="'sm'" class="gd-delete-signature"
-           (click)="deleteSign()"></fa-icon>
+  <gd-button [icon]="lock ? 'lock' : 'unlock'" [class]="'ng-fa-icon icon'" (click)="toggleLock()"></gd-button>
+  <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon'" [iconSize]="'sm'" (click)="deleteSign()"></gd-button>
 </div>
