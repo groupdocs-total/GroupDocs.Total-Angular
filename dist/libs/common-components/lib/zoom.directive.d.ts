@@ -3,10 +3,7 @@ import { ZoomService } from "./zoom.service";
 export declare class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChanges {
     private _zoomService;
     zoomActive: boolean;
-    ifPdf: boolean;
     file: any;
-    ifChrome: boolean;
-    ifFirefox: boolean;
     ifEdge: boolean;
     zoomInt: number;
     transform: string;

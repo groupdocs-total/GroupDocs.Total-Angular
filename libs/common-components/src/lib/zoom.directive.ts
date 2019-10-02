@@ -1,6 +1,5 @@
 import {AfterViewInit, Directive, HostBinding, Input, OnDestroy, OnInit, ElementRef, OnChanges} from '@angular/core';
 import {ZoomService} from "./zoom.service";
-import {DomSanitizer} from "@angular/platform-browser";
 
 @Directive({
   selector: '[gdZoom]'
@@ -8,10 +7,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChanges {
 
   @Input() zoomActive = true;
-  @Input() ifPdf = true;
   @Input() file;
-  ifChrome = window.navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-  ifFirefox = window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
   ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
 
   @HostBinding('style.zoom') zoomInt: number;
@@ -50,14 +47,14 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
 
     const zoomInt = zoom === 100 ? 1 : zoom / 100;
     
-    if (this.ifEdge || (this.ifPdf && !this.ifChrome)) {
+    if (this.ifEdge) {
       this.zoomInt = zoomInt;
     }
     else {
       this.zoomInt = null;
     }
     
-    if (!this.ifEdge && (!this.ifPdf || this.ifChrome || this.ifFirefox)) {
+    if (!this.ifEdge) {
       this.transform = 'scale(' + zoomInt + ')';
       this.transformOrigin = 'top left';
     }
@@ -66,7 +63,7 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
       this.transformOrigin = "";
     }
 
-    this.width = (this.el.nativeElement.parentElement.offsetWidth)/zoomInt + 'px';
+    this.width = (this.el.nativeElement.parentElement.getBoundingClientRect().width)/zoomInt + 'px';
     let maxWidth = 0;
     this.file.pages.forEach(page => {
       {
