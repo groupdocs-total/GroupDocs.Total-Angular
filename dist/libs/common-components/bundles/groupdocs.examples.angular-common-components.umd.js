@@ -1122,8 +1122,8 @@
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"ifChromeOrFirefox()\" [ifPdf]=\"ifPdf()\" gdSearchable>\r\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"!ifChromeOrFirefox()\" [ifPdf]=\"ifPdf()\"\r\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\r\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:top center 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"ifChromeOrFirefox()\" [ifPdf]=\"ifPdf()\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"!ifChromeOrFirefox()\" [ifPdf]=\"ifPdf()\"\r\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\r\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:top center 0;display:flex;justify-content:center;flex-wrap:wrap;align-content:start;flex-direction:row}.gd-zoomed{margin:10px 98px}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2074,14 +2074,14 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var ZoomDirective = /** @class */ (function () {
-        function ZoomDirective(_zoomService, _sanitizer) {
+        function ZoomDirective(_zoomService, el) {
             this._zoomService = _zoomService;
-            this._sanitizer = _sanitizer;
             this.zoomActive = true;
             this.ifPdf = true;
             this.ifChrome = window.navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
             this.ifFirefox = window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
             this.ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+            this.el = el;
         }
         /**
          * @return {?}
@@ -2144,12 +2144,27 @@
             }
             if (!this.ifEdge && (!this.ifPdf || this.ifChrome || this.ifFirefox)) {
                 this.transform = 'scale(' + zoomInt + ')';
-                this.transformOrigin = 'top';
+                this.transformOrigin = 'top left';
             }
             else {
                 this.transform = "";
                 this.transformOrigin = "";
             }
+            this.width = (this.el.nativeElement.parentElement.offsetWidth) / zoomInt + 'px';
+            /** @type {?} */
+            var maxWidth = 0;
+            this.file.pages.forEach((/**
+             * @param {?} page
+             * @return {?}
+             */
+            function (page) {
+                {
+                    if (page.width > maxWidth) {
+                        maxWidth = page.width;
+                    }
+                }
+            }));
+            this.minWidth = maxWidth + 'pt';
         };
         /**
          * @return {?}
@@ -2168,14 +2183,17 @@
         /** @nocollapse */
         ZoomDirective.ctorParameters = function () { return [
             { type: ZoomService },
-            { type: platformBrowser.DomSanitizer }
+            { type: core.ElementRef }
         ]; };
         ZoomDirective.propDecorators = {
             zoomActive: [{ type: core.Input }],
             ifPdf: [{ type: core.Input }],
+            file: [{ type: core.Input }],
             zoomInt: [{ type: core.HostBinding, args: ['style.zoom',] }],
             transform: [{ type: core.HostBinding, args: ['style.transform',] }],
-            transformOrigin: [{ type: core.HostBinding, args: ['style.transform-origin',] }]
+            transformOrigin: [{ type: core.HostBinding, args: ['style.transform-origin',] }],
+            width: [{ type: core.HostBinding, args: ['style.width',] }],
+            minWidth: [{ type: core.HostBinding, args: ['style.min-width',] }]
         };
         return ZoomDirective;
     }());
