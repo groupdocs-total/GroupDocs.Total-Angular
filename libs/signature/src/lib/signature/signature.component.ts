@@ -58,7 +58,9 @@ export class Signature implements OnInit {
 
   dragStart($event: DragEvent) {
     this.oldPosition = Utils.getMousePosition($event);
-    $event.dataTransfer.setData('text', 'foo');
+    if ($event.dataTransfer) {
+      $event.dataTransfer.setData('text', 'foo');
+    }
   }
 
   dragging($event) {

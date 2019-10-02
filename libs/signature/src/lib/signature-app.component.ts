@@ -37,6 +37,7 @@ import * as jquery from 'jquery';
 import {ActiveSignatureService} from "./active-signature.service";
 import {SignaturesHolderService} from "./signatures-holder.service";
 import {SignatureTabActivatorService} from "./signature-tab-activator.service";
+import 'hammerjs';
 
 const $ = jquery;
 

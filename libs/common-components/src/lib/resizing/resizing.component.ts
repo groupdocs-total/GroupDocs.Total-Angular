@@ -52,7 +52,9 @@ export class ResizingComponent implements OnInit, AfterViewInit {
 
   catchUp($event: DragEvent) {
     // ff
-    $event.dataTransfer.setData('text', 'foo');
+    if ($event.dataTransfer) {
+      $event.dataTransfer.setData('text', 'foo');
+    }
     this.grab = true;
     this.oldPosition = Utils.getMousePosition($event);
   }
