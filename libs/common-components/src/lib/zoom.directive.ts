@@ -1,6 +1,6 @@
 import {AfterViewInit, Directive, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {ZoomService} from "./zoom.service";
-import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Directive({
   selector: '[gdZoom]'
@@ -8,20 +8,14 @@ import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() zoomActive = true;
-  ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-  ifFirefox = window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   @Input() ifPdf = true;
+  ifChrome = window.navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+  ifFirefox = window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+  ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
 
-  @HostBinding('style.zoom') zoomStr: string;
   @HostBinding('style.zoom') zoomInt: number;
-  @HostBinding('style.-moz-transform') mozTransform: string;
   @HostBinding('style.transform') transform: string;
-  @HostBinding('style.-moz-transform-origin') mozTransformOrigin: string;
   @HostBinding('style.transform-origin') transformOrigin: string;
-  @HostBinding('style.-webkit-transform') webkitTransform: SafeStyle;
-  @HostBinding('style.-ms-transform') msTransform: SafeStyle;
-  @HostBinding('style.-o-transform') oTransform: SafeStyle;
-  @HostBinding('class.mobile-flex-direction') isMobileFlex = false;
 
   constructor(private _zoomService: ZoomService, private _sanitizer: DomSanitizer) {
   }
@@ -29,10 +23,15 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
   }
 
+  ngOnChanges(): void {
+    this.setStyles(this._zoomService.zoom);
+  }
+
   ngOnInit(): void {
     if (! this.zoomActive) {
       return;
     }
+
     this.setStyles(this._zoomService.zoom);
     this._zoomService.zoomChange.subscribe((zoom) => {
       this.setStyles(zoom);
@@ -43,29 +42,24 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit {
     if (! this.zoomActive) {
       return;
     }
-    this.zoomStr = Math.round(zoom) + '%';
+
     const zoomInt = zoom === 100 ? 1 : zoom / 100;
     
-    if (this.ifEdge || this.ifPdf) {
+    if (this.ifEdge || (this.ifPdf && !this.ifChrome)) {
       this.zoomInt = zoomInt;
     }
-
-    this.mozTransform = 'scale(' + zoomInt + ', ' + zoomInt + ')';
-    this.mozTransformOrigin = 'top';
+    else {
+      this.zoomInt = null;
+    }
     
-    if (!this.ifEdge && !this.ifPdf) {
+    if (!this.ifEdge && (!this.ifPdf || this.ifChrome || this.ifFirefox)) {
       this.transform = 'scale(' + zoomInt + ')';
       this.transformOrigin = 'top';
     }
-
-    if (this.ifFirefox && this.ifPdf){
-      this.isMobileFlex = true;
+    else {
+      this.transform = "";
+      this.transformOrigin = "";
     }
-
-    const transform = this._sanitizer.bypassSecurityTrustStyle('(' + zoomInt + ', ' + zoomInt + ')');
-    this.webkitTransform = transform;
-    this.msTransform = transform;
-    this.oTransform = transform;
   }
 
   ngAfterViewInit(): void {

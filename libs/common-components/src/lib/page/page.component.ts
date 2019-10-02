@@ -3,8 +3,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} f
 @Component({
   selector: 'gd-page',
   templateUrl: './page.component.html',
-  styleUrls: ['./page.component.less'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./page.component.less']
 })
 export class PageComponent implements OnInit, OnChanges {
 
