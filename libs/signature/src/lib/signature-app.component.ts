@@ -108,7 +108,9 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
       for (const id of ids) {
         if (del.type === SignatureType.DIGITAL.id || del.id === id) {
           const componentRef = this.signatureComponents.get(id);
-          componentRef.destroy();
+          if (componentRef) {
+            componentRef.destroy();
+          }
           this.signatureComponents.delete(id);
           this._signaturesHolderService.remove(del.guid, id);
         }
