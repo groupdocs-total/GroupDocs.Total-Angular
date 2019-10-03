@@ -726,18 +726,18 @@ class Utils {
         const wEvent = (/** @type {?} */ (window.event));
         /** @type {?} */
         const ev = event || wEvent;
-        if (ev.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
+        if (ev.pageX || wEvent.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
             //Moz
             /** @type {?} */
-            const pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0;
+            const pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0 ? ev.pageX : wEvent.pageX;
             /** @type {?} */
-            const pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0;
+            const pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0 ? ev.pageY : wEvent.pageY;
             /** @type {?} */
             const screenX = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
             /** @type {?} */
             const screenY = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
-            mouse.x = pageX ? ev.pageX : (screenX ? wEvent.screenX : ev.touches[0].pageX);
-            mouse.y = pageY ? ev.pageY : (screenY ? wEvent.screenY : ev.touches[0].pageY);
+            mouse.x = pageX ? pageX : (screenX ? wEvent.screenX : ev.touches[0].pageX);
+            mouse.y = pageY ? pageY : (screenY ? wEvent.screenY : ev.touches[0].pageY);
         }
         else if (ev.clientX) { //IE
             mouse.x = ev.clientX + document.body.scrollLeft;
@@ -4638,7 +4638,8 @@ class ResizingComponent {
      */
     catchUp($event) {
         // ff
-        if ($event.dataTransfer) {
+        $event.preventDefault();
+        if ($event.dataTransfer) { // ff
             $event.dataTransfer.setData('text', 'foo');
         }
         this.grab = true;

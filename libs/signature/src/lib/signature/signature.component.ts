@@ -57,6 +57,7 @@ export class Signature implements OnInit {
   }
 
   dragStart($event: DragEvent) {
+    $event.preventDefault();
     this.oldPosition = Utils.getMousePosition($event);
     if ($event.dataTransfer) {
       $event.dataTransfer.setData('text', 'foo');
@@ -77,7 +78,9 @@ export class Signature implements OnInit {
 
   isOnPage(position) {
     const currentPage = document.elementFromPoint(position.x, position.y);
-    return currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().parent().hasClass("page");
+    return currentPage && $(currentPage).parent().parent() &&
+      ($(currentPage).parent().parent().parent().hasClass("page") ||
+        $(currentPage).parent().parent().parent().parent().parent().hasClass("page"));
   }
 
   isText() {

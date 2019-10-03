@@ -52,7 +52,8 @@ export class ResizingComponent implements OnInit, AfterViewInit {
 
   catchUp($event: DragEvent) {
     // ff
-    if ($event.dataTransfer) {
+    $event.preventDefault();
+    if ($event.dataTransfer) { // ff
       $event.dataTransfer.setData('text', 'foo');
     }
     this.grab = true;

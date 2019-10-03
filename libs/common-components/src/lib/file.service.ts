@@ -63,13 +63,13 @@ export class Utils {
     };
     const wEvent: DragEvent = <DragEvent>window.event;
     const ev = event || wEvent; //Moz || IE
-    if (ev.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
-      const pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0;
-      const pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0;
+    if (ev.pageX || wEvent.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
+      const pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0 ? ev.pageX : wEvent.pageX;
+      const pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0 ? ev.pageY : wEvent.pageY;
       const screenX = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
       const screenY = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
-      mouse.x = pageX ? ev.pageX : (screenX ? wEvent.screenX : ev.touches[0].pageX);
-      mouse.y = pageY ? ev.pageY : (screenY ? wEvent.screenY : ev.touches[0].pageY);
+      mouse.x = pageX ? pageX : (screenX ? wEvent.screenX : ev.touches[0].pageX);
+      mouse.y = pageY ? pageY : (screenY ? wEvent.screenY : ev.touches[0].pageY);
     } else if (ev.clientX) { //IE
       mouse.x = ev.clientX + document.body.scrollLeft;
       mouse.y = ev.clientY + document.body.scrollTop;
