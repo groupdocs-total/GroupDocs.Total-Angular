@@ -38,24 +38,12 @@ export class DocumentComponent implements OnInit, OnChanges, AfterViewChecked {
   ngOnInit() {
   }
 
-  ifPdf() {
-    return FileUtil.find(this.file.guid, false).format === "Portable Document Format";
-  }
-
-  ifImage() {
-    return FileUtil.find(this.file.guid, false).format === "Joint Photographic Experts Group";
+  getDimensionWithUnit(value: number) {
+    return value + FileUtil.find(this.file.guid, false).unit;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.refreshView = !this.refreshView;
-  }
-
-  ifChromeOrFirefox() {
-    return navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || this.ifFirefox();
-  }
-
-  ifFirefox() {
-    return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   }
 
   ngAfterViewChecked(): void {

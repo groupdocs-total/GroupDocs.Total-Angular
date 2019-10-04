@@ -612,78 +612,78 @@
         };
         FileUtil.map = {
             'folder': { 'format': '', 'icon': 'folder' },
-            'pdf': { 'format': 'Portable Document Format', 'icon': 'file-pdf' },
-            'doc': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-            'docx': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-            'docm': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-            'dot': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-            'dotx': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-            'dotm': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-            'xls': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-            'xlsx': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-            'xlsm': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-            'xlsb': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-            'xls2003': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-            'xltx': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-            'xltm': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-            'ppt': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
-            'pptx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
-            'pps': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
-            'ppsx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
-            'vsd': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'vdx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'vss': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'vsx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'vst': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'vtx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'vsdx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'vdw': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'vstx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'vssx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-            'mpp': { 'format': 'Microsoft Project', 'icon': 'file-alt' },
-            'mpt': { 'format': 'Microsoft Project', 'icon': 'file-alt' },
-            'msg': { 'format': 'Microsoft Outlook', 'icon': 'file-alt' },
-            'eml': { 'format': 'Microsoft Outlook', 'icon': 'file-alt' },
-            'emlx': { 'format': 'Microsoft Outlook', 'icon': 'file-alt' },
-            'one': { 'format': 'Microsoft OneNote', 'icon': 'file-word' },
-            'odt': { 'format': 'Open Document Text', 'icon': 'file-word' },
-            'ott': { 'format': 'Open Document Text Template', 'icon': 'file-word' },
-            'ods': { 'format': 'Open Document Spreadsheet', 'icon': 'file-excel' },
-            'odp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-            'otp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-            'ots': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-            'potx': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-            'potm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-            'pptm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-            'ppsm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-            'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt' },
-            'txt': { 'format': 'Plain Text File', 'icon': 'file-alt' },
-            'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel' },
-            'html': { 'format': 'HyperText Markup Language', 'icon': 'file-word' },
-            'mht': { 'format': 'HyperText Markup Language', 'icon': 'file-word' },
-            'mhtml': { 'format': 'HyperText Markup Language', 'icon': 'file-word' },
-            'xml': { 'format': 'Extensible Markup Language', 'icon': 'file-word' },
-            'xps': { 'format': 'XML Paper Specification', 'icon': 'file-word' },
-            'dxf': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image' },
-            'dwg': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image' },
-            'bmp': { 'format': 'Bitmap Picture', 'icon': 'file-image' },
-            'gif': { 'format': 'Graphics Interchange Format', 'icon': 'file-image' },
-            'jpg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
-            'jpe': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
-            'jpeg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
-            'jfif': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
-            'png': { 'format': 'Portable Network Graphics', 'icon': 'file-image' },
-            'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-            'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-            'psd': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-            'svg': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-            'jp2': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-            'epub': { 'format': 'Electronic Publication', 'icon': 'file-pdf' },
-            'ico': { 'format': 'Windows Icon', 'icon': 'file-image' },
-            'webp': { 'format': 'Compressed Image', 'icon': 'file-image' },
-            'mobi': { 'format': 'Mobipocket eBook', 'icon': 'file-pdf' },
-            'tex': { 'format': 'LaTeX Source Document', 'icon': 'file-pdf' },
-            'djvu': { 'format': 'Multi-Layer Raster Image', 'icon': 'file-alt' },
+            'pdf': { 'format': 'Portable Document Format', 'icon': 'file-pdf', 'unit': 'pt' },
+            'doc': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+            'docx': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+            'docm': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+            'dot': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+            'dotx': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+            'dotm': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+            'xls': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+            'xlsx': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+            'xlsm': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+            'xlsb': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+            'xls2003': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+            'xltx': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+            'xltm': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+            'ppt': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'pptx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'pps': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'ppsx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'vsd': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'vdx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'vss': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'vsx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'vst': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'vtx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'vsdx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'vdw': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'vstx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'vssx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+            'mpp': { 'format': 'Microsoft Project', 'icon': 'file-alt', 'unit': 'pt' },
+            'mpt': { 'format': 'Microsoft Project', 'icon': 'file-alt', 'unit': 'pt' },
+            'msg': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
+            'eml': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
+            'emlx': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
+            'one': { 'format': 'Microsoft OneNote', 'icon': 'file-word', 'unit': 'pt' },
+            'odt': { 'format': 'Open Document Text', 'icon': 'file-word', 'unit': 'pt' },
+            'ott': { 'format': 'Open Document Text Template', 'icon': 'file-word', 'unit': 'pt' },
+            'ods': { 'format': 'Open Document Spreadsheet', 'icon': 'file-excel', 'unit': 'px' },
+            'odp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'otp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'ots': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'potx': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'potm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'pptm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'ppsm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+            'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt', 'unit': 'pt' },
+            'txt': { 'format': 'Plain Text File', 'icon': 'file-alt', 'unit': 'pt' },
+            'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel', 'unit': 'px' },
+            'html': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+            'mht': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+            'mhtml': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+            'xml': { 'format': 'Extensible Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+            'xps': { 'format': 'XML Paper Specification', 'icon': 'file-word', 'unit': 'pt' },
+            'dxf': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image', 'unit': 'px' },
+            'dwg': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image', 'unit': 'px' },
+            'bmp': { 'format': 'Bitmap Picture', 'icon': 'file-image', 'unit': 'px' },
+            'gif': { 'format': 'Graphics Interchange Format', 'icon': 'file-image', 'unit': 'px' },
+            'jpg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+            'jpe': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+            'jpeg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+            'jfif': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+            'png': { 'format': 'Portable Network Graphics', 'icon': 'file-image', 'unit': 'px' },
+            'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+            'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+            'psd': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+            'svg': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+            'jp2': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+            'epub': { 'format': 'Electronic Publication', 'icon': 'file-pdf', 'unit': 'pt' },
+            'ico': { 'format': 'Windows Icon', 'icon': 'file-image', 'unit': 'px' },
+            'webp': { 'format': 'Compressed Image', 'icon': 'file-image', 'unit': 'px' },
+            'mobi': { 'format': 'Mobipocket eBook', 'icon': 'file-pdf', 'unit': 'pt' },
+            'tex': { 'format': 'LaTeX Source Document', 'icon': 'file-pdf', 'unit': 'pt' },
+            'djvu': { 'format': 'Multi-Layer Raster Image', 'icon': 'file-alt', 'unit': 'pt' },
             'unknown': { 'format': 'This format is not supported', 'icon': 'file' },
         };
         return FileUtil;
@@ -1058,22 +1058,15 @@
         function () {
         };
         /**
+         * @param {?} value
          * @return {?}
          */
-        DocumentComponent.prototype.ifPdf = /**
+        DocumentComponent.prototype.getDimensionWithUnit = /**
+         * @param {?} value
          * @return {?}
          */
-        function () {
-            return FileUtil.find(this.file.guid, false).format === "Portable Document Format";
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.ifImage = /**
-         * @return {?}
-         */
-        function () {
-            return FileUtil.find(this.file.guid, false).format === "Joint Photographic Experts Group";
+        function (value) {
+            return value + FileUtil.find(this.file.guid, false).unit;
         };
         /**
          * @param {?} changes
@@ -1085,24 +1078,6 @@
          */
         function (changes) {
             this.refreshView = !this.refreshView;
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.ifChromeOrFirefox = /**
-         * @return {?}
-         */
-        function () {
-            return navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || this.ifFirefox();
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.ifFirefox = /**
-         * @return {?}
-         */
-        function () {
-            return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         };
         /**
          * @return {?}
@@ -1122,8 +1097,8 @@
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"ifChromeOrFirefox()\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"!ifChromeOrFirefox()\"\r\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\r\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:top center 0;display:flex;justify-content:center;flex-wrap:wrap;align-content:start;flex-direction:row}.gd-zoomed{margin:10px 98px}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:auto;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:top center 0;display:flex;justify-content:center;flex-wrap:wrap;align-content:start;flex-direction:row}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2147,7 +2122,7 @@
                 this.transform = "";
                 this.transformOrigin = "";
             }
-            this.width = (this.el.nativeElement.parentElement.getBoundingClientRect().width) / zoomInt + 'px';
+            this.width = (this.el.nativeElement.parentElement.getBoundingClientRect().width) / zoomInt - this.scrollWidth + 'px';
             /** @type {?} */
             var maxWidth = 0;
             this.file.pages.forEach((/**
@@ -2170,6 +2145,7 @@
          * @return {?}
          */
         function () {
+            this.scrollWidth = this.el.nativeElement.parentElement.offsetWidth - this.el.nativeElement.parentElement.clientWidth;
             this.setStyles(this._zoomService.zoom);
         };
         ZoomDirective.decorators = [
