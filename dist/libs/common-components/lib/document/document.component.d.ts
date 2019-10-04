@@ -12,10 +12,6 @@ export declare class DocumentComponent implements OnInit, OnChanges, AfterViewCh
     constructor(_elementRef: ElementRef<HTMLElement>, zoomService: ZoomService);
     ngOnInit(): void;
     getDimensionWithUnit(value: number): any;
-    ifPdf(): boolean;
-    ifImage(): boolean;
     ngOnChanges(changes: SimpleChanges): void;
-    ifChromeOrFirefox(): boolean;
-    ifFirefox(): boolean;
     ngAfterViewChecked(): void;
 }

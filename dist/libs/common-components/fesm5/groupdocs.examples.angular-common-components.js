@@ -624,9 +624,9 @@ var FileUtil = /** @class */ (function () {
         'potm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
         'pptm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
         'ppsm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
-        'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt' },
-        'txt': { 'format': 'Plain Text File', 'icon': 'file-alt' },
-        'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel' },
+        'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt', 'unit': 'pt' },
+        'txt': { 'format': 'Plain Text File', 'icon': 'file-alt', 'unit': 'pt' },
+        'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel', 'unit': 'px' },
         'html': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
         'mht': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
         'mhtml': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
@@ -1037,24 +1037,6 @@ var DocumentComponent = /** @class */ (function () {
         return value + FileUtil.find(this.file.guid, false).unit;
     };
     /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ifPdf = /**
-     * @return {?}
-     */
-    function () {
-        return FileUtil.find(this.file.guid, false).format === "Portable Document Format";
-    };
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ifImage = /**
-     * @return {?}
-     */
-    function () {
-        return FileUtil.find(this.file.guid, false).format === "Joint Photographic Experts Group";
-    };
-    /**
      * @param {?} changes
      * @return {?}
      */
@@ -1064,24 +1046,6 @@ var DocumentComponent = /** @class */ (function () {
      */
     function (changes) {
         this.refreshView = !this.refreshView;
-    };
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ifChromeOrFirefox = /**
-     * @return {?}
-     */
-    function () {
-        return navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || this.ifFirefox();
-    };
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ifFirefox = /**
-     * @return {?}
-     */
-    function () {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     };
     /**
      * @return {?}
@@ -1102,7 +1066,7 @@ var DocumentComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-document',
                     template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:auto;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:top center 0;display:flex;justify-content:center;flex-wrap:wrap;align-content:start;flex-direction:row}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                    styles: [".document{background-color:#e7e7e7;flex:1;height:100%;overflow:scroll;transition:.4s}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -2094,6 +2058,7 @@ var ZoomDirective = /** @class */ (function () {
          */
         function (zoom) {
             _this.setStyles(zoom);
+            _this.resizePages(zoom);
         }));
     };
     /**
@@ -2126,7 +2091,6 @@ var ZoomDirective = /** @class */ (function () {
             this.transform = "";
             this.transformOrigin = "";
         }
-        this.width = (this.el.nativeElement.parentElement.getBoundingClientRect().width) / zoomInt - this.scrollWidth + 'px';
         /** @type {?} */
         var maxWidth = 0;
         this.file.pages.forEach((/**
@@ -2143,13 +2107,44 @@ var ZoomDirective = /** @class */ (function () {
         this.minWidth = maxWidth + 'pt';
     };
     /**
+     * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    ZoomDirective.prototype.getScrollWidth = /**
+     * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    function (elm) {
+        return elm.offsetWidth - elm.clientWidth;
+    };
+    /**
+     * @private
+     * @param {?} zoom
+     * @return {?}
+     */
+    ZoomDirective.prototype.resizePages = /**
+     * @private
+     * @param {?} zoom
+     * @return {?}
+     */
+    function (zoom) {
+        /** @type {?} */
+        var zoomInt = zoom === 100 ? 1 : zoom / 100;
+        /** @type {?} */
+        var viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
+        /** @type {?} */
+        var scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+        this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
+    };
+    /**
      * @return {?}
      */
     ZoomDirective.prototype.ngAfterViewInit = /**
      * @return {?}
      */
     function () {
-        this.scrollWidth = this.el.nativeElement.parentElement.offsetWidth - this.el.nativeElement.parentElement.clientWidth;
         this.setStyles(this._zoomService.zoom);
     };
     ZoomDirective.decorators = [

@@ -2,14 +2,16 @@
 
 .document {
   background-color: #e7e7e7;
-  width: 100%;
+  //width: 100%;
+  flex: 1;
   height: 100%;
-  overflow-x: auto;
-  overflow-y: auto !important;
+  // overflow-x: auto;
+  // overflow-y: auto !important;
+  overflow: scroll;
   transition: all 0.4s;
-  padding: 0px;
-  margin: 0px;
-  position: relative;
+  // padding: 0px;
+  // margin: 0px;
+  // position: relative;
 }
 
 .page {
@@ -29,14 +31,14 @@
 }
 
 .panzoom {
-  transform: none;
-  backface-visibility: hidden;
-  transform-origin: top center 0px;
+  //transform: none;
+  //backface-visibility: hidden;
+  //transform-origin: top center 0px;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-content: start;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
 }
 
 @media @phone-down {

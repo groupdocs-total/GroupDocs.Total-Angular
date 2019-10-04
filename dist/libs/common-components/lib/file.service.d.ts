@@ -269,14 +269,17 @@ export declare class FileUtil {
         'rtf': {
             'format': string;
             'icon': string;
+            'unit': string;
         };
         'txt': {
             'format': string;
             'icon': string;
+            'unit': string;
         };
         'csv': {
             'format': string;
             'icon': string;
+            'unit': string;
         };
         'html': {
             'format': string;

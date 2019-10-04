@@ -17,7 +17,6 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
   @HostBinding('style.width') width: string;
   @HostBinding('style.min-width') minWidth: string;
   el: ElementRef<any>;
-  scrollWidth: number;
 
   constructor(private _zoomService: ZoomService, el: ElementRef) {
     this.el = el;
@@ -38,6 +37,7 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
     this.setStyles(this._zoomService.zoom);
     this._zoomService.zoomChange.subscribe((zoom) => {
       this.setStyles(zoom);
+      this.resizePages(zoom);
     });
   }
 
@@ -64,7 +64,6 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
       this.transformOrigin = "";
     }
 
-    this.width = (this.el.nativeElement.parentElement.getBoundingClientRect().width)/zoomInt - this.scrollWidth + 'px';
     let maxWidth = 0;
     this.file.pages.forEach(page => {
       {
@@ -76,8 +75,19 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
     this.minWidth = maxWidth + 'pt';
   }
 
+  private getScrollWidth(elm){
+    return elm.offsetWidth - elm.clientWidth;
+  }
+
+  private resizePages(zoom){
+    const zoomInt = zoom === 100 ? 1 : zoom / 100;
+
+    var viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
+    var scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+    this.width = (viewPortWidth/zoomInt - scrollWidth/zoomInt) + 'px';
+  }
+
   ngAfterViewInit(): void {
-    this.scrollWidth = this.el.nativeElement.parentElement.offsetWidth - this.el.nativeElement.parentElement.clientWidth;
     this.setStyles(this._zoomService.zoom);
   }
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FileUtil, NavigateService, PageModel} from "@groupdocs.examples.angular/common-components";
+import {FileUtil, NavigateService, PageModel, ZoomService} from "@groupdocs.examples.angular/common-components";
 
 @Component({
   selector: 'gd-thumbnails',
@@ -13,10 +13,18 @@ export class ThumbnailsComponent implements OnInit {
   @Input() mode: boolean;
   @Input() isHtmlMode: boolean;
 
-  constructor(private _navigateService: NavigateService) {
+  constructor(private _navigateService: NavigateService, private _zoomService: ZoomService) {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(){
+    this._zoomService.changeZoom(100);
+  }
+
+  ngOnDestroy() {
+    this._zoomService.changeZoom(100);
   }
 
   imgData(data: string) {
