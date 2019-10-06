@@ -1751,9 +1751,9 @@ class ZoomDirective {
         /** @type {?} */
         const zoomInt = zoom === 100 ? 1 : zoom / 100;
         /** @type {?} */
-        var viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
+        const viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
         /** @type {?} */
-        var scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+        const scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
         this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
     }
     /**

@@ -82,8 +82,8 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
   private resizePages(zoom){
     const zoomInt = zoom === 100 ? 1 : zoom / 100;
 
-    var viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
-    var scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+    const viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
+    const scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
     this.width = (viewPortWidth/zoomInt - scrollWidth/zoomInt) + 'px';
   }
 
