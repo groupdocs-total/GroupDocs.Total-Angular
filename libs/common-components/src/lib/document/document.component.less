@@ -1,17 +1,14 @@
 @import "./../../../../common-components/src/styles/variables.less";
 
-.document {
-  background-color: #e7e7e7;
-  //width: 100%;
+:host {
   flex: 1;
-  height: 100%;
-  // overflow-x: auto;
-  // overflow-y: auto !important;
-  overflow: scroll;
   transition: all 0.4s;
-  // padding: 0px;
-  // margin: 0px;
-  // position: relative;
+  background-color: #e7e7e7;
+}
+
+.document {
+  height: 100%;
+  overflow: scroll;
 }
 
 .page {
@@ -31,9 +28,6 @@
 }
 
 .panzoom {
-  //transform: none;
-  //backface-visibility: hidden;
-  //transform-origin: top center 0px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
