@@ -5502,69 +5502,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /** @type {?} */
-    var $$7 = jquery;
-    var LightboxComponent = /** @class */ (function () {
-        function LightboxComponent(_windowService) {
-            var _this = this;
-            this._windowService = _windowService;
-            this.opening = new core.EventEmitter();
-            this.isMobile = _windowService.isMobile();
-            _windowService.onResize.subscribe((/**
-             * @param {?} w
-             * @return {?}
-             */
-            function (w) {
-                _this.isMobile = _windowService.isMobile();
-            }));
-        }
-        /**
-         * @return {?}
-         */
-        LightboxComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        LightboxComponent.prototype.close = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            /** @type {?} */
-            var position = Utils.getMousePosition($event);
-            /** @type {?} */
-            var element = document.elementFromPoint(position.x, position.y);
-            if (element && $$7(element).hasClass('fade')) {
-                this.opening.emit(false);
-            }
-        };
-        LightboxComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-lightbox',
-                        template: "<div class=\"gd-modal-lightbox fade\" (click)=\"close($event);\">\n  <div class=\"gd-modal-dialog-lightbox\">\n    <div class=\"gd-modal-content\">\n      <div class=\"gd-modal-header-lightbox\">\n        <div class=\"gd-modal-header-title\">\n          <div class=\"gd-lightbox-close\" (click)=\"close($event)\">\n            <fa-icon *ngIf=\"isMobile\" [icon]=\"['fas','arrow-left']\"></fa-icon>\n            <span *ngIf=\"!isMobile\">&times;</span>\n          </div>\n          <h4 class=\"gd-modal-title-lightbox\">{{title}}</h4>\n        </div>\n        <div class=\"gd-lightbox-header\">\n          <ng-content select=\"[header]\"></ng-content>\n        </div>\n      </div>\n      <div class=\"gd-lightbox-body\">\n        <ng-content select=\"[body]\"></ng-content>\n      </div>\n      <div class=\"gd-modal-footer\">\n        <ng-content select=\"[footer]\"></ng-content>\n      </div>\n    </div>\n  </div>\n  <div class=\"gd-mobile-portrait\">\n    <div class=\"gd-mobile-turn-image\"></div>\n  </div>\n</div>\n",
-                        styles: [".gd-modal-lightbox{overflow:hidden;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5);position:fixed;top:0;right:0;bottom:0;left:0;display:flex;justify-content:center}.gd-modal-lightbox.fade{transition:transform .3s ease-out}.gd-modal-lightbox.in{transform:translate(0,0)}.gd-modal-dialog-lightbox{width:1079px;height:590px;margin:auto;box-shadow:#0005 0 0 10px}.gd-modal-content{background-color:#fff;height:100%;width:inherit}.gd-modal-header-lightbox{display:flex;flex-direction:row;height:50px;justify-content:space-between;background-color:#3e4e5a}.gd-modal-header-title{display:flex;flex-direction:row}.gd-lightbox-close{font-size:21px;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;color:#959da5;margin:13px 16px 0;cursor:pointer}.gd-modal-title-lightbox{font-size:16px;font-weight:400;line-height:52px;color:#fff;margin:0}.gd-lightbox-body{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC)!important;position:absolute;padding:0!important;background-color:#fff;overflow:hidden;overflow-y:auto;width:inherit}.gd-modal-footer{height:25px}@media (max-width:1037px){.gd-modal-lightbox{padding-left:0;padding-top:0}.gd-modal-dialog-lightbox{width:100%!important;height:100%!important;left:0;top:0}.gd-lightbox-close{background-color:#00c4d7;width:50px;height:50px;color:#fff;text-align:center;margin:0;line-height:60px}.gd-lightbox-close span{color:#fff}.gd-modal-title-lightbox{font-size:14px;line-height:50px;padding:0 0 0 10px}.gd-lightbox-body{max-height:calc(100% - 53px);min-height:100%}}@media screen and (max-width:1024px) and (orientation:landscape){.gd-modal-dialog-lightbox{position:fixed;display:block;width:100%!important;height:100%!important;left:0;top:0}.gd-mobile-portrait{display:none}}@media screen and (max-width:1024px) and (orientation:portrait){.gd-modal-dialog-lightbox{display:none}.gd-mobile-portrait{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;justify-content:center;align-items:center}.gd-mobile-turn-image{background-image:url(../../styles/images/noun_landscape_orientation.png)!important;width:215px;height:215px}}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        LightboxComponent.ctorParameters = function () { return [
-            { type: WindowService }
-        ]; };
-        LightboxComponent.propDecorators = {
-            opening: [{ type: core.Output }],
-            title: [{ type: core.Input }]
-        };
-        return LightboxComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var ButtonSelectComponent = /** @class */ (function (_super) {
         __extends(ButtonSelectComponent, _super);
         function ButtonSelectComponent(_onCloseService) {
@@ -5595,7 +5532,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$8 = jquery;
+    var $$7 = jquery;
     var ResizingComponent = /** @class */ (function () {
         function ResizingComponent() {
             this.se = false;
@@ -5622,9 +5559,9 @@
         function () {
             var _this = this;
             /** @type {?} */
-            var elSE = $$8(this.getElementId(this.SE));
+            var elSE = $$7(this.getElementId(this.SE));
             /** @type {?} */
-            var elNW = $$8(this.getElementId(this.NW));
+            var elNW = $$7(this.getElementId(this.NW));
             if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
                 /** @type {?} */
                 var width_1 = elSE.offset().left - elNW.offset().left;
@@ -5879,7 +5816,6 @@
                             LeftSideBarComponent,
                             TooltipDirective,
                             HostDynamicDirective,
-                            LightboxComponent,
                             ButtonSelectComponent,
                             ResizingComponent
                         ],
@@ -5921,7 +5857,6 @@
                             DropDownToggleComponent,
                             LeftSideBarComponent,
                             TooltipDirective,
-                            LightboxComponent,
                             HostDynamicDirective,
                             ButtonSelectComponent,
                             ResizingComponent
@@ -6012,9 +5947,8 @@
     exports.ZoomService = ZoomService;
     exports.ɵa = TabsComponent;
     exports.ɵb = TooltipDirective;
-    exports.ɵc = LightboxComponent;
-    exports.ɵd = ButtonSelectComponent;
-    exports.ɵe = ResizingComponent;
+    exports.ɵc = ButtonSelectComponent;
+    exports.ɵd = ResizingComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -2,7 +2,7 @@
   <div class="gd-signature-list-scroll" *ngIf="signatures">
     <div class="gd-signature-list" *ngIf="signatures">
       <div class="gd-signature" *ngFor="let signature of signatures">
-        <div class="gd-signature-item" [draggable]="isDigital() ? false : true" (dragend)="dragOver($event)"
+        <div class="gd-signature-item" [draggable]="isDigital() ? false : true"
              (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
              (dragleave)="dragLeave($event, signature.guid)">
           <div class="gd-signature-thumbnail-digital" *ngIf="isDigital()" (click)="select(signature.guid)">

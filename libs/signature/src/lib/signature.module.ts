@@ -25,9 +25,7 @@ import {SelectSignatureService} from "./select-signature.service";
 import {DragSignatureService} from "./drag-signature.service";
 import {RemoveSignatureService} from "./remove-signature.service";
 import {ActiveSignatureService} from "./active-signature.service";
-import {HandLightboxComponent} from './hand-lightbox/hand-lightbox.component';
 import {CanvasComponent} from './canvas/canvas.component';
-import {StampLightboxComponent} from './stamp-lightbox/stamp-lightbox.component';
 import {StampCanvasComponent} from './stamp-canvas/stamp-canvas.component';
 import {ActiveCanvasService} from "./active-canvas.service";
 import {RemoveCanvasService} from "./remove-canvas.service";
@@ -52,9 +50,7 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     DndSignatureDirective,
     Signature,
     ContextMenuComponent,
-    HandLightboxComponent,
     CanvasComponent,
-    StampLightboxComponent,
     StampCanvasComponent,
     TextMenuComponent,
     SignatureLeftPanelComponent,
@@ -68,9 +64,7 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     DndSignatureDirective,
     Signature,
     ContextMenuComponent,
-    HandLightboxComponent,
     CanvasComponent,
-    StampLightboxComponent,
     StampCanvasComponent,
     TextMenuComponent,
     SignatureLeftPanelComponent,

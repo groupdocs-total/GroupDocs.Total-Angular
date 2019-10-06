@@ -98,6 +98,7 @@ export class SignatureListPanelComponent implements OnInit, OnChanges {
   }
 
   dragStart($event: DragEvent) { // ff
+    $event.preventDefault();
     $event.dataTransfer.setData('text', 'foo');
   }
 

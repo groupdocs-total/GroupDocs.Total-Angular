@@ -67,7 +67,6 @@ import {TooltipDirective} from './tooltip.directive';
 import {AddDynamicComponentService} from "./add-dynamic-component.service";
 import {HostDynamicDirective} from './host-dynamic.directive';
 import {HostingDynamicComponentService} from "./hosting-dynamic-component.service";
-import {LightboxComponent} from './lightbox/lightbox.component';
 import {ButtonSelectComponent} from './button-select/button-select.component';
 import {ResizingComponent} from './resizing/resizing.component';
 
@@ -146,7 +145,6 @@ const providers = [ConfigService,
     LeftSideBarComponent,
     TooltipDirective,
     HostDynamicDirective,
-    LightboxComponent,
     ButtonSelectComponent,
     ResizingComponent
   ],
@@ -188,7 +186,6 @@ const providers = [ConfigService,
     DropDownToggleComponent,
     LeftSideBarComponent,
     TooltipDirective,
-    LightboxComponent,
     HostDynamicDirective,
     ButtonSelectComponent,
     ResizingComponent
