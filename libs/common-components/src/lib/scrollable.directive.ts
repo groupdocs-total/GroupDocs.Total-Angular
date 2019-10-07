@@ -84,7 +84,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
   private getPage(pageNumber: number) {
     const el = this._elementRef ? this._elementRef.nativeElement : null;
     if (el) {
-      return el.children.item(0).children.item(pageNumber - 1);
+      return el.children.item(0).children.item(0).children.item(pageNumber - 1);
     }
   }
 
