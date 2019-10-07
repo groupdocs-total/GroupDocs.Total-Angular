@@ -2,14 +2,19 @@
 
 ::ng-deep .left-panel {
   width: 350px;
+  height: ~"calc(100% - @{editor-nav-height})";
 }
 
 ::ng-deep .gd-left-bar-fade {
   width: 350px !important;
 }
 
+.gd-signatures-scroll {
+  height: ~"calc(100% - 60px)";
+}
+
 .tab-content {
-  height: 95vh;
+  height: ~"calc(100% - @{editor-nav-height})";
   line-height: unset;
   position: absolute;
   background-color: #FFFFFF;
@@ -30,11 +35,16 @@
   margin: 5px 12px 5px 12px;
 }
 
+.signature-title-block {// for safari
+  display: block;
+}
+
 .gd-signature-list-title {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
+  height: 60px;
 
   .icon {
     padding: 20px 15px 20px 15px;
@@ -52,10 +62,9 @@
 
 .gd-signature-context-pane-wrapper {
   display: flex;
-  flex: 1;
   flex-direction: column;
-  align-items: stretch;
-  height: 95vh;
+  height: inherit;
+  overflow: auto;
 }
 
 @media @phone-down {
