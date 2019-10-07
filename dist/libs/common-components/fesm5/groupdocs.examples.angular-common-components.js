@@ -1037,17 +1037,6 @@ var DocumentComponent = /** @class */ (function () {
         return value + FileUtil.find(this.file.guid, false).unit;
     };
     /**
-     * @param {?} changes
-     * @return {?}
-     */
-    DocumentComponent.prototype.ngOnChanges = /**
-     * @param {?} changes
-     * @return {?}
-     */
-    function (changes) {
-        this.refreshView = !this.refreshView;
-    };
-    /**
      * @return {?}
      */
     DocumentComponent.prototype.ngAfterViewChecked = /**
@@ -2005,7 +1994,6 @@ var ScrollableDirective = /** @class */ (function () {
         { type: ViewportService }
     ]; };
     ScrollableDirective.propDecorators = {
-        onRefresh: [{ type: Input }],
         scrolling: [{ type: HostListener, args: ['scroll',] }],
         resizing: [{ type: HostListener, args: ['window:resize',] }]
     };

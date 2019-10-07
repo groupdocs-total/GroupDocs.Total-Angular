@@ -3,11 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewEncapsulation
-} from '@angular/core';
+  OnInit} from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
 import * as jquery from 'jquery';
@@ -18,13 +14,12 @@ const $ = jquery;
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.less']
 })
-export class DocumentComponent implements OnInit, OnChanges, AfterViewChecked {
+export class DocumentComponent implements OnInit, AfterViewChecked {
 
   @Input() mode: boolean;
   @Input() preloadPageCount: number;
   @Input() file: FileDescription;
   wait = false;
-  refreshView: boolean;
   zoom: number;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
@@ -40,10 +35,6 @@ export class DocumentComponent implements OnInit, OnChanges, AfterViewChecked {
 
   getDimensionWithUnit(value: number) {
     return value + FileUtil.find(this.file.guid, false).unit;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.refreshView = !this.refreshView;
   }
 
   ngAfterViewChecked(): void {

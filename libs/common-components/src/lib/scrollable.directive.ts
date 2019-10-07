@@ -20,7 +20,6 @@ const $ = jquery;
   selector: '[gdScrollable]'
 })
 export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
-  @Input() onRefresh: boolean;
 
   private currentPage: number;
   private zoom = 100;

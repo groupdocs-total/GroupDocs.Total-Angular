@@ -850,13 +850,6 @@ class DocumentComponent {
         return value + FileUtil.find(this.file.guid, false).unit;
     }
     /**
-     * @param {?} changes
-     * @return {?}
-     */
-    ngOnChanges(changes) {
-        this.refreshView = !this.refreshView;
-    }
-    /**
      * @return {?}
      */
     ngAfterViewChecked() {
@@ -1646,7 +1639,6 @@ ScrollableDirective.ctorParameters = () => [
     { type: ViewportService }
 ];
 ScrollableDirective.propDecorators = {
-    onRefresh: [{ type: Input }],
     scrolling: [{ type: HostListener, args: ['scroll',] }],
     resizing: [{ type: HostListener, args: ['window:resize',] }]
 };

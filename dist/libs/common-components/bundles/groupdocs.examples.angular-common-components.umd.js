@@ -1069,17 +1069,6 @@
             return value + FileUtil.find(this.file.guid, false).unit;
         };
         /**
-         * @param {?} changes
-         * @return {?}
-         */
-        DocumentComponent.prototype.ngOnChanges = /**
-         * @param {?} changes
-         * @return {?}
-         */
-        function (changes) {
-            this.refreshView = !this.refreshView;
-        };
-        /**
          * @return {?}
          */
         DocumentComponent.prototype.ngAfterViewChecked = /**
@@ -2037,7 +2026,6 @@
             { type: ViewportService }
         ]; };
         ScrollableDirective.propDecorators = {
-            onRefresh: [{ type: core.Input }],
             scrolling: [{ type: core.HostListener, args: ['scroll',] }],
             resizing: [{ type: core.HostListener, args: ['window:resize',] }]
         };

@@ -11,7 +11,6 @@ export declare class ScrollableDirective implements AfterViewInit, OnChanges, On
     private _zoomService;
     private _windowService;
     private _viewportService;
-    onRefresh: boolean;
     private currentPage;
     private zoom;
     constructor(_elementRef: ElementRef<HTMLElement>, _navigateService: NavigateService, _pagePreloadService: PagePreloadService, _zoomService: ZoomService, _windowService: WindowService, _viewportService: ViewportService);
