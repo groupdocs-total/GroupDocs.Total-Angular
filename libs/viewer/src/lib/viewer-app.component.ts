@@ -18,7 +18,7 @@ import {
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
-import * as Hammer from 'hammerjs';
+//import * as Hammer from 'hammerjs';
 
 @Component({
   selector: 'gd-viewer',
@@ -43,7 +43,7 @@ export class ViewerAppComponent implements AfterViewInit {
   _pageWidth: number;
   _pageHeight: number;
   options;
-  @ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
+  //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
   fileWasDropped = false;
 
   constructor(private _viewerService: ViewerService,
@@ -101,13 +101,13 @@ export class ViewerAppComponent implements AfterViewInit {
 
     this.refreshZoom();
 
-    this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
-    {
-      comps.toArray().forEach((item) => {
-        const hammer = new Hammer(item.nativeElement);
-        hammer.get('pinch').set({ enable: true });
-      });
-    });
+    // this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
+    // {
+    //   comps.toArray().forEach((item) => {
+    //     const hammer = new Hammer(item.nativeElement);
+    //     hammer.get('pinch').set({ enable: true });
+    //   });
+    // });
   }
 
   get rewriteConfig(): boolean {
@@ -409,13 +409,13 @@ export class ViewerAppComponent implements AfterViewInit {
     this.showSearch = !this.showSearch;
   }
 
-  onPinchIn($event){
-    this.zoomOut();
-  }
+  // onPinchIn($event){
+  //   this.zoomOut();
+  // }
 
-  onPinchOut($event){
-    this.zoomIn();
-  }
+  // onPinchOut($event){
+  //   this.zoomIn();
+  // }
 
   private refreshZoom() {
     this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
