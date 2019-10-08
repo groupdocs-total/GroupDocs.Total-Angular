@@ -97,8 +97,7 @@ export class SignatureListPanelComponent implements OnInit, OnChanges {
     return !this._signaturesHolderService.has(guid);
   }
 
-  dragStart($event: DragEvent) { // ff
-    $event.preventDefault();
+  dragStart($event: DragEvent) { // for ff
     $event.dataTransfer.setData('text', 'foo');
   }
 
