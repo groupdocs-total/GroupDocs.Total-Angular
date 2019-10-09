@@ -7,5 +7,6 @@
                 (outColor)="selectColor($event)" (outFont)="selectFont($event)"
                 (outFontSize)="selectFontSize($event)"></gd-text-menu>
   <gd-button [icon]="lock ? 'lock' : 'unlock'" [class]="'ng-fa-icon icon'" (click)="toggleLock()"></gd-button>
+  <gd-button [icon]="'copy'" [class]="'ng-fa-icon icon'" (click)="onCopySign()"></gd-button>
   <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon'" [iconSize]="'sm'" (click)="deleteSign()"></gd-button>
 </div>

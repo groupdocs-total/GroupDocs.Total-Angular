@@ -24,6 +24,7 @@ import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
 import {
   AddedSignature,
+  CopySign,
   DraggableSignature,
   Position, RemoveSign,
   SignatureData, SignatureProps,
@@ -38,6 +39,7 @@ import {ActiveSignatureService} from "./active-signature.service";
 import {SignaturesHolderService} from "./signatures-holder.service";
 import {SignatureTabActivatorService} from "./signature-tab-activator.service";
 import 'hammerjs';
+import {CopySignatureService} from "./copy-signature.service";
 
 const $ = jquery;
 
@@ -89,11 +91,12 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
               private _addDynamicComponentService: AddDynamicComponentService,
               private _dragSignatureService: DragSignatureService,
               private _onCloseService: OnCloseService,
-              _removeSignature: RemoveSignatureService,
+              removeSignatureService: RemoveSignatureService,
               private _activeSignatureService: ActiveSignatureService,
               private _excMessageService: ExceptionMessageService,
               private _signaturesHolderService: SignaturesHolderService,
-              private _tabActivatorService: TabActivatorService) {
+              private _tabActivatorService: TabActivatorService,
+              copySignatureService: CopySignatureService) {
 
     this._tabActivatorService.activeTabChange.subscribe((tabId: string) => {
       if (tabId === '1') {
@@ -104,7 +107,37 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
       }
     });
 
-    _removeSignature.removeSignature.subscribe((del: RemoveSign) => {
+    copySignatureService.copySignature.subscribe((copySign: CopySign) => {
+      const componentRef = this.signatureComponents.get(copySign.id);
+      if (componentRef) {
+        // @ts-ignore
+        const comp = (<Signature>componentRef).instance;
+        const compPage = comp.data.number;
+        const sign = new DraggableSignature();
+        sign.type = comp.signatureType;
+        sign.guid = copySign.guid;
+        sign.position = comp.position;
+        const addedSignature = new AddedSignature();
+        addedSignature.guid = copySign.guid;
+        addedSignature.data = comp.data.data;
+        if (comp.data.props) {
+          addedSignature.props = comp.data.props;
+        } else {
+          addedSignature.width = comp.data.width;
+          addedSignature.height = comp.data.height;
+        }
+        for (const page of this.file.pages) {
+          if (page.number !== compPage) {
+            addedSignature.number = page.number;
+            sign.pageNumber = page.number;
+            const id = this.addSignatureComponent(addedSignature, sign, page.number);
+            this._signaturesHolderService.addId(sign.guid, id);
+          }
+        }
+      }
+    });
+
+    removeSignatureService.removeSignature.subscribe((del: RemoveSign) => {
       const ids = this._signaturesHolderService.get(del.guid);
       for (const id of ids) {
         if (del.type === SignatureType.DIGITAL.id || del.id === id) {

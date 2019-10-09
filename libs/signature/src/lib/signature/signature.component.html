@@ -6,7 +6,7 @@
        (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="drop($event)"
        (panstart)="dragStart($event)" (panmove)="dragging($event)">
     <gd-context-menu *ngIf="active" [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
-                     (changeFormatting)="saveTextSignature($event)" (removeSign)="remove()"
+                     (changeFormatting)="saveTextSignature($event)" (removeSign)="remove()" (copySign)="onCopySign()"
                      [lock]="!unlock" (lockOut)="unlock = !$event"></gd-context-menu>
     <img class="gd-signature-image" *ngIf="!isText()" [attr.src]="getData()" alt>
     <textarea class="gd-text" *ngIf="isText()" [value]="data.props?.text"

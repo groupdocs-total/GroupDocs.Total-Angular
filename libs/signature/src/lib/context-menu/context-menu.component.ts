@@ -16,6 +16,7 @@ export class ContextMenuComponent implements OnInit {
   @Input() lock = false;
   @Output() changeFormatting = new EventEmitter<Formatting>();
   @Output() removeSign = new EventEmitter<boolean>();
+  @Output() copySign = new EventEmitter<boolean>();
   @Output() lockOut = new EventEmitter<boolean>();
 
   isMobile: boolean;
@@ -71,5 +72,9 @@ export class ContextMenuComponent implements OnInit {
   toggleLock() {
     this.lock = !this.lock;
     this.lockOut.emit(this.lock);
+  }
+
+  onCopySign() {
+    this.copySign.emit(true);
   }
 }

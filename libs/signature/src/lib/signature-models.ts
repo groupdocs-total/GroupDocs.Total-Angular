@@ -168,6 +168,12 @@ export class RemoveSign {
   type: string;
 }
 
+export class CopySign {
+  guid: string;
+  id: number;
+  type: string;
+}
+
 export class StampCanvasProps {
   id: number;
   text: string;

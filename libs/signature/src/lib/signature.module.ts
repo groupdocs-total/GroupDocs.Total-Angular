@@ -32,9 +32,10 @@ import {RemoveCanvasService} from "./remove-canvas.service";
 import {TextMenuComponent} from './text-menu/text-menu.component';
 import {SignaturesHolderService} from "./signatures-holder.service";
 import {SignatureTabActivatorService} from "./signature-tab-activator.service";
-import { SignatureLeftPanelComponent } from './signature-left-panel/signature-left-panel.component';
-import { HandModalComponent } from './hand-modal/hand-modal.component';
-import { StampModalComponent } from './stamp-modal/stamp-modal.component';
+import {SignatureLeftPanelComponent} from './signature-left-panel/signature-left-panel.component';
+import {HandModalComponent} from './hand-modal/hand-modal.component';
+import {StampModalComponent} from './stamp-modal/stamp-modal.component';
+import {CopySignatureService} from "./copy-signature.service";
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -73,7 +74,7 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule, CommonComponentsModule],
+    FontAwesomeModule],
   providers: [
     SignatureService,
     ConfigService,
@@ -87,6 +88,7 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
     DatePipe,
     SignaturesHolderService,
     SignatureTabActivatorService,
+    CopySignatureService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

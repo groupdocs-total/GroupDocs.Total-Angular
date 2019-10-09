@@ -5,7 +5,8 @@ import {
   SignatureType,
   SignatureProps,
   RemoveSign,
-  DraggableSignature
+  DraggableSignature,
+  CopySign
 } from "../signature-models";
 import {Formatting, Utils} from "@groupdocs.examples.angular/common-components";
 import {SignatureService} from "../signature.service";
@@ -13,6 +14,7 @@ import {RemoveSignatureService} from "../remove-signature.service";
 import {ActiveSignatureService} from "../active-signature.service";
 import * as jquery from 'jquery';
 import {SignaturesHolderService} from "../signatures-holder.service";
+import {CopySignatureService} from "../copy-signature.service";
 
 const $ = jquery;
 
@@ -31,7 +33,8 @@ export class Signature implements OnInit {
   private unlock = true;
 
   constructor(private _signatureService: SignatureService,
-              private _removeSignature: RemoveSignatureService,
+              private _removeSignatureService: RemoveSignatureService,
+              private _copySignatureService: CopySignatureService,
               private _activeSignatureService: ActiveSignatureService,
               private _signaturesHolderService: SignaturesHolderService) {
 
@@ -128,7 +131,7 @@ export class Signature implements OnInit {
     del.guid = this.data.guid;
     del.id = this.id;
     del.type = this.type;
-    this._removeSignature.remove(del);
+    this._removeSignatureService.remove(del);
   }
 
   activation() {
@@ -172,5 +175,13 @@ export class Signature implements OnInit {
 
   isInit() {
     return this.data.width === 0 && this.data.height === 0;
+  }
+
+  onCopySign() {
+    const copy = new CopySign();
+    copy.guid = this.data.guid;
+    copy.id = this.id;
+    copy.type = this.type;
+    this._copySignatureService.copy(copy);
   }
 }
