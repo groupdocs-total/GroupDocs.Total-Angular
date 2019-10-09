@@ -13,10 +13,10 @@ import { ConversionModule,ConversionAppComponent} from "@groupdocs.examples.angu
   declarations: [AppComponent, TotalNavComponent, TotalViewComponent],
   imports: [
     BrowserModule,
-    ViewerModule.forRoot("http://192.168.1.129:8080"),
-    EditorModule.forRoot("http://192.168.1.129:8080"),
-    ComparisonModule.forRoot("http://192.168.1.129:8080"),
-    ConversionModule.forRoot("http://192.168.1.129:8080"),
+    ViewerModule.forRoot("http://localhost:8080"),
+    EditorModule.forRoot("http://localhost:8080"),
+    ComparisonModule.forRoot("http://localhost:8080"),
+    ConversionModule.forRoot("http://localhost:8080"),
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
       {path: 'viewer', component: ViewerAppComponent},

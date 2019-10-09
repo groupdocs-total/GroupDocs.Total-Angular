@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('rxjs'), require('jquery'), require('@angular/platform-browser'), require('rxjs/operators'), require('ng-click-outside')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'rxjs', 'jquery', '@angular/platform-browser', 'rxjs/operators', 'ng-click-outside'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.rxjs, global.jquery, global.ng.platformBrowser, global.rxjs.operators, global.ngClickOutside));
-}(this, function (exports, core, common, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, rxjs, jquery, platformBrowser, operators, ngClickOutside) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('rxjs'), require('jquery'), require('hammerjs'), require('@angular/platform-browser'), require('rxjs/operators'), require('ng-click-outside')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'rxjs', 'jquery', 'hammerjs', '@angular/platform-browser', 'rxjs/operators', 'ng-click-outside'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.rxjs, global.jquery, global.Hammer, global.ng.platformBrowser, global.rxjs.operators, global.ngClickOutside));
+}(this, function (exports, core, common, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, rxjs, jquery, Hammer, platformBrowser, operators, ngClickOutside) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1037,11 +1037,44 @@
     /** @type {?} */
     var $$1 = jquery;
     var DocumentComponent = /** @class */ (function () {
-        function DocumentComponent(_elementRef, zoomService) {
+        function DocumentComponent(_elementRef, _zoomService) {
             var _this = this;
             this._elementRef = _elementRef;
+            this._zoomService = _zoomService;
             this.wait = false;
-            zoomService.zoomChange.subscribe((/**
+            this.MIN_SCALE = 1; // 1=scaling when first loaded
+            // 1=scaling when first loaded
+            this.MAX_SCALE = 64;
+            this.docWidth = null;
+            this.docHeight = null;
+            this.viewportWidth = null;
+            this.viewportHeight = null;
+            this.scale = null;
+            this.lastScale = null;
+            this.container = null;
+            this.doc = null;
+            this.x = 0;
+            this.lastX = 0;
+            this.y = 0;
+            this.lastY = 0;
+            this.pinchCenter = null;
+            this.pinchCenterOffset = null;
+            this.curWidth = 0;
+            this.curHeight = 0;
+            this.restrictScale = (/**
+             * @param {?} scale
+             * @return {?}
+             */
+            function (scale) {
+                if (scale < this.MIN_SCALE) {
+                    scale = this.MIN_SCALE;
+                }
+                else if (scale > this.MAX_SCALE) {
+                    scale = this.MAX_SCALE;
+                }
+                return scale;
+            });
+            _zoomService.zoomChange.subscribe((/**
              * @param {?} val
              * @return {?}
              */
@@ -1056,6 +1089,30 @@
          * @return {?}
          */
         function () {
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+        function () {
+            // For current iteration we take .panzoom as a document
+            this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
+            // For current iteration we take .gd-document as a container
+            this.container = this._elementRef.nativeElement;
+            // TODO: check that this is needed
+            //disableImgEventHandlers();
+            this.docWidth = this.doc.offsetWidth;
+            this.docHeight = this.doc.offsetHeight;
+            this.viewportWidth = this.doc.offsetWidth;
+            this.scale = this.viewportWidth / this.docWidth;
+            this.lastScale = this.scale;
+            this.viewportHeight = this.container.offsetHeight;
+            this.curWidth = this.docWidth * this.scale;
+            this.curHeight = this.docHeight * this.scale;
+            /** @type {?} */
+            var hammer = new Hammer(this.container);
         };
         /**
          * @param {?} value
@@ -1083,11 +1140,230 @@
                 $$1(element).trigger('focus');
             }
         };
+        /**
+         * @param {?} el
+         * @return {?}
+         */
+        DocumentComponent.prototype.absolutePosition = /**
+         * @param {?} el
+         * @return {?}
+         */
+        function (el) {
+            /** @type {?} */
+            var x = 0;
+            /** @type {?} */
+            var y = 0;
+            while (el !== null) {
+                // TODO: we take client dimensions now because of our toolbar with 60px height
+                // x += el.offsetLeft;
+                // y += el.offsetTop;
+                x += el.clientLeft;
+                y += el.clientTop;
+                el = el.offsetParent;
+            }
+            return { x: x, y: y };
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.rawCenter = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            /** @type {?} */
+            var pos = this.absolutePosition(this.container);
+            // We need to account for the scroll position
+            /** @type {?} */
+            var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
+            /** @type {?} */
+            var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+            /** @type {?} */
+            var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
+            // TODO: in $event.center.y we have absolute coordinate value including toolbar 
+            // with height = 60px 
+            /** @type {?} */
+            var zoomY = -this.y + (($event.center.y - 60) - pos.y + scrollTop) / this.scale;
+            return { x: zoomX, y: zoomY };
+        };
+        /**
+         * @param {?} pos
+         * @param {?} viewportDim
+         * @param {?} imgDim
+         * @return {?}
+         */
+        DocumentComponent.prototype.restrictRawPos = /**
+         * @param {?} pos
+         * @param {?} viewportDim
+         * @param {?} imgDim
+         * @return {?}
+         */
+        function (pos, viewportDim, imgDim) {
+            if (pos < viewportDim / this.scale - imgDim) { // too far left/up?
+                pos = viewportDim / this.scale - imgDim;
+            }
+            else if (pos > 0) { // too far right/down?
+                pos = 0;
+            }
+            return pos;
+        };
+        /**
+         * @param {?} deltaX
+         * @param {?} deltaY
+         * @return {?}
+         */
+        DocumentComponent.prototype.translate = /**
+         * @param {?} deltaX
+         * @param {?} deltaY
+         * @return {?}
+         */
+        function (deltaX, deltaY) {
+            /** @type {?} */
+            var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
+            this.x = newX;
+            this.doc.style.marginLeft = Math.ceil(newX * this.scale) + 'px';
+            /** @type {?} */
+            var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
+            this.y = newY;
+            this.doc.style.marginTop = Math.ceil(newY * this.scale) + 'px';
+        };
+        /**
+         * @param {?} scaleBy
+         * @return {?}
+         */
+        DocumentComponent.prototype.zoomTranslate = /**
+         * @param {?} scaleBy
+         * @return {?}
+         */
+        function (scaleBy) {
+            this.scale = this.restrictScale(this.lastScale * scaleBy);
+            this.curWidth = this.docWidth * this.scale;
+            this.curHeight = this.docHeight * this.scale;
+            // Instead of changing the actual img size we apply scale further
+            //this.doc.style.width = Math.ceil(this.curWidth) + 'px';
+            //this.doc.style.height = Math.ceil(this.curHeight) + 'px';
+            this.doc.style.transform = 'scale(' + this.scale + ')';
+            this.doc.style.transformOrigin = 'left top';
+            // Adjust margins to make sure that we aren't out of bounds
+            this.translate(0, 0);
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.updateLastScale = /**
+         * @return {?}
+         */
+        function () {
+            this.lastScale = this.scale;
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.updateLastPos = /**
+         * @return {?}
+         */
+        function () {
+            this.lastX = this.x;
+            this.lastY = this.y;
+        };
+        /**
+         * @param {?} scaleBy
+         * @param {?} rawZoomX
+         * @param {?} rawZoomY
+         * @param {?} doNotUpdateLast
+         * @return {?}
+         */
+        DocumentComponent.prototype.zoomAround = /**
+         * @param {?} scaleBy
+         * @param {?} rawZoomX
+         * @param {?} rawZoomY
+         * @param {?} doNotUpdateLast
+         * @return {?}
+         */
+        function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
+            // Zoom
+            this.zoomTranslate(scaleBy);
+            // New raw center of viewport
+            /** @type {?} */
+            var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
+            /** @type {?} */
+            var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
+            // Delta
+            /** @type {?} */
+            var deltaX = (rawCenterX - rawZoomX) * this.scale;
+            /** @type {?} */
+            var deltaY = (rawCenterY - rawZoomY) * this.scale;
+            // Translate back to zoom center
+            this.translate(deltaX, deltaY);
+            if (!doNotUpdateLast) {
+                this.updateLastScale();
+                this.updateLastPos();
+            }
+        };
+        // TODO: for now we working only with doubletap event
+        // onPinch($event){
+        //   if (this.pinchCenter === null) {
+        //     this.pinchCenter = this.rawCenter($event);
+        //     const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
+        //     const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
+        //     this.pinchCenterOffset = { x: offsetX, y: offsetY };
+        //   }
+        //   const newScale = this.restrictScale(this.scale*$event.scale);
+        //   const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
+        //   const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
+        //   const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
+        //   this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
+        // }
+        // TODO: for now we working only with doubletap event
+        // onPinch($event){
+        //   if (this.pinchCenter === null) {
+        //     this.pinchCenter = this.rawCenter($event);
+        //     const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
+        //     const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
+        //     this.pinchCenterOffset = { x: offsetX, y: offsetY };
+        //   }
+        //   const newScale = this.restrictScale(this.scale*$event.scale);
+        //   const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
+        //   const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
+        //   const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
+        //   this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
+        // }
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onDoubleTap = 
+        // TODO: for now we working only with doubletap event
+        // onPinch($event){
+        //   if (this.pinchCenter === null) {
+        //     this.pinchCenter = this.rawCenter($event);
+        //     const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
+        //     const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
+        //     this.pinchCenterOffset = { x: offsetX, y: offsetY };
+        //   }
+        //   const newScale = this.restrictScale(this.scale*$event.scale);
+        //   const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
+        //   const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
+        //   const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
+        //   this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
+        // }
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            if ($event.tapCount === 2) {
+                /** @type {?} */
+                var c = this.rawCenter($event);
+                this.zoomAround(2, c.x, c.y, false);
+            }
+        };
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\">\r\n  <div class=\"panzoom\" gdSearchable>\r\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1132,6 +1408,8 @@
          * @return {?}
          */
         function (changes) {
+            // TODO: this is needed for test purpose to reduce unneeded top-margin
+            this.data = this.data.replace(/>\s+</g, '><');
             /** @type {?} */
             var dataImagePngBase64 = 'data:image/png;base64,';
             this.imgData = dataImagePngBase64;

@@ -3,7 +3,8 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit} from '@angular/core';
+  OnInit,
+  AfterViewInit} from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
 import * as jquery from 'jquery';
@@ -15,7 +16,7 @@ import * as Hammer from 'hammerjs';
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.less']
 })
-export class DocumentComponent implements OnInit, AfterViewChecked {
+export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
   @Input() mode: boolean;
   @Input() preloadPageCount: number;
@@ -26,14 +27,14 @@ export class DocumentComponent implements OnInit, AfterViewChecked {
   MIN_SCALE = 1; // 1=scaling when first loaded
   MAX_SCALE = 64;
 
-  imgWidth = null;
-  imgHeight = null;
+  docWidth = null;
+  docHeight = null;
   viewportWidth = null;
   viewportHeight = null;
   scale = null;
   lastScale = null;
   container = null;
-  img = null;
+  doc = null;
   x = 0;
   lastX = 0;
   y = 0;
@@ -56,37 +57,24 @@ export class DocumentComponent implements OnInit, AfterViewChecked {
 
     
   ngAfterViewInit() {
-    this.img = this._elementRef.nativeElement.children.item(0).children.item(0);
+    // For current iteration we take .panzoom as a document
+    this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
+    // For current iteration we take .gd-document as a container
     this.container = this._elementRef.nativeElement;
 
     // TODO: check that this is needed
     //disableImgEventHandlers();
 
-    this.imgWidth = this.img.offsetWidth;
-    this.imgHeight = this.img.offsetHeight;
-    this.viewportWidth = this.img.offsetWidth;
-    this.scale = this.viewportWidth/this.imgWidth;
+    this.docWidth = this.doc.offsetWidth;
+    this.docHeight = this.doc.offsetHeight;
+    this.viewportWidth = this.doc.offsetWidth;
+    this.scale = this.viewportWidth/this.docWidth;
     this.lastScale = this.scale;
     this.viewportHeight = this.container.offsetHeight;
-    this.curWidth = this.imgWidth*this.scale;
-    this.curHeight = this.imgHeight*this.scale;
+    this.curWidth = this.docWidth*this.scale;
+    this.curHeight = this.docHeight*this.scale;
 
     const hammer = new Hammer(this.container);
-    // hammer.get('tap').set({ event: 'doubletap', taps: 2 });
-
-    //var hammer = new Hammer.Manager(this.container, {});
-
-    // var singleTap = new Hammer.Tap({ event: 'singletap' });
-    // var doubleTap = new Hammer.Tap({ event: 'doubletap', taps: 2 });
-    // var tripleTap = new Hammer.Tap({ event: 'tripletap', taps: 3 });
-
-    // hammer.add([tripleTap, doubleTap, singleTap]);
-
-    // tripleTap.recognizeWith([doubleTap, singleTap]);
-    // doubleTap.recognizeWith(singleTap);
-
-    // doubleTap.requireFailure(tripleTap);
-    // singleTap.requireFailure([tripleTap, doubleTap]);
   }
 
   getDimensionWithUnit(value: number) {
@@ -114,8 +102,11 @@ export class DocumentComponent implements OnInit, AfterViewChecked {
     let x = 0, y = 0;
 
     while (el !== null) {
-      x += el.offsetLeft;
-      y += el.offsetTop;
+      // TODO: we take client dimensions now because of our toolbar with 60px height
+      // x += el.offsetLeft;
+      // y += el.offsetTop;
+      x += el.clientLeft;
+      y += el.clientTop;
       el = el.offsetParent;
     }
 
@@ -123,15 +114,16 @@ export class DocumentComponent implements OnInit, AfterViewChecked {
   };
 
   rawCenter($event) {
-    // for the first iteration lets take .panzoom as a container
-    var pos = this.absolutePosition(this.container);
+    const pos = this.absolutePosition(this.container);
 
     // We need to account for the scroll position
-    var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-    var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+    const scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
+    const scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
 
-    var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft)/this.scale;
-    var zoomY = -this.y + ($event.center.y - pos.y + scrollTop)/this.scale;
+    const zoomX = -this.x + ($event.center.x - pos.x + scrollLeft)/this.scale;
+    // TODO: in $event.center.y we have absolute coordinate value including toolbar 
+    // with height = 60px 
+    const zoomY = -this.y + (($event.center.y - 60) - pos.y + scrollTop)/this.scale;
 
     return { x: zoomX, y: zoomY };
   };
@@ -146,31 +138,29 @@ export class DocumentComponent implements OnInit, AfterViewChecked {
   };
 
   translate(deltaX, deltaY) {
-    var newX = this.restrictRawPos(this.lastX + deltaX/this.scale,
-                              Math.min(this.viewportWidth, this.curWidth), this.imgWidth);
-                              this.x = newX;
-                              this.img.style.marginLeft = Math.ceil(newX*this.scale) + 'px';
+    const newX = this.restrictRawPos(this.lastX + deltaX/this.scale,
+                              Math.min(this.viewportWidth, this.curWidth), this.docWidth);
+    this.x = newX;
+    this.doc.style.marginLeft = Math.ceil(newX*this.scale) + 'px';
 
-    var newY = this.restrictRawPos(this.lastY + deltaY/this.scale,
-                              Math.min(this.viewportHeight, this.curHeight), this.imgHeight);
-                              this.y = newY;
-                              this.img.style.marginTop = Math.ceil(newY*this.scale) + 'px';
+    const newY = this.restrictRawPos(this.lastY + deltaY/this.scale,
+                              Math.min(this.viewportHeight, this.curHeight), this.docHeight);
+    this.y = newY;
+    this.doc.style.marginTop = Math.ceil(newY*this.scale) + 'px';
   };
 
   zoomTranslate(scaleBy) {
     this.scale = this.restrictScale(this.lastScale*scaleBy);
 
-    this.curWidth = this.imgWidth*this.scale;
-    this.curHeight = this.imgHeight*this.scale;
+    this.curWidth = this.docWidth*this.scale;
+    this.curHeight = this.docHeight*this.scale;
 
-    // TODO: HostBinding or not needed at all?
-    this.img.style.width = Math.ceil(this.curWidth) + 'px';
-    this.img.style.height = Math.ceil(this.curHeight) + 'px';
+    // Instead of changing the actual img size we apply scale further
+    //this.doc.style.width = Math.ceil(this.curWidth) + 'px';
+    //this.doc.style.height = Math.ceil(this.curHeight) + 'px';
     
-    //this.img.style.transform = 'scale(' + this.scale + ')';
-    
-    // TODO: most likely it's not needed
-    //this.img.style.transformOrigin = 'left';
+    this.doc.style.transform = 'scale(' + this.scale + ')';
+    this.doc.style.transformOrigin = 'left top';
 
     // Adjust margins to make sure that we aren't out of bounds
     this.translate(0, 0);
@@ -190,12 +180,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked {
     this.zoomTranslate(scaleBy);
 
     // New raw center of viewport
-    var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth)/2/this.scale;
-    var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight)/2/this.scale;
+    const rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth)/2/this.scale;
+    const rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight)/2/this.scale;
 
     // Delta
-    var deltaX = (rawCenterX - rawZoomX)*this.scale;
-    var deltaY = (rawCenterY - rawZoomY)*this.scale;
+    const deltaX = (rawCenterX - rawZoomX)*this.scale;
+    const deltaY = (rawCenterY - rawZoomY)*this.scale;
 
     // Translate back to zoom center
     this.translate(deltaX, deltaY);
@@ -206,26 +196,27 @@ export class DocumentComponent implements OnInit, AfterViewChecked {
     }
   };
 
+  // TODO: for now we working only with doubletap event
   // onPinch($event){
   //   if (this.pinchCenter === null) {
   //     this.pinchCenter = this.rawCenter($event);
-  //     var offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
-  //     var offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
+  //     const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
+  //     const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
   //     this.pinchCenterOffset = { x: offsetX, y: offsetY };
   //   }
 
-  //   var newScale = this.restrictScale(this.scale*$event.scale);
-  //   var zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
-  //   var zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
-  //   var zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
+  //   const newScale = this.restrictScale(this.scale*$event.scale);
+  //   const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
+  //   const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
+  //   const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
 
   //   this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
   // }
 
   onDoubleTap($event){
     if ($event.tapCount === 2) {
-      var c = this.rawCenter($event);
-      this.zoomAround(1.5, c.x, c.y, false);
+      const c = this.rawCenter($event);
+      this.zoomAround(2, c.x, c.y, false);
     }
   }
 }

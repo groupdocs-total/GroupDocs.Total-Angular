@@ -1,15 +1,51 @@
-import { AfterViewChecked, ElementRef, OnInit } from '@angular/core';
+import { AfterViewChecked, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { FileDescription } from "../file.service";
 import { ZoomService } from "../zoom.service";
-export declare class DocumentComponent implements OnInit, AfterViewChecked {
+export declare class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit {
     private _elementRef;
+    private _zoomService;
     mode: boolean;
     preloadPageCount: number;
     file: FileDescription;
     wait: boolean;
     zoom: number;
-    constructor(_elementRef: ElementRef<HTMLElement>, zoomService: ZoomService);
+    MIN_SCALE: number;
+    MAX_SCALE: number;
+    docWidth: any;
+    docHeight: any;
+    viewportWidth: any;
+    viewportHeight: any;
+    scale: any;
+    lastScale: any;
+    container: any;
+    doc: any;
+    x: number;
+    lastX: number;
+    y: number;
+    lastY: number;
+    pinchCenter: any;
+    pinchCenterOffset: any;
+    curWidth: number;
+    curHeight: number;
+    constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService);
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     getDimensionWithUnit(value: number): any;
     ngAfterViewChecked(): void;
+    restrictScale: (scale: any) => any;
+    absolutePosition(el: any): {
+        x: number;
+        y: number;
+    };
+    rawCenter($event: any): {
+        x: number;
+        y: number;
+    };
+    restrictRawPos(pos: any, viewportDim: any, imgDim: any): any;
+    translate(deltaX: any, deltaY: any): void;
+    zoomTranslate(scaleBy: any): void;
+    updateLastScale(): void;
+    updateLastPos(): void;
+    zoomAround(scaleBy: any, rawZoomX: any, rawZoomY: any, doNotUpdateLast: any): void;
+    onDoubleTap($event: any): void;
 }
