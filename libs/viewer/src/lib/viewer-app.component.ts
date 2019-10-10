@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -25,7 +25,7 @@ import * as Hammer from 'hammerjs';
   templateUrl: './viewer-app.component.html',
   styleUrls: ['./viewer-app.component.less']
 })
-export class ViewerAppComponent implements AfterViewInit {
+export class ViewerAppComponent implements OnInit, AfterViewInit {
   title = 'viewer';
   files: FileModel[] = [];
   file: FileDescription;
@@ -92,6 +92,13 @@ export class ViewerAppComponent implements AfterViewInit {
       this.isDesktop = _windowService.isDesktop();
       this.refreshZoom();
     });
+  }
+
+  ngOnInit() {
+    if (this.viewerConfig.defaultDocument !== ""){
+      this.isLoading = true;
+      this.selectFile(this.viewerConfig.defaultDocument, "", "");
+    }
   }
 
   ngAfterViewInit() {
