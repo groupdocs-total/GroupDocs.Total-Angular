@@ -45,6 +45,7 @@ export class ViewerAppComponent implements AfterViewInit {
   options;
   //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
   fileWasDropped = false;
+  formatIcon: string;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -277,16 +278,17 @@ export class ViewerAppComponent implements AfterViewInit {
   }
 
   private getFitToWidth() {
-    const pageWidth = this.ptToPx(this._pageWidth);
-    const pageHeight = this.ptToPx(this._pageHeight);
+    // Images and Excel-related files receiving dimensions in px from server
+    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
     return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
   }
 
   private getFitToHeight() {
-    const pageWidth = this.ptToPx(this._pageWidth);
-    const pageHeight = this.ptToPx(this._pageHeight);
+    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
     const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
     const offsetHeight = pageHeight ? pageHeight : windowHeight;
 
@@ -418,6 +420,7 @@ export class ViewerAppComponent implements AfterViewInit {
   // }
 
   private refreshZoom() {
+    this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
     this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
   }
 }

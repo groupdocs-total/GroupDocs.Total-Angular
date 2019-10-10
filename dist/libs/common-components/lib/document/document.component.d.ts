@@ -1,7 +1,7 @@
-import { AfterViewChecked, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewChecked, ElementRef, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import { FileDescription } from "../file.service";
 import { ZoomService } from "../zoom.service";
-export declare class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit {
+export declare class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit, OnChanges {
     private _elementRef;
     private _zoomService;
     mode: boolean;
@@ -29,6 +29,7 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     curHeight: number;
     constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService);
     ngOnInit(): void;
+    ngOnChanges(): void;
     ngAfterViewInit(): void;
     getDimensionWithUnit(value: number): any;
     ngAfterViewChecked(): void;

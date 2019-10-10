@@ -1093,6 +1093,21 @@
         /**
          * @return {?}
          */
+        DocumentComponent.prototype.ngOnChanges = /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
+            ((/** @type {?} */ (panzoom))).style.transform = '';
+            // TODO: this intersects with zooming by zoom directive, but still needed
+            // for flush previous settings before opening another file
+            //this._zoomService.changeZoom(100);
+            //this.scale = 1;
+        };
+        /**
+         * @return {?}
+         */
         DocumentComponent.prototype.ngAfterViewInit = /**
          * @return {?}
          */
@@ -1106,7 +1121,9 @@
             this.docWidth = this.doc.offsetWidth;
             this.docHeight = this.doc.offsetHeight;
             this.viewportWidth = this.doc.offsetWidth;
-            this.scale = this.viewportWidth / this.docWidth;
+            // TODO: for cases where we already have zoom defined we should include it
+            //this.scale = this.viewportWidth/this.docWidth;
+            this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
             this.lastScale = this.scale;
             this.viewportHeight = this.container.offsetHeight;
             this.curWidth = this.docWidth * this.scale;
@@ -1200,7 +1217,11 @@
          * @return {?}
          */
         function (pos, viewportDim, imgDim) {
-            if (pos < viewportDim / this.scale - imgDim) { // too far left/up?
+            // TODO: first condition only to handle not clear case with initil zoom <= 1
+            if (this.scale <= 1 && (viewportDim / this.scale - imgDim === 0) && pos < 0) {
+                return pos;
+            }
+            else if (pos < viewportDim / this.scale - imgDim) { // too far left/up?
                 pos = viewportDim / this.scale - imgDim;
             }
             else if (pos > 0) { // too far right/down?
@@ -1244,7 +1265,6 @@
             // Instead of changing the actual img size we apply scale further
             //this.doc.style.width = Math.ceil(this.curWidth) + 'px';
             //this.doc.style.height = Math.ceil(this.curHeight) + 'px';
-            //this.doc.style.transform = 'scale(' + this.scale + ')';
             this.doc.style.transformOrigin = 'left top';
             // Adjust margins to make sure that we aren't out of bounds
             this.translate(0, 0);
@@ -1363,8 +1383,8 @@
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\">\r\n  <div class=\"panzoom\" gdSearchable>\r\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important}}"]
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1410,7 +1430,7 @@
          */
         function (changes) {
             // TODO: this is needed for test purpose to reduce unneeded top-margin
-            this.data = this.data.replace(/>\s+</g, '><');
+            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><') : null;
             /** @type {?} */
             var dataImagePngBase64 = 'data:image/png;base64,';
             this.imgData = dataImagePngBase64;
@@ -2338,6 +2358,7 @@
          */
         function () {
             this.setStyles(this._zoomService.zoom);
+            this.resizePages(this._zoomService.zoom);
         };
         /**
          * @return {?}
@@ -2403,7 +2424,8 @@
                     }
                 }
             }));
-            this.minWidth = maxWidth + 'pt';
+            // Images and Excel-related files receiving dimensions in px from server
+            this.minWidth = maxWidth + FileUtil.find(this.file.guid, false).unit;
         };
         /**
          * @private

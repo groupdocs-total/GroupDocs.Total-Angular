@@ -4,7 +4,8 @@ import {
   ElementRef,
   Input,
   OnInit,
-  AfterViewInit} from '@angular/core';
+  AfterViewInit,
+  OnChanges} from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
 import * as jquery from 'jquery';
@@ -16,7 +17,7 @@ import * as Hammer from 'hammerjs';
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.less']
 })
-export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit {
+export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit, OnChanges {
 
   @Input() mode: boolean;
   @Input() preloadPageCount: number;
@@ -55,6 +56,14 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   ngOnInit() {
   }
 
+  ngOnChanges() {
+    const panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
+    (panzoom as any).style.transform = '';
+    // TODO: this intersects with zooming by zoom directive, but still needed
+    // for flush previous settings before opening another file
+    //this._zoomService.changeZoom(100);
+    //this.scale = 1;
+  }
     
   ngAfterViewInit() {
     // For current iteration we take .panzoom as a document
@@ -68,7 +77,11 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     this.docWidth = this.doc.offsetWidth;
     this.docHeight = this.doc.offsetHeight;
     this.viewportWidth = this.doc.offsetWidth;
-    this.scale = this.viewportWidth/this.docWidth;
+
+    // TODO: for cases where we already have zoom defined we should include it
+    //this.scale = this.viewportWidth/this.docWidth;
+    this.scale = (this.viewportWidth/this.docWidth) * this._zoomService.zoom/100;
+    
     this.lastScale = this.scale;
     this.viewportHeight = this.container.offsetHeight;
     this.curWidth = this.docWidth*this.scale;
@@ -129,7 +142,11 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   };
 
   restrictRawPos(pos, viewportDim, imgDim) {
-    if (pos < viewportDim/this.scale - imgDim) { // too far left/up?
+    // TODO: first condition only to handle not clear case with initil zoom <= 1
+    if (this.scale <= 1 && (viewportDim/this.scale - imgDim === 0) && pos < 0){
+      return pos;
+    }
+    else if (pos < viewportDim/this.scale - imgDim) { // too far left/up?
       pos = viewportDim/this.scale - imgDim;
     } else if (pos > 0) { // too far right/down?
       pos = 0;
@@ -147,6 +164,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
                               Math.min(this.viewportHeight, this.curHeight), this.docHeight);
     this.y = newY;
     //this.doc.style.marginTop = Math.ceil(newY*this.scale) + 'px';
+    
     this.doc.style.transform = 'translate(' + Math.ceil(newX*this.scale) + 'px,' + Math.ceil(newY*this.scale) + 'px)' + 'scale(' + this.scale + ')';
   };
 
@@ -160,7 +178,6 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     //this.doc.style.width = Math.ceil(this.curWidth) + 'px';
     //this.doc.style.height = Math.ceil(this.curHeight) + 'px';
     
-    //this.doc.style.transform = 'scale(' + this.scale + ')';
     this.doc.style.transformOrigin = 'left top';
 
     // Adjust margins to make sure that we aren't out of bounds
