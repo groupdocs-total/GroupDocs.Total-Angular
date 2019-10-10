@@ -141,12 +141,13 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     const newX = this.restrictRawPos(this.lastX + deltaX/this.scale,
                               Math.min(this.viewportWidth, this.curWidth), this.docWidth);
     this.x = newX;
-    this.doc.style.marginLeft = Math.ceil(newX*this.scale) + 'px';
+    //this.doc.style.marginLeft = Math.ceil(newX*this.scale) + 'px';
 
     const newY = this.restrictRawPos(this.lastY + deltaY/this.scale,
                               Math.min(this.viewportHeight, this.curHeight), this.docHeight);
     this.y = newY;
-    this.doc.style.marginTop = Math.ceil(newY*this.scale) + 'px';
+    //this.doc.style.marginTop = Math.ceil(newY*this.scale) + 'px';
+    this.doc.style.transform = 'translate(' + Math.ceil(newX*this.scale) + 'px,' + Math.ceil(newY*this.scale) + 'px)' + 'scale(' + this.scale + ')';
   };
 
   zoomTranslate(scaleBy) {
@@ -159,7 +160,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     //this.doc.style.width = Math.ceil(this.curWidth) + 'px';
     //this.doc.style.height = Math.ceil(this.curHeight) + 'px';
     
-    this.doc.style.transform = 'scale(' + this.scale + ')';
+    //this.doc.style.transform = 'scale(' + this.scale + ')';
     this.doc.style.transformOrigin = 'left top';
 
     // Adjust margins to make sure that we aren't out of bounds

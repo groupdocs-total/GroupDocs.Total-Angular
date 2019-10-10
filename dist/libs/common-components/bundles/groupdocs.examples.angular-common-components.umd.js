@@ -1222,11 +1222,12 @@
             /** @type {?} */
             var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
             this.x = newX;
-            this.doc.style.marginLeft = Math.ceil(newX * this.scale) + 'px';
+            //this.doc.style.marginLeft = Math.ceil(newX*this.scale) + 'px';
             /** @type {?} */
             var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
             this.y = newY;
-            this.doc.style.marginTop = Math.ceil(newY * this.scale) + 'px';
+            //this.doc.style.marginTop = Math.ceil(newY*this.scale) + 'px';
+            this.doc.style.transform = 'translate(' + Math.ceil(newX * this.scale) + 'px,' + Math.ceil(newY * this.scale) + 'px)' + 'scale(' + this.scale + ')';
         };
         /**
          * @param {?} scaleBy
@@ -1243,7 +1244,7 @@
             // Instead of changing the actual img size we apply scale further
             //this.doc.style.width = Math.ceil(this.curWidth) + 'px';
             //this.doc.style.height = Math.ceil(this.curHeight) + 'px';
-            this.doc.style.transform = 'scale(' + this.scale + ')';
+            //this.doc.style.transform = 'scale(' + this.scale + ')';
             this.doc.style.transformOrigin = 'left top';
             // Adjust margins to make sure that we aren't out of bounds
             this.translate(0, 0);
@@ -1363,7 +1364,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-document',
                         template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\">\r\n  <div class=\"panzoom\" gdSearchable>\r\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important}}"]
+                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important}}"]
                     }] }
         ];
         /** @nocollapse */
