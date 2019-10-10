@@ -325,6 +325,18 @@ var ViewerAppComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    ViewerAppComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        if (this.viewerConfig.defaultDocument !== "") {
+            this.isLoading = true;
+            this.selectFile(this.viewerConfig.defaultDocument, "", "");
+        }
+    };
+    /**
+     * @return {?}
+     */
     ViewerAppComponent.prototype.ngAfterViewInit = /**
      * @return {?}
      */

@@ -1,10 +1,10 @@
-import { AfterViewInit, ElementRef, QueryList } from '@angular/core';
+import { AfterViewInit, ElementRef, QueryList, OnInit } from '@angular/core';
 import { ViewerService } from "./viewer.service";
 import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
 import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
 import { WindowService } from "@groupdocs.examples.angular/common-components";
-export declare class ViewerAppComponent implements AfterViewInit {
+export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _viewerService;
     private _modalService;
     private _navigateService;
@@ -31,6 +31,7 @@ export declare class ViewerAppComponent implements AfterViewInit {
     docPanelComponent: QueryList<ElementRef>;
     fileWasDropped: boolean;
     constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
+    ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
     readonly zoomConfig: boolean;

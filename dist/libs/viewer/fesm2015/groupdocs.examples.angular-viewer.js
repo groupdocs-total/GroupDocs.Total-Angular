@@ -290,6 +290,15 @@ class ViewerAppComponent {
     /**
      * @return {?}
      */
+    ngOnInit() {
+        if (this.viewerConfig.defaultDocument !== "") {
+            this.isLoading = true;
+            this.selectFile(this.viewerConfig.defaultDocument, "", "");
+        }
+    }
+    /**
+     * @return {?}
+     */
     ngAfterViewInit() {
         this._loadingMaskService
             .onLoadingChanged
