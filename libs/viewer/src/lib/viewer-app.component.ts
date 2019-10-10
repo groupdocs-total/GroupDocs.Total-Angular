@@ -25,7 +25,7 @@ import * as Hammer from 'hammerjs';
   templateUrl: './viewer-app.component.html',
   styleUrls: ['./viewer-app.component.less']
 })
-export class ViewerAppComponent implements AfterViewInit {
+export class ViewerAppComponent implements OnInit, AfterViewInit {
   title = 'viewer';
   files: FileModel[] = [];
   file: FileDescription;
