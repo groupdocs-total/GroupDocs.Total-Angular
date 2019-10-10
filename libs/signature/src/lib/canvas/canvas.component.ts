@@ -28,24 +28,35 @@ export class CanvasComponent implements OnInit, OnChanges {
   }
 
   onMouseDown(e) {
-    e.stopPropagation();
+    let pos;
+    if (this.isDesktop) {
+      pos = {x: e.offsetX, y: e.offsetY};
+    } else {
+      const wEvent: DragEvent = <DragEvent>window.event;
+      pos = {x: wEvent.offsetX, y: wEvent.offsetY};
+    }
     e.preventDefault();
     this._isDragged = true;
     this._ctx.beginPath();
-    this._ctx.moveTo(e.offsetX, e.offsetY);
+    this._ctx.moveTo(pos.x, pos.y);
   }
 
   onMouseUp(e) {
-    e.stopPropagation();
     e.preventDefault();
     this._isDragged = false;
   }
 
   onMouseMove(e) {
-    e.stopPropagation();
+    let pos;
+    if (this.isDesktop) {
+      pos = {x: e.offsetX, y: e.offsetY};
+    } else {
+      const wEvent: DragEvent = <DragEvent>window.event;
+      pos = {x: wEvent.offsetX, y: wEvent.offsetY};
+    }
     e.preventDefault();
     if (this._isDragged) {
-      this._ctx.lineTo(e.offsetX, e.offsetY);
+      this._ctx.lineTo(pos.x, pos.y);
       this._ctx.stroke();
     }
   }
