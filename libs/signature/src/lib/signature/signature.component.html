@@ -27,4 +27,5 @@
 <div class="gd-digital-marker" *ngIf="isDigital()">
   <fa-icon [icon]="['fas','info-circle']" [class]="'ng-fa-icon icon'"></fa-icon>
   <div>Digitally signed : {{data.digitalProps.contact ? data.digitalProps.contact : data.digitalProps.reason}}</div>
+  <fa-icon [icon]="['fas','times']" [class]="'ng-fa-icon icon'" (click)="remove()"></fa-icon>
 </div>
