@@ -1100,6 +1100,19 @@ var DocumentComponent = /** @class */ (function () {
         /** @type {?} */
         var hammer = new Hammer(this.container);
     };
+    // TODO: this temporary crutch for Excel files should be documented
+    // TODO: this temporary crutch for Excel files should be documented
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ifExcel = 
+    // TODO: this temporary crutch for Excel files should be documented
+    /**
+     * @return {?}
+     */
+    function () {
+        return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
+    };
     /**
      * @param {?} value
      * @return {?}
@@ -1291,54 +1304,73 @@ var DocumentComponent = /** @class */ (function () {
             this.updateLastPos();
         }
     };
-    // TODO: for now we working only with doubletap event
-    // onPinch($event){
-    //   if (this.pinchCenter === null) {
-    //     this.pinchCenter = this.rawCenter($event);
-    //     const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
-    //     const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
-    //     this.pinchCenterOffset = { x: offsetX, y: offsetY };
-    //   }
-    //   const newScale = this.restrictScale(this.scale*$event.scale);
-    //   const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
-    //   const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
-    //   const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
-    //   this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-    // }
-    // TODO: for now we working only with doubletap event
-    // onPinch($event){
-    //   if (this.pinchCenter === null) {
-    //     this.pinchCenter = this.rawCenter($event);
-    //     const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
-    //     const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
-    //     this.pinchCenterOffset = { x: offsetX, y: offsetY };
-    //   }
-    //   const newScale = this.restrictScale(this.scale*$event.scale);
-    //   const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
-    //   const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
-    //   const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
-    //   this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-    // }
     /**
      * @param {?} $event
      * @return {?}
      */
-    DocumentComponent.prototype.onDoubleTap = 
-    // TODO: for now we working only with doubletap event
-    // onPinch($event){
-    //   if (this.pinchCenter === null) {
-    //     this.pinchCenter = this.rawCenter($event);
-    //     const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
-    //     const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
-    //     this.pinchCenterOffset = { x: offsetX, y: offsetY };
-    //   }
-    //   const newScale = this.restrictScale(this.scale*$event.scale);
-    //   const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
-    //   const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
-    //   const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
-    //   this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-    // }
+    DocumentComponent.prototype.onPinch = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if (this.pinchCenter === null) {
+            this.pinchCenter = this.rawCenter($event);
+            /** @type {?} */
+            var offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
+            /** @type {?} */
+            var offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
+            this.pinchCenterOffset = { x: offsetX, y: offsetY };
+        }
+        /** @type {?} */
+        var newScale = this.restrictScale(this.scale * $event.scale);
+        /** @type {?} */
+        var zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
+        /** @type {?} */
+        var zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
+        /** @type {?} */
+        var zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
+        this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
+    };
     /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.onPinchEnd = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.updateLastScale();
+        this.updateLastPos();
+        this.pinchCenter = null;
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.onPan = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.translate($event.deltaX, $event.deltaY);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.onPanEnd = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.updateLastPos();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.onDoubleTap = /**
      * @param {?} $event
      * @return {?}
      */
@@ -1352,8 +1384,8 @@ var DocumentComponent = /** @class */ (function () {
     DocumentComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-document',
-                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important}}"]
+                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
     /** @nocollapse */

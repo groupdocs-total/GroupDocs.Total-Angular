@@ -90,6 +90,11 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     const hammer = new Hammer(this.container);
   }
 
+  // TODO: this temporary crutch for Excel files should be documented
+  ifExcel() {
+    return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
+  }
+
   getDimensionWithUnit(value: number) {
     return value + FileUtil.find(this.file.guid, false).unit;
   }
@@ -214,22 +219,35 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     }
   };
 
-  // TODO: for now we working only with doubletap event
-  // onPinch($event){
-  //   if (this.pinchCenter === null) {
-  //     this.pinchCenter = this.rawCenter($event);
-  //     const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
-  //     const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
-  //     this.pinchCenterOffset = { x: offsetX, y: offsetY };
-  //   }
+  onPinch($event){
+    if (this.pinchCenter === null) {
+      this.pinchCenter = this.rawCenter($event);
+      const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
+      const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
+      this.pinchCenterOffset = { x: offsetX, y: offsetY };
+    }
 
-  //   const newScale = this.restrictScale(this.scale*$event.scale);
-  //   const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
-  //   const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
-  //   const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
+    const newScale = this.restrictScale(this.scale*$event.scale);
+    const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
+    const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
+    const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
 
-  //   this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-  // }
+    this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
+  }
+
+  onPinchEnd($event){
+    this.updateLastScale();
+    this.updateLastPos();
+    this.pinchCenter = null;
+  }
+
+  onPan($event){
+    this.translate($event.deltaX, $event.deltaY);
+  }
+
+  onPanEnd($event){
+    this.updateLastPos();
+  }
 
   onDoubleTap($event){
     if ($event.tapCount === 2) {

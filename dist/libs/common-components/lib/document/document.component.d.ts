@@ -31,6 +31,7 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     ngOnInit(): void;
     ngOnChanges(): void;
     ngAfterViewInit(): void;
+    ifExcel(): boolean;
     getDimensionWithUnit(value: number): any;
     ngAfterViewChecked(): void;
     restrictScale: (scale: any) => any;
@@ -48,5 +49,9 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     updateLastScale(): void;
     updateLastPos(): void;
     zoomAround(scaleBy: any, rawZoomX: any, rawZoomY: any, doNotUpdateLast: any): void;
+    onPinch($event: any): void;
+    onPinchEnd($event: any): void;
+    onPan($event: any): void;
+    onPanEnd($event: any): void;
     onDoubleTap($event: any): void;
 }
