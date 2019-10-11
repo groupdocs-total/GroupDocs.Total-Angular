@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ComponentRef, OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, ComponentRef, OnDestroy, OnInit} from '@angular/core';
 import {SignatureService} from "./signature.service";
 import {
   FileDescription,
@@ -49,7 +49,7 @@ const $ = jquery;
   templateUrl: './signature-app.component.html',
   styleUrls: ['./signature-app.component.less']
 })
-export class SignatureAppComponent implements AfterViewInit, OnDestroy {
+export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
   title = 'signature';
   files: FileModel[] = [];
   file: FileDescription;
@@ -211,6 +211,12 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
 
   }
 
+  ngOnInit(): void {
+    if (this.defaultDocumentConfig()) {
+      this.selectFile(this.defaultDocumentConfig(), "", "");
+    }
+  }
+
   get rewriteConfig(): boolean {
     return this.signatureConfig ? this.signatureConfig.rewrite : true;
   }
@@ -241,6 +247,10 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
 
   get uploadConfig(): boolean {
     return this.signatureConfig ? this.signatureConfig.upload : true;
+  }
+
+  private defaultDocumentConfig() {
+    return this.signatureConfig ? this.signatureConfig.defaultDocument : "";
   }
 
   get printConfig(): boolean {
