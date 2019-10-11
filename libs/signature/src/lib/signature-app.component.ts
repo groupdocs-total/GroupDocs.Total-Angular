@@ -24,6 +24,7 @@ import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
 import {
   AddedSignature,
+  CopyChanges,
   CopySign,
   DraggableSignature,
   Position, RemoveSign,
@@ -132,6 +133,25 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy {
             sign.pageNumber = page.number;
             const id = this.addSignatureComponent(addedSignature, sign, page.number);
             this._signaturesHolderService.addId(sign.guid, id);
+          }
+        }
+      }
+    });
+
+    copySignatureService.changesSignature.subscribe((copyChanges: CopyChanges) => {
+      const componentRef = this.signatureComponents.get(copyChanges.id);
+      if (componentRef) {
+        const ids = this._signaturesHolderService.get(copyChanges.guid);
+        for (const id of ids) {
+          const compRef = this.signatureComponents.get(id);
+          if (compRef) {
+            // @ts-ignore
+            const comp = (<Signature>compRef).instance;
+            if (comp.id !== copyChanges.id) {
+              comp.data.width = copyChanges.width;
+              comp.data.height = copyChanges.height;
+              comp.data.position = copyChanges.position;
+            }
           }
         }
       }

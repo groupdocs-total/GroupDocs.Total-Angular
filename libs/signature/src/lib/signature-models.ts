@@ -174,6 +174,14 @@ export class CopySign {
   type: string;
 }
 
+export class CopyChanges {
+  guid: string;
+  id: number;
+  width: number;
+  height: number;
+  position: Position;
+}
+
 export class StampCanvasProps {
   id: number;
   text: string;

@@ -6,7 +6,8 @@ import {
   SignatureProps,
   RemoveSign,
   DraggableSignature,
-  CopySign
+  CopySign,
+  CopyChanges
 } from "../signature-models";
 import {Formatting, Utils} from "@groupdocs.examples.angular/common-components";
 import {SignatureService} from "../signature.service";
@@ -147,6 +148,7 @@ export class Signature implements OnInit {
     if (!this.unlock) {
       this.data.height += $event;
     }
+    this.notifyChanges();
   }
 
   height($event) {
@@ -154,18 +156,31 @@ export class Signature implements OnInit {
     if (!this.unlock) {
       this.data.width += $event;
     }
+    this.notifyChanges();
   }
 
   left($event) {
     if (this.unlock) {
       this.position.left += $event;
     }
+    this.notifyChanges();
   }
 
   top($event) {
     if (this.unlock) {
       this.position.top += $event;
     }
+    this.notifyChanges();
+  }
+
+  notifyChanges() {
+    const changes = new CopyChanges();
+    changes.guid = this.data.guid;
+    changes.id = this.id;
+    changes.position = this.position;
+    changes.width = this.data.width;
+    changes.height = this.data.height;
+    this._copySignatureService.notifyChanges(changes);
   }
 
   drop($event: DragEvent) {
