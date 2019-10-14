@@ -9,8 +9,6 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     file: FileDescription;
     wait: boolean;
     zoom: number;
-    MIN_SCALE: number;
-    MAX_SCALE: number;
     docWidth: any;
     docHeight: any;
     viewportWidth: any;
@@ -34,7 +32,6 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     ifExcel(): boolean;
     getDimensionWithUnit(value: number): any;
     ngAfterViewChecked(): void;
-    restrictScale: (scale: any) => any;
     absolutePosition(el: any): {
         x: number;
         y: number;

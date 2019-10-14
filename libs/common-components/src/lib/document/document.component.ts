@@ -25,9 +25,6 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   wait = false;
   zoom: number;
 
-  MIN_SCALE = 1; // 1=scaling when first loaded
-  MAX_SCALE = 64;
-
   docWidth = null;
   docHeight = null;
   viewportWidth = null;
@@ -71,15 +68,11 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     // For current iteration we take .gd-document as a container
     this.container = this._elementRef.nativeElement;
 
-    // TODO: check that this is needed
-    //disableImgEventHandlers();
-
-    this.docWidth = this.doc.offsetWidth;
-    this.docHeight = this.doc.offsetHeight;
+    this.docWidth = this.doc.clientWidth;
+    this.docHeight = this.doc.clientHeight;
     this.viewportWidth = this.doc.offsetWidth;
 
-    // TODO: for cases where we already have zoom defined we should include it
-    //this.scale = this.viewportWidth/this.docWidth;
+    // For cases where we already have zoom defined we should include it
     this.scale = (this.viewportWidth/this.docWidth) * this._zoomService.zoom/100;
     
     this.lastScale = this.scale;
@@ -107,24 +100,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     }
   }
 
-  restrictScale = function (scale) {
-    if (scale < this.MIN_SCALE) {
-      scale = this.MIN_SCALE;
-    } else if (scale > this.MAX_SCALE) {
-      scale = this.MAX_SCALE;
-    }
-    return scale;
-  };
-
   absolutePosition(el) {
     let x = 0, y = 0;
 
     while (el !== null) {
-      // TODO: we take client dimensions now because of our toolbar with 60px height
-      // x += el.offsetLeft;
-      // y += el.offsetTop;
-      x += el.clientLeft;
-      y += el.clientTop;
+      x += el.offsetLeft;
+      y += el.offsetTop;
       el = el.offsetParent;
     }
 
@@ -139,20 +120,15 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     const scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
 
     const zoomX = -this.x + ($event.center.x - pos.x + scrollLeft)/this.scale;
-    // TODO: in $event.center.y we have absolute coordinate value including toolbar 
-    // with height = 60px 
-    const zoomY = -this.y + (($event.center.y - 60) - pos.y + scrollTop)/this.scale;
+    const zoomY = -this.y + ($event.center.y - pos.y + scrollTop)/this.scale;
 
     return { x: zoomX, y: zoomY };
   };
 
   restrictRawPos(pos, viewportDim, imgDim) {
-    // TODO: first condition only to handle not clear case with initil zoom <= 1
-    if (this.scale <= 1 && (viewportDim/this.scale - imgDim === 0) && pos < 0){
-      return pos;
-    }
-    else if (pos < viewportDim/this.scale - imgDim) { // too far left/up?
-      pos = viewportDim/this.scale - imgDim;
+    const scaledViewport = viewportDim/this.scale;
+    if (pos < scaledViewport - imgDim) { // too far left/up?
+      pos = scaledViewport - imgDim;
     } else if (pos > 0) { // too far right/down?
       pos = 0;
     }
@@ -163,26 +139,21 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     const newX = this.restrictRawPos(this.lastX + deltaX/this.scale,
                               Math.min(this.viewportWidth, this.curWidth), this.docWidth);
     this.x = newX;
-    //this.doc.style.marginLeft = Math.ceil(newX*this.scale) + 'px';
-
     const newY = this.restrictRawPos(this.lastY + deltaY/this.scale,
                               Math.min(this.viewportHeight, this.curHeight), this.docHeight);
     this.y = newY;
-    //this.doc.style.marginTop = Math.ceil(newY*this.scale) + 'px';
-    
-    this.doc.style.transform = 'translate(' + Math.ceil(newX*this.scale) + 'px,' + Math.ceil(newY*this.scale) + 'px)' + 'scale(' + this.scale + ')';
+
+    this.doc.style.transform = 'translate(' + Math.ceil(newX*this.scale) + 'px,' + Math.ceil(newY*this.scale) + 'px)' 
+                                 + 'scale(' + this.scale + ')';
   };
 
   zoomTranslate(scaleBy) {
-    this.scale = this.restrictScale(this.lastScale*scaleBy);
+    this.scale = this.lastScale*scaleBy;
 
     this.curWidth = this.docWidth*this.scale;
     this.curHeight = this.docHeight*this.scale;
-
-    // Instead of changing the actual img size we apply scale further
-    //this.doc.style.width = Math.ceil(this.curWidth) + 'px';
-    //this.doc.style.height = Math.ceil(this.curHeight) + 'px';
     
+    // TODO: maybe this is not correct
     this.doc.style.transformOrigin = 'left top';
 
     // Adjust margins to make sure that we aren't out of bounds
@@ -227,7 +198,8 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
       this.pinchCenterOffset = { x: offsetX, y: offsetY };
     }
 
-    const newScale = this.restrictScale(this.scale*$event.scale);
+    const newScale = this.scale*$event.scale;
+
     const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
     const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
     const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
