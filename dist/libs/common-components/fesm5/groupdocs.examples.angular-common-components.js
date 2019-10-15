@@ -9,8 +9,8 @@ import { __extends, __values } from 'tslib';
 import { Observable, Subject, fromEvent, BehaviorSubject, throwError } from 'rxjs';
 import * as jquery from 'jquery';
 import * as Hammer from 'hammerjs';
-import { DomSanitizer } from '@angular/platform-browser';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ClickOutsideModule } from 'ng-click-outside';
 
 /**
@@ -1004,12 +1004,79 @@ var ZoomService = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
+var MOBILE_MAX_WIDTH = 425;
+/** @type {?} */
+var TABLET_MAX_WIDTH = 1024;
+var WindowService = /** @class */ (function () {
+    function WindowService() {
+        var _this = this;
+        this.resizeSubject = new Subject();
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this._resize$ = fromEvent(window, 'resize')
+            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            _this.resizeSubject.next((/** @type {?} */ (event.target)));
+            _this.width = ((/** @type {?} */ (event.target))).innerWidth;
+            _this.height = ((/** @type {?} */ (event.target))).innerHeight;
+        })));
+        this._resize$.subscribe();
+    }
+    Object.defineProperty(WindowService.prototype, "onResize", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.resizeSubject.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isMobile = /**
+     * @return {?}
+     */
+    function () {
+        return this.width <= MOBILE_MAX_WIDTH;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isTablet = /**
+     * @return {?}
+     */
+    function () {
+        return this.width <= TABLET_MAX_WIDTH;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isDesktop = /**
+     * @return {?}
+     */
+    function () {
+        return !this.isMobile() && !this.isTablet();
+    };
+    return WindowService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
 var $$1 = jquery;
 var DocumentComponent = /** @class */ (function () {
-    function DocumentComponent(_elementRef, _zoomService) {
+    function DocumentComponent(_elementRef, _zoomService, _windowService) {
         var _this = this;
         this._elementRef = _elementRef;
         this._zoomService = _zoomService;
+        this._windowService = _windowService;
         this.wait = false;
         this.docWidth = null;
         this.docHeight = null;
@@ -1034,6 +1101,7 @@ var DocumentComponent = /** @class */ (function () {
         function (val) {
             _this.zoom = val;
         }));
+        this.isDesktop = _windowService.isDesktop();
     }
     /**
      * @return {?}
@@ -1186,8 +1254,6 @@ var DocumentComponent = /** @class */ (function () {
     function (deltaX, deltaY) {
         // We restrict to the min of the viewport width/height or current width/height as the
         // current width/height may be smaller than the viewport width/height
-        // We restrict to the min of the viewport width/height or current width/height as the
-        // current width/height may be smaller than the viewport width/height
         /** @type {?} */
         var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
         this.x = newX;
@@ -1210,8 +1276,6 @@ var DocumentComponent = /** @class */ (function () {
         this.scale = this.lastScale * scaleBy;
         this.curWidth = this.docWidth * this.scale;
         this.curHeight = this.docHeight * this.scale;
-        // TODO: maybe this is not correct
-        this.doc.style.transformOrigin = 'left top';
         // Adjust margins to make sure that we aren't out of bounds
         this.translate(0, 0);
     };
@@ -1329,7 +1393,9 @@ var DocumentComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
-        this.translate($event.deltaX, $event.deltaY);
+        if (!this.isDesktop) {
+            this.translate($event.deltaX, $event.deltaY);
+        }
     };
     /**
      * @param {?} $event
@@ -1340,7 +1406,9 @@ var DocumentComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
-        this.updateLastPos();
+        if (!this.isDesktop) {
+            this.updateLastPos();
+        }
     };
     /**
      * @param {?} $event
@@ -1351,23 +1419,26 @@ var DocumentComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
-        if ($event.tapCount === 2) {
-            /** @type {?} */
-            var c = this.rawCenter($event);
-            this.zoomAround(2, c.x, c.y, false);
+        if (!this.isDesktop) {
+            if ($event.tapCount === 2) {
+                /** @type {?} */
+                var c = this.rawCenter($event);
+                this.zoomAround(2, c.x, c.y, false);
+            }
         }
     };
     DocumentComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-document',
-                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start;overflow:scroll}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}.panzoom.mobile{overflow:scroll}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
     /** @nocollapse */
     DocumentComponent.ctorParameters = function () { return [
         { type: ElementRef },
-        { type: ZoomService }
+        { type: ZoomService },
+        { type: WindowService }
     ]; };
     DocumentComponent.propDecorators = {
         mode: [{ type: Input }],
@@ -1883,72 +1954,6 @@ var NavigateService = /** @class */ (function () {
     ]; };
     /** @nocollapse */ NavigateService.ngInjectableDef = ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
     return NavigateService;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-var MOBILE_MAX_WIDTH = 425;
-/** @type {?} */
-var TABLET_MAX_WIDTH = 1024;
-var WindowService = /** @class */ (function () {
-    function WindowService() {
-        var _this = this;
-        this.resizeSubject = new Subject();
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-        this._resize$ = fromEvent(window, 'resize')
-            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
-         * @param {?} event
-         * @return {?}
-         */
-        function (event) {
-            _this.resizeSubject.next((/** @type {?} */ (event.target)));
-            _this.width = ((/** @type {?} */ (event.target))).innerWidth;
-            _this.height = ((/** @type {?} */ (event.target))).innerHeight;
-        })));
-        this._resize$.subscribe();
-    }
-    Object.defineProperty(WindowService.prototype, "onResize", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.resizeSubject.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isMobile = /**
-     * @return {?}
-     */
-    function () {
-        return this.width <= MOBILE_MAX_WIDTH;
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isTablet = /**
-     * @return {?}
-     */
-    function () {
-        return this.width <= TABLET_MAX_WIDTH;
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isDesktop = /**
-     * @return {?}
-     */
-    function () {
-        return !this.isMobile() && !this.isTablet();
-    };
-    return WindowService;
 }());
 
 /**

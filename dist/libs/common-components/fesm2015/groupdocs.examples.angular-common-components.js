@@ -8,8 +8,8 @@ import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, fromEvent, BehaviorSubject, throwError } from 'rxjs';
 import * as jquery from 'jquery';
 import * as Hammer from 'hammerjs';
-import { DomSanitizer } from '@angular/platform-browser';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ClickOutsideModule } from 'ng-click-outside';
 
 /**
@@ -821,15 +821,68 @@ class ZoomService {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
+const MOBILE_MAX_WIDTH = 425;
+/** @type {?} */
+const TABLET_MAX_WIDTH = 1024;
+class WindowService {
+    constructor() {
+        this.resizeSubject = new Subject();
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this._resize$ = fromEvent(window, 'resize')
+            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
+            this.resizeSubject.next((/** @type {?} */ (event.target)));
+            this.width = ((/** @type {?} */ (event.target))).innerWidth;
+            this.height = ((/** @type {?} */ (event.target))).innerHeight;
+        })));
+        this._resize$.subscribe();
+    }
+    /**
+     * @return {?}
+     */
+    get onResize() {
+        return this.resizeSubject.asObservable();
+    }
+    /**
+     * @return {?}
+     */
+    isMobile() {
+        return this.width <= MOBILE_MAX_WIDTH;
+    }
+    /**
+     * @return {?}
+     */
+    isTablet() {
+        return this.width <= TABLET_MAX_WIDTH;
+    }
+    /**
+     * @return {?}
+     */
+    isDesktop() {
+        return !this.isMobile() && !this.isTablet();
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
 const $$1 = jquery;
 class DocumentComponent {
     /**
      * @param {?} _elementRef
      * @param {?} _zoomService
+     * @param {?} _windowService
      */
-    constructor(_elementRef, _zoomService) {
+    constructor(_elementRef, _zoomService, _windowService) {
         this._elementRef = _elementRef;
         this._zoomService = _zoomService;
+        this._windowService = _windowService;
         this.wait = false;
         this.docWidth = null;
         this.docHeight = null;
@@ -854,6 +907,7 @@ class DocumentComponent {
         (val) => {
             this.zoom = val;
         }));
+        this.isDesktop = _windowService.isDesktop();
     }
     /**
      * @return {?}
@@ -969,8 +1023,6 @@ class DocumentComponent {
     translate(deltaX, deltaY) {
         // We restrict to the min of the viewport width/height or current width/height as the
         // current width/height may be smaller than the viewport width/height
-        // We restrict to the min of the viewport width/height or current width/height as the
-        // current width/height may be smaller than the viewport width/height
         /** @type {?} */
         const newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
         this.x = newX;
@@ -990,8 +1042,6 @@ class DocumentComponent {
         this.scale = this.lastScale * scaleBy;
         this.curWidth = this.docWidth * this.scale;
         this.curHeight = this.docHeight * this.scale;
-        // TODO: maybe this is not correct
-        this.doc.style.transformOrigin = 'left top';
         // Adjust margins to make sure that we aren't out of bounds
         this.translate(0, 0);
     }
@@ -1087,38 +1137,45 @@ class DocumentComponent {
      * @return {?}
      */
     onPan($event) {
-        this.translate($event.deltaX, $event.deltaY);
+        if (!this.isDesktop) {
+            this.translate($event.deltaX, $event.deltaY);
+        }
     }
     /**
      * @param {?} $event
      * @return {?}
      */
     onPanEnd($event) {
-        this.updateLastPos();
+        if (!this.isDesktop) {
+            this.updateLastPos();
+        }
     }
     /**
      * @param {?} $event
      * @return {?}
      */
     onDoubleTap($event) {
-        if ($event.tapCount === 2) {
-            /** @type {?} */
-            const c = this.rawCenter($event);
-            this.zoomAround(2, c.x, c.y, false);
+        if (!this.isDesktop) {
+            if ($event.tapCount === 2) {
+                /** @type {?} */
+                const c = this.rawCenter($event);
+                this.zoomAround(2, c.x, c.y, false);
+            }
         }
     }
 }
 DocumentComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-document',
-                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start;overflow:scroll}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}.panzoom.mobile{overflow:scroll}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
             }] }
 ];
 /** @nocollapse */
 DocumentComponent.ctorParameters = () => [
     { type: ElementRef },
-    { type: ZoomService }
+    { type: ZoomService },
+    { type: WindowService }
 ];
 DocumentComponent.propDecorators = {
     mode: [{ type: Input }],
@@ -1540,57 +1597,6 @@ NavigateService.ctorParameters = () => [
     { type: PagePreloadService }
 ];
 /** @nocollapse */ NavigateService.ngInjectableDef = ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const MOBILE_MAX_WIDTH = 425;
-/** @type {?} */
-const TABLET_MAX_WIDTH = 1024;
-class WindowService {
-    constructor() {
-        this.resizeSubject = new Subject();
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-        this._resize$ = fromEvent(window, 'resize')
-            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
-         * @param {?} event
-         * @return {?}
-         */
-        event => {
-            this.resizeSubject.next((/** @type {?} */ (event.target)));
-            this.width = ((/** @type {?} */ (event.target))).innerWidth;
-            this.height = ((/** @type {?} */ (event.target))).innerHeight;
-        })));
-        this._resize$.subscribe();
-    }
-    /**
-     * @return {?}
-     */
-    get onResize() {
-        return this.resizeSubject.asObservable();
-    }
-    /**
-     * @return {?}
-     */
-    isMobile() {
-        return this.width <= MOBILE_MAX_WIDTH;
-    }
-    /**
-     * @return {?}
-     */
-    isTablet() {
-        return this.width <= TABLET_MAX_WIDTH;
-    }
-    /**
-     * @return {?}
-     */
-    isDesktop() {
-        return !this.isMobile() && !this.isTablet();
-    }
-}
 
 /**
  * @fileoverview added by tsickle

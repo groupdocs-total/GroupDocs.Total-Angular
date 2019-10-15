@@ -4,11 +4,9 @@
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
-// TODO: this was added for test purpose
-.gd-document {
-  // width: 640px;
-  // height: 480px;
-  // overflow: hidden;
+// TODO: this was added to get rid of `user-select: none` added by hammerjs
+.gd-document, /deep/ .document {
+  user-select: text !important;
 }
 
 .current-page-number {

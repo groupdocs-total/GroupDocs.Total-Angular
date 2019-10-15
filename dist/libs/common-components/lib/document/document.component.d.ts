@@ -1,9 +1,11 @@
 import { AfterViewChecked, ElementRef, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import { FileDescription } from "../file.service";
 import { ZoomService } from "../zoom.service";
+import { WindowService } from '../window.service';
 export declare class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit, OnChanges {
     private _elementRef;
     private _zoomService;
+    private _windowService;
     mode: boolean;
     preloadPageCount: number;
     file: FileDescription;
@@ -25,7 +27,8 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     pinchCenterOffset: any;
     curWidth: number;
     curHeight: number;
-    constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService);
+    isDesktop: boolean;
+    constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService, _windowService: WindowService);
     ngOnInit(): void;
     ngOnChanges(): void;
     ngAfterViewInit(): void;

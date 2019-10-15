@@ -11,6 +11,7 @@ import {ZoomService} from "../zoom.service";
 import * as jquery from 'jquery';
 const $ = jquery;
 import * as Hammer from 'hammerjs';
+import { WindowService } from '../window.service';
 
 @Component({
   selector: 'gd-document',
@@ -41,13 +42,17 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   pinchCenterOffset = null;
   curWidth = 0;
   curHeight = 0;
+  isDesktop: boolean;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
-              private _zoomService: ZoomService) {
+              private _zoomService: ZoomService,
+              private _windowService: WindowService) {
 
     _zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val;
     });
+
+    this.isDesktop = _windowService.isDesktop();
   }
 
   ngOnInit() {
@@ -130,7 +135,6 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   translate(deltaX, deltaY) {
     // We restrict to the min of the viewport width/height or current width/height as the
     // current width/height may be smaller than the viewport width/height
-
     const newX = this.restrictRawPos(this.lastX + deltaX/this.scale,
                               Math.min(this.viewportWidth, this.curWidth), this.docWidth);
     this.x = newX;
@@ -148,9 +152,6 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
 
     this.curWidth = this.docWidth*this.scale;
     this.curHeight = this.docHeight*this.scale;
-    
-    // TODO: maybe this is not correct
-    this.doc.style.transformOrigin = 'left top';
 
     // Adjust margins to make sure that we aren't out of bounds
     this.translate(0, 0);
@@ -218,17 +219,23 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   onPan($event){
-    this.translate($event.deltaX, $event.deltaY);
+    if (!this.isDesktop) {
+      this.translate($event.deltaX, $event.deltaY);
+    }
   }
 
   onPanEnd($event){
-    this.updateLastPos();
+    if (!this.isDesktop) {
+      this.updateLastPos();
+    }
   }
 
   onDoubleTap($event){
-    if ($event.tapCount === 2) {
-      const c = this.rawCenter($event);
-      this.zoomAround(2, c.x, c.y, false);
+    if (!this.isDesktop) {
+      if ($event.tapCount === 2) {
+        const c = this.rawCenter($event);
+        this.zoomAround(2, c.x, c.y, false);
+      }
     }
   }
 }
