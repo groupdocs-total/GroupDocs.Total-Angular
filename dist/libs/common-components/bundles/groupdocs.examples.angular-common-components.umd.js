@@ -1242,20 +1242,18 @@
         /**
          * @param {?} pos
          * @param {?} viewportDim
-         * @param {?} imgDim
+         * @param {?} docDim
          * @return {?}
          */
         DocumentComponent.prototype.restrictRawPos = /**
          * @param {?} pos
          * @param {?} viewportDim
-         * @param {?} imgDim
+         * @param {?} docDim
          * @return {?}
          */
-        function (pos, viewportDim, imgDim) {
-            /** @type {?} */
-            var scaledViewport = viewportDim / this.scale;
-            if (pos < scaledViewport - imgDim) { // too far left/up?
-                pos = scaledViewport - imgDim;
+        function (pos, viewportDim, docDim) {
+            if (pos < viewportDim / this.scale - docDim) { // too far left/up?
+                pos = viewportDim / this.scale - docDim;
             }
             else if (pos > 0) { // too far right/down?
                 pos = 0;
@@ -1288,18 +1286,19 @@
             /** @type {?} */
             var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
             this.x = newX;
-            this.doc.scrollLeft = Math.ceil(newX * this.scale);
+            // TODO: value here and in the similar line below changes to positive to take any effect
+            this.container.scrollLeft = -Math.ceil(newX * this.scale);
             /** @type {?} */
             var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
             this.y = newY;
+            this.container.scrollTop = -Math.ceil(newY * this.scale);
             this.doc.style.transform = 'scale(' + this.scale + ')';
-            this.doc.scrollTop = Math.ceil(newY * this.scale);
         };
         /**
          * @param {?} scaleBy
          * @return {?}
          */
-        DocumentComponent.prototype.zoomTranslate = /**
+        DocumentComponent.prototype.startZoom = /**
          * @param {?} scaleBy
          * @return {?}
          */
@@ -1357,7 +1356,7 @@
          */
         function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
             // Zoom
-            this.zoomTranslate(scaleBy);
+            this.startZoom(scaleBy);
             // New raw center of viewport
             /** @type {?} */
             var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
@@ -1424,9 +1423,10 @@
          * @return {?}
          */
         function ($event) {
-            if (!this.isDesktop) {
-                this.translate($event.deltaX, $event.deltaY);
-            }
+            // TODO: looks like native pan works better
+            // if (!this.isDesktop) {
+            //   this.translate($event.deltaX, $event.deltaY);
+            // }
         };
         /**
          * @param {?} $event
@@ -1437,9 +1437,9 @@
          * @return {?}
          */
         function ($event) {
-            if (!this.isDesktop) {
-                this.updateLastPos();
-            }
+            // if (!this.isDesktop) {
+            //   this.updateLastPos();
+            // }
         };
         /**
          * @param {?} $event

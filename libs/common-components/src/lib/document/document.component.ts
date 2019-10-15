@@ -117,10 +117,9 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     return { x: x, y: y };
   };
 
-  restrictRawPos(pos, viewportDim, imgDim) {
-    const scaledViewport = viewportDim/this.scale;
-    if (pos < scaledViewport - imgDim) { // too far left/up?
-      pos = scaledViewport - imgDim;
+  restrictRawPos(pos, viewportDim, docDim) {
+    if (pos < viewportDim/this.scale - docDim) { // too far left/up?
+      pos = viewportDim/this.scale - docDim;
     } else if (pos > 0) { // too far right/down?
       pos = 0;
     }
@@ -138,16 +137,18 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     const newX = this.restrictRawPos(this.lastX + deltaX/this.scale,
                               Math.min(this.viewportWidth, this.curWidth), this.docWidth);
     this.x = newX;
-    this.doc.scrollLeft = Math.ceil(newX*this.scale);
+    // TODO: value here and in the similar line below changes to positive to take any effect
+    this.container.scrollLeft = -Math.ceil(newX*this.scale);
 
     const newY = this.restrictRawPos(this.lastY + deltaY/this.scale,
                               Math.min(this.viewportHeight, this.curHeight), this.docHeight);
     this.y = newY;
+    this.container.scrollTop = -Math.ceil(newY*this.scale);
+    
     this.doc.style.transform = 'scale(' + this.scale + ')';
-    this.doc.scrollTop = Math.ceil(newY*this.scale);
   };
 
-  zoomTranslate(scaleBy) {
+  startZoom(scaleBy) {
     this.scale = this.lastScale*scaleBy;
 
     this.curWidth = this.docWidth*this.scale;
@@ -176,7 +177,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
 
   zoomAround(scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
     // Zoom
-    this.zoomTranslate(scaleBy);
+    this.startZoom(scaleBy);
 
     // New raw center of viewport
     const rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth)/2/this.scale;
@@ -208,7 +209,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
     const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
     const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
-
+    
     this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
   }
 
@@ -219,15 +220,16 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   onPan($event){
-    if (!this.isDesktop) {
-      this.translate($event.deltaX, $event.deltaY);
-    }
+    // TODO: looks like native pan works better
+    // if (!this.isDesktop) {
+    //   this.translate($event.deltaX, $event.deltaY);
+    // }
   }
 
   onPanEnd($event){
-    if (!this.isDesktop) {
-      this.updateLastPos();
-    }
+    // if (!this.isDesktop) {
+    //   this.updateLastPos();
+    // }
   }
 
   onDoubleTap($event){
