@@ -11,6 +11,7 @@
 
   .format-select {
     margin: 7px 15px;
+    max-width: 80px;
   }
 }
 
@@ -33,4 +34,50 @@
 
 
 @media @phone-down {
+  .gd-text-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    background-color: white;
+    border: 2px solid #707070;
+
+    ::ng-deep .selected-value {
+      white-space: normal !important;
+      word-wrap: break-word;
+    }
+
+    .icon {
+      color: white;
+      margin: 0 9px 0 9px;
+    }
+
+    ::ng-deep .bcPicker-palette {
+      width: 286px !important;
+      position: unset !important;
+
+      .bcPicker-color {
+        width: 42px !important;
+        height: 24px !important;
+      }
+    }
+
+    .palette {
+      top: unset;
+      bottom: 40px;
+      left: unset;
+      right: 5px;
+    }
+
+    ::ng-deep .dropdown-menu {
+      bottom: 40px;
+      top: unset;
+    }
+  }
+
 }

@@ -117,10 +117,13 @@ export class SignatureService {
 
   private toRgb(color: string) {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
-    const r = parseInt(result[1], 16);
-    const g = parseInt(result[2], 16);
-    const b = parseInt(result[3], 16);
-    return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
+    if (result) {
+      const r = parseInt(result[1], 16);
+      const g = parseInt(result[2], 16);
+      const b = parseInt(result[3], 16);
+      return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
+    }
+    return color;
   }
 
   private toHex(color: string) {
