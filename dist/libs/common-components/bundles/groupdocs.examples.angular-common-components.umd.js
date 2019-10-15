@@ -1172,28 +1172,6 @@
             return { x: x, y: y };
         };
         /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.rawCenter = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            /** @type {?} */
-            var pos = this.absolutePosition(this.container);
-            // We need to account for the scroll position
-            /** @type {?} */
-            var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-            /** @type {?} */
-            var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
-            /** @type {?} */
-            var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
-            /** @type {?} */
-            var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
-            return { x: zoomX, y: zoomY };
-        };
-        /**
          * @param {?} pos
          * @param {?} viewportDim
          * @param {?} imgDim
@@ -1217,6 +1195,16 @@
             return pos;
         };
         /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.updateLastPos = /**
+         * @return {?}
+         */
+        function () {
+            this.lastX = this.x;
+            this.lastY = this.y;
+        };
+        /**
          * @param {?} deltaX
          * @param {?} deltaY
          * @return {?}
@@ -1227,14 +1215,19 @@
          * @return {?}
          */
         function (deltaX, deltaY) {
+            // We restrict to the min of the viewport width/height or current width/height as the
+            // current width/height may be smaller than the viewport width/height
+            // We restrict to the min of the viewport width/height or current width/height as the
+            // current width/height may be smaller than the viewport width/height
             /** @type {?} */
             var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
             this.x = newX;
+            this.doc.scrollLeft = Math.ceil(newX * this.scale);
             /** @type {?} */
             var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
             this.y = newY;
-            this.doc.style.transform = 'translate(' + Math.ceil(newX * this.scale) + 'px,' + Math.ceil(newY * this.scale) + 'px)'
-                + 'scale(' + this.scale + ')';
+            this.doc.style.transform = 'scale(' + this.scale + ')';
+            this.doc.scrollTop = Math.ceil(newY * this.scale);
         };
         /**
          * @param {?} scaleBy
@@ -1254,6 +1247,28 @@
             this.translate(0, 0);
         };
         /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.rawCenter = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            /** @type {?} */
+            var pos = this.absolutePosition(this.container);
+            // We need to account for the scroll position
+            /** @type {?} */
+            var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
+            /** @type {?} */
+            var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+            /** @type {?} */
+            var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
+            /** @type {?} */
+            var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
+            return { x: zoomX, y: zoomY };
+        };
+        /**
          * @return {?}
          */
         DocumentComponent.prototype.updateLastScale = /**
@@ -1261,16 +1276,6 @@
          */
         function () {
             this.lastScale = this.scale;
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.updateLastPos = /**
-         * @return {?}
-         */
-        function () {
-            this.lastX = this.x;
-            this.lastY = this.y;
         };
         /**
          * @param {?} scaleBy
@@ -1387,7 +1392,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-document',
                         template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start;overflow:scroll}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
         /** @nocollapse */

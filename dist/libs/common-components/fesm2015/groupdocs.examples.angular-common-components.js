@@ -936,6 +936,67 @@ class DocumentComponent {
     }
     ;
     /**
+     * @param {?} pos
+     * @param {?} viewportDim
+     * @param {?} imgDim
+     * @return {?}
+     */
+    restrictRawPos(pos, viewportDim, imgDim) {
+        /** @type {?} */
+        const scaledViewport = viewportDim / this.scale;
+        if (pos < scaledViewport - imgDim) { // too far left/up?
+            pos = scaledViewport - imgDim;
+        }
+        else if (pos > 0) { // too far right/down?
+            pos = 0;
+        }
+        return pos;
+    }
+    ;
+    /**
+     * @return {?}
+     */
+    updateLastPos() {
+        this.lastX = this.x;
+        this.lastY = this.y;
+    }
+    ;
+    /**
+     * @param {?} deltaX
+     * @param {?} deltaY
+     * @return {?}
+     */
+    translate(deltaX, deltaY) {
+        // We restrict to the min of the viewport width/height or current width/height as the
+        // current width/height may be smaller than the viewport width/height
+        // We restrict to the min of the viewport width/height or current width/height as the
+        // current width/height may be smaller than the viewport width/height
+        /** @type {?} */
+        const newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
+        this.x = newX;
+        this.doc.scrollLeft = Math.ceil(newX * this.scale);
+        /** @type {?} */
+        const newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
+        this.y = newY;
+        this.doc.style.transform = 'scale(' + this.scale + ')';
+        this.doc.scrollTop = Math.ceil(newY * this.scale);
+    }
+    ;
+    /**
+     * @param {?} scaleBy
+     * @return {?}
+     */
+    zoomTranslate(scaleBy) {
+        this.scale = this.lastScale * scaleBy;
+        this.curWidth = this.docWidth * this.scale;
+        this.curHeight = this.docHeight * this.scale;
+        // TODO: maybe this is not correct
+        this.doc.style.transformOrigin = 'left top';
+        // Adjust margins to make sure that we aren't out of bounds
+        this.translate(0, 0);
+    }
+    ;
+    /**
      * @param {?} $event
      * @return {?}
      */
@@ -955,66 +1016,10 @@ class DocumentComponent {
     }
     ;
     /**
-     * @param {?} pos
-     * @param {?} viewportDim
-     * @param {?} imgDim
-     * @return {?}
-     */
-    restrictRawPos(pos, viewportDim, imgDim) {
-        /** @type {?} */
-        const scaledViewport = viewportDim / this.scale;
-        if (pos < scaledViewport - imgDim) { // too far left/up?
-            pos = scaledViewport - imgDim;
-        }
-        else if (pos > 0) { // too far right/down?
-            pos = 0;
-        }
-        return pos;
-    }
-    ;
-    /**
-     * @param {?} deltaX
-     * @param {?} deltaY
-     * @return {?}
-     */
-    translate(deltaX, deltaY) {
-        /** @type {?} */
-        const newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
-        this.x = newX;
-        /** @type {?} */
-        const newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
-        this.y = newY;
-        this.doc.style.transform = 'translate(' + Math.ceil(newX * this.scale) + 'px,' + Math.ceil(newY * this.scale) + 'px)'
-            + 'scale(' + this.scale + ')';
-    }
-    ;
-    /**
-     * @param {?} scaleBy
-     * @return {?}
-     */
-    zoomTranslate(scaleBy) {
-        this.scale = this.lastScale * scaleBy;
-        this.curWidth = this.docWidth * this.scale;
-        this.curHeight = this.docHeight * this.scale;
-        // TODO: maybe this is not correct
-        this.doc.style.transformOrigin = 'left top';
-        // Adjust margins to make sure that we aren't out of bounds
-        this.translate(0, 0);
-    }
-    ;
-    /**
      * @return {?}
      */
     updateLastScale() {
         this.lastScale = this.scale;
-    }
-    ;
-    /**
-     * @return {?}
-     */
-    updateLastPos() {
-        this.lastX = this.x;
-        this.lastY = this.y;
     }
     ;
     /**
@@ -1107,7 +1112,7 @@ DocumentComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-document',
                 template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start;overflow:scroll}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
             }] }
 ];
 /** @nocollapse */

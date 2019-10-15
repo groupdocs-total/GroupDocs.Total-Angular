@@ -112,19 +112,6 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     return { x: x, y: y };
   };
 
-  rawCenter($event) {
-    const pos = this.absolutePosition(this.container);
-
-    // We need to account for the scroll position
-    const scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-    const scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
-
-    const zoomX = -this.x + ($event.center.x - pos.x + scrollLeft)/this.scale;
-    const zoomY = -this.y + ($event.center.y - pos.y + scrollTop)/this.scale;
-
-    return { x: zoomX, y: zoomY };
-  };
-
   restrictRawPos(pos, viewportDim, imgDim) {
     const scaledViewport = viewportDim/this.scale;
     if (pos < scaledViewport - imgDim) { // too far left/up?
@@ -135,16 +122,25 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     return pos;
   };
 
+  updateLastPos() {
+    this.lastX = this.x;
+    this.lastY = this.y;
+  };
+
   translate(deltaX, deltaY) {
+    // We restrict to the min of the viewport width/height or current width/height as the
+    // current width/height may be smaller than the viewport width/height
+
     const newX = this.restrictRawPos(this.lastX + deltaX/this.scale,
                               Math.min(this.viewportWidth, this.curWidth), this.docWidth);
     this.x = newX;
+    this.doc.scrollLeft = Math.ceil(newX*this.scale);
+
     const newY = this.restrictRawPos(this.lastY + deltaY/this.scale,
                               Math.min(this.viewportHeight, this.curHeight), this.docHeight);
     this.y = newY;
-
-    this.doc.style.transform = 'translate(' + Math.ceil(newX*this.scale) + 'px,' + Math.ceil(newY*this.scale) + 'px)' 
-                                 + 'scale(' + this.scale + ')';
+    this.doc.style.transform = 'scale(' + this.scale + ')';
+    this.doc.scrollTop = Math.ceil(newY*this.scale);
   };
 
   zoomTranslate(scaleBy) {
@@ -160,13 +156,21 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     this.translate(0, 0);
   };
 
-  updateLastScale() {
-    this.lastScale = this.scale;
+  rawCenter($event) {
+    const pos = this.absolutePosition(this.container);
+
+    // We need to account for the scroll position
+    const scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
+    const scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+
+    const zoomX = -this.x + ($event.center.x - pos.x + scrollLeft)/this.scale;
+    const zoomY = -this.y + ($event.center.y - pos.y + scrollTop)/this.scale;
+
+    return { x: zoomX, y: zoomY };
   };
 
-  updateLastPos() {
-    this.lastX = this.x;
-    this.lastY = this.y;
+  updateLastScale() {
+    this.lastScale = this.scale;
   };
 
   zoomAround(scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
