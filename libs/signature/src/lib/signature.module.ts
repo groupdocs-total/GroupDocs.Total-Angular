@@ -4,7 +4,9 @@ import {
   Api,
   CommonComponentsModule,
   ConfigService,
-  ErrorInterceptorService
+  ErrorInterceptorService,
+  LoadingMaskInterceptorService,
+  LoadingMaskService
 } from "@groupdocs.examples.angular/common-components";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {SignatureService} from "./signature.service";
@@ -40,6 +42,12 @@ import {CopySignatureService} from "./copy-signature.service";
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
   return result;
+}
+
+// NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
+// @dynamic
+export function setupLoadingInterceptor(service: LoadingMaskService) {
+  return new LoadingMaskInterceptorService(service);
 }
 
 @NgModule({
@@ -98,6 +106,13 @@ export function initializeApp(signatureConfigService: SignatureConfigService) {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [SignatureConfigService], multi: true
+    },
+    LoadingMaskService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: setupLoadingInterceptor,
+      multi: true,
+      deps: [LoadingMaskService]
     }
   ],
   entryComponents: [

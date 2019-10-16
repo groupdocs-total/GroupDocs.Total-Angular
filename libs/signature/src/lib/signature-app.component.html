@@ -1,4 +1,4 @@
-<gd-loading-mask></gd-loading-mask>
+<gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
 <div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
   <gd-tabbed-toolbars [logo]="'signature'" [icon]="'pen-square'">
     <gd-tabs>

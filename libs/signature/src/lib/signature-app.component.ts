@@ -18,7 +18,10 @@ import {
   AddDynamicComponentService,
   OnCloseService,
   ExceptionMessageService,
-  WindowService, Utils, TabActivatorService
+  WindowService,
+  Utils,
+  TabActivatorService,
+  LoadingMaskService
 } from "@groupdocs.examples.angular/common-components";
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
@@ -75,6 +78,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
 
   signatureComponents = new Map<number, ComponentRef<any>>();
   activeSignatureTab: string;
+  isLoading: boolean;
 
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -97,7 +101,8 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
               private _excMessageService: ExceptionMessageService,
               private _signaturesHolderService: SignaturesHolderService,
               private _tabActivatorService: TabActivatorService,
-              copySignatureService: CopySignatureService) {
+              copySignatureService: CopySignatureService,
+              private _loadingMaskService: LoadingMaskService) {
 
     this._tabActivatorService.activeTabChange.subscribe((tabId: string) => {
       if (tabId === '1') {
@@ -213,6 +218,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit(): void {
     if (this.defaultDocumentConfig()) {
+      this.isLoading = true;
       this.selectFile(this.defaultDocumentConfig(), "", "");
     }
   }
@@ -370,7 +376,10 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
     return this.enableRightClickConfig;
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
+    this._loadingMaskService
+      .onLoadingChanged
+      .subscribe((loading: boolean) => this.isLoading = loading);
   }
 
   getSignatureTypeConfig(id: string) {
