@@ -39,10 +39,10 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
         x: number;
         y: number;
     };
-    restrictRawPos(pos: any, viewportDim: any, imgDim: any): any;
+    restrictRawPos(pos: any, viewportDim: any, docDim: any): any;
     updateLastPos(): void;
     translate(deltaX: any, deltaY: any): void;
-    zoomTranslate(scaleBy: any): void;
+    startZoom(scaleBy: any): void;
     rawCenter($event: any): {
         x: number;
         y: number;

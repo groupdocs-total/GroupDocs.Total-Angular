@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, QueryList, OnInit } from '@angular/core';
+import { AfterViewInit, OnInit } from '@angular/core';
 import { ViewerService } from "./viewer.service";
 import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
 import { ViewerConfig } from "./viewer-config";
@@ -28,8 +28,8 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     _pageWidth: number;
     _pageHeight: number;
     options: any;
-    docPanelComponent: QueryList<ElementRef>;
     fileWasDropped: boolean;
+    formatIcon: string;
     constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
@@ -79,7 +79,5 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private clearData;
     onRightClick($event: MouseEvent): boolean;
     openSearch(): void;
-    onPinchIn($event: any): void;
-    onPinchOut($event: any): void;
     private refreshZoom;
 }
