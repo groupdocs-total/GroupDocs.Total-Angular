@@ -396,6 +396,15 @@ class EditorAppComponent {
     /**
      * @return {?}
      */
+    ngOnInit() {
+        if (this.editorConfig.defaultDocument !== "") {
+            this.isLoading = true;
+            this.selectFile(this.editorConfig.defaultDocument, "", "");
+        }
+    }
+    /**
+     * @return {?}
+     */
     ngAfterViewInit() {
         this._loadingMaskService
             .onLoadingChanged

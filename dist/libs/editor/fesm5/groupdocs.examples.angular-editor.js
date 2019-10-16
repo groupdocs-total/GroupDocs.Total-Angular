@@ -413,6 +413,18 @@ var EditorAppComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    EditorAppComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        if (this.editorConfig.defaultDocument !== "") {
+            this.isLoading = true;
+            this.selectFile(this.editorConfig.defaultDocument, "", "");
+        }
+    };
+    /**
+     * @return {?}
+     */
     EditorAppComponent.prototype.ngAfterViewInit = /**
      * @return {?}
      */
