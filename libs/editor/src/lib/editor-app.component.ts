@@ -1,4 +1,4 @@
-import {Component, AfterViewInit} from '@angular/core';
+import {Component, AfterViewInit, OnInit} from '@angular/core';
 import {EditorService} from "./editor.service";
 import {
   FileDescription,
@@ -30,7 +30,7 @@ const $ = jquery;
   templateUrl: './editor-app.component.html',
   styleUrls: ['./editor-app.component.less']
 })
-export class EditorAppComponent implements AfterViewInit  {
+export class EditorAppComponent implements OnInit, AfterViewInit  {
   title = 'editor';
   files: FileModel[] = [];
   file: FileDescription;
@@ -165,6 +165,13 @@ export class EditorAppComponent implements AfterViewInit  {
         this.textBackup = text;
       }
     });
+  }
+
+  ngOnInit() {
+    if (this.editorConfig.defaultDocument !== ""){
+      this.isLoading = true;
+      this.selectFile(this.editorConfig.defaultDocument, "", "");
+    }
   }
 
   ngAfterViewInit() {
