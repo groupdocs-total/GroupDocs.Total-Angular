@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('rxjs'), require('jquery'), require('@angular/platform-browser'), require('rxjs/operators'), require('ng-click-outside')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'rxjs', 'jquery', '@angular/platform-browser', 'rxjs/operators', 'ng-click-outside'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.rxjs, global.jquery, global.ng.platformBrowser, global.rxjs.operators, global.ngClickOutside));
-}(this, function (exports, core, common, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, rxjs, jquery, platformBrowser, operators, ngClickOutside) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('rxjs'), require('jquery'), require('hammerjs'), require('rxjs/operators'), require('@angular/platform-browser'), require('ng-click-outside')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'rxjs', 'jquery', 'hammerjs', 'rxjs/operators', '@angular/platform-browser', 'ng-click-outside'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.rxjs, global.jquery, global.Hammer, global.rxjs.operators, global.ng.platformBrowser, global.ngClickOutside));
+}(this, function (exports, core, common, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, rxjs, jquery, Hammer, operators, platformBrowser, ngClickOutside) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1035,19 +1035,104 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
+    var MOBILE_MAX_WIDTH = 425;
+    /** @type {?} */
+    var TABLET_MAX_WIDTH = 1024;
+    var WindowService = /** @class */ (function () {
+        function WindowService() {
+            var _this = this;
+            this.resizeSubject = new rxjs.Subject();
+            this.width = window.innerWidth;
+            this.height = window.innerHeight;
+            this._resize$ = rxjs.fromEvent(window, 'resize')
+                .pipe(operators.debounceTime(200), operators.distinctUntilChanged(), operators.startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), operators.tap((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) {
+                _this.resizeSubject.next((/** @type {?} */ (event.target)));
+                _this.width = ((/** @type {?} */ (event.target))).innerWidth;
+                _this.height = ((/** @type {?} */ (event.target))).innerHeight;
+            })));
+            this._resize$.subscribe();
+        }
+        Object.defineProperty(WindowService.prototype, "onResize", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.resizeSubject.asObservable();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isMobile = /**
+         * @return {?}
+         */
+        function () {
+            return this.width <= MOBILE_MAX_WIDTH;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isTablet = /**
+         * @return {?}
+         */
+        function () {
+            return this.width <= TABLET_MAX_WIDTH;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isDesktop = /**
+         * @return {?}
+         */
+        function () {
+            return !this.isMobile() && !this.isTablet();
+        };
+        return WindowService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
     var $$1 = jquery;
     var DocumentComponent = /** @class */ (function () {
-        function DocumentComponent(_elementRef, zoomService) {
+        function DocumentComponent(_elementRef, _zoomService, _windowService) {
             var _this = this;
             this._elementRef = _elementRef;
+            this._zoomService = _zoomService;
+            this._windowService = _windowService;
             this.wait = false;
-            zoomService.zoomChange.subscribe((/**
+            this.docWidth = null;
+            this.docHeight = null;
+            this.viewportWidth = null;
+            this.viewportHeight = null;
+            this.scale = null;
+            this.lastScale = null;
+            this.container = null;
+            this.doc = null;
+            this.x = 0;
+            this.lastX = 0;
+            this.y = 0;
+            this.lastY = 0;
+            this.pinchCenter = null;
+            this.pinchCenterOffset = null;
+            this.curWidth = 0;
+            this.curHeight = 0;
+            _zoomService.zoomChange.subscribe((/**
              * @param {?} val
              * @return {?}
              */
             function (val) {
                 _this.zoom = val;
             }));
+            this.isDesktop = _windowService.isDesktop();
         }
         /**
          * @return {?}
@@ -1056,6 +1141,57 @@
          * @return {?}
          */
         function () {
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ngOnChanges = /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
+            ((/** @type {?} */ (panzoom))).style.transform = '';
+            // TODO: this intersects with zooming by zoom directive, but still needed
+            // for flush previous settings before opening another file
+            //this._zoomService.changeZoom(100);
+            //this.scale = 1;
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+        function () {
+            // For current iteration we take .panzoom as a document
+            this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
+            // For current iteration we take .gd-document as a container
+            this.container = this._elementRef.nativeElement;
+            this.docWidth = this.doc.clientWidth;
+            this.docHeight = this.doc.clientHeight;
+            this.viewportWidth = this.doc.offsetWidth;
+            // For cases where we already have zoom defined we should include it
+            this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
+            this.lastScale = this.scale;
+            this.viewportHeight = this.container.offsetHeight;
+            this.curWidth = this.docWidth * this.scale;
+            this.curHeight = this.docHeight * this.scale;
+            /** @type {?} */
+            var hammer = new Hammer(this.container);
+        };
+        // TODO: this temporary crutch for Excel files should be documented
+        // TODO: this temporary crutch for Excel files should be documented
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ifExcel = 
+        // TODO: this temporary crutch for Excel files should be documented
+        /**
+         * @return {?}
+         */
+        function () {
+            return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
         };
         /**
          * @param {?} value
@@ -1083,17 +1219,257 @@
                 $$1(element).trigger('focus');
             }
         };
+        /**
+         * @param {?} el
+         * @return {?}
+         */
+        DocumentComponent.prototype.absolutePosition = /**
+         * @param {?} el
+         * @return {?}
+         */
+        function (el) {
+            /** @type {?} */
+            var x = 0;
+            /** @type {?} */
+            var y = 0;
+            while (el !== null) {
+                x += el.offsetLeft;
+                y += el.offsetTop;
+                el = el.offsetParent;
+            }
+            return { x: x, y: y };
+        };
+        /**
+         * @param {?} pos
+         * @param {?} viewportDim
+         * @param {?} docDim
+         * @return {?}
+         */
+        DocumentComponent.prototype.restrictRawPos = /**
+         * @param {?} pos
+         * @param {?} viewportDim
+         * @param {?} docDim
+         * @return {?}
+         */
+        function (pos, viewportDim, docDim) {
+            if (pos < viewportDim / this.scale - docDim) { // too far left/up?
+                pos = viewportDim / this.scale - docDim;
+            }
+            else if (pos > 0) { // too far right/down?
+                pos = 0;
+            }
+            return pos;
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.updateLastPos = /**
+         * @return {?}
+         */
+        function () {
+            this.lastX = this.x;
+            this.lastY = this.y;
+        };
+        /**
+         * @param {?} deltaX
+         * @param {?} deltaY
+         * @return {?}
+         */
+        DocumentComponent.prototype.translate = /**
+         * @param {?} deltaX
+         * @param {?} deltaY
+         * @return {?}
+         */
+        function (deltaX, deltaY) {
+            // We restrict to the min of the viewport width/height or current width/height as the
+            // current width/height may be smaller than the viewport width/height
+            /** @type {?} */
+            var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
+            this.x = newX;
+            // TODO: value here and in the similar line below changes to positive to take any effect
+            this.container.scrollLeft = -Math.ceil(newX * this.scale);
+            /** @type {?} */
+            var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
+            this.y = newY;
+            this.container.scrollTop = -Math.ceil(newY * this.scale);
+            this.doc.style.transform = 'scale(' + this.scale + ')';
+        };
+        /**
+         * @param {?} scaleBy
+         * @return {?}
+         */
+        DocumentComponent.prototype.startZoom = /**
+         * @param {?} scaleBy
+         * @return {?}
+         */
+        function (scaleBy) {
+            this.scale = this.lastScale * scaleBy;
+            this.curWidth = this.docWidth * this.scale;
+            this.curHeight = this.docHeight * this.scale;
+            // Adjust margins to make sure that we aren't out of bounds
+            this.translate(0, 0);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.rawCenter = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            /** @type {?} */
+            var pos = this.absolutePosition(this.container);
+            // We need to account for the scroll position
+            /** @type {?} */
+            var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
+            /** @type {?} */
+            var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+            /** @type {?} */
+            var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
+            /** @type {?} */
+            var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
+            return { x: zoomX, y: zoomY };
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.updateLastScale = /**
+         * @return {?}
+         */
+        function () {
+            this.lastScale = this.scale;
+        };
+        /**
+         * @param {?} scaleBy
+         * @param {?} rawZoomX
+         * @param {?} rawZoomY
+         * @param {?} doNotUpdateLast
+         * @return {?}
+         */
+        DocumentComponent.prototype.zoomAround = /**
+         * @param {?} scaleBy
+         * @param {?} rawZoomX
+         * @param {?} rawZoomY
+         * @param {?} doNotUpdateLast
+         * @return {?}
+         */
+        function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
+            // Zoom
+            this.startZoom(scaleBy);
+            // New raw center of viewport
+            /** @type {?} */
+            var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
+            /** @type {?} */
+            var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
+            // Delta
+            /** @type {?} */
+            var deltaX = (rawCenterX - rawZoomX) * this.scale;
+            /** @type {?} */
+            var deltaY = (rawCenterY - rawZoomY) * this.scale;
+            // Translate back to zoom center
+            this.translate(deltaX, deltaY);
+            if (!doNotUpdateLast) {
+                this.updateLastScale();
+                this.updateLastPos();
+            }
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onPinch = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            if (this.pinchCenter === null) {
+                this.pinchCenter = this.rawCenter($event);
+                /** @type {?} */
+                var offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
+                /** @type {?} */
+                var offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
+                this.pinchCenterOffset = { x: offsetX, y: offsetY };
+            }
+            /** @type {?} */
+            var newScale = this.scale * $event.scale;
+            /** @type {?} */
+            var zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
+            /** @type {?} */
+            var zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
+            /** @type {?} */
+            var zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
+            this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onPinchEnd = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.updateLastScale();
+            this.updateLastPos();
+            this.pinchCenter = null;
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onPan = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            // TODO: looks like native pan works better
+            // if (!this.isDesktop) {
+            //   this.translate($event.deltaX, $event.deltaY);
+            // }
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onPanEnd = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            // if (!this.isDesktop) {
+            //   this.updateLastPos();
+            // }
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onDoubleTap = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            if (!this.isDesktop) {
+                if ($event.tapCount === 2) {
+                    /** @type {?} */
+                    var c = this.rawCenter($event);
+                    this.zoomAround(2, c.x, c.y, false);
+                }
+            }
+        };
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}.panzoom.mobile{overflow:scroll}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
         /** @nocollapse */
         DocumentComponent.ctorParameters = function () { return [
             { type: core.ElementRef },
-            { type: ZoomService }
+            { type: ZoomService },
+            { type: WindowService }
         ]; };
         DocumentComponent.propDecorators = {
             mode: [{ type: core.Input }],
@@ -1132,6 +1508,8 @@
          * @return {?}
          */
         function (changes) {
+            // TODO: this is needed for test purpose to reduce unneeded top-margin
+            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><') : null;
             /** @type {?} */
             var dataImagePngBase64 = 'data:image/png;base64,';
             this.imgData = dataImagePngBase64;
@@ -1143,7 +1521,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-page',
                         template: "<div id=\"page-{{number}}\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}.gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%!important;width:100%!important}"]
+                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%!important;width:100%!important}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1614,72 +1992,6 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var MOBILE_MAX_WIDTH = 425;
-    /** @type {?} */
-    var TABLET_MAX_WIDTH = 1024;
-    var WindowService = /** @class */ (function () {
-        function WindowService() {
-            var _this = this;
-            this.resizeSubject = new rxjs.Subject();
-            this.width = window.innerWidth;
-            this.height = window.innerHeight;
-            this._resize$ = rxjs.fromEvent(window, 'resize')
-                .pipe(operators.debounceTime(200), operators.distinctUntilChanged(), operators.startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), operators.tap((/**
-             * @param {?} event
-             * @return {?}
-             */
-            function (event) {
-                _this.resizeSubject.next((/** @type {?} */ (event.target)));
-                _this.width = ((/** @type {?} */ (event.target))).innerWidth;
-                _this.height = ((/** @type {?} */ (event.target))).innerHeight;
-            })));
-            this._resize$.subscribe();
-        }
-        Object.defineProperty(WindowService.prototype, "onResize", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this.resizeSubject.asObservable();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isMobile = /**
-         * @return {?}
-         */
-        function () {
-            return this.width <= MOBILE_MAX_WIDTH;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isTablet = /**
-         * @return {?}
-         */
-        function () {
-            return this.width <= TABLET_MAX_WIDTH;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isDesktop = /**
-         * @return {?}
-         */
-        function () {
-            return !this.isMobile() && !this.isTablet();
-        };
-        return WindowService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
     var $$2 = jquery;
     var ViewportService = /** @class */ (function () {
         function ViewportService() {
@@ -2059,6 +2371,7 @@
          */
         function () {
             this.setStyles(this._zoomService.zoom);
+            this.resizePages(this._zoomService.zoom);
         };
         /**
          * @return {?}
@@ -2124,7 +2437,8 @@
                     }
                 }
             }));
-            this.minWidth = maxWidth + 'pt';
+            // Images and Excel-related files receiving dimensions in px from server
+            this.minWidth = maxWidth + FileUtil.find(this.file.guid, false).unit;
         };
         /**
          * @private
@@ -3153,7 +3467,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-search',
                         template: "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <div class=\"gd-nav-search-btn\" (click)=\"prev()\">\r\n    <fa-icon [icon]=\"['fas','chevron-left']\"></fa-icon>\r\n  </div>\r\n  <div class=\"gd-nav-search-btn\" (click)=\"next()\">\r\n    <fa-icon [icon]=\"['fas','chevron-right']\"></fa-icon>\r\n  </div>\r\n  <div class=\"gd-nav-search-btn gd-nav-search-cancel\" (click)=\"hide()\">\r\n    <fa-icon [icon]=\"['fas','times']\"></fa-icon>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-nav-search-btn{float:left;cursor:pointer;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px 7px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;left:232px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:194px;top:15px}.gd-nav-search-container{width:100%}}"]
+                        styles: [".gd-nav-search-btn{float:left;cursor:pointer;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px 7px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;right:151px;top:15px}.gd-nav-search-container{width:100%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3270,7 +3584,7 @@
                         left: 0,
                         top: ($$4(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
                     };
-                    el.parentElement.scrollTo(options);
+                    el.parentElement.parentElement.scrollTo(options);
                 }
             }
         };

@@ -1,5 +1,6 @@
 import {AfterViewInit, Directive, HostBinding, Input, OnDestroy, OnInit, ElementRef, OnChanges} from '@angular/core';
 import {ZoomService} from "./zoom.service";
+import {FileUtil} from "./file.service";
 
 @Directive({
   selector: '[gdZoom]'
@@ -27,6 +28,7 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
 
   ngOnChanges(): void {
     this.setStyles(this._zoomService.zoom);
+    this.resizePages(this._zoomService.zoom);
   }
 
   ngOnInit(): void {
@@ -72,7 +74,9 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
         }
       }
     });
-    this.minWidth = maxWidth + 'pt';
+
+    // Images and Excel-related files receiving dimensions in px from server
+    this.minWidth = maxWidth + FileUtil.find(this.file.guid, false).unit;
   }
 
   private getScrollWidth(elm){

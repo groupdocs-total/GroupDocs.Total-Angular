@@ -18,7 +18,7 @@ import {
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
-import * as Hammer from 'hammerjs';
+//import * as Hammer from 'hammerjs';
 
 @Component({
   selector: 'gd-viewer',
@@ -43,8 +43,9 @@ export class ViewerAppComponent implements AfterViewInit {
   _pageWidth: number;
   _pageHeight: number;
   options;
-  @ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
+  //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
   fileWasDropped = false;
+  formatIcon: string;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -101,13 +102,13 @@ export class ViewerAppComponent implements AfterViewInit {
 
     this.refreshZoom();
 
-    this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
-    {
-      comps.toArray().forEach((item) => {
-        const hammer = new Hammer(item.nativeElement);
-        hammer.get('pinch').set({ enable: true });
-      });
-    });
+    // this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
+    // {
+    //   comps.toArray().forEach((item) => {
+    //     const hammer = new Hammer(item.nativeElement);
+    //     hammer.get('pinch').set({ enable: true });
+    //   });
+    // });
   }
 
   get rewriteConfig(): boolean {
@@ -277,16 +278,17 @@ export class ViewerAppComponent implements AfterViewInit {
   }
 
   private getFitToWidth() {
-    const pageWidth = this.ptToPx(this._pageWidth);
-    const pageHeight = this.ptToPx(this._pageHeight);
+    // Images and Excel-related files receiving dimensions in px from server
+    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
     return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
   }
 
   private getFitToHeight() {
-    const pageWidth = this.ptToPx(this._pageWidth);
-    const pageHeight = this.ptToPx(this._pageHeight);
+    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
     const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
     const offsetHeight = pageHeight ? pageHeight : windowHeight;
 
@@ -409,15 +411,16 @@ export class ViewerAppComponent implements AfterViewInit {
     this.showSearch = !this.showSearch;
   }
 
-  onPinchIn($event){
-    this.zoomOut();
-  }
+  // onPinchIn($event){
+  //   this.zoomOut();
+  // }
 
-  onPinchOut($event){
-    this.zoomIn();
-  }
+  // onPinchOut($event){
+  //   this.zoomIn();
+  // }
 
   private refreshZoom() {
+    this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
     this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
   }
 }
