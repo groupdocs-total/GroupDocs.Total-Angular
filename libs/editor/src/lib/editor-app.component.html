@@ -3,7 +3,7 @@
   <gd-tabbed-toolbars>
     <gd-tabs>
       <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
-        <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
+        <gd-top-toolbar class="toolbar-panel">
           <gd-button [icon]="'file'" [tooltip]="'Create document'" (click)="createFile()"
                      *ngIf="createNewFileConfig"></gd-button>
           <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
@@ -19,7 +19,7 @@
         </gd-top-toolbar>
       </gd-tab>
       <gd-tab [tabTitle]="'Formatting'" [icon]="'edit'" [id]="'2'">
-        <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
+        <gd-top-toolbar class="toolbar-panel">
 
           <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Undo'"
                      (click)="toggleUndo()"></gd-button>

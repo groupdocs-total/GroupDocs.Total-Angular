@@ -1,10 +1,9 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'gd-page',
   templateUrl: './page.component.html',
-  styleUrls: ['./page.component.less'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./page.component.less']
 })
 export class PageComponent implements OnInit, OnChanges {
 
@@ -28,11 +27,12 @@ export class PageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // TODO: this is needed for test purpose to reduce unneeded top-margin
+    this.data = this.data !== null ? this.data.replace(/>\s+</g,'><') : null;
     const dataImagePngBase64 = 'data:image/png;base64,';
     this.imgData = dataImagePngBase64;
     if (!this.isHtml) {
       this.imgData += this.data;
     }
   }
-
 }

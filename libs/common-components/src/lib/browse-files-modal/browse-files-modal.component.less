@@ -244,35 +244,34 @@
   background-color: #FFF;
   cursor: default;
   position: absolute;
-  width: inherit;
-  height: inherit;
+  width: 100%;
+  height: calc(100% - 60px);
   background: rgba(255,255,255,0.7);
   z-index: 1;
   display: flex;
-  text-align: center;
   justify-content: center;
-  align-content: center;
+  align-items: center;
+}
+
+.dnd-wrapper {
+  display: flex;
   flex-direction: column;
-  fa-icon {
-    color: @primary;
-    font-size: 90px;
+  align-items: center;
+  justify-content: center;
+  top: 259px;
+  position: absolute;
+  .text {
+    color: @dove-gray;
+    font-size: 14px;
   }
-}
-
-.gd-drag-n-drop-icon {
-  margin-top: -50px;
-}
-
-.gd-dnd-wrap h2 {
-  color: @dove-gray;
-  margin-top: 20px;
-  font-size: 14px;
-  font-weight: 300;
-}
-
-.gd-drag-n-drop-icon .fa-cloud-download-alt {
-  color: #D1D1D1;
-  font-size: 110px;
+  .icon {
+    display: flex;
+    width: 113px;
+    height: 90px;
+    font-size: 90px;
+    color: @primary;
+    margin-bottom: 30px;
+  }
 }
 
 @media (max-width: 1037px) {

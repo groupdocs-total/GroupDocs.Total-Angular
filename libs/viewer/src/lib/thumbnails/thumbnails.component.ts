@@ -1,22 +1,30 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FileUtil, NavigateService, PageModel} from "@groupdocs.examples.angular/common-components";
+import {Component, Input, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
+import {NavigateService, PageModel, ZoomService} from "@groupdocs.examples.angular/common-components";
 
 @Component({
   selector: 'gd-thumbnails',
   templateUrl: './thumbnails.component.html',
   styleUrls: ['./thumbnails.component.less']
 })
-export class ThumbnailsComponent implements OnInit {
+export class ThumbnailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() pages: PageModel[];
   @Input() guid: string;
   @Input() mode: boolean;
   @Input() isHtmlMode: boolean;
 
-  constructor(private _navigateService: NavigateService) {
+  constructor(private _navigateService: NavigateService, private _zoomService: ZoomService) {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this._zoomService.changeZoom(this._zoomService.zoom);
+  }
+
+  ngOnDestroy() {
+    this._zoomService.changeZoom(this._zoomService.zoom);
   }
 
   imgData(data: string) {
