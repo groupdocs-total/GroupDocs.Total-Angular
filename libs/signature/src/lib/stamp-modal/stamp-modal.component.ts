@@ -28,7 +28,7 @@ export class StampModalComponent implements OnInit, OnDestroy {
   private isMobile: boolean;
   private sizeMagnifier = 40;
   private activeId: number;
-  textProps = Formatting.DEFAULT;
+  textProps = Formatting.default();
 
   constructor(private _addDynamicComponentService: AddDynamicComponentService,
               private _activeCanvasService: ActiveCanvasService,

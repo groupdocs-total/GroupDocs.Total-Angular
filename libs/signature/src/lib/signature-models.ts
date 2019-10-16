@@ -99,7 +99,7 @@ export class SignatureData {
     ret.left = position.left;
     ret.top = position.top;
     ret.signatureGuid = data.guid;
-    if (data.props) {
+    if (data.props && data.props.width && data.props.height) {
       ret.imageWidth = data.props.width;
       ret.imageHeight = data.props.height;
     } else {
@@ -127,6 +127,12 @@ export class DigitalSign {
 }
 
 export class AddedSignature {
+
+  constructor() {
+    this.height = 0;
+    this.width = 0;
+  }
+
   guid: string;
   props: SignatureProps;
   data: string;
@@ -151,7 +157,7 @@ export class SignatureProps {
   public static getDefault(): SignatureProps {
     const props = new SignatureProps();
     props.text = "";
-    const f = Formatting.DEFAULT;
+    const f = Formatting.default();
     props.fontColor = f.color;
     props.font = f.font;
     props.fontSize = f.fontSize;

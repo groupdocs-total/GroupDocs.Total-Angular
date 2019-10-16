@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {
   Position,
   AddedSignature,
@@ -24,11 +24,13 @@ const $ = jquery;
   templateUrl: './signature.component.html',
   styleUrls: ['./signature.component.less']
 })
-export class Signature implements OnInit {
+export class Signature implements OnInit, AfterViewInit {
   @Input() id: number;
   @Input() data: AddedSignature;
   @Input() position: Position;
   @Input() type: string;
+  @Input() pageWidth: number;
+  @Input() pageHeight: number;
   active = true;
   private oldPosition: { x: number; y: number };
   private unlock = true;
@@ -76,6 +78,7 @@ export class Signature implements OnInit {
       const top = position.y - this.oldPosition.y;
       this.position.left += left;
       this.position.top += top;
+      this.correctPosition();
       this.oldPosition = position;
     }
   }
@@ -93,7 +96,7 @@ export class Signature implements OnInit {
 
   getFormatting() {
     const f = this.data.props;
-    const formatting = Formatting.DEFAULT;
+    const formatting = Formatting.default();
     if (f) {
       formatting.fontSize = f.fontSize;
       formatting.font = f.font;
@@ -108,13 +111,7 @@ export class Signature implements OnInit {
   saveTextSignature($event: Formatting) {
     if (this.data.props) {
       this.fillFormatting($event);
-      this._signatureService.saveTextSignature(this.data).subscribe((p: SignatureProps) => {
-        if (DraggableSignature.TEMP === this.data.guid) {
-          this._signaturesHolderService.changeTemp(p.imageGuid, this.id);
-          this.data.guid = p.imageGuid;
-        }
-        this.data.props = p;
-      });
+      this.sendSaveText();
     }
   }
 
@@ -148,6 +145,7 @@ export class Signature implements OnInit {
     if (!this.unlock) {
       this.data.height += $event;
     }
+    this.correctPosition();
     this.notifyChanges();
   }
 
@@ -156,6 +154,7 @@ export class Signature implements OnInit {
     if (!this.unlock) {
       this.data.width += $event;
     }
+    this.correctPosition();
     this.notifyChanges();
   }
 
@@ -163,6 +162,7 @@ export class Signature implements OnInit {
     if (this.unlock) {
       this.position.left += $event;
     }
+    this.correctPosition();
     this.notifyChanges();
   }
 
@@ -170,6 +170,7 @@ export class Signature implements OnInit {
     if (this.unlock) {
       this.position.top += $event;
     }
+    this.correctPosition();
     this.notifyChanges();
   }
 
@@ -198,5 +199,46 @@ export class Signature implements OnInit {
     copy.id = this.id;
     copy.type = this.type;
     this._copySignatureService.copy(copy);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.type === SignatureType.TEXT.id) {
+      setTimeout(() => {
+        const element = $("#text");
+        if (element) {
+          element.focus();
+        }
+      }, 100);
+    }
+  }
+
+  private correctPosition() {
+    if (this.position.left < 0) {
+      this.position.left = 0;
+    }
+    if (this.position.top < 0) {
+      this.position.top = 0;
+    }
+    if (this.position.top + this.data.height > this.pageHeight) {
+      this.position.top = this.pageHeight - this.data.height;
+    }
+    if (this.position.left + this.data.width > this.pageWidth) {
+      this.position.left = this.pageWidth - this.data.width;
+    }
+  }
+
+  saveText(value: string) {
+    this.data.props.text = value;
+    this.sendSaveText();
+  }
+
+  private sendSaveText() {
+    this._signatureService.saveTextSignature(this.data).subscribe((p: SignatureProps) => {
+      if (DraggableSignature.TEMP === this.data.guid) {
+        this._signaturesHolderService.changeTemp(p.imageGuid, this.id);
+        this.data.guid = p.imageGuid;
+      }
+      this.data.props = p;
+    });
   }
 }

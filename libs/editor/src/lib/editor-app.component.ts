@@ -40,7 +40,7 @@ export class EditorAppComponent implements AfterViewInit  {
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
-  formatting: Formatting = Formatting.DEFAULT;
+  formatting: Formatting = Formatting.default();
   fontSizeOptions = FormattingService.getFontSizeOptions();
   fontOptions = FormattingService.getFontOptions();
   bgColorPickerShow = false;

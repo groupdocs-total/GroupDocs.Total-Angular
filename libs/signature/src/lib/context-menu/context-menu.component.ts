@@ -10,7 +10,7 @@ import {
   styleUrls: ['./context-menu.component.less']
 })
 export class ContextMenuComponent implements OnInit {
-  @Input() formatting: Formatting = Formatting.DEFAULT;
+  @Input() formatting: Formatting = Formatting.default();
   @Input() textMenu: boolean;
   @Input() topPosition: number;
   @Input() lock = false;

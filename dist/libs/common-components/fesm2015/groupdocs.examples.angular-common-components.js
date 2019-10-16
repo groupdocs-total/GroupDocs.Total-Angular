@@ -3103,8 +3103,13 @@ class Formatting {
         this.align = align;
         this.list = list;
     }
+    /**
+     * @return {?}
+     */
+    static default() {
+        return new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+    }
 }
-Formatting.DEFAULT = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
 class FormattingService {
     constructor() {
         this._observerBold = new Subject();

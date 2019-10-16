@@ -136,7 +136,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
           if (page.number !== compPage) {
             addedSignature.number = page.number;
             sign.pageNumber = page.number;
-            const id = this.addSignatureComponent(addedSignature, sign, page.number);
+            const id = this.addSignatureComponent(addedSignature, sign, page);
             this._signaturesHolderService.addId(sign.guid, id);
           }
         }
@@ -433,22 +433,25 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
       addedSignature.guid = sign.guid;
       addedSignature.number = sign.pageNumber;
       for (const page of this.file.pages) {
-        const id = this.addSignatureComponent(addedSignature, sign, page.number);
+        const id = this.addSignatureComponent(addedSignature, sign, page);
         this._signaturesHolderService.addId(sign.guid, id);
       }
       this.closeTab(sign.type);
     } else {
       this._signatureService.loadSignatureImage(sign).subscribe((signature: AddedSignature) => {
         signature.number = sign.pageNumber;
-        const id = this.addSignatureComponent(signature, sign, sign.pageNumber);
+        const pageModel = this.file.pages.find(function (p) {
+          return p.number === sign.pageNumber;
+        });
+        const id = this.addSignatureComponent(signature, sign, pageModel);
         this._signaturesHolderService.addId(sign.guid, id);
         this.closeTab(sign.type);
       });
     }
   }
 
-  private addSignatureComponent(addedSignature: AddedSignature, sign: DraggableSignature, pageNumber: number) {
-    const dynamicDirective = this._hostingComponentsService.find(pageNumber);
+  private addSignatureComponent(addedSignature: AddedSignature, sign: DraggableSignature, page: PageModel) {
+    const dynamicDirective = this._hostingComponentsService.find(page.number);
     if (dynamicDirective) {
       const viewContainerRef = dynamicDirective.viewContainerRef;
       const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
@@ -457,6 +460,8 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
       (<Signature>selectSignature.instance).data = addedSignature;
       (<Signature>selectSignature.instance).position = sign.position;
       (<Signature>selectSignature.instance).type = sign.type;
+      (<Signature>selectSignature.instance).pageWidth = page.width;
+      (<Signature>selectSignature.instance).pageHeight = page.height;
       this.signatureComponents.set(id, selectSignature);
       this._activeSignatureService.changeActive(id);
       return id;
@@ -509,7 +514,12 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
     sign.position = new Position(0, 0);
     sign.type = SignatureType.TEXT.id;
     const pageNumber = this._navigateService.currentPage;
-    const id = this.addSignatureComponent(signature, sign, pageNumber);
+    signature.number = pageNumber;
+    sign.pageNumber = pageNumber;
+    const pageModel = this.file.pages.find(function (p) {
+      return p.number === pageNumber;
+    });
+    const id = this.addSignatureComponent(signature, sign, pageModel);
     this._signaturesHolderService.addId(sign.guid, id);
   }
 

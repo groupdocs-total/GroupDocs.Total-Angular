@@ -3754,7 +3754,15 @@ var Formatting = /** @class */ (function () {
         this.align = align;
         this.list = list;
     }
-    Formatting.DEFAULT = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+    /**
+     * @return {?}
+     */
+    Formatting.default = /**
+     * @return {?}
+     */
+    function () {
+        return new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+    };
     return Formatting;
 }());
 var FormattingService = /** @class */ (function () {
