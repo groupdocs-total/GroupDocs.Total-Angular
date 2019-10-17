@@ -59,6 +59,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               private _windowService: WindowService,
               private _loadingMaskService: LoadingMaskService) {
 
+    console.log('VewerAppComponent constructor');
+
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
     });

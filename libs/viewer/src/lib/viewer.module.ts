@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ViewerAppComponent} from './viewer-app.component';
+import {ViewerApp2Component} from './viewer-app2.component';
 import { Api, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
@@ -17,6 +18,7 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
 @NgModule({
   declarations: [
     ViewerAppComponent,
+    ViewerApp2Component,
     ThumbnailsComponent],
   imports: [
     BrowserModule,
@@ -26,6 +28,7 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
   ],
   exports : [
     ViewerAppComponent,
+    ViewerApp2Component,
     ThumbnailsComponent,
     CommonComponentsModule
   ],
