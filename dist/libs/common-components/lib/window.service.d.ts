@@ -9,4 +9,6 @@ export declare class WindowService {
     isMobile(): boolean;
     isTablet(): boolean;
     isDesktop(): boolean;
+    isEdge(): boolean;
+    isFirefox(): boolean;
 }

@@ -1,6 +1,7 @@
 import {AfterViewInit, Directive, HostBinding, Input, OnDestroy, OnInit, ElementRef, OnChanges} from '@angular/core';
 import {ZoomService} from "./zoom.service";
 import {FileUtil} from "./file.service";
+import { WindowService } from './window.service';
 
 @Directive({
   selector: '[gdZoom]'
@@ -10,8 +11,6 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
   @Input() zoomActive = true;
   @Input() file;
 
-  ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-
   @HostBinding('style.zoom') zoomInt: number;
   @HostBinding('style.transform') transform: string;
   @HostBinding('style.transform-origin') transformOrigin: string;
@@ -19,7 +18,7 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
   @HostBinding('style.min-width') minWidth: string;
   el: ElementRef<any>;
 
-  constructor(private _zoomService: ZoomService, el: ElementRef) {
+  constructor(private _zoomService: ZoomService, private _windowService: WindowService, el: ElementRef) {
     this.el = el;
   }
 
@@ -50,14 +49,14 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
 
     const zoomInt = zoom === 100 ? 1 : zoom / 100;
     
-    if (this.ifEdge) {
+    if (this._windowService.isEdge()) {
       this.zoomInt = zoomInt;
     }
     else {
       this.zoomInt = null;
     }
     
-    if (!this.ifEdge) {
+    if (!this._windowService.isEdge()) {
       this.transform = 'scale(' + zoomInt + ')';
       this.transformOrigin = 'top left';
     }

@@ -69,7 +69,8 @@ export class SearchableDirective {
           left: 0,
           top: ($(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
         };
-        el.parentElement.parentElement.scrollTo(options);
+        // using polyfill
+        el.parentElement.parentElement.scroll(options);
       }
     }
   }
