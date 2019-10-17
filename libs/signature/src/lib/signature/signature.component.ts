@@ -16,6 +16,8 @@ import {ActiveSignatureService} from "../active-signature.service";
 import * as jquery from 'jquery';
 import {SignaturesHolderService} from "../signatures-holder.service";
 import {CopySignatureService} from "../copy-signature.service";
+import {Subject} from "rxjs";
+import {debounceTime} from "rxjs/operators";
 
 const $ = jquery;
 
@@ -35,6 +37,8 @@ export class Signature implements OnInit, AfterViewInit {
   private oldPosition: { x: number; y: number };
   private unlock = true;
 
+  private subject: Subject<string> = new Subject();
+
   constructor(private _signatureService: SignatureService,
               private _removeSignatureService: RemoveSignatureService,
               private _copySignatureService: CopySignatureService,
@@ -47,6 +51,12 @@ export class Signature implements OnInit, AfterViewInit {
       } else {
         this.active = false;
       }
+    });
+
+    this.subject.pipe(
+      debounceTime(300)
+    ).subscribe(text => {
+      this.sendSaveText();
     });
   }
 
@@ -229,7 +239,7 @@ export class Signature implements OnInit, AfterViewInit {
 
   saveText(value: string) {
     this.data.props.text = value;
-    this.sendSaveText();
+    this.subject.next(value);
   }
 
   private sendSaveText() {

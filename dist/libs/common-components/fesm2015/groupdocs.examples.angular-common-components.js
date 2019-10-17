@@ -4114,15 +4114,27 @@ EditorDirective.propDecorators = {
 class LoadingMaskService {
     constructor() {
         this.onLoadingChanged = new EventEmitter();
+        this.stopList = [];
         this.requests = [];
+        this.stopList.push(Api.SAVE_TEXT);
+        this.stopList.push(Api.SAVE_OPTICAL_CODE);
     }
     /**
      * @param {?} req
      * @return {?}
      */
     onRequestStart(req) {
-        this.requests.push(req);
-        this.notify();
+        /** @type {?} */
+        const stop = this.stopList.find((/**
+         * @param {?} x
+         * @return {?}
+         */
+        x => req.url.includes(x)));
+        if (!stop) {
+            console.log(req.url);
+            this.requests.push(req);
+            this.notify();
+        }
     }
     /**
      * @param {?} req

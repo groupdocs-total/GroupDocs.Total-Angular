@@ -5068,7 +5068,10 @@
     var LoadingMaskService = /** @class */ (function () {
         function LoadingMaskService() {
             this.onLoadingChanged = new core.EventEmitter();
+            this.stopList = [];
             this.requests = [];
+            this.stopList.push(Api.SAVE_TEXT);
+            this.stopList.push(Api.SAVE_OPTICAL_CODE);
         }
         /**
          * @param {?} req
@@ -5079,8 +5082,17 @@
          * @return {?}
          */
         function (req) {
-            this.requests.push(req);
-            this.notify();
+            /** @type {?} */
+            var stop = this.stopList.find((/**
+             * @param {?} x
+             * @return {?}
+             */
+            function (x) { return req.url.includes(x); }));
+            if (!stop) {
+                console.log(req.url);
+                this.requests.push(req);
+                this.notify();
+            }
         };
         /**
          * @param {?} req
