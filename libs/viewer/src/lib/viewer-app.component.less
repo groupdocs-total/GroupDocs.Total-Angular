@@ -3,6 +3,12 @@
 :host * {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
+
+// TODO: this was added to get rid of `user-select: none` added by hammerjs
+.gd-document, /deep/ .document {
+  user-select: text !important;
+}
+
 .current-page-number {
   margin-left: 7px;
   font-size: 14px;
@@ -29,17 +35,13 @@
 
 .doc-panel {
   display: flex;
-  height: inherit;
+  height: calc(100vh - 60px);
+  flex-direction: row;
 }
 
 .thumbnails-button {
   position: absolute;
   right: 3px;
-}
-
-.gd-document {
-  width: 100%;
-  height: 100%;
 }
 
 .top-panel {
@@ -78,6 +80,23 @@
     margin-left: 7px;
     line-height: 37px;
     text-align: center;
+  }
+}
+
+@media (max-width: 1037px) {
+  .mobile-hide, .current-page-number {
+    display: none;
+  }
+
+  ::ng-deep .tools {
+    gd-button:nth-child(1) > .icon-button{
+      margin: 0px 0px 0px 10px !important;
+    }
+    .icon-button{
+      height: 60px !important;
+      width: 60px;
+      margin: 0px 0px 0px 7px !important;
+    }
   }
 }
 

@@ -18,6 +18,7 @@ export declare class ConversionAppComponent {
     readonly rewriteConfig: boolean;
     readonly browseConfig: boolean;
     readonly uploadConfig: boolean;
+    fileDropped($event: any): void;
     openModal(id: string): void;
     closeModal(id: string): void;
     upload($event: string): void;

@@ -3,7 +3,7 @@
   <gd-tabbed-toolbars [logo]="'editor'" [icon]="'pen-square'">
     <gd-tabs>
       <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
-        <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
+        <gd-top-toolbar class="toolbar-panel">
           <gd-button [icon]="'file'" [tooltip]="'Create document'" (click)="createFile()"
                      *ngIf="createNewFileConfig"></gd-button>
           <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
@@ -19,7 +19,7 @@
         </gd-top-toolbar>
       </gd-tab>
       <gd-tab [tabTitle]="'Formatting'" [icon]="'edit'" [id]="'2'">
-        <gd-top-toolbar class="toolbar-panel" [leftOffset]="false">
+        <gd-top-toolbar class="toolbar-panel">
 
           <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Undo'"
                      (click)="toggleUndo()"></gd-button>
@@ -66,14 +66,14 @@
                    [className]="'palette ' + (bgColorPickerShow ? 'background-color-picker' : 'color-picker')"
                    (selectedColor)="selectColor($event)"></gd-color-picker>
   <div class="doc-panel" *ngIf="file">
-
     <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="true" [htmlMode]="true"
                  [preloadPageCount]="0" gdFormatting gdRenderPrint>
-
     </gd-document>
-
   </div>
-  <gd-init-state [icon]="'pen'" [text]="''" *ngIf="!file"></gd-init-state>
+  <gd-init-state [icon]="'pen-square'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">
+      Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
+      Or drop file here
+  </gd-init-state>
   <gd-browse-files-modal
     (closing)="onCloseModal($event)"
     (urlForUpload)="upload($event)"

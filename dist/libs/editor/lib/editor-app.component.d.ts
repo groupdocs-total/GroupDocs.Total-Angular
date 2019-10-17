@@ -1,9 +1,9 @@
-import { AfterViewInit } from '@angular/core';
+import { AfterViewInit, OnInit } from '@angular/core';
 import { EditorService } from "./editor.service";
 import { FileDescription, FileModel, ModalService, UploadFilesService, PasswordService, FileCredentials, FormattingService, Formatting, BackFormattingService, OnCloseService, SelectionService, EditHtmlService, RenderPrintService, WindowService, LoadingMaskService, Option } from '@groupdocs.examples.angular/common-components';
 import { EditorConfig } from "./editor-config";
 import { EditorConfigService } from "./editor-config.service";
-export declare class EditorAppComponent implements AfterViewInit {
+export declare class EditorAppComponent implements OnInit, AfterViewInit {
     private _editorService;
     private _modalService;
     private _windowService;
@@ -36,7 +36,9 @@ export declare class EditorAppComponent implements AfterViewInit {
     private textBackup;
     private isIE;
     isLoading: boolean;
+    fileWasDropped: false;
     constructor(_editorService: EditorService, _modalService: ModalService, configService: EditorConfigService, uploadFilesService: UploadFilesService, passwordService: PasswordService, _windowService: WindowService, _formattingService: FormattingService, _backFormattingService: BackFormattingService, _onCloseService: OnCloseService, _selectionService: SelectionService, _htmlService: EditHtmlService, _renderPrintService: RenderPrintService, _loadingMaskService: LoadingMaskService);
+    ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
     readonly downloadConfig: boolean;
@@ -53,6 +55,7 @@ export declare class EditorAppComponent implements AfterViewInit {
     onRightClick($event: MouseEvent): boolean;
     createFile(): void;
     selectFile($event: string, password: string, modalId: string): void;
+    fileDropped($event: any): void;
     private loadFile;
     private clearData;
     upload($event: string): void;

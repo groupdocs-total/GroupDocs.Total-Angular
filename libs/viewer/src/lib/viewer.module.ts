@@ -7,6 +7,7 @@ import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
 import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
@@ -20,7 +21,8 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
   imports: [
     BrowserModule,
     CommonComponentsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   exports : [
     ViewerAppComponent,

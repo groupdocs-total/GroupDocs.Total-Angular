@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 
 @Component({
   selector: 'gd-init-state',
@@ -8,6 +8,8 @@ import {Component, Input, OnInit} from '@angular/core';
 export class InitStateComponent implements OnInit {
   @Input() icon: string;
   @Input() text: string;
+  @Output() fileDropped = new EventEmitter<boolean>();
+  showUploadFile = false;
 
   constructor() {
   }
@@ -15,4 +17,10 @@ export class InitStateComponent implements OnInit {
   ngOnInit() {
   }
 
+  dropped($event) {
+    if ($event) {
+      this.fileDropped.emit($event);
+      this.showUploadFile = false;
+    }
+  }
 }
