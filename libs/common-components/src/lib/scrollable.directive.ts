@@ -77,7 +77,8 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
   private getChildren() {
     const el = this._elementRef ? this._elementRef.nativeElement : null;
     if (el) {
-      return el.children.item(0).children;
+      // here and in the similar line below we getting the document pages
+      return el.children.item(0).children.item(0).children;
     }
   }
 

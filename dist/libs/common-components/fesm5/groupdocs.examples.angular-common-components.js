@@ -2042,10 +2042,10 @@ var ViewportService = /** @class */ (function () {
         }
         /** @type {?} */
         var deltas = {
-            top: Math.min(1, (bottom - viewport.top) / height),
-            bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
-            left: Math.min(1, (right - viewport.left) / width),
-            right: Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width)
+            top: parseFloat(Math.min(1, (bottom - viewport.top) / height).toFixed(2)),
+            bottom: parseFloat(Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height).toFixed(2)),
+            left: parseFloat(Math.min(1, (right - viewport.left) / width).toFixed(2)),
+            right: parseFloat(Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width).toFixed(2))
         };
         return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
     };
@@ -2167,7 +2167,8 @@ var ScrollableDirective = /** @class */ (function () {
         /** @type {?} */
         var el = this._elementRef ? this._elementRef.nativeElement : null;
         if (el) {
-            return el.children.item(0).children;
+            // here and in the similar line below we getting the document pages
+            return el.children.item(0).children.item(0).children;
         }
     };
     /**
