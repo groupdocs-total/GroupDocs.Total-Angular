@@ -52,7 +52,7 @@ const $ = jquery;
   templateUrl: './signature-app.component.html',
   styleUrls: ['./signature-app.component.less']
 })
-export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
+export class SignatureAppComponent implements OnDestroy, OnInit {
   title = 'signature';
   files: FileModel[] = [];
   file: FileDescription;
@@ -101,8 +101,7 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
               private _excMessageService: ExceptionMessageService,
               private _signaturesHolderService: SignaturesHolderService,
               private _tabActivatorService: TabActivatorService,
-              copySignatureService: CopySignatureService,
-              private _loadingMaskService: LoadingMaskService) {
+              copySignatureService: CopySignatureService) {
 
     this._tabActivatorService.activeTabChange.subscribe((tabId: string) => {
       if (tabId === '1') {
@@ -374,12 +373,6 @@ export class SignatureAppComponent implements AfterViewInit, OnDestroy, OnInit {
 
   onRightClick($event: MouseEvent) {
     return this.enableRightClickConfig;
-  }
-
-  ngAfterViewInit() {
-    this._loadingMaskService
-      .onLoadingChanged
-      .subscribe((loading: boolean) => this.isLoading = loading);
   }
 
   getSignatureTypeConfig(id: string) {
