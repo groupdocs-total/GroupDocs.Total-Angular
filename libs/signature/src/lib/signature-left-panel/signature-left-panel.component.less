@@ -35,27 +35,39 @@
   margin: 5px 12px 5px 12px;
 }
 
-.signature-title-block {// for safari
+.signature-title-block { // for safari
   display: block;
 }
 
 .gd-signature-list-title {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: row;
   height: 70px;
 
-  .icon {
-    padding-right: 20px;
-    color: #707070;
-    cursor: pointer;
-    font-size: 12px;
+  .gd-signature-title-icon {
+    flex: 0 0 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    &.disabled {
-      color: #959da5;
+    .icon {
+      color: #707070;
+      cursor: pointer;
+      font-size: 12px;
+
+      &.disabled {
+        color: #959da5;
+      }
     }
   }
+
+  .gd-signature-context-panel-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
 }
 
 .gd-signature-context-pane-wrapper {

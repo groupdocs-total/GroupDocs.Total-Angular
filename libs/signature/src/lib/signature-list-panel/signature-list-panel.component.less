@@ -16,7 +16,6 @@
 
 .gd-signature-item {
   width: 100%;
-  align-items: center;
   cursor: pointer;
   position: relative;
   min-height: 68px;
@@ -24,26 +23,82 @@
   flex-direction: row;
   font-style: italic;
   background-color: rgba(255, 255, 255);
-}
 
-.gd-signature-item .icon {
-  font-size: 15px;
-  color: #676767;
-  cursor: pointer;
-  height: fit-content;
-  margin: 7px 17px 5px 0px;
-}
+  .icon {
+    font-size: 15px;
+    color: #676767;
+    cursor: pointer;
+  }
 
-.gd-signature-item .gd-signature-name {
-  max-width: 130px;
-  font-size: 13px;
-  color: rgba(0, 0, 0, 0.36);
-  cursor: pointer;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-  overflow: hidden;
-  width: inherit;
+  .gd-signature-trash-icon {
+    flex: 0 0 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gd-signature-name {
+    max-width: 130px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.36);
+    cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+  }
+
+  .gd-signature-thumbnail {
+    flex: 0 0 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+
+    .icon {
+      font-size: 30px;
+      padding: 0;
+      margin: 0px;
+      opacity: 0.25;
+    }
+  }
+
+  .gd-signature-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 7px;
+  }
+
+  .gd-signature-thumbnail-text, .gd-signature-thumbnail-image, .gd-signature-thumbnail-hand {
+    max-width: 70px;
+    height: 41px;
+  }
+
+  .gd-signature-thumbnail-image {
+    min-width: 41px;
+    max-width: 70px;
+  }
+
+  .gd-signature-thumbnail-image {
+    min-width: 41px;
+    max-width: 70px;
+  }
+
+  .gd-signature-thumbnail-qrCode, .gd-signature-thumbnail-barCode {
+    max-width: 70px;
+    height: 44px;
+  }
+
+  .gd-signature-thumbnail-stamp {
+    max-width: 70px;
+    height: 48px;
+  }
+
+  .gd-signature-title.text {
+    padding-left: 16px;
+  }
 }
 
 .gd-signature-list {
@@ -83,60 +138,6 @@
 .gd-empty-list-text {
   padding: 18px 38px 0px;
   font-size: 12px;
-}
-
-.gd-signature-thumbnail-text, .gd-signature-thumbnail-image, .gd-signature-thumbnail-hand {
-  min-width: 74px;
-  height: 41px;
-  margin: 8px 15px 8px 11px;
-}
-
-.gd-signature-thumbnail-image {
-  min-width: 41px;
-}
-
-.gd-signature-title {
-  width: ~"calc(100% - 40px)";
-  height: fit-content;
-  padding: 15px 0px;
-}
-
-.gd-signature-title.text {
-  padding-left: 20px;
-}
-
-.gd-signature-thumbnail-text, .gd-signature-thumbnail-image, .gd-signature-thumbnail-hand {
-  min-width: 74px;
-  height: 41px;
-  margin: 8px 15px 8px 11px;
-}
-
-.gd-signature-thumbnail-image {
-  min-width: 41px;
-}
-
-.gd-signature-thumbnail-qrCode, .gd-signature-thumbnail-barCode {
-  width: auto;
-  height: 44px;
-  margin: 10px 30px 8px 8px;
-}
-
-.gd-signature-thumbnail-stamp {
-  width: auto;
-  height: 48px;
-  margin: 7px 29px 7px 11px;
-}
-
-.gd-signature-thumbnail-digital {
-  margin: 20px 25px 8px 16px;
-  width: auto;
-
-  .icon {
-    font-size: 30px;
-    padding: 0;
-    margin: 0px;
-    opacity: 0.25;
-  }
 }
 
 .gd-digital-input-wrapper {

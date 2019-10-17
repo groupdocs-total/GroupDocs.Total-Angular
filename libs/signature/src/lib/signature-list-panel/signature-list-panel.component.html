@@ -5,18 +5,22 @@
         <div class="gd-signature-item" [draggable]="isDigital() ? false : true"
              (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
              (dragleave)="dragLeave($event, signature.guid)">
-          <div class="gd-signature-thumbnail-digital" *ngIf="isDigital()" (click)="select(signature.guid)">
+          <div class="gd-signature-thumbnail" *ngIf="isDigital()" (click)="select(signature.guid)">
             <fa-icon [icon]="['fa','fingerprint']" [class]="'ng-fa-icon icon'"></fa-icon>
           </div>
-          <img *ngIf="signature.image" [ngClass]="'gd-signature-thumbnail-' + signatureType"
-               [attr.src]="getImage(signature.image) | safeResourceHtml" alt="" [draggable]="false"
-               (click)="select(signature.guid)">
+          <div class="gd-signature-thumbnail" *ngIf="signature.image">
+            <img [ngClass]="'gd-signature-thumbnail-' + signatureType"
+                 [attr.src]="getImage(signature.image) | safeResourceHtml"
+                 alt="" [draggable]="false" (click)="select(signature.guid)">
+          </div>
           <div class="gd-signature-title" [ngClass]="signatureType" (click)="select(signature.guid)">
             <label class="gd-signature-name" [style.color]="signature.fontColor">
               {{signature.text ? signature.text : signature.name}}</label>
           </div>
-          <fa-icon [icon]="['far','trash-alt']" [class]="'ng-fa-icon icon'"
-                   (click)="deleteSign(signature.guid)"></fa-icon>
+          <div class="gd-signature-trash-icon">
+            <fa-icon [icon]="['far','trash-alt']" [class]="'ng-fa-icon icon'"
+                     (click)="deleteSign(signature.guid)"></fa-icon>
+          </div>
         </div>
         <div class="gd-digital-inputs" *ngIf="showDigitalInputs && digitalId === signature.guid">
           <div class="gd-digital-input-wrapper">
