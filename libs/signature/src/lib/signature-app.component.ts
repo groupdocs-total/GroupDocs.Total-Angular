@@ -319,6 +319,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
 
   selectFile($event: string, password: string, modalId: string) {
     this.credentials = {guid: $event, password: password};
+    this.file = null;
     this._signatureService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
