@@ -1086,6 +1086,22 @@ var ThumbnailsComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    ThumbnailsComponent.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        // TODO: investigate the root cause of unneded spaces
+        this.pages.forEach((/**
+         * @param {?} page
+         * @return {?}
+         */
+        function (page) {
+            page.data = page.data.replace(/>\s+</g, '><');
+        }));
+    };
+    /**
+     * @return {?}
+     */
     ThumbnailsComponent.prototype.ngAfterViewInit = /**
      * @return {?}
      */
@@ -1145,7 +1161,7 @@ var ThumbnailsComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-thumbnails',
                     template: "<div class=\"gd-thumbnails\">\n  <div class=\"gd-thumbnails-panzoom\">\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <div class=\"gd-wrapper\"\n           [style.width.pt]=\"page.width\"\n           [style.height.pt]=\"page.height\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && isHtmlMode\"\n           [innerHTML]=\"page.data | safeHtml\"></div>\n      <div class=\"gd-wrapper\" *ngIf=\"page.data && !isHtmlMode\">\n        <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\n             alt/>\n      </div>\n    </div>\n  </div>\n</div>\n",
-                    styles: [":host{flex:0 0 300px;background:#f5f5f5;color:#fff;overflow-y:auto;display:block;transition:margin-left .2s;height:100%}.gd-page{width:272px;height:272px;transition:.3s;background-color:#e7e7e7;cursor:pointer;margin:14px 14px 0}.gd-page:hover{background-color:silver}.gd-wrapper{transform:translate(-50%,-50%);left:50%;top:50%;position:relative;background-color:#fff;box-shadow:0 4px 12px -4px rgba(0,0,0,.38)}.gd-thumbnails::-webkit-scrollbar{width:0;background-color:#f5f5f5}.gd-thumbnails-panzoom>.gd-thumbnails-landscape{margin:-134px 0 -1px 12px}.gd-thumbnails-panzoom .gd-wrapper>div>div>img{width:inherit}.gd-thumbnails .gd-wrapper>img{width:-webkit-fill-available!important;margin:0 20px 0 0!important}.gd-thumbnails .gd-page-image{height:inherit;margin-left:153px!important}.gd-thumbnails-landscape-image{margin:-90px 0 -23px!important}.gd-thumbnails-landscape-image-rotated{margin:126px 0 -3px -104px!important}"]
+                    styles: [":host{flex:0 0 300px;background:#f5f5f5;color:#fff;overflow-y:auto;display:block;transition:margin-left .2s;height:100%}.gd-page{width:272px;height:272px;transition:.3s;background-color:#e7e7e7;cursor:pointer;margin:14px 14px 0}.gd-page:hover{background-color:silver}.gd-wrapper{transform:translate(-50%,-50%);left:50%;top:50%;position:relative;background-color:#fff;box-shadow:0 4px 12px -4px rgba(0,0,0,.38)}.gd-wrapper /deep/ img{width:inherit}.gd-thumbnails::-webkit-scrollbar{width:0;background-color:#f5f5f5}.gd-thumbnails-panzoom>.gd-thumbnails-landscape{margin:-134px 0 -1px 12px}.gd-thumbnails .gd-page-image{height:inherit;margin-left:153px!important}.gd-thumbnails-landscape-image{margin:-90px 0 -23px!important}.gd-thumbnails-landscape-image-rotated{margin:126px 0 -3px -104px!important}"]
                 }] }
     ];
     /** @nocollapse */
