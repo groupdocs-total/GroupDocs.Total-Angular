@@ -52,6 +52,10 @@
  *
  */
 
+/** Smooth Scroll behavior polyfill */
+import smoothscroll from 'smoothscroll-polyfill/dist/smoothscroll.js';
+smoothscroll.polyfill();
+
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */

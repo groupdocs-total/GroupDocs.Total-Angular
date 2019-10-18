@@ -865,6 +865,18 @@ class WindowService {
     isDesktop() {
         return !this.isMobile() && !this.isTablet();
     }
+    /**
+     * @return {?}
+     */
+    isEdge() {
+        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+    }
+    /**
+     * @return {?}
+     */
+    isFirefox() {
+        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    }
 }
 
 /**
@@ -1757,7 +1769,8 @@ class ScrollableDirective {
             top: pagesHeight
         };
         if (el) {
-            el.scrollTo(options);
+            // using polyfill
+            el.scroll(options);
         }
     }
     /**
@@ -1791,7 +1804,7 @@ class ScrollableDirective {
      */
     calculateOffset(pageNumber) {
         /** @type {?} */
-        const count = this.ifFirefox() ? 1 : this.countPagesOnWidth();
+        const count = this._windowService.isFirefox() ? 1 : this.countPagesOnWidth();
         /** @type {?} */
         const margin = this._windowService.isDesktop() ? 40 : 10;
         /** @type {?} */
@@ -1817,12 +1830,6 @@ class ScrollableDirective {
         /** @type {?} */
         const count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
         return count === 0 ? 1 : count;
-    }
-    /**
-     * @return {?}
-     */
-    ifFirefox() {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     }
     /**
      * @return {?}
@@ -1905,12 +1912,13 @@ ScrollableDirective.propDecorators = {
 class ZoomDirective {
     /**
      * @param {?} _zoomService
+     * @param {?} _windowService
      * @param {?} el
      */
-    constructor(_zoomService, el) {
+    constructor(_zoomService, _windowService, el) {
         this._zoomService = _zoomService;
+        this._windowService = _windowService;
         this.zoomActive = true;
-        this.ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
         this.el = el;
     }
     /**
@@ -1953,13 +1961,13 @@ class ZoomDirective {
         }
         /** @type {?} */
         const zoomInt = zoom === 100 ? 1 : zoom / 100;
-        if (this.ifEdge) {
+        if (this._windowService.isEdge()) {
             this.zoomInt = zoomInt;
         }
         else {
             this.zoomInt = null;
         }
-        if (!this.ifEdge) {
+        if (!this._windowService.isEdge()) {
             this.transform = 'scale(' + zoomInt + ')';
             this.transformOrigin = 'top left';
         }
@@ -2020,6 +2028,7 @@ ZoomDirective.decorators = [
 /** @nocollapse */
 ZoomDirective.ctorParameters = () => [
     { type: ZoomService },
+    { type: WindowService },
     { type: ElementRef }
 ];
 ZoomDirective.propDecorators = {
@@ -2918,7 +2927,8 @@ class SearchableDirective {
                     left: 0,
                     top: ($$4(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
                 };
-                el.parentElement.parentElement.scrollTo(options);
+                // using polyfill
+                el.parentElement.parentElement.scroll(options);
             }
         }
     }

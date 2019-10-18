@@ -1062,6 +1062,24 @@ var WindowService = /** @class */ (function () {
     function () {
         return !this.isMobile() && !this.isTablet();
     };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isEdge = /**
+     * @return {?}
+     */
+    function () {
+        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isFirefox = /**
+     * @return {?}
+     */
+    function () {
+        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    };
     return WindowService;
 }());
 
@@ -2133,7 +2151,8 @@ var ScrollableDirective = /** @class */ (function () {
             top: pagesHeight
         };
         if (el) {
-            el.scrollTo(options);
+            // using polyfill
+            el.scroll(options);
         }
     };
     /**
@@ -2181,7 +2200,7 @@ var ScrollableDirective = /** @class */ (function () {
      */
     function (pageNumber) {
         /** @type {?} */
-        var count = this.ifFirefox() ? 1 : this.countPagesOnWidth();
+        var count = this._windowService.isFirefox() ? 1 : this.countPagesOnWidth();
         /** @type {?} */
         var margin = this._windowService.isDesktop() ? 40 : 10;
         /** @type {?} */
@@ -2211,15 +2230,6 @@ var ScrollableDirective = /** @class */ (function () {
         /** @type {?} */
         var count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
         return count === 0 ? 1 : count;
-    };
-    /**
-     * @return {?}
-     */
-    ScrollableDirective.prototype.ifFirefox = /**
-     * @return {?}
-     */
-    function () {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     };
     /**
      * @return {?}
@@ -2319,10 +2329,10 @@ var ScrollableDirective = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ZoomDirective = /** @class */ (function () {
-    function ZoomDirective(_zoomService, el) {
+    function ZoomDirective(_zoomService, _windowService, el) {
         this._zoomService = _zoomService;
+        this._windowService = _windowService;
         this.zoomActive = true;
-        this.ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
         this.el = el;
     }
     /**
@@ -2380,13 +2390,13 @@ var ZoomDirective = /** @class */ (function () {
         }
         /** @type {?} */
         var zoomInt = zoom === 100 ? 1 : zoom / 100;
-        if (this.ifEdge) {
+        if (this._windowService.isEdge()) {
             this.zoomInt = zoomInt;
         }
         else {
             this.zoomInt = null;
         }
-        if (!this.ifEdge) {
+        if (!this._windowService.isEdge()) {
             this.transform = 'scale(' + zoomInt + ')';
             this.transformOrigin = 'top left';
         }
@@ -2459,6 +2469,7 @@ var ZoomDirective = /** @class */ (function () {
     /** @nocollapse */
     ZoomDirective.ctorParameters = function () { return [
         { type: ZoomService },
+        { type: WindowService },
         { type: ElementRef }
     ]; };
     ZoomDirective.propDecorators = {
@@ -3554,7 +3565,8 @@ var SearchableDirective = /** @class */ (function () {
                     left: 0,
                     top: ($$4(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
                 };
-                el.parentElement.parentElement.scrollTo(options);
+                // using polyfill
+                el.parentElement.parentElement.scroll(options);
             }
         }
     };
