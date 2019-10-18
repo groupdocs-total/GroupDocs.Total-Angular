@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ComponentRef, OnDestroy, OnInit} from '@angular/core';
+import {Component, ComponentRef, OnDestroy, OnInit} from '@angular/core';
 import {SignatureService} from "./signature.service";
 import {
   FileDescription,
@@ -20,9 +20,7 @@ import {
   ExceptionMessageService,
   WindowService,
   Utils,
-  TabActivatorService,
-  LoadingMaskService
-} from "@groupdocs.examples.angular/common-components";
+  TabActivatorService} from "@groupdocs.examples.angular/common-components";
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
 import {

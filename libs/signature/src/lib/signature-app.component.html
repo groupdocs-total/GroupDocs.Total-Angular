@@ -40,7 +40,7 @@
   </gd-signature-left-panel>
   <div class="doc-panel" *ngIf="file">
     <gd-document (drop)="dropSignature($event)" (dragover)="dragOver($event)" class="gd-document" *ngIf="file"
-                 [file]="file" [mode]="htmlModeConfig"
+                 [file]="file" [mode]="htmlModeConfig" gdScrollable
                  [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
   </div>
 

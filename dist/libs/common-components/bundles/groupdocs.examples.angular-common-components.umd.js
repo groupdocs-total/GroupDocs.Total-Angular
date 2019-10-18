@@ -2341,6 +2341,7 @@
          * @return {?}
          */
         function () {
+            console.log("page");
             /** @type {?} */
             var page;
             /** @type {?} */
@@ -2353,10 +2354,13 @@
                 /** @type {?} */
                 var element = this.getPage(page);
                 if (this._viewportService.checkInViewport(element, this.zoom)) {
+                    console.log("page " + page);
                     if (!currentPageSet) {
+                        console.log("page currset");
                         if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
                             this.currentPage = page;
                             this._navigateService.currentPage = page;
+                            console.log("page  set " + page);
                         }
                         currentPageSet = true;
                     }

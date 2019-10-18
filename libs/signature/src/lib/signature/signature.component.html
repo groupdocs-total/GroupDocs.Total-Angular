@@ -1,4 +1,6 @@
 <div class="gd-signature" *ngIf="!isDigital()"
+     (clickOutside)="hideMenu($event)"
+     [clickOutsideEnabled]="active"
      [style.left.px]="position.left" [style.top.px]="position.top"
      [style.width.px]="data.width ? data.width : undefined"
      [style.height.px]="data.height ? data.height : undefined" (click)="activation()">

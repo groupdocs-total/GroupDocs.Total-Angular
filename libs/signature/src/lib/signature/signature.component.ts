@@ -251,4 +251,8 @@ export class Signature implements OnInit, AfterViewInit {
       this.data.props = p;
     });
   }
+
+  hideMenu($event) {
+    this._activeSignatureService.changeActive(null);
+  }
 }

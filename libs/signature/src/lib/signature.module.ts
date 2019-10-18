@@ -38,6 +38,7 @@ import {SignatureLeftPanelComponent} from './signature-left-panel/signature-left
 import {HandModalComponent} from './hand-modal/hand-modal.component';
 import {StampModalComponent} from './stamp-modal/stamp-modal.component';
 import {CopySignatureService} from "./copy-signature.service";
+import {ClickOutsideModule} from 'ng-click-outside';
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -82,7 +83,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule],
+    FontAwesomeModule,
+    ClickOutsideModule],
   providers: [
     SignatureService,
     ConfigService,
