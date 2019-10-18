@@ -1,13 +1,10 @@
 <div class="gd-nav-search-container">
   <input type="text" class="gd-search-input" #text (input)="setText(text.value)"/>
   <div class="gd-search-count">{{current}} of {{total}}</div>
-  <div class="gd-nav-search-btn" (click)="prev()">
-    <fa-icon [icon]="['fas','chevron-left']"></fa-icon>
-  </div>
-  <div class="gd-nav-search-btn" (click)="next()">
-    <fa-icon [icon]="['fas','chevron-right']"></fa-icon>
-  </div>
-  <div class="gd-nav-search-btn gd-nav-search-cancel" (click)="hide()">
-    <fa-icon [icon]="['fas','times']"></fa-icon>
-  </div>
+  <gd-button class="gd-nav-search-btn" [icon]="'chevron-left'" [disabled]="total == 0 || current == 1" (click)="prev()">
+  </gd-button>
+  <gd-button class="gd-nav-search-btn" [icon]="'chevron-right'" [disabled]="total == 0 || current == total" (click)="next()">
+  </gd-button>
+  <gd-button class="gd-nav-search-btn gd-nav-search-cancel" [icon]="'times'" (click)="hide()">
+  </gd-button>
 </div>
