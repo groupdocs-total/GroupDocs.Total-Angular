@@ -5058,7 +5058,6 @@ var LoadingMaskService = /** @class */ (function () {
          */
         function (x) { return req.url.includes(x); }));
         if (!stop) {
-            console.log(req.url);
             this.requests.push(req);
             this.notify();
         }

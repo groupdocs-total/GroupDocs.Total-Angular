@@ -44,7 +44,10 @@
                  [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
   </div>
 
-  <gd-init-state [icon]="'signature'" [text]="''" *ngIf="!file"></gd-init-state>
+  <gd-init-state [icon]="'signature'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">
+    Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
+    Or drop file here
+  </gd-init-state>
 
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
                          (selectedFileGuid)="selectFile($event, null, browseFilesModal)"

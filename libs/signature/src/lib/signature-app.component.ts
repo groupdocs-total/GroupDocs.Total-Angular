@@ -79,6 +79,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
   signatureComponents = new Map<number, ComponentRef<any>>();
   activeSignatureTab: string;
   isLoading: boolean;
+  fileWasDropped = false;
 
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
@@ -183,8 +184,8 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
       if (uploads) {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
-          this._signatureService.upload(uploads.item(i), '', this.rewriteConfig, null).subscribe(() => {
-            this.selectDir('');
+          this._signatureService.upload(uploads.item(i), '', this.rewriteConfig, null).subscribe((obj: FileCredentials) => {
+            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
           });
         }
       }
@@ -574,5 +575,9 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
 
   activeTab($event: string) {
     this.activeSignatureTab = $event;
+  }
+
+  fileDropped($event) {
+    this.fileWasDropped = $event;
   }
 }
