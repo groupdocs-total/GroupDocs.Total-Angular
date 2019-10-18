@@ -128,6 +128,7 @@
             if (!this.disabled) {
                 this.className += ' active';
             }
+            this.showToolTip = true;
         };
         /**
          * @return {?}
@@ -139,16 +140,15 @@
             if (!this.disabled) {
                 this.className = this.className.replace(' active', '');
             }
+            this.showToolTip = false;
         };
         ButtonComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-button',
-                        template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\" [size]=\"iconSize\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <div class=\"text\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+                        template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <div class=\"text\"><ng-content></ng-content></div>\n</div>\n",
                         styles: [".icon-button{padding:0!important;margin:0 10px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
                     }] }
         ];
-        /** @nocollapse */
-        ButtonComponent.ctorParameters = function () { return []; };
         ButtonComponent.propDecorators = {
             iconOnly: [{ type: core.Input }],
             intent: [{ type: core.Input }],
@@ -157,8 +157,7 @@
             iconClass: [{ type: core.Input }],
             tooltip: [{ type: core.Input }],
             className: [{ type: core.Input }],
-            toggle: [{ type: core.Input }],
-            iconSize: [{ type: core.Input }]
+            toggle: [{ type: core.Input }]
         };
         return ButtonComponent;
     }());
@@ -245,7 +244,6 @@
         function Api() {
         }
         Api.VIEWER_APP = '/viewer';
-        Api.SIGNATURE_APP = '/signature';
         Api.EDITOR_APP = '/editor';
         Api.COMPARISON_APP = '/comparison';
         Api.CONVERSION_APP = '/conversion';
@@ -264,14 +262,6 @@
         Api.SAVE_FILE = '/saveFile';
         Api.COMPARE_FILES = '/compare';
         Api.CONVERT_FILE = '/convert';
-        Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
-        Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
-        Api.SAVE_TEXT = '/saveText';
-        Api.SAVE_IMAGE = '/saveImage';
-        Api.SAVE_STAMP = '/saveStamp';
-        Api.SIGN = '/sign';
-        Api.DOWNLOAD_SIGNED = '/downloadSigned';
-        Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
         Api.httpOptionsJson = {
             headers: new http.HttpHeaders({
                 'Content-Type': 'application/json',
@@ -353,15 +343,6 @@
         function () {
             return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
         };
-        /**
-         * @return {?}
-         */
-        ConfigService.prototype.getSignatureApiEndpoint = /**
-         * @return {?}
-         */
-        function () {
-            return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
-        };
         ConfigService.decorators = [
             { type: core.Injectable }
         ];
@@ -382,8 +363,6 @@
         CommonModals.BrowseFiles = "gd-browse-files";
         CommonModals.CreateDocument = "gd-create-document";
         CommonModals.OperationSuccess = "gd-success-modal";
-        CommonModals.DrawHandSignature = "gd-draw-hand-signature";
-        CommonModals.DrawStampSignature = "gd-draw-stamp-signature";
         return CommonModals;
     }());
     var ModalService = /** @class */ (function () {
@@ -531,7 +510,7 @@
         ModalComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-modal',
-                        template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\n\n    <div class=\"gd-modal-header\">\n      <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\n    </div>\n\n    <div class=\"gd-modal-body\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"gd-modal-footer\">\n\n    </div>\n  </div>\n</div>\n\n\n",
+                        template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \n\n      <div class=\"gd-modal-header\"> \n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\n        </div> \n\n      <div class=\"gd-modal-body\">\n        <ng-content></ng-content>\n        </div> \n\n      <div class=\"gd-modal-footer\"> \n\n        </div> \n      </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog --> \n\n",
                         styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
                     }] }
         ];
@@ -600,48 +579,6 @@
         HttpError.Conflict = 409;
         HttpError.InternalServerError = 500;
         return HttpError;
-    }());
-    var Utils = /** @class */ (function () {
-        function Utils() {
-        }
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        Utils.getMousePosition = /**
-         * @param {?} event
-         * @return {?}
-         */
-        function (event) {
-            /** @type {?} */
-            var mouse = {
-                x: 0,
-                y: 0
-            };
-            /** @type {?} */
-            var wEvent = (/** @type {?} */ (window.event));
-            /** @type {?} */
-            var ev = event || wEvent;
-            if (ev.pageX || wEvent.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
-                //Moz
-                /** @type {?} */
-                var pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0 ? ev.pageX : wEvent.pageX;
-                /** @type {?} */
-                var pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0 ? ev.pageY : wEvent.pageY;
-                /** @type {?} */
-                var screenX_1 = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
-                /** @type {?} */
-                var screenY_1 = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
-                mouse.x = pageX ? pageX : (screenX_1 ? wEvent.screenX : ev.touches[0].pageX);
-                mouse.y = pageY ? pageY : (screenY_1 ? wEvent.screenY : ev.touches[0].pageY);
-            }
-            else if (ev.clientX) { //IE
-                mouse.x = ev.clientX + document.body.scrollLeft;
-                mouse.y = ev.clientY + document.body.scrollTop;
-            }
-            return mouse;
-        };
-        return Utils;
     }());
     var FileUtil = /** @class */ (function () {
         function FileUtil() {
@@ -1100,8 +1037,6 @@
     /** @type {?} */
     var MOBILE_MAX_WIDTH = 425;
     /** @type {?} */
-    var MOBILE_MAX_HEIGHT = 450;
-    /** @type {?} */
     var TABLET_MAX_WIDTH = 1024;
     var WindowService = /** @class */ (function () {
         function WindowService() {
@@ -1138,7 +1073,7 @@
          * @return {?}
          */
         function () {
-            return this.width <= MOBILE_MAX_WIDTH || this.height < MOBILE_MAX_HEIGHT;
+            return this.width <= MOBILE_MAX_WIDTH;
         };
         /**
          * @return {?}
@@ -1161,20 +1096,20 @@
         /**
          * @return {?}
          */
-        WindowService.prototype.getWidth = /**
+        WindowService.prototype.isEdge = /**
          * @return {?}
          */
         function () {
-            return this.width;
+            return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
         };
         /**
          * @return {?}
          */
-        WindowService.prototype.getHeight = /**
+        WindowService.prototype.isFirefox = /**
          * @return {?}
          */
         function () {
-            return this.height;
+            return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         };
         return WindowService;
     }());
@@ -1603,8 +1538,8 @@
         PageComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-page',
-                        template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
-                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}"]
+                        template: "<div id=\"page-{{number}}\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
+                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%!important;width:100%!important}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2138,10 +2073,10 @@
             }
             /** @type {?} */
             var deltas = {
-                top: Math.min(1, (bottom - viewport.top) / height),
-                bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
-                left: Math.min(1, (right - viewport.left) / width),
-                right: Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width)
+                top: parseFloat(Math.min(1, (bottom - viewport.top) / height).toFixed(2)),
+                bottom: parseFloat(Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height).toFixed(2)),
+                left: parseFloat(Math.min(1, (right - viewport.left) / width).toFixed(2)),
+                right: parseFloat(Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width).toFixed(2))
             };
             return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
         };
@@ -2247,7 +2182,8 @@
                 top: pagesHeight
             };
             if (el) {
-                el.scrollTo(options);
+                // using polyfill
+                el.scroll(options);
             }
         };
         /**
@@ -2262,7 +2198,8 @@
             /** @type {?} */
             var el = this._elementRef ? this._elementRef.nativeElement : null;
             if (el) {
-                return el.children.item(0).children;
+                // here and in the similar line below we getting the document pages
+                return el.children.item(0).children.item(0).children;
             }
         };
         /**
@@ -2294,7 +2231,7 @@
          */
         function (pageNumber) {
             /** @type {?} */
-            var count = this.ifFirefox() ? 1 : this.countPagesOnWidth();
+            var count = this._windowService.isFirefox() ? 1 : this.countPagesOnWidth();
             /** @type {?} */
             var margin = this._windowService.isDesktop() ? 40 : 10;
             /** @type {?} */
@@ -2328,20 +2265,10 @@
         /**
          * @return {?}
          */
-        ScrollableDirective.prototype.ifFirefox = /**
-         * @return {?}
-         */
-        function () {
-            return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        };
-        /**
-         * @return {?}
-         */
         ScrollableDirective.prototype.refresh = /**
          * @return {?}
          */
         function () {
-            console.log("page");
             /** @type {?} */
             var page;
             /** @type {?} */
@@ -2354,13 +2281,10 @@
                 /** @type {?} */
                 var element = this.getPage(page);
                 if (this._viewportService.checkInViewport(element, this.zoom)) {
-                    console.log("page " + page);
                     if (!currentPageSet) {
-                        console.log("page currset");
                         if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
                             this.currentPage = page;
                             this._navigateService.currentPage = page;
-                            console.log("page  set " + page);
                         }
                         currentPageSet = true;
                     }
@@ -2436,10 +2360,10 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var ZoomDirective = /** @class */ (function () {
-        function ZoomDirective(_zoomService, el) {
+        function ZoomDirective(_zoomService, _windowService, el) {
             this._zoomService = _zoomService;
+            this._windowService = _windowService;
             this.zoomActive = true;
-            this.ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
             this.el = el;
         }
         /**
@@ -2497,13 +2421,13 @@
             }
             /** @type {?} */
             var zoomInt = zoom === 100 ? 1 : zoom / 100;
-            if (this.ifEdge) {
+            if (this._windowService.isEdge()) {
                 this.zoomInt = zoomInt;
             }
             else {
                 this.zoomInt = null;
             }
-            if (!this.ifEdge) {
+            if (!this._windowService.isEdge()) {
                 this.transform = 'scale(' + zoomInt + ')';
                 this.transformOrigin = 'top left';
             }
@@ -2576,6 +2500,7 @@
         /** @nocollapse */
         ZoomDirective.ctorParameters = function () { return [
             { type: ZoomService },
+            { type: WindowService },
             { type: core.ElementRef }
         ]; };
         ZoomDirective.propDecorators = {
@@ -3553,8 +3478,8 @@
         SearchComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-search',
-                        template: "<div class=\"gd-nav-search-container\">\n  <input type=\"text\" class=\"gd-search-input\" #text (input)=\"setText(text.value)\"/>\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\n  <div class=\"gd-nav-search-btn\" (click)=\"prev()\">\n    <fa-icon [icon]=\"['fas','chevron-left']\"></fa-icon>\n  </div>\n  <div class=\"gd-nav-search-btn\" (click)=\"next()\">\n    <fa-icon [icon]=\"['fas','chevron-right']\"></fa-icon>\n  </div>\n  <div class=\"gd-nav-search-btn gd-nav-search-cancel\" (click)=\"hide()\">\n    <fa-icon [icon]=\"['fas','times']\"></fa-icon>\n  </div>\n</div>\n",
-                        styles: [".gd-nav-search-btn{float:left;cursor:pointer;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px 7px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;right:151px;top:15px}.gd-nav-search-container{width:100%}}"]
+                        template: "<div class=\"gd-nav-search-container\">\n  <input type=\"text\" class=\"gd-search-input\" #text (input)=\"setText(text.value)\"/>\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\n  </gd-button>\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\n  </gd-button>\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\n  </gd-button>\n</div>\n",
+                        styles: [".gd-nav-search-btn{margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0);display:flex}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}input[type=text]::-ms-clear{display:none}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:193px;top:15px}.gd-nav-search-container{width:100%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3671,7 +3596,8 @@
                         left: 0,
                         top: ($$4(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
                     };
-                    el.parentElement.parentElement.scrollTo(options);
+                    // using polyfill
+                    el.parentElement.parentElement.scroll(options);
                 }
             }
         };
@@ -3784,16 +3710,12 @@
         TabbedToolbarsComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-tabbed-toolbars',
-                        template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
+                        template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"'editor'\" [icon]=\"'pen-square'\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
                         styles: [".top-panel{background:#3e4e5a;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:1037px){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
                     }] }
         ];
         /** @nocollapse */
         TabbedToolbarsComponent.ctorParameters = function () { return []; };
-        TabbedToolbarsComponent.propDecorators = {
-            logo: [{ type: core.Input }],
-            icon: [{ type: core.Input }]
-        };
         return TabbedToolbarsComponent;
     }());
 
@@ -3890,8 +3812,8 @@
         TabComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-tab',
-                        template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
+                        template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'gd-editor-buttons active' : 'gd-editor-buttons'\">\n  <ng-content></ng-content>\n</div>\n",
+                        styles: [".gd-editor-buttons{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.gd-editor-buttons ::ng-deep .toolbar-panel{height:60px}.gd-editor-buttons.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3945,15 +3867,7 @@
             this.align = align;
             this.list = list;
         }
-        /**
-         * @return {?}
-         */
-        Formatting.default = /**
-         * @return {?}
-         */
-        function () {
-            return new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
-        };
+        Formatting.DEFAULT = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
         return Formatting;
     }());
     var FormattingService = /** @class */ (function () {
@@ -4310,7 +4224,6 @@
         '#FF99CC', '#FFCC99', '#FFFF99', '#CCFFFF', '#99CCFF', '#FFFFFF'];
     var ColorPickerComponent = /** @class */ (function () {
         function ColorPickerComponent() {
-            this.isOpen = false;
             this.selectedColor = new core.EventEmitter();
             this.colors = DEFAULT_COLORS;
         }
@@ -4337,26 +4250,16 @@
             $event.stopPropagation();
             this.selectedColor.emit(color);
         };
-        /**
-         * @return {?}
-         */
-        ColorPickerComponent.prototype.close = /**
-         * @return {?}
-         */
-        function () {
-            this.isOpen = false;
-        };
         ColorPickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-color-picker',
-                        template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\n  <div class=\"bcPicker-palette\">\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\" (click)=\"select($event, color)\"></div>\n  </div>\n</div>\n",
+                        template: "<div class=\"bcPicker-picker\">\n  <div class=\"bcPicker-palette\">\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\" (click)=\"select($event, color)\"></div>\n  </div>\n</div>\n",
                         styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:232px;padding:5px;border:1px solid #efefef;background-color:#fdfdfd;z-index:999}.bcPicker-palette>.bcPicker-color{width:14px;height:14px;margin:2px;display:inline-block;border:1px solid #efefef;background-color:#9da97b;cursor:pointer}"]
                     }] }
         ];
         /** @nocollapse */
         ColorPickerComponent.ctorParameters = function () { return []; };
         ColorPickerComponent.propDecorators = {
-            isOpen: [{ type: core.Input }],
             selectedColor: [{ type: core.Output }]
         };
         return ColorPickerComponent;
@@ -5072,10 +4975,7 @@
     var LoadingMaskService = /** @class */ (function () {
         function LoadingMaskService() {
             this.onLoadingChanged = new core.EventEmitter();
-            this.stopList = [];
             this.requests = [];
-            this.stopList.push(Api.SAVE_TEXT);
-            this.stopList.push(Api.SAVE_OPTICAL_CODE);
         }
         /**
          * @param {?} req
@@ -5086,16 +4986,8 @@
          * @return {?}
          */
         function (req) {
-            /** @type {?} */
-            var stop = this.stopList.find((/**
-             * @param {?} x
-             * @return {?}
-             */
-            function (x) { return req.url.includes(x); }));
-            if (!stop) {
-                this.requests.push(req);
-                this.notify();
-            }
+            this.requests.push(req);
+            this.notify();
         };
         /**
          * @param {?} req
@@ -5458,437 +5350,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var LeftSideBarComponent = /** @class */ (function () {
-        function LeftSideBarComponent() {
-            this.showSpinner = false;
-        }
-        /**
-         * @return {?}
-         */
-        LeftSideBarComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        LeftSideBarComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-left-side-bar',
-                        template: "<div class=\"left-panel\">\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [".left-panel{border-radius:0;float:left}.gd-left-bar-fade{margin:auto;overflow:hidden;-webkit-overflow-scrolling:touch;transition:transform .3s ease-out;width:100%;height:100%;display:flex;justify-content:center;align-items:center;position:fixed;z-index:1000}@media (max-width:1037px){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        LeftSideBarComponent.ctorParameters = function () { return []; };
-        LeftSideBarComponent.propDecorators = {
-            showSpinner: [{ type: core.Input }]
-        };
-        return LeftSideBarComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var TooltipDirective = /** @class */ (function () {
-        function TooltipDirective() {
-            this.showToolTip = new core.EventEmitter();
-        }
-        /**
-         * @return {?}
-         */
-        TooltipDirective.prototype.onHovering = /**
-         * @return {?}
-         */
-        function () {
-            this.showToolTip.emit(true);
-        };
-        /**
-         * @return {?}
-         */
-        TooltipDirective.prototype.onUnhovering = /**
-         * @return {?}
-         */
-        function () {
-            this.showToolTip.emit(false);
-        };
-        TooltipDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[gdTooltip]'
-                    },] }
-        ];
-        /** @nocollapse */
-        TooltipDirective.ctorParameters = function () { return []; };
-        TooltipDirective.propDecorators = {
-            showToolTip: [{ type: core.Output }],
-            onHovering: [{ type: core.HostListener, args: ['mouseenter',] }],
-            onUnhovering: [{ type: core.HostListener, args: ['mouseleave',] }]
-        };
-        return TooltipDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var AddDynamicComponentService = /** @class */ (function () {
-        function AddDynamicComponentService(_factoryResolver, _appRef) {
-            this._factoryResolver = _factoryResolver;
-            this._appRef = _appRef;
-        }
-        /**
-         * @param {?} viewContainerRef
-         * @param {?} component
-         * @return {?}
-         */
-        AddDynamicComponentService.prototype.addDynamicComponent = /**
-         * @param {?} viewContainerRef
-         * @param {?} component
-         * @return {?}
-         */
-        function (viewContainerRef, component) {
-            var _this = this;
-            /** @type {?} */
-            var factory = this._factoryResolver.resolveComponentFactory(component);
-            /** @type {?} */
-            var componentRef = viewContainerRef.createComponent(factory);
-            componentRef.onDestroy((/**
-             * @return {?}
-             */
-            function () {
-                _this._appRef.detachView(componentRef.hostView);
-            }));
-            return componentRef;
-        };
-        AddDynamicComponentService.decorators = [
-            { type: core.Injectable, args: [{
-                        providedIn: 'root'
-                    },] }
-        ];
-        /** @nocollapse */
-        AddDynamicComponentService.ctorParameters = function () { return [
-            { type: core.ComponentFactoryResolver },
-            { type: core.ApplicationRef }
-        ]; };
-        /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(core.ɵɵinject(core.ComponentFactoryResolver), core.ɵɵinject(core.ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
-        return AddDynamicComponentService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var HostingDynamicComponentService = /** @class */ (function () {
-        function HostingDynamicComponentService() {
-            this.hosts = [];
-        }
-        /**
-         * @param {?} host
-         * @return {?}
-         */
-        HostingDynamicComponentService.prototype.add = /**
-         * @param {?} host
-         * @return {?}
-         */
-        function (host) {
-            this.hosts = this.hosts.filter((/**
-             * @param {?} h
-             * @return {?}
-             */
-            function (h) {
-                return h.ident !== host.ident;
-            }));
-            this.hosts.push(host);
-        };
-        /**
-         * @param {?} host
-         * @return {?}
-         */
-        HostingDynamicComponentService.prototype.remove = /**
-         * @param {?} host
-         * @return {?}
-         */
-        function (host) {
-            this.hosts = this.hosts.filter((/**
-             * @param {?} h
-             * @return {?}
-             */
-            function (h) {
-                return h.ident !== host.ident;
-            }));
-        };
-        /**
-         * @param {?} ident
-         * @return {?}
-         */
-        HostingDynamicComponentService.prototype.find = /**
-         * @param {?} ident
-         * @return {?}
-         */
-        function (ident) {
-            return this.hosts.find((/**
-             * @param {?} h
-             * @return {?}
-             */
-            function (h) {
-                return h.ident === ident;
-            }));
-        };
-        return HostingDynamicComponentService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var HostDynamicDirective = /** @class */ (function () {
-        function HostDynamicDirective(viewContainerRef, _hostingService) {
-            this.viewContainerRef = viewContainerRef;
-            this._hostingService = _hostingService;
-        }
-        /**
-         * @return {?}
-         */
-        HostDynamicDirective.prototype.ngAfterViewInit = /**
-         * @return {?}
-         */
-        function () {
-            this._hostingService.add(this);
-        };
-        /**
-         * @return {?}
-         */
-        HostDynamicDirective.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-        function () {
-            this._hostingService.remove(this);
-            this.viewContainerRef.clear();
-        };
-        HostDynamicDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[gdHostDynamic]'
-                    },] }
-        ];
-        /** @nocollapse */
-        HostDynamicDirective.ctorParameters = function () { return [
-            { type: core.ViewContainerRef },
-            { type: HostingDynamicComponentService }
-        ]; };
-        HostDynamicDirective.propDecorators = {
-            ident: [{ type: core.Input }]
-        };
-        return HostDynamicDirective;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var $$6 = jquery;
-    var ResizingComponent = /** @class */ (function () {
-        function ResizingComponent() {
-            this.se = false;
-            this.ne = false;
-            this.sw = false;
-            this.nw = false;
-            this.SE = 'se';
-            this.NE = 'ne';
-            this.SW = 'sw';
-            this.NW = 'nw';
-            this.offsetX = new core.EventEmitter();
-            this.offsetY = new core.EventEmitter();
-            this.offsetTop = new core.EventEmitter();
-            this.offsetLeft = new core.EventEmitter();
-            this.release = new core.EventEmitter();
-            this.grab = false;
-        }
-        /**
-         * @return {?}
-         */
-        ResizingComponent.prototype.ngAfterViewInit = /**
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            /** @type {?} */
-            var elSE = $$6(this.getElementId(this.SE));
-            /** @type {?} */
-            var elNW = $$6(this.getElementId(this.NW));
-            if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
-                /** @type {?} */
-                var width_1 = elSE.offset().left - elNW.offset().left;
-                /** @type {?} */
-                var height_1 = elSE.offset().top - elNW.offset().top;
-                setTimeout((/**
-                 * @return {?}
-                 */
-                function () {
-                    _this.offsetX.emit(width_1);
-                    _this.offsetY.emit(height_1);
-                }), 100);
-            }
-        };
-        /**
-         * @return {?}
-         */
-        ResizingComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        ResizingComponent.prototype.catchUp = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            // ff
-            $event.preventDefault();
-            if ($event.dataTransfer) { // ff
-                $event.dataTransfer.setData('text', 'foo');
-            }
-            this.grab = true;
-            this.oldPosition = Utils.getMousePosition($event);
-        };
-        /**
-         * @param {?} $event
-         * @param {?} el
-         * @return {?}
-         */
-        ResizingComponent.prototype.resize = /**
-         * @param {?} $event
-         * @param {?} el
-         * @return {?}
-         */
-        function ($event, el) {
-            if (!this.grab) {
-                return;
-            }
-            /** @type {?} */
-            var position = Utils.getMousePosition($event);
-            if (position.x === 0 && position.y === 0) {
-                return;
-            }
-            /** @type {?} */
-            var notSW = this.NE === el || this.NW === el;
-            /** @type {?} */
-            var notNE = this.SW === el || this.NW === el;
-            this.setOffsets(position, notNE, notSW);
-            if (notSW) {
-                this.offsetTop.emit(position.y - this.oldPosition.y);
-            }
-            if (notNE) {
-                this.offsetLeft.emit(position.x - this.oldPosition.x);
-            }
-            this.oldPosition = position;
-        };
-        /**
-         * @private
-         * @param {?} position
-         * @param {?} x
-         * @param {?} y
-         * @return {?}
-         */
-        ResizingComponent.prototype.setOffsets = /**
-         * @private
-         * @param {?} position
-         * @param {?} x
-         * @param {?} y
-         * @return {?}
-         */
-        function (position, x, y) {
-            /** @type {?} */
-            var offsetX = x ? this.oldPosition.x - position.x : position.x - this.oldPosition.x;
-            /** @type {?} */
-            var offsetY = y ? this.oldPosition.y - position.y : position.y - this.oldPosition.y;
-            this.offsetX.emit(offsetX);
-            this.offsetY.emit(offsetY);
-        };
-        /**
-         * @param {?} $event
-         * @param {?} el
-         * @return {?}
-         */
-        ResizingComponent.prototype.end = /**
-         * @param {?} $event
-         * @param {?} el
-         * @return {?}
-         */
-        function ($event, el) {
-            // ff
-            this.resize($event, el);
-            this.release.emit(true);
-            this.grab = false;
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        ResizingComponent.prototype.start = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            this.drop($event);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        ResizingComponent.prototype.drop = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            $event.stopPropagation();
-            $event.preventDefault();
-        };
-        /**
-         * @private
-         * @param {?} el
-         * @return {?}
-         */
-        ResizingComponent.prototype.getElementId = /**
-         * @private
-         * @param {?} el
-         * @return {?}
-         */
-        function (el) {
-            return "#" + el + "-" + this.id;
-        };
-        ResizingComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-resizing',
-                        template: "<div class=\"ui-resizable-handle se-resize\" id=\"se-{{id}}\" *ngIf=\"se\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SE)\" (dragend)=\"end($event, SE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n      (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SE)\" (panend)=\"end($event, SE)\"></div>\n\n<div class=\"ui-resizable-handle ne-resize\" id=\"ne-{{id}}\" *ngIf=\"ne\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NE)\" (dragend)=\"end($event, NE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NE)\" (panend)=\"end($event, NE)\"></div>\n\n<div class=\"ui-resizable-handle sw-resize\" id=\"sw-{{id}}\" *ngIf=\"sw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SW)\" (dragend)=\"end($event, SW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SW)\" (panend)=\"end($event, SW)\"></div>\n\n<div class=\"ui-resizable-handle nw-resize\" id=\"nw-{{id}}\" *ngIf=\"nw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NW)\" (dragend)=\"end($event, NW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NW)\" (panend)=\"end($event, NW)\"></div>\n",
-                        styles: [".ui-resizable-handle{background-color:#679ffa;width:8px;height:8px;border-radius:100%;position:absolute;font-size:.1px;display:block}.se-resize{bottom:-5px;right:-5px;cursor:se-resize}.ne-resize{top:-5px;right:-5px;cursor:ne-resize}.sw-resize{bottom:-5px;left:-5px;cursor:sw-resize}.nw-resize{top:-5px;left:-5px;cursor:nw-resize}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        ResizingComponent.ctorParameters = function () { return []; };
-        ResizingComponent.propDecorators = {
-            init: [{ type: core.Input }],
-            id: [{ type: core.Input }],
-            se: [{ type: core.Input }],
-            ne: [{ type: core.Input }],
-            sw: [{ type: core.Input }],
-            nw: [{ type: core.Input }],
-            offsetX: [{ type: core.Output }],
-            offsetY: [{ type: core.Output }],
-            offsetTop: [{ type: core.Output }],
-            offsetLeft: [{ type: core.Output }],
-            release: [{ type: core.Output }]
-        };
-        return ResizingComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     /** @type {?} */
     var providers = [ConfigService,
         Api,
@@ -5896,7 +5357,6 @@
         FileService,
         FileModel,
         FileUtil,
-        Utils,
         SanitizeHtmlPipe,
         SanitizeResourceHtmlPipe,
         SanitizeStylePipe,
@@ -5917,9 +5377,7 @@
         OnCloseService,
         LoadingMaskInterceptorService,
         LoadingMaskService,
-        TabActivatorService,
-        AddDynamicComponentService,
-        HostingDynamicComponentService];
+        TabActivatorService];
     var CommonComponentsModule = /** @class */ (function () {
         function CommonComponentsModule() {
             fontawesomeSvgCore.library.add(freeSolidSvgIcons.fas, freeRegularSvgIcons.far);
@@ -5965,11 +5423,7 @@
                             DropDownComponent,
                             DropDownItemComponent,
                             DropDownItemsComponent,
-                            DropDownToggleComponent,
-                            LeftSideBarComponent,
-                            TooltipDirective,
-                            HostDynamicDirective,
-                            ResizingComponent
+                            DropDownToggleComponent
                         ],
                         exports: [
                             TopToolbarComponent,
@@ -6006,11 +5460,7 @@
                             DropDownComponent,
                             DropDownItemComponent,
                             DropDownItemsComponent,
-                            DropDownToggleComponent,
-                            LeftSideBarComponent,
-                            TooltipDirective,
-                            HostDynamicDirective,
-                            ResizingComponent
+                            DropDownToggleComponent
                         ],
                         providers: providers
                     },] }
@@ -6020,7 +5470,6 @@
         return CommonComponentsModule;
     }());
 
-    exports.AddDynamicComponentService = AddDynamicComponentService;
     exports.Api = Api;
     exports.BackFormattingService = BackFormattingService;
     exports.BrowseFilesModalComponent = BrowseFilesModalComponent;
@@ -6050,11 +5499,8 @@
     exports.FormattingDirective = FormattingDirective;
     exports.FormattingService = FormattingService;
     exports.HighlightSearchPipe = HighlightSearchPipe;
-    exports.HostDynamicDirective = HostDynamicDirective;
-    exports.HostingDynamicComponentService = HostingDynamicComponentService;
     exports.HttpError = HttpError;
     exports.InitStateComponent = InitStateComponent;
-    exports.LeftSideBarComponent = LeftSideBarComponent;
     exports.LoadingMaskComponent = LoadingMaskComponent;
     exports.LoadingMaskInterceptorService = LoadingMaskInterceptorService;
     exports.LoadingMaskService = LoadingMaskService;
@@ -6091,14 +5537,11 @@
     exports.TopToolbarComponent = TopToolbarComponent;
     exports.UploadFileZoneComponent = UploadFileZoneComponent;
     exports.UploadFilesService = UploadFilesService;
-    exports.Utils = Utils;
     exports.ViewportService = ViewportService;
     exports.WindowService = WindowService;
     exports.ZoomDirective = ZoomDirective;
     exports.ZoomService = ZoomService;
     exports.ɵa = TabsComponent;
-    exports.ɵb = TooltipDirective;
-    exports.ɵc = ResizingComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

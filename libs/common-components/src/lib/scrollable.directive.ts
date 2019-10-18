@@ -69,14 +69,16 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
       top: pagesHeight
     };
     if(el){
-      el.scrollTo(options);
+      // using polyfill
+      el.scroll(options);
     }
   }
 
   private getChildren() {
     const el = this._elementRef ? this._elementRef.nativeElement : null;
     if (el) {
-      return el.children.item(0).children;
+      // here and in the similar line below we getting the document pages
+      return el.children.item(0).children.item(0).children;
     }
   }
 
@@ -88,7 +90,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
   }
 
   private calculateOffset(pageNumber: number) {
-    const count = this.ifFirefox() ? 1 : this.countPagesOnWidth();
+    const count = this._windowService.isFirefox() ? 1 : this.countPagesOnWidth();
     const margin = this._windowService.isDesktop() ? 40 : 10;
     let pagesHeight = 0;
     for (let i = 1; i < pageNumber / count; i++) {
@@ -104,10 +106,6 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
     const offset = 150;
     const count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
     return count === 0 ? 1 : count;
-  }
-
-  ifFirefox() {
-    return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   }
 
   refresh() {

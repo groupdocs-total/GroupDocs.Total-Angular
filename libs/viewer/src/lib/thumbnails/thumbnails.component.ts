@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, AfterViewInit, OnChanges} from '@angular/core';
 import {NavigateService, PageModel, ZoomService} from "@groupdocs.examples.angular/common-components";
 
 @Component({
@@ -6,7 +6,7 @@ import {NavigateService, PageModel, ZoomService} from "@groupdocs.examples.angul
   templateUrl: './thumbnails.component.html',
   styleUrls: ['./thumbnails.component.less']
 })
-export class ThumbnailsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
   @Input() pages: PageModel[];
   @Input() guid: string;
@@ -17,6 +17,13 @@ export class ThumbnailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    // TODO: investigate the root cause of unneded spaces
+    this.pages.forEach(page => {
+      page.data = page.data.replace(/>\s+</g,'><');
+    });
   }
 
   ngAfterViewInit() {
