@@ -2,10 +2,12 @@ import { AfterViewChecked, ElementRef, OnInit, AfterViewInit, OnChanges } from '
 import { FileDescription } from "../file.service";
 import { ZoomService } from "../zoom.service";
 import { WindowService } from '../window.service';
+import { RotationService } from '../rotation.service';
 export declare class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit, OnChanges {
     private _elementRef;
     private _zoomService;
     private _windowService;
+    private _rotationServcie;
     mode: boolean;
     preloadPageCount: number;
     file: FileDescription;
@@ -28,7 +30,8 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     curWidth: number;
     curHeight: number;
     isDesktop: boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService, _windowService: WindowService);
+    initialRotation: any;
+    constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService, _windowService: WindowService, _rotationServcie: RotationService);
     ngOnInit(): void;
     ngOnChanges(): void;
     ngAfterViewInit(): void;
@@ -54,4 +57,6 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     onPan($event: any): void;
     onPanEnd($event: any): void;
     onDoubleTap($event: any): void;
+    onRotateStart($event: any): void;
+    onRotateEnd($event: any): void;
 }

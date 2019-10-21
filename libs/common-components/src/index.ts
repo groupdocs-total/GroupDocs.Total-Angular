@@ -9,6 +9,7 @@ export * from './lib/page-preload.service';
 export * from './lib/zoom.service';
 export * from './lib/render-print.service';
 export * from './lib/error-interceptor.service';
+export * from './lib/custom-hammer-config';
 export * from './lib/exception-message.service';
 export * from './lib/password.service';
 export * from './lib/window.service';

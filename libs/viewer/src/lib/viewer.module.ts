@@ -1,8 +1,8 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ViewerAppComponent} from './viewer-app.component';
-import { Api, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, CommonComponentsModule, ErrorInterceptorService, CustomHammerConfig } from '@groupdocs.examples.angular/common-components';
 import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -42,6 +42,10 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [ViewerConfigService], multi: true
+    },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: CustomHammerConfig
     }
   ]
 })
