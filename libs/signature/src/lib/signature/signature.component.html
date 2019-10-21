@@ -1,12 +1,16 @@
 <div class="gd-signature" *ngIf="!isDigital()"
      (clickOutside)="hideMenu($event)"
+     [exclude]="'gd-context-menu,.ui-resizable-handle'"
+     [excludeBeforeClick]="true"
+     [clickOutsideEvents]="'mousedown'"
      [clickOutsideEnabled]="active"
      [style.left.px]="position.left" [style.top.px]="position.top"
      [style.width.px]="data.width ? data.width : undefined"
      [style.height.px]="data.height ? data.height : undefined" (click)="activation()">
   <div [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
        (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="drop($event)"
-       (panstart)="dragStart($event)" (panmove)="dragging($event)">
+       (panstart)="dragStart($event)" (panmove)="dragging($event)"
+       class="gd-signature-wrapper">
     <gd-context-menu *ngIf="active" [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
                      (changeFormatting)="saveTextSignature($event)" (removeSign)="remove()" (copySign)="onCopySign()"
                      [lock]="!unlock" (lockOut)="unlock = !$event"></gd-context-menu>
