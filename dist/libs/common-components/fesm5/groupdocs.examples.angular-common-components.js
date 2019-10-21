@@ -1270,7 +1270,7 @@ var DocumentComponent = /** @class */ (function () {
      * @return {?}
      */
     function (value) {
-        return value + FileUtil.find(this.file.guid, false).unit;
+        return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
     };
     /**
      * @return {?}
@@ -5696,6 +5696,12 @@ var ResizingComponent = /** @class */ (function () {
             var width_1 = elSE.offset().left - elNW.offset().left;
             /** @type {?} */
             var height_1 = elSE.offset().top - elNW.offset().top;
+            if (width_1 >= this.pageWidth) {
+                width_1 = this.pageWidth / 2;
+            }
+            if (height_1 >= this.pageHeight) {
+                height_1 = this.pageHeight / 2;
+            }
             setTimeout((/**
              * @return {?}
              */
@@ -5852,6 +5858,8 @@ var ResizingComponent = /** @class */ (function () {
         ne: [{ type: Input }],
         sw: [{ type: Input }],
         nw: [{ type: Input }],
+        pageWidth: [{ type: Input }],
+        pageHeight: [{ type: Input }],
         offsetX: [{ type: Output }],
         offsetY: [{ type: Output }],
         offsetTop: [{ type: Output }],

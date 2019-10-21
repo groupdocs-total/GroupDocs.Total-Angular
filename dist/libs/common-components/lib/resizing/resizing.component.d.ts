@@ -6,6 +6,8 @@ export declare class ResizingComponent implements OnInit, AfterViewInit {
     ne: boolean;
     sw: boolean;
     nw: boolean;
+    pageWidth: number;
+    pageHeight: number;
     SE: string;
     NE: string;
     SW: string;

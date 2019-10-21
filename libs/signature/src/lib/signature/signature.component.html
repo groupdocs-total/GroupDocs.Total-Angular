@@ -25,7 +25,8 @@
   <gd-resizing [id]="id" *ngIf="active" [init]="isInit()"
                (offsetX)="width($event)" (offsetY)="height($event)"
                (offsetTop)="top($event)" (offsetLeft)="left($event)"
-               [se]="true" [sw]="unlock" [ne]="unlock" [nw]="unlock"></gd-resizing>
+               [se]="true" [sw]="unlock" [ne]="unlock" [nw]="unlock"
+               [pageHeight]="pageHeight" [pageWidth]="pageWidth"></gd-resizing>
 </div>
 <div class="gd-digital-marker" *ngIf="isDigital()">
   <fa-icon [icon]="['fas','info-circle']" [class]="'ng-fa-icon icon'"></fa-icon>

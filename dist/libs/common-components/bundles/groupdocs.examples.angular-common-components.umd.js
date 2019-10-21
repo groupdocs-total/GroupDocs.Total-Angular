@@ -1301,7 +1301,7 @@
          * @return {?}
          */
         function (value) {
-            return value + FileUtil.find(this.file.guid, false).unit;
+            return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
         };
         /**
          * @return {?}
@@ -5727,6 +5727,12 @@
                 var width_1 = elSE.offset().left - elNW.offset().left;
                 /** @type {?} */
                 var height_1 = elSE.offset().top - elNW.offset().top;
+                if (width_1 >= this.pageWidth) {
+                    width_1 = this.pageWidth / 2;
+                }
+                if (height_1 >= this.pageHeight) {
+                    height_1 = this.pageHeight / 2;
+                }
                 setTimeout((/**
                  * @return {?}
                  */
@@ -5883,6 +5889,8 @@
             ne: [{ type: core.Input }],
             sw: [{ type: core.Input }],
             nw: [{ type: core.Input }],
+            pageWidth: [{ type: core.Input }],
+            pageHeight: [{ type: core.Input }],
             offsetX: [{ type: core.Output }],
             offsetY: [{ type: core.Output }],
             offsetTop: [{ type: core.Output }],

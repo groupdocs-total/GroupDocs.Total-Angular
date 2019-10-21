@@ -17,6 +17,8 @@ export class ResizingComponent implements OnInit, AfterViewInit {
   @Input() ne = false;
   @Input() sw = false;
   @Input() nw = false;
+  @Input() pageWidth: number;
+  @Input() pageHeight: number;
   SE = 'se';
   NE = 'ne';
   SW = 'sw';
@@ -38,8 +40,14 @@ export class ResizingComponent implements OnInit, AfterViewInit {
     const elSE = $(this.getElementId(this.SE));
     const elNW = $(this.getElementId(this.NW));
     if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
-      const width = elSE.offset().left - elNW.offset().left;
-      const height = elSE.offset().top - elNW.offset().top;
+      let width = elSE.offset().left - elNW.offset().left;
+      let height = elSE.offset().top - elNW.offset().top;
+      if (width >= this.pageWidth) {
+        width = this.pageWidth / 2;
+      }
+      if (height >= this.pageHeight) {
+        height = this.pageHeight / 2;
+      }
       setTimeout(() => {
         this.offsetX.emit(width);
         this.offsetY.emit(height);

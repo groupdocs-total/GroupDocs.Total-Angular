@@ -1035,7 +1035,7 @@ class DocumentComponent {
      * @return {?}
      */
     getDimensionWithUnit(value) {
-        return value + FileUtil.find(this.file.guid, false).unit;
+        return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
     }
     /**
      * @return {?}
@@ -4686,9 +4686,15 @@ class ResizingComponent {
         const elNW = $$6(this.getElementId(this.NW));
         if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
             /** @type {?} */
-            const width = elSE.offset().left - elNW.offset().left;
+            let width = elSE.offset().left - elNW.offset().left;
             /** @type {?} */
-            const height = elSE.offset().top - elNW.offset().top;
+            let height = elSE.offset().top - elNW.offset().top;
+            if (width >= this.pageWidth) {
+                width = this.pageWidth / 2;
+            }
+            if (height >= this.pageHeight) {
+                height = this.pageHeight / 2;
+            }
             setTimeout((/**
              * @return {?}
              */
@@ -4809,6 +4815,8 @@ ResizingComponent.propDecorators = {
     ne: [{ type: Input }],
     sw: [{ type: Input }],
     nw: [{ type: Input }],
+    pageWidth: [{ type: Input }],
+    pageHeight: [{ type: Input }],
     offsetX: [{ type: Output }],
     offsetY: [{ type: Output }],
     offsetTop: [{ type: Output }],
