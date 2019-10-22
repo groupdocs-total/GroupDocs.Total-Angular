@@ -12,6 +12,7 @@ export * from './lib/error-interceptor.service';
 export * from './lib/custom-hammer-config';
 export * from './lib/exception-message.service';
 export * from './lib/password.service';
+export * from './lib/rotation.service';
 export * from './lib/window.service';
 export * from './lib/viewport.service';
 export * from './lib/browse-files-modal/browse-files-modal.component';
