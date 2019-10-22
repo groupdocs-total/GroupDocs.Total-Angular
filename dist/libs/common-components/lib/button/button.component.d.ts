@@ -8,6 +8,7 @@ export declare class ButtonComponent {
     className: string;
     toggle: boolean;
     iconSize: string;
+    iconRegular: boolean;
     showToolTip: boolean;
     constructor();
     iconButtonClass(): "icon-button" | "";

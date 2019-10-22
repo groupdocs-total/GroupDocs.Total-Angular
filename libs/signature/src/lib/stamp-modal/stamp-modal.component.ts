@@ -146,11 +146,15 @@ export class StampModalComponent implements OnInit, OnDestroy {
       props.text = value;
       (<StampCanvasComponent>componentRef.instance).redrawCanvas();
       this.showText = false;
+      this._activeCanvasService.changeActive(props.id);
     }
   }
 
   toggleText() {
     this.showText = !this.showText;
+    if (this.showText) {
+      this._activeCanvasService.changeActive(null);
+    }
     if (this.showText) {
       setTimeout(() => {
         const element = $("#text-input");
@@ -236,6 +240,7 @@ export class StampModalComponent implements OnInit, OnDestroy {
       props.text = "";
       (<StampCanvasComponent>componentRef.instance).redrawCanvas();
       this.showText = false;
+      this._activeCanvasService.changeActive(props.id);
     }
   }
 

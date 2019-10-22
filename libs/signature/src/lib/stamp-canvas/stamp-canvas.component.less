@@ -5,21 +5,24 @@
   height: 37px;
   top: -40px;
   padding: 0;
-  box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;
   background-color: #FFFFFF;
-  border-radius: 3px;
   cursor: default;
   flex-direction: row;
 
   .icon {
     font-size: 14px;
-    padding: 7px 7px 10px 10px;
     cursor: pointer;
     color: @primary !important;
   }
 
   ::ng-deep .dropdown-menu {
-    top: -250px !important;
+    top: -120px !important;
+    height: 120px;
+    overflow-y: auto;
+  }
+
+  ::ng-deep .icon-button {
+    margin: 0px !important;
   }
 }
 
@@ -43,9 +46,11 @@
 }
 
 .csg-border-width {
-  width: 14px !important;
-  height: 14px !important;
-  margin: 5px 21px 10px 7px;
+  width: 37px !important;
+  height: 37px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bg-color-pic {
@@ -58,12 +63,12 @@
   bottom: 6px;
 }
 
-.select {
-  position: absolute;
-  width: 27px;
-  border: 0;
-  background-color: rgba(0, 0, 0, 0);
-  cursor: pointer;
+::ng-deep .select {
+  min-width: unset !important;
+}
+
+::ng-deep .selected-value {
+  font-size: 12px !important;
 }
 
 @media @phone-down {
