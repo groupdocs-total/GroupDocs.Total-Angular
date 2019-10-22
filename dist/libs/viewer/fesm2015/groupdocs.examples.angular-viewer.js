@@ -832,13 +832,14 @@ class ThumbnailsComponent {
      * @return {?}
      */
     ngOnChanges() {
-        // TODO: investigate the root cause of unneded spaces
+        // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
+        // which leads to undesired spaces on the top of the docs pages
         this.pages.forEach((/**
          * @param {?} page
          * @return {?}
          */
         page => {
-            page.data = page.data.replace(/>\s+</g, '><');
+            page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "");
         }));
     }
     /**
