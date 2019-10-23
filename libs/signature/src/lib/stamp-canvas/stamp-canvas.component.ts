@@ -189,4 +189,12 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
     this.props.width += $event;
     this.props.height += $event;
   }
+
+  closeColorPickerBG($event) {
+    this.colorPickerBG = !$event;
+  }
+
+  closeColorPickerC($event) {
+    this.colorPickerC = !$event;
+  }
 }

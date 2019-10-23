@@ -45,4 +45,8 @@ export class HandModalComponent implements OnInit {
     $event.stopPropagation();
     this.colorPickerShow = !this.colorPickerShow;
   }
+
+  closePicker($event) {
+    this.colorPickerShow = !$event;
+  }
 }

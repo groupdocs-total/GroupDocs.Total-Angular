@@ -102,6 +102,7 @@ export class StampModalComponent implements OnInit, OnDestroy {
       comp.destroy();
     }
     this.stampCircles = new Map<number, ComponentRef<any>>();
+    this.showText = false;
   }
 
   private addCircle(props: StampCanvasProps, theFirst: boolean) {

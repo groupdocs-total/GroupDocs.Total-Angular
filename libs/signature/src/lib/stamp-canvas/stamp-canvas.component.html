@@ -4,7 +4,7 @@
       <gd-button name="button" [icon]="'fill-drip'" [tooltip]="'Color'" (click)="toggleColorPicker($event, true)">
         <div class="bg-color-pic" [style.background-color]="props.backgroundColor"></div>
       </gd-button>
-      <gd-color-picker [isOpen]="colorPickerBG"
+      <gd-color-picker [isOpen]="colorPickerBG" (closeOutside)="closeColorPickerBG($event)"
                        [className]="'palette'"
                        (selectedColor)="selectColor(true, $event)"></gd-color-picker>
       <gd-select class="csg-border-width" [options]="borderWidth" (selected)="selectBorderWidth($event)"
@@ -13,7 +13,7 @@
                  (click)="toggleColorPicker($event, false)">
         <div class="bg-color-pic" [style.background-color]="props.strokeColor"></div>
       </gd-button>
-      <gd-color-picker [isOpen]="colorPickerC"
+      <gd-color-picker [isOpen]="colorPickerC" (closeOutside)="closeColorPickerC($event)"
                        [className]="'palette'"
                        (selectedColor)="selectColor(false, $event)"></gd-color-picker>
       <gd-button name="button" [icon]="'trash'" [tooltip]="'Delete'" [iconSize]="'sm'" (click)="deleteCanvas()">

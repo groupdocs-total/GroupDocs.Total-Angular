@@ -4311,16 +4311,21 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var DEFAULT_COLORS = ['#000000', '#993300', '#333300', '#000080', '#333399', '#333333',
-        '#800000', '#FF6600', '#808000', '#008000', '#008080', '#0000FF',
-        '#666699', '#808080', '#FF0000', '#FF9900', '#99CC00', '#339966',
-        '#33CCCC', '#3366FF', '#800080', '#999999', '#FF00FF', '#FFCC00',
-        '#FFFF00', '#00FF00', '#00FFFF', '#00CCFF', '#993366', '#C0C0C0',
-        '#FF99CC', '#FFCC99', '#FFFF99', '#CCFFFF', '#99CCFF', '#FFFFFF'];
+    var DEFAULT_COLORS = [
+        '#000000', '#434343', '#666666', '#999999', '#B7B7B7', '#CCCCCC', '#D9D9D9', '#EFEFEF', '#F3F3F3', '#FFFFFF',
+        '#980000', '#FF0000', '#FF9900', '#FFFF00', '#00FF00', '#00FFFF', '#4986E8', '#0000FF', '#9900FF', '#FF00FF',
+        '#E6B8AF', '#F4CCCC', '#FDE5CD', '#FFF2CC', '#D9EAD3', '#D0E0E2', '#C9DAF8', '#CFE2F3', '#D9D2E9', '#EAD1DC',
+        '#DD7E6B', '#EA9899', '#F9CB9C', '#FFE59A', '#B7D7A8', '#A2C4C9', '#A4C2F4', '#9FC5E8', '#B4A7D7', '#D5A6BD',
+        '#CC4125', '#E06666', '#F6B26B', '#FFD966', '#92C47D', '#75A5AF', '#6D9EEB', '#6FA9DB', '#8E7CC3', '#C27BA0',
+        '#A61C00', '#CC0000', '#E69138', '#F2C131', '#6AA84F', '#45818E', '#3C78D8', '#3C85C6', '#674EA7', '#A64D79',
+        '#85200B', '#990000', '#B45F05', '#BF9000', '#37761D', '#144F5C', '#1254CC', '#0A5394', '#351C75', '#741B47',
+        '#5B0F00', '#660000', '#783F03', '#7F6000', '#284E13', '#0B343D', '#1B4586', '#063763', '#20124D', '#4C1030',
+    ];
     var ColorPickerComponent = /** @class */ (function () {
         function ColorPickerComponent() {
             this.isOpen = false;
             this.selectedColor = new core.EventEmitter();
+            this.closeOutside = new core.EventEmitter();
             this.colors = DEFAULT_COLORS;
         }
         /**
@@ -4354,19 +4359,21 @@
          */
         function () {
             this.isOpen = false;
+            this.closeOutside.emit(true);
         };
         ColorPickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-color-picker',
                         template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\n  <div class=\"bcPicker-palette\">\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\" (click)=\"select($event, color)\"></div>\n  </div>\n</div>\n",
-                        styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:250px;padding:4px;border:1px solid #efefef;background-color:#fdfdfd;z-index:999}.bcPicker-palette>.bcPicker-color{width:20px;height:20px;margin:2px;display:inline-block;border:1px solid #efefef;background-color:#9da97b;cursor:pointer}"]
+                        styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:250px;border:1px solid #efefef;background-color:#fdfdfd;z-index:999;box-shadow:0 0 5px #efefef;display:flex;flex-wrap:wrap;padding-left:7px}.bcPicker-palette>.bcPicker-color{width:19px;height:19px;margin:2px;cursor:pointer;border:1px solid #707070}"]
                     }] }
         ];
         /** @nocollapse */
         ColorPickerComponent.ctorParameters = function () { return []; };
         ColorPickerComponent.propDecorators = {
             isOpen: [{ type: core.Input }],
-            selectedColor: [{ type: core.Output }]
+            selectedColor: [{ type: core.Output }],
+            closeOutside: [{ type: core.Output }]
         };
         return ColorPickerComponent;
     }());

@@ -14,7 +14,7 @@
   <gd-button name="button" [icon]="'font'" [tooltip]="'Color'" (click)="toggleColorPicker($event)">
     <div class="bg-color-pic" [style.background-color]="color"></div>
   </gd-button>
-  <gd-color-picker [isOpen]="colorPickerShow"
+  <gd-color-picker [isOpen]="colorPickerShow" (closeOutside)="closePicker($event)"
                    [className]="'palette'"
                    (selectedColor)="selectColor($event)"></gd-color-picker>
   <ng-content></ng-content>

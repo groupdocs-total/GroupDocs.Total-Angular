@@ -2,6 +2,7 @@ import { EventEmitter, OnInit } from '@angular/core';
 export declare class ColorPickerComponent implements OnInit {
     isOpen: boolean;
     selectedColor: EventEmitter<string>;
+    closeOutside: EventEmitter<boolean>;
     colors: any;
     constructor();
     ngOnInit(): void;

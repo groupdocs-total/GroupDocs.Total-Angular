@@ -6,7 +6,7 @@
                    (click)="toggleColorPicker($event)">
           <div class="bg-color-pic" [style.background-color]="selectedColor"></div>
         </gd-button>
-        <gd-color-picker [isOpen]="colorPickerShow"
+        <gd-color-picker [isOpen]="colorPickerShow" (closeOutside)="closePicker($event)"
                          [className]="'palette'"
                          (selectedColor)="selectColor($event)"></gd-color-picker>
       </div>

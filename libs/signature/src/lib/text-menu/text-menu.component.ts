@@ -89,4 +89,7 @@ export class TextMenuComponent implements OnInit {
     this.outUnderline.emit(!this.underline);
   }
 
+  closePicker($event) {
+    this.colorPickerShow = !$event;
+  }
 }
