@@ -1,5 +1,5 @@
 <div class="wait" *ngIf="wait">Please wait...</div>
-<div id="document" class="document" gdScrollable>
+<div id="document" class="document">
   <div class="panzoom">
     <div [ngClass]="'page'" *ngFor="let page of file?.pages"
          [style.height]="getDimensionWithUnit(page.height)"

@@ -1284,8 +1284,9 @@ class PageComponent {
      * @return {?}
      */
     ngOnChanges(changes) {
-        // TODO: this is needed for test purpose to reduce unneeded top-margin
-        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><') : null;
+        // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
+        // which leads to undesired spaces on the top of the docs pages
+        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
         /** @type {?} */
         const dataImagePngBase64 = 'data:image/png;base64,';
         this.imgData = dataImagePngBase64;
