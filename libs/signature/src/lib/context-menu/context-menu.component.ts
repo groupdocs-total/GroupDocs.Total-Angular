@@ -14,6 +14,7 @@ export class ContextMenuComponent implements OnInit {
   @Input() textMenu: boolean;
   @Input() topPosition: number;
   @Input() lock = false;
+  @Input() translation = 0;
   @Output() changeFormatting = new EventEmitter<Formatting>();
   @Output() removeSign = new EventEmitter<boolean>();
   @Output() copySign = new EventEmitter<boolean>();

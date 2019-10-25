@@ -255,4 +255,9 @@ export class Signature implements OnInit, AfterViewInit {
   hideMenu($event) {
     this._activeSignatureService.changeActive(null);
   }
+
+  getMenuShift() {
+    const menuWidth = this.type === SignatureType.TEXT.id ? 616 : 228;
+    return this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
+  }
 }
