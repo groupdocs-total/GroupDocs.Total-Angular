@@ -1,0 +1,13 @@
+<div class="wait" *ngIf="wait">Please wait...</div>
+<div id="document" class="document">
+  <div class="panzoom">
+    <div [ngClass]="'page'" *ngFor="let page of file?.pages"
+         gdRotation [angle]="page.angle" [isHtmlMode]="mode">
+      <gd-page *ngIf="currentPageNo == page.number" [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
+               [width]="page.width" [height]="page.height" [editable]="page.editable"></gd-page>
+    </div>
+  </div>
+</div>
+<div class="sheets" *ngFor="let page of file?.pages">
+  <gd-button (click)="selectSheet(page.number)">{{page.number}}</gd-button>
+</div>

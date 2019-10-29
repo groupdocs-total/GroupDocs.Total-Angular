@@ -7,6 +7,7 @@ import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
 import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
+import {ExcelDocumentComponent} from './excel-document/excel-document.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
@@ -17,7 +18,8 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
 @NgModule({
   declarations: [
     ViewerAppComponent,
-    ThumbnailsComponent],
+    ThumbnailsComponent,
+    ExcelDocumentComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -27,6 +29,7 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
   exports : [
     ViewerAppComponent,
     ThumbnailsComponent,
+    ExcelDocumentComponent,
     CommonComponentsModule
   ],
   providers: [
