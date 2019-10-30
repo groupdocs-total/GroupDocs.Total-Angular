@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { DocumentComponent, WindowService } from '@groupdocs.examples.angular/common-components';
+import { DocumentComponent, WindowService, RotationService } from '@groupdocs.examples.angular/common-components';
 import {ZoomService,ZoomDirective} from  '@groupdocs.examples.angular/common-components';
 import * as jquery from 'jquery';
 import { DifferencesService } from '../differences.service';
@@ -18,8 +18,9 @@ export class ResultDocumentComponent extends DocumentComponent implements OnInit
   constructor(_elementRef: ElementRef<HTMLElement>,
               zoomService: ZoomService,
               changeService : DifferencesService,
-              windowService: WindowService) {
-    super(_elementRef, zoomService, windowService);
+              windowService: WindowService,
+              rotationService: RotationService) {
+    super(_elementRef, zoomService, windowService, rotationService);
     this.changesService = changeService;
   }
 

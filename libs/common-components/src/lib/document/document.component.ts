@@ -12,6 +12,7 @@ import * as jquery from 'jquery';
 const $ = jquery;
 import * as Hammer from 'hammerjs';
 import { WindowService } from '../window.service';
+import { RotationService } from '../rotation.service';
 
 @Component({
   selector: 'gd-document',
@@ -43,10 +44,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   curWidth = 0;
   curHeight = 0;
   isDesktop: boolean;
+  initialRotation: any;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _zoomService: ZoomService,
-              private _windowService: WindowService) {
+              private _windowService: WindowService,
+              private _rotationServcie: RotationService) {
 
     _zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val;
@@ -197,6 +200,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   };
 
   onPinch($event){
+    console.log("pinch");
     if (this.pinchCenter === null) {
       this.pinchCenter = this.rawCenter($event);
       const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
@@ -214,6 +218,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   onPinchEnd($event){
+    console.log("pinchEnd");
     this.updateLastScale();
     this.updateLastPos();
     this.pinchCenter = null;
@@ -237,6 +242,32 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
       if ($event.tapCount === 2) {
         const c = this.rawCenter($event);
         this.zoomAround(2, c.x, c.y, false);
+      }
+    }
+  }
+
+  onRotateStart($event){
+    this.initialRotation = $event.rotation;
+    console.log("rotateStart: " + $event.rotation + ' ' + $event.angle);
+  }
+
+  onRotateEnd($event){
+    console.log("rotateEnd: " + $event.rotation + ' ' + $event.angle);
+    if ($event.rotation > 0 && this.initialRotation > 0) {
+      if ($event.rotation > this.initialRotation && ($event.rotation - this.initialRotation > 45)) {
+        this._rotationServcie.setRotationAngle(90);
+      }
+      else if ($event.rotation < this.initialRotation && (this.initialRotation - $event.rotation > 45)) {
+        this._rotationServcie.setRotationAngle(-90);
+      }
+    }
+    // case with negative values
+    else {
+      if (this.initialRotation > $event.rotation && ($event.rotation - this.initialRotation > 45)) {
+        this._rotationServcie.setRotationAngle(-90);
+      }
+      else if (this.initialRotation < $event.rotation && (this.initialRotation - $event.rotation > 45)) {
+        this._rotationServcie.setRotationAngle(90);
       }
     }
   }

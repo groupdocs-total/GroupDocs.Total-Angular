@@ -35,7 +35,9 @@ import {ErrorModalComponent} from './error-modal/error-modal.component';
 import {PasswordRequiredComponent} from './password-required/password-required.component';
 import {ExceptionMessageService} from "./exception-message.service";
 import {PasswordService} from "./password.service";
+import {RotationService} from "./rotation.service";
 import {ErrorInterceptorService} from "./error-interceptor.service";
+import {CustomHammerConfig} from "./custom-hammer-config";
 import {SearchComponent} from './search/search.component';
 import {SearchableDirective} from './searchable.directive';
 import {SearchService} from "./search.service";
@@ -75,7 +77,9 @@ const providers = [ConfigService,
   ZoomService,
   ExceptionMessageService,
   PasswordService,
+  RotationService,
   ErrorInterceptorService,
+  CustomHammerConfig,
   SearchService,
   WindowService,
   ViewportService,

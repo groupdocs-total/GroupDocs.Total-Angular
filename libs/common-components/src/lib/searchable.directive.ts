@@ -67,7 +67,7 @@ export class SearchableDirective {
       if (currentEl) {
         const options = {
           left: 0,
-          top: ($(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+          top: ($(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
         };
         // using polyfill
         el.parentElement.parentElement.scroll(options);

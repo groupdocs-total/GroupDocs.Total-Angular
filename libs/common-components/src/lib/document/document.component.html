@@ -1,6 +1,7 @@
 <div class="wait" *ngIf="wait">Please wait...</div>
 <div id="document" class="document" (tap)="onDoubleTap($event)" (pinch)="onPinch($event)" 
-  (pinchend)="onPinchEnd($event)" (pan)="onPan($event)" (panend)="onPanEnd($event)">
+  (pinchend)="onPinchEnd($event)" (pan)="onPan($event)" (panend)="onPanEnd($event)" 
+  (rotatestart)="onRotateStart($event)" (rotateend)="onRotateEnd($event)">
   <div [ngClass]="isDesktop ? 'panzoom' : 'panzoom mobile'" gdZoom [zoomActive]="true" [file]="file" gdSearchable>
     <div [ngClass]="ifExcel() ? 'page excel' : 'page'" *ngFor="let page of file?.pages"
          [style.height]="getDimensionWithUnit(page.height)"

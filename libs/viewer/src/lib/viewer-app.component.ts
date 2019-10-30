@@ -13,11 +13,12 @@ import {
   RenderPrintService,
   FileUtil,
   PasswordService,
+  RotationService,
+  WindowService,
   FileCredentials, CommonModals, LoadingMaskService
 } from "@groupdocs.examples.angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
-import {WindowService} from "@groupdocs.examples.angular/common-components";
 //import * as Hammer from 'hammerjs';
 
 @Component({
@@ -57,7 +58,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _loadingMaskService: LoadingMaskService) {
+              private _loadingMaskService: LoadingMaskService,
+              private _rotationService: RotationService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -92,6 +94,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
       this.refreshZoom();
+    });
+
+    this._rotationService.rotationAngleChange.subscribe((angle: number) => {
+      this.rotate(angle);
     });
   }
 

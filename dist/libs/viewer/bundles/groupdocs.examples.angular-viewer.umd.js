@@ -1114,14 +1114,13 @@
          * @return {?}
          */
         function () {
-            // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
-            // which leads to undesired spaces on the top of the docs pages
+            // TODO: investigate the root cause of unneded spaces
             this.pages.forEach((/**
              * @param {?} page
              * @return {?}
              */
             function (page) {
-                page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "");
+                page.data = page.data.replace(/>\s+</g, '><');
             }));
         };
         /**
