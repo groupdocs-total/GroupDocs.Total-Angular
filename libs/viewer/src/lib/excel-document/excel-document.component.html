@@ -8,6 +8,8 @@
     </div>
   </div>
 </div>
-<div class="sheets" *ngFor="let page of file?.pages">
-  <gd-button (click)="selectSheet(page.number)">{{page.number}}</gd-button>
+<div class="sheets">
+  <div *ngFor="let page of file?.pages">
+    <gd-button [icon]="'eye'" [ngClass]="{'active': currentPageNo == page.number }" (click)="selectSheet(page.number)">Sheet {{page.number}}</gd-button>
+  </div>
 </div>
