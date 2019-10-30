@@ -280,8 +280,15 @@
       "projectType": "library",
       "root": "libs/signature",
       "sourceRoot": "libs/signature/src",
-      "prefix": "groupdocs.examples.angular",
+      "prefix": "gd",
       "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/signature/tsconfig.lib.json",
+            "project": "libs/signature/ng-package.json"
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
