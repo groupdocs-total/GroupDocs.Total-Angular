@@ -6,8 +6,9 @@ export declare class DndDirective {
     opening: EventEmitter<boolean>;
     dropped: EventEmitter<boolean>;
     active: boolean;
+    dragCounter: number;
     constructor(_uploadFilesService: UploadFilesService);
-    onDragOver(evt: any): void;
+    onDragEnter(evt: any): void;
     onDragLeave(evt: any): void;
     onDrop(evt: any): void;
     onClick(event: any): void;
