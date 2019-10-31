@@ -1760,6 +1760,19 @@
          * @param {?} evt
          * @return {?}
          */
+        DndDirective.prototype.onDragOver = /**
+         * @param {?} evt
+         * @return {?}
+         */
+        function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            return false;
+        };
+        /**
+         * @param {?} evt
+         * @return {?}
+         */
         DndDirective.prototype.onDragLeave = /**
          * @param {?} evt
          * @return {?}
@@ -1830,7 +1843,8 @@
             opening: [{ type: core.Output }],
             dropped: [{ type: core.Output }],
             active: [{ type: core.HostBinding, args: ['class.active',] }],
-            onDragEnter: [{ type: core.HostListener, args: ['dragover', ['$event'],] }, { type: core.HostListener, args: ['dragenter', ['$event'],] }],
+            onDragEnter: [{ type: core.HostListener, args: ['dragenter', ['$event'],] }],
+            onDragOver: [{ type: core.HostListener, args: ['dragover', ['$event'],] }],
             onDragLeave: [{ type: core.HostListener, args: ['dragleave', ['$event'],] }],
             onDrop: [{ type: core.HostListener, args: ['drop', ['$event'],] }],
             onClick: [{ type: core.HostListener, args: ['click', ['$event'],] }]

@@ -1423,6 +1423,15 @@ class DndDirective {
      * @param {?} evt
      * @return {?}
      */
+    onDragOver(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        return false;
+    }
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
     onDragLeave(evt) {
         evt.preventDefault();
         evt.stopPropagation();
@@ -1478,7 +1487,8 @@ DndDirective.propDecorators = {
     opening: [{ type: Output }],
     dropped: [{ type: Output }],
     active: [{ type: HostBinding, args: ['class.active',] }],
-    onDragEnter: [{ type: HostListener, args: ['dragover', ['$event'],] }, { type: HostListener, args: ['dragenter', ['$event'],] }],
+    onDragEnter: [{ type: HostListener, args: ['dragenter', ['$event'],] }],
+    onDragOver: [{ type: HostListener, args: ['dragover', ['$event'],] }],
     onDragLeave: [{ type: HostListener, args: ['dragleave', ['$event'],] }],
     onDrop: [{ type: HostListener, args: ['drop', ['$event'],] }],
     onClick: [{ type: HostListener, args: ['click', ['$event'],] }]
