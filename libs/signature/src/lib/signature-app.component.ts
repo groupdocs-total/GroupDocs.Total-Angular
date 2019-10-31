@@ -413,6 +413,11 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
       const currentPosition = new Position(left, top);
       const sign = this._dragSignatureService.sign;
       if (sign) {
+        const id = $(currentPage).parent().attr('id');
+        if (id) {
+          const split = id.split('-');
+          sign.pageNumber = split.length === 2 ? parseInt(split[1], 10) : sign.pageNumber;
+        }
         sign.position = currentPosition;
         this.selectSignature(sign);
         this._dragSignatureService.sign = null;
