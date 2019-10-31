@@ -11,7 +11,6 @@ const DEFAULT_COLORS = [
   '#5B0F00', '#660000', '#783F03', '#7F6000', '#284E13', '#0B343D', '#1B4586', '#063763', '#20124D', '#4C1030',
 ];
 
-
 @Component({
   selector: 'gd-color-picker',
   templateUrl: './color-picker.component.html',
@@ -22,6 +21,7 @@ export class ColorPickerComponent implements OnInit {
   @Output() selectedColor = new EventEmitter<string>();
   @Output() closeOutside = new EventEmitter<boolean>();
   colors: any = DEFAULT_COLORS;
+  white = '#FFFFFF';
 
   constructor() {
   }

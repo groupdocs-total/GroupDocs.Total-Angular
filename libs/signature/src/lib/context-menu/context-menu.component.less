@@ -11,7 +11,6 @@
 .gd-context-menu {
   box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;
   background-color: #FFFFFF;
-  border-radius: 3px;
   position: absolute;
   left: 0;
   right: 0;
@@ -32,6 +31,9 @@
     background-color: #e7e7e7;
   }
 
+  ::ng-deep .icon-button {
+    margin: 0px !important;
+  }
 }
 
 @media @phone-down {

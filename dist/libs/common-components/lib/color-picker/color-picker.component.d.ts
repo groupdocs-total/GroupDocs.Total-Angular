@@ -4,6 +4,7 @@ export declare class ColorPickerComponent implements OnInit {
     selectedColor: EventEmitter<string>;
     closeOutside: EventEmitter<boolean>;
     colors: any;
+    white: string;
     constructor();
     ngOnInit(): void;
     select($event: any, color: string): void;
