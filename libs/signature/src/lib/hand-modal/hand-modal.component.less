@@ -3,6 +3,15 @@
 .paint-body {
   width: 1036px;
   height: 561px;
+
+  ::ng-deep .button {
+    font-size: unset !important;
+    color: @primary !important;
+
+    ::ng-deep .text {
+      padding-left: 0px !important;
+    }
+  }
 }
 
 .gd-draw-image {
@@ -31,14 +40,6 @@
   width: 8px;
   right: 6px;
   bottom: 6px;
-}
-
-::ng-deep .button {
-  font-size: unset !important;
-
-  ::ng-deep .text {
-    padding-left: 0px !important;
-  }
 }
 
 ::ng-deep .bcPicker-palette {

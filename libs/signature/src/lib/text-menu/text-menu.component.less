@@ -8,6 +8,7 @@
 .gd-text-menu {
   display: flex;
   flex-direction: row;
+  box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;
 
   .format-select {
     height: 37px;
@@ -15,12 +16,17 @@
     justify-content: center;
     align-items: center;
     max-width: 80px;
+    margin: 0px 3px;
   }
 
   ::ng-deep .dropdown-menu {
     top: 40px !important;
     height: 120px;
     overflow-y: auto;
+  }
+
+  ::ng-deep .icon-button {
+    margin: 0px !important;
   }
 }
 
