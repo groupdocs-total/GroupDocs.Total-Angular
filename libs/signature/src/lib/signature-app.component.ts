@@ -456,11 +456,9 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
       const viewContainerRef = dynamicDirective.viewContainerRef;
       const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
       const id = this.signatureComponents.size + 1;
-      if (addedSignature.width >= page.width) {
-        addedSignature.width = page.width / 2;
-      }
-      if (addedSignature.height >= page.height) {
-        addedSignature.height = page.height / 2;
+      while (addedSignature.width >= page.width || addedSignature.height >= page.height) {
+        addedSignature.width = addedSignature.width / 2;
+        addedSignature.height = addedSignature.height / 2;
       }
       (<Signature>selectSignature.instance).id = id;
       (<Signature>selectSignature.instance).data = addedSignature;
