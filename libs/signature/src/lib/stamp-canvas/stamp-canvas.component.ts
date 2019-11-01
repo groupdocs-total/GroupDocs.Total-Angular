@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Border, SignatureType, StampCanvasProps} from "../signature-models";
+import {Border, StampCanvasProps} from "../signature-models";
 import {ActiveCanvasService} from "../active-canvas.service";
 import {RemoveCanvasService} from "../remove-canvas.service";
 import {OnCloseService} from "@groupdocs.examples.angular/common-components";
@@ -33,11 +33,7 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
     });
 
     this._activeCanvasService.activeChange.subscribe((id: number) => {
-      if (this.id === id) {
-        this.active = true;
-      } else {
-        this.active = false;
-      }
+      this.active = this.id === id;
     });
   }
 
@@ -199,6 +195,7 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
   }
 
   getTranslation() {
+    this.refreshRadius();
     const menuWidth = 148 * 0.5;
     return this.props.radius < menuWidth ? (menuWidth - this.props.radius) : (this.props.radius - menuWidth);
   }
