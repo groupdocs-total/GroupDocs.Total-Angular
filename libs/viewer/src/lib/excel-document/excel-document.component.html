@@ -3,8 +3,8 @@
   <div class="panzoom">
     <div [ngClass]="'page'" *ngFor="let page of file?.pages"
          gdRotation [angle]="page.angle" [isHtmlMode]="mode">
-      <gd-page *ngIf="currentPageNo == page.number" [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
-               [width]="page.width" [height]="page.height" [editable]="page.editable"></gd-page>
+      <gd-excel-page *ngIf="currentPageNo == page.number" [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
+               [width]="page.width" [height]="page.height" [editable]="page.editable"></gd-excel-page>
     </div>
   </div>
 </div>
