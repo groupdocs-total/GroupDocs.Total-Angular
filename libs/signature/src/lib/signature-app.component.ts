@@ -119,7 +119,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
         const comp = (<Signature>componentRef).instance;
         const compPage = comp.data.number;
         const sign = new DraggableSignature();
-        sign.type = comp.signatureType;
+        sign.type = comp.type;
         sign.guid = copySign.guid;
         sign.position = comp.position;
         const addedSignature = new AddedSignature();
@@ -155,6 +155,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
               comp.data.width = copyChanges.width;
               comp.data.height = copyChanges.height;
               comp.data.position = copyChanges.position;
+              comp.data.props = copyChanges.props;
             }
           }
         }

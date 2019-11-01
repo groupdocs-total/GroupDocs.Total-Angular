@@ -121,6 +121,7 @@ export class Signature implements OnInit, AfterViewInit {
   saveTextSignature($event: Formatting) {
     if (this.data.props) {
       this.fillFormatting($event);
+      this.notifyChanges();
       this.sendSaveText();
     }
   }
@@ -191,6 +192,7 @@ export class Signature implements OnInit, AfterViewInit {
     changes.position = this.position;
     changes.width = this.data.width;
     changes.height = this.data.height;
+    changes.props = this.data.props;
     this._copySignatureService.notifyChanges(changes);
   }
 

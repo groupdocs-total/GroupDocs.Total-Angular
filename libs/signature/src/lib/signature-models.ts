@@ -186,6 +186,7 @@ export class CopyChanges {
   width: number;
   height: number;
   position: Position;
+  props: SignatureProps;
 }
 
 export class StampCanvasProps {
