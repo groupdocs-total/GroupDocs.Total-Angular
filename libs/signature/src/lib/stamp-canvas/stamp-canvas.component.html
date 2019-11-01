@@ -1,6 +1,7 @@
-<div>
+<div [clickOutsideEnabled]="active" [clickOutsideEvents]="'mousedown'"
+     (clickOutside)="inactive($event)">
   <div class="gd-stamp-box" [style.left.px]="getLeft()" [style.top.px]="getTop()" [style.z-index]="props.zIndex">
-    <div class="gd-context-menu" *ngIf="active">
+    <div class="gd-context-menu" *ngIf="active" [ngStyle]="{transform: 'translateX(' + getTranslation() + 'px)'}">
       <gd-button name="button" [icon]="'fill-drip'" [tooltip]="'Color'" (click)="toggleColorPicker($event, true)">
         <div class="bg-color-pic" [style.background-color]="props.backgroundColor"></div>
       </gd-button>
@@ -19,10 +20,11 @@
       <gd-button name="button" [icon]="'trash'" [tooltip]="'Delete'" [iconSize]="'sm'" (click)="deleteCanvas()">
       </gd-button>
     </div>
-    <div class="csg-bounding-box" [style.width.px]="props.width" [style.height.px]="props.height">
+    <div class="csg-bounding-box" [ngClass]="active ? 'active' : ''" [style.width.px]="props.width"
+         [style.height.px]="props.height">
       <canvas #canvas (click)="activation()" class="csg-preview" [width]="props.width" [height]="props.height"></canvas>
       <gd-resizing [init]="false" [id]="999" (offsetX)="resize($event)" [se]="true"
-                   (release)="redrawCanvas()"></gd-resizing>
+                   (release)="redrawCanvas()" *ngIf="active"></gd-resizing>
     </div>
   </div>
 </div>

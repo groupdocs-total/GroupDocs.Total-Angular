@@ -11,6 +11,7 @@ import {
   WindowService
 } from "@groupdocs.examples.angular/common-components";
 import * as jquery from "jquery";
+
 const $ = jquery;
 
 @Component({
@@ -142,12 +143,11 @@ export class StampModalComponent implements OnInit, OnDestroy {
   addText(value: string) {
     this.textString = value;
     const componentRef = this.stampCircles.get(1);
-    if (componentRef) {
+    if (this.textString && componentRef) {
       const props = (<StampCanvasComponent>componentRef.instance).props;
       props.text = value;
       (<StampCanvasComponent>componentRef.instance).redrawCanvas();
       this.showText = false;
-      this._activeCanvasService.changeActive(props.id);
     }
   }
 
@@ -241,8 +241,19 @@ export class StampModalComponent implements OnInit, OnDestroy {
       props.text = "";
       (<StampCanvasComponent>componentRef.instance).redrawCanvas();
       this.showText = false;
-      this._activeCanvasService.changeActive(props.id);
     }
   }
 
+  leaveText($event: Event) {
+    this.showText = false;
+  }
+
+  getTextWidth() {
+    const componentRef = this.stampCircles.get(1);
+    if (componentRef) {
+      const props = (<StampCanvasComponent>componentRef.instance).props;
+      return props.radius * 2;
+    }
+    return 100;
+  }
 }

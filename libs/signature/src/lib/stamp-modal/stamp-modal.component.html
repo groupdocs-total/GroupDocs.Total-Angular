@@ -16,25 +16,30 @@
     </div>
     <div class="gd-draw-stamp" [style.width.px]="getWidth()" [style.height.px]="getHeight()">
       <div gdHostDynamic [ident]="999999"></div>
-      <div class="gd-text-menu-context">
-        <gd-text-menu *ngIf="showText" [blur]="true" [color]="textProps.color" [bold]="textProps.bold"
-                      [font]="textProps.font" [fontSize]="textProps.fontSize" [italic]="textProps.italic"
-                      [underline]="textProps.underline" (outBold)="toggleBold($event)"
-                      (outUnderline)="toggleUnderline($event)" (outItalic)="toggleItalic($event)"
-                      (outColor)="selectTextColor($event)" (outFont)="selectFont($event)"
-                      (outFontSize)="selectFontSize($event)" [decoration]="false">
-          <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon'" [iconSize]="'sm'" (click)="deleteText()"></gd-button>
-        </gd-text-menu>
+      <div class="gd-draw-stamp-text" *ngIf="showText" [clickOutsideEnabled]="showText"
+           [clickOutsideEvents]="'mousedown'" (clickOutside)="text.value ? addText(text.value) : leaveText($event)">
+        <div class="gd-text-menu-context">
+          <gd-text-menu [blur]="true" [color]="textProps.color" [bold]="textProps.bold"
+                        [font]="textProps.font" [fontSize]="textProps.fontSize" [italic]="textProps.italic"
+                        [underline]="textProps.underline" (outBold)="toggleBold($event)"
+                        (outUnderline)="toggleUnderline($event)" (outItalic)="toggleItalic($event)"
+                        (outColor)="selectTextColor($event)" (outFont)="selectFont($event)"
+                        (outFontSize)="selectFontSize($event)" [decoration]="false">
+            <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon'" [iconSize]="'sm'"
+                       (click)="deleteText()"></gd-button>
+          </gd-text-menu>
+        </div>
+        <input placeholder="Type your text" id="text-input"
+               #text (keyup.enter)="addText(text.value)"
+               [style.text-decoration]="textProps?.underline ? 'underline' : 'unset'"
+               [style.font-style]="textProps?.italic ? 'italic' : 'unset'"
+               [style.font-weight]="textProps?.bold ? 'bold' : 'unset'"
+               [style.color]="textProps?.color"
+               [style.font-family]="textProps.font"
+               [style.font-size.px]="textProps.fontSize"
+               [value]="textString" type="text"
+               [style.width.px]="getTextWidth()">
       </div>
-      <input *ngIf="showText" placeholder="Type your text" id="text-input"
-             #text (keyup.enter)="addText(text.value)"
-             [style.text-decoration]="textProps?.underline ? 'underline' : 'unset'"
-             [style.font-style]="textProps?.italic ? 'italic' : 'unset'"
-             [style.font-weight]="textProps?.bold ? 'bold' : 'unset'"
-             [style.color]="textProps?.color"
-             [style.font-family]="textProps.font"
-             [style.font-size.px]="textProps.fontSize"
-             [value]="textString" type="text">
     </div>
   </div>
 </gd-modal>

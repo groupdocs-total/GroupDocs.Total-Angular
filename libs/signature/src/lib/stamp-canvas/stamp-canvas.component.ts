@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Border, StampCanvasProps} from "../signature-models";
+import {Border, SignatureType, StampCanvasProps} from "../signature-models";
 import {ActiveCanvasService} from "../active-canvas.service";
 import {RemoveCanvasService} from "../remove-canvas.service";
 import {OnCloseService} from "@groupdocs.examples.angular/common-components";
@@ -182,7 +182,7 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
   }
 
   getTop() {
-    return ((this.height - this.props.height) / 2 - (this.active ? 34 : 0));
+    return ((this.height - this.props.height) / 2 - (this.active ? 37 : 0));
   }
 
   resize($event) {
@@ -196,5 +196,14 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
 
   closeColorPickerC($event) {
     this.colorPickerC = !$event;
+  }
+
+  getTranslation() {
+    const menuWidth = 148 * 0.5;
+    return this.props.radius < menuWidth ? (menuWidth - this.props.radius) : (this.props.radius - menuWidth);
+  }
+
+  inactive($event: Event) {
+    this._activeCanvasService.changeActive(null);
   }
 }
