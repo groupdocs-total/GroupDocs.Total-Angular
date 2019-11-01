@@ -107,8 +107,26 @@ var ButtonComponent = /** @class */ (function () {
      */
     function () {
         if (!this.disabled) {
-            this.className = this.className.replace(' active', '');
+            this.className = this.cleanAll(this.className, ' active');
         }
+    };
+    /**
+     * @private
+     * @param {?} str
+     * @param {?} val
+     * @return {?}
+     */
+    ButtonComponent.prototype.cleanAll = /**
+     * @private
+     * @param {?} str
+     * @param {?} val
+     * @return {?}
+     */
+    function (str, val) {
+        while (str && str.indexOf(val) !== -1) {
+            str = str.replace(val, '');
+        }
+        return str;
     };
     ButtonComponent.decorators = [
         { type: Component, args: [{

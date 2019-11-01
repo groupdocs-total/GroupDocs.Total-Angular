@@ -14,4 +14,5 @@ export declare class ButtonComponent {
     iconButtonClass(): "icon-button" | "";
     onHovering(): void;
     onUnhovering(): void;
+    private cleanAll;
 }

@@ -34,7 +34,14 @@ export class ButtonComponent {
 
   onUnhovering() {
     if (!this.disabled) {
-      this.className = this.className.replace(' active', '');
+      this.className = this.cleanAll(this.className, ' active');
     }
+  }
+
+  private cleanAll(str: string, val: string) {
+    while (str && str.indexOf(val) !== -1) {
+      str = str.replace(val, '');
+    }
+    return str;
   }
 }
