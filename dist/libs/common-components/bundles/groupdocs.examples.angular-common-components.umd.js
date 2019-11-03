@@ -1739,7 +1739,23 @@
             this.opening = new core.EventEmitter();
             this.dropped = new core.EventEmitter();
             this.active = false;
+            this.dragCounter = 0;
         }
+        /**
+         * @param {?} evt
+         * @return {?}
+         */
+        DndDirective.prototype.onDragEnter = /**
+         * @param {?} evt
+         * @return {?}
+         */
+        function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            this.dragCounter++;
+            this.active = true;
+            this.opening.emit(true);
+        };
         /**
          * @param {?} evt
          * @return {?}
@@ -1751,8 +1767,7 @@
         function (evt) {
             evt.preventDefault();
             evt.stopPropagation();
-            this.active = true;
-            this.opening.emit(true);
+            return false;
         };
         /**
          * @param {?} evt
@@ -1765,8 +1780,11 @@
         function (evt) {
             evt.preventDefault();
             evt.stopPropagation();
-            this.active = false;
-            this.closeArea();
+            this.dragCounter--;
+            if (this.dragCounter === 0) {
+                this.active = false;
+                this.closeArea();
+            }
         };
         /**
          * @param {?} evt
@@ -1825,6 +1843,7 @@
             opening: [{ type: core.Output }],
             dropped: [{ type: core.Output }],
             active: [{ type: core.HostBinding, args: ['class.active',] }],
+            onDragEnter: [{ type: core.HostListener, args: ['dragenter', ['$event'],] }],
             onDragOver: [{ type: core.HostListener, args: ['dragover', ['$event'],] }],
             onDragLeave: [{ type: core.HostListener, args: ['dragleave', ['$event'],] }],
             onDrop: [{ type: core.HostListener, args: ['drop', ['$event'],] }],
@@ -3140,7 +3159,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-error-modal',
                         template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\r\n  <section id=\"gd-error-section\">\r\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\r\n    <div class=\"gd-modal-error\">\r\n      <div class=\"gd-modal-error-title\">Something went wrong</div>\r\n      <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                        styles: [".gd-modal-error{display:inline-flex;flex-direction:column;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:flex}#gd-error-section fa-icon{flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center}"]
+                        styles: [".gd-modal-error{display:inline-flex;flex-direction:column;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0;word-break:break-word}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:flex}#gd-error-section fa-icon{flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center;max-width:46px}"]
                     }] }
         ];
         /** @nocollapse */

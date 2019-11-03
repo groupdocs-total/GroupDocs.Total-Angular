@@ -77,6 +77,7 @@ describe('Conversion', () => {
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
     cy.get('#gd-browse-section').trigger('dragover');
+    cy.get('#gd-browse-section').trigger('dragenter');
     cy.get('.gd-dnd-wrap').should('be.visible');
     cy.get('#gd-browse-section').trigger('dragleave');
     cy.get('.gd-dnd-wrap').should('not.exist');
@@ -179,7 +180,8 @@ describe('Conversion', () => {
     cy.route('POST','http://localhost:8080/conversion/uploadDocument', "@uploadDocumentDefault");
 
     cy.visit('/conversion');
-    cy.get('body > gd-total > div > gd-conversion > div > gd-init-state > div').trigger('dragover', this.dropEvent);
+    cy.get('body > gd-total > div > gd-conversion > div > gd-init-state > div').trigger('dragover');
+    cy.get('body > gd-total > div > gd-conversion > div > gd-init-state > div').trigger('dragenter', this.dropEvent);
     cy.get('body > gd-total > div > gd-conversion > div > gd-init-state > div').should('have.class', 'wrapper gd-drag-n-drop-wrap active')
       .trigger('drop', this.dropEvent);
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
