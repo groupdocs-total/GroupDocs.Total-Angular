@@ -3,7 +3,7 @@ import { FileDescription } from "../file.service";
 import { ZoomService } from "../zoom.service";
 import { WindowService } from '../window.service';
 export declare class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit, OnChanges {
-    private _elementRef;
+    protected _elementRef: ElementRef<HTMLElement>;
     private _zoomService;
     private _windowService;
     mode: boolean;

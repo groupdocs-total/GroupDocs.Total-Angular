@@ -44,7 +44,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   curHeight = 0;
   isDesktop: boolean;
 
-  constructor(private _elementRef: ElementRef<HTMLElement>,
+  constructor(protected _elementRef: ElementRef<HTMLElement>,
               private _zoomService: ZoomService,
               private _windowService: WindowService) {
 

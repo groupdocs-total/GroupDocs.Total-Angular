@@ -16,6 +16,7 @@ export class ExcelPageComponent implements OnInit, OnChanges {
   @Input() isHtml: boolean;
   @Input() editable: boolean;
   imgData: string;
+  dataUpated = false;
 
   constructor(private _excelPageService: ExcelPageService) {
   }
@@ -37,6 +38,10 @@ export class ExcelPageComponent implements OnInit, OnChanges {
       this.imgData += this.data;
     }
 
-    this.data = this._excelPageService.getUpdatedPage(this.data);
+    // to avoid adding additional rows/columns on each rotate action
+    if (!this.dataUpated) {
+      this.data = this.data !== null ? this._excelPageService.getUpdatedPage(this.data) : null;
+      this.dataUpated = true;
+    }
   }
 }
