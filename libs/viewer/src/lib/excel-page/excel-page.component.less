@@ -1,3 +1,5 @@
+@import "../../../../common-components/src/styles/variables";
+
 .gd-page-spinner {
   margin-top: 150px;
   text-align: center;
@@ -21,12 +23,15 @@
 }
 
 /deep/ th {
-  border: 1px solid #CCC !important;
+  color: @regent-gray;
+  background-color: @mercury;
+  font-weight: unset;
+  border: 1px solid @silver !important;
   text-transform: uppercase;
 }
 
 /deep/ td {
-  border: 1px solid #CCC !important;
+  border: 1px solid @silver !important;
   vertical-align: middle !important;
 }
 
@@ -35,6 +40,9 @@
 }
 
 /deep/ tr td:first-child {
+  color: @regent-gray;
+  background-color: @mercury;
+  font-weight: unset;
   width: 4%;
   text-align: center;
 }
