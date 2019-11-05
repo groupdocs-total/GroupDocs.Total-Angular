@@ -45,8 +45,10 @@
     <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="htmlModeConfig"
                    [guid]="file.guid" [mode]="htmlModeConfig"></gd-thumbnails>
 
-    <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig" gdScrollable
+    <gd-document class="gd-document" *ngIf="file && formatIcon !== 'file-excel'" [file]="file" [mode]="htmlModeConfig" gdScrollable
                  [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
+    <gd-excel-document class="gd-document" *ngIf="file && formatIcon === 'file-excel'" [file]="file" [mode]="htmlModeConfig" gdScrollable
+                 [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-excel-document>
   </div>
 
   <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">
