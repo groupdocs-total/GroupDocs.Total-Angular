@@ -4494,7 +4494,8 @@ CommonComponentsModule.decorators = [
                     DropDownComponent,
                     DropDownItemComponent,
                     DropDownItemsComponent,
-                    DropDownToggleComponent
+                    DropDownToggleComponent,
+                    ZoomDirective
                 ],
                 providers: providers
             },] }

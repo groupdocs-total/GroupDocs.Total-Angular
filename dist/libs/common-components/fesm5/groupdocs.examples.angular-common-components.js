@@ -5449,7 +5449,8 @@ var CommonComponentsModule = /** @class */ (function () {
                         DropDownComponent,
                         DropDownItemComponent,
                         DropDownItemsComponent,
-                        DropDownToggleComponent
+                        DropDownToggleComponent,
+                        ZoomDirective
                     ],
                     providers: providers
                 },] }

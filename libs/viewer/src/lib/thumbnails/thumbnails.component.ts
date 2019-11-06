@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, OnDestroy, AfterViewInit, OnChanges} from '@angular/core';
-import {NavigateService, PageModel, ZoomService} from "@groupdocs.examples.angular/common-components";
+import {NavigateService, PageModel, ZoomService, FileUtil} from "@groupdocs.examples.angular/common-components";
 
 @Component({
   selector: 'gd-thumbnails',
@@ -49,5 +49,10 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
 
   openPage(pageNumber: number) {
     this._navigateService.navigateTo(pageNumber);
+  }
+
+  // TODO: consider placing in one service
+  getDimensionWithUnit(value: number) {
+    return value + FileUtil.find(this.guid, false).unit;
   }
 }

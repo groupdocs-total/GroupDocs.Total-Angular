@@ -38,6 +38,7 @@ export class ExcelPageService {
     let cnt = 0;
     table.querySelectorAll('tr').forEach(row => {
       const td = document.createElement('td');
+      td.className = "excel"
       if (cnt !== 0) {
         td.innerText = cnt.toString();
         row.prepend(td);
