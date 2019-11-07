@@ -1,7 +1,21 @@
 @import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import "../../../common-components/src/styles/variables";
 
 :host * {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+/deep/ .tools {
+  .button {
+    color: #fff !important;
+    flex-flow: column;
+    &.inactive{
+      color: @regent-gray !important;
+    }
+  }
+  .icon-button{
+    margin: 0px 0px 0px 7px !important;
+  }
 }
 
 .wrapper {
