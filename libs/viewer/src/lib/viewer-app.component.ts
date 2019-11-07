@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -13,19 +13,19 @@ import {
   RenderPrintService,
   FileUtil,
   PasswordService,
-  FileCredentials, CommonModals
+  FileCredentials, CommonModals, LoadingMaskService
 } from "@groupdocs.examples.angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
-import * as Hammer from 'hammerjs';
+//import * as Hammer from 'hammerjs';
 
 @Component({
   selector: 'gd-viewer',
   templateUrl: './viewer-app.component.html',
   styleUrls: ['./viewer-app.component.less']
 })
-export class ViewerAppComponent implements AfterViewInit {
+export class ViewerAppComponent implements OnInit, AfterViewInit {
   title = 'viewer';
   files: FileModel[] = [];
   file: FileDescription;
@@ -37,12 +37,15 @@ export class ViewerAppComponent implements AfterViewInit {
   browseFilesModal = CommonModals.BrowseFiles;
   showSearch = false;
   isDesktop: boolean;
+  isLoading: boolean;
 
   _zoom = 100;
   _pageWidth: number;
   _pageHeight: number;
   options;
-  @ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
+  //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
+  fileWasDropped = false;
+  formatIcon: string;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -53,7 +56,8 @@ export class ViewerAppComponent implements AfterViewInit {
               pagePreloadService: PagePreloadService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
-              private _windowService: WindowService) {
+              private _windowService: WindowService,
+              private _loadingMaskService: LoadingMaskService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -63,8 +67,8 @@ export class ViewerAppComponent implements AfterViewInit {
       if (uploads) {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
-          this._viewerService.upload(uploads.item(i), '', this.viewerConfig.rewrite).subscribe(() => {
-            this.selectDir('');
+          this._viewerService.upload(uploads.item(i), '', this.viewerConfig.rewrite).subscribe((obj: FileCredentials) => {
+            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
           });
         }
       }
@@ -89,6 +93,29 @@ export class ViewerAppComponent implements AfterViewInit {
       this.isDesktop = _windowService.isDesktop();
       this.refreshZoom();
     });
+  }
+
+  ngOnInit() {
+    if (this.viewerConfig.defaultDocument !== ""){
+      this.isLoading = true;
+      this.selectFile(this.viewerConfig.defaultDocument, "", "");
+    }
+  }
+
+  ngAfterViewInit() {
+    this._loadingMaskService
+    .onLoadingChanged
+    .subscribe((loading: boolean) => this.isLoading = loading);
+
+    this.refreshZoom();
+
+    // this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
+    // {
+    //   comps.toArray().forEach((item) => {
+    //     const hammer = new Hammer(item.nativeElement);
+    //     hammer.get('pinch').set({ enable: true });
+    //   });
+    // });
   }
 
   get rewriteConfig(): boolean {
@@ -248,22 +275,27 @@ export class ViewerAppComponent implements AfterViewInit {
     }
   }
 
+  fileDropped($event){
+    this.fileWasDropped = $event;
+  }
+
   private ptToPx(pt: number) {
     //pt * 96 / 72 = px.
     return pt * 96 / 72;
   }
 
   private getFitToWidth() {
-    const pageWidth = this.ptToPx(this._pageWidth);
-    const pageHeight = this.ptToPx(this._pageHeight);
+    // Images and Excel-related files receiving dimensions in px from server
+    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
     return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
   }
 
   private getFitToHeight() {
-    const pageWidth = this.ptToPx(this._pageWidth);
-    const pageHeight = this.ptToPx(this._pageHeight);
+    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
     const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
     const offsetHeight = pageHeight ? pageHeight : windowHeight;
 
@@ -386,27 +418,16 @@ export class ViewerAppComponent implements AfterViewInit {
     this.showSearch = !this.showSearch;
   }
 
-  ngAfterViewInit(): void {
-    this.refreshZoom();
+  // onPinchIn($event){
+  //   this.zoomOut();
+  // }
 
-    this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
-    {
-      comps.toArray().forEach((item) => {
-        const hammer = new Hammer(item.nativeElement);
-        hammer.get('pinch').set({ enable: true });
-      });
-    });
-  }
-
-  onPinchIn($event){
-    this.zoomOut();
-  }
-
-  onPinchOut($event){
-    this.zoomIn();
-  }
+  // onPinchOut($event){
+  //   this.zoomIn();
+  // }
 
   private refreshZoom() {
+    this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
     this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
   }
 }

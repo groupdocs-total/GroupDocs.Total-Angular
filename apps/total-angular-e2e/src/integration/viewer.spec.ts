@@ -71,15 +71,15 @@ describe('Viewer', () => {
     cy.get('#gd-modal-filebrowser > div > div:nth-child(2) > div.file-description > fa-icon').should('have.class', 'fa-file-word');
   });
 
-
   it('when drag file over file dialog drop zone style changed', () => {
     cy.visit('/viewer');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
-    cy.get('#gd-browse-section').trigger('dragover');
+    cy.get('.gd-modal-body').trigger('dragover');
+    cy.get('.gd-modal-body').trigger('dragenter');
     cy.get('.gd-dnd-wrap').should('be.visible');
-    cy.get('#gd-browse-section').trigger('dragleave');
+    cy.get('.gd-modal-body').trigger('dragleave');
     cy.get('.gd-dnd-wrap').should('not.exist');
   });
 

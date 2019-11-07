@@ -44,4 +44,12 @@ export class WindowService {
   isDesktop() {
     return !this.isMobile() && !this.isTablet();
   }
+
+  isEdge() {
+    return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+  }
+
+  isFirefox() {
+    return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+  }
 }

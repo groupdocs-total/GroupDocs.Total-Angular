@@ -14,7 +14,10 @@ export class SelectionService {
   }
 
   captureSelection() {
-    this.selection = window.getSelection().getRangeAt(0);
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      this.selection = selection.getRangeAt(0);
+    }
   }
 
   private putSelection(selection) {

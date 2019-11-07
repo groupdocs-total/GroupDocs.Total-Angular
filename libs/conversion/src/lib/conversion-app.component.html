@@ -11,7 +11,10 @@
     </gd-top-toolbar>
   </div>
 
-  <gd-dnd-init-state [icon]="'exchange-alt'" *ngIf="conversionItems.length == 0"></gd-dnd-init-state>
+  <gd-init-state [icon]="'exchange-alt'" [text]="'Drop file here to upload'" *ngIf="conversionItems.length == 0" (fileDropped)="fileDropped($event)">
+      Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
+      Or drop file here
+  </gd-init-state>
 
   <gd-conversion-queue [items]="conversionItems" (selectedItemToConvert)="convertSingleItem($event)"></gd-conversion-queue>
 

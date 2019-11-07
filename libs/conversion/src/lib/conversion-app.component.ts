@@ -72,6 +72,12 @@ export class ConversionAppComponent {
     return this.conversionConfig ? this.conversionConfig.upload : true;
   }
 
+  fileDropped($event) {
+    if ($event) {
+      this._modalService.open(CommonModals.BrowseFiles);
+    }
+  }
+
   openModal(id: string) {
     this._modalService.open(id);
   }

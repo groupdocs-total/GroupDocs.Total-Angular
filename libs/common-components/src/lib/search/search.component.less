@@ -1,14 +1,5 @@
 @import "./../../styles/variables";
 .gd-nav-search-btn {
-  float: left;
-  cursor: pointer;
-  padding-left: 7px;
-  color: rgb(149, 157, 165);
-  font-size: 14px;
-  width: 37px;
-  height: 37px;
-  line-height: 37px;
-  text-align: center;
   margin: 3px 0px 4px 0px;
 }
 
@@ -16,17 +7,14 @@
   color: #fff;
   font-size: 14px;
   width: 37px;
-  padding-right: 4px;
 }
 
 .gd-search-count {
   color: @regent-gray;
   font-size: 12px;
   position: absolute;
-  left: 206px;
+  right: 148px;
   top: 14px;
-  text-align: right;
-  width: 62px;
 }
 
 .gd-nav-search-container {
@@ -37,45 +25,38 @@
   top: 60px;
   z-index: 2;
   transform: translate(-50%, 0);
+  display: flex;
 }
 
 .gd-search-input {
   float: left;
-  height: 17px;
-  width: 258px;
+  height: 30px;
+  width: 267px;
   font-size: 14px;
-  padding: 5px 0px 6px 7px;
   color: @dove-gray;
   border: 1px solid @brand;
   margin: 7px 0px 7px 7px;
+  box-sizing: border-box;
+  padding: 6px 0px 5px 9px;
 }
 
-@media (min-width: 401px) and (max-width: 700px) {
-  .gd-search-input {
-    width: 231px;
-  }
-  .gd-nav-search-cancel {
-    padding-right: 7px;
-  }
-  .gd-search-count {
-    left: 179px;
-  }
-  .gd-nav-search-container {
-    width: 386px;
-  }
+input[type=text]::-ms-clear{
+  display: none;
 }
 
-@media (max-width: 500px) {
-  // TODO: make more dry
+@media @phone-down {
   .gd-search-input {
     width: 231px;
+    height: 30px;
+    margin: 7px 0px 7px 5px;
   }
-  .gd-nav-search-cancel {
-    padding-right: 7px;
-  }
+
   .gd-search-count {
-    left: 179px;
+    position: absolute;
+    left: 193px;
+    top: 15px;
   }
+
   .gd-nav-search-container {
     width: 100%;
   }

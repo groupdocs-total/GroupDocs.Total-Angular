@@ -11,6 +11,8 @@
     "@fortawesome/free-regular-svg-icons",
     "@fortawesome/free-solid-svg-icons",
     "ng-click-outside",
-    "jquery"
+    "hammerjs",
+    "jquery",
+    "smoothscroll-polyfill"
   ]
 }

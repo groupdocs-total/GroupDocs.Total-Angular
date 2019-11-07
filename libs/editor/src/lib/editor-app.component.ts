@@ -1,4 +1,4 @@
-import {Component, AfterViewInit} from '@angular/core';
+import {Component, AfterViewInit, OnInit} from '@angular/core';
 import {EditorService} from "./editor.service";
 import {
   FileDescription,
@@ -30,7 +30,7 @@ const $ = jquery;
   templateUrl: './editor-app.component.html',
   styleUrls: ['./editor-app.component.less']
 })
-export class EditorAppComponent implements AfterViewInit  {
+export class EditorAppComponent implements OnInit, AfterViewInit  {
   title = 'editor';
   files: FileModel[] = [];
   file: FileDescription;
@@ -49,6 +49,7 @@ export class EditorAppComponent implements AfterViewInit  {
   private textBackup: string;
   private isIE = false;
   isLoading: boolean;
+  fileWasDropped: false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -73,8 +74,8 @@ export class EditorAppComponent implements AfterViewInit  {
       if (uploads) {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
-          this._editorService.upload(uploads.item(i), '', this.editorConfig.rewrite).subscribe(() => {
-            this.selectDir('');
+          this._editorService.upload(uploads.item(i), '', this.editorConfig.rewrite).subscribe((obj: FileCredentials) => {
+            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
           });
         }
       }
@@ -164,6 +165,13 @@ export class EditorAppComponent implements AfterViewInit  {
         this.textBackup = text;
       }
     });
+  }
+
+  ngOnInit() {
+    if (this.editorConfig.defaultDocument !== ""){
+      this.isLoading = true;
+      this.selectFile(this.editorConfig.defaultDocument, "", "");
+    }
   }
 
   ngAfterViewInit() {
@@ -264,6 +272,10 @@ export class EditorAppComponent implements AfterViewInit  {
     );
     this.clearData();
     this._modalService.close(modalId);
+  }
+
+  fileDropped($event){
+    this.fileWasDropped = $event;
   }
 
   private loadFile(file: FileDescription) {

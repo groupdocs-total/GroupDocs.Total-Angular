@@ -77,6 +77,7 @@ describe('Conversion', () => {
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
     cy.get('#gd-browse-section').trigger('dragover');
+    cy.get('#gd-browse-section').trigger('dragenter');
     cy.get('.gd-dnd-wrap').should('be.visible');
     cy.get('#gd-browse-section').trigger('dragleave');
     cy.get('.gd-dnd-wrap').should('not.exist');
@@ -156,7 +157,7 @@ describe('Conversion', () => {
     cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-convert-remove > span').click();
     cy.get('#gd-convert-queue gd-conversion-item').its('length').should('eq', 1);
     cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-convert-remove > span').click();
-    cy.get('body > gd-total > div > gd-conversion > div > gd-dnd-init-state > div').should('be.visible');
+    cy.get('body > gd-total > div > gd-conversion > div > gd-init-state > div').should('be.visible');
   });
 
   it('should open file dialog after dropping the file on init state area', function(){
@@ -179,8 +180,9 @@ describe('Conversion', () => {
     cy.route('POST','http://localhost:8080/conversion/uploadDocument', "@uploadDocumentDefault");
 
     cy.visit('/conversion');
-    cy.get('body > gd-total > div > gd-conversion > div > gd-dnd-init-state > div').trigger('dragover', this.dropEvent);
-    cy.get('body > gd-total > div > gd-conversion > div > gd-dnd-init-state > div').should('have.class', 'wrapper active')
+    cy.get('body > gd-total > div > gd-conversion > div > gd-init-state > div').trigger('dragover');
+    cy.get('body > gd-total > div > gd-conversion > div > gd-init-state > div').trigger('dragenter', this.dropEvent);
+    cy.get('body > gd-total > div > gd-conversion > div > gd-init-state > div').should('have.class', 'wrapper gd-drag-n-drop-wrap active')
       .trigger('drop', this.dropEvent);
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
   });

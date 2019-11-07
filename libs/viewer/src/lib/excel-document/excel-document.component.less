@@ -1,0 +1,85 @@
+@import "./../../../../common-components/src/styles/variables.less";
+
+:host {
+  overflow: scroll;
+  width: 100%;
+}
+
+.document {
+  width: 100%;
+  height: calc(100% - 40px);
+  transition: all 0.4s;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+}
+
+.sheets {
+  padding-left: 12px;
+  display: flex;
+  border-top: 1px solid @mercury;
+  /deep/ gd-button {
+    &.active {
+      .text {
+          background-color: #272727;
+          border-radius: 10px;
+          color: #eee;
+      }
+    }
+    .text {
+      padding: 1px 12px;
+    }
+    fa-icon {
+      display: none;
+    }
+  }
+}
+
+.page {
+  position: relative;
+  display: inline-block;
+  background-color: #ffffff;
+  transition: all 0.3s;
+}
+
+.wait {
+  position: absolute;
+  top: 55px;
+  left: Calc(50% - 20px);
+}
+
+.panzoom {
+  transform: none;
+  backface-visibility: hidden;
+  transform-origin: 50% 50% 0px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gd-zoomed {
+  margin: 10px 98px;
+}
+
+.highlights{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+}
+
+@media @phone-down {
+  .document {
+    overflow-x: auto !important;
+  }
+
+  .panzoom {
+    flex-direction: column;
+  }
+
+  .page {
+    min-width: unset !important;
+    min-height: unset !important;
+    margin: 5px 0px;
+  }
+}

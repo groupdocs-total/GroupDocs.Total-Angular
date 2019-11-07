@@ -1,272 +1,34 @@
-import { Injectable, ɵɵdefineInjectable, Component, ElementRef, ChangeDetectorRef, Input, EventEmitter, Output, ViewEncapsulation, Pipe, Directive, HostBinding, HostListener, ɵɵinject, ViewChild, Inject, forwardRef, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import * as jquery from 'jquery';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, fromEvent, BehaviorSubject, throwError } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
+import * as jquery from 'jquery';
+import * as Hammer from 'hammerjs';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ClickOutsideModule } from 'ng-click-outside';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const $ = jquery;
-class ViewportService {
-    constructor() {
-    }
-    /**
-     * @param {?} el
-     * @param {?=} zoom
-     * @param {?=} leftOffset
-     * @param {?=} deltaX
-     * @return {?}
-     */
-    checkInViewport(el, zoom = 100, leftOffset = 0, deltaX = 0.5) {
-        if (!el) {
-            return false;
-        }
-        /** @type {?} */
-        const x = deltaX;
-        /** @type {?} */
-        const y = 0.5;
-        /** @type {?} */
-        const win = $(window);
-        /** @type {?} */
-        const viewport = {
-            top: win.scrollTop(),
-            left: win.scrollLeft() + leftOffset,
-            right: win.scrollLeft() + win.width() - 10,
-            bottom: win.scrollTop() + win.height()
-        };
-        if (isNaN(zoom)) {
-            zoom = 100;
-        }
-        /** @type {?} */
-        const zoomN = zoom / 100;
-        /** @type {?} */
-        const height = $(el).outerHeight() * (zoomN);
-        /** @type {?} */
-        const width = $(el).outerWidth() * (zoomN);
-        if (!width || !height) {
-            return false;
-        }
-        /** @type {?} */
-        const bounds = $(el).offset();
-        /** @type {?} */
-        const right = (bounds.left * (zoomN)) + width;
-        /** @type {?} */
-        const bottom = (bounds.top * (zoomN)) + height;
-        /** @type {?} */
-        const visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
-        if (!visible) {
-            return false;
-        }
-        /** @type {?} */
-        const deltas = {
-            top: Math.min(1, (bottom - viewport.top) / height),
-            bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
-            left: Math.min(1, (right - viewport.left) / width),
-            right: Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width)
-        };
-        return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
-    }
-}
-ViewportService.decorators = [
-    { type: Injectable, args: [{
-                providedIn: 'root'
-            },] }
-];
-/** @nocollapse */
-ViewportService.ctorParameters = () => [];
-/** @nocollapse */ ViewportService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ViewportService_Factory() { return new ViewportService(); }, token: ViewportService, providedIn: "root" });
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const $$1 = jquery;
 class TopToolbarComponent {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _viewportService
-     * @param {?} _cdRef
-     */
-    constructor(_elementRef, _viewportService, _cdRef) {
-        this._elementRef = _elementRef;
-        this._viewportService = _viewportService;
-        this._cdRef = _cdRef;
-        this.leftOffset = true;
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this.refresh();
-        /** @type {?} */
-        const el = this.getToolsElem();
-        /** @type {?} */
-        const $this = this;
-        el.addEventListener('scroll', (/**
-         * @return {?}
-         */
-        function () {
-            $this.refresh();
-        }));
-    }
-    /**
-     * @return {?}
-     */
-    moveLeft() {
-        /** @type {?} */
-        const el = this.getToolsElem();
-        if (el) {
-            /** @type {?} */
-            const elem = this.canMoveTo(true);
-            if (elem) {
-                /** @type {?} */
-                const options = {
-                    left: $$1(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
-                    top: 0,
-                };
-                el.scrollTo(options);
-            }
-        }
-    }
-    /**
-     * @return {?}
-     */
-    moveRight() {
-        /** @type {?} */
-        const el = this.getToolsElem();
-        if (el) {
-            /** @type {?} */
-            const elem = this.canMoveTo(false);
-            if (elem) {
-                /** @type {?} */
-                const options = {
-                    left: $$1(elem).offset().left + el.scrollLeft - this.getLeftOffset(),
-                    top: 0,
-                };
-                el.scrollTo(options);
-            }
-        }
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    getToolsElem() {
-        return this._elementRef ? this._elementRef.nativeElement.children[0].querySelector('#tools') : null;
-    }
-    /**
-     * @private
-     * @param {?} left
-     * @return {?}
-     */
-    canMoveTo(left) {
-        /** @type {?} */
-        let elem;
-        /** @type {?} */
-        const children = this.getChildren();
-        /** @type {?} */
-        const countElem = children.length;
-        for (elem = 0; elem < countElem; elem++) {
-            /** @type {?} */
-            const element = this.getElem(elem);
-            if (this._viewportService.checkInViewport(element, 100, this.getLeftOffset())) {
-                if (left) {
-                    return elem > 0 ? children.item(elem - 1) : null;
-                }
-                else {
-                    return elem + 1 < countElem ? children.item(elem + 1) : null;
-                }
-            }
-        }
-        return;
-    }
-    /**
-     * @private
-     * @param {?} num
-     * @return {?}
-     */
-    getElem(num) {
-        /** @type {?} */
-        const elems = this.getChildren();
-        return elems.item(num !== null ? num : elems.length - 1);
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    getChildren() {
-        /** @type {?} */
-        const el = this.getToolsElem();
-        if (!el) {
-            return;
-        }
-        return el.children;
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    getLeftOffset() {
-        if (!this.leftOffset) {
-            return 0;
-        }
-        /** @type {?} */
-        const el = this._elementRef.nativeElement ? this._elementRef.nativeElement.parentElement.children[0] : null;
-        if (!el) {
-            return 0;
-        }
-        return el.clientWidth;
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    refresh() {
-        this.showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
-        this.showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewChecked() {
-        /** @type {?} */
-        const showLeft = !this._viewportService.checkInViewport(this.getElem(0), 100, this.getLeftOffset(), 0.8);
-        /** @type {?} */
-        const showRight = !this._viewportService.checkInViewport(this.getElem(null), 100, this.getLeftOffset(), 0.8);
-        if (showLeft !== this.showLeft || showRight !== this.showRight) {
-            this.showLeft = showLeft;
-            this.showRight = showRight;
-            this._cdRef.detectChanges();
-        }
+    constructor() {
     }
 }
 TopToolbarComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-top-toolbar',
-                template: "<div class=\"top-toolbar\">\r\n  <gd-button [className]=\"'arrow-button'\" class=\"arrow-left\" id=\"left\" [icon]=\"'caret-left'\" [tooltip]=\"'Scroll left'\"\r\n             (click)=\"moveLeft()\"\r\n             *ngIf=\"showLeft\"></gd-button>\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n  <gd-button [className]=\"'arrow-button'\" class=\"arrow-right\" id=\"right\" [icon]=\"'caret-right'\"\r\n             [tooltip]=\"'Scroll right'\" (click)=\"moveRight()\"\r\n             *ngIf=\"showRight\"></gd-button>\r\n</div>\r\n",
-                styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.arrow-right{position:absolute;right:0}.arrow-left{position:absolute;left:0}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
+                template: "<div class=\"top-toolbar\">\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
             }] }
 ];
 /** @nocollapse */
-TopToolbarComponent.ctorParameters = () => [
-    { type: ElementRef },
-    { type: ViewportService },
-    { type: ChangeDetectorRef }
-];
-TopToolbarComponent.propDecorators = {
-    leftOffset: [{ type: Input }]
-};
+TopToolbarComponent.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -339,7 +101,7 @@ ButtonComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-button',
                 template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\r\n  <div class=\"text\"><ng-content></ng-content></div>\r\n</div>\r\n",
-                styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1025px){.button{font-size:20px}.arrow-button{margin:5px}}"]
+                styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
             }] }
 ];
 ButtonComponent.propDecorators = {
@@ -634,7 +396,7 @@ ModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-modal',
                 template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\r\n</div>\r\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\r\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \r\n\r\n      <div class=\"gd-modal-header\"> \r\n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\r\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\r\n        </div> \r\n\r\n      <div class=\"gd-modal-body\">\r\n        <ng-content></ng-content>\r\n        </div> \r\n\r\n      <div class=\"gd-modal-footer\"> \r\n\r\n        </div> \r\n      </div><!-- /.modal-content -->\r\n    </div><!-- /.modal-dialog --> \r\n\r\n",
-                styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#959da5;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:14px;font-weight:400;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
+                styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
             }] }
 ];
 /** @nocollapse */
@@ -719,78 +481,78 @@ class FileUtil {
 }
 FileUtil.map = {
     'folder': { 'format': '', 'icon': 'folder' },
-    'pdf': { 'format': 'Portable Document Format', 'icon': 'file-pdf' },
-    'doc': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-    'docx': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-    'docm': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-    'dot': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-    'dotx': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-    'dotm': { 'format': 'Microsoft Word', 'icon': 'file-word' },
-    'xls': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-    'xlsx': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-    'xlsm': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-    'xlsb': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-    'xls2003': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-    'xltx': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-    'xltm': { 'format': 'Microsoft Excel', 'icon': 'file-excel' },
-    'ppt': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
-    'pptx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
-    'pps': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
-    'ppsx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint' },
-    'vsd': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'vdx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'vss': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'vsx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'vst': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'vtx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'vsdx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'vdw': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'vstx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'vssx': { 'format': 'Microsoft Visio', 'icon': 'file-code' },
-    'mpp': { 'format': 'Microsoft Project', 'icon': 'file-alt' },
-    'mpt': { 'format': 'Microsoft Project', 'icon': 'file-alt' },
-    'msg': { 'format': 'Microsoft Outlook', 'icon': 'file-alt' },
-    'eml': { 'format': 'Microsoft Outlook', 'icon': 'file-alt' },
-    'emlx': { 'format': 'Microsoft Outlook', 'icon': 'file-alt' },
-    'one': { 'format': 'Microsoft OneNote', 'icon': 'file-word' },
-    'odt': { 'format': 'Open Document Text', 'icon': 'file-word' },
-    'ott': { 'format': 'Open Document Text Template', 'icon': 'file-word' },
-    'ods': { 'format': 'Open Document Spreadsheet', 'icon': 'file-excel' },
-    'odp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-    'otp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-    'ots': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-    'potx': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-    'potm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-    'pptm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-    'ppsm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint' },
-    'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt' },
-    'txt': { 'format': 'Plain Text File', 'icon': 'file-alt' },
-    'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel' },
-    'html': { 'format': 'HyperText Markup Language', 'icon': 'file-word' },
-    'mht': { 'format': 'HyperText Markup Language', 'icon': 'file-word' },
-    'mhtml': { 'format': 'HyperText Markup Language', 'icon': 'file-word' },
-    'xml': { 'format': 'Extensible Markup Language', 'icon': 'file-word' },
-    'xps': { 'format': 'XML Paper Specification', 'icon': 'file-word' },
-    'dxf': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image' },
-    'dwg': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image' },
-    'bmp': { 'format': 'Bitmap Picture', 'icon': 'file-image' },
-    'gif': { 'format': 'Graphics Interchange Format', 'icon': 'file-image' },
-    'jpg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
-    'jpe': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
-    'jpeg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
-    'jfif': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image' },
-    'png': { 'format': 'Portable Network Graphics', 'icon': 'file-image' },
-    'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-    'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-    'psd': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-    'svg': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-    'jp2': { 'format': 'Tagged Image File Format', 'icon': 'file-image' },
-    'epub': { 'format': 'Electronic Publication', 'icon': 'file-pdf' },
-    'ico': { 'format': 'Windows Icon', 'icon': 'file-image' },
-    'webp': { 'format': 'Compressed Image', 'icon': 'file-image' },
-    'mobi': { 'format': 'Mobipocket eBook', 'icon': 'file-pdf' },
-    'tex': { 'format': 'LaTeX Source Document', 'icon': 'file-pdf' },
-    'djvu': { 'format': 'Multi-Layer Raster Image', 'icon': 'file-alt' },
+    'pdf': { 'format': 'Portable Document Format', 'icon': 'file-pdf', 'unit': 'pt' },
+    'doc': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+    'docx': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+    'docm': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+    'dot': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+    'dotx': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+    'dotm': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+    'xls': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+    'xlsx': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+    'xlsm': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+    'xlsb': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+    'xls2003': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+    'xltx': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+    'xltm': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+    'ppt': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'pptx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'pps': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'ppsx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'vsd': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'vdx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'vss': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'vsx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'vst': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'vtx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'vsdx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'vdw': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'vstx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'vssx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+    'mpp': { 'format': 'Microsoft Project', 'icon': 'file-alt', 'unit': 'pt' },
+    'mpt': { 'format': 'Microsoft Project', 'icon': 'file-alt', 'unit': 'pt' },
+    'msg': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
+    'eml': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
+    'emlx': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
+    'one': { 'format': 'Microsoft OneNote', 'icon': 'file-word', 'unit': 'pt' },
+    'odt': { 'format': 'Open Document Text', 'icon': 'file-word', 'unit': 'pt' },
+    'ott': { 'format': 'Open Document Text Template', 'icon': 'file-word', 'unit': 'pt' },
+    'ods': { 'format': 'Open Document Spreadsheet', 'icon': 'file-excel', 'unit': 'px' },
+    'odp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'otp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'ots': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'potx': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'potm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'pptm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'ppsm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+    'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt', 'unit': 'pt' },
+    'txt': { 'format': 'Plain Text File', 'icon': 'file-alt', 'unit': 'pt' },
+    'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel', 'unit': 'px' },
+    'html': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+    'mht': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+    'mhtml': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+    'xml': { 'format': 'Extensible Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+    'xps': { 'format': 'XML Paper Specification', 'icon': 'file-word', 'unit': 'pt' },
+    'dxf': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image', 'unit': 'px' },
+    'dwg': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image', 'unit': 'px' },
+    'bmp': { 'format': 'Bitmap Picture', 'icon': 'file-image', 'unit': 'px' },
+    'gif': { 'format': 'Graphics Interchange Format', 'icon': 'file-image', 'unit': 'px' },
+    'jpg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+    'jpe': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+    'jpeg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+    'jfif': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+    'png': { 'format': 'Portable Network Graphics', 'icon': 'file-image', 'unit': 'px' },
+    'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+    'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+    'psd': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+    'svg': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+    'jp2': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+    'epub': { 'format': 'Electronic Publication', 'icon': 'file-pdf', 'unit': 'pt' },
+    'ico': { 'format': 'Windows Icon', 'icon': 'file-image', 'unit': 'px' },
+    'webp': { 'format': 'Compressed Image', 'icon': 'file-image', 'unit': 'px' },
+    'mobi': { 'format': 'Mobipocket eBook', 'icon': 'file-pdf', 'unit': 'pt' },
+    'tex': { 'format': 'LaTeX Source Document', 'icon': 'file-pdf', 'unit': 'pt' },
+    'djvu': { 'format': 'Multi-Layer Raster Image', 'icon': 'file-alt', 'unit': 'pt' },
     'unknown': { 'format': 'This format is not supported', 'icon': 'file' },
 };
 class FileService {
@@ -830,7 +592,7 @@ class UploadFilesService {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$2 = jquery;
+const $ = jquery;
 /** @type {?} */
 const upload_disc = 'Disc';
 /** @type {?} */
@@ -928,7 +690,7 @@ class BrowseFilesModalComponent {
         }
         else {
             this.showUploadUrl = false;
-            $$2("#gd-upload-input").trigger('click');
+            $("#gd-upload-input").trigger('click');
         }
     }
     /**
@@ -980,8 +742,8 @@ class BrowseFilesModalComponent {
 BrowseFilesModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-browse-files-modal',
-                template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\r\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\r\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\r\n            (change)=\"handleFileInput($event.target.files)\">\r\n    <div class=\"context\">\r\n      <div class=\"context-actions\">\r\n        <gd-drop-down>\r\n          <gd-drop-down-toggle>\r\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\r\n              Upload file\r\n            </gd-button>\r\n          </gd-drop-down-toggle>\r\n          <gd-drop-down-items>\r\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\r\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\r\n              <div class=\"text\">{{item.name}}</div>\r\n            </gd-drop-down-item>\r\n          </gd-drop-down-items>\r\n        </gd-drop-down>\r\n      </div>\r\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\r\n        <div class=\"upload-url\">\r\n          <input class=\"url-input\" placeholder=\"http://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\r\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\r\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\r\n    <div class=\"header-name\">FILE</div>\r\n    <div class=\"header-size\">SIZE</div>\r\n  </div>\r\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\r\n    <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\r\n      <div class=\"gd-drag-n-drop-icon\">\r\n        <fa-icon [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n      </div>\r\n      <h2>Drag &amp; Drop your files here</h2>\r\n    </div>\r\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\r\n      <div class=\"list-files-body\">\r\n        <div class=\"go-up\" (click)=\"goUp()\">\r\n            <div class=\"go-up-icon\">\r\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\r\n            </div>\r\n            <div class=\"go-up-dots\">..</div>\r\n        </div>\r\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\r\n          <div class=\"file-description\">\r\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\r\n            <div class=\"file-name-format\">\r\n              <div class=\"file-name\">{{file?.name}}</div>\r\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\r\n            </div>\r\n          </div>\r\n          <div class=\"file-size\">\r\n            {{getSize(file?.size)}}\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n      &nbsp;Loading... Please wait.\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:flex;width:100%;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:flex;position:relative;width:100%}.upload-panel .context{display:flex;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;width:96px;padding:0;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:flex;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:inherit;height:inherit;background:rgba(255,255,255,.7);z-index:1;display:flex;text-align:center;justify-content:center;align-content:center;flex-direction:column}.gd-dnd-wrap fa-icon{color:#3e4e5a;font-size:90px}.gd-drag-n-drop-icon{margin-top:-50px}.gd-dnd-wrap h2{color:#6e6e6e;margin-top:20px;font-size:14px;font-weight:300}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
+                template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\r\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\r\n    <div class=\"dnd-wrapper\">\r\n      <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n      <span class=\"text\">Drop file here to upload</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\r\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\r\n            (change)=\"handleFileInput($event.target.files)\">\r\n    <div class=\"context\">\r\n      <div class=\"context-actions\">\r\n        <gd-drop-down>\r\n          <gd-drop-down-toggle>\r\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\r\n              Upload file\r\n            </gd-button>\r\n          </gd-drop-down-toggle>\r\n          <gd-drop-down-items>\r\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\r\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\r\n              <div class=\"text\">{{item.name}}</div>\r\n            </gd-drop-down-item>\r\n          </gd-drop-down-items>\r\n        </gd-drop-down>\r\n      </div>\r\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\r\n        <div class=\"upload-url\">\r\n          <input class=\"url-input\" placeholder=\"http://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\r\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\r\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\r\n    <div class=\"header-name\">FILE</div>\r\n    <div class=\"header-size\">SIZE</div>\r\n  </div>\r\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\r\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\r\n      <div class=\"list-files-body\">\r\n        <div class=\"go-up\" (click)=\"goUp()\">\r\n            <div class=\"go-up-icon\">\r\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\r\n            </div>\r\n            <div class=\"go-up-dots\">..</div>\r\n        </div>\r\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\r\n          <div class=\"file-description\">\r\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\r\n            <div class=\"file-name-format\">\r\n              <div class=\"file-name\">{{file?.name}}</div>\r\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\r\n            </div>\r\n          </div>\r\n          <div class=\"file-size\">\r\n            {{getSize(file?.size)}}\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n      &nbsp;Loading... Please wait.\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
+                styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:flex;width:100%;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:flex;position:relative;width:100%}.upload-panel .context{display:flex;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;width:96px;padding:0;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:flex;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:100%;height:calc(100% - 60px);background:rgba(255,255,255,.7);z-index:1;display:flex;justify-content:center;align-items:center}.dnd-wrapper{display:flex;flex-direction:column;align-items:center;justify-content:center;top:259px;position:absolute}.dnd-wrapper .text{color:#6e6e6e;font-size:14px}.dnd-wrapper .icon{display:flex;width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
             }] }
 ];
 /** @nocollapse */
@@ -1059,22 +821,105 @@ class ZoomService {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$3 = jquery;
+const MOBILE_MAX_WIDTH = 425;
+/** @type {?} */
+const TABLET_MAX_WIDTH = 1024;
+class WindowService {
+    constructor() {
+        this.resizeSubject = new Subject();
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this._resize$ = fromEvent(window, 'resize')
+            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
+            this.resizeSubject.next((/** @type {?} */ (event.target)));
+            this.width = ((/** @type {?} */ (event.target))).innerWidth;
+            this.height = ((/** @type {?} */ (event.target))).innerHeight;
+        })));
+        this._resize$.subscribe();
+    }
+    /**
+     * @return {?}
+     */
+    get onResize() {
+        return this.resizeSubject.asObservable();
+    }
+    /**
+     * @return {?}
+     */
+    isMobile() {
+        return this.width <= MOBILE_MAX_WIDTH;
+    }
+    /**
+     * @return {?}
+     */
+    isTablet() {
+        return this.width <= TABLET_MAX_WIDTH;
+    }
+    /**
+     * @return {?}
+     */
+    isDesktop() {
+        return !this.isMobile() && !this.isTablet();
+    }
+    /**
+     * @return {?}
+     */
+    isEdge() {
+        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+    }
+    /**
+     * @return {?}
+     */
+    isFirefox() {
+        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const $$1 = jquery;
 class DocumentComponent {
     /**
      * @param {?} _elementRef
-     * @param {?} zoomService
+     * @param {?} _zoomService
+     * @param {?} _windowService
      */
-    constructor(_elementRef, zoomService) {
+    constructor(_elementRef, _zoomService, _windowService) {
         this._elementRef = _elementRef;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
         this.wait = false;
-        zoomService.zoomChange.subscribe((/**
+        this.docWidth = null;
+        this.docHeight = null;
+        this.viewportWidth = null;
+        this.viewportHeight = null;
+        this.scale = null;
+        this.lastScale = null;
+        this.container = null;
+        this.doc = null;
+        this.x = 0;
+        this.lastX = 0;
+        this.y = 0;
+        this.lastY = 0;
+        this.pinchCenter = null;
+        this.pinchCenterOffset = null;
+        this.curWidth = 0;
+        this.curHeight = 0;
+        _zoomService.zoomChange.subscribe((/**
          * @param {?} val
          * @return {?}
          */
         (val) => {
             this.zoom = val;
         }));
+        this.isDesktop = _windowService.isDesktop();
     }
     /**
      * @return {?}
@@ -1084,33 +929,48 @@ class DocumentComponent {
     /**
      * @return {?}
      */
-    ifPdf() {
-        return FileUtil.find(this.file.guid, false).format === "Portable Document Format";
+    ngOnChanges() {
+        /** @type {?} */
+        const panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
+        ((/** @type {?} */ (panzoom))).style.transform = '';
+        // TODO: this intersects with zooming by zoom directive, but still needed
+        // for flush previous settings before opening another file
+        //this._zoomService.changeZoom(100);
+        //this.scale = 1;
     }
     /**
      * @return {?}
      */
-    ifImage() {
-        return FileUtil.find(this.file.guid, false).format === "Joint Photographic Experts Group";
+    ngAfterViewInit() {
+        // For current iteration we take .panzoom as a document
+        this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
+        // For current iteration we take .gd-document as a container
+        this.container = this._elementRef.nativeElement;
+        this.docWidth = this.doc.clientWidth;
+        this.docHeight = this.doc.clientHeight;
+        this.viewportWidth = this.doc.offsetWidth;
+        // For cases where we already have zoom defined we should include it
+        this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
+        this.lastScale = this.scale;
+        this.viewportHeight = this.container.offsetHeight;
+        this.curWidth = this.docWidth * this.scale;
+        this.curHeight = this.docHeight * this.scale;
+        /** @type {?} */
+        const hammer = new Hammer(this.container);
     }
+    // TODO: this temporary crutch for Excel files should be documented
     /**
-     * @param {?} changes
      * @return {?}
      */
-    ngOnChanges(changes) {
-        this.refreshView = !this.refreshView;
+    ifExcel() {
+        return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
     }
     /**
+     * @param {?} value
      * @return {?}
      */
-    ifChromeOrFirefox() {
-        return navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || this.ifFirefox();
-    }
-    /**
-     * @return {?}
-     */
-    ifFirefox() {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    getDimensionWithUnit(value) {
+        return value + FileUtil.find(this.file.guid, false).unit;
     }
     /**
      * @return {?}
@@ -1127,21 +987,213 @@ class DocumentComponent {
         /** @type {?} */
         const element = elementNodeListOf.item(0);
         if (element) {
-            $$3(element).trigger('focus');
+            $$1(element).trigger('focus');
+        }
+    }
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    absolutePosition(el) {
+        /** @type {?} */
+        let x = 0;
+        /** @type {?} */
+        let y = 0;
+        while (el !== null) {
+            x += el.offsetLeft;
+            y += el.offsetTop;
+            el = el.offsetParent;
+        }
+        return { x: x, y: y };
+    }
+    ;
+    /**
+     * @param {?} pos
+     * @param {?} viewportDim
+     * @param {?} docDim
+     * @return {?}
+     */
+    restrictRawPos(pos, viewportDim, docDim) {
+        if (pos < viewportDim / this.scale - docDim) { // too far left/up?
+            pos = viewportDim / this.scale - docDim;
+        }
+        else if (pos > 0) { // too far right/down?
+            pos = 0;
+        }
+        return pos;
+    }
+    ;
+    /**
+     * @return {?}
+     */
+    updateLastPos() {
+        this.lastX = this.x;
+        this.lastY = this.y;
+    }
+    ;
+    /**
+     * @param {?} deltaX
+     * @param {?} deltaY
+     * @return {?}
+     */
+    translate(deltaX, deltaY) {
+        // We restrict to the min of the viewport width/height or current width/height as the
+        // current width/height may be smaller than the viewport width/height
+        /** @type {?} */
+        const newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
+        this.x = newX;
+        // TODO: value here and in the similar line below changes to positive to take any effect
+        this.container.scrollLeft = -Math.ceil(newX * this.scale);
+        /** @type {?} */
+        const newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
+        this.y = newY;
+        this.container.scrollTop = -Math.ceil(newY * this.scale);
+        this.doc.style.transform = 'scale(' + this.scale + ')';
+    }
+    ;
+    /**
+     * @param {?} scaleBy
+     * @return {?}
+     */
+    startZoom(scaleBy) {
+        this.scale = this.lastScale * scaleBy;
+        this.curWidth = this.docWidth * this.scale;
+        this.curHeight = this.docHeight * this.scale;
+        // Adjust margins to make sure that we aren't out of bounds
+        this.translate(0, 0);
+    }
+    ;
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    rawCenter($event) {
+        /** @type {?} */
+        const pos = this.absolutePosition(this.container);
+        // We need to account for the scroll position
+        /** @type {?} */
+        const scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
+        /** @type {?} */
+        const scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+        /** @type {?} */
+        const zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
+        /** @type {?} */
+        const zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
+        return { x: zoomX, y: zoomY };
+    }
+    ;
+    /**
+     * @return {?}
+     */
+    updateLastScale() {
+        this.lastScale = this.scale;
+    }
+    ;
+    /**
+     * @param {?} scaleBy
+     * @param {?} rawZoomX
+     * @param {?} rawZoomY
+     * @param {?} doNotUpdateLast
+     * @return {?}
+     */
+    zoomAround(scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
+        // Zoom
+        this.startZoom(scaleBy);
+        // New raw center of viewport
+        /** @type {?} */
+        const rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
+        /** @type {?} */
+        const rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
+        // Delta
+        /** @type {?} */
+        const deltaX = (rawCenterX - rawZoomX) * this.scale;
+        /** @type {?} */
+        const deltaY = (rawCenterY - rawZoomY) * this.scale;
+        // Translate back to zoom center
+        this.translate(deltaX, deltaY);
+        if (!doNotUpdateLast) {
+            this.updateLastScale();
+            this.updateLastPos();
+        }
+    }
+    ;
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    onPinch($event) {
+        if (this.pinchCenter === null) {
+            this.pinchCenter = this.rawCenter($event);
+            /** @type {?} */
+            const offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
+            /** @type {?} */
+            const offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
+            this.pinchCenterOffset = { x: offsetX, y: offsetY };
+        }
+        /** @type {?} */
+        const newScale = this.scale * $event.scale;
+        /** @type {?} */
+        const zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
+        /** @type {?} */
+        const zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
+        /** @type {?} */
+        const zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
+        this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    onPinchEnd($event) {
+        this.updateLastScale();
+        this.updateLastPos();
+        this.pinchCenter = null;
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    onPan($event) {
+        // TODO: looks like native pan works better
+        // if (!this.isDesktop) {
+        //   this.translate($event.deltaX, $event.deltaY);
+        // }
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    onPanEnd($event) {
+        // if (!this.isDesktop) {
+        //   this.updateLastPos();
+        // }
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    onDoubleTap($event) {
+        if (!this.isDesktop) {
+            if ($event.tapCount === 2) {
+                /** @type {?} */
+                const c = this.rawCenter($event);
+                this.zoomAround(2, c.x, c.y, false);
+            }
         }
     }
 }
 DocumentComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-document',
-                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" gdScrollable [onRefresh]=\"refreshView\">\r\n  <div class=\"panzoom\" gdZoom [zoomActive]=\"!ifEdge()\" [isEdge]=\"ifEdge()\" gdSearchable>\r\n    <div [ngClass]=\"(ifFirefox() && zoom > 110) ? 'page gd-zoomed' : 'page'\" *ngFor=\"let page of file?.pages\" gdZoom [zoomActive]=\"ifEdge()\" [isEdge]=\"ifEdge()\"\r\n         [style.width.pt]=\"ifPdf() ? page.width : 'unset'\"\r\n         [style.height.pt]=\"(ifPdf() || ifImage()) && ifChromeOrFirefox() ? page.height : 'unset'\" gdRotation\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 4px 12px -4px rgba(0,0,0,.38);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}@media (max-width:1025px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}.panzoom.mobile{overflow:scroll}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
             }] }
 ];
 /** @nocollapse */
 DocumentComponent.ctorParameters = () => [
     { type: ElementRef },
-    { type: ZoomService }
+    { type: ZoomService },
+    { type: WindowService }
 ];
 DocumentComponent.propDecorators = {
     mode: [{ type: Input }],
@@ -1171,6 +1223,9 @@ class PageComponent {
      * @return {?}
      */
     ngOnChanges(changes) {
+        // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
+        // which leads to undesired spaces on the top of the docs pages
+        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
         /** @type {?} */
         const dataImagePngBase64 = 'data:image/png;base64,';
         this.imgData = dataImagePngBase64;
@@ -1183,8 +1238,7 @@ PageComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-page',
                 template: "<div id=\"page-{{number}}\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
-                encapsulation: ViewEncapsulation.None,
-                styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}.gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%!important;width:100%!important}"]
+                styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%!important;width:100%!important}"]
             }] }
 ];
 /** @nocollapse */
@@ -1358,6 +1412,18 @@ class DndDirective {
         this.opening = new EventEmitter();
         this.dropped = new EventEmitter();
         this.active = false;
+        this.dragCounter = 0;
+    }
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    onDragEnter(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.dragCounter++;
+        this.active = true;
+        this.opening.emit(true);
     }
     /**
      * @param {?} evt
@@ -1366,8 +1432,7 @@ class DndDirective {
     onDragOver(evt) {
         evt.preventDefault();
         evt.stopPropagation();
-        this.active = true;
-        this.opening.emit(true);
+        return false;
     }
     /**
      * @param {?} evt
@@ -1376,8 +1441,11 @@ class DndDirective {
     onDragLeave(evt) {
         evt.preventDefault();
         evt.stopPropagation();
-        this.active = false;
-        this.closeArea();
+        this.dragCounter--;
+        if (this.dragCounter === 0) {
+            this.active = false;
+            this.closeArea();
+        }
     }
     /**
      * @param {?} evt
@@ -1425,6 +1493,7 @@ DndDirective.propDecorators = {
     opening: [{ type: Output }],
     dropped: [{ type: Output }],
     active: [{ type: HostBinding, args: ['class.active',] }],
+    onDragEnter: [{ type: HostListener, args: ['dragenter', ['$event'],] }],
     onDragOver: [{ type: HostListener, args: ['dragover', ['$event'],] }],
     onDragLeave: [{ type: HostListener, args: ['dragleave', ['$event'],] }],
     onDrop: [{ type: HostListener, args: ['drop', ['$event'],] }],
@@ -1568,58 +1637,82 @@ NavigateService.ctorParameters = () => [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const MOBILE_MAX_WIDTH = 425;
-/** @type {?} */
-const TABLET_MAX_WIDTH = 1024;
-class WindowService {
+const $$2 = jquery;
+class ViewportService {
     constructor() {
-        this.resizeSubject = new Subject();
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-        this._resize$ = fromEvent(window, 'resize')
-            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
-         * @param {?} event
-         * @return {?}
-         */
-        event => {
-            this.resizeSubject.next((/** @type {?} */ (event.target)));
-            this.width = ((/** @type {?} */ (event.target))).innerWidth;
-            this.height = ((/** @type {?} */ (event.target))).innerHeight;
-        })));
-        this._resize$.subscribe();
     }
     /**
+     * @param {?} el
+     * @param {?=} zoom
+     * @param {?=} leftOffset
+     * @param {?=} deltaX
      * @return {?}
      */
-    get onResize() {
-        return this.resizeSubject.asObservable();
-    }
-    /**
-     * @return {?}
-     */
-    isMobile() {
-        return this.width <= MOBILE_MAX_WIDTH;
-    }
-    /**
-     * @return {?}
-     */
-    isTablet() {
-        return this.width <= TABLET_MAX_WIDTH;
-    }
-    /**
-     * @return {?}
-     */
-    isDesktop() {
-        return !this.isMobile() && !this.isTablet();
+    checkInViewport(el, zoom = 100, leftOffset = 0, deltaX = 0.5) {
+        if (!el) {
+            return false;
+        }
+        /** @type {?} */
+        const x = deltaX;
+        /** @type {?} */
+        const y = 0.5;
+        /** @type {?} */
+        const win = $$2(window);
+        /** @type {?} */
+        const viewport = {
+            top: win.scrollTop(),
+            left: win.scrollLeft() + leftOffset,
+            right: win.scrollLeft() + win.width() - 10,
+            bottom: win.scrollTop() + win.height()
+        };
+        if (isNaN(zoom)) {
+            zoom = 100;
+        }
+        /** @type {?} */
+        const zoomN = zoom / 100;
+        /** @type {?} */
+        const height = $$2(el).outerHeight() * (zoomN);
+        /** @type {?} */
+        const width = $$2(el).outerWidth() * (zoomN);
+        if (!width || !height) {
+            return false;
+        }
+        /** @type {?} */
+        const bounds = $$2(el).offset();
+        /** @type {?} */
+        const right = (bounds.left * (zoomN)) + width;
+        /** @type {?} */
+        const bottom = (bounds.top * (zoomN)) + height;
+        /** @type {?} */
+        const visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
+        if (!visible) {
+            return false;
+        }
+        /** @type {?} */
+        const deltas = {
+            top: parseFloat(Math.min(1, (bottom - viewport.top) / height).toFixed(2)),
+            bottom: parseFloat(Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height).toFixed(2)),
+            left: parseFloat(Math.min(1, (right - viewport.left) / width).toFixed(2)),
+            right: parseFloat(Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width).toFixed(2))
+        };
+        return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
     }
 }
+ViewportService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root'
+            },] }
+];
+/** @nocollapse */
+ViewportService.ctorParameters = () => [];
+/** @nocollapse */ ViewportService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ViewportService_Factory() { return new ViewportService(); }, token: ViewportService, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$4 = jquery;
+const $$3 = jquery;
 class ScrollableDirective {
     /**
      * @param {?} _elementRef
@@ -1686,7 +1779,7 @@ class ScrollableDirective {
         /** @type {?} */
         const prev = pageNumber > 0 ? this.getPage(pageNumber - 1) : null;
         /** @type {?} */
-        const isSameTop = (prev && $$4(prev).offset().top === $$4(page).offset().top);
+        const isSameTop = (prev && $$3(prev).offset().top === $$3(page).offset().top);
         if (this._viewportService.checkInViewport(page, this.zoom) && isSameTop) {
             return;
         }
@@ -1698,7 +1791,8 @@ class ScrollableDirective {
             top: pagesHeight
         };
         if (el) {
-            el.scrollTo(options);
+            // using polyfill
+            el.scroll(options);
         }
     }
     /**
@@ -1709,7 +1803,8 @@ class ScrollableDirective {
         /** @type {?} */
         const el = this._elementRef ? this._elementRef.nativeElement : null;
         if (el) {
-            return el.children.item(0).children;
+            // here and in the similar line below we getting the document pages
+            return el.children.item(0).children.item(0).children;
         }
     }
     /**
@@ -1721,7 +1816,7 @@ class ScrollableDirective {
         /** @type {?} */
         const el = this._elementRef ? this._elementRef.nativeElement : null;
         if (el) {
-            return el.children.item(0).children.item(pageNumber - 1);
+            return el.children.item(0).children.item(0).children.item(pageNumber - 1);
         }
     }
     /**
@@ -1731,7 +1826,7 @@ class ScrollableDirective {
      */
     calculateOffset(pageNumber) {
         /** @type {?} */
-        const count = this.ifFirefox() ? 1 : this.countPagesOnWidth();
+        const count = this._windowService.isFirefox() ? 1 : this.countPagesOnWidth();
         /** @type {?} */
         const margin = this._windowService.isDesktop() ? 40 : 10;
         /** @type {?} */
@@ -1757,12 +1852,6 @@ class ScrollableDirective {
         /** @type {?} */
         const count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
         return count === 0 ? 1 : count;
-    }
-    /**
-     * @return {?}
-     */
-    ifFirefox() {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     }
     /**
      * @return {?}
@@ -1834,7 +1923,6 @@ ScrollableDirective.ctorParameters = () => [
     { type: ViewportService }
 ];
 ScrollableDirective.propDecorators = {
-    onRefresh: [{ type: Input }],
     scrolling: [{ type: HostListener, args: ['scroll',] }],
     resizing: [{ type: HostListener, args: ['window:resize',] }]
 };
@@ -1846,18 +1934,26 @@ ScrollableDirective.propDecorators = {
 class ZoomDirective {
     /**
      * @param {?} _zoomService
-     * @param {?} _sanitizer
+     * @param {?} _windowService
+     * @param {?} el
      */
-    constructor(_zoomService, _sanitizer) {
+    constructor(_zoomService, _windowService, el) {
         this._zoomService = _zoomService;
-        this._sanitizer = _sanitizer;
+        this._windowService = _windowService;
         this.zoomActive = true;
-        this.isEdge = true;
+        this.el = el;
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
+    }
+    /**
+     * @return {?}
+     */
+    ngOnChanges() {
+        this.setStyles(this._zoomService.zoom);
+        this.resizePages(this._zoomService.zoom);
     }
     /**
      * @return {?}
@@ -1873,6 +1969,7 @@ class ZoomDirective {
          */
         (zoom) => {
             this.setStyles(zoom);
+            this.resizePages(zoom);
         }));
     }
     /**
@@ -1881,15 +1978,62 @@ class ZoomDirective {
      * @return {?}
      */
     setStyles(zoom) {
+        if (!this.zoomActive) {
+            return;
+        }
         /** @type {?} */
         const zoomInt = zoom === 100 ? 1 : zoom / 100;
-        if (this.isEdge) {
+        if (this._windowService.isEdge()) {
             this.zoomInt = zoomInt;
         }
         else {
-            this.Transform = 'scale(' + zoomInt + ')';
-            this.TransformOrigin = 'top';
+            this.zoomInt = null;
         }
+        if (!this._windowService.isEdge()) {
+            this.transform = 'scale(' + zoomInt + ')';
+            this.transformOrigin = 'top left';
+        }
+        else {
+            this.transform = "";
+            this.transformOrigin = "";
+        }
+        /** @type {?} */
+        let maxWidth = 0;
+        this.file.pages.forEach((/**
+         * @param {?} page
+         * @return {?}
+         */
+        page => {
+            {
+                if (page.width > maxWidth) {
+                    maxWidth = page.width;
+                }
+            }
+        }));
+        // Images and Excel-related files receiving dimensions in px from server
+        this.minWidth = maxWidth + FileUtil.find(this.file.guid, false).unit;
+    }
+    /**
+     * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    getScrollWidth(elm) {
+        return elm.offsetWidth - elm.clientWidth;
+    }
+    /**
+     * @private
+     * @param {?} zoom
+     * @return {?}
+     */
+    resizePages(zoom) {
+        /** @type {?} */
+        const zoomInt = zoom === 100 ? 1 : zoom / 100;
+        /** @type {?} */
+        const viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
+        /** @type {?} */
+        const scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+        this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
     }
     /**
      * @return {?}
@@ -1906,14 +2050,17 @@ ZoomDirective.decorators = [
 /** @nocollapse */
 ZoomDirective.ctorParameters = () => [
     { type: ZoomService },
-    { type: DomSanitizer }
+    { type: WindowService },
+    { type: ElementRef }
 ];
 ZoomDirective.propDecorators = {
     zoomActive: [{ type: Input }],
-    isEdge: [{ type: Input }],
+    file: [{ type: Input }],
     zoomInt: [{ type: HostBinding, args: ['style.zoom',] }],
-    Transform: [{ type: HostBinding, args: ['style.transform',] }],
-    TransformOrigin: [{ type: HostBinding, args: ['style.transform-origin',] }]
+    transform: [{ type: HostBinding, args: ['style.transform',] }],
+    transformOrigin: [{ type: HostBinding, args: ['style.transform-origin',] }],
+    width: [{ type: HostBinding, args: ['style.width',] }],
+    minWidth: [{ type: HostBinding, args: ['style.min-width',] }]
 };
 
 /**
@@ -1987,9 +2134,7 @@ class SelectComponent {
      * @return {?}
      */
     onClickOutside(event) {
-        if (event && event['value'] === true) {
-            this.close();
-        }
+        this.close();
     }
     /**
      * @param {?} $event
@@ -2018,7 +2163,7 @@ SelectComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-select',
                 template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [clickOutsideEnabled]=\"isOpen\"\r\n     >\r\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </span>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-                styles: [".select{min-width:50px;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;border:1px solid rgba(0,0,0,.15);box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#e5e5e5;padding:0!important}"]
+                styles: [".select{min-width:50px;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
             }] }
 ];
 /** @nocollapse */
@@ -2170,25 +2315,38 @@ RotationDirective.propDecorators = {
  */
 class InitStateComponent {
     constructor() {
+        this.fileDropped = new EventEmitter();
+        this.showUploadFile = false;
     }
     /**
      * @return {?}
      */
     ngOnInit() {
     }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    dropped($event) {
+        if ($event) {
+            this.fileDropped.emit($event);
+            this.showUploadFile = false;
+        }
+    }
 }
 InitStateComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-init-state',
-                template: "<div class=\"wrapper\">\r\n  <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <span class=\"text\">{{text}}</span>\r\n  <span class=\"start\">Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file</span>\r\n</div>\r\n",
-                styles: [".wrapper{color:#959da5;background-color:#e7e7e7;display:flex;flex-direction:column;justify-content:center;align-content:center;width:100%;height:100%}.icon{font-size:65px;text-align:center;margin-bottom:38px}.start,.text{font-size:15px;text-align:center}"]
+                template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\r\n  <div class=\"init-state-wrapper\">\r\n    <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <span class=\"start\">\r\n      <ng-content></ng-content>\r\n    </span>\r\n  </div>\r\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\r\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n    <span class=\"text\">{{text}}</span>\r\n  </div>\r\n</div>\r\n",
+                styles: [".wrapper{color:#959da5;background-color:#e7e7e7;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%}.icon{font-size:65px;margin-bottom:43px;display:flex;color:#959da5}.start{font-size:15px;text-align:center;color:#959da5}.gd-drag-n-drop-wrap.active{background-color:#fff;position:fixed;top:0;background:rgba(255,255,255,.8)}.gd-drag-n-drop-wrap.active .init-state-wrapper{position:absolute;opacity:.2;top:unset}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper{top:0;z-index:999}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon{width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}.gd-drag-n-drop-wrap.active .text{color:#6e6e6e;font-size:14px}.init-state-dnd-wrapper,.init-state-wrapper{display:flex;flex-direction:column;width:250px;height:250px;align-items:center;justify-content:center}.init-state-wrapper{top:-60px;position:relative}"]
             }] }
 ];
 /** @nocollapse */
 InitStateComponent.ctorParameters = () => [];
 InitStateComponent.propDecorators = {
     icon: [{ type: Input }],
-    text: [{ type: Input }]
+    text: [{ type: Input }],
+    fileDropped: [{ type: Output }]
 };
 
 /**
@@ -2398,8 +2556,8 @@ class ErrorModalComponent {
 ErrorModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-error-modal',
-                template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\r\n  <section id=\"gd-error-section\">\r\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\r\n    <div class=\"gd-modal-error\">{{message ? message : 'Server is not available'}}</div>\r\n  </section>\r\n</gd-modal>\r\n",
-                styles: [".gd-modal-error{background-color:#fff;font-size:12px;padding:14px 24px 24px 0}#gd-error-section{max-width:469px;max-height:204px;display:flex}#gd-error-section fa-icon{color:#e04e4e;font-size:40px;margin:13px 23px 90px}"]
+                template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\r\n  <section id=\"gd-error-section\">\r\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\r\n    <div class=\"gd-modal-error\">\r\n      <div class=\"gd-modal-error-title\">Something went wrong</div>\r\n      <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
+                styles: [".gd-modal-error{display:inline-flex;flex-direction:column;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0;word-break:break-word}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:flex}#gd-error-section fa-icon{flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center;max-width:46px}"]
             }] }
 ];
 /** @nocollapse */
@@ -2465,7 +2623,7 @@ PasswordRequiredComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-password-required',
                 template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\">\r\n  <section id=\"gd-password-section\">\r\n    <div class=\"gd-password-wrap\">\r\n      <label for=\"password\">Password</label>\r\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\r\n             (keyup.enter)=\"setPassword(pass.value)\">\r\n      <span class=\"gd-password-error\">{{message}}</span>\r\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\r\n          Open\r\n      </gd-button>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                styles: ["#gd-password-section{min-width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1025px){#gd-password-section{min-width:375px}}"]
+                styles: ["#gd-password-section{width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2678,8 +2836,8 @@ class SearchComponent {
 SearchComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-search',
-                template: "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <div class=\"gd-nav-search-btn\" (click)=\"prev()\">\r\n    <fa-icon [icon]=\"['fas','chevron-left']\"></fa-icon>\r\n  </div>\r\n  <div class=\"gd-nav-search-btn\" (click)=\"next()\">\r\n    <fa-icon [icon]=\"['fas','chevron-right']\"></fa-icon>\r\n  </div>\r\n  <div class=\"gd-nav-search-btn gd-nav-search-cancel\" (click)=\"hide()\">\r\n    <fa-icon [icon]=\"['fas','times']\"></fa-icon>\r\n  </div>\r\n</div>\r\n",
-                styles: [".gd-nav-search-btn{float:left;cursor:pointer;padding-left:7px;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px;padding-right:4px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;left:206px;top:14px;text-align:right;width:62px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:17px;width:258px;font-size:14px;padding:5px 0 6px 7px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px}@media (min-width:401px) and (max-width:700px){.gd-search-input{width:231px}.gd-nav-search-cancel{padding-right:7px}.gd-search-count{left:179px}.gd-nav-search-container{width:386px}}@media (max-width:500px){.gd-search-input{width:231px}.gd-nav-search-cancel{padding-right:7px}.gd-search-count{left:179px}.gd-nav-search-container{width:100%}}"]
+                template: "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" (keydown.enter)=\"next()\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\r\n  </gd-button>\r\n</div>\r\n",
+                styles: [".gd-nav-search-btn{margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0);display:flex}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}input[type=text]::-ms-clear{display:none}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:193px;top:15px}.gd-nav-search-container{width:100%}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2698,7 +2856,7 @@ SearchComponent.propDecorators = {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$5 = jquery;
+const $$4 = jquery;
 class SearchableDirective {
     /**
      * @param {?} _elementRef
@@ -2780,18 +2938,19 @@ class SearchableDirective {
              * @return {?}
              */
             function (value) {
-                $$5(value).removeClass('gd-highlight-select');
+                $$4(value).removeClass('gd-highlight-select');
             }));
             /** @type {?} */
             const currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-            $$5(currentEl).addClass('gd-highlight-select');
+            $$4(currentEl).addClass('gd-highlight-select');
             if (currentEl) {
                 /** @type {?} */
                 const options = {
                     left: 0,
-                    top: ($$5(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
+                    top: ($$4(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                 };
-                el.parentElement.scrollTo(options);
+                // using polyfill
+                el.parentElement.parentElement.scroll(options);
             }
         }
     }
@@ -2802,7 +2961,7 @@ class SearchableDirective {
      */
     highlightEl(el) {
         /** @type {?} */
-        const textNodes = $$5(el).find('*').contents().filter((/**
+        const textNodes = $$4(el).find('*').contents().filter((/**
          * @return {?}
          */
         function () {
@@ -2827,7 +2986,7 @@ class SearchableDirective {
          */
         function () {
             /** @type {?} */
-            const $this = $$5(this);
+            const $this = $$4(this);
             /** @type {?} */
             let content = $this.text();
             content = highlight.transform(content, text);
@@ -3349,7 +3508,11 @@ class SelectionService {
      * @return {?}
      */
     captureSelection() {
-        this.selection = window.getSelection().getRangeAt(0);
+        /** @type {?} */
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            this.selection = selection.getRangeAt(0);
+        }
     }
     /**
      * @private
@@ -3382,7 +3545,7 @@ SelectionService.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$6 = jquery;
+const $$5 = jquery;
 class FormattingDirective {
     /**
      * @param {?} _formattingService
@@ -3413,7 +3576,7 @@ class FormattingDirective {
         this.list = this.checkList();
         //fix required by FireFox to get correct background color
         if (this.bgColor === "transparent") {
-            this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+            this.bgColor = $$5(window.getSelection().focusNode.parentNode).css('background-color').toString();
         }
         this.font = document.queryCommandValue("FontName").replace(/"/g, '');
         if (this.font.split(",").length > 1) {
@@ -3731,7 +3894,7 @@ class FormattingDirective {
         if (align === "full") {
             align = "justify";
         }
-        $$6(selection).css("text-align", align);
+        $$5(selection).css("text-align", align);
         this._selectionService.refreshSelection();
     }
     /**
@@ -3782,7 +3945,7 @@ SuccessModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-success-modal',
                 template: "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\r\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\r\n    <div class=\"sa-icon sa-success animate\">\r\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\r\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\r\n        <div class=\"sa-placeholder\"></div>\r\n        <div class=\"sa-fix\"></div>\r\n      </div>\r\n  </div></div>\r\n  </gd-modal>\r\n",
-                styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;transform:rotate(-45deg);transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;transform:rotate(-45deg);transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1025px){#gd-modal-success{left:50%;top:50%;position:relative;transform:translate(-50%,-50%)}}"]
+                styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;transform:rotate(-45deg);transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;transform:rotate(-45deg);transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1037px){#gd-modal-success{left:50%;top:50%;position:relative;transform:translate(-50%,-50%)}}"]
             }] }
 ];
 /** @nocollapse */

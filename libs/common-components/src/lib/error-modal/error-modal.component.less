@@ -1,18 +1,31 @@
 @import "./../../styles/variables";
 
 .gd-modal-error {
-  background-color: #ffffff;
-  font-size: 12px;
-  padding: 14px 24px 24px 0px;
+  display: inline-flex;
+  flex-direction: column;
+  flex: 1;
+  .gd-modal-error-message {
+    font-size: 12px;
+    margin: 0px 24px 24px 0px;
+    word-break: break-word;
+  }
+  .gd-modal-error-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 14px 0px 10px 0px;
+  }
 }
 
 #gd-error-section {
-  max-width: 469px;
+  max-width: 468px;
   max-height: 204px;
   display: flex;
   fa-icon {
+    flex: 1;
     color: @pdf;
     font-size: 40px;
     margin: 13px 23px 90px 23px;
+    text-align: center;
+    max-width: 46px;
   }
 }
