@@ -36,16 +36,20 @@
   vertical-align: middle !important;
 }
 
-/deep/ table {
-  table-layout: auto !important;
-}
-
 /deep/ tr td.excel:first-child {
   color: @regent-gray;
   background-color: @wild-sand;
   font-weight: unset;
   width: 1%;
   text-align: center;
+  div {
+    width: 80px;
+  }
+}
+
+/deep/ tr th.excel:first-child {
+  background-color: @wild-sand;
+  width: 1%;
   div {
     width: 80px;
   }
