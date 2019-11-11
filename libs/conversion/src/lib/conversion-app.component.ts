@@ -22,6 +22,8 @@ export class ConversionAppComponent {
   leftBarOpen = false;
   conversionConfig: ConversionConfig;
   result: any;
+  selectedFormat: string;
+  warningItems = 0;
 
   constructor(private _modalService: ModalService,
               private _conversionService: ConversionService,
@@ -43,12 +45,17 @@ export class ConversionAppComponent {
       }
     });
 
-    _conversionService.selectedItems.subscribe((selectedFormats) => {
-      selectedFormats.forEach((selectedFormat) => {
-        if (Object.keys(selectedFormat).length > 0 && !this.itemAlreadyAdded(selectedFormat)) {
-          this.conversionItems.push(selectedFormat as ConversionItemModel);
+    _conversionService.selectedItems.subscribe((selectedItems) => {
+      selectedItems.forEach((selectedItem) => {
+        if (selectedItem.warning) this.warningItems++;
+        if (Object.keys(selectedItem).length > 0 && !this.itemAlreadyAdded(selectedItem)) {
+          this.conversionItems.push(selectedItem as ConversionItemModel);
         }
       });
+    });
+
+    _conversionService.selectedFormat.subscribe((selectedFormat) => {
+        this.selectedFormat = selectedFormat;
     });
 
     _conversionService.itemToConvert.subscribe(item => {
@@ -132,9 +139,9 @@ export class ConversionAppComponent {
     });
   }
 
-  itemAlreadyAdded(selectedFormat: ConversionItemModel) : boolean {
-    return this.conversionItems.filter(ci => ci.destinationType === selectedFormat.destinationType 
-      && ci.guid === selectedFormat.guid).length === 1;
+  itemAlreadyAdded(selectedItem: ConversionItemModel) : boolean {
+    return this.conversionItems.filter(ci => ci.destinationType === selectedItem.destinationType 
+      && ci.guid === selectedItem.guid).length === 1;
   }
 
   isLeftBarOpen() {

@@ -1,0 +1,9 @@
+<gd-modal id="gd-information-message" [title]="'Imposible conversions'">
+  <section id="gd-information-section">
+    <fa-icon [icon]="['fas', 'info-circle']"></fa-icon>
+    <div class="gd-modal-information">
+      <div class="gd-modal-information-title">Incompatible formats</div>
+      <div class="gd-modal-information-message">{{warningCount}} selected {{warningCount == 1 ? 'file' : 'files'}} can't be converted to {{formatName}} format. Incompatible files will not be added to conversion queue.</div>
+    </div>
+  </section>
+</gd-modal>
