@@ -26,7 +26,7 @@
       </div>
       <div class="context-panel" *ngIf="showUploadUrl">
         <div class="upload-url">
-          <input class="url-input" placeholder="http://" #url (keyup.enter)="uploadUrl(url.value)">
+          <input class="url-input" placeholder="https://" #url (keyup.enter)="uploadUrl(url.value)">
           <div class="url-check" (click)="uploadUrl(url.value)">
             <fa-icon [icon]="['fas','check']"></fa-icon>
           </div>

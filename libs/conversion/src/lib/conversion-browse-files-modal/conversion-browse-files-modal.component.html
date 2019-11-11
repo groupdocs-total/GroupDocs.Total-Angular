@@ -1,4 +1,10 @@
 <gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
+  <div class="gd-dnd-wrap" *ngIf="showUploadFile" gdDnd (opening)="showUploadFile=$event">
+    <div class="dnd-wrapper">
+      <fa-icon  class="icon" [icon]="['fas','cloud-download-alt']" aria-hidden="true"></fa-icon>
+      <span class="text">Drop file here to upload</span>
+    </div>
+  </div>
   <div class="upload-panel" *ngIf="uploadConfig">
     <input id="gd-upload-input" type="file" multiple style="display: none;"
             (change)="handleFileInput($event.target.files)">
@@ -17,7 +23,6 @@
           </gd-drop-down-toggle>
           <gd-drop-down-items>
             <gd-drop-down-item (selected)="selectFormat(item, null)" *ngFor="let item of dynamicOptions">
-              <fa-icon [icon]="['far', item.icon]"></fa-icon>
               <div class="text">{{item.name}}</div>
               <div *ngIf="item.warning" class="gd-type-warning"
                     title="1 selected file(s) can’t be converted to {{item.name}} format">
@@ -42,7 +47,7 @@
       </div>
       <div class="context-panel" *ngIf="showUploadUrl">
         <div class="upload-url">
-          <input class="url-input" placeholder="http://" #url (keyup.enter)="uploadUrl(url.value)">
+          <input class="url-input" placeholder="https://" #url (keyup.enter)="uploadUrl(url.value)">
           <div class="url-check" (click)="uploadUrl(url.value)">
             <fa-icon [icon]="['fas','check']"></fa-icon>
           </div>
@@ -55,12 +60,6 @@
     <div class="header-size">SIZE</div>
   </div>
   <section id="gd-browse-section" (dragover)="showUploadFile = true;">
-    <div class="gd-dnd-wrap" *ngIf="showUploadFile" gdDnd (opening)="showUploadFile=$event">
-      <div class="gd-drag-n-drop-icon">
-        <fa-icon [icon]="['fas','cloud-download-alt']" aria-hidden="true"></fa-icon>
-      </div>
-      <h2>Drag &amp; Drop your files here</h2>
-    </div>
     <div id="gd-modal-filebrowser" class="gd-modal-table">
       <div class="list-files-body">
         <div class="go-up" (click)="goUp()">
@@ -90,7 +89,6 @@
               </gd-drop-down-toggle>
               <gd-drop-down-items>
                 <gd-drop-down-item (selected)="selectFormat(item, file)" *ngFor="let item of formatOptions(file.conversionTypes)">
-                  <fa-icon [icon]="['far', item.icon]"></fa-icon>
                   <div class="text">{{item.name}}</div>
                 </gd-drop-down-item>
               </gd-drop-down-items>

@@ -29,21 +29,20 @@
   line-height: 60px;
 }
 .header-size {
-  padding-right: 27px;
+  padding-right: 84px;
   line-height: 60px;
   // TODO: add overflow-y: scroll if scroll-bar in files appears
 }
 
 .header-size, .file-size {
-  width: 10%;
+  width: 7%;
   color: #777777;
-  text-align: right;
+  text-align: left;
 }
 
 .file-size {
   font-size: 12px;
-  padding: 0px 27px 0px 0px;
-  width: 10%;
+  width: 7%;
   line-height: 79px;
 }
 
@@ -106,12 +105,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-
+    margin-right: 24px;
     .context-actions{
       display: flex;
       flex-direction: row;
       width: 100%;
-
       *:last-child{
         margin-right: 0px;
       }
@@ -123,6 +121,20 @@
         ::ng-deep .text {
           font-size: 10px;
         }
+        &.primary {
+          width: 117px;
+          background-color: @folder;
+          &.inactive {
+            width: 106px;
+            background-color: @regent-gray;
+            /deep/ .text {
+              color: @primary;
+            }
+            /deep/ fa-icon {
+              color: @primary
+            }
+          }
+        }
       }
     }
     .context-panel{
@@ -130,9 +142,10 @@
       flex-direction: row;
       width: 100%;
       margin-top: 20px;
-
-
-
+      .upload-url {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
         .url-input {
           width: 100%;
           height: 27px;
@@ -140,7 +153,6 @@
           font-size: 14px;
           padding-left: 6px;
         }
-
         .url-check {
           width: 31px;
           height: 31px;
@@ -148,18 +160,29 @@
           font-size: 15px;
           background-color: @brand;
         }
-
         .url-check .ng-fa-icon {
           display: block;
           padding: 8px;
         }
-
-
+      }
     }
   }
 
   gd-drop-down{
     margin-right: 10px;
+    /deep/ .drop-down-item {
+      .text {
+        margin-left: 7px;
+        text-transform: uppercase;
+        color: @dove-gray;
+      }
+      &:hover{
+        background-color: @folder;
+        *{
+          color: #FFF;
+        }
+      }
+    }
   }
 }
 
@@ -246,30 +269,17 @@
   background-color: #FFF;
   cursor: default;
   position: absolute;
-  width: inherit;
-  height: inherit;
+  width: 100%;
+  height: calc(100% - 60px);
   background: rgba(255,255,255,0.7);
   z-index: 1;
   display: flex;
-  text-align: center;
   justify-content: center;
-  align-content: center;
-  flex-direction: column;
-  fa-icon {
-    color: @primary;
-    font-size: 90px;
-  }
+  align-items: center;
 }
 
 .gd-drag-n-drop-icon {
   margin-top: -50px;
-}
-
-.gd-dnd-wrap h2 {
-  color: @dove-gray;
-  margin-top: 20px;
-  font-size: 14px;
-  font-weight: 300;
 }
 
 .gd-drag-n-drop-icon .fa-cloud-download-alt {
@@ -292,18 +302,36 @@
 .file-format-select {
   display: flex;
   align-items: center;
-  padding: 5px;
-  width:46px;
-  margin-right: 20px;
-
+  width: 36px;
+  margin-right: 24px;
   ::ng-deep .button{
+    padding: 0px;
+    width: 36px;
+    margin: 0px;
+    .text {
       padding: 0px;
-      width: 36px;
+    }
   }
 
   ::ng-deep .show .button{
-    background-color: @brand;
-    color:#FFF;
+    color: @regent-gray;
+  }
+
+  gd-drop-down{
+    /deep/ .drop-down-item {
+      width: 96px;
+      .text {
+        padding-left: 7px;
+        text-transform: uppercase;
+        color: @dove-gray;
+      }
+      &:hover{
+        background-color: @folder;
+        *{
+          color: #FFF;
+        }
+      }
+    }
   }
 }
 
@@ -360,6 +388,27 @@
 
 .gd-folder-name {
   margin-top: 8px;
+}
+
+.dnd-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 259px;
+  position: absolute;
+  .text {
+    color: @dove-gray;
+    font-size: 14px;
+  }
+  .icon {
+    display: flex;
+    width: 113px;
+    height: 90px;
+    font-size: 90px;
+    color: @primary;
+    margin-bottom: 30px;
+  }
 }
 
 @media @phone-down {
