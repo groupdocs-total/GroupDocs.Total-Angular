@@ -63,7 +63,7 @@
 .gd-convert-status {
   font-size: 32px;
   color: #DBDBDB;
-  margin: 0 122px 0 111px;
+  margin: 0 162px 0 111px;
 }
 
 .gd-conversion-complete {
@@ -76,7 +76,7 @@
   width: 32px;
   height: 32px;
   font-size: 32px !important;
-  margin-top: -5px;
+  line-height: 32px;
   color: #007aff;
   &.mobile {
     display: none;
@@ -86,7 +86,7 @@
 .gd-convert-single, .gd-download-single {
   font-size: 16px;
   color: #808080;
-  margin: 29px 52px;
+  margin: 41px 36px 42px 11px;
   cursor: pointer;
   &.mobile {
     display: none;
@@ -100,7 +100,7 @@
 .gd-file-format {
   font-size: 10px;
   color: @silver-chalice;
-  padding-top: 2px;
+  padding-top: 4px;
   &.mobile {
     display: none;
   }
@@ -140,7 +140,7 @@
 }
 
 .gd-filequeue-name .ng-fa-icon, .gd-convert-status .ng-fa-icon, .gd-destination-file .ng-fa-icon{
-  font-size: 32px;
+  font-size: 33px;
 }
 
 .gd-filequeue-name fa-icon {
@@ -156,13 +156,20 @@
   .gd-conversion-progress {
     &.mobile {
       display: block;
-      margin: 16px 45px;
+      margin: 26px 24px 25px 11px;
     }
   }
 
   .gd-convert-single {
     &.mobile {
       display: block;
+      margin: 31px 24px 30px 0px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 37px;
+      height: 37px;
     }
   }
 
@@ -173,14 +180,17 @@
   }
 
   .gd-file-format {
-    font-size: 11px;
+    font-size: 10px;
     &.mobile {
       display: block;
       > fa-icon{
         color: #bebebe;
       }
       fa-icon {
-        font-size: 11px;
+        font-size: 10px;
+        margin-right: 2.1px;
+      }
+      fa-icon:nth-child(1){
         margin-right: 6px;
       }
     }
@@ -196,5 +206,9 @@
   .gd-filequeue-name {
     white-space: nowrap;
     overflow: hidden;
+  }
+
+  .gd-convert-remove {
+    margin: 0px 16px 0px 15px;
   }
 }

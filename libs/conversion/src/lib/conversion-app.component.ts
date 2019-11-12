@@ -116,9 +116,11 @@ export class ConversionAppComponent {
   }
 
   convertAll(){
-      this.conversionItems.forEach((item) => {
+    this.conversionItems.forEach((item) => {
+      if (!item.converted && !item.converting) {
         this.convertSingleItem(item);
-      });
+      }
+    });
   }
 
   convertAllUnavailable(){

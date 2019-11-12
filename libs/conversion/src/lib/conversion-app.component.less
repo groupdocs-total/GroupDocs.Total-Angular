@@ -49,3 +49,15 @@
   background-color: #3e4e5a;
   width: 100%;
 }
+
+@media @phone-down {
+  ::ng-deep .tools {
+    gd-button:nth-child(1) > .icon-button{
+      margin: 0px 0px 0px 10px !important;
+    }
+    .icon-button{
+      height: 60px !important;
+      width: 60px;
+    }
+  }
+}
