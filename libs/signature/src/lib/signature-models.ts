@@ -99,13 +99,8 @@ export class SignatureData {
     ret.left = position.left;
     ret.top = position.top;
     ret.signatureGuid = data.guid;
-    if (data.props && data.props.width && data.props.height) {
-      ret.imageWidth = data.props.width;
-      ret.imageHeight = data.props.height;
-    } else {
-      ret.imageWidth = data.width;
-      ret.imageHeight = data.height;
-    }
+    ret.imageWidth = data.width;
+    ret.imageHeight = data.height;
     if (data.digitalProps) {
       ret.reason = data.digitalProps.reason;
       ret.contact = data.digitalProps.contact;
