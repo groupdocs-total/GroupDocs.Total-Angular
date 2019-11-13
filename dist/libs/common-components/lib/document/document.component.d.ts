@@ -34,6 +34,7 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     ngAfterViewInit(): void;
     ifExcel(): boolean;
     getDimensionWithUnit(value: number): any;
+    ifEdge(): boolean;
     ngAfterViewChecked(): void;
     absolutePosition(el: any): {
         x: number;

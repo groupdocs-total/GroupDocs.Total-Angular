@@ -5,6 +5,7 @@ import { ExtendedFileModel } from "../models";
 export interface Option {
     name: string;
     value: any;
+    warning: boolean;
 }
 export declare class ConversionBrowseFilesModalComponent extends BrowseFilesModalComponent implements OnInit {
     private _conversionService;

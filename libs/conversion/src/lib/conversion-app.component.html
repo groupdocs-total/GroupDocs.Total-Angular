@@ -5,7 +5,7 @@
       <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                  *ngIf="browseConfig" ></gd-button>
 
-      <gd-button [icon]="'exchange-alt'" [tooltip]="'Convert'" [disabled]="convertAllUnavailable()"
+      <gd-button [icon]="'play'" [tooltip]="'Convert'" [disabled]="convertAllUnavailable()"
       (click)="convertAll()"></gd-button>
 
     </gd-top-toolbar>
@@ -23,4 +23,5 @@
 
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>
+  <gd-information-modal [warningCount]="warningItems" [formatName]="selectedFormat"></gd-information-modal>
 </div>
