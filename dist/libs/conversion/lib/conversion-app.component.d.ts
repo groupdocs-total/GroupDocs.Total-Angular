@@ -14,6 +14,8 @@ export declare class ConversionAppComponent {
     leftBarOpen: boolean;
     conversionConfig: ConversionConfig;
     result: any;
+    selectedFormat: string;
+    warningItems: number;
     constructor(_modalService: ModalService, _conversionService: ConversionService, configService: ConversionConfigService, uploadFilesService: UploadFilesService);
     readonly rewriteConfig: boolean;
     readonly browseConfig: boolean;
@@ -28,6 +30,6 @@ export declare class ConversionAppComponent {
     convertAllUnavailable(): boolean;
     removeItemFromQueue(item: ConversionItemModel): void;
     selectAllItems(checked: boolean): void;
-    itemAlreadyAdded(selectedFormat: ConversionItemModel): boolean;
+    itemAlreadyAdded(selectedItem: ConversionItemModel): boolean;
     isLeftBarOpen(): boolean;
 }
