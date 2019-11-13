@@ -4,6 +4,7 @@ export class CommonModals {
   static BrowseFiles = "gd-browse-files";
   static CreateDocument = "gd-create-document";
   static OperationSuccess = "gd-success-modal";
+  static InformationMessage = "gd-information-message";
 }
 
 export class ModalService {

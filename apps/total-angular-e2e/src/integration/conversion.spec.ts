@@ -76,10 +76,10 @@ describe('Conversion', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
-    cy.get('#gd-browse-section').trigger('dragover');
-    cy.get('#gd-browse-section').trigger('dragenter');
+    cy.get('.gd-modal-body').trigger('dragover');
+    cy.get('.gd-modal-body').trigger('dragenter');
     cy.get('.gd-dnd-wrap').should('be.visible');
-    cy.get('#gd-browse-section').trigger('dragleave');
+    cy.get('.gd-modal-body').trigger('dragleave');
     cy.get('.gd-dnd-wrap').should('not.exist');
   });
 
@@ -115,9 +115,9 @@ describe('Conversion', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(4) > div.gd-file-checkbox > input').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.gd-file-checkbox > input').click();
-    cy.get('#gd-browse-section > div.upload-panel > div.context > div.context-actions > gd-drop-down:nth-child(1)').click();
+    cy.get('.context-actions > :nth-child(1) > .drop-down > gd-drop-down-toggle > gd-button > .button').click();
     // TODO: check possible issue - not all available formats in the drop-down
-    cy.get('#gd-browse-section > div.upload-panel > div.context > div.context-actions > gd-drop-down.drop-down.show > div > gd-drop-down-items > div > gd-drop-down-item:nth-child(2) > div > div.gd-type-warning > fa-icon').should('be.visible');
+    cy.get(':nth-child(3) > .drop-down-item > .gd-type-warning > .ng-fa-icon').should('be.visible');
   });
 
   it('should show right amount of conversion items with correct data when clicked on a selected format', () => {
@@ -125,14 +125,16 @@ describe('Conversion', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(4) > div.gd-file-checkbox > input').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.gd-file-checkbox > input').click();
-    cy.get('#gd-browse-section > div.upload-panel > div.context > div.context-actions > gd-drop-down:nth-child(1)').click();
-    cy.get('#gd-browse-section > div.upload-panel > div.context > div.context-actions > gd-drop-down.drop-down.show > div > gd-drop-down-items > div > gd-drop-down-item:nth-child(2) > div > div.gd-type-warning > fa-icon').should('be.visible');
-    cy.get('#gd-browse-section > div.upload-panel > div.context > div.context-actions > gd-drop-down.drop-down.show > div > gd-drop-down-items > div > gd-drop-down-item:nth-child(1)').click();
+    cy.get('.context-actions > :nth-child(1) > .drop-down > gd-drop-down-toggle > gd-button > .button').click();
+    cy.get(':nth-child(2) > .drop-down-item > .gd-type-warning > .ng-fa-icon').should('be.visible');
+    cy.get('.show > .drop-down > gd-drop-down-items > .drop-down-items > :nth-child(2) > .drop-down-item').click();
     cy.get('#gd-convert-queue gd-conversion-item').its('length').should('eq', 2);
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestWord.jpg');
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'Joint Photographic Experts Group');
-    cy.get('#gd-convert-queue > div:nth-child(3) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestPDF.jpg');
-    cy.get('#gd-convert-queue > div:nth-child(3) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'Joint Photographic Experts Group');
+    cy.get('.gd-modal-title').should('have.text', 'Imposible conversions');
+    cy.get('.gd-modal-close > span').click();
+    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestWord.html');
+    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'HyperText Markup Language');
+    cy.get('#gd-convert-queue > div:nth-child(3) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestPDF.html');
+    cy.get('#gd-convert-queue > div:nth-child(3) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'HyperText Markup Language');
   });
 
   it('should show correct icons for all conversion items after click on convert-all button', () => {
@@ -140,8 +142,8 @@ describe('Conversion', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(4) > div.gd-file-checkbox > input').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.gd-file-checkbox > input').click();
-    cy.get('#gd-browse-section > div.upload-panel > div.context > div.context-actions > gd-drop-down:nth-child(1)').click();
-    cy.get('#gd-browse-section > div.upload-panel > div.context > div.context-actions > gd-drop-down.drop-down.show > div > gd-drop-down-items > div > gd-drop-down-item:nth-child(1)').click();
+    cy.get('.context-actions > :nth-child(1) > .drop-down > gd-drop-down-toggle > gd-button > .button').click();
+    cy.get('.show > .drop-down > gd-drop-down-items > .drop-down-items > :nth-child(1) > .drop-down-item').click();
     cy.get('#tools > gd-button:nth-child(2) > div').click();
     cy.get('#gd-convert-queue gd-conversion-item > div > div.gd-convert-status > fa-icon.gd-conversion-complete.ng-fa-icon').its('length').should('eq', 2);
     cy.get('#gd-convert-queue gd-conversion-item > div > div.gd-download-single').its('length').should('eq', 2);
@@ -152,8 +154,8 @@ describe('Conversion', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(4) > div.gd-file-checkbox > input').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.gd-file-checkbox > input').click();
-    cy.get('#gd-browse-section > div.upload-panel > div.context > div.context-actions > gd-drop-down:nth-child(1)').click();
-    cy.get('#gd-browse-section > div.upload-panel > div.context > div.context-actions > gd-drop-down.drop-down.show > div > gd-drop-down-items > div > gd-drop-down-item:nth-child(1)').click();
+    cy.get('.context-actions > :nth-child(1) > .drop-down > gd-drop-down-toggle > gd-button > .button').click();
+    cy.get('.show > .drop-down > gd-drop-down-items > .drop-down-items > :nth-child(1) > .drop-down-item').click();
     cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-convert-remove > span').click();
     cy.get('#gd-convert-queue gd-conversion-item').its('length').should('eq', 1);
     cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-convert-remove > span').click();

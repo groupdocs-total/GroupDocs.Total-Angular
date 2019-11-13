@@ -97,6 +97,10 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     return value + FileUtil.find(this.file.guid, false).unit;
   }
 
+  ifEdge() {
+    return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+  }
+
   ngAfterViewChecked(): void {
     const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
     const element = elementNodeListOf.item(0);

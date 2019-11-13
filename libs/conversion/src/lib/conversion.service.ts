@@ -11,8 +11,10 @@ import { ConversionItemModel, ConversionRequestModel } from './models';
 })
 
 export class ConversionService {
-  private _selectedFormat: BehaviorSubject<ConversionItemModel[]> = new BehaviorSubject(new Array<ConversionItemModel>());
-  private _selectFormats: Observable<ConversionItemModel[]> = this._selectedFormat.asObservable();
+  private _selectedItems: BehaviorSubject<ConversionItemModel[]> = new BehaviorSubject(new Array<ConversionItemModel>());
+  private _selectItems: Observable<ConversionItemModel[]> = this._selectedItems.asObservable();
+  private _selectedFormat: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  private _selectFormat: Observable<string> = this._selectedFormat.asObservable();
 
   private _itemToConvert = new BehaviorSubject<ConversionItemModel>(null);
   itemToConvert = this._itemToConvert.asObservable();
@@ -24,11 +26,19 @@ export class ConversionService {
   }
 
   get selectedItems() {
-    return this._selectFormats;
+    return this._selectItems;
+  }
+
+  get selectedFormat() {
+    return this._selectFormat;
   }
 
   selectItems(filesToConvert: ConversionItemModel[]) {
-    this._selectedFormat.next(filesToConvert);
+    this._selectedItems.next(filesToConvert);
+  }
+
+  selectFormat(selectedFormat: string) {
+    this._selectedFormat.next(selectedFormat);
   }
 
   loadFiles(path: string) {
