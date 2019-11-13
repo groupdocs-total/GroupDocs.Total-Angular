@@ -100,7 +100,8 @@
   <gd-browse-files-modal (urlForUpload)="upload($event)"
                          [files]="files"
                          (selectedDirectory)="selectDir($event)"
-                         (selectedFileGuid)="selectFile($event, null, browseFilesModal, activePanel)">
+                         (selectedFileGuid)="selectFile($event, null, browseFilesModal, activePanel)"
+                         [uploadConfig]="uploadConfig">
   </gd-browse-files-modal>
   <gd-error-modal></gd-error-modal>
 </div>

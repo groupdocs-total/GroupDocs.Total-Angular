@@ -86,6 +86,10 @@ export class ComparisonAppComponent {
     });
   }
 
+  get uploadConfig(): boolean {
+    return this.comparisonConfig ? this.comparisonConfig.upload : true;
+  }
+
   private setLoading(panel: string, flag: boolean) {
     if (panel === this.first) {
       this.loadingFirstPanel = flag;
@@ -259,7 +263,4 @@ export class ComparisonAppComponent {
     this.activeTab = $event ? this.filesTab : this.resultTab;
     this._tabActivatorService.changeActiveTab(this.filesTab);
   }
-
-
-
 }
