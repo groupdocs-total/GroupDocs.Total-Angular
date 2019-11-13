@@ -5,7 +5,7 @@ import {
   FileCredentials,
   FileDescription,
   FileModel,
-  ModalService, PageModel, PagePreloadService, TabActivatorService, UploadFilesService
+  ModalService, PageModel, PagePreloadService, PasswordService, TabActivatorService, UploadFilesService
 } from "@groupdocs.examples.angular/common-components";
 import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
@@ -55,6 +55,7 @@ export class ComparisonAppComponent {
               pagePreloadService: PagePreloadService,
               private _modalService: ModalService,
               private _tabActivatorService: TabActivatorService,
+              passwordService: PasswordService,
               private _elementRef: ElementRef<HTMLElement>) {
     configService.updatedConfig.subscribe((config) => {
       this.comparisonConfig = config;
@@ -83,6 +84,10 @@ export class ComparisonAppComponent {
 
     _tabActivatorService.activeTabChange.subscribe((tabId: string) => {
       this.activeTab = tabId;
+    });
+
+    passwordService.passChange.subscribe((pass: string) => {
+      this.selectFile(this.credentials.get(this.activePanel).guid, pass, CommonModals.PasswordRequired, this.activePanel);
     });
   }
 
@@ -261,5 +266,7 @@ export class ComparisonAppComponent {
   }
 
 
-
+  cancelOpeningFile($event) {
+    this.setLoading(this.activePanel, false);
+  }
 }

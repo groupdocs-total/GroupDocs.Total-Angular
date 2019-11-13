@@ -454,6 +454,7 @@ var ModalComponent = /** @class */ (function () {
     function ModalComponent(modalService, el) {
         this.modalService = modalService;
         this.visible = new EventEmitter();
+        this.cancel = new EventEmitter();
         this.visibility = false;
         this.element = el.nativeElement;
     }
@@ -517,10 +518,20 @@ var ModalComponent = /** @class */ (function () {
             this.close();
         }
     };
+    /**
+     * @return {?}
+     */
+    ModalComponent.prototype.cancelClose = /**
+     * @return {?}
+     */
+    function () {
+        this.cancel.emit(false);
+        this.close();
+    };
     ModalComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-modal',
-                    template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\n\n    <div class=\"gd-modal-header\">\n      <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\n    </div>\n\n    <div class=\"gd-modal-body\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"gd-modal-footer\">\n\n    </div>\n  </div>\n</div>\n\n\n",
+                    template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\n\n    <div class=\"gd-modal-header\">\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\n    </div>\n\n    <div class=\"gd-modal-body\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"gd-modal-footer\">\n\n    </div>\n  </div>\n</div>\n\n\n",
                     styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
                 }] }
     ];
@@ -532,7 +543,8 @@ var ModalComponent = /** @class */ (function () {
     ModalComponent.propDecorators = {
         id: [{ type: Input }],
         title: [{ type: Input }],
-        visible: [{ type: Output }]
+        visible: [{ type: Output }],
+        cancel: [{ type: Output }]
     };
     return ModalComponent;
 }());
@@ -3257,10 +3269,13 @@ var PasswordService = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var $$4 = jquery;
 var PasswordRequiredComponent = /** @class */ (function () {
     function PasswordRequiredComponent(messageService, _passwordService) {
         var _this = this;
         this._passwordService = _passwordService;
+        this.cancelEvent = new EventEmitter();
         messageService.messageChange.subscribe((/**
          * @param {?} message
          * @return {?}
@@ -3286,10 +3301,47 @@ var PasswordRequiredComponent = /** @class */ (function () {
     function (value) {
         this._passwordService.setPassword(value);
     };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    PasswordRequiredComponent.prototype.onCloseOpen = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if ($event) {
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                /** @type {?} */
+                var element = $$4("#password");
+                if (element) {
+                    element.focus();
+                }
+            }), 100);
+        }
+        else {
+            $$4("#password").val("");
+        }
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    PasswordRequiredComponent.prototype.cancel = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $$4("#password").val("");
+        this.cancelEvent.emit(true);
+    };
     PasswordRequiredComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-password-required',
-                    template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n          Open\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
+                    template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n          Open\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
                     styles: ["#gd-password-section{width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
                 }] }
     ];
@@ -3298,6 +3350,9 @@ var PasswordRequiredComponent = /** @class */ (function () {
         { type: ExceptionMessageService },
         { type: PasswordService }
     ]; };
+    PasswordRequiredComponent.propDecorators = {
+        cancelEvent: [{ type: Output }]
+    };
     return PasswordRequiredComponent;
 }());
 
@@ -3571,7 +3626,7 @@ var SearchComponent = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$4 = jquery;
+var $$5 = jquery;
 var SearchableDirective = /** @class */ (function () {
     function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
         var _this = this;
@@ -3656,16 +3711,16 @@ var SearchableDirective = /** @class */ (function () {
              * @return {?}
              */
             function (value) {
-                $$4(value).removeClass('gd-highlight-select');
+                $$5(value).removeClass('gd-highlight-select');
             }));
             /** @type {?} */
             var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-            $$4(currentEl).addClass('gd-highlight-select');
+            $$5(currentEl).addClass('gd-highlight-select');
             if (currentEl) {
                 /** @type {?} */
                 var options = {
                     left: 0,
-                    top: ($$4(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
+                    top: ($$5(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
                 };
                 // using polyfill
                 el.parentElement.parentElement.scroll(options);
@@ -3684,7 +3739,7 @@ var SearchableDirective = /** @class */ (function () {
      */
     function (el) {
         /** @type {?} */
-        var textNodes = $$4(el).find('*').contents().filter((/**
+        var textNodes = $$5(el).find('*').contents().filter((/**
          * @return {?}
          */
         function () {
@@ -3709,7 +3764,7 @@ var SearchableDirective = /** @class */ (function () {
          */
         function () {
             /** @type {?} */
-            var $this = $$4(this);
+            var $this = $$5(this);
             /** @type {?} */
             var content = $this.text();
             content = highlight.transform(content, text);
@@ -4459,7 +4514,7 @@ var SelectionService = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$5 = jquery;
+var $$6 = jquery;
 var FormattingDirective = /** @class */ (function () {
     function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
         this._formattingService = _formattingService;
@@ -4488,7 +4543,7 @@ var FormattingDirective = /** @class */ (function () {
         this.list = this.checkList();
         //fix required by FireFox to get correct background color
         if (this.bgColor === "transparent") {
-            this.bgColor = $$5(window.getSelection().focusNode.parentNode).css('background-color').toString();
+            this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
         }
         this.font = document.queryCommandValue("FontName").replace(/"/g, '');
         if (this.font.split(",").length > 1) {
@@ -4880,7 +4935,7 @@ var FormattingDirective = /** @class */ (function () {
         if (align === "full") {
             align = "justify";
         }
-        $$5(selection).css("text-align", align);
+        $$6(selection).css("text-align", align);
         this._selectionService.refreshSelection();
     };
     /**
@@ -5690,7 +5745,7 @@ var HostDynamicDirective = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$6 = jquery;
+var $$7 = jquery;
 var ResizingComponent = /** @class */ (function () {
     function ResizingComponent() {
         this.se = false;
@@ -5717,9 +5772,9 @@ var ResizingComponent = /** @class */ (function () {
     function () {
         var _this = this;
         /** @type {?} */
-        var elSE = $$6(this.getElementId(this.SE));
+        var elSE = $$7(this.getElementId(this.SE));
         /** @type {?} */
-        var elNW = $$6(this.getElementId(this.NW));
+        var elNW = $$7(this.getElementId(this.NW));
         if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
             /** @type {?} */
             var width_1 = elSE.offset().left - elNW.offset().left;
