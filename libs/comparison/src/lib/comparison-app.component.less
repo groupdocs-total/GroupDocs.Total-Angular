@@ -122,7 +122,6 @@
 
 .tabs {
   display: flex;
-  margin-right: 30px;
   align-items: flex-end;
   justify-content: flex-end;
 }
@@ -146,5 +145,23 @@
       height: 50% !important;
       top: inherit !important;
       bottom: 0px !important;
+  }
+
+  /deep/ .tools {
+    gd-button:nth-child(1) > .icon-button{
+      margin: 0px 0px 0px 10px !important;
+    }
+    .icon-button{
+      height: 60px !important;
+      width: 60px;
+    }
+  }
+
+  /deep/ .tabs-wrapper {
+    .gd-tab {
+      .icon {
+        font-size: 22px !important;
+      }
+    }
   }
 }
