@@ -3,11 +3,11 @@
 :host {
   overflow: scroll;
   width: 100%;
+  background-color: @mercury;
 }
 
 .document {
   width: 100%;
-  height: calc(100% - 40px);
   transition: all 0.4s;
   padding: 0px;
   margin: 0px;
@@ -15,9 +15,13 @@
 }
 
 .sheets {
-  padding-left: 12px;
+  background-color: #fff;
   display: flex;
   border-top: 1px solid @mercury;
+  position: fixed;
+  bottom: 17px;
+  right: 17px;
+  width: 100%;
   /deep/ gd-button {
     &.active {
       .text {
@@ -28,11 +32,17 @@
     }
     .text {
       padding: 1px 12px;
+      color: #000;
     }
     fa-icon {
       display: none;
     }
   }
+}
+
+.sheets-wrapper {
+  margin-left: 29px;
+  display: flex;
 }
 
 .page {

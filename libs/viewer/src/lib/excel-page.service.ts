@@ -33,17 +33,27 @@ export class ExcelPageService {
       header.querySelector("tr").append(th);
     }
     
+    const colgroup = table.querySelector('colgroup');
+    const col = document.createElement('col');
+    col.width = '80px';
+    colgroup.prepend(col);
+    
     table.prepend(header);
 
     let cnt = 0;
     table.querySelectorAll('tr').forEach(row => {
-      const td = document.createElement('td');
+      const div = document.createElement('div');
       if (cnt !== 0) {
-        td.innerText = cnt.toString();
+        const td = document.createElement('td');
+        td.className = "excel"
+        td.append(div);
+        div.innerText = cnt.toString();
         row.prepend(td);
       }
       else {
-        row.prepend(td);
+        const th = document.createElement('th');
+        th.append(div);
+        row.prepend(th);
       }
       cnt++;
     });
