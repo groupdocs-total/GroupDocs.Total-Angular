@@ -24,27 +24,36 @@
 
 /deep/ th {
   color: @regent-gray;
-  background-color: @mercury;
+  background-color: @wild-sand;
   font-weight: unset;
-  border: 1px solid @silver !important;
+  border: 1px solid @mercury !important;
   text-transform: uppercase;
+  font-size: 14px;
+  overflow: hidden;
 }
 
 /deep/ td {
-  border: 1px solid @silver !important;
+  border: 1px solid @mercury !important;
   vertical-align: middle !important;
 }
 
-/deep/ table {
-  table-layout: auto !important;
+/deep/ tr td.excel:first-child {
+  color: @regent-gray;
+  background-color: @wild-sand;
+  font-weight: unset;
+  width: 1%;
+  text-align: center;
+  div {
+    width: 80px;
+  }
 }
 
-/deep/ tr td:first-child {
-  color: @regent-gray;
-  background-color: @mercury;
-  font-weight: unset;
-  width: 4%;
-  text-align: center;
+/deep/ tr th.excel:first-child {
+  background-color: @wild-sand;
+  width: 1%;
+  div {
+    width: 80px;
+  }
 }
 
 // TODO: remove this after related issue will be fixed
