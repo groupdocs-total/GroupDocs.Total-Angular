@@ -15,4 +15,5 @@ export declare class ThumbnailsComponent implements OnInit, OnChanges, AfterView
     imgData(data: string): string;
     getScale(x: number, y: number): number;
     openPage(pageNumber: number): void;
+    getDimensionWithUnit(value: number): any;
 }
