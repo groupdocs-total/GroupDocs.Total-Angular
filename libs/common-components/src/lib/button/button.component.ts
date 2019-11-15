@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {WindowService} from "../window.service";
 
 @Component({
   selector: 'gd-button',
@@ -18,8 +19,13 @@ export class ButtonComponent {
   @Input() iconRegular = false;
 
   showToolTip = false;
+  private isDesktop: boolean;
 
-  constructor() {
+  constructor(windowService: WindowService) {
+    this.isDesktop = windowService.isDesktop();
+    windowService.onResize.subscribe((w) => {
+      this.isDesktop = windowService.isDesktop();
+    });
   }
 
   iconButtonClass() {
@@ -27,13 +33,13 @@ export class ButtonComponent {
   }
 
   onHovering() {
-    if (!this.disabled) {
+    if (this.isDesktop && !this.disabled) {
       this.className += ' active';
     }
   }
 
   onUnhovering() {
-    if (!this.disabled) {
+    if (this.isDesktop && !this.disabled) {
       this.className = this.cleanAll(this.className, ' active');
     }
   }

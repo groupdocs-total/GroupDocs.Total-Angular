@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
+import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { __extends, __values } from 'tslib';
-import { Observable, Subject, fromEvent, BehaviorSubject, throwError } from 'rxjs';
 import * as jquery from 'jquery';
 import * as Hammer from 'hammerjs';
-import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ClickOutsideModule } from 'ng-click-outside';
 
@@ -70,14 +70,125 @@ var SidePanelComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var MOBILE_MAX_WIDTH = 425;
+/** @type {?} */
+var TABLET_MAX_WIDTH = 1024;
+var WindowService = /** @class */ (function () {
+    function WindowService() {
+        var _this = this;
+        this.resizeSubject = new Subject();
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this._resize$ = fromEvent(window, 'resize')
+            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            _this.resizeSubject.next((/** @type {?} */ (event.target)));
+            _this.width = ((/** @type {?} */ (event.target))).innerWidth;
+            _this.height = ((/** @type {?} */ (event.target))).innerHeight;
+        })));
+        this._resize$.subscribe();
+    }
+    Object.defineProperty(WindowService.prototype, "onResize", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.resizeSubject.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isMobile = /**
+     * @return {?}
+     */
+    function () {
+        return this.width <= MOBILE_MAX_WIDTH;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isTablet = /**
+     * @return {?}
+     */
+    function () {
+        return this.width <= TABLET_MAX_WIDTH;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isDesktop = /**
+     * @return {?}
+     */
+    function () {
+        return !this.isMobile() && !this.isTablet();
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.getWidth = /**
+     * @return {?}
+     */
+    function () {
+        return this.width;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.getHeight = /**
+     * @return {?}
+     */
+    function () {
+        return this.height;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isEdge = /**
+     * @return {?}
+     */
+    function () {
+        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isFirefox = /**
+     * @return {?}
+     */
+    function () {
+        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    };
+    return WindowService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var ButtonComponent = /** @class */ (function () {
-    function ButtonComponent() {
+    function ButtonComponent(windowService) {
+        var _this = this;
         this.iconOnly = true;
         this.intent = 'default';
         this.disabled = false;
         this.toggle = false;
         this.iconRegular = false;
         this.showToolTip = false;
+        this.isDesktop = windowService.isDesktop();
+        windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        function (w) {
+            _this.isDesktop = windowService.isDesktop();
+        }));
     }
     /**
      * @return {?}
@@ -95,7 +206,7 @@ var ButtonComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this.disabled) {
+        if (this.isDesktop && !this.disabled) {
             this.className += ' active';
         }
     };
@@ -106,7 +217,7 @@ var ButtonComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this.disabled) {
+        if (this.isDesktop && !this.disabled) {
             this.className = this.cleanAll(this.className, ' active');
         }
     };
@@ -136,7 +247,9 @@ var ButtonComponent = /** @class */ (function () {
                 }] }
     ];
     /** @nocollapse */
-    ButtonComponent.ctorParameters = function () { return []; };
+    ButtonComponent.ctorParameters = function () { return [
+        { type: WindowService }
+    ]; };
     ButtonComponent.propDecorators = {
         iconOnly: [{ type: Input }],
         intent: [{ type: Input }],
@@ -1092,108 +1205,6 @@ var ZoomService = /** @class */ (function () {
             this.createZoomOption(height, 'Fit Height')];
     };
     return ZoomService;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-var MOBILE_MAX_WIDTH = 425;
-/** @type {?} */
-var TABLET_MAX_WIDTH = 1024;
-var WindowService = /** @class */ (function () {
-    function WindowService() {
-        var _this = this;
-        this.resizeSubject = new Subject();
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-        this._resize$ = fromEvent(window, 'resize')
-            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
-         * @param {?} event
-         * @return {?}
-         */
-        function (event) {
-            _this.resizeSubject.next((/** @type {?} */ (event.target)));
-            _this.width = ((/** @type {?} */ (event.target))).innerWidth;
-            _this.height = ((/** @type {?} */ (event.target))).innerHeight;
-        })));
-        this._resize$.subscribe();
-    }
-    Object.defineProperty(WindowService.prototype, "onResize", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.resizeSubject.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isMobile = /**
-     * @return {?}
-     */
-    function () {
-        return this.width <= MOBILE_MAX_WIDTH;
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isTablet = /**
-     * @return {?}
-     */
-    function () {
-        return this.width <= TABLET_MAX_WIDTH;
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isDesktop = /**
-     * @return {?}
-     */
-    function () {
-        return !this.isMobile() && !this.isTablet();
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.getWidth = /**
-     * @return {?}
-     */
-    function () {
-        return this.width;
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.getHeight = /**
-     * @return {?}
-     */
-    function () {
-        return this.height;
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isEdge = /**
-     * @return {?}
-     */
-    function () {
-        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isFirefox = /**
-     * @return {?}
-     */
-    function () {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    };
-    return WindowService;
 }());
 
 /**

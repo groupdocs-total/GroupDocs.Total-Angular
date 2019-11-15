@@ -1,8 +1,8 @@
 <div [clickOutsideEnabled]="active" [clickOutsideEvents]="'mousedown'"
      (clickOutside)="inactive($event)">
   <div class="gd-stamp-box" [style.left.px]="getLeft()" [style.top.px]="getTop()" [style.z-index]="props.zIndex">
-    <div class="gd-context-menu" *ngIf="active" [ngStyle]="{transform: 'translateX(' + getTranslation() + 'px)'}">
-      <gd-button name="button" [icon]="'fill-drip'" [tooltip]="'Color'" (click)="toggleColorPicker($event, true)">
+    <div class="gd-context-menu" *ngIf="active" [ngStyle]="isMobile ? null : {transform: 'translateX(' + getTranslation() + 'px)'}">
+      <gd-button name="button" class="first-element" [icon]="'fill-drip'" [tooltip]="'Color'" (click)="toggleColorPicker($event, true)">
         <div class="bg-color-pic" [style.background-color]="props.backgroundColor"></div>
       </gd-button>
       <gd-color-picker [isOpen]="colorPickerBG" (closeOutside)="closeColorPickerBG($event)"
@@ -11,13 +11,13 @@
       <gd-select class="csg-border-width" [options]="borderWidth" (selected)="selectBorderWidth($event)"
                  [showSelected]="{name: props.strokeWidth + 'px', value: props.strokeWidth}"></gd-select>
       <gd-button name="button" [icon]="'square'" [iconRegular]="true" [tooltip]="'Color'"
-                 (click)="toggleColorPicker($event, false)">
+                 (click)="toggleColorPicker($event, false)" class="color-for-shape">
         <div class="bg-color-pic" [style.background-color]="props.strokeColor"></div>
       </gd-button>
       <gd-color-picker [isOpen]="colorPickerC" (closeOutside)="closeColorPickerC($event)"
                        [className]="'palette'"
                        (selectedColor)="selectColor(false, $event)"></gd-color-picker>
-      <gd-button name="button" [icon]="'trash'" [tooltip]="'Delete'" [iconSize]="'sm'" (click)="deleteCanvas()">
+      <gd-button name="button" class="stamp-trash" [icon]="'trash'" [tooltip]="'Delete'" [iconSize]="'sm'" (click)="deleteCanvas()">
       </gd-button>
     </div>
     <div class="csg-bounding-box" [ngClass]="active ? 'active' : ''" [style.width.px]="props.width"

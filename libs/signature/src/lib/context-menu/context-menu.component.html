@@ -1,4 +1,4 @@
-<div class="gd-context-menu" [ngStyle]="{transform: 'translateX(' + translation + 'px)'}"
+<div class="gd-context-menu" [ngStyle]="isMobile ? null : {transform: 'translateX(' + translation + 'px)'}"
      [ngClass]="topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'">
   <gd-button [icon]="'arrows-alt'" [class]="'ng-fa-icon icon arrows'" [iconSize]="'sm'"></gd-button>
   <gd-text-menu *ngIf="textMenu" [blur]="isMobile" [color]="formatting.color" [bold]="formatting.bold"

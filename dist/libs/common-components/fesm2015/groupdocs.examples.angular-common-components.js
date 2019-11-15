@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
+import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, Subject, fromEvent, BehaviorSubject, throwError } from 'rxjs';
 import * as jquery from 'jquery';
 import * as Hammer from 'hammerjs';
-import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ClickOutsideModule } from 'ng-click-outside';
 
@@ -64,14 +64,100 @@ SidePanelComponent.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class ButtonComponent {
+/** @type {?} */
+const MOBILE_MAX_WIDTH = 425;
+/** @type {?} */
+const TABLET_MAX_WIDTH = 1024;
+class WindowService {
     constructor() {
+        this.resizeSubject = new Subject();
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this._resize$ = fromEvent(window, 'resize')
+            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
+            this.resizeSubject.next((/** @type {?} */ (event.target)));
+            this.width = ((/** @type {?} */ (event.target))).innerWidth;
+            this.height = ((/** @type {?} */ (event.target))).innerHeight;
+        })));
+        this._resize$.subscribe();
+    }
+    /**
+     * @return {?}
+     */
+    get onResize() {
+        return this.resizeSubject.asObservable();
+    }
+    /**
+     * @return {?}
+     */
+    isMobile() {
+        return this.width <= MOBILE_MAX_WIDTH;
+    }
+    /**
+     * @return {?}
+     */
+    isTablet() {
+        return this.width <= TABLET_MAX_WIDTH;
+    }
+    /**
+     * @return {?}
+     */
+    isDesktop() {
+        return !this.isMobile() && !this.isTablet();
+    }
+    /**
+     * @return {?}
+     */
+    getWidth() {
+        return this.width;
+    }
+    /**
+     * @return {?}
+     */
+    getHeight() {
+        return this.height;
+    }
+    /**
+     * @return {?}
+     */
+    isEdge() {
+        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+    }
+    /**
+     * @return {?}
+     */
+    isFirefox() {
+        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class ButtonComponent {
+    /**
+     * @param {?} windowService
+     */
+    constructor(windowService) {
         this.iconOnly = true;
         this.intent = 'default';
         this.disabled = false;
         this.toggle = false;
         this.iconRegular = false;
         this.showToolTip = false;
+        this.isDesktop = windowService.isDesktop();
+        windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        (w) => {
+            this.isDesktop = windowService.isDesktop();
+        }));
     }
     /**
      * @return {?}
@@ -83,7 +169,7 @@ class ButtonComponent {
      * @return {?}
      */
     onHovering() {
-        if (!this.disabled) {
+        if (this.isDesktop && !this.disabled) {
             this.className += ' active';
         }
     }
@@ -91,7 +177,7 @@ class ButtonComponent {
      * @return {?}
      */
     onUnhovering() {
-        if (!this.disabled) {
+        if (this.isDesktop && !this.disabled) {
             this.className = this.cleanAll(this.className, ' active');
         }
     }
@@ -116,7 +202,9 @@ ButtonComponent.decorators = [
             }] }
 ];
 /** @nocollapse */
-ButtonComponent.ctorParameters = () => [];
+ButtonComponent.ctorParameters = () => [
+    { type: WindowService }
+];
 ButtonComponent.propDecorators = {
     iconOnly: [{ type: Input }],
     intent: [{ type: Input }],
@@ -889,81 +977,6 @@ class ZoomService {
             this.createZoomOption(0, '', true),
             this.createZoomOption(width, 'Fit Width'),
             this.createZoomOption(height, 'Fit Height')];
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const MOBILE_MAX_WIDTH = 425;
-/** @type {?} */
-const TABLET_MAX_WIDTH = 1024;
-class WindowService {
-    constructor() {
-        this.resizeSubject = new Subject();
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-        this._resize$ = fromEvent(window, 'resize')
-            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
-         * @param {?} event
-         * @return {?}
-         */
-        event => {
-            this.resizeSubject.next((/** @type {?} */ (event.target)));
-            this.width = ((/** @type {?} */ (event.target))).innerWidth;
-            this.height = ((/** @type {?} */ (event.target))).innerHeight;
-        })));
-        this._resize$.subscribe();
-    }
-    /**
-     * @return {?}
-     */
-    get onResize() {
-        return this.resizeSubject.asObservable();
-    }
-    /**
-     * @return {?}
-     */
-    isMobile() {
-        return this.width <= MOBILE_MAX_WIDTH;
-    }
-    /**
-     * @return {?}
-     */
-    isTablet() {
-        return this.width <= TABLET_MAX_WIDTH;
-    }
-    /**
-     * @return {?}
-     */
-    isDesktop() {
-        return !this.isMobile() && !this.isTablet();
-    }
-    /**
-     * @return {?}
-     */
-    getWidth() {
-        return this.width;
-    }
-    /**
-     * @return {?}
-     */
-    getHeight() {
-        return this.height;
-    }
-    /**
-     * @return {?}
-     */
-    isEdge() {
-        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-    }
-    /**
-     * @return {?}
-     */
-    isFirefox() {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     }
 }
 

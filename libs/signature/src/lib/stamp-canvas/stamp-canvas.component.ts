@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@a
 import {Border, StampCanvasProps} from "../signature-models";
 import {ActiveCanvasService} from "../active-canvas.service";
 import {RemoveCanvasService} from "../remove-canvas.service";
-import {OnCloseService} from "@groupdocs.examples.angular/common-components";
+import {OnCloseService, WindowService} from "@groupdocs.examples.angular/common-components";
 
 @Component({
   selector: 'gd-stamp-canvas',
@@ -22,10 +22,12 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
   colorPickerBG = false;
   colorPickerC = false;
   borderWidth = Border.widthOptions();
+  isMobile: boolean;
 
   constructor(private _activeCanvasService: ActiveCanvasService,
               private _removeCanvas: RemoveCanvasService,
-              private _onCloseService: OnCloseService) {
+              private _onCloseService: OnCloseService,
+              private _windowService: WindowService) {
 
     this._onCloseService.onClose.subscribe((c) => {
       this.colorPickerC = false;
@@ -34,6 +36,11 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
 
     this._activeCanvasService.activeChange.subscribe((id: number) => {
       this.active = this.id === id;
+    });
+
+    this.isMobile = _windowService.isMobile();
+    _windowService.onResize.subscribe((w) => {
+      this.isMobile = _windowService.isMobile();
     });
   }
 
@@ -178,7 +185,11 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
   }
 
   getTop() {
-    return ((this.height - this.props.height) / 2 - (this.active ? 37 : 0));
+    return (this.height - (this.isMobile ? 62 : 0) - this.props.height) / 2 - this.calcDiff();
+  }
+
+  private calcDiff() {
+    return (this.active && !this.isMobile) ? 37 : 0;
   }
 
   resize($event) {

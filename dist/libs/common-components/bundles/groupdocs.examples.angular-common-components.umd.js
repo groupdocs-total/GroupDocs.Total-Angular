@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('rxjs'), require('jquery'), require('hammerjs'), require('rxjs/operators'), require('@angular/platform-browser'), require('ng-click-outside')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'rxjs', 'jquery', 'hammerjs', 'rxjs/operators', '@angular/platform-browser', 'ng-click-outside'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.rxjs, global.jquery, global.Hammer, global.rxjs.operators, global.ng.platformBrowser, global.ngClickOutside));
-}(this, function (exports, core, common, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, rxjs, jquery, Hammer, operators, platformBrowser, ngClickOutside) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('jquery'), require('hammerjs'), require('@angular/platform-browser'), require('ng-click-outside')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', 'rxjs', 'rxjs/operators', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'jquery', 'hammerjs', '@angular/platform-browser', 'ng-click-outside'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.rxjs, global.rxjs.operators, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.jquery, global.Hammer, global.ng.platformBrowser, global.ngClickOutside));
+}(this, function (exports, core, common, rxjs, operators, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, jquery, Hammer, platformBrowser, ngClickOutside) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -101,14 +101,125 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var MOBILE_MAX_WIDTH = 425;
+    /** @type {?} */
+    var TABLET_MAX_WIDTH = 1024;
+    var WindowService = /** @class */ (function () {
+        function WindowService() {
+            var _this = this;
+            this.resizeSubject = new rxjs.Subject();
+            this.width = window.innerWidth;
+            this.height = window.innerHeight;
+            this._resize$ = rxjs.fromEvent(window, 'resize')
+                .pipe(operators.debounceTime(200), operators.distinctUntilChanged(), operators.startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), operators.tap((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) {
+                _this.resizeSubject.next((/** @type {?} */ (event.target)));
+                _this.width = ((/** @type {?} */ (event.target))).innerWidth;
+                _this.height = ((/** @type {?} */ (event.target))).innerHeight;
+            })));
+            this._resize$.subscribe();
+        }
+        Object.defineProperty(WindowService.prototype, "onResize", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.resizeSubject.asObservable();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isMobile = /**
+         * @return {?}
+         */
+        function () {
+            return this.width <= MOBILE_MAX_WIDTH;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isTablet = /**
+         * @return {?}
+         */
+        function () {
+            return this.width <= TABLET_MAX_WIDTH;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isDesktop = /**
+         * @return {?}
+         */
+        function () {
+            return !this.isMobile() && !this.isTablet();
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.getWidth = /**
+         * @return {?}
+         */
+        function () {
+            return this.width;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.getHeight = /**
+         * @return {?}
+         */
+        function () {
+            return this.height;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isEdge = /**
+         * @return {?}
+         */
+        function () {
+            return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isFirefox = /**
+         * @return {?}
+         */
+        function () {
+            return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        };
+        return WindowService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var ButtonComponent = /** @class */ (function () {
-        function ButtonComponent() {
+        function ButtonComponent(windowService) {
+            var _this = this;
             this.iconOnly = true;
             this.intent = 'default';
             this.disabled = false;
             this.toggle = false;
             this.iconRegular = false;
             this.showToolTip = false;
+            this.isDesktop = windowService.isDesktop();
+            windowService.onResize.subscribe((/**
+             * @param {?} w
+             * @return {?}
+             */
+            function (w) {
+                _this.isDesktop = windowService.isDesktop();
+            }));
         }
         /**
          * @return {?}
@@ -126,7 +237,7 @@
          * @return {?}
          */
         function () {
-            if (!this.disabled) {
+            if (this.isDesktop && !this.disabled) {
                 this.className += ' active';
             }
         };
@@ -137,7 +248,7 @@
          * @return {?}
          */
         function () {
-            if (!this.disabled) {
+            if (this.isDesktop && !this.disabled) {
                 this.className = this.cleanAll(this.className, ' active');
             }
         };
@@ -167,7 +278,9 @@
                     }] }
         ];
         /** @nocollapse */
-        ButtonComponent.ctorParameters = function () { return []; };
+        ButtonComponent.ctorParameters = function () { return [
+            { type: WindowService }
+        ]; };
         ButtonComponent.propDecorators = {
             iconOnly: [{ type: core.Input }],
             intent: [{ type: core.Input }],
@@ -1123,108 +1236,6 @@
                 this.createZoomOption(height, 'Fit Height')];
         };
         return ZoomService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var MOBILE_MAX_WIDTH = 425;
-    /** @type {?} */
-    var TABLET_MAX_WIDTH = 1024;
-    var WindowService = /** @class */ (function () {
-        function WindowService() {
-            var _this = this;
-            this.resizeSubject = new rxjs.Subject();
-            this.width = window.innerWidth;
-            this.height = window.innerHeight;
-            this._resize$ = rxjs.fromEvent(window, 'resize')
-                .pipe(operators.debounceTime(200), operators.distinctUntilChanged(), operators.startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), operators.tap((/**
-             * @param {?} event
-             * @return {?}
-             */
-            function (event) {
-                _this.resizeSubject.next((/** @type {?} */ (event.target)));
-                _this.width = ((/** @type {?} */ (event.target))).innerWidth;
-                _this.height = ((/** @type {?} */ (event.target))).innerHeight;
-            })));
-            this._resize$.subscribe();
-        }
-        Object.defineProperty(WindowService.prototype, "onResize", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this.resizeSubject.asObservable();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isMobile = /**
-         * @return {?}
-         */
-        function () {
-            return this.width <= MOBILE_MAX_WIDTH;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isTablet = /**
-         * @return {?}
-         */
-        function () {
-            return this.width <= TABLET_MAX_WIDTH;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isDesktop = /**
-         * @return {?}
-         */
-        function () {
-            return !this.isMobile() && !this.isTablet();
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.getWidth = /**
-         * @return {?}
-         */
-        function () {
-            return this.width;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.getHeight = /**
-         * @return {?}
-         */
-        function () {
-            return this.height;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isEdge = /**
-         * @return {?}
-         */
-        function () {
-            return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isFirefox = /**
-         * @return {?}
-         */
-        function () {
-            return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        };
-        return WindowService;
     }());
 
     /**

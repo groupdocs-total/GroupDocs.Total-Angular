@@ -80,6 +80,14 @@
 @media @phone-down {
   .tab-content {
     width: 100%;
+    height: ~"calc(100% - 120px)" !important;
+  }
+
+
+  ::ng-deep .left-panel {
+    width: 100% !important;
+    overflow: auto !important;
+    height: ~"calc(100% - 120px)";
   }
 
   .gd-signature-context-panel {

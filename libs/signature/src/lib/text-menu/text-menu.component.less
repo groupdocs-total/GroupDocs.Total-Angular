@@ -18,6 +18,10 @@
     margin: 0px 3px;
   }
 
+  .first-component {
+    margin-left: 8px;
+  }
+
   ::ng-deep .dropdown-menu {
     top: 40px !important;
     height: 120px;
@@ -59,7 +63,7 @@
     padding: 0px;
     margin: 0px;
     background-color: white;
-    border: 2px solid #707070;
+    border-top: 2px solid #707070;
 
     ::ng-deep .selected-value {
       white-space: normal !important;
@@ -72,13 +76,8 @@
     }
 
     ::ng-deep .bcPicker-palette {
-      width: 286px !important;
-      position: unset !important;
-
-      .bcPicker-color {
-        width: 42px !important;
-        height: 24px !important;
-      }
+      left: -200px;
+      top: -200px;
     }
 
     .palette {
@@ -90,7 +89,11 @@
 
     ::ng-deep .dropdown-menu {
       bottom: 40px;
-      top: unset;
+      top: unset !important;
+    }
+
+    ::ng-deep .button {
+      margin: 3px !important;
     }
   }
 
