@@ -110,4 +110,9 @@ export class SignatureListPanelComponent implements OnInit, OnChanges {
       this.showDigitalInputs = this.signatureType === SignatureType.DIGITAL.id;
     }
   }
+
+  drop($event: DragEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
 }

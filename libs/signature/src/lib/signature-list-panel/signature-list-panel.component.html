@@ -4,7 +4,7 @@
       <div class="gd-signature" *ngFor="let signature of signatures">
         <div class="gd-signature-item" [draggable]="isDigital() ? false : true"
              (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
-             (dragleave)="dragLeave($event, signature.guid)">
+             (dragleave)="dragLeave($event, signature.guid)" (drop)="drop($event)">
           <div class="gd-signature-thumbnail" *ngIf="isDigital()" (click)="select(signature.guid)">
             <fa-icon [icon]="['fa','fingerprint']" [class]="'ng-fa-icon icon'"></fa-icon>
           </div>
