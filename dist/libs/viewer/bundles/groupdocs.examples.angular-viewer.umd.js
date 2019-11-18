@@ -590,6 +590,7 @@
         function ($event, password, modalId) {
             var _this = this;
             this.credentials = { guid: $event, password: password };
+            this.file = null;
             this._viewerService.loadFile(this.credentials).subscribe((/**
              * @param {?} file
              * @return {?}

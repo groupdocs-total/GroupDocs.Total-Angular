@@ -36,4 +36,5 @@ export declare class SignatureListPanelComponent implements OnInit, OnChanges {
     dragStart($event: DragEvent): void;
     empty(): boolean;
     ngOnChanges(changes: SimpleChanges): void;
+    drop($event: DragEvent): void;
 }

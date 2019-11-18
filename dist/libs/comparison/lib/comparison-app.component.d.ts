@@ -1,5 +1,5 @@
 import { ElementRef } from '@angular/core';
-import { FileCredentials, FileDescription, FileModel, ModalService, PagePreloadService, TabActivatorService, UploadFilesService } from "@groupdocs.examples.angular/common-components";
+import { FileCredentials, FileDescription, FileModel, ModalService, PagePreloadService, PasswordService, TabActivatorService, UploadFilesService } from "@groupdocs.examples.angular/common-components";
 import { ComparisonConfigService } from "./comparison-config.service";
 import { ComparisonService } from "./comparison.service";
 import { ComparisonConfig } from "./comparison-config";
@@ -36,7 +36,7 @@ export declare class ComparisonAppComponent {
     resultTab: string;
     activeTab: string;
     resultTabDisabled: boolean;
-    constructor(_comparisonService: ComparisonService, configService: ComparisonConfigService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, _modalService: ModalService, _tabActivatorService: TabActivatorService, _elementRef: ElementRef<HTMLElement>);
+    constructor(_comparisonService: ComparisonService, configService: ComparisonConfigService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, _modalService: ModalService, _tabActivatorService: TabActivatorService, passwordService: PasswordService, _elementRef: ElementRef<HTMLElement>);
     private setLoading;
     readonly rewriteConfig: boolean;
     selectDir($event: string): void;
@@ -54,4 +54,5 @@ export declare class ComparisonAppComponent {
     generateRandomInteger(): string;
     download(): void;
     hideSidePanel($event: any): void;
+    cancelOpeningFile($event: any): void;
 }

@@ -140,6 +140,7 @@ export declare class CopyChanges {
     width: number;
     height: number;
     position: Position;
+    props: SignatureProps;
 }
 export declare class StampCanvasProps {
     id: number;

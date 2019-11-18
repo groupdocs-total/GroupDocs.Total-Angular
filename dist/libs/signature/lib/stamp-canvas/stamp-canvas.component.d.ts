@@ -2,11 +2,12 @@ import { AfterViewInit, ElementRef, OnInit } from '@angular/core';
 import { StampCanvasProps } from "../signature-models";
 import { ActiveCanvasService } from "../active-canvas.service";
 import { RemoveCanvasService } from "../remove-canvas.service";
-import { OnCloseService } from "@groupdocs.examples.angular/common-components";
+import { OnCloseService, WindowService } from "@groupdocs.examples.angular/common-components";
 export declare class StampCanvasComponent implements OnInit, AfterViewInit {
     private _activeCanvasService;
     private _removeCanvas;
     private _onCloseService;
+    private _windowService;
     id: number;
     theFirst: boolean;
     active: boolean;
@@ -18,7 +19,8 @@ export declare class StampCanvasComponent implements OnInit, AfterViewInit {
     colorPickerBG: boolean;
     colorPickerC: boolean;
     borderWidth: any[];
-    constructor(_activeCanvasService: ActiveCanvasService, _removeCanvas: RemoveCanvasService, _onCloseService: OnCloseService);
+    isMobile: boolean;
+    constructor(_activeCanvasService: ActiveCanvasService, _removeCanvas: RemoveCanvasService, _onCloseService: OnCloseService, _windowService: WindowService);
     readonly ctx: CanvasRenderingContext2D;
     activation(): void;
     ngOnInit(): void;
@@ -35,7 +37,10 @@ export declare class StampCanvasComponent implements OnInit, AfterViewInit {
     deleteCanvas(): void;
     getLeft(): number;
     getTop(): number;
+    private calcDiff;
     resize($event: any): void;
     closeColorPickerBG($event: any): void;
     closeColorPickerC($event: any): void;
+    getTranslation(): number;
+    inactive($event: Event): void;
 }

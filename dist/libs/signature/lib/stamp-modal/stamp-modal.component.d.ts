@@ -40,4 +40,6 @@ export declare class StampModalComponent implements OnInit, OnDestroy {
     getWidth(): number;
     getHeight(): number;
     deleteText(): void;
+    leaveText($event: Event): void;
+    getTextWidth(): number;
 }
