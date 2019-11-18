@@ -10,6 +10,7 @@ export class UploadFilePanelComponent implements OnInit {
 
   @Input() panel: string;
   @Output() active = new EventEmitter<string>();
+  showUploadFile = false;
 
   constructor(private _uploadService: UploadFilesService,
               private _modalService: ModalService) {
@@ -26,6 +27,7 @@ export class UploadFilePanelComponent implements OnInit {
   dropped($event) {
     if ($event) {
       this.active.emit(this.panel);
+      this.showUploadFile = false;
     }
   }
 }
