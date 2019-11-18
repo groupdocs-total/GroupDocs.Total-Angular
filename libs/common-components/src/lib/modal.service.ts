@@ -6,6 +6,7 @@ export class CommonModals {
   static OperationSuccess = "gd-success-modal";
   static DrawHandSignature = "gd-draw-hand-signature";
   static DrawStampSignature = "gd-draw-stamp-signature";
+  static InformationMessage = "gd-information-message";
 }
 
 export class ModalService {

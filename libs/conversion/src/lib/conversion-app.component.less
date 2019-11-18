@@ -1,7 +1,21 @@
 @import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import "../../../common-components/src/styles/variables";
 
 :host * {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+/deep/ .tools {
+  .button {
+    color: #fff !important;
+    flex-flow: column;
+    &.inactive{
+      color: @regent-gray !important;
+    }
+  }
+  .icon-button{
+    margin: 0px 0px 0px 7px !important;
+  }
 }
 
 .wrapper {
@@ -34,4 +48,16 @@
 .toolbar-panel {
   background-color: #3e4e5a;
   width: 100%;
+}
+
+@media @phone-down {
+  ::ng-deep .tools {
+    gd-button:nth-child(1) > .icon-button{
+      margin: 0px 0px 0px 10px !important;
+    }
+    .icon-button{
+      height: 60px !important;
+      width: 60px;
+    }
+  }
 }

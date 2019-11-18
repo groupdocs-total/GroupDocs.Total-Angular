@@ -20,6 +20,7 @@ export declare class ConversionItemModel implements FileModel {
     converted: boolean;
     converting: boolean;
     isDirectory: boolean;
+    warning: boolean;
 }
 export declare class ExtendedFileModel implements FileModel {
     guid: string;

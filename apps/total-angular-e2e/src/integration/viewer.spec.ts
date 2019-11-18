@@ -77,6 +77,7 @@ describe('Viewer', () => {
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
     cy.get('.gd-modal-body').trigger('dragover');
+    cy.get('.gd-modal-body').trigger('dragenter');
     cy.get('.gd-dnd-wrap').should('be.visible');
     cy.get('.gd-modal-body').trigger('dragleave');
     cy.get('.gd-dnd-wrap').should('not.exist');

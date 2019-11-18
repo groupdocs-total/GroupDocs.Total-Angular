@@ -4,8 +4,7 @@ export declare class CommonModals {
     static BrowseFiles: string;
     static CreateDocument: string;
     static OperationSuccess: string;
-    static DrawHandSignature: string;
-    static DrawStampSignature: string;
+    static InformationMessage: string;
 }
 export declare class ModalService {
     private modals;

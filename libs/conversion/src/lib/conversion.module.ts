@@ -11,6 +11,7 @@ import {ConversionService} from "./conversion.service";
 import {ConversionConfigService} from "./conversion-config.service";
 import {ConversionAppComponent} from "./conversion-app.component";
 import { ConversionBrowseFilesModalComponent } from './conversion-browse-files-modal/conversion-browse-files-modal.component';
+import { InformationModalComponent } from './information-modal/information-modal.component';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
@@ -24,8 +25,8 @@ export function initializeApp(conversionConfigService: ConversionConfigService) 
 }
 
 @NgModule({
-  declarations: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent, ConversionItemComponent],
-  exports: [ConversionAppComponent, ConversionBrowseFilesModalComponent, ConversionQueueComponent],
+  declarations: [ConversionAppComponent, ConversionBrowseFilesModalComponent, InformationModalComponent, ConversionQueueComponent, ConversionItemComponent],
+  exports: [ConversionAppComponent, ConversionBrowseFilesModalComponent, InformationModalComponent, ConversionQueueComponent],
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,

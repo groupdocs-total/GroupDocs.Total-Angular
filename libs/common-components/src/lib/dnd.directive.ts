@@ -12,23 +12,36 @@ export class DndDirective {
 
   @HostBinding('class.active') active = false;
 
+  private dragCounter = 0;
+
   constructor(protected _uploadFilesService: UploadFilesService) {
+  }
+
+  @HostListener('dragenter', ['$event'])
+  public onDragEnter(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.dragCounter++;
+    this.active = true;
+    this.opening.emit(true);
   }
 
   @HostListener('dragover', ['$event'])
   public onDragOver(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.active = true;
-    this.opening.emit(true);
+    return false;
   }
 
   @HostListener('dragleave', ['$event'])
   public onDragLeave(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.active = false;
-    this.closeArea();
+    this.dragCounter--;
+    if (this.dragCounter === 0) {
+      this.active = false;
+      this.closeArea();
+    }
   }
 
   @HostListener('drop', ['$event'])
