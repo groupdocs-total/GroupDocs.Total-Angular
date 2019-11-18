@@ -1,0 +1,8 @@
+<div class="bc-paint-container">
+  <div class="bc-paint-canvas-container">
+    <canvas #canvas (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)"
+            (mouseup)="onMouseUp($event)" (mouseleave)="onMouseUp($event)" [width]="getWidth()"
+            [height]="getHeight()" (panstart)="onMouseDown($event)" (panmove)="onMouseMove($event)"
+            (panend)="onMouseUp($event)"></canvas>
+  </div>
+</div>

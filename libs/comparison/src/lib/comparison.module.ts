@@ -20,10 +20,10 @@ import {AddFilePanelComponent} from './add-file-panel/add-file-panel.component';
 import {UploadFilePanelComponent} from './upload-file-panel/upload-file-panel.component';
 import {DifferenceComponent} from './difference/difference.component';
 import {DifferenceHighlightComponent} from './difference-highlight/difference-highlight.component';
-import { ResultDocumentComponent } from './result-document/result-document.component';
-import { DifferencesComponent } from './differences/differences.component';
-import { DifferencesService } from './differences.service';
-import { ClickOutsideModule } from 'ng-click-outside';
+import {ResultDocumentComponent} from './result-document/result-document.component';
+import {DifferencesComponent} from './differences/differences.component';
+import {DifferencesService} from './differences.service';
+import {ClickOutsideModule} from 'ng-click-outside';
 
 export function initializeApp(comparisonConfigService: ComparisonConfigService) {
   const result = () => comparisonConfigService.load();

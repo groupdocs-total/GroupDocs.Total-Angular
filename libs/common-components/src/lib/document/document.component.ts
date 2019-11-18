@@ -5,13 +5,15 @@ import {
   Input,
   OnInit,
   AfterViewInit,
-  OnChanges} from '@angular/core';
+  OnChanges
+} from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
-import * as jquery from 'jquery';
-const $ = jquery;
 import * as Hammer from 'hammerjs';
-import { WindowService } from '../window.service';
+import {WindowService} from '../window.service';
+import * as jquery from 'jquery';
+
+const $ = jquery;
 
 @Component({
   selector: 'gd-document',
@@ -66,7 +68,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     //this._zoomService.changeZoom(100);
     //this.scale = 1;
   }
-    
+
   ngAfterViewInit() {
     // For current iteration we take .panzoom as a document
     this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
@@ -78,12 +80,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     this.viewportWidth = this.doc.offsetWidth;
 
     // For cases where we already have zoom defined we should include it
-    this.scale = (this.viewportWidth/this.docWidth) * this._zoomService.zoom/100;
-    
+    this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
+
     this.lastScale = this.scale;
     this.viewportHeight = this.container.offsetHeight;
-    this.curWidth = this.docWidth*this.scale;
-    this.curHeight = this.docHeight*this.scale;
+    this.curWidth = this.docWidth * this.scale;
+    this.curHeight = this.docHeight * this.scale;
 
     const hammer = new Hammer(this.container);
   }
@@ -94,7 +96,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   getDimensionWithUnit(value: number) {
-    return value + FileUtil.find(this.file.guid, false).unit;
+    return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
   }
 
   ifEdge() {
@@ -118,12 +120,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
       el = el.offsetParent;
     }
 
-    return { x: x, y: y };
+    return {x: x, y: y};
   };
 
   restrictRawPos(pos, viewportDim, docDim) {
-    if (pos < viewportDim/this.scale - docDim) { // too far left/up?
-      pos = viewportDim/this.scale - docDim;
+    if (pos < viewportDim / this.scale - docDim) { // too far left/up?
+      pos = viewportDim / this.scale - docDim;
     } else if (pos > 0) { // too far right/down?
       pos = 0;
     }
@@ -138,25 +140,25 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   translate(deltaX, deltaY) {
     // We restrict to the min of the viewport width/height or current width/height as the
     // current width/height may be smaller than the viewport width/height
-    const newX = this.restrictRawPos(this.lastX + deltaX/this.scale,
-                              Math.min(this.viewportWidth, this.curWidth), this.docWidth);
+    const newX = this.restrictRawPos(this.lastX + deltaX / this.scale,
+      Math.min(this.viewportWidth, this.curWidth), this.docWidth);
     this.x = newX;
     // TODO: value here and in the similar line below changes to positive to take any effect
-    this.container.scrollLeft = -Math.ceil(newX*this.scale);
+    this.container.scrollLeft = -Math.ceil(newX * this.scale);
 
-    const newY = this.restrictRawPos(this.lastY + deltaY/this.scale,
-                              Math.min(this.viewportHeight, this.curHeight), this.docHeight);
+    const newY = this.restrictRawPos(this.lastY + deltaY / this.scale,
+      Math.min(this.viewportHeight, this.curHeight), this.docHeight);
     this.y = newY;
-    this.container.scrollTop = -Math.ceil(newY*this.scale);
-    
+    this.container.scrollTop = -Math.ceil(newY * this.scale);
+
     this.doc.style.transform = 'scale(' + this.scale + ')';
   };
 
   startZoom(scaleBy) {
-    this.scale = this.lastScale*scaleBy;
+    this.scale = this.lastScale * scaleBy;
 
-    this.curWidth = this.docWidth*this.scale;
-    this.curHeight = this.docHeight*this.scale;
+    this.curWidth = this.docWidth * this.scale;
+    this.curHeight = this.docHeight * this.scale;
 
     // Adjust margins to make sure that we aren't out of bounds
     this.translate(0, 0);
@@ -169,10 +171,10 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     const scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
     const scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
 
-    const zoomX = -this.x + ($event.center.x - pos.x + scrollLeft)/this.scale;
-    const zoomY = -this.y + ($event.center.y - pos.y + scrollTop)/this.scale;
+    const zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
+    const zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
 
-    return { x: zoomX, y: zoomY };
+    return {x: zoomX, y: zoomY};
   };
 
   updateLastScale() {
@@ -184,12 +186,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     this.startZoom(scaleBy);
 
     // New raw center of viewport
-    const rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth)/2/this.scale;
-    const rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight)/2/this.scale;
+    const rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
+    const rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
 
     // Delta
-    const deltaX = (rawCenterX - rawZoomX)*this.scale;
-    const deltaY = (rawCenterY - rawZoomY)*this.scale;
+    const deltaX = (rawCenterX - rawZoomX) * this.scale;
+    const deltaY = (rawCenterY - rawZoomY) * this.scale;
 
     // Translate back to zoom center
     this.translate(deltaX, deltaY);
@@ -200,43 +202,43 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     }
   };
 
-  onPinch($event){
+  onPinch($event) {
     if (this.pinchCenter === null) {
       this.pinchCenter = this.rawCenter($event);
-      const offsetX = this.pinchCenter.x*this.scale - (-this.x*this.scale + Math.min(this.viewportWidth, this.curWidth)/2);
-      const offsetY = this.pinchCenter.y*this.scale - (-this.y*this.scale + Math.min(this.viewportHeight, this.curHeight)/2);
-      this.pinchCenterOffset = { x: offsetX, y: offsetY };
+      const offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
+      const offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
+      this.pinchCenterOffset = {x: offsetX, y: offsetY};
     }
 
-    const newScale = this.scale*$event.scale;
+    const newScale = this.scale * $event.scale;
 
-    const zoomX = this.pinchCenter.x*newScale - this.pinchCenterOffset.x;
-    const zoomY = this.pinchCenter.y*newScale - this.pinchCenterOffset.y;
-    const zoomCenter = { x: zoomX/newScale, y: zoomY/newScale };
-    
+    const zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
+    const zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
+    const zoomCenter = {x: zoomX / newScale, y: zoomY / newScale};
+
     this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
   }
 
-  onPinchEnd($event){
+  onPinchEnd($event) {
     this.updateLastScale();
     this.updateLastPos();
     this.pinchCenter = null;
   }
 
-  onPan($event){
+  onPan($event) {
     // TODO: looks like native pan works better
     // if (!this.isDesktop) {
     //   this.translate($event.deltaX, $event.deltaY);
     // }
   }
 
-  onPanEnd($event){
+  onPanEnd($event) {
     // if (!this.isDesktop) {
     //   this.updateLastPos();
     // }
   }
 
-  onDoubleTap($event){
+  onDoubleTap($event) {
     if (!this.isDesktop) {
       if ($event.tapCount === 2) {
         const c = this.rawCenter($event);

@@ -10,6 +10,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() title: string;
   @Output() visible = new EventEmitter<boolean>();
+  @Output() cancel = new EventEmitter<boolean>();
   visibility = false;
   private element: any;
 
@@ -50,5 +51,10 @@ export class ModalComponent implements OnInit, OnDestroy {
     if ($event && $event.target && (<Element>$event.target).id === 'modalDialog') {
       this.close();
     }
+  }
+
+  cancelClose() {
+    this.cancel.emit(false);
+    this.close();
   }
 }

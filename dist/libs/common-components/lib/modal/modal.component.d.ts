@@ -5,6 +5,7 @@ export declare class ModalComponent implements OnInit, OnDestroy {
     id: string;
     title: string;
     visible: EventEmitter<boolean>;
+    cancel: EventEmitter<boolean>;
     visibility: boolean;
     private element;
     constructor(modalService: ModalService, el: ElementRef);
@@ -13,4 +14,5 @@ export declare class ModalComponent implements OnInit, OnDestroy {
     open(): void;
     close(): void;
     onClose($event: MouseEvent): void;
+    cancelClose(): void;
 }

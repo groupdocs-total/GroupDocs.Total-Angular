@@ -1,0 +1,39 @@
+<div class="gd-signature" *ngIf="!isDigital()"
+     (clickOutside)="hideMenu($event)"
+     [exclude]="'gd-context-menu,.ui-resizable-handle'"
+     [excludeBeforeClick]="true"
+     [clickOutsideEvents]="'mousedown'"
+     [clickOutsideEnabled]="active"
+     [style.left.px]="position.left" [style.top.px]="position.top"
+     [style.width.px]="data.width ? data.width : undefined"
+     [style.height.px]="data.height ? data.height : undefined" (click)="activation()">
+  <div [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
+       (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="drop($event)"
+       (panstart)="dragStart($event)" (panmove)="dragging($event)"
+       class="gd-signature-wrapper">
+    <gd-context-menu *ngIf="active" [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
+                     (changeFormatting)="saveTextSignature($event)" (removeSign)="remove()" (copySign)="onCopySign()"
+                     [lock]="!unlock" (lockOut)="unlock = !$event" [translation]="getMenuShift()"></gd-context-menu>
+    <img class="gd-signature-image" *ngIf="!isText()" [attr.src]="getData()" alt>
+    <textarea class="gd-text" *ngIf="isText()" [value]="data.props?.text"
+              id="text" #text (keyup)="saveText(text.value)"
+              [style.text-decoration]="data.props?.underline ? 'underline' : 'unset'"
+              [style.font-style]="data.props?.italic ? 'italic' : 'unset'"
+              [style.font-weight]="data.props?.bold ? 'bold' : 'unset'"
+              [style.color]="data.props?.fontColor"
+              [style.font-family]="data?.props.font"
+              [style.font-size.px]="data?.props.fontSize"
+              [style.width.px]="data.width ? data.width : undefined"
+              [style.height.px]="data.height ? data.height : undefined"></textarea>
+  </div>
+  <gd-resizing [id]="id" *ngIf="active" [init]="isInit()"
+               (offsetX)="width($event)" (offsetY)="height($event)"
+               (offsetTop)="top($event)" (offsetLeft)="left($event)"
+               [se]="true" [sw]="unlock" [ne]="unlock" [nw]="unlock"
+               [pageHeight]="pageHeight" [pageWidth]="pageWidth"></gd-resizing>
+</div>
+<div class="gd-digital-marker" *ngIf="isDigital()">
+  <fa-icon [icon]="['fas','info-circle']" [class]="'ng-fa-icon icon'"></fa-icon>
+  <div>Digitally signed : {{data.digitalProps.contact ? data.digitalProps.contact : data.digitalProps.reason}}</div>
+  <fa-icon [icon]="['fas','times']" [class]="'ng-fa-icon icon'" (click)="remove()"></fa-icon>
+</div>

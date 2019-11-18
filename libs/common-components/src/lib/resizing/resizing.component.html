@@ -1,0 +1,15 @@
+<div class="ui-resizable-handle se-resize" id="se-{{id}}" *ngIf="se" [draggable]="true" (dragover)="start($event)"
+     (drag)="resize($event, SE)" (dragend)="end($event, SE)" (dragstart)="catchUp($event)" (drop)="drop($event)"
+      (panstart)="catchUp($event)" (panmove)="resize($event, SE)" (panend)="end($event, SE)"></div>
+
+<div class="ui-resizable-handle ne-resize" id="ne-{{id}}" *ngIf="ne" [draggable]="true" (dragover)="start($event)"
+     (drag)="resize($event, NE)" (dragend)="end($event, NE)" (dragstart)="catchUp($event)" (drop)="drop($event)"
+     (panstart)="catchUp($event)" (panmove)="resize($event, NE)" (panend)="end($event, NE)"></div>
+
+<div class="ui-resizable-handle sw-resize" id="sw-{{id}}" *ngIf="sw" [draggable]="true" (dragover)="start($event)"
+     (drag)="resize($event, SW)" (dragend)="end($event, SW)" (dragstart)="catchUp($event)" (drop)="drop($event)"
+     (panstart)="catchUp($event)" (panmove)="resize($event, SW)" (panend)="end($event, SW)"></div>
+
+<div class="ui-resizable-handle nw-resize" id="nw-{{id}}" *ngIf="nw" [draggable]="true" (dragover)="start($event)"
+     (drag)="resize($event, NW)" (dragend)="end($event, NW)" (dragstart)="catchUp($event)" (drop)="drop($event)"
+     (panstart)="catchUp($event)" (panmove)="resize($event, NW)" (panend)="end($event, NW)"></div>

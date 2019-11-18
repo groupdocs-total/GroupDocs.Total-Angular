@@ -14,7 +14,7 @@ export class DndDirective {
 
   private dragCounter = 0;
 
-  constructor(private _uploadFilesService: UploadFilesService) {
+  constructor(protected _uploadFilesService: UploadFilesService) {
   }
 
   @HostListener('dragenter', ['$event'])

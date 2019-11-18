@@ -1,0 +1,100 @@
+@import "../../../../common-components/src/styles/variables";
+
+
+::ng-deep .active {
+  background-color: #e7e7e7;
+}
+
+.gd-text-menu {
+  display: flex;
+  flex-direction: row;
+
+  .format-select {
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80px;
+    margin: 0px 3px;
+  }
+
+  .first-component {
+    margin-left: 8px;
+  }
+
+  ::ng-deep .dropdown-menu {
+    top: 40px !important;
+    height: 120px;
+    overflow-y: auto;
+  }
+
+  ::ng-deep .icon-button {
+    margin: 0px !important;
+  }
+}
+
+.bg-color-pic {
+  border-radius: 100%;
+  border: 1px solid #CCC;
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  right: 6px;
+  bottom: 6px;
+}
+
+.palette {
+  position: relative;
+  top: 40px;
+  left: -55px;
+  z-index: 100;
+}
+
+
+@media @phone-down {
+  .gd-text-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    background-color: white;
+    border-top: 2px solid #707070;
+
+    ::ng-deep .selected-value {
+      white-space: normal !important;
+      word-wrap: break-word;
+    }
+
+    .icon {
+      color: white;
+      margin: 0 9px 0 9px;
+    }
+
+    ::ng-deep .bcPicker-palette {
+      left: -200px;
+      top: -200px;
+    }
+
+    .palette {
+      top: unset;
+      bottom: 40px;
+      left: unset;
+      right: 5px;
+    }
+
+    ::ng-deep .dropdown-menu {
+      bottom: 40px;
+      top: unset !important;
+    }
+
+    ::ng-deep .button {
+      margin: 3px !important;
+    }
+  }
+
+}

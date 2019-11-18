@@ -52,5 +52,8 @@ export * from './lib/tab/tab.component';
 export * from './lib/tabbed-toolbars/tabbed-toolbars.component';
 export * from './lib/tab-activator.service';
 export * from './lib/drop-down/drop-down.component';
-
+export * from './lib/left-side-bar/left-side-bar.component'
+export * from './lib/add-dynamic-component.service'
+export * from './lib/host-dynamic.directive'
+export * from './lib/hosting-dynamic-component.service'
 

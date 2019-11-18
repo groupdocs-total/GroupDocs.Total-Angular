@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('rxjs'), require('jquery'), require('hammerjs'), require('rxjs/operators'), require('@angular/platform-browser'), require('ng-click-outside')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'rxjs', 'jquery', 'hammerjs', 'rxjs/operators', '@angular/platform-browser', 'ng-click-outside'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.rxjs, global.jquery, global.Hammer, global.rxjs.operators, global.ng.platformBrowser, global.ngClickOutside));
-}(this, function (exports, core, common, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, rxjs, jquery, Hammer, operators, platformBrowser, ngClickOutside) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('jquery'), require('hammerjs'), require('@angular/platform-browser'), require('ng-click-outside')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', 'rxjs', 'rxjs/operators', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'jquery', 'hammerjs', '@angular/platform-browser', 'ng-click-outside'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.rxjs, global.rxjs.operators, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.jquery, global.Hammer, global.ng.platformBrowser, global.ngClickOutside));
+}(this, function (exports, core, common, rxjs, operators, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, jquery, Hammer, platformBrowser, ngClickOutside) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -101,13 +101,125 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var MOBILE_MAX_WIDTH = 425;
+    /** @type {?} */
+    var TABLET_MAX_WIDTH = 1024;
+    var WindowService = /** @class */ (function () {
+        function WindowService() {
+            var _this = this;
+            this.resizeSubject = new rxjs.Subject();
+            this.width = window.innerWidth;
+            this.height = window.innerHeight;
+            this._resize$ = rxjs.fromEvent(window, 'resize')
+                .pipe(operators.debounceTime(200), operators.distinctUntilChanged(), operators.startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), operators.tap((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) {
+                _this.resizeSubject.next((/** @type {?} */ (event.target)));
+                _this.width = ((/** @type {?} */ (event.target))).innerWidth;
+                _this.height = ((/** @type {?} */ (event.target))).innerHeight;
+            })));
+            this._resize$.subscribe();
+        }
+        Object.defineProperty(WindowService.prototype, "onResize", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.resizeSubject.asObservable();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isMobile = /**
+         * @return {?}
+         */
+        function () {
+            return this.width <= MOBILE_MAX_WIDTH;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isTablet = /**
+         * @return {?}
+         */
+        function () {
+            return this.width <= TABLET_MAX_WIDTH;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isDesktop = /**
+         * @return {?}
+         */
+        function () {
+            return !this.isMobile() && !this.isTablet();
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.getWidth = /**
+         * @return {?}
+         */
+        function () {
+            return this.width;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.getHeight = /**
+         * @return {?}
+         */
+        function () {
+            return this.height;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isEdge = /**
+         * @return {?}
+         */
+        function () {
+            return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+        };
+        /**
+         * @return {?}
+         */
+        WindowService.prototype.isFirefox = /**
+         * @return {?}
+         */
+        function () {
+            return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        };
+        return WindowService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var ButtonComponent = /** @class */ (function () {
-        function ButtonComponent() {
+        function ButtonComponent(windowService) {
+            var _this = this;
             this.iconOnly = true;
             this.intent = 'default';
             this.disabled = false;
             this.toggle = false;
+            this.iconRegular = false;
             this.showToolTip = false;
+            this.isDesktop = windowService.isDesktop();
+            windowService.onResize.subscribe((/**
+             * @param {?} w
+             * @return {?}
+             */
+            function (w) {
+                _this.isDesktop = windowService.isDesktop();
+            }));
         }
         /**
          * @return {?}
@@ -125,10 +237,9 @@
          * @return {?}
          */
         function () {
-            if (!this.disabled) {
+            if (this.isDesktop && !this.disabled) {
                 this.className += ' active';
             }
-            this.showToolTip = true;
         };
         /**
          * @return {?}
@@ -137,18 +248,39 @@
          * @return {?}
          */
         function () {
-            if (!this.disabled) {
-                this.className = this.className.replace(' active', '');
+            if (this.isDesktop && !this.disabled) {
+                this.className = this.cleanAll(this.className, ' active');
             }
-            this.showToolTip = false;
+        };
+        /**
+         * @private
+         * @param {?} str
+         * @param {?} val
+         * @return {?}
+         */
+        ButtonComponent.prototype.cleanAll = /**
+         * @private
+         * @param {?} str
+         * @param {?} val
+         * @return {?}
+         */
+        function (str, val) {
+            while (str && str.indexOf(val) !== -1) {
+                str = str.replace(val, '');
+            }
+            return str;
         };
         ButtonComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-button',
-                        template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <div class=\"text\"><ng-content></ng-content></div>\n</div>\n",
+                        template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <div class=\"text\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
                         styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
                     }] }
         ];
+        /** @nocollapse */
+        ButtonComponent.ctorParameters = function () { return [
+            { type: WindowService }
+        ]; };
         ButtonComponent.propDecorators = {
             iconOnly: [{ type: core.Input }],
             intent: [{ type: core.Input }],
@@ -157,7 +289,9 @@
             iconClass: [{ type: core.Input }],
             tooltip: [{ type: core.Input }],
             className: [{ type: core.Input }],
-            toggle: [{ type: core.Input }]
+            toggle: [{ type: core.Input }],
+            iconSize: [{ type: core.Input }],
+            iconRegular: [{ type: core.Input }]
         };
         return ButtonComponent;
     }());
@@ -244,6 +378,7 @@
         function Api() {
         }
         Api.VIEWER_APP = '/viewer';
+        Api.SIGNATURE_APP = '/signature';
         Api.EDITOR_APP = '/editor';
         Api.COMPARISON_APP = '/comparison';
         Api.CONVERSION_APP = '/conversion';
@@ -262,6 +397,14 @@
         Api.SAVE_FILE = '/saveFile';
         Api.COMPARE_FILES = '/compare';
         Api.CONVERT_FILE = '/convert';
+        Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+        Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
+        Api.SAVE_TEXT = '/saveText';
+        Api.SAVE_IMAGE = '/saveImage';
+        Api.SAVE_STAMP = '/saveStamp';
+        Api.SIGN = '/sign';
+        Api.DOWNLOAD_SIGNED = '/downloadSigned';
+        Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
         Api.httpOptionsJson = {
             headers: new http.HttpHeaders({
                 'Content-Type': 'application/json',
@@ -343,6 +486,15 @@
         function () {
             return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
         };
+        /**
+         * @return {?}
+         */
+        ConfigService.prototype.getSignatureApiEndpoint = /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
+        };
         ConfigService.decorators = [
             { type: core.Injectable }
         ];
@@ -363,6 +515,8 @@
         CommonModals.BrowseFiles = "gd-browse-files";
         CommonModals.CreateDocument = "gd-create-document";
         CommonModals.OperationSuccess = "gd-success-modal";
+        CommonModals.DrawHandSignature = "gd-draw-hand-signature";
+        CommonModals.DrawStampSignature = "gd-draw-stamp-signature";
         CommonModals.InformationMessage = "gd-information-message";
         return CommonModals;
     }());
@@ -445,6 +599,7 @@
         function ModalComponent(modalService, el) {
             this.modalService = modalService;
             this.visible = new core.EventEmitter();
+            this.cancel = new core.EventEmitter();
             this.visibility = false;
             this.element = el.nativeElement;
         }
@@ -508,10 +663,20 @@
                 this.close();
             }
         };
+        /**
+         * @return {?}
+         */
+        ModalComponent.prototype.cancelClose = /**
+         * @return {?}
+         */
+        function () {
+            this.cancel.emit(false);
+            this.close();
+        };
         ModalComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-modal',
-                        template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \n\n      <div class=\"gd-modal-header\"> \n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\n        </div> \n\n      <div class=\"gd-modal-body\">\n        <ng-content></ng-content>\n        </div> \n\n      <div class=\"gd-modal-footer\"> \n\n        </div> \n      </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog --> \n\n",
+                        template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\n\n    <div class=\"gd-modal-header\">\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\n    </div>\n\n    <div class=\"gd-modal-body\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"gd-modal-footer\">\n\n    </div>\n  </div>\n</div>\n\n\n",
                         styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
                     }] }
         ];
@@ -523,7 +688,8 @@
         ModalComponent.propDecorators = {
             id: [{ type: core.Input }],
             title: [{ type: core.Input }],
-            visible: [{ type: core.Output }]
+            visible: [{ type: core.Output }],
+            cancel: [{ type: core.Output }]
         };
         return ModalComponent;
     }());
@@ -580,6 +746,48 @@
         HttpError.Conflict = 409;
         HttpError.InternalServerError = 500;
         return HttpError;
+    }());
+    var Utils = /** @class */ (function () {
+        function Utils() {
+        }
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        Utils.getMousePosition = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            /** @type {?} */
+            var mouse = {
+                x: 0,
+                y: 0
+            };
+            /** @type {?} */
+            var wEvent = (/** @type {?} */ (window.event));
+            /** @type {?} */
+            var ev = event || wEvent;
+            if (ev.pageX || wEvent.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
+                //Moz
+                /** @type {?} */
+                var pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0 ? ev.pageX : wEvent.pageX;
+                /** @type {?} */
+                var pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0 ? ev.pageY : wEvent.pageY;
+                /** @type {?} */
+                var screenX_1 = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
+                /** @type {?} */
+                var screenY_1 = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
+                mouse.x = pageX ? pageX : (screenX_1 ? wEvent.screenX : ev.touches[0].pageX);
+                mouse.y = pageY ? pageY : (screenY_1 ? wEvent.screenY : ev.touches[0].pageY);
+            }
+            else if (ev.clientX) { //IE
+                mouse.x = ev.clientX + document.body.scrollLeft;
+                mouse.y = ev.clientY + document.body.scrollTop;
+            }
+            return mouse;
+        };
+        return Utils;
     }());
     var FileUtil = /** @class */ (function () {
         function FileUtil() {
@@ -1036,90 +1244,6 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var MOBILE_MAX_WIDTH = 425;
-    /** @type {?} */
-    var TABLET_MAX_WIDTH = 1024;
-    var WindowService = /** @class */ (function () {
-        function WindowService() {
-            var _this = this;
-            this.resizeSubject = new rxjs.Subject();
-            this.width = window.innerWidth;
-            this.height = window.innerHeight;
-            this._resize$ = rxjs.fromEvent(window, 'resize')
-                .pipe(operators.debounceTime(200), operators.distinctUntilChanged(), operators.startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), operators.tap((/**
-             * @param {?} event
-             * @return {?}
-             */
-            function (event) {
-                _this.resizeSubject.next((/** @type {?} */ (event.target)));
-                _this.width = ((/** @type {?} */ (event.target))).innerWidth;
-                _this.height = ((/** @type {?} */ (event.target))).innerHeight;
-            })));
-            this._resize$.subscribe();
-        }
-        Object.defineProperty(WindowService.prototype, "onResize", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this.resizeSubject.asObservable();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isMobile = /**
-         * @return {?}
-         */
-        function () {
-            return this.width <= MOBILE_MAX_WIDTH;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isTablet = /**
-         * @return {?}
-         */
-        function () {
-            return this.width <= TABLET_MAX_WIDTH;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isDesktop = /**
-         * @return {?}
-         */
-        function () {
-            return !this.isMobile() && !this.isTablet();
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isEdge = /**
-         * @return {?}
-         */
-        function () {
-            return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-        };
-        /**
-         * @return {?}
-         */
-        WindowService.prototype.isFirefox = /**
-         * @return {?}
-         */
-        function () {
-            return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        };
-        return WindowService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
     var $$1 = jquery;
     var DocumentComponent = /** @class */ (function () {
         function DocumentComponent(_elementRef, _zoomService, _windowService) {
@@ -1221,7 +1345,7 @@
          * @return {?}
          */
         function (value) {
-            return value + FileUtil.find(this.file.guid, false).unit;
+            return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
         };
         /**
          * @return {?}
@@ -1549,8 +1673,8 @@
         PageComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-page',
-                        template: "<div id=\"page-{{number}}\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
-                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%!important;width:100%!important}"]
+                        template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
+                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2669,8 +2793,8 @@
         SelectComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-select',
-                        template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [clickOutsideEnabled]=\"isOpen\"\n     >\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </span>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
-                        styles: [".select{min-width:50px;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
+                        template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [clickOutsideEnabled]=\"isOpen\">\n  <div class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </div>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
+                        styles: [".select{min-width:50px;display:flex;flex-direction:row;justify-content:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3216,10 +3340,13 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var $$4 = jquery;
     var PasswordRequiredComponent = /** @class */ (function () {
         function PasswordRequiredComponent(messageService, _passwordService) {
             var _this = this;
             this._passwordService = _passwordService;
+            this.cancelEvent = new core.EventEmitter();
             messageService.messageChange.subscribe((/**
              * @param {?} message
              * @return {?}
@@ -3245,10 +3372,47 @@
         function (value) {
             this._passwordService.setPassword(value);
         };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        PasswordRequiredComponent.prototype.onCloseOpen = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            if ($event) {
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
+                    /** @type {?} */
+                    var element = $$4("#password");
+                    if (element) {
+                        element.focus();
+                    }
+                }), 100);
+            }
+            else {
+                $$4("#password").val("");
+            }
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        PasswordRequiredComponent.prototype.cancel = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            $$4("#password").val("");
+            this.cancelEvent.emit(true);
+        };
         PasswordRequiredComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-password-required',
-                        template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n          Open\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
+                        template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n          Open\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
                         styles: ["#gd-password-section{width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
                     }] }
         ];
@@ -3257,6 +3421,9 @@
             { type: ExceptionMessageService },
             { type: PasswordService }
         ]; };
+        PasswordRequiredComponent.propDecorators = {
+            cancelEvent: [{ type: core.Output }]
+        };
         return PasswordRequiredComponent;
     }());
 
@@ -3530,7 +3697,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$4 = jquery;
+    var $$5 = jquery;
     var SearchableDirective = /** @class */ (function () {
         function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
             var _this = this;
@@ -3615,16 +3782,16 @@
                  * @return {?}
                  */
                 function (value) {
-                    $$4(value).removeClass('gd-highlight-select');
+                    $$5(value).removeClass('gd-highlight-select');
                 }));
                 /** @type {?} */
                 var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-                $$4(currentEl).addClass('gd-highlight-select');
+                $$5(currentEl).addClass('gd-highlight-select');
                 if (currentEl) {
                     /** @type {?} */
                     var options = {
                         left: 0,
-                        top: ($$4(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+                        top: ($$5(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                     };
                     // using polyfill
                     el.parentElement.parentElement.scroll(options);
@@ -3643,7 +3810,7 @@
          */
         function (el) {
             /** @type {?} */
-            var textNodes = $$4(el).find('*').contents().filter((/**
+            var textNodes = $$5(el).find('*').contents().filter((/**
              * @return {?}
              */
             function () {
@@ -3668,7 +3835,7 @@
              */
             function () {
                 /** @type {?} */
-                var $this = $$4(this);
+                var $this = $$5(this);
                 /** @type {?} */
                 var content = $this.text();
                 content = highlight.transform(content, text);
@@ -3740,12 +3907,16 @@
         TabbedToolbarsComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-tabbed-toolbars',
-                        template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"'editor'\" [icon]=\"'pen-square'\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
+                        template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
                         styles: [".top-panel{background:#3e4e5a;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:1037px){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
                     }] }
         ];
         /** @nocollapse */
         TabbedToolbarsComponent.ctorParameters = function () { return []; };
+        TabbedToolbarsComponent.propDecorators = {
+            logo: [{ type: core.Input }],
+            icon: [{ type: core.Input }]
+        };
         return TabbedToolbarsComponent;
     }());
 
@@ -3842,8 +4013,8 @@
         TabComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-tab',
-                        template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'gd-editor-buttons active' : 'gd-editor-buttons'\">\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [".gd-editor-buttons{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.gd-editor-buttons ::ng-deep .toolbar-panel{height:60px}.gd-editor-buttons.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
+                        template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\n  <ng-content></ng-content>\n</div>\n",
+                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3897,7 +4068,15 @@
             this.align = align;
             this.list = list;
         }
-        Formatting.DEFAULT = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+        /**
+         * @return {?}
+         */
+        Formatting.default = /**
+         * @return {?}
+         */
+        function () {
+            return new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+        };
         return Formatting;
     }());
     var FormattingService = /** @class */ (function () {
@@ -4246,16 +4425,23 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var DEFAULT_COLORS = ['#000000', '#993300', '#333300', '#000080', '#333399', '#333333',
-        '#800000', '#FF6600', '#808000', '#008000', '#008080', '#0000FF',
-        '#666699', '#808080', '#FF0000', '#FF9900', '#99CC00', '#339966',
-        '#33CCCC', '#3366FF', '#800080', '#999999', '#FF00FF', '#FFCC00',
-        '#FFFF00', '#00FF00', '#00FFFF', '#00CCFF', '#993366', '#C0C0C0',
-        '#FF99CC', '#FFCC99', '#FFFF99', '#CCFFFF', '#99CCFF', '#FFFFFF'];
+    var DEFAULT_COLORS = [
+        '#000000', '#434343', '#666666', '#999999', '#B7B7B7', '#CCCCCC', '#D9D9D9', '#EFEFEF', '#F3F3F3', '#FFFFFF',
+        '#980000', '#FF0000', '#FF9900', '#FFFF00', '#00FF00', '#00FFFF', '#4986E8', '#0000FF', '#9900FF', '#FF00FF',
+        '#E6B8AF', '#F4CCCC', '#FDE5CD', '#FFF2CC', '#D9EAD3', '#D0E0E2', '#C9DAF8', '#CFE2F3', '#D9D2E9', '#EAD1DC',
+        '#DD7E6B', '#EA9899', '#F9CB9C', '#FFE59A', '#B7D7A8', '#A2C4C9', '#A4C2F4', '#9FC5E8', '#B4A7D7', '#D5A6BD',
+        '#CC4125', '#E06666', '#F6B26B', '#FFD966', '#92C47D', '#75A5AF', '#6D9EEB', '#6FA9DB', '#8E7CC3', '#C27BA0',
+        '#A61C00', '#CC0000', '#E69138', '#F2C131', '#6AA84F', '#45818E', '#3C78D8', '#3C85C6', '#674EA7', '#A64D79',
+        '#85200B', '#990000', '#B45F05', '#BF9000', '#37761D', '#144F5C', '#1254CC', '#0A5394', '#351C75', '#741B47',
+        '#5B0F00', '#660000', '#783F03', '#7F6000', '#284E13', '#0B343D', '#1B4586', '#063763', '#20124D', '#4C1030',
+    ];
     var ColorPickerComponent = /** @class */ (function () {
         function ColorPickerComponent() {
+            this.isOpen = false;
             this.selectedColor = new core.EventEmitter();
+            this.closeOutside = new core.EventEmitter();
             this.colors = DEFAULT_COLORS;
+            this.white = '#FFFFFF';
         }
         /**
          * @return {?}
@@ -4280,17 +4466,29 @@
             $event.stopPropagation();
             this.selectedColor.emit(color);
         };
+        /**
+         * @return {?}
+         */
+        ColorPickerComponent.prototype.close = /**
+         * @return {?}
+         */
+        function () {
+            this.isOpen = false;
+            this.closeOutside.emit(true);
+        };
         ColorPickerComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-color-picker',
-                        template: "<div class=\"bcPicker-picker\">\n  <div class=\"bcPicker-palette\">\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\" (click)=\"select($event, color)\"></div>\n  </div>\n</div>\n",
-                        styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:232px;padding:5px;border:1px solid #efefef;background-color:#fdfdfd;z-index:999}.bcPicker-palette>.bcPicker-color{width:14px;height:14px;margin:2px;display:inline-block;border:1px solid #efefef;background-color:#9da97b;cursor:pointer}"]
+                        template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\n  <div class=\"bcPicker-palette\">\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\"\n      (click)=\"select($event, color)\" [style.border]=\"'1px solid ' + (color === white ? '#707070' : color)\"></div>\n  </div>\n</div>\n",
+                        styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:250px;background-color:#fdfdfd;z-index:999;box-shadow:0 0 5px #efefef;display:flex;flex-wrap:wrap;justify-content:center}.bcPicker-palette>.bcPicker-color{width:18px;height:18px;margin:2px;cursor:pointer}"]
                     }] }
         ];
         /** @nocollapse */
         ColorPickerComponent.ctorParameters = function () { return []; };
         ColorPickerComponent.propDecorators = {
-            selectedColor: [{ type: core.Output }]
+            isOpen: [{ type: core.Input }],
+            selectedColor: [{ type: core.Output }],
+            closeOutside: [{ type: core.Output }]
         };
         return ColorPickerComponent;
     }());
@@ -4387,7 +4585,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$5 = jquery;
+    var $$6 = jquery;
     var FormattingDirective = /** @class */ (function () {
         function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
             this._formattingService = _formattingService;
@@ -4416,7 +4614,7 @@
             this.list = this.checkList();
             //fix required by FireFox to get correct background color
             if (this.bgColor === "transparent") {
-                this.bgColor = $$5(window.getSelection().focusNode.parentNode).css('background-color').toString();
+                this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
             }
             this.font = document.queryCommandValue("FontName").replace(/"/g, '');
             if (this.font.split(",").length > 1) {
@@ -4808,7 +5006,7 @@
             if (align === "full") {
                 align = "justify";
             }
-            $$5(selection).css("text-align", align);
+            $$6(selection).css("text-align", align);
             this._selectionService.refreshSelection();
         };
         /**
@@ -5005,7 +5203,10 @@
     var LoadingMaskService = /** @class */ (function () {
         function LoadingMaskService() {
             this.onLoadingChanged = new core.EventEmitter();
+            this.stopList = [];
             this.requests = [];
+            this.stopList.push(Api.SAVE_TEXT);
+            this.stopList.push(Api.SAVE_OPTICAL_CODE);
         }
         /**
          * @param {?} req
@@ -5016,8 +5217,16 @@
          * @return {?}
          */
         function (req) {
-            this.requests.push(req);
-            this.notify();
+            /** @type {?} */
+            var stop = this.stopList.find((/**
+             * @param {?} x
+             * @return {?}
+             */
+            function (x) { return req.url.includes(x); }));
+            if (!stop) {
+                this.requests.push(req);
+                this.notify();
+            }
         };
         /**
          * @param {?} req
@@ -5380,6 +5589,445 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var LeftSideBarComponent = /** @class */ (function () {
+        function LeftSideBarComponent() {
+            this.showSpinner = false;
+        }
+        /**
+         * @return {?}
+         */
+        LeftSideBarComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        LeftSideBarComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-left-side-bar',
+                        template: "<div class=\"left-panel\">\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
+                        styles: [".left-panel{border-radius:0;float:left}.gd-left-bar-fade{margin:auto;overflow:hidden;-webkit-overflow-scrolling:touch;transition:transform .3s ease-out;width:100%;height:100%;display:flex;justify-content:center;align-items:center;position:fixed;z-index:1000}@media (max-width:1037px){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        LeftSideBarComponent.ctorParameters = function () { return []; };
+        LeftSideBarComponent.propDecorators = {
+            showSpinner: [{ type: core.Input }]
+        };
+        return LeftSideBarComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var TooltipDirective = /** @class */ (function () {
+        function TooltipDirective() {
+            this.showToolTip = new core.EventEmitter();
+        }
+        /**
+         * @return {?}
+         */
+        TooltipDirective.prototype.onHovering = /**
+         * @return {?}
+         */
+        function () {
+            this.showToolTip.emit(true);
+        };
+        /**
+         * @return {?}
+         */
+        TooltipDirective.prototype.onUnhovering = /**
+         * @return {?}
+         */
+        function () {
+            this.showToolTip.emit(false);
+        };
+        TooltipDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[gdTooltip]'
+                    },] }
+        ];
+        /** @nocollapse */
+        TooltipDirective.ctorParameters = function () { return []; };
+        TooltipDirective.propDecorators = {
+            showToolTip: [{ type: core.Output }],
+            onHovering: [{ type: core.HostListener, args: ['mouseenter',] }],
+            onUnhovering: [{ type: core.HostListener, args: ['mouseleave',] }]
+        };
+        return TooltipDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AddDynamicComponentService = /** @class */ (function () {
+        function AddDynamicComponentService(_factoryResolver, _appRef) {
+            this._factoryResolver = _factoryResolver;
+            this._appRef = _appRef;
+        }
+        /**
+         * @param {?} viewContainerRef
+         * @param {?} component
+         * @return {?}
+         */
+        AddDynamicComponentService.prototype.addDynamicComponent = /**
+         * @param {?} viewContainerRef
+         * @param {?} component
+         * @return {?}
+         */
+        function (viewContainerRef, component) {
+            var _this = this;
+            /** @type {?} */
+            var factory = this._factoryResolver.resolveComponentFactory(component);
+            /** @type {?} */
+            var componentRef = viewContainerRef.createComponent(factory);
+            componentRef.onDestroy((/**
+             * @return {?}
+             */
+            function () {
+                _this._appRef.detachView(componentRef.hostView);
+            }));
+            return componentRef;
+        };
+        AddDynamicComponentService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        AddDynamicComponentService.ctorParameters = function () { return [
+            { type: core.ComponentFactoryResolver },
+            { type: core.ApplicationRef }
+        ]; };
+        /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(core.ɵɵinject(core.ComponentFactoryResolver), core.ɵɵinject(core.ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
+        return AddDynamicComponentService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var HostingDynamicComponentService = /** @class */ (function () {
+        function HostingDynamicComponentService() {
+            this.hosts = [];
+        }
+        /**
+         * @param {?} host
+         * @return {?}
+         */
+        HostingDynamicComponentService.prototype.add = /**
+         * @param {?} host
+         * @return {?}
+         */
+        function (host) {
+            this.hosts = this.hosts.filter((/**
+             * @param {?} h
+             * @return {?}
+             */
+            function (h) {
+                return h.ident !== host.ident;
+            }));
+            this.hosts.push(host);
+        };
+        /**
+         * @param {?} host
+         * @return {?}
+         */
+        HostingDynamicComponentService.prototype.remove = /**
+         * @param {?} host
+         * @return {?}
+         */
+        function (host) {
+            this.hosts = this.hosts.filter((/**
+             * @param {?} h
+             * @return {?}
+             */
+            function (h) {
+                return h.ident !== host.ident;
+            }));
+        };
+        /**
+         * @param {?} ident
+         * @return {?}
+         */
+        HostingDynamicComponentService.prototype.find = /**
+         * @param {?} ident
+         * @return {?}
+         */
+        function (ident) {
+            return this.hosts.find((/**
+             * @param {?} h
+             * @return {?}
+             */
+            function (h) {
+                return h.ident === ident;
+            }));
+        };
+        return HostingDynamicComponentService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var HostDynamicDirective = /** @class */ (function () {
+        function HostDynamicDirective(viewContainerRef, _hostingService) {
+            this.viewContainerRef = viewContainerRef;
+            this._hostingService = _hostingService;
+        }
+        /**
+         * @return {?}
+         */
+        HostDynamicDirective.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+        function () {
+            this._hostingService.add(this);
+        };
+        /**
+         * @return {?}
+         */
+        HostDynamicDirective.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+        function () {
+            this._hostingService.remove(this);
+            this.viewContainerRef.clear();
+        };
+        HostDynamicDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[gdHostDynamic]'
+                    },] }
+        ];
+        /** @nocollapse */
+        HostDynamicDirective.ctorParameters = function () { return [
+            { type: core.ViewContainerRef },
+            { type: HostingDynamicComponentService }
+        ]; };
+        HostDynamicDirective.propDecorators = {
+            ident: [{ type: core.Input }]
+        };
+        return HostDynamicDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var $$7 = jquery;
+    var ResizingComponent = /** @class */ (function () {
+        function ResizingComponent() {
+            this.se = false;
+            this.ne = false;
+            this.sw = false;
+            this.nw = false;
+            this.SE = 'se';
+            this.NE = 'ne';
+            this.SW = 'sw';
+            this.NW = 'nw';
+            this.offsetX = new core.EventEmitter();
+            this.offsetY = new core.EventEmitter();
+            this.offsetTop = new core.EventEmitter();
+            this.offsetLeft = new core.EventEmitter();
+            this.release = new core.EventEmitter();
+            this.grab = false;
+        }
+        /**
+         * @return {?}
+         */
+        ResizingComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            /** @type {?} */
+            var elSE = $$7(this.getElementId(this.SE));
+            /** @type {?} */
+            var elNW = $$7(this.getElementId(this.NW));
+            if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
+                /** @type {?} */
+                var width_1 = elSE.offset().left - elNW.offset().left;
+                /** @type {?} */
+                var height_1 = elSE.offset().top - elNW.offset().top;
+                if (width_1 >= this.pageWidth) {
+                    width_1 = this.pageWidth / 2;
+                }
+                if (height_1 >= this.pageHeight) {
+                    height_1 = this.pageHeight / 2;
+                }
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
+                    _this.offsetX.emit(width_1);
+                    _this.offsetY.emit(height_1);
+                }), 100);
+            }
+        };
+        /**
+         * @return {?}
+         */
+        ResizingComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        ResizingComponent.prototype.catchUp = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            // ff
+            $event.preventDefault();
+            if ($event.dataTransfer) { // ff
+                $event.dataTransfer.setData('text', 'foo');
+            }
+            this.grab = true;
+            this.oldPosition = Utils.getMousePosition($event);
+        };
+        /**
+         * @param {?} $event
+         * @param {?} el
+         * @return {?}
+         */
+        ResizingComponent.prototype.resize = /**
+         * @param {?} $event
+         * @param {?} el
+         * @return {?}
+         */
+        function ($event, el) {
+            if (!this.grab) {
+                return;
+            }
+            /** @type {?} */
+            var position = Utils.getMousePosition($event);
+            if (position.x === 0 && position.y === 0) {
+                return;
+            }
+            /** @type {?} */
+            var notSW = this.NE === el || this.NW === el;
+            /** @type {?} */
+            var notNE = this.SW === el || this.NW === el;
+            this.setOffsets(position, notNE, notSW);
+            if (notSW) {
+                this.offsetTop.emit(position.y - this.oldPosition.y);
+            }
+            if (notNE) {
+                this.offsetLeft.emit(position.x - this.oldPosition.x);
+            }
+            this.oldPosition = position;
+        };
+        /**
+         * @private
+         * @param {?} position
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        ResizingComponent.prototype.setOffsets = /**
+         * @private
+         * @param {?} position
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        function (position, x, y) {
+            /** @type {?} */
+            var offsetX = x ? this.oldPosition.x - position.x : position.x - this.oldPosition.x;
+            /** @type {?} */
+            var offsetY = y ? this.oldPosition.y - position.y : position.y - this.oldPosition.y;
+            this.offsetX.emit(offsetX);
+            this.offsetY.emit(offsetY);
+        };
+        /**
+         * @param {?} $event
+         * @param {?} el
+         * @return {?}
+         */
+        ResizingComponent.prototype.end = /**
+         * @param {?} $event
+         * @param {?} el
+         * @return {?}
+         */
+        function ($event, el) {
+            // ff
+            this.resize($event, el);
+            this.release.emit(true);
+            this.grab = false;
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        ResizingComponent.prototype.start = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.drop($event);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        ResizingComponent.prototype.drop = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            $event.stopPropagation();
+            $event.preventDefault();
+        };
+        /**
+         * @private
+         * @param {?} el
+         * @return {?}
+         */
+        ResizingComponent.prototype.getElementId = /**
+         * @private
+         * @param {?} el
+         * @return {?}
+         */
+        function (el) {
+            return "#" + el + "-" + this.id;
+        };
+        ResizingComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-resizing',
+                        template: "<div class=\"ui-resizable-handle se-resize\" id=\"se-{{id}}\" *ngIf=\"se\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SE)\" (dragend)=\"end($event, SE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n      (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SE)\" (panend)=\"end($event, SE)\"></div>\n\n<div class=\"ui-resizable-handle ne-resize\" id=\"ne-{{id}}\" *ngIf=\"ne\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NE)\" (dragend)=\"end($event, NE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NE)\" (panend)=\"end($event, NE)\"></div>\n\n<div class=\"ui-resizable-handle sw-resize\" id=\"sw-{{id}}\" *ngIf=\"sw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SW)\" (dragend)=\"end($event, SW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SW)\" (panend)=\"end($event, SW)\"></div>\n\n<div class=\"ui-resizable-handle nw-resize\" id=\"nw-{{id}}\" *ngIf=\"nw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NW)\" (dragend)=\"end($event, NW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NW)\" (panend)=\"end($event, NW)\"></div>\n",
+                        styles: [".ui-resizable-handle{background-color:#679ffa;width:8px;height:8px;border-radius:100%;position:absolute;font-size:.1px;display:block}.se-resize{bottom:-5px;right:-5px;cursor:se-resize}.ne-resize{top:-5px;right:-5px;cursor:ne-resize}.sw-resize{bottom:-5px;left:-5px;cursor:sw-resize}.nw-resize{top:-5px;left:-5px;cursor:nw-resize}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        ResizingComponent.ctorParameters = function () { return []; };
+        ResizingComponent.propDecorators = {
+            init: [{ type: core.Input }],
+            id: [{ type: core.Input }],
+            se: [{ type: core.Input }],
+            ne: [{ type: core.Input }],
+            sw: [{ type: core.Input }],
+            nw: [{ type: core.Input }],
+            pageWidth: [{ type: core.Input }],
+            pageHeight: [{ type: core.Input }],
+            offsetX: [{ type: core.Output }],
+            offsetY: [{ type: core.Output }],
+            offsetTop: [{ type: core.Output }],
+            offsetLeft: [{ type: core.Output }],
+            release: [{ type: core.Output }]
+        };
+        return ResizingComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     /** @type {?} */
     var providers = [ConfigService,
         Api,
@@ -5387,6 +6035,7 @@
         FileService,
         FileModel,
         FileUtil,
+        Utils,
         SanitizeHtmlPipe,
         SanitizeResourceHtmlPipe,
         SanitizeStylePipe,
@@ -5407,7 +6056,9 @@
         OnCloseService,
         LoadingMaskInterceptorService,
         LoadingMaskService,
-        TabActivatorService];
+        TabActivatorService,
+        AddDynamicComponentService,
+        HostingDynamicComponentService];
     var CommonComponentsModule = /** @class */ (function () {
         function CommonComponentsModule() {
             fontawesomeSvgCore.library.add(freeSolidSvgIcons.fas, freeRegularSvgIcons.far);
@@ -5453,7 +6104,11 @@
                             DropDownComponent,
                             DropDownItemComponent,
                             DropDownItemsComponent,
-                            DropDownToggleComponent
+                            DropDownToggleComponent,
+                            LeftSideBarComponent,
+                            TooltipDirective,
+                            HostDynamicDirective,
+                            ResizingComponent
                         ],
                         exports: [
                             TopToolbarComponent,
@@ -5491,7 +6146,12 @@
                             DropDownItemComponent,
                             DropDownItemsComponent,
                             DropDownToggleComponent,
-                            ZoomDirective
+                            ZoomDirective,
+                            DropDownToggleComponent,
+                            LeftSideBarComponent,
+                            TooltipDirective,
+                            HostDynamicDirective,
+                            ResizingComponent
                         ],
                         providers: providers
                     },] }
@@ -5501,6 +6161,7 @@
         return CommonComponentsModule;
     }());
 
+    exports.AddDynamicComponentService = AddDynamicComponentService;
     exports.Api = Api;
     exports.BackFormattingService = BackFormattingService;
     exports.BrowseFilesModalComponent = BrowseFilesModalComponent;
@@ -5530,8 +6191,11 @@
     exports.FormattingDirective = FormattingDirective;
     exports.FormattingService = FormattingService;
     exports.HighlightSearchPipe = HighlightSearchPipe;
+    exports.HostDynamicDirective = HostDynamicDirective;
+    exports.HostingDynamicComponentService = HostingDynamicComponentService;
     exports.HttpError = HttpError;
     exports.InitStateComponent = InitStateComponent;
+    exports.LeftSideBarComponent = LeftSideBarComponent;
     exports.LoadingMaskComponent = LoadingMaskComponent;
     exports.LoadingMaskInterceptorService = LoadingMaskInterceptorService;
     exports.LoadingMaskService = LoadingMaskService;
@@ -5568,11 +6232,14 @@
     exports.TopToolbarComponent = TopToolbarComponent;
     exports.UploadFileZoneComponent = UploadFileZoneComponent;
     exports.UploadFilesService = UploadFilesService;
+    exports.Utils = Utils;
     exports.ViewportService = ViewportService;
     exports.WindowService = WindowService;
     exports.ZoomDirective = ZoomDirective;
     exports.ZoomService = ZoomService;
     exports.ɵa = TabsComponent;
+    exports.ɵb = TooltipDirective;
+    exports.ɵc = ResizingComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
