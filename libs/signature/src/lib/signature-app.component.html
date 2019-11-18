@@ -4,7 +4,7 @@
     <gd-tabbed-toolbars [logo]="'signature'" [icon]="'pen-square'">
       <gd-tabs>
         <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
-          <div class="toolbar-panel">
+          <div id="files-tools" class="toolbar-panel">
             <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                        *ngIf="browseConfig"></gd-button>
 

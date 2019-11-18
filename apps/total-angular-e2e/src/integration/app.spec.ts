@@ -9,6 +9,7 @@ describe('total-angular', () => {
     cy.route('http://localhost:8080/comparison/loadConfig', {"pageSelector":true,"download":true,"upload":true,"print":true,"browse":true,"rewrite":true,"enableRightClick":true,"filesDirectory":"/fonts","resultDirectory":"/Temp","preloadResultPageCount":2});
     cy.route('http://localhost:8080/conversion/loadConfig', {"pageSelector":true,"download":true,"upload":true,"print":true,"browse":true,"rewrite":true,"enableRightClick":true,"filesDirectory":"/fonts","resultDirectory":"/Converted"});
     cy.route('http://localhost:8080/editor/loadConfig', {"pageSelector":true,"download":true,"upload":true,"print":true,"browse":true,"rewrite":true,"enableRightClick":true,"filesDirectory":"/fonts","fontsDirectory":"","defaultDocument":"","createNewFile":true});
+    cy.route('http://localhost:8080/signature/loadConfig', {"filesDirectory": "/fonts", "dataDirectory": "", "textSignature": true, "imageSignature": true, "digitalSignature": true, "qrCodeSignature": true, "barCodeSignature": true, "stampSignature": true, "handSignature": true, "downloadOriginal": true, "downloadSigned": true, "preloadPageCount": 0, "defaultDocument": "", "pageSelector": true, "download": true, "upload": true, "print": true, "browse": true, "rewrite": true, "enableRightClick": true});
 
     cy.visit('/',{
       onBeforeLoad: (win) => {
