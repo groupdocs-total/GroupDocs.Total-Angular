@@ -1,4 +1,4 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TopToolbarComponent} from './top-toolbar/top-toolbar.component';
 import {SidePanelComponent} from './side-panel/side-panel.component';
@@ -13,7 +13,7 @@ import {Api, ConfigService,} from "./config.service";
 import {ModalService} from "./modal.service";
 import {ModalComponent} from './modal/modal.component';
 import {BrowseFilesModalComponent} from './browse-files-modal/browse-files-modal.component';
-import {FileModel, FileService, FileUtil} from "./file.service";
+import {FileModel, FileService, FileUtil, Utils} from "./file.service";
 import {DocumentComponent} from './document/document.component';
 import {PageComponent} from './page/page.component';
 import {HighlightSearchPipe, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe} from "./pipes";
@@ -55,8 +55,19 @@ import {LoadingMaskComponent} from './loading-mask/loading-mask.component';
 import {LoadingMaskService} from './loading-mask.service';
 import {LoadingMaskInterceptorService} from "./loading-mask-interceptor.service";
 import {TabActivatorService} from "./tab-activator.service";
-import { DropDownComponent,DropDownItemComponent,DropDownItemsComponent,DropDownToggleComponent } from './drop-down/drop-down.component';
-import { ClickOutsideModule } from 'ng-click-outside';
+import {
+  DropDownComponent,
+  DropDownItemComponent,
+  DropDownItemsComponent,
+  DropDownToggleComponent
+} from './drop-down/drop-down.component';
+import {ClickOutsideModule} from 'ng-click-outside';
+import {LeftSideBarComponent} from './left-side-bar/left-side-bar.component';
+import {TooltipDirective} from './tooltip.directive';
+import {AddDynamicComponentService} from "./add-dynamic-component.service";
+import {HostDynamicDirective} from './host-dynamic.directive';
+import {HostingDynamicComponentService} from "./hosting-dynamic-component.service";
+import {ResizingComponent} from './resizing/resizing.component';
 
 const providers = [ConfigService,
   Api,
@@ -64,6 +75,7 @@ const providers = [ConfigService,
   FileService,
   FileModel,
   FileUtil,
+  Utils,
   SanitizeHtmlPipe,
   SanitizeResourceHtmlPipe,
   SanitizeStylePipe,
@@ -84,7 +96,9 @@ const providers = [ConfigService,
   OnCloseService,
   LoadingMaskInterceptorService,
   LoadingMaskService,
-  TabActivatorService];
+  TabActivatorService,
+  AddDynamicComponentService,
+  HostingDynamicComponentService];
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
@@ -126,7 +140,11 @@ const providers = [ConfigService,
     DropDownComponent,
     DropDownItemComponent,
     DropDownItemsComponent,
-    DropDownToggleComponent
+    DropDownToggleComponent,
+    LeftSideBarComponent,
+    TooltipDirective,
+    HostDynamicDirective,
+    ResizingComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -164,7 +182,12 @@ const providers = [ConfigService,
     DropDownItemComponent,
     DropDownItemsComponent,
     DropDownToggleComponent,
-    ZoomDirective
+    ZoomDirective,
+    DropDownToggleComponent,
+    LeftSideBarComponent,
+    TooltipDirective,
+    HostDynamicDirective,
+    ResizingComponent
   ],
   providers: providers
 })

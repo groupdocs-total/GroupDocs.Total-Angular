@@ -1,6 +1,6 @@
 <gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
 <div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
-  <gd-tabbed-toolbars>
+  <gd-tabbed-toolbars [logo]="'editor'" [icon]="'pen-square'">
     <gd-tabs>
       <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
         <gd-top-toolbar class="toolbar-panel">

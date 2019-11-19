@@ -4,6 +4,8 @@ export class CommonModals {
   static BrowseFiles = "gd-browse-files";
   static CreateDocument = "gd-create-document";
   static OperationSuccess = "gd-success-modal";
+  static DrawHandSignature = "gd-draw-hand-signature";
+  static DrawStampSignature = "gd-draw-stamp-signature";
   static InformationMessage = "gd-information-message";
 }
 

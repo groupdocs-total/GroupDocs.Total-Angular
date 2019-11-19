@@ -1,0 +1,81 @@
+@import "../../../../common-components/src/styles/variables";
+
+.paint-body {
+  width: 1036px;
+  height: 561px;
+
+  ::ng-deep .button {
+    font-size: unset !important;
+    color: @primary !important;
+
+    ::ng-deep .text {
+      padding-left: 0px !important;
+    }
+  }
+}
+
+.gd-draw-image {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC) !important;
+  position: absolute;
+  padding: 0 !important;
+  background-color: #fff;
+  overflow: hidden;
+  overflow-y: auto;
+  width: inherit;
+}
+
+.bc-paint-header {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bg-color-pic {
+  border-radius: 100%;
+  border: 1px solid #CCC;
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  right: 6px;
+  bottom: 6px;
+}
+
+::ng-deep .bcPicker-palette {
+  position: absolute;
+}
+
+.bc-paint-export {
+  background-color: @brand;
+  margin-right: 10px;
+  width: 68px;
+  height: 37px;
+  display: flex;
+  justify-content: space-between;
+  color: #FFF;
+  align-items: center;
+  cursor: pointer;
+
+  .icon {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex: 0 0 27px;
+  }
+
+  .save-button {
+    font-size: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex: 0 0 40px;
+  }
+}
+
+@media @phone-down {
+  .paint-body {
+    width: inherit;
+    height: inherit;
+  }
+}

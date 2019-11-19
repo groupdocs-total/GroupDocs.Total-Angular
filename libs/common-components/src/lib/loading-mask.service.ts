@@ -1,18 +1,25 @@
-import { EventEmitter, Injectable } from '@angular/core'
-import { HttpRequest } from '@angular/common/http';
+import {EventEmitter, Injectable} from '@angular/core'
+import {HttpRequest} from '@angular/common/http';
+import {Api} from "./config.service";
 
 @Injectable()
 export class LoadingMaskService {
   onLoadingChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  private stopList = [];
   private requests: HttpRequest<any>[] = [];
 
   constructor() {
+    this.stopList.push(Api.SAVE_TEXT);
+    this.stopList.push(Api.SAVE_OPTICAL_CODE);
   }
 
   onRequestStart(req: HttpRequest<any>): void {
-    this.requests.push(req);
-    this.notify();
+    const stop = this.stopList.find(x => req.url.includes(x));
+    if (!stop) {
+      this.requests.push(req);
+      this.notify();
+    }
   }
 
   onRequestFinish(req: HttpRequest<any>): void {

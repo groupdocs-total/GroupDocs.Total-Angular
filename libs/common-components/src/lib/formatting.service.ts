@@ -1,8 +1,6 @@
 import {Observable, Subject} from "rxjs";
 
 export class Formatting {
-  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
-
   constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean, align: string, list: string) {
     this.fontSize = fontSize;
     this.color = color;
@@ -26,6 +24,10 @@ export class Formatting {
   strikeout: boolean;
   align: string;
   list: string;
+
+  public static default(): Formatting {
+    return new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+  }
 }
 
 export class FormattingService {

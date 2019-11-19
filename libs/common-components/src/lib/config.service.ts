@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 
 export class Api {
   public static VIEWER_APP = '/viewer';
+  public static SIGNATURE_APP = '/signature';
   public static EDITOR_APP = '/editor';
   public static COMPARISON_APP = '/comparison';
   public static CONVERSION_APP = '/conversion';
@@ -21,6 +22,14 @@ export class Api {
   public static SAVE_FILE = '/saveFile';
   public static COMPARE_FILES = '/compare';
   public static CONVERT_FILE = '/convert';
+  public static DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+  public static SAVE_OPTICAL_CODE = '/saveOpticalCode';
+  public static SAVE_TEXT = '/saveText';
+  public static SAVE_IMAGE = '/saveImage';
+  public static SAVE_STAMP = '/saveStamp';
+  public static SIGN = '/sign';
+  public static DOWNLOAD_SIGNED = '/downloadSigned';
+  public static LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({
@@ -70,5 +79,9 @@ export class ConfigService {
 
   get apiEndpoint() {
     return this._apiEndpoint;
+  }
+
+  getSignatureApiEndpoint() {
+    return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
   }
 }

@@ -1,6 +1,5 @@
 import { Observable } from "rxjs";
 export declare class Formatting {
-    static DEFAULT: Formatting;
     constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean, align: string, list: string);
     bold: boolean;
     italic: boolean;
@@ -12,6 +11,7 @@ export declare class Formatting {
     strikeout: boolean;
     align: string;
     list: string;
+    static default(): Formatting;
 }
 export declare class FormattingService {
     private _observerBold;

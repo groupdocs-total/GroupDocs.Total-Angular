@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'gd-tabbed-toolbars',
@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabbed-toolbars.component.less']
 })
 export class TabbedToolbarsComponent implements OnInit {
+  @Input() logo: string;
+  @Input() icon: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

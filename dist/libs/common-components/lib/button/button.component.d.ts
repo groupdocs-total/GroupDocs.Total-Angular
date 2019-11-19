@@ -1,3 +1,4 @@
+import { WindowService } from "../window.service";
 export declare class ButtonComponent {
     iconOnly: boolean;
     intent: string;
@@ -7,8 +8,13 @@ export declare class ButtonComponent {
     tooltip: string;
     className: string;
     toggle: boolean;
+    iconSize: string;
+    iconRegular: boolean;
     showToolTip: boolean;
+    private isDesktop;
+    constructor(windowService: WindowService);
     iconButtonClass(): "icon-button" | "";
     onHovering(): void;
     onUnhovering(): void;
+    private cleanAll;
 }

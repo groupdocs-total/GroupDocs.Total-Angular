@@ -1,0 +1,168 @@
+@import "../../../../common-components/src/styles/variables";
+
+.stamp-body {
+  width: 1036px;
+  height: 561px;
+
+  ::ng-deep .button {
+    font-size: unset !important;
+    color: @primary !important;
+
+    ::ng-deep .text {
+      padding-left: 0px !important;
+    }
+  }
+
+  .csg-text-input {
+    padding: 5px;
+    background-color: #e6e6e6;
+    position: absolute;
+    top: 120px;
+    left: 0px;
+    width: ~"calc(100% - 10px)";
+    flex-direction: row;
+    display: flex;
+    z-index: 99999;
+  }
+
+  .csg-text-input::after {
+    content: " ";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 4px 5px 4px;
+    border-color: transparent transparent #e6e6e6 transparent;
+    position: absolute;
+    top: -5px;
+    right: 110px;
+  }
+
+  .csg-text-input input {
+    height: 20px;
+    width: 100%;
+    padding: 0;
+    margin: 0px 10px 0px 0px;
+  }
+
+  .csg-insert-text {
+    width: 27px;
+    height: 27px;
+    background-color: #3787F5;
+    margin: 0px;
+
+    .icon {
+      padding: 5px;
+      color: white;
+    }
+  }
+}
+
+.stamp-header {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-buttons {
+  display: flex;
+
+  .plus {
+    font-size: 8px;
+    position: absolute;
+    height: 5px;
+    width: 5px;
+    right: 10px;
+    bottom: 10px;
+  }
+}
+
+.stamp-export {
+  background-color: @brand;
+  margin-right: 10px;
+  width: 68px;
+  height: 37px;
+  display: flex;
+  justify-content: space-between;
+  color: #FFF;
+  align-items: center;
+  cursor: pointer;
+
+  .icon {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex: 0 0 27px;
+  }
+
+  .save-button {
+    font-size: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex: 0 0 40px;
+  }
+}
+
+.gd-draw-stamp {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC) !important;
+  position: absolute;
+  padding: 0 !important;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    height: 30px;
+    outline: 2px solid #679FFA;
+  }
+
+  .gd-draw-stamp-text {
+    z-index: 99999;
+  }
+
+  .gd-text-menu-context {
+    height: 37px;
+    top: 180px;
+    padding: 0;
+    background-color: #FFFFFF;
+    cursor: default;
+    position: absolute;
+    box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;
+
+    ::ng-deep .color-for-text {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .stamp-trash {
+      flex: 0 0 37px;
+      margin-right: 8px;
+    }
+
+    ::ng-deep .first-component {
+      ::ng-deep .dropdown-menu {
+        left: 8px;
+      }
+    }
+  }
+}
+
+::ng-deep .select {
+  color: @primary !important;
+}
+
+::ng-deep gd-drop-down {
+  z-index: 999999 !important;
+}
+
+@media @phone-down {
+  .stamp-body {
+    width: inherit;
+    height: inherit;
+  }
+}

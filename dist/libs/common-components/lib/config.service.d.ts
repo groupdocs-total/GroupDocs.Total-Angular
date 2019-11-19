@@ -1,6 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 export declare class Api {
     static VIEWER_APP: string;
+    static SIGNATURE_APP: string;
     static EDITOR_APP: string;
     static COMPARISON_APP: string;
     static CONVERSION_APP: string;
@@ -19,6 +20,14 @@ export declare class Api {
     static SAVE_FILE: string;
     static COMPARE_FILES: string;
     static CONVERT_FILE: string;
+    static DELETE_SIGNATURE_FILE: string;
+    static SAVE_OPTICAL_CODE: string;
+    static SAVE_TEXT: string;
+    static SAVE_IMAGE: string;
+    static SAVE_STAMP: string;
+    static SIGN: string;
+    static DOWNLOAD_SIGNED: string;
+    static LOAD_SIGNATURE_IMAGE: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };
@@ -36,4 +45,5 @@ export declare class ConfigService {
     getEditorApiEndpoint(): string;
     getComparisonApiEndpoint(): string;
     getConversionApiEndpoint(): string;
+    getSignatureApiEndpoint(): string;
 }

@@ -1,4 +1,5 @@
-import { Component, ContentChild, ElementRef, HostBinding, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {WindowService} from "../window.service";
 
 @Component({
   selector: 'gd-button',
@@ -6,47 +7,47 @@ import { Component, ContentChild, ElementRef, HostBinding, Input } from '@angula
   styleUrls: ['./button.component.less']
 })
 export class ButtonComponent {
-  @Input()
-  iconOnly = true;
-
-  @Input()
-  intent = 'default';
-
-  @Input()
-  disabled = false;
-
-  @Input()
-  icon : string;
-
-  @Input()
-  iconClass : string;
-
-  @Input()
-  tooltip : string;
-
-  @Input()
-  className: string;
-
-  @Input()
-  toggle = false;
+  @Input() iconOnly = true;
+  @Input() intent = 'default';
+  @Input() disabled = false;
+  @Input() icon: string;
+  @Input() iconClass: string;
+  @Input() tooltip: string;
+  @Input() className: string;
+  @Input() toggle = false;
+  @Input() iconSize: string;
+  @Input() iconRegular = false;
 
   showToolTip = false;
+  private isDesktop: boolean;
 
-  iconButtonClass(){
+  constructor(windowService: WindowService) {
+    this.isDesktop = windowService.isDesktop();
+    windowService.onResize.subscribe((w) => {
+      this.isDesktop = windowService.isDesktop();
+    });
+  }
+
+  iconButtonClass() {
     return this.iconOnly ? 'icon-button' : '';
   }
 
   onHovering() {
-    if (!this.disabled) {
+    if (this.isDesktop && !this.disabled) {
       this.className += ' active';
     }
-    this.showToolTip = true;
   }
 
   onUnhovering() {
-    if (!this.disabled) {
-      this.className = this.className.replace(' active', '');
+    if (this.isDesktop && !this.disabled) {
+      this.className = this.cleanAll(this.className, ' active');
     }
-    this.showToolTip = false;
+  }
+
+  private cleanAll(str: string, val: string) {
+    while (str && str.indexOf(val) !== -1) {
+      str = str.replace(val, '');
+    }
+    return str;
   }
 }

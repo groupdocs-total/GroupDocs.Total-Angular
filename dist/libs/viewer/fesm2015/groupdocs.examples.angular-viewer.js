@@ -434,6 +434,7 @@ class ViewerAppComponent {
      */
     selectFile($event, password, modalId) {
         this.credentials = { guid: $event, password: password };
+        this.file = null;
         this._viewerService.loadFile(this.credentials).subscribe((/**
          * @param {?} file
          * @return {?}

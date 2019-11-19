@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class TooltipComponent implements OnInit {
 
-  @Input() text:string;
+  @Input() text: string;
   visibility = 'hidden';
 
   constructor() {

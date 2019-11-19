@@ -6,7 +6,7 @@ export interface Option {
     separator: boolean;
 }
 export declare class SelectComponent {
-    private _onCloseService;
+    protected _onCloseService: OnCloseService;
     options: Option[];
     disabled: boolean;
     showSelected: Option;

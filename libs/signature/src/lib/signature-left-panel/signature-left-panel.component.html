@@ -1,0 +1,34 @@
+<gd-left-side-bar [showSpinner]="loading">
+  <div class="tab-content">
+    <div class="gd-signature-context-panel">
+      <div class="gd-signature-context-pane-wrapper">
+        <div class="signature-title-block"> <!--for safari-->
+          <div class="gd-signature-list-title" *ngIf="showNewCode || showUpload">
+            <div class="gd-signature-context-panel-title">{{getTitle()}}</div>
+            <div class="gd-signature-title-icon">
+              <fa-icon [icon]="['fa','times']" [class]="'ng-fa-icon icon'" (click)="closeNewSignature()"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <gd-upload-signature (closePanel)="closeUploadPanel($event)" [rewrite]="rewrite" [signatureType]="id"
+                             *ngIf="showUpload"></gd-upload-signature>
+        <gd-new-bar-qr-code (closePanel)="closeCodePanel($event)" [type]="id" [icon]="icon()" [name]="getCodeName()"
+                            *ngIf="showNewCode"></gd-new-bar-qr-code>
+        <div class="signature-title-block"> <!--for safari-->
+          <div class="gd-signature-list-title">
+            <div class="gd-signature-context-panel-title">{{getName()}}</div>
+            <div class="gd-signature-title-icon">
+              <fa-icon [icon]="['fa','plus']" [class]="'ng-fa-icon icon'"
+                       [ngClass]="showNewCode || showUpload ? 'disabled' : ''"
+                       (click)="openNewSignature()"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <gd-signature-list-panel class="gd-signatures-scroll" [icon]="icon()" [signatureType]="id"
+                                 [signatures]="signatures"
+                                 (removeSignatureEvent)="removeSignature($event, id)"
+                                 [isPdf]="isPdf" [loading]="loading"></gd-signature-list-panel>
+      </div>
+    </div>
+  </div>
+</gd-left-side-bar>

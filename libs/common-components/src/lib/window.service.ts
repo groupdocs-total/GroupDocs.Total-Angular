@@ -45,6 +45,14 @@ export class WindowService {
     return !this.isMobile() && !this.isTablet();
   }
 
+  getWidth() {
+    return this.width;
+  }
+
+  getHeight() {
+    return this.height;
+  }
+
   isEdge() {
     return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
   }

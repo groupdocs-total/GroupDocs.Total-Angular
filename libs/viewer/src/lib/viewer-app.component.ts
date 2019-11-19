@@ -188,6 +188,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   selectFile($event: string, password: string, modalId: string) {
     this.credentials = {guid: $event, password: password};
+    this.file = null;
     this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
