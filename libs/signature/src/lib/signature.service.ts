@@ -160,6 +160,11 @@ export class SignatureService {
   }
 
   saveStamp(img: string, props: any[]) {
+    for (const properties of props) {
+      properties.backgroundColor = this.toRgb(properties.backgroundColor);
+      properties.strokeColor = this.toRgb(properties.strokeColor);
+      properties.textColor = this.toRgb(properties.textColor);
+    }
     return this._http.post(this._config.getSignatureApiEndpoint() + Api.SAVE_STAMP, {
       'image': img,
       'stampData': props

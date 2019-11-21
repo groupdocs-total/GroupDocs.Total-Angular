@@ -1,4 +1,4 @@
-<gd-modal [id]="'gd-draw-hand-signature'" [title]="'Draw signature'">
+<gd-modal [id]="'gd-draw-hand-signature'" [title]="'Draw signature'" (visible)="onCloseOpen(canvasComponent, $event)">
   <div class="paint-body">
     <div class="bc-paint-header">
       <div class="bc-paint-palette">
