@@ -17,4 +17,6 @@ export declare class HandModalComponent implements OnInit {
     private close;
     toggleColorPicker($event: any): void;
     closePicker($event: any): void;
+    onCloseOpen(canvasComponent: CanvasComponent, $event: any): void;
+    private clear;
 }

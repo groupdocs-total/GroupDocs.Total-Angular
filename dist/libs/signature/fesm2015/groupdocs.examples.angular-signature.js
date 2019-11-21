@@ -259,6 +259,11 @@ class SignatureService {
      * @return {?}
      */
     saveStamp(img, props) {
+        for (const properties of props) {
+            properties.backgroundColor = this.toRgb(properties.backgroundColor);
+            properties.strokeColor = this.toRgb(properties.strokeColor);
+            properties.textColor = this.toRgb(properties.textColor);
+        }
         return this._http.post(this._config.getSignatureApiEndpoint() + Api.SAVE_STAMP, {
             'image': img,
             'stampData': props
@@ -1223,26 +1228,12 @@ class SignatureAppComponent {
                 const comp = ((/** @type {?} */ (componentRef))).instance;
                 /** @type {?} */
                 const compPage = comp.data.number;
-                /** @type {?} */
-                const sign = new DraggableSignature();
-                sign.type = comp.type;
-                sign.guid = copySign.guid;
-                sign.position = comp.position;
-                /** @type {?} */
-                const addedSignature = new AddedSignature();
-                addedSignature.guid = copySign.guid;
-                addedSignature.data = comp.data.data;
-                if (comp.data.props) {
-                    addedSignature.props = comp.data.props;
-                }
-                else {
-                    addedSignature.width = comp.data.width;
-                    addedSignature.height = comp.data.height;
-                }
                 for (const page of this.file.pages) {
                     if (page.number !== compPage) {
-                        addedSignature.number = page.number;
-                        sign.pageNumber = page.number;
+                        /** @type {?} */
+                        const sign = this.createDraggableSign(comp, copySign, page);
+                        /** @type {?} */
+                        const addedSignature = this.createAddedSignature(copySign, comp, page);
                         /** @type {?} */
                         const id = this.addSignatureComponent(addedSignature, sign, page);
                         this._signaturesHolderService.addId(sign.guid, id);
@@ -1357,6 +1348,44 @@ class SignatureAppComponent {
         (w) => {
             this.isDesktop = _windowService.isDesktop();
         }));
+    }
+    /**
+     * @private
+     * @param {?} comp
+     * @param {?} copySign
+     * @param {?} page
+     * @return {?}
+     */
+    createDraggableSign(comp, copySign, page) {
+        /** @type {?} */
+        const sign = new DraggableSignature();
+        sign.type = comp.type;
+        sign.guid = copySign.guid;
+        sign.position = comp.position;
+        sign.pageNumber = page.number;
+        return sign;
+    }
+    /**
+     * @private
+     * @param {?} copySign
+     * @param {?} comp
+     * @param {?} page
+     * @return {?}
+     */
+    createAddedSignature(copySign, comp, page) {
+        /** @type {?} */
+        const addedSignature = new AddedSignature();
+        addedSignature.guid = copySign.guid;
+        addedSignature.data = comp.data.data;
+        if (comp.data.props) {
+            addedSignature.props = comp.data.props;
+        }
+        else {
+            addedSignature.width = comp.data.width;
+            addedSignature.height = comp.data.height;
+        }
+        addedSignature.number = page.number;
+        return addedSignature;
     }
     /**
      * @return {?}
@@ -1866,21 +1895,24 @@ class SignatureAppComponent {
         /** @type {?} */
         const signatures = [];
         for (const ids of this._signaturesHolderService.values()) {
-            /** @type {?} */
-            const id = ids.pop();
-            /** @type {?} */
-            const componentRef = this.signatureComponents.get(id);
-            // @ts-ignore
-            /** @type {?} */
-            const sign = ((/** @type {?} */ (componentRef))).instance;
-            /** @type {?} */
-            const data = sign.data;
-            /** @type {?} */
-            const position = sign.position;
-            /** @type {?} */
-            const type = sign.type;
-            if (DraggableSignature.TEMP !== data.guid) {
-                signatures.push(SignatureData.map(data, type, position));
+            for (const id of ids) {
+                /** @type {?} */
+                const componentRef = this.signatureComponents.get(id);
+                // @ts-ignore
+                /** @type {?} */
+                const sign = ((/** @type {?} */ (componentRef))).instance;
+                /** @type {?} */
+                const data = sign.data;
+                /** @type {?} */
+                const position = sign.position;
+                /** @type {?} */
+                const type = sign.type;
+                if (DraggableSignature.TEMP !== data.guid) {
+                    signatures.push(SignatureData.map(data, type, position));
+                }
+                if (SignatureType.DIGITAL.id === type) {
+                    break;
+                }
             }
         }
         return signatures;
@@ -3427,6 +3459,7 @@ class HandModalComponent {
         () => {
             this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
         }));
+        this.clear(canvasComponent);
         this.close();
     }
     /**
@@ -3452,11 +3485,28 @@ class HandModalComponent {
     closePicker($event) {
         this.colorPickerShow = !$event;
     }
+    /**
+     * @param {?} canvasComponent
+     * @param {?} $event
+     * @return {?}
+     */
+    onCloseOpen(canvasComponent, $event) {
+        this.clear(canvasComponent);
+    }
+    /**
+     * @private
+     * @param {?} canvasComponent
+     * @return {?}
+     */
+    clear(canvasComponent) {
+        this.selectedColor = this.defaultColor;
+        canvasComponent.clear();
+    }
 }
 HandModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-hand-modal',
-                template: "<gd-modal [id]=\"'gd-draw-hand-signature'\" [title]=\"'Draw signature'\">\n  <div class=\"paint-body\">\n    <div class=\"bc-paint-header\">\n      <div class=\"bc-paint-palette\">\n        <gd-button name=\"button\" [icon]=\"'fill'\" [tooltip]=\"'Pencil color'\"\n                   (click)=\"toggleColorPicker($event)\">\n          <div class=\"bg-color-pic\" [style.background-color]=\"selectedColor\"></div>\n        </gd-button>\n        <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\n                         [className]=\"'palette'\"\n                         (selectedColor)=\"selectColor($event)\"></gd-color-picker>\n      </div>\n      <div class=\"bc-paint-export\" (click)=\"saveSign(canvasComponent)\">\n        <fa-icon [icon]=\"['fa','save']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n        <span class=\"save-button\">Save</span>\n      </div>\n    </div>\n    <div class=\"gd-draw-image\">\n      <gd-canvas #canvasComponent [color]=\"selectedColor\"></gd-canvas>\n    </div>\n  </div>\n</gd-modal>\n",
+                template: "<gd-modal [id]=\"'gd-draw-hand-signature'\" [title]=\"'Draw signature'\" (visible)=\"onCloseOpen(canvasComponent, $event)\">\n  <div class=\"paint-body\">\n    <div class=\"bc-paint-header\">\n      <div class=\"bc-paint-palette\">\n        <gd-button name=\"button\" [icon]=\"'fill'\" [tooltip]=\"'Pencil color'\"\n                   (click)=\"toggleColorPicker($event)\">\n          <div class=\"bg-color-pic\" [style.background-color]=\"selectedColor\"></div>\n        </gd-button>\n        <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\n                         [className]=\"'palette'\"\n                         (selectedColor)=\"selectColor($event)\"></gd-color-picker>\n      </div>\n      <div class=\"bc-paint-export\" (click)=\"saveSign(canvasComponent)\">\n        <fa-icon [icon]=\"['fa','save']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n        <span class=\"save-button\">Save</span>\n      </div>\n    </div>\n    <div class=\"gd-draw-image\">\n      <gd-canvas #canvasComponent [color]=\"selectedColor\"></gd-canvas>\n    </div>\n  </div>\n</gd-modal>\n",
                 styles: [".paint-body{width:1036px;height:561px}.paint-body ::ng-deep .button{font-size:unset!important;color:#3e4e5a!important}.paint-body ::ng-deep .button ::ng-deep .text{padding-left:0!important}.gd-draw-image{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC)!important;position:absolute;padding:0!important;background-color:#fff;overflow:hidden;overflow-y:auto;width:inherit}.bc-paint-header{height:60px;width:100%;display:flex;justify-content:space-between;align-items:center}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}::ng-deep .bcPicker-palette{position:absolute}.bc-paint-export{background-color:#25c2d4;margin-right:10px;width:68px;height:37px;display:flex;justify-content:space-between;color:#fff;align-items:center;cursor:pointer}.bc-paint-export .icon{display:flex;text-align:center;justify-content:center;flex:0 0 27px}.bc-paint-export .save-button{font-size:10px;display:flex;text-align:center;justify-content:center;flex:0 0 40px}@media (max-width:1037px){.paint-body{width:inherit;height:inherit}}"]
             }] }
 ];

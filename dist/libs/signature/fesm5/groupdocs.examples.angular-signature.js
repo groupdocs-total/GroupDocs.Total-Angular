@@ -2,9 +2,9 @@ import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, Output,
 import { DatePipe, CommonModule } from '@angular/common';
 import { Api, FileUtil, ConfigService, Formatting, Utils, TabActivatorService, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, DndDirective, FormattingService, HostDynamicDirective, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { __values, __extends } from 'tslib';
 import { map, debounceTime } from 'rxjs/operators';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { __values, __extends } from 'tslib';
 import * as jquery from 'jquery';
 import 'hammerjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -337,6 +337,22 @@ var SignatureService = /** @class */ (function () {
      * @return {?}
      */
     function (img, props) {
+        var e_1, _a;
+        try {
+            for (var props_1 = __values(props), props_1_1 = props_1.next(); !props_1_1.done; props_1_1 = props_1.next()) {
+                var properties = props_1_1.value;
+                properties.backgroundColor = this.toRgb(properties.backgroundColor);
+                properties.strokeColor = this.toRgb(properties.strokeColor);
+                properties.textColor = this.toRgb(properties.textColor);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (props_1_1 && !props_1_1.done && (_a = props_1.return)) _a.call(props_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
         return this._http.post(this._config.getSignatureApiEndpoint() + Api.SAVE_STAMP, {
             'image': img,
             'stampData': props
@@ -1536,28 +1552,14 @@ var SignatureAppComponent = /** @class */ (function () {
                 var comp = ((/** @type {?} */ (componentRef))).instance;
                 /** @type {?} */
                 var compPage = comp.data.number;
-                /** @type {?} */
-                var sign = new DraggableSignature();
-                sign.type = comp.type;
-                sign.guid = copySign.guid;
-                sign.position = comp.position;
-                /** @type {?} */
-                var addedSignature = new AddedSignature();
-                addedSignature.guid = copySign.guid;
-                addedSignature.data = comp.data.data;
-                if (comp.data.props) {
-                    addedSignature.props = comp.data.props;
-                }
-                else {
-                    addedSignature.width = comp.data.width;
-                    addedSignature.height = comp.data.height;
-                }
                 try {
                     for (var _b = __values(_this.file.pages), _c = _b.next(); !_c.done; _c = _b.next()) {
                         var page = _c.value;
                         if (page.number !== compPage) {
-                            addedSignature.number = page.number;
-                            sign.pageNumber = page.number;
+                            /** @type {?} */
+                            var sign = _this.createDraggableSign(comp, copySign, page);
+                            /** @type {?} */
+                            var addedSignature = _this.createAddedSignature(copySign, comp, page);
                             /** @type {?} */
                             var id = _this.addSignatureComponent(addedSignature, sign, page);
                             _this._signaturesHolderService.addId(sign.guid, id);
@@ -1703,6 +1705,58 @@ var SignatureAppComponent = /** @class */ (function () {
             _this.isDesktop = _windowService.isDesktop();
         }));
     }
+    /**
+     * @private
+     * @param {?} comp
+     * @param {?} copySign
+     * @param {?} page
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.createDraggableSign = /**
+     * @private
+     * @param {?} comp
+     * @param {?} copySign
+     * @param {?} page
+     * @return {?}
+     */
+    function (comp, copySign, page) {
+        /** @type {?} */
+        var sign = new DraggableSignature();
+        sign.type = comp.type;
+        sign.guid = copySign.guid;
+        sign.position = comp.position;
+        sign.pageNumber = page.number;
+        return sign;
+    };
+    /**
+     * @private
+     * @param {?} copySign
+     * @param {?} comp
+     * @param {?} page
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.createAddedSignature = /**
+     * @private
+     * @param {?} copySign
+     * @param {?} comp
+     * @param {?} page
+     * @return {?}
+     */
+    function (copySign, comp, page) {
+        /** @type {?} */
+        var addedSignature = new AddedSignature();
+        addedSignature.guid = copySign.guid;
+        addedSignature.data = comp.data.data;
+        if (comp.data.props) {
+            addedSignature.props = comp.data.props;
+        }
+        else {
+            addedSignature.width = comp.data.width;
+            addedSignature.height = comp.data.height;
+        }
+        addedSignature.number = page.number;
+        return addedSignature;
+    };
     /**
      * @return {?}
      */
@@ -2431,34 +2485,47 @@ var SignatureAppComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var e_7, _a;
+        var e_7, _a, e_8, _b;
         /** @type {?} */
         var signatures = [];
         try {
-            for (var _b = __values(this._signaturesHolderService.values()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var ids = _c.value;
-                /** @type {?} */
-                var id = ids.pop();
-                /** @type {?} */
-                var componentRef = this.signatureComponents.get(id);
-                // @ts-ignore
-                /** @type {?} */
-                var sign = ((/** @type {?} */ (componentRef))).instance;
-                /** @type {?} */
-                var data = sign.data;
-                /** @type {?} */
-                var position = sign.position;
-                /** @type {?} */
-                var type = sign.type;
-                if (DraggableSignature.TEMP !== data.guid) {
-                    signatures.push(SignatureData.map(data, type, position));
+            for (var _c = __values(this._signaturesHolderService.values()), _d = _c.next(); !_d.done; _d = _c.next()) {
+                var ids = _d.value;
+                try {
+                    for (var ids_3 = __values(ids), ids_3_1 = ids_3.next(); !ids_3_1.done; ids_3_1 = ids_3.next()) {
+                        var id = ids_3_1.value;
+                        /** @type {?} */
+                        var componentRef = this.signatureComponents.get(id);
+                        // @ts-ignore
+                        /** @type {?} */
+                        var sign = ((/** @type {?} */ (componentRef))).instance;
+                        /** @type {?} */
+                        var data = sign.data;
+                        /** @type {?} */
+                        var position = sign.position;
+                        /** @type {?} */
+                        var type = sign.type;
+                        if (DraggableSignature.TEMP !== data.guid) {
+                            signatures.push(SignatureData.map(data, type, position));
+                        }
+                        if (SignatureType.DIGITAL.id === type) {
+                            break;
+                        }
+                    }
+                }
+                catch (e_8_1) { e_8 = { error: e_8_1 }; }
+                finally {
+                    try {
+                        if (ids_3_1 && !ids_3_1.done && (_b = ids_3.return)) _b.call(ids_3);
+                    }
+                    finally { if (e_8) throw e_8.error; }
                 }
             }
         }
         catch (e_7_1) { e_7 = { error: e_7_1 }; }
         finally {
             try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
             }
             finally { if (e_7) throw e_7.error; }
         }
@@ -4389,6 +4456,7 @@ var HandModalComponent = /** @class */ (function () {
         function () {
             _this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
         }));
+        this.clear(canvasComponent);
         this.close();
     };
     /**
@@ -4426,10 +4494,37 @@ var HandModalComponent = /** @class */ (function () {
     function ($event) {
         this.colorPickerShow = !$event;
     };
+    /**
+     * @param {?} canvasComponent
+     * @param {?} $event
+     * @return {?}
+     */
+    HandModalComponent.prototype.onCloseOpen = /**
+     * @param {?} canvasComponent
+     * @param {?} $event
+     * @return {?}
+     */
+    function (canvasComponent, $event) {
+        this.clear(canvasComponent);
+    };
+    /**
+     * @private
+     * @param {?} canvasComponent
+     * @return {?}
+     */
+    HandModalComponent.prototype.clear = /**
+     * @private
+     * @param {?} canvasComponent
+     * @return {?}
+     */
+    function (canvasComponent) {
+        this.selectedColor = this.defaultColor;
+        canvasComponent.clear();
+    };
     HandModalComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-hand-modal',
-                    template: "<gd-modal [id]=\"'gd-draw-hand-signature'\" [title]=\"'Draw signature'\">\n  <div class=\"paint-body\">\n    <div class=\"bc-paint-header\">\n      <div class=\"bc-paint-palette\">\n        <gd-button name=\"button\" [icon]=\"'fill'\" [tooltip]=\"'Pencil color'\"\n                   (click)=\"toggleColorPicker($event)\">\n          <div class=\"bg-color-pic\" [style.background-color]=\"selectedColor\"></div>\n        </gd-button>\n        <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\n                         [className]=\"'palette'\"\n                         (selectedColor)=\"selectColor($event)\"></gd-color-picker>\n      </div>\n      <div class=\"bc-paint-export\" (click)=\"saveSign(canvasComponent)\">\n        <fa-icon [icon]=\"['fa','save']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n        <span class=\"save-button\">Save</span>\n      </div>\n    </div>\n    <div class=\"gd-draw-image\">\n      <gd-canvas #canvasComponent [color]=\"selectedColor\"></gd-canvas>\n    </div>\n  </div>\n</gd-modal>\n",
+                    template: "<gd-modal [id]=\"'gd-draw-hand-signature'\" [title]=\"'Draw signature'\" (visible)=\"onCloseOpen(canvasComponent, $event)\">\n  <div class=\"paint-body\">\n    <div class=\"bc-paint-header\">\n      <div class=\"bc-paint-palette\">\n        <gd-button name=\"button\" [icon]=\"'fill'\" [tooltip]=\"'Pencil color'\"\n                   (click)=\"toggleColorPicker($event)\">\n          <div class=\"bg-color-pic\" [style.background-color]=\"selectedColor\"></div>\n        </gd-button>\n        <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\n                         [className]=\"'palette'\"\n                         (selectedColor)=\"selectColor($event)\"></gd-color-picker>\n      </div>\n      <div class=\"bc-paint-export\" (click)=\"saveSign(canvasComponent)\">\n        <fa-icon [icon]=\"['fa','save']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n        <span class=\"save-button\">Save</span>\n      </div>\n    </div>\n    <div class=\"gd-draw-image\">\n      <gd-canvas #canvasComponent [color]=\"selectedColor\"></gd-canvas>\n    </div>\n  </div>\n</gd-modal>\n",
                     styles: [".paint-body{width:1036px;height:561px}.paint-body ::ng-deep .button{font-size:unset!important;color:#3e4e5a!important}.paint-body ::ng-deep .button ::ng-deep .text{padding-left:0!important}.gd-draw-image{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC)!important;position:absolute;padding:0!important;background-color:#fff;overflow:hidden;overflow-y:auto;width:inherit}.bc-paint-header{height:60px;width:100%;display:flex;justify-content:space-between;align-items:center}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}::ng-deep .bcPicker-palette{position:absolute}.bc-paint-export{background-color:#25c2d4;margin-right:10px;width:68px;height:37px;display:flex;justify-content:space-between;color:#fff;align-items:center;cursor:pointer}.bc-paint-export .icon{display:flex;text-align:center;justify-content:center;flex:0 0 27px}.bc-paint-export .save-button{font-size:10px;display:flex;text-align:center;justify-content:center;flex:0 0 40px}@media (max-width:1037px){.paint-body{width:inherit;height:inherit}}"]
                 }] }
     ];
