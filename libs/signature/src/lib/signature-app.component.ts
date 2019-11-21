@@ -118,23 +118,10 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
         // @ts-ignore
         const comp = (<Signature>componentRef).instance;
         const compPage = comp.data.number;
-        const sign = new DraggableSignature();
-        sign.type = comp.type;
-        sign.guid = copySign.guid;
-        sign.position = comp.position;
-        const addedSignature = new AddedSignature();
-        addedSignature.guid = copySign.guid;
-        addedSignature.data = comp.data.data;
-        if (comp.data.props) {
-          addedSignature.props = comp.data.props;
-        } else {
-          addedSignature.width = comp.data.width;
-          addedSignature.height = comp.data.height;
-        }
         for (const page of this.file.pages) {
           if (page.number !== compPage) {
-            addedSignature.number = page.number;
-            sign.pageNumber = page.number;
+            const sign = this.createDraggableSign(comp, copySign, page);
+            const addedSignature = this.createAddedSignature(copySign, comp, page);
             const id = this.addSignatureComponent(addedSignature, sign, page);
             this._signaturesHolderService.addId(sign.guid, id);
           }
@@ -214,6 +201,29 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
       this.isDesktop = _windowService.isDesktop();
     });
 
+  }
+
+  private createDraggableSign(comp, copySign: CopySign, page) {
+    const sign = new DraggableSignature();
+    sign.type = comp.type;
+    sign.guid = copySign.guid;
+    sign.position = comp.position;
+    sign.pageNumber = page.number;
+    return sign;
+  }
+
+  private createAddedSignature(copySign: CopySign, comp, page) {
+    const addedSignature = new AddedSignature();
+    addedSignature.guid = copySign.guid;
+    addedSignature.data = comp.data.data;
+    if (comp.data.props) {
+      addedSignature.props = comp.data.props;
+    } else {
+      addedSignature.width = comp.data.width;
+      addedSignature.height = comp.data.height;
+    }
+    addedSignature.number = page.number;
+    return addedSignature;
   }
 
   ngOnInit(): void {
@@ -550,16 +560,21 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
   private prepareSignaturesData() {
     const signatures = [];
     for (const ids of this._signaturesHolderService.values()) {
-      const id = ids.pop();
-      const componentRef = this.signatureComponents.get(id);
-      // @ts-ignore
-      const sign = (<Signature>componentRef).instance;
-      const data = sign.data;
-      const position = sign.position;
-      const type = sign.type;
+      for (const id of ids) {
+        const componentRef = this.signatureComponents.get(id);
+        // @ts-ignore
+        const sign = (<Signature>componentRef).instance;
+        const data = sign.data;
+        const position = sign.position;
+        const type = sign.type;
 
-      if (DraggableSignature.TEMP !== data.guid) {
-        signatures.push(SignatureData.map(data, type, position));
+        if (DraggableSignature.TEMP !== data.guid) {
+          signatures.push(SignatureData.map(data, type, position));
+        }
+
+        if (SignatureType.DIGITAL.id === type) {
+          break;
+        }
       }
     }
     return signatures;

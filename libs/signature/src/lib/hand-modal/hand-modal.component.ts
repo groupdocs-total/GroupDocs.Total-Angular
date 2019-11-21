@@ -33,6 +33,7 @@ export class HandModalComponent implements OnInit {
     this._signatureService.saveImage(img).subscribe(() => {
       this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
     });
+    this.clear(canvasComponent);
     this.close();
   }
 
@@ -48,5 +49,14 @@ export class HandModalComponent implements OnInit {
 
   closePicker($event) {
     this.colorPickerShow = !$event;
+  }
+
+  onCloseOpen(canvasComponent: CanvasComponent, $event) {
+    this.clear(canvasComponent);
+  }
+
+  private clear(canvasComponent: CanvasComponent) {
+    this.selectedColor = this.defaultColor;
+    canvasComponent.clear();
   }
 }
