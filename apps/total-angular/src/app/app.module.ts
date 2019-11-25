@@ -4,7 +4,7 @@ import {TotalNavComponent} from './total-nav/total-nav.component';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { TotalViewComponent } from './total-view/total-view.component';
-import { ViewerModule,ViewerAppComponent } from '@groupdocs.examples.angular/viewer';
+import { ViewerModule,ViewerApp2Component } from '@groupdocs.examples.angular/viewer';
 import { EditorModule,EditorAppComponent } from '@groupdocs.examples.angular/editor';
 import { ComparisonModule,ComparisonAppComponent } from '@groupdocs.examples.angular/comparison';
 import { ConversionModule,ConversionAppComponent} from "@groupdocs.examples.angular/conversion";
@@ -19,7 +19,7 @@ import { ConversionModule,ConversionAppComponent} from "@groupdocs.examples.angu
     ConversionModule.forRoot("http://localhost:8080"),
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
-      {path: 'viewer', component: ViewerAppComponent},
+      {path: 'viewer', component: ViewerApp2Component},
       {path: 'editor', component: EditorAppComponent},
       {path: 'comparison', component: ComparisonAppComponent},
       {path: 'conversion', component: ConversionAppComponent},
