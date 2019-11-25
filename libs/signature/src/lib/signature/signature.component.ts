@@ -35,6 +35,8 @@ export class Signature implements OnInit, AfterViewInit {
   @Input() pageHeight: number;
   active = true;
   unlock = true;
+  copied = false;
+  baseCopied = false;
   private oldPosition: { x: number; y: number };
 
   private subject: Subject<string> = new Subject();
