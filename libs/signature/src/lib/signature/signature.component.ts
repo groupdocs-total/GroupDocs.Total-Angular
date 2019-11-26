@@ -58,6 +58,7 @@ export class Signature implements OnInit, AfterViewInit {
     this.subject.pipe(
       debounceTime(300)
     ).subscribe(text => {
+      this.notifyChanges();
       this.sendSaveText();
     });
   }

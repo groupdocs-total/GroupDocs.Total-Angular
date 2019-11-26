@@ -219,10 +219,9 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     addedSignature.data = comp.data.data;
     if (comp.data.props) {
       addedSignature.props = comp.data.props;
-    } else {
-      addedSignature.width = comp.data.width;
-      addedSignature.height = comp.data.height;
     }
+    addedSignature.width = comp.data.width;
+    addedSignature.height = comp.data.height;
     addedSignature.number = page.number;
     return addedSignature;
   }
