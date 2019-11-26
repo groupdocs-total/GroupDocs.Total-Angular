@@ -11,7 +11,7 @@
     "@angular/core": "^8.0.0"
   },
   "dependencies": {
-    "@groupdocs.examples.angular/common-components" : "^0.4.0",
+    "@groupdocs.examples.angular/common-components": "latest",
     "@fortawesome/angular-fontawesome": "^0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-regular-svg-icons": "^5.9.0",
