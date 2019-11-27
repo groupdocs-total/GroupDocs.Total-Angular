@@ -5,6 +5,28 @@
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
+/deep/ .tools {
+  .button {
+    color: #fff !important;
+    flex-flow: column;
+    &.inactive{
+      color: @regent-gray !important;
+    }
+  }
+  .icon-button{
+    margin: 0px 0px 0px 7px !important;
+  }
+}
+
+/deep/ .compare-file {
+  .icon-button{
+    margin: 0px !important;
+    .text {
+      padding: 0px !important;
+    }
+  }
+}
+
 .wrapper {
   align-items: stretch;
   height: 100%;
@@ -100,14 +122,14 @@
 
 .tabs {
   display: flex;
-  margin-right: 30px;
   align-items: flex-end;
   justify-content: flex-end;
 }
 
-::ng-deep .gd-page-image {
-  height: 100% !important;
-  width: 100% !important;
+/deep/ .button.brand {
+  fa-icon {
+    color: #fff !important;
+  }
 }
 
 @media @phone-down {
@@ -123,5 +145,23 @@
       height: 50% !important;
       top: inherit !important;
       bottom: 0px !important;
+  }
+
+  /deep/ .tools {
+    gd-button:nth-child(1) > .icon-button{
+      margin: 0px 0px 0px 10px !important;
+    }
+    .icon-button{
+      height: 60px !important;
+      width: 60px;
+    }
+  }
+
+  /deep/ .tabs-wrapper {
+    .gd-tab {
+      .icon {
+        font-size: 22px !important;
+      }
+    }
   }
 }

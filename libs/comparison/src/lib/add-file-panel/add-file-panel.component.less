@@ -2,6 +2,11 @@
 
 :host{
   border-bottom: 1px solid #CCC;
+  /deep/ gd-button {
+    .button {
+      font-size: 14px !important;
+    }
+  }
 }
 
 .wrapper {
@@ -24,14 +29,18 @@
   padding-top: 0px;
   padding-bottom: 0px;
   outline: none;
+  color: @regent-gray;
+  opacity: 0.5;
+  font-style: italic;
 }
 
-
 .compare-file-name {
-  color: @regent-gray;
-  margin: 8px;
+  color: @dove-gray;
+  margin: 8px 8px 8px 0px;
   width: 100%;
   text-align: left;
+  font-size: 13px;
+  opacity: 0.5;
 }
 
 .ng-fa-icon {
@@ -43,4 +52,58 @@
 .compare-file {
   width: 100%;
   border-right: 2px solid #ddd;
+}
+
+.wrapper .ng-fa-icon.fa-file-pdf {
+  color: @pdf;
+}
+
+.wrapper .ng-fa-icon.fa-file-word {
+  color: @word;
+}
+
+.wrapper .ng-fa-icon.fa-file-powerpoint {
+  color: @powerpoint;
+}
+
+.wrapper .ng-fa-icon.fa-file-excel {
+  color: @excel;
+}
+
+.wrapper .ng-fa-icon.fa-file-image {
+  color: @image;
+}
+
+.wrapper .ng-fa-icon.fa-file-text .fa-folder,
+.wrapper .ng-fa-icon.fa-file,
+.wrapper .ng-fa-icon.fa-file-alt {
+  color: @folder;
+}
+
+.wrapper {
+  /deep/ gd-button {
+    .button {
+      fa-icon {
+        color: @dove-gray;
+      }
+    }
+  }
+}
+
+/deep/ gd-tab {
+  .gd-tab {
+    .title {
+      font-size: 13px;
+      font-weight: bold;
+      color: @regent-gray;
+      opacity: 0.4;
+      
+    }
+    &.active {
+      .title {
+        color: @primary !important;
+        opacity: 1;
+      }
+    }
+  }
 }

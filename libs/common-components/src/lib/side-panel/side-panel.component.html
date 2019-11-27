@@ -1,12 +1,12 @@
-<div class="gd-side-panel-wrapper">
-  <div class="gd-side-panel-header">
+<div [ngClass]="{'only-title': onlyTitle}" class="gd-side-panel-wrapper">
+  <div class="gd-side-panel-header" (click)="toggleTitleMode()">
     <fa-icon class="fas fa-info-circle icon" [icon]="['fas',icon]"></fa-icon>
     <div class="title">{{title}}</div>
     <div class="close">
       <gd-button class="fas fa-times" [icon]="'times'" [tooltip]="'Close'" (click)="openSidePanel()"></gd-button>
     </div>
   </div>
-  <div class="gd-side-panel-body">
+  <div *ngIf="!onlyTitle" class="gd-side-panel-body">
     <ng-content></ng-content>
   </div>
 </div>

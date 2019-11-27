@@ -11,10 +11,16 @@ export class SidePanelComponent {
   @Input() icon: string;
   @Output() hideSidePanel = new EventEmitter<boolean>();
 
+  onlyTitle = false;
+
   constructor() {
   }
 
   openSidePanel() {
     this.hideSidePanel.emit(true);
+  }
+
+  toggleTitleMode(){
+    this.onlyTitle = !this.onlyTitle;
   }
 }
