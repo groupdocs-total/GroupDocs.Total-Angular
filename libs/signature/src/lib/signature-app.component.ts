@@ -118,11 +118,12 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
         // @ts-ignore
         const comp = (<Signature>componentRef).instance;
         const compPage = comp.data.number;
+        comp.baseCopied = true;
         for (const page of this.file.pages) {
           if (page.number !== compPage) {
             const sign = this.createDraggableSign(comp, copySign, page);
             const addedSignature = this.createAddedSignature(copySign, comp, page);
-            const id = this.addSignatureComponent(addedSignature, sign, page);
+            const id = this.addSignatureComponent(addedSignature, sign, page, true);
             this._signaturesHolderService.addId(sign.guid, id);
           }
         }
@@ -138,7 +139,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
           if (compRef) {
             // @ts-ignore
             const comp = (<Signature>compRef).instance;
-            if (comp.id !== copyChanges.id) {
+            if (comp.id !== copyChanges.id && (comp.copied || comp.baseCopied)) {
               comp.data.width = copyChanges.width;
               comp.data.height = copyChanges.height;
               comp.data.position = copyChanges.position;
@@ -218,10 +219,9 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     addedSignature.data = comp.data.data;
     if (comp.data.props) {
       addedSignature.props = comp.data.props;
-    } else {
-      addedSignature.width = comp.data.width;
-      addedSignature.height = comp.data.height;
     }
+    addedSignature.width = comp.data.width;
+    addedSignature.height = comp.data.height;
     addedSignature.number = page.number;
     return addedSignature;
   }
@@ -460,7 +460,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     }
   }
 
-  private addSignatureComponent(addedSignature: AddedSignature, sign: DraggableSignature, page: PageModel) {
+  private addSignatureComponent(addedSignature: AddedSignature, sign: DraggableSignature, page: PageModel, copied: boolean = false) {
     const dynamicDirective = this._hostingComponentsService.find(page.number);
     if (dynamicDirective) {
       const viewContainerRef = dynamicDirective.viewContainerRef;
@@ -471,6 +471,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
         addedSignature.height = addedSignature.height / 2;
       }
       (<Signature>selectSignature.instance).id = id;
+      (<Signature>selectSignature.instance).copied = copied;
       (<Signature>selectSignature.instance).data = addedSignature;
       (<Signature>selectSignature.instance).position = sign.position;
       (<Signature>selectSignature.instance).type = sign.type;
