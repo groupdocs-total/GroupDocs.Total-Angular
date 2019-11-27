@@ -1023,6 +1023,8 @@ var Signature = /** @class */ (function () {
         this._signaturesHolderService = _signaturesHolderService;
         this.active = true;
         this.unlock = true;
+        this.copied = false;
+        this.baseCopied = false;
         this.subject = new Subject();
         this._activeSignatureService.activeChange.subscribe((/**
          * @param {?} id
@@ -1041,6 +1043,7 @@ var Signature = /** @class */ (function () {
          * @return {?}
          */
         function (text) {
+            _this.notifyChanges();
             _this.sendSaveText();
         }));
     }
@@ -1552,6 +1555,7 @@ var SignatureAppComponent = /** @class */ (function () {
                 var comp = ((/** @type {?} */ (componentRef))).instance;
                 /** @type {?} */
                 var compPage = comp.data.number;
+                comp.baseCopied = true;
                 try {
                     for (var _b = __values(_this.file.pages), _c = _b.next(); !_c.done; _c = _b.next()) {
                         var page = _c.value;
@@ -1561,7 +1565,7 @@ var SignatureAppComponent = /** @class */ (function () {
                             /** @type {?} */
                             var addedSignature = _this.createAddedSignature(copySign, comp, page);
                             /** @type {?} */
-                            var id = _this.addSignatureComponent(addedSignature, sign, page);
+                            var id = _this.addSignatureComponent(addedSignature, sign, page, true);
                             _this._signaturesHolderService.addId(sign.guid, id);
                         }
                     }
@@ -1595,7 +1599,7 @@ var SignatureAppComponent = /** @class */ (function () {
                             // @ts-ignore
                             /** @type {?} */
                             var comp = ((/** @type {?} */ (compRef))).instance;
-                            if (comp.id !== copyChanges.id) {
+                            if (comp.id !== copyChanges.id && (comp.copied || comp.baseCopied)) {
                                 comp.data.width = copyChanges.width;
                                 comp.data.height = copyChanges.height;
                                 comp.data.position = copyChanges.position;
@@ -1750,10 +1754,8 @@ var SignatureAppComponent = /** @class */ (function () {
         if (comp.data.props) {
             addedSignature.props = comp.data.props;
         }
-        else {
-            addedSignature.width = comp.data.width;
-            addedSignature.height = comp.data.height;
-        }
+        addedSignature.width = comp.data.width;
+        addedSignature.height = comp.data.height;
         addedSignature.number = page.number;
         return addedSignature;
     };
@@ -2293,6 +2295,7 @@ var SignatureAppComponent = /** @class */ (function () {
      * @param {?} addedSignature
      * @param {?} sign
      * @param {?} page
+     * @param {?=} copied
      * @return {?}
      */
     SignatureAppComponent.prototype.addSignatureComponent = /**
@@ -2300,9 +2303,11 @@ var SignatureAppComponent = /** @class */ (function () {
      * @param {?} addedSignature
      * @param {?} sign
      * @param {?} page
+     * @param {?=} copied
      * @return {?}
      */
-    function (addedSignature, sign, page) {
+    function (addedSignature, sign, page, copied) {
+        if (copied === void 0) { copied = false; }
         /** @type {?} */
         var dynamicDirective = this._hostingComponentsService.find(page.number);
         if (dynamicDirective) {
@@ -2317,6 +2322,7 @@ var SignatureAppComponent = /** @class */ (function () {
                 addedSignature.height = addedSignature.height / 2;
             }
             ((/** @type {?} */ (selectSignature.instance))).id = id;
+            ((/** @type {?} */ (selectSignature.instance))).copied = copied;
             ((/** @type {?} */ (selectSignature.instance))).data = addedSignature;
             ((/** @type {?} */ (selectSignature.instance))).position = sign.position;
             ((/** @type {?} */ (selectSignature.instance))).type = sign.type;

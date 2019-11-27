@@ -779,6 +779,8 @@ class Signature {
         this._signaturesHolderService = _signaturesHolderService;
         this.active = true;
         this.unlock = true;
+        this.copied = false;
+        this.baseCopied = false;
         this.subject = new Subject();
         this._activeSignatureService.activeChange.subscribe((/**
          * @param {?} id
@@ -797,6 +799,7 @@ class Signature {
          * @return {?}
          */
         text => {
+            this.notifyChanges();
             this.sendSaveText();
         }));
     }
@@ -1228,6 +1231,7 @@ class SignatureAppComponent {
                 const comp = ((/** @type {?} */ (componentRef))).instance;
                 /** @type {?} */
                 const compPage = comp.data.number;
+                comp.baseCopied = true;
                 for (const page of this.file.pages) {
                     if (page.number !== compPage) {
                         /** @type {?} */
@@ -1235,7 +1239,7 @@ class SignatureAppComponent {
                         /** @type {?} */
                         const addedSignature = this.createAddedSignature(copySign, comp, page);
                         /** @type {?} */
-                        const id = this.addSignatureComponent(addedSignature, sign, page);
+                        const id = this.addSignatureComponent(addedSignature, sign, page, true);
                         this._signaturesHolderService.addId(sign.guid, id);
                     }
                 }
@@ -1258,7 +1262,7 @@ class SignatureAppComponent {
                         // @ts-ignore
                         /** @type {?} */
                         const comp = ((/** @type {?} */ (compRef))).instance;
-                        if (comp.id !== copyChanges.id) {
+                        if (comp.id !== copyChanges.id && (comp.copied || comp.baseCopied)) {
                             comp.data.width = copyChanges.width;
                             comp.data.height = copyChanges.height;
                             comp.data.position = copyChanges.position;
@@ -1380,10 +1384,8 @@ class SignatureAppComponent {
         if (comp.data.props) {
             addedSignature.props = comp.data.props;
         }
-        else {
-            addedSignature.width = comp.data.width;
-            addedSignature.height = comp.data.height;
-        }
+        addedSignature.width = comp.data.width;
+        addedSignature.height = comp.data.height;
         addedSignature.number = page.number;
         return addedSignature;
     }
@@ -1750,9 +1752,10 @@ class SignatureAppComponent {
      * @param {?} addedSignature
      * @param {?} sign
      * @param {?} page
+     * @param {?=} copied
      * @return {?}
      */
-    addSignatureComponent(addedSignature, sign, page) {
+    addSignatureComponent(addedSignature, sign, page, copied = false) {
         /** @type {?} */
         const dynamicDirective = this._hostingComponentsService.find(page.number);
         if (dynamicDirective) {
@@ -1767,6 +1770,7 @@ class SignatureAppComponent {
                 addedSignature.height = addedSignature.height / 2;
             }
             ((/** @type {?} */ (selectSignature.instance))).id = id;
+            ((/** @type {?} */ (selectSignature.instance))).copied = copied;
             ((/** @type {?} */ (selectSignature.instance))).data = addedSignature;
             ((/** @type {?} */ (selectSignature.instance))).position = sign.position;
             ((/** @type {?} */ (selectSignature.instance))).type = sign.type;
