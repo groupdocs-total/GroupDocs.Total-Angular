@@ -54,6 +54,8 @@ export declare class SignatureAppComponent implements OnDestroy, OnInit {
     isLoading: boolean;
     fileWasDropped: boolean;
     constructor(_signatureService: SignatureService, _modalService: ModalService, configService: SignatureConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _selectSignatureService: SelectSignatureService, _signatureTabActivationService: SignatureTabActivatorService, _hostingComponentsService: HostingDynamicComponentService, _addDynamicComponentService: AddDynamicComponentService, _dragSignatureService: DragSignatureService, _onCloseService: OnCloseService, removeSignatureService: RemoveSignatureService, _activeSignatureService: ActiveSignatureService, _excMessageService: ExceptionMessageService, _signaturesHolderService: SignaturesHolderService, _tabActivatorService: TabActivatorService, copySignatureService: CopySignatureService);
+    private createDraggableSign;
+    private createAddedSignature;
     ngOnInit(): void;
     readonly rewriteConfig: boolean;
     readonly zoomConfig: boolean;

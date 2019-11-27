@@ -42,11 +42,9 @@ export class ResizingComponent implements OnInit, AfterViewInit {
     if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
       let width = elSE.offset().left - elNW.offset().left;
       let height = elSE.offset().top - elNW.offset().top;
-      if (width >= this.pageWidth) {
-        width = this.pageWidth / 2;
-      }
-      if (height >= this.pageHeight) {
-        height = this.pageHeight / 2;
+      while (width >= this.pageWidth || height >= this.pageHeight) {
+        width = width / 2;
+        height = height / 2;
       }
       setTimeout(() => {
         this.offsetX.emit(width);

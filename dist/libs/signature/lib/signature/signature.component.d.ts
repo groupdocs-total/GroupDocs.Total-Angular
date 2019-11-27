@@ -20,6 +20,8 @@ export declare class Signature implements OnInit, AfterViewInit {
     pageHeight: number;
     active: boolean;
     unlock: boolean;
+    copied: boolean;
+    baseCopied: boolean;
     private oldPosition;
     private subject;
     constructor(_signatureService: SignatureService, _removeSignatureService: RemoveSignatureService, _copySignatureService: CopySignatureService, _activeSignatureService: ActiveSignatureService, _signaturesHolderService: SignaturesHolderService);

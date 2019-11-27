@@ -4798,11 +4798,9 @@ class ResizingComponent {
             let width = elSE.offset().left - elNW.offset().left;
             /** @type {?} */
             let height = elSE.offset().top - elNW.offset().top;
-            if (width >= this.pageWidth) {
-                width = this.pageWidth / 2;
-            }
-            if (height >= this.pageHeight) {
-                height = this.pageHeight / 2;
+            while (width >= this.pageWidth || height >= this.pageHeight) {
+                width = width / 2;
+                height = height / 2;
             }
             setTimeout((/**
              * @return {?}
