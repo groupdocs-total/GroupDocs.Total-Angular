@@ -3921,8 +3921,10 @@ class FormattingDirective {
          * @return {?}
          */
         (list) => {
+            /** @type {?} */
+            let remove = this.list === list;
             this.list = list;
-            this.toggleList(this.list);
+            this.toggleList(this.list, remove);
         }));
     }
     /**
@@ -4073,15 +4075,16 @@ class FormattingDirective {
     /**
      * @private
      * @param {?} list
+     * @param {?} remove
      * @return {?}
      */
-    toggleList(list) {
+    toggleList(list, remove) {
         switch (list) {
             case 'unordered':
-                document.execCommand('insertUnorderedList');
+                document.execCommand('insertUnorderedList', remove);
                 break;
             case 'ordered':
-                document.execCommand('insertOrderedList');
+                document.execCommand('insertOrderedList', remove);
                 break;
         }
         this._selectionService.refreshSelection();

@@ -4819,8 +4819,10 @@
              * @return {?}
              */
             function (list) {
+                /** @type {?} */
+                var remove = _this.list === list;
                 _this.list = list;
-                _this.toggleList(_this.list);
+                _this.toggleList(_this.list, remove);
             }));
         };
         /**
@@ -5025,20 +5027,22 @@
         /**
          * @private
          * @param {?} list
+         * @param {?} remove
          * @return {?}
          */
         FormattingDirective.prototype.toggleList = /**
          * @private
          * @param {?} list
+         * @param {?} remove
          * @return {?}
          */
-        function (list) {
+        function (list, remove) {
             switch (list) {
                 case 'unordered':
-                    document.execCommand('insertUnorderedList');
+                    document.execCommand('insertUnorderedList', remove);
                     break;
                 case 'ordered':
-                    document.execCommand('insertOrderedList');
+                    document.execCommand('insertOrderedList', remove);
                     break;
             }
             this._selectionService.refreshSelection();

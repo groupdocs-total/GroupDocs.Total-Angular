@@ -483,14 +483,18 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
 
     if (list === this.formatting.list) {
       this.formatting.list = "";
+      // to trigger changes in contentEditable
+      this._formattingService.changeFormatList(list);
+      // to clear the toggle status of the button only
+      this._formattingService.changeFormatList("");
     } else {
       this.formatting.list = list;
+      this._formattingService.changeFormatList(list);
     }
     if(this.isIE) {
       this._selectionService.restoreSelection();
       this._selectionService.captureSelection();
     }
-    this._formattingService.changeFormatList(list);
   }
 
   downloadFile() {
