@@ -20,16 +20,15 @@
       </gd-tab>
       <gd-tab [tabTitle]="'Formatting'" [icon]="'edit'" [id]="'2'">
         <gd-top-toolbar class="toolbar-panel">
-
           <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Undo'"
                      (click)="toggleUndo()"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Redo'"
                      (click)="toggleRedo()"></gd-button>
           <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontOptions"
-                     (selected)="selectFont($event)"
+                     [isOpen]="selectFontShow" (selected)="selectFont($event)" (click)="toggleFontSelect($event, true)"
                      [showSelected]="{name : formatting.font, value : formatting.font}"></gd-select>
           <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontSizeOptions"
-                     (selected)="selectFontSize($event)"
+                     [isOpen]="selectFontSizeShow" (selected)="selectFontSize($event)" (click)="toggleFontSelect($event, false)"
                      [showSelected]="{name : formatting.fontSize + 'px', value : formatting.fontSize}"></gd-select>
           <gd-button [disabled]="formatDisabled" [icon]="'bold'" [tooltip]="'Bold'"
                      (click)="toggleBold($event)" [toggle]="formatting.bold"></gd-button>
@@ -52,17 +51,18 @@
           <gd-button [disabled]="formatDisabled" [icon]="'list-ol'" [tooltip]="'Add Ordered List'"
                      (click)="toggleList('ordered')" [toggle]="formatting.list == 'ordered' ? true : false"></gd-button>
           <gd-button name="button" [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
-                     (click)="toggleColorPicker(true)">
+                     (click)="toggleColorPicker($event, true)">
             <div class="bg-color-pic" [style.background-color]="formatting.bgColor"></div>
           </gd-button>
-          <gd-button name="button" [disabled]="formatDisabled" [icon]="'font'" [tooltip]="'Color'" (click)="toggleColorPicker(false)">
+          <gd-button name="button" [disabled]="formatDisabled" [icon]="'font'" [tooltip]="'Color'" 
+                     (click)="toggleColorPicker($event, false)">
             <div class="bg-color-pic" [style.background-color]="formatting.color"></div>
           </gd-button>
         </gd-top-toolbar>
       </gd-tab>
     </gd-tabs>
   </gd-tabbed-toolbars>
-  <gd-color-picker *ngIf="bgColorPickerShow || colorPickerShow"
+  <gd-color-picker [isOpen]="bgColorPickerShow || colorPickerShow"
                    [className]="'palette ' + (bgColorPickerShow ? 'background-color-picker' : 'color-picker')"
                    (selectedColor)="selectColor($event)"></gd-color-picker>
   <div class="doc-panel" *ngIf="file">

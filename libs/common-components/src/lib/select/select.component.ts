@@ -18,7 +18,7 @@ export class SelectComponent {
   @Input() disabled = false;
   @Input() showSelected: Option;
   @Output() selected: EventEmitter<any> = new EventEmitter();
-  isOpen = false;
+  @Input() isOpen = false;
 
   constructor(protected _onCloseService: OnCloseService) {
     _onCloseService.onClose.subscribe(() => {
@@ -41,8 +41,10 @@ export class SelectComponent {
   }
 
   toggle($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
+    // TODO: following lines are commented as a part of possible solution
+    // for hiding one select after opening another one
+    //$event.preventDefault();
+    //$event.stopPropagation();
     if (!this.disabled) {
       this.isOpen = !this.isOpen;
     }
@@ -54,5 +56,4 @@ export class SelectComponent {
     this.selected.emit(value);
     this.close();
   }
-
 }
