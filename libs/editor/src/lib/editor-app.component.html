@@ -8,26 +8,26 @@
                      *ngIf="createNewFileConfig"></gd-button>
           <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                      *ngIf="browseConfig"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save File'" (click)="save()"></gd-button>
+          <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'pencil-alt'" [iconClass]="'save-as-button-icon'" [tooltip]="'Save File As'" (click)="openSave()">
+            <fa-icon [icon]="['fas','save']" class="save-button" size="xs"></fa-icon></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Export File'"></gd-button>
           <gd-button [disabled]="downloadDisabled" [icon]="'download'" [tooltip]="'Download'"
                      (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
+          <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
                      *ngIf="printConfig" ></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save File'" (click)="save()"></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'pencil-alt'" [iconClass]="'save-as-button-icon'" [tooltip]="'Save File As'" (click)="openSave()">
-            <fa-icon [icon]="['fas','save']" class="save-button" size="xs"></fa-icon>
-          </gd-button>
         </gd-top-toolbar>
       </gd-tab>
-      <gd-tab [tabTitle]="'Formatting'" [icon]="'edit'" [id]="'2'">
+      <gd-tab id="formatting-tab" [tabTitle]="'Formatting'" [icon]="'edit'" [id]="'2'">
         <gd-top-toolbar class="toolbar-panel">
           <gd-button [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Undo'"
                      (click)="toggleUndo()"></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Redo'"
                      (click)="toggleRedo()"></gd-button>
-          <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontOptions"
+          <gd-select class="format-select mobile-hide" [disabled]="formatDisabled" [options]="fontOptions"
                      [isOpen]="selectFontShow" (selected)="selectFont($event)" (click)="toggleFontSelect($event, true)"
                      [showSelected]="{name : formatting.font, value : formatting.font}"></gd-select>
-          <gd-select class="format-select" [disabled]="formatDisabled" [options]="fontSizeOptions"
+          <gd-select class="format-select mobile-hide" [disabled]="formatDisabled" [options]="fontSizeOptions"
                      [isOpen]="selectFontSizeShow" (selected)="selectFontSize($event)" (click)="toggleFontSelect($event, false)"
                      [showSelected]="{name : formatting.fontSize + 'px', value : formatting.fontSize}"></gd-select>
           <gd-button [disabled]="formatDisabled" [icon]="'bold'" [tooltip]="'Bold'"
@@ -56,6 +56,44 @@
           </gd-button>
           <gd-button name="button" [disabled]="formatDisabled" [icon]="'font'" [tooltip]="'Color'" 
                      (click)="toggleColorPicker($event, false)">
+            <div class="bg-color-pic" [style.background-color]="formatting.color"></div>
+          </gd-button>
+        </gd-top-toolbar>
+      </gd-tab>
+      <gd-tab class="desktop-hide" [tabTitle]="'Font'" [icon]="'font'" [id]="'3'">
+        <gd-top-toolbar class="toolbar-panel">
+          <gd-select class="format-select font-type" [disabled]="formatDisabled" [options]="fontOptions"
+                      [isOpen]="selectFontShow" (selected)="selectFont($event)" (click)="toggleFontSelect($event, true)"
+                      [showSelected]="{name : formatting.font, value : formatting.font}"></gd-select>
+          <gd-select class="format-select font-size" [disabled]="formatDisabled" [options]="fontSizeOptions"
+                      [isOpen]="selectFontSizeShow" (selected)="selectFontSize($event)" (click)="toggleFontSelect($event, false)"
+                      [showSelected]="{name : formatting.fontSize + 'px', value : formatting.fontSize}"></gd-select>
+        </gd-top-toolbar>
+      </gd-tab>
+      <gd-tab id="paragraph-tab" class="desktop-hide" [tabTitle]="'Paragraph'" [icon]="'paragraph'" [id]="'4'">
+        <gd-top-toolbar class="toolbar-panel">
+          <gd-button [disabled]="formatDisabled" [icon]="'align-center'" [tooltip]="'Align center'"
+                     (click)="toggleAlign('center')" [toggle]="formatting.align == 'center' ? true : false"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'align-justify'" [tooltip]="'Align full'"
+                     (click)="toggleAlign('full')" [toggle]="formatting.align == 'full' ? true : false"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'align-right'" [tooltip]="'Align right'"
+                     (click)="toggleAlign('right')" [toggle]="formatting.align == 'right' ? true : false"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'align-left'" [tooltip]="'Align left'"
+                     (click)="toggleAlign('left')" [toggle]="formatting.align == 'left' ? true : false"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'list-ul'" [tooltip]="'Add Unordered List'"
+                     (click)="toggleList('unordered')" [toggle]="formatting.list == 'unordered' ? true : false"></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'list-ol'" [tooltip]="'Add Ordered List'"
+                     (click)="toggleList('ordered')" [toggle]="formatting.list == 'ordered' ? true : false"></gd-button>
+        </gd-top-toolbar>
+      </gd-tab>
+      <gd-tab class="desktop-hide" [tabTitle]="'Palette'" [icon]="'palette'" [id]="'5'">
+        <gd-top-toolbar class="toolbar-panel">
+          <gd-button name="button" [disabled]="formatDisabled" [icon]="'fill'" [tooltip]="'Background color'"
+                    (click)="toggleColorPicker($event, true)">
+            <div class="bg-color-pic" [style.background-color]="formatting.bgColor"></div>
+          </gd-button>
+          <gd-button name="button" [disabled]="formatDisabled" [icon]="'font'" [tooltip]="'Color'" 
+                    (click)="toggleColorPicker($event, false)">
             <div class="bg-color-pic" [style.background-color]="formatting.color"></div>
           </gd-button>
         </gd-top-toolbar>
