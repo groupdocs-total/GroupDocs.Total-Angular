@@ -3922,7 +3922,7 @@ class FormattingDirective {
          */
         (list) => {
             /** @type {?} */
-            let remove = this.list === list;
+            const remove = this.list === list;
             this.list = list;
             this.toggleList(this.list, remove);
         }));

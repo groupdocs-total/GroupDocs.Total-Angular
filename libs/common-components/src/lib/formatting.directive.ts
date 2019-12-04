@@ -146,7 +146,7 @@ export class FormattingDirective implements OnInit {
       this.toggleAlign(this.align);
     });
     this._formattingService.formatListChange.subscribe((list: string) => {
-      let remove = this.list === list;
+      const remove = this.list === list;
       this.list = list;
       this.toggleList(this.list, remove);
     });
