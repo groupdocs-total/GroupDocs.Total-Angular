@@ -165,9 +165,102 @@
   left: 21px;
 }
 
+gd-tab {
+  &.desktop-hide {
+    display: none;
+  }
+}
+
+/deep/ .page {
+  height: 100% !important;
+}
+
 @media @phone-down {
-  /deep/  .panzoom{
-    zoom: 0.4;
-    margin-top:160px;
+  /deep/ .panzoom{
+    zoom: 0.45;
+    margin-top:130px;
+  }
+
+  ::ng-deep .gd-tab {
+    fa-icon{
+      height: 60px;
+      width: 60px;
+      font-size: 22px !important;
+      margin: unset !important;
+    }
+  }
+
+  gd-tab {
+    &.desktop-hide {
+      display: block;
+    }
+  }
+
+  .mobile-hide {
+    display: none;
+  }
+
+  ::ng-deep .tools {
+    overflow-x: unset !important;
+    gd-button:nth-child(1) > .icon-button{
+      margin: 0px !important;
+    }
+    .icon-button{
+      height: 60px !important;
+      width: 60px;
+    }
+  }
+
+  ::ng-deep #formatting-tab, ::ng-deep #paragraph-tab {
+    ::ng-deep .tools {
+      .icon-button{
+        margin: 0px !important;
+      }
+    }
+  }
+
+  ::ng-deep .bg-color-pic {
+    height: 13px !important;
+    width: 13px !important;
+    right: 9px !important;
+    bottom: 11px !important;
+  }
+
+  ::ng-deep .palette {
+    position: absolute;
+    top: 130px !important;
+    z-index: 100;
+  }
+
+  ::ng-deep .background-color-picker {
+    left: 0px !important;
+  }
+  
+  ::ng-deep .color-picker {
+    left: 60px !important;
+  }
+
+  ::ng-deep .format-select {
+    &.font-type {
+      width: 109px;
+      ::ng-deep .dropdown-menu {
+        width: 109px !important;
+        top: 60px !important;
+        left: 0px !important;
+      }
+    }
+    &.font-size {
+      width: 81px;
+      ::ng-deep .dropdown-menu {
+        width: 81px !important;
+        top: 60px !important;
+        left: 109px !important;
+      }
+    }
+    .select {
+      width: unset !important;
+      height: 60px !important;
+      line-height: 60px;
+    }
   }
 }
