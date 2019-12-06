@@ -2,7 +2,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ViewerAppComponent} from './viewer-app.component';
-import { Api, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import {
+  Api,
+  CommonComponentsModule,
+  ErrorInterceptorService, LoadingMaskInterceptorService,
+  LoadingMaskService
+} from '@groupdocs.examples.angular/common-components';
 import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -14,6 +19,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
   return result;
+}
+
+// NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
+// @dynamic
+export function setupLoadingInterceptor(service: LoadingMaskService) {
+  return new LoadingMaskInterceptorService(service);
 }
 
 @NgModule({
@@ -48,6 +59,13 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [ViewerConfigService], multi: true
+    },
+    LoadingMaskService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: setupLoadingInterceptor,
+      multi: true,
+      deps: [LoadingMaskService]
     }
   ]
 })
