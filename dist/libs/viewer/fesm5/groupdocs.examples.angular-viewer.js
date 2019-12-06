@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, ElementRef, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { __values, __extends } from 'tslib';
-import { Api, ConfigService, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, CommonModals, DocumentComponent, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, CommonModals, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -1492,6 +1492,15 @@ function initializeApp(viewerConfigService) {
     function () { return viewerConfigService.load(); });
     return result;
 }
+// NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
+// @dynamic
+/**
+ * @param {?} service
+ * @return {?}
+ */
+function setupLoadingInterceptor(service) {
+    return new LoadingMaskInterceptorService(service);
+}
 var ViewerModule = /** @class */ (function () {
     function ViewerModule() {
     }
@@ -1543,6 +1552,13 @@ var ViewerModule = /** @class */ (function () {
                             provide: APP_INITIALIZER,
                             useFactory: initializeApp,
                             deps: [ViewerConfigService], multi: true
+                        },
+                        LoadingMaskService,
+                        {
+                            provide: HTTP_INTERCEPTORS,
+                            useFactory: setupLoadingInterceptor,
+                            multi: true,
+                            deps: [LoadingMaskService]
                         }
                     ]
                 },] }
@@ -1550,5 +1566,5 @@ var ViewerModule = /** @class */ (function () {
     return ViewerModule;
 }());
 
-export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, ThumbnailsComponent as ɵa, ExcelDocumentComponent as ɵb, ExcelPageComponent as ɵc, ExcelPageService as ɵd };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, ExcelDocumentComponent as ɵb, ExcelPageComponent as ɵc, ExcelPageService as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map

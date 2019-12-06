@@ -1530,6 +1530,15 @@
         function () { return viewerConfigService.load(); });
         return result;
     }
+    // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
+    // @dynamic
+    /**
+     * @param {?} service
+     * @return {?}
+     */
+    function setupLoadingInterceptor(service) {
+        return new commonComponents.LoadingMaskInterceptorService(service);
+    }
     var ViewerModule = /** @class */ (function () {
         function ViewerModule() {
         }
@@ -1581,6 +1590,13 @@
                                 provide: core.APP_INITIALIZER,
                                 useFactory: initializeApp,
                                 deps: [ViewerConfigService], multi: true
+                            },
+                            commonComponents.LoadingMaskService,
+                            {
+                                provide: http.HTTP_INTERCEPTORS,
+                                useFactory: setupLoadingInterceptor,
+                                multi: true,
+                                deps: [commonComponents.LoadingMaskService]
                             }
                         ]
                     },] }
@@ -1593,6 +1609,7 @@
     exports.ViewerModule = ViewerModule;
     exports.ViewerService = ViewerService;
     exports.initializeApp = initializeApp;
+    exports.setupLoadingInterceptor = setupLoadingInterceptor;
     exports.ɵa = ThumbnailsComponent;
     exports.ɵb = ExcelDocumentComponent;
     exports.ɵc = ExcelPageComponent;
