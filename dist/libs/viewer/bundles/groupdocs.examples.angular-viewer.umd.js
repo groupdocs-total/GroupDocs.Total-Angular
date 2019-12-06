@@ -1267,7 +1267,12 @@
             /** @type {?} */
             var newTable = this.createHeader(numCellsInFirstRow, table);
             doc.querySelector('table').replaceWith(newTable);
-            return new XMLSerializer().serializeToString(doc);
+            /** @type {?} */
+            var resultData = new XMLSerializer().serializeToString(doc)
+            // work-around for FF which is adds a0 namespace during serialization
+            ;
+            // work-around for FF which is adds a0 namespace during serialization
+            return resultData.replace(/a0:/g, "").replace(/:a0/g, "");
         };
         /**
          * @param {?} numCols
