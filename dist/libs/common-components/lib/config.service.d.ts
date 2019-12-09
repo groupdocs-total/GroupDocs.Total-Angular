@@ -2,6 +2,7 @@ import { HttpHeaders } from "@angular/common/http";
 export declare class Api {
     static VIEWER_APP: string;
     static SIGNATURE_APP: string;
+    static ANNOTATION_APP: string;
     static EDITOR_APP: string;
     static COMPARISON_APP: string;
     static CONVERSION_APP: string;

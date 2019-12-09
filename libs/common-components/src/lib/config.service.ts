@@ -4,6 +4,7 @@ import {Injectable} from "@angular/core";
 export class Api {
   public static VIEWER_APP = '/viewer';
   public static SIGNATURE_APP = '/signature';
+  public static ANNOTATION_APP = '/annotation';
   public static EDITOR_APP = '/editor';
   public static COMPARISON_APP = '/comparison';
   public static CONVERSION_APP = '/conversion';
