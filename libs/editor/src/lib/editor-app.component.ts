@@ -50,6 +50,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   private isIE = false;
   isLoading: boolean;
   fileWasDropped: false;
+  selectFontShow = false;
+  selectFontSizeShow = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -337,8 +339,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     this._formattingService.changeFormatFont($event.value);
   }
 
-  toggleColorPicker(bg: boolean) {
-
+  toggleColorPicker($event, bg: boolean) {
+    $event.preventDefault();
+    $event.stopPropagation();
     if (this.formatDisabled) {
       return;
     }
@@ -352,6 +355,18 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     } else {
       this.colorPickerShow = !this.colorPickerShow;
       this.bgColorPickerShow = false;
+    }
+  }
+
+  toggleFontSelect($event, isFontName: boolean) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    if (isFontName) {
+      this.selectFontShow = !this.selectFontShow;
+      this.selectFontSizeShow = false;
+    } else {
+      this.selectFontSizeShow = !this.selectFontSizeShow;
+      this.selectFontShow = false;
     }
   }
 
@@ -468,14 +483,18 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
 
     if (list === this.formatting.list) {
       this.formatting.list = "";
+      // to trigger changes in contentEditable
+      this._formattingService.changeFormatList(list);
+      // to clear the toggle status of the button only
+      this._formattingService.changeFormatList("");
     } else {
       this.formatting.list = list;
+      this._formattingService.changeFormatList(list);
     }
     if(this.isIE) {
       this._selectionService.restoreSelection();
       this._selectionService.captureSelection();
     }
-    this._formattingService.changeFormatList(list);
   }
 
   downloadFile() {
