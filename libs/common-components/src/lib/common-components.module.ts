@@ -187,7 +187,9 @@ const providers = [ConfigService,
     LeftSideBarComponent,
     TooltipDirective,
     HostDynamicDirective,
-    ResizingComponent
+    ResizingComponent,
+    EditorDirective,
+    FormattingDirective
   ],
   providers: providers
 })

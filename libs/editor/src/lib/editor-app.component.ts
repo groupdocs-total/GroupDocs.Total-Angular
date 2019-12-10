@@ -18,11 +18,12 @@ import {
   EditHtmlService,
   RenderPrintService,
   WindowService,
-  LoadingMaskService, Option
+  LoadingMaskService, Option, FileUtil
 } from '@groupdocs.examples.angular/common-components';
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import * as jquery from 'jquery';
+import { ExcelPageService } from './excel-page.service';
 const $ = jquery;
 
 @Component({
@@ -52,6 +53,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   fileWasDropped: false;
   selectFontShow = false;
   selectFontSizeShow = false;
+  formatIcon: string;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -66,6 +68,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
               private _htmlService: EditHtmlService,
               private _renderPrintService: RenderPrintService,
               private _loadingMaskService: LoadingMaskService,
+              private _excelPageService: ExcelPageService
   ) {
     this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     configService.updatedConfig.subscribe((editorConfig) => {
@@ -260,6 +263,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     this.credentials = new FileCredentials($event, password);
     this._editorService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.loadFile(file);
+        this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
         const isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         if(isIE) {
           const observer = new MutationObserver(function (mutations) {
@@ -518,7 +522,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
  saveFile(credentials: FileCredentials) {
     if (!this.file || !this.file.pages)
       return;
-    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
+    let updatedTextBackup = this._excelPageService.getPageWithoutHeader(this.textBackup);
+    const saveFile = new SaveFile(credentials.guid, credentials.password, updatedTextBackup);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);

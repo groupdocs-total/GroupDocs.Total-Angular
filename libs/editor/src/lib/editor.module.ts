@@ -16,6 +16,8 @@ import {
   LoadingMaskInterceptorService, Api
 } from '@groupdocs.examples.angular/common-components';
 import {EditorConfigService} from "./editor-config.service";
+import {ExcelDocumentComponent} from './excel-document/excel-document.component';
+import {ExcelPageComponent} from './excel-page/excel-page.component';
 
 export function initializeApp(editorConfigService: EditorConfigService) {
   const result =  () => editorConfigService.load();
@@ -29,17 +31,23 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations :[EditorAppComponent,CreateDocumentModalComponent],
+  declarations: [EditorAppComponent,
+    CreateDocumentModalComponent,
+    ExcelDocumentComponent,
+    ExcelPageComponent
+  ],
   imports: [
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
     FontAwesomeModule
   ],
-  exports : [
+  exports: [
     CreateDocumentModalComponent,
     EditorAppComponent,
-    CommonComponentsModule
+    CommonComponentsModule,
+    ExcelDocumentComponent,
+    ExcelPageComponent
   ],
   providers: [
     EditorService,
