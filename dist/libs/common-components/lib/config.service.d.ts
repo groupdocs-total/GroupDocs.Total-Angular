@@ -47,4 +47,5 @@ export declare class ConfigService {
     getComparisonApiEndpoint(): string;
     getConversionApiEndpoint(): string;
     getSignatureApiEndpoint(): string;
+    getAnnotationApiEndpoint(): string;
 }

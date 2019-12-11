@@ -523,6 +523,12 @@ class ConfigService {
     getSignatureApiEndpoint() {
         return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
     }
+    /**
+     * @return {?}
+     */
+    getAnnotationApiEndpoint() {
+        return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
+    }
 }
 ConfigService.decorators = [
     { type: Injectable }

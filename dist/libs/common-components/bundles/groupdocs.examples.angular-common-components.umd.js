@@ -800,6 +800,15 @@
         function () {
             return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
         };
+        /**
+         * @return {?}
+         */
+        ConfigService.prototype.getAnnotationApiEndpoint = /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
+        };
         ConfigService.decorators = [
             { type: core.Injectable }
         ];
