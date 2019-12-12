@@ -56,3 +56,4 @@ export * from './lib/left-side-bar/left-side-bar.component';
 export * from './lib/add-dynamic-component.service';
 export * from './lib/host-dynamic.directive';
 export * from './lib/hosting-dynamic-component.service';
+export * from './lib/top-tab-activator.service';

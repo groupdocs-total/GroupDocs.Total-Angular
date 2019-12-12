@@ -22,7 +22,6 @@ export class AnnotationConfig {
   textReplacementAnnotation: boolean;
   arrowAnnotation: boolean;
   textRedactionAnnotation: boolean;
-  resourcesRedactionAnnotation: boolean;
   textUnderlineAnnotation: boolean;
   distanceAnnotation: boolean;
   downloadOriginal: boolean;

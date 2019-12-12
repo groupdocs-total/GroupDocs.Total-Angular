@@ -68,6 +68,8 @@ import {AddDynamicComponentService} from "./add-dynamic-component.service";
 import {HostDynamicDirective} from './host-dynamic.directive';
 import {HostingDynamicComponentService} from "./hosting-dynamic-component.service";
 import {ResizingComponent} from './resizing/resizing.component';
+import {TopTabComponent} from './top-tab/top-tab.component';
+import {TopTabActivatorService} from "./top-tab-activator.service";
 
 const providers = [ConfigService,
   Api,
@@ -98,7 +100,8 @@ const providers = [ConfigService,
   LoadingMaskService,
   TabActivatorService,
   AddDynamicComponentService,
-  HostingDynamicComponentService];
+  HostingDynamicComponentService,
+  TopTabActivatorService];
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
@@ -144,7 +147,8 @@ const providers = [ConfigService,
     LeftSideBarComponent,
     TooltipDirective,
     HostDynamicDirective,
-    ResizingComponent
+    ResizingComponent,
+    TopTabComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -187,7 +191,8 @@ const providers = [ConfigService,
     LeftSideBarComponent,
     TooltipDirective,
     HostDynamicDirective,
-    ResizingComponent
+    ResizingComponent,
+    TopTabComponent
   ],
   providers: providers
 })

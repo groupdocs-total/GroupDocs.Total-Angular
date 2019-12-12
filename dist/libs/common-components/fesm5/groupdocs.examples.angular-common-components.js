@@ -7267,6 +7267,140 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var TopTabActivatorService = /** @class */ (function (_super) {
+    __extends(TopTabActivatorService, _super);
+    function TopTabActivatorService() {
+        return _super.call(this) || this;
+    }
+    return TopTabActivatorService;
+}(TabActivatorService));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TopTabComponent = /** @class */ (function () {
+    function TopTabComponent(_tabActivatorService, _modalService, _excMessageService) {
+        var _this = this;
+        this._tabActivatorService = _tabActivatorService;
+        this._modalService = _modalService;
+        this._excMessageService = _excMessageService;
+        this.disabled = false;
+        this.activeTab = new EventEmitter();
+        this.active = false;
+        this.showToolTip = false;
+        this._tabActivatorService.activeTabChange.subscribe((/**
+         * @param {?} tabId
+         * @return {?}
+         */
+        function (tabId) {
+            _this.activation(tabId);
+        }));
+    }
+    /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    TopTabComponent.prototype.activation = /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    function (tabId) {
+        if (this.id === tabId) {
+            this.active = !this.active;
+            if (this.active) {
+                this.activeTab.emit(this.id);
+            }
+            else {
+                this.activeTab.emit("");
+            }
+        }
+        else {
+            this.active = false;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    TopTabComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    TopTabComponent.prototype.toggleTab = /**
+     * @return {?}
+     */
+    function () {
+        if (this.disabled) {
+            this._modalService.open(CommonModals.ErrorMessage);
+            this._excMessageService.changeMessage("Please open document first");
+            return;
+        }
+        this._tabActivatorService.changeActiveTab(this.id);
+    };
+    TopTabComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-top-tab',
+                    template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\"\n              *ngIf=\"tooltip\"></gd-tooltip>\n</div>\n",
+                    styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TopTabComponent.ctorParameters = function () { return [
+        { type: TopTabActivatorService },
+        { type: ModalService },
+        { type: ExceptionMessageService }
+    ]; };
+    TopTabComponent.propDecorators = {
+        id: [{ type: Input }],
+        icon: [{ type: Input }],
+        disabled: [{ type: Input }],
+        tooltip: [{ type: Input }],
+        activeTab: [{ type: Output }]
+    };
+    return TopTabComponent;
+}());
+if (false) {
+    /** @type {?} */
+    TopTabComponent.prototype.id;
+    /** @type {?} */
+    TopTabComponent.prototype.icon;
+    /** @type {?} */
+    TopTabComponent.prototype.disabled;
+    /** @type {?} */
+    TopTabComponent.prototype.tooltip;
+    /** @type {?} */
+    TopTabComponent.prototype.activeTab;
+    /** @type {?} */
+    TopTabComponent.prototype.active;
+    /** @type {?} */
+    TopTabComponent.prototype.showToolTip;
+    /**
+     * @type {?}
+     * @private
+     */
+    TopTabComponent.prototype._tabActivatorService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TopTabComponent.prototype._modalService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TopTabComponent.prototype._excMessageService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 var providers = [ConfigService,
     Api,
@@ -7297,7 +7431,8 @@ var providers = [ConfigService,
     LoadingMaskService,
     TabActivatorService,
     AddDynamicComponentService,
-    HostingDynamicComponentService];
+    HostingDynamicComponentService,
+    TopTabActivatorService];
 var CommonComponentsModule = /** @class */ (function () {
     function CommonComponentsModule() {
         library.add(fas, far);
@@ -7347,7 +7482,8 @@ var CommonComponentsModule = /** @class */ (function () {
                         LeftSideBarComponent,
                         TooltipDirective,
                         HostDynamicDirective,
-                        ResizingComponent
+                        ResizingComponent,
+                        TopTabComponent
                     ],
                     exports: [
                         TopToolbarComponent,
@@ -7390,7 +7526,8 @@ var CommonComponentsModule = /** @class */ (function () {
                         LeftSideBarComponent,
                         TooltipDirective,
                         HostDynamicDirective,
-                        ResizingComponent
+                        ResizingComponent,
+                        TopTabComponent
                     ],
                     providers: providers
                 },] }
@@ -7410,5 +7547,5 @@ var CommonComponentsModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
