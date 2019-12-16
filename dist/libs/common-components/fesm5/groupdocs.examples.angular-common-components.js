@@ -7295,6 +7295,9 @@ var TopTabComponent = /** @class */ (function () {
          */
         function (tabId) {
             _this.activation(tabId);
+            if (tabId === null) {
+                _this.activeTab.emit("");
+            }
         }));
     }
     /**

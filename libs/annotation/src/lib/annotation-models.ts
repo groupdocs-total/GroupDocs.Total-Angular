@@ -1,26 +1,16 @@
 export class AnnotationType {
-  public static TEXT = {id: 'text', name: 'Text annotations', icon: 'highlighter', title: ''};
-  public static AREA = {id: 'area', name: 'Uploaded Images', icon: 'vector-square', title: 'Add area annotation'};
-  public static POINT = {id: 'point', name: 'Point annotation', icon: 'thumbtack', title: 'New point annotation'};
-  public static TEXT_STRIKEOUT = {
-    id: 'text strikeout',
-    name: 'Text strikeout',
-    icon: 'strikethrough',
-    title: 'New text strike annotation'
-  };
-  public static POLYLINE = {
-    id: 'polyline',
-    name: 'Polyline annotations',
-    icon: 'signature',
-    title: 'New polyline annotation'
-  };
-  public static TEXT_FIELD = {id: 'Text field', name: 'Text field', icon: 'i-cursor', title: ''};
-  public static WATERMARK = {id: 'Watermark', name: 'Watermark', icon: 'tint', title: ''};
-  public static TEXT_REPLACEMENT = {id: 'Text replacement', name: 'Text replacement', icon: 'edit', title: ''};
-  public static ARROW = {id: 'arrow', name: 'Arrow annotation', icon: 'mouse-pointer', title: ''};
-  public static TEXT_REDACTION = {id: 'Text redaction', name: 'Text redaction', icon: 'brush', title: ''};
-  public static TEXT_UNDERLINE = {id: 'Text underline', name: 'Text underline', icon: 'underline', title: ''};
-  public static DISTANCE = {id: 'Distance', name: 'Distance annotation', icon: 'ruler', title: ''};
+  public static TEXT = {id: 'text', name: 'Text', icon: 'highlighter'};
+  public static AREA = {id: 'area', name: 'Area', icon: 'vector-square'};
+  public static POINT = {id: 'point', name: 'Point', icon: 'thumbtack'};
+  public static TEXT_STRIKEOUT = {id: 'text strikeout', name: 'Text strikeout', icon: 'strikethrough',};
+  public static POLYLINE = {id: 'polyline', name: 'Polyline', icon: 'signature'};
+  public static TEXT_FIELD = {id: 'Text field', name: 'Text field', icon: 'i-cursor'};
+  public static WATERMARK = {id: 'Watermark', name: 'Watermark', icon: 'tint'};
+  public static TEXT_REPLACEMENT = {id: 'Text replacement', name: 'Text replacement', icon: 'edit'};
+  public static ARROW = {id: 'arrow', name: 'Arrow', icon: 'mouse-pointer'};
+  public static TEXT_REDACTION = {id: 'Text redaction', name: 'Text redaction', icon: 'brush'};
+  public static TEXT_UNDERLINE = {id: 'Text underline', name: 'Text underline', icon: 'underline'};
+  public static DISTANCE = {id: 'Distance', name: 'Distance', icon: 'ruler'};
 
   public static getAnnotationType(id: string) {
     switch (id) {
@@ -49,5 +39,25 @@ export class AnnotationType {
       case AnnotationType.DISTANCE.id:
         return AnnotationType.DISTANCE;
     }
+  }
+}
+
+export class Position {
+  left: number;
+  top: number;
+
+  constructor(left: number, top: number) {
+    this.left = left;
+    this.top = top;
+  }
+}
+
+export class Dimension {
+  width: number;
+  height: number;
+
+  constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
   }
 }

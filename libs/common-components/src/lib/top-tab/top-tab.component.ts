@@ -22,6 +22,9 @@ export class TopTabComponent implements OnInit {
               private _excMessageService: ExceptionMessageService) {
     this._tabActivatorService.activeTabChange.subscribe((tabId: string) => {
       this.activation(tabId);
+      if (tabId === null) {
+        this.activeTab.emit("");
+      }
     });
   }
 

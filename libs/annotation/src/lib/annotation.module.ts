@@ -14,6 +14,8 @@ import {AnnotationAppComponent} from './annotation-app.component';
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import {far} from "@fortawesome/free-regular-svg-icons";
+import {AnnotationComponent} from './annotation/annotation.component';
+import {ActiveAnnotationService} from "./active-annotation.service";
 
 export function initializeApp(annotationConfigService: AnnotationConfigService) {
   const result = () => annotationConfigService.load();
@@ -27,9 +29,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations: [AnnotationAppComponent,
+  declarations: [AnnotationAppComponent, AnnotationComponent,
   ],
-  exports: [AnnotationAppComponent],
+  exports: [AnnotationAppComponent, AnnotationComponent],
   imports:
     [CommonModule,
       CommonComponentsModule,
@@ -40,6 +42,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     [
       ConfigService,
       AnnotationConfigService,
+      ActiveAnnotationService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: ErrorInterceptorService,
@@ -57,7 +60,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
         multi: true,
         deps: [LoadingMaskService]
       }
-    ]
+    ],
+  entryComponents: [AnnotationComponent],
 })
 
 export class AnnotationModule {

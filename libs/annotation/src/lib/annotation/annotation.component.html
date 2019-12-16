@@ -1,0 +1,17 @@
+<div class="gd-annotation"
+     [style.left.px]="position.left" [style.top.px]="position.top"
+     [style.width.px]="dimension.width ? dimension.width : undefined"
+     [style.height.px]="dimension.height ? dimension.height : undefined"
+     (click)="activation()">
+  <div [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
+       (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="dragOver($event)"
+       (panstart)="dragStart($event)" (panmove)="dragging($event)"
+       class="gd-annotation-wrapper">
+  </div>
+
+  <gd-resizing [id]="id" *ngIf="active"
+               (offsetX)="width($event)" (offsetY)="height($event)"
+               (offsetTop)="top($event)" (offsetLeft)="left($event)"
+               [se]="true" [sw]="true" [ne]="true" [nw]="true"
+               [pageHeight]="pageHeight" [pageWidth]="pageWidth"></gd-resizing>
+</div>

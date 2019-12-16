@@ -6216,6 +6216,9 @@ class TopTabComponent {
          */
         (tabId) => {
             this.activation(tabId);
+            if (tabId === null) {
+                this.activeTab.emit("");
+            }
         }));
     }
     /**

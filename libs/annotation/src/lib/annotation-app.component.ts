@@ -1,14 +1,26 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ComponentRef, OnInit} from '@angular/core';
 import {AnnotationConfig} from "./annotation-config";
 import {AnnotationService} from "./annotation.service";
 import {
+  AddDynamicComponentService,
   CommonModals,
   FileCredentials,
   FileDescription,
   FileModel,
-  ModalService, NavigateService, PageModel, WindowService
+  HostingDynamicComponentService,
+  ModalService,
+  NavigateService,
+  PageModel,
+  TopTabActivatorService,
+  Utils,
+  WindowService
 } from "@groupdocs.examples.angular/common-components";
-import {AnnotationType} from "./annotation-models";
+import {AnnotationType, Dimension, Position} from "./annotation-models";
+import {AnnotationComponent} from "./annotation/annotation.component";
+import {ActiveAnnotationService} from "./active-annotation.service";
+import * as jquery from 'jquery';
+
+const $ = jquery;
 
 @Component({
   selector: 'gd-annotation-app',
@@ -61,10 +73,16 @@ export class AnnotationAppComponent implements OnInit {
 
   private activeAnnotationTab: string;
   private fileWasDropped = false;
+  private annotations = new Map<number, ComponentRef<any>>();
+  private creatingAnnotationId: number;
 
   constructor(private _annotationService: AnnotationService,
               private _modalService: ModalService,
               private _navigateService: NavigateService,
+              private _tabActivatorService: TopTabActivatorService,
+              private _hostingComponentsService: HostingDynamicComponentService,
+              private _addDynamicComponentService: AddDynamicComponentService,
+              private _activeAnnotationService: ActiveAnnotationService,
               private _windowService: WindowService) {
 
     this.isDesktop = _windowService.isDesktop();
@@ -314,6 +332,89 @@ export class AnnotationAppComponent implements OnInit {
     for (const page of this.file.pages) {
       page.data = null;
     }
+  }
+
+  createAnnotation($event: MouseEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    if (this.activeAnnotationTab) {
+      const position = Utils.getMousePosition($event);
+
+      const currentPage = document.elementFromPoint(position.x, position.y);
+      if (currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().parent().hasClass("page")) {
+        const documentPage = $(currentPage).parent().parent()[0];
+        const currentPosition = this.getCurrentPosition(position, $(documentPage));
+        const id = $(currentPage).parent().attr('id');
+        let pageNumber = 1;
+        if (id) {
+          const split = id.split('-');
+          pageNumber = split.length === 2 ? parseInt(split[1], 10) : pageNumber;
+        }
+        this.addAnnotationComponent(pageNumber, currentPosition);
+      }
+    }
+  }
+
+  private addAnnotationComponent(pageNumber: number, currentPosition: Position) {
+    const dynamicDirective = this._hostingComponentsService.find(pageNumber);
+    if (dynamicDirective) {
+      const viewContainerRef = dynamicDirective.viewContainerRef;
+      const annotationComponent = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, AnnotationComponent);
+      const id = this.annotations.size + 1;
+      (<AnnotationComponent>annotationComponent.instance).id = id;
+      (<AnnotationComponent>annotationComponent.instance).position = currentPosition;
+      (<AnnotationComponent>annotationComponent.instance).type = this.activeAnnotationTab;
+      (<AnnotationComponent>annotationComponent.instance).pageNumber = pageNumber;
+      const pageModel = this.file.pages.find(function (p) {
+        return p.number === pageNumber;
+      });
+      (<AnnotationComponent>annotationComponent.instance).pageWidth = pageModel.width;
+      (<AnnotationComponent>annotationComponent.instance).pageHeight = pageModel.height;
+      this.annotations.set(id, annotationComponent);
+      this._activeAnnotationService.changeActive(id);
+      this.creatingAnnotationId = id;
+      this._tabActivatorService.changeActiveTab(null);
+      return id;
+    }
+    return null;
+  }
+
+  resizingCreatingAnnotation($event: MouseEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    if (this.creatingAnnotationId) {
+      const position = Utils.getMousePosition($event);
+      const annotationComponent = this.annotations.get(this.creatingAnnotationId);
+      const positionAnnotation = (<AnnotationComponent>annotationComponent.instance).position;
+      const pageNumber = (<AnnotationComponent>annotationComponent.instance).pageNumber;
+      const currentPosition = this.getCurrentPosition(position, $("#page-" + pageNumber));
+      let width, height = 0;
+      if (currentPosition.left < positionAnnotation.left) {
+        width = positionAnnotation.left - currentPosition.left;
+        currentPosition.left = positionAnnotation.left;
+      } else {
+        width = currentPosition.left - positionAnnotation.left;
+      }
+      if (currentPosition.top < positionAnnotation.top) {
+        height = positionAnnotation.top - currentPosition.top;
+        currentPosition.top = positionAnnotation.top;
+      } else {
+        height = currentPosition.top - positionAnnotation.top;
+      }
+      (<AnnotationComponent>annotationComponent.instance).dimension = new Dimension(width, height);
+    }
+  }
+
+  private getCurrentPosition(position, page) {
+    const left = position.x - page.offset().left;
+    const top = position.y - page.offset().top;
+    return new Position(left, top);
+  }
+
+  finishCreatingAnnotation($event: MouseEvent) {
+    this.creatingAnnotationId = null;
   }
 
 }

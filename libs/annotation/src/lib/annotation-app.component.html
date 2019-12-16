@@ -47,7 +47,8 @@
         </gd-tab>
       </gd-tabs>
     </gd-tabbed-toolbars>
-    <div class="doc-panel" *ngIf="file">
+    <div class="doc-panel" *ngIf="file" (mousedown)="createAnnotation($event)" (mousemove)="resizingCreatingAnnotation($event)"
+    (mouseup)="finishCreatingAnnotation($event)">
       <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig" gdScrollable
                    [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
     </div>
