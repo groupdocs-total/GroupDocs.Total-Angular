@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Dimension, Position} from "../annotation-models";
+import {AnnotationType, Dimension, Position} from "../annotation-models";
 import {ActiveAnnotationService} from "../active-annotation.service";
 import {Utils} from "@groupdocs.examples.angular/common-components";
 import * as jquery from 'jquery';
@@ -102,5 +102,14 @@ export class AnnotationComponent implements OnInit {
     return currentPage && $(currentPage).parent().parent() &&
       ($(currentPage).parent().parent().parent().hasClass("page") ||
         $(currentPage).parent().parent().parent().parent().parent().hasClass("page"));
+  }
+
+  getAnnotationClass() {
+    switch (this.type) {
+      case AnnotationType.TEXT.id:
+        return "gd-text-annotation";
+      default:
+        return "";
+    }
   }
 }

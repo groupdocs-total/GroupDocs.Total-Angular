@@ -6,7 +6,7 @@
   <div [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
        (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="dragOver($event)"
        (panstart)="dragStart($event)" (panmove)="dragging($event)"
-       class="gd-annotation-wrapper">
+       class="gd-annotation-wrapper" [ngClass]="getAnnotationClass()">
   </div>
 
   <gd-resizing [id]="id" *ngIf="active"
