@@ -18,11 +18,13 @@ export * from './lib/button/button.component';
 export * from './lib/disabled-cursor.directive';
 export * from './lib/dnd.directive';
 export * from './lib/document/document.component';
+export * from './lib/excel-document/excel-document.component';
 export * from './lib/error-modal/error-modal.component';
 export * from './lib/init-state/init-state.component';
 export * from './lib/logo/logo.component';
 export * from './lib/modal/modal.component';
 export * from './lib/page/page.component';
+export * from './lib/excel-page/excel-page.component';
 export * from './lib/password-required/password-required.component';
 export * from './lib/render-print.directive';
 export * from './lib/rotation.directive';
@@ -56,4 +58,5 @@ export * from './lib/left-side-bar/left-side-bar.component'
 export * from './lib/add-dynamic-component.service'
 export * from './lib/host-dynamic.directive'
 export * from './lib/hosting-dynamic-component.service'
+export * from './lib/excel-page.service'
 

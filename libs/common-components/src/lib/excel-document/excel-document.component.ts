@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
-import { DocumentComponent, WindowService, NavigateService } from '@groupdocs.examples.angular/common-components';
-import { ZoomService } from  '@groupdocs.examples.angular/common-components';
+import { DocumentComponent } from '../document/document.component';
+import { WindowService } from '../window.service';
+import { NavigateService } from '../navigate.service';
+import { ZoomService } from  '../zoom.service';
 import { ExcelPageComponent } from '../excel-page/excel-page.component';
 
 @Component({

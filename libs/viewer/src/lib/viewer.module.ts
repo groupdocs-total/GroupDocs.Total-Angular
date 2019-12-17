@@ -12,8 +12,6 @@ import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
 import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
-import {ExcelDocumentComponent} from './excel-document/excel-document.component';
-import {ExcelPageComponent} from './excel-page/excel-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
@@ -30,9 +28,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 @NgModule({
   declarations: [
     ViewerAppComponent,
-    ThumbnailsComponent,
-    ExcelDocumentComponent,
-    ExcelPageComponent],
+    ThumbnailsComponent
+  ],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -42,8 +39,6 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   exports : [
     ViewerAppComponent,
     ThumbnailsComponent,
-    ExcelDocumentComponent,
-    ExcelPageComponent,
     CommonComponentsModule
   ],
   providers: [

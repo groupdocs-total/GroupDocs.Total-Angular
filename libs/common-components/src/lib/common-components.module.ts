@@ -15,7 +15,9 @@ import {ModalComponent} from './modal/modal.component';
 import {BrowseFilesModalComponent} from './browse-files-modal/browse-files-modal.component';
 import {FileModel, FileService, FileUtil, Utils} from "./file.service";
 import {DocumentComponent} from './document/document.component';
+import {ExcelDocumentComponent} from './excel-document/excel-document.component';
 import {PageComponent} from './page/page.component';
+import {ExcelPageComponent} from './excel-page/excel-page.component';
 import {HighlightSearchPipe, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe} from "./pipes";
 import {UploadFileZoneComponent} from './upload-file-zone/upload-file-zone.component';
 import {UploadFilesService} from "./upload-files.service";
@@ -68,6 +70,7 @@ import {AddDynamicComponentService} from "./add-dynamic-component.service";
 import {HostDynamicDirective} from './host-dynamic.directive';
 import {HostingDynamicComponentService} from "./hosting-dynamic-component.service";
 import {ResizingComponent} from './resizing/resizing.component';
+import {ExcelPageService} from "./excel-page.service";
 
 const providers = [ConfigService,
   Api,
@@ -98,7 +101,8 @@ const providers = [ConfigService,
   LoadingMaskService,
   TabActivatorService,
   AddDynamicComponentService,
-  HostingDynamicComponentService];
+  HostingDynamicComponentService,
+  ExcelPageService];
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
@@ -111,7 +115,9 @@ const providers = [ConfigService,
     ModalComponent,
     BrowseFilesModalComponent,
     DocumentComponent,
+    ExcelDocumentComponent,
     PageComponent,
+    ExcelPageComponent,
     SanitizeHtmlPipe,
     SanitizeResourceHtmlPipe,
     SanitizeStylePipe,
@@ -155,7 +161,9 @@ const providers = [ConfigService,
     ModalComponent,
     BrowseFilesModalComponent,
     DocumentComponent,
+    ExcelDocumentComponent,
     PageComponent,
+    ExcelPageComponent,
     SanitizeResourceHtmlPipe,
     SanitizeStylePipe,
     HighlightSearchPipe,

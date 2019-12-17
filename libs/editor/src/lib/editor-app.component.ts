@@ -18,12 +18,12 @@ import {
   EditHtmlService,
   RenderPrintService,
   WindowService,
-  LoadingMaskService, Option, FileUtil
+  LoadingMaskService, Option, FileUtil,
+  ExcelPageService
 } from '@groupdocs.examples.angular/common-components';
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
 import * as jquery from 'jquery';
-import { ExcelPageService } from './excel-page.service';
 const $ = jquery;
 
 @Component({
@@ -522,7 +522,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
  saveFile(credentials: FileCredentials) {
     if (!this.file || !this.file.pages)
       return;
-    let updatedTextBackup = this._excelPageService.getPageWithoutHeader(this.textBackup);
+    const updatedTextBackup = this._excelPageService.getPageWithoutHeader(this.textBackup);
     const saveFile = new SaveFile(credentials.guid, credentials.password, updatedTextBackup);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
