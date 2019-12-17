@@ -38,10 +38,10 @@ export class AnnotationAppComponent implements OnInit {
   credentials: FileCredentials;
   annotationTypes = [
     AnnotationType.TEXT,
-    AnnotationType.TEXT_UNDERLINE,
-    AnnotationType.TEXT_REDACTION,
-    AnnotationType.TEXT_REPLACEMENT,
     AnnotationType.TEXT_STRIKEOUT,
+    AnnotationType.TEXT_UNDERLINE,
+    AnnotationType.TEXT_REPLACEMENT,
+    AnnotationType.TEXT_REDACTION,
     AnnotationType.POLYLINE,
     AnnotationType.ARROW,
     AnnotationType.DISTANCE,

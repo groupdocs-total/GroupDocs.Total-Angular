@@ -61,3 +61,16 @@ export class Dimension {
     this.height = height;
   }
 }
+
+export class AnnotationData {
+
+  constructor() {
+    this.text = "";
+    this.color = "#000"
+  }
+
+  text: string;
+  font: string;
+  fontSize: number;
+  color: string;
+}

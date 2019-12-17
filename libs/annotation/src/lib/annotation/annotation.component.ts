@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {AnnotationType, Dimension, Position} from "../annotation-models";
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AnnotationData, AnnotationType, Dimension, Position} from "../annotation-models";
 import {ActiveAnnotationService} from "../active-annotation.service";
 import {Utils} from "@groupdocs.examples.angular/common-components";
 import * as jquery from 'jquery';
@@ -11,7 +11,7 @@ const $ = jquery;
   templateUrl: './annotation.component.html',
   styleUrls: ['./annotation.component.less']
 })
-export class AnnotationComponent implements OnInit {
+export class AnnotationComponent implements OnInit, AfterViewInit {
   id: number;
   position: Position;
   type: string;
@@ -20,6 +20,7 @@ export class AnnotationComponent implements OnInit {
   active = true;
   dimension = new Dimension(0, 0);
   pageNumber: number;
+  data = new AnnotationData();
 
   private oldPosition: { x: number; y: number };
 
@@ -30,6 +31,17 @@ export class AnnotationComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    if (this.type === AnnotationType.TEXT_REPLACEMENT.id) {
+      setTimeout(() => {
+        const element = $("#text");
+        if (element) {
+          element.focus();
+        }
+      }, 100);
+    }
   }
 
   activation() {
@@ -108,8 +120,28 @@ export class AnnotationComponent implements OnInit {
     switch (this.type) {
       case AnnotationType.TEXT.id:
         return "gd-text-annotation";
+      case AnnotationType.TEXT_STRIKEOUT.id:
+        return "gd-text-annotation gd-text-strikeout-annotation";
+      case AnnotationType.TEXT_UNDERLINE.id:
+        return "gd-text-annotation gd-text-underline-annotation";
+      case AnnotationType.TEXT_REDACTION.id:
+        return "gd-text-redaction-annotation";
+      case AnnotationType.TEXT_REPLACEMENT.id:
+        return "gd-text-replacement-annotation";
       default:
         return "";
     }
+  }
+
+  isStrikeoutOrUnderline() {
+    return this.type === AnnotationType.TEXT_STRIKEOUT.id || this.type === AnnotationType.TEXT_UNDERLINE.id;
+  }
+
+  isTextReplacement() {
+    return this.type === AnnotationType.TEXT_REPLACEMENT.id;
+  }
+
+  saveText(value: string) {
+    this.data.text = value;
   }
 }

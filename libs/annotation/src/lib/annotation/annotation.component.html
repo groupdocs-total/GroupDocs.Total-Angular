@@ -7,6 +7,14 @@
        (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="dragOver($event)"
        (panstart)="dragStart($event)" (panmove)="dragging($event)"
        class="gd-annotation-wrapper" [ngClass]="getAnnotationClass()">
+    <div class="gd-text-strikeout-line" *ngIf="isStrikeoutOrUnderline()"></div>
+    <textarea class="gd-text" *ngIf="isTextReplacement()" [value]="data?.text"
+              id="text" #text (keyup)="saveText(text.value)"
+              [style.color]="data?.color"
+              [style.font-family]="data?.font"
+              [style.font-size.px]="data?.fontSize"
+              [style.width.px]="dimension.width ? dimension.width : undefined"
+              [style.height.px]="dimension.height ? dimension.height : undefined"></textarea>
   </div>
 
   <gd-resizing [id]="id" *ngIf="active"

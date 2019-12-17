@@ -5,9 +5,42 @@
   .gd-annotation-wrapper {
     height: inherit;
     outline: 1px solid #679FFA;
+    display: flex;
+
+    .gd-text-strikeout-line {
+      background-color: #E04E4E;
+      height: 2px;
+      width: 100%;
+    }
+
+    .gd-text {
+      width: inherit;
+      height: inherit;
+      border: none;
+      resize: none;
+      outline: none;
+      margin: 0px;
+      padding: 0px;
+    }
   }
 
   .gd-text-annotation {
     background-color: rgba(151, 151, 240, 0.51);
+  }
+
+  .gd-text-strikeout-annotation {
+    align-items: center;
+  }
+
+  .gd-text-underline-annotation {
+    align-items: end;
+  }
+
+  .gd-text-redaction-annotation {
+    background-color: #000;
+  }
+
+  .gd-text-replacement-annotation {
+    background-color: #FFFFFF;
   }
 }
