@@ -50,6 +50,10 @@ export class Position {
     this.left = left;
     this.top = top;
   }
+
+  static clone(position: Position) {
+    return new Position(position.left, position.top);
+  }
 }
 
 export class Dimension {

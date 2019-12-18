@@ -1,11 +1,13 @@
 .gd-annotation {
   position: absolute !important;
   cursor: pointer;
+  z-index: 9;
 
   .gd-annotation-wrapper {
     height: inherit;
     outline: 1px solid #679FFA;
     display: flex;
+    z-index: 9;
 
     .gd-text-strikeout-line {
       background-color: #E04E4E;
@@ -43,4 +45,13 @@
   .gd-text-replacement-annotation {
     background-color: #FFFFFF;
   }
+}
+
+.svg {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

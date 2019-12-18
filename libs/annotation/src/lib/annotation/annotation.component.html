@@ -17,9 +17,16 @@
               [style.height.px]="dimension.height ? dimension.height : undefined"></textarea>
   </div>
 
-  <gd-resizing [id]="id" *ngIf="active"
+  <gd-resizing [id]="id" *ngIf="active && !isPolyline()"
                (offsetX)="width($event)" (offsetY)="height($event)"
                (offsetTop)="top($event)" (offsetLeft)="left($event)"
                [se]="true" [sw]="true" [ne]="true" [nw]="true"
                [pageHeight]="pageHeight" [pageWidth]="pageWidth"></gd-resizing>
 </div>
+<svg *ngIf="isPolyline()" class="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!--<line attr.x1="{{ lastPosition.x }}" attr.y1="{{ lastPosition.y }}" attr.x2="{{ currPosition.x }}"
+        attr.y2="{{ currPosition.y }}" [ngStyle]="setStyles()"></line>-->
+  <polyline attr.id="{{id}}" attr.points="{{ pointsValue }}" [ngStyle]="setStyles()">
+
+  </polyline>
+</svg>

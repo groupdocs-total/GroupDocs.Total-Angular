@@ -387,23 +387,14 @@ export class AnnotationAppComponent implements OnInit {
     if (this.creatingAnnotationId) {
       const position = Utils.getMousePosition($event);
       const annotationComponent = this.annotations.get(this.creatingAnnotationId);
-      const positionAnnotation = (<AnnotationComponent>annotationComponent.instance).position;
+      const type = (<AnnotationComponent>annotationComponent.instance).type;
       const pageNumber = (<AnnotationComponent>annotationComponent.instance).pageNumber;
       const currentPosition = this.getCurrentPosition(position, $("#page-" + pageNumber));
-      let width, height = 0;
-      if (currentPosition.left < positionAnnotation.left) {
-        width = positionAnnotation.left - currentPosition.left;
-        currentPosition.left = positionAnnotation.left;
+      if (type === AnnotationType.POLYLINE.id) {
+        (<AnnotationComponent>annotationComponent.instance).draw(currentPosition);
       } else {
-        width = currentPosition.left - positionAnnotation.left;
+        (<AnnotationComponent>annotationComponent.instance).calcDimensions(currentPosition);
       }
-      if (currentPosition.top < positionAnnotation.top) {
-        height = positionAnnotation.top - currentPosition.top;
-        currentPosition.top = positionAnnotation.top;
-      } else {
-        height = currentPosition.top - positionAnnotation.top;
-      }
-      (<AnnotationComponent>annotationComponent.instance).dimension = new Dimension(width, height);
     }
   }
 

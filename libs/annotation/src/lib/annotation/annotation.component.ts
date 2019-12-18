@@ -23,6 +23,8 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   data = new AnnotationData();
 
   private oldPosition: { x: number; y: number };
+  private points = [];
+  private pointsValue = "";
 
   constructor(private _activeAnnotationService: ActiveAnnotationService) {
     this._activeAnnotationService.activeChange.subscribe((id: number) => {
@@ -31,6 +33,8 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.points.push(this.position);
+    this.pointsValue += this.position.left + "," + this.position.top + " ";
   }
 
   ngAfterViewInit(): void {
@@ -102,6 +106,17 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
     if (position.x && position.y && this.isOnPage(position)) {
       const left = position.x - this.oldPosition.x;
       const top = position.y - this.oldPosition.y;
+      if (this.type === AnnotationType.POLYLINE.id) {
+        if (!this.checkDragging(left, top)) {
+          return;
+        }
+        this.pointsValue = "";
+        for (const point of this.points) {
+          point.left = point.left + left;
+          point.top = point.top + top;
+          this.pointsValue += point.left + "," + point.top + " ";
+        }
+      }
       this.position.left += left;
       this.position.top += top;
       this.correctPosition();
@@ -143,5 +158,53 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
 
   saveText(value: string) {
     this.data.text = value;
+  }
+
+  draw(position: Position) {
+    this.points.push(position);
+    this.pointsValue += position.left + "," + position.top + " ";
+    this.calcPositionAndDimension(position);
+  }
+
+  setStyles() {
+    return {
+      'stroke': '#82abc7',
+      'stroke-width': 2,
+      'fill-opacity': 0,
+      'id': 'gd-polyline-annotation-' + this.id,
+      'class': 'gd-annotation annotation svg'
+    };
+  }
+
+  isPolyline() {
+    return this.type === AnnotationType.POLYLINE.id;
+  }
+
+  private calcPositionAndDimension(position: Position) {
+    const leftTop = new Position(Number.MAX_VALUE, Number.MAX_VALUE);
+    const rightBottom = new Position(Number.MIN_VALUE, Number.MIN_VALUE);
+    for (const point of this.points) {
+      leftTop.left = (point.left < leftTop.left) ? point.left : leftTop.left;
+      leftTop.top = (point.top < leftTop.top) ? point.top : leftTop.top;
+      rightBottom.left = (point.left >= rightBottom.left) ? point.left : rightBottom.left;
+      rightBottom.top = (point.top >= rightBottom.top) ? point.top : rightBottom.top;
+    }
+    this.dimension.width = rightBottom.left - leftTop.left;
+    this.dimension.height = rightBottom.top - leftTop.top;
+    this.position = leftTop;
+  }
+
+  calcDimensions(currentPosition: Position) {
+    this.dimension.width = currentPosition.left - this.position.left;
+    this.dimension.height = currentPosition.top - this.position.top;
+  }
+
+  private checkDragging(left: number, top: number) {
+    if (this.position.left + left < 0 || this.position.top + top < 0 ||
+      this.position.top + top + this.dimension.height > this.pageHeight ||
+      this.position.left + left + this.dimension.width > this.pageWidth) {
+      return false;
+    }
+    return true;
   }
 }
