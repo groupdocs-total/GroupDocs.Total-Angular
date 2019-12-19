@@ -1,5 +1,5 @@
 <div class="gd-annotation"
-     [style.left.px]="position.left" [style.top.px]="position.top"
+     [style.left.px]="leftTop.left" [style.top.px]="leftTop.top"
      [style.width.px]="dimension.width ? dimension.width : undefined"
      [style.height.px]="dimension.height ? dimension.height : undefined"
      (click)="activation()">
@@ -15,18 +15,28 @@
               [style.font-size.px]="data?.fontSize"
               [style.width.px]="dimension.width ? dimension.width : undefined"
               [style.height.px]="dimension.height ? dimension.height : undefined"></textarea>
+    <div *ngIf="isPoint()" class="gd-point">
+      <fa-icon class="icon" [icon]="['fas','thumbtack']" [size]="'lg'"></fa-icon>
+    </div>
   </div>
 
-  <gd-resizing [id]="id" *ngIf="active && !isPolyline()"
+  <gd-resizing [id]="id" *ngIf="active && !isSVG() && !isPoint()"
                (offsetX)="width($event)" (offsetY)="height($event)"
                (offsetTop)="top($event)" (offsetLeft)="left($event)"
                [se]="true" [sw]="true" [ne]="true" [nw]="true"
                [pageHeight]="pageHeight" [pageWidth]="pageWidth"></gd-resizing>
 </div>
-<svg *ngIf="isPolyline()" class="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <!--<line attr.x1="{{ lastPosition.x }}" attr.y1="{{ lastPosition.y }}" attr.x2="{{ currPosition.x }}"
-        attr.y2="{{ currPosition.y }}" [ngStyle]="setStyles()"></line>-->
-  <polyline attr.id="{{id}}" attr.points="{{ pointsValue }}" [ngStyle]="setStyles()">
-
+<svg *ngIf="isSVG()" class="svg" xmlns="http://www.w3.org/2000/svg">
+  <polyline *ngIf="isPolyline()" [attr.id]="id" [attr.points]="pointsValue" [ngStyle]="setStyles()">
   </polyline>
+  <path id="{{'gd-path-' + id}}" *ngIf="isPath()" [attr.d]="pathValue" [attr.marker-end]="bottom()"
+        [attr.marker-start]="head()" [ngStyle]="setStyles()">
+    <title *ngIf="isDistance()" [ngStyle]="distanceTextOptions()">{{ distanceValue }}</title>
+  </path>
+  <text *ngIf="isDistance()" [ngStyle]="distanceTextOptions()" [attr.x]="getTextX()"
+        [attr.y]="0">
+    <textPath [attr.href]="'#gd-path-' + id">
+      {{ distanceValue }}
+    </textPath>
+  </text>
 </svg>

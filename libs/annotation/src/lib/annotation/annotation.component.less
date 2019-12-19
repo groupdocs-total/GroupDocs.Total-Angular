@@ -3,10 +3,13 @@
   cursor: pointer;
   z-index: 9;
 
-  .gd-annotation-wrapper {
-    height: inherit;
+  .gd-annotation-wrapper-border {
     outline: 1px solid #679FFA;
     display: flex;
+  }
+
+  .gd-annotation-wrapper {
+    height: inherit;
     z-index: 9;
 
     .gd-text-strikeout-line {
@@ -23,6 +26,23 @@
       outline: none;
       margin: 0px;
       padding: 0px;
+    }
+
+    .gd-point {
+      background-color: #7CBC46;
+      width: 41px;
+      height: 41px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -khtml-border-radius: 50%;
+      box-shadow: 0px 1px 1px 1px #bbb;
+      -moz-box-shadow: 0px 1px 1px 1px #bbb;
+      -webkit-box-shadow: 0px 1px 1px 1px #bbb;
     }
   }
 
@@ -54,4 +74,10 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.annotation-svg {
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
 }

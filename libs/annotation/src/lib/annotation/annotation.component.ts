@@ -12,8 +12,10 @@ const $ = jquery;
   styleUrls: ['./annotation.component.less']
 })
 export class AnnotationComponent implements OnInit, AfterViewInit {
+
   id: number;
   position: Position;
+  leftTop: Position;
   type: string;
   pageWidth: number;
   pageHeight: number;
@@ -21,10 +23,13 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   dimension = new Dimension(0, 0);
   pageNumber: number;
   data = new AnnotationData();
+  pathValue: string;
+  distanceValue = '0px';
+  pointsValue = "";
 
   private oldPosition: { x: number; y: number };
   private points = [];
-  private pointsValue = "";
+  private endPosition: Position;
 
   constructor(private _activeAnnotationService: ActiveAnnotationService) {
     this._activeAnnotationService.activeChange.subscribe((id: number) => {
@@ -32,9 +37,17 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
     });
   }
 
+  static isOnPage(position) {
+    const currentPage = document.elementFromPoint(position.x, position.y);
+    return currentPage && $(currentPage).parent().parent() &&
+      ($(currentPage).parent().parent().parent().hasClass("page") ||
+        $(currentPage).parent().parent().parent().parent().parent().hasClass("page"));
+  }
+
   ngOnInit() {
-    this.points.push(this.position);
-    this.pointsValue += this.position.left + "," + this.position.top + " ";
+    this.leftTop = this.position;
+    this.addPoint(this.position);
+    this.setEndPosition(this.position);
   }
 
   ngAfterViewInit(): void {
@@ -103,10 +116,10 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   dragging($event) {
     $event.preventDefault();
     const position = Utils.getMousePosition($event);
-    if (position.x && position.y && this.isOnPage(position)) {
+    if (position.x && position.y && AnnotationComponent.isOnPage(position)) {
       const left = position.x - this.oldPosition.x;
       const top = position.y - this.oldPosition.y;
-      if (this.type === AnnotationType.POLYLINE.id) {
+      if (this.isPolyline()) {
         if (!this.checkDragging(left, top)) {
           return;
         }
@@ -116,35 +129,42 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
           point.top = point.top + top;
           this.pointsValue += point.left + "," + point.top + " ";
         }
+      } else if (this.isPath()) {
+        if (!this.checkDragging(left, top)) {
+          return;
+        }
+        this.endPosition.left += left;
+        this.endPosition.top += top;
+        this.position.left += left;
+        this.position.top += top;
+        this.pathValue = "M" + this.position.left + "," + this.position.top + " L" + this.endPosition.left + "," + this.endPosition.top;
+      } else {
+        this.position.left += left;
+        this.position.top += top;
       }
-      this.position.left += left;
-      this.position.top += top;
+      this.leftTop.left += left;
+      this.leftTop.top += top;
       this.correctPosition();
       this.oldPosition = position;
     }
   }
 
-  isOnPage(position) {
-    const currentPage = document.elementFromPoint(position.x, position.y);
-    return currentPage && $(currentPage).parent().parent() &&
-      ($(currentPage).parent().parent().parent().hasClass("page") ||
-        $(currentPage).parent().parent().parent().parent().parent().hasClass("page"));
-  }
-
   getAnnotationClass() {
     switch (this.type) {
       case AnnotationType.TEXT.id:
-        return "gd-text-annotation";
+        return "gd-annotation-wrapper-border gd-text-annotation";
       case AnnotationType.TEXT_STRIKEOUT.id:
-        return "gd-text-annotation gd-text-strikeout-annotation";
+        return "gd-annotation-wrapper-border gd-text-annotation gd-text-strikeout-annotation";
       case AnnotationType.TEXT_UNDERLINE.id:
-        return "gd-text-annotation gd-text-underline-annotation";
+        return "gd-annotation-wrapper-border gd-text-annotation gd-text-underline-annotation";
       case AnnotationType.TEXT_REDACTION.id:
-        return "gd-text-redaction-annotation";
+        return "gd-annotation-wrapper-border gd-text-redaction-annotation";
       case AnnotationType.TEXT_REPLACEMENT.id:
-        return "gd-text-replacement-annotation";
-      default:
+        return "gd-annotation-wrapper-border gd-text-replacement-annotation";
+      case AnnotationType.POINT.id:
         return "";
+      default:
+        return "gd-annotation-wrapper-border";
     }
   }
 
@@ -161,18 +181,22 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   draw(position: Position) {
-    this.points.push(position);
-    this.pointsValue += position.left + "," + position.top + " ";
-    this.calcPositionAndDimension(position);
+    if (this.isPolyline()) {
+      this.addPoint(position);
+    } else if (this.isPath()) {
+      this.setEndPosition(position);
+      this.distanceValue = this.getDistance() + "px";
+    }
+    this.calcPositionAndDimension();
   }
 
   setStyles() {
     return {
-      'stroke': '#82abc7',
+      'stroke': '#579AF0',
       'stroke-width': 2,
       'fill-opacity': 0,
-      'id': 'gd-polyline-annotation-' + this.id,
-      'class': 'gd-annotation annotation svg'
+      'id': (this.isPolyline() ? 'gd-polyline-annotation-' : (this.isDistance() ? 'gd-distance-annotation-' : 'gd-arrow-annotation-')) + this.id,
+      'class': 'annotation-svg',
     };
   }
 
@@ -180,18 +204,25 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
     return this.type === AnnotationType.POLYLINE.id;
   }
 
-  private calcPositionAndDimension(position: Position) {
+  private calcPositionAndDimension() {
     const leftTop = new Position(Number.MAX_VALUE, Number.MAX_VALUE);
     const rightBottom = new Position(Number.MIN_VALUE, Number.MIN_VALUE);
-    for (const point of this.points) {
-      leftTop.left = (point.left < leftTop.left) ? point.left : leftTop.left;
-      leftTop.top = (point.top < leftTop.top) ? point.top : leftTop.top;
-      rightBottom.left = (point.left >= rightBottom.left) ? point.left : rightBottom.left;
-      rightBottom.top = (point.top >= rightBottom.top) ? point.top : rightBottom.top;
+    if (this.isPolyline()) {
+      for (const point of this.points) {
+        leftTop.left = Math.min(point.left, leftTop.left);
+        leftTop.top = Math.min(point.top, leftTop.top);
+        rightBottom.left = Math.max(point.left, rightBottom.left);
+        rightBottom.top = Math.max(point.top, rightBottom.top);
+      }
+    } else {
+      leftTop.left = Math.min(this.position.left, this.endPosition.left);
+      leftTop.top = Math.min(this.position.top, this.endPosition.top);
+      rightBottom.left = Math.max(this.position.left, this.endPosition.left);
+      rightBottom.top = Math.max(this.position.top, this.endPosition.top);
     }
     this.dimension.width = rightBottom.left - leftTop.left;
     this.dimension.height = rightBottom.top - leftTop.top;
-    this.position = leftTop;
+    this.leftTop = leftTop;
   }
 
   calcDimensions(currentPosition: Position) {
@@ -200,11 +231,59 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   private checkDragging(left: number, top: number) {
-    if (this.position.left + left < 0 || this.position.top + top < 0 ||
-      this.position.top + top + this.dimension.height > this.pageHeight ||
-      this.position.left + left + this.dimension.width > this.pageWidth) {
-      return false;
-    }
-    return true;
+    return !(this.leftTop.left + left < 0 || this.leftTop.top + top < 0 ||
+      this.leftTop.top + top + this.dimension.height > this.pageHeight ||
+      this.leftTop.left + left + this.dimension.width > this.pageWidth);
+  }
+
+  isPoint() {
+    return this.type === AnnotationType.POINT.id;
+  }
+
+  isSVG() {
+    return this.type === AnnotationType.POLYLINE.id ||
+      this.type === AnnotationType.DISTANCE.id ||
+      this.type === AnnotationType.ARROW.id;
+  }
+
+  isDistance() {
+    return this.type === AnnotationType.DISTANCE.id;
+  }
+
+  distanceTextOptions() {
+    return {'font-size': "12px"}
+  }
+
+  isPath() {
+    return this.type === AnnotationType.DISTANCE.id ||
+      this.type === AnnotationType.ARROW.id;
+  }
+
+  private setEndPosition(position: Position) {
+    this.endPosition = position;
+    this.pathValue = "M" + this.position.left + "," + this.position.top + " L" + this.endPosition.left + "," + this.endPosition.top;
+  }
+
+  private addPoint(position: Position) {
+    this.points.push(position);
+    this.pointsValue += position.left + "," + position.top + " ";
+  }
+
+  private getDistance() {
+    const xs = this.position.left - this.endPosition.left;
+    const ys = this.position.top - this.endPosition.top;
+    return Math.round(Math.sqrt(xs * xs + ys * ys));
+  }
+
+  bottom() {
+    return 'url(' + window.location + '#end)';
+  }
+
+  head() {
+    return this.isDistance() ? 'url(' + window.location + '#start)' : "";
+  }
+
+  getTextX() {
+    return this.getDistance() / 2;
   }
 }

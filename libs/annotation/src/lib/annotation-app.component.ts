@@ -390,7 +390,7 @@ export class AnnotationAppComponent implements OnInit {
       const type = (<AnnotationComponent>annotationComponent.instance).type;
       const pageNumber = (<AnnotationComponent>annotationComponent.instance).pageNumber;
       const currentPosition = this.getCurrentPosition(position, $("#page-" + pageNumber));
-      if (type === AnnotationType.POLYLINE.id) {
+      if (type === AnnotationType.POLYLINE.id || type === AnnotationType.DISTANCE.id || type === AnnotationType.ARROW.id) {
         (<AnnotationComponent>annotationComponent.instance).draw(currentPosition);
       } else {
         (<AnnotationComponent>annotationComponent.instance).calcDimensions(currentPosition);
