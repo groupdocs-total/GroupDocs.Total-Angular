@@ -522,13 +522,21 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
  saveFile(credentials: FileCredentials) {
     if (!this.file || !this.file.pages)
       return;
-    const updatedTextBackup = this._excelPageService.getPageWithoutHeader(this.textBackup);
+    const updatedTextBackup = credentials.guid.includes('xls') ? 
+                              this._excelPageService.getPageWithoutHeader(this.textBackup) :
+                              this.getPageWithRootTags(this.textBackup);
     const saveFile = new SaveFile(credentials.guid, credentials.password, updatedTextBackup);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);
       this._modalService.open(CommonModals.OperationSuccess);
     });
+  }
+
+  getPageWithRootTags(data) {
+    const doc = new DOMParser().parseFromString(data, "text/html");
+    const resultData = new XMLSerializer().serializeToString(doc);
+    return resultData;
   }
 
   printFile() {
