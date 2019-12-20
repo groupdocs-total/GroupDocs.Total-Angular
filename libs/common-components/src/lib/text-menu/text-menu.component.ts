@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormattingService, OnCloseService, Option} from "@groupdocs.examples.angular/common-components";
 import * as jquery from 'jquery';
+import {FormattingService} from "../formatting.service";
+import {OnCloseService} from "../on-close.service";
+import {Option} from "../select/select.component";
 
 const $ = jquery;
 

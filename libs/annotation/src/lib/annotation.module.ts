@@ -16,6 +16,8 @@ import {fas} from "@fortawesome/free-solid-svg-icons";
 import {far} from "@fortawesome/free-regular-svg-icons";
 import {AnnotationComponent} from './annotation/annotation.component';
 import {ActiveAnnotationService} from "./active-annotation.service";
+import {RemoveAnnotationService} from "./remove-annotation.service";
+import {CommentAnnotationService} from "./comment-annotation.service";
 
 export function initializeApp(annotationConfigService: AnnotationConfigService) {
   const result = () => annotationConfigService.load();
@@ -43,6 +45,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
       ConfigService,
       AnnotationConfigService,
       ActiveAnnotationService,
+      RemoveAnnotationService,
+      CommentAnnotationService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: ErrorInterceptorService,

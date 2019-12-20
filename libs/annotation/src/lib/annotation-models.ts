@@ -78,3 +78,19 @@ export class AnnotationData {
   fontSize: number;
   color: string;
 }
+
+export class CommentAnnotation {
+  constructor(id: number) {
+    this.id = id;
+  }
+
+  id: number;
+}
+
+export class RemoveAnnotation {
+  constructor(id: number) {
+    this.id = id;
+  }
+
+  id: number;
+}

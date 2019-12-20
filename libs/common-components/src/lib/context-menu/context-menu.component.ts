@@ -1,8 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {
-  Formatting,
-  WindowService
-} from "@groupdocs.examples.angular/common-components";
+import {Formatting} from "../formatting.service";
+import {WindowService} from "../window.service";
+
+export class MenuType {
+  public static FOR_SIGNATURE = "signature";
+  public static FOR_ANNOTATION = "annotation";
+}
 
 @Component({
   selector: 'gd-context-menu',
@@ -15,10 +18,12 @@ export class ContextMenuComponent implements OnInit {
   @Input() topPosition: number;
   @Input() lock = false;
   @Input() translation = 0;
+  @Input() menuType: string;
   @Output() changeFormatting = new EventEmitter<Formatting>();
-  @Output() removeSign = new EventEmitter<boolean>();
+  @Output() removeItem = new EventEmitter<boolean>();
   @Output() copySign = new EventEmitter<boolean>();
   @Output() lockOut = new EventEmitter<boolean>();
+  @Output() comment = new EventEmitter<boolean>();
 
   isMobile: boolean;
 
@@ -66,8 +71,8 @@ export class ContextMenuComponent implements OnInit {
     this.saveChanges();
   }
 
-  deleteSign() {
-    this.removeSign.emit(true);
+  deleteItem() {
+    this.removeItem.emit(true);
   }
 
   toggleLock() {
@@ -77,5 +82,17 @@ export class ContextMenuComponent implements OnInit {
 
   onCopySign() {
     this.copySign.emit(true);
+  }
+
+  isSignature() {
+    return this.menuType === MenuType.FOR_SIGNATURE;
+  }
+
+  isAnnotation() {
+    return this.menuType === MenuType.FOR_ANNOTATION;
+  }
+
+  addComment() {
+    this.comment.emit(true);
   }
 }

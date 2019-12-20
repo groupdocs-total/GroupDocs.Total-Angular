@@ -1,8 +1,17 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {AnnotationData, AnnotationType, Dimension, Position} from "../annotation-models";
+import {
+  AnnotationData,
+  AnnotationType,
+  CommentAnnotation,
+  Dimension,
+  Position,
+  RemoveAnnotation
+} from "../annotation-models";
 import {ActiveAnnotationService} from "../active-annotation.service";
-import {Utils} from "@groupdocs.examples.angular/common-components";
+import {Formatting, Utils, MenuType} from "@groupdocs.examples.angular/common-components";
 import * as jquery from 'jquery';
+import {RemoveAnnotationService} from "../remove-annotation.service";
+import {CommentAnnotationService} from "../comment-annotation.service";
 
 const $ = jquery;
 
@@ -30,10 +39,16 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   private oldPosition: { x: number; y: number };
   private points = [];
   private endPosition: Position;
+  private formatting: Formatting;
 
-  constructor(private _activeAnnotationService: ActiveAnnotationService) {
+  constructor(private _activeAnnotationService: ActiveAnnotationService,
+              private _removeAnnotationService: RemoveAnnotationService,
+              private _commentAnnotationService: CommentAnnotationService) {
     this._activeAnnotationService.activeChange.subscribe((id: number) => {
       this.active = this.id === id;
+      if (this.active) {
+        this.setTextFocus();
+      }
     });
   }
 
@@ -51,14 +66,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.type === AnnotationType.TEXT_REPLACEMENT.id) {
-      setTimeout(() => {
-        const element = $("#text");
-        if (element) {
-          element.focus();
-        }
-      }, 100);
-    }
+    this.setTextFocus();
   }
 
   activation() {
@@ -285,5 +293,54 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
 
   getTextX() {
     return this.getDistance() / 2;
+  }
+
+  isText() {
+    return this.type === AnnotationType.TEXT_FIELD.id || this.type === AnnotationType.WATERMARK.id;
+  }
+
+  getFormatting() {
+    const f = this.formatting;
+    const formatting = Formatting.default();
+    if (f) {
+      formatting.fontSize = f.fontSize;
+      formatting.font = f.font;
+      formatting.color = f.color;
+    }
+    return formatting;
+  }
+
+  saveFormatting($event: Formatting) {
+    this.formatting.fontSize = $event.fontSize;
+    this.formatting.font = $event.font;
+    this.formatting.color = $event.color;
+  }
+
+  remove() {
+    this._removeAnnotationService.remove(new RemoveAnnotation(this.id));
+  }
+
+  getMenuShift() {
+    const menuWidth = this.isText() ? 265 : 148;
+    return this.dimension.width > menuWidth ? 0 : (this.dimension.width - menuWidth) * 0.5;
+  }
+
+  getMenuType() {
+    return MenuType.FOR_ANNOTATION;
+  }
+
+  addComment() {
+    this._commentAnnotationService.comment(new CommentAnnotation(this.id));
+  }
+
+  private setTextFocus() {
+    if (this.isText() || this.isTextReplacement()) {
+      setTimeout(() => {
+        const element = $("#text");
+        if (element) {
+          element.focus();
+        }
+      }, 100);
+    }
   }
 }

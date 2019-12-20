@@ -7593,6 +7593,465 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
+    var $$8 = jquery;
+    var TextMenuComponent = /** @class */ (function () {
+        function TextMenuComponent(_onCloseService) {
+            var _this = this;
+            this._onCloseService = _onCloseService;
+            this.decoration = true;
+            this.outFontSize = new core.EventEmitter();
+            this.outFont = new core.EventEmitter();
+            this.outBold = new core.EventEmitter();
+            this.outItalic = new core.EventEmitter();
+            this.outUnderline = new core.EventEmitter();
+            this.outColor = new core.EventEmitter();
+            this.fontSizeOptions = FormattingService.getFontSizeOptions();
+            this.fontOptions = FormattingService.getFontOptions();
+            this.colorPickerShow = false;
+            _onCloseService.onClose.subscribe((/**
+             * @return {?}
+             */
+            function () {
+                _this.colorPickerShow = false;
+            }));
+        }
+        /**
+         * @return {?}
+         */
+        TextMenuComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        TextMenuComponent.prototype.selectFontSize = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            $$8(".gd-wrapper").off("keyup");
+            this.outFontSize.emit($event.value);
+            $$8(".gd-wrapper").on("keyup", (/**
+             * @return {?}
+             */
+            function () {
+                /** @type {?} */
+                var fontElements = document.getElementsByTagName("font");
+                for (var i = 0, len = fontElements.length; i < len; ++i) {
+                    if (fontElements[i].getAttribute('size') === "7") {
+                        fontElements[i].removeAttribute("size");
+                        fontElements[i].style.fontSize = $event + "px";
+                    }
+                }
+            }));
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        TextMenuComponent.prototype.selectFont = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.outFont.emit($event.value);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        TextMenuComponent.prototype.toggleColorPicker = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            this.colorPickerShow = !this.colorPickerShow;
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        TextMenuComponent.prototype.selectColor = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.colorPickerShow = false;
+            this.outColor.emit($event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        TextMenuComponent.prototype.toggleBold = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.outBold.emit(!this.bold);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        TextMenuComponent.prototype.toggleItalic = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.outItalic.emit(!this.italic);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        TextMenuComponent.prototype.toggleUnderline = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.outUnderline.emit(!this.underline);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        TextMenuComponent.prototype.closePicker = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.colorPickerShow = !$event;
+        };
+        TextMenuComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-text-menu',
+                        template: "<div class=\"gd-text-menu\">\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\n             (selected)=\"selectFont($event)\"\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\n             (selected)=\"selectFontSize($event)\"\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"'Bold'\" *ngIf=\"decoration\"\n             (click)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"'Italic'\" *ngIf=\"decoration\"\n             (click)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"'Underline'\" *ngIf=\"decoration\"\n             (click)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"'Color'\" (click)=\"toggleColorPicker($event)\">\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\n  </gd-button>\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\n                   [className]=\"'palette'\"\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\n  <ng-content></ng-content>\n</div>\n",
+                        styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.gd-text-menu .format-select{height:37px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;bottom:0;left:0;right:0;width:100%;height:60px;-webkit-box-align:center;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-200px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        TextMenuComponent.ctorParameters = function () { return [
+            { type: OnCloseService }
+        ]; };
+        TextMenuComponent.propDecorators = {
+            blur: [{ type: core.Input }],
+            fontSize: [{ type: core.Input }],
+            font: [{ type: core.Input }],
+            bold: [{ type: core.Input }],
+            italic: [{ type: core.Input }],
+            underline: [{ type: core.Input }],
+            color: [{ type: core.Input }],
+            decoration: [{ type: core.Input }],
+            outFontSize: [{ type: core.Output }],
+            outFont: [{ type: core.Output }],
+            outBold: [{ type: core.Output }],
+            outItalic: [{ type: core.Output }],
+            outUnderline: [{ type: core.Output }],
+            outColor: [{ type: core.Output }]
+        };
+        return TextMenuComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        TextMenuComponent.prototype.blur;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontSize;
+        /** @type {?} */
+        TextMenuComponent.prototype.font;
+        /** @type {?} */
+        TextMenuComponent.prototype.bold;
+        /** @type {?} */
+        TextMenuComponent.prototype.italic;
+        /** @type {?} */
+        TextMenuComponent.prototype.underline;
+        /** @type {?} */
+        TextMenuComponent.prototype.color;
+        /** @type {?} */
+        TextMenuComponent.prototype.decoration;
+        /** @type {?} */
+        TextMenuComponent.prototype.outFontSize;
+        /** @type {?} */
+        TextMenuComponent.prototype.outFont;
+        /** @type {?} */
+        TextMenuComponent.prototype.outBold;
+        /** @type {?} */
+        TextMenuComponent.prototype.outItalic;
+        /** @type {?} */
+        TextMenuComponent.prototype.outUnderline;
+        /** @type {?} */
+        TextMenuComponent.prototype.outColor;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontSizeOptions;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontOptions;
+        /** @type {?} */
+        TextMenuComponent.prototype.colorPickerShow;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._onCloseService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var MenuType = /** @class */ (function () {
+        function MenuType() {
+        }
+        MenuType.FOR_SIGNATURE = "signature";
+        MenuType.FOR_ANNOTATION = "annotation";
+        return MenuType;
+    }());
+    if (false) {
+        /** @type {?} */
+        MenuType.FOR_SIGNATURE;
+        /** @type {?} */
+        MenuType.FOR_ANNOTATION;
+    }
+    var ContextMenuComponent = /** @class */ (function () {
+        function ContextMenuComponent(_windowService) {
+            var _this = this;
+            this._windowService = _windowService;
+            this.formatting = Formatting.default();
+            this.lock = false;
+            this.translation = 0;
+            this.changeFormatting = new core.EventEmitter();
+            this.removeItem = new core.EventEmitter();
+            this.copySign = new core.EventEmitter();
+            this.lockOut = new core.EventEmitter();
+            this.comment = new core.EventEmitter();
+            this.isMobile = _windowService.isMobile();
+            _windowService.onResize.subscribe((/**
+             * @param {?} w
+             * @return {?}
+             */
+            function (w) {
+                _this.isMobile = _windowService.isMobile();
+            }));
+        }
+        /**
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        /**
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.saveChanges = /**
+         * @return {?}
+         */
+        function () {
+            this.changeFormatting.emit(this.formatting);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.selectFontSize = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.formatting.fontSize = $event;
+            this.saveChanges();
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.selectFont = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.formatting.font = $event;
+            this.saveChanges();
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.selectColor = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.formatting.color = $event;
+            this.saveChanges();
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.toggleBold = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.formatting.bold = $event;
+            this.saveChanges();
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.toggleItalic = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.formatting.italic = $event;
+            this.saveChanges();
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.toggleUnderline = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.formatting.underline = $event;
+            this.saveChanges();
+        };
+        /**
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.deleteItem = /**
+         * @return {?}
+         */
+        function () {
+            this.removeItem.emit(true);
+        };
+        /**
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.toggleLock = /**
+         * @return {?}
+         */
+        function () {
+            this.lock = !this.lock;
+            this.lockOut.emit(this.lock);
+        };
+        /**
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.onCopySign = /**
+         * @return {?}
+         */
+        function () {
+            this.copySign.emit(true);
+        };
+        /**
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.isSignature = /**
+         * @return {?}
+         */
+        function () {
+            return this.menuType === MenuType.FOR_SIGNATURE;
+        };
+        /**
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.isAnnotation = /**
+         * @return {?}
+         */
+        function () {
+            return this.menuType === MenuType.FOR_ANNOTATION;
+        };
+        /**
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.addComment = /**
+         * @return {?}
+         */
+        function () {
+            this.comment.emit(true);
+        };
+        ContextMenuComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-context-menu',
+                        template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\n             (click)=\"toggleLock()\"></gd-button>\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"></gd-button>\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"></gd-button>\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"></gd-button>\n</div>\n",
+                        styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-34px}}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        ContextMenuComponent.ctorParameters = function () { return [
+            { type: WindowService }
+        ]; };
+        ContextMenuComponent.propDecorators = {
+            formatting: [{ type: core.Input }],
+            textMenu: [{ type: core.Input }],
+            topPosition: [{ type: core.Input }],
+            lock: [{ type: core.Input }],
+            translation: [{ type: core.Input }],
+            menuType: [{ type: core.Input }],
+            changeFormatting: [{ type: core.Output }],
+            removeItem: [{ type: core.Output }],
+            copySign: [{ type: core.Output }],
+            lockOut: [{ type: core.Output }],
+            comment: [{ type: core.Output }]
+        };
+        return ContextMenuComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        ContextMenuComponent.prototype.formatting;
+        /** @type {?} */
+        ContextMenuComponent.prototype.textMenu;
+        /** @type {?} */
+        ContextMenuComponent.prototype.topPosition;
+        /** @type {?} */
+        ContextMenuComponent.prototype.lock;
+        /** @type {?} */
+        ContextMenuComponent.prototype.translation;
+        /** @type {?} */
+        ContextMenuComponent.prototype.menuType;
+        /** @type {?} */
+        ContextMenuComponent.prototype.changeFormatting;
+        /** @type {?} */
+        ContextMenuComponent.prototype.removeItem;
+        /** @type {?} */
+        ContextMenuComponent.prototype.copySign;
+        /** @type {?} */
+        ContextMenuComponent.prototype.lockOut;
+        /** @type {?} */
+        ContextMenuComponent.prototype.comment;
+        /** @type {?} */
+        ContextMenuComponent.prototype.isMobile;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype._windowService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
     var providers = [ConfigService,
         Api,
         ModalService,
@@ -7674,7 +8133,9 @@
                             TooltipDirective,
                             HostDynamicDirective,
                             ResizingComponent,
-                            TopTabComponent
+                            TopTabComponent,
+                            TextMenuComponent,
+                            ContextMenuComponent
                         ],
                         exports: [
                             TopToolbarComponent,
@@ -7718,7 +8179,9 @@
                             TooltipDirective,
                             HostDynamicDirective,
                             ResizingComponent,
-                            TopTabComponent
+                            TopTabComponent,
+                            TextMenuComponent,
+                            ContextMenuComponent
                         ],
                         providers: providers
                     },] }
@@ -7737,6 +8200,7 @@
     exports.CommonComponentsModule = CommonComponentsModule;
     exports.CommonModals = CommonModals;
     exports.ConfigService = ConfigService;
+    exports.ContextMenuComponent = ContextMenuComponent;
     exports.DisabledCursorDirective = DisabledCursorDirective;
     exports.DndDirective = DndDirective;
     exports.DocumentComponent = DocumentComponent;
@@ -7767,6 +8231,7 @@
     exports.LoadingMaskInterceptorService = LoadingMaskInterceptorService;
     exports.LoadingMaskService = LoadingMaskService;
     exports.LogoComponent = LogoComponent;
+    exports.MenuType = MenuType;
     exports.ModalComponent = ModalComponent;
     exports.ModalService = ModalService;
     exports.NavigateService = NavigateService;
@@ -7795,6 +8260,7 @@
     exports.TabActivatorService = TabActivatorService;
     exports.TabComponent = TabComponent;
     exports.TabbedToolbarsComponent = TabbedToolbarsComponent;
+    exports.TextMenuComponent = TextMenuComponent;
     exports.TooltipComponent = TooltipComponent;
     exports.TopTabActivatorService = TopTabActivatorService;
     exports.TopToolbarComponent = TopToolbarComponent;

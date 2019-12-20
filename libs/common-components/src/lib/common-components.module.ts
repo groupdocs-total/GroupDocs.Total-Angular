@@ -70,6 +70,8 @@ import {HostingDynamicComponentService} from "./hosting-dynamic-component.servic
 import {ResizingComponent} from './resizing/resizing.component';
 import {TopTabComponent} from './top-tab/top-tab.component';
 import {TopTabActivatorService} from "./top-tab-activator.service";
+import {TextMenuComponent} from './text-menu/text-menu.component';
+import {ContextMenuComponent} from './context-menu/context-menu.component';
 
 const providers = [ConfigService,
   Api,
@@ -148,7 +150,9 @@ const providers = [ConfigService,
     TooltipDirective,
     HostDynamicDirective,
     ResizingComponent,
-    TopTabComponent
+    TopTabComponent,
+    TextMenuComponent,
+    ContextMenuComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -192,7 +196,9 @@ const providers = [ConfigService,
     TooltipDirective,
     HostDynamicDirective,
     ResizingComponent,
-    TopTabComponent
+    TopTabComponent,
+    TextMenuComponent,
+    ContextMenuComponent
   ],
   providers: providers
 })

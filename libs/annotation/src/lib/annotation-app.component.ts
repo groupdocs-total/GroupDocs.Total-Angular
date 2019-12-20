@@ -15,10 +15,12 @@ import {
   Utils,
   WindowService
 } from "@groupdocs.examples.angular/common-components";
-import {AnnotationType, Dimension, Position} from "./annotation-models";
+import {AnnotationType, Dimension, Position, RemoveAnnotation} from "./annotation-models";
 import {AnnotationComponent} from "./annotation/annotation.component";
 import {ActiveAnnotationService} from "./active-annotation.service";
 import * as jquery from 'jquery';
+import {RemoveAnnotationService} from "./remove-annotation.service";
+import {RemoveSign, SignatureType} from "../../../signature/src/lib/signature-models";
 
 const $ = jquery;
 
@@ -83,7 +85,16 @@ export class AnnotationAppComponent implements OnInit {
               private _hostingComponentsService: HostingDynamicComponentService,
               private _addDynamicComponentService: AddDynamicComponentService,
               private _activeAnnotationService: ActiveAnnotationService,
+              private _removeAnnotationService: RemoveAnnotationService,
               private _windowService: WindowService) {
+
+    this._removeAnnotationService.removeAnnotation.subscribe((removeAnnotation: RemoveAnnotation) => {
+      const componentRef = this.annotations.get(removeAnnotation.id);
+      if (componentRef) {
+        componentRef.destroy();
+      }
+      this.annotations.delete(removeAnnotation.id);
+    });
 
     this.isDesktop = _windowService.isDesktop();
     _windowService.onResize.subscribe((w) => {
