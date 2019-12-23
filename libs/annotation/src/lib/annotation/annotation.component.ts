@@ -12,6 +12,7 @@ import {Formatting, Utils, MenuType} from "@groupdocs.examples.angular/common-co
 import * as jquery from 'jquery';
 import {RemoveAnnotationService} from "../remove-annotation.service";
 import {CommentAnnotationService} from "../comment-annotation.service";
+import {text} from "@fortawesome/fontawesome-svg-core";
 
 const $ = jquery;
 
@@ -39,7 +40,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   private oldPosition: { x: number; y: number };
   private points = [];
   private endPosition: Position;
-  private formatting: Formatting;
+  private formatting = Formatting.default();
 
   constructor(private _activeAnnotationService: ActiveAnnotationService,
               private _removeAnnotationService: RemoveAnnotationService,
@@ -342,5 +343,14 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
         }
       }, 100);
     }
+  }
+
+  textAreaHeight(key: any, textarea: any) {
+    this.dimension.height = "Enter" === key ? textarea.scrollHeight + this.formatting.fontSize : textarea.scrollHeight;
+    this.dimension.width = textarea.scrollWidth;
+  }
+
+  hideMenu($event: Event) {
+    this._activeAnnotationService.changeActive(null);
   }
 }

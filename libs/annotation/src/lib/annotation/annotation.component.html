@@ -1,4 +1,9 @@
 <div class="gd-annotation"
+     (clickOutside)="hideMenu($event)"
+     [exclude]="'gd-context-menu,.ui-resizable-handle'"
+     [excludeBeforeClick]="true"
+     [clickOutsideEvents]="'mousedown'"
+     [clickOutsideEnabled]="active"
      [style.left.px]="leftTop.left" [style.top.px]="leftTop.top"
      [style.width.px]="dimension.width ? dimension.width : undefined"
      [style.height.px]="dimension.height ? dimension.height : undefined"
@@ -9,13 +14,15 @@
        class="gd-annotation-wrapper" [ngClass]="getAnnotationClass()">
     <gd-context-menu *ngIf="active" [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
                      (changeFormatting)="saveFormatting($event)" (removeItem)="remove()"
-                     [translation]="getMenuShift()" [menuType]="getMenuType()" (comment)="addComment()"></gd-context-menu>
+                     [translation]="getMenuShift()" [menuType]="getMenuType()"
+                     (comment)="addComment()"></gd-context-menu>
     <div class="gd-text-strikeout-line" *ngIf="isStrikeoutOrUnderline()"></div>
-    <textarea class="gd-text" *ngIf="isTextReplacement() || isText()" [value]="data?.text"
+    <textarea wrap="off" class="gd-text" *ngIf="isTextReplacement() || isText()" [value]="data?.text"
               id="text" #text (keyup)="saveText(text.value)"
-              [style.color]="data?.color"
-              [style.font-family]="data?.font"
-              [style.font-size.px]="data?.fontSize"
+              (keydown)="textAreaHeight($event.key, text)"
+              [style.color]="formatting?.color"
+              [style.font-family]="formatting?.font"
+              [style.font-size.px]="formatting?.fontSize"
               [style.width.px]="dimension.width ? dimension.width : undefined"
               [style.height.px]="dimension.height ? dimension.height : undefined"></textarea>
     <div *ngIf="isPoint()" class="gd-point">

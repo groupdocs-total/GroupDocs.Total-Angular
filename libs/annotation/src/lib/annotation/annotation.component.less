@@ -12,6 +12,11 @@
     height: inherit;
     z-index: 9;
 
+    ::ng-deep .palette {
+      width: 0px;
+      height: 37px;
+    }
+
     .gd-text-strikeout-line {
       background-color: #E04E4E;
       height: 2px;
@@ -19,13 +24,14 @@
     }
 
     .gd-text {
-      width: inherit;
-      height: inherit;
       border: none;
-      resize: none;
       outline: none;
       margin: 0px;
       padding: 0px;
+      overflow: hidden;
+      background-color: transparent;
+      min-width: 1em;
+      min-height: 1em;
     }
 
     .gd-point {
