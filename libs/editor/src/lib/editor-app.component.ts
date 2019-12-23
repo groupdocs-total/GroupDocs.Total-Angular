@@ -534,8 +534,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   }
 
   getPageWithRootTags(data) {
-    const doc = new DOMParser().parseFromString(data, "text/html");
-    const resultData = new XMLSerializer().serializeToString(doc);
+    let resultData = "<html><head>" + data + "</body></html>";
+    resultData = resultData.replace('<div class="documentMainContent">', '<body><div class="documentMainContent">');
+    resultData = resultData.replace('</style>', '</style></head>');
     return resultData;
   }
 
