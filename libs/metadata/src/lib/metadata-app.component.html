@@ -1,0 +1,49 @@
+<gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
+<div class="wrapper" (contextmenu)="onRightClick($event)">
+  <div class="row">
+    <div class="column">
+      <div class="top-panel">
+        <gd-logo [logo]="'metadata'" icon="eye"></gd-logo>
+        <gd-top-toolbar class="toolbar-panel">
+          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                    *ngIf="browseConfig" ></gd-button>
+
+          <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
+                    (click)="toFirstPage()" *ngIf="pageSelectorConfig && formatIcon !== 'file-excel'" ></gd-button>
+          <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
+                    (click)="prevPage()" *ngIf="pageSelectorConfig && formatIcon !== 'file-excel'" ></gd-button>
+          <div class="current-page-number" [ngClass]="{'active': !formatDisabled}" *ngIf="formatIcon !== 'file-excel'">{{currentPage}}/{{countPages}}</div>
+          <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"
+                    (click)="nextPage()" *ngIf="pageSelectorConfig && formatIcon !== 'file-excel'" ></gd-button>
+          <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-double-right'" [tooltip]="'Last Page'"
+                    (click)="toLastPage()" *ngIf="pageSelectorConfig && formatIcon !== 'file-excel'" ></gd-button>
+
+          <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+                    (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'print'" [tooltip]="'Print'" (click)="printFile()"
+                    *ngIf="printConfig" ></gd-button>
+
+        </gd-top-toolbar>
+      </div>
+      <div class="doc-panel" *ngIf="file" #docPanel>
+        <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="false" gdScrollable
+                    [preloadPageCount]="metadataConfig?.preloadPageCount" gdRenderPrint [htmlMode]="false"></gd-document>
+      </div>
+    </div>
+    <gd-side-panel (hideSidePanel)="hideSidePanel($event)"
+      *ngIf="true"
+      [title]="'Metadata'"
+      [icon]="'info-circle'">
+    </gd-side-panel>
+  </div>
+  <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">
+    Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
+    Or drop file here
+  </gd-init-state>
+  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+                         (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
+                         [uploadConfig]="uploadConfig"></gd-browse-files-modal>
+
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
+</div>

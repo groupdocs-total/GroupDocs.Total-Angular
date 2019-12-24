@@ -7,6 +7,7 @@ export class Api {
   public static EDITOR_APP = '/editor';
   public static COMPARISON_APP = '/comparison';
   public static CONVERSION_APP = '/conversion';
+  public static METADATA_APP = '/metadata';
   public static DEFAULT_API_ENDPOINT = window.location.href;
   public static LOAD_FILE_TREE = '/loadFileTree';
   public static LOAD_CONFIG = '/loadConfig';
@@ -75,6 +76,10 @@ export class ConfigService {
 
   getConversionApiEndpoint() {
     return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
+  }
+
+  getMetadataApiEndpoint() {
+    return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
   }
 
   get apiEndpoint() {
