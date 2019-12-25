@@ -79,6 +79,7 @@ export class AnnotationAppComponent implements OnInit {
   private fileWasDropped = false;
   private annotations = new Map<number, ComponentRef<any>>();
   private creatingAnnotationId: number;
+  private activeAnnotationId: number;
 
   constructor(private _annotationService: AnnotationService,
               private _modalService: ModalService,
@@ -90,6 +91,13 @@ export class AnnotationAppComponent implements OnInit {
               private _removeAnnotationService: RemoveAnnotationService,
               private _commentAnnotationService: CommentAnnotationService,
               private _windowService: WindowService) {
+
+    this._activeAnnotationService.activeChange.subscribe((id: number) => {
+      if (this.activeAnnotationId !== id) {
+        this.commentOpenedId = null;
+        this.activeAnnotationId = id;
+      }
+    });
 
     this._commentAnnotationService.commentAnnotation.subscribe((commentAnnotation: CommentAnnotation) => {
       this.commentOpenedId = commentAnnotation.id;

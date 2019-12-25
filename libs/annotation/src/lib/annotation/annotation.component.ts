@@ -9,10 +9,10 @@ import {
 } from "../annotation-models";
 import {ActiveAnnotationService} from "../active-annotation.service";
 import {Formatting, Utils, MenuType} from "@groupdocs.examples.angular/common-components";
-import * as jquery from 'jquery';
 import {RemoveAnnotationService} from "../remove-annotation.service";
 import {CommentAnnotationService} from "../comment-annotation.service";
 import {text} from "@fortawesome/fontawesome-svg-core";
+import * as jquery from 'jquery';
 
 const $ = jquery;
 
