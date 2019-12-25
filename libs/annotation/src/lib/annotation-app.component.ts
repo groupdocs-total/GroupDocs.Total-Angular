@@ -15,12 +15,12 @@ import {
   Utils,
   WindowService
 } from "@groupdocs.examples.angular/common-components";
-import {AnnotationType, Dimension, Position, RemoveAnnotation} from "./annotation-models";
+import {AnnotationType, CommentAnnotation, Position, RemoveAnnotation, Comment} from "./annotation-models";
 import {AnnotationComponent} from "./annotation/annotation.component";
 import {ActiveAnnotationService} from "./active-annotation.service";
 import * as jquery from 'jquery';
 import {RemoveAnnotationService} from "./remove-annotation.service";
-import {RemoveSign, SignatureType} from "../../../signature/src/lib/signature-models";
+import {CommentAnnotationService} from "./comment-annotation.service";
 
 const $ = jquery;
 
@@ -72,6 +72,8 @@ export class AnnotationAppComponent implements OnInit {
     AnnotationType.WATERMARK,
   ];
   countPages = 0;
+  commentOpenedId: number;
+  comments = new Map<number, Comment[]>();
 
   private activeAnnotationTab: string;
   private fileWasDropped = false;
@@ -86,7 +88,19 @@ export class AnnotationAppComponent implements OnInit {
               private _addDynamicComponentService: AddDynamicComponentService,
               private _activeAnnotationService: ActiveAnnotationService,
               private _removeAnnotationService: RemoveAnnotationService,
+              private _commentAnnotationService: CommentAnnotationService,
               private _windowService: WindowService) {
+
+    this._commentAnnotationService.commentAnnotation.subscribe((commentAnnotation: CommentAnnotation) => {
+      this.commentOpenedId = commentAnnotation.id;
+      if (!this.comments.get(this.commentOpenedId)) {
+        this.comments.set(this.commentOpenedId, []);
+      }
+    });
+
+    this._commentAnnotationService.addCommentObserve.subscribe((comment: Comment) => {
+      this.comments.get(this.commentOpenedId).push(comment);
+    });
 
     this._removeAnnotationService.removeAnnotation.subscribe((removeAnnotation: RemoveAnnotation) => {
       const componentRef = this.annotations.get(removeAnnotation.id);
@@ -100,6 +114,10 @@ export class AnnotationAppComponent implements OnInit {
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
     });
+  }
+
+  getComments() {
+    return this.comments.get(this.commentOpenedId);
   }
 
   get rewriteConfig(): boolean {
@@ -419,4 +437,7 @@ export class AnnotationAppComponent implements OnInit {
     this.creatingAnnotationId = null;
   }
 
+  closeComments() {
+    this.commentOpenedId = null;
+  }
 }

@@ -87,6 +87,29 @@ export class CommentAnnotation {
   id: number;
 }
 
+export class Comment {
+
+  id: number;
+  text: string;
+  name: string;
+  time: number;
+
+  constructor(id: number) {
+    this.id = id;
+    this.time = Date.now();
+    this.text = "";
+    this.name = "";
+  }
+
+  static create(comment) {
+    const ret = new Comment(comment.id);
+    ret.text = comment.text;
+    ret.name = comment.name;
+    ret.time = comment.time;
+    return ret;
+  }
+}
+
 export class RemoveAnnotation {
   constructor(id: number) {
     this.id = id;

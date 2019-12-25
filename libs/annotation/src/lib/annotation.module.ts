@@ -18,6 +18,9 @@ import {AnnotationComponent} from './annotation/annotation.component';
 import {ActiveAnnotationService} from "./active-annotation.service";
 import {RemoveAnnotationService} from "./remove-annotation.service";
 import {CommentAnnotationService} from "./comment-annotation.service";
+import {CommentPanelComponent} from './comment-panel/comment-panel.component';
+import {CommentComponent} from './comment/comment.component';
+import {CreateCommentComponent} from './create-comment/create-comment.component';
 
 export function initializeApp(annotationConfigService: AnnotationConfigService) {
   const result = () => annotationConfigService.load();
@@ -31,9 +34,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations: [AnnotationAppComponent, AnnotationComponent,
+  declarations: [AnnotationAppComponent, AnnotationComponent, CommentPanelComponent, CommentComponent, CreateCommentComponent,
   ],
-  exports: [AnnotationAppComponent, AnnotationComponent],
+  exports: [AnnotationAppComponent, AnnotationComponent, CommentPanelComponent, CommentComponent, CreateCommentComponent],
   imports:
     [CommonModule,
       CommonComponentsModule,

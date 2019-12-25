@@ -1,0 +1,22 @@
+<div class="gd-comments-panel">
+  <div class="gd-comments-head">
+    <fa-icon [icon]="['fas', 'plus']" [class]="'ng-fa-icon icon'" (click)="newComment()"></fa-icon>
+    <span class="gd-comments-title">Comments</span>
+    <fa-icon [icon]="['fas', 'times']" [class]="'ng-fa-icon icon'" (click)="closePanel()"></fa-icon>
+  </div>
+  <div class="gd-comments-body">
+    <div *ngIf="comments.length != 0">
+      <div *ngFor="let comment of comments">
+        <gd-comment [comment]="comment"></gd-comment>
+      </div>
+    </div>
+    <gd-create-comment *ngIf="currentComment" [comment]="currentComment" (addComment)="addComment()"
+                       (removeComment)="clearComment()"></gd-create-comment>
+    <div class="gd-empty-comments-list" *ngIf="comments.length == 0 && !currentComment">
+      <fa-icon [icon]="['fas','comments']" [class]="'ng-fa-icon icon'"></fa-icon>
+      <span class="gd-empty-text">No comments yet. Be the first one, <br/>
+        </span>
+      <span class="gd-empty-text gd-empty-bold-text">add comment.</span>
+    </div>
+  </div>
+</div>
