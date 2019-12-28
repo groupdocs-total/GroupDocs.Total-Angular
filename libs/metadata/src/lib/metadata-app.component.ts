@@ -3,13 +3,13 @@ import {MetadataService} from "./metadata.service";
 import {
   FileDescription,
   FileModel,
+  FilePropertyModel,
   ModalService,
   UploadFilesService,
   NavigateService,
   PagePreloadService,
   PageModel,
   ZoomService,
-  RotatedPage,
   RenderPrintService,
   FileUtil,
   PasswordService,
@@ -45,6 +45,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
   fileWasDropped = false;
   formatIcon: string;
+  fileProperties: FilePropertyModel[];
 
   constructor(private _metadataService: MetadataService,
               private _modalService: ModalService,
@@ -107,14 +108,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     .subscribe((loading: boolean) => this.isLoading = loading);
 
     this.refreshZoom();
-
-    // this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
-    // {
-    //   comps.toArray().forEach((item) => {
-    //     const hammer = new Hammer(item.nativeElement);
-    //     hammer.get('pinch').set({ enable: true });
-    //   });
-    // });
   }
 
   get rewriteConfig(): boolean {
@@ -186,6 +179,10 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = 1;
           this.countPages = countPages;
+
+          this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
+            this.fileProperties = fileProperties;
+          });
         }
       }
     );
@@ -338,20 +335,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     this.showSearch = !this.showSearch;
   }
 
-  // onPinchIn($event){
-  //   this.zoomOut();
-  // }
-
-  // onPinchOut($event){
-  //   this.zoomIn();
-  // }
-
   private refreshZoom() {
     this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
     this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
-  }
-
-  hideSidePanel($event) {
-    console.log($event);
   }
 }

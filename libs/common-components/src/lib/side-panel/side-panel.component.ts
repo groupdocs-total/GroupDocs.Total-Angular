@@ -9,6 +9,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class SidePanelComponent {
   @Input() title: string;
   @Input() icon: string;
+  @Input() closable = true;
   @Output() hideSidePanel = new EventEmitter<boolean>();
 
   onlyTitle = false;
@@ -16,11 +17,13 @@ export class SidePanelComponent {
   constructor() {
   }
 
-  openSidePanel() {
+  closeSidePanel() {
     this.hideSidePanel.emit(true);
   }
 
   toggleTitleMode(){
-    this.onlyTitle = !this.onlyTitle;
+    if (this.closable) {
+      this.onlyTitle = !this.onlyTitle;
+    }
   }
 }

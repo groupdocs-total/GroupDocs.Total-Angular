@@ -31,6 +31,10 @@ export declare class FileModel {
     size: number;
     isDirectory: boolean;
 }
+export declare class FilePropertyModel {
+    name: string;
+    value: string;
+}
 export declare class HttpError {
     static BadRequest: number;
     static Unauthorized: number;

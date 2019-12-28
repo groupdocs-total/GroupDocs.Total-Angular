@@ -45,6 +45,11 @@ export class FileModel {
   isDirectory: boolean;
 }
 
+export class FilePropertyModel {
+  name: string;
+  value: string;
+}
+
 export class HttpError {
   static BadRequest = 400;
   static Unauthorized = 401;

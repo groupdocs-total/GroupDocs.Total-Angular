@@ -13,7 +13,7 @@ import {Api, ConfigService,} from "./config.service";
 import {ModalService} from "./modal.service";
 import {ModalComponent} from './modal/modal.component';
 import {BrowseFilesModalComponent} from './browse-files-modal/browse-files-modal.component';
-import {FileModel, FileService, FileUtil, Utils} from "./file.service";
+import {FileModel, FilePropertyModel, FileService, FileUtil, Utils} from "./file.service";
 import {DocumentComponent} from './document/document.component';
 import {PageComponent} from './page/page.component';
 import {HighlightSearchPipe, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe} from "./pipes";
@@ -74,6 +74,7 @@ const providers = [ConfigService,
   ModalService,
   FileService,
   FileModel,
+  FilePropertyModel,
   FileUtil,
   Utils,
   SanitizeHtmlPipe,

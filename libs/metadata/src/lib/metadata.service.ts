@@ -18,6 +18,10 @@ export class MetadataService {
     return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
   }
 
+  loadProperties(credentials: FileCredentials) {
+    return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_DOCUMENT_PROPERTIES, credentials, Api.httpOptionsJson);
+  }
+
   upload(file: File, url: string, rewrite: boolean) {
     const formData = new FormData();
     formData.append("file", file);
