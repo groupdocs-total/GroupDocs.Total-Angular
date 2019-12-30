@@ -11,7 +11,6 @@ import {ActiveAnnotationService} from "../active-annotation.service";
 import {Formatting, Utils, MenuType} from "@groupdocs.examples.angular/common-components";
 import {RemoveAnnotationService} from "../remove-annotation.service";
 import {CommentAnnotationService} from "../comment-annotation.service";
-import {text} from "@fortawesome/fontawesome-svg-core";
 import * as jquery from 'jquery';
 
 const $ = jquery;
@@ -32,7 +31,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   active = true;
   dimension = new Dimension(0, 0);
   pageNumber: number;
-  data = new AnnotationData();
+  textValue = "";
   pathValue: string;
   distanceValue = '0px';
   pointsValue = "";
@@ -186,7 +185,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   saveText(value: string) {
-    this.data.text = value;
+    this.textValue = value;
   }
 
   draw(position: Position) {
@@ -352,5 +351,48 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
 
   hideMenu($event: Event) {
     this._activeAnnotationService.changeActive(null);
+  }
+
+  getAnnotationData(): AnnotationData {
+    const annotationData = new AnnotationData();
+    annotationData.id = this.id;
+    annotationData.text = this.textValue;
+    annotationData.fontColor = parseInt(Utils.toHex(this.formatting.color).replace("#", ""), 16);
+    annotationData.fontSize = this.formatting.fontSize;
+    annotationData.font = this.formatting.font;
+    annotationData.left = this.leftTop.left;
+    annotationData.top = this.leftTop.top;
+    annotationData.height = this.dimension.height;
+    annotationData.width = this.dimension.width;
+    annotationData.pageNumber = this.pageNumber;
+    annotationData.type = this.type;
+    annotationData.svgPath = this.getSvgPath();
+    return annotationData;
+  }
+
+  private getSvgPath() {
+    let svgPath = "M";
+    if (this.type === AnnotationType.POLYLINE.id) {
+      let index = 0;
+      let previousX = 0, previousY = 0;
+      for (const point of this.points) {
+        if (index === 0) {
+          svgPath += point.left + "," + point.top + "l";
+          index = 1;
+        } else {
+          previousX = point.left - previousX;
+          previousY = point.top - previousY;
+          svgPath += previousX + "," + previousY + "l";
+        }
+        previousX = point.left;
+        previousY = point.top;
+      }
+    } else if (this.type === AnnotationType.DISTANCE.id || this.type === AnnotationType.ARROW.id) {
+      svgPath += this.position.left + "," + this.position.top + " ";
+      svgPath += this.endPosition.left + "," + this.endPosition.top + " ";
+    } else {
+      svgPath = "";
+    }
+    return svgPath;
   }
 }

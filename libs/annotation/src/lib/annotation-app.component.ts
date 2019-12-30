@@ -244,7 +244,7 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   selectFile($event: string, password: string, modalId: string) {
-    this.credentials = {guid: $event, password: password};
+    this.credentials = new FileCredentials($event, password);
     this.file = null;
     this._annotationService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
@@ -293,7 +293,14 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   annotate() {
-
+    const annotationsData = [];
+    for (const annotation of this.annotations.values()) {
+      const annotationData = (<AnnotationComponent>annotation.instance).getAnnotationData();
+      annotationData.comments = this.comments.get(annotationData.id);
+      annotationsData.push(annotationData);
+    }
+    this._annotationService.annotate(this.credentials, annotationsData, false).subscribe(() => {
+    });
   }
 
   isVisible(id: string) {

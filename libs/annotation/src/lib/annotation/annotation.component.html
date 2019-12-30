@@ -17,7 +17,7 @@
                      [translation]="getMenuShift()" [menuType]="getMenuType()"
                      (comment)="addComment()"></gd-context-menu>
     <div class="gd-text-strikeout-line" *ngIf="isStrikeoutOrUnderline()"></div>
-    <textarea wrap="off" class="gd-text" *ngIf="isTextReplacement() || isText()" [value]="data?.text"
+    <textarea wrap="off" class="gd-text" *ngIf="isTextReplacement() || isText()" [value]="textValue"
               id="text" #text (keyup)="saveText(text.value)"
               (keydown)="textAreaHeight($event.key, text)"
               [style.color]="formatting?.color"

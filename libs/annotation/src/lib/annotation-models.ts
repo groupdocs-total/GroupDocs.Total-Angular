@@ -70,13 +70,22 @@ export class AnnotationData {
 
   constructor() {
     this.text = "";
-    this.color = "#000"
+    this.fontColor = 8421375;
   }
 
+  id: number;
+  comments: Comment[];
   text: string;
   font: string;
   fontSize: number;
-  color: string;
+  fontColor: number;
+  height: number;
+  width: number;
+  left: number;
+  top: number;
+  pageNumber: number;
+  svgPath: string;
+  type: string;
 }
 
 export class CommentAnnotation {

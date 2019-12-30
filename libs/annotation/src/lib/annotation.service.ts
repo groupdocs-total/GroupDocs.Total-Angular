@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Api, ConfigService, FileCredentials} from "@groupdocs.examples.angular/common-components";
+import {Api, ConfigService, FileCredentials, FileUtil} from "@groupdocs.examples.angular/common-components";
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +41,14 @@ export class AnnotationService {
     return this._config.getAnnotationApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
   }
 
+  annotate(credentials: FileCredentials, annotationsData: any, print: boolean) {
+    const data = {
+      'guid': credentials.guid,
+      'password': credentials.password,
+      'annotationsData': annotationsData,
+      'documentType': FileUtil.find(credentials.guid, false).format,
+      'print': print
+    };
+    return this._http.post(this._config.getAnnotationApiEndpoint() + Api.ANNOTATE, data, Api.httpOptionsJson);
+  }
 }

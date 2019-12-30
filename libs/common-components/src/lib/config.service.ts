@@ -31,6 +31,7 @@ export class Api {
   public static SIGN = '/sign';
   public static DOWNLOAD_SIGNED = '/downloadSigned';
   public static LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
+  public static ANNOTATE = '/annotate';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

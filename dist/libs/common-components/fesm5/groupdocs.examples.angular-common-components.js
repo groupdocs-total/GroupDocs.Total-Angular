@@ -458,6 +458,7 @@ var Api = /** @class */ (function () {
     Api.SIGN = '/sign';
     Api.DOWNLOAD_SIGNED = '/downloadSigned';
     Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
+    Api.ANNOTATE = '/annotate';
     Api.httpOptionsJson = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -530,6 +531,8 @@ if (false) {
     Api.DOWNLOAD_SIGNED;
     /** @type {?} */
     Api.LOAD_SIGNATURE_IMAGE;
+    /** @type {?} */
+    Api.ANNOTATE;
     /** @type {?} */
     Api.httpOptionsJson;
     /** @type {?} */
@@ -1032,6 +1035,73 @@ var Utils = /** @class */ (function () {
             mouse.y = ev.clientY + document.body.scrollTop;
         }
         return mouse;
+    };
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    Utils.toRgb = /**
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        /** @type {?} */
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+        if (result) {
+            /** @type {?} */
+            var r = parseInt(result[1], 16);
+            /** @type {?} */
+            var g = parseInt(result[2], 16);
+            /** @type {?} */
+            var b = parseInt(result[3], 16);
+            return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
+        }
+        return color;
+    };
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    Utils.toHex = /**
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        // check if color is standard hex value
+        if (color.match(/[0-9A-F]{6}|[0-9A-F]{3}$/i)) {
+            return (color.charAt(0) === "#") ? color : ("#" + color);
+            // check if color is RGB value -> convert to hex
+        }
+        else if (color.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)) {
+            /** @type {?} */
+            var c = ([parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10), parseInt(RegExp.$3, 10)]);
+            /** @type {?} */
+            var pad = (/**
+             * @param {?} str
+             * @return {?}
+             */
+            function (str) {
+                if (str.length < 2) {
+                    for (var i = 0, len = 2 - str.length; i < len; i++) {
+                        str = '0' + str;
+                    }
+                }
+                return str;
+            });
+            if (c.length === 3) {
+                /** @type {?} */
+                var r = pad(c[0].toString(16));
+                /** @type {?} */
+                var g = pad(c[1].toString(16));
+                /** @type {?} */
+                var b = pad(c[2].toString(16));
+                return '#' + r + g + b;
+            }
+            // else do nothing
+        }
+        else {
+            return '';
+        }
     };
     return Utils;
 }());
