@@ -45,9 +45,18 @@ export class FileModel {
   isDirectory: boolean;
 }
 
+export enum FilePropertyCategory {
+  BuildIn,
+  Default
+}
+
 export class FilePropertyModel {
+  category: FilePropertyCategory;
   name: string;
   value: string;
+  original: boolean;
+  selected: boolean;
+  editing: boolean;
 }
 
 export class HttpError {

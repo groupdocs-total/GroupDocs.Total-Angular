@@ -12,6 +12,9 @@ export declare class Api {
     static LOAD_DOCUMENT_DESCRIPTION: string;
     static LOAD_DOCUMENT_PAGE: string;
     static LOAD_DOCUMENT_PROPERTIES: string;
+    static LOAD_DOCUMENT_PROPERTIES_NAMES: string;
+    static SAVE_PROPERTY: string;
+    static REMOVE_PROPERTY: string;
     static ROTATE_DOCUMENT_PAGE: string;
     static UPLOAD_DOCUMENTS: string;
     static DOWNLOAD_DOCUMENTS: string;

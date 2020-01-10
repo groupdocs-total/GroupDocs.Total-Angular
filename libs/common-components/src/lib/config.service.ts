@@ -14,6 +14,9 @@ export class Api {
   public static LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
   public static LOAD_DOCUMENT_PAGE = '/loadDocumentPage';
   public static LOAD_DOCUMENT_PROPERTIES = '/loadProperties';
+  public static LOAD_DOCUMENT_PROPERTIES_NAMES = '/loadPropertiesNames';
+  public static SAVE_PROPERTY = '/saveProperty';
+  public static REMOVE_PROPERTY = '/removeProperty';
   public static ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
   public static UPLOAD_DOCUMENTS = '/uploadDocument';
   public static DOWNLOAD_DOCUMENTS = '/downloadDocument';

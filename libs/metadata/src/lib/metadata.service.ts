@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Api, ConfigService, FileCredentials} from "@groupdocs.examples.angular/common-components";
+import { FilePropertyModel } from '@groupdocs.examples.angular/common-components';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,18 @@ export class MetadataService {
     return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_DOCUMENT_PROPERTIES, credentials, Api.httpOptionsJson);
   }
 
+  loadPropertiesNames(credentials: FileCredentials) {
+    return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_DOCUMENT_PROPERTIES_NAMES, credentials, Api.httpOptionsJson);
+  }
+
+  saveProperty(metadataFile: MetadataFileDescription) {
+    return this._http.post(this._config.getMetadataApiEndpoint() + Api.SAVE_PROPERTY, metadataFile, Api.httpOptionsJson);
+  }
+
+  removeProperty(metadataFile: MetadataFileDescription) {
+    return this._http.post(this._config.getMetadataApiEndpoint() + Api.REMOVE_PROPERTY, metadataFile, Api.httpOptionsJson);
+  }
+
   upload(file: File, url: string, rewrite: boolean) {
     const formData = new FormData();
     formData.append("file", file);
@@ -41,15 +54,6 @@ export class MetadataService {
     }, Api.httpOptionsJson);
   }
 
-  rotate(credentials: FileCredentials, angle: number, page: number) {
-    return this._http.post(this._config.getMetadataApiEndpoint() + Api.ROTATE_DOCUMENT_PAGE, {
-      'guid': credentials.guid,
-      'password': credentials.password,
-      'pages': [page],
-      'angle': angle
-    }, Api.httpOptionsJson);
-  }
-
   getDownloadUrl(credentials: FileCredentials) {
     return this._config.getMetadataApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
   }
@@ -60,18 +64,10 @@ export class MetadataService {
       'password': credentials.password,
     }, Api.httpOptionsJson);
   }
+}
 
-  loadPrintPdf(credentials: FileCredentials) {
-    return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_PRINT_PDF, {
-      'guid': credentials.guid,
-      'password': credentials.password,
-    }, Api.httpOptionsJsonResponseTypeBlob);
-  }
-
-  loadThumbnails(credentials: FileCredentials) {
-    return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_THUMBNAILS, {
-      'guid': credentials.guid,
-      'password': credentials.password,
-    }, Api.httpOptionsJson);
-  }
+// TODO: make more dry?
+export class MetadataFileDescription {
+  guid: string;
+  properties: FilePropertyModel[];
 }

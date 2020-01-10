@@ -9,7 +9,7 @@
                     *ngIf="browseConfig" ></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="save()">
                     </gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties($event)">
+          <gd-button [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Attributes'">
                     </gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                     (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
@@ -24,13 +24,10 @@
       [closable]="false"
       [title]="'Metadata'"
       [icon]="'clipboard-list'">
-      <accordion>
-        <group title="Build-in properties" [properties]="fileProperties">this is the content</group>
-        <group title="Default properties">
-          <input type="text" class="form-control" />
-          <button>Send</button>
-        </group>
-      </accordion>
+      <gd-accordion>
+        <gd-accordion-group title="Build-in properties" [disabled]="isDisabled()" [properties]="buildInProperties" [propertiesNames]="filePropertiesNames"></gd-accordion-group>
+        <gd-accordion-group class="default" title="Default properties" [disabled]="true" [properties]="defaultProperties"></gd-accordion-group>
+      </gd-accordion>
     </gd-side-panel>
   </div>
   <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">

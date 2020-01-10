@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit} from '@angular/core';
-import {MetadataService} from "./metadata.service";
+import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit, Output, EventEmitter} from '@angular/core';
+import {MetadataService, MetadataFileDescription} from "./metadata.service";
 import {
   FileDescription,
   FileModel,
   FilePropertyModel,
+  FilePropertyCategory,
   ModalService,
   UploadFilesService,
   NavigateService,
@@ -19,6 +20,7 @@ import {MetadataConfig} from "./metadata-config";
 import {MetadataConfigService} from "./metadata-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 //import * as Hammer from 'hammerjs';
+import { AccordionService } from './accordion.service';
 
 @Component({
   selector: 'gd-metadata',
@@ -45,7 +47,12 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
   fileWasDropped = false;
   formatIcon: string;
-  fileProperties: FilePropertyModel[];
+  buildInProperties: FilePropertyModel[];
+  defaultProperties: FilePropertyModel[];
+  addedProperty: FilePropertyModel;
+  removedProperty: FilePropertyModel;
+  filePropertiesNames: string[];
+  disabled = false;
 
   constructor(private _metadataService: MetadataService,
               private _modalService: ModalService,
@@ -57,7 +64,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _loadingMaskService: LoadingMaskService) {
+              private _loadingMaskService: LoadingMaskService,
+              private _accrodionService: AccordionService) {
 
     configService.updatedConfig.subscribe((metadataConfig) => {
       this.metadataConfig = metadataConfig;
@@ -92,6 +100,38 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
       this.refreshZoom();
+    });
+
+    _accrodionService.addedProperty.subscribe(addedProperty => {
+      if (addedProperty) {
+        this.addedProperty = addedProperty;
+        const propObject = {
+          original: addedProperty.original,
+          name: "",
+          value: "",
+          category: 0,
+          selected: false,
+          editing: false
+        };
+        if (this.buildInProperties) {
+          this.buildInProperties.push(propObject);
+        }
+      }
+    });
+
+    _accrodionService.removedProperty.subscribe(removedProperty => {
+      if (this.file) {
+        const metadataFile = new MetadataFileDescription();
+        metadataFile.guid = this.file.guid;
+        metadataFile.properties = [removedProperty];
+        this._metadataService.removeProperty(metadataFile).subscribe((loadFile: FileDescription) => {
+          this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
+            this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
+            this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
+          });
+          this._modalService.open(CommonModals.OperationSuccess);
+        });
+      }
     });
   }
 
@@ -181,7 +221,12 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           this.countPages = countPages;
 
           this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
-            this.fileProperties = fileProperties;
+            this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
+            this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
+
+            this._metadataService.loadPropertiesNames(this.credentials).subscribe((filePropertiesNames: string[]) => {
+              this.filePropertiesNames = filePropertiesNames;
+            });
           });
         }
       }
@@ -296,26 +341,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     window.location.assign(this._metadataService.getDownloadUrl(this.credentials));
   }
 
-  printFile() {
-    if (this.formatDisabled)
-      return;
-    if (this.metadataConfig.preloadPageCount !== 0) {
-      if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
-        this._metadataService.loadPrintPdf(this.credentials).subscribe(blob => {
-          const file = new Blob([blob], {type: 'application/pdf'});
-          this._renderPrintService.changeBlob(file);
-        });
-      } else {
-        this._metadataService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
-          this.file.pages = data.pages;
-          this._renderPrintService.changePages(this.file.pages);
-        });
-      }
-    } else {
-      this._renderPrintService.changePages(this.file.pages);
-    }
-  }
-
   private clearData() {
     if (!this.file || !this.file.pages) {
       return;
@@ -338,5 +363,27 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   private refreshZoom() {
     this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
     this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+  }
+
+  isDisabled() {
+    return !this.file || this.disabled || (this.buildInProperties && this.buildInProperties.filter(p => p.original === false).length > 0);
+  }
+
+  save() {
+    if (!this.file || !this.file.pages)
+      return;
+    const savingProperty = this.buildInProperties.filter(p => !p.original || p.editing);
+    const savingFile = new MetadataFileDescription();
+    savingFile.guid = this.file.guid;
+    savingFile.properties = savingProperty;
+    this._metadataService.saveProperty(savingFile).subscribe((loadFile: FileDescription) => {
+      this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
+        this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
+        this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
+        this.disabled = false;
+      });
+      // TODO: add actual modal
+      this._modalService.open(CommonModals.OperationSuccess);
+    });
   }
 }

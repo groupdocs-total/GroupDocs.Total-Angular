@@ -13,7 +13,8 @@ import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {MetadataConfigService} from "./metadata-config.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AccordionComponent} from "./accordion/accordion.component";
-import { AccordionGroupComponent} from "./accordion/accordion-group.component";
+import { AccordionGroupComponent} from "./accordion/accordion-group/accordion-group.component";
+import { FormsModule } from '@angular/forms';
 
 export function initializeApp(metadataConfigService: MetadataConfigService) {
   const result =  () => metadataConfigService.load();
@@ -35,7 +36,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   exports : [
     MetadataAppComponent,

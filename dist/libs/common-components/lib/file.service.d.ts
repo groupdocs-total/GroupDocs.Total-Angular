@@ -31,9 +31,17 @@ export declare class FileModel {
     size: number;
     isDirectory: boolean;
 }
+export declare enum FilePropertyCategory {
+    BuildIn = 0,
+    Default = 1
+}
 export declare class FilePropertyModel {
+    category: FilePropertyCategory;
     name: string;
     value: string;
+    original: boolean;
+    selected: boolean;
+    editing: boolean;
 }
 export declare class HttpError {
     static BadRequest: number;

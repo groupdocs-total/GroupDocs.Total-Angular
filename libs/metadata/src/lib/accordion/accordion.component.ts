@@ -1,31 +1,32 @@
-import { Component, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
-import { AccordionGroupComponent } from './accordion-group.component';
+import { Component, ContentChildren, QueryList, AfterContentInit, Input } from '@angular/core';
+import { AccordionGroupComponent } from './accordion-group/accordion-group.component';
+import { FileDescription } from '@groupdocs.examples.angular/common-components';
 
 @Component({
-  selector: 'accordion',
+  selector: 'gd-accordion',
   template: `
     <ng-content></ng-content>
 `,
   styleUrls: ['./accordion.component.less']
 })
 export class AccordionComponent  implements AfterContentInit {
-  @ContentChildren(AccordionGroupComponent) 
+  @ContentChildren(AccordionGroupComponent)
   groups: QueryList<AccordionGroupComponent>;
 
   /**
    * Invoked when all children (groups) are ready
    */
   ngAfterContentInit() {
-    // console.log (this.groups);
-    // Set active to first element
-    this.groups.toArray()[0].opened = true;
     // Loop through all Groups
-    this.groups.toArray().forEach((t) => {
+    this.groups.toArray().forEach((group) => {
+      group.opened = true;
       // when title bar is clicked
       // (toggle is an @output event of Group)
-      t.toggle.subscribe(() => {
+      group.toggle.subscribe(($event) => {
+        $event.preventDefault();
+        $event.stopPropagation();
         // Open the group
-        this.openGroup(t);
+        this.openGroup(group);
       });
       /*t.toggle.subscribe((group) => {
         // Open the group
@@ -39,8 +40,6 @@ export class AccordionComponent  implements AfterContentInit {
    * @param group   Group instance
    */
   openGroup(group: AccordionGroupComponent) {
-    // close other groups
-    //this.groups.toArray().forEach((t) => t.opened = false);
     // open current group
     group.opened = !group.opened;
   }
