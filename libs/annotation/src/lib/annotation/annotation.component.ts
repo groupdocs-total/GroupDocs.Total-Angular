@@ -35,6 +35,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   pathValue: string;
   distanceValue = '0px';
   pointsValue = "";
+  svgPath = "";
 
   private oldPosition: { x: number; y: number };
   private points = [];
@@ -60,9 +61,44 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.leftTop = this.position;
-    this.addPoint(this.position);
-    this.setEndPosition(this.position);
+    this.leftTop = Position.clone(this.position);
+    if (this.isPolyline()) {
+      if (this.svgPath) {
+        const parsedPoints = this.svgPath.replace("M", "").split('L');
+        let x = parseFloat(parsedPoints[0].split(",")[0]);
+        let y = parseFloat(parsedPoints[0].split(",")[1]);
+        const comp = this;
+        parsedPoints.forEach(function (point, index) {
+          if (index !== 0) {
+            if (point !== "") {
+              comp.addPoint(new Position(x, y));
+              x = (x + parseFloat(point.split(",")[0]));
+              y = (y + parseFloat(point.split(",")[1]));
+            }
+          }
+        });
+      } else {
+        this.addPoint(this.position);
+      }
+    } else if (this.isPath()) {
+      if (this.svgPath) {
+        const end = new Position(this.position.left + this.dimension.width, this.position.top + this.dimension.height);
+        this.setEndPosition(end);
+        if (this.dimension.height < 0) {
+          this.leftTop.top += this.dimension.height;
+          this.dimension.height = this.dimension.height * (-1);
+        }
+        if (this.dimension.width < 0) {
+          this.leftTop.left += this.dimension.width;
+          this.dimension.width = this.dimension.width * (-1);
+        }
+      } else {
+        this.setEndPosition(this.position);
+      }
+      this.distanceValue = this.getDistance() + "px";
+    } else {
+      this.setEndPosition(this.position);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -141,18 +177,19 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
         if (!this.checkDragging(left, top)) {
           return;
         }
-        this.endPosition.left += left;
-        this.endPosition.top += top;
         this.position.left += left;
         this.position.top += top;
+        this.endPosition.left += left;
+        this.endPosition.top += top;
         this.pathValue = "M" + this.position.left + "," + this.position.top + " L" + this.endPosition.left + "," + this.endPosition.top;
+        this.distanceValue = this.getDistance() + "px";
       } else {
         this.position.left += left;
         this.position.top += top;
+        this.correctPosition();
       }
       this.leftTop.left += left;
       this.leftTop.top += top;
-      this.correctPosition();
       this.oldPosition = position;
     }
   }
@@ -238,6 +275,14 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
     this.dimension.height = currentPosition.top - this.position.top;
   }
 
+  getHeight() {
+    return this.dimension.height === undefined ? undefined : Math.abs(this.dimension.height);
+  }
+
+  getWidth() {
+    return this.dimension.width === undefined ? undefined : Math.abs(this.dimension.width);
+  }
+
   private checkDragging(left: number, top: number) {
     return !(this.leftTop.left + left < 0 || this.leftTop.top + top < 0 ||
       this.leftTop.top + top + this.dimension.height > this.pageHeight ||
@@ -268,7 +313,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   private setEndPosition(position: Position) {
-    this.endPosition = position;
+    this.endPosition = Position.clone(position);
     this.pathValue = "M" + this.position.left + "," + this.position.top + " L" + this.endPosition.left + "," + this.endPosition.top;
   }
 

@@ -1,16 +1,18 @@
+import {PageModel} from "@groupdocs.examples.angular/common-components";
+
 export class AnnotationType {
   public static TEXT = {id: 'text', name: 'Text', icon: 'highlighter'};
   public static AREA = {id: 'area', name: 'Area', icon: 'vector-square'};
   public static POINT = {id: 'point', name: 'Point', icon: 'thumbtack'};
-  public static TEXT_STRIKEOUT = {id: 'text strikeout', name: 'Text strikeout', icon: 'strikethrough',};
+  public static TEXT_STRIKEOUT = {id: 'textStrikeout', name: 'Text strikeout', icon: 'strikethrough',};
   public static POLYLINE = {id: 'polyline', name: 'Polyline', icon: 'signature'};
-  public static TEXT_FIELD = {id: 'Text field', name: 'Text field', icon: 'i-cursor'};
+  public static TEXT_FIELD = {id: 'textField', name: 'Text field', icon: 'i-cursor'};
   public static WATERMARK = {id: 'Watermark', name: 'Watermark', icon: 'tint'};
-  public static TEXT_REPLACEMENT = {id: 'Text replacement', name: 'Text replacement', icon: 'edit'};
+  public static TEXT_REPLACEMENT = {id: 'textReplacement', name: 'Text replacement', icon: 'edit'};
   public static ARROW = {id: 'arrow', name: 'Arrow', icon: 'mouse-pointer'};
-  public static TEXT_REDACTION = {id: 'Text redaction', name: 'Text redaction', icon: 'brush'};
-  public static TEXT_UNDERLINE = {id: 'Text underline', name: 'Text underline', icon: 'underline'};
-  public static DISTANCE = {id: 'Distance', name: 'Distance', icon: 'ruler'};
+  public static TEXT_REDACTION = {id: 'textRedaction', name: 'Text redaction', icon: 'brush'};
+  public static TEXT_UNDERLINE = {id: 'textUnderline', name: 'Text underline', icon: 'underline'};
+  public static DISTANCE = {id: 'distance', name: 'Distance', icon: 'ruler'};
 
   public static getAnnotationType(id: string) {
     switch (id) {
@@ -40,6 +42,15 @@ export class AnnotationType {
         return AnnotationType.DISTANCE;
     }
   }
+}
+
+export class FileAnnotationDescription {
+  guid: string;
+  pages: PageAnnotationModel[];
+}
+
+export class PageAnnotationModel extends PageModel {
+  annotations: AnnotationData[];
 }
 
 export class Position {

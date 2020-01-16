@@ -5,17 +5,22 @@ import {
   AddDynamicComponentService,
   CommonModals,
   FileCredentials,
-  FileDescription,
-  FileModel,
+  FileModel, Formatting,
   HostingDynamicComponentService,
   ModalService,
   NavigateService,
-  PageModel,
   TopTabActivatorService,
   Utils,
   WindowService
 } from "@groupdocs.examples.angular/common-components";
-import {AnnotationType, CommentAnnotation, Position, RemoveAnnotation, Comment} from "./annotation-models";
+import {
+  AnnotationType,
+  CommentAnnotation,
+  Position,
+  RemoveAnnotation,
+  Comment,
+  FileAnnotationDescription, PageAnnotationModel, AnnotationData, Dimension
+} from "./annotation-models";
 import {AnnotationComponent} from "./annotation/annotation.component";
 import {ActiveAnnotationService} from "./active-annotation.service";
 import * as jquery from 'jquery';
@@ -32,7 +37,7 @@ const $ = jquery;
 export class AnnotationAppComponent implements OnInit {
   title = 'annotation';
   files: FileModel[] = [];
-  file: FileDescription;
+  file: FileAnnotationDescription;
   isLoading: boolean;
   annotationConfig: AnnotationConfig;
   browseFilesModal = CommonModals.BrowseFiles;
@@ -246,7 +251,8 @@ export class AnnotationAppComponent implements OnInit {
   selectFile($event: string, password: string, modalId: string) {
     this.credentials = new FileCredentials($event, password);
     this.file = null;
-    this._annotationService.loadFile(this.credentials).subscribe((file: FileDescription) => {
+    this._annotationService.loadFile(this.credentials).subscribe((file: FileAnnotationDescription) => {
+        this.cleanAnnotations();
         this.file = file;
         this.formatDisabled = !this.file;
         if (file) {
@@ -254,11 +260,16 @@ export class AnnotationAppComponent implements OnInit {
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
+          } else {
+            setTimeout(() => {
+              for (const page of this.file.pages) {
+                this.importAnnotations(page.annotations ? page.annotations: []);
+              }
+            }, 100);
           }
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = 1;
           this.countPages = countPages;
-          this.cleanAnnotations();
         }
       }
     );
@@ -270,9 +281,18 @@ export class AnnotationAppComponent implements OnInit {
 
   preloadPages(start: number, end: number) {
     for (let i = start; i <= end; i++) {
-      this._annotationService.loadPage(this.credentials, i).subscribe((page: PageModel) => {
+      this._annotationService.loadPage(this.credentials, i).subscribe((page: PageAnnotationModel) => {
         this.file.pages[i - 1] = page;
+        this.importAnnotations(page.annotations ? page.annotations : []);
       });
+    }
+  }
+
+  private importAnnotations(annotations: AnnotationData[]) {
+    for (const annotation of annotations) {
+      const position = new Position(annotation.left, annotation.top);
+      const id = this.addAnnotationComponent(annotation.pageNumber, position, annotation);
+      this.comments.set(id, annotation.comments);
     }
   }
 
@@ -366,7 +386,11 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   private cleanAnnotations() {
-
+    for (const componentRef of this.annotations.values()) {
+      componentRef.destroy();
+    }
+    this.annotations = new Map<number, ComponentRef<any>>();
+    this.comments = new Map<number, Comment[]>();
   }
 
   private clearData() {
@@ -389,18 +413,21 @@ export class AnnotationAppComponent implements OnInit {
       if (currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().parent().hasClass("page")) {
         const documentPage = $(currentPage).parent().parent()[0];
         const currentPosition = this.getCurrentPosition(position, $(documentPage));
-        const id = $(currentPage).parent().attr('id');
+        const pageId = $(currentPage).parent().attr('id');
         let pageNumber = 1;
-        if (id) {
-          const split = id.split('-');
+        if (pageId) {
+          const split = pageId.split('-');
           pageNumber = split.length === 2 ? parseInt(split[1], 10) : pageNumber;
         }
-        this.addAnnotationComponent(pageNumber, currentPosition);
+        const id = this.addAnnotationComponent(pageNumber, currentPosition, null);
+        this._activeAnnotationService.changeActive(id);
+        this.creatingAnnotationId = id;
+        this._tabActivatorService.changeActiveTab(null);
       }
     }
   }
 
-  private addAnnotationComponent(pageNumber: number, currentPosition: Position) {
+  private addAnnotationComponent(pageNumber: number, currentPosition: Position, data: AnnotationData) {
     const dynamicDirective = this._hostingComponentsService.find(pageNumber);
     if (dynamicDirective) {
       const viewContainerRef = dynamicDirective.viewContainerRef;
@@ -408,17 +435,30 @@ export class AnnotationAppComponent implements OnInit {
       const id = this.annotations.size + 1;
       (<AnnotationComponent>annotationComponent.instance).id = id;
       (<AnnotationComponent>annotationComponent.instance).position = currentPosition;
-      (<AnnotationComponent>annotationComponent.instance).type = this.activeAnnotationTab;
       (<AnnotationComponent>annotationComponent.instance).pageNumber = pageNumber;
+      if (data) {
+        const dimension = new Dimension(data.width, data.height);
+        const type = AnnotationType.getAnnotationType(data.type);
+        const formatting = Formatting.default();
+        formatting.fontSize = data.fontSize;
+        formatting.color = "#" + data.fontColor.toString(16);
+        formatting.font = data.font;
+        (<AnnotationComponent>annotationComponent.instance).type = type ? type.id : data.type;
+        (<AnnotationComponent>annotationComponent.instance).dimension = dimension;
+        (<AnnotationComponent>annotationComponent.instance).svgPath = data.svgPath;
+        (<AnnotationComponent>annotationComponent.instance).textValue = data.text;
+        if (formatting) {
+          (<AnnotationComponent>annotationComponent.instance).saveFormatting(formatting);
+        }
+      } else {
+        (<AnnotationComponent>annotationComponent.instance).type = this.activeAnnotationTab;
+      }
       const pageModel = this.file.pages.find(function (p) {
         return p.number === pageNumber;
       });
       (<AnnotationComponent>annotationComponent.instance).pageWidth = pageModel.width;
       (<AnnotationComponent>annotationComponent.instance).pageHeight = pageModel.height;
       this.annotations.set(id, annotationComponent);
-      this._activeAnnotationService.changeActive(id);
-      this.creatingAnnotationId = id;
-      this._tabActivatorService.changeActiveTab(null);
       return id;
     }
     return null;

@@ -5,8 +5,8 @@
      [clickOutsideEvents]="'mousedown'"
      [clickOutsideEnabled]="active"
      [style.left.px]="leftTop.left" [style.top.px]="leftTop.top"
-     [style.width.px]="dimension.width ? dimension.width : undefined"
-     [style.height.px]="dimension.height ? dimension.height : undefined"
+     [style.width.px]="getWidth()"
+     [style.height.px]="getHeight()"
      (click)="activation()">
   <div [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
        (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="dragOver($event)"
@@ -23,8 +23,8 @@
               [style.color]="formatting?.color"
               [style.font-family]="formatting?.font"
               [style.font-size.px]="formatting?.fontSize"
-              [style.width.px]="dimension.width ? dimension.width : undefined"
-              [style.height.px]="dimension.height ? dimension.height : undefined"></textarea>
+              [style.width.px]="getWidth()"
+              [style.height.px]="getHeight()"></textarea>
     <div *ngIf="isPoint()" class="gd-point">
       <fa-icon class="icon" [icon]="['fas','thumbtack']" [size]="'lg'"></fa-icon>
     </div>
