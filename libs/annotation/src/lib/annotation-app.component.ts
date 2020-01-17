@@ -263,7 +263,7 @@ export class AnnotationAppComponent implements OnInit {
           } else {
             setTimeout(() => {
               for (const page of this.file.pages) {
-                this.importAnnotations(page.annotations ? page.annotations: []);
+                this.importAnnotations(page.annotations ? page.annotations : []);
               }
             }, 100);
           }
@@ -441,7 +441,9 @@ export class AnnotationAppComponent implements OnInit {
         const type = AnnotationType.getAnnotationType(data.type);
         const formatting = Formatting.default();
         formatting.fontSize = data.fontSize;
-        formatting.color = "#" + data.fontColor.toString(16);
+        if (data.fontColor) {
+          formatting.color = "#" + data.fontColor.toString(16);
+        }
         formatting.font = data.font;
         (<AnnotationComponent>annotationComponent.instance).type = type ? type.id : data.type;
         (<AnnotationComponent>annotationComponent.instance).dimension = dimension;
