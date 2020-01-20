@@ -319,7 +319,9 @@ export class AnnotationAppComponent implements OnInit {
       annotationData.comments = this.comments.get(annotationData.id);
       annotationsData.push(annotationData);
     }
-    this._annotationService.annotate(this.credentials, annotationsData, false).subscribe(() => {
+    this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((ret: any) => {
+      this._modalService.open(CommonModals.OperationSuccess);
+      this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
     });
   }
 
