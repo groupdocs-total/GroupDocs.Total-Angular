@@ -326,7 +326,10 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   isVisible(id: string) {
-    return true;
+    const supported = !this.file || (this.file && this.file.supportedAnnotations.find(function (value: string) {
+      return id === value;
+    }));
+    return this.getAnnotationTypeConfig(id) && supported;
   }
 
   activeTab($event) {

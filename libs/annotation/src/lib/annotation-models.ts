@@ -7,7 +7,7 @@ export class AnnotationType {
   public static TEXT_STRIKEOUT = {id: 'textStrikeout', name: 'Text strikeout', icon: 'strikethrough',};
   public static POLYLINE = {id: 'polyline', name: 'Polyline', icon: 'signature'};
   public static TEXT_FIELD = {id: 'textField', name: 'Text field', icon: 'i-cursor'};
-  public static WATERMARK = {id: 'Watermark', name: 'Watermark', icon: 'tint'};
+  public static WATERMARK = {id: 'watermark', name: 'Watermark', icon: 'tint'};
   public static TEXT_REPLACEMENT = {id: 'textReplacement', name: 'Text replacement', icon: 'edit'};
   public static ARROW = {id: 'arrow', name: 'Arrow', icon: 'mouse-pointer'};
   public static TEXT_REDACTION = {id: 'textRedaction', name: 'Text redaction', icon: 'brush'};
@@ -47,6 +47,7 @@ export class AnnotationType {
 export class FileAnnotationDescription {
   guid: string;
   pages: PageAnnotationModel[];
+  supportedAnnotations: string[];
 }
 
 export class PageAnnotationModel extends PageModel {
