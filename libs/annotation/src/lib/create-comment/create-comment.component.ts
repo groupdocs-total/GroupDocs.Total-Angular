@@ -40,6 +40,6 @@ export class CreateCommentComponent implements OnInit {
   }
 
   saveName(value: string) {
-    this.comment.name = value;
+    this.comment.userName = value;
   }
 }

@@ -36,7 +36,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 @NgModule({
   declarations: [AnnotationAppComponent, AnnotationComponent, CommentPanelComponent, CommentComponent, CreateCommentComponent,
   ],
-  exports: [AnnotationAppComponent, AnnotationComponent, CommentPanelComponent, CommentComponent, CreateCommentComponent],
+  exports: [CommonComponentsModule, AnnotationAppComponent, AnnotationComponent, CommentPanelComponent, CommentComponent, CreateCommentComponent],
   imports:
     [CommonModule,
       CommonComponentsModule,

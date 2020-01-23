@@ -112,20 +112,20 @@ export class Comment {
 
   id: number;
   text: string;
-  name: string;
+  userName: string;
   time: number;
 
   constructor(id: number) {
     this.id = id;
     this.time = Date.now();
     this.text = "";
-    this.name = "";
+    this.userName = "";
   }
 
   static create(comment) {
     const ret = new Comment(comment.id);
     ret.text = comment.text;
-    ret.name = comment.name;
+    ret.userName = comment.userName;
     ret.time = comment.time;
     return ret;
   }
