@@ -10,7 +10,7 @@ var TabsComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-tabs',
                     template: "<div class=\"gd-tabs\">\n  <ng-content></ng-content>\n</div>\n",
-                    styles: [".gd-tabs{display:-webkit-box;display:flex}"]
+                    styles: [".gd-tabs{display:flex}"]
                 }] }
     ];
     /** @nocollapse */

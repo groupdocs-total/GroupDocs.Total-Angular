@@ -10,7 +10,7 @@ var TopToolbarComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-top-toolbar',
                     template: "<div class=\"top-toolbar\">\n  <div id=\"tools\" class=\"tools\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-                    styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.tools{width:100%;height:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-transition:.3s ease-in-out;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
+                    styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
                 }] }
     ];
     /** @nocollapse */

@@ -18,7 +18,7 @@ var LogoComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-logo',
                     template: "<div id=\"gd-header-logo\" class=\"logo\">\n  <span class=\"text\" [innerHTML]=\"logo\"></span>\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n\n",
-                    styles: [".logo{background-color:#25c2d4;height:60px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.text{color:#fff;font-size:15px;text-transform:uppercase;margin:0 14px}.icon{display:none;font-size:32px;color:rgba(255,255,255,.5);margin:14px}@media (max-width:1037px){.logo{width:60px;height:60px}.logo .text{display:none}.logo .icon{display:block}}"]
+                    styles: [".logo{background-color:#25c2d4;height:60px;display:flex;align-items:center;justify-content:center}.text{color:#fff;font-size:15px;text-transform:uppercase;margin:0 14px}.icon{display:none;font-size:32px;color:rgba(255,255,255,.5);margin:14px}@media (max-width:1037px){.logo{width:60px;height:60px}.logo .text{display:none}.logo .icon{display:block}}"]
                 }] }
     ];
     /** @nocollapse */

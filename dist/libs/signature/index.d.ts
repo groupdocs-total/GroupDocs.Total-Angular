@@ -10,3 +10,4 @@ export * from './lib/active-signature.service';
 export * from './lib/active-canvas.service';
 export * from './lib/signatures-holder.service';
 export * from './lib/signature-tab-activator.service';
+export * from './lib/drag-signature.service';
