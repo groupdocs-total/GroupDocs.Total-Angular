@@ -2747,10 +2747,9 @@ var SelectComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
-        // TODO: following lines are commented as a part of possible solution
-        // for hiding one select after opening another one
-        //$event.preventDefault();
-        //$event.stopPropagation();
+        // TODO: following lines were uncommented due to needness in signature app
+        $event.preventDefault();
+        $event.stopPropagation();
         if (!this.disabled) {
             this.isOpen = !this.isOpen;
         }
