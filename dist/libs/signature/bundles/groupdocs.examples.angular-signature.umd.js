@@ -4230,7 +4230,7 @@
             this.newSignatureEvent = new core.EventEmitter();
             this.showNewCode = false;
             this.showUpload = false;
-            this.loading = true;
+            this.loading = false;
         }
         /**
          * @param {?} tabId
@@ -4242,14 +4242,17 @@
          */
         function (tabId) {
             var _this = this;
-            this._signatureService.getSignatures('', tabId).subscribe((/**
-             * @param {?} signatures
-             * @return {?}
-             */
-            function (signatures) {
-                _this.signatures = signatures || [];
-                _this.loading = false;
-            }));
+            if (!this.loading) {
+                this.loading = true;
+                this._signatureService.getSignatures('', tabId).subscribe((/**
+                 * @param {?} signatures
+                 * @return {?}
+                 */
+                function (signatures) {
+                    _this.signatures = signatures || [];
+                    _this.loading = false;
+                }));
+            }
         };
         /**
          * @return {?}
@@ -4269,7 +4272,6 @@
          * @return {?}
          */
         function () {
-            this.loading = true;
             this.signatures = [];
             this.getSignatures(this.id);
             this.showNewCode = false;

@@ -4199,7 +4199,7 @@ var SignatureLeftPanelComponent = /** @class */ (function () {
         this.newSignatureEvent = new EventEmitter();
         this.showNewCode = false;
         this.showUpload = false;
-        this.loading = true;
+        this.loading = false;
     }
     /**
      * @param {?} tabId
@@ -4211,14 +4211,17 @@ var SignatureLeftPanelComponent = /** @class */ (function () {
      */
     function (tabId) {
         var _this = this;
-        this._signatureService.getSignatures('', tabId).subscribe((/**
-         * @param {?} signatures
-         * @return {?}
-         */
-        function (signatures) {
-            _this.signatures = signatures || [];
-            _this.loading = false;
-        }));
+        if (!this.loading) {
+            this.loading = true;
+            this._signatureService.getSignatures('', tabId).subscribe((/**
+             * @param {?} signatures
+             * @return {?}
+             */
+            function (signatures) {
+                _this.signatures = signatures || [];
+                _this.loading = false;
+            }));
+        }
     };
     /**
      * @return {?}
@@ -4238,7 +4241,6 @@ var SignatureLeftPanelComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.loading = true;
         this.signatures = [];
         this.getSignatures(this.id);
         this.showNewCode = false;
