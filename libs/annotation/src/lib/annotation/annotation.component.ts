@@ -81,7 +81,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
         this.addPoint(this.position);
       }
     } else if (this.isPath()) {
-      if (this.svgPath) {
+      if (this.svgPath || (this.type === AnnotationType.ARROW.id && !this.dimension.isNone())) {
         const end = new Position(this.position.left + this.dimension.width, this.position.top + this.dimension.height);
         this.setEndPosition(end);
         if (this.dimension.height < 0) {

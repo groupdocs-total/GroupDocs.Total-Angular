@@ -76,6 +76,10 @@ export class Dimension {
     this.width = width;
     this.height = height;
   }
+
+  isNone() {
+    return this.width === 0 && this.height === 0;
+  }
 }
 
 export class AnnotationData {
