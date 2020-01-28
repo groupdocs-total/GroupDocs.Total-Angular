@@ -414,11 +414,12 @@ export class AnnotationAppComponent implements OnInit {
     if (this.activeAnnotationTab) {
       const position = Utils.getMousePosition($event);
 
-      const currentPage = document.elementFromPoint(position.x, position.y);
-      if (currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().parent().hasClass("page")) {
+      const elements = document.elementsFromPoint(position.x, position.y);
+      const currentPage = elements.find(x => x.id && x.id.startsWith("page-"));
+      if (currentPage) {
         const documentPage = $(currentPage).parent().parent()[0];
         const currentPosition = this.getCurrentPosition(position, $(documentPage));
-        const pageId = $(currentPage).parent().attr('id');
+        const pageId = currentPage.id;
         let pageNumber = 1;
         if (pageId) {
           const split = pageId.split('-');
