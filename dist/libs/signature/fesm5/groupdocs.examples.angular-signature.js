@@ -2483,11 +2483,9 @@ var SignatureAppComponent = /** @class */ (function () {
         }));
     };
     /**
-     * @private
      * @return {?}
      */
     SignatureAppComponent.prototype.prepareSignaturesData = /**
-     * @private
      * @return {?}
      */
     function () {

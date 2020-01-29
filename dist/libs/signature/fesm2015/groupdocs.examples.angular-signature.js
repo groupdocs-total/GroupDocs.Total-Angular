@@ -1892,7 +1892,6 @@ class SignatureAppComponent {
         }));
     }
     /**
-     * @private
      * @return {?}
      */
     prepareSignaturesData() {
