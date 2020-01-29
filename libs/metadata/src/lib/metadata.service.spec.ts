@@ -4,5 +4,4 @@ import { MetadataService } from './metadata.service';
 
 describe('MetadataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
-
 });

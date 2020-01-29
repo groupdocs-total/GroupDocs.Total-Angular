@@ -36,26 +36,29 @@ TopToolbarComponent.ctorParameters = () => [];
  */
 class SidePanelComponent {
     constructor() {
+        this.closable = true;
         this.hideSidePanel = new EventEmitter();
         this.onlyTitle = false;
     }
     /**
      * @return {?}
      */
-    openSidePanel() {
+    closeSidePanel() {
         this.hideSidePanel.emit(true);
     }
     /**
      * @return {?}
      */
     toggleTitleMode() {
-        this.onlyTitle = !this.onlyTitle;
+        if (this.closable) {
+            this.onlyTitle = !this.onlyTitle;
+        }
     }
 }
 SidePanelComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-side-panel',
-                template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"close\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"openSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"close\" *ngIf=\"closable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
                 styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close{display:flex;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header /deep/ gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
             }] }
 ];
@@ -64,6 +67,7 @@ SidePanelComponent.ctorParameters = () => [];
 SidePanelComponent.propDecorators = {
     title: [{ type: Input }],
     icon: [{ type: Input }],
+    closable: [{ type: Input }],
     hideSidePanel: [{ type: Output }]
 };
 
@@ -303,6 +307,10 @@ Api.LOAD_FILE_TREE = '/loadFileTree';
 Api.LOAD_CONFIG = '/loadConfig';
 Api.LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
 Api.LOAD_DOCUMENT_PAGE = '/loadDocumentPage';
+Api.LOAD_DOCUMENT_PROPERTIES = '/loadProperties';
+Api.LOAD_DOCUMENT_PROPERTIES_NAMES = '/loadPropertiesNames';
+Api.SAVE_PROPERTY = '/saveProperty';
+Api.REMOVE_PROPERTY = '/removeProperty';
 Api.ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
 Api.UPLOAD_DOCUMENTS = '/uploadDocument';
 Api.DOWNLOAD_DOCUMENTS = '/downloadDocument';
@@ -589,6 +597,15 @@ class FileDescription {
     }
 }
 class FileModel {
+}
+/** @enum {number} */
+const FilePropertyCategory = {
+    BuildIn: 0,
+    Default: 1,
+};
+FilePropertyCategory[FilePropertyCategory.BuildIn] = 'BuildIn';
+FilePropertyCategory[FilePropertyCategory.Default] = 'Default';
+class FilePropertyModel {
 }
 class HttpError {
 }
@@ -4954,6 +4971,7 @@ const providers = [ConfigService,
     ModalService,
     FileService,
     FileModel,
+    FilePropertyModel,
     FileUtil,
     Utils,
     SanitizeHtmlPipe,
@@ -5080,5 +5098,5 @@ CommonComponentsModule.decorators = [
 /** @nocollapse */
 CommonComponentsModule.ctorParameters = () => [];
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FilePropertyCategory, FilePropertyModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

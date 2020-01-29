@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import {DatePipe} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MetadataAppComponent} from './metadata-app.component';
 import {
@@ -46,6 +47,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   providers: [
     MetadataService,
     ConfigService,
+    DatePipe,
     MetadataConfigService,
     {
       provide: HTTP_INTERCEPTORS,

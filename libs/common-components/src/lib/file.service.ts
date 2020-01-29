@@ -53,7 +53,8 @@ export enum FilePropertyCategory {
 export class FilePropertyModel {
   category: FilePropertyCategory;
   name: string;
-  value: string;
+  value: any;
+  type: number;
   original: boolean;
   selected: boolean;
   editing: boolean;

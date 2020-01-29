@@ -6,6 +6,7 @@ import { FilePropertyModel } from '@groupdocs.examples.angular/common-components
 @Injectable({
   providedIn: 'root'
 })
+
 export class MetadataService {
 
   constructor(private _http: HttpClient, private _config: ConfigService) {
@@ -66,7 +67,6 @@ export class MetadataService {
   }
 }
 
-// TODO: make more dry?
 export class MetadataFileDescription {
   guid: string;
   properties: FilePropertyModel[];

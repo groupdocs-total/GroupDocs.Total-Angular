@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit, Output, EventEmitter} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {MetadataService, MetadataFileDescription} from "./metadata.service";
 import {
   FileDescription,
@@ -10,16 +10,12 @@ import {
   NavigateService,
   PagePreloadService,
   PageModel,
-  ZoomService,
-  RenderPrintService,
-  FileUtil,
   PasswordService,
   FileCredentials, CommonModals, LoadingMaskService
 } from "@groupdocs.examples.angular/common-components";
 import {MetadataConfig} from "./metadata-config";
 import {MetadataConfigService} from "./metadata-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
-//import * as Hammer from 'hammerjs';
 import { AccordionService } from './accordion.service';
 
 @Component({
@@ -27,6 +23,7 @@ import { AccordionService } from './accordion.service';
   templateUrl: './metadata-app.component.html',
   styleUrls: ['./metadata-app.component.less']
 })
+
 export class MetadataAppComponent implements OnInit, AfterViewInit {
   title = 'metadata';
   files: FileModel[] = [];
@@ -36,17 +33,11 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   formatDisabled = !this.file;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
-  showSearch = false;
-  isDesktop: boolean;
   isLoading: boolean;
 
-  _zoom = 100;
   _pageWidth: number;
   _pageHeight: number;
-  options;
-  //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
   fileWasDropped = false;
-  formatIcon: string;
   buildInProperties: FilePropertyModel[];
   defaultProperties: FilePropertyModel[];
   addedProperty: FilePropertyModel;
@@ -59,11 +50,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
               configService: MetadataConfigService,
               uploadFilesService: UploadFilesService,
               private _navigateService: NavigateService,
-              private _zoomService: ZoomService,
               pagePreloadService: PagePreloadService,
-              private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
-              private _windowService: WindowService,
               private _loadingMaskService: LoadingMaskService,
               private _accrodionService: AccordionService) {
 
@@ -96,12 +84,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
       this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
     });
 
-    this.isDesktop = _windowService.isDesktop();
-    _windowService.onResize.subscribe((w) => {
-      this.isDesktop = _windowService.isDesktop();
-      this.refreshZoom();
-    });
-
     _accrodionService.addedProperty.subscribe(addedProperty => {
       if (addedProperty) {
         this.addedProperty = addedProperty;
@@ -110,6 +92,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           name: "",
           value: "",
           category: 0,
+          type: 1,
           selected: false,
           editing: false
         };
@@ -128,6 +111,10 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
             this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
             this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
+
+            this._metadataService.loadPropertiesNames(this.credentials).subscribe((filePropertiesNames: string[]) => {
+              this.filePropertiesNames = filePropertiesNames;
+            });
           });
           this._modalService.open(CommonModals.OperationSuccess);
         });
@@ -146,16 +133,10 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     this._loadingMaskService
     .onLoadingChanged
     .subscribe((loading: boolean) => this.isLoading = loading);
-
-    this.refreshZoom();
   }
 
   get rewriteConfig(): boolean {
     return this.metadataConfig ? this.metadataConfig.rewrite : true;
-  }
-
-  get pageSelectorConfig(): boolean {
-    return this.metadataConfig ? this.metadataConfig.pageSelector : true;
   }
 
   get downloadConfig(): boolean {
@@ -166,24 +147,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     return this.metadataConfig ? this.metadataConfig.upload : true;
   }
 
-  get printConfig(): boolean {
-    return this.metadataConfig ? this.metadataConfig.print : true;
-  }
-
   get browseConfig(): boolean {
     return this.metadataConfig ? this.metadataConfig.browse : true;
-  }
-
-  get htmlModeConfig(): boolean {
-    return this.metadataConfig ? this.metadataConfig.htmlMode : true;
-  }
-
-  get enableRightClickConfig(): boolean {
-    return this.metadataConfig ? this.metadataConfig.enableRightClick : true;
-  }
-
-  get currentPage(): number {
-    return this._navigateService.currentPage;
   }
 
   openModal(id: string) {
@@ -208,8 +173,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           if (file.pages && file.pages[0]) {
             this._pageHeight = file.pages[0].height;
             this._pageWidth = file.pages[0].width;
-            this.options = this.zoomOptions();
-            this.refreshZoom();
           }
           const preloadPageCount = this.metadataConfig.preloadPageCount;
           const countPages = file.pages ? file.pages.length : 0;
@@ -251,88 +214,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  nextPage() {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.nextPage();
-  }
-
-  prevPage() {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.prevPage();
-  }
-
-  toLastPage() {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.toLastPage();
-  }
-
-  toFirstPage() {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.toFirstPage();
-  }
-
-  navigateToPage(page: number) {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.navigateTo(page);
-  }
-
-  zoomIn() {
-    if (this.formatDisabled)
-      return;
-    if (this._zoom < 490) {
-      this.zoom = this._zoom + 10;
-    }
-  }
-
-  zoomOut() {
-    if (this.formatDisabled)
-      return;
-    if (this._zoom > 30) {
-      this.zoom = this._zoom - 10;
-    }
-  }
-
   fileDropped($event){
     this.fileWasDropped = $event;
-  }
-
-  private ptToPx(pt: number) {
-    //pt * 96 / 72 = px.
-    return pt * 96 / 72;
-  }
-
-  private getFitToWidth() {
-    // Images and Excel-related files receiving dimensions in px from server
-    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
-    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
-    const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
-
-    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
-  }
-
-  private getFitToHeight() {
-    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
-    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
-    const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
-    const offsetHeight = pageHeight ? pageHeight : windowHeight;
-
-    return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
-  }
-
-  zoomOptions() {
-    const width = this.getFitToWidth();
-    const height = this.getFitToHeight();
-    return this._zoomService.zoomOptions(width, height);
-  }
-
-  set zoom(zoom) {
-    this._zoom = zoom;
-    this._zoomService.changeZoom(this._zoom);
   }
 
   downloadFile() {
@@ -348,21 +231,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     for (const page of this.file.pages) {
       page.data = null;
     }
-  }
-
-  onRightClick($event: MouseEvent) {
-    return this.enableRightClickConfig;
-  }
-
-  openSearch() {
-    if (this.formatDisabled)
-      return;
-    this.showSearch = !this.showSearch;
-  }
-
-  private refreshZoom() {
-    this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
-    this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
   }
 
   isDisabled() {
@@ -381,8 +249,12 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
         this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
         this.disabled = false;
+
+        this._metadataService.loadPropertiesNames(this.credentials).subscribe((filePropertiesNames: string[]) => {
+          this.filePropertiesNames = filePropertiesNames;
+        });
       });
-      // TODO: add actual modal
+
       this._modalService.open(CommonModals.OperationSuccess);
     });
   }
