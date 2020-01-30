@@ -99,7 +99,7 @@ export declare class SignatureAppComponent implements OnDestroy, OnInit {
     ngOnDestroy(): void;
     private cleanSignatures;
     sign(): void;
-    private prepareSignaturesData;
+    prepareSignaturesData(): any[];
     isPdf(): boolean;
     codesConfig(): boolean;
     isVisible(id: string): boolean;

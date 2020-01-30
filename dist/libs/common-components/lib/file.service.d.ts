@@ -23,6 +23,7 @@ export declare class FileDescription {
     guid: string;
     pages: PageModel[];
     printAllowed: boolean;
+    showGridLines: boolean;
 }
 export declare class FileModel {
     guid: string;

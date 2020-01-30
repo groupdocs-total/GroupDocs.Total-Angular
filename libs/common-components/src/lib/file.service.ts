@@ -35,6 +35,7 @@ export class FileDescription {
   guid: string;
   pages: PageModel[];
   printAllowed = true;
+  showGridLines: boolean;
 }
 
 export class FileModel {

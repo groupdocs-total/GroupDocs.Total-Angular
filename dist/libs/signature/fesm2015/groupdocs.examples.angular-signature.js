@@ -1892,7 +1892,6 @@ class SignatureAppComponent {
         }));
     }
     /**
-     * @private
      * @return {?}
      */
     prepareSignaturesData() {
@@ -3259,21 +3258,24 @@ class SignatureLeftPanelComponent {
         this.newSignatureEvent = new EventEmitter();
         this.showNewCode = false;
         this.showUpload = false;
-        this.loading = true;
+        this.loading = false;
     }
     /**
      * @param {?} tabId
      * @return {?}
      */
     getSignatures(tabId) {
-        this._signatureService.getSignatures('', tabId).subscribe((/**
-         * @param {?} signatures
-         * @return {?}
-         */
-        (signatures) => {
-            this.signatures = signatures || [];
-            this.loading = false;
-        }));
+        if (!this.loading) {
+            this.loading = true;
+            this._signatureService.getSignatures('', tabId).subscribe((/**
+             * @param {?} signatures
+             * @return {?}
+             */
+            (signatures) => {
+                this.signatures = signatures || [];
+                this.loading = false;
+            }));
+        }
     }
     /**
      * @return {?}
@@ -3286,7 +3288,6 @@ class SignatureLeftPanelComponent {
      * @return {?}
      */
     init() {
-        this.loading = true;
         this.signatures = [];
         this.getSignatures(this.id);
         this.showNewCode = false;
@@ -3965,7 +3966,8 @@ SignatureModule.decorators = [
                     TextMenuComponent,
                     SignatureLeftPanelComponent,
                     HandModalComponent,
-                    StampModalComponent],
+                    StampModalComponent,
+                    CommonComponentsModule],
                 imports: [CommonModule,
                     CommonComponentsModule,
                     HttpClientModule,
@@ -4012,5 +4014,5 @@ SignatureModule.decorators = [
 /** @nocollapse */
 SignatureModule.ctorParameters = () => [];
 
-export { ActiveCanvasService, ActiveSignatureService, CopySignatureService, RemoveSignatureService, SelectSignatureService, SignatureAppComponent, SignatureConfigService, SignatureListPanelComponent, SignatureModule, SignatureService, SignatureTabActivatorService, SignaturesHolderService, initializeApp, setupLoadingInterceptor, DragSignatureService as ɵa, SignatureTabComponent as ɵb, NewBarQrCodeComponent as ɵc, UploadSignatureComponent as ɵd, DndSignatureDirective as ɵe, Signature as ɵf, ContextMenuComponent as ɵg, CanvasComponent as ɵh, StampCanvasComponent as ɵi, RemoveCanvasService as ɵj, TextMenuComponent as ɵk, SignatureLeftPanelComponent as ɵl, HandModalComponent as ɵm, StampModalComponent as ɵn };
+export { ActiveCanvasService, ActiveSignatureService, CopySignatureService, DragSignatureService, RemoveSignatureService, SelectSignatureService, SignatureAppComponent, SignatureConfigService, SignatureListPanelComponent, SignatureModule, SignatureService, SignatureTabActivatorService, SignaturesHolderService, initializeApp, setupLoadingInterceptor, SignatureTabComponent as ɵa, NewBarQrCodeComponent as ɵb, UploadSignatureComponent as ɵc, DndSignatureDirective as ɵd, Signature as ɵe, ContextMenuComponent as ɵf, CanvasComponent as ɵg, StampCanvasComponent as ɵh, RemoveCanvasService as ɵi, TextMenuComponent as ɵj, SignatureLeftPanelComponent as ɵk, HandModalComponent as ɵl, StampModalComponent as ɵm };
 //# sourceMappingURL=groupdocs.examples.angular-signature.js.map

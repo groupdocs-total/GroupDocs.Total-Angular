@@ -15,16 +15,19 @@ export class SignatureLeftPanelComponent implements OnInit, OnChanges {
   public showNewCode = false;
   public showUpload = false;
   signatures: Signature[];
-  loading = true;
+  loading = false;
 
   constructor(private _signatureService: SignatureService) {
   }
 
   getSignatures(tabId: string) {
-    this._signatureService.getSignatures('', tabId).subscribe((signatures: Signature[]) => {
-      this.signatures = signatures || [];
-      this.loading = false;
-    });
+    if (!this.loading) {
+      this.loading = true;
+      this._signatureService.getSignatures('', tabId).subscribe((signatures: Signature[]) => {
+        this.signatures = signatures || [];
+        this.loading = false;
+      });
+    }
   }
 
   ngOnInit() {
@@ -32,7 +35,6 @@ export class SignatureLeftPanelComponent implements OnInit, OnChanges {
   }
 
   private init() {
-    this.loading = true;
     this.signatures = [];
     this.getSignatures(this.id);
     this.showNewCode = false;
