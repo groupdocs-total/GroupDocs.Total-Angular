@@ -3425,6 +3425,7 @@ var SelectComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
+        // TODO: following lines were uncommented due to needness in signature app
         $event.preventDefault();
         $event.stopPropagation();
         if (!this.disabled) {
@@ -3462,7 +3463,8 @@ var SelectComponent = /** @class */ (function () {
         options: [{ type: Input }],
         disabled: [{ type: Input }],
         showSelected: [{ type: Input }],
-        selected: [{ type: Output }]
+        selected: [{ type: Output }],
+        isOpen: [{ type: Input }]
     };
     return SelectComponent;
 }());
@@ -5877,8 +5879,10 @@ var FormattingDirective = /** @class */ (function () {
          * @return {?}
          */
         function (list) {
+            /** @type {?} */
+            var remove = _this.list === list;
             _this.list = list;
-            _this.toggleList(_this.list);
+            _this.toggleList(_this.list, remove);
         }));
     };
     /**
@@ -6083,20 +6087,22 @@ var FormattingDirective = /** @class */ (function () {
     /**
      * @private
      * @param {?} list
+     * @param {?} remove
      * @return {?}
      */
     FormattingDirective.prototype.toggleList = /**
      * @private
      * @param {?} list
+     * @param {?} remove
      * @return {?}
      */
-    function (list) {
+    function (list, remove) {
         switch (list) {
             case 'unordered':
-                document.execCommand('insertUnorderedList');
+                document.execCommand('insertUnorderedList', remove);
                 break;
             case 'ordered':
-                document.execCommand('insertOrderedList');
+                document.execCommand('insertOrderedList', remove);
                 break;
         }
         this._selectionService.refreshSelection();

@@ -20,4 +20,5 @@ export class ViewerConfig {
   saveRotateState: boolean;
   watermarkText: string;
   printAllowed: boolean;
+  showGridLines: boolean;
 }

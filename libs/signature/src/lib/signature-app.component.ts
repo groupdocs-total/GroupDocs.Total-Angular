@@ -558,7 +558,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     });
   }
 
-  private prepareSignaturesData() {
+  public prepareSignaturesData() {
     const signatures = [];
     for (const ids of this._signaturesHolderService.values()) {
       for (const id of ids) {

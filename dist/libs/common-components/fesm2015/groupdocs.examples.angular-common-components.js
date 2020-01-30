@@ -2909,6 +2909,7 @@ class SelectComponent {
      * @return {?}
      */
     toggle($event) {
+        // TODO: following lines were uncommented due to needness in signature app
         $event.preventDefault();
         $event.stopPropagation();
         if (!this.disabled) {
@@ -2942,7 +2943,8 @@ SelectComponent.propDecorators = {
     options: [{ type: Input }],
     disabled: [{ type: Input }],
     showSelected: [{ type: Input }],
-    selected: [{ type: Output }]
+    selected: [{ type: Output }],
+    isOpen: [{ type: Input }]
 };
 if (false) {
     /** @type {?} */
@@ -4991,8 +4993,10 @@ class FormattingDirective {
          * @return {?}
          */
         (list) => {
+            /** @type {?} */
+            const remove = this.list === list;
             this.list = list;
-            this.toggleList(this.list);
+            this.toggleList(this.list, remove);
         }));
     }
     /**
@@ -5143,15 +5147,16 @@ class FormattingDirective {
     /**
      * @private
      * @param {?} list
+     * @param {?} remove
      * @return {?}
      */
-    toggleList(list) {
+    toggleList(list, remove) {
         switch (list) {
             case 'unordered':
-                document.execCommand('insertUnorderedList');
+                document.execCommand('insertUnorderedList', remove);
                 break;
             case 'ordered':
-                document.execCommand('insertOrderedList');
+                document.execCommand('insertOrderedList', remove);
                 break;
         }
         this._selectionService.refreshSelection();
