@@ -8,8 +8,8 @@ import {
   FileModel, Formatting,
   HostingDynamicComponentService,
   ModalService,
-  NavigateService,
-  TopTabActivatorService,
+  NavigateService, PagePreloadService, PasswordService,
+  TopTabActivatorService, UploadFilesService,
   Utils,
   WindowService
 } from "@groupdocs.examples.angular/common-components";
@@ -95,6 +95,9 @@ export class AnnotationAppComponent implements OnInit {
               private _activeAnnotationService: ActiveAnnotationService,
               private _removeAnnotationService: RemoveAnnotationService,
               private _commentAnnotationService: CommentAnnotationService,
+              uploadFilesService: UploadFilesService,
+              pagePreloadService: PagePreloadService,
+              passwordService: PasswordService,
               private _windowService: WindowService) {
 
     this._activeAnnotationService.activeChange.subscribe((id: number) => {
@@ -121,6 +124,31 @@ export class AnnotationAppComponent implements OnInit {
         componentRef.destroy();
       }
       this.annotations.delete(removeAnnotation.id);
+    });
+
+    uploadFilesService.uploadsChange.subscribe((uploads) => {
+      if (uploads) {
+        let i: number;
+        for (i = 0; i < uploads.length; i++) {
+          this._annotationService.upload(uploads.item(i), '', this.rewriteConfig).subscribe((obj: FileCredentials) => {
+            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
+          });
+        }
+      }
+    });
+
+    pagePreloadService.checkPreload.subscribe((page: number) => {
+      if (this.preloadPageCountConfig !== 0) {
+        for (let i = page; i < page + 2; i++) {
+          if (i > 0 && i <= this.countPages && !this.file.pages[i - 1].data) {
+            this.preloadPages(i, i);
+          }
+        }
+      }
+    });
+
+    passwordService.passChange.subscribe((pass: string) => {
+      this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
     });
 
     this.isDesktop = _windowService.isDesktop();
