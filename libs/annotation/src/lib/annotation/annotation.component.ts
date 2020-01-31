@@ -36,11 +36,11 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   distanceValue = '0px';
   pointsValue = "";
   svgPath = "";
+  formatting = Formatting.default();
 
   private oldPosition: { x: number; y: number };
   private points = [];
   private endPosition: Position;
-  private formatting = Formatting.default();
 
   constructor(private _activeAnnotationService: ActiveAnnotationService,
               private _removeAnnotationService: RemoveAnnotationService,

@@ -13,7 +13,7 @@ export class CommentPanelComponent implements OnInit {
 
   @Output() closeComments = new EventEmitter<boolean>();
 
-  private currentComment: Comment;
+  currentComment: Comment;
 
   constructor(private _commentAnnotationService: CommentAnnotationService) {
   }

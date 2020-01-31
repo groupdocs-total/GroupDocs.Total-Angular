@@ -7,7 +7,8 @@
      [style.left.px]="leftTop.left" [style.top.px]="leftTop.top"
      [style.width.px]="getWidth()"
      [style.height.px]="getHeight()"
-     (click)="activation()">
+     (click)="activation()"
+     (touchstart)="activation()">
   <div [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
        (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="dragOver($event)"
        (panstart)="dragStart($event)" (panmove)="dragging($event)"

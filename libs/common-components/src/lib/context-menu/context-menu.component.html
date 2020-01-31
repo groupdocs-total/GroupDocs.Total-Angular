@@ -8,8 +8,11 @@
                 (outColor)="selectColor($event)" (outFont)="selectFont($event)"
                 (outFontSize)="selectFontSize($event)" [decoration]="isSignature()"></gd-text-menu>
   <gd-button *ngIf="isSignature()" [icon]="lock ? 'lock' : 'unlock'" [class]="'ng-fa-icon icon'"
-             (click)="toggleLock()"></gd-button>
-  <gd-button *ngIf="isSignature()" [icon]="'copy'" [class]="'ng-fa-icon icon'" (click)="onCopySign()"></gd-button>
-  <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon'" (click)="deleteItem()"></gd-button>
-  <gd-button *ngIf="isAnnotation()" [icon]="'comment'" [class]="'ng-fa-icon icon'" (click)="addComment()"></gd-button>
+             (click)="toggleLock()" (touchstart)="toggleLock()"></gd-button>
+  <gd-button *ngIf="isSignature()" [icon]="'copy'" [class]="'ng-fa-icon icon'" (click)="onCopySign()"
+             (touchstart)="onCopySign()"></gd-button>
+  <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon'" (click)="deleteItem()"
+             (touchstart)="deleteItem()"></gd-button>
+  <gd-button *ngIf="isAnnotation()" [icon]="'comment'" [class]="'ng-fa-icon icon'" (click)="addComment()"
+             (touchstart)="addComment()"></gd-button>
 </div>
