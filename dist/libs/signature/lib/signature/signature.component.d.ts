@@ -52,4 +52,5 @@ export declare class Signature implements OnInit, AfterViewInit {
     private sendSaveText;
     hideMenu($event: any): void;
     getMenuShift(): number;
+    getMenuType(): string;
 }
