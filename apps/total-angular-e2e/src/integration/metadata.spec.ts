@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe('Viewer', () => {
+describe('Metadata', () => {
   beforeEach(function () {
     cy.server();
     cy.fixture("viewerLoadConfigDefault").as('viewerLoadConfigDefault');
@@ -12,6 +12,8 @@ describe('Viewer', () => {
     cy.fixture("loadFileTreeDefault").as('loadFileTreeDefault');
     cy.fixture("loadFileTreeSubFolder").as('loadFileTreeSubFolder');
     cy.fixture("loadDocumentDescriptionDefault").as('loadDocumentDescriptionDefault');
+    cy.fixture("loadPropertiesDefault").as('loadPropertiesDefault');
+    cy.fixture("loadPropertiesNamesDefault").as('loadPropertiesNamesDefault');
 
     cy.route('http://localhost:8080/viewer/loadConfig', "@viewerLoadConfigDefault");
     cy.route('http://localhost:8080/comparison/loadConfig', "@comparisonLoadConfigDefault");
@@ -20,24 +22,26 @@ describe('Viewer', () => {
     cy.route('http://localhost:8080/signature/loadConfig', "@signatureLoadConfigDefault");
     cy.route('http://localhost:8080/metadata/loadConfig', "@metadataLoadConfigDefault");
 
-    cy.route('POST','http://localhost:8080/viewer/loadFileTree', "@loadFileTreeDefault");
-    cy.route('POST','http://localhost:8080/viewer/loadDocumentDescription', "@loadDocumentDescriptionDefault");
+    cy.route('POST','http://localhost:8080/metadata/loadFileTree', "@loadFileTreeDefault");
+    cy.route('POST','http://localhost:8080/metadata/loadDocumentDescription', "@loadDocumentDescriptionDefault");
+    cy.route('POST','http://localhost:8080/metadata/loadProperties', "@loadPropertiesDefault");
+    cy.route('POST','http://localhost:8080/metadata/loadPropertiesNames', "@loadPropertiesNamesDefault");
 
   });
 
   it('should see logo', () => {
-    cy.visit('/viewer');
-    cy.get('#gd-header-logo .text').should('have.text', 'viewer');
+    cy.visit('/metadata');
+    cy.get('#gd-header-logo .text').should('have.text', 'metadata');
   });
 
   it('should open file dialog when clicked on open file icon', () => {
-    cy.visit('/viewer');
+    cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
   });
 
   it('should be able to close dialog by clicking on x', () => {
-    cy.visit('/viewer');
+    cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-content > div.gd-modal-header > div').click();
@@ -45,7 +49,7 @@ describe('Viewer', () => {
   });
 
   it('should be able to close dialog by clicking on backdrop', () => {
-    cy.visit('/viewer');
+    cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#modalDialog').click({force:true});
@@ -53,7 +57,7 @@ describe('Viewer', () => {
   });
 
   it('should be able to see file dialog file entries with detail', () => {
-    cy.visit('/viewer');
+    cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get(':nth-child(3) > .file-description > .file-name-format > .file-name').should('have.text', 'TestWord.docx');
@@ -63,11 +67,11 @@ describe('Viewer', () => {
   });
 
   it('should be able to open sub folder', () => {
-    cy.visit('/viewer');
+    cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
-    cy.route('POST','http://localhost:8080/viewer/loadFileTree',"@loadFileTreeSubFolder");
+    cy.route('POST','http://localhost:8080/metadata/loadFileTree',"@loadFileTreeSubFolder");
     cy.get('#gd-modal-filebrowser > div > div:nth-child(2)').click();
     cy.get('#gd-modal-filebrowser > div > div:nth-child(2) > div.file-description > div > div.file-name').should('have.text', 'FileInSubFolder.docx');
     cy.get('#gd-modal-filebrowser > div > div:nth-child(2) > div.file-description > div > div.file-format').should('have.text', 'Microsoft Word');
@@ -76,7 +80,7 @@ describe('Viewer', () => {
   });
 
   it('when drag file over file dialog drop zone style changed', () => {
-    cy.visit('/viewer');
+    cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
@@ -88,30 +92,65 @@ describe('Viewer', () => {
   });
 
   it('should open file when clicked on file in dialog and display 5 pages', () => {
-    cy.visit('/viewer');
+    cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
     cy.get('.page').its('length').should('eq',5);
   });
 
-  it('for opened file when thumbnail button clicked should open thumbnail panel', () => {
-    cy.visit('/viewer');
+  it('should show side-panel with two groups of file properties', () => {
+    cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('#tools > gd-button.thumbnails-button').click();
-    cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
+    cy.get('.gd-side-panel-header > .title').should('have.text', 'Metadata');
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .title').should('have.text', 'Build-in properties');
+    cy.get('gd-accordion-group.default > .accordion-wrapper > .title').should('have.text', 'Default properties');
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('have.text', 'Author');
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-value').should('have.text', 'Kovid Goyal');
+    cy.get('gd-accordion-group.default > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('have.text', 'FileFormat');
+    cy.get('gd-accordion-group.default > .accordion-wrapper > .body > :nth-child(1) > .property-value').should('have.text', '3');
   });
 
-  it('should scroll last page into view when clicked on last thumbnail', () => {
-    cy.visit('/viewer');
+  it('should create new file property after click on plus icon in the group title', () => {
+    cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('#tools > gd-button.thumbnails-button').click();
-    cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
-    cy.get('#gd-thumbnails-page-3').should('be.visible').click();
-    cy.get('#page-3').should('be.visible');
+    cy.get('gd-accordion > gd-accordion-group:nth-child(1) > div > div.title > gd-button > div').click();
+    cy.get('.select > .selected-value').should('have.text', ' Select property '); // @TODO: trim spaces
+    cy.get('.input-wrapper > .property-value').should('have.text', ''); 
+  });
+
+  it('should toggle the properties group by clicking on group title', () => {
+    cy.visit('/metadata');
+    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
+    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('be.visible')
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .title').click();
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('not.be.visible')
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .title').click();
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('be.visible')
+  });
+
+  it('should show the trash button after selecting the property', () => {
+    cy.visit('/metadata');
+    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
+    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').click();
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('have.class', 'selected');
+    cy.get('.trash').should('be.visible');
+  });
+
+  it('should show the input after click on property value', () => {
+    cy.visit('/metadata');
+    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
+    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
+    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-value').click();
+    cy.get('.input-wrapper > .property-value').should('be.visible');
   });
 });

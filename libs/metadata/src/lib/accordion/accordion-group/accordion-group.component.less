@@ -66,6 +66,9 @@
   font-weight: bold;
   padding-left: 15px;
   border-right: 1px solid @mercury;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden; 
   /deep/ .select {
     height: 35px;
     line-height: 37px;
@@ -116,5 +119,15 @@
 /deep/ .default {
   .property-name {
     color: @silver-chalice;
+  }
+}
+
+@media (max-width: 1037px){
+  .property-name, .property-value {
+    width: 188px !important;
+  }
+
+  .input-wrapper {
+    width: 185px !important;
   }
 }
