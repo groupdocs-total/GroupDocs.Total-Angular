@@ -523,7 +523,10 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   finishCreatingAnnotation($event: MouseEvent) {
-    this.creatingAnnotationId = null;
+    if (this.creatingAnnotationId) {
+      this._activeAnnotationService.changeActive(this.creatingAnnotationId);
+      this.creatingAnnotationId = null;
+    }
   }
 
   closeComments() {
