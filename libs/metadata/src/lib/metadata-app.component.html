@@ -9,7 +9,7 @@
                     *ngIf="browseConfig" ></gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="save()">
                     </gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Attributes'">
+          <gd-button [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties()">
                     </gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                     (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
@@ -20,8 +20,11 @@
                     [preloadPageCount]="metadataConfig?.preloadPageCount" gdRenderPrint [htmlMode]="false"></gd-document>
       </div>
     </div>
-    <gd-side-panel *ngIf="file"
-      [closable]="false"
+    <gd-side-panel *ngIf="file && showSidePanel"
+      (hideSidePanel)="hideSidePanel($event)"
+      (saveInSidePanel)="save($event)"
+      [closable]="isDesktop ? false : true"
+      [saveable]="isDesktop ? false : true"
       [title]="'Metadata'"
       [icon]="'clipboard-list'">
       <gd-accordion>

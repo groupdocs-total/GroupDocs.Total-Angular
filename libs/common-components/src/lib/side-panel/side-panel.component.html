@@ -2,6 +2,9 @@
   <div class="gd-side-panel-header" (click)="toggleTitleMode()">
     <fa-icon class="fas fa-info-circle icon" [icon]="['fas',icon]"></fa-icon>
     <div class="title">{{title}}</div>
+    <div class="save" *ngIf="saveable">
+      <gd-button class="fas fa-times" [icon]="'save'" [tooltip]="'Save'" (click)="saveBySidePanel()"></gd-button>
+    </div>
     <div class="close" *ngIf="closable">
       <gd-button class="fas fa-times" [icon]="'times'" [tooltip]="'Close'" (click)="closeSidePanel()"></gd-button>
     </div>

@@ -6,6 +6,7 @@ import {
   FilePropertyModel,
   FilePropertyCategory,
   ModalService,
+  ZoomService,
   UploadFilesService,
   NavigateService,
   PagePreloadService,
@@ -35,8 +36,10 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   browseFilesModal = CommonModals.BrowseFiles;
   isLoading: boolean;
 
+  _zoom = 100;
   _pageWidth: number;
   _pageHeight: number;
+  options;
   fileWasDropped = false;
   buildInProperties: FilePropertyModel[];
   defaultProperties: FilePropertyModel[];
@@ -44,16 +47,26 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   removedProperty: FilePropertyModel;
   filePropertiesNames: string[];
   disabled = false;
+  private isDesktop: boolean;
+  private showSidePanel = true;
 
   constructor(private _metadataService: MetadataService,
               private _modalService: ModalService,
               configService: MetadataConfigService,
               uploadFilesService: UploadFilesService,
               private _navigateService: NavigateService,
+              private _zoomService: ZoomService,
               pagePreloadService: PagePreloadService,
               passwordService: PasswordService,
               private _loadingMaskService: LoadingMaskService,
-              private _accrodionService: AccordionService) {
+              private _accrodionService: AccordionService,
+              private _windowService: WindowService) {
+
+    this.isDesktop = _windowService.isDesktop();
+    _windowService.onResize.subscribe((w) => {
+      this.isDesktop = _windowService.isDesktop();
+      this.refreshZoom();
+    });
 
     configService.updatedConfig.subscribe((metadataConfig) => {
       this.metadataConfig = metadataConfig;
@@ -108,14 +121,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         metadataFile.guid = this.file.guid;
         metadataFile.properties = [removedProperty];
         this._metadataService.removeProperty(metadataFile).subscribe((loadFile: FileDescription) => {
-          this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
-            this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
-            this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
-
-            this._metadataService.loadPropertiesNames(this.credentials).subscribe((filePropertiesNames: string[]) => {
-              this.filePropertiesNames = filePropertiesNames;
-            });
-          });
+          this.loadProperties();
           this._modalService.open(CommonModals.OperationSuccess);
         });
       }
@@ -133,6 +139,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     this._loadingMaskService
     .onLoadingChanged
     .subscribe((loading: boolean) => this.isLoading = loading);
+
+    this.refreshZoom();
   }
 
   get rewriteConfig(): boolean {
@@ -173,6 +181,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           if (file.pages && file.pages[0]) {
             this._pageHeight = file.pages[0].height;
             this._pageWidth = file.pages[0].width;
+            this.options = this.zoomOptions();
+            this.refreshZoom();
           }
           const preloadPageCount = this.metadataConfig.preloadPageCount;
           const countPages = file.pages ? file.pages.length : 0;
@@ -183,14 +193,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           this._navigateService.currentPage = 1;
           this.countPages = countPages;
 
-          this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
-            this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
-            this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
-
-            this._metadataService.loadPropertiesNames(this.credentials).subscribe((filePropertiesNames: string[]) => {
-              this.filePropertiesNames = filePropertiesNames;
-            });
-          });
+          this.loadProperties();
         }
       }
     );
@@ -216,6 +219,48 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
 
   fileDropped($event){
     this.fileWasDropped = $event;
+  }
+
+  private ptToPx(pt: number) {
+    //pt * 96 / 72 = px.
+    return pt * 96 / 72;
+  }
+
+  private getFitToWidth() {
+    // Images and Excel-related files receiving dimensions in px from server
+    const pageWidth = this.ptToPx(this._pageWidth);
+    const pageHeight = this.ptToPx(this._pageHeight);
+    const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
+
+    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+  }
+
+  private getFitToHeight() {
+    const pageWidth = this.ptToPx(this._pageWidth);
+    const pageHeight = this.ptToPx(this._pageHeight);
+    const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
+    const offsetHeight = pageHeight ? pageHeight : windowHeight;
+
+    return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
+  }
+
+  zoomOptions() {
+    const width = this.getFitToWidth();
+    const height = this.getFitToHeight();
+    return this._zoomService.zoomOptions(width, height);
+  }
+
+  set zoom(zoom) {
+    this._zoom = zoom;
+    this._zoomService.changeZoom(this._zoom);
+  }
+
+  get zoom() {
+    return this._zoom;
+  }
+
+  private refreshZoom() {
+    this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
   }
 
   downloadFile() {
@@ -245,17 +290,28 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     savingFile.guid = this.file.guid;
     savingFile.properties = savingProperty;
     this._metadataService.saveProperty(savingFile).subscribe((loadFile: FileDescription) => {
-      this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
-        this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
-        this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
-        this.disabled = false;
-
-        this._metadataService.loadPropertiesNames(this.credentials).subscribe((filePropertiesNames: string[]) => {
-          this.filePropertiesNames = filePropertiesNames;
-        });
-      });
-
+      this.loadProperties();
+      this.disabled = false;
       this._modalService.open(CommonModals.OperationSuccess);
     });
+  }
+
+  loadProperties() {
+    this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
+      this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
+      this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
+
+      this._metadataService.loadPropertiesNames(this.credentials).subscribe((filePropertiesNames: string[]) => {
+        this.filePropertiesNames = filePropertiesNames;
+      });
+    });
+
+    if (!this.showSidePanel) {
+      this.showSidePanel = true;
+    }
+  }
+
+  hideSidePanel($event: Event) {
+    this.showSidePanel = !this.showSidePanel;
   }
 }

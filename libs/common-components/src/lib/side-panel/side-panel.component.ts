@@ -10,7 +10,9 @@ export class SidePanelComponent {
   @Input() title: string;
   @Input() icon: string;
   @Input() closable = true;
+  @Input() saveable = true;
   @Output() hideSidePanel = new EventEmitter<boolean>();
+  @Output() saveInSidePanel = new EventEmitter<boolean>();
 
   onlyTitle = false;
 
@@ -21,8 +23,12 @@ export class SidePanelComponent {
     this.hideSidePanel.emit(true);
   }
 
+  saveBySidePanel() {
+    this.saveInSidePanel.emit(true);
+  }
+
   toggleTitleMode(){
-    if (this.closable) {
+    if (this.closable && !this.saveable) {
       this.onlyTitle = !this.onlyTitle;
     }
   }

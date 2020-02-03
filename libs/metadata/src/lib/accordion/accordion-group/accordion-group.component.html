@@ -13,7 +13,8 @@
           <div *ngIf="property.original && !property.editing" [ngClass]="{'selected': property.selected}" (click)="editProperty(property)" class="property-value" title="{{property.value}}">{{formatValue(property)}}</div>
           <div *ngIf="!property.original || property.editing" class="input-wrapper">
             <input #textinput *ngIf="property.type == 1 || property.type == 5" class="property-value" [(ngModel)]="property.value">
-            <input *ngIf="property.type == 3" type="datetime-local" step="1" class="property-value" [ngModel]="property.value | date:'yyyy-MM-ddTHH:mm:ss'" (ngModelChange)="formatDateTime(property, $event)">
+            <input *ngIf="property.type == 3" type="datetime-local" step="1" [ngClass]="isDesktop ? 'property-value' : 'property-value mobile-hide'" [ngModel]="property.value | date:'yyyy-MM-ddTHH:mm:ss'" (ngModelChange)="formatDateTime(property, $event)">
+            <input *ngIf="property.type == 3" type="datetime-local" [ngClass]="isDesktop ? 'property-value desktop-hide' : 'property-value'" [ngModel]="property.value | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="formatDateTime(property, $event)">
         </div>
       </div>
     </div>

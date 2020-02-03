@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
-import { FilePropertyModel } from '@groupdocs.examples.angular/common-components';
+import { FilePropertyModel, WindowService } from '@groupdocs.examples.angular/common-components';
 import { AccordionService } from './../../accordion.service';
 import {DatePipe} from "@angular/common";
 
@@ -18,9 +18,15 @@ export class AccordionGroupComponent implements AfterViewInit {
   @Output() toggle: EventEmitter<any> = new EventEmitter<any>();
   @ViewChildren('textinput') textinput: QueryList<any>; 
    _selectedPropName = "Select property";
+   private isDesktop: boolean;
 
   constructor(private _accordionService: AccordionService,
-              private _datePipe: DatePipe) {
+              private _datePipe: DatePipe,
+              private _windowService: WindowService) {
+    this.isDesktop = _windowService.isDesktop();
+    _windowService.onResize.subscribe((w) => {
+      this.isDesktop = _windowService.isDesktop();
+    });
   }
 
   ngAfterViewInit() {
@@ -68,6 +74,7 @@ export class AccordionGroupComponent implements AfterViewInit {
   }
 
   editProperty(property: FilePropertyModel){
+    // we can edit only first group props
     if (property.category === 0) {
       this.resetProperties();
 
@@ -97,7 +104,7 @@ export class AccordionGroupComponent implements AfterViewInit {
     editingProperty.type = $event.type;
     editingProperty.name = $event.name;
     if ($event.type === 3) {
-      editingProperty.value = new Date().toISOString().slice(0, 19);
+      editingProperty.value = this.isDesktop ? new Date().toISOString().slice(0, 19) : new Date().toISOString().slice(0, 16);
     }
     else {
       editingProperty.value = "";
@@ -116,7 +123,8 @@ export class AccordionGroupComponent implements AfterViewInit {
       case 1:
         return property.value;
       case 3:
-        return this._datePipe.transform(new Date(property.value), 'M/dd/yy, h:mm:ss a');
+        return this.isDesktop ? this._datePipe.transform(new Date(property.value), 'M/dd/yy, h:mm:ss a')
+                              : this._datePipe.transform(new Date(property.value), 'M/dd/yy, h:mm a');
       case 5:
         return property.value;
     }
