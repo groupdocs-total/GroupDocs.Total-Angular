@@ -381,7 +381,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   private setTextFocus() {
     if (this.isText() || this.isTextReplacement()) {
       setTimeout(() => {
-        const element = $("#text");
+        const element = $("#text-" + this.id);
         if (element) {
           element.focus();
         }

@@ -437,7 +437,6 @@ export class AnnotationAppComponent implements OnInit {
 
   createAnnotation($event: MouseEvent) {
     $event.preventDefault();
-    $event.stopPropagation();
 
     if (this.activeAnnotationTab) {
       const position = Utils.getMousePosition($event);
@@ -502,7 +501,6 @@ export class AnnotationAppComponent implements OnInit {
 
   resizingCreatingAnnotation($event: MouseEvent) {
     $event.preventDefault();
-    $event.stopPropagation();
 
     if (this.creatingAnnotationId) {
       const position = Utils.getMousePosition($event);
