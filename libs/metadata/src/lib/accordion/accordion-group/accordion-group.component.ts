@@ -104,7 +104,7 @@ export class AccordionGroupComponent implements AfterViewInit {
     editingProperty.type = $event.type;
     editingProperty.name = $event.name;
     if ($event.type === 3) {
-      editingProperty.value = this.isDesktop ? new Date().toISOString().slice(0, 19) : new Date().toISOString().slice(0, 16);
+      editingProperty.value = new Date().toISOString().slice(0, 19);
     }
     else {
       editingProperty.value = "";
