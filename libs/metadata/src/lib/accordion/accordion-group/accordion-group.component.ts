@@ -18,7 +18,7 @@ export class AccordionGroupComponent implements AfterViewInit {
   @Output() toggle: EventEmitter<any> = new EventEmitter<any>();
   @ViewChildren('textinput') textinput: QueryList<any>; 
    _selectedPropName = "Select property";
-   private isDesktop: boolean;
+   isDesktop: boolean;
 
   constructor(private _accordionService: AccordionService,
               private _datePipe: DatePipe,

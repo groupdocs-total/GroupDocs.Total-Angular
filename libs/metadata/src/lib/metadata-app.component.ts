@@ -47,7 +47,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   removedProperty: FilePropertyModel;
   filePropertiesNames: string[];
   disabled = false;
-  private isDesktop: boolean;
+  isDesktop: boolean;
   private showSidePanel = true;
 
   constructor(private _metadataService: MetadataService,
