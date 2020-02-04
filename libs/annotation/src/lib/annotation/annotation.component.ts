@@ -173,6 +173,8 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
           point.top = point.top + top;
           this.pointsValue += point.left + "," + point.top + " ";
         }
+        this.leftTop.left += left;
+        this.leftTop.top += top;
       } else if (this.isPath()) {
         if (!this.checkDragging(left, top)) {
           return;
@@ -183,13 +185,15 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
         this.endPosition.top += top;
         this.pathValue = "M" + this.position.left + "," + this.position.top + " L" + this.endPosition.left + "," + this.endPosition.top;
         this.distanceValue = this.getDistance() + "px";
+        this.leftTop.left += left;
+        this.leftTop.top += top;
       } else {
         this.position.left += left;
         this.position.top += top;
         this.correctPosition();
+        this.leftTop.left = this.position.left;
+        this.leftTop.top = this.position.top;
       }
-      this.leftTop.left += left;
-      this.leftTop.top += top;
       this.oldPosition = position;
     }
   }
@@ -271,8 +275,12 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   calcDimensions(currentPosition: Position) {
-    this.dimension.width = currentPosition.left - this.position.left;
-    this.dimension.height = currentPosition.top - this.position.top;
+    if (currentPosition.left <= this.pageWidth) {
+      this.dimension.width = currentPosition.left - this.position.left;
+    }
+    if (currentPosition.top <= this.pageHeight) {
+      this.dimension.height = currentPosition.top - this.position.top;
+    }
   }
 
   getHeight() {

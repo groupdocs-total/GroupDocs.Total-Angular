@@ -471,7 +471,7 @@ export class AnnotationAppComponent implements OnInit {
     if (dynamicDirective) {
       const viewContainerRef = dynamicDirective.viewContainerRef;
       const annotationComponent = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, AnnotationComponent);
-      const id = this.annotations.size + 1;
+      const id = this.getNextId();
       (<AnnotationComponent>annotationComponent.instance).id = id;
       (<AnnotationComponent>annotationComponent.instance).position = currentPosition;
       (<AnnotationComponent>annotationComponent.instance).pageNumber = pageNumber;
@@ -537,5 +537,16 @@ export class AnnotationAppComponent implements OnInit {
 
   closeComments() {
     this.commentOpenedId = null;
+  }
+
+  private getNextId() {
+    let maxId = 0;
+    for (const annId of this.annotations.keys()) {
+      if (annId > maxId){
+        maxId = annId;
+      }
+    }
+    const id = maxId + 1;
+    return id;
   }
 }
