@@ -230,13 +230,15 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   draw(position: Position) {
-    if (this.isPolyline()) {
-      this.addPoint(position);
-    } else if (this.isPath()) {
-      this.setEndPosition(position);
-      this.distanceValue = this.getDistance() + "px";
+    if (position.left <= this.pageWidth && position.top <= this.pageHeight) {
+      if (this.isPolyline()) {
+        this.addPoint(position);
+      } else if (this.isPath()) {
+        this.setEndPosition(position);
+        this.distanceValue = this.getDistance() + "px";
+      }
+      this.calcPositionAndDimension();
     }
-    this.calcPositionAndDimension();
   }
 
   setStyles() {
