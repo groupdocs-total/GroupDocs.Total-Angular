@@ -124,6 +124,10 @@ export class AnnotationAppComponent implements OnInit {
         componentRef.destroy();
       }
       this.annotations.delete(removeAnnotation.id);
+      if (this.commentOpenedId === removeAnnotation.id) {
+        this.commentOpenedId = null;
+      }
+      this.comments.delete(removeAnnotation.id);
     });
 
     uploadFilesService.uploadsChange.subscribe((uploads) => {
@@ -279,6 +283,7 @@ export class AnnotationAppComponent implements OnInit {
   selectFile($event: string, password: string, modalId: string) {
     this.credentials = new FileCredentials($event, password);
     this.file = null;
+    this.commentOpenedId = null;
     this._annotationService.loadFile(this.credentials).subscribe((file: FileAnnotationDescription) => {
         this.cleanAnnotations();
         this.file = file;
@@ -321,6 +326,7 @@ export class AnnotationAppComponent implements OnInit {
       const position = new Position(annotation.left, annotation.top);
       const id = this.addAnnotationComponent(annotation.pageNumber, position, annotation);
       this.comments.set(id, annotation.comments);
+      this._activeAnnotationService.changeActive(id);
     }
   }
 
