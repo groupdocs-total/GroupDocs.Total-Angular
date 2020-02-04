@@ -22,7 +22,7 @@
     </div>
     <gd-side-panel *ngIf="file && showSidePanel"
       (hideSidePanel)="hideSidePanel($event)"
-      (saveInSidePanel)="save($event)"
+      (saveInSidePanel)="save()"
       [closable]="isDesktop ? false : true"
       [saveable]="isDesktop ? false : true"
       [title]="'Metadata'"
