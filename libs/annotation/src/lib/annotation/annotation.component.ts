@@ -110,23 +110,32 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   width($event) {
-    this.dimension.width += $event;
-    this.correctPosition();
+    if (this.checkDragging($event, 0)) {
+      this.dimension.width += $event;
+    }
   }
 
   height($event) {
-    this.dimension.height += $event;
-    this.correctPosition();
+    if (this.checkDragging(0, $event)) {
+      this.dimension.height += $event;
+    }
   }
 
   left($event) {
     this.position.left += $event;
     this.correctPosition();
+    this.refreshLeftTop();
   }
 
   top($event) {
     this.position.top += $event;
     this.correctPosition();
+    this.refreshLeftTop();
+  }
+
+  private refreshLeftTop() {
+    this.leftTop.left = this.position.left;
+    this.leftTop.top = this.position.top;
   }
 
   private correctPosition() {
@@ -191,8 +200,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
         this.position.left += left;
         this.position.top += top;
         this.correctPosition();
-        this.leftTop.left = this.position.left;
-        this.leftTop.top = this.position.top;
+        this.refreshLeftTop();
       }
       this.oldPosition = position;
     }
