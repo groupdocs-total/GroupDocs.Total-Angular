@@ -360,7 +360,8 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   isVisible(id: string) {
-    const supported = !this.file || (this.file && this.file.supportedAnnotations.find(function (value: string) {
+    const supported = !this.file || (this.file && this.file.supportedAnnotations &&
+      this.file.supportedAnnotations.find(function (value: string) {
       return id === value;
     }));
     return this.getAnnotationTypeConfig(id) && supported;
