@@ -606,4 +606,8 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
   fileDropped($event) {
     this.fileWasDropped = $event;
   }
+
+  isFirstTab(signatureType: { name: string; icon: string; id: string; title: string }) {
+    return (signatureType.id === SignatureType.TEXT.id) || (!this.isDesktop && signatureType.id === SignatureType.QR_CODE.id);
+  }
 }

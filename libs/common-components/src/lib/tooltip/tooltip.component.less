@@ -1,17 +1,23 @@
 .tooltip {
   position: absolute;
-  margin-top: 37px;
-  width: 100px;
+  margin-top: 37px !important;
+  width: fit-content;
   background-color: #000000;
   color: #fff;
   text-align: center;
   border-radius: 0px;
-  padding: 5px 0;
+  padding: 5px;
   z-index: 1;
-  margin-left: -66px;
+  margin-left: unset !important;
+  margin-right: unset !important;
   font-size: 10px;
   height: 11px;
   line-height: 11px;
+  align-self: center;
+}
+
+.first-element {
+  margin-left: 10px !important;
 }
 
 .tooltip.hidden {

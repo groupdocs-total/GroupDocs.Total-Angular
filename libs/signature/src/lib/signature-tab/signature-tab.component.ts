@@ -15,6 +15,7 @@ export class SignatureTabComponent implements OnInit {
   @Input() icon: string;
   @Input() disabled = false;
   @Input() tooltip: string;
+  @Input() firstElement = false;
   @Output() activeTab = new EventEmitter<string>();
   public active = false;
   public showToolTip = false;

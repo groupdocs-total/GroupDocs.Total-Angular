@@ -2,5 +2,5 @@
      (showToolTip)="showToolTip = $event" [ngClass]="(active) ? 'active' : ''">
   <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'"></fa-icon>
   <gd-tooltip [text]="tooltip" [show]="showToolTip"
-              *ngIf="tooltip"></gd-tooltip>
+              *ngIf="tooltip" [first]="firstElement" class="gd-tab-tooltip"></gd-tooltip>
 </div>
