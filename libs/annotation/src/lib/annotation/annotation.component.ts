@@ -230,7 +230,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   draw(position: Position) {
-    if (position.left <= this.pageWidth && position.top <= this.pageHeight) {
+    if (this.onPage(position)) {
       if (this.isPolyline()) {
         this.addPoint(position);
       } else if (this.isPath()) {
@@ -277,10 +277,10 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   calcDimensions(currentPosition: Position) {
-    if (currentPosition.left <= this.pageWidth) {
+    if (currentPosition.left <= this.pageWidth && currentPosition.left >= 0) {
       this.dimension.width = currentPosition.left - this.position.left;
     }
-    if (currentPosition.top <= this.pageHeight) {
+    if (currentPosition.top <= this.pageHeight && currentPosition.top >= 0) {
       this.dimension.height = currentPosition.top - this.position.top;
     }
   }
@@ -449,5 +449,10 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
       svgPath = "";
     }
     return svgPath;
+  }
+
+  private onPage(position: Position) {
+    return position.left <= this.pageWidth && position.top <= this.pageHeight &&
+      position.left >= 0 && position.top >= 0;
   }
 }
