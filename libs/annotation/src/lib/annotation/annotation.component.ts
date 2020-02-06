@@ -96,6 +96,8 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
         this.setEndPosition(this.position);
       }
       this.distanceValue = this.getDistance() + "px";
+    } else if (this.type === AnnotationType.POINT.id) {
+      this.initPoint();
     } else {
       this.setEndPosition(this.position);
     }
@@ -164,6 +166,13 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
     if ($event.dataTransfer) {
       $event.dataTransfer.setData('text', 'foo');
     }
+  }
+
+  initPoint() {
+    this.dimension = new Dimension(40, 40);
+    this.position.left = this.position.left - 20;
+    this.position.top = this.position.top - 20;
+    this.leftTop = Position.clone(this.position);
   }
 
   dragging($event) {
@@ -384,7 +393,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
   }
 
   getMenuShift() {
-    const menuWidth = this.isText() ? 265 : 148;
+    const menuWidth = this.isText() ? 265 : 111;
     return this.dimension.width > menuWidth ? 0 : (this.dimension.width - menuWidth) * 0.5;
   }
 
@@ -423,10 +432,17 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
     annotationData.fontColor = parseInt(Utils.toHex(this.formatting.color).replace("#", ""), 16);
     annotationData.fontSize = this.formatting.fontSize;
     annotationData.font = this.formatting.font;
-    annotationData.left = this.leftTop.left;
-    annotationData.top = this.leftTop.top;
-    annotationData.height = this.dimension.height;
-    annotationData.width = this.dimension.width;
+    if (this.type === AnnotationType.POINT.id) {
+      annotationData.left = this.leftTop.left + 20;
+      annotationData.top = this.leftTop.top + 20;
+      annotationData.height = 0;
+      annotationData.width = 0;
+    } else {
+      annotationData.left = this.leftTop.left;
+      annotationData.top = this.leftTop.top;
+      annotationData.height = this.dimension.height;
+      annotationData.width = this.dimension.width;
+    }
     annotationData.pageNumber = this.pageNumber;
     annotationData.type = this.type;
     annotationData.svgPath = this.getSvgPath();
