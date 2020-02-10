@@ -465,7 +465,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     if (dynamicDirective) {
       const viewContainerRef = dynamicDirective.viewContainerRef;
       const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
-      const id = this.signatureComponents.size + 1;
+      const id = this.getNextId();
       while (addedSignature.width >= page.width || addedSignature.height >= page.height) {
         addedSignature.width = addedSignature.width / 2;
         addedSignature.height = addedSignature.height / 2;
@@ -482,6 +482,17 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
       return id;
     }
     return null;
+  }
+
+  private getNextId() {
+    let maxId = 0;
+    for (const annId of this.signatureComponents.keys()) {
+      if (annId > maxId){
+        maxId = annId;
+      }
+    }
+    const id = maxId + 1;
+    return id;
   }
 
   private closeTab(type: string) {
