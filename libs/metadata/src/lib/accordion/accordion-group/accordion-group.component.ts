@@ -120,12 +120,10 @@ export class AccordionGroupComponent implements AfterViewInit {
 
   formatValue(property: FilePropertyModel){
     switch (property.type) {
-      case 1:
-        return property.value;
       case 3:
-        return this.isDesktop ? this._datePipe.transform(new Date(property.value), 'M/dd/yy, h:mm:ss a')
-                              : this._datePipe.transform(new Date(property.value), 'M/dd/yy, h:mm a');
-      case 5:
+        return this.isDesktop ? this._datePipe.transform(new Date(property.value), 'MM/dd/yy, h:mm:ss a')
+                              : this._datePipe.transform(new Date(property.value), 'MM/dd/yy, h:mm a');
+      default:
         return property.value;
     }
   }
