@@ -35,9 +35,11 @@ export declare class AnnotationComponent implements OnInit, AfterViewInit {
     height($event: any): void;
     left($event: any): void;
     top($event: any): void;
+    private refreshLeftTop;
     private correctPosition;
     dragOver($event: DragEvent): void;
     dragStart($event: DragEvent): void;
+    initPoint(): void;
     dragging($event: any): void;
     getAnnotationClass(): "" | "gd-annotation-wrapper-border gd-text-annotation" | "gd-annotation-wrapper-border gd-text-annotation gd-text-strikeout-annotation" | "gd-annotation-wrapper-border gd-text-annotation gd-text-underline-annotation" | "gd-annotation-wrapper-border gd-text-redaction-annotation" | "gd-annotation-wrapper-border gd-text-replacement-annotation" | "gd-annotation-wrapper-border";
     isStrikeoutOrUnderline(): boolean;
@@ -82,4 +84,5 @@ export declare class AnnotationComponent implements OnInit, AfterViewInit {
     hideMenu($event: Event): void;
     getAnnotationData(): AnnotationData;
     private getSvgPath;
+    private onPage;
 }

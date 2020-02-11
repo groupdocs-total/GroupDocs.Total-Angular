@@ -108,4 +108,5 @@ export declare class AnnotationAppComponent implements OnInit {
     private getCurrentPosition;
     finishCreatingAnnotation($event: MouseEvent): void;
     closeComments(): void;
+    private getNextId;
 }

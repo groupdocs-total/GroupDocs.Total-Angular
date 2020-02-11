@@ -1002,6 +1002,9 @@
                 }
                 this.distanceValue = this.getDistance() + "px";
             }
+            else if (this.type === AnnotationType.POINT.id) {
+                this.initPoint();
+            }
             else {
                 this.setEndPosition(this.position);
             }
@@ -1033,8 +1036,9 @@
          * @return {?}
          */
         function ($event) {
-            this.dimension.width += $event;
-            this.correctPosition();
+            if (this.checkDragging($event, 0)) {
+                this.dimension.width += $event;
+            }
         };
         /**
          * @param {?} $event
@@ -1045,8 +1049,9 @@
          * @return {?}
          */
         function ($event) {
-            this.dimension.height += $event;
-            this.correctPosition();
+            if (this.checkDragging(0, $event)) {
+                this.dimension.height += $event;
+            }
         };
         /**
          * @param {?} $event
@@ -1059,6 +1064,7 @@
         function ($event) {
             this.position.left += $event;
             this.correctPosition();
+            this.refreshLeftTop();
         };
         /**
          * @param {?} $event
@@ -1071,6 +1077,19 @@
         function ($event) {
             this.position.top += $event;
             this.correctPosition();
+            this.refreshLeftTop();
+        };
+        /**
+         * @private
+         * @return {?}
+         */
+        AnnotationComponent.prototype.refreshLeftTop = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            this.leftTop.left = this.position.left;
+            this.leftTop.top = this.position.top;
         };
         /**
          * @private
@@ -1122,6 +1141,18 @@
             }
         };
         /**
+         * @return {?}
+         */
+        AnnotationComponent.prototype.initPoint = /**
+         * @return {?}
+         */
+        function () {
+            this.dimension = new Dimension(40, 40);
+            this.position.left = this.position.left - 20;
+            this.position.top = this.position.top - 20;
+            this.leftTop = Position.clone(this.position);
+        };
+        /**
          * @param {?} $event
          * @return {?}
          */
@@ -1159,6 +1190,8 @@
                         }
                         finally { if (e_1) throw e_1.error; }
                     }
+                    this.leftTop.left += left;
+                    this.leftTop.top += top_1;
                 }
                 else if (this.isPath()) {
                     if (!this.checkDragging(left, top_1)) {
@@ -1170,14 +1203,15 @@
                     this.endPosition.top += top_1;
                     this.pathValue = "M" + this.position.left + "," + this.position.top + " L" + this.endPosition.left + "," + this.endPosition.top;
                     this.distanceValue = this.getDistance() + "px";
+                    this.leftTop.left += left;
+                    this.leftTop.top += top_1;
                 }
                 else {
                     this.position.left += left;
                     this.position.top += top_1;
                     this.correctPosition();
+                    this.refreshLeftTop();
                 }
-                this.leftTop.left += left;
-                this.leftTop.top += top_1;
                 this.oldPosition = position;
             }
         };
@@ -1243,14 +1277,16 @@
          * @return {?}
          */
         function (position) {
-            if (this.isPolyline()) {
-                this.addPoint(position);
+            if (this.onPage(position)) {
+                if (this.isPolyline()) {
+                    this.addPoint(position);
+                }
+                else if (this.isPath()) {
+                    this.setEndPosition(position);
+                    this.distanceValue = this.getDistance() + "px";
+                }
+                this.calcPositionAndDimension();
             }
-            else if (this.isPath()) {
-                this.setEndPosition(position);
-                this.distanceValue = this.getDistance() + "px";
-            }
-            this.calcPositionAndDimension();
         };
         /**
          * @return {?}
@@ -1327,8 +1363,12 @@
          * @return {?}
          */
         function (currentPosition) {
-            this.dimension.width = currentPosition.left - this.position.left;
-            this.dimension.height = currentPosition.top - this.position.top;
+            if (currentPosition.left <= this.pageWidth && currentPosition.left >= 0) {
+                this.dimension.width = currentPosition.left - this.position.left;
+            }
+            if (currentPosition.top <= this.pageHeight && currentPosition.top >= 0) {
+                this.dimension.height = currentPosition.top - this.position.top;
+            }
         };
         /**
          * @return {?}
@@ -1540,7 +1580,7 @@
          */
         function () {
             /** @type {?} */
-            var menuWidth = this.isText() ? 265 : 148;
+            var menuWidth = this.isText() ? 265 : 111;
             return this.dimension.width > menuWidth ? 0 : (this.dimension.width - menuWidth) * 0.5;
         };
         /**
@@ -1570,13 +1610,14 @@
          * @return {?}
          */
         function () {
+            var _this = this;
             if (this.isText() || this.isTextReplacement()) {
                 setTimeout((/**
                  * @return {?}
                  */
                 function () {
                     /** @type {?} */
-                    var element = $("#text");
+                    var element = $("#text-" + _this.id);
                     if (element) {
                         element.focus();
                     }
@@ -1622,10 +1663,18 @@
             annotationData.fontColor = parseInt(commonComponents.Utils.toHex(this.formatting.color).replace("#", ""), 16);
             annotationData.fontSize = this.formatting.fontSize;
             annotationData.font = this.formatting.font;
-            annotationData.left = this.leftTop.left;
-            annotationData.top = this.leftTop.top;
-            annotationData.height = this.dimension.height;
-            annotationData.width = this.dimension.width;
+            if (this.type === AnnotationType.POINT.id) {
+                annotationData.left = this.leftTop.left + 20;
+                annotationData.top = this.leftTop.top + 20;
+                annotationData.height = 0;
+                annotationData.width = 0;
+            }
+            else {
+                annotationData.left = this.leftTop.left;
+                annotationData.top = this.leftTop.top;
+                annotationData.height = this.dimension.height;
+                annotationData.width = this.dimension.width;
+            }
             annotationData.pageNumber = this.pageNumber;
             annotationData.type = this.type;
             annotationData.svgPath = this.getSvgPath();
@@ -1683,11 +1732,25 @@
             }
             return svgPath;
         };
+        /**
+         * @private
+         * @param {?} position
+         * @return {?}
+         */
+        AnnotationComponent.prototype.onPage = /**
+         * @private
+         * @param {?} position
+         * @return {?}
+         */
+        function (position) {
+            return position.left <= this.pageWidth && position.top <= this.pageHeight &&
+                position.left >= 0 && position.top >= 0;
+        };
         AnnotationComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-annotation',
-                        template: "<div class=\"gd-annotation\"\n     (clickOutside)=\"hideMenu($event)\"\n     [exclude]=\"'gd-context-menu,.ui-resizable-handle,.gd-comments-panel'\"\n     [excludeBeforeClick]=\"true\"\n     [clickOutsideEvents]=\"'mousedown'\"\n     [clickOutsideEnabled]=\"active\"\n     [style.left.px]=\"leftTop.left\" [style.top.px]=\"leftTop.top\"\n     [style.width.px]=\"getWidth()\"\n     [style.height.px]=\"getHeight()\"\n     (click)=\"activation()\"\n     (touchstart)=\"activation()\">\n  <div [draggable]=\"true\" (dragover)=\"dragOver($event)\" (dragstart)=\"dragStart($event)\"\n       (drag)=\"dragging($event)\" (dragend)=\"dragging($event)\" (drop)=\"dragOver($event)\"\n       (panstart)=\"dragStart($event)\" (panmove)=\"dragging($event)\"\n       class=\"gd-annotation-wrapper\" [ngClass]=\"getAnnotationClass()\">\n    <gd-context-menu *ngIf=\"active\" [topPosition]=\"position.top\" [textMenu]=\"isText()\" [formatting]=\"getFormatting()\"\n                     (changeFormatting)=\"saveFormatting($event)\" (removeItem)=\"remove()\"\n                     [translation]=\"getMenuShift()\" [menuType]=\"getMenuType()\"\n                     (comment)=\"addComment()\"></gd-context-menu>\n    <div class=\"gd-text-strikeout-line\" *ngIf=\"isStrikeoutOrUnderline()\"></div>\n    <textarea wrap=\"off\" class=\"gd-text\" *ngIf=\"isTextReplacement() || isText()\" [value]=\"textValue\"\n              id=\"text\" #text (keyup)=\"saveText(text.value)\"\n              (keydown)=\"textAreaHeight($event.key, text)\"\n              [style.color]=\"formatting?.color\"\n              [style.font-family]=\"formatting?.font\"\n              [style.font-size.px]=\"formatting?.fontSize\"\n              [style.width.px]=\"getWidth()\"\n              [style.height.px]=\"getHeight()\"></textarea>\n    <div *ngIf=\"isPoint()\" class=\"gd-point\">\n      <fa-icon class=\"icon\" [icon]=\"['fas','thumbtack']\" [size]=\"'lg'\"></fa-icon>\n    </div>\n  </div>\n\n  <gd-resizing [id]=\"id\" *ngIf=\"active && !isSVG() && !isPoint()\"\n               (offsetX)=\"width($event)\" (offsetY)=\"height($event)\"\n               (offsetTop)=\"top($event)\" (offsetLeft)=\"left($event)\"\n               [se]=\"true\" [sw]=\"true\" [ne]=\"true\" [nw]=\"true\"\n               [pageHeight]=\"pageHeight\" [pageWidth]=\"pageWidth\"></gd-resizing>\n</div>\n<svg *ngIf=\"isSVG()\" class=\"svg\" xmlns=\"http://www.w3.org/2000/svg\">\n  <polyline *ngIf=\"isPolyline()\" [attr.id]=\"id\" [attr.points]=\"pointsValue\" [ngStyle]=\"setStyles()\">\n  </polyline>\n  <path id=\"{{'gd-path-' + id}}\" *ngIf=\"isPath()\" [attr.d]=\"pathValue\" [attr.marker-end]=\"bottom()\"\n        [attr.marker-start]=\"head()\" [ngStyle]=\"setStyles()\">\n    <title *ngIf=\"isDistance()\" [ngStyle]=\"distanceTextOptions()\">{{ distanceValue }}</title>\n  </path>\n  <text *ngIf=\"isDistance()\" [ngStyle]=\"distanceTextOptions()\" [attr.x]=\"getTextX()\"\n        [attr.y]=\"0\">\n    <textPath [attr.href]=\"'#gd-path-' + id\">\n      {{ distanceValue }}\n    </textPath>\n  </text>\n</svg>\n",
-                        styles: [".gd-annotation{position:absolute!important;cursor:pointer;z-index:9}.gd-annotation .gd-annotation-wrapper-border{outline:#679ffa solid 1px;display:-webkit-box;display:flex}.gd-annotation .gd-annotation-wrapper{height:inherit;z-index:9}.gd-annotation .gd-annotation-wrapper ::ng-deep .palette{width:0;height:37px}.gd-annotation .gd-annotation-wrapper .gd-text-strikeout-line{background-color:#e04e4e;height:2px;width:100%}.gd-annotation .gd-annotation-wrapper .gd-text{border:none;outline:0;margin:0;padding:0;overflow:hidden;background-color:transparent;min-width:1em;min-height:1em}.gd-annotation .gd-annotation-wrapper .gd-point{background-color:#7cbc46;width:41px;height:41px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;color:#fff;border-radius:50%;-moz-border-radius:50%;-webkit-border-radius:50%;-khtml-border-radius:50%;box-shadow:0 1px 1px 1px #bbb;-moz-box-shadow:0 1px 1px 1px #bbb;-webkit-box-shadow:0 1px 1px 1px #bbb}.gd-annotation .gd-text-annotation{background-color:rgba(151,151,240,.51)}.gd-annotation .gd-text-strikeout-annotation{-webkit-box-align:center;align-items:center}.gd-annotation .gd-text-underline-annotation{-webkit-box-align:end;align-items:end}.gd-annotation .gd-text-redaction-annotation{background-color:#000}.gd-annotation .gd-text-replacement-annotation{background-color:#fff}.svg{z-index:1;position:absolute;top:0;left:0;width:100%;height:100%}.annotation-svg{position:absolute;cursor:pointer;z-index:2}"]
+                        template: "<div class=\"gd-annotation\"\n     (clickOutside)=\"hideMenu($event)\"\n     [exclude]=\"'gd-context-menu,.ui-resizable-handle,.gd-comments-panel'\"\n     [excludeBeforeClick]=\"true\"\n     [clickOutsideEvents]=\"'mousedown'\"\n     [clickOutsideEnabled]=\"active\"\n     [style.left.px]=\"leftTop.left\" [style.top.px]=\"leftTop.top\"\n     [style.width.px]=\"getWidth()\"\n     [style.height.px]=\"getHeight()\"\n     (click)=\"activation()\"\n     (touchstart)=\"activation()\">\n  <div [draggable]=\"true\" (dragover)=\"dragOver($event)\" (dragstart)=\"dragStart($event)\"\n       (drag)=\"dragging($event)\" (dragend)=\"dragging($event)\" (drop)=\"dragOver($event)\"\n       (panstart)=\"dragStart($event)\" (panmove)=\"dragging($event)\"\n       class=\"gd-annotation-wrapper\" [ngClass]=\"getAnnotationClass()\">\n    <gd-context-menu *ngIf=\"active\" [topPosition]=\"position.top\" [textMenu]=\"isText()\" [formatting]=\"getFormatting()\"\n                     (changeFormatting)=\"saveFormatting($event)\" (removeItem)=\"remove()\"\n                     [translation]=\"getMenuShift()\" [menuType]=\"getMenuType()\"\n                     (comment)=\"addComment()\"></gd-context-menu>\n    <div class=\"gd-text-strikeout-line\" *ngIf=\"isStrikeoutOrUnderline()\"></div>\n    <textarea wrap=\"off\" class=\"gd-text\" *ngIf=\"isTextReplacement() || isText()\" [value]=\"textValue\"\n              id=\"{{'text-' + id}}\" #text (keyup)=\"saveText(text.value)\"\n              (keydown)=\"textAreaHeight($event.key, text)\"\n              [style.color]=\"formatting?.color\"\n              [style.font-family]=\"formatting?.font\"\n              [style.font-size.px]=\"formatting?.fontSize\"\n              [style.width.px]=\"getWidth()\"\n              [style.height.px]=\"getHeight()\"></textarea>\n    <div *ngIf=\"isPoint()\" class=\"gd-point\">\n      <fa-icon class=\"icon\" [icon]=\"['fas','thumbtack']\" [size]=\"'lg'\"></fa-icon>\n    </div>\n  </div>\n\n  <gd-resizing [id]=\"id\" *ngIf=\"active && !isSVG() && !isPoint()\"\n               (offsetX)=\"width($event)\" (offsetY)=\"height($event)\"\n               (offsetTop)=\"top($event)\" (offsetLeft)=\"left($event)\"\n               [se]=\"true\" [sw]=\"true\" [ne]=\"true\" [nw]=\"true\"\n               [pageHeight]=\"pageHeight\" [pageWidth]=\"pageWidth\"></gd-resizing>\n</div>\n<svg *ngIf=\"isSVG()\" class=\"svg\" xmlns=\"http://www.w3.org/2000/svg\">\n  <polyline *ngIf=\"isPolyline()\" [attr.id]=\"id\" [attr.points]=\"pointsValue\" [ngStyle]=\"setStyles()\">\n  </polyline>\n  <path id=\"{{'gd-path-' + id}}\" *ngIf=\"isPath()\" [attr.d]=\"pathValue\" [attr.marker-end]=\"bottom()\"\n        [attr.marker-start]=\"head()\" [ngStyle]=\"setStyles()\">\n    <title *ngIf=\"isDistance()\" [ngStyle]=\"distanceTextOptions()\">{{ distanceValue }}</title>\n  </path>\n  <text *ngIf=\"isDistance()\" [ngStyle]=\"distanceTextOptions()\" [attr.x]=\"getTextX()\"\n        [attr.y]=\"0\">\n    <textPath [attr.href]=\"'#gd-path-' + id\">\n      {{ distanceValue }}\n    </textPath>\n  </text>\n</svg>\n",
+                        styles: [".gd-annotation{position:absolute!important;cursor:pointer;z-index:9}.gd-annotation .gd-annotation-wrapper-border{outline:#679ffa solid 1px;display:-webkit-box}.gd-annotation .gd-annotation-wrapper{height:inherit;z-index:9}.gd-annotation .gd-annotation-wrapper ::ng-deep .palette{width:0;height:37px}.gd-annotation .gd-annotation-wrapper .gd-text-strikeout-line{background-color:#e04e4e;height:2px;width:100%}.gd-annotation .gd-annotation-wrapper .gd-text{border:none;outline:0;margin:0;padding:0;overflow:hidden;background-color:transparent;min-width:1em;min-height:1em}.gd-annotation .gd-annotation-wrapper .gd-point{background-color:#7cbc46;width:41px;height:41px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;color:#fff;border-radius:50%;-moz-border-radius:50%;-webkit-border-radius:50%;-khtml-border-radius:50%;box-shadow:0 1px 1px 1px #bbb;-moz-box-shadow:0 1px 1px 1px #bbb;-webkit-box-shadow:0 1px 1px 1px #bbb}.gd-annotation .gd-text-annotation{background-color:rgba(151,151,240,.51)}.gd-annotation .gd-text-strikeout-annotation{align-items:center;-webkit-box-align:center}.gd-annotation .gd-text-underline-annotation{align-items:end;-webkit-box-align:end}.gd-annotation .gd-text-redaction-annotation{background-color:#000}.gd-annotation .gd-text-replacement-annotation{background-color:#fff}.svg{z-index:1;position:absolute;top:0;left:0;width:100%;height:100%}.annotation-svg{position:absolute;cursor:pointer;z-index:2}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1858,6 +1921,10 @@
                     componentRef.destroy();
                 }
                 _this.annotations.delete(removeAnnotation.id);
+                if (_this.commentOpenedId === removeAnnotation.id) {
+                    _this.commentOpenedId = null;
+                }
+                _this.comments.delete(removeAnnotation.id);
             }));
             uploadFilesService.uploadsChange.subscribe((/**
              * @param {?} uploads
@@ -2229,6 +2296,7 @@
             var _this = this;
             this.credentials = new commonComponents.FileCredentials($event, password);
             this.file = null;
+            this.commentOpenedId = null;
             this._annotationService.loadFile(this.credentials).subscribe((/**
              * @param {?} file
              * @return {?}
@@ -2323,6 +2391,7 @@
                     /** @type {?} */
                     var id = this.addAnnotationComponent(annotation.pageNumber, position, annotation);
                     this.comments.set(id, annotation.comments);
+                    this._activeAnnotationService.changeActive(id);
                 }
             }
             catch (e_2_1) { e_2 = { error: e_2_1 }; }
@@ -2418,13 +2487,14 @@
          */
         function (id) {
             /** @type {?} */
-            var supported = !this.file || (this.file && this.file.supportedAnnotations.find((/**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                return id === value;
-            })));
+            var supported = !this.file || (this.file && this.file.supportedAnnotations &&
+                this.file.supportedAnnotations.find((/**
+                 * @param {?} value
+                 * @return {?}
+                 */
+                function (value) {
+                    return id === value;
+                })));
             return this.getAnnotationTypeConfig(id) && supported;
         };
         /**
@@ -2606,7 +2676,6 @@
          */
         function ($event) {
             $event.preventDefault();
-            $event.stopPropagation();
             if (this.activeAnnotationTab) {
                 /** @type {?} */
                 var position = commonComponents.Utils.getMousePosition($event);
@@ -2663,7 +2732,7 @@
                 /** @type {?} */
                 var annotationComponent = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, AnnotationComponent);
                 /** @type {?} */
-                var id = this.annotations.size + 1;
+                var id = this.getNextId();
                 ((/** @type {?} */ (annotationComponent.instance))).id = id;
                 ((/** @type {?} */ (annotationComponent.instance))).position = currentPosition;
                 ((/** @type {?} */ (annotationComponent.instance))).pageNumber = pageNumber;
@@ -2715,7 +2784,6 @@
          */
         function ($event) {
             $event.preventDefault();
-            $event.stopPropagation();
             if (this.creatingAnnotationId) {
                 /** @type {?} */
                 var position = commonComponents.Utils.getMousePosition($event);
@@ -2730,7 +2798,7 @@
                 if (type === AnnotationType.POLYLINE.id || type === AnnotationType.DISTANCE.id || type === AnnotationType.ARROW.id) {
                     ((/** @type {?} */ (annotationComponent.instance))).draw(currentPosition);
                 }
-                else {
+                else if (type !== AnnotationType.POINT.id) {
                     ((/** @type {?} */ (annotationComponent.instance))).calcDimensions(currentPosition);
                 }
             }
@@ -2763,7 +2831,10 @@
          * @return {?}
          */
         function ($event) {
-            this.creatingAnnotationId = null;
+            if (this.creatingAnnotationId) {
+                this._activeAnnotationService.changeActive(this.creatingAnnotationId);
+                this.creatingAnnotationId = null;
+            }
         };
         /**
          * @return {?}
@@ -2773,6 +2844,37 @@
          */
         function () {
             this.commentOpenedId = null;
+        };
+        /**
+         * @private
+         * @return {?}
+         */
+        AnnotationAppComponent.prototype.getNextId = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            var e_7, _a;
+            /** @type {?} */
+            var maxId = 0;
+            try {
+                for (var _b = __values(this.annotations.keys()), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var annId = _c.value;
+                    if (annId > maxId) {
+                        maxId = annId;
+                    }
+                }
+            }
+            catch (e_7_1) { e_7 = { error: e_7_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_7) throw e_7.error; }
+            }
+            /** @type {?} */
+            var id = maxId + 1;
+            return id;
         };
         AnnotationAppComponent.decorators = [
             { type: core.Component, args: [{
