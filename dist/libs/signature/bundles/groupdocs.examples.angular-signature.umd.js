@@ -2514,11 +2514,9 @@
             }));
         };
         /**
-         * @private
          * @return {?}
          */
         SignatureAppComponent.prototype.prepareSignaturesData = /**
-         * @private
          * @return {?}
          */
         function () {
@@ -4230,7 +4228,7 @@
             this.newSignatureEvent = new core.EventEmitter();
             this.showNewCode = false;
             this.showUpload = false;
-            this.loading = true;
+            this.loading = false;
         }
         /**
          * @param {?} tabId
@@ -4242,14 +4240,17 @@
          */
         function (tabId) {
             var _this = this;
-            this._signatureService.getSignatures('', tabId).subscribe((/**
-             * @param {?} signatures
-             * @return {?}
-             */
-            function (signatures) {
-                _this.signatures = signatures || [];
-                _this.loading = false;
-            }));
+            if (!this.loading) {
+                this.loading = true;
+                this._signatureService.getSignatures('', tabId).subscribe((/**
+                 * @param {?} signatures
+                 * @return {?}
+                 */
+                function (signatures) {
+                    _this.signatures = signatures || [];
+                    _this.loading = false;
+                }));
+            }
         };
         /**
          * @return {?}
@@ -4269,7 +4270,6 @@
          * @return {?}
          */
         function () {
-            this.loading = true;
             this.signatures = [];
             this.getSignatures(this.id);
             this.showNewCode = false;
@@ -5102,7 +5102,8 @@
                             TextMenuComponent,
                             SignatureLeftPanelComponent,
                             HandModalComponent,
-                            StampModalComponent],
+                            StampModalComponent,
+                            commonComponents.CommonComponentsModule],
                         imports: [common.CommonModule,
                             commonComponents.CommonComponentsModule,
                             http.HttpClientModule,
@@ -5154,6 +5155,7 @@
     exports.ActiveCanvasService = ActiveCanvasService;
     exports.ActiveSignatureService = ActiveSignatureService;
     exports.CopySignatureService = CopySignatureService;
+    exports.DragSignatureService = DragSignatureService;
     exports.RemoveSignatureService = RemoveSignatureService;
     exports.SelectSignatureService = SelectSignatureService;
     exports.SignatureAppComponent = SignatureAppComponent;
@@ -5165,20 +5167,19 @@
     exports.SignaturesHolderService = SignaturesHolderService;
     exports.initializeApp = initializeApp;
     exports.setupLoadingInterceptor = setupLoadingInterceptor;
-    exports.ɵa = DragSignatureService;
-    exports.ɵb = SignatureTabComponent;
-    exports.ɵc = NewBarQrCodeComponent;
-    exports.ɵd = UploadSignatureComponent;
-    exports.ɵe = DndSignatureDirective;
-    exports.ɵf = Signature;
-    exports.ɵg = ContextMenuComponent;
-    exports.ɵh = CanvasComponent;
-    exports.ɵi = StampCanvasComponent;
-    exports.ɵj = RemoveCanvasService;
-    exports.ɵk = TextMenuComponent;
-    exports.ɵl = SignatureLeftPanelComponent;
-    exports.ɵm = HandModalComponent;
-    exports.ɵn = StampModalComponent;
+    exports.ɵa = SignatureTabComponent;
+    exports.ɵb = NewBarQrCodeComponent;
+    exports.ɵc = UploadSignatureComponent;
+    exports.ɵd = DndSignatureDirective;
+    exports.ɵe = Signature;
+    exports.ɵf = ContextMenuComponent;
+    exports.ɵg = CanvasComponent;
+    exports.ɵh = StampCanvasComponent;
+    exports.ɵi = RemoveCanvasService;
+    exports.ɵj = TextMenuComponent;
+    exports.ɵk = SignatureLeftPanelComponent;
+    exports.ɵl = HandModalComponent;
+    exports.ɵm = StampModalComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
