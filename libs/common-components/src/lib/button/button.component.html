@@ -1,7 +1,7 @@
 <div class="button {{intent}} {{iconButtonClass()}}" [ngClass]="toggle ? className + ' gd-edit active' : className"
      gdTooltip (showToolTip)="showToolTip = $event" (mouseenter)="onHovering()"
      (mouseleave)="onUnhovering()" gdDisabledCursor [dis]="disabled">
-  <fa-icon [icon]="[iconRegular ? 'far' : 'fas',icon]" [size]="iconSize"></fa-icon>
+  <fa-icon *ngIf="icon" [icon]="[iconRegular ? 'far' : 'fas',icon]" [size]="iconSize"></fa-icon>
   <gd-tooltip [text]="tooltip" [show]="showToolTip" *ngIf="tooltip"></gd-tooltip>
   <div class="text">
     <ng-content></ng-content>

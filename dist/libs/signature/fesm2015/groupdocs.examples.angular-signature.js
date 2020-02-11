@@ -1,6 +1,6 @@
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, EventEmitter, Output, ElementRef, Directive, HostListener, ViewChild, NgModule, APP_INITIALIZER } from '@angular/core';
 import { DatePipe, CommonModule } from '@angular/common';
-import { Api, FileUtil, ConfigService, Formatting, Utils, TabActivatorService, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, DndDirective, FormattingService, HostDynamicDirective, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
+import { Api, Utils, FileUtil, ConfigService, Formatting, MenuType, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, TopTabActivatorService, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, TabActivatorService, DndDirective, HostDynamicDirective, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { map, debounceTime } from 'rxjs/operators';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -171,7 +171,7 @@ class SignatureService {
     saveTextSignature(data) {
         /** @type {?} */
         const properties = data.props;
-        properties.fontColor = this.toRgb(properties.fontColor);
+        properties.fontColor = Utils.toRgb(properties.fontColor);
         return this._http.post(this._config.getSignatureApiEndpoint() + Api.SAVE_TEXT, {
             'properties': properties
         }, Api.httpOptionsJson).pipe(map((/**
@@ -179,70 +179,9 @@ class SignatureService {
          * @return {?}
          */
         (props) => {
-            props.fontColor = this.toHex(props.fontColor);
+            props.fontColor = Utils.toHex(props.fontColor);
             return props;
         })));
-    }
-    /**
-     * @private
-     * @param {?} color
-     * @return {?}
-     */
-    toRgb(color) {
-        /** @type {?} */
-        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
-        if (result) {
-            /** @type {?} */
-            const r = parseInt(result[1], 16);
-            /** @type {?} */
-            const g = parseInt(result[2], 16);
-            /** @type {?} */
-            const b = parseInt(result[3], 16);
-            return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
-        }
-        return color;
-    }
-    /**
-     * @private
-     * @param {?} color
-     * @return {?}
-     */
-    toHex(color) {
-        // check if color is standard hex value
-        if (color.match(/[0-9A-F]{6}|[0-9A-F]{3}$/i)) {
-            return (color.charAt(0) === "#") ? color : ("#" + color);
-            // check if color is RGB value -> convert to hex
-        }
-        else if (color.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)) {
-            /** @type {?} */
-            const c = ([parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10), parseInt(RegExp.$3, 10)]);
-            /** @type {?} */
-            const pad = (/**
-             * @param {?} str
-             * @return {?}
-             */
-            function (str) {
-                if (str.length < 2) {
-                    for (let i = 0, len = 2 - str.length; i < len; i++) {
-                        str = '0' + str;
-                    }
-                }
-                return str;
-            });
-            if (c.length === 3) {
-                /** @type {?} */
-                const r = pad(c[0].toString(16));
-                /** @type {?} */
-                const g = pad(c[1].toString(16));
-                /** @type {?} */
-                const b = pad(c[2].toString(16));
-                return '#' + r + g + b;
-            }
-            // else do nothing
-        }
-        else {
-            return '';
-        }
     }
     /**
      * @param {?} img
@@ -260,9 +199,9 @@ class SignatureService {
      */
     saveStamp(img, props) {
         for (const properties of props) {
-            properties.backgroundColor = this.toRgb(properties.backgroundColor);
-            properties.strokeColor = this.toRgb(properties.strokeColor);
-            properties.textColor = this.toRgb(properties.textColor);
+            properties.backgroundColor = Utils.toRgb(properties.backgroundColor);
+            properties.strokeColor = Utils.toRgb(properties.strokeColor);
+            properties.textColor = Utils.toRgb(properties.textColor);
         }
         return this._http.post(this._config.getSignatureApiEndpoint() + Api.SAVE_STAMP, {
             'image': img,
@@ -311,12 +250,66 @@ SignatureService.ctorParameters = () => [
     { type: ConfigService }
 ];
 /** @nocollapse */ SignatureService.ngInjectableDef = ɵɵdefineInjectable({ factory: function SignatureService_Factory() { return new SignatureService(ɵɵinject(HttpClient), ɵɵinject(ConfigService)); }, token: SignatureService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureService.prototype._http;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureService.prototype._config;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class SignatureConfig {
+}
+if (false) {
+    /** @type {?} */
+    SignatureConfig.prototype.rewrite;
+    /** @type {?} */
+    SignatureConfig.prototype.pageSelector;
+    /** @type {?} */
+    SignatureConfig.prototype.download;
+    /** @type {?} */
+    SignatureConfig.prototype.upload;
+    /** @type {?} */
+    SignatureConfig.prototype.print;
+    /** @type {?} */
+    SignatureConfig.prototype.browse;
+    /** @type {?} */
+    SignatureConfig.prototype.enableRightClick;
+    /** @type {?} */
+    SignatureConfig.prototype.filesDirectory;
+    /** @type {?} */
+    SignatureConfig.prototype.fontsDirectory;
+    /** @type {?} */
+    SignatureConfig.prototype.defaultDocument;
+    /** @type {?} */
+    SignatureConfig.prototype.preloadPageCount;
+    /** @type {?} */
+    SignatureConfig.prototype.textSignature;
+    /** @type {?} */
+    SignatureConfig.prototype.imageSignature;
+    /** @type {?} */
+    SignatureConfig.prototype.digitalSignature;
+    /** @type {?} */
+    SignatureConfig.prototype.qrCodeSignature;
+    /** @type {?} */
+    SignatureConfig.prototype.barCodeSignature;
+    /** @type {?} */
+    SignatureConfig.prototype.stampSignature;
+    /** @type {?} */
+    SignatureConfig.prototype.handSignature;
+    /** @type {?} */
+    SignatureConfig.prototype.downloadOriginal;
+    /** @type {?} */
+    SignatureConfig.prototype.downloadSigned;
 }
 
 /**
@@ -382,11 +375,47 @@ SignatureConfigService.ctorParameters = () => [
     { type: ConfigService }
 ];
 /** @nocollapse */ SignatureConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function SignatureConfigService_Factory() { return new SignatureConfigService(ɵɵinject(HttpClient), ɵɵinject(ConfigService)); }, token: SignatureConfigService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureConfigService.prototype._signatureConfig;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureConfigService.prototype._updatedConfig;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureConfigService.prototype._http;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureConfigService.prototype._config;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class Signature {
+}
+if (false) {
+    /** @type {?} */
+    Signature.prototype.guid;
+    /** @type {?} */
+    Signature.prototype.image;
+    /** @type {?} */
+    Signature.prototype.name;
+    /** @type {?} */
+    Signature.prototype.text;
+    /** @type {?} */
+    Signature.prototype.fontColor;
+}
 class SignatureType {
     /**
      * @param {?} id
@@ -423,6 +452,22 @@ SignatureType.DIGITAL = {
 };
 SignatureType.STAMP = { id: 'stamp', name: 'Stamps', icon: 'stamp', title: '' };
 SignatureType.HAND = { id: 'hand', name: 'Signatures', icon: 'signature', title: '' };
+if (false) {
+    /** @type {?} */
+    SignatureType.TEXT;
+    /** @type {?} */
+    SignatureType.IMAGE;
+    /** @type {?} */
+    SignatureType.QR_CODE;
+    /** @type {?} */
+    SignatureType.BAR_CODE;
+    /** @type {?} */
+    SignatureType.DIGITAL;
+    /** @type {?} */
+    SignatureType.STAMP;
+    /** @type {?} */
+    SignatureType.HAND;
+}
 class FileListWithParams {
     /**
      * @param {?} fileList
@@ -433,9 +478,39 @@ class FileListWithParams {
         this.signType = signType;
     }
 }
+if (false) {
+    /** @type {?} */
+    FileListWithParams.prototype.fileList;
+    /** @type {?} */
+    FileListWithParams.prototype.signType;
+}
+class OpticalCodeModel {
+}
+if (false) {
+    /** @type {?} */
+    OpticalCodeModel.prototype.encodedImage;
+    /** @type {?} */
+    OpticalCodeModel.prototype.text;
+    /** @type {?} */
+    OpticalCodeModel.prototype.temp;
+}
 class DraggableSignature {
 }
 DraggableSignature.TEMP = "temp";
+if (false) {
+    /** @type {?} */
+    DraggableSignature.TEMP;
+    /** @type {?} */
+    DraggableSignature.prototype.guid;
+    /** @type {?} */
+    DraggableSignature.prototype.type;
+    /** @type {?} */
+    DraggableSignature.prototype.position;
+    /** @type {?} */
+    DraggableSignature.prototype.pageNumber;
+    /** @type {?} */
+    DraggableSignature.prototype.digitalProps;
+}
 class Position {
     /**
      * @param {?} left
@@ -445,6 +520,12 @@ class Position {
         this.left = left;
         this.top = top;
     }
+}
+if (false) {
+    /** @type {?} */
+    Position.prototype.left;
+    /** @type {?} */
+    Position.prototype.top;
 }
 class SignatureData {
     /**
@@ -473,13 +554,69 @@ class SignatureData {
         return ret;
     }
 }
+if (false) {
+    /** @type {?} */
+    SignatureData.prototype.reason;
+    /** @type {?} */
+    SignatureData.prototype.contact;
+    /** @type {?} */
+    SignatureData.prototype.address;
+    /** @type {?} */
+    SignatureData.prototype.date;
+    /** @type {?} */
+    SignatureData.prototype.signaturePassword;
+    /** @type {?} */
+    SignatureData.prototype.signatureGuid;
+    /** @type {?} */
+    SignatureData.prototype.signatureType;
+    /** @type {?} */
+    SignatureData.prototype.pageNumber;
+    /** @type {?} */
+    SignatureData.prototype.left;
+    /** @type {?} */
+    SignatureData.prototype.top;
+    /** @type {?} */
+    SignatureData.prototype.imageWidth;
+    /** @type {?} */
+    SignatureData.prototype.imageHeight;
+    /** @type {?} */
+    SignatureData.prototype.angle;
+}
 class DigitalSign {
+}
+if (false) {
+    /** @type {?} */
+    DigitalSign.prototype.reason;
+    /** @type {?} */
+    DigitalSign.prototype.contact;
+    /** @type {?} */
+    DigitalSign.prototype.address;
+    /** @type {?} */
+    DigitalSign.prototype.date;
+    /** @type {?} */
+    DigitalSign.prototype.signaturePassword;
 }
 class AddedSignature {
     constructor() {
         this.height = 0;
         this.width = 0;
     }
+}
+if (false) {
+    /** @type {?} */
+    AddedSignature.prototype.guid;
+    /** @type {?} */
+    AddedSignature.prototype.props;
+    /** @type {?} */
+    AddedSignature.prototype.data;
+    /** @type {?} */
+    AddedSignature.prototype.width;
+    /** @type {?} */
+    AddedSignature.prototype.height;
+    /** @type {?} */
+    AddedSignature.prototype.number;
+    /** @type {?} */
+    AddedSignature.prototype.digitalProps;
 }
 class SignatureProps {
     /**
@@ -500,11 +637,63 @@ class SignatureProps {
         return props;
     }
 }
+if (false) {
+    /** @type {?} */
+    SignatureProps.prototype.imageGuid;
+    /** @type {?} */
+    SignatureProps.prototype.text;
+    /** @type {?} */
+    SignatureProps.prototype.width;
+    /** @type {?} */
+    SignatureProps.prototype.height;
+    /** @type {?} */
+    SignatureProps.prototype.bold;
+    /** @type {?} */
+    SignatureProps.prototype.italic;
+    /** @type {?} */
+    SignatureProps.prototype.underline;
+    /** @type {?} */
+    SignatureProps.prototype.font;
+    /** @type {?} */
+    SignatureProps.prototype.fontSize;
+    /** @type {?} */
+    SignatureProps.prototype.fontColor;
+}
 class RemoveSign {
+}
+if (false) {
+    /** @type {?} */
+    RemoveSign.prototype.guid;
+    /** @type {?} */
+    RemoveSign.prototype.id;
+    /** @type {?} */
+    RemoveSign.prototype.type;
 }
 class CopySign {
 }
+if (false) {
+    /** @type {?} */
+    CopySign.prototype.guid;
+    /** @type {?} */
+    CopySign.prototype.id;
+    /** @type {?} */
+    CopySign.prototype.type;
+}
 class CopyChanges {
+}
+if (false) {
+    /** @type {?} */
+    CopyChanges.prototype.guid;
+    /** @type {?} */
+    CopyChanges.prototype.id;
+    /** @type {?} */
+    CopyChanges.prototype.width;
+    /** @type {?} */
+    CopyChanges.prototype.height;
+    /** @type {?} */
+    CopyChanges.prototype.position;
+    /** @type {?} */
+    CopyChanges.prototype.props;
 }
 class StampCanvasProps {
     constructor() {
@@ -535,6 +724,42 @@ class StampCanvasProps {
         return (/** @type {?} */ (this));
     }
 }
+if (false) {
+    /** @type {?} */
+    StampCanvasProps.prototype.id;
+    /** @type {?} */
+    StampCanvasProps.prototype.text;
+    /** @type {?} */
+    StampCanvasProps.prototype.width;
+    /** @type {?} */
+    StampCanvasProps.prototype.height;
+    /** @type {?} */
+    StampCanvasProps.prototype.zIndex;
+    /** @type {?} */
+    StampCanvasProps.prototype.backgroundColor;
+    /** @type {?} */
+    StampCanvasProps.prototype.strokeColor;
+    /** @type {?} */
+    StampCanvasProps.prototype.strokeWidth;
+    /** @type {?} */
+    StampCanvasProps.prototype.fontSize;
+    /** @type {?} */
+    StampCanvasProps.prototype.font;
+    /** @type {?} */
+    StampCanvasProps.prototype.textColor;
+    /** @type {?} */
+    StampCanvasProps.prototype.radius;
+    /** @type {?} */
+    StampCanvasProps.prototype.bold;
+    /** @type {?} */
+    StampCanvasProps.prototype.italic;
+    /** @type {?} */
+    StampCanvasProps.prototype.underline;
+    /** @type {?} */
+    StampCanvasProps.prototype.textExpansion;
+    /** @type {?} */
+    StampCanvasProps.prototype.textRepeat;
+}
 class Border {
     /**
      * @return {?}
@@ -554,6 +779,16 @@ class Border {
     static widthOption(width) {
         return { value: width, name: width + 'px', separator: false };
     }
+}
+class Downloads {
+}
+Downloads.original = 'original';
+Downloads.signed = 'signed';
+if (false) {
+    /** @type {?} */
+    Downloads.original;
+    /** @type {?} */
+    Downloads.signed;
 }
 
 /**
@@ -579,6 +814,18 @@ class SelectSignatureService {
         this._observer.next(sign);
     }
 }
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SelectSignatureService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    SelectSignatureService.prototype._selectSignature;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -603,6 +850,18 @@ class RemoveSignatureService {
         this._observer.next(id);
     }
 }
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    RemoveSignatureService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    RemoveSignatureService.prototype._removeSignature;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -626,6 +885,18 @@ class ActiveSignatureService {
     changeActive(signId) {
         this._observer.next(signId);
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ActiveSignatureService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    ActiveSignatureService.prototype._activeChange;
 }
 
 /**
@@ -717,6 +988,13 @@ class SignaturesHolderService {
         this.addId(imageGuid, id);
     }
 }
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SignaturesHolderService.prototype.map;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -756,6 +1034,28 @@ class CopySignatureService {
         this._observerChanges.next(changes);
     }
 }
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    CopySignatureService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    CopySignatureService.prototype._copySignature;
+    /**
+     * @type {?}
+     * @private
+     */
+    CopySignatureService.prototype._observerChanges;
+    /**
+     * @type {?}
+     * @private
+     */
+    CopySignatureService.prototype._changesSignature;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -763,7 +1063,7 @@ class CopySignatureService {
  */
 /** @type {?} */
 const $ = jquery;
-class Signature {
+class Signature$1 {
     /**
      * @param {?} _signatureService
      * @param {?} _removeSignatureService
@@ -1094,23 +1394,29 @@ class Signature {
         const menuWidth = this.type === SignatureType.TEXT.id ? 426 : 148;
         return this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
     }
+    /**
+     * @return {?}
+     */
+    getMenuType() {
+        return MenuType.FOR_SIGNATURE;
+    }
 }
-Signature.decorators = [
+Signature$1.decorators = [
     { type: Component, args: [{
                 selector: 'gd-signature-component',
-                template: "<div class=\"gd-signature\" *ngIf=\"!isDigital()\"\n     (clickOutside)=\"hideMenu($event)\"\n     [exclude]=\"'gd-context-menu,.ui-resizable-handle'\"\n     [excludeBeforeClick]=\"true\"\n     [clickOutsideEvents]=\"'mousedown'\"\n     [clickOutsideEnabled]=\"active\"\n     [style.left.px]=\"position.left\" [style.top.px]=\"position.top\"\n     [style.width.px]=\"data.width ? data.width : undefined\"\n     [style.height.px]=\"data.height ? data.height : undefined\" (click)=\"activation()\">\n  <div [draggable]=\"true\" (dragover)=\"dragOver($event)\" (dragstart)=\"dragStart($event)\"\n       (drag)=\"dragging($event)\" (dragend)=\"dragging($event)\" (drop)=\"drop($event)\"\n       (panstart)=\"dragStart($event)\" (panmove)=\"dragging($event)\"\n       class=\"gd-signature-wrapper\">\n    <gd-context-menu *ngIf=\"active\" [topPosition]=\"position.top\" [textMenu]=\"isText()\" [formatting]=\"getFormatting()\"\n                     (changeFormatting)=\"saveTextSignature($event)\" (removeSign)=\"remove()\" (copySign)=\"onCopySign()\"\n                     [lock]=\"!unlock\" (lockOut)=\"unlock = !$event\" [translation]=\"getMenuShift()\"></gd-context-menu>\n    <img class=\"gd-signature-image\" *ngIf=\"!isText()\" [attr.src]=\"getData()\" alt>\n    <textarea class=\"gd-text\" *ngIf=\"isText()\" [value]=\"data.props?.text\"\n              id=\"text\" #text (keyup)=\"saveText(text.value)\"\n              [style.text-decoration]=\"data.props?.underline ? 'underline' : 'unset'\"\n              [style.font-style]=\"data.props?.italic ? 'italic' : 'unset'\"\n              [style.font-weight]=\"data.props?.bold ? 'bold' : 'unset'\"\n              [style.color]=\"data.props?.fontColor\"\n              [style.font-family]=\"data?.props.font\"\n              [style.font-size.px]=\"data?.props.fontSize\"\n              [style.width.px]=\"data.width ? data.width : undefined\"\n              [style.height.px]=\"data.height ? data.height : undefined\"></textarea>\n  </div>\n  <gd-resizing [id]=\"id\" *ngIf=\"active\" [init]=\"isInit()\"\n               (offsetX)=\"width($event)\" (offsetY)=\"height($event)\"\n               (offsetTop)=\"top($event)\" (offsetLeft)=\"left($event)\"\n               [se]=\"true\" [sw]=\"unlock\" [ne]=\"unlock\" [nw]=\"unlock\"\n               [pageHeight]=\"pageHeight\" [pageWidth]=\"pageWidth\"></gd-resizing>\n</div>\n<div class=\"gd-digital-marker\" *ngIf=\"isDigital()\">\n  <fa-icon [icon]=\"['fas','info-circle']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  <div>Digitally signed : {{data.digitalProps.contact ? data.digitalProps.contact : data.digitalProps.reason}}</div>\n  <fa-icon [icon]=\"['fas','times']\" [class]=\"'ng-fa-icon icon'\" (click)=\"remove()\"></fa-icon>\n</div>\n",
-                styles: [".gd-signature{position:absolute!important}.gd-signature .gd-signature-wrapper{height:inherit;outline:#679ffa solid 1px}.gd-signature-image{width:100%!important;height:inherit}.gd-text{width:inherit;height:inherit;border:none;resize:none;outline:0;margin:0;padding:0}.gd-digital-marker{background-color:#3787f5;height:16px;width:100%;text-align:left;display:flex;position:absolute;bottom:0}.gd-digital-marker .icon{color:#fff;font-size:10px;margin:0 5px 0 3px}.gd-digital-marker div{flex-grow:1;font-size:8px;color:#fff;margin-top:1px}"]
+                template: "<div class=\"gd-signature\" *ngIf=\"!isDigital()\"\n     (clickOutside)=\"hideMenu($event)\"\n     [exclude]=\"'gd-context-menu,.ui-resizable-handle'\"\n     [excludeBeforeClick]=\"true\"\n     [clickOutsideEvents]=\"'mousedown'\"\n     [clickOutsideEnabled]=\"active\"\n     [style.left.px]=\"position.left\" [style.top.px]=\"position.top\"\n     [style.width.px]=\"data.width ? data.width : undefined\"\n     [style.height.px]=\"data.height ? data.height : undefined\" (click)=\"activation()\">\n  <div [draggable]=\"true\" (dragover)=\"dragOver($event)\" (dragstart)=\"dragStart($event)\"\n       (drag)=\"dragging($event)\" (dragend)=\"dragging($event)\" (drop)=\"drop($event)\"\n       (panstart)=\"dragStart($event)\" (panmove)=\"dragging($event)\"\n       class=\"gd-signature-wrapper\">\n    <gd-context-menu *ngIf=\"active\" [topPosition]=\"position.top\" [textMenu]=\"isText()\" [formatting]=\"getFormatting()\"\n                     (changeFormatting)=\"saveTextSignature($event)\" (removeItem)=\"remove()\" (copySign)=\"onCopySign()\"\n                     [lock]=\"!unlock\" (lockOut)=\"unlock = !$event\" [translation]=\"getMenuShift()\"\n                     [menuType]=\"getMenuType()\"></gd-context-menu>\n    <img class=\"gd-signature-image\" *ngIf=\"!isText()\" [attr.src]=\"getData()\" alt>\n    <textarea class=\"gd-text\" *ngIf=\"isText()\" [value]=\"data.props?.text\"\n              id=\"text\" #text (keyup)=\"saveText(text.value)\"\n              [style.text-decoration]=\"data.props?.underline ? 'underline' : 'unset'\"\n              [style.font-style]=\"data.props?.italic ? 'italic' : 'unset'\"\n              [style.font-weight]=\"data.props?.bold ? 'bold' : 'unset'\"\n              [style.color]=\"data.props?.fontColor\"\n              [style.font-family]=\"data?.props.font\"\n              [style.font-size.px]=\"data?.props.fontSize\"\n              [style.width.px]=\"data.width ? data.width : undefined\"\n              [style.height.px]=\"data.height ? data.height : undefined\"></textarea>\n  </div>\n  <gd-resizing [id]=\"id\" *ngIf=\"active\" [init]=\"isInit()\"\n               (offsetX)=\"width($event)\" (offsetY)=\"height($event)\"\n               (offsetTop)=\"top($event)\" (offsetLeft)=\"left($event)\"\n               [se]=\"true\" [sw]=\"unlock\" [ne]=\"unlock\" [nw]=\"unlock\"\n               [pageHeight]=\"pageHeight\" [pageWidth]=\"pageWidth\"></gd-resizing>\n</div>\n<div class=\"gd-digital-marker\" *ngIf=\"isDigital()\">\n  <fa-icon [icon]=\"['fas','info-circle']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  <div>Digitally signed : {{data.digitalProps.contact ? data.digitalProps.contact : data.digitalProps.reason}}</div>\n  <fa-icon [icon]=\"['fas','times']\" [class]=\"'ng-fa-icon icon'\" (click)=\"remove()\"></fa-icon>\n</div>\n",
+                styles: [".gd-signature{position:absolute!important}.gd-signature .gd-signature-wrapper{height:inherit;outline:#679ffa solid 1px}.gd-signature-image{width:100%!important;height:inherit}.gd-text{width:inherit;height:inherit;border:none;resize:none;outline:0;margin:0;padding:0}.gd-digital-marker{background-color:#3787f5;height:16px;width:100%;text-align:left;display:-webkit-box;display:flex;position:absolute;bottom:0}.gd-digital-marker .icon{color:#fff;font-size:10px;margin:0 5px 0 3px}.gd-digital-marker div{-webkit-box-flex:1;flex-grow:1;font-size:8px;color:#fff;margin-top:1px}"]
             }] }
 ];
 /** @nocollapse */
-Signature.ctorParameters = () => [
+Signature$1.ctorParameters = () => [
     { type: SignatureService },
     { type: RemoveSignatureService },
     { type: CopySignatureService },
     { type: ActiveSignatureService },
     { type: SignaturesHolderService }
 ];
-Signature.propDecorators = {
+Signature$1.propDecorators = {
     id: [{ type: Input }],
     data: [{ type: Input }],
     position: [{ type: Input }],
@@ -1118,6 +1424,63 @@ Signature.propDecorators = {
     pageWidth: [{ type: Input }],
     pageHeight: [{ type: Input }]
 };
+if (false) {
+    /** @type {?} */
+    Signature$1.prototype.id;
+    /** @type {?} */
+    Signature$1.prototype.data;
+    /** @type {?} */
+    Signature$1.prototype.position;
+    /** @type {?} */
+    Signature$1.prototype.type;
+    /** @type {?} */
+    Signature$1.prototype.pageWidth;
+    /** @type {?} */
+    Signature$1.prototype.pageHeight;
+    /** @type {?} */
+    Signature$1.prototype.active;
+    /** @type {?} */
+    Signature$1.prototype.unlock;
+    /** @type {?} */
+    Signature$1.prototype.copied;
+    /** @type {?} */
+    Signature$1.prototype.baseCopied;
+    /**
+     * @type {?}
+     * @private
+     */
+    Signature$1.prototype.oldPosition;
+    /**
+     * @type {?}
+     * @private
+     */
+    Signature$1.prototype.subject;
+    /**
+     * @type {?}
+     * @private
+     */
+    Signature$1.prototype._signatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    Signature$1.prototype._removeSignatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    Signature$1.prototype._copySignatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    Signature$1.prototype._activeSignatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    Signature$1.prototype._signaturesHolderService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1127,15 +1490,9 @@ class DragSignatureService {
     constructor() {
     }
 }
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class SignatureTabActivatorService extends TabActivatorService {
-    constructor() {
-        super();
-    }
+if (false) {
+    /** @type {?} */
+    DragSignatureService.prototype.sign;
 }
 
 /**
@@ -1762,7 +2119,7 @@ class SignatureAppComponent {
             /** @type {?} */
             const viewContainerRef = dynamicDirective.viewContainerRef;
             /** @type {?} */
-            const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature);
+            const selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature$1);
             /** @type {?} */
             const id = this.signatureComponents.size + 1;
             while (addedSignature.width >= page.width || addedSignature.height >= page.height) {
@@ -1964,8 +2321,8 @@ class SignatureAppComponent {
 SignatureAppComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-signature',
-                template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick($event)\" (click)=\"hideAll($event)\">\n  <div class=\"signature-wrapper wrapper\">\n    <gd-tabbed-toolbars [logo]=\"'signature'\" [icon]=\"'pen-square'\">\n      <gd-tabs>\n        <gd-tab [tabTitle]=\"'File'\" [icon]=\"'folder-open'\" [id]=\"'1'\" [active]=\"true\">\n          <div id=\"files-tools\" class=\"toolbar-panel\">\n            <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                       *ngIf=\"browseConfig\"></gd-button>\n\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                       (click)=\"downloadFile()\" *ngIf=\"downloadConfig\"></gd-button>\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"sign()\"></gd-button>\n\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"'Signatures'\" [icon]=\"'signature'\" [id]=\"'2'\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypes\">\n              <gd-signature-tab [disabled]=\"!file\" *ngIf=\"isVisible(signatureType.id)\"\n                                [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                                [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\">\n              </gd-signature-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'qrcode'\" [id]=\"'3'\" *ngIf=\"!isDesktop && codesConfig()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypeCodes\">\n              <gd-signature-tab [disabled]=\"!file\" *ngIf=\"getSignatureTypeConfig(signatureType.id)\"\n                                [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                                [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\">\n              </gd-signature-tab>\n            </div>\n          </div>\n        </gd-tab>\n      </gd-tabs>\n    </gd-tabbed-toolbars>\n    <gd-signature-left-panel *ngIf=\"activeSignatureTab\" [rewrite]=\"rewriteConfig\" (newSignatureEvent)=\"newSign($event)\"\n                             [isPdf]=\"isPdf()\" [id]=\"activeSignatureTab\">\n    </gd-signature-left-panel>\n    <div class=\"doc-panel\" *ngIf=\"file\">\n      <gd-document (drop)=\"dropSignature($event)\" (dragover)=\"dragOver($event)\" class=\"gd-document\" *ngIf=\"file\"\n                   [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                   [preloadPageCount]=\"preloadPageCountConfig\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-document>\n    </div>\n\n    <gd-init-state [icon]=\"'signature'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\"\n                   (fileDropped)=\"fileDropped($event)\">\n      Click\n      <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon>\n      to open file<br>\n      Or drop file here\n    </gd-init-state>\n    <gd-hand-modal></gd-hand-modal>\n    <gd-stamp-modal></gd-stamp-modal>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n</div>\n",
-                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}::ng-deep .page{position:relative}::ng-deep .gd-page-image{width:unset;height:unset}::ng-deep .top-panel{align-content:flex-start}.wrapper{align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:flex;height:inherit}.gd-document{width:100%;height:calc(100% - 90px)}.toolbar-panel{width:100%;display:flex;align-items:center}.signature-wrapper ::ng-deep .button{color:#3e4e5a!important}.signature-wrapper ::ng-deep .button .text{padding:0!important}@media (max-width:1037px){::ng-deep .panzoom{justify-content:unset!important}::ng-deep .logo ::ng-deep .icon{font-size:24px!important}::ng-deep .top-panel{height:120px!important}}"]
+                template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick($event)\" (click)=\"hideAll($event)\">\n  <div class=\"signature-wrapper wrapper\">\n    <gd-tabbed-toolbars [logo]=\"'signature'\" [icon]=\"'pen-square'\">\n      <gd-tabs>\n        <gd-tab [tabTitle]=\"'File'\" [icon]=\"'folder-open'\" [id]=\"'1'\" [active]=\"true\">\n          <div id=\"files-tools\" class=\"toolbar-panel\">\n            <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                       *ngIf=\"browseConfig\"></gd-button>\n\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                       (click)=\"downloadFile()\" *ngIf=\"downloadConfig\"></gd-button>\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"sign()\"></gd-button>\n\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"'Signatures'\" [icon]=\"'signature'\" [id]=\"'2'\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(signatureType.id)\"\n                                [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                                [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'qrcode'\" [id]=\"'3'\" *ngIf=\"!isDesktop && codesConfig()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypeCodes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"getSignatureTypeConfig(signatureType.id)\"\n                                [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                                [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n      </gd-tabs>\n    </gd-tabbed-toolbars>\n    <gd-signature-left-panel *ngIf=\"activeSignatureTab\" [rewrite]=\"rewriteConfig\" (newSignatureEvent)=\"newSign($event)\"\n                             [isPdf]=\"isPdf()\" [id]=\"activeSignatureTab\">\n    </gd-signature-left-panel>\n    <div class=\"doc-panel\" *ngIf=\"file\">\n      <gd-document (drop)=\"dropSignature($event)\" (dragover)=\"dragOver($event)\" class=\"gd-document\" *ngIf=\"file\"\n                   [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                   [preloadPageCount]=\"preloadPageCountConfig\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-document>\n    </div>\n\n    <gd-init-state [icon]=\"'signature'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\"\n                   (fileDropped)=\"fileDropped($event)\">\n      Click\n      <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon>\n      to open file<br>\n      Or drop file here\n    </gd-init-state>\n    <gd-hand-modal></gd-hand-modal>\n    <gd-stamp-modal></gd-stamp-modal>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n</div>\n",
+                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}::ng-deep .page{position:relative}::ng-deep .gd-page-image{width:unset;height:unset}::ng-deep .top-panel{align-content:flex-start}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:inherit}.gd-document{width:100%;height:calc(100% - 90px)}.toolbar-panel{width:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.signature-wrapper ::ng-deep .button{color:#3e4e5a!important}.signature-wrapper ::ng-deep .button .text{padding:0!important}@media (max-width:1037px){::ng-deep .panzoom{-webkit-box-pack:unset!important;justify-content:unset!important}::ng-deep .logo ::ng-deep .icon{font-size:24px!important}::ng-deep .top-panel{height:120px!important}}"]
             }] }
 ];
 /** @nocollapse */
@@ -1981,7 +2338,7 @@ SignatureAppComponent.ctorParameters = () => [
     { type: PasswordService },
     { type: WindowService },
     { type: SelectSignatureService },
-    { type: SignatureTabActivatorService },
+    { type: TopTabActivatorService },
     { type: HostingDynamicComponentService },
     { type: AddDynamicComponentService },
     { type: DragSignatureService },
@@ -1993,6 +2350,118 @@ SignatureAppComponent.ctorParameters = () => [
     { type: TabActivatorService },
     { type: CopySignatureService }
 ];
+if (false) {
+    /** @type {?} */
+    SignatureAppComponent.prototype.title;
+    /** @type {?} */
+    SignatureAppComponent.prototype.files;
+    /** @type {?} */
+    SignatureAppComponent.prototype.file;
+    /** @type {?} */
+    SignatureAppComponent.prototype.signatureConfig;
+    /** @type {?} */
+    SignatureAppComponent.prototype.countPages;
+    /** @type {?} */
+    SignatureAppComponent.prototype.formatDisabled;
+    /** @type {?} */
+    SignatureAppComponent.prototype.credentials;
+    /** @type {?} */
+    SignatureAppComponent.prototype.browseFilesModal;
+    /** @type {?} */
+    SignatureAppComponent.prototype.isDesktop;
+    /** @type {?} */
+    SignatureAppComponent.prototype.signatureTypes;
+    /** @type {?} */
+    SignatureAppComponent.prototype.signatureTypeCodes;
+    /** @type {?} */
+    SignatureAppComponent.prototype.signatureComponents;
+    /** @type {?} */
+    SignatureAppComponent.prototype.activeSignatureTab;
+    /** @type {?} */
+    SignatureAppComponent.prototype.isLoading;
+    /** @type {?} */
+    SignatureAppComponent.prototype.fileWasDropped;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._signatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._modalService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._navigateService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._renderPrintService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._selectSignatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._signatureTabActivationService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._hostingComponentsService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._addDynamicComponentService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._dragSignatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._onCloseService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._activeSignatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._excMessageService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._signaturesHolderService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureAppComponent.prototype._tabActivatorService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2159,7 +2628,7 @@ SignatureListPanelComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-signature-list-panel',
                 template: "<div class=\"gd-signature-list-wrapper\">\n  <div class=\"gd-signature-list-scroll\" *ngIf=\"signatures\">\n    <div class=\"gd-signature-list\" *ngIf=\"signatures\">\n      <div class=\"gd-signature\" *ngFor=\"let signature of signatures\">\n        <div class=\"gd-signature-item\" [draggable]=\"isDigital() ? false : true\"\n             (dragover)=\"dragOver($event)\" (dragstart)=\"dragStart($event)\"\n             (dragleave)=\"dragLeave($event, signature.guid)\" (drop)=\"drop($event)\">\n          <div class=\"gd-signature-thumbnail\" *ngIf=\"isDigital()\" (click)=\"select(signature.guid)\">\n            <fa-icon [icon]=\"['fa','fingerprint']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n          </div>\n          <div class=\"gd-signature-thumbnail\" *ngIf=\"signature.image\">\n            <img [ngClass]=\"'gd-signature-thumbnail-' + signatureType\"\n                 [attr.src]=\"getImage(signature.image) | safeResourceHtml\"\n                 alt=\"\" [draggable]=\"false\" (click)=\"select(signature.guid)\">\n          </div>\n          <div class=\"gd-signature-title\" [ngClass]=\"signatureType\" (click)=\"select(signature.guid)\">\n            <label class=\"gd-signature-name\" [style.color]=\"signature.fontColor\">\n              {{signature.text ? signature.text : signature.name}}</label>\n          </div>\n          <div class=\"gd-signature-trash-icon\">\n            <fa-icon [icon]=\"['fas','trash']\" [class]=\"'ng-fa-icon icon'\"\n                     (click)=\"deleteSign(signature.guid)\"></fa-icon>\n          </div>\n        </div>\n        <div class=\"gd-digital-inputs\" *ngIf=\"showDigitalInputs && digitalId === signature.guid\">\n          <div class=\"gd-digital-input-wrapper\">\n            <fa-icon [icon]=\"['fas','comment']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n            <input #reason (input)=\"digitalProps.reason = reason.value\" type=\"text\" placeholder=\"Reason\">\n          </div>\n          <div class=\"gd-digital-input-wrapper\" *ngIf=\"isPdf\">\n            <fa-icon [icon]=\"['fas','envelope']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n            <input #contact (input)=\"digitalProps.contact = contact.value\" type=\"text\" placeholder=\"Contact\">\n          </div>\n          <div class=\"gd-digital-input-wrapper\" *ngIf=\"isPdf\">\n            <fa-icon [icon]=\"['fas','map-marker-alt']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n            <input #address (input)=\"digitalProps.address = address.value\" type=\"text\" placeholder=\"Location\">\n          </div>\n          <div class=\"gd-digital-input-wrapper\">\n            <fa-icon [icon]=\"['fas','key']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n            <input #password (input)=\"digitalProps.signaturePassword = password.value\" type=\"password\"\n                   placeholder=\"Password\">\n          </div>\n          <div class=\"gd-digital-input-wrapper\">\n            <fa-icon [icon]=\"['fas','calendar']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n            <input type=\"date\" #date (input)=\"digitalProps.date=parseDate(date.value)\" placeholder=\"Date\">\n          </div>\n          <div class=\"gd-sign-digital\" [ngClass]=\"isActive(signature.guid) ? 'active' : ''\"\n               (click)=\"selectDigital(signature.guid)\">\n            <fa-icon [icon]=\"['fas','save']\"></fa-icon>\n            <span class=\"digital-apply\">Apply</span>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"gd-signature-empty-list\" *ngIf=\"empty()\">\n    <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n    <span class=\"gd-empty-list-text\">There is no entries yet</span>\n  </div>\n</div>\n",
-                styles: [".gd-signature-list-wrapper{display:flex;flex-direction:column;flex:1;overflow:auto;height:100%}.gd-signature-list-scroll{display:block;overflow-x:hidden;overflow-y:auto!important}.gd-signature-item{width:100%;cursor:pointer;position:relative;min-height:68px;display:flex;flex-direction:row;background-color:rgba(255,255,255)}.gd-signature-item .icon{font-size:15px;color:#676767;cursor:pointer}.gd-signature-item .gd-signature-trash-icon{flex:0 0 70px;display:flex;align-items:center;justify-content:center}.gd-signature-item .gd-signature-name{max-width:130px;font-size:13px;color:rgba(0,0,0,.36);cursor:pointer;text-overflow:ellipsis;white-space:nowrap;display:block;overflow:hidden}.gd-signature-item .gd-signature-thumbnail{flex:0 0 70px;display:flex;align-items:center;justify-content:center;width:auto}.gd-signature-item .gd-signature-thumbnail .icon{font-size:30px;padding:0;margin:0;opacity:.25}.gd-signature-item .gd-signature-title{flex:1;display:flex;align-items:center;justify-content:flex-start;padding-left:7px}.gd-signature-item .gd-signature-thumbnail-hand,.gd-signature-item .gd-signature-thumbnail-image,.gd-signature-item .gd-signature-thumbnail-text{max-width:70px;height:41px}.gd-signature-item .gd-signature-thumbnail-image{min-width:41px;max-width:70px}.gd-signature-item .gd-signature-thumbnail-barCode,.gd-signature-item .gd-signature-thumbnail-qrCode{max-width:70px;height:44px}.gd-signature-item .gd-signature-thumbnail-stamp{max-width:70px;height:48px}.gd-signature-item .gd-signature-title.text{padding-left:16px}.gd-signature-list{display:flex;flex-direction:column;width:inherit;background-color:#e7e7e7}.gd-signature{display:flex;flex-direction:column;width:100%;background-color:rgba(255,255,255,.75);margin-bottom:2px}.gd-signature-empty-list{display:flex;flex-direction:column;text-align:center;color:#acacac;justify-content:center;width:350px;height:250px}.gd-signature-empty-list .icon{font-size:60px}.gd-signature-empty-list i{font-size:60px;padding:87px 97px 0}.gd-empty-list-text{padding:18px 38px 0;font-size:12px}.gd-digital-input-wrapper{margin:9px 8px 7px;display:flex;border:5px #ddd}.gd-sign-digital{height:27px;background-color:#969696;margin:9px 8px 7px;display:flex;color:#fff;font-size:13px;box-shadow:0 0 3px #ddd;cursor:pointer;padding-top:5px;padding-left:10px}.digital-apply{padding-left:10px}.gd-sign-digital.active{background-color:#25c2d4}.gd-digital-inputs input{width:100%;height:27px;padding-left:28px}.gd-digital-inputs .icon{position:absolute;font-size:12px;margin:7px 0 7px 7px;color:#ccc!important}@media (max-width:1037px){.gd-signature-item .gd-signature-name{font-size:13px}.gd-signature-item .icon{font-size:15px}.gd-signature-thumbnail-hand,.gd-signature-thumbnail-image,.gd-signature-thumbnail-text{margin:0}.gd-signature-thumbnail-image{width:44px;height:44px}.gd-signature-thumbnail-digital .icon{font-size:30px!important}.gd-digital-inputs .icon{font-size:13px}}"]
+                styles: [".gd-signature-list-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-flex:1;flex:1;overflow:auto;height:100%}.gd-signature-list-scroll{display:block;overflow-x:hidden;overflow-y:auto!important}.gd-signature-item{width:100%;cursor:pointer;position:relative;min-height:68px;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;background-color:rgba(255,255,255)}.gd-signature-item .icon{font-size:15px;color:#676767;cursor:pointer}.gd-signature-item .gd-signature-trash-icon{-webkit-box-flex:0;flex:0 0 70px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.gd-signature-item .gd-signature-name{max-width:130px;font-size:13px;color:rgba(0,0,0,.36);cursor:pointer;text-overflow:ellipsis;white-space:nowrap;display:block;overflow:hidden}.gd-signature-item .gd-signature-thumbnail{-webkit-box-flex:0;flex:0 0 70px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;width:auto}.gd-signature-item .gd-signature-thumbnail .icon{font-size:30px;padding:0;margin:0;opacity:.25}.gd-signature-item .gd-signature-title{-webkit-box-flex:1;flex:1;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:start;justify-content:flex-start;padding-left:7px}.gd-signature-item .gd-signature-thumbnail-hand,.gd-signature-item .gd-signature-thumbnail-image,.gd-signature-item .gd-signature-thumbnail-text{max-width:70px;height:41px}.gd-signature-item .gd-signature-thumbnail-image{min-width:41px;max-width:70px}.gd-signature-item .gd-signature-thumbnail-barCode,.gd-signature-item .gd-signature-thumbnail-qrCode{max-width:70px;height:44px}.gd-signature-item .gd-signature-thumbnail-stamp{max-width:70px;height:48px}.gd-signature-item .gd-signature-title.text{padding-left:16px}.gd-signature-list{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:inherit;background-color:#e7e7e7}.gd-signature{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:100%;background-color:rgba(255,255,255,.75);margin-bottom:2px}.gd-signature-empty-list{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;text-align:center;color:#acacac;-webkit-box-pack:center;justify-content:center;width:350px;height:250px}.gd-signature-empty-list .icon{font-size:60px}.gd-signature-empty-list i{font-size:60px;padding:87px 97px 0}.gd-empty-list-text{padding:18px 38px 0;font-size:12px}.gd-digital-input-wrapper{margin:9px 8px 7px;display:-webkit-box;display:flex;border:5px #ddd}.gd-sign-digital{height:27px;background-color:#969696;margin:9px 8px 7px;display:-webkit-box;display:flex;color:#fff;font-size:13px;box-shadow:0 0 3px #ddd;cursor:pointer;padding-top:5px;padding-left:10px}.digital-apply{padding-left:10px}.gd-sign-digital.active{background-color:#25c2d4}.gd-digital-inputs input{width:100%;height:27px;padding-left:28px}.gd-digital-inputs .icon{position:absolute;font-size:12px;margin:7px 0 7px 7px;color:#ccc!important}@media (max-width:1037px){.gd-signature-item .gd-signature-name{font-size:13px}.gd-signature-item .icon{font-size:15px}.gd-signature-thumbnail-hand,.gd-signature-thumbnail-image,.gd-signature-thumbnail-text{margin:0}.gd-signature-thumbnail-image{width:44px;height:44px}.gd-signature-thumbnail-digital .icon{font-size:30px!important}.gd-digital-inputs .icon{font-size:13px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2178,6 +2647,61 @@ SignatureListPanelComponent.propDecorators = {
     loading: [{ type: Input }],
     removeSignatureEvent: [{ type: Output }]
 };
+if (false) {
+    /** @type {?} */
+    SignatureListPanelComponent.prototype.signatures;
+    /** @type {?} */
+    SignatureListPanelComponent.prototype.icon;
+    /** @type {?} */
+    SignatureListPanelComponent.prototype.signatureType;
+    /** @type {?} */
+    SignatureListPanelComponent.prototype.isPdf;
+    /** @type {?} */
+    SignatureListPanelComponent.prototype.loading;
+    /** @type {?} */
+    SignatureListPanelComponent.prototype.removeSignatureEvent;
+    /** @type {?} */
+    SignatureListPanelComponent.prototype.showDigitalInputs;
+    /** @type {?} */
+    SignatureListPanelComponent.prototype.digitalProps;
+    /** @type {?} */
+    SignatureListPanelComponent.prototype.digitalId;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureListPanelComponent.prototype._navigateService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureListPanelComponent.prototype._selectSignatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureListPanelComponent.prototype._dragSignatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureListPanelComponent.prototype._datePipe;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureListPanelComponent.prototype._signaturesHolderService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class SignatureTabActivatorService extends TabActivatorService {
+    constructor() {
+        super();
+    }
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2245,7 +2769,7 @@ SignatureTabComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-signature-tab',
                 template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip\n     (showToolTip)=\"showToolTip = $event\" [ngClass]=\"(active) ? 'active' : ''\">\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\"\n              *ngIf=\"tooltip\"></gd-tooltip>\n</div>\n",
-                styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
+                styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2261,6 +2785,37 @@ SignatureTabComponent.propDecorators = {
     tooltip: [{ type: Input }],
     activeTab: [{ type: Output }]
 };
+if (false) {
+    /** @type {?} */
+    SignatureTabComponent.prototype.id;
+    /** @type {?} */
+    SignatureTabComponent.prototype.icon;
+    /** @type {?} */
+    SignatureTabComponent.prototype.disabled;
+    /** @type {?} */
+    SignatureTabComponent.prototype.tooltip;
+    /** @type {?} */
+    SignatureTabComponent.prototype.activeTab;
+    /** @type {?} */
+    SignatureTabComponent.prototype.active;
+    /** @type {?} */
+    SignatureTabComponent.prototype.showToolTip;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureTabComponent.prototype._tabActivatorService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureTabComponent.prototype._modalService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureTabComponent.prototype._excMessageService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2353,7 +2908,7 @@ NewBarQrCodeComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-new-bar-qr-code',
                 template: "<div class=\"gd-qr-container\">\n  <div class=\"gd-qr-preview-container\">\n    <img class=\"gd-signature-thumbnail-image\" [attr.src]=\"getData()\" alt *ngIf=\"encodedImage\">\n    <div class=\"gd-empty-code\" *ngIf=\"!encodedImage\">\n      <fa-icon [icon]=\"['fa',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n    </div>\n  </div>\n  <div class=\"new-signature-input-group\">\n    <input type=\"text\" class=\"gd-qr-property\" #text (keyup)=\"saveTemp(text.value)\" (keyup.enter)=\"addSign(text.value)\"\n           placeholder=\"{{name}}\" id=\"text-input\"/>\n    <div class=\"gd-add-optical\" [ngClass]=\"text.value ? 'active' : 'inactive'\" (click)=\"addSign(text.value)\">\n      <fa-icon [icon]=\"['fa','plus']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n    </div>\n  </div>\n</div>\n",
-                styles: [".gd-sign-digital.active{background-color:#3787f5}.gd-sign-digital{height:27px;background-color:#969696;margin:9px 8px 7px;text-align:center;color:#fff;font-size:13px;box-shadow:0 0 3px #ddd;cursor:pointer;padding-top:5px}.gd-qr-container{font-family:\"Open Sans\",\"Helvetica Neue\",Helvetica,Arial,sans-serif;background-color:#e7e7e7}.gd-qr-container input:focus{border:2px solid #00c4d7;transition:border-color .3s linear}.gd-qr-preview-container{text-align:center;background-color:#fff;margin-bottom:1px;height:350px}.gd-qr-preview-container .gd-empty-code{color:#ccc;font-size:60px;width:350px;height:350px;justify-content:center;display:flex;align-items:center}.gd-qr-preview-container .gd-signature-thumbnail-image{min-width:41px;width:100%;height:100%;margin:0}.new-signature-input-group{display:flex;flex-direction:row;align-items:center;height:70px;background-color:#fff;justify-content:center}.gd-qr-property{font-size:12px;width:80%;border:2px solid #ddd;padding:5px;outline:0;color:#3a4e5b}.gd-add-optical{width:32px;height:29px;display:flex;justify-content:center;align-items:center;background-color:#3787f5;cursor:pointer}.gd-add-optical .icon{color:#fff;line-height:28px}.gd-add-optical.active{background-color:#25c2d4}.gd-add-optical.inactive{background-color:#646464}.gd-add-optical:hover{box-shadow:transparent 0 0 3px}@media (max-width:1037px){.gd-qr-container{margin:0 13px 0 12px}}"]
+                styles: [".gd-sign-digital.active{background-color:#3787f5}.gd-sign-digital{height:27px;background-color:#969696;margin:9px 8px 7px;text-align:center;color:#fff;font-size:13px;box-shadow:0 0 3px #ddd;cursor:pointer;padding-top:5px}.gd-qr-container{font-family:\"Open Sans\",\"Helvetica Neue\",Helvetica,Arial,sans-serif;background-color:#e7e7e7}.gd-qr-container input:focus{border:2px solid #00c4d7;-webkit-transition:border-color .3s linear;transition:border-color .3s linear}.gd-qr-preview-container{text-align:center;background-color:#fff;margin-bottom:1px;height:350px}.gd-qr-preview-container .gd-empty-code{color:#ccc;font-size:60px;width:350px;height:350px;-webkit-box-pack:center;justify-content:center;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.gd-qr-preview-container .gd-signature-thumbnail-image{min-width:41px;width:100%;height:100%;margin:0}.new-signature-input-group{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-align:center;align-items:center;height:70px;background-color:#fff;-webkit-box-pack:center;justify-content:center}.gd-qr-property{font-size:12px;width:80%;border:2px solid #ddd;padding:5px;outline:0;color:#3a4e5b}.gd-add-optical{width:32px;height:29px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;background-color:#3787f5;cursor:pointer}.gd-add-optical .icon{color:#fff;line-height:28px}.gd-add-optical.active{background-color:#25c2d4}.gd-add-optical.inactive{background-color:#646464}.gd-add-optical:hover{box-shadow:transparent 0 0 3px}@media (max-width:1037px){.gd-qr-container{margin:0 13px 0 12px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2367,6 +2922,33 @@ NewBarQrCodeComponent.propDecorators = {
     name: [{ type: Input }],
     closePanel: [{ type: Output }]
 };
+if (false) {
+    /** @type {?} */
+    NewBarQrCodeComponent.prototype.type;
+    /** @type {?} */
+    NewBarQrCodeComponent.prototype.icon;
+    /** @type {?} */
+    NewBarQrCodeComponent.prototype.name;
+    /** @type {?} */
+    NewBarQrCodeComponent.prototype.closePanel;
+    /** @type {?} */
+    NewBarQrCodeComponent.prototype.encodedImage;
+    /**
+     * @type {?}
+     * @private
+     */
+    NewBarQrCodeComponent.prototype.subject;
+    /**
+     * @type {?}
+     * @private
+     */
+    NewBarQrCodeComponent.prototype._signatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    NewBarQrCodeComponent.prototype._elementRef;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2418,7 +3000,7 @@ UploadSignatureComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-upload-signature',
                 template: "<div class=\"gd-upload-signature\" gdDndSignature (files)=\"uploadFiles($event)\">\n  <div class=\"gd-upload-inputs\">\n    <input type=\"file\" (change)=\"handleFileInput($event.target.files)\"/>\n    <fa-icon [icon]=\"['fas','folder-open']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n    <div class=\"gd-upload-title\">\n      <p class=\"text\">Click\n        <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon>\n        to open file\n      </p>\n      <p class=\"text\">Or drop file here</p>\n    </div>\n  </div>\n</div>\n",
-                styles: [".gd-upload-inputs{height:350px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-content:center;background-color:#fff}.gd-upload-inputs .icon{font-size:52px;color:#959da5}.gd-upload-inputs input{opacity:0;position:absolute;cursor:pointer;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;height:203px}.gd-upload-title{color:#bababa;font-size:13px;margin:10px 0 0}.text{font-size:12px;text-align:center}@media (max-width:1037px){.gd-upload-inputs{width:-webkit-fill-available}.gd-upload-inputs input{width:-webkit-fill-available;height:201px}}"]
+                styles: [".gd-upload-inputs{height:350px;text-align:center;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;align-content:center;background-color:#fff}.gd-upload-inputs .icon{font-size:52px;color:#959da5}.gd-upload-inputs input{opacity:0;position:absolute;cursor:pointer;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;height:203px}.gd-upload-title{color:#bababa;font-size:13px;margin:10px 0 0}.text{font-size:12px;text-align:center}@media (max-width:1037px){.gd-upload-inputs{width:-webkit-fill-available}.gd-upload-inputs input{width:-webkit-fill-available;height:201px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2430,6 +3012,19 @@ UploadSignatureComponent.propDecorators = {
     rewrite: [{ type: Input }],
     closePanel: [{ type: Output }]
 };
+if (false) {
+    /** @type {?} */
+    UploadSignatureComponent.prototype.signatureType;
+    /** @type {?} */
+    UploadSignatureComponent.prototype.rewrite;
+    /** @type {?} */
+    UploadSignatureComponent.prototype.closePanel;
+    /**
+     * @type {?}
+     * @private
+     */
+    UploadSignatureComponent.prototype._signatureService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2471,134 +3066,10 @@ DndSignatureDirective.propDecorators = {
     files: [{ type: Output }],
     onDrop: [{ type: HostListener, args: ['drop', ['$event'],] }]
 };
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class ContextMenuComponent {
-    /**
-     * @param {?} _windowService
-     */
-    constructor(_windowService) {
-        this._windowService = _windowService;
-        this.formatting = Formatting.default();
-        this.lock = false;
-        this.translation = 0;
-        this.changeFormatting = new EventEmitter();
-        this.removeSign = new EventEmitter();
-        this.copySign = new EventEmitter();
-        this.lockOut = new EventEmitter();
-        this.isMobile = _windowService.isMobile();
-        _windowService.onResize.subscribe((/**
-         * @param {?} w
-         * @return {?}
-         */
-        (w) => {
-            this.isMobile = _windowService.isMobile();
-        }));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-    }
-    /**
-     * @return {?}
-     */
-    saveChanges() {
-        this.changeFormatting.emit(this.formatting);
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    selectFontSize($event) {
-        this.formatting.fontSize = $event;
-        this.saveChanges();
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    selectFont($event) {
-        this.formatting.font = $event;
-        this.saveChanges();
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    selectColor($event) {
-        this.formatting.color = $event;
-        this.saveChanges();
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    toggleBold($event) {
-        this.formatting.bold = $event;
-        this.saveChanges();
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    toggleItalic($event) {
-        this.formatting.italic = $event;
-        this.saveChanges();
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    toggleUnderline($event) {
-        this.formatting.underline = $event;
-        this.saveChanges();
-    }
-    /**
-     * @return {?}
-     */
-    deleteSign() {
-        this.removeSign.emit(true);
-    }
-    /**
-     * @return {?}
-     */
-    toggleLock() {
-        this.lock = !this.lock;
-        this.lockOut.emit(this.lock);
-    }
-    /**
-     * @return {?}
-     */
-    onCopySign() {
-        this.copySign.emit(true);
-    }
+if (false) {
+    /** @type {?} */
+    DndSignatureDirective.prototype.files;
 }
-ContextMenuComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'gd-context-menu',
-                template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\n                (outFontSize)=\"selectFontSize($event)\"></gd-text-menu>\n  <gd-button [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\" (click)=\"toggleLock()\"></gd-button>\n  <gd-button [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"></gd-button>\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" [iconSize]=\"'sm'\" (click)=\"deleteSign()\"></gd-button>\n</div>\n",
-                styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-34px}}"]
-            }] }
-];
-/** @nocollapse */
-ContextMenuComponent.ctorParameters = () => [
-    { type: WindowService }
-];
-ContextMenuComponent.propDecorators = {
-    formatting: [{ type: Input }],
-    textMenu: [{ type: Input }],
-    topPosition: [{ type: Input }],
-    lock: [{ type: Input }],
-    translation: [{ type: Input }],
-    changeFormatting: [{ type: Output }],
-    removeSign: [{ type: Output }],
-    copySign: [{ type: Output }],
-    lockOut: [{ type: Output }]
-};
 
 /**
  * @fileoverview added by tsickle
@@ -2719,7 +3190,7 @@ class CanvasComponent {
 CanvasComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-canvas',
-                template: "<div class=\"bc-paint-container\">\n  <div class=\"bc-paint-canvas-container\">\n    <canvas #canvas (mousedown)=\"onMouseDown($event)\" (mousemove)=\"onMouseMove($event)\"\n            (mouseup)=\"onMouseUp($event)\" (mouseleave)=\"onMouseUp($event)\" [width]=\"getWidth()\"\n            [height]=\"getHeight()\" (panstart)=\"onMouseDown($event)\" (panmove)=\"onMouseMove($event)\"\n            (panend)=\"onMouseUp($event)\"></canvas>\n  </div>\n</div>\n",
+                template: "<div class=\"bc-paint-container\">\n  <div class=\"bc-paint-canvas-container\">\n    <canvas #canvas (mousedown)=\"onMouseDown($event)\" (mousemove)=\"onMouseMove($event)\"\n            (mouseup)=\"onMouseUp($event)\" (mouseleave)=\"onMouseUp($event)\" [width]=\"getWidth()\"\n            [height]=\"getHeight()\" (panstart)=\"onMouseDown($event)\" (panmove)=\"onMouseMove($event)\"\n            (panend)=\"onMouseUp($event)\" (touchstart)=\"onMouseDown($event)\"\n            (touchmove)=\"onMouseMove($event)\" (touchend)=\"onMouseUp($event)\"></canvas>\n  </div>\n</div>\n",
                 styles: [".bc-paint-canvas-container,.bc-paint-container{width:100%;height:100%}@media (max-width:1037px){.bc-paint-canvas-container>canvas{width:100%;height:100%;border:0}}"]
             }] }
 ];
@@ -2731,6 +3202,26 @@ CanvasComponent.propDecorators = {
     color: [{ type: Input }],
     canvas: [{ type: ViewChild, args: ['canvas', { static: true },] }]
 };
+if (false) {
+    /** @type {?} */
+    CanvasComponent.prototype.color;
+    /** @type {?} */
+    CanvasComponent.prototype._ctx;
+    /** @type {?} */
+    CanvasComponent.prototype._isDragged;
+    /**
+     * @type {?}
+     * @private
+     */
+    CanvasComponent.prototype.isDesktop;
+    /** @type {?} */
+    CanvasComponent.prototype.canvas;
+    /**
+     * @type {?}
+     * @private
+     */
+    CanvasComponent.prototype._windowService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2755,6 +3246,18 @@ class ActiveCanvasService {
         this._observer.next(signId);
     }
 }
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ActiveCanvasService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    ActiveCanvasService.prototype._activeChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2778,6 +3281,18 @@ class RemoveCanvasService {
     remove(id) {
         this._observer.next(id);
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    RemoveCanvasService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    RemoveCanvasService.prototype._removeCanvas;
 }
 
 /**
@@ -3081,7 +3596,7 @@ StampCanvasComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-stamp-canvas',
                 template: "<div [clickOutsideEnabled]=\"active\" [clickOutsideEvents]=\"'mousedown'\"\n     (clickOutside)=\"inactive($event)\">\n  <div class=\"gd-stamp-box\" [style.left.px]=\"getLeft()\" [style.top.px]=\"getTop()\" [style.z-index]=\"props.zIndex\">\n    <div class=\"gd-context-menu\" *ngIf=\"active\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + getTranslation() + 'px)'}\">\n      <gd-button name=\"button\" class=\"first-element\" [icon]=\"'fill-drip'\" [tooltip]=\"'Color'\" (click)=\"toggleColorPicker($event, true)\">\n        <div class=\"bg-color-pic\" [style.background-color]=\"props.backgroundColor\"></div>\n      </gd-button>\n      <gd-color-picker [isOpen]=\"colorPickerBG\" (closeOutside)=\"closeColorPickerBG($event)\"\n                       [className]=\"'palette'\"\n                       (selectedColor)=\"selectColor(true, $event)\"></gd-color-picker>\n      <gd-select class=\"csg-border-width\" [options]=\"borderWidth\" (selected)=\"selectBorderWidth($event)\"\n                 [showSelected]=\"{name: props.strokeWidth + 'px', value: props.strokeWidth}\"></gd-select>\n      <gd-button name=\"button\" [icon]=\"'square'\" [iconRegular]=\"true\" [tooltip]=\"'Color'\"\n                 (click)=\"toggleColorPicker($event, false)\" class=\"color-for-shape\">\n        <div class=\"bg-color-pic\" [style.background-color]=\"props.strokeColor\"></div>\n      </gd-button>\n      <gd-color-picker [isOpen]=\"colorPickerC\" (closeOutside)=\"closeColorPickerC($event)\"\n                       [className]=\"'palette'\"\n                       (selectedColor)=\"selectColor(false, $event)\"></gd-color-picker>\n      <gd-button name=\"button\" class=\"stamp-trash\" [icon]=\"'trash'\" [tooltip]=\"'Delete'\" [iconSize]=\"'sm'\" (click)=\"deleteCanvas()\">\n      </gd-button>\n    </div>\n    <div class=\"csg-bounding-box\" [ngClass]=\"active ? 'active' : ''\" [style.width.px]=\"props.width\"\n         [style.height.px]=\"props.height\">\n      <canvas #canvas (click)=\"activation()\" class=\"csg-preview\" [width]=\"props.width\" [height]=\"props.height\"></canvas>\n      <gd-resizing [init]=\"false\" [id]=\"999\" (offsetX)=\"resize($event)\" [se]=\"true\"\n                   (release)=\"redrawCanvas()\" *ngIf=\"active\"></gd-resizing>\n    </div>\n  </div>\n</div>\n",
-                styles: [".gd-context-menu{display:flex;height:37px;top:-40px;padding:0;background-color:#fff;cursor:default;flex-direction:row;box-shadow:rgba(0,0,0,.52) 0 0 5px}.gd-context-menu .icon{font-size:14px;cursor:pointer;color:#3e4e5a!important}.gd-context-menu ::ng-deep .dropdown-menu{top:-120px!important;height:120px;overflow-y:auto}.gd-context-menu ::ng-deep .icon-button{margin:0!important}.gd-stamp-box{position:absolute}.palette{position:absolute;top:-190px}.csg-preview{width:100%;height:100%}.csg-bounding-box{position:absolute;background-color:unset!important}.csg-bounding-box.active{border:1px solid #679ffa}.csg-border-width{width:37px!important;height:37px!important;display:flex;justify-content:center;align-items:center}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}::ng-deep .select{min-width:unset!important}::ng-deep .selected-value{font-size:12px!important}@media (max-width:1037px){.gd-context-menu{position:fixed;bottom:0;left:0;top:unset;right:0;width:100%;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-context-menu .color-for-shape{flex:1;display:flex;align-items:center;justify-content:flex-start}.gd-context-menu .stamp-trash{flex:0 0 37px;margin-right:8px}.gd-context-menu ::ng-deep .button{margin:3px!important}.gd-context-menu ::ng-deep .select{margin:3px!important}.gd-context-menu .first-element{margin-left:8px}.csg-border-width .select{width:21px}}"]
+                styles: [".gd-context-menu{display:-webkit-box;display:flex;height:37px;top:-40px;padding:0;background-color:#fff;cursor:default;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;box-shadow:rgba(0,0,0,.52) 0 0 5px}.gd-context-menu .icon{font-size:14px;cursor:pointer;color:#3e4e5a!important}.gd-context-menu ::ng-deep .dropdown-menu{top:-120px!important;height:120px;overflow-y:auto}.gd-context-menu ::ng-deep .icon-button{margin:0!important}.gd-stamp-box{position:absolute}.palette{position:absolute;top:-190px}.csg-preview{width:100%;height:100%}.csg-bounding-box{position:absolute;background-color:unset!important}.csg-bounding-box.active{border:1px solid #679ffa}.csg-border-width{width:37px!important;height:37px!important;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}::ng-deep .select{min-width:unset!important}::ng-deep .selected-value{font-size:12px!important}@media (max-width:1037px){.gd-context-menu{position:fixed;bottom:0;left:0;top:unset;right:0;width:100%;height:60px;-webkit-box-align:center;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-context-menu .color-for-shape{-webkit-box-flex:1;flex:1;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:start;justify-content:flex-start}.gd-context-menu .stamp-trash{-webkit-box-flex:0;flex:0 0 37px;margin-right:8px}.gd-context-menu ::ng-deep .button{margin:3px!important}.gd-context-menu ::ng-deep .select{margin:3px!important}.gd-context-menu .first-element{margin-left:8px}.csg-border-width .select{width:21px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -3100,150 +3615,54 @@ StampCanvasComponent.propDecorators = {
     height: [{ type: Input }],
     canvas: [{ type: ViewChild, args: ['canvas', { static: true },] }]
 };
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const $$2 = jquery;
-class TextMenuComponent {
+if (false) {
+    /** @type {?} */
+    StampCanvasComponent.prototype.id;
+    /** @type {?} */
+    StampCanvasComponent.prototype.theFirst;
+    /** @type {?} */
+    StampCanvasComponent.prototype.active;
+    /** @type {?} */
+    StampCanvasComponent.prototype.props;
+    /** @type {?} */
+    StampCanvasComponent.prototype.width;
+    /** @type {?} */
+    StampCanvasComponent.prototype.height;
+    /** @type {?} */
+    StampCanvasComponent.prototype._ctx;
+    /** @type {?} */
+    StampCanvasComponent.prototype.canvas;
+    /** @type {?} */
+    StampCanvasComponent.prototype.colorPickerBG;
+    /** @type {?} */
+    StampCanvasComponent.prototype.colorPickerC;
+    /** @type {?} */
+    StampCanvasComponent.prototype.borderWidth;
+    /** @type {?} */
+    StampCanvasComponent.prototype.isMobile;
     /**
-     * @param {?} _onCloseService
+     * @type {?}
+     * @private
      */
-    constructor(_onCloseService) {
-        this._onCloseService = _onCloseService;
-        this.decoration = true;
-        this.outFontSize = new EventEmitter();
-        this.outFont = new EventEmitter();
-        this.outBold = new EventEmitter();
-        this.outItalic = new EventEmitter();
-        this.outUnderline = new EventEmitter();
-        this.outColor = new EventEmitter();
-        this.fontSizeOptions = FormattingService.getFontSizeOptions();
-        this.fontOptions = FormattingService.getFontOptions();
-        this.colorPickerShow = false;
-        _onCloseService.onClose.subscribe((/**
-         * @return {?}
-         */
-        () => {
-            this.colorPickerShow = false;
-        }));
-    }
+    StampCanvasComponent.prototype._activeCanvasService;
     /**
-     * @return {?}
+     * @type {?}
+     * @private
      */
-    ngOnInit() {
-    }
+    StampCanvasComponent.prototype._removeCanvas;
     /**
-     * @param {?} $event
-     * @return {?}
+     * @type {?}
+     * @private
      */
-    selectFontSize($event) {
-        $$2(".gd-wrapper").off("keyup");
-        this.outFontSize.emit($event.value);
-        $$2(".gd-wrapper").on("keyup", (/**
-         * @return {?}
-         */
-        () => {
-            /** @type {?} */
-            const fontElements = document.getElementsByTagName("font");
-            for (let i = 0, len = fontElements.length; i < len; ++i) {
-                if (fontElements[i].getAttribute('size') === "7") {
-                    fontElements[i].removeAttribute("size");
-                    fontElements[i].style.fontSize = $event + "px";
-                }
-            }
-        }));
-    }
+    StampCanvasComponent.prototype._onCloseService;
     /**
-     * @param {?} $event
-     * @return {?}
+     * @type {?}
+     * @private
      */
-    selectFont($event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.outFont.emit($event.value);
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    toggleColorPicker($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        this.colorPickerShow = !this.colorPickerShow;
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    selectColor($event) {
-        this.colorPickerShow = false;
-        this.outColor.emit($event);
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    toggleBold(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.outBold.emit(!this.bold);
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    toggleItalic(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.outItalic.emit(!this.italic);
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    toggleUnderline(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.outUnderline.emit(!this.underline);
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    closePicker($event) {
-        this.colorPickerShow = !$event;
-    }
+    StampCanvasComponent.prototype._windowService;
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
 }
-TextMenuComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'gd-text-menu',
-                template: "<div class=\"gd-text-menu\">\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\n             (selected)=\"selectFont($event)\"\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\n             (selected)=\"selectFontSize($event)\"\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"'Bold'\" *ngIf=\"decoration\"\n             (click)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"'Italic'\" *ngIf=\"decoration\"\n             (click)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"'Underline'\" *ngIf=\"decoration\"\n             (click)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"'Color'\" (click)=\"toggleColorPicker($event)\">\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\n  </gd-button>\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\n                   [className]=\"'palette'\"\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\n  <ng-content></ng-content>\n</div>\n",
-                styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;bottom:0;left:0;right:0;width:100%;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-200px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
-            }] }
-];
-/** @nocollapse */
-TextMenuComponent.ctorParameters = () => [
-    { type: OnCloseService }
-];
-TextMenuComponent.propDecorators = {
-    blur: [{ type: Input }],
-    fontSize: [{ type: Input }],
-    font: [{ type: Input }],
-    bold: [{ type: Input }],
-    italic: [{ type: Input }],
-    underline: [{ type: Input }],
-    color: [{ type: Input }],
-    decoration: [{ type: Input }],
-    outFontSize: [{ type: Output }],
-    outFont: [{ type: Output }],
-    outBold: [{ type: Output }],
-    outItalic: [{ type: Output }],
-    outUnderline: [{ type: Output }],
-    outColor: [{ type: Output }]
-};
 
 /**
  * @fileoverview added by tsickle
@@ -3406,7 +3825,7 @@ SignatureLeftPanelComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-signature-left-panel',
                 template: "<gd-left-side-bar [showSpinner]=\"loading\">\n  <div class=\"tab-content\">\n    <div class=\"gd-signature-context-panel\">\n      <div class=\"gd-signature-context-pane-wrapper\">\n        <div class=\"signature-title-block\"> <!--for safari-->\n          <div class=\"gd-signature-list-title\" *ngIf=\"showNewCode || showUpload\">\n            <div class=\"gd-signature-context-panel-title\">{{getTitle()}}</div>\n            <div class=\"gd-signature-title-icon\">\n              <fa-icon [icon]=\"['fa','times']\" [class]=\"'ng-fa-icon icon'\" (click)=\"closeNewSignature()\"></fa-icon>\n            </div>\n          </div>\n        </div>\n        <gd-upload-signature (closePanel)=\"closeUploadPanel($event)\" [rewrite]=\"rewrite\" [signatureType]=\"id\"\n                             *ngIf=\"showUpload\"></gd-upload-signature>\n        <gd-new-bar-qr-code (closePanel)=\"closeCodePanel($event)\" [type]=\"id\" [icon]=\"icon()\" [name]=\"getCodeName()\"\n                            *ngIf=\"showNewCode\"></gd-new-bar-qr-code>\n        <div class=\"signature-title-block\"> <!--for safari-->\n          <div class=\"gd-signature-list-title\">\n            <div class=\"gd-signature-context-panel-title\">{{getName()}}</div>\n            <div class=\"gd-signature-title-icon\">\n              <fa-icon [icon]=\"['fa','plus']\" [class]=\"'ng-fa-icon icon'\"\n                       [ngClass]=\"showNewCode || showUpload ? 'disabled' : ''\"\n                       (click)=\"openNewSignature()\"></fa-icon>\n            </div>\n          </div>\n        </div>\n        <gd-signature-list-panel class=\"gd-signatures-scroll\" [icon]=\"icon()\" [signatureType]=\"id\"\n                                 [signatures]=\"signatures\"\n                                 (removeSignatureEvent)=\"removeSignature($event, id)\"\n                                 [isPdf]=\"isPdf\" [loading]=\"loading\"></gd-signature-list-panel>\n      </div>\n    </div>\n  </div>\n</gd-left-side-bar>\n",
-                styles: ["::ng-deep .left-panel{width:350px;height:calc(100% - 90px)}::ng-deep .gd-left-bar-fade{width:350px!important}.gd-signatures-scroll{height:calc(100% - 60px)}.tab-content{height:calc(100% - 90px);line-height:unset;position:absolute;background-color:#fff}.gd-signature-context-panel{background-color:#f3f3f3;width:350px;height:100%;position:absolute}.gd-signature-context-panel-title,.gd-signature-context-upload-title{color:#aaa;font-size:12px;font-family:Helvetica;font-weight:700;margin:5px 12px}.signature-title-block{display:block}.gd-signature-list-title{display:flex;flex-direction:row;height:70px}.gd-signature-list-title .gd-signature-title-icon{flex:0 0 70px;display:flex;align-items:center;justify-content:center}.gd-signature-list-title .gd-signature-title-icon .icon{color:#707070;cursor:pointer;font-size:12px}.gd-signature-list-title .gd-signature-title-icon .icon.disabled{color:#959da5}.gd-signature-list-title .gd-signature-context-panel-title{flex:1;display:flex;align-items:center;justify-content:flex-start}.gd-signature-context-pane-wrapper{display:flex;flex-direction:column;height:inherit;overflow:auto}@media (max-width:1037px){.tab-content{width:100%;height:calc(100% - 120px)!important}::ng-deep .left-panel{width:100%!important;overflow:auto!important;height:calc(100% - 120px)}.gd-signature-context-panel{left:0;right:0;width:auto}.gd-signature-context-panel-title{font-size:12px;line-height:18px;margin:16px 0 14px 12px}.gd-signature-context-panel-title,.gd-signature-context-upload-title{width:unset}}"]
+                styles: ["::ng-deep .left-panel{width:350px;height:calc(100% - 90px)}::ng-deep .gd-left-bar-fade{width:350px!important}.gd-signatures-scroll{height:calc(100% - 60px)}.tab-content{height:calc(100% - 90px);line-height:unset;position:absolute;background-color:#fff}.gd-signature-context-panel{background-color:#f3f3f3;width:350px;height:100%;position:absolute}.gd-signature-context-panel-title,.gd-signature-context-upload-title{color:#aaa;font-size:12px;font-family:Helvetica;font-weight:700;margin:5px 12px}.signature-title-block{display:block}.gd-signature-list-title{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;height:70px}.gd-signature-list-title .gd-signature-title-icon{-webkit-box-flex:0;flex:0 0 70px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.gd-signature-list-title .gd-signature-title-icon .icon{color:#707070;cursor:pointer;font-size:12px}.gd-signature-list-title .gd-signature-title-icon .icon.disabled{color:#959da5}.gd-signature-list-title .gd-signature-context-panel-title{-webkit-box-flex:1;flex:1;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:start;justify-content:flex-start}.gd-signature-context-pane-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;height:inherit;overflow:auto}@media (max-width:1037px){.tab-content{width:100%;height:calc(100% - 120px)!important}::ng-deep .left-panel{width:100%!important;overflow:auto!important;height:calc(100% - 120px)}.gd-signature-context-panel{left:0;right:0;width:auto}.gd-signature-context-panel-title{font-size:12px;line-height:18px;margin:16px 0 14px 12px}.gd-signature-context-panel-title,.gd-signature-context-upload-title{width:unset}}"]
             }] }
 ];
 /** @nocollapse */
@@ -3419,6 +3838,29 @@ SignatureLeftPanelComponent.propDecorators = {
     id: [{ type: Input }],
     newSignatureEvent: [{ type: Output }]
 };
+if (false) {
+    /** @type {?} */
+    SignatureLeftPanelComponent.prototype.rewrite;
+    /** @type {?} */
+    SignatureLeftPanelComponent.prototype.isPdf;
+    /** @type {?} */
+    SignatureLeftPanelComponent.prototype.id;
+    /** @type {?} */
+    SignatureLeftPanelComponent.prototype.newSignatureEvent;
+    /** @type {?} */
+    SignatureLeftPanelComponent.prototype.showNewCode;
+    /** @type {?} */
+    SignatureLeftPanelComponent.prototype.showUpload;
+    /** @type {?} */
+    SignatureLeftPanelComponent.prototype.signatures;
+    /** @type {?} */
+    SignatureLeftPanelComponent.prototype.loading;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureLeftPanelComponent.prototype._signatureService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3512,7 +3954,7 @@ HandModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-hand-modal',
                 template: "<gd-modal [id]=\"'gd-draw-hand-signature'\" [title]=\"'Draw signature'\" (visible)=\"onCloseOpen(canvasComponent, $event)\">\n  <div class=\"paint-body\">\n    <div class=\"bc-paint-header\">\n      <div class=\"bc-paint-palette\">\n        <gd-button name=\"button\" [icon]=\"'fill'\" [tooltip]=\"'Pencil color'\"\n                   (click)=\"toggleColorPicker($event)\">\n          <div class=\"bg-color-pic\" [style.background-color]=\"selectedColor\"></div>\n        </gd-button>\n        <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\n                         [className]=\"'palette'\"\n                         (selectedColor)=\"selectColor($event)\"></gd-color-picker>\n      </div>\n      <div class=\"bc-paint-export\" (click)=\"saveSign(canvasComponent)\">\n        <fa-icon [icon]=\"['fa','save']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n        <span class=\"save-button\">Save</span>\n      </div>\n    </div>\n    <div class=\"gd-draw-image\">\n      <gd-canvas #canvasComponent [color]=\"selectedColor\"></gd-canvas>\n    </div>\n  </div>\n</gd-modal>\n",
-                styles: [".paint-body{width:1036px;height:561px}.paint-body ::ng-deep .button{font-size:unset!important;color:#3e4e5a!important}.paint-body ::ng-deep .button ::ng-deep .text{padding-left:0!important}.gd-draw-image{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC)!important;position:absolute;padding:0!important;background-color:#fff;overflow:hidden;overflow-y:auto;width:inherit}.bc-paint-header{height:60px;width:100%;display:flex;justify-content:space-between;align-items:center}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}::ng-deep .bcPicker-palette{position:absolute}.bc-paint-export{background-color:#25c2d4;margin-right:10px;width:68px;height:37px;display:flex;justify-content:space-between;color:#fff;align-items:center;cursor:pointer}.bc-paint-export .icon{display:flex;text-align:center;justify-content:center;flex:0 0 27px}.bc-paint-export .save-button{font-size:10px;display:flex;text-align:center;justify-content:center;flex:0 0 40px}@media (max-width:1037px){.paint-body{width:inherit;height:inherit}}"]
+                styles: [".paint-body{width:1036px;height:561px}.paint-body ::ng-deep .button{font-size:unset!important;color:#3e4e5a!important}.paint-body ::ng-deep .button ::ng-deep .text{padding-left:0!important}.gd-draw-image{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC)!important;position:absolute;padding:0!important;background-color:#fff;overflow:hidden;overflow-y:auto;width:inherit}.bc-paint-header{height:60px;width:100%;display:-webkit-box;display:flex;-webkit-box-pack:justify;justify-content:space-between;-webkit-box-align:center;align-items:center}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}::ng-deep .bcPicker-palette{position:absolute}.bc-paint-export{background-color:#25c2d4;margin-right:10px;width:68px;height:37px;display:-webkit-box;display:flex;-webkit-box-pack:justify;justify-content:space-between;color:#fff;-webkit-box-align:center;align-items:center;cursor:pointer}.bc-paint-export .icon{display:-webkit-box;display:flex;text-align:center;-webkit-box-pack:center;justify-content:center;-webkit-box-flex:0;flex:0 0 27px}.bc-paint-export .save-button{font-size:10px;display:-webkit-box;display:flex;text-align:center;-webkit-box-pack:center;justify-content:center;-webkit-box-flex:0;flex:0 0 40px}@media (max-width:1037px){.paint-body{width:inherit;height:inherit}}"]
             }] }
 ];
 /** @nocollapse */
@@ -3521,13 +3963,36 @@ HandModalComponent.ctorParameters = () => [
     { type: SignatureTabActivatorService },
     { type: ModalService }
 ];
+if (false) {
+    /** @type {?} */
+    HandModalComponent.prototype.defaultColor;
+    /** @type {?} */
+    HandModalComponent.prototype.selectedColor;
+    /** @type {?} */
+    HandModalComponent.prototype.colorPickerShow;
+    /**
+     * @type {?}
+     * @private
+     */
+    HandModalComponent.prototype._signatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    HandModalComponent.prototype._tabActivationService;
+    /**
+     * @type {?}
+     * @private
+     */
+    HandModalComponent.prototype._modalService;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$3 = jquery;
+const $$2 = jquery;
 class StampModalComponent {
     /**
      * @param {?} _addDynamicComponentService
@@ -3732,7 +4197,7 @@ class StampModalComponent {
              */
             () => {
                 /** @type {?} */
-                const element = $$3("#text-input");
+                const element = $$2("#text-input");
                 if (element) {
                     element.focus();
                 }
@@ -3880,7 +4345,7 @@ StampModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-stamp-modal',
                 template: "<gd-modal [id]=\"'gd-draw-stamp-signature'\" [title]=\"'Compose stamp'\" (visible)=\"onCloseOpen($event)\">\n  <div class=\"stamp-body\">\n    <div class=\"stamp-header\">\n      <div class=\"header-buttons\">\n        <gd-button [icon]=\"'circle'\" (click)=\"addCanvas()\" [iconRegular]=\"true\">\n          <fa-icon class=\"plus\" [icon]=\"['fas','plus']\"></fa-icon>\n        </gd-button>\n        <gd-button [icon]=\"'font'\" (click)=\"toggleText()\">\n          <fa-icon class=\"plus\" [icon]=\"['fas','plus']\"></fa-icon>\n        </gd-button>\n      </div>\n      <div class=\"stamp-export\" (click)=\"saveSign()\">\n        <fa-icon [icon]=\"['fa','save']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n        <span class=\"save-button\">Save</span>\n      </div>\n    </div>\n    <div class=\"gd-draw-stamp\" [style.width.px]=\"getWidth()\" [style.height.px]=\"getHeight()\">\n      <div gdHostDynamic [ident]=\"999999\"></div>\n      <div class=\"gd-draw-stamp-text\" *ngIf=\"showText\" [clickOutsideEnabled]=\"showText\"\n           [clickOutsideEvents]=\"'mousedown'\" (clickOutside)=\"text.value ? addText(text.value) : leaveText($event)\">\n        <div class=\"gd-text-menu-context\">\n          <gd-text-menu [blur]=\"true\" [color]=\"textProps.color\" [bold]=\"textProps.bold\"\n                        [font]=\"textProps.font\" [fontSize]=\"textProps.fontSize\" [italic]=\"textProps.italic\"\n                        [underline]=\"textProps.underline\" (outBold)=\"toggleBold($event)\"\n                        (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\n                        (outColor)=\"selectTextColor($event)\" (outFont)=\"selectFont($event)\"\n                        (outFontSize)=\"selectFontSize($event)\" [decoration]=\"false\">\n            <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" [iconSize]=\"'sm'\"\n                       (click)=\"deleteText()\"></gd-button>\n          </gd-text-menu>\n        </div>\n        <input placeholder=\"Type your text\" id=\"text-input\"\n               #text (keyup.enter)=\"addText(text.value)\"\n               [style.text-decoration]=\"textProps?.underline ? 'underline' : 'unset'\"\n               [style.font-style]=\"textProps?.italic ? 'italic' : 'unset'\"\n               [style.font-weight]=\"textProps?.bold ? 'bold' : 'unset'\"\n               [style.color]=\"textProps?.color\"\n               [style.font-family]=\"textProps.font\"\n               [style.font-size.px]=\"textProps.fontSize\"\n               [value]=\"textString\" type=\"text\"\n               [style.width.px]=\"getTextWidth()\">\n      </div>\n    </div>\n  </div>\n</gd-modal>\n",
-                styles: [".stamp-body{width:1036px;height:561px}.stamp-body ::ng-deep .button{font-size:unset!important;color:#3e4e5a!important}.stamp-body ::ng-deep .button ::ng-deep .text{padding-left:0!important}.stamp-body .csg-text-input{padding:5px;background-color:#e6e6e6;position:absolute;top:120px;left:0;width:calc(100% - 10px);flex-direction:row;display:flex;z-index:99999}.stamp-body .csg-text-input::after{content:\" \";width:0;height:0;border-style:solid;border-width:0 4px 5px;border-color:transparent transparent #e6e6e6;position:absolute;top:-5px;right:110px}.stamp-body .csg-text-input input{height:20px;width:100%;padding:0;margin:0 10px 0 0}.stamp-body .csg-insert-text{width:27px;height:27px;background-color:#3787f5;margin:0}.stamp-body .csg-insert-text .icon{padding:5px;color:#fff}.stamp-header{height:60px;width:100%;display:flex;justify-content:space-between;align-items:center}.header-buttons{display:flex}.header-buttons .plus{font-size:8px;position:absolute;height:5px;width:5px;right:10px;bottom:10px}.stamp-export{background-color:#25c2d4;margin-right:10px;width:68px;height:37px;display:flex;justify-content:space-between;color:#fff;align-items:center;cursor:pointer}.stamp-export .icon{display:flex;text-align:center;justify-content:center;flex:0 0 27px}.stamp-export .save-button{font-size:10px;display:flex;text-align:center;justify-content:center;flex:0 0 40px}.gd-draw-stamp{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC)!important;position:absolute;padding:0!important;background-color:#fff;display:flex;justify-content:center;align-items:center}.gd-draw-stamp input{height:30px;outline:#679ffa solid 2px}.gd-draw-stamp .gd-draw-stamp-text{z-index:99999}.gd-draw-stamp .gd-text-menu-context{height:37px;top:180px;padding:0;background-color:#fff;cursor:default;position:absolute;box-shadow:rgba(0,0,0,.52) 0 0 5px}.gd-draw-stamp .gd-text-menu-context ::ng-deep .color-for-text{flex:1;display:flex;align-items:center;justify-content:flex-start}.gd-draw-stamp .gd-text-menu-context .stamp-trash{flex:0 0 37px;margin-right:8px}.gd-draw-stamp .gd-text-menu-context ::ng-deep .first-component ::ng-deep .dropdown-menu{left:8px}::ng-deep .select{color:#3e4e5a!important}::ng-deep gd-drop-down{z-index:999999!important}@media (max-width:1037px){.stamp-body{width:inherit;height:inherit}}"]
+                styles: [".stamp-body{width:1036px;height:561px}.stamp-body ::ng-deep .button{font-size:unset!important;color:#3e4e5a!important}.stamp-body ::ng-deep .button ::ng-deep .text{padding-left:0!important}.stamp-body .csg-text-input{padding:5px;background-color:#e6e6e6;position:absolute;top:120px;left:0;width:calc(100% - 10px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;display:-webkit-box;display:flex;z-index:99999}.stamp-body .csg-text-input::after{content:\" \";width:0;height:0;border-style:solid;border-width:0 4px 5px;border-color:transparent transparent #e6e6e6;position:absolute;top:-5px;right:110px}.stamp-body .csg-text-input input{height:20px;width:100%;padding:0;margin:0 10px 0 0}.stamp-body .csg-insert-text{width:27px;height:27px;background-color:#3787f5;margin:0}.stamp-body .csg-insert-text .icon{padding:5px;color:#fff}.stamp-header{height:60px;width:100%;display:-webkit-box;display:flex;-webkit-box-pack:justify;justify-content:space-between;-webkit-box-align:center;align-items:center}.header-buttons{display:-webkit-box;display:flex}.header-buttons .plus{font-size:8px;position:absolute;height:5px;width:5px;right:10px;bottom:10px}.stamp-export{background-color:#25c2d4;margin-right:10px;width:68px;height:37px;display:-webkit-box;display:flex;-webkit-box-pack:justify;justify-content:space-between;color:#fff;-webkit-box-align:center;align-items:center;cursor:pointer}.stamp-export .icon{display:-webkit-box;display:flex;text-align:center;-webkit-box-pack:center;justify-content:center;-webkit-box-flex:0;flex:0 0 27px}.stamp-export .save-button{font-size:10px;display:-webkit-box;display:flex;text-align:center;-webkit-box-pack:center;justify-content:center;-webkit-box-flex:0;flex:0 0 40px}.gd-draw-stamp{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA4UlEQVR4nO2WbQuDMAyE+///q0WhKiiacYFK7BeXK2OMJXC2SF8er2kwiTPO81St6yo5ZxmGQdsnYZwdi/6yLJICIAACIAAC4KcA6uYMgN34BmAX9QgA9atYuQGO47j6mMw4YDXPsyQ8PCqlaAsAuNAjdYC1DyDeY7MOQuoAY10L0CboO0KoAywA6NsFn26QBaUB6hFYAO8VrhEAAfC/APQ1tJXQC9CCXABsKQZAW1qpStgDwG7+kVL8dQBPAnYDQN4cwFgrvFOAfd/Fq23b9IdiHEeZpokWAF41ugKO5u7gN6EQAAAFZL5NAAAAAElFTkSuQmCC)!important;position:absolute;padding:0!important;background-color:#fff;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.gd-draw-stamp input{height:30px;outline:#679ffa solid 2px}.gd-draw-stamp .gd-draw-stamp-text{z-index:99999}.gd-draw-stamp .gd-text-menu-context{height:37px;top:180px;padding:0;background-color:#fff;cursor:default;position:absolute;box-shadow:rgba(0,0,0,.52) 0 0 5px}.gd-draw-stamp .gd-text-menu-context ::ng-deep .color-for-text{-webkit-box-flex:1;flex:1;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:start;justify-content:flex-start}.gd-draw-stamp .gd-text-menu-context .stamp-trash{-webkit-box-flex:0;flex:0 0 37px;margin-right:8px}.gd-draw-stamp .gd-text-menu-context ::ng-deep .first-component ::ng-deep .dropdown-menu{left:8px}::ng-deep .select{color:#3e4e5a!important}::ng-deep gd-drop-down{z-index:999999!important}@media (max-width:1037px){.stamp-body{width:inherit;height:inherit}}"]
             }] }
 ];
 /** @nocollapse */
@@ -3896,6 +4361,68 @@ StampModalComponent.ctorParameters = () => [
 StampModalComponent.propDecorators = {
     dynamicDirective: [{ type: ViewChild, args: [HostDynamicDirective, { static: true },] }]
 };
+if (false) {
+    /** @type {?} */
+    StampModalComponent.prototype.stampCircles;
+    /** @type {?} */
+    StampModalComponent.prototype.textString;
+    /** @type {?} */
+    StampModalComponent.prototype.showText;
+    /** @type {?} */
+    StampModalComponent.prototype.dynamicDirective;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype.isMobile;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype.sizeMagnifier;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype.activeId;
+    /** @type {?} */
+    StampModalComponent.prototype.textProps;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype._addDynamicComponentService;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype._activeCanvasService;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype._removeCanvas;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype._signatureService;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype._tabActivationService;
+    /**
+     * @type {?}
+     * @private
+     */
+    StampModalComponent.prototype._modalService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3945,11 +4472,9 @@ SignatureModule.decorators = [
                     NewBarQrCodeComponent,
                     UploadSignatureComponent,
                     DndSignatureDirective,
-                    Signature,
-                    ContextMenuComponent,
+                    Signature$1,
                     CanvasComponent,
                     StampCanvasComponent,
-                    TextMenuComponent,
                     SignatureLeftPanelComponent,
                     HandModalComponent,
                     StampModalComponent],
@@ -3959,11 +4484,9 @@ SignatureModule.decorators = [
                     NewBarQrCodeComponent,
                     UploadSignatureComponent,
                     DndSignatureDirective,
-                    Signature,
-                    ContextMenuComponent,
+                    Signature$1,
                     CanvasComponent,
                     StampCanvasComponent,
-                    TextMenuComponent,
                     SignatureLeftPanelComponent,
                     HandModalComponent,
                     StampModalComponent,
@@ -4006,7 +4529,7 @@ SignatureModule.decorators = [
                     }
                 ],
                 entryComponents: [
-                    Signature,
+                    Signature$1,
                     StampCanvasComponent
                 ]
             },] }
@@ -4014,5 +4537,15 @@ SignatureModule.decorators = [
 /** @nocollapse */
 SignatureModule.ctorParameters = () => [];
 
-export { ActiveCanvasService, ActiveSignatureService, CopySignatureService, DragSignatureService, RemoveSignatureService, SelectSignatureService, SignatureAppComponent, SignatureConfigService, SignatureListPanelComponent, SignatureModule, SignatureService, SignatureTabActivatorService, SignaturesHolderService, initializeApp, setupLoadingInterceptor, SignatureTabComponent as ɵa, NewBarQrCodeComponent as ɵb, UploadSignatureComponent as ɵc, DndSignatureDirective as ɵd, Signature as ɵe, ContextMenuComponent as ɵf, CanvasComponent as ɵg, StampCanvasComponent as ɵh, RemoveCanvasService as ɵi, TextMenuComponent as ɵj, SignatureLeftPanelComponent as ɵk, HandModalComponent as ɵl, StampModalComponent as ɵm };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { ActiveCanvasService, ActiveSignatureService, CopySignatureService, DragSignatureService, RemoveSignatureService, SelectSignatureService, SignatureAppComponent, SignatureConfigService, SignatureListPanelComponent, SignatureModule, SignatureService, SignatureTabActivatorService, SignaturesHolderService, initializeApp, setupLoadingInterceptor, SignatureTabComponent as ɵa, NewBarQrCodeComponent as ɵb, UploadSignatureComponent as ɵc, DndSignatureDirective as ɵd, Signature$1 as ɵe, CanvasComponent as ɵf, StampCanvasComponent as ɵg, RemoveCanvasService as ɵh, SignatureLeftPanelComponent as ɵi, HandModalComponent as ɵj, StampModalComponent as ɵk };
 //# sourceMappingURL=groupdocs.examples.angular-signature.js.map
