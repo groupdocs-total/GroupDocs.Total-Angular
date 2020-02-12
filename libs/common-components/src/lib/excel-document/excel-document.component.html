@@ -3,7 +3,7 @@
   <div [ngClass]="isDesktop ? 'panzoom' : 'panzoom mobile'" gdZoom [zoomActive]="true" [file]="file" gdSearchable>
     <div [ngClass]="file.showGridLines ? 'page-grid-lines' : 'page'" *ngFor="let page of file?.pages"
          gdRotation [angle]="page.angle" [isHtmlMode]="mode">
-      <gd-excel-page *ngIf="true" [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
+      <gd-excel-page *ngIf="currentPageNo == page.number || page.number == 0" [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
                [width]="page.width" [height]="page.height" [editable]="page.editable"></gd-excel-page>
     </div>
   </div>
