@@ -17,22 +17,22 @@
         <gd-tab [tabTitle]="'Signatures'" [icon]="'signature'" [id]="'2'">
           <div class="toolbar-panel">
             <div *ngFor="let signatureType of signatureTypes">
-              <gd-signature-tab [disabled]="!file" *ngIf="isVisible(signatureType.id)"
-                                [icon]="signatureType.icon" (activeTab)="activeTab($event)"
-                                [id]="signatureType.id" [tooltip]="signatureType.name"
-                                [firstElement]="isFirstTab(signatureType)">
-              </gd-signature-tab>
+              <gd-top-tab [disabled]="!file" *ngIf="isVisible(signatureType.id)"
+                          [icon]="signatureType.icon" (activeTab)="activeTab($event)"
+                          [id]="signatureType.id" [tooltip]="signatureType.name"
+                          [firstElement]="isFirstTab(signatureType)">
+              </gd-top-tab>
             </div>
           </div>
         </gd-tab>
         <gd-tab [tabTitle]="''" [icon]="'qrcode'" [id]="'3'" *ngIf="!isDesktop && codesConfig()">
           <div class="toolbar-panel">
             <div *ngFor="let signatureType of signatureTypeCodes">
-              <gd-signature-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)"
-                                [icon]="signatureType.icon" (activeTab)="activeTab($event)"
-                                [id]="signatureType.id" [tooltip]="signatureType.name"
-                                [firstElement]="isFirstTab(signatureType)">
-              </gd-signature-tab>
+              <gd-top-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)"
+                          [icon]="signatureType.icon" (activeTab)="activeTab($event)"
+                          [id]="signatureType.id" [tooltip]="signatureType.name"
+                          [firstElement]="isFirstTab(signatureType)">
+              </gd-top-tab>
             </div>
           </div>
         </gd-tab>

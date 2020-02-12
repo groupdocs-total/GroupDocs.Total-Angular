@@ -4,6 +4,7 @@ import {Injectable} from "@angular/core";
 export class Api {
   public static VIEWER_APP = '/viewer';
   public static SIGNATURE_APP = '/signature';
+  public static ANNOTATION_APP = '/annotation';
   public static EDITOR_APP = '/editor';
   public static COMPARISON_APP = '/comparison';
   public static CONVERSION_APP = '/conversion';
@@ -30,6 +31,7 @@ export class Api {
   public static SIGN = '/sign';
   public static DOWNLOAD_SIGNED = '/downloadSigned';
   public static LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
+  public static ANNOTATE = '/annotate';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({
@@ -83,5 +85,9 @@ export class ConfigService {
 
   getSignatureApiEndpoint() {
     return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
+  }
+
+  getAnnotationApiEndpoint() {
+    return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
   }
 }

@@ -1,0 +1,32 @@
+{
+  "pageSelector": true,
+  "download": true,
+  "upload": true,
+  "print": true,
+  "browse": true,
+  "rewrite": true,
+  "enableRightClick": true,
+  
+  "filesDirectory": "/fonts",
+  "fontsDirectory": "",
+  "preloadPageCount": 0,
+  "defaultDocument": "",
+
+  "textAnnotation": true,
+  "areaAnnotation": true,
+  "pointAnnotation": true,
+  "textStrikeoutAnnotation": true,
+  "polylineAnnotation": true,
+  "textFieldAnnotation": true,
+  "watermarkAnnotation": true,
+  "textReplacementAnnotation": true,
+  "arrowAnnotation": true,
+  "textRedactionAnnotation": true,
+  "textUnderlineAnnotation": true,
+  "distanceAnnotation": true,
+  "downloadOriginal": true,
+  "downloadAnnotated": true,
+
+  "zoom": true,
+  "fitWidth": true
+}

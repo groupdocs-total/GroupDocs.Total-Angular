@@ -9,6 +9,7 @@ import {EditorModule, EditorAppComponent} from '@groupdocs.examples.angular/edit
 import {ComparisonModule, ComparisonAppComponent} from '@groupdocs.examples.angular/comparison';
 import {SignatureModule, SignatureAppComponent} from "@groupdocs.examples.angular/signature";
 import {ConversionModule, ConversionAppComponent} from "@groupdocs.examples.angular/conversion";
+import {AnnotationModule, AnnotationAppComponent} from "@groupdocs.examples.angular/annotation";
 
 @NgModule({
   declarations: [AppComponent, TotalNavComponent, TotalViewComponent],
@@ -19,6 +20,7 @@ import {ConversionModule, ConversionAppComponent} from "@groupdocs.examples.angu
     ComparisonModule.forRoot("http://localhost:8080"),
     ConversionModule.forRoot("http://localhost:8080"),
     SignatureModule.forRoot("http://localhost:8080"),
+    AnnotationModule.forRoot("http://localhost:8080"),
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
       {path: 'viewer', component: ViewerAppComponent},
@@ -26,6 +28,7 @@ import {ConversionModule, ConversionAppComponent} from "@groupdocs.examples.angu
       {path: 'comparison', component: ComparisonAppComponent},
       {path: 'conversion', component: ConversionAppComponent},
       {path: 'signature', component: SignatureAppComponent},
+      {path: 'annotation', component: AnnotationAppComponent},
     ], {initialNavigation: 'enabled'})
   ],
   providers: [],

@@ -133,7 +133,7 @@ export class FormattingService {
     const fonts = ["Arial", "Calibri", "Century Gothic", "Comic Sans", "Consolas", "Courier", "Dejavu Sans", "Dejavu Serif", "Georgia", "Gill Sans", "Helvetica", "Impact", "Lucida Sans",
       "Myriad Pro", "Open Sans", "Palatino", "Tahoma", "Times New Roman", "Trebuchet"];
     const fontOptions = [];
-    fonts.forEach(font=> {
+    fonts.forEach(font => {
       fontOptions.push(this.createFontOption(font));
     })
 

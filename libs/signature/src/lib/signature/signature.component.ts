@@ -9,7 +9,7 @@ import {
   CopySign,
   CopyChanges
 } from "../signature-models";
-import {Formatting, Utils} from "@groupdocs.examples.angular/common-components";
+import {Formatting, Utils, MenuType} from "@groupdocs.examples.angular/common-components";
 import {SignatureService} from "../signature.service";
 import {RemoveSignatureService} from "../remove-signature.service";
 import {ActiveSignatureService} from "../active-signature.service";
@@ -264,5 +264,9 @@ export class Signature implements OnInit, AfterViewInit {
   getMenuShift() {
     const menuWidth = this.type === SignatureType.TEXT.id ? 426 : 148;
     return this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
+  }
+
+  getMenuType() {
+    return MenuType.FOR_SIGNATURE;
   }
 }

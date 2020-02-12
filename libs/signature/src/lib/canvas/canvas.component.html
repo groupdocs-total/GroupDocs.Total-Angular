@@ -3,6 +3,7 @@
     <canvas #canvas (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)"
             (mouseup)="onMouseUp($event)" (mouseleave)="onMouseUp($event)" [width]="getWidth()"
             [height]="getHeight()" (panstart)="onMouseDown($event)" (panmove)="onMouseMove($event)"
-            (panend)="onMouseUp($event)"></canvas>
+            (panend)="onMouseUp($event)" (touchstart)="onMouseDown($event)"
+            (touchmove)="onMouseMove($event)" (touchend)="onMouseUp($event)"></canvas>
   </div>
 </div>
