@@ -252,7 +252,7 @@ var ButtonComponent = /** @class */ (function () {
     ButtonComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-button',
-                    template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                    template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
                     styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
                 }] }
     ];
@@ -358,6 +358,7 @@ var Api = /** @class */ (function () {
     }
     Api.VIEWER_APP = '/viewer';
     Api.SIGNATURE_APP = '/signature';
+    Api.ANNOTATION_APP = '/annotation';
     Api.EDITOR_APP = '/editor';
     Api.COMPARISON_APP = '/comparison';
     Api.CONVERSION_APP = '/conversion';
@@ -384,6 +385,7 @@ var Api = /** @class */ (function () {
     Api.SIGN = '/sign';
     Api.DOWNLOAD_SIGNED = '/downloadSigned';
     Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
+    Api.ANNOTATE = '/annotate';
     Api.httpOptionsJson = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -473,6 +475,15 @@ var ConfigService = /** @class */ (function () {
      */
     function () {
         return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getAnnotationApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
     };
     ConfigService.decorators = [
         { type: Injectable }
@@ -765,6 +776,73 @@ var Utils = /** @class */ (function () {
             mouse.y = ev.clientY + document.body.scrollTop;
         }
         return mouse;
+    };
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    Utils.toRgb = /**
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        /** @type {?} */
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+        if (result) {
+            /** @type {?} */
+            var r = parseInt(result[1], 16);
+            /** @type {?} */
+            var g = parseInt(result[2], 16);
+            /** @type {?} */
+            var b = parseInt(result[3], 16);
+            return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
+        }
+        return color;
+    };
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    Utils.toHex = /**
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        // check if color is standard hex value
+        if (color.match(/[0-9A-F]{6}|[0-9A-F]{3}$/i)) {
+            return (color.charAt(0) === "#") ? color : ("#" + color);
+            // check if color is RGB value -> convert to hex
+        }
+        else if (color.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)) {
+            /** @type {?} */
+            var c = ([parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10), parseInt(RegExp.$3, 10)]);
+            /** @type {?} */
+            var pad = (/**
+             * @param {?} str
+             * @return {?}
+             */
+            function (str) {
+                if (str.length < 2) {
+                    for (var i = 0, len = 2 - str.length; i < len; i++) {
+                        str = '0' + str;
+                    }
+                }
+                return str;
+            });
+            if (c.length === 3) {
+                /** @type {?} */
+                var r = pad(c[0].toString(16));
+                /** @type {?} */
+                var g = pad(c[1].toString(16));
+                /** @type {?} */
+                var b = pad(c[2].toString(16));
+                return '#' + r + g + b;
+            }
+            // else do nothing
+        }
+        else {
+            return '';
+        }
     };
     return Utils;
 }());
@@ -3084,7 +3162,7 @@ var SelectComponent = /** @class */ (function () {
     SelectComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-select',
-                    template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                     styles: [".select{min-width:50px;display:flex;flex-direction:row;justify-content:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
                 }] }
     ];
@@ -4771,7 +4849,7 @@ var ColorPickerComponent = /** @class */ (function () {
     ColorPickerComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-color-picker',
-                    template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"bcPicker-palette\">\r\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\"\r\n      (click)=\"select($event, color)\" [style.border]=\"'1px solid ' + (color === white ? '#707070' : color)\"></div>\r\n  </div>\r\n</div>\r\n",
+                    template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"bcPicker-palette\">\r\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\"\r\n      (click)=\"select($event, color)\" [style.border]=\"'1px solid ' + (color === white ? '#707070' : color)\"\r\n      (touchstart)=\"select($event, color)\"></div>\r\n  </div>\r\n</div>\r\n",
                     styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:250px;background-color:#fdfdfd;z-index:999;box-shadow:0 0 5px #efefef;display:flex;flex-wrap:wrap;justify-content:center}.bcPicker-palette>.bcPicker-color{width:18px;height:18px;margin:2px;cursor:pointer}"]
                 }] }
     ];
@@ -6322,6 +6400,493 @@ var ResizingComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var TopTabActivatorService = /** @class */ (function (_super) {
+    __extends(TopTabActivatorService, _super);
+    function TopTabActivatorService() {
+        return _super.call(this) || this;
+    }
+    return TopTabActivatorService;
+}(TabActivatorService));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TopTabComponent = /** @class */ (function () {
+    function TopTabComponent(_tabActivatorService, _modalService, _excMessageService) {
+        var _this = this;
+        this._tabActivatorService = _tabActivatorService;
+        this._modalService = _modalService;
+        this._excMessageService = _excMessageService;
+        this.disabled = false;
+        this.activeTab = new EventEmitter();
+        this.active = false;
+        this.showToolTip = false;
+        this._tabActivatorService.activeTabChange.subscribe((/**
+         * @param {?} tabId
+         * @return {?}
+         */
+        function (tabId) {
+            _this.activation(tabId);
+            if (tabId === null) {
+                _this.activeTab.emit("");
+            }
+        }));
+    }
+    /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    TopTabComponent.prototype.activation = /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    function (tabId) {
+        if (this.id === tabId) {
+            this.active = !this.active;
+            if (this.active) {
+                this.activeTab.emit(this.id);
+            }
+            else {
+                this.activeTab.emit("");
+            }
+        }
+        else {
+            this.active = false;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    TopTabComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    TopTabComponent.prototype.toggleTab = /**
+     * @return {?}
+     */
+    function () {
+        if (this.disabled) {
+            this._modalService.open(CommonModals.ErrorMessage);
+            this._excMessageService.changeMessage("Please open document first");
+            return;
+        }
+        this._tabActivatorService.changeActiveTab(this.id);
+    };
+    TopTabComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-top-tab',
+                    template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\"\r\n              *ngIf=\"tooltip\"></gd-tooltip>\r\n</div>\r\n",
+                    styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TopTabComponent.ctorParameters = function () { return [
+        { type: TopTabActivatorService },
+        { type: ModalService },
+        { type: ExceptionMessageService }
+    ]; };
+    TopTabComponent.propDecorators = {
+        id: [{ type: Input }],
+        icon: [{ type: Input }],
+        disabled: [{ type: Input }],
+        tooltip: [{ type: Input }],
+        activeTab: [{ type: Output }]
+    };
+    return TopTabComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$8 = jquery;
+var TextMenuComponent = /** @class */ (function () {
+    function TextMenuComponent(_onCloseService) {
+        var _this = this;
+        this._onCloseService = _onCloseService;
+        this.decoration = true;
+        this.outFontSize = new EventEmitter();
+        this.outFont = new EventEmitter();
+        this.outBold = new EventEmitter();
+        this.outItalic = new EventEmitter();
+        this.outUnderline = new EventEmitter();
+        this.outColor = new EventEmitter();
+        this.fontSizeOptions = FormattingService.getFontSizeOptions();
+        this.fontOptions = FormattingService.getFontOptions();
+        this.colorPickerShow = false;
+        _onCloseService.onClose.subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.colorPickerShow = false;
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    TextMenuComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.selectFontSize = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $$8(".gd-wrapper").off("keyup");
+        this.outFontSize.emit($event.value);
+        $$8(".gd-wrapper").on("keyup", (/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var fontElements = document.getElementsByTagName("font");
+            for (var i = 0, len = fontElements.length; i < len; ++i) {
+                if (fontElements[i].getAttribute('size') === "7") {
+                    fontElements[i].removeAttribute("size");
+                    fontElements[i].style.fontSize = $event + "px";
+                }
+            }
+        }));
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.selectFont = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outFont.emit($event.value);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleColorPicker = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        this.colorPickerShow = !this.colorPickerShow;
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.selectColor = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.colorPickerShow = false;
+        this.outColor.emit($event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleBold = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outBold.emit(!this.bold);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleItalic = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outItalic.emit(!this.italic);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleUnderline = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outUnderline.emit(!this.underline);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.closePicker = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.colorPickerShow = !$event;
+    };
+    TextMenuComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-text-menu',
+                    template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"'Bold'\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"'Italic'\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"'Underline'\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"'Color'\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;bottom:0;left:0;right:0;width:100%;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-200px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TextMenuComponent.ctorParameters = function () { return [
+        { type: OnCloseService }
+    ]; };
+    TextMenuComponent.propDecorators = {
+        blur: [{ type: Input }],
+        fontSize: [{ type: Input }],
+        font: [{ type: Input }],
+        bold: [{ type: Input }],
+        italic: [{ type: Input }],
+        underline: [{ type: Input }],
+        color: [{ type: Input }],
+        decoration: [{ type: Input }],
+        outFontSize: [{ type: Output }],
+        outFont: [{ type: Output }],
+        outBold: [{ type: Output }],
+        outItalic: [{ type: Output }],
+        outUnderline: [{ type: Output }],
+        outColor: [{ type: Output }]
+    };
+    return TextMenuComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var MenuType = /** @class */ (function () {
+    function MenuType() {
+    }
+    MenuType.FOR_SIGNATURE = "signature";
+    MenuType.FOR_ANNOTATION = "annotation";
+    return MenuType;
+}());
+var ContextMenuComponent = /** @class */ (function () {
+    function ContextMenuComponent(_windowService) {
+        var _this = this;
+        this._windowService = _windowService;
+        this.formatting = Formatting.default();
+        this.lock = false;
+        this.translation = 0;
+        this.changeFormatting = new EventEmitter();
+        this.removeItem = new EventEmitter();
+        this.copySign = new EventEmitter();
+        this.lockOut = new EventEmitter();
+        this.comment = new EventEmitter();
+        this.isMobile = _windowService.isMobile();
+        _windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        function (w) {
+            _this.isMobile = _windowService.isMobile();
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.saveChanges = /**
+     * @return {?}
+     */
+    function () {
+        this.changeFormatting.emit(this.formatting);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.selectFontSize = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.fontSize = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.selectFont = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.font = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.selectColor = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.color = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleBold = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.bold = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleItalic = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.italic = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleUnderline = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.underline = $event;
+        this.saveChanges();
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.deleteItem = /**
+     * @return {?}
+     */
+    function () {
+        this.removeItem.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleLock = /**
+     * @return {?}
+     */
+    function () {
+        this.lock = !this.lock;
+        this.lockOut.emit(this.lock);
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.onCopySign = /**
+     * @return {?}
+     */
+    function () {
+        this.copySign.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.isSignature = /**
+     * @return {?}
+     */
+    function () {
+        return this.menuType === MenuType.FOR_SIGNATURE;
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.isAnnotation = /**
+     * @return {?}
+     */
+    function () {
+        return this.menuType === MenuType.FOR_ANNOTATION;
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.addComment = /**
+     * @return {?}
+     */
+    function () {
+        this.comment.emit(true);
+    };
+    ContextMenuComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-context-menu',
+                    template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\" (touchstart)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
+                    styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-34px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ContextMenuComponent.ctorParameters = function () { return [
+        { type: WindowService }
+    ]; };
+    ContextMenuComponent.propDecorators = {
+        formatting: [{ type: Input }],
+        textMenu: [{ type: Input }],
+        topPosition: [{ type: Input }],
+        lock: [{ type: Input }],
+        translation: [{ type: Input }],
+        menuType: [{ type: Input }],
+        changeFormatting: [{ type: Output }],
+        removeItem: [{ type: Output }],
+        copySign: [{ type: Output }],
+        lockOut: [{ type: Output }],
+        comment: [{ type: Output }]
+    };
+    return ContextMenuComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 var providers = [ConfigService,
     Api,
@@ -6353,6 +6918,7 @@ var providers = [ConfigService,
     TabActivatorService,
     AddDynamicComponentService,
     HostingDynamicComponentService,
+    TopTabActivatorService,
     ExcelPageService];
 var CommonComponentsModule = /** @class */ (function () {
     function CommonComponentsModule() {
@@ -6405,7 +6971,10 @@ var CommonComponentsModule = /** @class */ (function () {
                         LeftSideBarComponent,
                         TooltipDirective,
                         HostDynamicDirective,
-                        ResizingComponent
+                        ResizingComponent,
+                        TopTabComponent,
+                        TextMenuComponent,
+                        ContextMenuComponent
                     ],
                     exports: [
                         TopToolbarComponent,
@@ -6451,6 +7020,9 @@ var CommonComponentsModule = /** @class */ (function () {
                         TooltipDirective,
                         HostDynamicDirective,
                         ResizingComponent,
+                        TopTabComponent,
+                        TextMenuComponent,
+                        ContextMenuComponent,
                         EditorDirective,
                         FormattingDirective
                     ],
@@ -6462,5 +7034,5 @@ var CommonComponentsModule = /** @class */ (function () {
     return CommonComponentsModule;
 }());
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExcelDocumentComponent, ExcelPageComponent, ExcelPageService, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExcelDocumentComponent, ExcelPageComponent, ExcelPageService, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

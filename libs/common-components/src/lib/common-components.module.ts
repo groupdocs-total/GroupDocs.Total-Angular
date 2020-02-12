@@ -70,7 +70,11 @@ import {AddDynamicComponentService} from "./add-dynamic-component.service";
 import {HostDynamicDirective} from './host-dynamic.directive';
 import {HostingDynamicComponentService} from "./hosting-dynamic-component.service";
 import {ResizingComponent} from './resizing/resizing.component';
+import {TopTabComponent} from './top-tab/top-tab.component';
 import {ExcelPageService} from "./excel-page.service";
+import {TopTabActivatorService} from "./top-tab-activator.service";
+import {TextMenuComponent} from './text-menu/text-menu.component';
+import {ContextMenuComponent} from './context-menu/context-menu.component';
 
 const providers = [ConfigService,
   Api,
@@ -102,6 +106,7 @@ const providers = [ConfigService,
   TabActivatorService,
   AddDynamicComponentService,
   HostingDynamicComponentService,
+  TopTabActivatorService,
   ExcelPageService];
 
 @NgModule({
@@ -150,7 +155,10 @@ const providers = [ConfigService,
     LeftSideBarComponent,
     TooltipDirective,
     HostDynamicDirective,
-    ResizingComponent
+    ResizingComponent,
+    TopTabComponent,
+    TextMenuComponent,
+    ContextMenuComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -196,9 +204,11 @@ const providers = [ConfigService,
     TooltipDirective,
     HostDynamicDirective,
     ResizingComponent,
+    TopTabComponent,
+    TextMenuComponent,
+    ContextMenuComponent,
     EditorDirective,
-    FormattingDirective
-  ],
+    FormattingDirective  ],
   providers: providers
 })
 export class CommonComponentsModule {

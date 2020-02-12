@@ -1,6 +1,6 @@
 import { ComponentRef, OnDestroy, OnInit } from '@angular/core';
 import { SignatureService } from "./signature.service";
-import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, WindowService, TabActivatorService } from "@groupdocs.examples.angular/common-components";
+import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, WindowService, TabActivatorService, TopTabActivatorService } from "@groupdocs.examples.angular/common-components";
 import { SignatureConfig } from "./signature-config";
 import { SignatureConfigService } from "./signature-config.service";
 import { SelectSignatureService } from "./select-signature.service";
@@ -8,7 +8,6 @@ import { DragSignatureService } from "./drag-signature.service";
 import { RemoveSignatureService } from "./remove-signature.service";
 import { ActiveSignatureService } from "./active-signature.service";
 import { SignaturesHolderService } from "./signatures-holder.service";
-import { SignatureTabActivatorService } from "./signature-tab-activator.service";
 import 'hammerjs';
 import { CopySignatureService } from "./copy-signature.service";
 export declare class SignatureAppComponent implements OnDestroy, OnInit {
@@ -53,7 +52,7 @@ export declare class SignatureAppComponent implements OnDestroy, OnInit {
     activeSignatureTab: string;
     isLoading: boolean;
     fileWasDropped: boolean;
-    constructor(_signatureService: SignatureService, _modalService: ModalService, configService: SignatureConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _selectSignatureService: SelectSignatureService, _signatureTabActivationService: SignatureTabActivatorService, _hostingComponentsService: HostingDynamicComponentService, _addDynamicComponentService: AddDynamicComponentService, _dragSignatureService: DragSignatureService, _onCloseService: OnCloseService, removeSignatureService: RemoveSignatureService, _activeSignatureService: ActiveSignatureService, _excMessageService: ExceptionMessageService, _signaturesHolderService: SignaturesHolderService, _tabActivatorService: TabActivatorService, copySignatureService: CopySignatureService);
+    constructor(_signatureService: SignatureService, _modalService: ModalService, configService: SignatureConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _selectSignatureService: SelectSignatureService, _signatureTabActivationService: TopTabActivatorService, _hostingComponentsService: HostingDynamicComponentService, _addDynamicComponentService: AddDynamicComponentService, _dragSignatureService: DragSignatureService, _onCloseService: OnCloseService, removeSignatureService: RemoveSignatureService, _activeSignatureService: ActiveSignatureService, _excMessageService: ExceptionMessageService, _signaturesHolderService: SignaturesHolderService, _tabActivatorService: TabActivatorService, copySignatureService: CopySignatureService);
     private createDraggableSign;
     private createAddedSignature;
     ngOnInit(): void;

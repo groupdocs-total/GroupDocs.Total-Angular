@@ -46,6 +46,8 @@ export declare class Utils {
         x: number;
         y: number;
     };
+    static toRgb(color: string): string;
+    static toHex(color: string): string;
 }
 export declare class FileUtil {
     static map: {

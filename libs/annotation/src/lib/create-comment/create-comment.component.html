@@ -1,0 +1,12 @@
+<div class="gd-new-comment">
+  <input type="text" class="gd-name" id="name" [value]="comment.userName" #name autofocus (keyup)="saveName(name.value)" placeholder="Name"/>
+  <textarea class="gd-text" [value]="comment.text" #text (keyup)="saveText(text.value)" placeholder="Message"></textarea>
+  <div class="gd-buttons">
+    <gd-button (click)="clearComment()" [iconOnly]="false" class="gd-cancel-comment">
+      Cancel
+    </gd-button>
+    <gd-button (click)="onAddComment()" [icon]="'share'" class="gd-add-comment" [iconOnly]="false">
+      Reply
+    </gd-button>
+  </div>
+</div>

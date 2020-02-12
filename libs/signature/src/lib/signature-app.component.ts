@@ -20,7 +20,8 @@ import {
   ExceptionMessageService,
   WindowService,
   Utils,
-  TabActivatorService
+  TabActivatorService,
+  TopTabActivatorService
 } from "@groupdocs.examples.angular/common-components";
 import {SignatureConfig} from "./signature-config";
 import {SignatureConfigService} from "./signature-config.service";
@@ -37,12 +38,11 @@ import {SelectSignatureService} from "./select-signature.service";
 import {Signature} from "./signature/signature.component";
 import {DragSignatureService} from "./drag-signature.service";
 import {RemoveSignatureService} from "./remove-signature.service";
-import * as jquery from 'jquery';
 import {ActiveSignatureService} from "./active-signature.service";
 import {SignaturesHolderService} from "./signatures-holder.service";
-import {SignatureTabActivatorService} from "./signature-tab-activator.service";
 import 'hammerjs';
 import {CopySignatureService} from "./copy-signature.service";
+import * as jquery from 'jquery';
 
 const $ = jquery;
 
@@ -91,7 +91,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
               passwordService: PasswordService,
               private _windowService: WindowService,
               private _selectSignatureService: SelectSignatureService,
-              private _signatureTabActivationService: SignatureTabActivatorService,
+              private _signatureTabActivationService: TopTabActivatorService,
               private _hostingComponentsService: HostingDynamicComponentService,
               private _addDynamicComponentService: AddDynamicComponentService,
               private _dragSignatureService: DragSignatureService,

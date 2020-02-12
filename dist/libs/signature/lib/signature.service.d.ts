@@ -18,8 +18,6 @@ export declare class SignatureService {
     getCode(text: string, temp: boolean, type: string): import("rxjs").Observable<Object>;
     loadSignatureImage(sign: DraggableSignature): import("rxjs").Observable<AddedSignature>;
     saveTextSignature(data: AddedSignature): import("rxjs").Observable<SignatureProps>;
-    private toRgb;
-    private toHex;
     saveImage(img: string): import("rxjs").Observable<Object>;
     saveStamp(img: string, props: any[]): import("rxjs").Observable<Object>;
     sign(credentials: FileCredentials, signatures: any[]): import("rxjs").Observable<Object>;
