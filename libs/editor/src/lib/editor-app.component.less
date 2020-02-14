@@ -26,14 +26,14 @@
   right: 0;
 }
 
-/deep/ .gd-drag-n-drop-wrap.active {
+::ng-deep .gd-drag-n-drop-wrap.active {
   z-index: 999;
   .init-state-wrapper {
     top: unset !important;
   }
 }
 
-/deep/ .init-state-wrapper {
+::ng-deep .init-state-wrapper {
   top: -90px !important;
 }
 
@@ -57,7 +57,7 @@
   width: 100%;
 }
 
-/deep/ .gd-wrapper {
+::ng-deep .gd-wrapper {
   padding: 19px 96px;
   -webkit-user-select: text;  /* Chrome all / Safari all */
   -moz-user-select: text;     /* Firefox all */
@@ -67,7 +67,7 @@
   position: relative;
 }
 
-/deep/ .dropdown-menu {
+::ng-deep .dropdown-menu {
   min-width: unset !important;
 }
 
@@ -137,32 +137,32 @@
   }
 }
 
-/deep/ .tab-content .button .tooltip {
+::ng-deep .tab-content .button .tooltip {
   margin-top: 45px;
   margin-left: -36px;
 }
 
-/deep/ .gd-edit.active {
+::ng-deep .gd-edit.active {
   background-color: #7E8991;
 }
 
-/deep/ .gd-edit.active i {
+::ng-deep .gd-edit.active i {
   color: #FFFFFF;
 }
 
-/deep/ .page {
+::ng-deep .page {
   width: 800px;
   height: 100% !important;
   min-height: 842pt !important;
 }
 
-/deep/ .save-as-button-icon {
+::ng-deep .save-as-button-icon {
   font-size: 11px;
   left: 22px !important;
   top: 13px !important;
 }
 
-/deep/ .documentMainContent {
+::ng-deep .documentMainContent {
   height: 100%;
   div {
     display: flex;
@@ -185,7 +185,7 @@ gd-tab {
 }
 
 @media @phone-down {
-  /deep/ .panzoom{
+  ::ng-deep .panzoom{
     zoom: 0.45;
     margin-top:130px;
   }
