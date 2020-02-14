@@ -58,7 +58,7 @@
 }
 
 /deep/ .gd-wrapper {
-  padding: 96px;
+  padding: 19px 96px;
   -webkit-user-select: text;  /* Chrome all / Safari all */
   -moz-user-select: text;     /* Firefox all */
   -ms-user-select: text;      /* IE 10+ */
@@ -160,6 +160,16 @@
   font-size: 11px;
   left: 22px !important;
   top: 13px !important;
+}
+
+/deep/ .documentMainContent {
+  height: 100%;
+  div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+  }
 }
 
 .save-button {
