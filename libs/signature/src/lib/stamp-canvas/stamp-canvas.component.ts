@@ -143,9 +143,9 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
 
   private refreshRadius() {
     if (this.props.strokeWidth > 1) {
-      this.props.radius = (this.props.width / 2) - (this.props.strokeWidth / 2);
+      this.props.radius = (this.props.width / 2) - (this.props.strokeWidth / 2) - 1;
     } else {
-      this.props.radius = (this.props.width / 2);
+      this.props.radius = (this.props.width / 2) - 1;
     }
   }
 
