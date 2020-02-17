@@ -58,7 +58,7 @@
 }
 
 ::ng-deep .gd-wrapper {
-  padding: 19px 96px;
+  padding: 96px;
   -webkit-user-select: text;  /* Chrome all / Safari all */
   -moz-user-select: text;     /* Firefox all */
   -ms-user-select: text;      /* IE 10+ */
@@ -163,12 +163,39 @@
 }
 
 ::ng-deep .documentMainContent {
-  height: 100%;
-  div {
+  >div {
     display: flex;
     flex-direction: column;
-    height: 100%;
     justify-content: flex-end;
+    .footer-1 {
+      position: absolute;
+      bottom: 0;
+      width: calc(100% - 2 * 96px);
+      display: flex;
+      justify-content: space-between;
+      .Normal {
+        margin: 0 0 0 auto;
+      }
+      p {
+        width: fit-content;
+      }
+    }
+    .header-0 {
+      position: absolute;
+      top: 0;
+      width: calc(100% - 2 * 96px);
+      display: flex;
+      justify-content: space-between;
+      .Normal, .Header {
+        margin: 0 0 0 auto;
+      }
+      p {
+        width: fit-content;
+        &:last-of-type {
+          margin: 0 !important;
+        }
+      }
+    }
   }
 }
 
