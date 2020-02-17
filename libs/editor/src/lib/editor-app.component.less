@@ -152,8 +152,12 @@
 
 ::ng-deep .page {
   width: 800px;
-  height: 100% !important;
+  height: auto !important;
   min-height: 842pt !important;
+}
+
+::ng-deep #page-0 {
+  height: calc(100% - 2 * 20px);
 }
 
 ::ng-deep .save-as-button-icon {
