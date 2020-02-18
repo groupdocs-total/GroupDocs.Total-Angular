@@ -1,0 +1,18 @@
+<div class="gd-context-menu" [ngStyle]="isMobile ? null : {transform: 'translateX(' + translation + 'px)'}"
+     [ngClass]="topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'">
+  <gd-button [icon]="'arrows-alt'" [class]="'ng-fa-icon icon arrows'" [iconSize]="'sm'"></gd-button>
+  <gd-text-menu *ngIf="textMenu" [blur]="isMobile && isSignature()" [color]="formatting.color" [bold]="formatting.bold"
+                [font]="formatting.font" [fontSize]="formatting.fontSize" [italic]="formatting.italic"
+                [underline]="formatting.underline" (outBold)="toggleBold($event)"
+                (outUnderline)="toggleUnderline($event)" (outItalic)="toggleItalic($event)"
+                (outColor)="selectColor($event)" (outFont)="selectFont($event)"
+                (outFontSize)="selectFontSize($event)" [decoration]="isSignature()"></gd-text-menu>
+  <gd-button *ngIf="isSignature()" [icon]="lock ? 'lock' : 'unlock'" [class]="'ng-fa-icon icon'"
+             (click)="toggleLock()" (touchstart)="toggleLock()"></gd-button>
+  <gd-button *ngIf="isSignature()" [icon]="'copy'" [class]="'ng-fa-icon icon'" (click)="onCopySign()"
+             (touchstart)="onCopySign()"></gd-button>
+  <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon'" (click)="deleteItem()"
+             (touchstart)="deleteItem()"></gd-button>
+  <gd-button *ngIf="isAnnotation()" [icon]="'comment'" [class]="'ng-fa-icon icon'" (click)="addComment()"
+             (touchstart)="addComment()"></gd-button>
+</div>

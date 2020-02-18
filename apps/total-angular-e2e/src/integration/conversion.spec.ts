@@ -8,6 +8,7 @@ describe('Conversion', () => {
     cy.fixture("conversionLoadConfigDefault").as('conversionLoadConfigDefault');
     cy.fixture("editorLoadConfigDefault").as('editorLoadConfigDefault');
     cy.fixture("signatureLoadConfigDefault").as('signatureLoadConfigDefault');
+    cy.fixture("annotationLoadConfigDefault").as('annotationLoadConfigDefault');
     cy.fixture("metadataLoadConfigDefault").as('metadataLoadConfigDefault');
     cy.fixture("loadFileTreeDefault").as('loadFileTreeDefault');
     cy.fixture("loadFileTreeSubFolder").as('loadFileTreeSubFolder');
@@ -19,6 +20,7 @@ describe('Conversion', () => {
     cy.route('http://localhost:8080/conversion/loadConfig', "@conversionLoadConfigDefault");
     cy.route('http://localhost:8080/editor/loadConfig', "@editorLoadConfigDefault");
     cy.route('http://localhost:8080/signature/loadConfig', "@signatureLoadConfigDefault");
+    cy.route('http://localhost:8080/annotation/loadConfig', "@annotationLoadConfigDefault");
     cy.route('http://localhost:8080/metadata/loadConfig', "@metadataLoadConfigDefault");
 
     cy.route('POST','http://localhost:8080/conversion/loadFileTree', "@loadFileTreeDefault");

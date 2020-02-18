@@ -26,6 +26,7 @@
       "@groupdocs.examples.angular/comparison": ["libs/comparison/src/index.ts"],
       "@groupdocs.examples.angular/signature": ["libs/signature/src/index.ts"],
       "@groupdocs.examples.angular/conversion": ["libs/conversion/src/index.ts"],
+      "@groupdocs.examples.angular/annotation": ["libs/annotation/src/index.ts"],
       "@groupdocs.examples.angular/metadata": ["libs/metadata/src/index.ts"]
     }
   },

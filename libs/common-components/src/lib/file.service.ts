@@ -92,6 +92,44 @@ export class Utils {
     }
     return mouse;
   }
+
+  public static toRgb(color: string) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+    if (result) {
+      const r = parseInt(result[1], 16);
+      const g = parseInt(result[2], 16);
+      const b = parseInt(result[3], 16);
+      return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
+    }
+    return color;
+  }
+
+  public static toHex(color: string) {
+    // check if color is standard hex value
+    if (color.match(/[0-9A-F]{6}|[0-9A-F]{3}$/i)) {
+      return (color.charAt(0) === "#") ? color : ("#" + color);
+      // check if color is RGB value -> convert to hex
+    } else if (color.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)) {
+      const c = ([parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10), parseInt(RegExp.$3, 10)]),
+        pad = function (str) {
+          if (str.length < 2) {
+            for (let i = 0, len = 2 - str.length; i < len; i++) {
+              str = '0' + str;
+            }
+          }
+          return str;
+        };
+      if (c.length === 3) {
+        const r = pad(c[0].toString(16)),
+          g = pad(c[1].toString(16)),
+          b = pad(c[2].toString(16));
+        return '#' + r + g + b;
+      }
+      // else do nothing
+    } else {
+      return '';
+    }
+  }
 }
 
 export class FileUtil {
