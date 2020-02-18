@@ -1,6 +1,6 @@
 <div class="gd-tab" (mousedown)="toggleTab()" gdTooltip (showToolTip)="showToolTip = $event"
      [ngClass]="(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')">
   <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'"></fa-icon>
-  <gd-tooltip [text]="tooltip" [show]="showToolTip"
-              *ngIf="tooltip" [first]="firstElement"></gd-tooltip>
+  <gd-tooltip [text]="tooltip" [show]="showToolTip" class="gd-tab-tooltip"
+              *ngIf="tooltip" [position]="elementPosition"></gd-tooltip>
 </div>

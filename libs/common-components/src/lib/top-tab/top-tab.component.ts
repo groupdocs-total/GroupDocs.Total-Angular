@@ -14,7 +14,7 @@ export class TopTabComponent implements OnInit {
   @Input() disabled = false;
   @Input() tooltip: string;
   @Output() activeTab = new EventEmitter<string>();
-  @Input() firstElement = false;
+  @Input() elementPosition = 0;
   public active = false;
   public showToolTip = false;
 

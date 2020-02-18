@@ -2,7 +2,7 @@
      gdTooltip (showToolTip)="showToolTip = $event" (mouseenter)="onHovering()"
      (mouseleave)="onUnhovering()" gdDisabledCursor [dis]="disabled">
   <fa-icon *ngIf="icon" [icon]="[iconRegular ? 'far' : 'fas',icon]" [size]="iconSize"></fa-icon>
-  <gd-tooltip [text]="tooltip" [show]="showToolTip" *ngIf="tooltip" [first]="firstElement" class="button-tooltip"></gd-tooltip>
+  <gd-tooltip [text]="tooltip" [show]="showToolTip" *ngIf="tooltip" [position]="elementPosition" class="button-tooltip"></gd-tooltip>
   <div class="text">
     <ng-content></ng-content>
   </div>

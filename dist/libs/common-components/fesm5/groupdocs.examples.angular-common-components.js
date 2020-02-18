@@ -222,7 +222,7 @@ var ButtonComponent = /** @class */ (function () {
         this.disabled = false;
         this.toggle = false;
         this.iconRegular = false;
-        this.firstElement = false;
+        this.elementPosition = 0;
         this.showToolTip = false;
         this.isDesktop = windowService.isDesktop();
         windowService.onResize.subscribe((/**
@@ -285,8 +285,8 @@ var ButtonComponent = /** @class */ (function () {
     ButtonComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-button',
-                    template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [first]=\"firstElement\" class=\"button-tooltip\"></gd-tooltip>\n  <div class=\"text\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-                    styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}.button .button-tooltip{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
+                    template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [position]=\"elementPosition\" class=\"button-tooltip\"></gd-tooltip>\n  <div class=\"text\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+                    styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;align-content:center;-webkit-box-pack:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}.button .button-tooltip{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -304,7 +304,7 @@ var ButtonComponent = /** @class */ (function () {
         toggle: [{ type: Input }],
         iconSize: [{ type: Input }],
         iconRegular: [{ type: Input }],
-        firstElement: [{ type: Input }]
+        elementPosition: [{ type: Input }]
     };
     return ButtonComponent;
 }());
@@ -330,7 +330,7 @@ if (false) {
     /** @type {?} */
     ButtonComponent.prototype.iconRegular;
     /** @type {?} */
-    ButtonComponent.prototype.firstElement;
+    ButtonComponent.prototype.elementPosition;
     /** @type {?} */
     ButtonComponent.prototype.showToolTip;
     /**
@@ -383,7 +383,7 @@ if (false) {
  */
 var TooltipComponent = /** @class */ (function () {
     function TooltipComponent() {
-        this.first = false;
+        this.position = 0;
         this.visibility = 'hidden';
     }
     /**
@@ -393,7 +393,10 @@ var TooltipComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this.first ? 'tooltip first-element' : 'tooltip';
+        if (this.position === 0) {
+            return 'tooltip';
+        }
+        return 'tooltip ' + (this.position > 0 ? 'last-element' : 'first-element');
     };
     Object.defineProperty(TooltipComponent.prototype, "show", {
         set: /**
@@ -401,13 +404,7 @@ var TooltipComponent = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var _this = this;
-            setTimeout((/**
-             * @return {?}
-             */
-            function () {
-                _this.visibility = value ? 'shown' : 'hidden';
-            }), 1000);
+            this.visibility = value ? 'shown' : 'hidden';
         },
         enumerable: true,
         configurable: true
@@ -424,14 +421,14 @@ var TooltipComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-tooltip',
                     template: "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\n",
-                    styles: [".tooltip{position:absolute;margin-top:37px!important;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;margin-left:unset!important;margin-right:unset!important;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center}.first-element{margin-left:10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
+                    styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:0!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
                 }] }
     ];
     /** @nocollapse */
     TooltipComponent.ctorParameters = function () { return []; };
     TooltipComponent.propDecorators = {
         text: [{ type: Input }],
-        first: [{ type: Input }],
+        position: [{ type: Input }],
         show: [{ type: Input }]
     };
     return TooltipComponent;
@@ -440,7 +437,7 @@ if (false) {
     /** @type {?} */
     TooltipComponent.prototype.text;
     /** @type {?} */
-    TooltipComponent.prototype.first;
+    TooltipComponent.prototype.position;
     /** @type {?} */
     TooltipComponent.prototype.visibility;
 }
@@ -7388,7 +7385,7 @@ var TopTabComponent = /** @class */ (function () {
         this._excMessageService = _excMessageService;
         this.disabled = false;
         this.activeTab = new EventEmitter();
-        this.firstElement = false;
+        this.elementPosition = 0;
         this.active = false;
         this.showToolTip = false;
         this._tabActivatorService.activeTabChange.subscribe((/**
@@ -7451,8 +7448,8 @@ var TopTabComponent = /** @class */ (function () {
     TopTabComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-top-tab',
-                    template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\"\n              *ngIf=\"tooltip\" [first]=\"firstElement\"></gd-tooltip>\n</div>\n",
-                    styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
+                    template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" class=\"gd-tab-tooltip\"\n              *ngIf=\"tooltip\" [position]=\"elementPosition\"></gd-tooltip>\n</div>\n",
+                    styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;align-content:center;-webkit-box-pack:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab .gd-tab-tooltip{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:0!important}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -7467,7 +7464,7 @@ var TopTabComponent = /** @class */ (function () {
         disabled: [{ type: Input }],
         tooltip: [{ type: Input }],
         activeTab: [{ type: Output }],
-        firstElement: [{ type: Input }]
+        elementPosition: [{ type: Input }]
     };
     return TopTabComponent;
 }());
@@ -7483,7 +7480,7 @@ if (false) {
     /** @type {?} */
     TopTabComponent.prototype.activeTab;
     /** @type {?} */
-    TopTabComponent.prototype.firstElement;
+    TopTabComponent.prototype.elementPosition;
     /** @type {?} */
     TopTabComponent.prototype.active;
     /** @type {?} */

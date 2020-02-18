@@ -6,7 +6,7 @@
         <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
           <div id="files-tools" class="toolbar-panel">
             <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
-                       *ngIf="browseConfig" [firstElement]="true"></gd-button>
+                       *ngIf="browseConfig" [elementPosition]="-1"></gd-button>
 
             <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                        (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
@@ -20,7 +20,7 @@
               <gd-top-tab [disabled]="!file" *ngIf="isVisible(signatureType.id)"
                           [icon]="signatureType.icon" (activeTab)="activeTab($event)"
                           [id]="signatureType.id" [tooltip]="signatureType.name"
-                          [firstElement]="isFirstTab(signatureType)">
+                          [elementPosition]="isFirstTab(signatureType)">
               </gd-top-tab>
             </div>
           </div>
@@ -31,7 +31,7 @@
               <gd-top-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)"
                           [icon]="signatureType.icon" (activeTab)="activeTab($event)"
                           [id]="signatureType.id" [tooltip]="signatureType.name"
-                          [firstElement]="isFirstTab(signatureType)">
+                          [elementPosition]="isFirstTab(signatureType)">
               </gd-top-tab>
             </div>
           </div>

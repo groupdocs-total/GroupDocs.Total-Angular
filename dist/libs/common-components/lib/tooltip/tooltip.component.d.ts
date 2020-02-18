@@ -1,10 +1,10 @@
 import { OnInit } from '@angular/core';
 export declare class TooltipComponent implements OnInit {
     text: string;
-    first: boolean;
+    position: number;
     visibility: string;
     constructor();
-    getClass(): "tooltip first-element" | "tooltip";
+    getClass(): string;
     show: boolean;
     ngOnInit(): void;
 }

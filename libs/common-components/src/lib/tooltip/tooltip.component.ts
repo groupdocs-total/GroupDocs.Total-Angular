@@ -8,21 +8,22 @@ import {Component, Input, OnInit} from '@angular/core';
 export class TooltipComponent implements OnInit {
 
   @Input() text: string;
-  @Input() first = false;
+  @Input() position = 0;
   visibility = 'hidden';
 
   constructor() {
   }
 
   getClass() {
-    return this.first ? 'tooltip first-element' : 'tooltip'
+    if (this.position === 0) {
+      return 'tooltip';
+    }
+    return 'tooltip ' + (this.position > 0 ? 'last-element' : 'first-element');
   }
 
   @Input()
   set show(value: boolean) {
-    setTimeout(() => {
-      this.visibility = value ? 'shown' : 'hidden';
-    }, 1000);
+    this.visibility = value ? 'shown' : 'hidden';
   }
 
   ngOnInit() {

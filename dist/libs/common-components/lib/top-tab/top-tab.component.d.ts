@@ -11,7 +11,7 @@ export declare class TopTabComponent implements OnInit {
     disabled: boolean;
     tooltip: string;
     activeTab: EventEmitter<string>;
-    firstElement: boolean;
+    elementPosition: number;
     active: boolean;
     showToolTip: boolean;
     constructor(_tabActivatorService: TopTabActivatorService, _modalService: ModalService, _excMessageService: ExceptionMessageService);

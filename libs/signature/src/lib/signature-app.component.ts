@@ -487,7 +487,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
   private getNextId() {
     let maxId = 0;
     for (const annId of this.signatureComponents.keys()) {
-      if (annId > maxId){
+      if (annId > maxId) {
         maxId = annId;
       }
     }
@@ -619,6 +619,12 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
   }
 
   isFirstTab(signatureType: { name: string; icon: string; id: string; title: string }) {
-    return (signatureType.id === SignatureType.TEXT.id) || (!this.isDesktop && signatureType.id === SignatureType.QR_CODE.id);
+    if ((signatureType.id === SignatureType.TEXT.id) || (!this.isDesktop && signatureType.id === SignatureType.QR_CODE.id)) {
+      return -1;
+    }
+    if ((signatureType.id === SignatureType.HAND.id) || (!this.isDesktop && signatureType.id === SignatureType.BAR_CODE.id)) {
+      return 1;
+    }
+    return 0;
   }
 }
