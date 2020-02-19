@@ -26,7 +26,9 @@
               "apps/total-angular/src/favicon.ico",
               "apps/total-angular/src/assets"
             ],
-            "styles": ["apps/total-angular/src/styles.less"],
+            "styles": [
+              "apps/total-angular/src/styles.less"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -80,7 +82,10 @@
               "apps/total-angular/tsconfig.app.json",
               "apps/total-angular/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**/*", "!apps/total-angular/**"]
+            "exclude": [
+              "**/node_modules/**/*",
+              "!apps/total-angular/**"
+            ]
           }
         },
         "test": {
@@ -119,7 +124,10 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/total-angular-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**/*", "!apps/total-angular-e2e/**"]
+            "exclude": [
+              "**/node_modules/**/*",
+              "!apps/total-angular-e2e/**"
+            ]
           }
         }
       }
@@ -144,7 +152,10 @@
               "libs/viewer/tsconfig.lib.json",
               "libs/viewer/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**/*", "!libs/viewer/**"]
+            "exclude": [
+              "**/node_modules/**/*",
+              "!libs/viewer/**"
+            ]
           }
         },
         "test": {
@@ -182,7 +193,10 @@
               "libs/common-components/tsconfig.lib.json",
               "libs/common-components/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**/*", "!libs/common-components/**"]
+            "exclude": [
+              "**/node_modules/**/*",
+              "!libs/common-components/**"
+            ]
           }
         },
         "test": {
@@ -258,7 +272,10 @@
               "libs/editor/tsconfig.lib.json",
               "libs/editor/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**/*", "!libs/editor/**"]
+            "exclude": [
+              "**/node_modules/**/*",
+              "!libs/editor/**"
+            ]
           }
         },
         "test": {
@@ -296,7 +313,10 @@
               "libs/comparison/tsconfig.lib.json",
               "libs/comparison/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/comparison/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/comparison/**"
+            ]
           }
         },
         "test": {
@@ -334,7 +354,10 @@
               "libs/signature/tsconfig.lib.json",
               "libs/signature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/signature/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/signature/**"
+            ]
           }
         },
         "test": {
@@ -372,7 +395,10 @@
               "libs/conversion/tsconfig.lib.json",
               "libs/conversion/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/conversion/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/conversion/**"
+            ]
           }
         },
         "test": {
@@ -381,6 +407,47 @@
             "main": "libs/conversion/src/test.ts",
             "tsConfig": "libs/conversion/tsconfig.spec.json",
             "karmaConfig": "libs/conversion/karma.conf.js"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "less"
+        }
+      }
+    },
+    "annotation": {
+      "projectType": "library",
+      "root": "libs/annotation",
+      "sourceRoot": "libs/annotation/src",
+      "prefix": "gd",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/annotation/tsconfig.lib.json",
+            "project": "libs/annotation/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/annotation/tsconfig.lib.json",
+              "libs/annotation/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/annotation/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/annotation/src/test.ts",
+            "tsConfig": "libs/annotation/tsconfig.spec.json",
+            "karmaConfig": "libs/annotation/karma.conf.js"
           }
         }
       },
