@@ -44,6 +44,7 @@ export declare class FilePropertyModel {
     original: boolean;
     selected: boolean;
     editing: boolean;
+    disabled: boolean;
 }
 export declare class HttpError {
     static BadRequest: number;

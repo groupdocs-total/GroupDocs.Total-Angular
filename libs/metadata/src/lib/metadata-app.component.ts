@@ -49,6 +49,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   disabled = false;
   isDesktop: boolean;
   showSidePanel = true;
+  disabledProperties: string[] = ["generator", "producer", "creator"];
 
   constructor(private _metadataService: MetadataService,
               private _modalService: ModalService,
@@ -107,7 +108,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           category: 0,
           type: 1,
           selected: false,
-          editing: false
+          editing: false,
+          disabled: false
         };
         if (this.buildInProperties) {
           this.buildInProperties.push(propObject);
@@ -299,6 +301,14 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   loadProperties() {
     this._metadataService.loadProperties(this.credentials).subscribe((fileProperties: FilePropertyModel[]) => {
       this.buildInProperties = fileProperties.filter(p => p.category === FilePropertyCategory.BuildIn);
+      this.buildInProperties.forEach(p => 
+        {
+          if (this.disabledProperties.some(dp => dp === p.name.toLowerCase()))
+          {
+            p.disabled = true;
+          }
+        }
+      );
       this.defaultProperties = fileProperties.filter(p => p.category === FilePropertyCategory.Default);
 
       this._metadataService.loadPropertiesNames(this.credentials).subscribe((filePropertiesNames: string[]) => {

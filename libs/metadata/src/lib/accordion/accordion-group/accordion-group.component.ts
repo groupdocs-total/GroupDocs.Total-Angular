@@ -12,7 +12,8 @@ import {DatePipe} from "@angular/common";
 export class AccordionGroupComponent implements AfterViewInit {
   @Input() opened = false;
   @Input() title: string;
-  @Input() disabled: boolean;
+  @Input() addDisabled: boolean;
+  @Input() addHidden: boolean;
   @Input() properties: FilePropertyModel[];
   @Input() propertiesNames: string[];
   @Output() toggle: EventEmitter<any> = new EventEmitter<any>();
@@ -56,7 +57,7 @@ export class AccordionGroupComponent implements AfterViewInit {
     this._selectedPropName = "Select property";
     this.resetProperties();
 
-    if (!this.disabled) {
+    if (!this.addDisabled) {
       const addedProperty = new FilePropertyModel();
       addedProperty.original = false;
       this._accordionService.addProperty(addedProperty);
@@ -64,7 +65,7 @@ export class AccordionGroupComponent implements AfterViewInit {
   }
 
   selectProperty(property: FilePropertyModel){
-    if (property.category === 0) {
+    if (property.category === 0 && !property.disabled) {
       this.resetProperties(true);
 
       const selectedProperty = this.properties.filter(p => p.name.toLocaleLowerCase() === property.name.toLocaleLowerCase())[0];
@@ -75,7 +76,7 @@ export class AccordionGroupComponent implements AfterViewInit {
 
   editProperty(property: FilePropertyModel){
     // we can edit only first group props
-    if (property.category === 0) {
+    if (property.category === 0 && !property.disabled) {
       this.resetProperties();
 
       const selectedProperty = this.properties.filter(p => p.name.toLocaleLowerCase() === property.name.toLocaleLowerCase())[0];

@@ -4,10 +4,10 @@
       <fa-icon *ngIf="opened" class="chevron" [icon]="['fas', 'chevron-up']"></fa-icon>
       <div class="text">{{title}}</div>
       <fa-icon class="trash" *ngIf="wasSelected()" [icon]="['fas', 'trash']" (click)="delete($event)"></fa-icon>
-      <gd-button class="plus" [icon]="['plus']" [disabled]="disabled" (click)="addProperty($event)"></gd-button>
+      <gd-button class="plus" [icon]="['plus']" [hidden]="addHidden" [disabled]="addDisabled" (click)="addProperty($event)"></gd-button>
     </div>
     <div class="body" [ngClass]="{'hidden': !opened}">
-      <div *ngFor="let property of properties" class="property-wrapper">
+      <div *ngFor="let property of properties" class="property-wrapper" [ngClass]="{'disabled': property.disabled}">
           <div *ngIf="property.original" [ngClass]="{'selected': property.selected}" (click)="selectProperty(property)" class="property-name" title="{{property.name}}">{{property.name}}</div>
           <gd-select  class="property-name" *ngIf="!property.original" id="propertiesNames" [disabled]="false" [options]="propertiesNames" (selected)="selectPropName($event)" [showSelected]="{name : selectedPropName, value : selectedPropName}"></gd-select>
           <div *ngIf="property.original && !property.editing" [ngClass]="{'selected': property.selected}" (click)="editProperty(property)" class="property-value" title="{{property.value}}">{{formatValue(property)}}</div>

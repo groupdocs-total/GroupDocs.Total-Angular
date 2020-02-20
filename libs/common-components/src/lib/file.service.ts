@@ -59,6 +59,7 @@ export class FilePropertyModel {
   original: boolean;
   selected: boolean;
   editing: boolean;
+  disabled: boolean;
 }
 
 export class HttpError {
