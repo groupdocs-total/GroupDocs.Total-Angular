@@ -10,6 +10,7 @@ export declare class ButtonComponent {
     toggle: boolean;
     iconSize: string;
     iconRegular: boolean;
+    elementPosition: number;
     showToolTip: boolean;
     private isDesktop;
     constructor(windowService: WindowService);

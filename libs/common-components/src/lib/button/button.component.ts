@@ -17,6 +17,7 @@ export class ButtonComponent {
   @Input() toggle = false;
   @Input() iconSize: string;
   @Input() iconRegular = false;
+  @Input() elementPosition = 0;
 
   showToolTip = false;
   private isDesktop: boolean;

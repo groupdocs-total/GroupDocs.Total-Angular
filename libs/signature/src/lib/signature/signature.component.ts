@@ -263,7 +263,14 @@ export class Signature implements OnInit, AfterViewInit {
 
   getMenuShift() {
     const menuWidth = this.type === SignatureType.TEXT.id ? 426 : 148;
-    return this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
+    let shift = this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
+    if (this.position.left - (menuWidth - this.data.width) / 2 < 0) {
+      shift -= (this.position.left - (menuWidth - this.data.width) / 2);
+    }
+    if (this.position.left + (menuWidth + this.data.width) / 2 > this.pageWidth) {
+      shift -= (this.position.left + (menuWidth + this.data.width) / 2 - this.pageWidth);
+    }
+    return shift;
   }
 
   getMenuType() {
