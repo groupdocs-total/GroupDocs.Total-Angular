@@ -9,7 +9,7 @@
     <input type="text" class="gd-qr-property" #text (keyup)="saveTemp(text.value)" (keyup.enter)="addSign(text.value)"
            placeholder="{{name}}" id="text-input"/>
     <div class="gd-add-optical" [ngClass]="text.value ? 'active' : 'inactive'" (click)="addSign(text.value)">
-      <fa-icon [icon]="['fa','plus']" [class]="'ng-fa-icon icon'"></fa-icon>
+      <fa-icon [icon]="['fa','check']" [class]="'ng-fa-icon icon'"></fa-icon>
     </div>
   </div>
 </div>
