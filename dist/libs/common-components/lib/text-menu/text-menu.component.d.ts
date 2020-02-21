@@ -11,6 +11,7 @@ export declare class TextMenuComponent implements OnInit {
     underline: boolean;
     color: string;
     decoration: boolean;
+    showTooltips: boolean;
     outFontSize: EventEmitter<number>;
     outFont: EventEmitter<string>;
     outBold: EventEmitter<boolean>;
