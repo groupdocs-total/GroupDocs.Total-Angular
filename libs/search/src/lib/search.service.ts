@@ -29,30 +29,16 @@ export class SearchService {
     return this._http.post(this._config.getSearchApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
   }
 
-  loadPage(credentials: FileCredentials, page: number) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.LOAD_DOCUMENT_PAGE, {
-      'guid': credentials.guid,
-      'password': credentials.password,
-      'page': page
+  search(credentials: FileCredentials[], query: string) {
+    const guids = [];
+    for (let i = 0; i < credentials.length; ++i) {
+      guids.push(credentials[i].guid);
+    }
+
+    return this._http.post(this._config.getSearchApiEndpoint() + Api.SEARCH, {
+      'guilds': guids,
+      'query': query
     }, Api.httpOptionsJson);
-  }
-
-  getDownloadUrl(credentials: FileCredentials) {
-    return this._config.getSearchApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
-  }
-
-  loadPrint(credentials: FileCredentials) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.LOAD_PRINT, {
-      'guid': credentials.guid,
-      'password': credentials.password,
-    }, Api.httpOptionsJson);
-  }
-
-  loadPrintPdf(credentials: FileCredentials) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.LOAD_PRINT_PDF, {
-      'guid': credentials.guid,
-      'password': credentials.password,
-    }, Api.httpOptionsJsonResponseTypeBlob);
   }
 
 }

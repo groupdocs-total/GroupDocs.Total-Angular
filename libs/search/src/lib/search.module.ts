@@ -12,6 +12,7 @@ import {SearchService} from "./search.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {SearchConfigService} from "./search-config.service";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {SearchPanelComponent} from './search-panel/search-panel.component';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -26,7 +27,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 
 @NgModule({
   declarations: [
-    SearchAppComponent],
+    SearchAppComponent,
+    SearchPanelComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -35,7 +37,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ],
   exports: [
     SearchAppComponent,
-    CommonComponentsModule
+    CommonComponentsModule,
+    SearchPanelComponent
   ],
   providers: [
     SearchService,

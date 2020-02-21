@@ -3,6 +3,7 @@ export declare class Api {
     static VIEWER_APP: string;
     static SIGNATURE_APP: string;
     static ANNOTATION_APP: string;
+    static SEARCH_APP: string;
     static EDITOR_APP: string;
     static COMPARISON_APP: string;
     static CONVERSION_APP: string;
@@ -30,6 +31,7 @@ export declare class Api {
     static DOWNLOAD_SIGNED: string;
     static LOAD_SIGNATURE_IMAGE: string;
     static ANNOTATE: string;
+    static SEARCH: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };
@@ -49,4 +51,5 @@ export declare class ConfigService {
     getConversionApiEndpoint(): string;
     getSignatureApiEndpoint(): string;
     getAnnotationApiEndpoint(): string;
+    getSearchApiEndpoint(): string;
 }

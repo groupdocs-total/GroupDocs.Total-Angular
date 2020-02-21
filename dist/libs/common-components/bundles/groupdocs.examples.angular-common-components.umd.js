@@ -620,6 +620,7 @@
         Api.VIEWER_APP = '/viewer';
         Api.SIGNATURE_APP = '/signature';
         Api.ANNOTATION_APP = '/annotation';
+        Api.SEARCH_APP = '/search';
         Api.EDITOR_APP = '/editor';
         Api.COMPARISON_APP = '/comparison';
         Api.CONVERSION_APP = '/conversion';
@@ -647,6 +648,7 @@
         Api.DOWNLOAD_SIGNED = '/downloadSigned';
         Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
         Api.ANNOTATE = '/annotate';
+        Api.SEARCH = '/search';
         Api.httpOptionsJson = {
             headers: new http.HttpHeaders({
                 'Content-Type': 'application/json',
@@ -667,6 +669,8 @@
         Api.SIGNATURE_APP;
         /** @type {?} */
         Api.ANNOTATION_APP;
+        /** @type {?} */
+        Api.SEARCH_APP;
         /** @type {?} */
         Api.EDITOR_APP;
         /** @type {?} */
@@ -721,6 +725,8 @@
         Api.LOAD_SIGNATURE_IMAGE;
         /** @type {?} */
         Api.ANNOTATE;
+        /** @type {?} */
+        Api.SEARCH;
         /** @type {?} */
         Api.httpOptionsJson;
         /** @type {?} */
@@ -811,6 +817,15 @@
          */
         function () {
             return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
+        };
+        /**
+         * @return {?}
+         */
+        ConfigService.prototype.getSearchApiEndpoint = /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
         };
         ConfigService.decorators = [
             { type: core.Injectable }
