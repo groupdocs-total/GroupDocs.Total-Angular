@@ -38,6 +38,7 @@ import {PasswordService} from "./password.service";
 import {ErrorInterceptorService} from "./error-interceptor.service";
 import {SearchComponent} from './search/search.component';
 import {SearchableDirective} from './searchable.directive';
+import {EditHeaderFooterDirective} from './editheaderfooter.directive';
 import {SearchService} from "./search.service";
 import {WindowService} from "./window.service";
 import {ViewportService} from "./viewport.service";
@@ -134,6 +135,7 @@ const providers = [ConfigService,
     PasswordRequiredComponent,
     SearchComponent,
     SearchableDirective,
+    EditHeaderFooterDirective,
     TabbedToolbarsComponent,
     TabComponent,
     TabsComponent,
@@ -178,6 +180,7 @@ const providers = [ConfigService,
     PasswordRequiredComponent,
     SearchComponent,
     SearchableDirective,
+    EditHeaderFooterDirective,
     TabbedToolbarsComponent,
     TabComponent,
     TabsComponent,
