@@ -164,6 +164,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
 
     this._htmlService.htmlContent.subscribe((text: string) => {
       if (this.file && this.file.pages) {
+        text = text.replace('<div class="footer-title">Footer</div>', "");
+        text = text.replace('<div class="header-title">Header</div>', "");
         this.textBackup = text;
       }
     });
@@ -530,16 +532,10 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   }
 
   getPageWithRootTags(data) {
-    data = this.RemoveFooterTitle(data);
-
     let resultData = "<html><head>" + data + "</body></html>";
     resultData = resultData.replace('<div class="documentMainContent">', '<body><div class="documentMainContent">');
     resultData = resultData.replace('<body><div class="documentMainContent">', '</head><body><div class="documentMainContent">');
     return resultData;
-  }
-
-  RemoveFooterTitle(textBackup: string): string {
-    return this.textBackup.replace('<div class="footer-title">Footer</div>', "");
   }
 
   printFile() {

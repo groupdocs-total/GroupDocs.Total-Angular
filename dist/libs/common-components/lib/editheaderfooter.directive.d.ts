@@ -6,6 +6,7 @@ export declare class EditHeaderFooterDirective implements OnInit, OnDestroy, Aft
     private _windowService;
     el: ElementRef<any>;
     footerRef: any;
+    headerRef: any;
     constructor(_zoomService: ZoomService, _windowService: WindowService, el: ElementRef);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

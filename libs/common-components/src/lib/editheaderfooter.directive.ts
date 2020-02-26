@@ -10,12 +10,19 @@ export class EditHeaderFooterDirective implements OnInit, OnDestroy, AfterViewIn
 
   el: ElementRef<any>;
   footerRef: any;
+  headerRef: any;
 
   constructor(private _zoomService: ZoomService, private _windowService: WindowService, el: ElementRef) {
     this.el = el;
   }
 
   ngAfterViewInit(): void {
+    this.headerRef = this.el.nativeElement.querySelectorAll('.header')[0];
+    if (this.headerRef) {
+      this.headerRef.setAttribute("contenteditable", false);
+      this.headerRef.className += " disabled";
+    }
+
     this.footerRef = this.el.nativeElement.querySelectorAll('.footer')[0];
     if (this.footerRef) {
       this.footerRef.setAttribute("contenteditable", false);
@@ -34,15 +41,26 @@ export class EditHeaderFooterDirective implements OnInit, OnDestroy, AfterViewIn
 
   @HostListener('dblclick', ['$event'])
   dblclickEvent(event) {
+    const headerTitle = document.createElement("div");
+    headerTitle.className = "header-title";
+    headerTitle.append('Header');
+
     const footerTitle = document.createElement("div");
     footerTitle.className = "footer-title";
     footerTitle.append('Footer');
 
-    const footer = event.target.closest('.footer');
-    if (footer && footer.classList.contains('disabled')) {
-      footer.classList.remove('disabled');
-      footer.setAttribute("contenteditable", true);
-      footer.before(footerTitle);
+    const closestHeader = event.target.closest('.header');
+    if (closestHeader && closestHeader.classList.contains('disabled')) {
+      closestHeader.classList.remove('disabled');
+      closestHeader.setAttribute("contenteditable", true);
+      closestHeader.after(headerTitle);
+    }
+
+    const closestFooter = event.target.closest('.footer');
+    if (closestFooter && closestFooter.classList.contains('disabled')) {
+      closestFooter.classList.remove('disabled');
+      closestFooter.setAttribute("contenteditable", true);
+      closestFooter.before(footerTitle);
     }
 
     event.preventDefault();
@@ -51,8 +69,23 @@ export class EditHeaderFooterDirective implements OnInit, OnDestroy, AfterViewIn
 
   @HostListener('click', ['$event'])
   clickEvent(event) {
-    const footer = event.target.closest('.footer');
-    if (!footer) {
+    const closestHeader = event.target.closest('.header');
+    if (!closestHeader) {
+      this.headerRef.setAttribute("contenteditable", false);
+      if (!this.headerRef.classList.contains('disabled'))
+      {
+        this.headerRef.className += " disabled";
+      }
+
+      const section = this.el.nativeElement.querySelectorAll('.section')[0];
+      const headerTitle = this.el.nativeElement.querySelectorAll('.header-title')[0];
+      if (section && headerTitle) {
+        section.removeChild(headerTitle);
+      }
+    }
+
+    const closestFooter = event.target.closest('.footer');
+    if (!closestFooter) {
       this.footerRef.setAttribute("contenteditable", false);
       if (!this.footerRef.classList.contains('disabled'))
       {
