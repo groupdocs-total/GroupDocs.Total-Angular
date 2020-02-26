@@ -3276,8 +3276,10 @@ class EditHeaderFooterDirective {
      */
     ngAfterViewInit() {
         this.footerRef = this.el.nativeElement.querySelectorAll('.footer')[0];
-        this.footerRef.setAttribute("contenteditable", false);
-        this.footerRef.className += " disabled";
+        if (this.footerRef) {
+            this.footerRef.setAttribute("contenteditable", false);
+            this.footerRef.className += " disabled";
+        }
     }
     /**
      * @return {?}
@@ -3306,7 +3308,6 @@ class EditHeaderFooterDirective {
         /** @type {?} */
         const footer = event.target.closest('.footer');
         if (footer && footer.classList.contains('disabled')) {
-            console.log('dblclick in footer fired');
             footer.classList.remove('disabled');
             footer.setAttribute("contenteditable", true);
             footer.before(footerTitle);
@@ -3319,7 +3320,6 @@ class EditHeaderFooterDirective {
      * @return {?}
      */
     clickEvent(event) {
-        console.log('click on el fired');
         /** @type {?} */
         const footer = event.target.closest('.footer');
         if (!footer) {

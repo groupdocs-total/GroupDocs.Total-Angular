@@ -17,8 +17,10 @@ export class EditHeaderFooterDirective implements OnInit, OnDestroy, AfterViewIn
 
   ngAfterViewInit(): void {
     this.footerRef = this.el.nativeElement.querySelectorAll('.footer')[0];
-    this.footerRef.setAttribute("contenteditable", false);
-    this.footerRef.className += " disabled";
+    if (this.footerRef) {
+      this.footerRef.setAttribute("contenteditable", false);
+      this.footerRef.className += " disabled";
+    }
   }
 
   ngOnDestroy(): void {

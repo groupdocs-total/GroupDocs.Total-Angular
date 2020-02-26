@@ -4013,8 +4013,10 @@
          */
         function () {
             this.footerRef = this.el.nativeElement.querySelectorAll('.footer')[0];
-            this.footerRef.setAttribute("contenteditable", false);
-            this.footerRef.className += " disabled";
+            if (this.footerRef) {
+                this.footerRef.setAttribute("contenteditable", false);
+                this.footerRef.className += " disabled";
+            }
         };
         /**
          * @return {?}
@@ -4056,7 +4058,6 @@
             /** @type {?} */
             var footer = event.target.closest('.footer');
             if (footer && footer.classList.contains('disabled')) {
-                console.log('dblclick in footer fired');
                 footer.classList.remove('disabled');
                 footer.setAttribute("contenteditable", true);
                 footer.before(footerTitle);
@@ -4073,7 +4074,6 @@
          * @return {?}
          */
         function (event) {
-            console.log('click on el fired');
             /** @type {?} */
             var footer = event.target.closest('.footer');
             if (!footer) {
