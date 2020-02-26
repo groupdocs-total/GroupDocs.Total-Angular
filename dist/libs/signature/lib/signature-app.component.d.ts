@@ -91,6 +91,7 @@ export declare class SignatureAppComponent implements OnDestroy, OnInit {
     dropSignature($event: DragEvent): void;
     private selectSignature;
     private addSignatureComponent;
+    private getNextId;
     private closeTab;
     hideAll($event: any): void;
     newSign($event: string): void;
@@ -104,4 +105,10 @@ export declare class SignatureAppComponent implements OnDestroy, OnInit {
     isVisible(id: string): boolean;
     activeTab($event: string): void;
     fileDropped($event: any): void;
+    isFirstTab(signatureType: {
+        name: string;
+        icon: string;
+        id: string;
+        title: string;
+    }): 0 | 1 | -1;
 }
