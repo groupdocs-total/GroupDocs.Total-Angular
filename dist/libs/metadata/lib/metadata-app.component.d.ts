@@ -1,15 +1,18 @@
 import { AfterViewInit, OnInit } from '@angular/core';
 import { MetadataService } from "./metadata.service";
-import { FileDescription, FileModel, FilePropertyModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
+import { FileDescription, FileModel, FilePropertyModel, ModalService, ZoomService, UploadFilesService, NavigateService, PagePreloadService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
 import { MetadataConfig } from "./metadata-config";
 import { MetadataConfigService } from "./metadata-config.service";
+import { WindowService } from "@groupdocs.examples.angular/common-components";
 import { AccordionService } from './accordion.service';
 export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     private _metadataService;
     private _modalService;
     private _navigateService;
+    private _zoomService;
     private _loadingMaskService;
     private _accrodionService;
+    private _windowService;
     title: string;
     files: FileModel[];
     file: FileDescription;
@@ -19,8 +22,10 @@ export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     credentials: FileCredentials;
     browseFilesModal: string;
     isLoading: boolean;
+    _zoom: number;
     _pageWidth: number;
     _pageHeight: number;
+    options: any;
     fileWasDropped: boolean;
     buildInProperties: FilePropertyModel[];
     defaultProperties: FilePropertyModel[];
@@ -28,7 +33,10 @@ export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     removedProperty: FilePropertyModel;
     filePropertiesNames: string[];
     disabled: boolean;
-    constructor(_metadataService: MetadataService, _modalService: ModalService, configService: MetadataConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, pagePreloadService: PagePreloadService, passwordService: PasswordService, _loadingMaskService: LoadingMaskService, _accrodionService: AccordionService);
+    isDesktop: boolean;
+    showSidePanel: boolean;
+    disabledProperties: string[];
+    constructor(_metadataService: MetadataService, _modalService: ModalService, configService: MetadataConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, passwordService: PasswordService, _loadingMaskService: LoadingMaskService, _accrodionService: AccordionService, _windowService: WindowService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
@@ -42,8 +50,20 @@ export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     preloadPages(start: number, end: number): void;
     upload($event: string): void;
     fileDropped($event: any): void;
+    private ptToPx;
+    private getFitToWidth;
+    private getFitToHeight;
+    zoomOptions(): {
+        value: any;
+        name: string;
+        separator: boolean;
+    }[];
+    zoom: any;
+    private refreshZoom;
     downloadFile(): void;
     private clearData;
     isDisabled(): boolean;
     save(): void;
+    loadProperties(): void;
+    hideSidePanel($event: Event): void;
 }
