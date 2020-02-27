@@ -6,11 +6,16 @@ export declare class Api {
     static EDITOR_APP: string;
     static COMPARISON_APP: string;
     static CONVERSION_APP: string;
+    static METADATA_APP: string;
     static DEFAULT_API_ENDPOINT: string;
     static LOAD_FILE_TREE: string;
     static LOAD_CONFIG: string;
     static LOAD_DOCUMENT_DESCRIPTION: string;
     static LOAD_DOCUMENT_PAGE: string;
+    static LOAD_DOCUMENT_PROPERTIES: string;
+    static LOAD_DOCUMENT_PROPERTIES_NAMES: string;
+    static SAVE_PROPERTY: string;
+    static REMOVE_PROPERTY: string;
     static ROTATE_DOCUMENT_PAGE: string;
     static UPLOAD_DOCUMENTS: string;
     static DOWNLOAD_DOCUMENTS: string;
@@ -47,6 +52,7 @@ export declare class ConfigService {
     getEditorApiEndpoint(): string;
     getComparisonApiEndpoint(): string;
     getConversionApiEndpoint(): string;
+    getMetadataApiEndpoint(): string;
     getSignatureApiEndpoint(): string;
     getAnnotationApiEndpoint(): string;
 }
