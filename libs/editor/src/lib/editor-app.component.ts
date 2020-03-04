@@ -518,12 +518,22 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
  saveFile(credentials: FileCredentials) {
     if (!this.file || !this.file.pages)
       return;
+      
+    this.textBackup = this.getPageWithRootTags(this.textBackup);
+
     const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);
       this._modalService.open(CommonModals.OperationSuccess);
     });
+  }
+
+  getPageWithRootTags(data) {
+    let resultData = "<html><head>" + data + "</body></html>";
+    resultData = resultData.replace('<div class="documentMainContent">', '<body><div class="documentMainContent">');
+    resultData = resultData.replace('<body><div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+    return resultData;
   }
 
   printFile() {
