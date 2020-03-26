@@ -326,27 +326,21 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     const pageNumber = this._navigateService.currentPage;
+    const pageModel = this.file.pages[pageNumber - 1];
+    const angle = pageModel.angle + deg;
 
     if (this.saveRotateStateConfig && this.file) {
-      this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((data: RotatedPage[]) => {
-        for (const page of data) {
-          const pageModel = this.file.pages[page.pageNumber - 1];
-          if (this.file && this.file.pages && pageModel) {
-            this.changeAngle(pageModel, page.angle);
-          }
-        }
+      this._viewerService.rotate(this.credentials, angle, pageNumber).subscribe((/*data: RotatedPage[]*/) => {
       })
-    } else {
-      const pageModel = this.file.pages[pageNumber - 1];
-      if (this.file && this.file.pages && pageModel) {
-        const angle = pageModel.angle + deg;
-        if (angle > 360) {
-          this.changeAngle(pageModel, 90);
-        } else if (angle < -360) {
-          this.changeAngle(pageModel, -90);
-        } else {
-          this.changeAngle(pageModel, angle);
-        }
+    } 
+
+    if (this.file && this.file.pages && pageModel) {
+      if (angle > 360) {
+        this.changeAngle(pageModel, 90);
+      } else if (angle < -360) {
+        this.changeAngle(pageModel, -90);
+      } else {
+        this.changeAngle(pageModel, angle);
       }
     }
   }
