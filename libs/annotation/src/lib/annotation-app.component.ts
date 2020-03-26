@@ -42,7 +42,7 @@ export class AnnotationAppComponent implements OnInit {
   annotationConfig: AnnotationConfig;
   browseFilesModal = CommonModals.BrowseFiles;
   formatDisabled = !this.file;
-  credentials: FileCredentials;
+   public credentials: FileCredentials;
   annotationTypes = [
     AnnotationType.TEXT,
     AnnotationType.TEXT_STRIKEOUT,
@@ -82,7 +82,7 @@ export class AnnotationAppComponent implements OnInit {
 
   private activeAnnotationTab: string;
   private fileWasDropped = false;
-  private annotations = new Map<number, ComponentRef<any>>();
+  public annotations = new Map<number, ComponentRef<any>>();
   private creatingAnnotationId: number;
   private activeAnnotationId: number;
 
@@ -94,7 +94,7 @@ export class AnnotationAppComponent implements OnInit {
               private _addDynamicComponentService: AddDynamicComponentService,
               private _activeAnnotationService: ActiveAnnotationService,
               private _removeAnnotationService: RemoveAnnotationService,
-              private _commentAnnotationService: CommentAnnotationService,
+              public _commentAnnotationService: CommentAnnotationService,
               uploadFilesService: UploadFilesService,
               pagePreloadService: PagePreloadService,
               passwordService: PasswordService,
@@ -347,16 +347,22 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   annotate() {
+    const annotationsData = this.prepareAnnotationsData();
+
+    this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((ret: any) => {
+      this._modalService.open(CommonModals.OperationSuccess);
+      this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
+    });
+  }
+
+  public prepareAnnotationsData(){
     const annotationsData = [];
     for (const annotation of this.annotations.values()) {
       const annotationData = (<AnnotationComponent>annotation.instance).getAnnotationData();
       annotationData.comments = this.comments.get(annotationData.id);
       annotationsData.push(annotationData);
     }
-    this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((ret: any) => {
-      this._modalService.open(CommonModals.OperationSuccess);
-      this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
-    });
+    return annotationsData;
   }
 
   isVisible(id: string) {
