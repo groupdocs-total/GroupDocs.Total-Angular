@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { ComponentRef, OnInit } from '@angular/core';
 import { AnnotationConfig } from "./annotation-config";
 import { AnnotationService } from "./annotation.service";
 import { AddDynamicComponentService, FileCredentials, FileModel, HostingDynamicComponentService, ModalService, NavigateService, PagePreloadService, PasswordService, TopTabActivatorService, UploadFilesService, WindowService } from "@groupdocs.examples.angular/common-components";
@@ -15,7 +15,7 @@ export declare class AnnotationAppComponent implements OnInit {
     private _addDynamicComponentService;
     private _activeAnnotationService;
     private _removeAnnotationService;
-    private _commentAnnotationService;
+    _commentAnnotationService: CommentAnnotationService;
     private _windowService;
     title: string;
     files: FileModel[];
@@ -51,7 +51,7 @@ export declare class AnnotationAppComponent implements OnInit {
     comments: Map<number, Comment[]>;
     private activeAnnotationTab;
     private fileWasDropped;
-    private annotations;
+    annotations: Map<number, ComponentRef<any>>;
     private creatingAnnotationId;
     private activeAnnotationId;
     constructor(_annotationService: AnnotationService, _modalService: ModalService, _navigateService: NavigateService, _tabActivatorService: TopTabActivatorService, _hostingComponentsService: HostingDynamicComponentService, _addDynamicComponentService: AddDynamicComponentService, _activeAnnotationService: ActiveAnnotationService, _removeAnnotationService: RemoveAnnotationService, _commentAnnotationService: CommentAnnotationService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, passwordService: PasswordService, _windowService: WindowService);
@@ -92,6 +92,7 @@ export declare class AnnotationAppComponent implements OnInit {
     onRightClick($event: MouseEvent): boolean;
     downloadFile(): void;
     annotate(): void;
+    prepareAnnotationsData(): any[];
     isVisible(id: string): string | boolean;
     activeTab($event: any): void;
     codesConfigFirst(): boolean;

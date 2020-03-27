@@ -2259,6 +2259,24 @@ var AnnotationAppComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
+        /** @type {?} */
+        var annotationsData = this.prepareAnnotationsData();
+        this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((/**
+         * @param {?} ret
+         * @return {?}
+         */
+        function (ret) {
+            _this._modalService.open(CommonModals.OperationSuccess);
+            _this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
+        }));
+    };
+    /**
+     * @return {?}
+     */
+    AnnotationAppComponent.prototype.prepareAnnotationsData = /**
+     * @return {?}
+     */
+    function () {
         var e_3, _a;
         /** @type {?} */
         var annotationsData = [];
@@ -2278,14 +2296,7 @@ var AnnotationAppComponent = /** @class */ (function () {
             }
             finally { if (e_3) throw e_3.error; }
         }
-        this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((/**
-         * @param {?} ret
-         * @return {?}
-         */
-        function (ret) {
-            _this._modalService.open(CommonModals.OperationSuccess);
-            _this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
-        }));
+        return annotationsData;
     };
     /**
      * @param {?} id
@@ -2754,10 +2765,7 @@ if (false) {
      * @private
      */
     AnnotationAppComponent.prototype.fileWasDropped;
-    /**
-     * @type {?}
-     * @private
-     */
+    /** @type {?} */
     AnnotationAppComponent.prototype.annotations;
     /**
      * @type {?}
@@ -2809,10 +2817,7 @@ if (false) {
      * @private
      */
     AnnotationAppComponent.prototype._removeAnnotationService;
-    /**
-     * @type {?}
-     * @private
-     */
+    /** @type {?} */
     AnnotationAppComponent.prototype._commentAnnotationService;
     /**
      * @type {?}
