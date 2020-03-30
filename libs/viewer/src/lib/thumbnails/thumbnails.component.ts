@@ -23,7 +23,9 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
     // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
     // which leads to undesired spaces on the top of the docs pages
     this.pages.forEach(page => {
-      page.data = page.data.replace(/>\s+</g,'><').replace(/\uFEFF/g,"");
+      if (page.data) {
+        page.data = page.data.replace(/>\s+</g,'><').replace(/\uFEFF/g,"");
+      }
     });
   }
 
