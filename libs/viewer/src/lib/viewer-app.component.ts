@@ -360,17 +360,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     if (this.viewerConfig.preloadPageCount !== 0) {
-      if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
-        this._viewerService.loadPrintPdf(this.credentials).subscribe(blob => {
-          const file = new Blob([blob], {type: 'application/pdf'});
-          this._renderPrintService.changeBlob(file);
-        });
-      } else {
-        this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
-          this.file.pages = data.pages;
-          this._renderPrintService.changePages(this.file.pages);
-        });
-      }
+      this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
+        this.file.pages = data.pages;
+        this._renderPrintService.changePages(this.file.pages);
+      });
     } else {
       this._renderPrintService.changePages(this.file.pages);
     }
