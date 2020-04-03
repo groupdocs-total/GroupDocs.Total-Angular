@@ -1101,48 +1101,29 @@
                 return;
             /** @type {?} */
             var pageNumber = this._navigateService.currentPage;
+            /** @type {?} */
+            var pageModel = this.file.pages[pageNumber - 1];
             if (this.saveRotateStateConfig && this.file) {
                 this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((/**
-                 * @param {?} data
+                 * @param {?} page
                  * @return {?}
                  */
-                function (data) {
-                    var e_1, _a;
-                    try {
-                        for (var data_1 = __values(data), data_1_1 = data_1.next(); !data_1_1.done; data_1_1 = data_1.next()) {
-                            var page = data_1_1.value;
-                            /** @type {?} */
-                            var pageModel = _this.file.pages[page.pageNumber - 1];
-                            if (_this.file && _this.file.pages && pageModel) {
-                                _this.changeAngle(pageModel, page.angle);
-                            }
+                function (page) {
+                    _this.file.pages[pageNumber - 1] = page;
+                    if (_this.file && _this.file.pages && pageModel) {
+                        /** @type {?} */
+                        var angle = pageModel.angle + deg;
+                        if (angle > 360) {
+                            _this.changeAngle(pageModel, 90);
                         }
-                    }
-                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                    finally {
-                        try {
-                            if (data_1_1 && !data_1_1.done && (_a = data_1.return)) _a.call(data_1);
+                        else if (angle < -360) {
+                            _this.changeAngle(pageModel, -90);
                         }
-                        finally { if (e_1) throw e_1.error; }
+                        else {
+                            _this.changeAngle(pageModel, angle);
+                        }
                     }
                 }));
-            }
-            else {
-                /** @type {?} */
-                var pageModel = this.file.pages[pageNumber - 1];
-                if (this.file && this.file.pages && pageModel) {
-                    /** @type {?} */
-                    var angle = pageModel.angle + deg;
-                    if (angle > 360) {
-                        this.changeAngle(pageModel, 90);
-                    }
-                    else if (angle < -360) {
-                        this.changeAngle(pageModel, -90);
-                    }
-                    else {
-                        this.changeAngle(pageModel, angle);
-                    }
-                }
             }
         };
         /**
@@ -1182,27 +1163,14 @@
             if (this.formatDisabled)
                 return;
             if (this.viewerConfig.preloadPageCount !== 0) {
-                if (commonComponents.FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
-                    this._viewerService.loadPrintPdf(this.credentials).subscribe((/**
-                     * @param {?} blob
-                     * @return {?}
-                     */
-                    function (blob) {
-                        /** @type {?} */
-                        var file = new Blob([blob], { type: 'application/pdf' });
-                        _this._renderPrintService.changeBlob(file);
-                    }));
-                }
-                else {
-                    this._viewerService.loadPrint(this.credentials).subscribe((/**
-                     * @param {?} data
-                     * @return {?}
-                     */
-                    function (data) {
-                        _this.file.pages = data.pages;
-                        _this._renderPrintService.changePages(_this.file.pages);
-                    }));
-                }
+                this._viewerService.loadPrint(this.credentials).subscribe((/**
+                 * @param {?} data
+                 * @return {?}
+                 */
+                function (data) {
+                    _this.file.pages = data.pages;
+                    _this._renderPrintService.changePages(_this.file.pages);
+                }));
             }
             else {
                 this._renderPrintService.changePages(this.file.pages);
@@ -1245,7 +1213,7 @@
          * @return {?}
          */
         function () {
-            var e_2, _a;
+            var e_1, _a;
             if (!this.file || !this.file.pages) {
                 return;
             }
@@ -1255,12 +1223,12 @@
                     page.data = null;
                 }
             }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
             finally {
                 try {
                     if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
                 }
-                finally { if (e_2) throw e_2.error; }
+                finally { if (e_1) throw e_1.error; }
             }
         };
         /**
@@ -1444,7 +1412,9 @@
              * @return {?}
              */
             function (page) {
-                page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "");
+                if (page.data) {
+                    page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "");
+                }
             }));
         };
         /**
@@ -1523,8 +1493,8 @@
         ThumbnailsComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-thumbnails',
-                        template: "<div class=\"gd-thumbnails\">\n  <div class=\"gd-thumbnails-panzoom\">\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && isHtmlMode\"\n           [innerHTML]=\"page.data | safeHtml\"></div>\n      <div class=\"gd-wrapper\" *ngIf=\"page.data && !isHtmlMode\">\n        <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\n             alt/>\n      </div>\n    </div>\n  </div>\n</div>\n",
-                        styles: [":host{-webkit-box-flex:0;flex:0 0 300px;background:#f5f5f5;color:#fff;overflow-y:auto;display:block;-webkit-transition:margin-left .2s;transition:margin-left .2s;height:100%}.gd-page{width:272px;height:272px;-webkit-transition:.3s;transition:.3s;background-color:#e7e7e7;cursor:pointer;margin:14px 14px 0}.gd-page:hover{background-color:silver}.gd-wrapper{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);left:50%;top:50%;position:relative;background-color:#fff;box-shadow:0 4px 12px -4px rgba(0,0,0,.38)}.gd-wrapper /deep/ img{width:inherit}.gd-thumbnails::-webkit-scrollbar{width:0;background-color:#f5f5f5}.gd-thumbnails-panzoom>.gd-thumbnails-landscape{margin:-134px 0 -1px 12px}.gd-thumbnails .gd-page-image{height:inherit;margin-left:153px!important}.gd-thumbnails-landscape-image{margin:-90px 0 -23px!important}.gd-thumbnails-landscape-image-rotated{margin:126px 0 -3px -104px!important}"]
+                        template: "<div class=\"gd-thumbnails\">\n  <div class=\"gd-thumbnails-panzoom\">\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && isHtmlMode\"\n           [innerHTML]=\"page.data | safeHtml\"></div>\n      <div class=\"gd-wrapper\" \n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && !isHtmlMode\">\n           <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\n             alt/>\n      </div>\n    </div>\n  </div>\n</div>\n",
+                        styles: [":host{-webkit-box-flex:0;flex:0 0 300px;background:#f5f5f5;color:#fff;overflow-y:auto;display:block;-webkit-transition:margin-left .2s;transition:margin-left .2s;height:100%}.gd-page{width:272px;height:272px;-webkit-transition:.3s;transition:.3s;background-color:#e7e7e7;cursor:pointer;margin:14px 14px 0}.gd-page:hover{background-color:silver}.gd-wrapper{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);left:50%;top:50%;position:relative;background-color:#fff;box-shadow:0 4px 12px -4px rgba(0,0,0,.38)}.gd-wrapper /deep/ img{width:inherit}.gd-thumbnails::-webkit-scrollbar{width:0;background-color:#f5f5f5}.gd-thumbnails-panzoom>.gd-thumbnails-landscape{margin:-134px 0 -1px 12px}.gd-thumbnails .gd-page-image{height:inherit}.gd-thumbnails-landscape-image{margin:-90px 0 -23px!important}.gd-thumbnails-landscape-image-rotated{margin:126px 0 -3px -104px!important}"]
                     }] }
         ];
         /** @nocollapse */
