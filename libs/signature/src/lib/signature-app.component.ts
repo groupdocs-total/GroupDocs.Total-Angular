@@ -201,7 +201,6 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
     });
-
   }
 
   private createDraggableSign(comp, copySign: CopySign, page) {
@@ -521,10 +520,8 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
   newSign($event: string) {
     if (SignatureType.HAND.id === $event) {
       this._modalService.open(CommonModals.DrawHandSignature);
-      this._signatureTabActivationService.changeActiveTab(SignatureType.HAND.id);
     } else if (SignatureType.STAMP.id === $event) {
       this._modalService.open(CommonModals.DrawStampSignature);
-      this._signatureTabActivationService.changeActiveTab(SignatureType.STAMP.id);
     } else if (SignatureType.TEXT.id === $event) {
       this.addTextSign();
       this._signatureTabActivationService.changeActiveTab(SignatureType.TEXT.id);

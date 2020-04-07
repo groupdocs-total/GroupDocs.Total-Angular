@@ -79,6 +79,7 @@ export class StampModalComponent implements OnInit, OnDestroy {
     const img = canvasComponent.canvas.nativeElement.toDataURL("image/png");
     this._signatureService.saveStamp(img, props).subscribe(() => {
       this._tabActivationService.changeActiveTab(SignatureType.STAMP.id);
+      this._signatureService.refreshSignatures();
     });
     this.close();
   }
