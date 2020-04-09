@@ -104,7 +104,8 @@ export class ConversionAppComponent {
   }
 
   convertSingleItem(item) {
-    const workItem = this.conversionItems.find(x => x.guid === item.guid);
+    const workItem = this.conversionItems.find(x => x.guid === item.guid 
+                                                 && x.destinationType == item.destinationType);
     workItem.converting = true;
     this._conversionService.convert(item).subscribe(() => {
       workItem.converting = false;
