@@ -32,6 +32,7 @@ export class HandModalComponent implements OnInit {
     const img = canvasComponent.getImage();
     this._signatureService.saveImage(img).subscribe(() => {
       this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
+      this._signatureService.refreshSignatures();
     });
     this.clear(canvasComponent);
     this.close();
