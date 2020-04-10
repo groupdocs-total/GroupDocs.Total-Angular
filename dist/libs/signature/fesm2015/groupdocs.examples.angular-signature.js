@@ -3,7 +3,7 @@ import { DatePipe, CommonModule } from '@angular/common';
 import { Api, Utils, FileUtil, ConfigService, Formatting, MenuType, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, TopTabActivatorService, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, TabActivatorService, DndDirective, HostDynamicDirective, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { map, debounceTime } from 'rxjs/operators';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import * as jquery from 'jquery';
 import 'hammerjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -24,6 +24,14 @@ class SignatureService {
     constructor(_http, _config) {
         this._http = _http;
         this._config = _config;
+        this._observer = new Subject();
+        this._refreshSignatures = this._observer.asObservable();
+    }
+    /**
+     * @return {?}
+     */
+    get getRefreshSignatures() {
+        return this._refreshSignatures;
     }
     /**
      * @param {?} path
@@ -238,6 +246,12 @@ class SignatureService {
             documentType: docType
         }, Api.httpOptionsJsonResponseTypeBlob);
     }
+    /**
+     * @return {?}
+     */
+    refreshSignatures() {
+        this._observer.next();
+    }
 }
 SignatureService.decorators = [
     { type: Injectable, args: [{
@@ -251,6 +265,16 @@ SignatureService.ctorParameters = () => [
 ];
 /** @nocollapse */ SignatureService.ngInjectableDef = ɵɵdefineInjectable({ factory: function SignatureService_Factory() { return new SignatureService(ɵɵinject(HttpClient), ɵɵinject(ConfigService)); }, token: SignatureService, providedIn: "root" });
 if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureService.prototype._refreshSignatures;
     /**
      * @type {?}
      * @private
@@ -2199,11 +2223,9 @@ class SignatureAppComponent {
     newSign($event) {
         if (SignatureType.HAND.id === $event) {
             this._modalService.open(CommonModals.DrawHandSignature);
-            this._signatureTabActivationService.changeActiveTab(SignatureType.HAND.id);
         }
         else if (SignatureType.STAMP.id === $event) {
             this._modalService.open(CommonModals.DrawStampSignature);
-            this._signatureTabActivationService.changeActiveTab(SignatureType.STAMP.id);
         }
         else if (SignatureType.TEXT.id === $event) {
             this.addTextSign();
@@ -3601,6 +3623,12 @@ class SignatureLeftPanelComponent {
         this.showNewCode = false;
         this.showUpload = false;
         this.loading = false;
+        _signatureService.getRefreshSignatures.subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this.getSignatures(this.id);
+        }));
     }
     /**
      * @param {?} tabId
@@ -3828,6 +3856,7 @@ class HandModalComponent {
          */
         () => {
             this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
+            this._signatureService.refreshSignatures();
         }));
         this.clear(canvasComponent);
         this.close();
@@ -4006,6 +4035,7 @@ class StampModalComponent {
          */
         () => {
             this._tabActivationService.changeActiveTab(SignatureType.STAMP.id);
+            this._signatureService.refreshSignatures();
         }));
         this.close();
     }
