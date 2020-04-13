@@ -101,9 +101,9 @@ describe('Conversion', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.file-format-select > gd-drop-down').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.file-format-select > gd-drop-down > div > gd-drop-down-items > div > gd-drop-down-item:nth-child(1)').click();
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item').should('exist');
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestWord.xls');
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'Microsoft Excel');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div > gd-conversion-item > div').should('exist');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestWord.xls');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'Microsoft Excel');
   });
 
   it('should show change convert icon to download after successful single item converting', () => {
@@ -111,9 +111,9 @@ describe('Conversion', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.file-format-select > gd-drop-down').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.file-format-select > gd-drop-down > div > gd-drop-down-items > div > gd-drop-down-item:nth-child(1)').click();
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div:nth-child(6) > fa-icon').click();
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-convert-status > fa-icon.gd-conversion-complete.ng-fa-icon').should('be.visible');
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-download-single').should('be.visible');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div > gd-conversion-item > div > div:nth-child(6) > fa-icon').click();
+    cy.get('#gd-convert-queue > div.gd-queue-body > div > gd-conversion-item > div > div.gd-convert-status > fa-icon.gd-conversion-complete.ng-fa-icon').should('be.visible');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div > gd-conversion-item > div > div.gd-download-single').should('be.visible');
   });
 
   it('should open drop-down with formats when selected multiple files in dialog and display formats', () => {
@@ -137,10 +137,10 @@ describe('Conversion', () => {
     cy.get('#gd-convert-queue gd-conversion-item').its('length').should('eq', 2);
     cy.get('.gd-modal-title').should('have.text', 'Imposible conversions');
     cy.get('.gd-modal-close > span').click();
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestWord.html');
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'HyperText Markup Language');
-    cy.get('#gd-convert-queue > div:nth-child(3) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestPDF.html');
-    cy.get('#gd-convert-queue > div:nth-child(3) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'HyperText Markup Language');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div:nth-child(1) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestWord.html');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div:nth-child(1) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'HyperText Markup Language');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestPDF.html');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'HyperText Markup Language');
   });
 
   it('should show correct icons for all conversion items after click on convert-all button', () => {
@@ -162,9 +162,9 @@ describe('Conversion', () => {
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.gd-file-checkbox > input').click();
     cy.get('.context-actions > :nth-child(1) > .drop-down > gd-drop-down-toggle > gd-button > .button').click();
     cy.get('.show > .drop-down > gd-drop-down-items > .drop-down-items > :nth-child(1) > .drop-down-item').click();
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-convert-remove > span').click();
+    cy.get('#gd-convert-queue > div.gd-queue-body > div:nth-child(1) > gd-conversion-item > div > div.gd-convert-remove > span').click();
     cy.get('#gd-convert-queue gd-conversion-item').its('length').should('eq', 1);
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-convert-remove > span').click();
+    cy.get('#gd-convert-queue > div.gd-queue-body > div:nth-child(1) > gd-conversion-item > div > div.gd-convert-remove > span').click();
     cy.get('body > gd-total > div > gd-conversion > div > gd-init-state > div').should('be.visible');
   });
 
@@ -203,8 +203,8 @@ describe('Conversion', () => {
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.file-format-select > gd-drop-down').click();
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3) > div.file-format-select > gd-drop-down > div > gd-drop-down-items > div > gd-drop-down-item:nth-child(1)').click();
     cy.get('#gd-convert-queue gd-conversion-item').its('length').should('eq', 1);
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item').should('exist');
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestWord.xls');
-    cy.get('#gd-convert-queue > div:nth-child(2) > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'Microsoft Excel');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div > gd-conversion-item > div').should('exist');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div').should('contain', 'TestWord.xls');
+    cy.get('#gd-convert-queue > div.gd-queue-body > div > gd-conversion-item > div > div.gd-filequeue-name.disabled.gd-destination-file > div > div').should('have.text', 'Microsoft Excel');
   });
 });

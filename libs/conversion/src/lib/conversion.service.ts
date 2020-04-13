@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {
-  Api, ConfigService, FileCredentials, SaveFile, FileModel
+  Api, ConfigService, FileCredentials, SaveFile, FileModel, FileUtil
 } from "@groupdocs.examples.angular/common-components";
 import {Observable, BehaviorSubject, Observer} from "rxjs";
 import { ConversionItemModel, ConversionRequestModel } from './models';
@@ -62,6 +62,7 @@ export class ConversionService {
     req.destinationType = file.destinationType;
     req.guid = file.guid;
     req.size = file.size;
+    req.destDocumentType = FileUtil.find(file.destinationType, false).format;
     return this._http.post(this._config.getConversionApiEndpoint() + Api.CONVERT_FILE, req);
   }
 
