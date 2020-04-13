@@ -39,5 +39,6 @@ export class PageInfo {
   width: number;
   height: number;
   changes: ChangeInfo[];
+  pageNumber: number;
 }
 
