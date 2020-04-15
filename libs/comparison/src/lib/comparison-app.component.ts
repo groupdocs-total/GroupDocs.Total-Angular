@@ -241,10 +241,10 @@ export class ComparisonAppComponent {
         }
         this.result.pages[zeroBasedId].changes.push(change);
         change.normalized = {
-          x : change.box.x * 100 / change.pageInfo.width,
-          y : change.box.y * 100 / change.pageInfo.height,
-          width: change.box.width * 100 / change.pageInfo.width,
-          height: change.box.height * 100 / change.pageInfo.height,
+          x : this.pxToPt(change.box.x) * 100 / change.pageInfo.width,
+          y : this.pxToPt(change.box.y) * 100 / change.pageInfo.height,
+          width: this.pxToPt(change.box.width) * 100 / change.pageInfo.width,
+          height: this.pxToPt(change.box.height) * 100 / change.pageInfo.height,
         };
       });
     }, (err => {
@@ -252,6 +252,10 @@ export class ComparisonAppComponent {
       this._tabActivatorService.changeActiveTab(this.filesTab);
     }));
     this._tabActivatorService.changeActiveTab(this.resultTab);
+  }
+
+  pxToPt(px: number) {
+    return px * 72 / 96;
   }
 
   generateRandomInteger() {
