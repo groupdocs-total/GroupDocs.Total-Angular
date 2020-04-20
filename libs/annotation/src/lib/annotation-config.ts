@@ -12,20 +12,20 @@ export class AnnotationConfig {
   defaultDocument: string;
   preloadPageCount: 0;
 
-  textAnnotation: boolean;
-  areaAnnotation: boolean;
-  pointAnnotation: boolean;
-  textStrikeoutAnnotation: boolean;
-  polylineAnnotation: boolean;
-  textFieldAnnotation: boolean;
-  watermarkAnnotation: boolean;
-  textReplacementAnnotation: boolean;
-  arrowAnnotation: boolean;
-  textRedactionAnnotation: boolean;
-  textUnderlineAnnotation: boolean;
-  distanceAnnotation: boolean;
-  downloadOriginal: boolean;
-  downloadAnnotated: boolean;
+  isTextAnnotation: boolean;
+  isAreaAnnotation: boolean;
+  isPointAnnotation: boolean;
+  isTextStrikeoutAnnotation: boolean;
+  isPolylineAnnotation: boolean;
+  isTextFieldAnnotation: boolean;
+  isWatermarkAnnotation: boolean;
+  isTextReplacementAnnotation: boolean;
+  isArrowAnnotation: boolean;
+  isTextRedactionAnnotation: boolean;
+  isTextUnderlineAnnotation: boolean;
+  isDistanceAnnotation: boolean;
+  isDownloadOriginal: boolean;
+  isDownloadAnnotated: boolean;
 
   zoom: boolean;
   fitWidth: boolean;

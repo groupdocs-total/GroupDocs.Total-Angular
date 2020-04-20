@@ -26,6 +26,7 @@ import {ActiveAnnotationService} from "./active-annotation.service";
 import * as jquery from 'jquery';
 import {RemoveAnnotationService} from "./remove-annotation.service";
 import {CommentAnnotationService} from "./comment-annotation.service";
+import { AnnotationConfigService } from "./annotation-config.service";
 
 const $ = jquery;
 
@@ -98,7 +99,12 @@ export class AnnotationAppComponent implements OnInit {
               uploadFilesService: UploadFilesService,
               pagePreloadService: PagePreloadService,
               passwordService: PasswordService,
-              private _windowService: WindowService) {
+              private _windowService: WindowService,
+              private configService: AnnotationConfigService) {
+    
+    configService.updatedConfig.subscribe((config) => {
+      this.annotationConfig = config;
+    });
 
     this._activeAnnotationService.activeChange.subscribe((id: number) => {
       if (this.activeAnnotationId !== id) {
@@ -186,11 +192,11 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   get downloadOriginalConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.downloadOriginal : true;
+    return this.annotationConfig ? this.annotationConfig.isDownloadOriginal : true;
   }
 
   get downloadAnnotatedConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.downloadAnnotated : true;
+    return this.annotationConfig ? this.annotationConfig.isDownloadAnnotated : true;
   }
 
   get uploadConfig(): boolean {
@@ -218,51 +224,51 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   get textAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.textAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isTextAnnotation : true;
   }
 
   get areaAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.areaAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isAreaAnnotation : true;
   }
 
   get pointAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.pointAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isPointAnnotation : true;
   }
 
   get textStrikeoutAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.textStrikeoutAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isTextStrikeoutAnnotation : true;
   }
 
   get polylineAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.polylineAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isPolylineAnnotation : true;
   }
 
   get textFieldAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.textFieldAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isTextFieldAnnotation : true;
   }
 
   get watermarkAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.watermarkAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isWatermarkAnnotation : true;
   }
 
   get textReplacementAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.textReplacementAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isTextReplacementAnnotation : true;
   }
 
   get arrowAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.arrowAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isArrowAnnotation : true;
   }
 
   get textRedactionAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.textRedactionAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isTextRedactionAnnotation : true;
   }
 
   get textUnderlineAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.textUnderlineAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isTextUnderlineAnnotation : true;
   }
 
   get distanceAnnotationConfig(): boolean {
-    return this.annotationConfig ? this.annotationConfig.distanceAnnotation : true;
+    return this.annotationConfig ? this.annotationConfig.isDistanceAnnotation : true;
   }
 
   ngOnInit() {
@@ -316,7 +322,9 @@ export class AnnotationAppComponent implements OnInit {
     for (let i = start; i <= end; i++) {
       this._annotationService.loadPage(this.credentials, i).subscribe((page: PageAnnotationModel) => {
         this.file.pages[i - 1] = page;
-        this.importAnnotations(page.annotations ? page.annotations : []);
+        setTimeout(() => {
+          this.importAnnotations(page.annotations ? page.annotations : []);
+        }, 100);
       });
     }
   }
