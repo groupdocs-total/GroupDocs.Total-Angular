@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {
-  Api, ConfigService, FileCredentials, SaveFile, FileModel
+  Api, ConfigService, FileCredentials, SaveFile, FileModel, FileUtil
 } from "@groupdocs.examples.angular/common-components";
 import {Observable, BehaviorSubject, Observer} from "rxjs";
 import { ConversionItemModel, ConversionRequestModel } from './models';
@@ -11,8 +11,10 @@ import { ConversionItemModel, ConversionRequestModel } from './models';
 })
 
 export class ConversionService {
-  private _selectedFormat: BehaviorSubject<ConversionItemModel[]> = new BehaviorSubject(new Array<ConversionItemModel>());
-  private _selectFormats: Observable<ConversionItemModel[]> = this._selectedFormat.asObservable();
+  private _selectedItems: BehaviorSubject<ConversionItemModel[]> = new BehaviorSubject(new Array<ConversionItemModel>());
+  private _selectItems: Observable<ConversionItemModel[]> = this._selectedItems.asObservable();
+  private _selectedFormat: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  private _selectFormat: Observable<string> = this._selectedFormat.asObservable();
 
   private _itemToConvert = new BehaviorSubject<ConversionItemModel>(null);
   itemToConvert = this._itemToConvert.asObservable();
@@ -24,11 +26,19 @@ export class ConversionService {
   }
 
   get selectedItems() {
-    return this._selectFormats;
+    return this._selectItems;
+  }
+
+  get selectedFormat() {
+    return this._selectFormat;
   }
 
   selectItems(filesToConvert: ConversionItemModel[]) {
-    this._selectedFormat.next(filesToConvert);
+    this._selectedItems.next(filesToConvert);
+  }
+
+  selectFormat(selectedFormat: string) {
+    this._selectedFormat.next(selectedFormat);
   }
 
   loadFiles(path: string) {
@@ -52,6 +62,7 @@ export class ConversionService {
     req.destinationType = file.destinationType;
     req.guid = file.guid;
     req.size = file.size;
+    req.destDocumentType = FileUtil.find(file.destinationType, false).format;
     return this._http.post(this._config.getConversionApiEndpoint() + Api.CONVERT_FILE, req);
   }
 

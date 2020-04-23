@@ -1,0 +1,47 @@
+@import "../../../../common-components/src/styles/variables";
+
+.gd-upload-inputs {
+  height: 350px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: #FFF;
+
+  .icon {
+    font-size: 52px;
+    color: #959DA5;
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    width: fit-content;
+    height: 203px;
+  }
+}
+
+.gd-upload-title {
+  color: #bababa;
+  font-size: 13px;
+  margin: 10px 0px 0px 0px;
+}
+
+.text {
+  font-size: 12px;
+  text-align: center;
+}
+
+@media @phone-down {
+
+  .gd-upload-inputs {
+    width: -webkit-fill-available;
+  }
+
+  .gd-upload-inputs input {
+    width: -webkit-fill-available;
+    height: 201px;
+  }
+}

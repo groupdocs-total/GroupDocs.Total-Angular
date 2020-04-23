@@ -4,13 +4,17 @@
          (click)="openPage(page.number)" gdRotation [withMargin]="false"
          [angle]="page.angle" [isHtmlMode]="mode" [width]="page.width" [height]="page.height">
       <div class="gd-wrapper"
-           [style.width.pt]="page.width"
-           [style.height.pt]="page.height"
+           [style.height]="getDimensionWithUnit(page.height)"
+           [style.width]="getDimensionWithUnit(page.width)"
            [ngStyle]="{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}"
            *ngIf="page.data && isHtmlMode"
            [innerHTML]="page.data | safeHtml"></div>
-      <div class="gd-wrapper" *ngIf="page.data && !isHtmlMode">
-        <img style="width: inherit !important" class="gd-page-image" [attr.src]="imgData(page.data) | safeResourceHtml"
+      <div class="gd-wrapper" 
+           [style.height]="getDimensionWithUnit(page.height)"
+           [style.width]="getDimensionWithUnit(page.width)"
+           [ngStyle]="{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}"
+           *ngIf="page.data && !isHtmlMode">
+           <img style="width: inherit !important" class="gd-page-image" [attr.src]="imgData(page.data) | safeResourceHtml"
              alt/>
       </div>
     </div>

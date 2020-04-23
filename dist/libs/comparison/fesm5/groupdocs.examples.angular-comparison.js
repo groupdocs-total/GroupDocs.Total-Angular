@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ElementRef, Input, Output, EventEmitter, NgModule, APP_INITIALIZER } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ElementRef, EventEmitter, Input, Output, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import 'jquery';
-import { Api, ConfigService, UploadFilesService, PagePreloadService, ModalService, TabActivatorService, CommonModals, FileUtil, ExceptionMessageService, PageModel, ZoomService, ZoomDirective, WindowService, DocumentComponent, NavigateService, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
+import * as jquery from 'jquery';
+import { Api, ConfigService, CommonModals, UploadFilesService, PagePreloadService, ModalService, TabActivatorService, PasswordService, FileUtil, ExceptionMessageService, PageModel, ZoomService, ZoomDirective, WindowService, DocumentComponent, NavigateService, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -20,6 +20,30 @@ var ComparisonConfig = /** @class */ (function () {
     }
     return ComparisonConfig;
 }());
+if (false) {
+    /** @type {?} */
+    ComparisonConfig.prototype.rewrite;
+    /** @type {?} */
+    ComparisonConfig.prototype.pageSelector;
+    /** @type {?} */
+    ComparisonConfig.prototype.download;
+    /** @type {?} */
+    ComparisonConfig.prototype.upload;
+    /** @type {?} */
+    ComparisonConfig.prototype.print;
+    /** @type {?} */
+    ComparisonConfig.prototype.browse;
+    /** @type {?} */
+    ComparisonConfig.prototype.enableRightClick;
+    /** @type {?} */
+    ComparisonConfig.prototype.filesDirectory;
+    /** @type {?} */
+    ComparisonConfig.prototype.fontsDirectory;
+    /** @type {?} */
+    ComparisonConfig.prototype.defaultDocument;
+    /** @type {?} */
+    ComparisonConfig.prototype.preloadResultPageCount;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -89,6 +113,28 @@ var ComparisonConfigService = /** @class */ (function () {
     /** @nocollapse */ ComparisonConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ComparisonConfigService_Factory() { return new ComparisonConfigService(ɵɵinject(HttpClient), ɵɵinject(ConfigService)); }, token: ComparisonConfigService, providedIn: "root" });
     return ComparisonConfigService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonConfigService.prototype._comparisonConfig;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonConfigService.prototype._updatedConfig;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonConfigService.prototype._http;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonConfigService.prototype._config;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -215,11 +261,25 @@ var ComparisonService = /** @class */ (function () {
     /** @nocollapse */ ComparisonService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ComparisonService_Factory() { return new ComparisonService(ɵɵinject(HttpClient), ɵɵinject(ConfigService)); }, token: ComparisonService, providedIn: "root" });
     return ComparisonService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonService.prototype._http;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonService.prototype._config;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var $ = jquery;
 var Files = /** @class */ (function () {
     function Files() {
     }
@@ -227,14 +287,26 @@ var Files = /** @class */ (function () {
     Files.SECOND = 'second';
     return Files;
 }());
+if (false) {
+    /** @type {?} */
+    Files.FIRST;
+    /** @type {?} */
+    Files.SECOND;
+}
 var Highlight = /** @class */ (function () {
     function Highlight() {
         this.active = false;
     }
     return Highlight;
 }());
+if (false) {
+    /** @type {?} */
+    Highlight.prototype.id;
+    /** @type {?} */
+    Highlight.prototype.active;
+}
 var ComparisonAppComponent = /** @class */ (function () {
-    function ComparisonAppComponent(_comparisonService, configService, uploadFilesService, pagePreloadService, _modalService, _tabActivatorService, _elementRef) {
+    function ComparisonAppComponent(_comparisonService, configService, uploadFilesService, pagePreloadService, _modalService, _tabActivatorService, _elementRef, passwordService) {
         var _this = this;
         this._comparisonService = _comparisonService;
         this.configService = configService;
@@ -303,7 +375,32 @@ var ComparisonAppComponent = /** @class */ (function () {
         function (tabId) {
             _this.activeTab = tabId;
         }));
+        passwordService.passChange.subscribe((/**
+         * @param {?} pass
+         * @return {?}
+         */
+        function (pass) {
+            /** @type {?} */
+            var activePanelFileGuid = "";
+            if (_this.credentials.get(_this.first)) {
+                activePanelFileGuid = _this.credentials.get(_this.first).guid;
+            }
+            else if (_this.credentials.get(_this.second)) {
+                activePanelFileGuid = _this.credentials.get(_this.second).guid;
+            }
+            _this.selectFile(activePanelFileGuid, pass, CommonModals.PasswordRequired, _this.activePanel);
+        }));
     }
+    Object.defineProperty(ComparisonAppComponent.prototype, "uploadConfig", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.comparisonConfig ? this.comparisonConfig.upload : true;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @private
      * @param {?} panel
@@ -672,8 +769,8 @@ var ComparisonAppComponent = /** @class */ (function () {
     ComparisonAppComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-comparison',
-                    template: "<!--<gd-loading-mask></gd-loading-mask>-->\n<div class=\"wrapper\">\n  <div class=\"row\">\n    <div class=\"column\">\n      <div class=\"top-panel\">\n        <gd-logo [logo]=\"'comparison'\" icon=\"copy\"></gd-logo>\n        <gd-top-toolbar class=\"toolbar-panel\">\n          <gd-button [icon]=\"'play'\" [tooltip]=\"'Compare'\" [disabled]=\"!file.get(first) || !file.get(second)\"\n                     (click)=\"compare()\"></gd-button>\n          <gd-button [icon]=\"'download'\" [tooltip]=\"'Download'\" [disabled]=\"!result\" (click)=\"download()\"></gd-button>\n          <div class=\"tabs-wrapper\">\n            <div class=\"tabs\">\n              <gd-tabs>\n                <gd-tab [id]=\"filesTab\" tabTitle=\"Documents\" [icon]=\"'copy'\" [active]=\"true\" [content]=\"false\">\n                </gd-tab>\n                <gd-tab [id]=\"resultTab\" tabTitle=\"Result\" [icon]=\"'poll'\" [disabled]=\"resultTabDisabled\" [content]=\"false\">\n                </gd-tab>\n              </gd-tabs>\n            </div>\n          </div>\n        </gd-top-toolbar>\n      </div>\n      <div class=\"files-panel\" *ngIf=\"activeTab === filesTab\">\n        <div class=\"upload-compare-file\">\n          <gd-add-file-panel class=\"compare-file\"\n                             [fileName]=\"firstFileName\"\n                             [panel]=\"first\"\n                             (active)=\"activePanel = $event\"\n                             (urlForUpload)=\"upload($event)\"\n                             (cleanPanel)=\"clearFile(first)\">\n          </gd-add-file-panel>\n          <gd-upload-file-panel\n                                [panel]=\"first\"\n                                (active)=\"activePanel = $event\"\n                                *ngIf=\"!firstFileName && !loadingFirstPanel\">\n          </gd-upload-file-panel>\n          <div *ngIf=\"loadingFirstPanel\" class=\"loader\">\n            <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;\n            <span>Loading... Please wait.</span>\n          </div>\n          <gd-document class=\"gd-document\"\n                       *ngIf=\"file.get(first)\"\n                       [file]=\"file.get(first)\"\n                       [mode]=\"false\"\n                       [preloadPageCount]=\"comparisonConfig?.preloadResultPageCount\" gdRenderPrint\n                       [htmlMode]=\"false\">\n          </gd-document>\n        </div>\n        <div class=\"upload-compare-file\">\n          <gd-add-file-panel class=\"compare-file\"\n                             [fileName]=\"secondFileName\"\n                             [panel]=\"second\"\n                             (active)=\"activePanel = $event\"\n                             (urlForUpload)=\"upload($event)\"\n                             (cleanPanel)=\"clearFile(second)\">\n          </gd-add-file-panel>\n          <gd-upload-file-panel [panel]=\"second\"\n                                (active)=\"activePanel = $event\"\n                                *ngIf=\"!secondFileName && !loadingSecondPanel\">\n          </gd-upload-file-panel>\n          <div *ngIf=\"loadingSecondPanel\" class=\"loader\">\n            <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;\n            <span>Loading... Please wait.</span>\n          </div>\n          <gd-document class=\"gd-document\"\n                       *ngIf=\"file.get(second)\"\n                       [file]=\"file.get(second)\"\n                       [mode]=\"false\"\n                       [preloadPageCount]=\"comparisonConfig?.preloadResultPageCount\" gdRenderPrint\n                       [htmlMode]=\"false\">\n          </gd-document>\n        </div>\n      </div>\n      <div class=\"result-panel\" *ngIf=\"activeTab === resultTab\">\n        <div  class=\"loader\" *ngIf=\"!result\">\n          <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;\n          <span>Loading... Please wait.</span>\n        </div>\n        <gd-result-document\n          class=\"gd-document\"\n          *ngIf=\"result\"\n          [file]=\"result\"\n          [mode]=\"false\"\n          [preloadPageCount]=\"comparisonConfig?.preloadResultPageCount\"\n          gdRenderPrint\n          [htmlMode]=\"false\">\n        </gd-result-document>\n      </div>\n    </div>\n    <gd-side-panel (hideSidePanel)=\"hideSidePanel($event)\"\n                   *ngIf=\"result && activeTab === resultTab\"\n                   [title]=\"'Differences'\"\n                   [icon]=\"'info-circle'\">\n      <gd-differences\n        [changes]=\"result.changes\">\n      </gd-differences>\n    </gd-side-panel>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\"\n                         [files]=\"files\"\n                         (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal, activePanel)\">\n  </gd-browse-files-modal>\n  <gd-error-modal></gd-error-modal>\n</div>\n",
-                    styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.loader{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%}.upload-compare-file{height:100%;width:50%;border-right:1px solid #ccc;display:flex;align-content:center;flex-direction:column;text-align:center;flex-grow:0}.open-file-panel{display:flex;width:100%}.files-panel{background-color:#e7e7e7;display:flex;flex-direction:row;width:100%;height:100%}.result-panel{background-color:#e7e7e7;width:100%;height:100%;display:flex;align-content:center;flex-direction:column;justify-content:center;text-align:center}.doc-panel{display:flex;height:inherit}.gd-document{width:100%;height:100%}.top-panel{display:flex;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}.row{display:flex;height:inherit}.column{width:100%}.tabs-wrapper{display:flex;justify-self:flex-end;align-self:flex-end;width:100%;justify-content:flex-end}.tabs{display:flex;margin-right:30px;align-items:flex-end;justify-content:flex-end}@media (max-width:1037px){.files-panel{flex-direction:column}.files-panel .upload-compare-file{width:100%;border-bottom:1px solid #ccc}/deep/ .gd-side-panel-wrapper{height:50%!important;top:inherit!important;bottom:0!important}}"]
+                    template: "<!--<gd-loading-mask></gd-loading-mask>-->\n<div class=\"wrapper\">\n  <div class=\"row\">\n    <div class=\"column\">\n      <div class=\"top-panel\">\n        <gd-logo [logo]=\"'comparison'\" icon=\"copy\"></gd-logo>\n        <gd-top-toolbar class=\"toolbar-panel\">\n          <gd-button [icon]=\"'play'\" [tooltip]=\"'Compare'\" [disabled]=\"!file.get(first) || !file.get(second)\"\n                     (click)=\"compare()\"></gd-button>\n          <gd-button [icon]=\"'download'\" [tooltip]=\"'Download'\" [disabled]=\"!result\" (click)=\"download()\"></gd-button>\n          <div class=\"tabs-wrapper\">\n            <div class=\"tabs\">\n              <gd-tabs>\n                <gd-tab [id]=\"filesTab\" tabTitle=\"Documents\" [icon]=\"'copy'\" [active]=\"true\" [content]=\"false\">\n                </gd-tab>\n                <gd-tab [id]=\"resultTab\" tabTitle=\"Result\" [icon]=\"'poll'\" [disabled]=\"resultTabDisabled\" [content]=\"false\">\n                </gd-tab>\n              </gd-tabs>\n            </div>\n          </div>\n        </gd-top-toolbar>\n      </div>\n      <div class=\"files-panel\" *ngIf=\"activeTab === filesTab\">\n        <div class=\"upload-compare-file\">\n          <gd-add-file-panel class=\"compare-file\"\n                             [fileName]=\"firstFileName\"\n                             [panel]=\"first\"\n                             (active)=\"activePanel = $event\"\n                             (urlForUpload)=\"upload($event)\"\n                             (cleanPanel)=\"clearFile(first)\">\n          </gd-add-file-panel>\n          <gd-upload-file-panel\n                                [panel]=\"first\"\n                                (active)=\"activePanel = $event\"\n                                *ngIf=\"!firstFileName && !loadingFirstPanel\">\n          </gd-upload-file-panel>\n          <div *ngIf=\"loadingFirstPanel\" class=\"loader\">\n            <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;\n            <span>Loading... Please wait.</span>\n          </div>\n          <gd-document class=\"gd-document\"\n                       *ngIf=\"file.get(first)\"\n                       [file]=\"file.get(first)\"\n                       [mode]=\"false\"\n                       [preloadPageCount]=\"comparisonConfig?.preloadResultPageCount\" gdRenderPrint\n                       [htmlMode]=\"false\">\n          </gd-document>\n        </div>\n        <div class=\"upload-compare-file\">\n          <gd-add-file-panel class=\"compare-file\"\n                             [fileName]=\"secondFileName\"\n                             [panel]=\"second\"\n                             (active)=\"activePanel = $event\"\n                             (urlForUpload)=\"upload($event)\"\n                             (cleanPanel)=\"clearFile(second)\">\n          </gd-add-file-panel>\n          <gd-upload-file-panel [panel]=\"second\"\n                                (active)=\"activePanel = $event\"\n                                *ngIf=\"!secondFileName && !loadingSecondPanel\">\n          </gd-upload-file-panel>\n          <div *ngIf=\"loadingSecondPanel\" class=\"loader\">\n            <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;\n            <span>Loading... Please wait.</span>\n          </div>\n          <gd-document class=\"gd-document\"\n                       *ngIf=\"file.get(second)\"\n                       [file]=\"file.get(second)\"\n                       [mode]=\"false\"\n                       [preloadPageCount]=\"comparisonConfig?.preloadResultPageCount\" gdRenderPrint\n                       [htmlMode]=\"false\">\n          </gd-document>\n        </div>\n      </div>\n      <div class=\"result-panel\" *ngIf=\"activeTab === resultTab\">\n        <div  class=\"loader\" *ngIf=\"!result\">\n          <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;\n          <span>Loading... Please wait.</span>\n        </div>\n        <gd-result-document\n          class=\"gd-document\"\n          *ngIf=\"result\"\n          [file]=\"result\"\n          [mode]=\"false\"\n          [preloadPageCount]=\"comparisonConfig?.preloadResultPageCount\"\n          gdRenderPrint\n          [htmlMode]=\"false\"\n          gdScrollable>\n        </gd-result-document>\n      </div>\n    </div>\n    <gd-side-panel (hideSidePanel)=\"hideSidePanel($event)\"\n                   *ngIf=\"result && activeTab === resultTab\"\n                   [title]=\"'Differences'\"\n                   [icon]=\"'info-circle'\">\n      <gd-differences\n        [changes]=\"result.changes\">\n      </gd-differences>\n    </gd-side-panel>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\"\n                         [files]=\"files\"\n                         (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal, activePanel)\"\n                         [uploadConfig]=\"uploadConfig\">\n  </gd-browse-files-modal>\n  <gd-password-required></gd-password-required>\n  <gd-error-modal></gd-error-modal>\n</div>\n",
+                    styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}/deep/ .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}/deep/ .tools .button.inactive{color:#959da5!important}/deep/ .tools .icon-button{margin:0 0 0 7px!important}/deep/ .compare-file .icon-button{margin:0!important}/deep/ .compare-file .icon-button .text{padding:0!important}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.loader{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;height:100%}.upload-compare-file{height:100%;width:50%;border-right:1px solid #ccc;display:-webkit-box;display:flex;align-content:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;text-align:center;-webkit-box-flex:0;flex-grow:0}.open-file-panel{display:-webkit-box;display:flex;width:100%}.files-panel{background-color:#e7e7e7;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%;height:100%}.result-panel{background-color:#e7e7e7;width:100%;height:100%;display:-webkit-box;display:flex;align-content:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;text-align:center}.doc-panel{display:-webkit-box;display:flex;height:inherit}.gd-document{width:100%;height:100%}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}.row{display:-webkit-box;display:flex;height:inherit}.column{width:100%}.tabs-wrapper{display:-webkit-box;display:flex;justify-self:flex-end;align-self:flex-end;width:100%;-webkit-box-pack:end;justify-content:flex-end}.tabs{display:-webkit-box;display:flex;-webkit-box-align:end;align-items:flex-end;-webkit-box-pack:end;justify-content:flex-end}/deep/ .button.brand fa-icon{color:#fff!important}@media (max-width:1037px){.files-panel{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.files-panel .upload-compare-file{width:100%;border-bottom:1px solid #ccc}/deep/ .gd-side-panel-wrapper{height:50%!important;top:inherit!important;bottom:0!important}/deep/ .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}/deep/ .tools .icon-button{height:60px!important;width:60px}/deep/ .tabs-wrapper .gd-tab .icon{font-size:22px!important}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -684,10 +781,74 @@ var ComparisonAppComponent = /** @class */ (function () {
         { type: PagePreloadService },
         { type: ModalService },
         { type: TabActivatorService },
-        { type: ElementRef }
+        { type: ElementRef },
+        { type: PasswordService }
     ]; };
     return ComparisonAppComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ComparisonAppComponent.prototype.files;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.browseFilesModal;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.credentials;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.file;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.comparisonConfig;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.activePanel;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.first;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.second;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.firstFileName;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.secondFileName;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.loadingFirstPanel;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.loadingSecondPanel;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.countPages;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.result;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.filesTab;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.resultTab;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.activeTab;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.resultTabDisabled;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonAppComponent.prototype._comparisonService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonAppComponent.prototype.configService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonAppComponent.prototype._modalService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonAppComponent.prototype._tabActivatorService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonAppComponent.prototype._elementRef;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -700,6 +861,12 @@ var States = /** @class */ (function () {
     States.Opened = 'opened';
     return States;
 }());
+if (false) {
+    /** @type {?} */
+    States.Empty;
+    /** @type {?} */
+    States.Opened;
+}
 var AddFilePanelComponent = /** @class */ (function () {
     function AddFilePanelComponent(_modalService, _excMessageService) {
         this._modalService = _modalService;
@@ -807,8 +974,8 @@ var AddFilePanelComponent = /** @class */ (function () {
     AddFilePanelComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-add-file-panel',
-                    template: "<div class=\"wrapper\">\n  <div class=\"upload-wrapper\" *ngIf=\"isEmpty()\">\n    <gd-button [icon]=\"'arrow-right'\" [tooltip]=\"'Upload file'\" (click)=\"uploadUrl(url.value)\" [disabled]=\"uploadDisabled\" ></gd-button>\n    <input class=\"url-input\" #url (keyup)=\"checkDisabled(url.value)\" (keyup.enter)=\"uploadUrl(url.value)\" placeholder=\"http://\">\n  </div>\n  <fa-icon *ngIf=\"!isEmpty()\" [icon]=\"['fas',getFormatIcon()]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon()\"></fa-icon>\n  <span *ngIf=\"!isEmpty()\" class=\"compare-file-name\">{{fileName}}</span>\n  <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Open file'\" (click)=\"openModal()\" *ngIf=\"isEmpty()\"></gd-button>\n  <gd-button [icon]=\"'times'\" [tooltip]=\"'Close file'\" (click)=\"cleanFile()\" *ngIf=\"!isEmpty()\"></gd-button>\n</div>\n",
-                    styles: [":host{border-bottom:1px solid #ccc}.wrapper{height:37px;background-color:#fff;display:flex}.upload-wrapper{display:flex;width:100%}.url-input{border:0;height:37px;width:100%;padding-left:5px;margin:0;padding-top:0;padding-bottom:0;outline:0}.compare-file-name{color:#959da5;margin:8px;width:100%;text-align:left}.ng-fa-icon{color:#959da5;margin:9px 15px 0 13px;font-size:14px}.compare-file{width:100%;border-right:2px solid #ddd}"]
+                    template: "<div class=\"wrapper\">\n  <div class=\"upload-wrapper\" *ngIf=\"isEmpty()\">\n    <gd-button [icon]=\"'arrow-right'\" [tooltip]=\"'Upload file'\" (click)=\"uploadUrl(url.value)\" [disabled]=\"uploadDisabled\" ></gd-button>\n    <input class=\"url-input\" #url (keyup)=\"checkDisabled(url.value)\" (keyup.enter)=\"uploadUrl(url.value)\" placeholder=\"https://\">\n  </div>\n  <fa-icon *ngIf=\"!isEmpty()\" [icon]=\"['fas',getFormatIcon()]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon()\"></fa-icon>\n  <span *ngIf=\"!isEmpty()\" class=\"compare-file-name\">{{fileName}}</span>\n  <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Open file'\" (click)=\"openModal()\" *ngIf=\"isEmpty()\"></gd-button>\n  <gd-button [icon]=\"'times'\" [tooltip]=\"'Close file'\" (click)=\"cleanFile()\" *ngIf=\"!isEmpty()\"></gd-button>\n</div>\n",
+                    styles: [":host{border-bottom:1px solid #ccc}:host /deep/ gd-button .button{font-size:14px!important}.wrapper{height:37px;background-color:#fff;display:-webkit-box;display:flex}.upload-wrapper{display:-webkit-box;display:flex;width:100%}.url-input{border:0;height:37px;width:100%;padding-left:5px;margin:0;padding-top:0;padding-bottom:0;outline:0;color:#959da5;opacity:.5;font-style:italic}.compare-file-name{color:#6e6e6e;margin:8px 8px 8px 0;width:100%;text-align:left;font-size:13px;opacity:.5}.ng-fa-icon{color:#959da5;margin:9px 15px 0 13px;font-size:14px}.compare-file{width:100%;border-right:2px solid #ddd}.wrapper .ng-fa-icon.fa-file-pdf{color:#e04e4e}.wrapper .ng-fa-icon.fa-file-word{color:#539cf0}.wrapper .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.wrapper .ng-fa-icon.fa-file-excel{color:#7cbc46}.wrapper .ng-fa-icon.fa-file-image{color:#c375ed}.wrapper .ng-fa-icon.fa-file,.wrapper .ng-fa-icon.fa-file-alt,.wrapper .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.wrapper /deep/ gd-button .button fa-icon{color:#6e6e6e}/deep/ gd-tab .gd-tab .title{font-size:13px;font-weight:700;color:#959da5;opacity:.4}/deep/ gd-tab .gd-tab.active .title{color:#3e4e5a!important;opacity:1}"]
                 }] }
     ];
     /** @nocollapse */
@@ -825,6 +992,32 @@ var AddFilePanelComponent = /** @class */ (function () {
     };
     return AddFilePanelComponent;
 }());
+if (false) {
+    /** @type {?} */
+    AddFilePanelComponent.prototype.panel;
+    /** @type {?} */
+    AddFilePanelComponent.prototype.active;
+    /** @type {?} */
+    AddFilePanelComponent.prototype.urlForUpload;
+    /** @type {?} */
+    AddFilePanelComponent.prototype.cleanPanel;
+    /** @type {?} */
+    AddFilePanelComponent.prototype.state;
+    /** @type {?} */
+    AddFilePanelComponent.prototype.fileName;
+    /** @type {?} */
+    AddFilePanelComponent.prototype.uploadDisabled;
+    /**
+     * @type {?}
+     * @private
+     */
+    AddFilePanelComponent.prototype._modalService;
+    /**
+     * @type {?}
+     * @private
+     */
+    AddFilePanelComponent.prototype._excMessageService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -835,6 +1028,7 @@ var UploadFilePanelComponent = /** @class */ (function () {
         this._uploadService = _uploadService;
         this._modalService = _modalService;
         this.active = new EventEmitter();
+        this.showUploadFile = false;
     }
     /**
      * @return {?}
@@ -865,13 +1059,14 @@ var UploadFilePanelComponent = /** @class */ (function () {
     function ($event) {
         if ($event) {
             this.active.emit(this.panel);
+            this.showUploadFile = false;
         }
     };
     UploadFilePanelComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-upload-file-panel',
-                    template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (dropped)=\"dropped($event)\">\n  <div class=\"gd-drag-n-drop-icon\">\n    <fa-icon [icon]=\"['far','folder-open']\" size=\"5x\" (click)=\"openModal()\"></fa-icon>\n  </div>\n  <h2>Drop your document here or click to select a file</h2>\n</div>\n",
-                    styles: [".gd-drag-n-drop-wrap{height:100%;width:100%;background-color:#e7e7e7;text-align:center;cursor:default;left:1px;display:flex;align-content:center;flex-direction:column;justify-content:center;opacity:.9;z-index:1}.active{background-color:#bababa}.gd-drag-n-drop-wrap h2{color:#959da5;font-size:15px;margin-top:38px}.gd-drag-n-drop-icon{color:#959da5;cursor:pointer}:host{display:flex;justify-content:center;align-items:center;flex-direction:column;align-content:center;height:100%;border-bottom:1px solid #ccc}"]
+                    template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\n  <div class=\"init-state-wrapper\">\n    <fa-icon class=\"icon\" [icon]=\"['fas', 'folder-open']\"></fa-icon>\n    <span class=\"start\">\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n        Or drop file here\n    </span>\n  </div>\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n    <span class=\"text\">Drop file here to upload</span>\n  </div>\n</div>\n",
+                    styles: [":host{display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;align-content:center;height:100%;border-bottom:1px solid #ccc}.wrapper{color:#959da5;background-color:#e7e7e7;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%;height:100%}.icon{font-size:65px;margin-bottom:43px;display:-webkit-box;display:flex;color:#959da5}.start{font-size:15px;text-align:center;color:#959da5}.gd-drag-n-drop-wrap.active{background-color:#fff;position:fixed;top:60px;width:50%;background:rgba(255,255,255,.8)}.gd-drag-n-drop-wrap.active .init-state-wrapper{position:absolute;opacity:.2;top:unset;margin-top:-11px}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper{top:0;z-index:999;margin-top:-11px}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon{width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}.gd-drag-n-drop-wrap.active .text{color:#6e6e6e;font-size:14px}.init-state-dnd-wrapper,.init-state-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:250px;height:250px;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.init-state-wrapper{top:-30px;position:relative}"]
                 }] }
     ];
     /** @nocollapse */
@@ -885,6 +1080,24 @@ var UploadFilePanelComponent = /** @class */ (function () {
     };
     return UploadFilePanelComponent;
 }());
+if (false) {
+    /** @type {?} */
+    UploadFilePanelComponent.prototype.panel;
+    /** @type {?} */
+    UploadFilePanelComponent.prototype.active;
+    /** @type {?} */
+    UploadFilePanelComponent.prototype.showUploadFile;
+    /**
+     * @type {?}
+     * @private
+     */
+    UploadFilePanelComponent.prototype._uploadService;
+    /**
+     * @type {?}
+     * @private
+     */
+    UploadFilePanelComponent.prototype._modalService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -897,31 +1110,89 @@ var ComparedPageModel = /** @class */ (function (_super) {
     }
     return ComparedPageModel;
 }(PageModel));
+if (false) {
+    /** @type {?} */
+    ComparedPageModel.prototype.changes;
+}
 var CompareResult = /** @class */ (function () {
     function CompareResult() {
     }
     return CompareResult;
 }());
+if (false) {
+    /** @type {?} */
+    CompareResult.prototype.changes;
+    /** @type {?} */
+    CompareResult.prototype.pages;
+    /** @type {?} */
+    CompareResult.prototype.guid;
+}
 var ChangeInfo = /** @class */ (function () {
     function ChangeInfo() {
     }
     return ChangeInfo;
 }());
+if (false) {
+    /** @type {?} */
+    ChangeInfo.prototype.pageInfo;
+    /** @type {?} */
+    ChangeInfo.prototype.text;
+    /** @type {?} */
+    ChangeInfo.prototype.type;
+    /** @type {?} */
+    ChangeInfo.prototype.box;
+    /** @type {?} */
+    ChangeInfo.prototype.id;
+    /** @type {?} */
+    ChangeInfo.prototype.styleChanges;
+    /** @type {?} */
+    ChangeInfo.prototype.normalized;
+    /** @type {?} */
+    ChangeInfo.prototype.active;
+}
 var StyleChange = /** @class */ (function () {
     function StyleChange() {
     }
     return StyleChange;
 }());
+if (false) {
+    /** @type {?} */
+    StyleChange.prototype.changedProperty;
+    /** @type {?} */
+    StyleChange.prototype.newValue;
+    /** @type {?} */
+    StyleChange.prototype.oldValue;
+}
 var Rectangle = /** @class */ (function () {
     function Rectangle() {
     }
     return Rectangle;
 }());
+if (false) {
+    /** @type {?} */
+    Rectangle.prototype.x;
+    /** @type {?} */
+    Rectangle.prototype.y;
+    /** @type {?} */
+    Rectangle.prototype.width;
+    /** @type {?} */
+    Rectangle.prototype.height;
+}
 var PageInfo = /** @class */ (function () {
     function PageInfo() {
     }
     return PageInfo;
 }());
+if (false) {
+    /** @type {?} */
+    PageInfo.prototype.id;
+    /** @type {?} */
+    PageInfo.prototype.width;
+    /** @type {?} */
+    PageInfo.prototype.height;
+    /** @type {?} */
+    PageInfo.prototype.changes;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -953,6 +1224,15 @@ var DifferencesService = /** @class */ (function () {
     /** @nocollapse */ DifferencesService.ngInjectableDef = ɵɵdefineInjectable({ factory: function DifferencesService_Factory() { return new DifferencesService(); }, token: DifferencesService, providedIn: "root" });
     return DifferencesService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    DifferencesService.prototype._activeChange;
+    /** @type {?} */
+    DifferencesService.prototype.activeChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -991,7 +1271,7 @@ var DifferenceComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-comparison-difference',
                     template: "<div  class=\"gd-difference\" [ngClass]=\"{'active': active}\">\n  <div [ngSwitch]=\"change.type\" class=\"gd-difference-title-wrapper\">\n    <ng-container *ngSwitchCase='1'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text edited</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='2'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='3'>\n      <fa-icon class=\"fas fa-times\" [icon]=\"['fas','trash']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text deleted</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='4'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='6'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Style changed</div>\n        <div class=\"gd-differentce-comment\">\n          <ng-container *ngFor=\"let style of change.styleChanges\" [ngSwitch]=\"style.changedProperty\">\n            <div *ngSwitchCase=\"'HighlightColor'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Highlight Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Color'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Size'\">\n              {{style.oldValue}} &rarr; {{style.newValue}}\n              <span class=\"property\">Font size</span>\n            </div>\n            <div *ngSwitchCase=\"'Bold'\">\n              <span [style.fontWeight]=\"style.oldValue ? 'bold' : ''\">{{change.text}}</span> &rarr; <span [style.fontWeight]=\"style.newValue ? 'bold' : ''\">{{change.text}}</span>\n              <span class=\"property\">Bold</span>\n            </div>\n            <div *ngSwitchCase=\"'Italic'\">\n              <span [style.fontStyle]=\"style.oldValue ? 'italic' : ''\">{{change.text}}</span> &rarr; <span [style.fontStyle]=\"style.newValue ? 'italic' : ''\">{{change.text}}</span>\n              <span class=\"property\">Italic</span>\n            </div>\n            <div *ngSwitchCase=\"'cS'\">\n              <span [style.textDecoration]=\"style.oldValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span> &rarr; <span [style.textDecoration]=\"style.newValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span>\n              <span class=\"property\">Underline</span>\n            </div>\n          </ng-container>\n        </div>\n      </div>\n    </ng-container>\n    <div class=\"gd-difference-page\">Page {{change.pageInfo.id + 1}}</div>\n  </div>\n</div>\n",
-                    styles: [".gd-difference{flex-flow:row wrap;border-bottom:1px solid #eee;cursor:pointer}.gd-difference.active{background-color:#f2f2f2}.gd-difference:hover{background-color:#e5e5e5}.gd-difference .gd-difference-title-wrapper{display:flex;flex-direction:row;align-content:stretch;padding:15px 15px 20px 20px}.gd-difference .gd-difference-title-wrapper fa-icon{font-size:14px}.gd-difference .gd-difference-title-wrapper .fa-arrow-right{color:#16b901}.gd-difference .gd-difference-title-wrapper .fa-pencil-alt{color:#ced600}.gd-difference .gd-difference-title-wrapper .fa-times{color:#b96401}.gd-difference .gd-difference-title-wrapper .gd-difference-body{width:100%;display:flex;flex-direction:column;padding-left:15px}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-difference-title{color:#222e35;font-size:13px;font-weight:700}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment{color:#959da5;font-size:13px;padding-top:10px;overflow:hidden;text-overflow:ellipsis}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .color{vertical-align:text-bottom;width:14px;height:14px;display:inline-block;border:1px solid #ccc;border-radius:100%}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .property{padding-left:1em}.gd-difference .gd-difference-title-wrapper .gd-difference-page{color:rgba(149,157,165,.48);font-size:11px;white-space:nowrap}"]
+                    styles: [".gd-difference{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-flow:row wrap;border-bottom:1px solid #eee;cursor:pointer}.gd-difference.active{background-color:#f2f2f2}.gd-difference:hover{background-color:#e5e5e5}.gd-difference .gd-difference-title-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;align-content:stretch;padding:14px 21px 17px 24px}.gd-difference .gd-difference-title-wrapper fa-icon{font-size:14px}.gd-difference .gd-difference-title-wrapper .fa-arrow-right{color:#16b901}.gd-difference .gd-difference-title-wrapper .fa-pencil-alt{color:#ced600}.gd-difference .gd-difference-title-wrapper .fa-times{color:#b96401}.gd-difference .gd-difference-title-wrapper .gd-difference-body{width:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;padding-left:24.6px}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-difference-title{color:#222e35;font-size:13px;font-weight:700}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment{color:#959da5;font-size:13px;padding-top:10px;overflow:hidden;text-overflow:ellipsis}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .color{vertical-align:text-bottom;width:14px;height:14px;display:inline-block;border:1px solid #ccc;border-radius:100%}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .property{padding-left:1em}.gd-difference .gd-difference-title-wrapper .gd-difference-page{color:rgba(149,157,165,.48);font-size:11px;white-space:nowrap}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1003,11 +1283,24 @@ var DifferenceComponent = /** @class */ (function () {
     };
     return DifferenceComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DifferenceComponent.prototype.change;
+    /** @type {?} */
+    DifferenceComponent.prototype.active;
+    /**
+     * @type {?}
+     * @private
+     */
+    DifferenceComponent.prototype.changesService;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var $$1 = jquery;
 var DifferenceHighlightComponent = /** @class */ (function () {
     function DifferenceHighlightComponent(changeService) {
         this.changesService = changeService;
@@ -1065,11 +1358,24 @@ var DifferenceHighlightComponent = /** @class */ (function () {
     };
     return DifferenceHighlightComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DifferenceHighlightComponent.prototype.change;
+    /** @type {?} */
+    DifferenceHighlightComponent.prototype.active;
+    /**
+     * @type {?}
+     * @private
+     */
+    DifferenceHighlightComponent.prototype.changesService;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var $$2 = jquery;
 var ResultDocumentComponent = /** @class */ (function (_super) {
     __extends(ResultDocumentComponent, _super);
     function ResultDocumentComponent(_elementRef, zoomService, changeService, windowService) {
@@ -1097,11 +1403,11 @@ var ResultDocumentComponent = /** @class */ (function (_super) {
     ResultDocumentComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-result-document',
-                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" gdScrollable>\n  <div class=\"panzoom\">\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height)\"\n         [style.width]=\"getDimensionWithUnit(page.width)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n      <div class=\"highlights\">\n        <gd-difference-highlight\n          *ngFor=\"let change of page?.changes\"\n          [change]=\"change\">\n        </gd-difference-highlight>\n      </div>\n    </div>\n  </div>\n</div>\n",
+                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div class=\"panzoom\">\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height)\"\n         [style.width]=\"getDimensionWithUnit(page.width)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n      <div class=\"highlights\">\n        <gd-difference-highlight\n          *ngFor=\"let change of page?.changes\"\n          [change]=\"change\">\n        </gd-difference-highlight>\n      </div>\n    </div>\n  </div>\n</div>\n",
                     // @TODO: this is replicated from base component until styles inheritance supported added to angular
                     providers: [ZoomService],
                     viewProviders: [ZoomDirective],
-                    styles: [".document{background-color:#e7e7e7;width:100%;height:100%;overflow-x:hidden;overflow-y:auto!important;transition:.4s;padding:0;margin:0;position:relative}.page{position:relative;display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}.highlights{position:absolute;top:0;left:0;bottom:0;right:0}@media (max-width:1037px){.document{overflow-x:auto!important}.panzoom{flex-direction:column}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                    styles: [":host{overflow:scroll}.document{background-color:#e7e7e7;width:100%;height:100%;-webkit-transition:.4s;transition:.4s;padding:0;margin:0;position:relative}.page{position:relative;display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{-webkit-transform:none;transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform-origin:50% 50% 0;transform-origin:50% 50% 0;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}.highlights{position:absolute;top:0;left:0;bottom:0;right:0}@media (max-width:1037px){.panzoom{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1113,6 +1419,13 @@ var ResultDocumentComponent = /** @class */ (function (_super) {
     ]; };
     return ResultDocumentComponent;
 }(DocumentComponent));
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ResultDocumentComponent.prototype.changesService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1165,6 +1478,20 @@ var DifferencesComponent = /** @class */ (function () {
     };
     return DifferencesComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DifferencesComponent.prototype.changes;
+    /**
+     * @type {?}
+     * @private
+     */
+    DifferencesComponent.prototype.changesService;
+    /**
+     * @type {?}
+     * @private
+     */
+    DifferencesComponent.prototype.navigateService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1255,6 +1582,16 @@ var ComparisonModule = /** @class */ (function () {
     ComparisonModule.ctorParameters = function () { return []; };
     return ComparisonModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { ChangeInfo, CompareResult, ComparedPageModel, ComparisonAppComponent, ComparisonConfig, ComparisonConfigService, ComparisonModule, ComparisonService, Files, Highlight, PageInfo, Rectangle, StyleChange, initializeApp, setupLoadingInterceptor, AddFilePanelComponent as ɵa, UploadFilePanelComponent as ɵb, DifferenceComponent as ɵc, DifferencesService as ɵd, DifferenceHighlightComponent as ɵe, ResultDocumentComponent as ɵf, DifferencesComponent as ɵg };
 //# sourceMappingURL=groupdocs.examples.angular-comparison.js.map

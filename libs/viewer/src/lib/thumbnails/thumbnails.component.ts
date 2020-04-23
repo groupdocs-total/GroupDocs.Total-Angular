@@ -1,12 +1,12 @@
-import {Component, Input, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
-import {NavigateService, PageModel, ZoomService} from "@groupdocs.examples.angular/common-components";
+import {Component, Input, OnInit, OnDestroy, AfterViewInit, OnChanges} from '@angular/core';
+import {NavigateService, PageModel, ZoomService, FileUtil} from "@groupdocs.examples.angular/common-components";
 
 @Component({
   selector: 'gd-thumbnails',
   templateUrl: './thumbnails.component.html',
   styleUrls: ['./thumbnails.component.less']
 })
-export class ThumbnailsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
   @Input() pages: PageModel[];
   @Input() guid: string;
@@ -17,6 +17,16 @@ export class ThumbnailsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
+    // which leads to undesired spaces on the top of the docs pages
+    this.pages.forEach(page => {
+      if (page.data) {
+        page.data = page.data.replace(/>\s+</g,'><').replace(/\uFEFF/g,"");
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -41,5 +51,10 @@ export class ThumbnailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openPage(pageNumber: number) {
     this._navigateService.navigateTo(pageNumber);
+  }
+
+  // TODO: consider placing in one service
+  getDimensionWithUnit(value: number) {
+    return value + FileUtil.find(this.guid, false).unit;
   }
 }

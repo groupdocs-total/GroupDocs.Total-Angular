@@ -1,0 +1,22 @@
+{
+  "filesDirectory": "/fonts",
+  "dataDirectory": "",
+  "textSignature": true,
+  "imageSignature": true,
+  "digitalSignature": true,
+  "qrCodeSignature": true,
+  "barCodeSignature": true,
+  "stampSignature": true,
+  "handSignature": true,
+  "downloadOriginal": true,
+  "downloadSigned": true,
+  "preloadPageCount": 0,
+  "defaultDocument": "",
+  "pageSelector": true,
+  "download": true,
+  "upload": true,
+  "print": true,
+  "browse": true,
+  "rewrite": true,
+  "enableRightClick": true
+}

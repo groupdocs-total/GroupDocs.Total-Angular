@@ -1,15 +1,16 @@
 <div class="select"
      (click)="toggle($event)"
+     (touchstart)="toggle($event)"
      (clickOutside)="onClickOutside($event)"
-     [clickOutsideEnabled]="isOpen"
-     >
-  <span class="selected-value" gdDisabledCursor [dis]="disabled">
+     [clickOutsideEnabled]="isOpen">
+  <div class="selected-value" gdDisabledCursor [dis]="disabled">
     {{showSelected?.name}}
-  </span>
+  </div>
   <span class="nav-caret" gdDisabledCursor [dis]="disabled"></span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">
-      <div *ngIf="!option.separator" (click)="select($event, option)" class="option">{{option.name}}</div>
+      <div *ngIf="!option.separator" (click)="select($event, option)" (touchstart)="select($event, option)"
+           class="option">{{option.name}}</div>
       <div *ngIf="option.separator" role="separator" class="dropdown-menu-separator"></div>
     </div>
   </div>

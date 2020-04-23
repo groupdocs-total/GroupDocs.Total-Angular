@@ -6,6 +6,7 @@ import {ConversionItemModel, ExtendedFileModel} from "../models";
 export interface Option {
   name: string;
   value: any;
+  warning: boolean;
 }
 
 @Component({
@@ -27,10 +28,6 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
     super(_uploadService);
   }
 
-  selectDD(entry){
-    console.log('SELECTED DD',entry);
-  }
-
   selectAllItems(checked: boolean){
     this.selectAll.emit(checked);
 
@@ -48,14 +45,15 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   getLabelString(){
+    const label = 'Add selected'
+
     if (this.files && this.files.length > 0) {
       const selectedCount = this.files.filter(file => file.selected).length;
-      if (selectedCount > 0) {
-      return 'Add ' + selectedCount + ' selected'
-      }
-      else {
-        return 'Add selected'
-      }
+      return selectedCount > 0 ? 'Add ' + selectedCount + ' selected' : label;
+    }
+    else
+    {
+      return label;
     }
   }
 
@@ -135,7 +133,8 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
             destinationIcon: this.getFormatIcon({name: destinationFileName, directory: false} as FileModel),
             converted: false,
             // TODO: maybe there is a more beauty way?
-            converting: false
+            converting: false,
+            warning: f.conversionTypes.indexOf(this._format) === -1 ? true : false
           };
 
           conversionItems.push(conversionItem);
@@ -143,7 +142,12 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
     })
 
     this._conversionService.selectItems(conversionItems);
+    this._conversionService.selectFormat(this._format.toUpperCase());
     this._modalService.close(CommonModals.BrowseFiles);
+
+    if ($event.warning){
+      this._modalService.open(CommonModals.InformationMessage);
+    }
   }
 
   createFormatOption(val: string) {

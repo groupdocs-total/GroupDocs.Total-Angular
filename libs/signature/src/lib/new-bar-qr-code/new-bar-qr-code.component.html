@@ -1,0 +1,15 @@
+<div class="gd-qr-container">
+  <div class="gd-qr-preview-container">
+    <img class="gd-signature-thumbnail-image" [attr.src]="getData()" alt *ngIf="encodedImage">
+    <div class="gd-empty-code" *ngIf="!encodedImage">
+      <fa-icon [icon]="['fa',icon]" [class]="'ng-fa-icon icon'"></fa-icon>
+    </div>
+  </div>
+  <div class="new-signature-input-group">
+    <input type="text" class="gd-qr-property" #text (keyup)="saveTemp(text.value)" (keyup.enter)="addSign(text.value)"
+           placeholder="{{name}}" id="text-input"/>
+    <div class="gd-add-optical" [ngClass]="text.value ? 'active' : 'inactive'" (click)="addSign(text.value)">
+      <fa-icon [icon]="['fa','check']" [class]="'ng-fa-icon icon'"></fa-icon>
+    </div>
+  </div>
+</div>

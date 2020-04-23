@@ -190,6 +190,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   selectFile($event: string, password: string, modalId: string) {
     this.credentials = {guid: $event, password: password};
+    this.file = null;
     this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
@@ -327,28 +328,23 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     const pageNumber = this._navigateService.currentPage;
+    const pageModel = this.file.pages[pageNumber - 1];
 
     if (this.saveRotateStateConfig && this.file) {
-      this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((data: RotatedPage[]) => {
-        for (const page of data) {
-          const pageModel = this.file.pages[page.pageNumber - 1];
-          if (this.file && this.file.pages && pageModel) {
-            this.changeAngle(pageModel, page.angle);
+      this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((page: PageModel) => {
+        this.file.pages[pageNumber - 1] = page;
+
+        if (this.file && this.file.pages && pageModel) {
+          const angle = pageModel.angle + deg;
+          if (angle > 360) {
+            this.changeAngle(pageModel, 90);
+          } else if (angle < -360) {
+            this.changeAngle(pageModel, -90);
+          } else {
+            this.changeAngle(pageModel, angle);
           }
         }
       })
-    } else {
-      const pageModel = this.file.pages[pageNumber - 1];
-      if (this.file && this.file.pages && pageModel) {
-        const angle = pageModel.angle + deg;
-        if (angle > 360) {
-          this.changeAngle(pageModel, 90);
-        } else if (angle < -360) {
-          this.changeAngle(pageModel, -90);
-        } else {
-          this.changeAngle(pageModel, angle);
-        }
-      }
     }
   }
 
@@ -366,17 +362,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     if (this.viewerConfig.preloadPageCount !== 0) {
-      if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
-        this._viewerService.loadPrintPdf(this.credentials).subscribe(blob => {
-          const file = new Blob([blob], {type: 'application/pdf'});
-          this._renderPrintService.changeBlob(file);
-        });
-      } else {
-        this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
-          this.file.pages = data.pages;
-          this._renderPrintService.changePages(this.file.pages);
-        });
-      }
+      this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
+        this.file.pages = data.pages;
+        this._renderPrintService.changePages(this.file.pages);
+      });
     } else {
       this._renderPrintService.changePages(this.file.pages);
     }

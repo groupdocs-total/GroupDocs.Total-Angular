@@ -18,9 +18,9 @@ export class SelectComponent {
   @Input() disabled = false;
   @Input() showSelected: Option;
   @Output() selected: EventEmitter<any> = new EventEmitter();
-  isOpen = false;
+  @Input() isOpen = false;
 
-  constructor(private _onCloseService: OnCloseService) {
+  constructor(protected _onCloseService: OnCloseService) {
     _onCloseService.onClose.subscribe(() => {
       this.close();
     });
@@ -41,6 +41,7 @@ export class SelectComponent {
   }
 
   toggle($event) {
+    // TODO: following lines were uncommented due to needness in signature app
     $event.preventDefault();
     $event.stopPropagation();
     if (!this.disabled) {
@@ -54,5 +55,4 @@ export class SelectComponent {
     this.selected.emit(value);
     this.close();
   }
-
 }

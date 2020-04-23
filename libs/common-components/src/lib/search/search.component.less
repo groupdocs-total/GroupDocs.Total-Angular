@@ -1,14 +1,6 @@
 @import "./../../styles/variables";
 .gd-nav-search-btn {
-  float: left;
-  cursor: pointer;
-  color: rgb(149, 157, 165);
-  font-size: 14px;
-  width: 37px;
-  height: 37px;
-  line-height: 37px;
-  text-align: center;
-  margin: 3px 0px 4px 7px;
+  margin: 3px 0px 4px 0px;
 }
 
 .gd-nav-search-cancel {
@@ -33,6 +25,7 @@
   top: 60px;
   z-index: 2;
   transform: translate(-50%, 0);
+  display: flex;
 }
 
 .gd-search-input {
@@ -47,6 +40,10 @@
   padding: 6px 0px 5px 9px;
 }
 
+input[type=text]::-ms-clear{
+  display: none;
+}
+
 @media @phone-down {
   .gd-search-input {
     width: 231px;
@@ -56,7 +53,7 @@
 
   .gd-search-count {
     position: absolute;
-    right: 151px;
+    left: 193px;
     top: 15px;
   }
 

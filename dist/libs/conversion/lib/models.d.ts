@@ -4,6 +4,7 @@ export declare class ConversionRequestModel {
     destinationType: string;
     guid: string;
     size: number;
+    destDocumentType: number;
 }
 export declare class ConversionItemModel implements FileModel {
     guid: string;
@@ -20,6 +21,7 @@ export declare class ConversionItemModel implements FileModel {
     converted: boolean;
     converting: boolean;
     isDirectory: boolean;
+    warning: boolean;
 }
 export declare class ExtendedFileModel implements FileModel {
     guid: string;

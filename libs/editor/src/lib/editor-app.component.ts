@@ -40,7 +40,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
-  formatting: Formatting = Formatting.DEFAULT;
+  formatting: Formatting = Formatting.default();
   fontSizeOptions = FormattingService.getFontSizeOptions();
   fontOptions = FormattingService.getFontOptions();
   bgColorPickerShow = false;
@@ -50,6 +50,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   private isIE = false;
   isLoading: boolean;
   fileWasDropped: false;
+  selectFontShow = false;
+  selectFontSizeShow = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -337,8 +339,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     this._formattingService.changeFormatFont($event.value);
   }
 
-  toggleColorPicker(bg: boolean) {
-
+  toggleColorPicker($event, bg: boolean) {
+    $event.preventDefault();
+    $event.stopPropagation();
     if (this.formatDisabled) {
       return;
     }
@@ -352,6 +355,18 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     } else {
       this.colorPickerShow = !this.colorPickerShow;
       this.bgColorPickerShow = false;
+    }
+  }
+
+  toggleFontSelect($event, isFontName: boolean) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    if (isFontName) {
+      this.selectFontShow = !this.selectFontShow;
+      this.selectFontSizeShow = false;
+    } else {
+      this.selectFontSizeShow = !this.selectFontSizeShow;
+      this.selectFontShow = false;
     }
   }
 
@@ -468,14 +483,18 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
 
     if (list === this.formatting.list) {
       this.formatting.list = "";
+      // to trigger changes in contentEditable
+      this._formattingService.changeFormatList(list);
+      // to clear the toggle status of the button only
+      this._formattingService.changeFormatList("");
     } else {
       this.formatting.list = list;
+      this._formattingService.changeFormatList(list);
     }
     if(this.isIE) {
       this._selectionService.restoreSelection();
       this._selectionService.captureSelection();
     }
-    this._formattingService.changeFormatList(list);
   }
 
   downloadFile() {
@@ -499,12 +518,21 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
  saveFile(credentials: FileCredentials) {
     if (!this.file || !this.file.pages)
       return;
+      
+    this.textBackup = this.getPageWithRootTags(this.textBackup);
+
     const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);
       this._modalService.open(CommonModals.OperationSuccess);
     });
+  }
+
+  getPageWithRootTags(data) {
+    let resultData = "<html><head>" + data + "</body></html>";
+    resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+    return resultData;
   }
 
   printFile() {

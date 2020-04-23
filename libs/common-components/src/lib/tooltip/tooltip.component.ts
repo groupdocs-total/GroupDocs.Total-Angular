@@ -7,10 +7,18 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class TooltipComponent implements OnInit {
 
-  @Input() text:string;
+  @Input() text: string;
+  @Input() position = 0;
   visibility = 'hidden';
 
   constructor() {
+  }
+
+  getClass() {
+    if (this.position === 0) {
+      return 'tooltip';
+    }
+    return 'tooltip ' + (this.position > 0 ? 'last-element' : 'first-element');
   }
 
   @Input()

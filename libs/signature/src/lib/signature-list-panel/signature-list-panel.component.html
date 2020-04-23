@@ -1,0 +1,60 @@
+<div class="gd-signature-list-wrapper">
+  <div class="gd-signature-list-scroll" *ngIf="signatures">
+    <div class="gd-signature-list" *ngIf="signatures">
+      <div class="gd-signature" *ngFor="let signature of signatures">
+        <div class="gd-signature-item" [draggable]="isDigital() ? false : true"
+             (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
+             (dragleave)="dragLeave($event, signature.guid)" (drop)="drop($event)">
+          <div class="gd-signature-thumbnail" *ngIf="isDigital()" (click)="select(signature.guid)">
+            <fa-icon [icon]="['fa','fingerprint']" [class]="'ng-fa-icon icon'"></fa-icon>
+          </div>
+          <div class="gd-signature-thumbnail" *ngIf="signature.image">
+            <img [ngClass]="'gd-signature-thumbnail-' + signatureType"
+                 [attr.src]="getImage(signature.image) | safeResourceHtml"
+                 alt="" [draggable]="false" (click)="select(signature.guid)">
+          </div>
+          <div class="gd-signature-title" [ngClass]="signatureType" (click)="select(signature.guid)">
+            <label class="gd-signature-name" [style.color]="signature.fontColor">
+              {{signature.text ? signature.text : signature.name}}</label>
+          </div>
+          <div class="gd-signature-trash-icon">
+            <fa-icon [icon]="['fas','trash']" [class]="'ng-fa-icon icon'"
+                     (click)="deleteSign(signature.guid)"></fa-icon>
+          </div>
+        </div>
+        <div class="gd-digital-inputs" *ngIf="showDigitalInputs && digitalId === signature.guid">
+          <div class="gd-digital-input-wrapper">
+            <fa-icon [icon]="['fas','comment']" [class]="'ng-fa-icon icon'"></fa-icon>
+            <input #reason (input)="digitalProps.reason = reason.value" type="text" placeholder="Reason">
+          </div>
+          <div class="gd-digital-input-wrapper" *ngIf="isPdf">
+            <fa-icon [icon]="['fas','envelope']" [class]="'ng-fa-icon icon'"></fa-icon>
+            <input #contact (input)="digitalProps.contact = contact.value" type="text" placeholder="Contact">
+          </div>
+          <div class="gd-digital-input-wrapper" *ngIf="isPdf">
+            <fa-icon [icon]="['fas','map-marker-alt']" [class]="'ng-fa-icon icon'"></fa-icon>
+            <input #address (input)="digitalProps.address = address.value" type="text" placeholder="Location">
+          </div>
+          <div class="gd-digital-input-wrapper">
+            <fa-icon [icon]="['fas','key']" [class]="'ng-fa-icon icon'"></fa-icon>
+            <input #password (input)="digitalProps.signaturePassword = password.value" type="password"
+                   placeholder="Password">
+          </div>
+          <div class="gd-digital-input-wrapper">
+            <fa-icon [icon]="['fas','calendar']" [class]="'ng-fa-icon icon'"></fa-icon>
+            <input type="date" #date (input)="digitalProps.date=parseDate(date.value)" placeholder="Date">
+          </div>
+          <div class="gd-sign-digital" [ngClass]="isActive(signature.guid) ? 'active' : ''"
+               (click)="selectDigital(signature.guid)">
+            <fa-icon [icon]="['fas','save']"></fa-icon>
+            <span class="digital-apply">Apply</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gd-signature-empty-list" *ngIf="empty()">
+    <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'"></fa-icon>
+    <span class="gd-empty-list-text">There is no entries yet</span>
+  </div>
+</div>

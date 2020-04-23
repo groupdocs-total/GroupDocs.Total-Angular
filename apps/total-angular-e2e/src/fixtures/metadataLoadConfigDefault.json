@@ -1,0 +1,11 @@
+{
+  "download": true,
+  "upload": true,
+  "browse": true,
+  "rewrite": true,
+  "filesDirectory": "/fonts",
+  "preloadPageCount": 0,
+  "defaultDocument": "",
+  "htmlMode": true,
+  "cache": true
+}

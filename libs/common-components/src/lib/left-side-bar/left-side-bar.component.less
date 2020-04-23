@@ -1,0 +1,36 @@
+@import "./../../styles/variables";
+
+.left-panel {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  float: left;
+}
+
+.gd-left-bar-fade {
+  margin: auto;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+}
+
+@media @phone-down {
+  .gd-left-bar-fade {
+    top: 100px;
+    right: 0;
+  }
+
+  .gd-left-bar-spinner {
+    top: 20%;
+  }
+}

@@ -23,6 +23,7 @@ export declare class FileDescription {
     guid: string;
     pages: PageModel[];
     printAllowed: boolean;
+    showGridLines: boolean;
 }
 export declare class FileModel {
     guid: string;
@@ -30,6 +31,20 @@ export declare class FileModel {
     directory: boolean;
     size: number;
     isDirectory: boolean;
+}
+export declare enum FilePropertyCategory {
+    BuildIn = 0,
+    Default = 1
+}
+export declare class FilePropertyModel {
+    category: FilePropertyCategory;
+    name: string;
+    value: any;
+    type: number;
+    original: boolean;
+    selected: boolean;
+    editing: boolean;
+    disabled: boolean;
 }
 export declare class HttpError {
     static BadRequest: number;
@@ -39,6 +54,14 @@ export declare class HttpError {
     static TimeOut: number;
     static Conflict: number;
     static InternalServerError: number;
+}
+export declare class Utils {
+    static getMousePosition(event: any): {
+        x: number;
+        y: number;
+    };
+    static toRgb(color: string): string;
+    static toHex(color: string): string;
 }
 export declare class FileUtil {
     static map: {

@@ -5,6 +5,7 @@ export declare class UploadFilePanelComponent implements OnInit {
     private _modalService;
     panel: string;
     active: EventEmitter<string>;
+    showUploadFile: boolean;
     constructor(_uploadService: UploadFilesService, _modalService: ModalService);
     ngOnInit(): void;
     openModal(): void;

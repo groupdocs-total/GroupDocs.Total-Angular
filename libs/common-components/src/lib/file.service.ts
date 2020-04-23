@@ -35,6 +35,7 @@ export class FileDescription {
   guid: string;
   pages: PageModel[];
   printAllowed = true;
+  showGridLines: boolean;
 }
 
 export class FileModel {
@@ -45,6 +46,22 @@ export class FileModel {
   isDirectory: boolean;
 }
 
+export enum FilePropertyCategory {
+  BuildIn,
+  Default
+}
+
+export class FilePropertyModel {
+  category: FilePropertyCategory;
+  name: string;
+  value: any;
+  type: number;
+  original: boolean;
+  selected: boolean;
+  editing: boolean;
+  disabled: boolean;
+}
+
 export class HttpError {
   static BadRequest = 400;
   static Unauthorized = 401;
@@ -53,6 +70,67 @@ export class HttpError {
   static TimeOut = 408;
   static Conflict = 409;
   static InternalServerError = 500;
+}
+
+export class Utils {
+  public static getMousePosition(event) {
+    const mouse = {
+      x: 0,
+      y: 0
+    };
+    const wEvent: DragEvent = <DragEvent>window.event;
+    const ev = event || wEvent; //Moz || IE
+    if (ev.pageX || wEvent.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
+      const pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0 ? ev.pageX : wEvent.pageX;
+      const pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0 ? ev.pageY : wEvent.pageY;
+      const screenX = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
+      const screenY = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
+      mouse.x = pageX ? pageX : (screenX ? wEvent.screenX : ev.touches[0].pageX);
+      mouse.y = pageY ? pageY : (screenY ? wEvent.screenY : ev.touches[0].pageY);
+    } else if (ev.clientX) { //IE
+      mouse.x = ev.clientX + document.body.scrollLeft;
+      mouse.y = ev.clientY + document.body.scrollTop;
+    }
+    return mouse;
+  }
+
+  public static toRgb(color: string) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+    if (result) {
+      const r = parseInt(result[1], 16);
+      const g = parseInt(result[2], 16);
+      const b = parseInt(result[3], 16);
+      return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
+    }
+    return color;
+  }
+
+  public static toHex(color: string) {
+    // check if color is standard hex value
+    if (color.match(/[0-9A-F]{6}|[0-9A-F]{3}$/i)) {
+      return (color.charAt(0) === "#") ? color : ("#" + color);
+      // check if color is RGB value -> convert to hex
+    } else if (color.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)) {
+      const c = ([parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10), parseInt(RegExp.$3, 10)]),
+        pad = function (str) {
+          if (str.length < 2) {
+            for (let i = 0, len = 2 - str.length; i < len; i++) {
+              str = '0' + str;
+            }
+          }
+          return str;
+        };
+      if (c.length === 3) {
+        const r = pad(c[0].toString(16)),
+          g = pad(c[1].toString(16)),
+          b = pad(c[2].toString(16));
+        return '#' + r + g + b;
+      }
+      // else do nothing
+    } else {
+      return '';
+    }
+  }
 }
 
 export class FileUtil {

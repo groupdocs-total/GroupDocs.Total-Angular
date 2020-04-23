@@ -1,13 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {TotalNavComponent} from './total-nav/total-nav.component';
-import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
-import { TotalViewComponent } from './total-view/total-view.component';
+import {AppComponent} from './app.component';
+import {RouterModule} from '@angular/router';
+import {TotalViewComponent} from './total-view/total-view.component';
 import { ViewerModule,ViewerApp2Component } from '@groupdocs.examples.angular/viewer';
-import { EditorModule,EditorAppComponent } from '@groupdocs.examples.angular/editor';
-import { ComparisonModule,ComparisonAppComponent } from '@groupdocs.examples.angular/comparison';
-import { ConversionModule,ConversionAppComponent} from "@groupdocs.examples.angular/conversion";
+import {EditorModule, EditorAppComponent} from '@groupdocs.examples.angular/editor';
+import {ComparisonModule, ComparisonAppComponent} from '@groupdocs.examples.angular/comparison';
+import {SignatureModule, SignatureAppComponent} from "@groupdocs.examples.angular/signature";
+import {ConversionModule, ConversionAppComponent} from "@groupdocs.examples.angular/conversion";
+import {AnnotationModule, AnnotationAppComponent} from "@groupdocs.examples.angular/annotation";
+import {MetadataModule, MetadataAppComponent} from "@groupdocs.examples.angular/metadata";
 
 @NgModule({
   declarations: [AppComponent, TotalNavComponent, TotalViewComponent],
@@ -17,13 +20,19 @@ import { ConversionModule,ConversionAppComponent} from "@groupdocs.examples.angu
     EditorModule.forRoot("http://localhost:8080"),
     ComparisonModule.forRoot("http://localhost:8080"),
     ConversionModule.forRoot("http://localhost:8080"),
+    SignatureModule.forRoot("http://localhost:8080"),
+    AnnotationModule.forRoot("http://localhost:8080"),
+    MetadataModule.forRoot("http://localhost:8080"),
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
       {path: 'viewer', component: ViewerApp2Component},
       {path: 'editor', component: EditorAppComponent},
       {path: 'comparison', component: ComparisonAppComponent},
       {path: 'conversion', component: ConversionAppComponent},
-    ], { initialNavigation: 'enabled' })
+      {path: 'signature', component: SignatureAppComponent},
+      {path: 'annotation', component: AnnotationAppComponent},
+      {path: 'metadata', component: MetadataAppComponent},
+    ], {initialNavigation: 'enabled'})
   ],
   providers: [],
   exports: [
@@ -33,4 +42,5 @@ import { ConversionModule,ConversionAppComponent} from "@groupdocs.examples.angu
     AppComponent
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -37,6 +37,8 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     private isIE;
     isLoading: boolean;
     fileWasDropped: false;
+    selectFontShow: boolean;
+    selectFontSizeShow: boolean;
     constructor(_editorService: EditorService, _modalService: ModalService, configService: EditorConfigService, uploadFilesService: UploadFilesService, passwordService: PasswordService, _windowService: WindowService, _formattingService: FormattingService, _backFormattingService: BackFormattingService, _onCloseService: OnCloseService, _selectionService: SelectionService, _htmlService: EditHtmlService, _renderPrintService: RenderPrintService, _loadingMaskService: LoadingMaskService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
@@ -61,7 +63,8 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     upload($event: string): void;
     selectFontSize($event: Option): void;
     selectFont($event: Option): void;
-    toggleColorPicker(bg: boolean): void;
+    toggleColorPicker($event: any, bg: boolean): void;
+    toggleFontSelect($event: any, isFontName: boolean): void;
     selectColor($event: string): void;
     toggleBold(event: any): void;
     toggleUndo(): void;
@@ -75,6 +78,7 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     downloadFile(): void;
     save(): void;
     saveFile(credentials: FileCredentials): void;
+    getPageWithRootTags(data: any): string;
     printFile(): void;
     onCloseModal($event: any): void;
 }

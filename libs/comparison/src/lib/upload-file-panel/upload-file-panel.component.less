@@ -1,32 +1,4 @@
-.gd-drag-n-drop-wrap {
-  height: 100%;
-  width: 100%;
-  background-color: #E7E7E7;
-  text-align: center;
-  cursor: default;
-  left: 1px;
-  display: flex;
-  align-content: center;
-  flex-direction: column;
-  justify-content: center;
-  opacity: 0.9;
-  z-index: 1;
-}
-
-.active {
-  background-color: #bababa;
-}
-
-.gd-drag-n-drop-wrap h2 {
-  color: #959DA5;
-  font-size: 15px;
-  margin-top: 38px;
-}
-
-.gd-drag-n-drop-icon {
-  color: #959DA5;
-  cursor: pointer;
-}
+@import "../../../../common-components/src/styles/variables";
 
 :host{
   display: flex;
@@ -37,3 +9,74 @@
   height: 100%;
   border-bottom: 1px solid #CCC;
 }
+
+.wrapper {
+  color: @regent-gray;
+  background-color: @mercury;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.icon {
+  font-size: 65px;
+  margin-bottom: 43px;
+  display: flex;
+  color: @regent-gray;
+}
+
+.start {
+  font-size: 15px;
+  text-align: center;
+  color: @regent-gray;
+}
+
+.gd-drag-n-drop-wrap {
+  &.active {
+    background-color: #fff;
+    position: fixed;
+    top: 60px;
+    width: 50%;
+    background: rgba(255,255,255,0.8);
+    .init-state-wrapper {
+      position: absolute;
+      opacity: .2;
+      top: unset;
+      margin-top: -11px;
+    }
+    .init-state-dnd-wrapper {
+      top: 0px;
+      z-index: 999;
+      margin-top: -11px;
+      .icon {
+        width: 113px;
+        height: 90px;
+        font-size: 90px;
+        color: @primary;
+        margin-bottom: 30px;
+      }
+    }
+    .text {
+      color: @dove-gray;
+      font-size: 14px;
+    }
+  }
+}
+
+.init-state-wrapper, .init-state-dnd-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 250px;
+  align-items: center;
+  justify-content: center;
+}
+
+.init-state-wrapper {
+  top: -30px;
+  position: relative;
+}
+

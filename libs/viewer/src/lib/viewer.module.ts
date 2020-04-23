@@ -3,11 +3,18 @@ import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ViewerAppComponent} from './viewer-app.component';
 import {ViewerApp2Component} from './viewer-app2.component';
-import { Api, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import {
+  Api,
+  CommonComponentsModule,
+  ErrorInterceptorService, LoadingMaskInterceptorService,
+  LoadingMaskService
+} from '@groupdocs.examples.angular/common-components';
 import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
 import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
+import {ExcelDocumentComponent} from './excel-document/excel-document.component';
+import {ExcelPageComponent} from './excel-page/excel-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
@@ -15,11 +22,19 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
   return result;
 }
 
+// NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
+// @dynamic
+export function setupLoadingInterceptor(service: LoadingMaskService) {
+  return new LoadingMaskInterceptorService(service);
+}
+
 @NgModule({
   declarations: [
     ViewerAppComponent,
     ViewerApp2Component,
-    ThumbnailsComponent],
+    ThumbnailsComponent,
+    ExcelDocumentComponent,
+    ExcelPageComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -30,6 +45,8 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
     ViewerAppComponent,
     ViewerApp2Component,
     ThumbnailsComponent,
+    ExcelDocumentComponent,
+    ExcelPageComponent,
     CommonComponentsModule
   ],
   providers: [
@@ -45,6 +62,13 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [ViewerConfigService], multi: true
+    },
+    LoadingMaskService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: setupLoadingInterceptor,
+      multi: true,
+      deps: [LoadingMaskService]
     }
   ]
 })

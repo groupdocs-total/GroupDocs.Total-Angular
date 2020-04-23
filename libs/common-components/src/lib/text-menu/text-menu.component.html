@@ -1,0 +1,22 @@
+<div class="gd-text-menu">
+  <gd-select class="format-select first-component" [options]="fontOptions"
+             (selected)="selectFont($event)"
+             [showSelected]="{name : font, value : font}"></gd-select>
+  <gd-select class="format-select" [options]="fontSizeOptions"
+             (selected)="selectFontSize($event)"
+             [showSelected]="{name : fontSize + 'px', value : fontSize}"></gd-select>
+  <gd-button [icon]="'bold'" [tooltip]="showTooltips ? 'Bold' : null" *ngIf="decoration"
+             (click)="toggleBold($event)" (touchstart)="toggleBold($event)" [toggle]="bold"></gd-button>
+  <gd-button [icon]="'italic'" [tooltip]="showTooltips ? 'Italic' : null" *ngIf="decoration"
+             (click)="toggleItalic($event)" (touchstart)="toggleItalic($event)" [toggle]="italic"></gd-button>
+  <gd-button [icon]="'underline'" [tooltip]="showTooltips ? 'Underline' : null" *ngIf="decoration"
+             (click)="toggleUnderline($event)" (touchstart)="toggleUnderline($event)" [toggle]="underline"></gd-button>
+  <gd-button name="button" class="color-for-text" [icon]="'font'" [tooltip]="showTooltips ? 'Color' : null"
+             (click)="toggleColorPicker($event)" (touchstart)="toggleColorPicker($event)">
+    <div class="bg-color-pic" [style.background-color]="color"></div>
+  </gd-button>
+  <gd-color-picker [isOpen]="colorPickerShow" (closeOutside)="closePicker($event)"
+                   [className]="'palette'"
+                   (selectedColor)="selectColor($event)"></gd-color-picker>
+  <ng-content></ng-content>
+</div>

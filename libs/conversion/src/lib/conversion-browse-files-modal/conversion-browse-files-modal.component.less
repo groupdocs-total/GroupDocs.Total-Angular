@@ -3,45 +3,61 @@
 .gd-modal-table {
   width: 100%;
   text-align: left;
-  padding-top: 20px;
 }
 
 #gd-browse-section {
-  width: 1024px;
-  height: 628px;
+  width: 1036px;
+  height: 561px;
+  overflow-y: auto;
 }
 
 .list-files-header {
-  display: flex;
-  width: 100%;
-  color: #ACACAC;
+  height: 60px;
+  color: @dove-gray;
   font-size: 13px;
-  flex-direction: row;
+  font-weight: bold;
+  background-color: @wild-sand;
+  margin-top: 24px;
+  &.upload-url {
+    margin-top: 20px;
+  }
 }
 
 .header-name {
-  padding-left: 70px;
+  padding-left: 68px;
+  width: 90%;
+  line-height: 60px;
+}
+.header-size {
+  padding-right: 84px;
+  line-height: 60px;
+  // TODO: add overflow-y: scroll if scroll-bar in files appears
 }
 
-.header-size {
-  padding-left: 707px;
+.header-size, .file-size {
+  width: 7%;
+  color: #777777;
+  text-align: left;
 }
 
 .file-size {
-  margin-top: 20px;
-  width: 112px;
-  color: #777777;
+  font-size: 12px;
+  width: 7%;
+  line-height: 79px;
 }
 
 .file-description {
+  display: flex;
+  width: 90%;
+  padding: 18px 0px 18px 0px;
+  font-size: 14px;
+  flex: 1;
   cursor: pointer;
   overflow: hidden;
-  fa-icon {
-    cursor: pointer;
-    height: 32px;
-    font-size: 32px;
-    margin: 10px 13px 22px 0;
-  }
+}
+
+.file-description  .ng-fa-icon {
+  font-size: 32px;
 }
 
 .gd-modal-spinner {
@@ -70,34 +86,56 @@
   text-overflow: ellipsis;
 }
 
-.go-up {
-  cursor: pointer;
-}
-
 .upload-panel {
   display: flex;
   position: relative;
   width: 100%;
+  margin-top: 24px;
+  margin-right: 24px;
 
   .select-all{
-    width: 16px;
-    padding: 22px 23px 0 25px;
+    height: 37px;
+    margin: 0px 16px 0px 15px;
+    width: 37px;
+    line-height: 44px;
+    text-align: center;
   }
 
   .context{
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 20px;
-    margin-right: 20px;
-
+    margin-right: 24px;
     .context-actions{
       display: flex;
       flex-direction: row;
       width: 100%;
-
       *:last-child{
         margin-right: 0px;
+      }
+      ::ng-deep .button {
+        height: 37px;
+        width: 96px;
+        padding: 0px;
+        justify-content: center;
+        font-size: 14px;
+        ::ng-deep .text {
+          font-size: 10px;
+        }
+        &.primary {
+          width: 117px;
+          background-color: @folder;
+          &.inactive {
+            width: 106px;
+            background-color: @regent-gray;
+            /deep/ .text {
+              color: @primary;
+            }
+            /deep/ fa-icon {
+              color: @primary
+            }
+          }
+        }
       }
     }
     .context-panel{
@@ -105,118 +143,124 @@
       flex-direction: row;
       width: 100%;
       margin-top: 20px;
-
       .upload-url {
         display: flex;
         flex-direction: row;
         width: 100%;
-
-
         .url-input {
           width: 100%;
           height: 27px;
-          border: 1px solid #25C2D4;
+          border: 1px solid @brand;
+          font-size: 14px;
+          padding-left: 6px;
         }
-
         .url-check {
           width: 31px;
           height: 31px;
           color: #FFFFFF;
           font-size: 15px;
-          background-color: #25C2D4;
+          background-color: @brand;
         }
-
         .url-check .ng-fa-icon {
           display: block;
           padding: 8px;
         }
-
       }
     }
   }
 
   gd-drop-down{
     margin-right: 10px;
+    /deep/ .drop-down-item {
+      .text {
+        margin-left: 7px;
+        text-transform: uppercase;
+        color: @dove-gray;
+      }
+      &:hover{
+        background-color: @folder;
+        *{
+          color: #FFF;
+        }
+      }
+    }
   }
 }
 
-.file-description {
+.list-files-lines, .list-files-header {
   display: flex;
-  width: inherit;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .file-description .ng-fa-icon.fa-file-pdf {
-  color: #E21717;
+  color: @pdf;
 }
 
 .file-description .ng-fa-icon.fa-file-word {
-  color: #6979B9;
+  color: @word;
 }
 
 .file-description .ng-fa-icon.fa-file-powerpoint {
-  color: #E29417;
+  color: @powerpoint;
 }
 
 .file-description .ng-fa-icon.fa-file-excel {
-  color: #3FA300;
+  color: @excel;
 }
 
 .file-description .ng-fa-icon.fa-file-image {
-  color: #E217DA;
+  color: @image;
 }
 
-.file-description .ng-fa-icon.fa-file-text .fa-folder {
-  color: #5D6A75;
+.file-description .ng-fa-icon.fa-file-text .fa-folder,
+.file-description .ng-fa-icon.fa-file,
+.file-description .ng-fa-icon.fa-file-alt {
+  color: @folder;
 }
 
 .go-up {
+  cursor: pointer;
   display: flex;
-  font-size: 16px;
-  padding-left: 70px;
-  height: 19px;
-  margin: 8px 0px 10px 0px;
+  font-size: 26px;
+  color: @folder;
+  height: 79px;
 }
 
 .go-up-dots {
+  margin-left: 20px;
+  margin-top: 22px;
   font-size: 16px;
-  margin: 0px 0px 0px 12px;
-  height: 19px;
 }
 
 .go-up-icon {
-  width: 30px;
-  height: 30px;
+  display: block;
+  padding: 18px 0px 18px 68px;
 }
 
 .file-name {
   font-size: 16px;
-  color: #6E6E6E;
+  color: @dove-gray;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .file-name-format {
-  white-space: nowrap;
+  padding-left: 11px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 16px;
-  display: flex;
-  flex-direction: column;
-  margin-top: 16px;
-  cursor: pointer;
-  color: #6E6E6E;
 }
 
 .file-format {
   font-size: 10px;
+  padding-top: 3px;
+  color: @silver-chalice;
 }
 
-
+.list-files-lines, .go-up {
+  border-bottom: 1px solid @mercury;
+}
 
 .list-files-lines {
-  border-top: 1px solid #ccc;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 65px;
   &:hover {
     background-color: @nav-accent-background;
   }
@@ -226,21 +270,17 @@
   background-color: #FFF;
   cursor: default;
   position: absolute;
-  width: inherit;
-  height: inherit;
-  opacity: 0.9;
+  width: 100%;
+  height: calc(100% - 60px);
+  background: rgba(255,255,255,0.7);
   z-index: 1;
   display: flex;
-  text-align: center;
   justify-content: center;
-  align-content: center;
-  flex-direction: column;
+  align-items: center;
 }
 
-.gd-dnd-wrap h2 {
-  color: #959DA5;
-  font-size: 15px;
-  font-weight: 300;
+.gd-drag-n-drop-icon {
+  margin-top: -50px;
 }
 
 .gd-drag-n-drop-icon .fa-cloud-download-alt {
@@ -249,29 +289,51 @@
 }
 
 .gd-file-checkbox {
-  height: 20px;
-  margin: 22px 23px 0 25px;
+  height: 37px;
+  margin: 21px 16px 21px 15px;
+  width: 37px;
+  line-height: 44px;
+  text-align: center;
 }
 
 .gd-file-checkbox.empty {
-  width: 25px;
+  width: 37px;
 }
 
 .file-format-select {
   display: flex;
   align-items: center;
-  padding: 5px;
-  width:46px;
-  margin-right: 20px;
-
+  width: 36px;
+  margin-right: 24px;
   ::ng-deep .button{
+    padding: 0px;
+    width: 36px;
+    margin: 0px;
+    font-size: 14px;
+    .text {
       padding: 0px;
-      width: 36px;
+    }
   }
 
   ::ng-deep .show .button{
-    background-color: @brand;
-    color:#FFF;
+    color: @regent-gray;
+  }
+
+  gd-drop-down{
+    /deep/ .drop-down-item {
+      width: 96px;
+      .text {
+        padding-left: 7px;
+        text-transform: uppercase;
+        color: @dove-gray;
+      }
+      &:hover{
+        background-color: @folder;
+        *{
+          color: #FFF;
+        }
+      }
+    }
   }
 }
 
@@ -310,12 +372,6 @@
   }
 }
 
-.gd-select-all {
-  position: relative;
-  top: 6px;
-  margin-right: 20px;
-}
-
 .gd-add-selected.active {
   cursor: pointer;
   opacity: 1;
@@ -336,6 +392,27 @@
   margin-top: 8px;
 }
 
+.dnd-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 259px;
+  position: absolute;
+  .text {
+    color: @dove-gray;
+    font-size: 14px;
+  }
+  .icon {
+    display: flex;
+    width: 113px;
+    height: 90px;
+    font-size: 90px;
+    color: @primary;
+    margin-bottom: 30px;
+  }
+}
+
 @media @phone-down {
   .header-size, .file-size {
     width: 18%;
@@ -349,7 +426,8 @@
   .list-files-header, .file-size{
     display: none;
   }
-  .context-actions{
-    justify-content: space-between;
+  #gd-browse-section{
+    width: 100%;
+    height: calc(100% - 146px);
   }
 }

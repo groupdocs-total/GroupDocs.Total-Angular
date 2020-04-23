@@ -1,0 +1,45 @@
+@import "../../../../common-components/src/styles/variables";
+
+.gd-context-menu-top {
+  top: -44px;
+}
+
+.gd-context-menu-bottom {
+  bottom: -40px;
+}
+
+.gd-context-menu {
+  box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;
+  background-color: #FFFFFF;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  cursor: default;
+  width: max-content;
+  width: -moz-max-content;
+  width: -webkit-max-content;
+  display: flex;
+  flex-direction: row;
+  z-index: 999;
+
+  .arrows {
+    cursor: move;
+  }
+
+  ::ng-deep .active {
+    background-color: #e7e7e7;
+  }
+
+  ::ng-deep .icon-button {
+    margin: 0px !important;
+  }
+}
+
+@media @phone-down {
+
+  .gd-context-menu-top {
+    top: -34px;
+  }
+
+}

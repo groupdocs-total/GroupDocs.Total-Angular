@@ -5,6 +5,7 @@ import { ExtendedFileModel } from "../models";
 export interface Option {
     name: string;
     value: any;
+    warning: boolean;
 }
 export declare class ConversionBrowseFilesModalComponent extends BrowseFilesModalComponent implements OnInit {
     private _conversionService;
@@ -15,7 +16,6 @@ export declare class ConversionBrowseFilesModalComponent extends BrowseFilesModa
     selectAll: EventEmitter<boolean>;
     dynamicOptions: Option[];
     constructor(_uploadService: UploadFilesService, _conversionService: ConversionService, _modalService: ModalService);
-    selectDD(entry: any): void;
     selectAllItems(checked: boolean): void;
     selectSingleItem(checked: boolean, file: ExtendedFileModel): void;
     getLabelString(): string;

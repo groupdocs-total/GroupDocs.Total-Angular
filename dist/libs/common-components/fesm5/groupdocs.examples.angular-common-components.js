@@ -1,15 +1,15 @@
-import { Component, Input, Output, EventEmitter, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, NgModule } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
+import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { __extends, __values } from 'tslib';
-import { Observable, Subject, fromEvent, BehaviorSubject, throwError } from 'rxjs';
 import * as jquery from 'jquery';
 import * as Hammer from 'hammerjs';
-import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ClickOutsideModule } from 'ng-click-outside';
 
@@ -23,7 +23,7 @@ var TopToolbarComponent = /** @class */ (function () {
     TopToolbarComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-top-toolbar',
-                    template: "<div class=\"top-toolbar\">\n  <div id=\"tools\" class=\"tools\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+                    template: "<div class=\"top-toolbar\">\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
                     styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
                 }] }
     ];
@@ -38,22 +38,46 @@ var TopToolbarComponent = /** @class */ (function () {
  */
 var SidePanelComponent = /** @class */ (function () {
     function SidePanelComponent() {
+        this.closable = true;
+        this.saveable = true;
         this.hideSidePanel = new EventEmitter();
+        this.saveInSidePanel = new EventEmitter();
+        this.onlyTitle = false;
     }
     /**
      * @return {?}
      */
-    SidePanelComponent.prototype.openSidePanel = /**
+    SidePanelComponent.prototype.closeSidePanel = /**
      * @return {?}
      */
     function () {
         this.hideSidePanel.emit(true);
     };
+    /**
+     * @return {?}
+     */
+    SidePanelComponent.prototype.saveBySidePanel = /**
+     * @return {?}
+     */
+    function () {
+        this.saveInSidePanel.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    SidePanelComponent.prototype.toggleTitleMode = /**
+     * @return {?}
+     */
+    function () {
+        if (this.closable && !this.saveable) {
+            this.onlyTitle = !this.onlyTitle;
+        }
+    };
     SidePanelComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-side-panel',
-                    template: "<div class=\"gd-side-panel-wrapper\">\n  <div class=\"gd-side-panel-header\">\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\n    <div class=\"title\">{{title}}</div>\n    <div class=\"close\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"openSidePanel()\"></gd-button>\n    </div>\n  </div>\n  <div class=\"gd-side-panel-body\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-                    styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:12px 9px 18px 14px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:14px;font-weight:700;color:rgba(237,240,242,.57);margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close{font-size:24px!important;margin-top:12px}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}}"]
+                    template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"save\" *ngIf=\"saveable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\r\n    </div>\r\n    <div class=\"close\" *ngIf=\"closable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close,.gd-side-panel-wrapper .gd-side-panel-header .save{display:flex;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header /deep/ gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -61,7 +85,10 @@ var SidePanelComponent = /** @class */ (function () {
     SidePanelComponent.propDecorators = {
         title: [{ type: Input }],
         icon: [{ type: Input }],
-        hideSidePanel: [{ type: Output }]
+        closable: [{ type: Input }],
+        saveable: [{ type: Input }],
+        hideSidePanel: [{ type: Output }],
+        saveInSidePanel: [{ type: Output }]
     };
     return SidePanelComponent;
 }());
@@ -70,13 +97,126 @@ var SidePanelComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var MOBILE_MAX_WIDTH = 425;
+/** @type {?} */
+var TABLET_MAX_WIDTH = 1024;
+var WindowService = /** @class */ (function () {
+    function WindowService() {
+        var _this = this;
+        this.resizeSubject = new Subject();
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this._resize$ = fromEvent(window, 'resize')
+            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            _this.resizeSubject.next((/** @type {?} */ (event.target)));
+            _this.width = ((/** @type {?} */ (event.target))).innerWidth;
+            _this.height = ((/** @type {?} */ (event.target))).innerHeight;
+        })));
+        this._resize$.subscribe();
+    }
+    Object.defineProperty(WindowService.prototype, "onResize", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.resizeSubject.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isMobile = /**
+     * @return {?}
+     */
+    function () {
+        return this.width <= MOBILE_MAX_WIDTH;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isTablet = /**
+     * @return {?}
+     */
+    function () {
+        return this.width <= TABLET_MAX_WIDTH;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isDesktop = /**
+     * @return {?}
+     */
+    function () {
+        return !this.isMobile() && !this.isTablet();
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.getWidth = /**
+     * @return {?}
+     */
+    function () {
+        return this.width;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.getHeight = /**
+     * @return {?}
+     */
+    function () {
+        return this.height;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isEdge = /**
+     * @return {?}
+     */
+    function () {
+        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isFirefox = /**
+     * @return {?}
+     */
+    function () {
+        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    };
+    return WindowService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var ButtonComponent = /** @class */ (function () {
-    function ButtonComponent() {
+    function ButtonComponent(windowService) {
+        var _this = this;
         this.iconOnly = true;
         this.intent = 'default';
         this.disabled = false;
         this.toggle = false;
+        this.iconRegular = false;
+        this.elementPosition = 0;
         this.showToolTip = false;
+        this.isDesktop = windowService.isDesktop();
+        windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        function (w) {
+            _this.isDesktop = windowService.isDesktop();
+        }));
     }
     /**
      * @return {?}
@@ -94,10 +234,9 @@ var ButtonComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this.disabled) {
+        if (this.isDesktop && !this.disabled) {
             this.className += ' active';
         }
-        this.showToolTip = true;
     };
     /**
      * @return {?}
@@ -106,18 +245,39 @@ var ButtonComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this.disabled) {
-            this.className = this.className.replace(' active', '');
+        if (this.isDesktop && !this.disabled) {
+            this.className = this.cleanAll(this.className, ' active');
         }
-        this.showToolTip = false;
+    };
+    /**
+     * @private
+     * @param {?} str
+     * @param {?} val
+     * @return {?}
+     */
+    ButtonComponent.prototype.cleanAll = /**
+     * @private
+     * @param {?} str
+     * @param {?} val
+     * @return {?}
+     */
+    function (str, val) {
+        while (str && str.indexOf(val) !== -1) {
+            str = str.replace(val, '');
+        }
+        return str;
     };
     ButtonComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-button',
-                    template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon [icon]=\"['fas',icon]\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\n  <div class=\"text\"><ng-content></ng-content></div>\n</div>\n",
-                    styles: [".icon-button{padding:0!important;margin:0 10px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
+                    template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [position]=\"elementPosition\" class=\"button-tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;flex-direction:column;align-items:center;align-content:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}.button .button-tooltip{display:flex;flex-direction:column}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
                 }] }
     ];
+    /** @nocollapse */
+    ButtonComponent.ctorParameters = function () { return [
+        { type: WindowService }
+    ]; };
     ButtonComponent.propDecorators = {
         iconOnly: [{ type: Input }],
         intent: [{ type: Input }],
@@ -126,7 +286,10 @@ var ButtonComponent = /** @class */ (function () {
         iconClass: [{ type: Input }],
         tooltip: [{ type: Input }],
         className: [{ type: Input }],
-        toggle: [{ type: Input }]
+        toggle: [{ type: Input }],
+        iconSize: [{ type: Input }],
+        iconRegular: [{ type: Input }],
+        elementPosition: [{ type: Input }]
     };
     return ButtonComponent;
 }());
@@ -149,7 +312,7 @@ var LogoComponent = /** @class */ (function () {
     LogoComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-logo',
-                    template: "<div id=\"gd-header-logo\" class=\"logo\">\n  <span class=\"text\" [innerHTML]=\"logo\"></span>\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n\n",
+                    template: "<div id=\"gd-header-logo\" class=\"logo\">\r\n  <span class=\"text\" [innerHTML]=\"logo\"></span>\r\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n\r\n",
                     styles: [".logo{background-color:#25c2d4;height:60px;display:flex;align-items:center;justify-content:center}.text{color:#fff;font-size:15px;text-transform:uppercase;margin:0 14px}.icon{display:none;font-size:32px;color:rgba(255,255,255,.5);margin:14px}@media (max-width:1037px){.logo{width:60px;height:60px}.logo .text{display:none}.logo .icon{display:block}}"]
                 }] }
     ];
@@ -168,8 +331,21 @@ var LogoComponent = /** @class */ (function () {
  */
 var TooltipComponent = /** @class */ (function () {
     function TooltipComponent() {
+        this.position = 0;
         this.visibility = 'hidden';
     }
+    /**
+     * @return {?}
+     */
+    TooltipComponent.prototype.getClass = /**
+     * @return {?}
+     */
+    function () {
+        if (this.position === 0) {
+            return 'tooltip';
+        }
+        return 'tooltip ' + (this.position > 0 ? 'last-element' : 'first-element');
+    };
     Object.defineProperty(TooltipComponent.prototype, "show", {
         set: /**
          * @param {?} value
@@ -192,14 +368,15 @@ var TooltipComponent = /** @class */ (function () {
     TooltipComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-tooltip',
-                    template: "<span class=\"tooltip\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\n",
-                    styles: [".tooltip{position:absolute;margin-top:37px;width:100px;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px 0;z-index:1;margin-left:-66px;font-size:10px;height:11px;line-height:11px}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
+                    template: "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n",
+                    styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:0!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
                 }] }
     ];
     /** @nocollapse */
     TooltipComponent.ctorParameters = function () { return []; };
     TooltipComponent.propDecorators = {
         text: [{ type: Input }],
+        position: [{ type: Input }],
         show: [{ type: Input }]
     };
     return TooltipComponent;
@@ -213,14 +390,21 @@ var Api = /** @class */ (function () {
     function Api() {
     }
     Api.VIEWER_APP = '/viewer';
+    Api.SIGNATURE_APP = '/signature';
+    Api.ANNOTATION_APP = '/annotation';
     Api.EDITOR_APP = '/editor';
     Api.COMPARISON_APP = '/comparison';
     Api.CONVERSION_APP = '/conversion';
+    Api.METADATA_APP = '/metadata';
     Api.DEFAULT_API_ENDPOINT = window.location.href;
     Api.LOAD_FILE_TREE = '/loadFileTree';
     Api.LOAD_CONFIG = '/loadConfig';
     Api.LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
     Api.LOAD_DOCUMENT_PAGE = '/loadDocumentPage';
+    Api.LOAD_DOCUMENT_PROPERTIES = '/loadProperties';
+    Api.LOAD_DOCUMENT_PROPERTIES_NAMES = '/loadPropertiesNames';
+    Api.SAVE_PROPERTY = '/saveProperty';
+    Api.REMOVE_PROPERTY = '/removeProperty';
     Api.ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
     Api.UPLOAD_DOCUMENTS = '/uploadDocument';
     Api.DOWNLOAD_DOCUMENTS = '/downloadDocument';
@@ -231,6 +415,15 @@ var Api = /** @class */ (function () {
     Api.SAVE_FILE = '/saveFile';
     Api.COMPARE_FILES = '/compare';
     Api.CONVERT_FILE = '/convert';
+    Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+    Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
+    Api.SAVE_TEXT = '/saveText';
+    Api.SAVE_IMAGE = '/saveImage';
+    Api.SAVE_STAMP = '/saveStamp';
+    Api.SIGN = '/sign';
+    Api.DOWNLOAD_SIGNED = '/downloadSigned';
+    Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
+    Api.ANNOTATE = '/annotate';
     Api.httpOptionsJson = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -312,6 +505,33 @@ var ConfigService = /** @class */ (function () {
     function () {
         return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
     };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getMetadataApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getSignatureApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getAnnotationApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
+    };
     ConfigService.decorators = [
         { type: Injectable }
     ];
@@ -332,6 +552,9 @@ var CommonModals = /** @class */ (function () {
     CommonModals.BrowseFiles = "gd-browse-files";
     CommonModals.CreateDocument = "gd-create-document";
     CommonModals.OperationSuccess = "gd-success-modal";
+    CommonModals.DrawHandSignature = "gd-draw-hand-signature";
+    CommonModals.DrawStampSignature = "gd-draw-stamp-signature";
+    CommonModals.InformationMessage = "gd-information-message";
     return CommonModals;
 }());
 var ModalService = /** @class */ (function () {
@@ -413,6 +636,7 @@ var ModalComponent = /** @class */ (function () {
     function ModalComponent(modalService, el) {
         this.modalService = modalService;
         this.visible = new EventEmitter();
+        this.cancel = new EventEmitter();
         this.visibility = false;
         this.element = el.nativeElement;
     }
@@ -476,11 +700,21 @@ var ModalComponent = /** @class */ (function () {
             this.close();
         }
     };
+    /**
+     * @return {?}
+     */
+    ModalComponent.prototype.cancelClose = /**
+     * @return {?}
+     */
+    function () {
+        this.cancel.emit(false);
+        this.close();
+    };
     ModalComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-modal',
-                    template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n    <div class=\"gd-modal-content\" id=\"gd-modal-content\"> \n\n      <div class=\"gd-modal-header\"> \n        <div class=\"gd-modal-close\" (click)=\"close();\"><span>&times;</span></div>\n        <h4 class=\"gd-modal-title\">{{title}}</h4>\n        </div> \n\n      <div class=\"gd-modal-body\">\n        <ng-content></ng-content>\n        </div> \n\n      <div class=\"gd-modal-footer\"> \n\n        </div> \n      </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog --> \n\n",
-                    styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
+                    template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\r\n</div>\r\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\r\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\r\n\r\n    <div class=\"gd-modal-header\">\r\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\r\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-body\">\r\n      <ng-content></ng-content>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-footer\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n",
+                    styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-dialog ::ng-deep .button{flex-direction:unset!important}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -491,7 +725,8 @@ var ModalComponent = /** @class */ (function () {
     ModalComponent.propDecorators = {
         id: [{ type: Input }],
         title: [{ type: Input }],
-        visible: [{ type: Output }]
+        visible: [{ type: Output }],
+        cancel: [{ type: Output }]
     };
     return ModalComponent;
 }());
@@ -537,6 +772,18 @@ var FileModel = /** @class */ (function () {
     }
     return FileModel;
 }());
+/** @enum {number} */
+var FilePropertyCategory = {
+    BuildIn: 0,
+    Default: 1,
+};
+FilePropertyCategory[FilePropertyCategory.BuildIn] = 'BuildIn';
+FilePropertyCategory[FilePropertyCategory.Default] = 'Default';
+var FilePropertyModel = /** @class */ (function () {
+    function FilePropertyModel() {
+    }
+    return FilePropertyModel;
+}());
 var HttpError = /** @class */ (function () {
     function HttpError() {
     }
@@ -548,6 +795,115 @@ var HttpError = /** @class */ (function () {
     HttpError.Conflict = 409;
     HttpError.InternalServerError = 500;
     return HttpError;
+}());
+var Utils = /** @class */ (function () {
+    function Utils() {
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    Utils.getMousePosition = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        /** @type {?} */
+        var mouse = {
+            x: 0,
+            y: 0
+        };
+        /** @type {?} */
+        var wEvent = (/** @type {?} */ (window.event));
+        /** @type {?} */
+        var ev = event || wEvent;
+        if (ev.pageX || wEvent.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
+            //Moz
+            /** @type {?} */
+            var pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0 ? ev.pageX : wEvent.pageX;
+            /** @type {?} */
+            var pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0 ? ev.pageY : wEvent.pageY;
+            /** @type {?} */
+            var screenX_1 = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
+            /** @type {?} */
+            var screenY_1 = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
+            mouse.x = pageX ? pageX : (screenX_1 ? wEvent.screenX : ev.touches[0].pageX);
+            mouse.y = pageY ? pageY : (screenY_1 ? wEvent.screenY : ev.touches[0].pageY);
+        }
+        else if (ev.clientX) { //IE
+            mouse.x = ev.clientX + document.body.scrollLeft;
+            mouse.y = ev.clientY + document.body.scrollTop;
+        }
+        return mouse;
+    };
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    Utils.toRgb = /**
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        /** @type {?} */
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+        if (result) {
+            /** @type {?} */
+            var r = parseInt(result[1], 16);
+            /** @type {?} */
+            var g = parseInt(result[2], 16);
+            /** @type {?} */
+            var b = parseInt(result[3], 16);
+            return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
+        }
+        return color;
+    };
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    Utils.toHex = /**
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        // check if color is standard hex value
+        if (color.match(/[0-9A-F]{6}|[0-9A-F]{3}$/i)) {
+            return (color.charAt(0) === "#") ? color : ("#" + color);
+            // check if color is RGB value -> convert to hex
+        }
+        else if (color.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)) {
+            /** @type {?} */
+            var c = ([parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10), parseInt(RegExp.$3, 10)]);
+            /** @type {?} */
+            var pad = (/**
+             * @param {?} str
+             * @return {?}
+             */
+            function (str) {
+                if (str.length < 2) {
+                    for (var i = 0, len = 2 - str.length; i < len; i++) {
+                        str = '0' + str;
+                    }
+                }
+                return str;
+            });
+            if (c.length === 3) {
+                /** @type {?} */
+                var r = pad(c[0].toString(16));
+                /** @type {?} */
+                var g = pad(c[1].toString(16));
+                /** @type {?} */
+                var b = pad(c[2].toString(16));
+                return '#' + r + g + b;
+            }
+            // else do nothing
+        }
+        else {
+            return '';
+        }
+    };
+    return Utils;
 }());
 var FileUtil = /** @class */ (function () {
     function FileUtil() {
@@ -897,7 +1253,7 @@ var BrowseFilesModalComponent = /** @class */ (function () {
     BrowseFilesModalComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-browse-files-modal',
-                    template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\n    <div class=\"dnd-wrapper\">\n      <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n      <span class=\"text\">Drop file here to upload</span>\n    </div>\n  </div>\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\n            (change)=\"handleFileInput($event.target.files)\">\n    <div class=\"context\">\n      <div class=\"context-actions\">\n        <gd-drop-down>\n          <gd-drop-down-toggle>\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\n              Upload file\n            </gd-button>\n          </gd-drop-down-toggle>\n          <gd-drop-down-items>\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\n              <div class=\"text\">{{item.name}}</div>\n            </gd-drop-down-item>\n          </gd-drop-down-items>\n        </gd-drop-down>\n      </div>\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\n        <div class=\"upload-url\">\n          <input class=\"url-input\" placeholder=\"http://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\n    <div class=\"header-name\">FILE</div>\n    <div class=\"header-size\">SIZE</div>\n  </div>\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\n      <div class=\"list-files-body\">\n        <div class=\"go-up\" (click)=\"goUp()\">\n            <div class=\"go-up-icon\">\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\n            </div>\n            <div class=\"go-up-dots\">..</div>\n        </div>\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\n          <div class=\"file-description\">\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\n            <div class=\"file-name-format\">\n              <div class=\"file-name\">{{file?.name}}</div>\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\n            </div>\n          </div>\n          <div class=\"file-size\">\n            {{getSize(file?.size)}}\n          </div>\n        </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n      &nbsp;Loading... Please wait.\n    </div>\n  </section>\n</gd-modal>\n",
+                    template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\r\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\r\n    <div class=\"dnd-wrapper\">\r\n      <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n      <span class=\"text\">Drop file here to upload</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\r\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\r\n            (change)=\"handleFileInput($event.target.files)\">\r\n    <div class=\"context\">\r\n      <div class=\"context-actions\">\r\n        <gd-drop-down>\r\n          <gd-drop-down-toggle>\r\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\r\n              Upload file\r\n            </gd-button>\r\n          </gd-drop-down-toggle>\r\n          <gd-drop-down-items>\r\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\r\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\r\n              <div class=\"text\">{{item.name}}</div>\r\n            </gd-drop-down-item>\r\n          </gd-drop-down-items>\r\n        </gd-drop-down>\r\n      </div>\r\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\r\n        <div class=\"upload-url\">\r\n          <input class=\"url-input\" placeholder=\"https://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\r\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\r\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\r\n    <div class=\"header-name\">FILE</div>\r\n    <div class=\"header-size\">SIZE</div>\r\n  </div>\r\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\r\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\r\n      <div class=\"list-files-body\">\r\n        <div class=\"go-up\" (click)=\"goUp()\">\r\n            <div class=\"go-up-icon\">\r\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\r\n            </div>\r\n            <div class=\"go-up-dots\">..</div>\r\n        </div>\r\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\r\n          <div class=\"file-description\">\r\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\r\n            <div class=\"file-name-format\">\r\n              <div class=\"file-name\">{{file?.name}}</div>\r\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\r\n            </div>\r\n          </div>\r\n          <div class=\"file-size\">\r\n            {{getSize(file?.size)}}\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n      &nbsp;Loading... Please wait.\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
                     styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:flex;width:100%;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:flex;position:relative;width:100%}.upload-panel .context{display:flex;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;width:96px;padding:0;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:flex;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:100%;height:calc(100% - 60px);background:rgba(255,255,255,.7);z-index:1;display:flex;justify-content:center;align-items:center}.dnd-wrapper{display:flex;flex-direction:column;align-items:center;justify-content:center;top:259px;position:absolute}.dnd-wrapper .text{color:#6e6e6e;font-size:14px}.dnd-wrapper .icon{display:flex;width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
                 }] }
     ];
@@ -997,72 +1353,6 @@ var ZoomService = /** @class */ (function () {
             this.createZoomOption(height, 'Fit Height')];
     };
     return ZoomService;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-var MOBILE_MAX_WIDTH = 425;
-/** @type {?} */
-var TABLET_MAX_WIDTH = 1024;
-var WindowService = /** @class */ (function () {
-    function WindowService() {
-        var _this = this;
-        this.resizeSubject = new Subject();
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-        this._resize$ = fromEvent(window, 'resize')
-            .pipe(debounceTime(200), distinctUntilChanged(), startWith({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), tap((/**
-         * @param {?} event
-         * @return {?}
-         */
-        function (event) {
-            _this.resizeSubject.next((/** @type {?} */ (event.target)));
-            _this.width = ((/** @type {?} */ (event.target))).innerWidth;
-            _this.height = ((/** @type {?} */ (event.target))).innerHeight;
-        })));
-        this._resize$.subscribe();
-    }
-    Object.defineProperty(WindowService.prototype, "onResize", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this.resizeSubject.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isMobile = /**
-     * @return {?}
-     */
-    function () {
-        return this.width <= MOBILE_MAX_WIDTH;
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isTablet = /**
-     * @return {?}
-     */
-    function () {
-        return this.width <= TABLET_MAX_WIDTH;
-    };
-    /**
-     * @return {?}
-     */
-    WindowService.prototype.isDesktop = /**
-     * @return {?}
-     */
-    function () {
-        return !this.isMobile() && !this.isTablet();
-    };
-    return WindowService;
 }());
 
 /**
@@ -1171,7 +1461,16 @@ var DocumentComponent = /** @class */ (function () {
      * @return {?}
      */
     function (value) {
-        return value + FileUtil.find(this.file.guid, false).unit;
+        return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ifEdge = /**
+     * @return {?}
+     */
+    function () {
+        return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
     };
     /**
      * @return {?}
@@ -1430,8 +1729,8 @@ var DocumentComponent = /** @class */ (function () {
     DocumentComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-document',
-                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height)\"\n         [style.width]=\"getDimensionWithUnit(page.width)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
-                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}.panzoom.mobile{overflow:scroll}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1477,8 +1776,9 @@ var PageComponent = /** @class */ (function () {
      * @return {?}
      */
     function (changes) {
-        // TODO: this is needed for test purpose to reduce unneeded top-margin
-        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><') : null;
+        // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
+        // which leads to undesired spaces on the top of the docs pages
+        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
         /** @type {?} */
         var dataImagePngBase64 = 'data:image/png;base64,';
         this.imgData = dataImagePngBase64;
@@ -1489,8 +1789,8 @@ var PageComponent = /** @class */ (function () {
     PageComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-page',
-                    template: "<div id=\"page-{{number}}\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
-                    styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper img{width:inherit}.gd-wrapper div{width:100%}.gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}.gd-page-image{height:100%!important;width:100%!important}"]
+                    template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
+                    styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1664,7 +1964,7 @@ var UploadFileZoneComponent = /** @class */ (function () {
     UploadFileZoneComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-upload-file-zone',
-                    template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\n  <div class=\"gd-drag-n-drop-icon\">\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\n  </div>\n  <h2>Drag &amp; Drop your files here</h2>\n  <h4>OR</h4>\n  <div class=\"gd-drag-n-drop-buttons\">\n    <label class=\"btn btn-primary\"> \n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\n      SELECT FILE\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\n      </label>\n  </div>\n</div>\n",
+                    template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\r\n  <div class=\"gd-drag-n-drop-icon\">\r\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\r\n  </div>\r\n  <h2>Drag &amp; Drop your files here</h2>\r\n  <h4>OR</h4>\r\n  <div class=\"gd-drag-n-drop-buttons\">\r\n    <label class=\"btn btn-primary\"> \r\n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\r\n      SELECT FILE\r\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\r\n      </label>\r\n  </div>\r\n</div>\r\n",
                     styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:flex;align-content:center;flex-direction:column;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
                 }] }
     ];
@@ -1689,7 +1989,23 @@ var DndDirective = /** @class */ (function () {
         this.opening = new EventEmitter();
         this.dropped = new EventEmitter();
         this.active = false;
+        this.dragCounter = 0;
     }
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    DndDirective.prototype.onDragEnter = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.dragCounter++;
+        this.active = true;
+        this.opening.emit(true);
+    };
     /**
      * @param {?} evt
      * @return {?}
@@ -1701,8 +2017,7 @@ var DndDirective = /** @class */ (function () {
     function (evt) {
         evt.preventDefault();
         evt.stopPropagation();
-        this.active = true;
-        this.opening.emit(true);
+        return false;
     };
     /**
      * @param {?} evt
@@ -1715,8 +2030,11 @@ var DndDirective = /** @class */ (function () {
     function (evt) {
         evt.preventDefault();
         evt.stopPropagation();
-        this.active = false;
-        this.closeArea();
+        this.dragCounter--;
+        if (this.dragCounter === 0) {
+            this.active = false;
+            this.closeArea();
+        }
     };
     /**
      * @param {?} evt
@@ -1775,6 +2093,7 @@ var DndDirective = /** @class */ (function () {
         opening: [{ type: Output }],
         dropped: [{ type: Output }],
         active: [{ type: HostBinding, args: ['class.active',] }],
+        onDragEnter: [{ type: HostListener, args: ['dragenter', ['$event'],] }],
         onDragOver: [{ type: HostListener, args: ['dragover', ['$event'],] }],
         onDragLeave: [{ type: HostListener, args: ['dragleave', ['$event'],] }],
         onDrop: [{ type: HostListener, args: ['drop', ['$event'],] }],
@@ -2024,10 +2343,10 @@ var ViewportService = /** @class */ (function () {
         }
         /** @type {?} */
         var deltas = {
-            top: Math.min(1, (bottom - viewport.top) / height),
-            bottom: Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height),
-            left: Math.min(1, (right - viewport.left) / width),
-            right: Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width)
+            top: parseFloat(Math.min(1, (bottom - viewport.top) / height).toFixed(2)),
+            bottom: parseFloat(Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height).toFixed(2)),
+            left: parseFloat(Math.min(1, (right - viewport.left) / width).toFixed(2)),
+            right: parseFloat(Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width).toFixed(2))
         };
         return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
     };
@@ -2133,7 +2452,8 @@ var ScrollableDirective = /** @class */ (function () {
             top: pagesHeight
         };
         if (el) {
-            el.scrollTo(options);
+            // using polyfill
+            el.scroll(options);
         }
     };
     /**
@@ -2148,7 +2468,8 @@ var ScrollableDirective = /** @class */ (function () {
         /** @type {?} */
         var el = this._elementRef ? this._elementRef.nativeElement : null;
         if (el) {
-            return el.children.item(0).children;
+            // here and in the similar line below we getting the document pages
+            return el.children.item(0).children.item(0).children;
         }
     };
     /**
@@ -2180,7 +2501,7 @@ var ScrollableDirective = /** @class */ (function () {
      */
     function (pageNumber) {
         /** @type {?} */
-        var count = this.ifFirefox() ? 1 : this.countPagesOnWidth();
+        var count = this._windowService.isFirefox() ? 1 : this.countPagesOnWidth();
         /** @type {?} */
         var margin = this._windowService.isDesktop() ? 40 : 10;
         /** @type {?} */
@@ -2210,15 +2531,6 @@ var ScrollableDirective = /** @class */ (function () {
         /** @type {?} */
         var count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
         return count === 0 ? 1 : count;
-    };
-    /**
-     * @return {?}
-     */
-    ScrollableDirective.prototype.ifFirefox = /**
-     * @return {?}
-     */
-    function () {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     };
     /**
      * @return {?}
@@ -2318,10 +2630,10 @@ var ScrollableDirective = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ZoomDirective = /** @class */ (function () {
-    function ZoomDirective(_zoomService, el) {
+    function ZoomDirective(_zoomService, _windowService, el) {
         this._zoomService = _zoomService;
+        this._windowService = _windowService;
         this.zoomActive = true;
-        this.ifEdge = window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
         this.el = el;
     }
     /**
@@ -2379,13 +2691,13 @@ var ZoomDirective = /** @class */ (function () {
         }
         /** @type {?} */
         var zoomInt = zoom === 100 ? 1 : zoom / 100;
-        if (this.ifEdge) {
+        if (this._windowService.isEdge()) {
             this.zoomInt = zoomInt;
         }
         else {
             this.zoomInt = null;
         }
-        if (!this.ifEdge) {
+        if (!this._windowService.isEdge()) {
             this.transform = 'scale(' + zoomInt + ')';
             this.transformOrigin = 'top left';
         }
@@ -2458,6 +2770,7 @@ var ZoomDirective = /** @class */ (function () {
     /** @nocollapse */
     ZoomDirective.ctorParameters = function () { return [
         { type: ZoomService },
+        { type: WindowService },
         { type: ElementRef }
     ]; };
     ZoomDirective.propDecorators = {
@@ -2571,6 +2884,7 @@ var SelectComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
+        // TODO: following lines were uncommented due to needness in signature app
         $event.preventDefault();
         $event.stopPropagation();
         if (!this.disabled) {
@@ -2596,8 +2910,8 @@ var SelectComponent = /** @class */ (function () {
     SelectComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-select',
-                    template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [clickOutsideEnabled]=\"isOpen\"\n     >\n  <span class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </span>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
-                    styles: [".select{min-width:50px;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
+                    template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".select{min-width:50px;display:flex;flex-direction:row;justify-content:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
                 }] }
     ];
     /** @nocollapse */
@@ -2608,7 +2922,8 @@ var SelectComponent = /** @class */ (function () {
         options: [{ type: Input }],
         disabled: [{ type: Input }],
         showSelected: [{ type: Input }],
-        selected: [{ type: Output }]
+        selected: [{ type: Output }],
+        isOpen: [{ type: Input }]
     };
     return SelectComponent;
 }());
@@ -2806,7 +3121,7 @@ var InitStateComponent = /** @class */ (function () {
     InitStateComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-init-state',
-                    template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\n  <div class=\"init-state-wrapper\">\n    <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\n    <span class=\"start\">\n      <ng-content></ng-content>\n    </span>\n  </div>\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n    <span class=\"text\">{{text}}</span>\n  </div>\n</div>\n",
+                    template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\r\n  <div class=\"init-state-wrapper\">\r\n    <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <span class=\"start\">\r\n      <ng-content></ng-content>\r\n    </span>\r\n  </div>\r\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\r\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n    <span class=\"text\">{{text}}</span>\r\n  </div>\r\n</div>\r\n",
                     styles: [".wrapper{color:#959da5;background-color:#e7e7e7;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%}.icon{font-size:65px;margin-bottom:43px;display:flex;color:#959da5}.start{font-size:15px;text-align:center;color:#959da5}.gd-drag-n-drop-wrap.active{background-color:#fff;position:fixed;top:0;background:rgba(255,255,255,.8)}.gd-drag-n-drop-wrap.active .init-state-wrapper{position:absolute;opacity:.2;top:unset}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper{top:0;z-index:999}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon{width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}.gd-drag-n-drop-wrap.active .text{color:#6e6e6e;font-size:14px}.init-state-dnd-wrapper,.init-state-wrapper{display:flex;flex-direction:column;width:250px;height:250px;align-items:center;justify-content:center}.init-state-wrapper{top:-60px;position:relative}"]
                 }] }
     ];
@@ -3095,8 +3410,8 @@ var ErrorModalComponent = /** @class */ (function () {
     ErrorModalComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-error-modal',
-                    template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\n  <section id=\"gd-error-section\">\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\n    <div class=\"gd-modal-error\">\n      <div class=\"gd-modal-error-title\">Something went wrong</div>\n      <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\n    </div>\n  </section>\n</gd-modal>\n",
-                    styles: [".gd-modal-error{display:inline-flex;flex-direction:column;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:flex}#gd-error-section fa-icon{flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center}"]
+                    template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\r\n  <section id=\"gd-error-section\">\r\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\r\n    <div class=\"gd-modal-error\">\r\n      <div class=\"gd-modal-error-title\">Something went wrong</div>\r\n      <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
+                    styles: [".gd-modal-error{display:inline-flex;flex-direction:column;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0;word-break:break-word}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:flex}#gd-error-section fa-icon{flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center;max-width:46px}"]
                 }] }
     ];
     /** @nocollapse */
@@ -3143,10 +3458,13 @@ var PasswordService = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var $$4 = jquery;
 var PasswordRequiredComponent = /** @class */ (function () {
     function PasswordRequiredComponent(messageService, _passwordService) {
         var _this = this;
         this._passwordService = _passwordService;
+        this.cancelEvent = new EventEmitter();
         messageService.messageChange.subscribe((/**
          * @param {?} message
          * @return {?}
@@ -3172,11 +3490,48 @@ var PasswordRequiredComponent = /** @class */ (function () {
     function (value) {
         this._passwordService.setPassword(value);
     };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    PasswordRequiredComponent.prototype.onCloseOpen = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if ($event) {
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                /** @type {?} */
+                var element = $$4("#password");
+                if (element) {
+                    element.focus();
+                }
+            }), 100);
+        }
+        else {
+            $$4("#password").val("");
+        }
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    PasswordRequiredComponent.prototype.cancel = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $$4("#password").val("");
+        this.cancelEvent.emit(true);
+    };
     PasswordRequiredComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-password-required',
-                    template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n          Open\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
-                    styles: ["#gd-password-section{width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
+                    template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\r\n  <section id=\"gd-password-section\">\r\n    <div class=\"gd-password-wrap\">\r\n      <label for=\"password\">Password</label>\r\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\r\n             (keyup.enter)=\"setPassword(pass.value)\">\r\n      <span class=\"gd-password-error\">{{message}}</span>\r\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\r\n          Open\r\n      </gd-button>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
+                    styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -3184,6 +3539,9 @@ var PasswordRequiredComponent = /** @class */ (function () {
         { type: ExceptionMessageService },
         { type: PasswordService }
     ]; };
+    PasswordRequiredComponent.propDecorators = {
+        cancelEvent: [{ type: Output }]
+    };
     return PasswordRequiredComponent;
 }());
 
@@ -3435,8 +3793,8 @@ var SearchComponent = /** @class */ (function () {
     SearchComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-search',
-                    template: "<div class=\"gd-nav-search-container\">\n  <input type=\"text\" class=\"gd-search-input\" #text (input)=\"setText(text.value)\"/>\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\n  <div class=\"gd-nav-search-btn\" (click)=\"prev()\">\n    <fa-icon [icon]=\"['fas','chevron-left']\"></fa-icon>\n  </div>\n  <div class=\"gd-nav-search-btn\" (click)=\"next()\">\n    <fa-icon [icon]=\"['fas','chevron-right']\"></fa-icon>\n  </div>\n  <div class=\"gd-nav-search-btn gd-nav-search-cancel\" (click)=\"hide()\">\n    <fa-icon [icon]=\"['fas','times']\"></fa-icon>\n  </div>\n</div>\n",
-                    styles: [".gd-nav-search-btn{float:left;cursor:pointer;color:#959da5;font-size:14px;width:37px;height:37px;line-height:37px;text-align:center;margin:3px 0 4px 7px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0)}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;right:151px;top:15px}.gd-nav-search-container{width:100%}}"]
+                    template: "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" (keydown.enter)=\"next()\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\r\n  </gd-button>\r\n</div>\r\n",
+                    styles: [".gd-nav-search-btn{margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0);display:flex}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}input[type=text]::-ms-clear{display:none}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:193px;top:15px}.gd-nav-search-container{width:100%}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -3457,7 +3815,7 @@ var SearchComponent = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$4 = jquery;
+var $$5 = jquery;
 var SearchableDirective = /** @class */ (function () {
     function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
         var _this = this;
@@ -3542,18 +3900,19 @@ var SearchableDirective = /** @class */ (function () {
              * @return {?}
              */
             function (value) {
-                $$4(value).removeClass('gd-highlight-select');
+                $$5(value).removeClass('gd-highlight-select');
             }));
             /** @type {?} */
             var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-            $$4(currentEl).addClass('gd-highlight-select');
+            $$5(currentEl).addClass('gd-highlight-select');
             if (currentEl) {
                 /** @type {?} */
                 var options = {
                     left: 0,
-                    top: ($$4(currentEl).offset().top * currentZoom) + el.parentElement.scrollTop - 150,
+                    top: ($$5(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                 };
-                el.parentElement.parentElement.scrollTo(options);
+                // using polyfill
+                el.parentElement.parentElement.scroll(options);
             }
         }
     };
@@ -3569,7 +3928,7 @@ var SearchableDirective = /** @class */ (function () {
      */
     function (el) {
         /** @type {?} */
-        var textNodes = $$4(el).find('*').contents().filter((/**
+        var textNodes = $$5(el).find('*').contents().filter((/**
          * @return {?}
          */
         function () {
@@ -3594,7 +3953,7 @@ var SearchableDirective = /** @class */ (function () {
          */
         function () {
             /** @type {?} */
-            var $this = $$4(this);
+            var $this = $$5(this);
             /** @type {?} */
             var content = $this.text();
             content = highlight.transform(content, text);
@@ -3666,12 +4025,16 @@ var TabbedToolbarsComponent = /** @class */ (function () {
     TabbedToolbarsComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-tabbed-toolbars',
-                    template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"'editor'\" [icon]=\"'pen-square'\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
+                    template: "<div class=\"top-panel\">\r\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
                     styles: [".top-panel{background:#3e4e5a;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:1037px){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
                 }] }
     ];
     /** @nocollapse */
     TabbedToolbarsComponent.ctorParameters = function () { return []; };
+    TabbedToolbarsComponent.propDecorators = {
+        logo: [{ type: Input }],
+        icon: [{ type: Input }]
+    };
     return TabbedToolbarsComponent;
 }());
 
@@ -3768,8 +4131,8 @@ var TabComponent = /** @class */ (function () {
     TabComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-tab',
-                    template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'gd-editor-buttons active' : 'gd-editor-buttons'\">\n  <ng-content></ng-content>\n</div>\n",
-                    styles: [".gd-editor-buttons{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.gd-editor-buttons ::ng-deep .toolbar-panel{height:60px}.gd-editor-buttons.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
+                    template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -3797,7 +4160,7 @@ var TabsComponent = /** @class */ (function () {
     TabsComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-tabs',
-                    template: "<div class=\"gd-tabs\">\n  <ng-content></ng-content>\n</div>\n",
+                    template: "<div class=\"gd-tabs\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
                     styles: [".gd-tabs{display:flex}"]
                 }] }
     ];
@@ -3823,7 +4186,15 @@ var Formatting = /** @class */ (function () {
         this.align = align;
         this.list = list;
     }
-    Formatting.DEFAULT = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+    /**
+     * @return {?}
+     */
+    Formatting.default = /**
+     * @return {?}
+     */
+    function () {
+        return new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+    };
     return Formatting;
 }());
 var FormattingService = /** @class */ (function () {
@@ -4172,16 +4543,23 @@ var FormattingService = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var DEFAULT_COLORS = ['#000000', '#993300', '#333300', '#000080', '#333399', '#333333',
-    '#800000', '#FF6600', '#808000', '#008000', '#008080', '#0000FF',
-    '#666699', '#808080', '#FF0000', '#FF9900', '#99CC00', '#339966',
-    '#33CCCC', '#3366FF', '#800080', '#999999', '#FF00FF', '#FFCC00',
-    '#FFFF00', '#00FF00', '#00FFFF', '#00CCFF', '#993366', '#C0C0C0',
-    '#FF99CC', '#FFCC99', '#FFFF99', '#CCFFFF', '#99CCFF', '#FFFFFF'];
+var DEFAULT_COLORS = [
+    '#000000', '#434343', '#666666', '#999999', '#B7B7B7', '#CCCCCC', '#D9D9D9', '#EFEFEF', '#F3F3F3', '#FFFFFF',
+    '#980000', '#FF0000', '#FF9900', '#FFFF00', '#00FF00', '#00FFFF', '#4986E8', '#0000FF', '#9900FF', '#FF00FF',
+    '#E6B8AF', '#F4CCCC', '#FDE5CD', '#FFF2CC', '#D9EAD3', '#D0E0E2', '#C9DAF8', '#CFE2F3', '#D9D2E9', '#EAD1DC',
+    '#DD7E6B', '#EA9899', '#F9CB9C', '#FFE59A', '#B7D7A8', '#A2C4C9', '#A4C2F4', '#9FC5E8', '#B4A7D7', '#D5A6BD',
+    '#CC4125', '#E06666', '#F6B26B', '#FFD966', '#92C47D', '#75A5AF', '#6D9EEB', '#6FA9DB', '#8E7CC3', '#C27BA0',
+    '#A61C00', '#CC0000', '#E69138', '#F2C131', '#6AA84F', '#45818E', '#3C78D8', '#3C85C6', '#674EA7', '#A64D79',
+    '#85200B', '#990000', '#B45F05', '#BF9000', '#37761D', '#144F5C', '#1254CC', '#0A5394', '#351C75', '#741B47',
+    '#5B0F00', '#660000', '#783F03', '#7F6000', '#284E13', '#0B343D', '#1B4586', '#063763', '#20124D', '#4C1030',
+];
 var ColorPickerComponent = /** @class */ (function () {
     function ColorPickerComponent() {
+        this.isOpen = false;
         this.selectedColor = new EventEmitter();
+        this.closeOutside = new EventEmitter();
         this.colors = DEFAULT_COLORS;
+        this.white = '#FFFFFF';
     }
     /**
      * @return {?}
@@ -4206,17 +4584,29 @@ var ColorPickerComponent = /** @class */ (function () {
         $event.stopPropagation();
         this.selectedColor.emit(color);
     };
+    /**
+     * @return {?}
+     */
+    ColorPickerComponent.prototype.close = /**
+     * @return {?}
+     */
+    function () {
+        this.isOpen = false;
+        this.closeOutside.emit(true);
+    };
     ColorPickerComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-color-picker',
-                    template: "<div class=\"bcPicker-picker\">\n  <div class=\"bcPicker-palette\">\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\" (click)=\"select($event, color)\"></div>\n  </div>\n</div>\n",
-                    styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:232px;padding:5px;border:1px solid #efefef;background-color:#fdfdfd;z-index:999}.bcPicker-palette>.bcPicker-color{width:14px;height:14px;margin:2px;display:inline-block;border:1px solid #efefef;background-color:#9da97b;cursor:pointer}"]
+                    template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"bcPicker-palette\">\r\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\"\r\n      (click)=\"select($event, color)\" [style.border]=\"'1px solid ' + (color === white ? '#707070' : color)\"\r\n      (touchstart)=\"select($event, color)\"></div>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:250px;background-color:#fdfdfd;z-index:999;box-shadow:0 0 5px #efefef;display:flex;flex-wrap:wrap;justify-content:center}.bcPicker-palette>.bcPicker-color{width:18px;height:18px;margin:2px;cursor:pointer}"]
                 }] }
     ];
     /** @nocollapse */
     ColorPickerComponent.ctorParameters = function () { return []; };
     ColorPickerComponent.propDecorators = {
-        selectedColor: [{ type: Output }]
+        isOpen: [{ type: Input }],
+        selectedColor: [{ type: Output }],
+        closeOutside: [{ type: Output }]
     };
     return ColorPickerComponent;
 }());
@@ -4313,7 +4703,7 @@ var SelectionService = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$5 = jquery;
+var $$6 = jquery;
 var FormattingDirective = /** @class */ (function () {
     function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
         this._formattingService = _formattingService;
@@ -4342,7 +4732,7 @@ var FormattingDirective = /** @class */ (function () {
         this.list = this.checkList();
         //fix required by FireFox to get correct background color
         if (this.bgColor === "transparent") {
-            this.bgColor = $$5(window.getSelection().focusNode.parentNode).css('background-color').toString();
+            this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
         }
         this.font = document.queryCommandValue("FontName").replace(/"/g, '');
         if (this.font.split(",").length > 1) {
@@ -4534,8 +4924,10 @@ var FormattingDirective = /** @class */ (function () {
          * @return {?}
          */
         function (list) {
+            /** @type {?} */
+            var remove = _this.list === list;
             _this.list = list;
-            _this.toggleList(_this.list);
+            _this.toggleList(_this.list, remove);
         }));
     };
     /**
@@ -4734,26 +5126,28 @@ var FormattingDirective = /** @class */ (function () {
         if (align === "full") {
             align = "justify";
         }
-        $$5(selection).css("text-align", align);
+        $$6(selection).css("text-align", align);
         this._selectionService.refreshSelection();
     };
     /**
      * @private
      * @param {?} list
+     * @param {?} remove
      * @return {?}
      */
     FormattingDirective.prototype.toggleList = /**
      * @private
      * @param {?} list
+     * @param {?} remove
      * @return {?}
      */
-    function (list) {
+    function (list, remove) {
         switch (list) {
             case 'unordered':
-                document.execCommand('insertUnorderedList');
+                document.execCommand('insertUnorderedList', remove);
                 break;
             case 'ordered':
-                document.execCommand('insertOrderedList');
+                document.execCommand('insertOrderedList', remove);
                 break;
         }
         this._selectionService.refreshSelection();
@@ -4793,7 +5187,7 @@ var SuccessModalComponent = /** @class */ (function () {
     SuccessModalComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-success-modal',
-                    template: "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\n    <div class=\"sa-icon sa-success animate\">\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\n        <div class=\"sa-placeholder\"></div>\n        <div class=\"sa-fix\"></div>\n      </div>\n  </div></div>\n  </gd-modal>\n",
+                    template: "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\r\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\r\n    <div class=\"sa-icon sa-success animate\">\r\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\r\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\r\n        <div class=\"sa-placeholder\"></div>\r\n        <div class=\"sa-fix\"></div>\r\n      </div>\r\n  </div></div>\r\n  </gd-modal>\r\n",
                     styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;transform:rotate(-45deg);transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;transform:rotate(-45deg);transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1037px){#gd-modal-success{left:50%;top:50%;position:relative;transform:translate(-50%,-50%)}}"]
                 }] }
     ];
@@ -4931,7 +5325,11 @@ var EditorDirective = /** @class */ (function () {
 var LoadingMaskService = /** @class */ (function () {
     function LoadingMaskService() {
         this.onLoadingChanged = new EventEmitter();
+        this.stopList = [];
         this.requests = [];
+        this.stopList.push(Api.SAVE_TEXT);
+        this.stopList.push(Api.SAVE_OPTICAL_CODE);
+        this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
     }
     /**
      * @param {?} req
@@ -4942,8 +5340,16 @@ var LoadingMaskService = /** @class */ (function () {
      * @return {?}
      */
     function (req) {
-        this.requests.push(req);
-        this.notify();
+        /** @type {?} */
+        var stop = this.stopList.find((/**
+         * @param {?} x
+         * @return {?}
+         */
+        function (x) { return req.url.includes(x); }));
+        if (!stop) {
+            this.requests.push(req);
+            this.notify();
+        }
     };
     /**
      * @param {?} req
@@ -5016,7 +5422,7 @@ var LoadingMaskComponent = /** @class */ (function () {
     LoadingMaskComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-loading-mask',
-                    template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\n    <div class=\"loading-message\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;Loading... Please wait.\n    </div>\n</div>\n",
+                    template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\r\n    <div class=\"loading-message\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;Loading... Please wait.\r\n    </div>\r\n</div>\r\n",
                     styles: [".loading-wrapper{background:rgba(0,0,0,.5);width:100%;height:100%;font-size:14px;color:#fff;position:fixed;top:0;left:0;z-index:99999}.loading-message{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}"]
                 }] }
     ];
@@ -5306,13 +5712,943 @@ var DropDownComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var LeftSideBarComponent = /** @class */ (function () {
+    function LeftSideBarComponent() {
+        this.showSpinner = false;
+    }
+    /**
+     * @return {?}
+     */
+    LeftSideBarComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    LeftSideBarComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-left-side-bar',
+                    template: "<div class=\"left-panel\">\r\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\r\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [".left-panel{border-radius:0;float:left}.gd-left-bar-fade{margin:auto;overflow:hidden;-webkit-overflow-scrolling:touch;transition:transform .3s ease-out;width:100%;height:100%;display:flex;justify-content:center;align-items:center;position:fixed;z-index:1000}@media (max-width:1037px){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    LeftSideBarComponent.ctorParameters = function () { return []; };
+    LeftSideBarComponent.propDecorators = {
+        showSpinner: [{ type: Input }]
+    };
+    return LeftSideBarComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TooltipDirective = /** @class */ (function () {
+    function TooltipDirective() {
+        this.showToolTip = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    TooltipDirective.prototype.onHovering = /**
+     * @return {?}
+     */
+    function () {
+        this.showToolTip.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    TooltipDirective.prototype.onUnhovering = /**
+     * @return {?}
+     */
+    function () {
+        this.showToolTip.emit(false);
+    };
+    TooltipDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[gdTooltip]'
+                },] }
+    ];
+    /** @nocollapse */
+    TooltipDirective.ctorParameters = function () { return []; };
+    TooltipDirective.propDecorators = {
+        showToolTip: [{ type: Output }],
+        onHovering: [{ type: HostListener, args: ['mouseenter',] }],
+        onUnhovering: [{ type: HostListener, args: ['mouseleave',] }]
+    };
+    return TooltipDirective;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var AddDynamicComponentService = /** @class */ (function () {
+    function AddDynamicComponentService(_factoryResolver, _appRef) {
+        this._factoryResolver = _factoryResolver;
+        this._appRef = _appRef;
+    }
+    /**
+     * @param {?} viewContainerRef
+     * @param {?} component
+     * @return {?}
+     */
+    AddDynamicComponentService.prototype.addDynamicComponent = /**
+     * @param {?} viewContainerRef
+     * @param {?} component
+     * @return {?}
+     */
+    function (viewContainerRef, component) {
+        var _this = this;
+        /** @type {?} */
+        var factory = this._factoryResolver.resolveComponentFactory(component);
+        /** @type {?} */
+        var componentRef = viewContainerRef.createComponent(factory);
+        componentRef.onDestroy((/**
+         * @return {?}
+         */
+        function () {
+            _this._appRef.detachView(componentRef.hostView);
+        }));
+        return componentRef;
+    };
+    AddDynamicComponentService.decorators = [
+        { type: Injectable, args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    AddDynamicComponentService.ctorParameters = function () { return [
+        { type: ComponentFactoryResolver },
+        { type: ApplicationRef }
+    ]; };
+    /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(ɵɵinject(ComponentFactoryResolver), ɵɵinject(ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
+    return AddDynamicComponentService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var HostingDynamicComponentService = /** @class */ (function () {
+    function HostingDynamicComponentService() {
+        this.hosts = [];
+    }
+    /**
+     * @param {?} host
+     * @return {?}
+     */
+    HostingDynamicComponentService.prototype.add = /**
+     * @param {?} host
+     * @return {?}
+     */
+    function (host) {
+        this.hosts = this.hosts.filter((/**
+         * @param {?} h
+         * @return {?}
+         */
+        function (h) {
+            return h.ident !== host.ident;
+        }));
+        this.hosts.push(host);
+    };
+    /**
+     * @param {?} host
+     * @return {?}
+     */
+    HostingDynamicComponentService.prototype.remove = /**
+     * @param {?} host
+     * @return {?}
+     */
+    function (host) {
+        this.hosts = this.hosts.filter((/**
+         * @param {?} h
+         * @return {?}
+         */
+        function (h) {
+            return h.ident !== host.ident;
+        }));
+    };
+    /**
+     * @param {?} ident
+     * @return {?}
+     */
+    HostingDynamicComponentService.prototype.find = /**
+     * @param {?} ident
+     * @return {?}
+     */
+    function (ident) {
+        return this.hosts.find((/**
+         * @param {?} h
+         * @return {?}
+         */
+        function (h) {
+            return h.ident === ident;
+        }));
+    };
+    return HostingDynamicComponentService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var HostDynamicDirective = /** @class */ (function () {
+    function HostDynamicDirective(viewContainerRef, _hostingService) {
+        this.viewContainerRef = viewContainerRef;
+        this._hostingService = _hostingService;
+    }
+    /**
+     * @return {?}
+     */
+    HostDynamicDirective.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        this._hostingService.add(this);
+    };
+    /**
+     * @return {?}
+     */
+    HostDynamicDirective.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._hostingService.remove(this);
+        this.viewContainerRef.clear();
+    };
+    HostDynamicDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[gdHostDynamic]'
+                },] }
+    ];
+    /** @nocollapse */
+    HostDynamicDirective.ctorParameters = function () { return [
+        { type: ViewContainerRef },
+        { type: HostingDynamicComponentService }
+    ]; };
+    HostDynamicDirective.propDecorators = {
+        ident: [{ type: Input }]
+    };
+    return HostDynamicDirective;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$7 = jquery;
+var ResizingComponent = /** @class */ (function () {
+    function ResizingComponent() {
+        this.se = false;
+        this.ne = false;
+        this.sw = false;
+        this.nw = false;
+        this.SE = 'se';
+        this.NE = 'ne';
+        this.SW = 'sw';
+        this.NW = 'nw';
+        this.offsetX = new EventEmitter();
+        this.offsetY = new EventEmitter();
+        this.offsetTop = new EventEmitter();
+        this.offsetLeft = new EventEmitter();
+        this.release = new EventEmitter();
+        this.grab = false;
+    }
+    /**
+     * @return {?}
+     */
+    ResizingComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        /** @type {?} */
+        var elSE = $$7(this.getElementId(this.SE));
+        /** @type {?} */
+        var elNW = $$7(this.getElementId(this.NW));
+        if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
+            /** @type {?} */
+            var width_1 = elSE.offset().left - elNW.offset().left;
+            /** @type {?} */
+            var height_1 = elSE.offset().top - elNW.offset().top;
+            while (width_1 >= this.pageWidth || height_1 >= this.pageHeight) {
+                width_1 = width_1 / 2;
+                height_1 = height_1 / 2;
+            }
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                _this.offsetX.emit(width_1);
+                _this.offsetY.emit(height_1);
+            }), 100);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    ResizingComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ResizingComponent.prototype.catchUp = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        // ff
+        $event.preventDefault();
+        if ($event.dataTransfer) { // ff
+            $event.dataTransfer.setData('text', 'foo');
+        }
+        this.grab = true;
+        this.oldPosition = Utils.getMousePosition($event);
+    };
+    /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    ResizingComponent.prototype.resize = /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    function ($event, el) {
+        if (!this.grab) {
+            return;
+        }
+        /** @type {?} */
+        var position = Utils.getMousePosition($event);
+        if (position.x === 0 && position.y === 0) {
+            return;
+        }
+        /** @type {?} */
+        var notSW = this.NE === el || this.NW === el;
+        /** @type {?} */
+        var notNE = this.SW === el || this.NW === el;
+        this.setOffsets(position, notNE, notSW);
+        if (notSW) {
+            this.offsetTop.emit(position.y - this.oldPosition.y);
+        }
+        if (notNE) {
+            this.offsetLeft.emit(position.x - this.oldPosition.x);
+        }
+        this.oldPosition = position;
+    };
+    /**
+     * @private
+     * @param {?} position
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    ResizingComponent.prototype.setOffsets = /**
+     * @private
+     * @param {?} position
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    function (position, x, y) {
+        /** @type {?} */
+        var offsetX = x ? this.oldPosition.x - position.x : position.x - this.oldPosition.x;
+        /** @type {?} */
+        var offsetY = y ? this.oldPosition.y - position.y : position.y - this.oldPosition.y;
+        this.offsetX.emit(offsetX);
+        this.offsetY.emit(offsetY);
+    };
+    /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    ResizingComponent.prototype.end = /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    function ($event, el) {
+        // ff
+        this.resize($event, el);
+        this.release.emit(true);
+        this.grab = false;
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ResizingComponent.prototype.start = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.drop($event);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ResizingComponent.prototype.drop = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+    };
+    /**
+     * @private
+     * @param {?} el
+     * @return {?}
+     */
+    ResizingComponent.prototype.getElementId = /**
+     * @private
+     * @param {?} el
+     * @return {?}
+     */
+    function (el) {
+        return "#" + el + "-" + this.id;
+    };
+    ResizingComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-resizing',
+                    template: "<div class=\"ui-resizable-handle se-resize\" id=\"se-{{id}}\" *ngIf=\"se\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, SE)\" (dragend)=\"end($event, SE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n      (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SE)\" (panend)=\"end($event, SE)\"></div>\r\n\r\n<div class=\"ui-resizable-handle ne-resize\" id=\"ne-{{id}}\" *ngIf=\"ne\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, NE)\" (dragend)=\"end($event, NE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NE)\" (panend)=\"end($event, NE)\"></div>\r\n\r\n<div class=\"ui-resizable-handle sw-resize\" id=\"sw-{{id}}\" *ngIf=\"sw\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, SW)\" (dragend)=\"end($event, SW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SW)\" (panend)=\"end($event, SW)\"></div>\r\n\r\n<div class=\"ui-resizable-handle nw-resize\" id=\"nw-{{id}}\" *ngIf=\"nw\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, NW)\" (dragend)=\"end($event, NW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NW)\" (panend)=\"end($event, NW)\"></div>\r\n",
+                    styles: [".ui-resizable-handle{background-color:#679ffa;width:8px;height:8px;border-radius:100%;position:absolute;font-size:.1px;display:block}.se-resize{bottom:-5px;right:-5px;cursor:se-resize}.ne-resize{top:-5px;right:-5px;cursor:ne-resize}.sw-resize{bottom:-5px;left:-5px;cursor:sw-resize}.nw-resize{top:-5px;left:-5px;cursor:nw-resize}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ResizingComponent.ctorParameters = function () { return []; };
+    ResizingComponent.propDecorators = {
+        init: [{ type: Input }],
+        id: [{ type: Input }],
+        se: [{ type: Input }],
+        ne: [{ type: Input }],
+        sw: [{ type: Input }],
+        nw: [{ type: Input }],
+        pageWidth: [{ type: Input }],
+        pageHeight: [{ type: Input }],
+        offsetX: [{ type: Output }],
+        offsetY: [{ type: Output }],
+        offsetTop: [{ type: Output }],
+        offsetLeft: [{ type: Output }],
+        release: [{ type: Output }]
+    };
+    return ResizingComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TopTabActivatorService = /** @class */ (function (_super) {
+    __extends(TopTabActivatorService, _super);
+    function TopTabActivatorService() {
+        return _super.call(this) || this;
+    }
+    return TopTabActivatorService;
+}(TabActivatorService));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TopTabComponent = /** @class */ (function () {
+    function TopTabComponent(_tabActivatorService, _modalService, _excMessageService) {
+        var _this = this;
+        this._tabActivatorService = _tabActivatorService;
+        this._modalService = _modalService;
+        this._excMessageService = _excMessageService;
+        this.disabled = false;
+        this.activeTab = new EventEmitter();
+        this.elementPosition = 0;
+        this.active = false;
+        this.showToolTip = false;
+        this._tabActivatorService.activeTabChange.subscribe((/**
+         * @param {?} tabId
+         * @return {?}
+         */
+        function (tabId) {
+            _this.activation(tabId);
+            if (tabId === null) {
+                _this.activeTab.emit("");
+            }
+        }));
+    }
+    /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    TopTabComponent.prototype.activation = /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    function (tabId) {
+        if (this.id === tabId) {
+            this.active = !this.active;
+            if (this.active) {
+                this.activeTab.emit(this.id);
+            }
+            else {
+                this.activeTab.emit("");
+            }
+        }
+        else {
+            this.active = false;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    TopTabComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    TopTabComponent.prototype.toggleTab = /**
+     * @return {?}
+     */
+    function () {
+        if (this.disabled) {
+            this._modalService.open(CommonModals.ErrorMessage);
+            this._excMessageService.changeMessage("Please open document first");
+            return;
+        }
+        this._tabActivatorService.changeActiveTab(this.id);
+    };
+    TopTabComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-top-tab',
+                    template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" class=\"gd-tab-tooltip\"\r\n              *ngIf=\"tooltip\" [position]=\"elementPosition\"></gd-tooltip>\r\n</div>\r\n",
+                    styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:flex;flex-direction:column;align-items:center;align-content:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab .gd-tab-tooltip{display:flex;flex-direction:column;margin:0!important}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TopTabComponent.ctorParameters = function () { return [
+        { type: TopTabActivatorService },
+        { type: ModalService },
+        { type: ExceptionMessageService }
+    ]; };
+    TopTabComponent.propDecorators = {
+        id: [{ type: Input }],
+        icon: [{ type: Input }],
+        disabled: [{ type: Input }],
+        tooltip: [{ type: Input }],
+        activeTab: [{ type: Output }],
+        elementPosition: [{ type: Input }]
+    };
+    return TopTabComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$8 = jquery;
+var TextMenuComponent = /** @class */ (function () {
+    function TextMenuComponent(_onCloseService) {
+        var _this = this;
+        this._onCloseService = _onCloseService;
+        this.decoration = true;
+        this.showTooltips = true;
+        this.outFontSize = new EventEmitter();
+        this.outFont = new EventEmitter();
+        this.outBold = new EventEmitter();
+        this.outItalic = new EventEmitter();
+        this.outUnderline = new EventEmitter();
+        this.outColor = new EventEmitter();
+        this.fontSizeOptions = FormattingService.getFontSizeOptions();
+        this.fontOptions = FormattingService.getFontOptions();
+        this.colorPickerShow = false;
+        _onCloseService.onClose.subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.colorPickerShow = false;
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    TextMenuComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.selectFontSize = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $$8(".gd-wrapper").off("keyup");
+        this.outFontSize.emit($event.value);
+        $$8(".gd-wrapper").on("keyup", (/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var fontElements = document.getElementsByTagName("font");
+            for (var i = 0, len = fontElements.length; i < len; ++i) {
+                if (fontElements[i].getAttribute('size') === "7") {
+                    fontElements[i].removeAttribute("size");
+                    fontElements[i].style.fontSize = $event + "px";
+                }
+            }
+        }));
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.selectFont = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outFont.emit($event.value);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleColorPicker = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        this.colorPickerShow = !this.colorPickerShow;
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.selectColor = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.colorPickerShow = false;
+        this.outColor.emit($event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleBold = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outBold.emit(!this.bold);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleItalic = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outItalic.emit(!this.italic);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleUnderline = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outUnderline.emit(!this.underline);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.closePicker = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.colorPickerShow = !$event;
+    };
+    TextMenuComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-text-menu',
+                    template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;bottom:0;left:0;right:0;width:100%;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-200px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TextMenuComponent.ctorParameters = function () { return [
+        { type: OnCloseService }
+    ]; };
+    TextMenuComponent.propDecorators = {
+        blur: [{ type: Input }],
+        fontSize: [{ type: Input }],
+        font: [{ type: Input }],
+        bold: [{ type: Input }],
+        italic: [{ type: Input }],
+        underline: [{ type: Input }],
+        color: [{ type: Input }],
+        decoration: [{ type: Input }],
+        showTooltips: [{ type: Input }],
+        outFontSize: [{ type: Output }],
+        outFont: [{ type: Output }],
+        outBold: [{ type: Output }],
+        outItalic: [{ type: Output }],
+        outUnderline: [{ type: Output }],
+        outColor: [{ type: Output }]
+    };
+    return TextMenuComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var MenuType = /** @class */ (function () {
+    function MenuType() {
+    }
+    MenuType.FOR_SIGNATURE = "signature";
+    MenuType.FOR_ANNOTATION = "annotation";
+    return MenuType;
+}());
+var ContextMenuComponent = /** @class */ (function () {
+    function ContextMenuComponent(_windowService) {
+        var _this = this;
+        this._windowService = _windowService;
+        this.formatting = Formatting.default();
+        this.lock = false;
+        this.translation = 0;
+        this.changeFormatting = new EventEmitter();
+        this.removeItem = new EventEmitter();
+        this.copySign = new EventEmitter();
+        this.lockOut = new EventEmitter();
+        this.comment = new EventEmitter();
+        this.isMobile = _windowService.isMobile();
+        _windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        function (w) {
+            _this.isMobile = _windowService.isMobile();
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.saveChanges = /**
+     * @return {?}
+     */
+    function () {
+        this.changeFormatting.emit(this.formatting);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.selectFontSize = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.fontSize = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.selectFont = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.font = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.selectColor = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.color = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleBold = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.bold = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleItalic = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.italic = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleUnderline = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.underline = $event;
+        this.saveChanges();
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.deleteItem = /**
+     * @return {?}
+     */
+    function () {
+        this.removeItem.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleLock = /**
+     * @return {?}
+     */
+    function () {
+        this.lock = !this.lock;
+        this.lockOut.emit(this.lock);
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.onCopySign = /**
+     * @return {?}
+     */
+    function () {
+        this.copySign.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.isSignature = /**
+     * @return {?}
+     */
+    function () {
+        return this.menuType === MenuType.FOR_SIGNATURE;
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.isAnnotation = /**
+     * @return {?}
+     */
+    function () {
+        return this.menuType === MenuType.FOR_ANNOTATION;
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.addComment = /**
+     * @return {?}
+     */
+    function () {
+        this.comment.emit(true);
+    };
+    ContextMenuComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-context-menu',
+                    template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\" (touchstart)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
+                    styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-34px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ContextMenuComponent.ctorParameters = function () { return [
+        { type: WindowService }
+    ]; };
+    ContextMenuComponent.propDecorators = {
+        formatting: [{ type: Input }],
+        textMenu: [{ type: Input }],
+        topPosition: [{ type: Input }],
+        lock: [{ type: Input }],
+        translation: [{ type: Input }],
+        menuType: [{ type: Input }],
+        changeFormatting: [{ type: Output }],
+        removeItem: [{ type: Output }],
+        copySign: [{ type: Output }],
+        lockOut: [{ type: Output }],
+        comment: [{ type: Output }]
+    };
+    return ContextMenuComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 var providers = [ConfigService,
     Api,
     ModalService,
     FileService,
     FileModel,
+    FilePropertyModel,
     FileUtil,
+    Utils,
     SanitizeHtmlPipe,
     SanitizeResourceHtmlPipe,
     SanitizeStylePipe,
@@ -5333,7 +6669,10 @@ var providers = [ConfigService,
     OnCloseService,
     LoadingMaskInterceptorService,
     LoadingMaskService,
-    TabActivatorService];
+    TabActivatorService,
+    AddDynamicComponentService,
+    HostingDynamicComponentService,
+    TopTabActivatorService];
 var CommonComponentsModule = /** @class */ (function () {
     function CommonComponentsModule() {
         library.add(fas, far);
@@ -5379,7 +6718,14 @@ var CommonComponentsModule = /** @class */ (function () {
                         DropDownComponent,
                         DropDownItemComponent,
                         DropDownItemsComponent,
-                        DropDownToggleComponent
+                        DropDownToggleComponent,
+                        LeftSideBarComponent,
+                        TooltipDirective,
+                        HostDynamicDirective,
+                        ResizingComponent,
+                        TopTabComponent,
+                        TextMenuComponent,
+                        ContextMenuComponent
                     ],
                     exports: [
                         TopToolbarComponent,
@@ -5416,7 +6762,16 @@ var CommonComponentsModule = /** @class */ (function () {
                         DropDownComponent,
                         DropDownItemComponent,
                         DropDownItemsComponent,
-                        DropDownToggleComponent
+                        DropDownToggleComponent,
+                        ZoomDirective,
+                        DropDownToggleComponent,
+                        LeftSideBarComponent,
+                        TooltipDirective,
+                        HostDynamicDirective,
+                        ResizingComponent,
+                        TopTabComponent,
+                        TextMenuComponent,
+                        ContextMenuComponent
                     ],
                     providers: providers
                 },] }
@@ -5426,5 +6781,5 @@ var CommonComponentsModule = /** @class */ (function () {
     return CommonComponentsModule;
 }());
 
-export { Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HttpError, InitStateComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TooltipComponent, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FilePropertyCategory, FilePropertyModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

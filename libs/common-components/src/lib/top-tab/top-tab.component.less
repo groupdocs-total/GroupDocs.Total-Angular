@@ -1,0 +1,51 @@
+@import "../../../../common-components/src/styles/variables";
+
+.gd-tab {
+  font-size: 14px;
+  color: @primary;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  text-align: center;
+  position: relative;
+  white-space: nowrap;
+  padding: 0 !important;
+  margin: 0 10px;
+
+  .gd-tab-tooltip {
+    display: flex;
+    flex-direction: column;
+    margin: 0px !important;
+  }
+
+  &.active {
+    background-color: #ACACAC;
+    color: #FFFFFF !important;
+    font-weight: bold;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: .4;
+  }
+
+  ::ng-deep .tooltip {
+    font-size: 12px;
+    margin: 20px -57px;
+  }
+
+  .title {
+    margin: auto 23px;
+  }
+}
+
+@media @phone-down {
+  .gd-tab {
+    font-size: 20px;
+  }
+}

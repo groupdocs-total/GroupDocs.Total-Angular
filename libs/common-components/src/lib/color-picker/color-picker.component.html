@@ -1,5 +1,7 @@
-<div class="bcPicker-picker">
+<div class="bcPicker-picker" (clickOutside)="close()" *ngIf="isOpen" [clickOutsideEnabled]="isOpen">
   <div class="bcPicker-palette">
-    <div class="bcPicker-color" *ngFor="let color of colors" [style.background-color]="color" (click)="select($event, color)"></div>
+    <div class="bcPicker-color" *ngFor="let color of colors" [style.background-color]="color"
+      (click)="select($event, color)" [style.border]="'1px solid ' + (color === white ? '#707070' : color)"
+      (touchstart)="select($event, color)"></div>
   </div>
 </div>

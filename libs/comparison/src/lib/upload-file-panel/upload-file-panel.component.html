@@ -1,6 +1,13 @@
-<div class="gd-drag-n-drop-wrap" id="gd-dropZone" gdDnd (dropped)="dropped($event)">
-  <div class="gd-drag-n-drop-icon">
-    <fa-icon [icon]="['far','folder-open']" size="5x" (click)="openModal()"></fa-icon>
+<div class="wrapper gd-drag-n-drop-wrap" gdDnd (dropped)="dropped($event)" (opening)="showUploadFile=$event">
+  <div class="init-state-wrapper">
+    <fa-icon class="icon" [icon]="['fas', 'folder-open']"></fa-icon>
+    <span class="start">
+        Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
+        Or drop file here
+    </span>
   </div>
-  <h2>Drop your document here or click to select a file</h2>
+  <div *ngIf="showUploadFile" class="init-state-dnd-wrapper">
+    <fa-icon  class="icon" [icon]="['fas','cloud-download-alt']" aria-hidden="true"></fa-icon>
+    <span class="text">Drop file here to upload</span>
+  </div>
 </div>

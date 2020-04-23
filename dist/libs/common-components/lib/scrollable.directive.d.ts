@@ -22,7 +22,6 @@ export declare class ScrollableDirective implements AfterViewInit, OnChanges, On
     private getPage;
     private calculateOffset;
     private countPagesOnWidth;
-    ifFirefox(): boolean;
     refresh(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;

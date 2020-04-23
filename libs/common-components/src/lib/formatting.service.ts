@@ -1,8 +1,6 @@
 import {Observable, Subject} from "rxjs";
 
 export class Formatting {
-  static DEFAULT: Formatting = new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
-
   constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean, align: string, list: string) {
     this.fontSize = fontSize;
     this.color = color;
@@ -26,6 +24,10 @@ export class Formatting {
   strikeout: boolean;
   align: string;
   list: string;
+
+  public static default(): Formatting {
+    return new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+  }
 }
 
 export class FormattingService {
@@ -131,7 +133,7 @@ export class FormattingService {
     const fonts = ["Arial", "Calibri", "Century Gothic", "Comic Sans", "Consolas", "Courier", "Dejavu Sans", "Dejavu Serif", "Georgia", "Gill Sans", "Helvetica", "Impact", "Lucida Sans",
       "Myriad Pro", "Open Sans", "Palatino", "Tahoma", "Times New Roman", "Trebuchet"];
     const fontOptions = [];
-    fonts.forEach(font=> {
+    fonts.forEach(font => {
       fontOptions.push(this.createFontOption(font));
     })
 

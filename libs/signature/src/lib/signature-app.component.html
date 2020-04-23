@@ -1,0 +1,67 @@
+<gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
+<div class="wrapper" (contextmenu)="onRightClick($event)" (click)="hideAll($event)">
+  <div class="signature-wrapper wrapper">
+    <gd-tabbed-toolbars [logo]="'signature'" [icon]="'pen-square'">
+      <gd-tabs>
+        <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
+          <div id="files-tools" class="toolbar-panel">
+            <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                       *ngIf="browseConfig" [elementPosition]="-1"></gd-button>
+
+            <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+                       (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
+            <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="sign()"></gd-button>
+
+          </div>
+        </gd-tab>
+        <gd-tab [tabTitle]="'Signatures'" [icon]="'signature'" [id]="'2'">
+          <div class="toolbar-panel">
+            <div *ngFor="let signatureType of signatureTypes">
+              <gd-top-tab [disabled]="!file" *ngIf="isVisible(signatureType.id)"
+                          [icon]="signatureType.icon" (activeTab)="activeTab($event)"
+                          [id]="signatureType.id" [tooltip]="signatureType.name"
+                          [elementPosition]="isFirstTab(signatureType)">
+              </gd-top-tab>
+            </div>
+          </div>
+        </gd-tab>
+        <gd-tab [tabTitle]="''" [icon]="'qrcode'" [id]="'3'" *ngIf="!isDesktop && codesConfig()">
+          <div class="toolbar-panel">
+            <div *ngFor="let signatureType of signatureTypeCodes">
+              <gd-top-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)"
+                          [icon]="signatureType.icon" (activeTab)="activeTab($event)"
+                          [id]="signatureType.id" [tooltip]="signatureType.name"
+                          [elementPosition]="isFirstTab(signatureType)">
+              </gd-top-tab>
+            </div>
+          </div>
+        </gd-tab>
+      </gd-tabs>
+    </gd-tabbed-toolbars>
+    <gd-signature-left-panel *ngIf="activeSignatureTab" [rewrite]="rewriteConfig" (newSignatureEvent)="newSign($event)"
+                             [isPdf]="isPdf()" [id]="activeSignatureTab">
+    </gd-signature-left-panel>
+    <div class="doc-panel" *ngIf="file">
+      <gd-document (drop)="dropSignature($event)" (dragover)="dragOver($event)" class="gd-document" *ngIf="file"
+                   [file]="file" [mode]="htmlModeConfig" gdScrollable
+                   [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
+    </div>
+
+    <gd-init-state [icon]="'signature'" [text]="'Drop file here to upload'" *ngIf="!file"
+                   (fileDropped)="fileDropped($event)">
+      Click
+      <fa-icon [icon]="['fas','folder-open']"></fa-icon>
+      to open file<br>
+      Or drop file here
+    </gd-init-state>
+    <gd-hand-modal></gd-hand-modal>
+    <gd-stamp-modal></gd-stamp-modal>
+  </div>
+  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+                         (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
+                         [uploadConfig]="uploadConfig"></gd-browse-files-modal>
+
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
+  <gd-success-modal></gd-success-modal>
+</div>

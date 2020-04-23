@@ -5,7 +5,7 @@ import {
   FileCredentials,
   FileDescription,
   FileModel,
-  ModalService, PageModel, PagePreloadService, TabActivatorService, UploadFilesService
+  ModalService, PageModel, PagePreloadService, TabActivatorService, UploadFilesService, PasswordService
 } from "@groupdocs.examples.angular/common-components";
 import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
@@ -55,7 +55,8 @@ export class ComparisonAppComponent {
               pagePreloadService: PagePreloadService,
               private _modalService: ModalService,
               private _tabActivatorService: TabActivatorService,
-              private _elementRef: ElementRef<HTMLElement>) {
+              private _elementRef: ElementRef<HTMLElement>,
+              passwordService: PasswordService) {
     configService.updatedConfig.subscribe((config) => {
       this.comparisonConfig = config;
     });
@@ -84,6 +85,20 @@ export class ComparisonAppComponent {
     _tabActivatorService.activeTabChange.subscribe((tabId: string) => {
       this.activeTab = tabId;
     });
+
+    passwordService.passChange.subscribe((pass: string) => {
+      let activePanelFileGuid = "";
+      if (this.credentials.get(this.first)) {
+        activePanelFileGuid = this.credentials.get(this.first).guid;
+      } else if (this.credentials.get(this.second)) {
+        activePanelFileGuid = this.credentials.get(this.second).guid;
+      }
+      this.selectFile(activePanelFileGuid, pass, CommonModals.PasswordRequired, this.activePanel);
+    });
+  }
+
+  get uploadConfig(): boolean {
+    return this.comparisonConfig ? this.comparisonConfig.upload : true;
   }
 
   private setLoading(panel: string, flag: boolean) {
@@ -259,7 +274,4 @@ export class ComparisonAppComponent {
     this.activeTab = $event ? this.filesTab : this.resultTab;
     this._tabActivatorService.changeActiveTab(this.filesTab);
   }
-
-
-
 }

@@ -7,6 +7,9 @@ describe('Viewer', () => {
     cy.fixture("comparisonLoadConfigDefault").as('comparisonLoadConfigDefault');
     cy.fixture("conversionLoadConfigDefault").as('conversionLoadConfigDefault');
     cy.fixture("editorLoadConfigDefault").as('editorLoadConfigDefault');
+    cy.fixture("signatureLoadConfigDefault").as('signatureLoadConfigDefault');
+    cy.fixture("annotationLoadConfigDefault").as('annotationLoadConfigDefault');
+    cy.fixture("metadataLoadConfigDefault").as('metadataLoadConfigDefault');
     cy.fixture("loadFileTreeDefault").as('loadFileTreeDefault');
     cy.fixture("loadFileTreeSubFolder").as('loadFileTreeSubFolder');
     cy.fixture("loadDocumentDescriptionDefault").as('loadDocumentDescriptionDefault');
@@ -15,6 +18,9 @@ describe('Viewer', () => {
     cy.route('http://localhost:8080/comparison/loadConfig', "@comparisonLoadConfigDefault");
     cy.route('http://localhost:8080/conversion/loadConfig', "@conversionLoadConfigDefault");
     cy.route('http://localhost:8080/editor/loadConfig', "@editorLoadConfigDefault");
+    cy.route('http://localhost:8080/signature/loadConfig', "@signatureLoadConfigDefault");
+    cy.route('http://localhost:8080/annotation/loadConfig', "@annotationLoadConfigDefault");
+    cy.route('http://localhost:8080/metadata/loadConfig', "@metadataLoadConfigDefault");
 
     cy.route('POST','http://localhost:8080/viewer/loadFileTree', "@loadFileTreeDefault");
     cy.route('POST','http://localhost:8080/viewer/loadDocumentDescription', "@loadDocumentDescriptionDefault");
@@ -77,6 +83,7 @@ describe('Viewer', () => {
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
     cy.get('.gd-modal-body').trigger('dragover');
+    cy.get('.gd-modal-body').trigger('dragenter');
     cy.get('.gd-dnd-wrap').should('be.visible');
     cy.get('.gd-modal-body').trigger('dragleave');
     cy.get('.gd-dnd-wrap').should('not.exist');
@@ -89,7 +96,6 @@ describe('Viewer', () => {
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
     cy.get('.page').its('length').should('eq',5);
   });
-
 
   it('for opened file when thumbnail button clicked should open thumbnail panel', () => {
     cy.visit('/viewer');
@@ -109,7 +115,5 @@ describe('Viewer', () => {
     cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
     cy.get('#gd-thumbnails-page-3').should('be.visible').click();
     cy.get('#page-3').should('be.visible');
-
   });
-
 });

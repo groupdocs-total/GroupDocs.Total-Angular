@@ -8,5 +8,5 @@
   "enableRightClick": true,
   "filesDirectory": "/fonts",
   "resultDirectory": "/Temp",
-  "preloadResultPageCount": 2
+  "preloadResultPageCount": 0
 }

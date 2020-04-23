@@ -83,7 +83,8 @@
           [mode]="false"
           [preloadPageCount]="comparisonConfig?.preloadResultPageCount"
           gdRenderPrint
-          [htmlMode]="false">
+          [htmlMode]="false"
+          gdScrollable>
         </gd-result-document>
       </div>
     </div>
@@ -99,7 +100,9 @@
   <gd-browse-files-modal (urlForUpload)="upload($event)"
                          [files]="files"
                          (selectedDirectory)="selectDir($event)"
-                         (selectedFileGuid)="selectFile($event, null, browseFilesModal, activePanel)">
+                         (selectedFileGuid)="selectFile($event, null, browseFilesModal, activePanel)"
+                         [uploadConfig]="uploadConfig">
   </gd-browse-files-modal>
+  <gd-password-required></gd-password-required>
   <gd-error-modal></gd-error-modal>
 </div>

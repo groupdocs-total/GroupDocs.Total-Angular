@@ -1,0 +1,108 @@
+@import "../../../../common-components/src/styles/variables";
+
+::ng-deep .left-panel {
+  width: 350px;
+  height: ~"calc(100% - @{editor-nav-height})";
+}
+
+::ng-deep .gd-left-bar-fade {
+  width: 350px !important;
+}
+
+.gd-signatures-scroll {
+  height: ~"calc(100% - 60px)";
+}
+
+.tab-content {
+  height: ~"calc(100% - @{editor-nav-height})";
+  line-height: unset;
+  position: absolute;
+  background-color: #FFFFFF;
+}
+
+.gd-signature-context-panel {
+  background-color: #F3F3F3;
+  width: 350px;
+  height: 100%;
+  position: absolute;
+}
+
+.gd-signature-context-upload-title, .gd-signature-context-panel-title {
+  color: #AAAAAA;
+  font-size: 12px;
+  font-family: Helvetica;
+  font-weight: bold;
+  margin: 5px 12px 5px 12px;
+}
+
+.signature-title-block { // for safari
+  display: block;
+}
+
+.gd-signature-list-title {
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+
+  .gd-signature-title-icon {
+    flex: 0 0 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      color: #707070;
+      cursor: pointer;
+      font-size: 12px;
+
+      &.disabled {
+        color: #959da5;
+      }
+    }
+  }
+
+  .gd-signature-context-panel-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+}
+
+.gd-signature-context-pane-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+  overflow: auto;
+}
+
+@media @phone-down {
+  .tab-content {
+    width: 100%;
+    height: ~"calc(100% - 120px)" !important;
+  }
+
+
+  ::ng-deep .left-panel {
+    width: 100% !important;
+    overflow: auto !important;
+    height: ~"calc(100% - 120px)";
+  }
+
+  .gd-signature-context-panel {
+    left: 0px;
+    right: 0px;
+    width: auto;
+  }
+
+  .gd-signature-context-panel-title {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 16px 0 14px 12px;
+  }
+
+  .gd-signature-context-panel-title, .gd-signature-context-upload-title {
+    width: unset;
+  }
+}

@@ -1,0 +1,22 @@
+<gd-modal [id]="'gd-draw-hand-signature'" [title]="'Draw signature'" (visible)="onCloseOpen(canvasComponent, $event)">
+  <div class="paint-body">
+    <div class="bc-paint-header">
+      <div class="bc-paint-palette">
+        <gd-button name="button" [icon]="'fill'" [tooltip]="'Pencil color'"
+                   (click)="toggleColorPicker($event)">
+          <div class="bg-color-pic" [style.background-color]="selectedColor"></div>
+        </gd-button>
+        <gd-color-picker [isOpen]="colorPickerShow" (closeOutside)="closePicker($event)"
+                         [className]="'palette'"
+                         (selectedColor)="selectColor($event)"></gd-color-picker>
+      </div>
+      <div class="bc-paint-export" (click)="saveSign(canvasComponent)">
+        <fa-icon [icon]="['fa','save']" [class]="'ng-fa-icon icon'"></fa-icon>
+        <span class="save-button">Save</span>
+      </div>
+    </div>
+    <div class="gd-draw-image">
+      <gd-canvas #canvasComponent [color]="selectedColor"></gd-canvas>
+    </div>
+  </div>
+</gd-modal>
