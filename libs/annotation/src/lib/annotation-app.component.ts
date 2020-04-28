@@ -359,7 +359,7 @@ export class AnnotationAppComponent implements OnInit {
 
     this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((ret: any) => {
       this._modalService.open(CommonModals.OperationSuccess);
-      this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
+      this.selectFile(ret.guid, this.credentials.password, CommonModals.OperationSuccess);
     });
   }
 
