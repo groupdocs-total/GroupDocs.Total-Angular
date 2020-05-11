@@ -3,13 +3,20 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Api, ConfigService, FileCredentials, FileUtil, Utils} from "@groupdocs.examples.angular/common-components";
 import {AddedSignature, DraggableSignature, FileListWithParams, SignatureProps} from "./signature-models";
 import {map} from "rxjs/operators";
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignatureService {
+  private _observer: Subject<any> = new Subject();
+  private readonly _refreshSignatures: Observable<any> = this._observer.asObservable();
 
   constructor(private _http: HttpClient, private _config: ConfigService) {
+  }
+
+  get getRefreshSignatures(): Observable<any> {
+    return this._refreshSignatures;
   }
 
   loadFiles(path: string) {
@@ -151,5 +158,9 @@ export class SignatureService {
       signaturesData: signatures,
       documentType: docType
     }, Api.httpOptionsJsonResponseTypeBlob);
+  }
+
+  refreshSignatures() {
+    this._observer.next();
   }
 }

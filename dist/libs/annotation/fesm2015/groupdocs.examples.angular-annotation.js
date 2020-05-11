@@ -1799,13 +1799,7 @@ class AnnotationAppComponent {
      */
     annotate() {
         /** @type {?} */
-        const annotationsData = [];
-        for (const annotation of this.annotations.values()) {
-            /** @type {?} */
-            const annotationData = ((/** @type {?} */ (annotation.instance))).getAnnotationData();
-            annotationData.comments = this.comments.get(annotationData.id);
-            annotationsData.push(annotationData);
-        }
+        const annotationsData = this.prepareAnnotationsData();
         this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((/**
          * @param {?} ret
          * @return {?}
@@ -1814,6 +1808,20 @@ class AnnotationAppComponent {
             this._modalService.open(CommonModals.OperationSuccess);
             this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
         }));
+    }
+    /**
+     * @return {?}
+     */
+    prepareAnnotationsData() {
+        /** @type {?} */
+        const annotationsData = [];
+        for (const annotation of this.annotations.values()) {
+            /** @type {?} */
+            const annotationData = ((/** @type {?} */ (annotation.instance))).getAnnotationData();
+            annotationData.comments = this.comments.get(annotationData.id);
+            annotationsData.push(annotationData);
+        }
+        return annotationsData;
     }
     /**
      * @param {?} id
@@ -2166,10 +2174,7 @@ if (false) {
      * @private
      */
     AnnotationAppComponent.prototype.fileWasDropped;
-    /**
-     * @type {?}
-     * @private
-     */
+    /** @type {?} */
     AnnotationAppComponent.prototype.annotations;
     /**
      * @type {?}
@@ -2221,10 +2226,7 @@ if (false) {
      * @private
      */
     AnnotationAppComponent.prototype._removeAnnotationService;
-    /**
-     * @type {?}
-     * @private
-     */
+    /** @type {?} */
     AnnotationAppComponent.prototype._commentAnnotationService;
     /**
      * @type {?}

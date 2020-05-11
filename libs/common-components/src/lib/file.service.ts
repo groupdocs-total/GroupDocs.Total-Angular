@@ -46,6 +46,22 @@ export class FileModel {
   isDirectory: boolean;
 }
 
+export enum FilePropertyCategory {
+  BuildIn,
+  Default
+}
+
+export class FilePropertyModel {
+  category: FilePropertyCategory;
+  name: string;
+  value: any;
+  type: number;
+  original: boolean;
+  selected: boolean;
+  editing: boolean;
+  disabled: boolean;
+}
+
 export class HttpError {
   static BadRequest = 400;
   static Unauthorized = 401;

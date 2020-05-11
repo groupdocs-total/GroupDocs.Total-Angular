@@ -10,7 +10,7 @@
             (change)="handleFileInput($event.target.files)">
 
     <div class="select-all">
-      <input type="checkbox" class="gd-checkbox" [checked]="allItemsSelected()"
+      <input type="checkbox" [disabled]="!(this.files && this.files.length > 0)" class="gd-checkbox" [checked]="allItemsSelected()"
                (change)="selectAllItems($event.target.checked);">
     </div>
     <div class="context">

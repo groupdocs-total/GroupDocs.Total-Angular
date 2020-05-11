@@ -209,7 +209,19 @@
         function SignatureService(_http, _config) {
             this._http = _http;
             this._config = _config;
+            this._observer = new rxjs.Subject();
+            this._refreshSignatures = this._observer.asObservable();
         }
+        Object.defineProperty(SignatureService.prototype, "getRefreshSignatures", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._refreshSignatures;
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @param {?} path
          * @return {?}
@@ -514,6 +526,15 @@
                 documentType: docType
             }, commonComponents.Api.httpOptionsJsonResponseTypeBlob);
         };
+        /**
+         * @return {?}
+         */
+        SignatureService.prototype.refreshSignatures = /**
+         * @return {?}
+         */
+        function () {
+            this._observer.next();
+        };
         SignatureService.decorators = [
             { type: core.Injectable, args: [{
                         providedIn: 'root'
@@ -528,6 +549,16 @@
         return SignatureService;
     }());
     if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SignatureService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        SignatureService.prototype._refreshSignatures;
         /**
          * @type {?}
          * @private
@@ -2966,11 +2997,9 @@
         function ($event) {
             if (SignatureType.HAND.id === $event) {
                 this._modalService.open(commonComponents.CommonModals.DrawHandSignature);
-                this._signatureTabActivationService.changeActiveTab(SignatureType.HAND.id);
             }
             else if (SignatureType.STAMP.id === $event) {
                 this._modalService.open(commonComponents.CommonModals.DrawStampSignature);
-                this._signatureTabActivationService.changeActiveTab(SignatureType.STAMP.id);
             }
             else if (SignatureType.TEXT.id === $event) {
                 this.addTextSign();
@@ -4665,11 +4694,18 @@
      */
     var SignatureLeftPanelComponent = /** @class */ (function () {
         function SignatureLeftPanelComponent(_signatureService) {
+            var _this = this;
             this._signatureService = _signatureService;
             this.newSignatureEvent = new core.EventEmitter();
             this.showNewCode = false;
             this.showUpload = false;
             this.loading = false;
+            _signatureService.getRefreshSignatures.subscribe((/**
+             * @return {?}
+             */
+            function () {
+                _this.getSignatures(_this.id);
+            }));
         }
         /**
          * @param {?} tabId
@@ -4956,6 +4992,7 @@
              */
             function () {
                 _this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
+                _this._signatureService.refreshSignatures();
             }));
             this.clear(canvasComponent);
             this.close();
@@ -5156,6 +5193,7 @@
              */
             function () {
                 _this._tabActivationService.changeActiveTab(SignatureType.STAMP.id);
+                _this._signatureService.refreshSignatures();
             }));
             this.close();
         };

@@ -28,10 +28,6 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
     super(_uploadService);
   }
 
-  selectDD(entry){
-    console.log('SELECTED DD',entry);
-  }
-
   selectAllItems(checked: boolean){
     this.selectAll.emit(checked);
 
@@ -49,14 +45,15 @@ export class ConversionBrowseFilesModalComponent extends BrowseFilesModalCompone
   }
 
   getLabelString(){
+    const label = 'Add selected'
+
     if (this.files && this.files.length > 0) {
       const selectedCount = this.files.filter(file => file.selected).length;
-      if (selectedCount > 0) {
-      return 'Add ' + selectedCount + ' selected'
-      }
-      else {
-        return 'Add selected'
-      }
+      return selectedCount > 0 ? 'Add ' + selectedCount + ' selected' : label;
+    }
+    else
+    {
+      return label;
     }
   }
 

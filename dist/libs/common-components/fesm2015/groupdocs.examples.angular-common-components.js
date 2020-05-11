@@ -36,27 +36,38 @@ TopToolbarComponent.ctorParameters = () => [];
  */
 class SidePanelComponent {
     constructor() {
+        this.closable = true;
+        this.saveable = true;
         this.hideSidePanel = new EventEmitter();
+        this.saveInSidePanel = new EventEmitter();
         this.onlyTitle = false;
     }
     /**
      * @return {?}
      */
-    openSidePanel() {
+    closeSidePanel() {
         this.hideSidePanel.emit(true);
     }
     /**
      * @return {?}
      */
+    saveBySidePanel() {
+        this.saveInSidePanel.emit(true);
+    }
+    /**
+     * @return {?}
+     */
     toggleTitleMode() {
-        this.onlyTitle = !this.onlyTitle;
+        if (this.closable && !this.saveable) {
+            this.onlyTitle = !this.onlyTitle;
+        }
     }
 }
 SidePanelComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-side-panel',
-                template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\n    <div class=\"title\">{{title}}</div>\n    <div class=\"close\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"openSidePanel()\"></gd-button>\n    </div>\n  </div>\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-                styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;-webkit-transition:margin-right .2s;transition:margin-right .2s;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header /deep/ gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
+                template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\n    <div class=\"title\">{{title}}</div>\n    <div class=\"save\" *ngIf=\"saveable\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\n    </div>\n    <div class=\"close\" *ngIf=\"closable\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\n    </div>\n  </div>\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+                styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;-webkit-transition:margin-right .2s;transition:margin-right .2s;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close,.gd-side-panel-wrapper .gd-side-panel-header .save{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header /deep/ gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
             }] }
 ];
 /** @nocollapse */
@@ -64,7 +75,10 @@ SidePanelComponent.ctorParameters = () => [];
 SidePanelComponent.propDecorators = {
     title: [{ type: Input }],
     icon: [{ type: Input }],
-    hideSidePanel: [{ type: Output }]
+    closable: [{ type: Input }],
+    saveable: [{ type: Input }],
+    hideSidePanel: [{ type: Output }],
+    saveInSidePanel: [{ type: Output }]
 };
 if (false) {
     /** @type {?} */
@@ -72,7 +86,13 @@ if (false) {
     /** @type {?} */
     SidePanelComponent.prototype.icon;
     /** @type {?} */
+    SidePanelComponent.prototype.closable;
+    /** @type {?} */
+    SidePanelComponent.prototype.saveable;
+    /** @type {?} */
     SidePanelComponent.prototype.hideSidePanel;
+    /** @type {?} */
+    SidePanelComponent.prototype.saveInSidePanel;
     /** @type {?} */
     SidePanelComponent.prototype.onlyTitle;
 }
@@ -389,11 +409,16 @@ Api.SEARCH_APP = '/search';
 Api.EDITOR_APP = '/editor';
 Api.COMPARISON_APP = '/comparison';
 Api.CONVERSION_APP = '/conversion';
+Api.METADATA_APP = '/metadata';
 Api.DEFAULT_API_ENDPOINT = window.location.href;
 Api.LOAD_FILE_TREE = '/loadFileTree';
 Api.LOAD_CONFIG = '/loadConfig';
 Api.LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
 Api.LOAD_DOCUMENT_PAGE = '/loadDocumentPage';
+Api.LOAD_DOCUMENT_PROPERTIES = '/loadProperties';
+Api.LOAD_DOCUMENT_PROPERTIES_NAMES = '/loadPropertiesNames';
+Api.SAVE_PROPERTY = '/saveProperty';
+Api.REMOVE_PROPERTY = '/removeProperty';
 Api.ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
 Api.UPLOAD_DOCUMENTS = '/uploadDocument';
 Api.DOWNLOAD_DOCUMENTS = '/downloadDocument';
@@ -441,6 +466,8 @@ if (false) {
     /** @type {?} */
     Api.CONVERSION_APP;
     /** @type {?} */
+    Api.METADATA_APP;
+    /** @type {?} */
     Api.DEFAULT_API_ENDPOINT;
     /** @type {?} */
     Api.LOAD_FILE_TREE;
@@ -450,6 +477,14 @@ if (false) {
     Api.LOAD_DOCUMENT_DESCRIPTION;
     /** @type {?} */
     Api.LOAD_DOCUMENT_PAGE;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_PROPERTIES;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_PROPERTIES_NAMES;
+    /** @type {?} */
+    Api.SAVE_PROPERTY;
+    /** @type {?} */
+    Api.REMOVE_PROPERTY;
     /** @type {?} */
     Api.ROTATE_DOCUMENT_PAGE;
     /** @type {?} */
@@ -536,6 +571,12 @@ class ConfigService {
      */
     getConversionApiEndpoint() {
         return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
+    }
+    /**
+     * @return {?}
+     */
+    getMetadataApiEndpoint() {
+        return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
     }
     /**
      * @return {?}
@@ -740,7 +781,7 @@ ModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-modal',
                 template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\n\n    <div class=\"gd-modal-header\">\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\n    </div>\n\n    <div class=\"gd-modal-body\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"gd-modal-footer\">\n\n    </div>\n  </div>\n</div>\n\n\n",
-                styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
+                styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:1051}.gd-modal-dialog ::ng-deep .button{-webkit-box-orient:unset!important;-webkit-box-direction:unset!important;flex-direction:unset!important}.gd-modal-content{background-color:#fff;height:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
             }] }
 ];
 /** @nocollapse */
@@ -864,6 +905,33 @@ if (false) {
     FileModel.prototype.size;
     /** @type {?} */
     FileModel.prototype.isDirectory;
+}
+/** @enum {number} */
+const FilePropertyCategory = {
+    BuildIn: 0,
+    Default: 1,
+};
+FilePropertyCategory[FilePropertyCategory.BuildIn] = 'BuildIn';
+FilePropertyCategory[FilePropertyCategory.Default] = 'Default';
+class FilePropertyModel {
+}
+if (false) {
+    /** @type {?} */
+    FilePropertyModel.prototype.category;
+    /** @type {?} */
+    FilePropertyModel.prototype.name;
+    /** @type {?} */
+    FilePropertyModel.prototype.value;
+    /** @type {?} */
+    FilePropertyModel.prototype.type;
+    /** @type {?} */
+    FilePropertyModel.prototype.original;
+    /** @type {?} */
+    FilePropertyModel.prototype.selected;
+    /** @type {?} */
+    FilePropertyModel.prototype.editing;
+    /** @type {?} */
+    FilePropertyModel.prototype.disabled;
 }
 class HttpError {
 }
@@ -3568,7 +3636,7 @@ PasswordRequiredComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-password-required',
                 template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n          Open\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
-                styles: ["#gd-password-section{width:468px;height:164px}.gd-password-wrap{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;-webkit-box-pack:center;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
+                styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;-webkit-box-pack:center;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -5443,6 +5511,7 @@ class LoadingMaskService {
         this.requests = [];
         this.stopList.push(Api.SAVE_TEXT);
         this.stopList.push(Api.SAVE_OPTICAL_CODE);
+        this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
     }
     /**
      * @param {?} req
@@ -6800,6 +6869,7 @@ const providers = [ConfigService,
     ModalService,
     FileService,
     FileModel,
+    FilePropertyModel,
     FileUtil,
     Utils,
     SanitizeHtmlPipe,
@@ -6943,5 +7013,5 @@ CommonComponentsModule.ctorParameters = () => [];
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FilePropertyCategory, FilePropertyModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

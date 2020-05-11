@@ -22,6 +22,9 @@
   top: 50%;
   transform: translate(-50%,-50%);
   z-index: 1051;
+  ::ng-deep .button {
+    flex-direction: unset !important;
+  }
 }
 .gd-modal-content {
   background-color: #ffffff;
@@ -75,6 +78,7 @@
   cursor: pointer;
   font-size: 12px;
 }
+
 @media @phone-down {
   .gd-modal-dialog {
     width: 100%;
