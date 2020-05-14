@@ -1,0 +1,13 @@
+<div id="gd-search-result-summary">
+  <div class="gd-search-result-summary-header">
+    <div>File</div>
+    <div>Occurrences</div>
+    <div>Size</div>
+    <div class="gd-queue-last-placeholder"></div>
+  </div>
+  <div class="gd-search-result-summary-body">
+    <div *ngFor="let item of items">
+        <gd-search-result-item [item]="item"></gd-search-result-item>
+    </div>
+  </div>
+</div>

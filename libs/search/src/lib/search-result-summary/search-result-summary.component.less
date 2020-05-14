@@ -1,0 +1,55 @@
+@import "../../../../common-components/src/styles/variables";
+
+#gd-search-result-summary {
+    flex-direction  : column;
+    height          : 100%;
+    background-color: @mercury;
+    top: 120px;
+    position: absolute;
+    width: 100%;
+}
+
+.gd-search-result-summary-header {
+    display         : flex;
+    font-size       : 13px;
+    text-transform  : uppercase;
+    color           : @dove-gray;
+    width           : 100%;
+    height          : 60px;
+    background-color: @wild-sand;
+    font-weight     : bold;
+    align-items     : center;
+}
+
+.gd-search-result-summary-header div:nth-child(1) {
+    width     : 300px;
+    text-align: left;
+    display   : flex;
+    padding-left: 17px;
+}
+
+.gd-search-result-summary-header div:nth-child(2) {
+    width     : 1450px;
+    text-align: left;
+    display   : flex;
+}
+
+.gd-search-result-summary-header div:nth-child(3) {
+    width     : 30px;
+    text-align: left;
+}
+
+.gd-search-result-summary-body {
+    overflow-y: scroll;
+    height    : calc(100% - 180px);
+}
+
+.gd-search-result-last-placeholder {
+    margin: 0px 52px;
+}
+
+@media @phone-down {
+    .gd-search-result-header {
+        display: none;
+    }
+}

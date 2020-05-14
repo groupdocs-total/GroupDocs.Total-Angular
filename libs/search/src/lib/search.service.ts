@@ -31,9 +31,9 @@ export class SearchService {
 
   search(credentials: FileCredentials[], query: string) {
     const guids = [];
-    for (let i = 0; i < credentials.length; ++i) {
-      guids.push(credentials[i].guid);
-    }
+    // for (let i = 0; i < credentials.length; ++i) {
+    //   guids.push(credentials[i].guid);
+    // }
 
     return this._http.post(this._config.getSearchApiEndpoint() + Api.SEARCH, {
       'guilds': guids,

@@ -1,4 +1,4 @@
-import {FileDescription} from "@groupdocs.examples.angular/common-components";
+import {FileDescription, FileModel} from "@groupdocs.examples.angular/common-components";
 
 export class SearchFileModel extends FileDescription {
   indexStatus: string;
@@ -10,6 +10,16 @@ export class FoundDocumentField {
 
 export class SearchResult {
   foundFields: FoundDocumentField[];
+  foundFiles: SearchResultItemModel[];
   filePath: string;
+}
+
+export class SearchResultItemModel implements FileModel {
+  directory: boolean;
+  occurrences: string;
+  size: number;
+  guid: string;
+  name: string;
+  isDirectory: boolean;
 }
 

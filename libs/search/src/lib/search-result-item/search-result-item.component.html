@@ -1,0 +1,14 @@
+<div *ngIf="item" class="gd-search-result-item">
+  <div class="gd-found-file-name">
+    <fa-icon [icon]="['fas', getFormatIcon(item)]" [class]="'ng-fa-icon'" [ngClass]="['fa-' + getFormatIcon(item)]"></fa-icon>
+    <div class="gd-file-name gd-search-result-name">{{item.name}}
+      <div class="gd-file-format">{{getFormatName(item)}}</div>
+    </div>
+  </div>
+  <div class="gd-file-occurrences gd-search-result-size">
+    <span>Found</span>
+    <span class="gd-search-result-occurrences">{{item.occurrences}}</span>
+    <span>occurrences</span>
+  </div>
+  <div class="gd-file-size gd-search-result-size">{{getSizeString(item.size)}}</div>
+</div>

@@ -1,0 +1,129 @@
+@import "../../../../common-components/src/styles/variables";
+
+.gd-search-result-item {
+  display         : flex;
+  width           : 100%;
+  height          : 98px;
+  border-bottom   : 1px solid @mercury;
+  background-color: #fff;
+  align-items     : center;
+}
+
+.gd-found-file-name {
+  display     : flex;
+  width       : 300px;
+  padding-left: 17px;
+}
+
+.gd-found-file-name fa-icon {
+  font-size: 32px;
+  margin   : 19px 21px 0 0;
+}
+
+.gd-search-result-name {
+  text-align: left;
+  cursor    : default;
+}
+
+.gd-search-result-size {
+  text-align: left;
+  font-size : 14px;
+}
+
+.gd-file-format {
+  font-size  : 10px;
+  color      : @silver-chalice;
+  padding-top: 4px;
+
+  &.mobile {
+    display: none;
+  }
+}
+
+.gd-file-size {
+  width: 100px;
+  color: #777777;
+}
+
+.gd-file-occurrences {
+  width: 1450px;
+  color: #777777;
+}
+
+.gd-search-result-item .ng-fa-icon.fa-file-pdf {
+  color: #E21717;
+}
+
+.gd-search-result-item .ng-fa-icon.fa-file-word {
+  color: #6979B9;
+}
+
+.gd-search-result-item .ng-fa-icon.fa-file-powerpoint {
+  color: #E29417;
+}
+
+.gd-search-result-item .ng-fa-icon.fa-file-excel {
+  color: #3FA300;
+}
+
+.gd-search-result-item .ng-fa-icon.fa-file-image {
+  color: #E217DA;
+}
+
+.gd-search-result-item .ng-fa-icon.fa-file-text .fa-folder {
+  color: #5D6A75;
+}
+
+.gd-found-file-name .ng-fa-icon {
+  font-size: 33px;
+}
+
+.gd-found-file-name fa-icon {
+  font-size: 32px;
+  margin   : 0 11px 0 0;
+}
+
+.gd-search-result-occurrences {
+  padding    : 0px 5px;
+  font-weight: bold;
+}
+
+@media @phone-down {
+  .gd-file-size {
+    display: none;
+  }
+
+  .gd-file-format {
+    font-size: 10px;
+
+    &.mobile {
+      display: block;
+
+      >fa-icon {
+        color: #bebebe;
+      }
+
+      fa-icon {
+        font-size   : 10px;
+        margin-right: 2.1px;
+      }
+
+      fa-icon:nth-child(1) {
+        margin-right: 6px;
+      }
+    }
+  }
+
+  .gd-file-format {
+    font-size: 11px;
+
+    &:not(.mobile) {
+      display: none;
+    }
+  }
+
+  .gd-found-file-name {
+    white-space: nowrap;
+    overflow   : hidden;
+  }
+}

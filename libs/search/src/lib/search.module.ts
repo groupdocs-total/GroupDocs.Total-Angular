@@ -13,6 +13,8 @@ import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {SearchConfigService} from "./search-config.service";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SearchPanelComponent} from './search-panel/search-panel.component';
+import {SearchResultSummaryComponent} from './search-result-summary/search-result-summary.component';
+import {SearchResultItemComponent} from './search-result-item/search-result-item.component';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -28,7 +30,10 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 @NgModule({
   declarations: [
     SearchAppComponent,
-    SearchPanelComponent],
+    SearchPanelComponent,
+    SearchResultSummaryComponent,
+    SearchResultItemComponent
+  ],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -38,7 +43,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   exports: [
     SearchAppComponent,
     CommonComponentsModule,
-    SearchPanelComponent
+    SearchPanelComponent,
+    SearchResultSummaryComponent,
+    SearchResultItemComponent
   ],
   providers: [
     SearchService,

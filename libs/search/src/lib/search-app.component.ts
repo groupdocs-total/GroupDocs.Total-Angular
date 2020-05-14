@@ -10,7 +10,7 @@ import {
 import {SearchConfig} from "./search-config";
 import {SearchConfigService} from "./search-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
-import {SearchFileModel, SearchResult} from "./search-models";
+import {SearchFileModel, SearchResult, SearchResultItemModel} from "./search-models";
 
 @Component({
   selector: 'gd-search',
@@ -21,6 +21,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   title = 'search';
   files: FileModel[] = [];
   searchFiles: SearchFileModel[] = [];
+  searchResultItems: SearchResultItemModel[] = [];
   searchConfig: SearchConfig;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
@@ -88,10 +89,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     return this.searchConfig ? this.searchConfig.browse : true;
   }
 
-  get enableRightClickConfig(): boolean {
-    return this.searchConfig ? this.searchConfig.enableRightClick : true;
-  }
-
   openModal(id: string) {
     this._modalService.open(id);
   }
@@ -125,17 +122,14 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     this.fileWasDropped = $event;
   }
 
-  onRightClick($event: MouseEvent) {
-    return this.enableRightClickConfig;
-  }
-
   search($event: string) {
-    if (this.credentials) {
+    //if (this.credentials) {
       const creds = [];
       creds.push(this.credentials);
-      this._searchService.search(creds, $event).subscribe((results: SearchResult[]) => {
-        this.searchResults = results;
+      this._searchService.search(creds, $event).subscribe((result: SearchResult) => {
+        //this.searchResults = results;
+        this.searchResultItems = result.foundFiles;
       });
-    }
+    //}
   }
 }
