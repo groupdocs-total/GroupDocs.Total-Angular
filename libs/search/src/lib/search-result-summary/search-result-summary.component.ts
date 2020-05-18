@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { SearchResultItemModel } from '../search-models';
+import { SearchResultItemModel, SearchResult } from '../search-models';
 
 @Component({
   selector: 'gd-search-result-summary',
@@ -8,11 +8,24 @@ import { SearchResultItemModel } from '../search-models';
 })
 
 export class SearchResultSummaryComponent implements OnInit {
-  @Input() items: SearchResultItemModel[] = [];
+  @Input() searchResult: SearchResult;
 
   constructor() {
   }
   
   ngOnInit(): void {
+  }
+
+  getTotalOccurrencesMessage() {
+    if (this.searchResult.totalOccurences === 0)
+    {
+      return "Nothing found";
+    }
+
+    return "Found <b>" + this.searchResult.totalOccurences + "</b> occurrences <b>" + this.searchResult.totalFiles + "</b> files";
+  }
+
+  getIndexedFilesMessage() {
+    return "<b>" + this.searchResult.indexedFiles + "</b> files indexed"
   }
 }

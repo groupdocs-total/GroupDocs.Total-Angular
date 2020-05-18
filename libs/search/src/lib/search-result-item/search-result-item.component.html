@@ -6,9 +6,19 @@
     </div>
   </div>
   <div class="gd-file-occurrences gd-search-result-size">
-    <span>Found</span>
-    <span class="gd-search-result-occurrences">{{item.occurrences}}</span>
-    <span>occurrences</span>
+    <span class="gd-search-result-occurrences" [innerHTML]="getOccurrencesMessage(item.occurrences)" (click)="togglePhrases(item)"></span>
   </div>
   <div class="gd-file-size gd-search-result-size">{{getSizeString(item.size)}}</div>
+</div>
+<div class="gd-found-phrases-wrapper" *ngIf="item.showPhrases">
+  <div class="gd-vertical-bar"></div>
+  <div class="gd-found-phrases-content-wrapper">
+    <div *ngIf="item" class="gd-found-phrases-title">
+      <div class="gd-found-file-name">Found phrases</div>
+      <gd-button class="gd-close-btn" [icon]="'times'" [tooltip]="'Close'" (click)="togglePhrases(item)"></gd-button>
+    </div>
+    <div *ngFor="let phrase of item.foundPhrases" class="gd-search-result-phrase">
+      <div [innerHTML]="phrase"></div>
+    </div>
+  </div>
 </div>

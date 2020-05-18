@@ -1,20 +1,26 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SearchResultItemModel } from '../search-models';
-import { FileModel, FileUtil } from "@groupdocs.examples.angular/common-components";
+import { SearchService } from "../search.service";
+import { FileModel, FileUtil } from '@groupdocs.examples.angular/common-components';
 
 @Component({
-  selector: 'gd-search-result-item',
-  templateUrl: './search-result-item.component.html',
-  styleUrls: ['./search-result-item.component.less']
+  selector: 'gd-indexed-file',
+  templateUrl: './indexed-file.component.html',
+  styleUrls: ['./indexed-file.component.less']
 })
 
-export class SearchResultItemComponent implements OnInit {
-  @Input() item: SearchResultItemModel;
+export class IndexedFileComponent implements OnInit {
+  @Input() file: FileModel;
 
-  constructor() {
+  constructor(private _searchService: SearchService) {
   }
   
   ngOnInit(): void {
+  }
+
+  removeFile($event, file: FileModel) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    this._searchService.selectedItemToRemove(file);
   }
 
   getSizeString(size: number) {
@@ -36,13 +42,5 @@ export class SearchResultItemComponent implements OnInit {
 
   getFormatName(file: FileModel) {
     return FileUtil.find(file.name, file.directory).format;
-  }
-
-  getOccurrencesMessage(occurrences: number) {
-    return "Found <b>" + occurrences + "</b> occurrences"
-  }
-
-  togglePhrases(item) {
-    item.showPhrases = !item.showPhrases;
   }
 }

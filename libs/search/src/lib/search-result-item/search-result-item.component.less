@@ -7,11 +7,61 @@
   border-bottom   : 1px solid @mercury;
   background-color: #fff;
   align-items     : center;
+  position        : relative;
+}
+
+.gd-search-result-phrase {
+  display         : flex;
+  width           : 100%;
+  height          : 40px;
+  border-bottom   : 1px solid @mercury;
+  background-color: #fff;
+  align-items     : center;
+  font-size       : 13px;
+  padding-left    : 17px;
+
+  ::ng-deep span {
+    font-weight: bold;
+  }
+}
+
+.gd-found-phrases-title {
+  display         : flex;
+  font-size       : 13px;
+  text-transform  : uppercase;
+  color           : @primary;
+  width           : calc(100% + 17px);
+  height          : 60px;
+  background-color: @wild-sand;
+  font-weight     : bold;
+  align-items     : center;
+  position        : relative;
+
+  .gd-close-btn {
+    position: absolute;
+    right   : 30px;
+  }
+}
+
+.gd-vertical-bar {
+  width           : 17px;
+  background-color: @primary;
+}
+
+.gd-found-phrases-content-wrapper {
+  display       : flex;
+  flex-direction: column;
+  width         : calc(100% - 34px);
+}
+
+.gd-found-phrases-wrapper {
+  display       : flex;
+  flex-direction: row;
 }
 
 .gd-found-file-name {
   display     : flex;
-  width       : 300px;
+  width       : 253px;
   padding-left: 17px;
 }
 
@@ -27,7 +77,14 @@
 
 .gd-search-result-size {
   text-align: left;
-  font-size : 14px;
+  font-size : 12px;
+}
+
+.gd-file-size {
+  width   : 50px;
+  color   : #777777;
+  position: fixed;
+  right   : 82px;
 }
 
 .gd-file-format {
@@ -40,13 +97,7 @@
   }
 }
 
-.gd-file-size {
-  width: 100px;
-  color: #777777;
-}
-
 .gd-file-occurrences {
-  width: 1450px;
   color: #777777;
 }
 
@@ -84,8 +135,8 @@
 }
 
 .gd-search-result-occurrences {
-  padding    : 0px 5px;
-  font-weight: bold;
+  text-decoration: underline;
+  cursor         : pointer;
 }
 
 @media @phone-down {
@@ -116,14 +167,16 @@
 
   .gd-file-format {
     font-size: 11px;
-
-    &:not(.mobile) {
-      display: none;
-    }
   }
 
   .gd-found-file-name {
     white-space: nowrap;
     overflow   : hidden;
+  }
+
+  .gd-file-occurrences {
+    width   : 94px;
+    position: absolute;
+    right   : 30px;
   }
 }

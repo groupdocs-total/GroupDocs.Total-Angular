@@ -12,6 +12,10 @@ export class SearchResult {
   foundFields: FoundDocumentField[];
   foundFiles: SearchResultItemModel[];
   filePath: string;
+  searchDuration: string;
+  totalFiles: number;
+  totalOccurences: number;
+  indexedFiles: number;
 }
 
 export class SearchResultItemModel implements FileModel {
@@ -21,5 +25,5 @@ export class SearchResultItemModel implements FileModel {
   guid: string;
   name: string;
   isDirectory: boolean;
+  showPhrases: boolean;
 }
-

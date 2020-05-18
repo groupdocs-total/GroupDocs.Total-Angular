@@ -28,6 +28,7 @@ export declare class Api {
     static COMPARE_FILES: string;
     static CONVERT_FILE: string;
     static DELETE_SIGNATURE_FILE: string;
+    static DELETE_FILE: string;
     static SAVE_OPTICAL_CODE: string;
     static SAVE_TEXT: string;
     static SAVE_IMAGE: string;

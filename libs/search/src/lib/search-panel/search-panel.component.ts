@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'gd-search-panel',
@@ -7,8 +7,13 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class SearchPanelComponent implements OnInit {
 
+  @ViewChild('text',{
+    static : true
+  }) textElement: ElementRef;
+
   private text = "";
   @Output() searchText = new EventEmitter();
+  @Output() clearQuery = new EventEmitter();
 
   constructor() {
   }
@@ -22,5 +27,10 @@ export class SearchPanelComponent implements OnInit {
 
   setText(value: string) {
     this.text = value;
+  }
+
+  clearQueryString() {
+    this.textElement.nativeElement.value = '';
+    this.clearQuery.emit("");
   }
 }

@@ -1,25 +1,26 @@
 <gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
-<div class="wrapper" (contextmenu)="onRightClick($event)">
+<div class="wrapper">
   <div class="top-panel">
-    <gd-logo [logo]="'Search'" icon="eye"></gd-logo>
+    <gd-logo [logo]="'Search'" icon="search"></gd-logo>
     <gd-top-toolbar class="toolbar-panel">
       <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                  *ngIf="browseConfig" ></gd-button>
     </gd-top-toolbar>
   </div>
 
-  <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="searchResultItems.length == 0" (fileDropped)="fileDropped($event)">
+  <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="indexedFiles.length === 0" (fileDropped)="fileDropped($event)">
     Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
     Or drop file here
   </gd-init-state>
 
-  <gd-search-panel (searchText)="search($event)"></gd-search-panel>
+  <gd-search-panel (searchText)="search($event)" (clearQuery)="clearSearchResult()"></gd-search-panel>
 
-  <gd-search-result-summary [items]="searchResultItems" *ngIf="searchResultItems.length > 0"></gd-search-result-summary>
+  <gd-indexed-files-list [files]="indexedFiles" *ngIf="indexedFiles.length > 0 && !searchResult"></gd-indexed-files-list>
+
+  <gd-search-result-summary [searchResult]="searchResult" *ngIf="searchResult"></gd-search-result-summary>
 
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
-                         (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
-                         [uploadConfig]="uploadConfig"></gd-browse-files-modal>
+                         [uploadConfig]="uploadConfig" (closing)="onCloseModal($event)"></gd-browse-files-modal>
 
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>

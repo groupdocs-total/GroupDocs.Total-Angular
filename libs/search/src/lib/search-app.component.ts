@@ -10,7 +10,11 @@ import {
 import {SearchConfig} from "./search-config";
 import {SearchConfigService} from "./search-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
-import {SearchFileModel, SearchResult, SearchResultItemModel} from "./search-models";
+import {
+  SearchFileModel,
+  SearchResult,
+  SearchResultItemModel
+} from "./search-models";
 
 @Component({
   selector: 'gd-search',
@@ -22,12 +26,13 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   files: FileModel[] = [];
   searchFiles: SearchFileModel[] = [];
   searchResultItems: SearchResultItemModel[] = [];
+  indexedFiles: FileModel[] = [];
   searchConfig: SearchConfig;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
   isLoading: boolean;
-  searchResults: SearchResult[];
+  searchResult: SearchResult;
 
   fileWasDropped = false;
 
@@ -62,13 +67,23 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
     });
+
+    _searchService.itemToRemove.subscribe(file => {
+      if (file) {
+        this._searchService.removeFile(file).subscribe(() => {
+          this.removeFileFromList(file);
+        });
+      }
+    });
   }
 
   ngOnInit() {
-    if (this.searchConfig.defaultDocument !== "") {
+    if (this.searchConfig.defaultDocument !== '') {
       this.isLoading = true;
-      this.selectFile(this.searchConfig.defaultDocument, "", "");
+      this.selectFile(this.searchConfig.defaultDocument, '', '');
     }
+
+    this._searchService.loadFiles('').subscribe((files: FileModel[]) => this.indexedFiles = files || []);
   }
 
   ngAfterViewInit() {
@@ -101,6 +116,10 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     this._searchService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
   }
 
+  clearSearchResult() {
+    this.searchResult = null;
+  }
+
   selectFile($event: string, password: string, modalId: string) {
     this.credentials = {guid: $event, password: password};
     this._searchService.loadFile(this.credentials).subscribe((file: SearchFileModel) => {
@@ -122,14 +141,26 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     this.fileWasDropped = $event;
   }
 
-  search($event: string) {
-    //if (this.credentials) {
-      const creds = [];
-      creds.push(this.credentials);
-      this._searchService.search(creds, $event).subscribe((result: SearchResult) => {
-        //this.searchResults = results;
-        this.searchResultItems = result.foundFiles;
+  onCloseModal($event) {
+    if ($event)
+    {
+      this._searchService.loadFiles('').subscribe((files: FileModel[]) => this.indexedFiles = files || []);
+    }
+  }
+
+  removeFileFromList(file: FileModel) {
+    if (this.indexedFiles.length > 0) {
+      this.indexedFiles.forEach( (f, index) => {
+        if(f.guid === file.guid) this.indexedFiles.splice(index, 1);
       });
-    //}
+    }
+  }
+
+  search($event: string) {
+    const creds = [];
+    creds.push(this.credentials);
+    this._searchService.search(creds, $event).subscribe((result: SearchResult) => {
+      this.searchResult = result;
+    });
   }
 }

@@ -15,6 +15,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SearchPanelComponent} from './search-panel/search-panel.component';
 import {SearchResultSummaryComponent} from './search-result-summary/search-result-summary.component';
 import {SearchResultItemComponent} from './search-result-item/search-result-item.component';
+import {IndexedFilesListComponent} from './indexed-files-list/indexed-files-list.component';
+import {IndexedFileComponent} from './indexed-file/indexed-file.component';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -32,7 +34,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SearchAppComponent,
     SearchPanelComponent,
     SearchResultSummaryComponent,
-    SearchResultItemComponent
+    SearchResultItemComponent,
+    IndexedFilesListComponent,
+    IndexedFileComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     CommonComponentsModule,
     SearchPanelComponent,
     SearchResultSummaryComponent,
-    SearchResultItemComponent
+    SearchResultItemComponent,
+    IndexedFilesListComponent,
+    IndexedFileComponent
   ],
   providers: [
     SearchService,
