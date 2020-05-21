@@ -10,6 +10,7 @@ describe('Metadata', () => {
     cy.fixture("signatureLoadConfigDefault").as('signatureLoadConfigDefault');
     cy.fixture("annotationLoadConfigDefault").as('annotationLoadConfigDefault');
     cy.fixture("metadataLoadConfigDefault").as('metadataLoadConfigDefault');
+    cy.fixture("searchLoadConfigDefault").as('searchLoadConfigDefault');
     cy.fixture("loadFileTreeDefault").as('loadFileTreeDefault');
     cy.fixture("loadFileTreeSubFolder").as('loadFileTreeSubFolder');
     cy.fixture("loadDocumentDescriptionDefault").as('loadDocumentDescriptionDefault');
@@ -23,6 +24,7 @@ describe('Metadata', () => {
     cy.route('http://localhost:8080/signature/loadConfig', "@signatureLoadConfigDefault");
     cy.route('http://localhost:8080/annotation/loadConfig', "@annotationLoadConfigDefault");
     cy.route('http://localhost:8080/metadata/loadConfig', "@metadataLoadConfigDefault");
+    cy.route('http://localhost:8080/search/loadConfig', "@searchLoadConfigDefault");
 
     cy.route('POST','http://localhost:8080/metadata/loadFileTree', "@loadFileTreeDefault");
     cy.route('POST','http://localhost:8080/metadata/loadDocumentDescription', "@loadDocumentDescriptionDefault");
