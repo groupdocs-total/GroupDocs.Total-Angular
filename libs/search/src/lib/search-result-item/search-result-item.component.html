@@ -10,7 +10,7 @@
   </div>
   <div class="gd-file-size gd-search-result-size">{{getSizeString(item.size)}}</div>
 </div>
-<div class="gd-found-phrases-wrapper" *ngIf="item.showPhrases">
+<div class="gd-found-phrases-wrapper" *ngIf="item?.showPhrases">
   <div class="gd-vertical-bar"></div>
   <div class="gd-found-phrases-content-wrapper">
     <div *ngIf="item" class="gd-found-phrases-title">

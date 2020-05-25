@@ -17,15 +17,29 @@ export class SearchResultSummaryComponent implements OnInit {
   }
 
   getTotalOccurrencesMessage() {
-    if (this.searchResult.totalOccurences === 0)
-    {
-      return "Nothing found";
+    const message = "Nothing found";
+
+    if (this.searchResult) {
+      if (this.searchResult.totalOccurences === 0)
+      {
+        return message;
+      }
+
+      return "Found <b>" + this.searchResult.totalOccurences + "</b> occurrences <b>" + this.searchResult.totalFiles + "</b> files";
     }
 
-    return "Found <b>" + this.searchResult.totalOccurences + "</b> occurrences <b>" + this.searchResult.totalFiles + "</b> files";
+    return message;
   }
 
   getIndexedFilesMessage() {
-    return "<b>" + this.searchResult.indexedFiles + "</b> files indexed"
+    if (this.searchResult) {
+      return "<b>" + this.searchResult.indexedFiles + "</b> files indexed";
+    }
+  }
+
+  getSearchDuration() {
+    if (this.searchResult) {
+      return this.searchResult.searchDuration;
+    }
   }
 }

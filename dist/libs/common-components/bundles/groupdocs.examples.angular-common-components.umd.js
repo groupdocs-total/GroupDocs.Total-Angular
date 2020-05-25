@@ -448,7 +448,7 @@
         Api.COMPARE_FILES = '/compare';
         Api.CONVERT_FILE = '/convert';
         Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
-        Api.DELETE_FILE = '/deleteFile';
+        Api.REMOVE_FROM_INDEX = '/removeFromIndex';
         Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
         Api.SAVE_TEXT = '/saveText';
         Api.SAVE_IMAGE = '/saveImage';
@@ -458,6 +458,7 @@
         Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
         Api.ANNOTATE = '/annotate';
         Api.SEARCH = '/search';
+        Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
         Api.httpOptionsJson = {
             headers: new http.HttpHeaders({
                 'Content-Type': 'application/json',

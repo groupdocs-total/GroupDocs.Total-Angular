@@ -1,7 +1,7 @@
 import {FileDescription, FileModel} from "@groupdocs.examples.angular/common-components";
 
-export class SearchFileModel extends FileDescription {
-  indexStatus: string;
+export class SearchFileModel extends FileModel {
+  documentStatus: number;
 }
 
 export class FoundDocumentField {
@@ -20,10 +20,20 @@ export class SearchResult {
 
 export class SearchResultItemModel implements FileModel {
   directory: boolean;
-  occurrences: string;
+  occurrences: number;
   size: number;
   guid: string;
   name: string;
   isDirectory: boolean;
   showPhrases: boolean;
+  foundPhrases: string;
+}
+
+export class ExtendedFileModel implements FileModel {
+  guid: string;
+  directory: boolean;
+  isDirectory: boolean;
+  size: number;
+  name: string;
+  selected: boolean;
 }

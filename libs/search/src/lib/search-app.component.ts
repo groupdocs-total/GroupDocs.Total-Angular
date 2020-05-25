@@ -13,7 +13,8 @@ import {WindowService} from "@groupdocs.examples.angular/common-components";
 import {
   SearchFileModel,
   SearchResult,
-  SearchResultItemModel
+  SearchResultItemModel,
+  ExtendedFileModel
 } from "./search-models";
 
 @Component({
@@ -23,7 +24,7 @@ import {
 })
 export class SearchAppComponent implements OnInit, AfterViewInit {
   title = 'search';
-  files: FileModel[] = [];
+  files: ExtendedFileModel[] = [];
   searchFiles: SearchFileModel[] = [];
   searchResultItems: SearchResultItemModel[] = [];
   indexedFiles: FileModel[] = [];
@@ -53,7 +54,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
           this._searchService.upload(uploads.item(i), '', this.searchConfig.rewrite).subscribe((obj: FileCredentials) => {
-            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
           });
         }
       }
@@ -82,8 +82,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
       this.isLoading = true;
       this.selectFile(this.searchConfig.defaultDocument, '', '');
     }
-
-    this._searchService.loadFiles('').subscribe((files: FileModel[]) => this.indexedFiles = files || []);
   }
 
   ngAfterViewInit() {
@@ -113,7 +111,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   selectDir($event: string) {
-    this._searchService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
+    this._searchService.loadFiles($event).subscribe((files: ExtendedFileModel[]) => this.files = files || []);
   }
 
   clearSearchResult() {
@@ -131,20 +129,30 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  selectAllItems(checked: boolean) {
+    this.files.forEach( (f) => {
+      if (!f.isDirectory && !f.directory) f.selected = checked;
+    });
+  }
+
+  loadIndexedFiles($event) {
+    if (!$event) return;
+
+    this._searchService.loadFiles(this.searchConfig.indexedFilesDirectory).subscribe((files: FileModel[]) => this.indexedFiles = files || []);
+  }
+
   upload($event: string) {
     this._searchService.upload(null, $event, this.rewriteConfig).subscribe(() => {
       this.selectDir('');
     });
   }
 
-  fileDropped($event) {
+  fileDropped($event, reloadFiles = false) {
     this.fileWasDropped = $event;
-  }
 
-  onCloseModal($event) {
-    if ($event)
+    if (reloadFiles)
     {
-      this._searchService.loadFiles('').subscribe((files: FileModel[]) => this.indexedFiles = files || []);
+      this._searchService.loadFiles('').subscribe((files: ExtendedFileModel[]) => this.files = files || []);
     }
   }
 

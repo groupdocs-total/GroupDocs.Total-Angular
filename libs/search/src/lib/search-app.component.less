@@ -1,110 +1,126 @@
 @import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 @import "../../../common-components/src/styles/variables";
+
 :host * {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
 // TODO: this was added to get rid of `user-select: none` added by hammerjs
-.gd-document, /deep/ .document {
+.gd-document,
+/deep/ .document {
   user-select: text !important;
 }
 
 .current-page-number {
   margin-left: 7px;
-  font-size: 14px;
-  color: @regent-gray;
-  width: 37px;
-  height: 37px;
+  font-size  : 14px;
+  color      : @regent-gray;
+  width      : 37px;
+  height     : 37px;
   line-height: 37px;
-  text-align: center;
-  &.active{
+  text-align : center;
+
+  &.active {
     color: #fff;
   }
 }
 
 .wrapper {
   align-items: stretch;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height     : 100%;
+  width      : 100%;
+  position   : fixed;
+  top        : 0;
+  bottom     : 0;
+  left       : 0;
+  right      : 0;
 }
 
 .doc-panel {
-  display: flex;
-  height: calc(100vh - 60px);
+  display       : flex;
+  height        : calc(100vh - 60px);
   flex-direction: row;
 }
 
 .thumbnails-button {
   position: absolute;
-  right: 3px;
+  right   : 3px;
 }
 
 .top-panel {
-  display: flex;
+  display    : flex;
   align-items: center;
-  width: 100%;
+  width      : 100%;
 }
 
 .toolbar-panel {
   background-color: @nav-main-background;
-  width: 100%;
+  width           : 100%;
 }
 
 ::ng-deep .tools {
-  .button, .selected-value, .nav-caret {
+
+  .button,
+  .selected-value,
+  .nav-caret {
     color: #fff !important;
-    &.inactive{
-      color: @regent-gray !important;
+
+    &.inactive {
+      color: @regent-gray  !important;
     }
   }
+
   .button {
     flex-flow: column;
   }
-  .dropdown-menu .option{
-    color: @dove-gray !important;
+
+  .dropdown-menu .option {
+    color: @dove-gray  !important;
   }
-  .dropdown-menu .option:hover{
-    background-color: @folder !important;
+
+  .dropdown-menu .option:hover {
+    background-color: @folder  !important;
   }
-  .icon-button{
+
+  .icon-button {
     margin: 0px 0px 0px 7px !important;
   }
+
   .select {
-    width: 65px;
-    height: 37px;
+    width      : 65px;
+    height     : 37px;
     margin-left: 7px;
     line-height: 37px;
-    text-align: center;
+    text-align : center;
   }
 }
 
 @media (max-width: 1037px) {
-  .mobile-hide, .current-page-number {
+
+  .mobile-hide,
+  .current-page-number {
     display: none;
   }
 
   ::ng-deep .tools {
-    gd-button:nth-child(1) > .icon-button{
+    gd-button:nth-child(1)>.icon-button {
       margin: 0px 0px 0px 10px !important;
     }
-    .icon-button{
+
+    .icon-button {
       height: 60px;
-      width: 60px;
+      width : 60px;
     }
+
     .gd-nav-search-btn {
       .icon-button {
         height: 37px;
-        width: 37px;
+        width : 37px;
       }
+
       .button {
         font-size: 14px;
       }
     }
   }
 }
-

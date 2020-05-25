@@ -17,6 +17,7 @@ import {SearchResultSummaryComponent} from './search-result-summary/search-resul
 import {SearchResultItemComponent} from './search-result-item/search-result-item.component';
 import {IndexedFilesListComponent} from './indexed-files-list/indexed-files-list.component';
 import {IndexedFileComponent} from './indexed-file/indexed-file.component';
+import {SearchBrowseFilesModalComponent} from './search-browse-files-modal/search-browse-files-modal.component';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -36,7 +37,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SearchResultSummaryComponent,
     SearchResultItemComponent,
     IndexedFilesListComponent,
-    IndexedFileComponent
+    IndexedFileComponent,
+    SearchBrowseFilesModalComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SearchResultSummaryComponent,
     SearchResultItemComponent,
     IndexedFilesListComponent,
-    IndexedFileComponent
+    IndexedFileComponent,
+    SearchBrowseFilesModalComponent
   ],
   providers: [
     SearchService,

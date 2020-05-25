@@ -30,7 +30,7 @@ export class Api {
   public static COMPARE_FILES = '/compare';
   public static CONVERT_FILE = '/convert';
   public static DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
-  public static DELETE_FILE = '/deleteFile';
+  public static REMOVE_FROM_INDEX = '/removeFromIndex';
   public static SAVE_OPTICAL_CODE = '/saveOpticalCode';
   public static SAVE_TEXT = '/saveText';
   public static SAVE_IMAGE = '/saveImage';
@@ -40,6 +40,7 @@ export class Api {
   public static LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
   public static ANNOTATE = '/annotate';
   public static SEARCH = '/search';
+  public static ADD_FILES_TO_INDEX = '/addFilesToIndex';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

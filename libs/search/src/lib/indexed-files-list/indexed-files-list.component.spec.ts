@@ -3,7 +3,7 @@ import { IndexedFilesListComponent } from './indexed-files-list.component';
 import { IndexedFileComponent } from '../indexed-file/indexed-file.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-describe('ConversionQueueComponent', () => {
+describe('IndexedFilesListComponent', () => {
   let component: IndexedFilesListComponent;
   let fixture: ComponentFixture<IndexedFilesListComponent>;
 

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SearchPanelComponent } from './search-panel.component';
+import { CommonComponentsModule } from '@groupdocs.examples.angular/common-components';
 
 describe('SearchPanelComponent', () => {
   let component: SearchPanelComponent;
@@ -8,7 +9,8 @@ describe('SearchPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchPanelComponent ]
+      declarations: [ SearchPanelComponent ],
+      imports: [ FontAwesomeModule, CommonComponentsModule ]
     })
     .compileComponents();
   }));

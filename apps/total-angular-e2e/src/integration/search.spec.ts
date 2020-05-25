@@ -34,13 +34,11 @@ describe('Search', () => {
       cy.get('#gd-header-logo .text').should('have.text', 'search');
     });
   
-    it('should be able to see search panel and indexed files list', () => {
+    it('should be able to see search panel and drag and drop area', () => {
         cy.visit('/search');
         cy.wait(300);
         cy.get('.gd-search-panel').should('be.visible');
-        cy.get('.gd-indexed-files-list-header').should('be.visible');
-        cy.get('#gd-indexed-files-list > div.gd-indexed-files-list-body').should('be.visible');
-        cy.get('.gd-indexed-file').its('length').should('eq', 5);
+        cy.get('.init-state-wrapper').should('be.visible');
     })
 
     it('should open file dialog when clicked on open file icon', () => {
@@ -71,7 +69,7 @@ describe('Search', () => {
       cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
       cy.get(':nth-child(3) > .file-description > .file-name-format > .file-name').should('have.text', 'TestWord.docx');
       cy.get(':nth-child(3) > .file-description > .file-name-format > .file-format').should('have.text', 'Microsoft Word');
-      cy.get(':nth-child(3) > .file-size').should('have.text', ' 11.63 KB '); // @TODO: trim spaces around size
+      cy.get(':nth-child(3) > .file-size').should('have.text', '11.63 KB');
       cy.get(':nth-child(3) > div.file-description > fa-icon').should('have.class', 'fa-file-word');
     });
   

@@ -14,6 +14,10 @@ export class SearchService {
   constructor(private _http: HttpClient, private _config: ConfigService) {
   }
 
+  addFilesToIndex(filesToIndex: FileModel[]) {
+    return this._http.post(this._config.getSearchApiEndpoint() + Api.ADD_FILES_TO_INDEX, filesToIndex, Api.httpOptionsJson);
+  }
+
   loadFiles(path: string) {
     return this._http.post(this._config.getSearchApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
   }
@@ -40,7 +44,7 @@ export class SearchService {
   }
 
   removeFile(file: FileModel) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.DELETE_FILE, file, Api.httpOptionsJson);
+    return this._http.post(this._config.getSearchApiEndpoint() + Api.REMOVE_FROM_INDEX, file, Api.httpOptionsJson);
   }
 
   selectedItemToRemove(file: FileModel) {

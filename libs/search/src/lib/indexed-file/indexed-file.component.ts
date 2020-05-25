@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchService } from "../search.service";
 import { FileModel, FileUtil } from '@groupdocs.examples.angular/common-components';
+import { SearchFileModel } from '../search-models';
 
 @Component({
   selector: 'gd-indexed-file',
@@ -9,7 +10,7 @@ import { FileModel, FileUtil } from '@groupdocs.examples.angular/common-componen
 })
 
 export class IndexedFileComponent implements OnInit {
-  @Input() file: FileModel;
+  @Input() file: SearchFileModel;
 
   constructor(private _searchService: SearchService) {
   }

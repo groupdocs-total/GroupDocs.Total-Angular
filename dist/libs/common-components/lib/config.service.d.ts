@@ -28,7 +28,7 @@ export declare class Api {
     static COMPARE_FILES: string;
     static CONVERT_FILE: string;
     static DELETE_SIGNATURE_FILE: string;
-    static DELETE_FILE: string;
+    static REMOVE_FROM_INDEX: string;
     static SAVE_OPTICAL_CODE: string;
     static SAVE_TEXT: string;
     static SAVE_IMAGE: string;
@@ -38,6 +38,7 @@ export declare class Api {
     static LOAD_SIGNATURE_IMAGE: string;
     static ANNOTATE: string;
     static SEARCH: string;
+    static ADD_FILES_TO_INDEX: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };

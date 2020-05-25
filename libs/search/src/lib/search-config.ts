@@ -3,6 +3,6 @@ export class SearchConfig {
   upload: boolean;
   browse: boolean;
   filesDirectory: string;
-  indexDirectory: string;
+  indexedFilesDirectory: string;
   defaultDocument: string;
 }
