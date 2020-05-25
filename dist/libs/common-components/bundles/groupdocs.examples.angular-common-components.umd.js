@@ -2408,6 +2408,7 @@
             this._windowService = _windowService;
             this._viewportService = _viewportService;
             this.zoom = 100;
+            this.loadedPagesSet = new Set();
             this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
             _zoomService.zoomChange.subscribe((/**
              * @param {?} val
@@ -2589,7 +2590,10 @@
                         }
                         currentPageSet = true;
                     }
-                    this._pagePreloadService.changeLastPageInView(page);
+                    if (!this.loadedPagesSet.has(page)) {
+                        this._pagePreloadService.changeLastPageInView(page);
+                        this.loadedPagesSet.add(page);
+                    }
                 }
             }
         };
