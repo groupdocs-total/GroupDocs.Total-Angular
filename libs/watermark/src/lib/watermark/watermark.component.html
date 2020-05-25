@@ -1,0 +1,35 @@
+<div class="gd-watermark"
+     (clickOutside)="hideMenu($event)"
+     [exclude]="'gd-context-menu,.ui-resizable-handle,.gd-comments-panel'"
+     [excludeBeforeClick]="true"
+     [clickOutsideEvents]="'mousedown'"
+     [clickOutsideEnabled]="active"
+     [style.left.px]="leftTop.left" [style.top.px]="leftTop.top"
+     [style.width.px]="getWidth()"
+     [style.height.px]="getHeight()"
+     (click)="activation()"
+     (touchstart)="activation()">
+  <div [draggable]="true" (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
+       (drag)="dragging($event)" (dragend)="dragging($event)" (drop)="dragOver($event)"
+       (panstart)="dragStart($event)" (panmove)="dragging($event)"
+       class="gd-watermark-wrapper" [ngClass]="getWatermarkClass()">
+    <gd-context-menu *ngIf="active" [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
+                     (changeFormatting)="saveFormatting($event)" (removeItem)="remove()"
+                     [translation]="getMenuShift()" [menuType]="getMenuType()"
+                     (comment)="addComment()"></gd-context-menu>
+    <textarea wrap="off" class="gd-text" *ngIf="isText()" [value]="textValue"
+              id="{{'text-' + id}}" #text (keyup)="saveText(text.value)"
+              (keydown)="textAreaHeight($event.key, text)"
+              [style.color]="formatting?.color"
+              [style.font-family]="formatting?.font"
+              [style.font-size.px]="formatting?.fontSize"
+              [style.width.px]="getWidth()"
+              [style.height.px]="getHeight()"></textarea>
+  </div>
+
+  <gd-resizing [id]="id" *ngIf="active"
+               (offsetX)="width($event)" (offsetY)="height($event)"
+               (offsetTop)="top($event)" (offsetLeft)="left($event)"
+               [se]="true" [sw]="true" [ne]="true" [nw]="true"
+               [pageHeight]="pageHeight" [pageWidth]="pageWidth"></gd-resizing>
+</div>

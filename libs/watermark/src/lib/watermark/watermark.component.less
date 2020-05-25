@@ -1,0 +1,91 @@
+.gd-watermark {
+  position: absolute !important;
+  cursor: pointer;
+  z-index: 9;
+
+  .gd-watermark-wrapper-border {
+    outline: 1px solid #679FFA;
+    display: -webkit-box;
+  }
+
+  .gd-watermark-wrapper {
+    height: inherit;
+    z-index: 9;
+
+    ::ng-deep .palette {
+      width: 0px;
+      height: 37px;
+    }
+
+    .gd-text-strikeout-line {
+      background-color: #E04E4E;
+      height: 2px;
+      width: 100%;
+    }
+
+    .gd-text {
+      border: none;
+      outline: none;
+      margin: 0px;
+      padding: 0px;
+      overflow: hidden;
+      background-color: transparent;
+      min-width: 1em;
+      min-height: 1em;
+    }
+
+    .gd-point {
+      background-color: #7CBC46;
+      width: 41px;
+      height: 41px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -khtml-border-radius: 50%;
+      box-shadow: 0px 1px 1px 1px #bbb;
+      -moz-box-shadow: 0px 1px 1px 1px #bbb;
+      -webkit-box-shadow: 0px 1px 1px 1px #bbb;
+    }
+  }
+
+  .gd-text-watermark {
+    background-color: rgba(151, 151, 240, 0.51);
+  }
+
+  .gd-text-strikeout-watermark {
+    align-items: center;
+    -webkit-box-align: center;
+  }
+
+  .gd-text-underline-watermark {
+    align-items: end;
+    -webkit-box-align: end;
+  }
+
+  .gd-text-redaction-watermark {
+    background-color: #000;
+  }
+
+  .gd-text-replacement-watermark {
+    background-color: #FFFFFF;
+  }
+}
+
+.svg {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.watermark-svg {
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+}

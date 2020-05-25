@@ -1,0 +1,87 @@
+<gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
+<div class="wrapper" (contextmenu)="onRightClick($event)">
+  <div class="watermark-wrapper wrapper">
+    <gd-tabbed-toolbars [logo]="'watermark'" [icon]="'pen-square'">
+      <gd-tabs>
+        <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
+          <div id="files-tools" class="toolbar-panel">
+            <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                       *ngIf="browseConfig"></gd-button>
+
+            <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+                       (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
+            <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="addWatermark()"></gd-button>
+
+          </div>
+        </gd-tab>
+        <gd-tab [tabTitle]="'Watermarks'" [icon]="'highlighter'" [id]="'2'"
+                *ngIf="isDesktop || (!isDesktop)">
+          <div class="toolbar-panel">
+            <div *ngFor="let watermarkType of (isDesktop ? watermarkTypes : watermarkTypeFirst)">
+              <gd-top-tab [disabled]="!file" *ngIf="isVisible(watermarkType.id)"
+                          [icon]="watermarkType.icon" (activeTab)="activeTab($event)"
+                          [id]="watermarkType.id" [tooltip]="watermarkType.name">
+              </gd-top-tab>
+            </div>
+          </div>
+        </gd-tab>
+        <gd-tab [tabTitle]="''" [icon]="'vector-square'" [id]="'3'" *ngIf="!isDesktop">
+          <div class="toolbar-panel">
+            <div *ngFor="let watermarkType of watermarkTypeSecond">
+              <gd-top-tab [disabled]="!file" *ngIf="isVisible(watermarkType.id)"
+                          [icon]="watermarkType.icon" (activeTab)="activeTab($event)"
+                          [id]="watermarkType.id" [tooltip]="watermarkType.name">
+              </gd-top-tab>
+            </div>
+          </div>
+        </gd-tab>
+        <gd-tab [tabTitle]="''" [icon]="'i-cursor'" [id]="'4'" *ngIf="!isDesktop">
+          <div class="toolbar-panel">
+            <div *ngFor="let watermarkType of watermarkTypeThird">
+              <gd-top-tab [disabled]="!file" *ngIf="isVisible(watermarkType.id)"
+                          [icon]="watermarkType.icon" (activeTab)="activeTab($event)"
+                          [id]="watermarkType.id" [tooltip]="watermarkType.name">
+              </gd-top-tab>
+            </div>
+          </div>
+        </gd-tab>
+      </gd-tabs>
+    </gd-tabbed-toolbars>
+    <div class="doc-panel" *ngIf="file" (mousedown)="createWatermark($event)"
+         (mousemove)="resizingCreatingWatermark($event)" (mouseup)="finishCreatingWatermark($event)"
+         (touchstart)="createWatermark($event)" (touchmove)="resizingCreatingWatermark($event)"
+         (touchend)="finishCreatingWatermark($event)"
+         (panstart)="createWatermark($event)" (panmove)="resizingCreatingWatermark($event)"
+         (panend)="finishCreatingWatermark($event)">
+      <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig" gdScrollable
+                   [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
+    </div>
+
+    <gd-init-state [icon]="'highlighter'" [text]="'Drop file here to upload'" *ngIf="!file"
+                   (fileDropped)="fileDropped($event)">
+      Click
+      <fa-icon [icon]="['fas','folder-open']"></fa-icon>
+      to open file<br>
+      Or drop file here
+    </gd-init-state>
+  </div>
+  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+                         (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
+                         [uploadConfig]="uploadConfig"></gd-browse-files-modal>
+
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
+  <gd-success-modal></gd-success-modal>
+  <svg class="svg" xmlns="http://www.w3.org/2000/svg">
+    <defs xmlns="http://www.w3.org/2000/svg">
+      <marker id="end" orient='auto' markerWidth='20' markerHeight='20'
+              refX="10" refY="10" markerUnits="strokeWidth">
+        <path d='M0,7 L0,13 L12,10 z' fill='#579AF0'></path>
+      </marker>
+      <marker id="start" orient='auto' markerWidth='20' markerHeight='20'
+              refX="0" refY="10" markerUnits="strokeWidth">
+        <path d='M12,7 L12,13 L0,10 z' fill='#579AF0'></path>
+      </marker>
+    </defs>
+  </svg>
+</div>

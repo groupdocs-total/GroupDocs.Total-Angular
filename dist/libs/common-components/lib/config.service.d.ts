@@ -7,6 +7,7 @@ export declare class Api {
     static COMPARISON_APP: string;
     static CONVERSION_APP: string;
     static METADATA_APP: string;
+    static WATERMARK_APP: string;
     static DEFAULT_API_ENDPOINT: string;
     static LOAD_FILE_TREE: string;
     static LOAD_CONFIG: string;
@@ -35,6 +36,7 @@ export declare class Api {
     static DOWNLOAD_SIGNED: string;
     static LOAD_SIGNATURE_IMAGE: string;
     static ANNOTATE: string;
+    static ADD_WATERMARK: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };
@@ -53,6 +55,7 @@ export declare class ConfigService {
     getComparisonApiEndpoint(): string;
     getConversionApiEndpoint(): string;
     getMetadataApiEndpoint(): string;
+    getWatermarkApiEndpoint(): string;
     getSignatureApiEndpoint(): string;
     getAnnotationApiEndpoint(): string;
 }
