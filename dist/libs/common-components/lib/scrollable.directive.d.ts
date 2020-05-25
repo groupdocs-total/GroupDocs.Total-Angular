@@ -13,6 +13,7 @@ export declare class ScrollableDirective implements AfterViewInit, OnChanges, On
     private _viewportService;
     private currentPage;
     private zoom;
+    private loadedPagesSet;
     constructor(_elementRef: ElementRef<HTMLElement>, _navigateService: NavigateService, _pagePreloadService: PagePreloadService, _zoomService: ZoomService, _windowService: WindowService, _viewportService: ViewportService);
     ngAfterViewInit(): void;
     scrolling(): void;
