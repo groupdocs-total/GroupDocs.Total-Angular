@@ -13,6 +13,7 @@ export class LoadingMaskService {
     this.stopList.push(Api.SAVE_TEXT);
     this.stopList.push(Api.SAVE_OPTICAL_CODE);
     this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
+    this.stopList.push(Api.LOAD_THUMBNAILS);
   }
 
   onRequestStart(req: HttpRequest<any>): void {

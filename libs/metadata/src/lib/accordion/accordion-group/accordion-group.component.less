@@ -3,19 +3,20 @@
 .accordion-wrapper {
   background-color: white;
 }
-  
+
 .accordion-wrapper .title {
-  width: 100%;
-  cursor: pointer;
-  border-bottom: 1px solid @dove-gray;
+  width           : 100%;
+  cursor          : pointer;
+  border-bottom   : 1px solid @dove-gray;
   background-color: @word;
-  color: @wild-sand;
-  font-weight: bold;
-  display: flex;
-  flex-direction: row;
-  height: 37px;
-  line-height: 37px;
-  font-size: 13px;
+  color           : @wild-sand;
+  font-weight     : bold;
+  display         : flex;
+  flex-direction  : row;
+  height          : 37px;
+  line-height     : 37px;
+  font-size       : 13px;
+
   .text {
     width: 100%;
   }
@@ -29,11 +30,12 @@
   margin-left: auto;
 }
 
-/deep/ .title {
+::ng-deep .title {
   .button {
-    color: white !important;
-    display: block !important;
+    color       : white !important;
+    display     : block !important;
     margin-right: 0px !important;
+
     &.active {
       fa-icon {
         color: white !important;
@@ -53,57 +55,63 @@
 }
 
 .property-wrapper {
-  display: flex;
-  height: 35px;
-  font-size: 12px;
+  display      : flex;
+  height       : 35px;
+  font-size    : 12px;
   border-bottom: 1px solid @mercury;
-  line-height: 35px;
+  line-height  : 35px;
+
   &.disabled {
     cursor: not-allowed;
-    color: @silver-chalice;
+    color : @silver-chalice;
   }
 }
 
 .property-name {
-  width: 216px;
+  width         : 216px;
   text-transform: uppercase;
-  font-weight: bold;
-  padding-left: 15px;
-  border-right: 1px solid @mercury;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  /deep/ .select {
-    height: 35px;
-    line-height: 37px;
-    text-align: center;
+  font-weight   : bold;
+  padding-left  : 15px;
+  border-right  : 1px solid @mercury;
+  text-overflow : ellipsis;
+  word-wrap     : break-word;
+
+  ::ng-deep .select {
+    height         : 35px;
+    line-height    : 37px;
+    text-align     : center;
     justify-content: unset;
-    position: relative;
-    .nav-caret{
+    position       : relative;
+
+    .nav-caret {
       display: none;
     }
-    .selected-value{
-      max-width: none;
-      font-size: unset;
+
+    .selected-value {
+      max-width     : none;
+      font-size     : unset;
       text-transform: none;
-      font-weight: normal;
+      font-weight   : normal;
     }
+
     .dropdown-menu {
-      width: 216px;
+      width      : 216px;
       margin-left: -15px;
-      top: 36px;
+      top        : 36px;
     }
   }
 }
 
 .property-value {
-  font-family: 'Courier New', Courier, monospace;
-  padding-left: 12px;
+  font-family  : 'Courier New', Courier, monospace;
+  padding-left : 12px;
   text-overflow: ellipsis;
-  width: 216px;
-  white-space: nowrap;
-  overflow: hidden;
-  word-wrap: break-word;
-  display: inline-block;
+  width        : 216px;
+  white-space  : nowrap;
+  overflow     : hidden;
+  word-wrap    : break-word;
+  display      : inline-block;
+
   &.desktop-hide {
     display: none;
   }
@@ -111,32 +119,34 @@
 
 .input-wrapper {
   input {
-    height: 30px;
-    border: 0px;
+    height   : 30px;
+    border   : 0px;
     font-size: 12px;
+
     &.hidden {
       display: none;
     }
-    &[type=datetime-local]::-webkit-inner-spin-button, 
+
+    &[type=datetime-local]::-webkit-inner-spin-button,
     &[type=datetime-local]::-webkit-clear-button {
       -webkit-appearance: none;
-      display: none;
+      display           : none;
     }
   }
 }
 
 .selected {
   background-color: @primary;
-  color: white;
+  color           : white;
 }
 
-/deep/ .default {
+::ng-deep .default {
   .property-name {
     color: @silver-chalice;
   }
 }
 
-@media (max-width: 1037px){
+@media (max-width: 1037px) {
   .property-value {
     width: 194px !important;
   }

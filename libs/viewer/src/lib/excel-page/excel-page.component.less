@@ -6,7 +6,7 @@
 }
 
 .gd-wrapper {
-  width: inherit;
+  width : inherit;
   height: inherit;
 }
 
@@ -14,50 +14,52 @@
   width: 100%;
 }
 
-/deep/ .gd-highlight {
+::ng-deep .gd-highlight {
   background-color: yellow;
 }
 
-/deep/ .gd-highlight-select {
+::ng-deep .gd-highlight-select {
   background-color: #ff9b00;
 }
 
-/deep/ th {
-  color: @regent-gray;
+::ng-deep th {
+  color           : @regent-gray;
   background-color: @wild-sand;
-  font-weight: unset;
-  border: 1px solid @mercury !important;
-  text-transform: uppercase;
-  font-size: 14px;
-  overflow: hidden;
+  font-weight     : unset;
+  border          : 1px solid @mercury  !important;
+  text-transform  : uppercase;
+  font-size       : 14px;
+  overflow        : hidden;
 }
 
-/deep/ td {
+::ng-deep td {
   vertical-align: middle !important;
 }
 
-/deep/ .page-grid-lines td {
-  border: 1px solid @mercury !important;
+::ng-deep .page-grid-lines td {
+  border: 1px solid @mercury  !important;
 }
 
-/deep/ .page td:nth-child(1) {
-  border: 1px solid @mercury !important;
+::ng-deep .page td:nth-child(1) {
+  border: 1px solid @mercury  !important;
 }
 
-/deep/ tr td.excel:first-child {
-  color: @regent-gray;
+::ng-deep tr td.excel:first-child {
+  color           : @regent-gray;
   background-color: @wild-sand;
-  font-weight: unset;
-  width: 1%;
-  text-align: center;
+  font-weight     : unset;
+  width           : 1%;
+  text-align      : center;
+
   div {
     width: 80px;
   }
 }
 
-/deep/ tr th.excel:first-child {
+::ng-deep tr th.excel:first-child {
   background-color: @wild-sand;
-  width: 1%;
+  width           : 1%;
+
   div {
     width: 80px;
   }
@@ -66,5 +68,5 @@
 // TODO: remove this after related issue will be fixed
 .gd-page-image {
   height: 100% !important;
-  width: 100% !important;
+  width : 100% !important;
 }
