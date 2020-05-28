@@ -36,6 +36,7 @@ export class FileDescription {
   pages: PageModel[];
   printAllowed = true;
   showGridLines: boolean;
+  thumbnails: PageModel[];
 }
 
 export class FileModel {

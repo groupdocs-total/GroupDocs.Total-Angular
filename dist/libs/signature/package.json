@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/signature",
-  "version": "0.7.8",
+  "version": "0.7.9",
   "description": "Angular application that allows to sign documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {
