@@ -11,10 +11,11 @@ import {SearchConfig} from "./search-config";
 import {SearchConfigService} from "./search-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 import {
-  SearchFileModel,
+  IndexedFileModel,
   SearchResult,
   SearchResultItemModel,
-  ExtendedFileModel
+  ExtendedFileModel,
+  FileIndexingStatus
 } from "./search-models";
 
 @Component({
@@ -25,9 +26,8 @@ import {
 export class SearchAppComponent implements OnInit, AfterViewInit {
   title = 'search';
   files: ExtendedFileModel[] = [];
-  searchFiles: SearchFileModel[] = [];
   searchResultItems: SearchResultItemModel[] = [];
-  indexedFiles: FileModel[] = [];
+  indexedFiles: IndexedFileModel[] = [];
   searchConfig: SearchConfig;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
@@ -54,13 +54,16 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
           this._searchService.upload(uploads.item(i), '', this.searchConfig.rewrite).subscribe((obj: FileCredentials) => {
+            if (!this.fileWasDropped) 
+            {
+              this.selectDir('');
+            }
           });
         }
       }
     });
 
     passwordService.passChange.subscribe((pass: string) => {
-      this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
     });
 
     this.isDesktop = _windowService.isDesktop();
@@ -78,10 +81,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if (this.searchConfig.defaultDocument !== '') {
-      this.isLoading = true;
-      this.selectFile(this.searchConfig.defaultDocument, '', '');
-    }
   }
 
   ngAfterViewInit() {
@@ -118,17 +117,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     this.searchResult = null;
   }
 
-  selectFile($event: string, password: string, modalId: string) {
-    this.credentials = {guid: $event, password: password};
-    this._searchService.loadFile(this.credentials).subscribe((file: SearchFileModel) => {
-        this.searchFiles.push(file);
-      }
-    );
-    if (modalId) {
-      this._modalService.close(modalId);
-    }
-  }
-
   selectAllItems(checked: boolean) {
     this.files.forEach( (f) => {
       if (!f.isDirectory && !f.directory) f.selected = checked;
@@ -138,7 +126,30 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   loadIndexedFiles($event) {
     if (!$event) return;
 
-    this._searchService.loadFiles(this.searchConfig.indexedFilesDirectory).subscribe((files: FileModel[]) => this.indexedFiles = files || []);
+    this._searchService.loadFiles(this.searchConfig.indexedFilesDirectory).subscribe((indexingFiles: IndexedFileModel[]) => 
+    {
+      this.indexedFiles = indexingFiles || [];
+      if (this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing).length > 0)
+      {
+        const timerId = setInterval(() => 
+        {
+          this._searchService.getDocumentStatus(this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing)).subscribe((searchIndexFiles: IndexedFileModel[]) => 
+          {
+            searchIndexFiles.forEach((searchFile) => {
+              if (searchFile.documentStatus !== FileIndexingStatus.Indexing)
+              {
+                this.indexedFiles.filter(f => f.guid === searchFile.guid)[0].documentStatus = searchFile.documentStatus;
+              }
+            });
+
+            if (this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing).length === 0)
+            {
+              clearInterval(timerId);
+            }
+        });
+        }, 1000);
+      }
+    });
   }
 
   upload($event: string) {

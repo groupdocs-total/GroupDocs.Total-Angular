@@ -449,6 +449,7 @@
         Api.CONVERT_FILE = '/convert';
         Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
         Api.REMOVE_FROM_INDEX = '/removeFromIndex';
+        Api.GET_FILE_STATUS = '/getFileStatus';
         Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
         Api.SAVE_TEXT = '/saveText';
         Api.SAVE_IMAGE = '/saveImage';
@@ -5379,6 +5380,7 @@
             this.stopList.push(Api.SAVE_OPTICAL_CODE);
             this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
             this.stopList.push(Api.LOAD_THUMBNAILS);
+            this.stopList.push(Api.GET_FILE_STATUS);
         }
         /**
          * @param {?} req

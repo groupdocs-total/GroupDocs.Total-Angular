@@ -31,6 +31,7 @@ export class Api {
   public static CONVERT_FILE = '/convert';
   public static DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
   public static REMOVE_FROM_INDEX = '/removeFromIndex';
+  public static GET_FILE_STATUS = '/getFileStatus';
   public static SAVE_OPTICAL_CODE = '/saveOpticalCode';
   public static SAVE_TEXT = '/saveText';
   public static SAVE_IMAGE = '/saveImage';

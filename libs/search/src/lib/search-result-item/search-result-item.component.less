@@ -71,8 +71,12 @@
 }
 
 .gd-search-result-name {
-  text-align: left;
-  cursor    : default;
+  text-align   : left;
+  cursor       : default;
+  white-space  : nowrap;
+  overflow     : hidden;
+  text-overflow: ellipsis;
+  width        : 100%;
 }
 
 .gd-search-result-size {
@@ -170,8 +174,10 @@
   }
 
   .gd-found-file-name {
-    white-space: nowrap;
-    overflow   : hidden;
+    white-space  : nowrap;
+    overflow     : hidden;
+    text-overflow: ellipsis;
+    width        : 100%;
   }
 
   .gd-file-occurrences {

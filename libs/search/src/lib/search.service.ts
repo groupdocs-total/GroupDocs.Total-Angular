@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
+import { IndexedFileModel } from './search-models';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,9 @@ export class SearchService {
 
   selectedItemToRemove(file: FileModel) {
     this._itemToRemove.next(file);
+  }
+
+  getDocumentStatus(files: IndexedFileModel[]) {
+    return this._http.post(this._config.getSearchApiEndpoint() + Api.GET_FILE_STATUS, files, Api.httpOptionsJson);
   }
 }

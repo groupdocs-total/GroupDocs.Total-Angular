@@ -8,7 +8,6 @@
   <div class="upload-panel" *ngIf="uploadConfig">
     <input id="gd-upload-input" type="file" multiple style="display: none;"
             (change)="handleFileInput($event.target.files)">
-
     <div class="select-all">
       <input type="checkbox" [disabled]="!(this.files && this.files.length > 0)" class="gd-checkbox" [checked]="allItemsSelected()"
                (change)="selectAllItems($event.target.checked);">

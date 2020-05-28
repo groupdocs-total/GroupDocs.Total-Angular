@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchService } from "../search.service";
 import { FileModel, FileUtil } from '@groupdocs.examples.angular/common-components';
-import { SearchFileModel } from '../search-models';
+import { IndexedFileModel, FileIndexingStatus } from '../search-models';
 
 @Component({
   selector: 'gd-indexed-file',
@@ -10,7 +10,7 @@ import { SearchFileModel } from '../search-models';
 })
 
 export class IndexedFileComponent implements OnInit {
-  @Input() file: SearchFileModel;
+  @Input() file: IndexedFileModel;
 
   constructor(private _searchService: SearchService) {
   }
@@ -37,11 +37,41 @@ export class IndexedFileComponent implements OnInit {
     return size + ' Bytes';
   }
 
-  getFormatIcon(file: FileModel) {
-    return FileUtil.find(file.name, file.directory).icon;
+  getFormatIcon() {
+    return FileUtil.find(this.file.name, this.file.directory).icon;
   }
 
-  getFormatName(file: FileModel) {
-    return FileUtil.find(file.name, file.directory).format;
+  getFormatName() {
+    return FileUtil.find(this.file.name, this.file.directory).format;
+  }
+
+  getStatusIcon() {
+    switch (this.file.documentStatus) {
+      case FileIndexingStatus.Indexing:
+        return "circle-notch";
+      case FileIndexingStatus.SuccessfullyProcessed:
+        return "check";
+      case FileIndexingStatus.ProcessedWithError:
+        return "times";
+      case FileIndexingStatus.Skipped:
+        return "forward";
+      default:
+        return "clock";
+    }
+  }
+
+  getStatusTitle() {
+    switch (this.file.documentStatus) {
+      case FileIndexingStatus.Indexing:
+        return "Indexing";
+      case FileIndexingStatus.SuccessfullyProcessed:
+        return "Indexed";
+      case FileIndexingStatus.ProcessedWithError:
+        return "Error"
+      case FileIndexingStatus.Skipped:
+        return "Skipped";
+      default:
+        return "Indexing";
+    }
   }
 }

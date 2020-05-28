@@ -1,15 +1,10 @@
-import {FileDescription, FileModel} from "@groupdocs.examples.angular/common-components";
+import { FileModel } from "@groupdocs.examples.angular/common-components";
 
-export class SearchFileModel extends FileModel {
-  documentStatus: number;
-}
-
-export class FoundDocumentField {
-  fieldName: string;
+export class IndexedFileModel extends FileModel {
+  documentStatus: string;
 }
 
 export class SearchResult {
-  foundFields: FoundDocumentField[];
   foundFiles: SearchResultItemModel[];
   filePath: string;
   searchDuration: string;
@@ -36,4 +31,11 @@ export class ExtendedFileModel implements FileModel {
   size: number;
   name: string;
   selected: boolean;
+}
+
+export enum FileIndexingStatus {
+  Indexing = "Indexing",
+  SuccessfullyProcessed = "SuccessfullyProcessed",
+  Skipped = "Skipped",
+  ProcessedWithError = "ProcessedWithError"
 }

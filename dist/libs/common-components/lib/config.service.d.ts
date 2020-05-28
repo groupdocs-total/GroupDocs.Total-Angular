@@ -29,6 +29,7 @@ export declare class Api {
     static CONVERT_FILE: string;
     static DELETE_SIGNATURE_FILE: string;
     static REMOVE_FROM_INDEX: string;
+    static GET_FILE_STATUS: string;
     static SAVE_OPTICAL_CODE: string;
     static SAVE_TEXT: string;
     static SAVE_IMAGE: string;

@@ -21,8 +21,6 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
   @Output() filesAddedToIndex = new EventEmitter<boolean>();
   @Output() fileDropped = new EventEmitter<boolean>();
 
-  dynamicOptions: Option[] = [];
-
   constructor(_uploadService: UploadFilesService,
     private _searchService: SearchService,
     private _modalService: ModalService) {
