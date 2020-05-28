@@ -1945,7 +1945,9 @@ class AnnotationAppComponent {
      * @return {?}
      */
     createAnnotation($event) {
-        $event.preventDefault();
+        if (this.activeAnnotationTab) {
+            $event.preventDefault();
+        }
         if (this.activeAnnotationTab) {
             /** @type {?} */
             const position = Utils.getMousePosition($event);
@@ -2042,7 +2044,9 @@ class AnnotationAppComponent {
      * @return {?}
      */
     resizingCreatingAnnotation($event) {
-        $event.preventDefault();
+        if (this.activeAnnotationTab) {
+            $event.preventDefault();
+        }
         if (this.creatingAnnotationId) {
             /** @type {?} */
             const position = Utils.getMousePosition($event);
@@ -2080,6 +2084,9 @@ class AnnotationAppComponent {
      * @return {?}
      */
     finishCreatingAnnotation($event) {
+        if (this.activeAnnotationTab) {
+            $event.preventDefault();
+        }
         if (this.creatingAnnotationId) {
             this._activeAnnotationService.changeActive(this.creatingAnnotationId);
             this.creatingAnnotationId = null;
