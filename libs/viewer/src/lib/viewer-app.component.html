@@ -42,7 +42,7 @@
     </gd-top-toolbar>
   </div>
   <div class="doc-panel" *ngIf="file" #docPanel>
-    <gd-thumbnails *ngIf="showThumbnails" [pages]="file.pages" [isHtmlMode]="htmlModeConfig"
+    <gd-thumbnails *ngIf="showThumbnails" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
                    [guid]="file.guid" [mode]="htmlModeConfig"></gd-thumbnails>
 
     <gd-document class="gd-document" *ngIf="(file && formatIcon !== 'file-excel') || (formatIcon === 'file-excel' && !htmlModeConfig)" [file]="file" [mode]="htmlModeConfig" gdScrollable
