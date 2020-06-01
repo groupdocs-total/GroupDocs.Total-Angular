@@ -23,5 +23,5 @@
                          (filesAddedToIndex)="loadIndexedFiles($event)"></gd-search-browse-files-modal>
 
   <gd-error-modal></gd-error-modal>
-  <gd-password-required></gd-password-required>
+  <gd-password-required (cancelEvent)="cancel($event)"></gd-password-required>
 </div>

@@ -2,6 +2,7 @@ import { FileModel } from "@groupdocs.examples.angular/common-components";
 
 export class IndexedFileModel extends FileModel {
   documentStatus: string;
+  password: string;
 }
 
 export class SearchResult {
@@ -37,5 +38,6 @@ export enum FileIndexingStatus {
   Indexing = "Indexing",
   SuccessfullyProcessed = "SuccessfullyProcessed",
   Skipped = "Skipped",
-  ProcessedWithError = "ProcessedWithError"
+  ProcessedWithError = "ProcessedWithError",
+  PasswordRequired = "PasswordRequired"
 }

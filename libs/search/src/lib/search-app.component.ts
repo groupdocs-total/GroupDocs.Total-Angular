@@ -33,6 +33,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   browseFilesModal = CommonModals.BrowseFiles;
   isDesktop: boolean;
   isLoading: boolean;
+  skipPasswordProtected: boolean;
   searchResult: SearchResult;
 
   fileWasDropped = false;
@@ -64,6 +65,13 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     });
 
     passwordService.passChange.subscribe((pass: string) => {
+      this.closeModal(CommonModals.PasswordRequired);
+
+      const passwordRequiredFile = this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.PasswordRequired)[0];
+      passwordRequiredFile.password = pass;
+      this._searchService.addFilesToIndex([passwordRequiredFile]).subscribe(() => {
+        this.loadIndexedFiles(true);
+      });
     });
 
     this.isDesktop = _windowService.isDesktop();
@@ -128,12 +136,19 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
     this._searchService.loadFiles(this.searchConfig.indexedFilesDirectory).subscribe((indexingFiles: IndexedFileModel[]) => 
     {
+      if (indexingFiles && this.skipPasswordProtected && indexingFiles.filter(f => f.documentStatus === FileIndexingStatus.PasswordRequired).length > 0)
+      {
+        indexingFiles.filter(f => f.documentStatus === FileIndexingStatus.PasswordRequired)[0].documentStatus = FileIndexingStatus.Skipped;
+      }
+
       this.indexedFiles = indexingFiles || [];
-      if (this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing).length > 0)
+      if (this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing).length > 0 ||
+          (!this.skipPasswordProtected && this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.PasswordRequired).length > 0))
       {
         const timerId = setInterval(() => 
         {
-          this._searchService.getDocumentStatus(this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing)).subscribe((searchIndexFiles: IndexedFileModel[]) => 
+          this._searchService.getDocumentStatus(this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing ||
+            (!this.skipPasswordProtected && f.documentStatus === FileIndexingStatus.PasswordRequired))).toPromise().then((searchIndexFiles: IndexedFileModel[]) => 
           {
             searchIndexFiles.forEach((searchFile) => {
               if (searchFile.documentStatus !== FileIndexingStatus.Indexing)
@@ -146,10 +161,18 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
             {
               clearInterval(timerId);
             }
+        }).catch((response: any) => {
+          clearInterval(timerId);
         });
         }, 1000);
       }
     });
+  }
+
+  cancel($event) {
+    this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.PasswordRequired)[0].documentStatus = FileIndexingStatus.Skipped;
+    this.skipPasswordProtected = true;
+    this.loadIndexedFiles(true);
   }
 
   upload($event: string) {

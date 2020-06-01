@@ -48,6 +48,7 @@ export class IndexedFileComponent implements OnInit {
   getStatusIcon() {
     switch (this.file.documentStatus) {
       case FileIndexingStatus.Indexing:
+      case FileIndexingStatus.PasswordRequired:
         return "circle-notch";
       case FileIndexingStatus.SuccessfullyProcessed:
         return "check";
@@ -56,13 +57,14 @@ export class IndexedFileComponent implements OnInit {
       case FileIndexingStatus.Skipped:
         return "forward";
       default:
-        return "clock";
+        return "times";
     }
   }
 
   getStatusTitle() {
     switch (this.file.documentStatus) {
       case FileIndexingStatus.Indexing:
+      case FileIndexingStatus.PasswordRequired:
         return "Indexing";
       case FileIndexingStatus.SuccessfullyProcessed:
         return "Indexed";
@@ -71,7 +73,7 @@ export class IndexedFileComponent implements OnInit {
       case FileIndexingStatus.Skipped:
         return "Skipped";
       default:
-        return "Indexing";
+        return "times";
     }
   }
 }
