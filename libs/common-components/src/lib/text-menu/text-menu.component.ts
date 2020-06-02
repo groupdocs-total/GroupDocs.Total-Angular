@@ -1,8 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ElementRef, Renderer2} from '@angular/core';
 import * as jquery from 'jquery';
 import {FormattingService} from "../formatting.service";
 import {OnCloseService} from "../on-close.service";
 import {Option} from "../select/select.component";
+import { ZoomService } from '../zoom.service';
+import { WindowService } from '../window.service';
 
 const $ = jquery;
 
@@ -33,11 +35,38 @@ export class TextMenuComponent implements OnInit {
   fontOptions = FormattingService.getFontOptions();
   colorPickerShow = false;
 
+  isMobile: boolean;
 
-  constructor(private _onCloseService: OnCloseService) {
-    _onCloseService.onClose.subscribe(() => {
+  constructor(private _onCloseService: OnCloseService,
+              private _zoomService: ZoomService,
+              private _windowService: WindowService,
+              protected _elementRef: ElementRef<HTMLElement>,
+              private renderer: Renderer2) {
+    
+     _onCloseService.onClose.subscribe(() => {
       this.colorPickerShow = false;
     });
+
+    this.isMobile = _windowService.isMobile();
+    _windowService.onResize.subscribe((w) => {
+      this.isMobile = _windowService.isMobile();
+    });
+
+    _zoomService.zoomChange.subscribe((val: number) => {
+      if (this.isMobile)
+      {
+        this.changePosition(val);
+      }
+    });
+  }
+
+  changePosition(val: number) {
+    const top = (window.innerHeight - 25 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
+    const left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
+    this.renderer.setStyle(this._elementRef.nativeElement.parentElement, 'transform', 'scale(' + 1/(val/100) + ')');
+    this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
+    this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
+    this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
   }
 
   ngOnInit() {
