@@ -11,7 +11,10 @@
             <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                        (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
             <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="annotate()"></gd-button>
-
+            <gd-button class="desktop-hide" [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'"
+              (click)="zoomIn()" *ngIf="zoomConfig"></gd-button>
+            <gd-button class="desktop-hide" [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
+              (click)="zoomOut()" *ngIf="zoomConfig"></gd-button>
           </div>
         </gd-tab>
         <gd-tab [tabTitle]="'Annotations'" [icon]="'highlighter'" [id]="'2'"
