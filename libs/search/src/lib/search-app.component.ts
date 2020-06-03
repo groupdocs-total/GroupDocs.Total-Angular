@@ -34,6 +34,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   isDesktop: boolean;
   isLoading: boolean;
   skipPasswordProtected: boolean;
+  firstSearchPerformed: boolean;
   searchResult: SearchResult;
 
   fileWasDropped = false;
@@ -123,6 +124,10 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
   clearSearchResult() {
     this.searchResult = null;
+
+    if (this.firstSearchPerformed && this.indexedFiles.length === 0) {
+      this.loadIndexedFiles(true);
+    }
   }
 
   selectAllItems(checked: boolean) {
@@ -199,10 +204,12 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   search($event: string) {
+    if ($event === "") return;
     const creds = [];
     creds.push(this.credentials);
     this._searchService.search(creds, $event).subscribe((result: SearchResult) => {
       this.searchResult = result;
+      this.firstSearchPerformed = true;
     });
   }
 }

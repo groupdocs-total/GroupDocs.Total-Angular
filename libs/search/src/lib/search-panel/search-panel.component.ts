@@ -27,6 +27,10 @@ export class SearchPanelComponent implements OnInit {
 
   setText(value: string) {
     this.text = value;
+    if (value === "")
+    {
+      this.clearQueryString();
+    }
   }
 
   clearQueryString() {
