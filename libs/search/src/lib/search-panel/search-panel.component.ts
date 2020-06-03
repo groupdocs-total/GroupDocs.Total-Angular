@@ -34,6 +34,7 @@ export class SearchPanelComponent implements OnInit {
   }
 
   clearQueryString() {
+    this.text = ""
     this.textElement.nativeElement.value = '';
     this.clearQuery.emit("");
   }
