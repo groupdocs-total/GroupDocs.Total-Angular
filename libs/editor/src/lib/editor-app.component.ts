@@ -46,7 +46,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   bgColorPickerShow = false;
   colorPickerShow = false;
   active = false;
-  private textBackup: string;
+  public textBackup: string;
   private isIE = false;
   isLoading: boolean;
   fileWasDropped: false;
