@@ -5227,6 +5227,11 @@ class TextMenuComponent {
         }));
     }
     /**
+     * @return {?}
+     */
+    ngOnInit() {
+    }
+    /**
      * @param {?} val
      * @return {?}
      */
@@ -5235,15 +5240,9 @@ class TextMenuComponent {
         const top = (window.innerHeight - 25 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
         /** @type {?} */
         const left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
-        this.renderer.setStyle(this._elementRef.nativeElement.parentElement, 'transform', 'scale(' + 1 / (val / 100) + ')');
         this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
         this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
         this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
     }
     /**
      * @param {?} $event
@@ -5371,9 +5370,15 @@ MenuType.FOR_ANNOTATION = "annotation";
 class ContextMenuComponent {
     /**
      * @param {?} _windowService
+     * @param {?} _zoomService
+     * @param {?} _elementRef
+     * @param {?} renderer
      */
-    constructor(_windowService) {
+    constructor(_windowService, _zoomService, _elementRef, renderer) {
         this._windowService = _windowService;
+        this._zoomService = _zoomService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
         this.formatting = Formatting.default();
         this.lock = false;
         this.translation = 0;
@@ -5390,11 +5395,27 @@ class ContextMenuComponent {
         (w) => {
             this.isMobile = _windowService.isMobile();
         }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => {
+            if (this.isMobile) {
+                this.changeScale(val);
+            }
+        }));
     }
     /**
      * @return {?}
      */
     ngOnInit() {
+    }
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    changeScale(val) {
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1 / (val / 100) + ')');
     }
     /**
      * @return {?}
@@ -5497,7 +5518,10 @@ ContextMenuComponent.decorators = [
 ];
 /** @nocollapse */
 ContextMenuComponent.ctorParameters = () => [
-    { type: WindowService }
+    { type: WindowService },
+    { type: ZoomService },
+    { type: ElementRef },
+    { type: Renderer2 }
 ];
 ContextMenuComponent.propDecorators = {
     formatting: [{ type: Input }],

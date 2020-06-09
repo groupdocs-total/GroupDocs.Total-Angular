@@ -84,7 +84,6 @@ export class AnnotationAppComponent implements OnInit {
   _zoom = 100;
   _pageWidth: number;
   _pageHeight: number;
-  options;
 
   private activeAnnotationTab: string;
   private fileWasDropped = false;
@@ -300,21 +299,6 @@ export class AnnotationAppComponent implements OnInit {
     return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
   }
 
-  private getFitToHeight() {
-    const pageWidth = this.ptToPx(this._pageWidth);
-    const pageHeight = this.ptToPx(this._pageHeight);
-    const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
-    const offsetHeight = pageHeight ? pageHeight : windowHeight;
-
-    return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
-  }
-
-  zoomOptions() {
-    const width = this.getFitToWidth();
-    const height = this.getFitToHeight();
-    return this._zoomService.zoomOptions(width, height);
-  }
-
   set zoom(zoom) {
     this._zoom = zoom;
     this._zoomService.changeZoom(this._zoom);
@@ -368,7 +352,6 @@ export class AnnotationAppComponent implements OnInit {
           if (file.pages && file.pages[0]) {
             this._pageHeight = file.pages[0].height;
             this._pageWidth = file.pages[0].width;
-            this.options = this.zoomOptions();
             this.refreshZoom();
           }
           const preloadPageCount = this.preloadPageCountConfig;

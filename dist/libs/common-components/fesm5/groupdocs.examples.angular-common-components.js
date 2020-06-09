@@ -6330,6 +6330,14 @@ var TextMenuComponent = /** @class */ (function () {
         }));
     }
     /**
+     * @return {?}
+     */
+    TextMenuComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
      * @param {?} val
      * @return {?}
      */
@@ -6342,18 +6350,9 @@ var TextMenuComponent = /** @class */ (function () {
         var top = (window.innerHeight - 25 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
         /** @type {?} */
         var left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
-        this.renderer.setStyle(this._elementRef.nativeElement.parentElement, 'transform', 'scale(' + 1 / (val / 100) + ')');
         this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
         this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
         this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
-    };
-    /**
-     * @return {?}
-     */
-    TextMenuComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
     };
     /**
      * @param {?} $event
@@ -6515,9 +6514,12 @@ var MenuType = /** @class */ (function () {
     return MenuType;
 }());
 var ContextMenuComponent = /** @class */ (function () {
-    function ContextMenuComponent(_windowService) {
+    function ContextMenuComponent(_windowService, _zoomService, _elementRef, renderer) {
         var _this = this;
         this._windowService = _windowService;
+        this._zoomService = _zoomService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
         this.formatting = Formatting.default();
         this.lock = false;
         this.translation = 0;
@@ -6534,6 +6536,15 @@ var ContextMenuComponent = /** @class */ (function () {
         function (w) {
             _this.isMobile = _windowService.isMobile();
         }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            if (_this.isMobile) {
+                _this.changeScale(val);
+            }
+        }));
     }
     /**
      * @return {?}
@@ -6542,6 +6553,17 @@ var ContextMenuComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
+    };
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.changeScale = /**
+     * @param {?} val
+     * @return {?}
+     */
+    function (val) {
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1 / (val / 100) + ')');
     };
     /**
      * @return {?}
@@ -6688,7 +6710,10 @@ var ContextMenuComponent = /** @class */ (function () {
     ];
     /** @nocollapse */
     ContextMenuComponent.ctorParameters = function () { return [
-        { type: WindowService }
+        { type: WindowService },
+        { type: ZoomService },
+        { type: ElementRef },
+        { type: Renderer2 }
     ]; };
     ContextMenuComponent.propDecorators = {
         formatting: [{ type: Input }],

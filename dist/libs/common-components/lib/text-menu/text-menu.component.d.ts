@@ -33,8 +33,8 @@ export declare class TextMenuComponent implements OnInit {
     colorPickerShow: boolean;
     isMobile: boolean;
     constructor(_onCloseService: OnCloseService, _zoomService: ZoomService, _windowService: WindowService, _elementRef: ElementRef<HTMLElement>, renderer: Renderer2);
-    changePosition(val: number): void;
     ngOnInit(): void;
+    changePosition(val: number): void;
     selectFontSize($event: Option): void;
     selectFont($event: Option): void;
     toggleColorPicker($event: any): void;

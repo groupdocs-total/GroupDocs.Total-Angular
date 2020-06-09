@@ -60,16 +60,15 @@ export class TextMenuComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+  }
+
   changePosition(val: number) {
     const top = (window.innerHeight - 25 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
     const left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
-    this.renderer.setStyle(this._elementRef.nativeElement.parentElement, 'transform', 'scale(' + 1/(val/100) + ')');
     this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
     this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
     this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
-  }
-
-  ngOnInit() {
   }
 
   selectFontSize($event: Option) {
