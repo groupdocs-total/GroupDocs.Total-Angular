@@ -119,7 +119,9 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     this.isDesktop = _windowService.isDesktop();
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
-      this.refreshZoom();
+      if (!this.isDesktop) {
+        this.refreshZoom();
+      }
     });
 
     copySignatureService.copySignature.subscribe((copySign: CopySign) => {
@@ -388,7 +390,7 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
         this.file = file;
         this.formatDisabled = !this.file;
         if (file) {
-          if (file.pages && file.pages[0]) {
+          if (!this.isDesktop && file.pages && file.pages[0]) {
             this._pageHeight = file.pages[0].height;
             this._pageWidth = file.pages[0].width;
             this.refreshZoom();
