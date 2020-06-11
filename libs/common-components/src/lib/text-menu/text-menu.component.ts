@@ -64,7 +64,7 @@ export class TextMenuComponent implements OnInit {
   }
 
   changePosition(val: number) {
-    const top = (window.innerHeight - 25 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
+    const top = (window.innerHeight - 24 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
     const left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
     this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
     this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
