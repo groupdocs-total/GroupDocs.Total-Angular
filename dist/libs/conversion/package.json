@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/conversion",
-  "version": "0.7.10",
+  "version": "0.7.13",
   "description": "Angular application that allows to convert documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {

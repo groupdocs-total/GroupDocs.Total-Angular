@@ -1,13 +1,14 @@
-import { AfterViewInit, OnInit } from '@angular/core';
+import { AfterViewInit, OnInit, AfterViewChecked } from '@angular/core';
 import { AnnotationData, Dimension, Position } from "../annotation-models";
 import { ActiveAnnotationService } from "../active-annotation.service";
-import { Formatting } from "@groupdocs.examples.angular/common-components";
+import { Formatting, ZoomService } from "@groupdocs.examples.angular/common-components";
 import { RemoveAnnotationService } from "../remove-annotation.service";
 import { CommentAnnotationService } from "../comment-annotation.service";
-export declare class AnnotationComponent implements OnInit, AfterViewInit {
+export declare class AnnotationComponent implements OnInit, AfterViewInit, AfterViewChecked {
     private _activeAnnotationService;
     private _removeAnnotationService;
     private _commentAnnotationService;
+    private _zoomService;
     id: number;
     position: Position;
     leftTop: Position;
@@ -26,10 +27,11 @@ export declare class AnnotationComponent implements OnInit, AfterViewInit {
     private oldPosition;
     private points;
     private endPosition;
-    constructor(_activeAnnotationService: ActiveAnnotationService, _removeAnnotationService: RemoveAnnotationService, _commentAnnotationService: CommentAnnotationService);
+    constructor(_activeAnnotationService: ActiveAnnotationService, _removeAnnotationService: RemoveAnnotationService, _commentAnnotationService: CommentAnnotationService, _zoomService: ZoomService);
     static isOnPage(position: any): any;
     ngOnInit(): void;
     ngAfterViewInit(): void;
+    ngAfterViewChecked(): void;
     activation(): void;
     width($event: any): void;
     height($event: any): void;

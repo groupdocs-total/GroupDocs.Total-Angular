@@ -1048,10 +1048,7 @@ if (false) {
     EditorAppComponent.prototype.colorPickerShow;
     /** @type {?} */
     EditorAppComponent.prototype.active;
-    /**
-     * @type {?}
-     * @private
-     */
+    /** @type {?} */
     EditorAppComponent.prototype.textBackup;
     /**
      * @type {?}

@@ -5,7 +5,9 @@ import {
   Input,
   OnInit,
   AfterViewInit,
-  OnChanges
+  OnChanges,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
@@ -25,6 +27,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   @Input() mode: boolean;
   @Input() preloadPageCount: number;
   @Input() file: FileDescription;
+  @Output() onpan = new EventEmitter<any>();
   wait = false;
   zoom: number;
 
@@ -230,6 +233,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     // if (!this.isDesktop) {
     //   this.translate($event.deltaX, $event.deltaY);
     // }
+    this.onpan.emit($event);
   }
 
   onPanEnd($event) {

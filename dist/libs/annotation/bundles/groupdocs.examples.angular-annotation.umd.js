@@ -263,8 +263,6 @@
         AnnotationConfig.prototype.downloadAnnotated;
         /** @type {?} */
         AnnotationConfig.prototype.zoom;
-        /** @type {?} */
-        AnnotationConfig.prototype.fitWidth;
     }
 
     /**
@@ -907,11 +905,12 @@
     /** @type {?} */
     var $ = jquery;
     var AnnotationComponent = /** @class */ (function () {
-        function AnnotationComponent(_activeAnnotationService, _removeAnnotationService, _commentAnnotationService) {
+        function AnnotationComponent(_activeAnnotationService, _removeAnnotationService, _commentAnnotationService, _zoomService) {
             var _this = this;
             this._activeAnnotationService = _activeAnnotationService;
             this._removeAnnotationService = _removeAnnotationService;
             this._commentAnnotationService = _commentAnnotationService;
+            this._zoomService = _zoomService;
             this.active = true;
             this.dimension = new Dimension(0, 0);
             this.textValue = "";
@@ -1017,6 +1016,15 @@
          */
         function () {
             this.setTextFocus();
+        };
+        /**
+         * @return {?}
+         */
+        AnnotationComponent.prototype.ngAfterViewChecked = /**
+         * @return {?}
+         */
+        function () {
+            this._zoomService.changeZoom(this._zoomService.zoom);
         };
         /**
          * @return {?}
@@ -1757,7 +1765,8 @@
         AnnotationComponent.ctorParameters = function () { return [
             { type: ActiveAnnotationService },
             { type: RemoveAnnotationService },
-            { type: CommentAnnotationService }
+            { type: CommentAnnotationService },
+            { type: commonComponents.ZoomService }
         ]; };
         return AnnotationComponent;
     }());
@@ -1822,6 +1831,11 @@
          * @private
          */
         AnnotationComponent.prototype._commentAnnotationService;
+        /**
+         * @type {?}
+         * @private
+         */
+        AnnotationComponent.prototype._zoomService;
     }
 
     /**
@@ -1831,7 +1845,7 @@
     /** @type {?} */
     var $$1 = jquery;
     var AnnotationAppComponent = /** @class */ (function () {
-        function AnnotationAppComponent(_annotationService, _modalService, _navigateService, _tabActivatorService, _hostingComponentsService, _addDynamicComponentService, _activeAnnotationService, _removeAnnotationService, _commentAnnotationService, uploadFilesService, pagePreloadService, passwordService, _windowService) {
+        function AnnotationAppComponent(_annotationService, _modalService, _navigateService, _tabActivatorService, _hostingComponentsService, _addDynamicComponentService, _activeAnnotationService, _removeAnnotationService, _commentAnnotationService, uploadFilesService, pagePreloadService, passwordService, _windowService, _zoomService, configService) {
             var _this = this;
             this._annotationService = _annotationService;
             this._modalService = _modalService;
@@ -1843,6 +1857,7 @@
             this._removeAnnotationService = _removeAnnotationService;
             this._commentAnnotationService = _commentAnnotationService;
             this._windowService = _windowService;
+            this._zoomService = _zoomService;
             this.title = 'annotation';
             this.files = [];
             this.browseFilesModal = commonComponents.CommonModals.BrowseFiles;
@@ -1881,8 +1896,27 @@
             ];
             this.countPages = 0;
             this.comments = new Map();
+            this._zoom = 100;
             this.fileWasDropped = false;
             this.annotations = new Map();
+            configService.updatedConfig.subscribe((/**
+             * @param {?} annotationConfig
+             * @return {?}
+             */
+            function (annotationConfig) {
+                _this.annotationConfig = annotationConfig;
+            }));
+            this.isDesktop = _windowService.isDesktop();
+            _windowService.onResize.subscribe((/**
+             * @param {?} w
+             * @return {?}
+             */
+            function (w) {
+                _this.isDesktop = _windowService.isDesktop();
+                if (!_this.isDesktop) {
+                    _this.refreshZoom();
+                }
+            }));
             this._activeAnnotationService.activeChange.subscribe((/**
              * @param {?} id
              * @return {?}
@@ -2243,6 +2277,93 @@
         function () {
         };
         /**
+         * @private
+         * @param {?} pt
+         * @return {?}
+         */
+        AnnotationAppComponent.prototype.ptToPx = /**
+         * @private
+         * @param {?} pt
+         * @return {?}
+         */
+        function (pt) {
+            //pt * 96 / 72 = px.
+            return pt * 96 / 72;
+        };
+        /**
+         * @private
+         * @return {?}
+         */
+        AnnotationAppComponent.prototype.getFitToWidth = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            // Images and Excel-related files receiving dimensions in px from server
+            /** @type {?} */
+            var pageWidth = this.ptToPx(this._pageWidth);
+            /** @type {?} */
+            var pageHeight = this.ptToPx(this._pageHeight);
+            /** @type {?} */
+            var offsetWidth = pageWidth ? pageWidth : window.innerWidth;
+            return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+        };
+        Object.defineProperty(AnnotationAppComponent.prototype, "zoom", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._zoom;
+            },
+            set: /**
+             * @param {?} zoom
+             * @return {?}
+             */
+            function (zoom) {
+                this._zoom = zoom;
+                this._zoomService.changeZoom(this._zoom);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @private
+         * @return {?}
+         */
+        AnnotationAppComponent.prototype.refreshZoom = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+        };
+        /**
+         * @return {?}
+         */
+        AnnotationAppComponent.prototype.zoomIn = /**
+         * @return {?}
+         */
+        function () {
+            if (this.formatDisabled)
+                return;
+            if (this._zoom < 490) {
+                this.zoom = this._zoom + 10;
+            }
+        };
+        /**
+         * @return {?}
+         */
+        AnnotationAppComponent.prototype.zoomOut = /**
+         * @return {?}
+         */
+        function () {
+            if (this.formatDisabled)
+                return;
+            if (this._zoom > 30) {
+                this.zoom = this._zoom - 10;
+            }
+        };
+        /**
          * @param {?} id
          * @return {?}
          */
@@ -2306,6 +2427,11 @@
                 _this.file = file;
                 _this.formatDisabled = !_this.file;
                 if (file) {
+                    if (!_this.isDesktop && file.pages && file.pages[0]) {
+                        _this._pageHeight = file.pages[0].height;
+                        _this._pageWidth = file.pages[0].width;
+                        _this.refreshZoom();
+                    }
                     /** @type {?} */
                     var preloadPageCount = _this.preloadPageCountConfig;
                     /** @type {?} */
@@ -2832,9 +2958,9 @@
          */
         function (position, page) {
             /** @type {?} */
-            var left = position.x - page.offset().left;
+            var left = (position.x - page.offset().left) / (this.zoom / 100);
             /** @type {?} */
-            var top = position.y - page.offset().top;
+            var top = (position.y - page.offset().top) / (this.zoom / 100);
             return new Position(left, top);
         };
         /**
@@ -2862,6 +2988,17 @@
          */
         function () {
             this.commentOpenedId = null;
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        AnnotationAppComponent.prototype.onPan = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this._zoomService.changeZoom(this._zoom);
         };
         /**
          * @private
@@ -2897,8 +3034,8 @@
         AnnotationAppComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-annotation-app',
-                        template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick($event)\">\n  <div class=\"annotation-wrapper wrapper\">\n    <gd-tabbed-toolbars [logo]=\"'annotation'\" [icon]=\"'pen-square'\">\n      <gd-tabs>\n        <gd-tab [tabTitle]=\"'File'\" [icon]=\"'folder-open'\" [id]=\"'1'\" [active]=\"true\">\n          <div id=\"files-tools\" class=\"toolbar-panel\">\n            <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                       *ngIf=\"browseConfig\"></gd-button>\n\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                       (click)=\"downloadFile()\" *ngIf=\"downloadConfig\"></gd-button>\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"annotate()\"></gd-button>\n\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"'Annotations'\" [icon]=\"'highlighter'\" [id]=\"'2'\"\n                *ngIf=\"isDesktop || (!isDesktop && codesConfigFirst())\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let annotationType of (isDesktop ? annotationTypes : annotationTypeFirst)\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(annotationType.id)\"\n                          [icon]=\"annotationType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"annotationType.id\" [tooltip]=\"annotationType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'vector-square'\" [id]=\"'3'\" *ngIf=\"!isDesktop && codesConfigSecond()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let annotationType of annotationTypeSecond\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(annotationType.id)\"\n                          [icon]=\"annotationType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"annotationType.id\" [tooltip]=\"annotationType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'i-cursor'\" [id]=\"'4'\" *ngIf=\"!isDesktop && codesConfigThird()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let annotationType of annotationTypeThird\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(annotationType.id)\"\n                          [icon]=\"annotationType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"annotationType.id\" [tooltip]=\"annotationType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n      </gd-tabs>\n    </gd-tabbed-toolbars>\n    <div class=\"doc-panel\" *ngIf=\"file\" (mousedown)=\"createAnnotation($event)\"\n         (mousemove)=\"resizingCreatingAnnotation($event)\" (mouseup)=\"finishCreatingAnnotation($event)\"\n         (touchstart)=\"createAnnotation($event)\" (touchmove)=\"resizingCreatingAnnotation($event)\"\n         (touchend)=\"finishCreatingAnnotation($event)\"\n         (panstart)=\"createAnnotation($event)\" (panmove)=\"resizingCreatingAnnotation($event)\"\n         (panend)=\"finishCreatingAnnotation($event)\">\n      <gd-document class=\"gd-document\" *ngIf=\"file\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                   [preloadPageCount]=\"preloadPageCountConfig\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-document>\n    </div>\n    <gd-comment-panel *ngIf=\"commentOpenedId\" [annotationId]=\"commentOpenedId\"\n                      [comments]=\"getComments()\" (closeComments)=\"closeComments()\">\n    </gd-comment-panel>\n\n    <gd-init-state [icon]=\"'highlighter'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\"\n                   (fileDropped)=\"fileDropped($event)\">\n      Click\n      <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon>\n      to open file<br>\n      Or drop file here\n    </gd-init-state>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n  <svg class=\"svg\" xmlns=\"http://www.w3.org/2000/svg\">\n    <defs xmlns=\"http://www.w3.org/2000/svg\">\n      <marker id=\"end\" orient='auto' markerWidth='20' markerHeight='20'\n              refX=\"10\" refY=\"10\" markerUnits=\"strokeWidth\">\n        <path d='M0,7 L0,13 L12,10 z' fill='#579AF0'></path>\n      </marker>\n      <marker id=\"start\" orient='auto' markerWidth='20' markerHeight='20'\n              refX=\"0\" refY=\"10\" markerUnits=\"strokeWidth\">\n        <path d='M12,7 L12,13 L0,10 z' fill='#579AF0'></path>\n      </marker>\n    </defs>\n  </svg>\n</div>\n",
-                        styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}::ng-deep .page{position:relative}::ng-deep .gd-page-image{width:unset;height:unset}::ng-deep .top-panel{align-content:flex-start}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:inherit}.gd-document{width:100%;height:calc(100% - 90px)}.toolbar-panel{width:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.annotation-wrapper ::ng-deep .button{color:#3e4e5a!important}.annotation-wrapper ::ng-deep .button .text{padding:0!important}.annotation-wrapper ::ng-deep .select{color:#3e4e5a!important}@media (max-width:1037px){::ng-deep .panzoom{-webkit-box-pack:unset!important;justify-content:unset!important}::ng-deep .logo ::ng-deep .icon{font-size:24px!important}::ng-deep .top-panel{height:120px!important}}"]
+                        template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick($event)\">\n  <div class=\"annotation-wrapper wrapper\">\n    <gd-tabbed-toolbars [logo]=\"'annotation'\" [icon]=\"'pen-square'\">\n      <gd-tabs>\n        <gd-tab [tabTitle]=\"'File'\" [icon]=\"'folder-open'\" [id]=\"'1'\" [active]=\"true\">\n          <div id=\"files-tools\" class=\"toolbar-panel\">\n            <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                       *ngIf=\"browseConfig\"></gd-button>\n\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                       (click)=\"downloadFile()\" *ngIf=\"downloadConfig\"></gd-button>\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"annotate()\"></gd-button>\n            <gd-button class=\"desktop-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\"\n              (click)=\"zoomIn()\" *ngIf=\"zoomConfig\"></gd-button>\n            <gd-button class=\"desktop-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\"\n              (click)=\"zoomOut()\" *ngIf=\"zoomConfig\"></gd-button>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"'Annotations'\" [icon]=\"'highlighter'\" [id]=\"'2'\"\n                *ngIf=\"isDesktop || (!isDesktop && codesConfigFirst())\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let annotationType of (isDesktop ? annotationTypes : annotationTypeFirst)\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(annotationType.id)\"\n                          [icon]=\"annotationType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"annotationType.id\" [tooltip]=\"annotationType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'vector-square'\" [id]=\"'3'\" *ngIf=\"!isDesktop && codesConfigSecond()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let annotationType of annotationTypeSecond\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(annotationType.id)\"\n                          [icon]=\"annotationType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"annotationType.id\" [tooltip]=\"annotationType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'i-cursor'\" [id]=\"'4'\" *ngIf=\"!isDesktop && codesConfigThird()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let annotationType of annotationTypeThird\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(annotationType.id)\"\n                          [icon]=\"annotationType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"annotationType.id\" [tooltip]=\"annotationType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n      </gd-tabs>\n    </gd-tabbed-toolbars>\n    <div class=\"doc-panel\" *ngIf=\"file\" (mousedown)=\"createAnnotation($event)\"\n         (mousemove)=\"resizingCreatingAnnotation($event)\" (mouseup)=\"finishCreatingAnnotation($event)\"\n         (touchstart)=\"createAnnotation($event)\" (touchmove)=\"resizingCreatingAnnotation($event)\"\n         (touchend)=\"finishCreatingAnnotation($event)\"\n         (panstart)=\"createAnnotation($event)\" (panmove)=\"resizingCreatingAnnotation($event)\"\n         (panend)=\"finishCreatingAnnotation($event)\">\n      <gd-document class=\"gd-document\" *ngIf=\"file\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                   [preloadPageCount]=\"preloadPageCountConfig\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" (onpan)=\"onPan($event)\"></gd-document>\n    </div>\n    <gd-comment-panel *ngIf=\"commentOpenedId\" [annotationId]=\"commentOpenedId\"\n                      [comments]=\"getComments()\" (closeComments)=\"closeComments()\">\n    </gd-comment-panel>\n\n    <gd-init-state [icon]=\"'highlighter'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\"\n                   (fileDropped)=\"fileDropped($event)\">\n      Click\n      <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon>\n      to open file<br>\n      Or drop file here\n    </gd-init-state>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n  <svg class=\"svg\" xmlns=\"http://www.w3.org/2000/svg\">\n    <defs xmlns=\"http://www.w3.org/2000/svg\">\n      <marker id=\"end\" orient='auto' markerWidth='20' markerHeight='20'\n              refX=\"10\" refY=\"10\" markerUnits=\"strokeWidth\">\n        <path d='M0,7 L0,13 L12,10 z' fill='#579AF0'></path>\n      </marker>\n      <marker id=\"start\" orient='auto' markerWidth='20' markerHeight='20'\n              refX=\"0\" refY=\"10\" markerUnits=\"strokeWidth\">\n        <path d='M12,7 L12,13 L0,10 z' fill='#579AF0'></path>\n      </marker>\n    </defs>\n  </svg>\n</div>\n",
+                        styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}::ng-deep .page{position:relative}::ng-deep .gd-page-image{width:unset;height:unset}::ng-deep .top-panel{align-content:flex-start}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:inherit}.gd-document{width:100%;height:calc(100% - 90px)}.toolbar-panel{width:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.annotation-wrapper ::ng-deep .button{color:#3e4e5a!important}.annotation-wrapper ::ng-deep .button .text{padding:0!important}.annotation-wrapper ::ng-deep .select{color:#3e4e5a!important}.desktop-hide{display:none}@media (max-width:1037px){::ng-deep .logo ::ng-deep .icon{font-size:24px!important}::ng-deep .top-panel{height:120px!important}.desktop-hide{display:block}.gd-document{height:calc(100% - 120px)}::ng-deep .bcPicker-palette{position:absolute;left:-80px!important;top:-170px!important}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2915,7 +3052,9 @@
             { type: commonComponents.UploadFilesService },
             { type: commonComponents.PagePreloadService },
             { type: commonComponents.PasswordService },
-            { type: commonComponents.WindowService }
+            { type: commonComponents.WindowService },
+            { type: commonComponents.ZoomService },
+            { type: AnnotationConfigService }
         ]; };
         return AnnotationAppComponent;
     }());
@@ -2952,6 +3091,12 @@
         AnnotationAppComponent.prototype.commentOpenedId;
         /** @type {?} */
         AnnotationAppComponent.prototype.comments;
+        /** @type {?} */
+        AnnotationAppComponent.prototype._zoom;
+        /** @type {?} */
+        AnnotationAppComponent.prototype._pageWidth;
+        /** @type {?} */
+        AnnotationAppComponent.prototype._pageHeight;
         /**
          * @type {?}
          * @private
@@ -3021,6 +3166,11 @@
          * @private
          */
         AnnotationAppComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        AnnotationAppComponent.prototype._zoomService;
     }
 
     /**
