@@ -245,7 +245,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     const page = new PageModel;
     page.width = 595;
     page.height = 842;
-    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body></body></html>';
+    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body><div class="documentMainContent newfile"></div></body></html>';
     page.number = 1;
     page.editable = true;
     this.file.pages = [];
@@ -531,8 +531,10 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
 
   saveNewFile(credentials: FileCredentials) {
     if (!this.file || !this.file.pages)
+    {
       return;
-      
+    }
+
     this.textBackup = this.getPageWithRootTags(this.textBackup);
 
     const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
@@ -545,7 +547,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
 
   getPageWithRootTags(data) {
     let resultData = "<html><head>" + data + "</body></html>";
+    resultData = resultData.replace('documentMainContent newfile', 'documentMainContent');
     resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+    resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
     return resultData;
   }
 
