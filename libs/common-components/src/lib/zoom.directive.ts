@@ -15,6 +15,7 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
   @HostBinding('style.transform') transform: string;
   @HostBinding('style.transform-origin') transformOrigin: string;
   @HostBinding('style.width') width: string;
+  @HostBinding('style.height') height: string;
   @HostBinding('style.min-width') minWidth: string;
   el: ElementRef<any>;
 
@@ -82,12 +83,19 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
     return elm.offsetWidth - elm.clientWidth;
   }
 
+  private getScrollHeight(elm){
+    return elm.offsetHeight - elm.clientHeight;
+  }
+
   private resizePages(zoom){
     const zoomInt = zoom === 100 ? 1 : zoom / 100;
 
     const viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
+    const viewPortHeight = this.el.nativeElement.parentElement.offsetHeight;
     const scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+    const scrollHeight = this.getScrollHeight(this.el.nativeElement.parentElement);
     this.width = (viewPortWidth/zoomInt - scrollWidth/zoomInt) + 'px';
+    this.height = (viewPortHeight/zoomInt - scrollHeight/zoomInt) + 'px';
   }
 
   ngAfterViewInit(): void {
