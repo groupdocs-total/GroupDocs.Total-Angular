@@ -22,6 +22,7 @@
         "libs/common-components/src/index.ts"
       ],
       "@groupdocs.examples.angular/viewer": ["libs/viewer/src/index.ts"],
+      "@groupdocs.examples.angular/search": ["libs/search/src/index.ts"],
       "@groupdocs.examples.angular/editor": ["libs/editor/src/index.ts"],
       "@groupdocs.examples.angular/comparison": ["libs/comparison/src/index.ts"],
       "@groupdocs.examples.angular/signature": ["libs/signature/src/index.ts"],
