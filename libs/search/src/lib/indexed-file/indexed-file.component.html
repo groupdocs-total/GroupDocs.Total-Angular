@@ -3,7 +3,7 @@
     <span>&times;</span>
   </div>
   <div class="gd-indexed-file-name disabled">
-    <fa-icon [icon]="['fas', 'getFormatIcon()']" [class]="'ng-fa-icon'" [ngClass]="['fa-' + getFormatIcon()]"></fa-icon>
+    <fa-icon [icon]="['fas', getFormatIcon()]" [class]="'ng-fa-icon'" [ngClass]="['fa-' + getFormatIcon()]"></fa-icon>
     <div class="gd-file-name">{{file.name}}
       <div class="gd-file-format">{{getFormatName()}}</div>
     </div>
