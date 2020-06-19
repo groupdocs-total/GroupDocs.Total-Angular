@@ -42,7 +42,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ],
   exports : [
     MetadataAppComponent,
-    CommonComponentsModule
+    CommonComponentsModule,
+    AccordionGroupComponent
   ],
   providers: [
     MetadataService,

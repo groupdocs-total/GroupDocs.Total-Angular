@@ -19,7 +19,7 @@ import {
 } from "./search-models";
 
 @Component({
-  selector: 'gd-search',
+  selector: 'gd-search-app',
   templateUrl: './search-app.component.html',
   styleUrls: ['./search-app.component.less']
 })
