@@ -1707,6 +1707,7 @@
         return MetadataModule;
     }());
 
+    exports.AccordionService = AccordionService;
     exports.MetadataAppComponent = MetadataAppComponent;
     exports.MetadataConfigService = MetadataConfigService;
     exports.MetadataFileDescription = MetadataFileDescription;
@@ -1714,9 +1715,8 @@
     exports.MetadataService = MetadataService;
     exports.initializeApp = initializeApp;
     exports.setupLoadingInterceptor = setupLoadingInterceptor;
-    exports.ɵa = AccordionService;
-    exports.ɵb = AccordionComponent;
-    exports.ɵc = AccordionGroupComponent;
+    exports.ɵa = AccordionComponent;
+    exports.ɵb = AccordionGroupComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

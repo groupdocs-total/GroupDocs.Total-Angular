@@ -1524,5 +1524,5 @@ var MetadataModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MetadataAppComponent, MetadataConfigService, MetadataFileDescription, MetadataModule, MetadataService, initializeApp, setupLoadingInterceptor, AccordionService as ɵa, AccordionComponent as ɵb, AccordionGroupComponent as ɵc };
+export { AccordionService, MetadataAppComponent, MetadataConfigService, MetadataFileDescription, MetadataModule, MetadataService, initializeApp, setupLoadingInterceptor, AccordionComponent as ɵa, AccordionGroupComponent as ɵb };
 //# sourceMappingURL=groupdocs.examples.angular-metadata.js.map
