@@ -1255,6 +1255,7 @@ MetadataModule.decorators = [
                 ],
                 providers: [
                     MetadataService,
+                    AccordionService,
                     ConfigService,
                     DatePipe,
                     MetadataConfigService,

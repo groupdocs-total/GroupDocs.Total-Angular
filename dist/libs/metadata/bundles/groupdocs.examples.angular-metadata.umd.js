@@ -1680,6 +1680,7 @@
                         ],
                         providers: [
                             MetadataService,
+                            AccordionService,
                             commonComponents.ConfigService,
                             common.DatePipe,
                             MetadataConfigService,

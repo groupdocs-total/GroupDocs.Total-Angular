@@ -1487,6 +1487,7 @@ var MetadataModule = /** @class */ (function () {
                     ],
                     providers: [
                         MetadataService,
+                        AccordionService,
                         ConfigService,
                         DatePipe,
                         MetadataConfigService,
