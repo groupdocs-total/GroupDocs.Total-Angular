@@ -1249,7 +1249,8 @@ MetadataModule.decorators = [
                 ],
                 exports: [
                     MetadataAppComponent,
-                    CommonComponentsModule
+                    CommonComponentsModule,
+                    AccordionGroupComponent
                 ],
                 providers: [
                     MetadataService,

@@ -1481,7 +1481,8 @@ var MetadataModule = /** @class */ (function () {
                     ],
                     exports: [
                         MetadataAppComponent,
-                        CommonComponentsModule
+                        CommonComponentsModule,
+                        AccordionGroupComponent
                     ],
                     providers: [
                         MetadataService,
