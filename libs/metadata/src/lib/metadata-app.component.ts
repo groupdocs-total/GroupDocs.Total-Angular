@@ -41,11 +41,11 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   _pageHeight: number;
   options;
   fileWasDropped = false;
-  buildInProperties: FilePropertyModel[];
-  defaultProperties: FilePropertyModel[];
-  addedProperty: FilePropertyModel;
-  removedProperty: FilePropertyModel;
-  filePropertiesNames: string[];
+  public buildInProperties: FilePropertyModel[];
+  public defaultProperties: FilePropertyModel[];
+  public addedProperty: FilePropertyModel;
+  public removedProperty: FilePropertyModel;
+  public filePropertiesNames: string[];
   disabled = false;
   isDesktop: boolean;
   showSidePanel = true;
