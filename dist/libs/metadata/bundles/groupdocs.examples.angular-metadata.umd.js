@@ -1675,6 +1675,7 @@
                         exports: [
                             MetadataAppComponent,
                             commonComponents.CommonComponentsModule,
+                            AccordionComponent,
                             AccordionGroupComponent
                         ],
                         providers: [
