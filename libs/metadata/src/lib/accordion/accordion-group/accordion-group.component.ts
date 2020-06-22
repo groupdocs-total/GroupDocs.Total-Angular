@@ -19,9 +19,8 @@ export class AccordionGroupComponent implements AfterViewInit {
   @Input() propertiesNames: string[];
   @Output() toggle: EventEmitter<any> = new EventEmitter<any>();
   @Output() removeProperty = new EventEmitter<FilePropertyModel>();
-  @ViewChildren('textinput') textinput: QueryList<any>; 
-   _selectedPropName = "Select property";
-   isDesktop: boolean;
+  @ViewChildren('textinput') textinput: QueryList<any>;
+  isDesktop: boolean;
 
   constructor(private _accordionService: AccordionService,
               private _datePipe: DatePipe,
@@ -40,12 +39,7 @@ export class AccordionGroupComponent implements AfterViewInit {
   });
   }
 
-  get selectedPropName() {
-    return this._selectedPropName;
-  }
-
   resetProperties(onlyEditing: boolean = false) {
-    // for the moment we are working only with a single property
     if (!onlyEditing) {
       this.properties.forEach(p => p.selected = false);
     }
@@ -56,7 +50,6 @@ export class AccordionGroupComponent implements AfterViewInit {
     $event.preventDefault();
     $event.stopPropagation();
 
-    this._selectedPropName = "Select property";
     this.resetProperties();
 
     if (!this.addDisabled) {
@@ -102,16 +95,14 @@ export class AccordionGroupComponent implements AfterViewInit {
     else return false;
   }
 
-  selectPropName($event: any) {
-    this._selectedPropName = $event.name;
-    const editingProperty = this.properties.filter(p => !p.original)[0];
-    editingProperty.type = $event.type;
-    editingProperty.name = $event.name;
+  selectPropName($event: any, property: FilePropertyModel) {
+    property.type = $event.type;
+    property.name = $event.name;
     if ($event.type === 3) {
-      editingProperty.value = new Date().toISOString().slice(0, 19);
+      property.value = new Date().toISOString().slice(0, 19);
     }
     else {
-      editingProperty.value = "";
+      property.value = "";
     }
   }
 

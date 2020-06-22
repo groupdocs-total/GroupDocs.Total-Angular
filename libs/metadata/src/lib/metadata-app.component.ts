@@ -102,7 +102,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         this.addedProperty = addedProperty;
         const propObject = {
           original: addedProperty.original,
-          name: "",
+          name: "Select property",
           value: "",
           category: 0,
           type: 1,
@@ -269,7 +269,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   isDisabled() {
-    return !this.file || this.disabled || (this.buildInProperties && this.buildInProperties.filter(p => p.original === false).length > 0);
+    return !this.file || this.disabled;
   }
 
   save() {
