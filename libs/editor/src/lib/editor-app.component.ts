@@ -531,7 +531,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
 
   getPageWithRootTags(data) {
     let resultData = "<html><head>" + data + "</body></html>";
+    resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
     resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+    resultData = resultData.replace('<main class="documentMainContent">', '</head><body><main class="documentMainContent">');
     return resultData;
   }
 
