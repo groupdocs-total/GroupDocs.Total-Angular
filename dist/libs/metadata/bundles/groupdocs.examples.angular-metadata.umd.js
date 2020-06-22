@@ -503,9 +503,7 @@
     var AccordionService = /** @class */ (function () {
         function AccordionService() {
             this._addingObserver = new rxjs.BehaviorSubject(null);
-            this._removingObserver = new rxjs.BehaviorSubject(null);
             this._addedProperty = this._addingObserver.asObservable();
-            this._removedProperty = this._removingObserver.asObservable();
         }
         Object.defineProperty(AccordionService.prototype, "addedProperty", {
             get: /**
@@ -513,16 +511,6 @@
              */
             function () {
                 return this._addedProperty;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AccordionService.prototype, "removedProperty", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._removedProperty;
             },
             enumerable: true,
             configurable: true
@@ -537,17 +525,6 @@
          */
         function (addedProperty) {
             this._addingObserver.next(addedProperty);
-        };
-        /**
-         * @param {?} removedProperty
-         * @return {?}
-         */
-        AccordionService.prototype.removeProperty = /**
-         * @param {?} removedProperty
-         * @return {?}
-         */
-        function (removedProperty) {
-            this._removingObserver.next(removedProperty);
         };
         AccordionService.decorators = [
             { type: core.Injectable, args: [{
@@ -569,17 +546,7 @@
          * @type {?}
          * @private
          */
-        AccordionService.prototype._removingObserver;
-        /**
-         * @type {?}
-         * @private
-         */
         AccordionService.prototype._addedProperty;
-        /**
-         * @type {?}
-         * @private
-         */
-        AccordionService.prototype._removedProperty;
     }
 
     /**
@@ -682,26 +649,6 @@
                     if (_this.buildInProperties) {
                         _this.buildInProperties.push(propObject);
                     }
-                }
-            }));
-            _accrodionService.removedProperty.subscribe((/**
-             * @param {?} removedProperty
-             * @return {?}
-             */
-            function (removedProperty) {
-                if (_this.file) {
-                    /** @type {?} */
-                    var metadataFile = new MetadataFileDescription();
-                    metadataFile.guid = _this.file.guid;
-                    metadataFile.properties = [removedProperty];
-                    _this._metadataService.removeProperty(metadataFile).subscribe((/**
-                     * @param {?} loadFile
-                     * @return {?}
-                     */
-                    function (loadFile) {
-                        _this.loadProperties();
-                        _this._modalService.open(commonComponents.CommonModals.OperationSuccess);
-                    }));
                 }
             }));
         }
@@ -1147,10 +1094,36 @@
         function ($event) {
             this.showSidePanel = !this.showSidePanel;
         };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        MetadataAppComponent.prototype.removeProperty = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            var _this = this;
+            /** @type {?} */
+            var removedProperty = $event;
+            if (this.file) {
+                /** @type {?} */
+                var metadataFile = new MetadataFileDescription();
+                metadataFile.guid = this.file.guid;
+                metadataFile.properties = [removedProperty];
+                this._metadataService.removeProperty(metadataFile).subscribe((/**
+                 * @return {?}
+                 */
+                function () {
+                    _this.loadProperties();
+                    _this._modalService.open(commonComponents.CommonModals.OperationSuccess);
+                }));
+            }
+        };
         MetadataAppComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-metadata',
-                        template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\">\n  <div class=\"row\">\n    <div class=\"column\">\n      <div class=\"top-panel\">\n        <gd-logo [logo]=\"'metadata'\" icon=\"clipboard-list\"></gd-logo>\n        <gd-top-toolbar class=\"toolbar-panel\">\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                    *ngIf=\"browseConfig\" ></gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"save()\">\n                    </gd-button>\n          <gd-button [hidden] =\"isDesktop\" [disabled]=\"formatDisabled\" [icon]=\"'file-export'\" [tooltip]=\"'Attributes'\" (click)=\"loadProperties()\">\n                    </gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                    (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n        </gd-top-toolbar>\n      </div>\n      <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\n        <gd-document class=\"gd-document\" *ngIf=\"file\" [file]=\"file\" [mode]=\"false\" gdScrollable\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\n      </div>\n    </div>\n    <gd-side-panel *ngIf=\"file && showSidePanel\"\n      (hideSidePanel)=\"hideSidePanel($event)\"\n      (saveInSidePanel)=\"save()\"\n      [closable]=\"isDesktop ? false : true\"\n      [saveable]=\"isDesktop ? false : true\"\n      [title]=\"'Metadata'\"\n      [icon]=\"'clipboard-list'\">\n      <gd-accordion>\n        <gd-accordion-group title=\"Build-in properties\" [addDisabled]=\"isDisabled()\" [addHidden]=\"false\" [properties]=\"buildInProperties\" [propertiesNames]=\"filePropertiesNames\"></gd-accordion-group>\n        <gd-accordion-group class=\"default\" title=\"Default properties\" [addDisabled]=\"true\" [addHidden]=\"true\" [properties]=\"defaultProperties\"></gd-accordion-group>\n      </gd-accordion>\n    </gd-side-panel>\n  </div>\n  <gd-init-state [icon]=\"'clipboard-list'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n    Or drop file here\n  </gd-init-state>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n</div>\n",
+                        template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\">\n  <div class=\"row\">\n    <div class=\"column\">\n      <div class=\"top-panel\">\n        <gd-logo [logo]=\"'metadata'\" icon=\"clipboard-list\"></gd-logo>\n        <gd-top-toolbar class=\"toolbar-panel\">\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                    *ngIf=\"browseConfig\" ></gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"save()\">\n                    </gd-button>\n          <gd-button [hidden] =\"isDesktop\" [disabled]=\"formatDisabled\" [icon]=\"'file-export'\" [tooltip]=\"'Attributes'\" (click)=\"loadProperties()\">\n                    </gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                    (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n        </gd-top-toolbar>\n      </div>\n      <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\n        <gd-document class=\"gd-document\" *ngIf=\"file\" [file]=\"file\" [mode]=\"false\" gdScrollable\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\n      </div>\n    </div>\n    <gd-side-panel *ngIf=\"file && showSidePanel\"\n      (hideSidePanel)=\"hideSidePanel($event)\"\n      (saveInSidePanel)=\"save()\"\n      [closable]=\"isDesktop ? false : true\"\n      [saveable]=\"isDesktop ? false : true\"\n      [title]=\"'Metadata'\"\n      [icon]=\"'clipboard-list'\">\n      <gd-accordion>\n        <gd-accordion-group title=\"Build-in properties\" [addDisabled]=\"isDisabled()\" [addHidden]=\"false\" [properties]=\"buildInProperties\" [propertiesNames]=\"filePropertiesNames\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\n        <gd-accordion-group class=\"default\" title=\"Default properties\" [addDisabled]=\"true\" [addHidden]=\"true\" [properties]=\"defaultProperties\"></gd-accordion-group>\n      </gd-accordion>\n    </gd-side-panel>\n  </div>\n  <gd-init-state [icon]=\"'clipboard-list'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n    Or drop file here\n  </gd-init-state>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n</div>\n",
                         styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}::ng-deep .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .button.inactive{color:#959da5!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}.row{display:-webkit-box;display:flex}.column{width:100%}::ng-deep .gd-side-panel-body{background-color:#f4f4f4}::ng-deep .gd-side-panel-wrapper{width:464px!important}::ng-deep .page.excel{overflow:unset!important}@media (max-width:1037px){::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .gd-side-panel-wrapper{width:375px!important}}"]
                     }] }
         ];
@@ -1266,6 +1239,7 @@
             this._windowService = _windowService;
             this.opened = false;
             this.toggle = new core.EventEmitter();
+            this.removeProperty = new core.EventEmitter();
             this._selectedPropName = "Select property";
             this.isDesktop = _windowService.isDesktop();
             _windowService.onResize.subscribe((/**
@@ -1415,7 +1389,7 @@
              * @return {?}
              */
             function (p) { return p.selected; }))[0];
-            this._accordionService.removeProperty(selectedProperty);
+            this.removeProperty.emit(selectedProperty);
         };
         /**
          * @return {?}
@@ -1514,6 +1488,7 @@
             properties: [{ type: core.Input }],
             propertiesNames: [{ type: core.Input }],
             toggle: [{ type: core.Output }],
+            removeProperty: [{ type: core.Output }],
             textinput: [{ type: core.ViewChildren, args: ['textinput',] }]
         };
         return AccordionGroupComponent;
@@ -1533,6 +1508,8 @@
         AccordionGroupComponent.prototype.propertiesNames;
         /** @type {?} */
         AccordionGroupComponent.prototype.toggle;
+        /** @type {?} */
+        AccordionGroupComponent.prototype.removeProperty;
         /** @type {?} */
         AccordionGroupComponent.prototype.textinput;
         /** @type {?} */

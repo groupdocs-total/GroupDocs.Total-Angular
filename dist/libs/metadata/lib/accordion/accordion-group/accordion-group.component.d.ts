@@ -13,6 +13,7 @@ export declare class AccordionGroupComponent implements AfterViewInit {
     properties: FilePropertyModel[];
     propertiesNames: string[];
     toggle: EventEmitter<any>;
+    removeProperty: EventEmitter<FilePropertyModel>;
     textinput: QueryList<any>;
     _selectedPropName: string;
     isDesktop: boolean;

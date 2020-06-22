@@ -66,4 +66,5 @@ export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     save(): void;
     loadProperties(): void;
     hideSidePanel($event: Event): void;
+    removeProperty($event: FilePropertyModel): void;
 }
