@@ -17,6 +17,7 @@ export class AccordionGroupComponent implements AfterViewInit {
   @Input() properties: FilePropertyModel[];
   @Input() propertiesNames: string[];
   @Output() toggle: EventEmitter<any> = new EventEmitter<any>();
+  @Output() removeProperty = new EventEmitter<FilePropertyModel>();
   @ViewChildren('textinput') textinput: QueryList<any>; 
    _selectedPropName = "Select property";
    isDesktop: boolean;
@@ -89,7 +90,7 @@ export class AccordionGroupComponent implements AfterViewInit {
     $event.preventDefault();
     $event.stopPropagation();
     const selectedProperty = this.properties.filter(p => p.selected)[0];
-    this._accordionService.removeProperty(selectedProperty);
+    this.removeProperty.emit(selectedProperty);
   }
 
   wasSelected() {

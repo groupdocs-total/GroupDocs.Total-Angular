@@ -116,18 +116,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         }
       }
     });
-
-    _accrodionService.removedProperty.subscribe(removedProperty => {
-      if (this.file) {
-        const metadataFile = new MetadataFileDescription();
-        metadataFile.guid = this.file.guid;
-        metadataFile.properties = [removedProperty];
-        this._metadataService.removeProperty(metadataFile).subscribe((loadFile: FileDescription) => {
-          this.loadProperties();
-          this._modalService.open(CommonModals.OperationSuccess);
-        });
-      }
-    });
   }
 
   ngOnInit() {
@@ -323,5 +311,19 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
 
   hideSidePanel($event: Event) {
     this.showSidePanel = !this.showSidePanel;
+  }
+
+  removeProperty($event: FilePropertyModel) {
+    const removedProperty = $event;
+
+    if (this.file) {
+      const metadataFile = new MetadataFileDescription();
+      metadataFile.guid = this.file.guid;
+      metadataFile.properties = [removedProperty];
+      this._metadataService.removeProperty(metadataFile).subscribe(() => {
+        this.loadProperties();
+        this._modalService.open(CommonModals.OperationSuccess);
+      });
+    }
   }
 }

@@ -8,9 +8,7 @@ import { FilePropertyModel } from '@groupdocs.examples.angular/common-components
 
 export class AccordionService {
   private _addingObserver: BehaviorSubject<FilePropertyModel> = new BehaviorSubject(null);
-  private _removingObserver: BehaviorSubject<FilePropertyModel> = new BehaviorSubject(null);
   private _addedProperty: Observable<FilePropertyModel> = this._addingObserver.asObservable();
-  private _removedProperty: Observable<FilePropertyModel> = this._removingObserver.asObservable();
 
   constructor() {
   }
@@ -19,15 +17,7 @@ export class AccordionService {
     return this._addedProperty;
   }
 
-  get removedProperty(): Observable<FilePropertyModel> {
-    return this._removedProperty;
-  }
-
   addProperty(addedProperty: FilePropertyModel) {
     this._addingObserver.next(addedProperty);
-  }
-
-  removeProperty(removedProperty: FilePropertyModel) {
-    this._removingObserver.next(removedProperty);
   }
 }
