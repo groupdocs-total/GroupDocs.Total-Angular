@@ -1,7 +1,8 @@
 import { Component, Input, Output, EventEmitter, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
-import { FilePropertyModel, WindowService } from '@groupdocs.examples.angular/common-components';
+import { WindowService } from '@groupdocs.examples.angular/common-components';
 import { AccordionService } from './../../accordion.service';
 import {DatePipe} from "@angular/common";
+import { FilePropertyModel } from '../../metadata-models';
 
 @Component({
   selector: 'gd-accordion-group',
@@ -83,6 +84,7 @@ export class AccordionGroupComponent implements AfterViewInit {
       const selectedProperty = this.properties.filter(p => p.name.toLocaleLowerCase() === property.name.toLocaleLowerCase())[0];
       selectedProperty.editing = !selectedProperty.editing;
       this.properties.filter(p => p.name === property.name)[0].editing = selectedProperty.editing;
+      this.properties.filter(p => p.name === property.name)[0].edited = true;
     }
   }
 

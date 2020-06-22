@@ -3,8 +3,6 @@ import {MetadataService, MetadataFileDescription} from "./metadata.service";
 import {
   FileDescription,
   FileModel,
-  FilePropertyModel,
-  FilePropertyCategory,
   ModalService,
   ZoomService,
   UploadFilesService,
@@ -18,6 +16,7 @@ import {MetadataConfig} from "./metadata-config";
 import {MetadataConfigService} from "./metadata-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 import { AccordionService } from './accordion.service';
+import { FilePropertyModel, FilePropertyCategory } from './metadata-models';
 
 @Component({
   selector: 'gd-metadata',
@@ -109,6 +108,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           type: 1,
           selected: false,
           editing: false,
+          edited: false,
           disabled: false
         };
         if (this.buildInProperties) {
@@ -275,7 +275,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   save() {
     if (!this.file || !this.file.pages)
       return;
-    const savingProperty = this.buildInProperties.filter(p => !p.original || p.editing);
+    const savingProperty = this.buildInProperties.filter(p => !p.original || p.edited);
     const savingFile = new MetadataFileDescription();
     savingFile.guid = this.file.guid;
     savingFile.properties = savingProperty;
