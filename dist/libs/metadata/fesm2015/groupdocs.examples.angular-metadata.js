@@ -1289,5 +1289,5 @@ MetadataModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AccordionService, MetadataAppComponent, MetadataConfigService, MetadataFileDescription, MetadataModule, MetadataService, initializeApp, setupLoadingInterceptor, AccordionComponent as ɵa, AccordionGroupComponent as ɵb };
+export { AccordionService, FilePropertyCategory, FilePropertyModel, MetadataAppComponent, MetadataConfigService, MetadataFileDescription, MetadataModule, MetadataService, initializeApp, setupLoadingInterceptor, AccordionComponent as ɵa, AccordionGroupComponent as ɵb };
 //# sourceMappingURL=groupdocs.examples.angular-metadata.js.map

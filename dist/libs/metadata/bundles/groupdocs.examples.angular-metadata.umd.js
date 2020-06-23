@@ -1704,6 +1704,8 @@
     }());
 
     exports.AccordionService = AccordionService;
+    exports.FilePropertyCategory = FilePropertyCategory;
+    exports.FilePropertyModel = FilePropertyModel;
     exports.MetadataAppComponent = MetadataAppComponent;
     exports.MetadataConfigService = MetadataConfigService;
     exports.MetadataFileDescription = MetadataFileDescription;
