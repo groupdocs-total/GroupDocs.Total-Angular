@@ -3,7 +3,7 @@ import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, EventEmitter, 
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { __values } from 'tslib';
-import { Api, ConfigService, CommonModals, FilePropertyCategory, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, PasswordService, LoadingMaskService, WindowService, FilePropertyModel, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, PasswordService, LoadingMaskService, WindowService, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
@@ -360,6 +360,43 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @enum {number} */
+var FilePropertyCategory = {
+    BuildIn: 0,
+    Default: 1,
+};
+FilePropertyCategory[FilePropertyCategory.BuildIn] = 'BuildIn';
+FilePropertyCategory[FilePropertyCategory.Default] = 'Default';
+var FilePropertyModel = /** @class */ (function () {
+    function FilePropertyModel() {
+    }
+    return FilePropertyModel;
+}());
+if (false) {
+    /** @type {?} */
+    FilePropertyModel.prototype.category;
+    /** @type {?} */
+    FilePropertyModel.prototype.name;
+    /** @type {?} */
+    FilePropertyModel.prototype.value;
+    /** @type {?} */
+    FilePropertyModel.prototype.type;
+    /** @type {?} */
+    FilePropertyModel.prototype.original;
+    /** @type {?} */
+    FilePropertyModel.prototype.selected;
+    /** @type {?} */
+    FilePropertyModel.prototype.editing;
+    /** @type {?} */
+    FilePropertyModel.prototype.edited;
+    /** @type {?} */
+    FilePropertyModel.prototype.disabled;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var MetadataAppComponent = /** @class */ (function () {
     function MetadataAppComponent(_metadataService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, passwordService, _loadingMaskService, _accrodionService, _windowService) {
         var _this = this;
@@ -445,12 +482,13 @@ var MetadataAppComponent = /** @class */ (function () {
                 /** @type {?} */
                 var propObject = {
                     original: addedProperty.original,
-                    name: "",
+                    name: "Select property",
                     value: "",
                     category: 0,
                     type: 1,
                     selected: false,
                     editing: false,
+                    edited: false,
                     disabled: false
                 };
                 if (_this.buildInProperties) {
@@ -806,11 +844,7 @@ var MetadataAppComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return !this.file || this.disabled || (this.buildInProperties && this.buildInProperties.filter((/**
-         * @param {?} p
-         * @return {?}
-         */
-        function (p) { return p.original === false; })).length > 0);
+        return !this.file || this.disabled;
     };
     /**
      * @return {?}
@@ -827,7 +861,7 @@ var MetadataAppComponent = /** @class */ (function () {
          * @param {?} p
          * @return {?}
          */
-        function (p) { return !p.original || p.editing; }));
+        function (p) { return !p.original || p.edited; }));
         /** @type {?} */
         var savingFile = new MetadataFileDescription();
         savingFile.guid = this.file.guid;
@@ -1047,7 +1081,6 @@ var AccordionGroupComponent = /** @class */ (function () {
         this.opened = false;
         this.toggle = new EventEmitter();
         this.removeProperty = new EventEmitter();
-        this._selectedPropName = "Select property";
         this.isDesktop = _windowService.isDesktop();
         _windowService.onResize.subscribe((/**
          * @param {?} w
@@ -1074,16 +1107,6 @@ var AccordionGroupComponent = /** @class */ (function () {
             }
         }));
     };
-    Object.defineProperty(AccordionGroupComponent.prototype, "selectedPropName", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._selectedPropName;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?=} onlyEditing
      * @return {?}
@@ -1094,7 +1117,6 @@ var AccordionGroupComponent = /** @class */ (function () {
      */
     function (onlyEditing) {
         if (onlyEditing === void 0) { onlyEditing = false; }
-        // for the moment we are working only with a single property
         if (!onlyEditing) {
             this.properties.forEach((/**
              * @param {?} p
@@ -1119,7 +1141,6 @@ var AccordionGroupComponent = /** @class */ (function () {
     function ($event) {
         $event.preventDefault();
         $event.stopPropagation();
-        this._selectedPropName = "Select property";
         this.resetProperties();
         if (!this.addDisabled) {
             /** @type {?} */
@@ -1177,6 +1198,11 @@ var AccordionGroupComponent = /** @class */ (function () {
              * @return {?}
              */
             function (p) { return p.name === property.name; }))[0].editing = selectedProperty.editing;
+            this.properties.filter((/**
+             * @param {?} p
+             * @return {?}
+             */
+            function (p) { return p.name === property.name; }))[0].edited = true;
         }
     };
     /**
@@ -1217,27 +1243,22 @@ var AccordionGroupComponent = /** @class */ (function () {
     };
     /**
      * @param {?} $event
+     * @param {?} property
      * @return {?}
      */
     AccordionGroupComponent.prototype.selectPropName = /**
      * @param {?} $event
+     * @param {?} property
      * @return {?}
      */
-    function ($event) {
-        this._selectedPropName = $event.name;
-        /** @type {?} */
-        var editingProperty = this.properties.filter((/**
-         * @param {?} p
-         * @return {?}
-         */
-        function (p) { return !p.original; }))[0];
-        editingProperty.type = $event.type;
-        editingProperty.name = $event.name;
+    function ($event, property) {
+        property.type = $event.type;
+        property.name = $event.name;
         if ($event.type === 3) {
-            editingProperty.value = new Date().toISOString().slice(0, 19);
+            property.value = new Date().toISOString().slice(0, 19);
         }
         else {
-            editingProperty.value = "";
+            property.value = "";
         }
     };
     /**
@@ -1277,7 +1298,7 @@ var AccordionGroupComponent = /** @class */ (function () {
     AccordionGroupComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-accordion-group',
-                    template: "<div class=\"accordion-wrapper\">\n    <div class=\"title\" (click)=\"toggle.emit($event)\">\n      <fa-icon *ngIf=\"!opened\" class=\"chevron\" [icon]=\"['fas', 'chevron-down']\"></fa-icon>\n      <fa-icon *ngIf=\"opened\" class=\"chevron\" [icon]=\"['fas', 'chevron-up']\"></fa-icon>\n      <div class=\"text\">{{title}}</div>\n      <fa-icon class=\"trash\" *ngIf=\"wasSelected()\" [icon]=\"['fas', 'trash']\" (click)=\"delete($event)\"></fa-icon>\n      <gd-button class=\"plus\" [icon]=\"['plus']\" [hidden]=\"addHidden\" [disabled]=\"addDisabled\" (click)=\"addProperty($event)\"></gd-button>\n    </div>\n    <div class=\"body\" [ngClass]=\"{'hidden': !opened}\">\n      <div *ngFor=\"let property of properties\" class=\"property-wrapper\" [ngClass]=\"{'disabled': property.disabled}\">\n          <div *ngIf=\"property.original\" [ngClass]=\"{'selected': property.selected}\" (click)=\"selectProperty(property)\" class=\"property-name\" title=\"{{property.name}}\">{{property.name}}</div>\n          <gd-select  class=\"property-name\" *ngIf=\"!property.original\" id=\"propertiesNames\" [disabled]=\"false\" [options]=\"propertiesNames\" (selected)=\"selectPropName($event)\" [showSelected]=\"{name : selectedPropName, value : selectedPropName}\"></gd-select>\n          <div *ngIf=\"property.original && !property.editing\" [ngClass]=\"{'selected': property.selected}\" (click)=\"editProperty(property)\" class=\"property-value\" title=\"{{property.value}}\">{{formatValue(property)}}</div>\n          <div *ngIf=\"!property.original || property.editing\" class=\"input-wrapper\">\n            <input #textinput *ngIf=\"property.type == 1 || property.type == 5\" class=\"property-value\" [(ngModel)]=\"property.value\">\n            <input *ngIf=\"property.type == 3\" type=\"datetime-local\" step=\"1\" [ngClass]=\"isDesktop ? 'property-value' : 'property-value mobile-hide'\" [ngModel]=\"property.value | date:'yyyy-MM-ddTHH:mm:ss'\" (ngModelChange)=\"formatDateTime(property, $event)\">\n            <input *ngIf=\"property.type == 3\" type=\"datetime-local\" [ngClass]=\"isDesktop ? 'property-value desktop-hide' : 'property-value'\" [ngModel]=\"property.value | date:'yyyy-MM-ddTHH:mm'\" (ngModelChange)=\"formatDateTime(property, $event)\">\n        </div>\n      </div>\n    </div>\n  <div>",
+                    template: "<div class=\"accordion-wrapper\">\n    <div class=\"title\" (click)=\"toggle.emit($event)\">\n      <fa-icon *ngIf=\"!opened\" class=\"chevron\" [icon]=\"['fas', 'chevron-down']\"></fa-icon>\n      <fa-icon *ngIf=\"opened\" class=\"chevron\" [icon]=\"['fas', 'chevron-up']\"></fa-icon>\n      <div class=\"text\">{{title}}</div>\n      <fa-icon class=\"trash\" *ngIf=\"wasSelected()\" [icon]=\"['fas', 'trash']\" (click)=\"delete($event)\"></fa-icon>\n      <gd-button class=\"plus\" [icon]=\"['plus']\" [hidden]=\"addHidden\" [disabled]=\"addDisabled\" (click)=\"addProperty($event)\"></gd-button>\n    </div>\n    <div class=\"body\" [ngClass]=\"{'hidden': !opened}\">\n      <div *ngFor=\"let property of properties\" class=\"property-wrapper\" [ngClass]=\"{'disabled': property.disabled}\">\n          <div *ngIf=\"property.original\" [ngClass]=\"{'selected': property.selected}\" (click)=\"selectProperty(property)\" class=\"property-name\" title=\"{{property.name}}\">{{property.name}}</div>\n          <gd-select  class=\"property-name\" *ngIf=\"!property.original\" id=\"propertiesNames\" [disabled]=\"false\" [options]=\"propertiesNames\" (selected)=\"selectPropName($event, property)\" [showSelected]=\"{name : property.name, value : property.name}\"></gd-select>\n          <div *ngIf=\"property.original && !property.editing\" [ngClass]=\"{'selected': property.selected}\" (click)=\"editProperty(property)\" class=\"property-value\" title=\"{{property.value}}\">{{formatValue(property)}}</div>\n          <div *ngIf=\"!property.original || property.editing\" class=\"input-wrapper\">\n            <input #textinput *ngIf=\"property.type == 1 || property.type == 5\" class=\"property-value\" [(ngModel)]=\"property.value\">\n            <input *ngIf=\"property.type == 3\" type=\"datetime-local\" step=\"1\" [ngClass]=\"isDesktop ? 'property-value' : 'property-value mobile-hide'\" [ngModel]=\"property.value | date:'yyyy-MM-ddTHH:mm:ss'\" (ngModelChange)=\"formatDateTime(property, $event)\">\n            <input *ngIf=\"property.type == 3\" type=\"datetime-local\" [ngClass]=\"isDesktop ? 'property-value desktop-hide' : 'property-value'\" [ngModel]=\"property.value | date:'yyyy-MM-ddTHH:mm'\" (ngModelChange)=\"formatDateTime(property, $event)\">\n        </div>\n      </div>\n    </div>\n  <div>",
                     styles: [".accordion-wrapper{background-color:#fff}.accordion-wrapper .title{width:100%;cursor:pointer;border-bottom:1px solid #6e6e6e;background-color:#539cf0;color:#f4f4f4;font-weight:700;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;height:37px;line-height:37px;font-size:13px}.accordion-wrapper .title .text{width:100%}.chevron{padding:0 16px 0 15px}.plus{margin-left:auto}::ng-deep .title .button{color:#fff!important;display:block!important;margin-right:0!important}::ng-deep .title .button.active fa-icon{color:#fff!important}.accordion-wrapper .body.hidden,.trash.hidden{display:none}.property-wrapper{display:-webkit-box;display:flex;height:35px;font-size:12px;border-bottom:1px solid #e7e7e7;line-height:35px}.property-wrapper.disabled{cursor:not-allowed;color:#acacac}.property-name{width:216px;text-transform:uppercase;font-weight:700;padding-left:15px;border-right:1px solid #e7e7e7;text-overflow:ellipsis;word-wrap:break-word}.property-name ::ng-deep .select{height:35px;line-height:37px;text-align:center;-webkit-box-pack:unset;justify-content:unset;position:relative}.property-name ::ng-deep .select .nav-caret{display:none}.property-name ::ng-deep .select .selected-value{max-width:none;font-size:unset;text-transform:none;font-weight:400}.property-name ::ng-deep .select .dropdown-menu{width:216px;margin-left:-15px;top:36px}.property-value{font-family:'Courier New',Courier,monospace;padding-left:12px;text-overflow:ellipsis;width:216px;white-space:nowrap;overflow:hidden;word-wrap:break-word;display:inline-block}.property-value.desktop-hide{display:none}.input-wrapper input{height:30px;border:0;font-size:12px}.input-wrapper input.hidden{display:none}.input-wrapper input[type=datetime-local]::-webkit-clear-button,.input-wrapper input[type=datetime-local]::-webkit-inner-spin-button{-webkit-appearance:none;display:none}.selected{background-color:#3e4e5a;color:#fff}::ng-deep .default .property-name{color:#acacac}@media (max-width:1037px){.property-value{width:194px!important}.property-name{width:150px!important}.property-value.mobile-hide{display:none}.input-wrapper{width:185px!important}}"]
                 }] }
     ];
@@ -1319,8 +1340,6 @@ if (false) {
     AccordionGroupComponent.prototype.removeProperty;
     /** @type {?} */
     AccordionGroupComponent.prototype.textinput;
-    /** @type {?} */
-    AccordionGroupComponent.prototype._selectedPropName;
     /** @type {?} */
     AccordionGroupComponent.prototype.isDesktop;
     /**

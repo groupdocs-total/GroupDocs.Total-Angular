@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { FilePropertyModel } from '@groupdocs.examples.angular/common-components';
+import { FilePropertyModel } from './metadata-models';
 export declare class AccordionService {
     private _addingObserver;
     private _addedProperty;
