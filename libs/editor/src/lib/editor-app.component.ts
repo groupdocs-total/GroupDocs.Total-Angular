@@ -52,6 +52,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   fileWasDropped: false;
   selectFontShow = false;
   selectFontSizeShow = false;
+  newFile = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -241,11 +242,12 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   }
 
   createFile() {
+    this.newFile = true;
     this.file = new FileDescription();
     const page = new PageModel;
     page.width = 595;
     page.height = 842;
-    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body><div class="documentMainContent newfile"></div></body></html>';
+    page.data = '<!DOCTYPE HTML><html><head></head><body></body></html>';
     page.number = 1;
     page.editable = true;
     this.file.pages = [];
@@ -547,9 +549,19 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
 
   getPageWithRootTags(data) {
     let resultData = "<html><head>" + data + "</body></html>";
-    resultData = resultData.replace('documentMainContent newfile', 'documentMainContent');
-    resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
-    resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
+    
+    if (this.newFile)
+    {
+      resultData = resultData.replace('<head>', '<head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>');
+      resultData = resultData.replace('<body>', '<body><div class="documentMainContent">');
+      resultData = resultData.replace('</body>', '</div></body>');
+    }
+    else 
+    {
+      resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+      resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
+    }
+
     return resultData;
   }
 
