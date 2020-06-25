@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { ConfigService, FileCredentials } from "@groupdocs.examples.angular/common-components";
-import { FilePropertyModel } from '@groupdocs.examples.angular/common-components';
+import { FilePropertyModel } from './metadata-models';
 export declare class MetadataService {
     private _http;
     private _config;

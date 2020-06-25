@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
@@ -322,6 +322,7 @@ class Api {
 Api.VIEWER_APP = '/viewer';
 Api.SIGNATURE_APP = '/signature';
 Api.ANNOTATION_APP = '/annotation';
+Api.SEARCH_APP = '/search';
 Api.EDITOR_APP = '/editor';
 Api.COMPARISON_APP = '/comparison';
 Api.CONVERSION_APP = '/conversion';
@@ -347,6 +348,8 @@ Api.CREATE_FILE = '/createFile';
 Api.COMPARE_FILES = '/compare';
 Api.CONVERT_FILE = '/convert';
 Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+Api.REMOVE_FROM_INDEX = '/removeFromIndex';
+Api.GET_FILE_STATUS = '/getFileStatus';
 Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
 Api.SAVE_TEXT = '/saveText';
 Api.SAVE_IMAGE = '/saveImage';
@@ -355,6 +358,8 @@ Api.SIGN = '/sign';
 Api.DOWNLOAD_SIGNED = '/downloadSigned';
 Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
 Api.ANNOTATE = '/annotate';
+Api.SEARCH = '/search';
+Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
 Api.httpOptionsJson = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -431,6 +436,12 @@ class ConfigService {
      */
     getAnnotationApiEndpoint() {
         return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
+    }
+    /**
+     * @return {?}
+     */
+    getSearchApiEndpoint() {
+        return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
     }
 }
 ConfigService.decorators = [
@@ -629,15 +640,6 @@ class FileDescription {
     }
 }
 class FileModel {
-}
-/** @enum {number} */
-const FilePropertyCategory = {
-    BuildIn: 0,
-    Default: 1,
-};
-FilePropertyCategory[FilePropertyCategory.BuildIn] = 'BuildIn';
-FilePropertyCategory[FilePropertyCategory.Default] = 'Default';
-class FilePropertyModel {
 }
 class HttpError {
 }
@@ -1119,6 +1121,7 @@ class DocumentComponent {
         this._elementRef = _elementRef;
         this._zoomService = _zoomService;
         this._windowService = _windowService;
+        this.onpan = new EventEmitter();
         this.wait = false;
         this.docWidth = null;
         this.docHeight = null;
@@ -1382,6 +1385,7 @@ class DocumentComponent {
         // if (!this.isDesktop) {
         //   this.translate($event.deltaX, $event.deltaY);
         // }
+        this.onpan.emit($event);
     }
     /**
      * @param {?} $event
@@ -1422,7 +1426,8 @@ DocumentComponent.ctorParameters = () => [
 DocumentComponent.propDecorators = {
     mode: [{ type: Input }],
     preloadPageCount: [{ type: Input }],
-    file: [{ type: Input }]
+    file: [{ type: Input }],
+    onpan: [{ type: Output }]
 };
 
 /**
@@ -2251,6 +2256,14 @@ class ZoomDirective {
     }
     /**
      * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    getScrollHeight(elm) {
+        return elm.offsetHeight - elm.clientHeight;
+    }
+    /**
+     * @private
      * @param {?} zoom
      * @return {?}
      */
@@ -2260,8 +2273,13 @@ class ZoomDirective {
         /** @type {?} */
         const viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
         /** @type {?} */
+        const viewPortHeight = this.el.nativeElement.parentElement.offsetHeight;
+        /** @type {?} */
         const scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+        /** @type {?} */
+        const scrollHeight = this.getScrollHeight(this.el.nativeElement.parentElement);
         this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
+        this.height = (viewPortHeight / zoomInt - scrollHeight / zoomInt) + 'px';
     }
     /**
      * @return {?}
@@ -2288,6 +2306,7 @@ ZoomDirective.propDecorators = {
     transform: [{ type: HostBinding, args: ['style.transform',] }],
     transformOrigin: [{ type: HostBinding, args: ['style.transform-origin',] }],
     width: [{ type: HostBinding, args: ['style.width',] }],
+    height: [{ type: HostBinding, args: ['style.height',] }],
     minWidth: [{ type: HostBinding, args: ['style.min-width',] }]
 };
 
@@ -4362,6 +4381,7 @@ class LoadingMaskService {
         this.stopList.push(Api.SAVE_OPTICAL_CODE);
         this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
         this.stopList.push(Api.LOAD_THUMBNAILS);
+        this.stopList.push(Api.GET_FILE_STATUS);
     }
     /**
      * @param {?} req
@@ -5164,9 +5184,17 @@ const $$8 = jquery;
 class TextMenuComponent {
     /**
      * @param {?} _onCloseService
+     * @param {?} _zoomService
+     * @param {?} _windowService
+     * @param {?} _elementRef
+     * @param {?} renderer
      */
-    constructor(_onCloseService) {
+    constructor(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
         this._onCloseService = _onCloseService;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
         this.decoration = true;
         this.showTooltips = true;
         this.outFontSize = new EventEmitter();
@@ -5184,11 +5212,41 @@ class TextMenuComponent {
         () => {
             this.colorPickerShow = false;
         }));
+        this.isMobile = _windowService.isMobile();
+        _windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        (w) => {
+            this.isMobile = _windowService.isMobile();
+        }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => {
+            if (this.isMobile) {
+                this.changePosition(val);
+            }
+        }));
     }
     /**
      * @return {?}
      */
     ngOnInit() {
+    }
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    changePosition(val) {
+        /** @type {?} */
+        const top = (window.innerHeight - 24 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
+        /** @type {?} */
+        const left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
     }
     /**
      * @param {?} $event
@@ -5276,12 +5334,16 @@ TextMenuComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-text-menu',
                 template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;bottom:0;left:0;right:0;width:100%;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-200px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
+                styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;left:0;right:0;width:inherit;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070;transform-origin:top left;z-index:1000}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-185px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu{left:0}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
             }] }
 ];
 /** @nocollapse */
 TextMenuComponent.ctorParameters = () => [
-    { type: OnCloseService }
+    { type: OnCloseService },
+    { type: ZoomService },
+    { type: WindowService },
+    { type: ElementRef },
+    { type: Renderer2 }
 ];
 TextMenuComponent.propDecorators = {
     blur: [{ type: Input }],
@@ -5312,9 +5374,15 @@ MenuType.FOR_ANNOTATION = "annotation";
 class ContextMenuComponent {
     /**
      * @param {?} _windowService
+     * @param {?} _zoomService
+     * @param {?} _elementRef
+     * @param {?} renderer
      */
-    constructor(_windowService) {
+    constructor(_windowService, _zoomService, _elementRef, renderer) {
         this._windowService = _windowService;
+        this._zoomService = _zoomService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
         this.formatting = Formatting.default();
         this.lock = false;
         this.translation = 0;
@@ -5331,11 +5399,27 @@ class ContextMenuComponent {
         (w) => {
             this.isMobile = _windowService.isMobile();
         }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => {
+            if (this.isMobile) {
+                this.changeScale(val);
+            }
+        }));
     }
     /**
      * @return {?}
      */
     ngOnInit() {
+    }
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    changeScale(val) {
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1 / (val / 100) + ')');
     }
     /**
      * @return {?}
@@ -5433,12 +5517,15 @@ ContextMenuComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-context-menu',
                 template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\" (touchstart)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
-                styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-34px}}"]
+                styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-42px;transform-origin:bottom center}}"]
             }] }
 ];
 /** @nocollapse */
 ContextMenuComponent.ctorParameters = () => [
-    { type: WindowService }
+    { type: WindowService },
+    { type: ZoomService },
+    { type: ElementRef },
+    { type: Renderer2 }
 ];
 ContextMenuComponent.propDecorators = {
     formatting: [{ type: Input }],
@@ -5464,7 +5551,6 @@ const providers = [ConfigService,
     ModalService,
     FileService,
     FileModel,
-    FilePropertyModel,
     FileUtil,
     Utils,
     SanitizeHtmlPipe,
@@ -5598,5 +5684,5 @@ CommonComponentsModule.decorators = [
 /** @nocollapse */
 CommonComponentsModule.ctorParameters = () => [];
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FilePropertyCategory, FilePropertyModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

@@ -1,4 +1,4 @@
-import { AfterViewChecked, ElementRef, OnInit, AfterViewInit, OnChanges } from '@angular/core';
+import { AfterViewChecked, ElementRef, OnInit, AfterViewInit, OnChanges, EventEmitter } from '@angular/core';
 import { FileDescription } from "../file.service";
 import { ZoomService } from "../zoom.service";
 import { WindowService } from '../window.service';
@@ -9,6 +9,7 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     mode: boolean;
     preloadPageCount: number;
     file: FileDescription;
+    onpan: EventEmitter<any>;
     wait: boolean;
     zoom: number;
     docWidth: any;

@@ -10,6 +10,7 @@ export declare class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, 
     transform: string;
     transformOrigin: string;
     width: string;
+    height: string;
     minWidth: string;
     el: ElementRef<any>;
     constructor(_zoomService: ZoomService, _windowService: WindowService, el: ElementRef);
@@ -18,6 +19,7 @@ export declare class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, 
     ngOnInit(): void;
     private setStyles;
     private getScrollWidth;
+    private getScrollHeight;
     private resizePages;
     ngAfterViewInit(): void;
 }
