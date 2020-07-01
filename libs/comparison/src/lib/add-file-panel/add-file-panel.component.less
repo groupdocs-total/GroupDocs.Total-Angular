@@ -1,8 +1,9 @@
 @import "../../../../common-components/src/styles/variables.less";
 
-:host{
+:host {
   border-bottom: 1px solid #CCC;
-  /deep/ gd-button {
+
+  ::ng-deep gd-button {
     .button {
       font-size: 14px !important;
     }
@@ -10,47 +11,47 @@
 }
 
 .wrapper {
-  height: 37px;
+  height          : 37px;
   background-color: #FFFFFF;
-  display: flex;
+  display         : flex;
 }
 
 .upload-wrapper {
   display: flex;
-  width: 100%;
+  width  : 100%;
 }
 
 .url-input {
-  border: 0;
-  height: 37px;
-  width: 100%;
-  padding-left: 5px;
-  margin: 0px;
-  padding-top: 0px;
+  border        : 0;
+  height        : 37px;
+  width         : 100%;
+  padding-left  : 5px;
+  margin        : 0px;
+  padding-top   : 0px;
   padding-bottom: 0px;
-  outline: none;
-  color: @regent-gray;
-  opacity: 0.5;
-  font-style: italic;
+  outline       : none;
+  color         : @regent-gray;
+  opacity       : 0.5;
+  font-style    : italic;
 }
 
 .compare-file-name {
-  color: @dove-gray;
-  margin: 8px 8px 8px 0px;
-  width: 100%;
+  color     : @dove-gray;
+  margin    : 8px 8px 8px 0px;
+  width     : 100%;
   text-align: left;
-  font-size: 13px;
-  opacity: 0.5;
+  font-size : 13px;
+  opacity   : 0.5;
 }
 
 .ng-fa-icon {
-  color: @regent-gray;
-  margin: 9px 15px 0px 13px;
+  color    : @regent-gray;
+  margin   : 9px 15px 0px 13px;
   font-size: 14px;
 }
 
 .compare-file {
-  width: 100%;
+  width       : 100%;
   border-right: 2px solid #ddd;
 }
 
@@ -81,7 +82,7 @@
 }
 
 .wrapper {
-  /deep/ gd-button {
+  ::ng-deep gd-button {
     .button {
       fa-icon {
         color: @dove-gray;
@@ -90,18 +91,19 @@
   }
 }
 
-/deep/ gd-tab {
+::ng-deep gd-tab {
   .gd-tab {
     .title {
-      font-size: 13px;
+      font-size  : 13px;
       font-weight: bold;
-      color: @regent-gray;
-      opacity: 0.4;
-      
+      color      : @regent-gray;
+      opacity    : 0.4;
+
     }
+
     &.active {
       .title {
-        color: @primary !important;
+        color  : @primary  !important;
         opacity: 1;
       }
     }

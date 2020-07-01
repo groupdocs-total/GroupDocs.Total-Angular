@@ -1,0 +1,19 @@
+<div id="gd-search-result-summary">
+  <div class="gd-search-result-summary-status">
+    <fa-icon [icon]="['fas','search']" [class]="'ng-fa-icon icon'"></fa-icon>
+    <div class="gd-total-occurrences" [innerHTML]="getTotalOccurrencesMessage()"></div>
+    <fa-icon [icon]="['fas','clock']" [class]="'ng-fa-icon icon'"></fa-icon>
+    <div class="gd-search-duration">{{getSearchDuration()}} sec</div>
+    <div class="gd-indexed-files" [innerHTML]="getIndexedFilesMessage()"></div>
+  </div>
+  <div *ngIf="searchResult?.totalOccurences > 0" class="gd-search-result-summary-header">
+    <div>File</div>
+    <div>Occurrences</div>
+    <div>Size</div>
+  </div>
+  <div *ngIf="searchResult?.foundFiles" class="gd-search-result-summary-body">
+    <div *ngFor="let item of searchResult.foundFiles">
+        <gd-search-result-item [item]="item"></gd-search-result-item>
+    </div>
+  </div>
+</div>

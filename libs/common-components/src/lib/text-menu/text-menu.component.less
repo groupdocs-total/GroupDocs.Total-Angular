@@ -54,16 +54,17 @@
 @media @phone-down {
   .gd-text-menu {
     position: fixed;
-    bottom: 0;
     left: 0;
     right: 0;
-    width: 100%;
+    width: inherit;
     height: 60px;
     align-items: center;
     padding: 0px;
     margin: 0px;
     background-color: white;
     border-top: 2px solid #707070;
+    transform-origin: top left;
+    z-index: 1000;
 
     ::ng-deep .selected-value {
       white-space: normal !important;
@@ -77,7 +78,7 @@
 
     ::ng-deep .bcPicker-palette {
       left: -200px;
-      top: -200px;
+      top: -185px;
     }
 
     .palette {
@@ -90,6 +91,12 @@
     ::ng-deep .dropdown-menu {
       bottom: 40px;
       top: unset !important;
+    }
+
+    ::ng-deep .first-component {
+      ::ng-deep .dropdown-menu {
+        left: 0px;
+      }
     }
 
     ::ng-deep .button {

@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, Renderer2, ElementRef} from '@angular/core';
 import {Formatting} from "../formatting.service";
 import {WindowService} from "../window.service";
+import { ZoomService } from '../zoom.service';
 
 export class MenuType {
   public static FOR_SIGNATURE = "signature";
@@ -27,14 +28,28 @@ export class ContextMenuComponent implements OnInit {
 
   isMobile: boolean;
 
-  constructor(private _windowService: WindowService) {
+  constructor(private _windowService: WindowService,
+              private _zoomService: ZoomService,
+              protected _elementRef: ElementRef<HTMLElement>,
+              private renderer: Renderer2) {
     this.isMobile = _windowService.isMobile();
     _windowService.onResize.subscribe((w) => {
       this.isMobile = _windowService.isMobile();
     });
+
+    _zoomService.zoomChange.subscribe((val: number) => {
+      if (this.isMobile)
+      {
+        this.changeScale(val);
+      }
+    });
   }
 
   ngOnInit() {
+  }
+
+  changeScale(val: number){
+    this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1/(val/100) + ')');
   }
 
   saveChanges() {

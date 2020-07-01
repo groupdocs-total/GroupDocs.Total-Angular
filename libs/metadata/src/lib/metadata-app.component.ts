@@ -3,8 +3,6 @@ import {MetadataService, MetadataFileDescription} from "./metadata.service";
 import {
   FileDescription,
   FileModel,
-  FilePropertyModel,
-  FilePropertyCategory,
   ModalService,
   ZoomService,
   UploadFilesService,
@@ -18,6 +16,7 @@ import {MetadataConfig} from "./metadata-config";
 import {MetadataConfigService} from "./metadata-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 import { AccordionService } from './accordion.service';
+import { FilePropertyModel, FilePropertyCategory } from './metadata-models';
 
 @Component({
   selector: 'gd-metadata',
@@ -41,11 +40,11 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   _pageHeight: number;
   options;
   fileWasDropped = false;
-  buildInProperties: FilePropertyModel[];
-  defaultProperties: FilePropertyModel[];
-  addedProperty: FilePropertyModel;
-  removedProperty: FilePropertyModel;
-  filePropertiesNames: string[];
+  public buildInProperties: FilePropertyModel[];
+  public defaultProperties: FilePropertyModel[];
+  public addedProperty: FilePropertyModel;
+  public removedProperty: FilePropertyModel;
+  public filePropertiesNames: string[];
   disabled = false;
   isDesktop: boolean;
   showSidePanel = true;
@@ -103,29 +102,18 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         this.addedProperty = addedProperty;
         const propObject = {
           original: addedProperty.original,
-          name: "",
+          name: "Select property",
           value: "",
           category: 0,
           type: 1,
           selected: false,
           editing: false,
+          edited: false,
           disabled: false
         };
         if (this.buildInProperties) {
           this.buildInProperties.push(propObject);
         }
-      }
-    });
-
-    _accrodionService.removedProperty.subscribe(removedProperty => {
-      if (this.file) {
-        const metadataFile = new MetadataFileDescription();
-        metadataFile.guid = this.file.guid;
-        metadataFile.properties = [removedProperty];
-        this._metadataService.removeProperty(metadataFile).subscribe((loadFile: FileDescription) => {
-          this.loadProperties();
-          this._modalService.open(CommonModals.OperationSuccess);
-        });
       }
     });
   }
@@ -281,13 +269,13 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   isDisabled() {
-    return !this.file || this.disabled || (this.buildInProperties && this.buildInProperties.filter(p => p.original === false).length > 0);
+    return !this.file || this.disabled;
   }
 
   save() {
     if (!this.file || !this.file.pages)
       return;
-    const savingProperty = this.buildInProperties.filter(p => !p.original || p.editing);
+    const savingProperty = this.buildInProperties.filter(p => !p.original || p.edited);
     const savingFile = new MetadataFileDescription();
     savingFile.guid = this.file.guid;
     savingFile.properties = savingProperty;
@@ -323,5 +311,19 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
 
   hideSidePanel($event: Event) {
     this.showSidePanel = !this.showSidePanel;
+  }
+
+  removeProperty($event: FilePropertyModel) {
+    const removedProperty = $event;
+
+    if (this.file) {
+      const metadataFile = new MetadataFileDescription();
+      metadataFile.guid = this.file.guid;
+      metadataFile.properties = [removedProperty];
+      this._metadataService.removeProperty(metadataFile).subscribe(() => {
+        this.loadProperties();
+        this._modalService.open(CommonModals.OperationSuccess);
+      });
+    }
   }
 }

@@ -36,6 +36,7 @@ export class FileDescription {
   pages: PageModel[];
   printAllowed = true;
   showGridLines: boolean;
+  thumbnails: PageModel[];
 }
 
 export class FileModel {
@@ -44,22 +45,6 @@ export class FileModel {
   directory: boolean;
   size: number;
   isDirectory: boolean;
-}
-
-export enum FilePropertyCategory {
-  BuildIn,
-  Default
-}
-
-export class FilePropertyModel {
-  category: FilePropertyCategory;
-  name: string;
-  value: any;
-  type: number;
-  original: boolean;
-  selected: boolean;
-  editing: boolean;
-  disabled: boolean;
 }
 
 export class HttpError {
