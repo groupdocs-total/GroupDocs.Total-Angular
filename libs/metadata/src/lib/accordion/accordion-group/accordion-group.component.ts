@@ -1,7 +1,8 @@
 import { Component, Input, Output, EventEmitter, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
-import { FilePropertyModel, WindowService } from '@groupdocs.examples.angular/common-components';
+import { WindowService } from '@groupdocs.examples.angular/common-components';
 import { AccordionService } from './../../accordion.service';
 import {DatePipe} from "@angular/common";
+import { FilePropertyModel } from '../../metadata-models';
 
 @Component({
   selector: 'gd-accordion-group',
@@ -17,9 +18,9 @@ export class AccordionGroupComponent implements AfterViewInit {
   @Input() properties: FilePropertyModel[];
   @Input() propertiesNames: string[];
   @Output() toggle: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChildren('textinput') textinput: QueryList<any>; 
-   _selectedPropName = "Select property";
-   isDesktop: boolean;
+  @Output() removeProperty = new EventEmitter<FilePropertyModel>();
+  @ViewChildren('textinput') textinput: QueryList<any>;
+  isDesktop: boolean;
 
   constructor(private _accordionService: AccordionService,
               private _datePipe: DatePipe,
@@ -38,12 +39,7 @@ export class AccordionGroupComponent implements AfterViewInit {
   });
   }
 
-  get selectedPropName() {
-    return this._selectedPropName;
-  }
-
   resetProperties(onlyEditing: boolean = false) {
-    // for the moment we are working only with a single property
     if (!onlyEditing) {
       this.properties.forEach(p => p.selected = false);
     }
@@ -54,7 +50,6 @@ export class AccordionGroupComponent implements AfterViewInit {
     $event.preventDefault();
     $event.stopPropagation();
 
-    this._selectedPropName = "Select property";
     this.resetProperties();
 
     if (!this.addDisabled) {
@@ -82,6 +77,7 @@ export class AccordionGroupComponent implements AfterViewInit {
       const selectedProperty = this.properties.filter(p => p.name.toLocaleLowerCase() === property.name.toLocaleLowerCase())[0];
       selectedProperty.editing = !selectedProperty.editing;
       this.properties.filter(p => p.name === property.name)[0].editing = selectedProperty.editing;
+      this.properties.filter(p => p.name === property.name)[0].edited = true;
     }
   }
 
@@ -89,7 +85,7 @@ export class AccordionGroupComponent implements AfterViewInit {
     $event.preventDefault();
     $event.stopPropagation();
     const selectedProperty = this.properties.filter(p => p.selected)[0];
-    this._accordionService.removeProperty(selectedProperty);
+    this.removeProperty.emit(selectedProperty);
   }
 
   wasSelected() {
@@ -99,16 +95,14 @@ export class AccordionGroupComponent implements AfterViewInit {
     else return false;
   }
 
-  selectPropName($event: any) {
-    this._selectedPropName = $event.name;
-    const editingProperty = this.properties.filter(p => !p.original)[0];
-    editingProperty.type = $event.type;
-    editingProperty.name = $event.name;
+  selectPropName($event: any, property: FilePropertyModel) {
+    property.type = $event.type;
+    property.name = $event.name;
     if ($event.type === 3) {
-      editingProperty.value = new Date().toISOString().slice(0, 19);
+      property.value = new Date().toISOString().slice(0, 19);
     }
     else {
-      editingProperty.value = "";
+      property.value = "";
     }
   }
 

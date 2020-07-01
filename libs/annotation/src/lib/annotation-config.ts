@@ -28,5 +28,4 @@ export class AnnotationConfig {
   isDownloadAnnotated: boolean;
 
   zoom: boolean;
-  fitWidth: boolean;
 }

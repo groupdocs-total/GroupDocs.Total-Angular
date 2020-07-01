@@ -1,8 +1,14 @@
-import { EventEmitter, OnInit } from '@angular/core';
+import { EventEmitter, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { OnCloseService } from "../on-close.service";
 import { Option } from "../select/select.component";
+import { ZoomService } from '../zoom.service';
+import { WindowService } from '../window.service';
 export declare class TextMenuComponent implements OnInit {
     private _onCloseService;
+    private _zoomService;
+    private _windowService;
+    protected _elementRef: ElementRef<HTMLElement>;
+    private renderer;
     blur: boolean;
     fontSize: number;
     font: string;
@@ -25,8 +31,10 @@ export declare class TextMenuComponent implements OnInit {
     }[];
     fontOptions: any[];
     colorPickerShow: boolean;
-    constructor(_onCloseService: OnCloseService);
+    isMobile: boolean;
+    constructor(_onCloseService: OnCloseService, _zoomService: ZoomService, _windowService: WindowService, _elementRef: ElementRef<HTMLElement>, renderer: Renderer2);
     ngOnInit(): void;
+    changePosition(val: number): void;
     selectFontSize($event: Option): void;
     selectFont($event: Option): void;
     toggleColorPicker($event: any): void;

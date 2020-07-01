@@ -55,10 +55,11 @@
   }
 }
 
+.desktop-hide {
+  display: none;
+}
+
 @media @phone-down {
-  ::ng-deep .panzoom {
-    justify-content: unset !important;
-  }
 
   ::ng-deep .logo {
     ::ng-deep .icon {
@@ -68,6 +69,14 @@
 
   ::ng-deep .top-panel {
     height: 120px !important;
+  }
+
+  .desktop-hide {
+    display: block;
+  }
+
+  .gd-document {
+    height: ~"calc(100% - 120px)";
   }
 }
 

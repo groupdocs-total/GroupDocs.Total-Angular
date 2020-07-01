@@ -5,59 +5,62 @@
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
-/deep/ .tools {
+::ng-deep .tools {
   .button {
-    color: #fff !important;
+    color    : #fff !important;
     flex-flow: column;
-    &.inactive{
-      color: @regent-gray !important;
+
+    &.inactive {
+      color: @regent-gray  !important;
     }
   }
-  .icon-button{
+
+  .icon-button {
     margin: 0px 0px 0px 7px !important;
   }
 }
 
 .wrapper {
   align-items: stretch;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height     : 100%;
+  width      : 100%;
+  position   : fixed;
+  top        : 0;
+  bottom     : 0;
+  left       : 0;
+  right      : 0;
 }
 
 .doc-panel {
   display: flex;
-  height: inherit;
+  height : inherit;
 }
 
 .gd-document {
-  width: 100%;
+  width : 100%;
   height: 100%;
 }
 
 .top-panel {
-  display: flex;
+  display    : flex;
   align-items: center;
-  width: 100%;
+  width      : 100%;
 }
 
 .toolbar-panel {
   background-color: #3e4e5a;
-  width: 100%;
+  width           : 100%;
 }
 
 @media @phone-down {
   ::ng-deep .tools {
-    gd-button:nth-child(1) > .icon-button{
+    gd-button:nth-child(1)>.icon-button {
       margin: 0px 0px 0px 10px !important;
     }
-    .icon-button{
+
+    .icon-button {
       height: 60px !important;
-      width: 60px;
+      width : 60px;
     }
   }
 }

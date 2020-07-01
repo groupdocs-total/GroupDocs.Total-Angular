@@ -1,10 +1,11 @@
 import { AfterViewInit, OnInit } from '@angular/core';
 import { MetadataService } from "./metadata.service";
-import { FileDescription, FileModel, FilePropertyModel, ModalService, ZoomService, UploadFilesService, NavigateService, PagePreloadService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
+import { FileDescription, FileModel, ModalService, ZoomService, UploadFilesService, NavigateService, PagePreloadService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
 import { MetadataConfig } from "./metadata-config";
 import { MetadataConfigService } from "./metadata-config.service";
 import { WindowService } from "@groupdocs.examples.angular/common-components";
 import { AccordionService } from './accordion.service';
+import { FilePropertyModel } from './metadata-models';
 export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     private _metadataService;
     private _modalService;
@@ -66,4 +67,5 @@ export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     save(): void;
     loadProperties(): void;
     hideSidePanel($event: Event): void;
+    removeProperty($event: FilePropertyModel): void;
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
@@ -67,7 +67,7 @@ SidePanelComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-side-panel',
                 template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\n    <div class=\"title\">{{title}}</div>\n    <div class=\"save\" *ngIf=\"saveable\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\n    </div>\n    <div class=\"close\" *ngIf=\"closable\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\n    </div>\n  </div>\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-                styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;-webkit-transition:margin-right .2s;transition:margin-right .2s;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close,.gd-side-panel-wrapper .gd-side-panel-header .save{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header /deep/ gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
+                styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;-webkit-transition:margin-right .2s;transition:margin-right .2s;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close,.gd-side-panel-wrapper .gd-side-panel-header .save{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header ::ng-deep gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
             }] }
 ];
 /** @nocollapse */
@@ -405,6 +405,7 @@ class Api {
 Api.VIEWER_APP = '/viewer';
 Api.SIGNATURE_APP = '/signature';
 Api.ANNOTATION_APP = '/annotation';
+Api.SEARCH_APP = '/search';
 Api.EDITOR_APP = '/editor';
 Api.COMPARISON_APP = '/comparison';
 Api.CONVERSION_APP = '/conversion';
@@ -429,6 +430,8 @@ Api.SAVE_FILE = '/saveFile';
 Api.COMPARE_FILES = '/compare';
 Api.CONVERT_FILE = '/convert';
 Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+Api.REMOVE_FROM_INDEX = '/removeFromIndex';
+Api.GET_FILE_STATUS = '/getFileStatus';
 Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
 Api.SAVE_TEXT = '/saveText';
 Api.SAVE_IMAGE = '/saveImage';
@@ -437,6 +440,8 @@ Api.SIGN = '/sign';
 Api.DOWNLOAD_SIGNED = '/downloadSigned';
 Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
 Api.ANNOTATE = '/annotate';
+Api.SEARCH = '/search';
+Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
 Api.httpOptionsJson = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -455,6 +460,8 @@ if (false) {
     Api.SIGNATURE_APP;
     /** @type {?} */
     Api.ANNOTATION_APP;
+    /** @type {?} */
+    Api.SEARCH_APP;
     /** @type {?} */
     Api.EDITOR_APP;
     /** @type {?} */
@@ -504,6 +511,10 @@ if (false) {
     /** @type {?} */
     Api.DELETE_SIGNATURE_FILE;
     /** @type {?} */
+    Api.REMOVE_FROM_INDEX;
+    /** @type {?} */
+    Api.GET_FILE_STATUS;
+    /** @type {?} */
     Api.SAVE_OPTICAL_CODE;
     /** @type {?} */
     Api.SAVE_TEXT;
@@ -519,6 +530,10 @@ if (false) {
     Api.LOAD_SIGNATURE_IMAGE;
     /** @type {?} */
     Api.ANNOTATE;
+    /** @type {?} */
+    Api.SEARCH;
+    /** @type {?} */
+    Api.ADD_FILES_TO_INDEX;
     /** @type {?} */
     Api.httpOptionsJson;
     /** @type {?} */
@@ -589,6 +604,12 @@ class ConfigService {
      */
     getAnnotationApiEndpoint() {
         return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
+    }
+    /**
+     * @return {?}
+     */
+    getSearchApiEndpoint() {
+        return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
     }
 }
 ConfigService.decorators = [
@@ -879,6 +900,8 @@ if (false) {
     FileDescription.prototype.printAllowed;
     /** @type {?} */
     FileDescription.prototype.showGridLines;
+    /** @type {?} */
+    FileDescription.prototype.thumbnails;
 }
 class FileModel {
 }
@@ -893,33 +916,6 @@ if (false) {
     FileModel.prototype.size;
     /** @type {?} */
     FileModel.prototype.isDirectory;
-}
-/** @enum {number} */
-const FilePropertyCategory = {
-    BuildIn: 0,
-    Default: 1,
-};
-FilePropertyCategory[FilePropertyCategory.BuildIn] = 'BuildIn';
-FilePropertyCategory[FilePropertyCategory.Default] = 'Default';
-class FilePropertyModel {
-}
-if (false) {
-    /** @type {?} */
-    FilePropertyModel.prototype.category;
-    /** @type {?} */
-    FilePropertyModel.prototype.name;
-    /** @type {?} */
-    FilePropertyModel.prototype.value;
-    /** @type {?} */
-    FilePropertyModel.prototype.type;
-    /** @type {?} */
-    FilePropertyModel.prototype.original;
-    /** @type {?} */
-    FilePropertyModel.prototype.selected;
-    /** @type {?} */
-    FilePropertyModel.prototype.editing;
-    /** @type {?} */
-    FilePropertyModel.prototype.disabled;
 }
 class HttpError {
 }
@@ -1480,6 +1476,7 @@ class DocumentComponent {
         this._elementRef = _elementRef;
         this._zoomService = _zoomService;
         this._windowService = _windowService;
+        this.onpan = new EventEmitter();
         this.wait = false;
         this.docWidth = null;
         this.docHeight = null;
@@ -1743,6 +1740,7 @@ class DocumentComponent {
         // if (!this.isDesktop) {
         //   this.translate($event.deltaX, $event.deltaY);
         // }
+        this.onpan.emit($event);
     }
     /**
      * @param {?} $event
@@ -1771,7 +1769,7 @@ DocumentComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-document',
                 template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height)\"\n         [style.width]=\"getDimensionWithUnit(page.width)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
-                styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
             }] }
 ];
 /** @nocollapse */
@@ -1783,7 +1781,8 @@ DocumentComponent.ctorParameters = () => [
 DocumentComponent.propDecorators = {
     mode: [{ type: Input }],
     preloadPageCount: [{ type: Input }],
-    file: [{ type: Input }]
+    file: [{ type: Input }],
+    onpan: [{ type: Output }]
 };
 if (false) {
     /** @type {?} */
@@ -1792,6 +1791,8 @@ if (false) {
     DocumentComponent.prototype.preloadPageCount;
     /** @type {?} */
     DocumentComponent.prototype.file;
+    /** @type {?} */
+    DocumentComponent.prototype.onpan;
     /** @type {?} */
     DocumentComponent.prototype.wait;
     /** @type {?} */
@@ -1892,7 +1893,7 @@ PageComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-page',
                 template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
-                styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}"]
+                styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
             }] }
 ];
 /** @nocollapse */
@@ -2491,6 +2492,7 @@ class ScrollableDirective {
         this._windowService = _windowService;
         this._viewportService = _viewportService;
         this.zoom = 100;
+        this.loadedPagesSet = new Set();
         this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
         _zoomService.zoomChange.subscribe((/**
          * @param {?} val
@@ -2637,7 +2639,10 @@ class ScrollableDirective {
                     }
                     currentPageSet = true;
                 }
-                this._pagePreloadService.changeLastPageInView(page);
+                if (!this.loadedPagesSet.has(page)) {
+                    this._pagePreloadService.changeLastPageInView(page);
+                    this.loadedPagesSet.add(page);
+                }
             }
         }
     }
@@ -2698,6 +2703,11 @@ if (false) {
      * @private
      */
     ScrollableDirective.prototype.zoom;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype.loadedPagesSet;
     /**
      * @type {?}
      * @private
@@ -2826,6 +2836,14 @@ class ZoomDirective {
     }
     /**
      * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    getScrollHeight(elm) {
+        return elm.offsetHeight - elm.clientHeight;
+    }
+    /**
+     * @private
      * @param {?} zoom
      * @return {?}
      */
@@ -2835,8 +2853,13 @@ class ZoomDirective {
         /** @type {?} */
         const viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
         /** @type {?} */
+        const viewPortHeight = this.el.nativeElement.parentElement.offsetHeight;
+        /** @type {?} */
         const scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+        /** @type {?} */
+        const scrollHeight = this.getScrollHeight(this.el.nativeElement.parentElement);
         this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
+        this.height = (viewPortHeight / zoomInt - scrollHeight / zoomInt) + 'px';
     }
     /**
      * @return {?}
@@ -2863,6 +2886,7 @@ ZoomDirective.propDecorators = {
     transform: [{ type: HostBinding, args: ['style.transform',] }],
     transformOrigin: [{ type: HostBinding, args: ['style.transform-origin',] }],
     width: [{ type: HostBinding, args: ['style.width',] }],
+    height: [{ type: HostBinding, args: ['style.height',] }],
     minWidth: [{ type: HostBinding, args: ['style.min-width',] }]
 };
 if (false) {
@@ -2878,6 +2902,8 @@ if (false) {
     ZoomDirective.prototype.transformOrigin;
     /** @type {?} */
     ZoomDirective.prototype.width;
+    /** @type {?} */
+    ZoomDirective.prototype.height;
     /** @type {?} */
     ZoomDirective.prototype.minWidth;
     /** @type {?} */
@@ -5500,6 +5526,8 @@ class LoadingMaskService {
         this.stopList.push(Api.SAVE_TEXT);
         this.stopList.push(Api.SAVE_OPTICAL_CODE);
         this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
+        this.stopList.push(Api.LOAD_THUMBNAILS);
+        this.stopList.push(Api.GET_FILE_STATUS);
     }
     /**
      * @param {?} req
@@ -6477,9 +6505,17 @@ const $$8 = jquery;
 class TextMenuComponent {
     /**
      * @param {?} _onCloseService
+     * @param {?} _zoomService
+     * @param {?} _windowService
+     * @param {?} _elementRef
+     * @param {?} renderer
      */
-    constructor(_onCloseService) {
+    constructor(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
         this._onCloseService = _onCloseService;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
         this.decoration = true;
         this.showTooltips = true;
         this.outFontSize = new EventEmitter();
@@ -6497,11 +6533,41 @@ class TextMenuComponent {
         () => {
             this.colorPickerShow = false;
         }));
+        this.isMobile = _windowService.isMobile();
+        _windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        (w) => {
+            this.isMobile = _windowService.isMobile();
+        }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => {
+            if (this.isMobile) {
+                this.changePosition(val);
+            }
+        }));
     }
     /**
      * @return {?}
      */
     ngOnInit() {
+    }
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    changePosition(val) {
+        /** @type {?} */
+        const top = (window.innerHeight - 24 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
+        /** @type {?} */
+        const left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
     }
     /**
      * @param {?} $event
@@ -6589,12 +6655,16 @@ TextMenuComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-text-menu',
                 template: "<div class=\"gd-text-menu\">\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\n             (selected)=\"selectFont($event)\"\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\n             (selected)=\"selectFontSize($event)\"\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\n  </gd-button>\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\n                   [className]=\"'palette'\"\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\n  <ng-content></ng-content>\n</div>\n",
-                styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.gd-text-menu .format-select{height:37px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;bottom:0;left:0;right:0;width:100%;height:60px;-webkit-box-align:center;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-200px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
+                styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.gd-text-menu .format-select{height:37px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;left:0;right:0;width:inherit;height:60px;-webkit-box-align:center;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070;-webkit-transform-origin:top left;transform-origin:top left;z-index:1000}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-185px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu{left:0}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
             }] }
 ];
 /** @nocollapse */
 TextMenuComponent.ctorParameters = () => [
-    { type: OnCloseService }
+    { type: OnCloseService },
+    { type: ZoomService },
+    { type: WindowService },
+    { type: ElementRef },
+    { type: Renderer2 }
 ];
 TextMenuComponent.propDecorators = {
     blur: [{ type: Input }],
@@ -6650,11 +6720,33 @@ if (false) {
     TextMenuComponent.prototype.fontOptions;
     /** @type {?} */
     TextMenuComponent.prototype.colorPickerShow;
+    /** @type {?} */
+    TextMenuComponent.prototype.isMobile;
     /**
      * @type {?}
      * @private
      */
     TextMenuComponent.prototype._onCloseService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @protected
+     */
+    TextMenuComponent.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype.renderer;
 }
 
 /**
@@ -6674,9 +6766,15 @@ if (false) {
 class ContextMenuComponent {
     /**
      * @param {?} _windowService
+     * @param {?} _zoomService
+     * @param {?} _elementRef
+     * @param {?} renderer
      */
-    constructor(_windowService) {
+    constructor(_windowService, _zoomService, _elementRef, renderer) {
         this._windowService = _windowService;
+        this._zoomService = _zoomService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
         this.formatting = Formatting.default();
         this.lock = false;
         this.translation = 0;
@@ -6693,11 +6791,27 @@ class ContextMenuComponent {
         (w) => {
             this.isMobile = _windowService.isMobile();
         }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => {
+            if (this.isMobile) {
+                this.changeScale(val);
+            }
+        }));
     }
     /**
      * @return {?}
      */
     ngOnInit() {
+    }
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    changeScale(val) {
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1 / (val / 100) + ')');
     }
     /**
      * @return {?}
@@ -6795,12 +6909,15 @@ ContextMenuComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-context-menu',
                 template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\n             (click)=\"toggleLock()\" (touchstart)=\"toggleLock()\"></gd-button>\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\n             (touchstart)=\"onCopySign()\"></gd-button>\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\n             (touchstart)=\"deleteItem()\"></gd-button>\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\n             (touchstart)=\"addComment()\"></gd-button>\n</div>\n",
-                styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-34px}}"]
+                styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-42px;-webkit-transform-origin:bottom center;transform-origin:bottom center}}"]
             }] }
 ];
 /** @nocollapse */
 ContextMenuComponent.ctorParameters = () => [
-    { type: WindowService }
+    { type: WindowService },
+    { type: ZoomService },
+    { type: ElementRef },
+    { type: Renderer2 }
 ];
 ContextMenuComponent.propDecorators = {
     formatting: [{ type: Input }],
@@ -6845,6 +6962,21 @@ if (false) {
      * @private
      */
     ContextMenuComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ContextMenuComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @protected
+     */
+    ContextMenuComponent.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ContextMenuComponent.prototype.renderer;
 }
 
 /**
@@ -6857,7 +6989,6 @@ const providers = [ConfigService,
     ModalService,
     FileService,
     FileModel,
-    FilePropertyModel,
     FileUtil,
     Utils,
     SanitizeHtmlPipe,
@@ -7001,5 +7132,5 @@ CommonComponentsModule.ctorParameters = () => [];
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FilePropertyCategory, FilePropertyModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
