@@ -24,6 +24,7 @@ export declare class FileDescription {
     pages: PageModel[];
     printAllowed: boolean;
     showGridLines: boolean;
+    thumbnails: PageModel[];
 }
 export declare class FileModel {
     guid: string;
@@ -31,20 +32,6 @@ export declare class FileModel {
     directory: boolean;
     size: number;
     isDirectory: boolean;
-}
-export declare enum FilePropertyCategory {
-    BuildIn = 0,
-    Default = 1
-}
-export declare class FilePropertyModel {
-    category: FilePropertyCategory;
-    name: string;
-    value: any;
-    type: number;
-    original: boolean;
-    selected: boolean;
-    editing: boolean;
-    disabled: boolean;
 }
 export declare class HttpError {
     static BadRequest: number;

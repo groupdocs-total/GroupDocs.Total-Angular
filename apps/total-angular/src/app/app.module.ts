@@ -11,6 +11,7 @@ import {SignatureModule, SignatureAppComponent} from "@groupdocs.examples.angula
 import {ConversionModule, ConversionAppComponent} from "@groupdocs.examples.angular/conversion";
 import {AnnotationModule, AnnotationAppComponent} from "@groupdocs.examples.angular/annotation";
 import {MetadataModule, MetadataAppComponent} from "@groupdocs.examples.angular/metadata";
+import {SearchAppComponent, SearchModule} from "@groupdocs.examples.angular/search";
 import {WatermarkModule, WatermarkAppComponent} from "@groupdocs.examples.angular/watermark";
 
 @NgModule({
@@ -24,6 +25,7 @@ import {WatermarkModule, WatermarkAppComponent} from "@groupdocs.examples.angula
     SignatureModule.forRoot("http://localhost:8080"),
     AnnotationModule.forRoot("http://localhost:8080"),
     MetadataModule.forRoot("http://localhost:8080"),
+    SearchModule.forRoot("http://localhost:8080"),
     WatermarkModule.forRoot("http://localhost:8080"),
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
@@ -34,6 +36,7 @@ import {WatermarkModule, WatermarkAppComponent} from "@groupdocs.examples.angula
       {path: 'signature', component: SignatureAppComponent},
       {path: 'annotation', component: AnnotationAppComponent},
       {path: 'metadata', component: MetadataAppComponent},
+      {path: 'search', component: SearchAppComponent},
       {path: 'watermark', component: WatermarkAppComponent},
     ], {initialNavigation: 'enabled'})
   ],

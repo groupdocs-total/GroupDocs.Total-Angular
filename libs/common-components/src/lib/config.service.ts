@@ -5,6 +5,7 @@ export class Api {
   public static VIEWER_APP = '/viewer';
   public static SIGNATURE_APP = '/signature';
   public static ANNOTATION_APP = '/annotation';
+  public static SEARCH_APP = '/search';
   public static EDITOR_APP = '/editor';
   public static COMPARISON_APP = '/comparison';
   public static CONVERSION_APP = '/conversion';
@@ -30,6 +31,8 @@ export class Api {
   public static COMPARE_FILES = '/compare';
   public static CONVERT_FILE = '/convert';
   public static DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+  public static REMOVE_FROM_INDEX = '/removeFromIndex';
+  public static GET_FILE_STATUS = '/getFileStatus';
   public static SAVE_OPTICAL_CODE = '/saveOpticalCode';
   public static SAVE_TEXT = '/saveText';
   public static SAVE_IMAGE = '/saveImage';
@@ -38,6 +41,8 @@ export class Api {
   public static DOWNLOAD_SIGNED = '/downloadSigned';
   public static LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
   public static ANNOTATE = '/annotate';
+  public static SEARCH = '/search';
+  public static ADD_FILES_TO_INDEX = '/addFilesToIndex';
   public static ADD_WATERMARK = '/addWatermark';
 
   public static httpOptionsJson = {
@@ -104,5 +109,9 @@ export class ConfigService {
 
   getAnnotationApiEndpoint() {
     return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
+  }
+
+  getSearchApiEndpoint() {
+    return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
   }
 }

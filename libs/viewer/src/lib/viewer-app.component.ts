@@ -203,6 +203,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
+
+            this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+              this.file.thumbnails = data.pages;
+            })
           }
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = 1;
@@ -381,10 +385,15 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.viewerConfig.preloadPageCount === 0) {
       this.showThumbnails = true;
     } else {
-      this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
-        this.file.pages = data.pages;
+      if (this.file.thumbnails.filter(t => !t.data).length > 0) {
+        this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+          this.file.thumbnails = data.pages;
+          this.showThumbnails = true;
+        })
+      }
+      else {
         this.showThumbnails = true;
-      })
+      }
     }
   }
 

@@ -19,4 +19,5 @@ export declare class SignatureConfig {
     handSignature: boolean;
     downloadOriginal: boolean;
     downloadSigned: boolean;
+    zoom: boolean;
 }

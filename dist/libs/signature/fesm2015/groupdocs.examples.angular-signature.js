@@ -1,6 +1,6 @@
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, EventEmitter, Output, ElementRef, Directive, HostListener, ViewChild, NgModule, APP_INITIALIZER } from '@angular/core';
 import { DatePipe, CommonModule } from '@angular/common';
-import { Api, Utils, FileUtil, ConfigService, Formatting, MenuType, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, TopTabActivatorService, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, TabActivatorService, DndDirective, HostDynamicDirective, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
+import { Api, Utils, FileUtil, ConfigService, Formatting, MenuType, ZoomService, CommonModals, ModalService, UploadFilesService, NavigateService, PagePreloadService, RenderPrintService, PasswordService, WindowService, TopTabActivatorService, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, TabActivatorService, DndDirective, HostDynamicDirective, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { map, debounceTime } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
@@ -334,6 +334,8 @@ if (false) {
     SignatureConfig.prototype.downloadOriginal;
     /** @type {?} */
     SignatureConfig.prototype.downloadSigned;
+    /** @type {?} */
+    SignatureConfig.prototype.zoom;
 }
 
 /**
@@ -1094,13 +1096,15 @@ class Signature$1 {
      * @param {?} _copySignatureService
      * @param {?} _activeSignatureService
      * @param {?} _signaturesHolderService
+     * @param {?} _zoomService
      */
-    constructor(_signatureService, _removeSignatureService, _copySignatureService, _activeSignatureService, _signaturesHolderService) {
+    constructor(_signatureService, _removeSignatureService, _copySignatureService, _activeSignatureService, _signaturesHolderService, _zoomService) {
         this._signatureService = _signatureService;
         this._removeSignatureService = _removeSignatureService;
         this._copySignatureService = _copySignatureService;
         this._activeSignatureService = _activeSignatureService;
         this._signaturesHolderService = _signaturesHolderService;
+        this._zoomService = _zoomService;
         this.active = true;
         this.unlock = true;
         this.copied = false;
@@ -1131,6 +1135,12 @@ class Signature$1 {
      * @return {?}
      */
     ngOnInit() {
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewChecked() {
+        this._zoomService.changeZoom(this._zoomService.zoom);
     }
     /**
      * @return {?}
@@ -1446,7 +1456,8 @@ Signature$1.ctorParameters = () => [
     { type: RemoveSignatureService },
     { type: CopySignatureService },
     { type: ActiveSignatureService },
-    { type: SignaturesHolderService }
+    { type: SignaturesHolderService },
+    { type: ZoomService }
 ];
 Signature$1.propDecorators = {
     id: [{ type: Input }],
@@ -1512,6 +1523,11 @@ if (false) {
      * @private
      */
     Signature$1.prototype._signaturesHolderService;
+    /**
+     * @type {?}
+     * @private
+     */
+    Signature$1.prototype._zoomService;
 }
 
 /**
@@ -1595,6 +1611,7 @@ class SignatureAppComponent {
         ];
         this.signatureComponents = new Map();
         this.fileWasDropped = false;
+        this._zoom = 100;
         this._tabActivatorService.activeTabChange.subscribe((/**
          * @param {?} tabId
          * @return {?}
@@ -1605,6 +1622,17 @@ class SignatureAppComponent {
                     this._signatureTabActivationService.changeActiveTab(this.activeSignatureTab);
                 }
                 this.activeSignatureTab = null;
+            }
+        }));
+        this.isDesktop = _windowService.isDesktop();
+        _windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        (w) => {
+            this.isDesktop = _windowService.isDesktop();
+            if (!this.isDesktop) {
+                this.refreshZoom();
             }
         }));
         copySignatureService.copySignature.subscribe((/**
@@ -1788,6 +1816,70 @@ class SignatureAppComponent {
         }
     }
     /**
+     * @private
+     * @param {?} pt
+     * @return {?}
+     */
+    ptToPx(pt) {
+        //pt * 96 / 72 = px.
+        return pt * 96 / 72;
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    getFitToWidth() {
+        // Images and Excel-related files receiving dimensions in px from server
+        /** @type {?} */
+        const pageWidth = this.ptToPx(this._pageWidth);
+        /** @type {?} */
+        const pageHeight = this.ptToPx(this._pageHeight);
+        /** @type {?} */
+        const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
+        return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+    }
+    /**
+     * @param {?} zoom
+     * @return {?}
+     */
+    set zoom(zoom) {
+        this._zoom = zoom;
+        this._zoomService.changeZoom(this._zoom);
+    }
+    /**
+     * @return {?}
+     */
+    get zoom() {
+        return this._zoom;
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    refreshZoom() {
+        this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+    }
+    /**
+     * @return {?}
+     */
+    zoomIn() {
+        if (this.formatDisabled)
+            return;
+        if (this._zoom < 490) {
+            this.zoom = this._zoom + 10;
+        }
+    }
+    /**
+     * @return {?}
+     */
+    zoomOut() {
+        if (this.formatDisabled)
+            return;
+        if (this._zoom > 30) {
+            this.zoom = this._zoom - 10;
+        }
+    }
+    /**
      * @return {?}
      */
     get rewriteConfig() {
@@ -1797,7 +1889,7 @@ class SignatureAppComponent {
      * @return {?}
      */
     get zoomConfig() {
-        return false;
+        return this.signatureConfig ? this.signatureConfig.zoom : true;
     }
     /**
      * @return {?}
@@ -1956,6 +2048,11 @@ class SignatureAppComponent {
             this.file = file;
             this.formatDisabled = !this.file;
             if (file) {
+                if (!this.isDesktop && file.pages && file.pages[0]) {
+                    this._pageHeight = file.pages[0].height;
+                    this._pageWidth = file.pages[0].width;
+                    this.refreshZoom();
+                }
                 /** @type {?} */
                 const preloadPageCount = this.preloadPageCountConfig;
                 /** @type {?} */
@@ -2074,9 +2171,9 @@ class SignatureAppComponent {
             /** @type {?} */
             const documentPage = $$1(currentPage).parent().parent()[0];
             /** @type {?} */
-            const left = position.x - $$1(documentPage).offset().left;
+            const left = (position.x - $$1(documentPage).offset().left) / (this.zoom / 100);
             /** @type {?} */
-            const top = position.y - $$1(documentPage).offset().top;
+            const top = (position.y - $$1(documentPage).offset().top) / (this.zoom / 100);
             /** @type {?} */
             const currentPosition = new Position(left, top);
             /** @type {?} */
@@ -2376,12 +2473,19 @@ class SignatureAppComponent {
         }
         return 0;
     }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    onPan($event) {
+        this._zoomService.changeZoom(this._zoom);
+    }
 }
 SignatureAppComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-signature',
-                template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick($event)\" (click)=\"hideAll($event)\">\n  <div class=\"signature-wrapper wrapper\">\n    <gd-tabbed-toolbars [logo]=\"'signature'\" [icon]=\"'pen-square'\">\n      <gd-tabs>\n        <gd-tab [tabTitle]=\"'File'\" [icon]=\"'folder-open'\" [id]=\"'1'\" [active]=\"true\">\n          <div id=\"files-tools\" class=\"toolbar-panel\">\n            <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                       *ngIf=\"browseConfig\" [elementPosition]=\"-1\"></gd-button>\n\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                       (click)=\"downloadFile()\" *ngIf=\"downloadConfig\"></gd-button>\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"sign()\"></gd-button>\n\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"'Signatures'\" [icon]=\"'signature'\" [id]=\"'2'\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(signatureType.id)\"\n                          [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\"\n                          [elementPosition]=\"isFirstTab(signatureType)\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'qrcode'\" [id]=\"'3'\" *ngIf=\"!isDesktop && codesConfig()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypeCodes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"getSignatureTypeConfig(signatureType.id)\"\n                          [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\"\n                          [elementPosition]=\"isFirstTab(signatureType)\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n      </gd-tabs>\n    </gd-tabbed-toolbars>\n    <gd-signature-left-panel *ngIf=\"activeSignatureTab\" [rewrite]=\"rewriteConfig\" (newSignatureEvent)=\"newSign($event)\"\n                             [isPdf]=\"isPdf()\" [id]=\"activeSignatureTab\">\n    </gd-signature-left-panel>\n    <div class=\"doc-panel\" *ngIf=\"file\">\n      <gd-document (drop)=\"dropSignature($event)\" (dragover)=\"dragOver($event)\" class=\"gd-document\" *ngIf=\"file\"\n                   [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                   [preloadPageCount]=\"preloadPageCountConfig\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-document>\n    </div>\n\n    <gd-init-state [icon]=\"'signature'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\"\n                   (fileDropped)=\"fileDropped($event)\">\n      Click\n      <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon>\n      to open file<br>\n      Or drop file here\n    </gd-init-state>\n    <gd-hand-modal></gd-hand-modal>\n    <gd-stamp-modal></gd-stamp-modal>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n</div>\n",
-                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}::ng-deep .page{position:relative}::ng-deep .gd-page-image{width:unset;height:unset}::ng-deep .top-panel{align-content:flex-start}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:inherit}.gd-document{width:100%;height:calc(100% - 90px)}.toolbar-panel{width:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.signature-wrapper ::ng-deep .button{color:#3e4e5a!important}.signature-wrapper ::ng-deep .button .text{padding:0!important}@media (max-width:1037px){::ng-deep .panzoom{-webkit-box-pack:unset!important;justify-content:unset!important}::ng-deep .logo ::ng-deep .icon{font-size:24px!important}::ng-deep .top-panel{height:120px!important}}"]
+                template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick($event)\" (click)=\"hideAll($event)\">\n  <div class=\"signature-wrapper wrapper\">\n    <gd-tabbed-toolbars [logo]=\"'signature'\" [icon]=\"'pen-square'\">\n      <gd-tabs>\n        <gd-tab [tabTitle]=\"'File'\" [icon]=\"'folder-open'\" [id]=\"'1'\" [active]=\"true\">\n          <div id=\"files-tools\" class=\"toolbar-panel\">\n            <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                       *ngIf=\"browseConfig\" [elementPosition]=\"-1\"></gd-button>\n\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                       (click)=\"downloadFile()\" *ngIf=\"downloadConfig\"></gd-button>\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"sign()\"></gd-button>\n            <gd-button class=\"desktop-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\"\n            (click)=\"zoomIn()\" *ngIf=\"zoomConfig\"></gd-button>\n            <gd-button class=\"desktop-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\"\n            (click)=\"zoomOut()\" *ngIf=\"zoomConfig\"></gd-button>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"'Signatures'\" [icon]=\"'signature'\" [id]=\"'2'\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(signatureType.id)\"\n                          [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\"\n                          [elementPosition]=\"isFirstTab(signatureType)\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'qrcode'\" [id]=\"'3'\" *ngIf=\"!isDesktop && codesConfig()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypeCodes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"getSignatureTypeConfig(signatureType.id)\"\n                          [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\"\n                          [elementPosition]=\"isFirstTab(signatureType)\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n      </gd-tabs>\n    </gd-tabbed-toolbars>\n    <gd-signature-left-panel *ngIf=\"activeSignatureTab\" [rewrite]=\"rewriteConfig\" (newSignatureEvent)=\"newSign($event)\"\n                             [isPdf]=\"isPdf()\" [id]=\"activeSignatureTab\">\n    </gd-signature-left-panel>\n    <div class=\"doc-panel\" *ngIf=\"file\">\n      <gd-document (drop)=\"dropSignature($event)\" (dragover)=\"dragOver($event)\" class=\"gd-document\" *ngIf=\"file\"\n                   [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                   [preloadPageCount]=\"preloadPageCountConfig\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" (onpan)=\"onPan($event)\"></gd-document>\n    </div>\n\n    <gd-init-state [icon]=\"'signature'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\"\n                   (fileDropped)=\"fileDropped($event)\">\n      Click\n      <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon>\n      to open file<br>\n      Or drop file here\n    </gd-init-state>\n    <gd-hand-modal></gd-hand-modal>\n    <gd-stamp-modal></gd-stamp-modal>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n</div>\n",
+                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}::ng-deep .page{position:relative}::ng-deep .gd-page-image{width:unset;height:unset}::ng-deep .top-panel{align-content:flex-start}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:inherit}.gd-document{width:100%;height:calc(100% - 90px)}.toolbar-panel{width:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.signature-wrapper ::ng-deep .button{color:#3e4e5a!important}.signature-wrapper ::ng-deep .button .text{padding:0!important}.desktop-hide{display:none}@media (max-width:1037px){::ng-deep .logo ::ng-deep .icon{font-size:24px!important}::ng-deep .top-panel{height:120px!important}.desktop-hide{display:block}.gd-document{height:calc(100% - 120px)}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2440,6 +2544,12 @@ if (false) {
     SignatureAppComponent.prototype.isLoading;
     /** @type {?} */
     SignatureAppComponent.prototype.fileWasDropped;
+    /** @type {?} */
+    SignatureAppComponent.prototype._zoom;
+    /** @type {?} */
+    SignatureAppComponent.prototype._pageWidth;
+    /** @type {?} */
+    SignatureAppComponent.prototype._pageHeight;
     /**
      * @type {?}
      * @private
