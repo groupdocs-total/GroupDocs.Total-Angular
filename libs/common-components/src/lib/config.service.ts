@@ -43,7 +43,9 @@ export class Api {
   public static ANNOTATE = '/annotate';
   public static SEARCH = '/search';
   public static ADD_FILES_TO_INDEX = '/addFilesToIndex';
-  public static ADD_WATERMARK = '/addWatermark';
+  public static SAVE_WATERMARK = '/saveWatermark';
+  public static DELETE_WATERMARK_FILE = '/deleteWatermarkFile';
+  public static LOAD_WATERMARK_IMAGE = '/loadWatermarkImage';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

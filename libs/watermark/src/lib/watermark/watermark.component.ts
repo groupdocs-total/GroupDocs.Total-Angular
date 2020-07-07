@@ -1,16 +1,25 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, Input, AfterViewChecked} from '@angular/core';
 import {
   WatermarkData,
   WatermarkType,
-  CommentWatermark,
   Dimension,
   Position,
-  RemoveWatermark
+  RemoveWatermark,
+  AddedWatermark,
+  DraggableWatermark,
+  WatermarkProps,
+  CopyChanges,
+  CopyWatermark
 } from "../watermark-models";
 import {ActiveWatermarkService} from "../active-watermark.service";
-import {Formatting, Utils, MenuType} from "@groupdocs.examples.angular/common-components";
+import {Formatting, Utils, MenuType, ZoomService} from "@groupdocs.examples.angular/common-components";
 import {RemoveWatermarkService} from "../remove-watermark.service";
 import * as jquery from 'jquery';
+import { Subject } from 'rxjs';
+import { WatermarksHolderService } from '../watermarks-holder.service';
+import { WatermarkService } from '../watermark.service';
+import { CopyWatermarkService } from '../copy-watermark.service';
+import { debounceTime } from 'rxjs/operators';
 
 const $ = jquery;
 
@@ -19,108 +28,53 @@ const $ = jquery;
   templateUrl: './watermark.component.html',
   styleUrls: ['./watermark.component.less']
 })
-export class WatermarkComponent implements OnInit, AfterViewInit {
-
-  id: number;
-  position: Position;
-  leftTop: Position;
-  type: string;
-  pageWidth: number;
-  pageHeight: number;
+export class WatermarkComponent implements OnInit, AfterViewInit, AfterViewChecked {
+  @Input() id: number;
+  @Input() data: AddedWatermark;
+  @Input() position: Position;
+  @Input() type: string;
+  @Input() pageWidth: number;
+  @Input() pageHeight: number;
   active = true;
-  dimension = new Dimension(0, 0);
-  pageNumber: number;
-  textValue = "";
-  pathValue: string;
-  distanceValue = '0px';
-  pointsValue = "";
-  svgPath = "";
-  formatting = Formatting.default();
-
+  unlock = true;
+  copied = false;
+  baseCopied = false;
   private oldPosition: { x: number; y: number };
-  private points = [];
-  private endPosition: Position;
 
-  constructor(private _activeWatermarkService: ActiveWatermarkService,
-              private _removeWatermarkService: RemoveWatermarkService) {
+  private subject: Subject<string> = new Subject();
+
+  constructor(private _watermarkService: WatermarkService,
+              private _removeWatermarkService: RemoveWatermarkService,
+              private _copyWatermarkService: CopyWatermarkService,
+              private _activeWatermarkService: ActiveWatermarkService,
+              private _watermarksHolderService: WatermarksHolderService,
+              private _zoomService: ZoomService) {
+
     this._activeWatermarkService.activeChange.subscribe((id: number) => {
-      this.active = this.id === id;
-      if (this.active) {
-        this.setTextFocus();
+      if (this.id === id) {
+        this.active = true;
+      } else {
+        this.active = false;
       }
+    });
+
+    this.subject.pipe(
+      debounceTime(300)
+    ).subscribe(text => {
+      this.notifyChanges();
+      this.sendSaveText();
     });
   }
 
-  static isOnPage(position) {
-    const currentPage = document.elementFromPoint(position.x, position.y);
-    return currentPage && $(currentPage).parent().parent() &&
-      this.hasSomeParentTheClass(currentPage, "page");
-  }
-
-  static hasSomeParentTheClass(element, classname) {
-    if (element && element.getRootNode() != element && element.getAttribute("class") && element.className.split(' ').indexOf(classname)>=0) return true;
-    return element.parentNode && this.hasSomeParentTheClass(element.parentNode, classname);
-}
-
   ngOnInit() {
-    this.leftTop = Position.clone(this.position);
-    this.setEndPosition(this.position);
   }
 
-  ngAfterViewInit(): void {
-    this.setTextFocus();
+  ngAfterViewChecked() {
+    this._zoomService.changeZoom(this._zoomService.zoom);
   }
 
-  activation() {
-    this._activeWatermarkService.changeActive(this.id);
-  }
-
-  width($event) {
-    if (this.checkDragging($event, 0)) {
-      this.dimension.width += $event;
-    }
-  }
-
-  height($event) {
-    if (this.checkDragging(0, $event)) {
-      this.dimension.height += $event;
-    }
-  }
-
-  left($event) {
-    this.position.left += $event;
-    this.correctPosition();
-    this.refreshLeftTop();
-  }
-
-  top($event) {
-    this.position.top += $event;
-    this.correctPosition();
-    this.refreshLeftTop();
-  }
-
-  private refreshLeftTop() {
-    this.leftTop.left = this.position.left;
-    this.leftTop.top = this.position.top;
-  }
-
-  private correctPosition() {
-    if (this.position.left < 0) {
-      this.position.left = 0;
-    }
-    if (this.position.top < 0) {
-      this.position.top = 0;
-    }
-    if (this.position.top + this.dimension.height > this.pageHeight) {
-      this.position.top = this.pageHeight - this.dimension.height;
-    }
-    if (this.position.left + this.dimension.width > this.pageWidth) {
-      this.position.left = this.pageWidth - this.dimension.width;
-    }
-  }
-
-  getMenuType() {
-    return MenuType.FOR_SIGNATURE;
+  getData() {
+    return 'data:image/png;base64,' + this.data.data;
   }
 
   dragOver($event: DragEvent) {
@@ -136,157 +90,139 @@ export class WatermarkComponent implements OnInit, AfterViewInit {
     }
   }
 
-  initPoint() {
-    this.dimension = new Dimension(40, 40);
-    this.position.left = this.position.left - 20;
-    this.position.top = this.position.top - 20;
-    this.leftTop = Position.clone(this.position);
-  }
-
   dragging($event) {
     $event.preventDefault();
     const position = Utils.getMousePosition($event);
-    if (position.x && position.y && WatermarkComponent.isOnPage(position)) {
+    if (position.x && position.y && this.isOnPage(position)) {
       const left = position.x - this.oldPosition.x;
       const top = position.y - this.oldPosition.y;
-
       this.position.left += left;
       this.position.top += top;
       this.correctPosition();
-      this.refreshLeftTop();
-
       this.oldPosition = position;
     }
   }
 
-  getWatermarkClass() {
-    switch (this.type) {
-      case WatermarkType.TEXT.id:
-        return "gd-watermark-wrapper-border gd-text-watermark";
-      default:
-        return "gd-watermark-wrapper-border";
-    }
-  }
-
-  saveText(value: string) {
-    this.textValue = value;
-  }
-
-  draw(position: Position) {
-    if (this.onPage(position)) {
-      this.calcPositionAndDimension();
-    }
-  }
-
-  setStyles() {
-    return {
-      'stroke': '#579AF0',
-      'stroke-width': 2,
-      'fill-opacity': 0,
-      'id': this.id,
-      'class': 'watermark-svg',
-    };
-  }
-
-  private calcPositionAndDimension() {
-    const leftTop = new Position(Number.MAX_VALUE, Number.MAX_VALUE);
-    const rightBottom = new Position(Number.MIN_VALUE, Number.MIN_VALUE);
-
-    leftTop.left = Math.min(this.position.left, this.endPosition.left);
-    leftTop.top = Math.min(this.position.top, this.endPosition.top);
-    rightBottom.left = Math.max(this.position.left, this.endPosition.left);
-    rightBottom.top = Math.max(this.position.top, this.endPosition.top);
-    
-    this.dimension.width = rightBottom.left - leftTop.left;
-    this.dimension.height = rightBottom.top - leftTop.top;
-    this.leftTop = leftTop;
-  }
-
-  calcDimensions(currentPosition: Position) {
-    if (currentPosition.left <= this.pageWidth && currentPosition.left >= 0) {
-      this.dimension.width = currentPosition.left - this.position.left;
-    }
-    if (currentPosition.top <= this.pageHeight && currentPosition.top >= 0) {
-      this.dimension.height = currentPosition.top - this.position.top;
-    }
-  }
-
-  getHeight() {
-    return this.dimension.height === undefined ? undefined : Math.abs(this.dimension.height);
-  }
-
-  getWidth() {
-    return this.dimension.width === undefined ? undefined : Math.abs(this.dimension.width);
-  }
-
-  private checkDragging(left: number, top: number) {
-    return !(this.leftTop.left + left < 0 || this.leftTop.top + top < 0 ||
-      this.leftTop.top + top + this.dimension.height > this.pageHeight ||
-      this.leftTop.left + left + this.dimension.width > this.pageWidth);
-  }
-
-  distanceTextOptions() {
-    return {'font-size': "12px"}
-  }
-
-  private setEndPosition(position: Position) {
-    this.endPosition = Position.clone(position);
-    this.pathValue = "M" + this.position.left + "," + this.position.top + " L" + this.endPosition.left + "," + this.endPosition.top;
-  }
-
-  private addPoint(position: Position) {
-    this.points.push(position);
-    this.pointsValue += position.left + "," + position.top + " ";
-  }
-
-  private getDistance() {
-    const xs = this.position.left - this.endPosition.left;
-    const ys = this.position.top - this.endPosition.top;
-    return Math.round(Math.sqrt(xs * xs + ys * ys));
-  }
-
-  bottom() {
-    return 'url(' + window.location + '#end)';
-  }
-
-  getTextX() {
-    return this.getDistance() / 2;
+  isOnPage(position) {
+    const currentPage = document.elementFromPoint(position.x, position.y);
+    return currentPage && $(currentPage).parent().parent() &&
+      ($(currentPage).parent().parent().parent().hasClass("page") ||
+        $(currentPage).parent().parent().parent().parent().parent().hasClass("page"));
   }
 
   isText() {
-    return this.type === WatermarkType.TEXT.id;
+    return WatermarkType.TEXT.id === this.type;
   }
 
   getFormatting() {
-    const f = this.formatting;
+    const f = this.data.props;
     const formatting = Formatting.default();
     if (f) {
       formatting.fontSize = f.fontSize;
       formatting.font = f.font;
-      formatting.color = f.color;
+      formatting.color = f.fontColor;
+      formatting.bold = f.bold;
+      formatting.underline = f.underline;
+      formatting.italic = f.italic;
     }
     return formatting;
   }
 
-  saveFormatting($event: Formatting) {
-    this.formatting.fontSize = $event.fontSize;
-    this.formatting.font = $event.font;
-    this.formatting.color = $event.color;
+  saveTextWatermark($event: Formatting) {
+    if (this.data.props) {
+      this.fillFormatting($event);
+      this.notifyChanges();
+      this.sendSaveText();
+    }
+  }
+
+  private fillFormatting(formatting: Formatting) {
+    this.data.props.fontSize = formatting.fontSize;
+    this.data.props.font = formatting.font;
+    this.data.props.bold = formatting.bold;
+    this.data.props.italic = formatting.italic;
+    this.data.props.underline = formatting.underline;
+    this.data.props.fontColor = formatting.color;
   }
 
   remove() {
-    this._removeWatermarkService.remove(new RemoveWatermark(this.id));
+    const del = new RemoveWatermark();
+    del.guid = this.data.guid;
+    del.id = this.id;
+    del.type = this.type;
+    this._removeWatermarkService.remove(del);
   }
 
-  getMenuShift() {
-    const menuWidth = this.isText() ? 265 : 111;
-    return this.dimension.width > menuWidth ? 0 : (this.dimension.width - menuWidth) * 0.5;
+  activation() {
+    this._activeWatermarkService.changeActive(this.id);
   }
 
-  private setTextFocus() {
-    if (this.isText()) {
+  width($event) {
+    this.data.width += $event;
+    if (!this.unlock) {
+      this.data.height += $event;
+    }
+    this.correctPosition();
+    this.notifyChanges();
+  }
+
+  height($event) {
+    this.data.height += $event;
+    if (!this.unlock) {
+      this.data.width += $event;
+    }
+    this.correctPosition();
+    this.notifyChanges();
+  }
+
+  left($event) {
+    if (this.unlock) {
+      this.position.left += $event;
+    }
+    this.correctPosition();
+    this.notifyChanges();
+  }
+
+  top($event) {
+    if (this.unlock) {
+      this.position.top += $event;
+    }
+    this.correctPosition();
+    this.notifyChanges();
+  }
+
+  notifyChanges() {
+    const changes = new CopyChanges();
+    changes.guid = this.data.guid;
+    changes.id = this.id;
+    changes.position = this.position;
+    changes.width = this.data.width;
+    changes.height = this.data.height;
+    changes.props = this.data.props;
+    this._copyWatermarkService.notifyChanges(changes);
+  }
+
+  drop($event: DragEvent) {
+    $event.stopPropagation();
+    $event.preventDefault();
+  }
+
+  isInit() {
+    return this.data.width === 0 && this.data.height === 0;
+  }
+
+  onCopyWatermark() {
+    const copy = new CopyWatermark();
+    copy.guid = this.data.guid;
+    copy.id = this.id;
+    copy.type = this.type;
+    this._copyWatermarkService.copy(copy);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.type === WatermarkType.TEXT.id) {
       setTimeout(() => {
-        const element = $("#text-" + this.id);
+        const element = $("#text");
         if (element) {
           element.focus();
         }
@@ -294,35 +230,53 @@ export class WatermarkComponent implements OnInit, AfterViewInit {
     }
   }
 
-  textAreaHeight(key: any, textarea: any) {
-    this.dimension.height = "Enter" === key ? textarea.scrollHeight + this.formatting.fontSize : textarea.scrollHeight;
-    this.dimension.width = textarea.scrollWidth;
+  private correctPosition() {
+    if (this.position.left < 0) {
+      this.position.left = 0;
+    }
+    if (this.position.top < 0) {
+      this.position.top = 0;
+    }
+    if (this.position.top + this.data.height > this.pageHeight) {
+      this.position.top = this.pageHeight - this.data.height;
+    }
+    if (this.position.left + this.data.width > this.pageWidth) {
+      this.position.left = this.pageWidth - this.data.width;
+    }
   }
 
-  hideMenu($event: Event) {
+  saveText(value: string) {
+    this.data.props.text = value;
+    this.subject.next(value);
+  }
+
+  private sendSaveText() {
+    // this._watermarkService.saveTextWatermark(this.data).subscribe((p: WatermarkProps) => {
+    //   if (DraggableWatermark.TEMP === this.data.guid) {
+    //     this._watermarksHolderService.changeTemp(p.imageGuid, this.id);
+    //     this.data.guid = p.imageGuid;
+    //   }
+    //   this.data.props = p;
+    // });
+  }
+
+  hideMenu($event) {
     this._activeWatermarkService.changeActive(null);
   }
 
-  getWatermarkData(): WatermarkData {
-    const watermarkData = new WatermarkData();
-    watermarkData.id = this.id;
-    watermarkData.text = this.textValue;
-    watermarkData.fontColor = parseInt(Utils.toHex(this.formatting.color).replace("#", ""), 16);
-    watermarkData.fontSize = this.formatting.fontSize;
-    watermarkData.font = this.formatting.font;
-
-    watermarkData.left = this.leftTop.left;
-    watermarkData.top = this.leftTop.top;
-    watermarkData.height = this.dimension.height;
-    watermarkData.width = this.dimension.width;
-  
-    watermarkData.pageNumber = this.pageNumber;
-    watermarkData.type = this.type;
-    return watermarkData;
+  getMenuShift() {
+    const menuWidth = this.type === WatermarkType.TEXT.id ? 426 : 148;
+    let shift = this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
+    if (this.position.left - (menuWidth - this.data.width) / 2 < 0) {
+      shift -= (this.position.left - (menuWidth - this.data.width) / 2);
+    }
+    if (this.position.left + (menuWidth + this.data.width) / 2 > this.pageWidth) {
+      shift -= (this.position.left + (menuWidth + this.data.width) / 2 - this.pageWidth);
+    }
+    return shift;
   }
 
-  private onPage(position: Position) {
-    return position.left <= this.pageWidth && position.top <= this.pageHeight &&
-      position.left >= 0 && position.top >= 0;
+  getMenuType() {
+    return MenuType.FOR_SIGNATURE;
   }
 }

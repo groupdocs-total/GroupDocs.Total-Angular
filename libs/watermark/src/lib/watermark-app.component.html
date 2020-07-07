@@ -10,34 +10,13 @@
 
             <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                        (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
-            <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="addWatermark()"></gd-button>
+            <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="saveWatermark()"></gd-button>
 
           </div>
         </gd-tab>
-        <gd-tab [tabTitle]="'Watermarks'" [icon]="'highlighter'" [id]="'2'"
-                *ngIf="isDesktop || (!isDesktop)">
+        <gd-tab [tabTitle]="'Watermarks'" [icon]="'highlighter'" [id]="'2'">
           <div class="toolbar-panel">
-            <div *ngFor="let watermarkType of (isDesktop ? watermarkTypes : watermarkTypeFirst)">
-              <gd-top-tab [disabled]="!file" *ngIf="isVisible(watermarkType.id)"
-                          [icon]="watermarkType.icon" (activeTab)="activeTab($event)"
-                          [id]="watermarkType.id" [tooltip]="watermarkType.name">
-              </gd-top-tab>
-            </div>
-          </div>
-        </gd-tab>
-        <gd-tab [tabTitle]="''" [icon]="'vector-square'" [id]="'3'" *ngIf="!isDesktop">
-          <div class="toolbar-panel">
-            <div *ngFor="let watermarkType of watermarkTypeSecond">
-              <gd-top-tab [disabled]="!file" *ngIf="isVisible(watermarkType.id)"
-                          [icon]="watermarkType.icon" (activeTab)="activeTab($event)"
-                          [id]="watermarkType.id" [tooltip]="watermarkType.name">
-              </gd-top-tab>
-            </div>
-          </div>
-        </gd-tab>
-        <gd-tab [tabTitle]="''" [icon]="'i-cursor'" [id]="'4'" *ngIf="!isDesktop">
-          <div class="toolbar-panel">
-            <div *ngFor="let watermarkType of watermarkTypeThird">
+            <div *ngFor="let watermarkType of watermarkTypes">
               <gd-top-tab [disabled]="!file" *ngIf="isVisible(watermarkType.id)"
                           [icon]="watermarkType.icon" (activeTab)="activeTab($event)"
                           [id]="watermarkType.id" [tooltip]="watermarkType.name">
@@ -47,14 +26,13 @@
         </gd-tab>
       </gd-tabs>
     </gd-tabbed-toolbars>
-    <div class="doc-panel" *ngIf="file" (mousedown)="createWatermark($event)"
-         (mousemove)="resizingCreatingWatermark($event)" (mouseup)="finishCreatingWatermark($event)"
-         (touchstart)="createWatermark($event)" (touchmove)="resizingCreatingWatermark($event)"
-         (touchend)="finishCreatingWatermark($event)"
-         (panstart)="createWatermark($event)" (panmove)="resizingCreatingWatermark($event)"
-         (panend)="finishCreatingWatermark($event)">
-      <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig" gdScrollable
-                   [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
+    <gd-watermark-left-panel *ngIf="activeWatermarkTab" [rewrite]="rewriteConfig" (newWatermarkEvent)="newWatermark($event)"
+      [isPdf]="isPdf()" [id]="activeWatermarkTab">
+    </gd-watermark-left-panel>
+    <div class="doc-panel" *ngIf="file">
+      <gd-document (drop)="dropWatermark($event)" (dragover)="dragOver($event)" class="gd-document" *ngIf="file"
+        [file]="file" [mode]="htmlModeConfig" gdScrollable
+        [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig" (onpan)="onPan($event)"></gd-document>
     </div>
 
     <gd-init-state [icon]="'highlighter'" [text]="'Drop file here to upload'" *ngIf="!file"

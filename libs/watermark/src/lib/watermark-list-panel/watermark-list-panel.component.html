@@ -1,0 +1,29 @@
+<div class="gd-watermark-list-wrapper">
+  <div class="gd-watermark-list-scroll" *ngIf="watermarks">
+    <div class="gd-watermark-list" *ngIf="watermarks">
+      <div class="gd-watermark" *ngFor="let watermark of watermarks">
+        <div class="gd-watermark-item" [draggable]="true"
+             (dragover)="dragOver($event)" (dragstart)="dragStart($event)"
+             (dragleave)="dragLeave($event, watermark.guid)" (drop)="drop($event)">
+          <div class="gd-watermark-thumbnail" *ngIf="watermark.image">
+            <img [ngClass]="'gd-watermark-thumbnail-' + watermarkType"
+                 [attr.src]="getImage(watermark.image) | safeResourceHtml"
+                 alt="" [draggable]="false" (click)="select(watermark.guid)">
+          </div>
+          <div class="gd-watermark-title" [ngClass]="watermarkType" (click)="select(watermark.guid)">
+            <label class="gd-watermark-name" [style.color]="watermark.fontColor">
+              {{watermark.text ? watermark.text : watermark.name}}</label>
+          </div>
+          <div class="gd-watermark-trash-icon">
+            <fa-icon [icon]="['fas','trash']" [class]="'ng-fa-icon icon'"
+                     (click)="deleteWatermark(watermark.guid)"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gd-watermark-empty-list" *ngIf="empty()">
+    <fa-icon *ngIf="icon" [icon]="['fas',icon]" [class]="'ng-fa-icon icon'"></fa-icon>
+    <span class="gd-empty-list-text">There is no entries yet</span>
+  </div>
+</div>

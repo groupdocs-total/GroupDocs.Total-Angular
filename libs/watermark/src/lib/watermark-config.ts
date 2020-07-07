@@ -7,4 +7,5 @@ export class WatermarkConfig {
   preloadPageCount: 0;
 
   textWatermark: boolean;
+  imageWatermark: boolean;
 }

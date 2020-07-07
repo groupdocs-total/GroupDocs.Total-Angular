@@ -41,7 +41,9 @@ export declare class Api {
     static ANNOTATE: string;
     static SEARCH: string;
     static ADD_FILES_TO_INDEX: string;
-    static ADD_WATERMARK: string;
+    static SAVE_WATERMARK: string;
+    static DELETE_WATERMARK_FILE: string;
+    static LOAD_WATERMARK_IMAGE: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };

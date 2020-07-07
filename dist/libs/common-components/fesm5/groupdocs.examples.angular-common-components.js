@@ -430,7 +430,9 @@ var Api = /** @class */ (function () {
     Api.ANNOTATE = '/annotate';
     Api.SEARCH = '/search';
     Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
-    Api.ADD_WATERMARK = '/addWatermark';
+    Api.SAVE_WATERMARK = '/saveWatermark';
+    Api.DELETE_WATERMARK_FILE = '/deleteWatermarkFile';
+    Api.LOAD_WATERMARK_IMAGE = '/loadWatermarkImage';
     Api.httpOptionsJson = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',

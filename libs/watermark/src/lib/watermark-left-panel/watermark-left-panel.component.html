@@ -1,0 +1,32 @@
+<gd-left-side-bar [showSpinner]="loading">
+  <div class="tab-content">
+    <div class="gd-watermark-context-panel">
+      <div class="gd-watermark-context-pane-wrapper">
+        <div class="watermark-title-block"> <!--for safari-->
+          <div class="gd-watermark-list-title" *ngIf="showUpload">
+            <div class="gd-watermark-context-panel-title">{{getTitle()}}</div>
+            <div class="gd-watermark-title-icon">
+              <fa-icon [icon]="['fa','times']" [class]="'ng-fa-icon icon'" (click)="closeNewWatermark()"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <gd-upload-watermark (closePanel)="closeUploadPanel($event)" [rewrite]="rewrite" [watermarkType]="id"
+                             *ngIf="showUpload"></gd-upload-watermark>
+        <div class="watermark-title-block"> <!--for safari-->
+          <div class="gd-watermark-list-title">
+            <div class="gd-watermark-context-panel-title">{{getName()}}</div>
+            <div class="gd-watermark-title-icon">
+              <fa-icon [icon]="['fa','plus']" [class]="'ng-fa-icon icon'"
+                       [ngClass]="showUpload ? 'disabled' : ''"
+                       (click)="openNewWatermark()"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <gd-watermark-list-panel class="gd-watermarks-scroll" [icon]="icon()" [watermarkType]="id"
+                                 [watermarks]="watermarks"
+                                 (removeWatermarkEvent)="removeWatermark($event, id)"
+                                 [isPdf]="isPdf" [loading]="loading"></gd-watermark-list-panel>
+      </div>
+    </div>
+  </div>
+</gd-left-side-bar>

@@ -17,6 +17,14 @@ import {far} from "@fortawesome/free-regular-svg-icons";
 import {WatermarkComponent} from './watermark/watermark.component';
 import {ActiveWatermarkService} from "./active-watermark.service";
 import {RemoveWatermarkService} from "./remove-watermark.service";
+import {SelectWatermarkService} from "./select-watermark.service";
+import {WatermarksHolderService} from "./watermarks-holder.service";
+import {WatermarkLeftPanelComponent} from './watermark-left-panel/watermark-left-panel.component';
+import {WatermarkListPanelComponent} from './watermark-list-panel/watermark-list-panel.component';
+import {UploadWatermarkComponent} from './upload-watermark/upload-watermark.component';
+import {DragWatermarkService} from "./drag-watermark.service";
+import {CopyWatermarkService} from "./copy-watermark.service";
+import {DndWatermarkDirective} from './dnd-watermark.directive';
 
 export function initializeApp(watermarkConfigService: WatermarkConfigService) {
   const result = () => watermarkConfigService.load();
@@ -30,8 +38,19 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations: [WatermarkAppComponent, WatermarkComponent ],
-  exports: [CommonComponentsModule, WatermarkAppComponent, WatermarkComponent],
+  declarations: [WatermarkAppComponent,
+    WatermarkComponent,
+    UploadWatermarkComponent,
+    WatermarkLeftPanelComponent,
+    WatermarkListPanelComponent,
+    DndWatermarkDirective],
+  exports: [CommonComponentsModule,
+    WatermarkAppComponent,
+    WatermarkComponent,
+    UploadWatermarkComponent,
+    WatermarkLeftPanelComponent,
+    WatermarkListPanelComponent,
+    DndWatermarkDirective],
   imports:
     [CommonModule,
       CommonComponentsModule,
@@ -43,7 +62,11 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
       ConfigService,
       WatermarkConfigService,
       ActiveWatermarkService,
+      SelectWatermarkService,
+      DragWatermarkService,
+      WatermarksHolderService,
       RemoveWatermarkService,
+      CopyWatermarkService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: ErrorInterceptorService,
