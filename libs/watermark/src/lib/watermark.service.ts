@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Api, ConfigService, FileCredentials, FileUtil} from "@groupdocs.examples.angular/common-components";
+import {Api, ConfigService, FileCredentials, FileUtil, Utils} from "@groupdocs.examples.angular/common-components";
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FileListWithParams, DraggableWatermark, AddedWatermark } from './watermark-models';
+import { FileListWithParams, DraggableWatermark, AddedWatermark, WatermarkProps } from './watermark-models';
 
 @Injectable({
   providedIn: 'root'
@@ -88,6 +88,18 @@ export class WatermarkService {
     }, Api.httpOptionsJson).pipe(
       map((props: AddedWatermark) => {
         props.guid = watermark.guid;
+        return props;
+      }));
+  }
+
+  saveTextWatermark(data: AddedWatermark) {
+    const properties = data.props;
+    properties.fontColor = Utils.toRgb(properties.fontColor);
+    return this._http.post(this._config.getWatermarkApiEndpoint() + Api.SAVE_TEXT, {
+      'properties': properties
+    }, Api.httpOptionsJson).pipe(
+      map((props: WatermarkProps) => {
+        props.fontColor = Utils.toHex(props.fontColor);
         return props;
       }));
   }

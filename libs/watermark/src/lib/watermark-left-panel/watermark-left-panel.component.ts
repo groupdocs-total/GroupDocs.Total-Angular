@@ -100,6 +100,8 @@ export class WatermarkLeftPanelComponent implements OnInit, OnChanges {
     }
     if (WatermarkType.IMAGE.id === this.id) {
       this.showUpload = true;
+    } else {
+      this.newWatermarkEvent.emit(this.id);
     }
   }
 }

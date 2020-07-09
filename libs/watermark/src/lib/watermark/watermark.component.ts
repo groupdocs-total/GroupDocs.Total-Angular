@@ -251,13 +251,13 @@ export class WatermarkComponent implements OnInit, AfterViewInit, AfterViewCheck
   }
 
   private sendSaveText() {
-    // this._watermarkService.saveTextWatermark(this.data).subscribe((p: WatermarkProps) => {
-    //   if (DraggableWatermark.TEMP === this.data.guid) {
-    //     this._watermarksHolderService.changeTemp(p.imageGuid, this.id);
-    //     this.data.guid = p.imageGuid;
-    //   }
-    //   this.data.props = p;
-    // });
+    this._watermarkService.saveTextWatermark(this.data).subscribe((p: WatermarkProps) => {
+      if (DraggableWatermark.TEMP === this.data.guid) {
+        this._watermarksHolderService.changeTemp(p.imageGuid, this.id);
+        this.data.guid = p.imageGuid;
+      }
+      this.data.props = p;
+    });
   }
 
   hideMenu($event) {

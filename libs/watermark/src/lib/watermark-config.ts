@@ -5,6 +5,7 @@ export class WatermarkConfig {
 
   filesDirectory: string;
   preloadPageCount: 0;
+  zoom: boolean;
 
   textWatermark: boolean;
   imageWatermark: boolean;

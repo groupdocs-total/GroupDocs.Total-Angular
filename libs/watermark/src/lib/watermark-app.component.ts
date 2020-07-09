@@ -20,7 +20,7 @@ import {
   WatermarkType,
   Position,
   RemoveWatermark,
-  FileWatermarkDescription, PageWatermarkModel, WatermarkData, Dimension, DraggableWatermark, AddedWatermark, WatermarkModel
+  FileWatermarkDescription, PageWatermarkModel, WatermarkData, Dimension, DraggableWatermark, AddedWatermark, WatermarkModel, WatermarkProps
 } from "./watermark-models";
 import {WatermarkComponent} from "./watermark/watermark.component";
 import {ActiveWatermarkService} from "./active-watermark.service";
@@ -175,6 +175,10 @@ export class WatermarkAppComponent implements OnInit {
 
   get imageWatermarkConfig(): boolean {
     return this.watermarkConfig ? this.watermarkConfig.imageWatermark : true;
+  }
+
+  get zoomConfig(): boolean {
+    return this.watermarkConfig ? this.watermarkConfig.zoom : true;
   }
 
   ngOnInit() {
@@ -332,6 +336,35 @@ export class WatermarkAppComponent implements OnInit {
       }
     }
     return watermarks;
+  }
+
+  newWatermark($event: string) {
+    if (WatermarkType.TEXT.id === $event) {
+      this.addTextWatermark();
+      this._watermarkTabActivationService.changeActiveTab(WatermarkType.TEXT.id);
+    }
+  }
+
+  private addTextWatermark() {
+    const addedWatermark = new AddedWatermark();
+    addedWatermark.props = WatermarkProps.getDefault();
+    addedWatermark.guid = DraggableWatermark.TEMP;
+
+    const dragWatermark = new DraggableWatermark();
+    dragWatermark.guid = DraggableWatermark.TEMP;
+    dragWatermark.position = new Position(0, 0);
+    dragWatermark.type = WatermarkType.TEXT.id;
+
+    const pageNumber = this._navigateService.currentPage;
+    addedWatermark.number = pageNumber;
+    dragWatermark.pageNumber = pageNumber;
+
+    const pageModel = this.file.pages.find(function (p) {
+      return p.number === pageNumber;
+    });
+
+    const id = this.addWatermarkComponent(addedWatermark, dragWatermark, pageModel);
+    this._watermarksHolderService.addId(dragWatermark.guid, id);
   }
 
   activeTab($event) {
