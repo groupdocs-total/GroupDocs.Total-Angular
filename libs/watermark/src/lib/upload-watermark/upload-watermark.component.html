@@ -1,0 +1,13 @@
+<div class="gd-upload-watermark" gdDndWatermark (files)="uploadFiles($event)">
+  <div class="gd-upload-inputs">
+    <input type="file" (change)="handleFileInput($event.target.files)"/>
+    <fa-icon [icon]="['fas','folder-open']" [class]="'ng-fa-icon icon'"></fa-icon>
+    <div class="gd-upload-title">
+      <p class="text">Click
+        <fa-icon [icon]="['fas','folder-open']"></fa-icon>
+        to open file
+      </p>
+      <p class="text">Or drop file here</p>
+    </div>
+  </div>
+</div>

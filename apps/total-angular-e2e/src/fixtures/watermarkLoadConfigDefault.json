@@ -1,0 +1,11 @@
+{
+  "filesDirectory": "/fonts",
+  "dataDirectory": "",
+  "textWatermark": true,
+  "imageWatermark": true,
+  "preloadPageCount": 0,
+  "defaultDocument": "",
+  "upload": true,
+  "browse": true,
+  "rewrite": true
+}

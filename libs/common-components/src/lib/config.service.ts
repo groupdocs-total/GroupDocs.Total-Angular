@@ -10,6 +10,7 @@ export class Api {
   public static COMPARISON_APP = '/comparison';
   public static CONVERSION_APP = '/conversion';
   public static METADATA_APP = '/metadata';
+  public static WATERMARK_APP = '/watermark';
   public static DEFAULT_API_ENDPOINT = window.location.href;
   public static LOAD_FILE_TREE = '/loadFileTree';
   public static LOAD_CONFIG = '/loadConfig';
@@ -42,6 +43,9 @@ export class Api {
   public static ANNOTATE = '/annotate';
   public static SEARCH = '/search';
   public static ADD_FILES_TO_INDEX = '/addFilesToIndex';
+  public static SAVE_WATERMARK = '/saveWatermark';
+  public static DELETE_WATERMARK_FILE = '/deleteWatermarkFile';
+  public static LOAD_WATERMARK_IMAGE = '/loadWatermarkImage';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({
@@ -91,6 +95,10 @@ export class ConfigService {
 
   getMetadataApiEndpoint() {
     return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
+  }
+
+  getWatermarkApiEndpoint() {
+    return this._apiEndpoint.trim().endsWith(Api.WATERMARK_APP) ? this._apiEndpoint : this._apiEndpoint + Api.WATERMARK_APP;
   }
 
   get apiEndpoint() {

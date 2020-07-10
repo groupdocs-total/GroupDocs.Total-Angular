@@ -1,0 +1,55 @@
+<gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
+<div class="wrapper">
+  <div class="watermark-wrapper wrapper">
+    <gd-tabbed-toolbars [logo]="'watermark'" [icon]="'pen-square'">
+      <gd-tabs>
+        <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
+          <div id="files-tools" class="toolbar-panel">
+            <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+                       *ngIf="browseConfig"></gd-button>
+            <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+                       (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
+            <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="saveWatermark()"></gd-button>
+            <gd-button class="desktop-hide" [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'"
+            (click)="zoomIn()" *ngIf="zoomConfig"></gd-button>
+            <gd-button class="desktop-hide" [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
+            (click)="zoomOut()" *ngIf="zoomConfig"></gd-button>
+          </div>
+        </gd-tab>
+        <gd-tab [tabTitle]="'Watermarks'" [icon]="'highlighter'" [id]="'2'">
+          <div class="toolbar-panel">
+            <div *ngFor="let watermarkType of watermarkTypes">
+              <gd-top-tab [disabled]="!file" *ngIf="isVisible(watermarkType.id)"
+                          [icon]="watermarkType.icon" (activeTab)="activeTab($event)"
+                          [id]="watermarkType.id" [tooltip]="watermarkType.name">
+              </gd-top-tab>
+            </div>
+          </div>
+        </gd-tab>
+      </gd-tabs>
+    </gd-tabbed-toolbars>
+    <gd-watermark-left-panel *ngIf="activeWatermarkTab" [rewrite]="rewriteConfig" (newWatermarkEvent)="newWatermark($event)"
+      [isPdf]="isPdf()" [id]="activeWatermarkTab">
+    </gd-watermark-left-panel>
+    <div class="doc-panel" *ngIf="file">
+      <gd-document (drop)="dropWatermark($event)" (dragover)="dragOver($event)" class="gd-document" *ngIf="file"
+        [file]="file" [mode]="htmlModeConfig" gdScrollable
+        [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig" (onpan)="onPan($event)"></gd-document>
+    </div>
+
+    <gd-init-state [icon]="'highlighter'" [text]="'Drop file here to upload'" *ngIf="!file"
+                   (fileDropped)="fileDropped($event)">
+      Click
+      <fa-icon [icon]="['fas','folder-open']"></fa-icon>
+      to open file<br>
+      Or drop file here
+    </gd-init-state>
+  </div>
+  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+                         (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
+                         [uploadConfig]="uploadConfig"></gd-browse-files-modal>
+
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
+  <gd-success-modal></gd-success-modal>
+</div>

@@ -28,7 +28,8 @@
       "@groupdocs.examples.angular/signature": ["libs/signature/src/index.ts"],
       "@groupdocs.examples.angular/conversion": ["libs/conversion/src/index.ts"],
       "@groupdocs.examples.angular/annotation": ["libs/annotation/src/index.ts"],
-      "@groupdocs.examples.angular/metadata": ["libs/metadata/src/index.ts"]
+      "@groupdocs.examples.angular/metadata": ["libs/metadata/src/index.ts"],
+      "@groupdocs.examples.angular/watermark": ["libs/watermark/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

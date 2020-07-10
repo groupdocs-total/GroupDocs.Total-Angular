@@ -8,6 +8,7 @@ export declare class Api {
     static COMPARISON_APP: string;
     static CONVERSION_APP: string;
     static METADATA_APP: string;
+    static WATERMARK_APP: string;
     static DEFAULT_API_ENDPOINT: string;
     static LOAD_FILE_TREE: string;
     static LOAD_CONFIG: string;
@@ -40,6 +41,9 @@ export declare class Api {
     static ANNOTATE: string;
     static SEARCH: string;
     static ADD_FILES_TO_INDEX: string;
+    static SAVE_WATERMARK: string;
+    static DELETE_WATERMARK_FILE: string;
+    static LOAD_WATERMARK_IMAGE: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };
@@ -58,6 +62,7 @@ export declare class ConfigService {
     getComparisonApiEndpoint(): string;
     getConversionApiEndpoint(): string;
     getMetadataApiEndpoint(): string;
+    getWatermarkApiEndpoint(): string;
     getSignatureApiEndpoint(): string;
     getAnnotationApiEndpoint(): string;
     getSearchApiEndpoint(): string;

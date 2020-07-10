@@ -11,6 +11,7 @@ describe('Annotation', () => {
     cy.fixture("annotationLoadConfigDefault").as('annotationLoadConfigDefault');
     cy.fixture("metadataLoadConfigDefault").as('metadataLoadConfigDefault');
     cy.fixture("searchLoadConfigDefault").as('searchLoadConfigDefault');
+    cy.fixture("watermarkLoadConfigDefault").as('watermarkLoadConfigDefault');
     cy.fixture("loadFileTreeDefault").as('loadFileTreeDefault');
     cy.fixture("loadFileTreeSubFolder").as('loadFileTreeSubFolder');
     cy.fixture("loadDocumentDescriptionDefault").as('loadDocumentDescriptionDefault');
@@ -23,6 +24,7 @@ describe('Annotation', () => {
     cy.route('http://localhost:8080/annotation/loadConfig', "@annotationLoadConfigDefault");
     cy.route('http://localhost:8080/metadata/loadConfig', "@metadataLoadConfigDefault");
     cy.route('http://localhost:8080/search/loadConfig', "@searchLoadConfigDefault");
+    cy.route('http://localhost:8080/watermark/loadConfig', "@watermarkLoadConfigDefault");
 
     cy.route('POST','http://localhost:8080/annotation/loadFileTree', "@loadFileTreeDefault");
     cy.route('POST','http://localhost:8080/annotation/loadDocumentDescription', "@loadDocumentDescriptionDefault");
