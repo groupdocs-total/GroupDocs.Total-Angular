@@ -164,6 +164,10 @@ export class WatermarkAppComponent implements OnInit {
     return false;
   }
 
+  get downloadConfig(): boolean {
+    return this.watermarkConfig ? this.watermarkConfig.download : true;
+  }
+
   get textWatermarkConfig(): boolean {
     return this.watermarkConfig ? this.watermarkConfig.textWatermark : true;
   }

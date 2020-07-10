@@ -7,7 +7,6 @@
           <div id="files-tools" class="toolbar-panel">
             <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                        *ngIf="browseConfig"></gd-button>
-
             <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                        (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
             <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="saveWatermark()"></gd-button>
