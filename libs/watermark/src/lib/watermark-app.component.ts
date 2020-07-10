@@ -14,7 +14,8 @@ import {
   FileUtil,
   PageModel,
   ZoomService,
-  TabActivatorService
+  TabActivatorService,
+  Utils
 } from "@groupdocs.examples.angular/common-components";
 import {
   WatermarkType,
@@ -28,6 +29,7 @@ import * as jquery from 'jquery';
 import {RemoveWatermarkService} from "./remove-watermark.service";
 import { SelectWatermarkService } from './select-watermark.service';
 import { WatermarksHolderService } from './watermarks-holder.service';
+import { DragWatermarkService } from './drag-watermark.service';
 
 const $ = jquery;
 
@@ -74,6 +76,7 @@ export class WatermarkAppComponent implements OnInit {
               private _selectWatermarkService: SelectWatermarkService,
               private _watermarksHolderService: WatermarksHolderService,
               private _watermarkTabActivationService: TopTabActivatorService,
+              private _dragWatermarkService: DragWatermarkService,
               private _zoomService: ZoomService,
               uploadFilesService: UploadFilesService,
               pagePreloadService: PagePreloadService,
@@ -357,6 +360,36 @@ export class WatermarkAppComponent implements OnInit {
 
     const id = this.addWatermarkComponent(addedWatermark, dragWatermark, pageModel);
     this._watermarksHolderService.addId(dragWatermark.guid, id);
+  }
+
+  dropWatermark($event: DragEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    const position = Utils.getMousePosition($event);
+
+    const currentPage = document.elementFromPoint(position.x, position.y);
+    if (currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().parent().hasClass("page")) {
+      const documentPage = $(currentPage).parent().parent()[0];
+      const left = (position.x - $(documentPage).offset().left)/(this.zoom/100);
+      const top = (position.y - $(documentPage).offset().top)/(this.zoom/100);
+      const currentPosition = new Position(left, top);
+      const watermark = this._dragWatermarkService.watermark;
+      if (watermark) {
+        const id = $(currentPage).parent().attr('id');
+        if (id) {
+          const split = id.split('-');
+          watermark.pageNumber = split.length === 2 ? parseInt(split[1], 10) : watermark.pageNumber;
+        }
+        watermark.position = currentPosition;
+        this.selectWatermark(watermark);
+        this._dragWatermarkService.watermark = null;
+      }
+    }
+  }
+
+  dragOver($event: DragEvent) {
+    $event.preventDefault();
+    $event.stopPropagation();
   }
 
   activeTab($event) {
