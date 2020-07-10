@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe('Viewer', () => {
+describe('Watermark', () => {
   beforeEach(function () {
     cy.server();
     cy.fixture("viewerLoadConfigDefault").as('viewerLoadConfigDefault');
@@ -26,41 +26,41 @@ describe('Viewer', () => {
     cy.route('http://localhost:8080/search/loadConfig', "@searchLoadConfigDefault");
     cy.route('http://localhost:8080/watermark/loadConfig', "@watermarkLoadConfigDefault");
 
-    cy.route('POST','http://localhost:8080/viewer/loadFileTree', "@loadFileTreeDefault");
-    cy.route('POST','http://localhost:8080/viewer/loadDocumentDescription', "@loadDocumentDescriptionDefault");
+    cy.route('POST','http://localhost:8080/watermark/loadFileTree', "@loadFileTreeDefault");
+    cy.route('POST','http://localhost:8080/watermark/loadDocumentDescription', "@loadDocumentDescriptionDefault");
 
   });
 
   it('should see logo', () => {
-    cy.visit('/viewer');
-    cy.get('#gd-header-logo .text').should('have.text', 'viewer');
+    cy.visit('/watermark');
+    cy.get('#gd-header-logo .text').should('have.text', 'watermark');
   });
 
   it('should open file dialog when clicked on open file icon', () => {
-    cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.visit('/watermark');
+    cy.get('#files-tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
   });
 
   it('should be able to close dialog by clicking on x', () => {
-    cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.visit('/watermark');
+    cy.get('#files-tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-content > div.gd-modal-header > div').click();
     cy.get('#gd-modal-content').should('not.exist');
   });
 
   it('should be able to close dialog by clicking on backdrop', () => {
-    cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.visit('/watermark');
+    cy.get('#files-tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#modalDialog').click({force:true});
     cy.get('#gd-modal-content').should('not.exist');
   });
 
   it('should be able to see file dialog file entries with detail', () => {
-    cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.visit('/watermark');
+    cy.get('#files-tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get(':nth-child(3) > .file-description > .file-name-format > .file-name').should('have.text', 'TestWord.docx');
     cy.get(':nth-child(3) > .file-description > .file-name-format > .file-format').should('have.text', 'Microsoft Word');
@@ -69,11 +69,11 @@ describe('Viewer', () => {
   });
 
   it('should be able to open sub folder', () => {
-    cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.visit('/watermark');
+    cy.get('#files-tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
-    cy.route('POST','http://localhost:8080/viewer/loadFileTree',"@loadFileTreeSubFolder");
+    cy.route('POST','http://localhost:8080/watermark/loadFileTree',"@loadFileTreeSubFolder");
     cy.get('#gd-modal-filebrowser > div > div:nth-child(2)').click();
     cy.get('#gd-modal-filebrowser > div > div:nth-child(2) > div.file-description > div > div.file-name').should('have.text', 'FileInSubFolder.docx');
     cy.get('#gd-modal-filebrowser > div > div:nth-child(2) > div.file-description > div > div.file-format').should('have.text', 'Microsoft Word');
@@ -82,8 +82,8 @@ describe('Viewer', () => {
   });
 
   it('when drag file over file dialog drop zone style changed', () => {
-    cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.visit('/watermark');
+    cy.get('#files-tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
 
     cy.get('.gd-modal-body').trigger('dragover');
@@ -94,30 +94,24 @@ describe('Viewer', () => {
   });
 
   it('should open file when clicked on file in dialog and display 5 pages', () => {
-    cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.visit('/watermark');
+    cy.get('#files-tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
     cy.get('.page').its('length').should('eq',5);
   });
 
-  it('for opened file when thumbnail button clicked should open thumbnail panel', () => {
-    cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+  it('should open left panel for text and image watermarks when clicked on their icons', () => {
+    cy.visit('/watermark');
+    cy.get('#files-tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('#tools > gd-button.thumbnails-button').click();
-    cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
-  });
-
-  it('should scroll last page into view when clicked on last thumbnail', () => {
-    cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
-    cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
-    cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('#tools > gd-button.thumbnails-button').click();
-    cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
-    cy.get('#gd-thumbnails-page-3').should('be.visible').click();
-    cy.get('#page-3').should('be.visible');
+    cy.get('[ng-reflect-ng-class="gd-tab"] > .title').click();
+    cy.get(':nth-child(1) > gd-top-tab > .gd-tab').click();
+    cy.get('.gd-watermark-list-wrapper').should('be.visible');
+    cy.get('.gd-watermark-context-panel-title').should('have.text', 'Text');
+    cy.get(':nth-child(2) > gd-top-tab > .gd-tab').click();
+    cy.get('.gd-watermark-list-wrapper').should('be.visible');
+    cy.get('.gd-watermark-context-panel-title').should('have.text', 'Image');
   });
 });
