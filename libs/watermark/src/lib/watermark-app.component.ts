@@ -59,11 +59,9 @@ export class WatermarkAppComponent implements OnInit {
   _pageWidth: number;
   _pageHeight: number;
 
-  private activeWatermarkTab: string;
-  private fileWasDropped = false;
-  private watermarkComponents = new Map<number, ComponentRef<any>>();
-  private creatingWatermarkId: number;
-  private activeWatermarkId: number;
+  activeWatermarkTab: string;
+  fileWasDropped = false;
+  watermarkComponents = new Map<number, ComponentRef<any>>();
 
   constructor(private _watermarkService: WatermarkService,
               private _modalService: ModalService,
@@ -88,12 +86,6 @@ export class WatermarkAppComponent implements OnInit {
           this._watermarkTabActivationService.changeActiveTab(this.activeWatermarkTab);
         }
         this.activeWatermarkTab = null;
-      }
-    });
-
-    this._activeWatermarkService.activeChange.subscribe((id: number) => {
-      if (this.activeWatermarkId !== id) {
-        this.activeWatermarkId = id;
       }
     });
 
