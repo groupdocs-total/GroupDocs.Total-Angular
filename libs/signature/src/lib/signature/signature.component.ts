@@ -65,10 +65,26 @@ export class Signature implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      const zoomVal = this._zoomService.zoom / 100;
+      this.data.height = this.data.height * 1/(zoomVal);
+      this.data.width = this.data.width * 1/(zoomVal);
+    }, 150);
   }
 
   ngAfterViewChecked() {
     this._zoomService.changeZoom(this._zoomService.zoom);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.type === SignatureType.TEXT.id) {
+      setTimeout(() => {
+        const element = $("#text");
+        if (element) {
+          element.focus();
+        }
+      }, 100);
+    }
   }
 
   getData() {
@@ -219,17 +235,6 @@ export class Signature implements OnInit, AfterViewInit, AfterViewChecked {
     copy.id = this.id;
     copy.type = this.type;
     this._copySignatureService.copy(copy);
-  }
-
-  ngAfterViewInit(): void {
-    if (this.type === SignatureType.TEXT.id) {
-      setTimeout(() => {
-        const element = $("#text");
-        if (element) {
-          element.focus();
-        }
-      }, 100);
-    }
   }
 
   private correctPosition() {
