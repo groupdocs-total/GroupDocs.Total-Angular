@@ -1,3 +1,5 @@
+@import "../../../../common-components/src/styles/variables";
+
 .gd-comments-panel {
   position: absolute;
   right: 0;
@@ -16,6 +18,10 @@
     background-color: #222E35;
     color: #959DA5;
     align-items: center;
+    
+    > fa-icon:nth-child(1) {
+      font-size: 24px;
+    }
 
     .icon {
       flex: 0 0 40px;
@@ -60,5 +66,18 @@
         font-weight: bold;
       }
     }
+  }
+}
+
+@media @phone-down {
+  .gd-comments-panel {
+    .gd-comments-body {
+      height: calc(100% - 60px) !important;
+    }
+    .gd-comments-head {
+      width: 100%;
+    }
+    top: 0;
+    width: 100%;
   }
 }

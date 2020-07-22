@@ -1,3 +1,5 @@
+@import "../../../../common-components/src/styles/variables";
+
 .gd-comment {
   display: flex;
   flex-direction: column;
@@ -11,10 +13,12 @@
 
     .icon {
       flex: 0 0 30px;
+      font-size: 18px;
     }
 
     .gd-name {
       font-weight: bold;
+      line-height: 21px;
     }
   }
 
@@ -25,5 +29,11 @@
   .gd-time {
     color: #ACACAC;
     padding-top: 5px;
+  }
+}
+
+@media @phone-down {
+  .gd-comment {
+    width: 339px;
   }
 }
