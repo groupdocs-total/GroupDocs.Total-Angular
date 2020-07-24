@@ -1,60 +1,60 @@
 @import "../../../../common-components/src/styles/variables";
 
 .gd-comments-panel {
-  position: absolute;
-  right: 0;
-  top: 30px;
-  overflow: auto !important;
-  width: 334px;
-  display: flex;
-  height: 100%;
-  z-index: 9;
+  position      : absolute;
+  right         : 0;
+  top           : 30px;
+  overflow      : auto !important;
+  width         : 334px;
+  display       : flex;
+  height        : 100%;
+  z-index       : 9;
   flex-direction: column;
 
   .gd-comments-head {
-    height: 60px;
-    width: 334px;
-    display: flex;
+    height          : 60px;
+    width           : 334px;
+    display         : flex;
     background-color: #222E35;
-    color: #959DA5;
-    align-items: center;
-    
-    > fa-icon:nth-child(1) {
+    color           : #959DA5;
+    align-items     : center;
+
+    >fa-icon:nth-child(1) {
       font-size: 24px;
     }
 
     .icon {
-      flex: 0 0 40px;
+      flex       : 0 0 40px;
       margin-left: 20px;
-      cursor: pointer;
+      cursor     : pointer;
     }
 
     .gd-comments-title {
-      flex: 1;
-      font-size: 13px;
+      flex       : 1;
+      font-size  : 13px;
       font-weight: bold;
     }
   }
 
   .gd-comments-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display         : flex;
+    flex-direction  : column;
+    align-items     : center;
     background-color: #F4F4F4;
-    height: ~"calc(100% - 90px)";
+    height          : ~"calc(100% - 90px)";
 
     .gd-empty-comments-list {
-      display: flex;
-      flex-direction: column;
+      display        : flex;
+      flex-direction : column;
       justify-content: center;
-      align-items: center;
-      color: #959DA5;
-      width: 250px;
-      height: 250px;
-      margin-top: 40px;
+      align-items    : center;
+      color          : #959DA5;
+      width          : 250px;
+      height         : 250px;
+      margin-top     : 40px;
 
       .icon {
-        font-size: 65px;
+        font-size    : 65px;
         margin-bottom: 40px;
       }
 
@@ -74,10 +74,12 @@
     .gd-comments-body {
       height: calc(100% - 60px) !important;
     }
+
     .gd-comments-head {
       width: 100%;
     }
-    top: 0;
+
+    top  : 0;
     width: 100%;
   }
 }
