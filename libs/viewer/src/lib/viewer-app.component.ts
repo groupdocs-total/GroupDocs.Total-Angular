@@ -18,6 +18,8 @@ import {
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 //import * as Hammer from 'hammerjs';
 
 @Component({
@@ -47,6 +49,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   fileWasDropped = false;
   formatIcon: string;
 
+  fileParam: string;
+  querySubscription: Subscription;
+
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
               configService: ViewerConfigService,
@@ -57,7 +62,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _loadingMaskService: LoadingMaskService) {
+              private _loadingMaskService: LoadingMaskService,
+              private route: ActivatedRoute) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -93,6 +99,19 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.isDesktop = _windowService.isDesktop();
       this.refreshZoom();
     });
+
+    this.querySubscription = route.queryParams.subscribe(
+      (queryParam: any) => {
+        this.fileParam = queryParam['file'];
+
+        if (this.validURL(this.fileParam)) {
+          this.upload(this.fileParam);
+        }
+        else {
+          this.selectFile(this.fileParam, '', '');
+        }
+      }
+    );
   }
 
   ngOnInit() {
@@ -174,6 +193,16 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this._navigateService.currentPage;
   }
 
+  validURL(str) {
+    const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(str);
+  }
+
   openModal(id: string) {
     this._modalService.open(id);
   }
@@ -229,8 +258,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   upload($event: string) {
-    this._viewerService.upload(null, $event, this.rewriteConfig).subscribe(() => {
-      this.selectDir('');
+    this._viewerService.upload(null, $event, this.rewriteConfig).subscribe((uploadedDocument: any) => {
+      if (this.fileParam !== '') {
+        this.selectFile(uploadedDocument.guid, '', '');
+        this.fileParam = '';
+      }
+      else {
+        this.selectDir('');
+      }
     });
   }
 
