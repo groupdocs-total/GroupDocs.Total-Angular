@@ -103,12 +103,13 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.querySubscription = route.queryParams.subscribe(
       (queryParam: any) => {
         this.fileParam = queryParam['file'];
-
-        if (this.validURL(this.fileParam)) {
-          this.upload(this.fileParam);
-        }
-        else {
-          this.selectFile(this.fileParam, '', '');
+        if (this.fileParam) {
+          if (this.validURL(this.fileParam)) {
+            this.upload(this.fileParam);
+          }
+          else {
+            this.selectFile(this.fileParam, '', '');
+          }
         }
       }
     );
