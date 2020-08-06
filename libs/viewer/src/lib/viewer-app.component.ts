@@ -104,6 +104,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       (queryParam: any) => {
         this.fileParam = queryParam['file'];
         if (this.fileParam) {
+          this.isLoading = true;
           if (this.validURL(this.fileParam)) {
             this.upload(this.fileParam);
           }
