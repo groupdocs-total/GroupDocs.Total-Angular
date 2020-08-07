@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/viewer', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.viewer = {}), global.ng.platformBrowser, global.ng.core, global.ng.common.http, global.commonComponents, global.rxjs, global.angularFontawesome));
-}(this, (function (exports, platformBrowser, core, http, commonComponents, rxjs, angularFontawesome) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@angular/router'), require('@fortawesome/angular-fontawesome')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/viewer', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@angular/router', '@fortawesome/angular-fontawesome'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.viewer = {}), global.ng.platformBrowser, global.ng.core, global.ng.common.http, global.commonComponents, global.rxjs, global.ng.router, global.angularFontawesome));
+}(this, (function (exports, platformBrowser, core, http, commonComponents, rxjs, router, angularFontawesome) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -521,7 +521,7 @@
      */
     //import * as Hammer from 'hammerjs';
     var ViewerAppComponent = /** @class */ (function () {
-        function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService) {
+        function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, route) {
             var _this = this;
             this._viewerService = _viewerService;
             this._modalService = _modalService;
@@ -530,6 +530,7 @@
             this._renderPrintService = _renderPrintService;
             this._windowService = _windowService;
             this._loadingMaskService = _loadingMaskService;
+            this.route = route;
             this.title = 'viewer';
             this.files = [];
             this.countPages = 0;
@@ -594,6 +595,22 @@
             function (w) {
                 _this.isDesktop = _windowService.isDesktop();
                 _this.refreshZoom();
+            }));
+            this.querySubscription = route.queryParams.subscribe((/**
+             * @param {?} queryParam
+             * @return {?}
+             */
+            function (queryParam) {
+                _this.fileParam = queryParam['file'];
+                if (_this.fileParam) {
+                    _this.isLoading = true;
+                    if (_this.validURL(_this.fileParam)) {
+                        _this.upload(_this.fileParam);
+                    }
+                    else {
+                        _this.selectFile(_this.fileParam, '', '');
+                    }
+                }
             }));
         }
         /**
@@ -773,6 +790,24 @@
             configurable: true
         });
         /**
+         * @param {?} str
+         * @return {?}
+         */
+        ViewerAppComponent.prototype.validURL = /**
+         * @param {?} str
+         * @return {?}
+         */
+        function (str) {
+            /** @type {?} */
+            var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+                '(\\#[-a-z\\d_]*)?$', 'i');
+            return !!pattern.test(str);
+        };
+        /**
          * @param {?} id
          * @return {?}
          */
@@ -901,10 +936,17 @@
         function ($event) {
             var _this = this;
             this._viewerService.upload(null, $event, this.rewriteConfig).subscribe((/**
+             * @param {?} uploadedDocument
              * @return {?}
              */
-            function () {
-                _this.selectDir('');
+            function (uploadedDocument) {
+                if (_this.fileParam !== '') {
+                    _this.selectFile(uploadedDocument.guid, '', '');
+                    _this.fileParam = '';
+                }
+                else {
+                    _this.selectDir('');
+                }
             }));
         };
         /**
@@ -1319,7 +1361,8 @@
             { type: commonComponents.RenderPrintService },
             { type: commonComponents.PasswordService },
             { type: commonComponents.WindowService },
-            { type: commonComponents.LoadingMaskService }
+            { type: commonComponents.LoadingMaskService },
+            { type: router.ActivatedRoute }
         ]; };
         return ViewerAppComponent;
     }());
@@ -1360,6 +1403,10 @@
         ViewerAppComponent.prototype.fileWasDropped;
         /** @type {?} */
         ViewerAppComponent.prototype.formatIcon;
+        /** @type {?} */
+        ViewerAppComponent.prototype.fileParam;
+        /** @type {?} */
+        ViewerAppComponent.prototype.querySubscription;
         /**
          * @type {?}
          * @private
@@ -1395,6 +1442,11 @@
          * @private
          */
         ViewerAppComponent.prototype._loadingMaskService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ViewerAppComponent.prototype.route;
     }
 
     /**
