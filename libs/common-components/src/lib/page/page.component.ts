@@ -31,9 +31,9 @@ export class PageComponent implements OnInit, OnChanges {
     // which leads to undesired spaces on the top of the docs pages
     this.data = this.data !== null ? this.data.replace(/>\s+</g,'><')
                                               .replace(/\uFEFF/g,"")
-                                              .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer') 
-                                              .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer') 
-                                              .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer') 
+                                              .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+                                              .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+                                              .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
                                    : null;
     const dataImagePngBase64 = 'data:image/png;base64,';
     this.imgData = dataImagePngBase64;
