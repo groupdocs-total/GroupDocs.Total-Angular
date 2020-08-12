@@ -3,6 +3,7 @@ import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, Element
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 /**
@@ -291,8 +292,9 @@ class ViewerAppComponent {
      * @param {?} passwordService
      * @param {?} _windowService
      * @param {?} _loadingMaskService
+     * @param {?} route
      */
-    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService) {
+    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, route) {
         this._viewerService = _viewerService;
         this._modalService = _modalService;
         this._navigateService = _navigateService;
@@ -300,6 +302,7 @@ class ViewerAppComponent {
         this._renderPrintService = _renderPrintService;
         this._windowService = _windowService;
         this._loadingMaskService = _loadingMaskService;
+        this.route = route;
         this.title = 'viewer';
         this.files = [];
         this.countPages = 0;
@@ -364,6 +367,22 @@ class ViewerAppComponent {
         (w) => {
             this.isDesktop = _windowService.isDesktop();
             this.refreshZoom();
+        }));
+        this.querySubscription = route.queryParams.subscribe((/**
+         * @param {?} queryParam
+         * @return {?}
+         */
+        (queryParam) => {
+            this.fileParam = queryParam['file'];
+            if (this.fileParam) {
+                this.isLoading = true;
+                if (this.validURL(this.fileParam)) {
+                    this.upload(this.fileParam);
+                }
+                else {
+                    this.selectFile(this.fileParam, '', '');
+                }
+            }
         }));
     }
     /**
@@ -480,6 +499,20 @@ class ViewerAppComponent {
         return this._navigateService.currentPage;
     }
     /**
+     * @param {?} str
+     * @return {?}
+     */
+    validURL(str) {
+        /** @type {?} */
+        const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', 'i');
+        return !!pattern.test(str);
+    }
+    /**
      * @param {?} id
      * @return {?}
      */
@@ -573,10 +606,17 @@ class ViewerAppComponent {
      */
     upload($event) {
         this._viewerService.upload(null, $event, this.rewriteConfig).subscribe((/**
+         * @param {?} uploadedDocument
          * @return {?}
          */
-        () => {
-            this.selectDir('');
+        (uploadedDocument) => {
+            if (this.fileParam !== '') {
+                this.selectFile(uploadedDocument.guid, '', '');
+                this.fileParam = '';
+            }
+            else {
+                this.selectDir('');
+            }
         }));
     }
     /**
@@ -881,7 +921,8 @@ ViewerAppComponent.ctorParameters = () => [
     { type: RenderPrintService },
     { type: PasswordService },
     { type: WindowService },
-    { type: LoadingMaskService }
+    { type: LoadingMaskService },
+    { type: ActivatedRoute }
 ];
 if (false) {
     /** @type {?} */
@@ -920,6 +961,10 @@ if (false) {
     ViewerAppComponent.prototype.fileWasDropped;
     /** @type {?} */
     ViewerAppComponent.prototype.formatIcon;
+    /** @type {?} */
+    ViewerAppComponent.prototype.fileParam;
+    /** @type {?} */
+    ViewerAppComponent.prototype.querySubscription;
     /**
      * @type {?}
      * @private
@@ -955,6 +1000,11 @@ if (false) {
      * @private
      */
     ViewerAppComponent.prototype._loadingMaskService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ViewerAppComponent.prototype.route;
 }
 
 /**

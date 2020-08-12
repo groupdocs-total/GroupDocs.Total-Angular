@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Api, ConfigService, FileCredentials} from "@groupdocs.examples.angular/common-components";
-import { FilePropertyModel } from '@groupdocs.examples.angular/common-components';
+import { FilePropertyModel } from './metadata-models';
 
 @Injectable({
   providedIn: 'root'

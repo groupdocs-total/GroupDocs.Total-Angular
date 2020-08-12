@@ -1,7 +1,7 @@
 import {PageModel} from "@groupdocs.examples.angular/common-components";
 
 export class AnnotationType {
-  public static TEXT = {id: 'text', name: 'Text', icon: 'highlighter'};
+  public static TEXT = {id: 'textHighlight', name: 'Text', icon: 'highlighter'};
   public static AREA = {id: 'area', name: 'Area', icon: 'vector-square'};
   public static POINT = {id: 'point', name: 'Point', icon: 'thumbtack'};
   public static TEXT_STRIKEOUT = {id: 'textStrikeout', name: 'Text strikeout', icon: 'strikethrough',};

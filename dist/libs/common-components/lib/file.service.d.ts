@@ -33,20 +33,6 @@ export declare class FileModel {
     size: number;
     isDirectory: boolean;
 }
-export declare enum FilePropertyCategory {
-    BuildIn = 0,
-    Default = 1
-}
-export declare class FilePropertyModel {
-    category: FilePropertyCategory;
-    name: string;
-    value: any;
-    type: number;
-    original: boolean;
-    selected: boolean;
-    editing: boolean;
-    disabled: boolean;
-}
 export declare class HttpError {
     static BadRequest: number;
     static Unauthorized: number;

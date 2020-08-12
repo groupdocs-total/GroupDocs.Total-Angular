@@ -1251,36 +1251,6 @@
         /** @type {?} */
         FileModel.prototype.isDirectory;
     }
-    /** @enum {number} */
-    var FilePropertyCategory = {
-        BuildIn: 0,
-        Default: 1,
-    };
-    FilePropertyCategory[FilePropertyCategory.BuildIn] = 'BuildIn';
-    FilePropertyCategory[FilePropertyCategory.Default] = 'Default';
-    var FilePropertyModel = /** @class */ (function () {
-        function FilePropertyModel() {
-        }
-        return FilePropertyModel;
-    }());
-    if (false) {
-        /** @type {?} */
-        FilePropertyModel.prototype.category;
-        /** @type {?} */
-        FilePropertyModel.prototype.name;
-        /** @type {?} */
-        FilePropertyModel.prototype.value;
-        /** @type {?} */
-        FilePropertyModel.prototype.type;
-        /** @type {?} */
-        FilePropertyModel.prototype.original;
-        /** @type {?} */
-        FilePropertyModel.prototype.selected;
-        /** @type {?} */
-        FilePropertyModel.prototype.editing;
-        /** @type {?} */
-        FilePropertyModel.prototype.disabled;
-    }
     var HttpError = /** @class */ (function () {
         function HttpError() {
         }
@@ -5254,7 +5224,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-tab',
                         template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:-webkit-box;display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
+                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:-webkit-box;display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px;width:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -8409,7 +8379,6 @@
         ModalService,
         FileService,
         FileModel,
-        FilePropertyModel,
         FileUtil,
         Utils,
         SanitizeHtmlPipe,
@@ -8569,8 +8538,6 @@
     exports.FileCredentials = FileCredentials;
     exports.FileDescription = FileDescription;
     exports.FileModel = FileModel;
-    exports.FilePropertyCategory = FilePropertyCategory;
-    exports.FilePropertyModel = FilePropertyModel;
     exports.FileService = FileService;
     exports.FileUtil = FileUtil;
     exports.Formatting = Formatting;
