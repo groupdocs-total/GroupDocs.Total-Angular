@@ -52,6 +52,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   fileWasDropped: false;
   selectFontShow = false;
   selectFontSizeShow = false;
+  newFile = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -241,11 +242,12 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   }
 
   createFile() {
+    this.newFile = true;
     this.file = new FileDescription();
     const page = new PageModel;
     page.width = 595;
     page.height = 842;
-    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body></body></html>';
+    page.data = '<!DOCTYPE HTML><html><head></head><body></body></html>';
     page.number = 1;
     page.editable = true;
     this.file.pages = [];
@@ -529,10 +531,37 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     });
   }
 
+  saveNewFile(credentials: FileCredentials) {
+    if (!this.file || !this.file.pages)
+    {
+      return;
+    }
+
+    this.textBackup = this.getPageWithRootTags(this.textBackup);
+
+    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
+    this._editorService.create(saveFile).subscribe((loadFile: FileDescription) => {
+      this.loadFile(loadFile);
+      this.credentials = new FileCredentials(loadFile.guid, credentials.password);
+      this._modalService.open(CommonModals.OperationSuccess);
+    });
+  }
+
   getPageWithRootTags(data) {
     let resultData = "<html><head>" + data + "</body></html>";
-    resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
-    resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+    
+    if (this.newFile)
+    {
+      resultData = resultData.replace('<head>', '<head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>');
+      resultData = resultData.replace('<body>', '<body><div class="documentMainContent">');
+      resultData = resultData.replace('</body>', '</div></body>');
+    }
+    else 
+    {
+      resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+      resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
+    }
+
     resultData = resultData.replace('<main class="documentMainContent">', '</head><body><main class="documentMainContent">');
     return resultData;
   }
