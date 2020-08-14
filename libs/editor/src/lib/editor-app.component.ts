@@ -544,9 +544,11 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);
       this._modalService.open(CommonModals.OperationSuccess);
+      this.newFile = false;
     });
   }
 
+  // Returns root-tags in the HTML-markup which previously were removed by innerHTML.
   getPageWithRootTags(data) {
     let resultData = "<html><head>" + data + "</body></html>";
     
@@ -558,8 +560,12 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     }
     else 
     {
+      // for Word files
       resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+      // for Presentations files
       resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
+      // for Excel files
+      resultData = resultData.replace('</style><table', '</style></head><body><table');
     }
 
     resultData = resultData.replace('<main class="documentMainContent">', '</head><body><main class="documentMainContent">');
