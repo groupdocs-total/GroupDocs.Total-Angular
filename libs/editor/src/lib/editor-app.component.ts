@@ -521,7 +521,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     if (!this.file || !this.file.pages)
       return;
       
-    this.textBackup = this.getPageWithRootTags(this.textBackup);
+    this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
 
     const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
@@ -537,7 +537,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
       return;
     }
 
-    this.textBackup = this.getPageWithRootTags(this.textBackup);
+    this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
 
     const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
     this._editorService.create(saveFile).subscribe((loadFile: FileDescription) => {
@@ -549,13 +549,22 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   }
 
   // Returns root-tags in the HTML-markup which previously were removed by innerHTML.
-  getPageWithRootTags(data) {
+  getPageWithRootTags(data, guid) {
+    const pptFormats = ["ppt", "pptx", "pptm", "pps", "ppsx", "ppsm", "pot", "potx", "potm", "odp", "otp"];
     let resultData = "<html><head>" + data + "</body></html>";
     
     if (this.newFile)
     {
       resultData = resultData.replace('<head>', '<head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>');
-      resultData = resultData.replace('<body>', '<body><div class="documentMainContent">');
+      if (pptFormats.includes(guid.split('.').pop()))
+      {
+        resultData = resultData.replace('<body>', '<body><div class="slide">');
+      }
+      else 
+      {
+        resultData = resultData.replace('<body>', '<body><div class="documentMainContent">');
+      }
+
       resultData = resultData.replace('</body>', '</div></body>');
     }
     else 
