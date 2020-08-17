@@ -1031,15 +1031,21 @@ class ThumbnailsComponent {
     ngOnChanges() {
         // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
         // which leads to undesired spaces on the top of the docs pages
-        this.pages.forEach((/**
-         * @param {?} page
-         * @return {?}
-         */
-        page => {
-            if (page.data) {
-                page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "");
-            }
-        }));
+        if (this.pages) {
+            this.pages.forEach((/**
+             * @param {?} page
+             * @return {?}
+             */
+            page => {
+                if (page.data) {
+                    page.data = page.data.replace(/>\s+</g, '><')
+                        .replace(/\uFEFF/g, "")
+                        .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+                        .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+                        .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                }
+            }));
+        }
     }
     /**
      * @return {?}
