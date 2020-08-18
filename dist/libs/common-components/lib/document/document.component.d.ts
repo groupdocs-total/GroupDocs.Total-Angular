@@ -2,10 +2,12 @@ import { AfterViewChecked, ElementRef, OnInit, AfterViewInit, OnChanges, EventEm
 import { FileDescription } from "../file.service";
 import { ZoomService } from "../zoom.service";
 import { WindowService } from '../window.service';
+import { NavigateService } from '../navigate.service';
 export declare class DocumentComponent implements OnInit, AfterViewChecked, AfterViewInit, OnChanges {
     protected _elementRef: ElementRef<HTMLElement>;
     private _zoomService;
     private _windowService;
+    private _navigateService;
     mode: boolean;
     preloadPageCount: number;
     file: FileDescription;
@@ -29,12 +31,13 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     curWidth: number;
     curHeight: number;
     isDesktop: boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService, _windowService: WindowService);
+    constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService, _windowService: WindowService, _navigateService: NavigateService);
     ngOnInit(): void;
     ngOnChanges(): void;
     ngAfterViewInit(): void;
     ifExcel(): boolean;
-    getDimensionWithUnit(value: number): any;
+    ifPresentation(): boolean;
+    getDimensionWithUnit(value: number, pageNumber: number): any;
     ifEdge(): boolean;
     ngAfterViewChecked(): void;
     absolutePosition(el: any): {
@@ -56,4 +59,5 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     onPan($event: any): void;
     onPanEnd($event: any): void;
     onDoubleTap($event: any): void;
+    isVisible(pageNumber: any): boolean;
 }

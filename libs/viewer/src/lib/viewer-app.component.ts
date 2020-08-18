@@ -195,6 +195,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this._navigateService.currentPage;
   }
 
+  ifPresentation() {
+    return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint" : false;
+  }
+
   validURL(str) {
     const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
@@ -242,6 +246,13 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = 1;
           this.countPages = countPages;
+
+          if (this.ifPresentation()) {
+            this.showThumbnails = true;
+          }
+          else {
+            this.showThumbnails = false;
+          }
         }
       }
     );
