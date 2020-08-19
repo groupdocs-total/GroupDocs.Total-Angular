@@ -2328,7 +2328,7 @@ var DocumentComponent = /** @class */ (function () {
      */
     function (pageNumber) {
         if (this.ifPresentation()) {
-            return pageNumber == this._navigateService.currentPage ? true : false;
+            return pageNumber === this._navigateService.currentPage ? true : false;
         }
         else {
             return true;
