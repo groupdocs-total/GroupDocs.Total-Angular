@@ -33,7 +33,7 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     bgColorPickerShow: boolean;
     colorPickerShow: boolean;
     active: boolean;
-    private textBackup;
+    textBackup: string;
     private isIE;
     isLoading: boolean;
     fileWasDropped: false;
@@ -78,6 +78,7 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     downloadFile(): void;
     save(): void;
     saveFile(credentials: FileCredentials): void;
+    getPageWithRootTags(data: any): string;
     printFile(): void;
     onCloseModal($event: any): void;
 }

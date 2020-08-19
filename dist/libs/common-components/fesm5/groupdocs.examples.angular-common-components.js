@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, Injectable, ElementRef, ɵɵdefineInjectable, ɵɵinject, ViewChildren, Pipe, Directive, HostBinding, HostListener, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Injectable, ElementRef, ɵɵdefineInjectable, ɵɵinject, ViewChildren, Pipe, Directive, HostBinding, HostListener, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
@@ -38,13 +38,16 @@ var TopToolbarComponent = /** @class */ (function () {
  */
 var SidePanelComponent = /** @class */ (function () {
     function SidePanelComponent() {
+        this.closable = true;
+        this.saveable = true;
         this.hideSidePanel = new EventEmitter();
+        this.saveInSidePanel = new EventEmitter();
         this.onlyTitle = false;
     }
     /**
      * @return {?}
      */
-    SidePanelComponent.prototype.openSidePanel = /**
+    SidePanelComponent.prototype.closeSidePanel = /**
      * @return {?}
      */
     function () {
@@ -53,17 +56,28 @@ var SidePanelComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    SidePanelComponent.prototype.saveBySidePanel = /**
+     * @return {?}
+     */
+    function () {
+        this.saveInSidePanel.emit(true);
+    };
+    /**
+     * @return {?}
+     */
     SidePanelComponent.prototype.toggleTitleMode = /**
      * @return {?}
      */
     function () {
-        this.onlyTitle = !this.onlyTitle;
+        if (this.closable && !this.saveable) {
+            this.onlyTitle = !this.onlyTitle;
+        }
     };
     SidePanelComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-side-panel',
-                    template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"close\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"openSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
-                    styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close{display:flex;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header /deep/ gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
+                    template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"save\" *ngIf=\"saveable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\r\n    </div>\r\n    <div class=\"close\" *ngIf=\"closable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close,.gd-side-panel-wrapper .gd-side-panel-header .save{display:flex;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header ::ng-deep gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -71,10 +85,29 @@ var SidePanelComponent = /** @class */ (function () {
     SidePanelComponent.propDecorators = {
         title: [{ type: Input }],
         icon: [{ type: Input }],
-        hideSidePanel: [{ type: Output }]
+        closable: [{ type: Input }],
+        saveable: [{ type: Input }],
+        hideSidePanel: [{ type: Output }],
+        saveInSidePanel: [{ type: Output }]
     };
     return SidePanelComponent;
 }());
+if (false) {
+    /** @type {?} */
+    SidePanelComponent.prototype.title;
+    /** @type {?} */
+    SidePanelComponent.prototype.icon;
+    /** @type {?} */
+    SidePanelComponent.prototype.closable;
+    /** @type {?} */
+    SidePanelComponent.prototype.saveable;
+    /** @type {?} */
+    SidePanelComponent.prototype.hideSidePanel;
+    /** @type {?} */
+    SidePanelComponent.prototype.saveInSidePanel;
+    /** @type {?} */
+    SidePanelComponent.prototype.onlyTitle;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -177,6 +210,28 @@ var WindowService = /** @class */ (function () {
     };
     return WindowService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    WindowService.prototype.resizeSubject;
+    /**
+     * @type {?}
+     * @private
+     */
+    WindowService.prototype._resize$;
+    /**
+     * @type {?}
+     * @private
+     */
+    WindowService.prototype.width;
+    /**
+     * @type {?}
+     * @private
+     */
+    WindowService.prototype.height;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -190,6 +245,7 @@ var ButtonComponent = /** @class */ (function () {
         this.disabled = false;
         this.toggle = false;
         this.iconRegular = false;
+        this.elementPosition = 0;
         this.showToolTip = false;
         this.isDesktop = windowService.isDesktop();
         windowService.onResize.subscribe((/**
@@ -252,8 +308,8 @@ var ButtonComponent = /** @class */ (function () {
     ButtonComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-button',
-                    template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
-                    styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
+                    template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [position]=\"elementPosition\" class=\"button-tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;flex-direction:column;align-items:center;align-content:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}.button .button-tooltip{display:flex;flex-direction:column}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -270,10 +326,42 @@ var ButtonComponent = /** @class */ (function () {
         className: [{ type: Input }],
         toggle: [{ type: Input }],
         iconSize: [{ type: Input }],
-        iconRegular: [{ type: Input }]
+        iconRegular: [{ type: Input }],
+        elementPosition: [{ type: Input }]
     };
     return ButtonComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ButtonComponent.prototype.iconOnly;
+    /** @type {?} */
+    ButtonComponent.prototype.intent;
+    /** @type {?} */
+    ButtonComponent.prototype.disabled;
+    /** @type {?} */
+    ButtonComponent.prototype.icon;
+    /** @type {?} */
+    ButtonComponent.prototype.iconClass;
+    /** @type {?} */
+    ButtonComponent.prototype.tooltip;
+    /** @type {?} */
+    ButtonComponent.prototype.className;
+    /** @type {?} */
+    ButtonComponent.prototype.toggle;
+    /** @type {?} */
+    ButtonComponent.prototype.iconSize;
+    /** @type {?} */
+    ButtonComponent.prototype.iconRegular;
+    /** @type {?} */
+    ButtonComponent.prototype.elementPosition;
+    /** @type {?} */
+    ButtonComponent.prototype.showToolTip;
+    /**
+     * @type {?}
+     * @private
+     */
+    ButtonComponent.prototype.isDesktop;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -305,6 +393,12 @@ var LogoComponent = /** @class */ (function () {
     };
     return LogoComponent;
 }());
+if (false) {
+    /** @type {?} */
+    LogoComponent.prototype.logo;
+    /** @type {?} */
+    LogoComponent.prototype.icon;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -312,8 +406,21 @@ var LogoComponent = /** @class */ (function () {
  */
 var TooltipComponent = /** @class */ (function () {
     function TooltipComponent() {
+        this.position = 0;
         this.visibility = 'hidden';
     }
+    /**
+     * @return {?}
+     */
+    TooltipComponent.prototype.getClass = /**
+     * @return {?}
+     */
+    function () {
+        if (this.position === 0) {
+            return 'tooltip';
+        }
+        return 'tooltip ' + (this.position > 0 ? 'last-element' : 'first-element');
+    };
     Object.defineProperty(TooltipComponent.prototype, "show", {
         set: /**
          * @param {?} value
@@ -336,18 +443,27 @@ var TooltipComponent = /** @class */ (function () {
     TooltipComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-tooltip',
-                    template: "<span class=\"tooltip\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n",
-                    styles: [".tooltip{position:absolute;margin-top:37px;width:100px;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px 0;z-index:1;margin-left:-66px;font-size:10px;height:11px;line-height:11px}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
+                    template: "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n",
+                    styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:0!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
                 }] }
     ];
     /** @nocollapse */
     TooltipComponent.ctorParameters = function () { return []; };
     TooltipComponent.propDecorators = {
         text: [{ type: Input }],
+        position: [{ type: Input }],
         show: [{ type: Input }]
     };
     return TooltipComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TooltipComponent.prototype.text;
+    /** @type {?} */
+    TooltipComponent.prototype.position;
+    /** @type {?} */
+    TooltipComponent.prototype.visibility;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -359,14 +475,20 @@ var Api = /** @class */ (function () {
     Api.VIEWER_APP = '/viewer';
     Api.SIGNATURE_APP = '/signature';
     Api.ANNOTATION_APP = '/annotation';
+    Api.SEARCH_APP = '/search';
     Api.EDITOR_APP = '/editor';
     Api.COMPARISON_APP = '/comparison';
     Api.CONVERSION_APP = '/conversion';
+    Api.METADATA_APP = '/metadata';
     Api.DEFAULT_API_ENDPOINT = window.location.href;
     Api.LOAD_FILE_TREE = '/loadFileTree';
     Api.LOAD_CONFIG = '/loadConfig';
     Api.LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
     Api.LOAD_DOCUMENT_PAGE = '/loadDocumentPage';
+    Api.LOAD_DOCUMENT_PROPERTIES = '/loadProperties';
+    Api.LOAD_DOCUMENT_PROPERTIES_NAMES = '/loadPropertiesNames';
+    Api.SAVE_PROPERTY = '/saveProperty';
+    Api.REMOVE_PROPERTY = '/removeProperty';
     Api.ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
     Api.UPLOAD_DOCUMENTS = '/uploadDocument';
     Api.DOWNLOAD_DOCUMENTS = '/downloadDocument';
@@ -378,6 +500,8 @@ var Api = /** @class */ (function () {
     Api.COMPARE_FILES = '/compare';
     Api.CONVERT_FILE = '/convert';
     Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+    Api.REMOVE_FROM_INDEX = '/removeFromIndex';
+    Api.GET_FILE_STATUS = '/getFileStatus';
     Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
     Api.SAVE_TEXT = '/saveText';
     Api.SAVE_IMAGE = '/saveImage';
@@ -386,6 +510,8 @@ var Api = /** @class */ (function () {
     Api.DOWNLOAD_SIGNED = '/downloadSigned';
     Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
     Api.ANNOTATE = '/annotate';
+    Api.SEARCH = '/search';
+    Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
     Api.httpOptionsJson = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -399,6 +525,92 @@ var Api = /** @class */ (function () {
     };
     return Api;
 }());
+if (false) {
+    /** @type {?} */
+    Api.VIEWER_APP;
+    /** @type {?} */
+    Api.SIGNATURE_APP;
+    /** @type {?} */
+    Api.ANNOTATION_APP;
+    /** @type {?} */
+    Api.SEARCH_APP;
+    /** @type {?} */
+    Api.EDITOR_APP;
+    /** @type {?} */
+    Api.COMPARISON_APP;
+    /** @type {?} */
+    Api.CONVERSION_APP;
+    /** @type {?} */
+    Api.METADATA_APP;
+    /** @type {?} */
+    Api.DEFAULT_API_ENDPOINT;
+    /** @type {?} */
+    Api.LOAD_FILE_TREE;
+    /** @type {?} */
+    Api.LOAD_CONFIG;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_DESCRIPTION;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_PAGE;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_PROPERTIES;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_PROPERTIES_NAMES;
+    /** @type {?} */
+    Api.SAVE_PROPERTY;
+    /** @type {?} */
+    Api.REMOVE_PROPERTY;
+    /** @type {?} */
+    Api.ROTATE_DOCUMENT_PAGE;
+    /** @type {?} */
+    Api.UPLOAD_DOCUMENTS;
+    /** @type {?} */
+    Api.DOWNLOAD_DOCUMENTS;
+    /** @type {?} */
+    Api.LOAD_PRINT;
+    /** @type {?} */
+    Api.LOAD_PRINT_PDF;
+    /** @type {?} */
+    Api.LOAD_THUMBNAILS;
+    /** @type {?} */
+    Api.LOAD_FORMATS;
+    /** @type {?} */
+    Api.SAVE_FILE;
+    /** @type {?} */
+    Api.COMPARE_FILES;
+    /** @type {?} */
+    Api.CONVERT_FILE;
+    /** @type {?} */
+    Api.DELETE_SIGNATURE_FILE;
+    /** @type {?} */
+    Api.REMOVE_FROM_INDEX;
+    /** @type {?} */
+    Api.GET_FILE_STATUS;
+    /** @type {?} */
+    Api.SAVE_OPTICAL_CODE;
+    /** @type {?} */
+    Api.SAVE_TEXT;
+    /** @type {?} */
+    Api.SAVE_IMAGE;
+    /** @type {?} */
+    Api.SAVE_STAMP;
+    /** @type {?} */
+    Api.SIGN;
+    /** @type {?} */
+    Api.DOWNLOAD_SIGNED;
+    /** @type {?} */
+    Api.LOAD_SIGNATURE_IMAGE;
+    /** @type {?} */
+    Api.ANNOTATE;
+    /** @type {?} */
+    Api.SEARCH;
+    /** @type {?} */
+    Api.ADD_FILES_TO_INDEX;
+    /** @type {?} */
+    Api.httpOptionsJson;
+    /** @type {?} */
+    Api.httpOptionsJsonResponseTypeBlob;
+}
 var ConfigService = /** @class */ (function () {
     function ConfigService() {
         this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
@@ -470,6 +682,15 @@ var ConfigService = /** @class */ (function () {
     /**
      * @return {?}
      */
+    ConfigService.prototype.getMetadataApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
+    };
+    /**
+     * @return {?}
+     */
     ConfigService.prototype.getSignatureApiEndpoint = /**
      * @return {?}
      */
@@ -485,6 +706,15 @@ var ConfigService = /** @class */ (function () {
     function () {
         return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
     };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getSearchApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
+    };
     ConfigService.decorators = [
         { type: Injectable }
     ];
@@ -492,6 +722,13 @@ var ConfigService = /** @class */ (function () {
     ConfigService.ctorParameters = function () { return []; };
     return ConfigService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ConfigService.prototype._apiEndpoint;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -510,6 +747,24 @@ var CommonModals = /** @class */ (function () {
     CommonModals.InformationMessage = "gd-information-message";
     return CommonModals;
 }());
+if (false) {
+    /** @type {?} */
+    CommonModals.PasswordRequired;
+    /** @type {?} */
+    CommonModals.ErrorMessage;
+    /** @type {?} */
+    CommonModals.BrowseFiles;
+    /** @type {?} */
+    CommonModals.CreateDocument;
+    /** @type {?} */
+    CommonModals.OperationSuccess;
+    /** @type {?} */
+    CommonModals.DrawHandSignature;
+    /** @type {?} */
+    CommonModals.DrawStampSignature;
+    /** @type {?} */
+    CommonModals.InformationMessage;
+}
 var ModalService = /** @class */ (function () {
     function ModalService() {
         this.modals = [];
@@ -580,6 +835,13 @@ var ModalService = /** @class */ (function () {
     };
     return ModalService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ModalService.prototype.modals;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -667,7 +929,7 @@ var ModalComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-modal',
                     template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\r\n</div>\r\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\r\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\r\n\r\n    <div class=\"gd-modal-header\">\r\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\r\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-body\">\r\n      <ng-content></ng-content>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-footer\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n",
-                    styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
+                    styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-dialog ::ng-deep .button{flex-direction:unset!important}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -683,6 +945,28 @@ var ModalComponent = /** @class */ (function () {
     };
     return ModalComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ModalComponent.prototype.id;
+    /** @type {?} */
+    ModalComponent.prototype.title;
+    /** @type {?} */
+    ModalComponent.prototype.visible;
+    /** @type {?} */
+    ModalComponent.prototype.cancel;
+    /** @type {?} */
+    ModalComponent.prototype.visibility;
+    /**
+     * @type {?}
+     * @private
+     */
+    ModalComponent.prototype.element;
+    /**
+     * @type {?}
+     * @private
+     */
+    ModalComponent.prototype.modalService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -693,11 +977,31 @@ var PageModel = /** @class */ (function () {
     }
     return PageModel;
 }());
+if (false) {
+    /** @type {?} */
+    PageModel.prototype.data;
+    /** @type {?} */
+    PageModel.prototype.angle;
+    /** @type {?} */
+    PageModel.prototype.width;
+    /** @type {?} */
+    PageModel.prototype.height;
+    /** @type {?} */
+    PageModel.prototype.number;
+    /** @type {?} */
+    PageModel.prototype.editable;
+}
 var RotatedPage = /** @class */ (function () {
     function RotatedPage() {
     }
     return RotatedPage;
 }());
+if (false) {
+    /** @type {?} */
+    RotatedPage.prototype.pageNumber;
+    /** @type {?} */
+    RotatedPage.prototype.angle;
+}
 var FileCredentials = /** @class */ (function () {
     function FileCredentials(guid, password) {
         this.guid = guid;
@@ -705,6 +1009,12 @@ var FileCredentials = /** @class */ (function () {
     }
     return FileCredentials;
 }());
+if (false) {
+    /** @type {?} */
+    FileCredentials.prototype.guid;
+    /** @type {?} */
+    FileCredentials.prototype.password;
+}
 var SaveFile = /** @class */ (function (_super) {
     __extends(SaveFile, _super);
     function SaveFile(guid, password, content) {
@@ -714,17 +1024,45 @@ var SaveFile = /** @class */ (function (_super) {
     }
     return SaveFile;
 }(FileCredentials));
+if (false) {
+    /** @type {?} */
+    SaveFile.prototype.content;
+}
 var FileDescription = /** @class */ (function () {
     function FileDescription() {
         this.printAllowed = true;
     }
     return FileDescription;
 }());
+if (false) {
+    /** @type {?} */
+    FileDescription.prototype.guid;
+    /** @type {?} */
+    FileDescription.prototype.pages;
+    /** @type {?} */
+    FileDescription.prototype.printAllowed;
+    /** @type {?} */
+    FileDescription.prototype.showGridLines;
+    /** @type {?} */
+    FileDescription.prototype.thumbnails;
+}
 var FileModel = /** @class */ (function () {
     function FileModel() {
     }
     return FileModel;
 }());
+if (false) {
+    /** @type {?} */
+    FileModel.prototype.guid;
+    /** @type {?} */
+    FileModel.prototype.name;
+    /** @type {?} */
+    FileModel.prototype.directory;
+    /** @type {?} */
+    FileModel.prototype.size;
+    /** @type {?} */
+    FileModel.prototype.isDirectory;
+}
 var HttpError = /** @class */ (function () {
     function HttpError() {
     }
@@ -737,6 +1075,22 @@ var HttpError = /** @class */ (function () {
     HttpError.InternalServerError = 500;
     return HttpError;
 }());
+if (false) {
+    /** @type {?} */
+    HttpError.BadRequest;
+    /** @type {?} */
+    HttpError.Unauthorized;
+    /** @type {?} */
+    HttpError.Forbidden;
+    /** @type {?} */
+    HttpError.NotFound;
+    /** @type {?} */
+    HttpError.TimeOut;
+    /** @type {?} */
+    HttpError.Conflict;
+    /** @type {?} */
+    HttpError.InternalServerError;
+}
 var Utils = /** @class */ (function () {
     function Utils() {
     }
@@ -954,6 +1308,10 @@ var FileUtil = /** @class */ (function () {
     };
     return FileUtil;
 }());
+if (false) {
+    /** @type {?} */
+    FileUtil.map;
+}
 var FileService = /** @class */ (function () {
     function FileService() {
     }
@@ -998,6 +1356,18 @@ var UploadFilesService = /** @class */ (function () {
     };
     return UploadFilesService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    UploadFilesService.prototype._uploadsChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    UploadFilesService.prototype._observer;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1212,6 +1582,36 @@ var BrowseFilesModalComponent = /** @class */ (function () {
     };
     return BrowseFilesModalComponent;
 }());
+if (false) {
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.uploads;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.files;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.uploadConfig;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.selectedFileGuid;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.selectedDirectory;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.urlForUpload;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.closing;
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowseFilesModalComponent.prototype.selectedFile;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.showUploadUrl;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.showUploadFile;
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowseFilesModalComponent.prototype._uploadService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1295,6 +1695,23 @@ var ZoomService = /** @class */ (function () {
     };
     return ZoomService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoomService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoomService.prototype._zoomChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoomService.prototype._zoom;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1308,6 +1725,7 @@ var DocumentComponent = /** @class */ (function () {
         this._elementRef = _elementRef;
         this._zoomService = _zoomService;
         this._windowService = _windowService;
+        this.onpan = new EventEmitter();
         this.wait = false;
         this.docWidth = null;
         this.docHeight = null;
@@ -1448,6 +1866,7 @@ var DocumentComponent = /** @class */ (function () {
         }
         return { x: x, y: y };
     };
+    ;
     /**
      * @param {?} pos
      * @param {?} viewportDim
@@ -1469,6 +1888,7 @@ var DocumentComponent = /** @class */ (function () {
         }
         return pos;
     };
+    ;
     /**
      * @return {?}
      */
@@ -1479,6 +1899,7 @@ var DocumentComponent = /** @class */ (function () {
         this.lastX = this.x;
         this.lastY = this.y;
     };
+    ;
     /**
      * @param {?} deltaX
      * @param {?} deltaY
@@ -1503,6 +1924,7 @@ var DocumentComponent = /** @class */ (function () {
         this.container.scrollTop = -Math.ceil(newY * this.scale);
         this.doc.style.transform = 'scale(' + this.scale + ')';
     };
+    ;
     /**
      * @param {?} scaleBy
      * @return {?}
@@ -1518,6 +1940,7 @@ var DocumentComponent = /** @class */ (function () {
         // Adjust margins to make sure that we aren't out of bounds
         this.translate(0, 0);
     };
+    ;
     /**
      * @param {?} $event
      * @return {?}
@@ -1540,6 +1963,7 @@ var DocumentComponent = /** @class */ (function () {
         var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
         return { x: zoomX, y: zoomY };
     };
+    ;
     /**
      * @return {?}
      */
@@ -1549,6 +1973,7 @@ var DocumentComponent = /** @class */ (function () {
     function () {
         this.lastScale = this.scale;
     };
+    ;
     /**
      * @param {?} scaleBy
      * @param {?} rawZoomX
@@ -1583,6 +2008,7 @@ var DocumentComponent = /** @class */ (function () {
             this.updateLastPos();
         }
     };
+    ;
     /**
      * @param {?} $event
      * @return {?}
@@ -1636,6 +2062,7 @@ var DocumentComponent = /** @class */ (function () {
         // if (!this.isDesktop) {
         //   this.translate($event.deltaX, $event.deltaY);
         // }
+        this.onpan.emit($event);
     };
     /**
      * @param {?} $event
@@ -1671,7 +2098,7 @@ var DocumentComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-document',
                     template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1683,10 +2110,82 @@ var DocumentComponent = /** @class */ (function () {
     DocumentComponent.propDecorators = {
         mode: [{ type: Input }],
         preloadPageCount: [{ type: Input }],
-        file: [{ type: Input }]
+        file: [{ type: Input }],
+        onpan: [{ type: Output }]
     };
     return DocumentComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DocumentComponent.prototype.mode;
+    /** @type {?} */
+    DocumentComponent.prototype.preloadPageCount;
+    /** @type {?} */
+    DocumentComponent.prototype.file;
+    /** @type {?} */
+    DocumentComponent.prototype.onpan;
+    /** @type {?} */
+    DocumentComponent.prototype.wait;
+    /** @type {?} */
+    DocumentComponent.prototype.zoom;
+    /** @type {?} */
+    DocumentComponent.prototype.docWidth;
+    /** @type {?} */
+    DocumentComponent.prototype.docHeight;
+    /** @type {?} */
+    DocumentComponent.prototype.viewportWidth;
+    /** @type {?} */
+    DocumentComponent.prototype.viewportHeight;
+    /** @type {?} */
+    DocumentComponent.prototype.scale;
+    /** @type {?} */
+    DocumentComponent.prototype.lastScale;
+    /** @type {?} */
+    DocumentComponent.prototype.container;
+    /** @type {?} */
+    DocumentComponent.prototype.doc;
+    /** @type {?} */
+    DocumentComponent.prototype.x;
+    /** @type {?} */
+    DocumentComponent.prototype.lastX;
+    /** @type {?} */
+    DocumentComponent.prototype.y;
+    /** @type {?} */
+    DocumentComponent.prototype.lastY;
+    /** @type {?} */
+    DocumentComponent.prototype.pinchCenter;
+    /** @type {?} */
+    DocumentComponent.prototype.pinchCenterOffset;
+    /** @type {?} */
+    DocumentComponent.prototype.curWidth;
+    /** @type {?} */
+    DocumentComponent.prototype.curHeight;
+    /** @type {?} */
+    DocumentComponent.prototype.isDesktop;
+    /**
+     * @type {?}
+     * @protected
+     */
+    DocumentComponent.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    DocumentComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    DocumentComponent.prototype._windowService;
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1728,6 +2227,18 @@ var PagePreloadService = /** @class */ (function () {
     };
     return PagePreloadService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    PagePreloadService.prototype._checkPreload;
+    /**
+     * @type {?}
+     * @private
+     */
+    PagePreloadService.prototype._observer;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1860,6 +2371,33 @@ var NavigateService = /** @class */ (function () {
     /** @nocollapse */ NavigateService.ngInjectableDef = ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
     return NavigateService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._currentPage;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._countPages;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._navigate;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._pagePreloadService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2036,7 +2574,7 @@ var ExcelPageComponent = /** @class */ (function () {
      */
     function () {
         /** @type {?} */
-        var isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        var isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         if (isIE && this.number === 0) {
             this.editable = false;
         }
@@ -2065,7 +2603,7 @@ var ExcelPageComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-excel-page',
                     template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
-                    styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}/deep/ th{color:#959da5;background-color:#f4f4f4;font-weight:unset;border:1px solid #e7e7e7!important;text-transform:uppercase;font-size:14px;overflow:hidden}/deep/ td{vertical-align:middle!important}/deep/ .page-grid-lines td{border:1px solid #e7e7e7!important}/deep/ .page td:nth-child(1){border:1px solid #e7e7e7!important}/deep/ tr td.excel:first-child{color:#959da5;background-color:#f4f4f4;font-weight:unset;width:1%;text-align:center}/deep/ tr td.excel:first-child div{width:80px}/deep/ tr th.excel:first-child{background-color:#f4f4f4;width:1%}/deep/ tr th.excel:first-child div{width:80px}.gd-page-image{height:100%!important;width:100%!important}"]
+                    styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}::ng-deep th{color:#959da5;background-color:#f4f4f4;font-weight:unset;border:1px solid #e7e7e7!important;text-transform:uppercase;font-size:14px;overflow:hidden}::ng-deep td{vertical-align:middle!important}::ng-deep .page-grid-lines td{border:1px solid #e7e7e7!important}::ng-deep .page td:nth-child(1){border:1px solid #e7e7e7!important}::ng-deep tr td.excel:first-child{color:#959da5;background-color:#f4f4f4;font-weight:unset;width:1%;text-align:center}::ng-deep tr td.excel:first-child div{width:80px}::ng-deep tr th.excel:first-child{background-color:#f4f4f4;width:1%}::ng-deep tr th.excel:first-child div{width:80px}.gd-page-image{height:100%!important;width:100%!important}"]
                 }] }
     ];
     /** @nocollapse */
@@ -2083,6 +2621,29 @@ var ExcelPageComponent = /** @class */ (function () {
     };
     return ExcelPageComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ExcelPageComponent.prototype.angle;
+    /** @type {?} */
+    ExcelPageComponent.prototype.width;
+    /** @type {?} */
+    ExcelPageComponent.prototype.height;
+    /** @type {?} */
+    ExcelPageComponent.prototype.number;
+    /** @type {?} */
+    ExcelPageComponent.prototype.data;
+    /** @type {?} */
+    ExcelPageComponent.prototype.isHtml;
+    /** @type {?} */
+    ExcelPageComponent.prototype.editable;
+    /** @type {?} */
+    ExcelPageComponent.prototype.imgData;
+    /**
+     * @type {?}
+     * @private
+     */
+    ExcelPageComponent.prototype._excelPageService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2156,7 +2717,7 @@ var ExcelDocumentComponent = /** @class */ (function (_super) {
         { type: Component, args: [{
                     selector: 'gd-excel-document',
                     template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"file.showGridLines ? 'page-grid-lines' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\">\r\n      <gd-excel-page *ngIf=\"currentPageNo == page.number || page.number == 0\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-excel-page>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"sheets\">\r\n  <div class=\"sheets-wrapper\">\r\n    <div *ngFor=\"let page of file?.pages\">\r\n      <gd-button [icon]=\"'eye'\" [ngClass]=\"{'active': currentPageNo == page.number }\" (click)=\"selectSheet(page.number)\">Sheet {{page.number}}</gd-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-                    styles: [":host{overflow:scroll;width:100%;background-color:#e7e7e7}.document{width:100%;transition:.4s;padding:0;margin:0;position:relative}.sheets{background-color:#fff;display:flex;border-top:1px solid #e7e7e7;position:fixed;bottom:17px;right:17px;width:100%}.sheets /deep/ gd-button.active .text{background-color:#272727;border-radius:10px;color:#eee}.sheets /deep/ gd-button .text{padding:1px 12px;color:#000}.sheets /deep/ gd-button fa-icon{display:none}.sheets-wrapper{margin-left:29px;display:flex}.page{position:relative;display:inline-block;transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}.highlights{position:absolute;top:0;left:0;bottom:0;right:0}@media (max-width:1037px){.document{overflow-x:auto!important}.panzoom{flex-direction:column}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                    styles: [":host{overflow:scroll;width:100%;background-color:#e7e7e7}.document{width:100%;transition:.4s;padding:0;margin:0;position:relative}.sheets{background-color:#fff;display:flex;border-top:1px solid #e7e7e7;position:fixed;bottom:17px;right:17px;width:100%}.sheets ::ng-deep gd-button.active .text{background-color:#272727;border-radius:10px;color:#eee}.sheets ::ng-deep gd-button .text{padding:1px 12px;color:#000}.sheets ::ng-deep gd-button fa-icon{display:none}.sheets-wrapper{margin-left:29px;display:flex}.page{position:relative;display:inline-block;transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}.highlights{position:absolute;top:0;left:0;bottom:0;right:0}.page-grid-lines{background-color:#fff}@media (max-width:1037px){.document{overflow-x:auto!important}.panzoom{flex-direction:column}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -2171,6 +2732,19 @@ var ExcelDocumentComponent = /** @class */ (function (_super) {
     };
     return ExcelDocumentComponent;
 }(DocumentComponent));
+if (false) {
+    /** @type {?} */
+    ExcelDocumentComponent.prototype.pages;
+    /** @type {?} */
+    ExcelDocumentComponent.prototype.currentPageNo;
+    /** @type {?} */
+    ExcelDocumentComponent.prototype.panzoom;
+    /**
+     * @type {?}
+     * @private
+     */
+    ExcelDocumentComponent.prototype._navigateService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2187,7 +2761,7 @@ var PageComponent = /** @class */ (function () {
      */
     function () {
         /** @type {?} */
-        var isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        var isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         if (isIE && this.number === 0) {
             this.editable = false;
         }
@@ -2203,7 +2777,12 @@ var PageComponent = /** @class */ (function () {
     function (changes) {
         // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
         // which leads to undesired spaces on the top of the docs pages
-        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
+        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><')
+            .replace(/\uFEFF/g, "")
+            .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+            .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+            .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
+            : null;
         /** @type {?} */
         var dataImagePngBase64 = 'data:image/png;base64,';
         this.imgData = dataImagePngBase64;
@@ -2215,7 +2794,7 @@ var PageComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-page',
                     template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
-                    styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}"]
+                    styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
                 }] }
     ];
     /** @nocollapse */
@@ -2231,6 +2810,24 @@ var PageComponent = /** @class */ (function () {
     };
     return PageComponent;
 }());
+if (false) {
+    /** @type {?} */
+    PageComponent.prototype.angle;
+    /** @type {?} */
+    PageComponent.prototype.width;
+    /** @type {?} */
+    PageComponent.prototype.height;
+    /** @type {?} */
+    PageComponent.prototype.number;
+    /** @type {?} */
+    PageComponent.prototype.data;
+    /** @type {?} */
+    PageComponent.prototype.isHtml;
+    /** @type {?} */
+    PageComponent.prototype.editable;
+    /** @type {?} */
+    PageComponent.prototype.imgData;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2260,6 +2857,13 @@ var SanitizeHtmlPipe = /** @class */ (function () {
     ]; };
     return SanitizeHtmlPipe;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SanitizeHtmlPipe.prototype.sanitizer;
+}
 var SanitizeResourceHtmlPipe = /** @class */ (function () {
     function SanitizeResourceHtmlPipe(sanitizer) {
         this.sanitizer = sanitizer;
@@ -2284,6 +2888,13 @@ var SanitizeResourceHtmlPipe = /** @class */ (function () {
     ]; };
     return SanitizeResourceHtmlPipe;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SanitizeResourceHtmlPipe.prototype.sanitizer;
+}
 var SanitizeStylePipe = /** @class */ (function () {
     function SanitizeStylePipe(sanitizer) {
         this.sanitizer = sanitizer;
@@ -2308,6 +2919,13 @@ var SanitizeStylePipe = /** @class */ (function () {
     ]; };
     return SanitizeStylePipe;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SanitizeStylePipe.prototype.sanitizer;
+}
 var HighlightSearchPipe = /** @class */ (function () {
     function HighlightSearchPipe() {
     }
@@ -2402,6 +3020,15 @@ var UploadFileZoneComponent = /** @class */ (function () {
     };
     return UploadFileZoneComponent;
 }());
+if (false) {
+    /** @type {?} */
+    UploadFileZoneComponent.prototype.closeUpload;
+    /**
+     * @type {?}
+     * @private
+     */
+    UploadFileZoneComponent.prototype._uploadService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2526,6 +3153,26 @@ var DndDirective = /** @class */ (function () {
     };
     return DndDirective;
 }());
+if (false) {
+    /** @type {?} */
+    DndDirective.prototype.closing;
+    /** @type {?} */
+    DndDirective.prototype.opening;
+    /** @type {?} */
+    DndDirective.prototype.dropped;
+    /** @type {?} */
+    DndDirective.prototype.active;
+    /**
+     * @type {?}
+     * @private
+     */
+    DndDirective.prototype.dragCounter;
+    /**
+     * @type {?}
+     * @protected
+     */
+    DndDirective.prototype._uploadFilesService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2629,6 +3276,7 @@ var ScrollableDirective = /** @class */ (function () {
         this._windowService = _windowService;
         this._viewportService = _viewportService;
         this.zoom = 100;
+        this.loadedPagesSet = new Set();
         this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
         _zoomService.zoomChange.subscribe((/**
          * @param {?} val
@@ -2810,7 +3458,10 @@ var ScrollableDirective = /** @class */ (function () {
                     }
                     currentPageSet = true;
                 }
-                this._pagePreloadService.changeLastPageInView(page);
+                if (!this.loadedPagesSet.has(page)) {
+                    this._pagePreloadService.changeLastPageInView(page);
+                    this.loadedPagesSet.add(page);
+                }
             }
         }
     };
@@ -2876,6 +3527,53 @@ var ScrollableDirective = /** @class */ (function () {
     };
     return ScrollableDirective;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype.currentPage;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype.zoom;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype.loadedPagesSet;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._navigateService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._pagePreloadService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._viewportService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2988,6 +3686,19 @@ var ZoomDirective = /** @class */ (function () {
     };
     /**
      * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    ZoomDirective.prototype.getScrollHeight = /**
+     * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    function (elm) {
+        return elm.offsetHeight - elm.clientHeight;
+    };
+    /**
+     * @private
      * @param {?} zoom
      * @return {?}
      */
@@ -3002,8 +3713,13 @@ var ZoomDirective = /** @class */ (function () {
         /** @type {?} */
         var viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
         /** @type {?} */
+        var viewPortHeight = this.el.nativeElement.parentElement.offsetHeight;
+        /** @type {?} */
         var scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+        /** @type {?} */
+        var scrollHeight = this.getScrollHeight(this.el.nativeElement.parentElement);
         this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
+        this.height = (viewPortHeight / zoomInt - scrollHeight / zoomInt) + 'px';
     };
     /**
      * @return {?}
@@ -3032,10 +3748,41 @@ var ZoomDirective = /** @class */ (function () {
         transform: [{ type: HostBinding, args: ['style.transform',] }],
         transformOrigin: [{ type: HostBinding, args: ['style.transform-origin',] }],
         width: [{ type: HostBinding, args: ['style.width',] }],
+        height: [{ type: HostBinding, args: ['style.height',] }],
         minWidth: [{ type: HostBinding, args: ['style.min-width',] }]
     };
     return ZoomDirective;
 }());
+if (false) {
+    /** @type {?} */
+    ZoomDirective.prototype.zoomActive;
+    /** @type {?} */
+    ZoomDirective.prototype.file;
+    /** @type {?} */
+    ZoomDirective.prototype.zoomInt;
+    /** @type {?} */
+    ZoomDirective.prototype.transform;
+    /** @type {?} */
+    ZoomDirective.prototype.transformOrigin;
+    /** @type {?} */
+    ZoomDirective.prototype.width;
+    /** @type {?} */
+    ZoomDirective.prototype.height;
+    /** @type {?} */
+    ZoomDirective.prototype.minWidth;
+    /** @type {?} */
+    ZoomDirective.prototype.el;
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoomDirective.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoomDirective.prototype._windowService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3077,11 +3824,35 @@ var OnCloseService = /** @class */ (function () {
     /** @nocollapse */ OnCloseService.ngInjectableDef = ɵɵdefineInjectable({ factory: function OnCloseService_Factory() { return new OnCloseService(); }, token: OnCloseService, providedIn: "root" });
     return OnCloseService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    OnCloseService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    OnCloseService.prototype._onClose;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function Option() { }
+if (false) {
+    /** @type {?} */
+    Option.prototype.name;
+    /** @type {?} */
+    Option.prototype.value;
+    /** @type {?} */
+    Option.prototype.separator;
+}
 var SelectComponent = /** @class */ (function () {
     function SelectComponent(_onCloseService) {
         var _this = this;
@@ -3179,6 +3950,23 @@ var SelectComponent = /** @class */ (function () {
     };
     return SelectComponent;
 }());
+if (false) {
+    /** @type {?} */
+    SelectComponent.prototype.options;
+    /** @type {?} */
+    SelectComponent.prototype.disabled;
+    /** @type {?} */
+    SelectComponent.prototype.showSelected;
+    /** @type {?} */
+    SelectComponent.prototype.selected;
+    /** @type {?} */
+    SelectComponent.prototype.isOpen;
+    /**
+     * @type {?}
+     * @protected
+     */
+    SelectComponent.prototype._onCloseService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3231,6 +4019,12 @@ var DisabledCursorDirective = /** @class */ (function () {
     };
     return DisabledCursorDirective;
 }());
+if (false) {
+    /** @type {?} */
+    DisabledCursorDirective.prototype.dis;
+    /** @type {?} */
+    DisabledCursorDirective.prototype.cursor;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3338,6 +4132,26 @@ var RotationDirective = /** @class */ (function () {
     };
     return RotationDirective;
 }());
+if (false) {
+    /** @type {?} */
+    RotationDirective.prototype.angle;
+    /** @type {?} */
+    RotationDirective.prototype.isHtmlMode;
+    /** @type {?} */
+    RotationDirective.prototype.width;
+    /** @type {?} */
+    RotationDirective.prototype.height;
+    /** @type {?} */
+    RotationDirective.prototype.withMargin;
+    /** @type {?} */
+    RotationDirective.prototype.animation;
+    /** @type {?} */
+    RotationDirective.prototype.transition;
+    /** @type {?} */
+    RotationDirective.prototype.transform;
+    /** @type {?} */
+    RotationDirective.prototype.margin;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3386,6 +4200,16 @@ var InitStateComponent = /** @class */ (function () {
     };
     return InitStateComponent;
 }());
+if (false) {
+    /** @type {?} */
+    InitStateComponent.prototype.icon;
+    /** @type {?} */
+    InitStateComponent.prototype.text;
+    /** @type {?} */
+    InitStateComponent.prototype.fileDropped;
+    /** @type {?} */
+    InitStateComponent.prototype.showUploadFile;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3453,6 +4277,28 @@ var RenderPrintService = /** @class */ (function () {
     };
     return RenderPrintService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintService.prototype._render;
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintService.prototype._renderBlob;
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintService.prototype._observerBlob;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3604,6 +4450,15 @@ var RenderPrintDirective = /** @class */ (function () {
     };
     return RenderPrintDirective;
 }());
+if (false) {
+    /** @type {?} */
+    RenderPrintDirective.prototype.htmlMode;
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintDirective.prototype._renderService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3637,6 +4492,18 @@ var ExceptionMessageService = /** @class */ (function () {
     };
     return ExceptionMessageService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ExceptionMessageService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    ExceptionMessageService.prototype._messageChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3672,6 +4539,10 @@ var ErrorModalComponent = /** @class */ (function () {
     ]; };
     return ErrorModalComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ErrorModalComponent.prototype.message;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3705,6 +4576,18 @@ var PasswordService = /** @class */ (function () {
     };
     return PasswordService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    PasswordService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    PasswordService.prototype._passChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3783,7 +4666,7 @@ var PasswordRequiredComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-password-required',
                     template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\r\n  <section id=\"gd-password-section\">\r\n    <div class=\"gd-password-wrap\">\r\n      <label for=\"password\">Password</label>\r\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\r\n             (keyup.enter)=\"setPassword(pass.value)\">\r\n      <span class=\"gd-password-error\">{{message}}</span>\r\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\r\n          Open\r\n      </gd-button>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                    styles: ["#gd-password-section{width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
+                    styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -3796,6 +4679,17 @@ var PasswordRequiredComponent = /** @class */ (function () {
     };
     return PasswordRequiredComponent;
 }());
+if (false) {
+    /** @type {?} */
+    PasswordRequiredComponent.prototype.message;
+    /** @type {?} */
+    PasswordRequiredComponent.prototype.cancelEvent;
+    /**
+     * @type {?}
+     * @private
+     */
+    PasswordRequiredComponent.prototype._passwordService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3874,6 +4768,18 @@ var ErrorInterceptorService = /** @class */ (function () {
     /** @nocollapse */ ErrorInterceptorService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorInterceptorService_Factory() { return new ErrorInterceptorService(ɵɵinject(ModalService), ɵɵinject(ExceptionMessageService)); }, token: ErrorInterceptorService, providedIn: "root" });
     return ErrorInterceptorService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ErrorInterceptorService.prototype._modalService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ErrorInterceptorService.prototype._messageService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3953,6 +4859,38 @@ var SearchService = /** @class */ (function () {
     };
     return SearchService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._textChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._observerCurrent;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._currentChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._observerTotal;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._totalChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4061,6 +4999,21 @@ var SearchComponent = /** @class */ (function () {
     };
     return SearchComponent;
 }());
+if (false) {
+    /** @type {?} */
+    SearchComponent.prototype.hidePanel;
+    /** @type {?} */
+    SearchComponent.prototype.current;
+    /** @type {?} */
+    SearchComponent.prototype.total;
+    /** @type {?} */
+    SearchComponent.prototype.textElement;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchComponent.prototype._searchService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4258,6 +5211,39 @@ var SearchableDirective = /** @class */ (function () {
     ]; };
     return SearchableDirective;
 }());
+if (false) {
+    /** @type {?} */
+    SearchableDirective.prototype.text;
+    /** @type {?} */
+    SearchableDirective.prototype.current;
+    /** @type {?} */
+    SearchableDirective.prototype.total;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype.zoom;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._searchService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._highlight;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._zoomService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4289,6 +5275,12 @@ var TabbedToolbarsComponent = /** @class */ (function () {
     };
     return TabbedToolbarsComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TabbedToolbarsComponent.prototype.logo;
+    /** @type {?} */
+    TabbedToolbarsComponent.prototype.icon;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4322,6 +5314,18 @@ var TabActivatorService = /** @class */ (function () {
     };
     return TabActivatorService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    TabActivatorService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    TabActivatorService.prototype._activeTabChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4384,7 +5388,7 @@ var TabComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-tab',
                     template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
+                    styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px;width:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -4401,6 +5405,25 @@ var TabComponent = /** @class */ (function () {
     };
     return TabComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TabComponent.prototype.id;
+    /** @type {?} */
+    TabComponent.prototype.tabTitle;
+    /** @type {?} */
+    TabComponent.prototype.icon;
+    /** @type {?} */
+    TabComponent.prototype.disabled;
+    /** @type {?} */
+    TabComponent.prototype.active;
+    /** @type {?} */
+    TabComponent.prototype.content;
+    /**
+     * @type {?}
+     * @private
+     */
+    TabComponent.prototype._tabActivatorService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4449,6 +5472,28 @@ var Formatting = /** @class */ (function () {
     };
     return Formatting;
 }());
+if (false) {
+    /** @type {?} */
+    Formatting.prototype.bold;
+    /** @type {?} */
+    Formatting.prototype.italic;
+    /** @type {?} */
+    Formatting.prototype.underline;
+    /** @type {?} */
+    Formatting.prototype.fontSize;
+    /** @type {?} */
+    Formatting.prototype.color;
+    /** @type {?} */
+    Formatting.prototype.bgColor;
+    /** @type {?} */
+    Formatting.prototype.font;
+    /** @type {?} */
+    Formatting.prototype.strikeout;
+    /** @type {?} */
+    Formatting.prototype.align;
+    /** @type {?} */
+    Formatting.prototype.list;
+}
 var FormattingService = /** @class */ (function () {
     function FormattingService() {
         this._observerBold = new Subject();
@@ -4789,6 +5834,128 @@ var FormattingService = /** @class */ (function () {
     };
     return FormattingService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerBold;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatBoldChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerUnderline;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatUnderlineChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerUndo;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._undo;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerRedo;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._redo;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerItalic;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatItalicChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerColor;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatColorChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerBgColor;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatBgColorChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerFontSize;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatFontSizeChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerFont;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatFontChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerStrikeout;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatStrikeoutChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerAlign;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatAlignChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerList;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatListChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4862,6 +6029,18 @@ var ColorPickerComponent = /** @class */ (function () {
     };
     return ColorPickerComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ColorPickerComponent.prototype.isOpen;
+    /** @type {?} */
+    ColorPickerComponent.prototype.selectedColor;
+    /** @type {?} */
+    ColorPickerComponent.prototype.closeOutside;
+    /** @type {?} */
+    ColorPickerComponent.prototype.colors;
+    /** @type {?} */
+    ColorPickerComponent.prototype.white;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4889,7 +6068,7 @@ var BackFormattingService = /** @class */ (function (_super) {
  */
 var SelectionService = /** @class */ (function () {
     function SelectionService() {
-        this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     }
     /**
      * @return {?}
@@ -4949,6 +6128,12 @@ var SelectionService = /** @class */ (function () {
     /** @nocollapse */ SelectionService.ngInjectableDef = ɵɵdefineInjectable({ factory: function SelectionService_Factory() { return new SelectionService(); }, token: SelectionService, providedIn: "root" });
     return SelectionService;
 }());
+if (false) {
+    /** @type {?} */
+    SelectionService.prototype.selection;
+    /** @type {?} */
+    SelectionService.prototype.isIE;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4966,7 +6151,7 @@ var FormattingDirective = /** @class */ (function () {
         this.underline = false;
         this.strikeout = false;
         this.isIE = false;
-        this.isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        this.isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     }
     /**
      * @return {?}
@@ -5420,6 +6605,73 @@ var FormattingDirective = /** @class */ (function () {
     };
     return FormattingDirective;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.bold;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.italic;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.underline;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.color;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.bgColor;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.font;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.strikeout;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.align;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.list;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.isIE;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype._formattingService;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype._backFormattingService;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype._selectionService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5487,6 +6739,18 @@ var EditHtmlService = /** @class */ (function () {
     /** @nocollapse */ EditHtmlService.ngInjectableDef = ɵɵdefineInjectable({ factory: function EditHtmlService_Factory() { return new EditHtmlService(); }, token: EditHtmlService, providedIn: "root" });
     return EditHtmlService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    EditHtmlService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditHtmlService.prototype._htmlContent;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5496,7 +6760,7 @@ var EditorDirective = /** @class */ (function () {
     function EditorDirective(_selectionService, _htmlService) {
         this._selectionService = _selectionService;
         this._htmlService = _htmlService;
-        this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     }
     /**
      * @param {?} event
@@ -5569,6 +6833,25 @@ var EditorDirective = /** @class */ (function () {
     };
     return EditorDirective;
 }());
+if (false) {
+    /** @type {?} */
+    EditorDirective.prototype.text;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditorDirective.prototype.isIE;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditorDirective.prototype._selectionService;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditorDirective.prototype._htmlService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5581,6 +6864,9 @@ var LoadingMaskService = /** @class */ (function () {
         this.requests = [];
         this.stopList.push(Api.SAVE_TEXT);
         this.stopList.push(Api.SAVE_OPTICAL_CODE);
+        this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
+        this.stopList.push(Api.LOAD_THUMBNAILS);
+        this.stopList.push(Api.GET_FILE_STATUS);
     }
     /**
      * @param {?} req
@@ -5636,6 +6922,20 @@ var LoadingMaskService = /** @class */ (function () {
     LoadingMaskService.ctorParameters = function () { return []; };
     return LoadingMaskService;
 }());
+if (false) {
+    /** @type {?} */
+    LoadingMaskService.prototype.onLoadingChanged;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingMaskService.prototype.stopList;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingMaskService.prototype.requests;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5686,6 +6986,15 @@ var LoadingMaskComponent = /** @class */ (function () {
     };
     return LoadingMaskComponent;
 }());
+if (false) {
+    /** @type {?} */
+    LoadingMaskComponent.prototype.loadingMask;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingMaskComponent.prototype._loadingMaskService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5727,6 +7036,13 @@ var LoadingMaskInterceptorService = /** @class */ (function () {
     /** @nocollapse */ LoadingMaskInterceptorService.ngInjectableDef = ɵɵdefineInjectable({ factory: function LoadingMaskInterceptorService_Factory() { return new LoadingMaskInterceptorService(ɵɵinject(LoadingMaskService)); }, token: LoadingMaskInterceptorService, providedIn: "root" });
     return LoadingMaskInterceptorService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingMaskInterceptorService.prototype._loadingMaskService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5790,6 +7106,12 @@ var DropDownToggleComponent = /** @class */ (function () {
     };
     return DropDownToggleComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DropDownToggleComponent.prototype.click;
+    /** @type {?} */
+    DropDownToggleComponent.prototype.dropdown;
+}
 /**
  *  DropDownItemsComponent
  */
@@ -5855,6 +7177,10 @@ var DropDownItemsComponent = /** @class */ (function () {
     ]; };
     return DropDownItemsComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DropDownItemsComponent.prototype.dropdown;
+}
 /**
  *  DropDownItemComponent
  */
@@ -5900,6 +7226,16 @@ var DropDownItemComponent = /** @class */ (function () {
     };
     return DropDownItemComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DropDownItemComponent.prototype.class;
+    /** @type {?} */
+    DropDownItemComponent.prototype.selected;
+    /** @type {?} */
+    DropDownItemComponent.prototype.click;
+    /** @type {?} */
+    DropDownItemComponent.prototype.dropdown;
+}
 /**
  *  DropDownComponent
  */
@@ -5958,6 +7294,14 @@ var DropDownComponent = /** @class */ (function () {
     };
     return DropDownComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DropDownComponent.prototype.placement;
+    /** @type {?} */
+    DropDownComponent.prototype.open;
+    /** @type {?} */
+    DropDownComponent.prototype.class;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5989,6 +7333,10 @@ var LeftSideBarComponent = /** @class */ (function () {
     };
     return LeftSideBarComponent;
 }());
+if (false) {
+    /** @type {?} */
+    LeftSideBarComponent.prototype.showSpinner;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6030,6 +7378,10 @@ var TooltipDirective = /** @class */ (function () {
     };
     return TooltipDirective;
 }());
+if (false) {
+    /** @type {?} */
+    TooltipDirective.prototype.showToolTip;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6077,6 +7429,18 @@ var AddDynamicComponentService = /** @class */ (function () {
     /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(ɵɵinject(ComponentFactoryResolver), ɵɵinject(ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
     return AddDynamicComponentService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    AddDynamicComponentService.prototype._factoryResolver;
+    /**
+     * @type {?}
+     * @private
+     */
+    AddDynamicComponentService.prototype._appRef;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6140,6 +7504,13 @@ var HostingDynamicComponentService = /** @class */ (function () {
     };
     return HostingDynamicComponentService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    HostingDynamicComponentService.prototype.hosts;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6184,6 +7555,17 @@ var HostDynamicDirective = /** @class */ (function () {
     };
     return HostDynamicDirective;
 }());
+if (false) {
+    /** @type {?} */
+    HostDynamicDirective.prototype.ident;
+    /** @type {?} */
+    HostDynamicDirective.prototype.viewContainerRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    HostDynamicDirective.prototype._hostingService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6395,6 +7777,52 @@ var ResizingComponent = /** @class */ (function () {
     };
     return ResizingComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ResizingComponent.prototype.init;
+    /** @type {?} */
+    ResizingComponent.prototype.id;
+    /** @type {?} */
+    ResizingComponent.prototype.se;
+    /** @type {?} */
+    ResizingComponent.prototype.ne;
+    /** @type {?} */
+    ResizingComponent.prototype.sw;
+    /** @type {?} */
+    ResizingComponent.prototype.nw;
+    /** @type {?} */
+    ResizingComponent.prototype.pageWidth;
+    /** @type {?} */
+    ResizingComponent.prototype.pageHeight;
+    /** @type {?} */
+    ResizingComponent.prototype.SE;
+    /** @type {?} */
+    ResizingComponent.prototype.NE;
+    /** @type {?} */
+    ResizingComponent.prototype.SW;
+    /** @type {?} */
+    ResizingComponent.prototype.NW;
+    /** @type {?} */
+    ResizingComponent.prototype.offsetX;
+    /** @type {?} */
+    ResizingComponent.prototype.offsetY;
+    /** @type {?} */
+    ResizingComponent.prototype.offsetTop;
+    /** @type {?} */
+    ResizingComponent.prototype.offsetLeft;
+    /** @type {?} */
+    ResizingComponent.prototype.release;
+    /**
+     * @type {?}
+     * @private
+     */
+    ResizingComponent.prototype.grab;
+    /**
+     * @type {?}
+     * @private
+     */
+    ResizingComponent.prototype.oldPosition;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6420,6 +7848,7 @@ var TopTabComponent = /** @class */ (function () {
         this._excMessageService = _excMessageService;
         this.disabled = false;
         this.activeTab = new EventEmitter();
+        this.elementPosition = 0;
         this.active = false;
         this.showToolTip = false;
         this._tabActivatorService.activeTabChange.subscribe((/**
@@ -6482,8 +7911,8 @@ var TopTabComponent = /** @class */ (function () {
     TopTabComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-top-tab',
-                    template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\"\r\n              *ngIf=\"tooltip\"></gd-tooltip>\r\n</div>\r\n",
-                    styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
+                    template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" class=\"gd-tab-tooltip\"\r\n              *ngIf=\"tooltip\" [position]=\"elementPosition\"></gd-tooltip>\r\n</div>\r\n",
+                    styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:flex;flex-direction:column;align-items:center;align-content:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab .gd-tab-tooltip{display:flex;flex-direction:column;margin:0!important}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -6497,10 +7926,44 @@ var TopTabComponent = /** @class */ (function () {
         icon: [{ type: Input }],
         disabled: [{ type: Input }],
         tooltip: [{ type: Input }],
-        activeTab: [{ type: Output }]
+        activeTab: [{ type: Output }],
+        elementPosition: [{ type: Input }]
     };
     return TopTabComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TopTabComponent.prototype.id;
+    /** @type {?} */
+    TopTabComponent.prototype.icon;
+    /** @type {?} */
+    TopTabComponent.prototype.disabled;
+    /** @type {?} */
+    TopTabComponent.prototype.tooltip;
+    /** @type {?} */
+    TopTabComponent.prototype.activeTab;
+    /** @type {?} */
+    TopTabComponent.prototype.elementPosition;
+    /** @type {?} */
+    TopTabComponent.prototype.active;
+    /** @type {?} */
+    TopTabComponent.prototype.showToolTip;
+    /**
+     * @type {?}
+     * @private
+     */
+    TopTabComponent.prototype._tabActivatorService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TopTabComponent.prototype._modalService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TopTabComponent.prototype._excMessageService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6509,10 +7972,15 @@ var TopTabComponent = /** @class */ (function () {
 /** @type {?} */
 var $$8 = jquery;
 var TextMenuComponent = /** @class */ (function () {
-    function TextMenuComponent(_onCloseService) {
+    function TextMenuComponent(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
         var _this = this;
         this._onCloseService = _onCloseService;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
         this.decoration = true;
+        this.showTooltips = true;
         this.outFontSize = new EventEmitter();
         this.outFont = new EventEmitter();
         this.outBold = new EventEmitter();
@@ -6528,6 +7996,23 @@ var TextMenuComponent = /** @class */ (function () {
         function () {
             _this.colorPickerShow = false;
         }));
+        this.isMobile = _windowService.isMobile();
+        _windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        function (w) {
+            _this.isMobile = _windowService.isMobile();
+        }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            if (_this.isMobile) {
+                _this.changePosition(val);
+            }
+        }));
     }
     /**
      * @return {?}
@@ -6536,6 +8021,23 @@ var TextMenuComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
+    };
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    TextMenuComponent.prototype.changePosition = /**
+     * @param {?} val
+     * @return {?}
+     */
+    function (val) {
+        /** @type {?} */
+        var top = (window.innerHeight - 24 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
+        /** @type {?} */
+        var left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
     };
     /**
      * @param {?} $event
@@ -6653,13 +8155,17 @@ var TextMenuComponent = /** @class */ (function () {
     TextMenuComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-text-menu',
-                    template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"'Bold'\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"'Italic'\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"'Underline'\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"'Color'\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;bottom:0;left:0;right:0;width:100%;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-200px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
+                    template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;left:0;right:0;width:inherit;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070;transform-origin:top left;z-index:1000}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-185px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu{left:0}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
                 }] }
     ];
     /** @nocollapse */
     TextMenuComponent.ctorParameters = function () { return [
-        { type: OnCloseService }
+        { type: OnCloseService },
+        { type: ZoomService },
+        { type: WindowService },
+        { type: ElementRef },
+        { type: Renderer2 }
     ]; };
     TextMenuComponent.propDecorators = {
         blur: [{ type: Input }],
@@ -6670,6 +8176,7 @@ var TextMenuComponent = /** @class */ (function () {
         underline: [{ type: Input }],
         color: [{ type: Input }],
         decoration: [{ type: Input }],
+        showTooltips: [{ type: Input }],
         outFontSize: [{ type: Output }],
         outFont: [{ type: Output }],
         outBold: [{ type: Output }],
@@ -6679,6 +8186,71 @@ var TextMenuComponent = /** @class */ (function () {
     };
     return TextMenuComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TextMenuComponent.prototype.blur;
+    /** @type {?} */
+    TextMenuComponent.prototype.fontSize;
+    /** @type {?} */
+    TextMenuComponent.prototype.font;
+    /** @type {?} */
+    TextMenuComponent.prototype.bold;
+    /** @type {?} */
+    TextMenuComponent.prototype.italic;
+    /** @type {?} */
+    TextMenuComponent.prototype.underline;
+    /** @type {?} */
+    TextMenuComponent.prototype.color;
+    /** @type {?} */
+    TextMenuComponent.prototype.decoration;
+    /** @type {?} */
+    TextMenuComponent.prototype.showTooltips;
+    /** @type {?} */
+    TextMenuComponent.prototype.outFontSize;
+    /** @type {?} */
+    TextMenuComponent.prototype.outFont;
+    /** @type {?} */
+    TextMenuComponent.prototype.outBold;
+    /** @type {?} */
+    TextMenuComponent.prototype.outItalic;
+    /** @type {?} */
+    TextMenuComponent.prototype.outUnderline;
+    /** @type {?} */
+    TextMenuComponent.prototype.outColor;
+    /** @type {?} */
+    TextMenuComponent.prototype.fontSizeOptions;
+    /** @type {?} */
+    TextMenuComponent.prototype.fontOptions;
+    /** @type {?} */
+    TextMenuComponent.prototype.colorPickerShow;
+    /** @type {?} */
+    TextMenuComponent.prototype.isMobile;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype._onCloseService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @protected
+     */
+    TextMenuComponent.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype.renderer;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6691,10 +8263,19 @@ var MenuType = /** @class */ (function () {
     MenuType.FOR_ANNOTATION = "annotation";
     return MenuType;
 }());
+if (false) {
+    /** @type {?} */
+    MenuType.FOR_SIGNATURE;
+    /** @type {?} */
+    MenuType.FOR_ANNOTATION;
+}
 var ContextMenuComponent = /** @class */ (function () {
-    function ContextMenuComponent(_windowService) {
+    function ContextMenuComponent(_windowService, _zoomService, _elementRef, renderer) {
         var _this = this;
         this._windowService = _windowService;
+        this._zoomService = _zoomService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
         this.formatting = Formatting.default();
         this.lock = false;
         this.translation = 0;
@@ -6711,6 +8292,15 @@ var ContextMenuComponent = /** @class */ (function () {
         function (w) {
             _this.isMobile = _windowService.isMobile();
         }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            if (_this.isMobile) {
+                _this.changeScale(val);
+            }
+        }));
     }
     /**
      * @return {?}
@@ -6719,6 +8309,17 @@ var ContextMenuComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
+    };
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.changeScale = /**
+     * @param {?} val
+     * @return {?}
+     */
+    function (val) {
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1 / (val / 100) + ')');
     };
     /**
      * @return {?}
@@ -6860,12 +8461,15 @@ var ContextMenuComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-context-menu',
                     template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\" (touchstart)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
-                    styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-34px}}"]
+                    styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-42px;transform-origin:bottom center}}"]
                 }] }
     ];
     /** @nocollapse */
     ContextMenuComponent.ctorParameters = function () { return [
-        { type: WindowService }
+        { type: WindowService },
+        { type: ZoomService },
+        { type: ElementRef },
+        { type: Renderer2 }
     ]; };
     ContextMenuComponent.propDecorators = {
         formatting: [{ type: Input }],
@@ -6882,6 +8486,52 @@ var ContextMenuComponent = /** @class */ (function () {
     };
     return ContextMenuComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ContextMenuComponent.prototype.formatting;
+    /** @type {?} */
+    ContextMenuComponent.prototype.textMenu;
+    /** @type {?} */
+    ContextMenuComponent.prototype.topPosition;
+    /** @type {?} */
+    ContextMenuComponent.prototype.lock;
+    /** @type {?} */
+    ContextMenuComponent.prototype.translation;
+    /** @type {?} */
+    ContextMenuComponent.prototype.menuType;
+    /** @type {?} */
+    ContextMenuComponent.prototype.changeFormatting;
+    /** @type {?} */
+    ContextMenuComponent.prototype.removeItem;
+    /** @type {?} */
+    ContextMenuComponent.prototype.copySign;
+    /** @type {?} */
+    ContextMenuComponent.prototype.lockOut;
+    /** @type {?} */
+    ContextMenuComponent.prototype.comment;
+    /** @type {?} */
+    ContextMenuComponent.prototype.isMobile;
+    /**
+     * @type {?}
+     * @private
+     */
+    ContextMenuComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ContextMenuComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @protected
+     */
+    ContextMenuComponent.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ContextMenuComponent.prototype.renderer;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -7033,6 +8683,16 @@ var CommonComponentsModule = /** @class */ (function () {
     CommonComponentsModule.ctorParameters = function () { return []; };
     return CommonComponentsModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExcelDocumentComponent, ExcelPageComponent, ExcelPageService, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

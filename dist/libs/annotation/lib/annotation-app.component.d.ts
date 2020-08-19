@@ -1,11 +1,12 @@
-import { OnInit } from '@angular/core';
+import { ComponentRef, OnInit } from '@angular/core';
 import { AnnotationConfig } from "./annotation-config";
 import { AnnotationService } from "./annotation.service";
-import { AddDynamicComponentService, FileCredentials, FileModel, HostingDynamicComponentService, ModalService, NavigateService, PagePreloadService, PasswordService, TopTabActivatorService, UploadFilesService, WindowService } from "@groupdocs.examples.angular/common-components";
+import { AddDynamicComponentService, FileCredentials, FileModel, HostingDynamicComponentService, ModalService, NavigateService, PagePreloadService, PasswordService, TopTabActivatorService, UploadFilesService, WindowService, ZoomService } from "@groupdocs.examples.angular/common-components";
 import { Comment, FileAnnotationDescription } from "./annotation-models";
 import { ActiveAnnotationService } from "./active-annotation.service";
 import { RemoveAnnotationService } from "./remove-annotation.service";
 import { CommentAnnotationService } from "./comment-annotation.service";
+import { AnnotationConfigService } from "./annotation-config.service";
 export declare class AnnotationAppComponent implements OnInit {
     private _annotationService;
     private _modalService;
@@ -15,8 +16,9 @@ export declare class AnnotationAppComponent implements OnInit {
     private _addDynamicComponentService;
     private _activeAnnotationService;
     private _removeAnnotationService;
-    private _commentAnnotationService;
+    _commentAnnotationService: CommentAnnotationService;
     private _windowService;
+    private _zoomService;
     title: string;
     files: FileModel[];
     file: FileAnnotationDescription;
@@ -49,12 +51,15 @@ export declare class AnnotationAppComponent implements OnInit {
     countPages: number;
     commentOpenedId: number;
     comments: Map<number, Comment[]>;
+    _zoom: number;
+    _pageWidth: number;
+    _pageHeight: number;
     private activeAnnotationTab;
     private fileWasDropped;
-    private annotations;
+    annotations: Map<number, ComponentRef<any>>;
     private creatingAnnotationId;
     private activeAnnotationId;
-    constructor(_annotationService: AnnotationService, _modalService: ModalService, _navigateService: NavigateService, _tabActivatorService: TopTabActivatorService, _hostingComponentsService: HostingDynamicComponentService, _addDynamicComponentService: AddDynamicComponentService, _activeAnnotationService: ActiveAnnotationService, _removeAnnotationService: RemoveAnnotationService, _commentAnnotationService: CommentAnnotationService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, passwordService: PasswordService, _windowService: WindowService);
+    constructor(_annotationService: AnnotationService, _modalService: ModalService, _navigateService: NavigateService, _tabActivatorService: TopTabActivatorService, _hostingComponentsService: HostingDynamicComponentService, _addDynamicComponentService: AddDynamicComponentService, _activeAnnotationService: ActiveAnnotationService, _removeAnnotationService: RemoveAnnotationService, _commentAnnotationService: CommentAnnotationService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, passwordService: PasswordService, _windowService: WindowService, _zoomService: ZoomService, configService: AnnotationConfigService);
     getComments(): Comment[];
     readonly rewriteConfig: boolean;
     readonly zoomConfig: boolean;
@@ -82,6 +87,12 @@ export declare class AnnotationAppComponent implements OnInit {
     readonly textUnderlineAnnotationConfig: boolean;
     readonly distanceAnnotationConfig: boolean;
     ngOnInit(): void;
+    private ptToPx;
+    private getFitToWidth;
+    zoom: any;
+    private refreshZoom;
+    zoomIn(): void;
+    zoomOut(): void;
     openModal(id: string): void;
     closeModal(id: string): void;
     selectDir($event: string): void;
@@ -92,6 +103,7 @@ export declare class AnnotationAppComponent implements OnInit {
     onRightClick($event: MouseEvent): boolean;
     downloadFile(): void;
     annotate(): void;
+    prepareAnnotationsData(): any[];
     isVisible(id: string): string | boolean;
     activeTab($event: any): void;
     codesConfigFirst(): boolean;
@@ -108,5 +120,6 @@ export declare class AnnotationAppComponent implements OnInit {
     private getCurrentPosition;
     finishCreatingAnnotation($event: MouseEvent): void;
     closeComments(): void;
+    onPan($event: any): void;
     private getNextId;
 }

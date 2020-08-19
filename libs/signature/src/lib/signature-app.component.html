@@ -6,20 +6,24 @@
         <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
           <div id="files-tools" class="toolbar-panel">
             <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
-                       *ngIf="browseConfig"></gd-button>
+                       *ngIf="browseConfig" [elementPosition]="-1"></gd-button>
 
             <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                        (click)="downloadFile()" *ngIf="downloadConfig"></gd-button>
             <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="sign()"></gd-button>
-
+            <gd-button class="desktop-hide" [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'"
+            (click)="zoomIn()" *ngIf="zoomConfig"></gd-button>
+            <gd-button class="desktop-hide" [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
+            (click)="zoomOut()" *ngIf="zoomConfig"></gd-button>
           </div>
         </gd-tab>
         <gd-tab [tabTitle]="'Signatures'" [icon]="'signature'" [id]="'2'">
           <div class="toolbar-panel">
             <div *ngFor="let signatureType of signatureTypes">
               <gd-top-tab [disabled]="!file" *ngIf="isVisible(signatureType.id)"
-                                [icon]="signatureType.icon" (activeTab)="activeTab($event)"
-                                [id]="signatureType.id" [tooltip]="signatureType.name">
+                          [icon]="signatureType.icon" (activeTab)="activeTab($event)"
+                          [id]="signatureType.id" [tooltip]="signatureType.name"
+                          [elementPosition]="isFirstTab(signatureType)">
               </gd-top-tab>
             </div>
           </div>
@@ -28,8 +32,9 @@
           <div class="toolbar-panel">
             <div *ngFor="let signatureType of signatureTypeCodes">
               <gd-top-tab [disabled]="!file" *ngIf="getSignatureTypeConfig(signatureType.id)"
-                                [icon]="signatureType.icon" (activeTab)="activeTab($event)"
-                                [id]="signatureType.id" [tooltip]="signatureType.name">
+                          [icon]="signatureType.icon" (activeTab)="activeTab($event)"
+                          [id]="signatureType.id" [tooltip]="signatureType.name"
+                          [elementPosition]="isFirstTab(signatureType)">
               </gd-top-tab>
             </div>
           </div>
@@ -42,7 +47,7 @@
     <div class="doc-panel" *ngIf="file">
       <gd-document (drop)="dropSignature($event)" (dragover)="dragOver($event)" class="gd-document" *ngIf="file"
                    [file]="file" [mode]="htmlModeConfig" gdScrollable
-                   [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
+                   [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig" (onpan)="onPan($event)"></gd-document>
     </div>
 
     <gd-init-state [icon]="'signature'" [text]="'Drop file here to upload'" *ngIf="!file"

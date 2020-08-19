@@ -1,10 +1,10 @@
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, EventEmitter, Output, ElementRef, Directive, HostListener, ViewChild, NgModule, APP_INITIALIZER } from '@angular/core';
 import { DatePipe, CommonModule } from '@angular/common';
-import { Api, Utils, FileUtil, ConfigService, Formatting, MenuType, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, TopTabActivatorService, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, TabActivatorService, DndDirective, HostDynamicDirective, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
+import { Api, Utils, FileUtil, ConfigService, Formatting, MenuType, ZoomService, CommonModals, ModalService, UploadFilesService, NavigateService, PagePreloadService, RenderPrintService, PasswordService, WindowService, TopTabActivatorService, HostingDynamicComponentService, AddDynamicComponentService, OnCloseService, ExceptionMessageService, TabActivatorService, DndDirective, HostDynamicDirective, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { __values, __extends } from 'tslib';
 import { map, debounceTime } from 'rxjs/operators';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import * as jquery from 'jquery';
 import 'hammerjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -21,7 +21,19 @@ var SignatureService = /** @class */ (function () {
     function SignatureService(_http, _config) {
         this._http = _http;
         this._config = _config;
+        this._observer = new Subject();
+        this._refreshSignatures = this._observer.asObservable();
     }
+    Object.defineProperty(SignatureService.prototype, "getRefreshSignatures", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._refreshSignatures;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} path
      * @return {?}
@@ -326,6 +338,15 @@ var SignatureService = /** @class */ (function () {
             documentType: docType
         }, Api.httpOptionsJsonResponseTypeBlob);
     };
+    /**
+     * @return {?}
+     */
+    SignatureService.prototype.refreshSignatures = /**
+     * @return {?}
+     */
+    function () {
+        this._observer.next();
+    };
     SignatureService.decorators = [
         { type: Injectable, args: [{
                     providedIn: 'root'
@@ -340,6 +361,16 @@ var SignatureService = /** @class */ (function () {
     return SignatureService;
 }());
 if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    SignatureService.prototype._refreshSignatures;
     /**
      * @type {?}
      * @private
@@ -402,6 +433,8 @@ if (false) {
     SignatureConfig.prototype.downloadOriginal;
     /** @type {?} */
     SignatureConfig.prototype.downloadSigned;
+    /** @type {?} */
+    SignatureConfig.prototype.zoom;
 }
 
 /**
@@ -1312,13 +1345,14 @@ if (false) {
 /** @type {?} */
 var $ = jquery;
 var Signature$1 = /** @class */ (function () {
-    function Signature(_signatureService, _removeSignatureService, _copySignatureService, _activeSignatureService, _signaturesHolderService) {
+    function Signature(_signatureService, _removeSignatureService, _copySignatureService, _activeSignatureService, _signaturesHolderService, _zoomService) {
         var _this = this;
         this._signatureService = _signatureService;
         this._removeSignatureService = _removeSignatureService;
         this._copySignatureService = _copySignatureService;
         this._activeSignatureService = _activeSignatureService;
         this._signaturesHolderService = _signaturesHolderService;
+        this._zoomService = _zoomService;
         this.active = true;
         this.unlock = true;
         this.copied = false;
@@ -1352,6 +1386,15 @@ var Signature$1 = /** @class */ (function () {
      * @return {?}
      */
     function () {
+    };
+    /**
+     * @return {?}
+     */
+    Signature.prototype.ngAfterViewChecked = /**
+     * @return {?}
+     */
+    function () {
+        this._zoomService.changeZoom(this._zoomService.zoom);
     };
     /**
      * @return {?}
@@ -1732,7 +1775,15 @@ var Signature$1 = /** @class */ (function () {
     function () {
         /** @type {?} */
         var menuWidth = this.type === SignatureType.TEXT.id ? 426 : 148;
-        return this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
+        /** @type {?} */
+        var shift = this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
+        if (this.position.left - (menuWidth - this.data.width) / 2 < 0) {
+            shift -= (this.position.left - (menuWidth - this.data.width) / 2);
+        }
+        if (this.position.left + (menuWidth + this.data.width) / 2 > this.pageWidth) {
+            shift -= (this.position.left + (menuWidth + this.data.width) / 2 - this.pageWidth);
+        }
+        return shift;
     };
     /**
      * @return {?}
@@ -1756,7 +1807,8 @@ var Signature$1 = /** @class */ (function () {
         { type: RemoveSignatureService },
         { type: CopySignatureService },
         { type: ActiveSignatureService },
-        { type: SignaturesHolderService }
+        { type: SignaturesHolderService },
+        { type: ZoomService }
     ]; };
     Signature.propDecorators = {
         id: [{ type: Input }],
@@ -1824,6 +1876,11 @@ if (false) {
      * @private
      */
     Signature$1.prototype._signaturesHolderService;
+    /**
+     * @type {?}
+     * @private
+     */
+    Signature$1.prototype._zoomService;
 }
 
 /**
@@ -1885,6 +1942,7 @@ var SignatureAppComponent = /** @class */ (function () {
         ];
         this.signatureComponents = new Map();
         this.fileWasDropped = false;
+        this._zoom = 100;
         this._tabActivatorService.activeTabChange.subscribe((/**
          * @param {?} tabId
          * @return {?}
@@ -1895,6 +1953,17 @@ var SignatureAppComponent = /** @class */ (function () {
                     _this._signatureTabActivationService.changeActiveTab(_this.activeSignatureTab);
                 }
                 _this.activeSignatureTab = null;
+            }
+        }));
+        this.isDesktop = _windowService.isDesktop();
+        _windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        function (w) {
+            _this.isDesktop = _windowService.isDesktop();
+            if (!_this.isDesktop) {
+                _this.refreshZoom();
             }
         }));
         copySignatureService.copySignature.subscribe((/**
@@ -2127,6 +2196,93 @@ var SignatureAppComponent = /** @class */ (function () {
             this.selectFile(this.defaultDocumentConfig(), "", "");
         }
     };
+    /**
+     * @private
+     * @param {?} pt
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.ptToPx = /**
+     * @private
+     * @param {?} pt
+     * @return {?}
+     */
+    function (pt) {
+        //pt * 96 / 72 = px.
+        return pt * 96 / 72;
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.getFitToWidth = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        // Images and Excel-related files receiving dimensions in px from server
+        /** @type {?} */
+        var pageWidth = this.ptToPx(this._pageWidth);
+        /** @type {?} */
+        var pageHeight = this.ptToPx(this._pageHeight);
+        /** @type {?} */
+        var offsetWidth = pageWidth ? pageWidth : window.innerWidth;
+        return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+    };
+    Object.defineProperty(SignatureAppComponent.prototype, "zoom", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._zoom;
+        },
+        set: /**
+         * @param {?} zoom
+         * @return {?}
+         */
+        function (zoom) {
+            this._zoom = zoom;
+            this._zoomService.changeZoom(this._zoom);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @private
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.refreshZoom = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+    };
+    /**
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.zoomIn = /**
+     * @return {?}
+     */
+    function () {
+        if (this.formatDisabled)
+            return;
+        if (this._zoom < 490) {
+            this.zoom = this._zoom + 10;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.zoomOut = /**
+     * @return {?}
+     */
+    function () {
+        if (this.formatDisabled)
+            return;
+        if (this._zoom > 30) {
+            this.zoom = this._zoom - 10;
+        }
+    };
     Object.defineProperty(SignatureAppComponent.prototype, "rewriteConfig", {
         get: /**
          * @return {?}
@@ -2142,7 +2298,7 @@ var SignatureAppComponent = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return false;
+            return this.signatureConfig ? this.signatureConfig.zoom : true;
         },
         enumerable: true,
         configurable: true
@@ -2400,6 +2556,11 @@ var SignatureAppComponent = /** @class */ (function () {
             _this.file = file;
             _this.formatDisabled = !_this.file;
             if (file) {
+                if (!_this.isDesktop && file.pages && file.pages[0]) {
+                    _this._pageHeight = file.pages[0].height;
+                    _this._pageWidth = file.pages[0].width;
+                    _this.refreshZoom();
+                }
                 /** @type {?} */
                 var preloadPageCount = _this.preloadPageCountConfig;
                 /** @type {?} */
@@ -2567,9 +2728,9 @@ var SignatureAppComponent = /** @class */ (function () {
             /** @type {?} */
             var documentPage = $$1(currentPage).parent().parent()[0];
             /** @type {?} */
-            var left = position.x - $$1(documentPage).offset().left;
+            var left = (position.x - $$1(documentPage).offset().left) / (this.zoom / 100);
             /** @type {?} */
-            var top_1 = position.y - $$1(documentPage).offset().top;
+            var top_1 = (position.y - $$1(documentPage).offset().top) / (this.zoom / 100);
             /** @type {?} */
             var currentPosition = new Position(left, top_1);
             /** @type {?} */
@@ -2672,7 +2833,7 @@ var SignatureAppComponent = /** @class */ (function () {
             /** @type {?} */
             var selectSignature = this._addDynamicComponentService.addDynamicComponent(viewContainerRef, Signature$1);
             /** @type {?} */
-            var id = this.signatureComponents.size + 1;
+            var id = this.getNextId();
             while (addedSignature.width >= page.width || addedSignature.height >= page.height) {
                 addedSignature.width = addedSignature.width / 2;
                 addedSignature.height = addedSignature.height / 2;
@@ -2689,6 +2850,37 @@ var SignatureAppComponent = /** @class */ (function () {
             return id;
         }
         return null;
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.getNextId = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        var e_6, _a;
+        /** @type {?} */
+        var maxId = 0;
+        try {
+            for (var _b = __values(this.signatureComponents.keys()), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var annId = _c.value;
+                if (annId > maxId) {
+                    maxId = annId;
+                }
+            }
+        }
+        catch (e_6_1) { e_6 = { error: e_6_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_6) throw e_6.error; }
+        }
+        /** @type {?} */
+        var id = maxId + 1;
+        return id;
     };
     /**
      * @private
@@ -2739,11 +2931,9 @@ var SignatureAppComponent = /** @class */ (function () {
     function ($event) {
         if (SignatureType.HAND.id === $event) {
             this._modalService.open(CommonModals.DrawHandSignature);
-            this._signatureTabActivationService.changeActiveTab(SignatureType.HAND.id);
         }
         else if (SignatureType.STAMP.id === $event) {
             this._modalService.open(CommonModals.DrawStampSignature);
-            this._signatureTabActivationService.changeActiveTab(SignatureType.STAMP.id);
         }
         else if (SignatureType.TEXT.id === $event) {
             this.addTextSign();
@@ -2802,19 +2992,19 @@ var SignatureAppComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var e_6, _a;
+        var e_7, _a;
         try {
             for (var _b = __values(this.signatureComponents.values()), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var componentRef = _c.value;
                 componentRef.destroy();
             }
         }
-        catch (e_6_1) { e_6 = { error: e_6_1 }; }
+        catch (e_7_1) { e_7 = { error: e_7_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
             }
-            finally { if (e_6) throw e_6.error; }
+            finally { if (e_7) throw e_7.error; }
         }
         this.signatureComponents = new Map();
         this._signaturesHolderService.clear();
@@ -2845,7 +3035,7 @@ var SignatureAppComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var e_7, _a, e_8, _b;
+        var e_8, _a, e_9, _b;
         /** @type {?} */
         var signatures = [];
         try {
@@ -2873,21 +3063,21 @@ var SignatureAppComponent = /** @class */ (function () {
                         }
                     }
                 }
-                catch (e_8_1) { e_8 = { error: e_8_1 }; }
+                catch (e_9_1) { e_9 = { error: e_9_1 }; }
                 finally {
                     try {
                         if (ids_3_1 && !ids_3_1.done && (_b = ids_3.return)) _b.call(ids_3);
                     }
-                    finally { if (e_8) throw e_8.error; }
+                    finally { if (e_9) throw e_9.error; }
                 }
             }
         }
-        catch (e_7_1) { e_7 = { error: e_7_1 }; }
+        catch (e_8_1) { e_8 = { error: e_8_1 }; }
         finally {
             try {
                 if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
             }
-            finally { if (e_7) throw e_7.error; }
+            finally { if (e_8) throw e_8.error; }
         }
         return signatures;
     };
@@ -2949,11 +3139,39 @@ var SignatureAppComponent = /** @class */ (function () {
     function ($event) {
         this.fileWasDropped = $event;
     };
+    /**
+     * @param {?} signatureType
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.isFirstTab = /**
+     * @param {?} signatureType
+     * @return {?}
+     */
+    function (signatureType) {
+        if ((signatureType.id === SignatureType.TEXT.id) || (!this.isDesktop && signatureType.id === SignatureType.QR_CODE.id)) {
+            return -1;
+        }
+        if ((signatureType.id === SignatureType.HAND.id) || (!this.isDesktop && signatureType.id === SignatureType.BAR_CODE.id)) {
+            return 1;
+        }
+        return 0;
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    SignatureAppComponent.prototype.onPan = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this._zoomService.changeZoom(this._zoom);
+    };
     SignatureAppComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-signature',
-                    template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick($event)\" (click)=\"hideAll($event)\">\n  <div class=\"signature-wrapper wrapper\">\n    <gd-tabbed-toolbars [logo]=\"'signature'\" [icon]=\"'pen-square'\">\n      <gd-tabs>\n        <gd-tab [tabTitle]=\"'File'\" [icon]=\"'folder-open'\" [id]=\"'1'\" [active]=\"true\">\n          <div id=\"files-tools\" class=\"toolbar-panel\">\n            <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                       *ngIf=\"browseConfig\"></gd-button>\n\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                       (click)=\"downloadFile()\" *ngIf=\"downloadConfig\"></gd-button>\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"sign()\"></gd-button>\n\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"'Signatures'\" [icon]=\"'signature'\" [id]=\"'2'\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(signatureType.id)\"\n                                [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                                [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'qrcode'\" [id]=\"'3'\" *ngIf=\"!isDesktop && codesConfig()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypeCodes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"getSignatureTypeConfig(signatureType.id)\"\n                                [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                                [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n      </gd-tabs>\n    </gd-tabbed-toolbars>\n    <gd-signature-left-panel *ngIf=\"activeSignatureTab\" [rewrite]=\"rewriteConfig\" (newSignatureEvent)=\"newSign($event)\"\n                             [isPdf]=\"isPdf()\" [id]=\"activeSignatureTab\">\n    </gd-signature-left-panel>\n    <div class=\"doc-panel\" *ngIf=\"file\">\n      <gd-document (drop)=\"dropSignature($event)\" (dragover)=\"dragOver($event)\" class=\"gd-document\" *ngIf=\"file\"\n                   [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                   [preloadPageCount]=\"preloadPageCountConfig\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-document>\n    </div>\n\n    <gd-init-state [icon]=\"'signature'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\"\n                   (fileDropped)=\"fileDropped($event)\">\n      Click\n      <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon>\n      to open file<br>\n      Or drop file here\n    </gd-init-state>\n    <gd-hand-modal></gd-hand-modal>\n    <gd-stamp-modal></gd-stamp-modal>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n</div>\n",
-                    styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}::ng-deep .page{position:relative}::ng-deep .gd-page-image{width:unset;height:unset}::ng-deep .top-panel{align-content:flex-start}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:inherit}.gd-document{width:100%;height:calc(100% - 90px)}.toolbar-panel{width:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.signature-wrapper ::ng-deep .button{color:#3e4e5a!important}.signature-wrapper ::ng-deep .button .text{padding:0!important}@media (max-width:1037px){::ng-deep .panzoom{-webkit-box-pack:unset!important;justify-content:unset!important}::ng-deep .logo ::ng-deep .icon{font-size:24px!important}::ng-deep .top-panel{height:120px!important}}"]
+                    template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick($event)\" (click)=\"hideAll($event)\">\n  <div class=\"signature-wrapper wrapper\">\n    <gd-tabbed-toolbars [logo]=\"'signature'\" [icon]=\"'pen-square'\">\n      <gd-tabs>\n        <gd-tab [tabTitle]=\"'File'\" [icon]=\"'folder-open'\" [id]=\"'1'\" [active]=\"true\">\n          <div id=\"files-tools\" class=\"toolbar-panel\">\n            <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                       *ngIf=\"browseConfig\" [elementPosition]=\"-1\"></gd-button>\n\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                       (click)=\"downloadFile()\" *ngIf=\"downloadConfig\"></gd-button>\n            <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"sign()\"></gd-button>\n            <gd-button class=\"desktop-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\"\n            (click)=\"zoomIn()\" *ngIf=\"zoomConfig\"></gd-button>\n            <gd-button class=\"desktop-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\"\n            (click)=\"zoomOut()\" *ngIf=\"zoomConfig\"></gd-button>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"'Signatures'\" [icon]=\"'signature'\" [id]=\"'2'\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"isVisible(signatureType.id)\"\n                          [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\"\n                          [elementPosition]=\"isFirstTab(signatureType)\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n        <gd-tab [tabTitle]=\"''\" [icon]=\"'qrcode'\" [id]=\"'3'\" *ngIf=\"!isDesktop && codesConfig()\">\n          <div class=\"toolbar-panel\">\n            <div *ngFor=\"let signatureType of signatureTypeCodes\">\n              <gd-top-tab [disabled]=\"!file\" *ngIf=\"getSignatureTypeConfig(signatureType.id)\"\n                          [icon]=\"signatureType.icon\" (activeTab)=\"activeTab($event)\"\n                          [id]=\"signatureType.id\" [tooltip]=\"signatureType.name\"\n                          [elementPosition]=\"isFirstTab(signatureType)\">\n              </gd-top-tab>\n            </div>\n          </div>\n        </gd-tab>\n      </gd-tabs>\n    </gd-tabbed-toolbars>\n    <gd-signature-left-panel *ngIf=\"activeSignatureTab\" [rewrite]=\"rewriteConfig\" (newSignatureEvent)=\"newSign($event)\"\n                             [isPdf]=\"isPdf()\" [id]=\"activeSignatureTab\">\n    </gd-signature-left-panel>\n    <div class=\"doc-panel\" *ngIf=\"file\">\n      <gd-document (drop)=\"dropSignature($event)\" (dragover)=\"dragOver($event)\" class=\"gd-document\" *ngIf=\"file\"\n                   [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                   [preloadPageCount]=\"preloadPageCountConfig\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" (onpan)=\"onPan($event)\"></gd-document>\n    </div>\n\n    <gd-init-state [icon]=\"'signature'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\"\n                   (fileDropped)=\"fileDropped($event)\">\n      Click\n      <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon>\n      to open file<br>\n      Or drop file here\n    </gd-init-state>\n    <gd-hand-modal></gd-hand-modal>\n    <gd-stamp-modal></gd-stamp-modal>\n  </div>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n</div>\n",
+                    styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}::ng-deep .page{position:relative}::ng-deep .gd-page-image{width:unset;height:unset}::ng-deep .top-panel{align-content:flex-start}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:inherit}.gd-document{width:100%;height:calc(100% - 90px)}.toolbar-panel{width:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.signature-wrapper ::ng-deep .button{color:#3e4e5a!important}.signature-wrapper ::ng-deep .button .text{padding:0!important}.desktop-hide{display:none}@media (max-width:1037px){::ng-deep .logo ::ng-deep .icon{font-size:24px!important}::ng-deep .top-panel{height:120px!important}.desktop-hide{display:block}.gd-document{height:calc(100% - 120px)}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -3014,6 +3232,12 @@ if (false) {
     SignatureAppComponent.prototype.isLoading;
     /** @type {?} */
     SignatureAppComponent.prototype.fileWasDropped;
+    /** @type {?} */
+    SignatureAppComponent.prototype._zoom;
+    /** @type {?} */
+    SignatureAppComponent.prototype._pageWidth;
+    /** @type {?} */
+    SignatureAppComponent.prototype._pageHeight;
     /**
      * @type {?}
      * @private
@@ -3388,140 +3612,6 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var SignatureTabActivatorService = /** @class */ (function (_super) {
-    __extends(SignatureTabActivatorService, _super);
-    function SignatureTabActivatorService() {
-        return _super.call(this) || this;
-    }
-    return SignatureTabActivatorService;
-}(TabActivatorService));
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var SignatureTabComponent = /** @class */ (function () {
-    function SignatureTabComponent(_tabActivatorService, _modalService, _excMessageService) {
-        var _this = this;
-        this._tabActivatorService = _tabActivatorService;
-        this._modalService = _modalService;
-        this._excMessageService = _excMessageService;
-        this.disabled = false;
-        this.activeTab = new EventEmitter();
-        this.active = false;
-        this.showToolTip = false;
-        this._tabActivatorService.activeTabChange.subscribe((/**
-         * @param {?} tabId
-         * @return {?}
-         */
-        function (tabId) {
-            _this.activation(tabId);
-        }));
-    }
-    /**
-     * @private
-     * @param {?} tabId
-     * @return {?}
-     */
-    SignatureTabComponent.prototype.activation = /**
-     * @private
-     * @param {?} tabId
-     * @return {?}
-     */
-    function (tabId) {
-        if (this.id === tabId) {
-            this.active = !this.active;
-            if (this.active) {
-                this.activeTab.emit(this.id);
-            }
-            else {
-                this.activeTab.emit("");
-            }
-        }
-        else {
-            this.active = false;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    SignatureTabComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-    };
-    /**
-     * @return {?}
-     */
-    SignatureTabComponent.prototype.toggleTab = /**
-     * @return {?}
-     */
-    function () {
-        if (this.disabled) {
-            this._modalService.open(CommonModals.ErrorMessage);
-            this._excMessageService.changeMessage("Please open document first");
-            return;
-        }
-        this._tabActivatorService.changeActiveTab(this.id);
-    };
-    SignatureTabComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'gd-signature-tab',
-                    template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip\n     (showToolTip)=\"showToolTip = $event\" [ngClass]=\"(active) ? 'active' : ''\">\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\"\n              *ngIf=\"tooltip\"></gd-tooltip>\n</div>\n",
-                    styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
-                }] }
-    ];
-    /** @nocollapse */
-    SignatureTabComponent.ctorParameters = function () { return [
-        { type: SignatureTabActivatorService },
-        { type: ModalService },
-        { type: ExceptionMessageService }
-    ]; };
-    SignatureTabComponent.propDecorators = {
-        id: [{ type: Input }],
-        icon: [{ type: Input }],
-        disabled: [{ type: Input }],
-        tooltip: [{ type: Input }],
-        activeTab: [{ type: Output }]
-    };
-    return SignatureTabComponent;
-}());
-if (false) {
-    /** @type {?} */
-    SignatureTabComponent.prototype.id;
-    /** @type {?} */
-    SignatureTabComponent.prototype.icon;
-    /** @type {?} */
-    SignatureTabComponent.prototype.disabled;
-    /** @type {?} */
-    SignatureTabComponent.prototype.tooltip;
-    /** @type {?} */
-    SignatureTabComponent.prototype.activeTab;
-    /** @type {?} */
-    SignatureTabComponent.prototype.active;
-    /** @type {?} */
-    SignatureTabComponent.prototype.showToolTip;
-    /**
-     * @type {?}
-     * @private
-     */
-    SignatureTabComponent.prototype._tabActivatorService;
-    /**
-     * @type {?}
-     * @private
-     */
-    SignatureTabComponent.prototype._modalService;
-    /**
-     * @type {?}
-     * @private
-     */
-    SignatureTabComponent.prototype._excMessageService;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 var NewBarQrCodeComponent = /** @class */ (function () {
     function NewBarQrCodeComponent(_signatureService, _elementRef) {
         var _this = this;
@@ -3630,7 +3720,7 @@ var NewBarQrCodeComponent = /** @class */ (function () {
     NewBarQrCodeComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-new-bar-qr-code',
-                    template: "<div class=\"gd-qr-container\">\n  <div class=\"gd-qr-preview-container\">\n    <img class=\"gd-signature-thumbnail-image\" [attr.src]=\"getData()\" alt *ngIf=\"encodedImage\">\n    <div class=\"gd-empty-code\" *ngIf=\"!encodedImage\">\n      <fa-icon [icon]=\"['fa',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n    </div>\n  </div>\n  <div class=\"new-signature-input-group\">\n    <input type=\"text\" class=\"gd-qr-property\" #text (keyup)=\"saveTemp(text.value)\" (keyup.enter)=\"addSign(text.value)\"\n           placeholder=\"{{name}}\" id=\"text-input\"/>\n    <div class=\"gd-add-optical\" [ngClass]=\"text.value ? 'active' : 'inactive'\" (click)=\"addSign(text.value)\">\n      <fa-icon [icon]=\"['fa','plus']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n    </div>\n  </div>\n</div>\n",
+                    template: "<div class=\"gd-qr-container\">\n  <div class=\"gd-qr-preview-container\">\n    <img class=\"gd-signature-thumbnail-image\" [attr.src]=\"getData()\" alt *ngIf=\"encodedImage\">\n    <div class=\"gd-empty-code\" *ngIf=\"!encodedImage\">\n      <fa-icon [icon]=\"['fa',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n    </div>\n  </div>\n  <div class=\"new-signature-input-group\">\n    <input type=\"text\" class=\"gd-qr-property\" #text (keyup)=\"saveTemp(text.value)\" (keyup.enter)=\"addSign(text.value)\"\n           placeholder=\"{{name}}\" id=\"text-input\"/>\n    <div class=\"gd-add-optical\" [ngClass]=\"text.value ? 'active' : 'inactive'\" (click)=\"addSign(text.value)\">\n      <fa-icon [icon]=\"['fa','check']\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n    </div>\n  </div>\n</div>\n",
                     styles: [".gd-sign-digital.active{background-color:#3787f5}.gd-sign-digital{height:27px;background-color:#969696;margin:9px 8px 7px;text-align:center;color:#fff;font-size:13px;box-shadow:0 0 3px #ddd;cursor:pointer;padding-top:5px}.gd-qr-container{font-family:\"Open Sans\",\"Helvetica Neue\",Helvetica,Arial,sans-serif;background-color:#e7e7e7}.gd-qr-container input:focus{border:2px solid #00c4d7;-webkit-transition:border-color .3s linear;transition:border-color .3s linear}.gd-qr-preview-container{text-align:center;background-color:#fff;margin-bottom:1px;height:350px}.gd-qr-preview-container .gd-empty-code{color:#ccc;font-size:60px;width:350px;height:350px;-webkit-box-pack:center;justify-content:center;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.gd-qr-preview-container .gd-signature-thumbnail-image{min-width:41px;width:100%;height:100%;margin:0}.new-signature-input-group{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-align:center;align-items:center;height:70px;background-color:#fff;-webkit-box-pack:center;justify-content:center}.gd-qr-property{font-size:12px;width:80%;border:2px solid #ddd;padding:5px;outline:0;color:#3a4e5b}.gd-add-optical{width:32px;height:29px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;background-color:#3787f5;cursor:pointer}.gd-add-optical .icon{color:#fff;line-height:28px}.gd-add-optical.active{background-color:#25c2d4}.gd-add-optical.inactive{background-color:#646464}.gd-add-optical:hover{box-shadow:transparent 0 0 3px}@media (max-width:1037px){.gd-qr-container{margin:0 13px 0 12px}}"]
                 }] }
     ];
@@ -4308,10 +4398,10 @@ var StampCanvasComponent = /** @class */ (function () {
      */
     function () {
         if (this.props.strokeWidth > 1) {
-            this.props.radius = (this.props.width / 2) - (this.props.strokeWidth / 2);
+            this.props.radius = (this.props.width / 2) - (this.props.strokeWidth / 2) - 1;
         }
         else {
-            this.props.radius = (this.props.width / 2);
+            this.props.radius = (this.props.width / 2) - 1;
         }
     };
     /**
@@ -4466,7 +4556,7 @@ var StampCanvasComponent = /** @class */ (function () {
     StampCanvasComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-stamp-canvas',
-                    template: "<div [clickOutsideEnabled]=\"active\" [clickOutsideEvents]=\"'mousedown'\"\n     (clickOutside)=\"inactive($event)\">\n  <div class=\"gd-stamp-box\" [style.left.px]=\"getLeft()\" [style.top.px]=\"getTop()\" [style.z-index]=\"props.zIndex\">\n    <div class=\"gd-context-menu\" *ngIf=\"active\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + getTranslation() + 'px)'}\">\n      <gd-button name=\"button\" class=\"first-element\" [icon]=\"'fill-drip'\" [tooltip]=\"'Color'\" (click)=\"toggleColorPicker($event, true)\">\n        <div class=\"bg-color-pic\" [style.background-color]=\"props.backgroundColor\"></div>\n      </gd-button>\n      <gd-color-picker [isOpen]=\"colorPickerBG\" (closeOutside)=\"closeColorPickerBG($event)\"\n                       [className]=\"'palette'\"\n                       (selectedColor)=\"selectColor(true, $event)\"></gd-color-picker>\n      <gd-select class=\"csg-border-width\" [options]=\"borderWidth\" (selected)=\"selectBorderWidth($event)\"\n                 [showSelected]=\"{name: props.strokeWidth + 'px', value: props.strokeWidth}\"></gd-select>\n      <gd-button name=\"button\" [icon]=\"'square'\" [iconRegular]=\"true\" [tooltip]=\"'Color'\"\n                 (click)=\"toggleColorPicker($event, false)\" class=\"color-for-shape\">\n        <div class=\"bg-color-pic\" [style.background-color]=\"props.strokeColor\"></div>\n      </gd-button>\n      <gd-color-picker [isOpen]=\"colorPickerC\" (closeOutside)=\"closeColorPickerC($event)\"\n                       [className]=\"'palette'\"\n                       (selectedColor)=\"selectColor(false, $event)\"></gd-color-picker>\n      <gd-button name=\"button\" class=\"stamp-trash\" [icon]=\"'trash'\" [tooltip]=\"'Delete'\" [iconSize]=\"'sm'\" (click)=\"deleteCanvas()\">\n      </gd-button>\n    </div>\n    <div class=\"csg-bounding-box\" [ngClass]=\"active ? 'active' : ''\" [style.width.px]=\"props.width\"\n         [style.height.px]=\"props.height\">\n      <canvas #canvas (click)=\"activation()\" class=\"csg-preview\" [width]=\"props.width\" [height]=\"props.height\"></canvas>\n      <gd-resizing [init]=\"false\" [id]=\"999\" (offsetX)=\"resize($event)\" [se]=\"true\"\n                   (release)=\"redrawCanvas()\" *ngIf=\"active\"></gd-resizing>\n    </div>\n  </div>\n</div>\n",
+                    template: "<div [clickOutsideEnabled]=\"active\" [clickOutsideEvents]=\"'mousedown'\"\n     (clickOutside)=\"inactive($event)\">\n  <div class=\"gd-stamp-box\" [style.left.px]=\"getLeft()\" [style.top.px]=\"getTop()\" [style.z-index]=\"props.zIndex\">\n    <div class=\"gd-context-menu\" *ngIf=\"active\"\n         [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + getTranslation() + 'px)'}\">\n      <gd-button name=\"button\" class=\"first-element\" [icon]=\"'fill-drip'\" (click)=\"toggleColorPicker($event, true)\">\n        <div class=\"bg-color-pic\" [style.background-color]=\"props.backgroundColor\"></div>\n      </gd-button>\n      <gd-color-picker [isOpen]=\"colorPickerBG\" (closeOutside)=\"closeColorPickerBG($event)\"\n                       [className]=\"'palette'\"\n                       (selectedColor)=\"selectColor(true, $event)\"></gd-color-picker>\n      <gd-select class=\"csg-border-width\" [options]=\"borderWidth\" (selected)=\"selectBorderWidth($event)\"\n                 [showSelected]=\"{name: props.strokeWidth + 'px', value: props.strokeWidth}\"></gd-select>\n      <gd-button name=\"button\" [icon]=\"'square'\" [iconRegular]=\"true\"\n                 (click)=\"toggleColorPicker($event, false)\" class=\"color-for-shape\">\n        <div class=\"bg-color-pic\" [style.background-color]=\"props.strokeColor\"></div>\n      </gd-button>\n      <gd-color-picker [isOpen]=\"colorPickerC\" (closeOutside)=\"closeColorPickerC($event)\"\n                       [className]=\"'palette'\"\n                       (selectedColor)=\"selectColor(false, $event)\"></gd-color-picker>\n      <gd-button name=\"button\" class=\"stamp-trash\" [icon]=\"'trash'\" [iconSize]=\"'sm'\" (click)=\"deleteCanvas()\">\n      </gd-button>\n    </div>\n    <div class=\"csg-bounding-box\" [ngClass]=\"active ? 'active' : ''\" [style.width.px]=\"props.width\"\n         [style.height.px]=\"props.height\">\n      <canvas #canvas (click)=\"activation()\" class=\"csg-preview\" [width]=\"props.width\" [height]=\"props.height\"></canvas>\n      <gd-resizing [init]=\"false\" [id]=\"999\" (offsetX)=\"resize($event)\" [se]=\"true\"\n                   (release)=\"redrawCanvas()\" *ngIf=\"active\"></gd-resizing>\n    </div>\n  </div>\n</div>\n",
                     styles: [".gd-context-menu{display:-webkit-box;display:flex;height:37px;top:-40px;padding:0;background-color:#fff;cursor:default;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;box-shadow:rgba(0,0,0,.52) 0 0 5px}.gd-context-menu .icon{font-size:14px;cursor:pointer;color:#3e4e5a!important}.gd-context-menu ::ng-deep .dropdown-menu{top:-120px!important;height:120px;overflow-y:auto}.gd-context-menu ::ng-deep .icon-button{margin:0!important}.gd-stamp-box{position:absolute}.palette{position:absolute;top:-190px}.csg-preview{width:100%;height:100%}.csg-bounding-box{position:absolute;background-color:unset!important}.csg-bounding-box.active{border:1px solid #679ffa}.csg-border-width{width:37px!important;height:37px!important;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}::ng-deep .select{min-width:unset!important}::ng-deep .selected-value{font-size:12px!important}@media (max-width:1037px){.gd-context-menu{position:fixed;bottom:0;left:0;top:unset;right:0;width:100%;height:60px;-webkit-box-align:center;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-context-menu .color-for-shape{-webkit-box-flex:1;flex:1;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:start;justify-content:flex-start}.gd-context-menu .stamp-trash{-webkit-box-flex:0;flex:0 0 37px;margin-right:8px}.gd-context-menu ::ng-deep .button{margin:3px!important}.gd-context-menu ::ng-deep .select{margin:3px!important}.gd-context-menu .first-element{margin-left:8px}.csg-border-width .select{width:21px}}"]
                 }] }
     ];
@@ -4541,13 +4631,32 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var SignatureTabActivatorService = /** @class */ (function (_super) {
+    __extends(SignatureTabActivatorService, _super);
+    function SignatureTabActivatorService() {
+        return _super.call(this) || this;
+    }
+    return SignatureTabActivatorService;
+}(TabActivatorService));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var SignatureLeftPanelComponent = /** @class */ (function () {
     function SignatureLeftPanelComponent(_signatureService) {
+        var _this = this;
         this._signatureService = _signatureService;
         this.newSignatureEvent = new EventEmitter();
         this.showNewCode = false;
         this.showUpload = false;
         this.loading = false;
+        _signatureService.getRefreshSignatures.subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.getSignatures(_this.id);
+        }));
     }
     /**
      * @param {?} tabId
@@ -4834,6 +4943,7 @@ var HandModalComponent = /** @class */ (function () {
          */
         function () {
             _this._tabActivationService.changeActiveTab(SignatureType.HAND.id);
+            _this._signatureService.refreshSignatures();
         }));
         this.clear(canvasComponent);
         this.close();
@@ -5034,6 +5144,7 @@ var StampModalComponent = /** @class */ (function () {
          */
         function () {
             _this._tabActivationService.changeActiveTab(SignatureType.STAMP.id);
+            _this._signatureService.refreshSignatures();
         }));
         this.close();
     };
@@ -5504,7 +5615,6 @@ var SignatureModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [SignatureAppComponent,
                         SignatureListPanelComponent,
-                        SignatureTabComponent,
                         NewBarQrCodeComponent,
                         UploadSignatureComponent,
                         DndSignatureDirective,
@@ -5516,7 +5626,6 @@ var SignatureModule = /** @class */ (function () {
                         StampModalComponent],
                     exports: [SignatureAppComponent,
                         SignatureListPanelComponent,
-                        SignatureTabComponent,
                         NewBarQrCodeComponent,
                         UploadSignatureComponent,
                         DndSignatureDirective,
@@ -5585,5 +5694,5 @@ var SignatureModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ActiveCanvasService, ActiveSignatureService, CopySignatureService, DragSignatureService, RemoveSignatureService, SelectSignatureService, SignatureAppComponent, SignatureConfigService, SignatureListPanelComponent, SignatureModule, SignatureService, SignatureTabActivatorService, SignaturesHolderService, initializeApp, setupLoadingInterceptor, SignatureTabComponent as ɵa, NewBarQrCodeComponent as ɵb, UploadSignatureComponent as ɵc, DndSignatureDirective as ɵd, Signature$1 as ɵe, CanvasComponent as ɵf, StampCanvasComponent as ɵg, RemoveCanvasService as ɵh, SignatureLeftPanelComponent as ɵi, HandModalComponent as ɵj, StampModalComponent as ɵk };
+export { ActiveCanvasService, ActiveSignatureService, CopySignatureService, DragSignatureService, RemoveSignatureService, SelectSignatureService, SignatureAppComponent, SignatureConfigService, SignatureListPanelComponent, SignatureModule, SignatureService, SignatureTabActivatorService, SignaturesHolderService, initializeApp, setupLoadingInterceptor, NewBarQrCodeComponent as ɵa, UploadSignatureComponent as ɵb, DndSignatureDirective as ɵc, Signature$1 as ɵd, CanvasComponent as ɵe, StampCanvasComponent as ɵf, RemoveCanvasService as ɵg, SignatureLeftPanelComponent as ɵh, HandModalComponent as ɵi, StampModalComponent as ɵj };
 //# sourceMappingURL=groupdocs.examples.angular-signature.js.map

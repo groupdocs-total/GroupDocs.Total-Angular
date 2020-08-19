@@ -18,6 +18,9 @@ export class SignatureLeftPanelComponent implements OnInit, OnChanges {
   loading = false;
 
   constructor(private _signatureService: SignatureService) {
+    _signatureService.getRefreshSignatures.subscribe(() => {
+      this.getSignatures(this.id);
+    });
   }
 
   getSignatures(tabId: string) {

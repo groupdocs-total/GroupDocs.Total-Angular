@@ -47,7 +47,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   bgColorPickerShow = false;
   colorPickerShow = false;
   active = false;
-  private textBackup: string;
+  public textBackup: string;
   private isIE = false;
   isLoading: boolean;
   fileWasDropped: false;
@@ -535,8 +535,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
 
   getPageWithRootTags(data) {
     let resultData = "<html><head>" + data + "</body></html>";
-    resultData = resultData.replace('<div class="documentMainContent">', '<body><div class="documentMainContent">');
-    resultData = resultData.replace('</style>', '</style></head>');
+    resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
     return resultData;
   }
 

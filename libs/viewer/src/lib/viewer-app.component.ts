@@ -18,6 +18,8 @@ import {
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 //import * as Hammer from 'hammerjs';
 
 @Component({
@@ -47,6 +49,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   fileWasDropped = false;
   formatIcon: string;
 
+  fileParam: string;
+  querySubscription: Subscription;
+
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
               configService: ViewerConfigService,
@@ -57,7 +62,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _loadingMaskService: LoadingMaskService) {
+              private _loadingMaskService: LoadingMaskService,
+              private route: ActivatedRoute) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -93,6 +99,21 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.isDesktop = _windowService.isDesktop();
       this.refreshZoom();
     });
+
+    this.querySubscription = route.queryParams.subscribe(
+      (queryParam: any) => {
+        this.fileParam = queryParam['file'];
+        if (this.fileParam) {
+          this.isLoading = true;
+          if (this.validURL(this.fileParam)) {
+            this.upload(this.fileParam);
+          }
+          else {
+            this.selectFile(this.fileParam, '', '');
+          }
+        }
+      }
+    );
   }
 
   ngOnInit() {
@@ -174,6 +195,16 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this._navigateService.currentPage;
   }
 
+  validURL(str) {
+    const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(str);
+  }
+
   openModal(id: string) {
     this._modalService.open(id);
   }
@@ -203,6 +234,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
+
+            this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+              this.file.thumbnails = data.pages;
+            })
           }
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = 1;
@@ -225,8 +260,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   upload($event: string) {
-    this._viewerService.upload(null, $event, this.rewriteConfig).subscribe(() => {
-      this.selectDir('');
+    this._viewerService.upload(null, $event, this.rewriteConfig).subscribe((uploadedDocument: any) => {
+      if (this.fileParam !== '') {
+        this.selectFile(uploadedDocument.guid, '', '');
+        this.fileParam = '';
+      }
+      else {
+        this.selectDir('');
+      }
     });
   }
 
@@ -326,28 +367,23 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     const pageNumber = this._navigateService.currentPage;
+    const pageModel = this.file.pages[pageNumber - 1];
 
     if (this.saveRotateStateConfig && this.file) {
-      this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((data: RotatedPage[]) => {
-        for (const page of data) {
-          const pageModel = this.file.pages[page.pageNumber - 1];
-          if (this.file && this.file.pages && pageModel) {
-            this.changeAngle(pageModel, page.angle);
+      this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((page: PageModel) => {
+        this.file.pages[pageNumber - 1] = page;
+
+        if (this.file && this.file.pages && pageModel) {
+          const angle = pageModel.angle + deg;
+          if (angle > 360) {
+            this.changeAngle(pageModel, 90);
+          } else if (angle < -360) {
+            this.changeAngle(pageModel, -90);
+          } else {
+            this.changeAngle(pageModel, angle);
           }
         }
       })
-    } else {
-      const pageModel = this.file.pages[pageNumber - 1];
-      if (this.file && this.file.pages && pageModel) {
-        const angle = pageModel.angle + deg;
-        if (angle > 360) {
-          this.changeAngle(pageModel, 90);
-        } else if (angle < -360) {
-          this.changeAngle(pageModel, -90);
-        } else {
-          this.changeAngle(pageModel, angle);
-        }
-      }
     }
   }
 
@@ -365,17 +401,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     if (this.viewerConfig.preloadPageCount !== 0) {
-      if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
-        this._viewerService.loadPrintPdf(this.credentials).subscribe(blob => {
-          const file = new Blob([blob], {type: 'application/pdf'});
-          this._renderPrintService.changeBlob(file);
-        });
-      } else {
-        this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
-          this.file.pages = data.pages;
-          this._renderPrintService.changePages(this.file.pages);
-        });
-      }
+      this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
+        this.file.pages = data.pages;
+        this._renderPrintService.changePages(this.file.pages);
+      });
     } else {
       this._renderPrintService.changePages(this.file.pages);
     }
@@ -393,10 +422,15 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.viewerConfig.preloadPageCount === 0) {
       this.showThumbnails = true;
     } else {
-      this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
-        this.file.pages = data.pages;
+      if (this.file.thumbnails.filter(t => !t.data).length > 0) {
+        this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+          this.file.thumbnails = data.pages;
+          this.showThumbnails = true;
+        })
+      }
+      else {
         this.showThumbnails = true;
-      })
+      }
     }
   }
 

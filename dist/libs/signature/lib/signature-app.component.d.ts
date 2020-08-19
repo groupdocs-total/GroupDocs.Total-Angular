@@ -52,10 +52,19 @@ export declare class SignatureAppComponent implements OnDestroy, OnInit {
     activeSignatureTab: string;
     isLoading: boolean;
     fileWasDropped: boolean;
+    _zoom: number;
+    _pageWidth: number;
+    _pageHeight: number;
     constructor(_signatureService: SignatureService, _modalService: ModalService, configService: SignatureConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _selectSignatureService: SelectSignatureService, _signatureTabActivationService: TopTabActivatorService, _hostingComponentsService: HostingDynamicComponentService, _addDynamicComponentService: AddDynamicComponentService, _dragSignatureService: DragSignatureService, _onCloseService: OnCloseService, removeSignatureService: RemoveSignatureService, _activeSignatureService: ActiveSignatureService, _excMessageService: ExceptionMessageService, _signaturesHolderService: SignaturesHolderService, _tabActivatorService: TabActivatorService, copySignatureService: CopySignatureService);
     private createDraggableSign;
     private createAddedSignature;
     ngOnInit(): void;
+    private ptToPx;
+    private getFitToWidth;
+    zoom: any;
+    private refreshZoom;
+    zoomIn(): void;
+    zoomOut(): void;
     readonly rewriteConfig: boolean;
     readonly zoomConfig: boolean;
     readonly pageSelectorConfig: boolean;
@@ -91,6 +100,7 @@ export declare class SignatureAppComponent implements OnDestroy, OnInit {
     dropSignature($event: DragEvent): void;
     private selectSignature;
     private addSignatureComponent;
+    private getNextId;
     private closeTab;
     hideAll($event: any): void;
     newSign($event: string): void;
@@ -104,4 +114,11 @@ export declare class SignatureAppComponent implements OnDestroy, OnInit {
     isVisible(id: string): boolean;
     activeTab($event: string): void;
     fileDropped($event: any): void;
+    isFirstTab(signatureType: {
+        name: string;
+        icon: string;
+        id: string;
+        title: string;
+    }): 0 | 1 | -1;
+    onPan($event: any): void;
 }

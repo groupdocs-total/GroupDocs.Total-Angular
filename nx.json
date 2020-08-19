@@ -17,6 +17,9 @@
     "viewer": {
       "tags": []
     },
+    "search": {
+      "tags": []
+    },
     "common-components": {
       "tags": []
     },
@@ -33,6 +36,9 @@
       "tags": []
     },
     "annotation": {
+      "tags": []
+    },
+    "metadata": {
       "tags": []
     }
   }

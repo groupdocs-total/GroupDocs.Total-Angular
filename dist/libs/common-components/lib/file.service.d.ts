@@ -24,6 +24,7 @@ export declare class FileDescription {
     pages: PageModel[];
     printAllowed: boolean;
     showGridLines: boolean;
+    thumbnails: PageModel[];
 }
 export declare class FileModel {
     guid: string;

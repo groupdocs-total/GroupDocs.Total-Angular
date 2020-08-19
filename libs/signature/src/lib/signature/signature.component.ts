@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, AfterViewChecked} from '@angular/core';
 import {
   Position,
   AddedSignature,
@@ -9,7 +9,7 @@ import {
   CopySign,
   CopyChanges
 } from "../signature-models";
-import {Formatting, Utils, MenuType} from "@groupdocs.examples.angular/common-components";
+import {Formatting, Utils, MenuType, ZoomService} from "@groupdocs.examples.angular/common-components";
 import {SignatureService} from "../signature.service";
 import {RemoveSignatureService} from "../remove-signature.service";
 import {ActiveSignatureService} from "../active-signature.service";
@@ -26,7 +26,7 @@ const $ = jquery;
   templateUrl: './signature.component.html',
   styleUrls: ['./signature.component.less']
 })
-export class Signature implements OnInit, AfterViewInit {
+export class Signature implements OnInit, AfterViewInit, AfterViewChecked {
   @Input() id: number;
   @Input() data: AddedSignature;
   @Input() position: Position;
@@ -45,7 +45,8 @@ export class Signature implements OnInit, AfterViewInit {
               private _removeSignatureService: RemoveSignatureService,
               private _copySignatureService: CopySignatureService,
               private _activeSignatureService: ActiveSignatureService,
-              private _signaturesHolderService: SignaturesHolderService) {
+              private _signaturesHolderService: SignaturesHolderService,
+              private _zoomService: ZoomService) {
 
     this._activeSignatureService.activeChange.subscribe((id: number) => {
       if (this.id === id) {
@@ -64,6 +65,10 @@ export class Signature implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewChecked() {
+    this._zoomService.changeZoom(this._zoomService.zoom);
   }
 
   getData() {
@@ -263,7 +268,14 @@ export class Signature implements OnInit, AfterViewInit {
 
   getMenuShift() {
     const menuWidth = this.type === SignatureType.TEXT.id ? 426 : 148;
-    return this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
+    let shift = this.data.width > menuWidth ? 0 : (this.data.width - menuWidth) * 0.5;
+    if (this.position.left - (menuWidth - this.data.width) / 2 < 0) {
+      shift -= (this.position.left - (menuWidth - this.data.width) / 2);
+    }
+    if (this.position.left + (menuWidth + this.data.width) / 2 > this.pageWidth) {
+      shift -= (this.position.left + (menuWidth + this.data.width) / 2 - this.pageWidth);
+    }
+    return shift;
   }
 
   getMenuType() {

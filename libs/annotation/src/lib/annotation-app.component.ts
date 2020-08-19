@@ -11,7 +11,8 @@ import {
   NavigateService, PagePreloadService, PasswordService,
   TopTabActivatorService, UploadFilesService,
   Utils,
-  WindowService
+  WindowService,
+  ZoomService
 } from "@groupdocs.examples.angular/common-components";
 import {
   AnnotationType,
@@ -26,6 +27,7 @@ import {ActiveAnnotationService} from "./active-annotation.service";
 import * as jquery from 'jquery';
 import {RemoveAnnotationService} from "./remove-annotation.service";
 import {CommentAnnotationService} from "./comment-annotation.service";
+import { AnnotationConfigService } from "./annotation-config.service";
 
 const $ = jquery;
 
@@ -42,7 +44,7 @@ export class AnnotationAppComponent implements OnInit {
   annotationConfig: AnnotationConfig;
   browseFilesModal = CommonModals.BrowseFiles;
   formatDisabled = !this.file;
-  credentials: FileCredentials;
+   public credentials: FileCredentials;
   annotationTypes = [
     AnnotationType.TEXT,
     AnnotationType.TEXT_STRIKEOUT,
@@ -79,10 +81,13 @@ export class AnnotationAppComponent implements OnInit {
   countPages = 0;
   commentOpenedId: number;
   comments = new Map<number, Comment[]>();
+  _zoom = 100;
+  _pageWidth: number;
+  _pageHeight: number;
 
   private activeAnnotationTab: string;
   private fileWasDropped = false;
-  private annotations = new Map<number, ComponentRef<any>>();
+  public annotations = new Map<number, ComponentRef<any>>();
   private creatingAnnotationId: number;
   private activeAnnotationId: number;
 
@@ -94,11 +99,25 @@ export class AnnotationAppComponent implements OnInit {
               private _addDynamicComponentService: AddDynamicComponentService,
               private _activeAnnotationService: ActiveAnnotationService,
               private _removeAnnotationService: RemoveAnnotationService,
-              private _commentAnnotationService: CommentAnnotationService,
+              public _commentAnnotationService: CommentAnnotationService,
               uploadFilesService: UploadFilesService,
               pagePreloadService: PagePreloadService,
               passwordService: PasswordService,
-              private _windowService: WindowService) {
+              private _windowService: WindowService,
+              private _zoomService: ZoomService,
+              configService: AnnotationConfigService) {
+
+    configService.updatedConfig.subscribe((annotationConfig) => {
+      this.annotationConfig = annotationConfig;
+    });
+
+    this.isDesktop = _windowService.isDesktop();
+    _windowService.onResize.subscribe((w) => {
+      this.isDesktop = _windowService.isDesktop();
+      if (!this.isDesktop) {
+        this.refreshZoom();
+      }
+    });
 
     this._activeAnnotationService.activeChange.subscribe((id: number) => {
       if (this.activeAnnotationId !== id) {
@@ -268,6 +287,49 @@ export class AnnotationAppComponent implements OnInit {
   ngOnInit() {
   }
 
+  private ptToPx(pt: number) {
+    //pt * 96 / 72 = px.
+    return pt * 96 / 72;
+  }
+
+  private getFitToWidth() {
+    // Images and Excel-related files receiving dimensions in px from server
+    const pageWidth = this.ptToPx(this._pageWidth);
+    const pageHeight = this.ptToPx(this._pageHeight);
+    const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
+
+    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+  }
+
+  set zoom(zoom) {
+    this._zoom = zoom;
+    this._zoomService.changeZoom(this._zoom);
+  }
+
+  get zoom() {
+    return this._zoom;
+  }
+
+  private refreshZoom() {
+    this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+  }
+
+  zoomIn() {
+    if (this.formatDisabled)
+      return;
+    if (this._zoom < 490) {
+      this.zoom = this._zoom + 10;
+    }
+  }
+
+  zoomOut() {
+    if (this.formatDisabled)
+      return;
+    if (this._zoom > 30) {
+      this.zoom = this._zoom - 10;
+    }
+  }
+
   openModal(id: string) {
     this._modalService.open(id);
   }
@@ -289,6 +351,11 @@ export class AnnotationAppComponent implements OnInit {
         this.file = file;
         this.formatDisabled = !this.file;
         if (file) {
+          if (!this.isDesktop && file.pages && file.pages[0]) {
+            this._pageHeight = file.pages[0].height;
+            this._pageWidth = file.pages[0].width;
+            this.refreshZoom();
+          }
           const preloadPageCount = this.preloadPageCountConfig;
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
@@ -316,7 +383,9 @@ export class AnnotationAppComponent implements OnInit {
     for (let i = start; i <= end; i++) {
       this._annotationService.loadPage(this.credentials, i).subscribe((page: PageAnnotationModel) => {
         this.file.pages[i - 1] = page;
-        this.importAnnotations(page.annotations ? page.annotations : []);
+        setTimeout(() => {
+          this.importAnnotations(page.annotations ? page.annotations : []);
+        }, 100);
       });
     }
   }
@@ -347,16 +416,22 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   annotate() {
+    const annotationsData = this.prepareAnnotationsData();
+
+    this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((ret: any) => {
+      this._modalService.open(CommonModals.OperationSuccess);
+      this.selectFile(ret.guid, this.credentials.password, CommonModals.OperationSuccess);
+    });
+  }
+
+  public prepareAnnotationsData(){
     const annotationsData = [];
     for (const annotation of this.annotations.values()) {
       const annotationData = (<AnnotationComponent>annotation.instance).getAnnotationData();
       annotationData.comments = this.comments.get(annotationData.id);
       annotationsData.push(annotationData);
     }
-    this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((ret: any) => {
-      this._modalService.open(CommonModals.OperationSuccess);
-      this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
-    });
+    return annotationsData;
   }
 
   isVisible(id: string) {
@@ -443,7 +518,10 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   createAnnotation($event: MouseEvent) {
-    $event.preventDefault();
+    if (this.activeAnnotationTab)
+    {
+        $event.preventDefault();
+    } 
 
     if (this.activeAnnotationTab) {
       const position = Utils.getMousePosition($event);
@@ -507,7 +585,10 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   resizingCreatingAnnotation($event: MouseEvent) {
-    $event.preventDefault();
+    if (this.activeAnnotationTab)
+    {
+        $event.preventDefault();
+    } 
 
     if (this.creatingAnnotationId) {
       const position = Utils.getMousePosition($event);
@@ -524,12 +605,17 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   private getCurrentPosition(position, page) {
-    const left = position.x - page.offset().left;
-    const top = position.y - page.offset().top;
+    const left = (position.x - page.offset().left)/(this.zoom/100);
+    const top = (position.y - page.offset().top)/(this.zoom/100);
     return new Position(left, top);
   }
 
   finishCreatingAnnotation($event: MouseEvent) {
+    if (this.activeAnnotationTab)
+    {
+        $event.preventDefault();
+    } 
+
     if (this.creatingAnnotationId) {
       this._activeAnnotationService.changeActive(this.creatingAnnotationId);
       this.creatingAnnotationId = null;
@@ -538,6 +624,11 @@ export class AnnotationAppComponent implements OnInit {
 
   closeComments() {
     this.commentOpenedId = null;
+  }
+
+  onPan($event)
+  {
+    this._zoomService.changeZoom(this._zoom);
   }
 
   private getNextId() {

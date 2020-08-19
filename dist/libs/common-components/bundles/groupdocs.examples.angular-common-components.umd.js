@@ -2,21 +2,21 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('jquery'), require('hammerjs'), require('@angular/platform-browser'), require('ng-click-outside')) :
     typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', 'rxjs', 'rxjs/operators', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'jquery', 'hammerjs', '@angular/platform-browser', 'ng-click-outside'], factory) :
     (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.rxjs, global.rxjs.operators, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.jquery, global.Hammer, global.ng.platformBrowser, global.ngClickOutside));
-}(this, function (exports, core, common, rxjs, operators, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, jquery, Hammer, platformBrowser, ngClickOutside) { 'use strict';
+}(this, (function (exports, core, common, rxjs, operators, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, jquery, Hammer, platformBrowser, ngClickOutside) { 'use strict';
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -33,15 +33,194 @@
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                    t[p[i]] = s[p[i]];
+            }
+        return t;
+    }
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    }
+
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+    }
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    function __createBinding(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    }
+
+    function __exportStar(m, exports) {
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+
     function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
         if (m) return m.call(o);
-        return {
+        if (o && typeof o.length === "number") return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+    }
+
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m) return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+        }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) m.call(i);
+            }
+            finally { if (e) throw e.error; }
+        }
+        return ar;
+    }
+
+    function __spread() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+            ar = ar.concat(__read(arguments[i]));
+        return ar;
+    }
+
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    };
+
+    function __await(v) {
+        return this instanceof __await ? (this.v = v, this) : new __await(v);
+    }
+
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
+        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+    }
+
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+    }
+
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+    }
+
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        return cooked;
+    };
+
+    function __importStar(mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+        result.default = mod;
+        return result;
+    }
+
+    function __importDefault(mod) {
+        return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
     }
 
     /**
@@ -69,13 +248,16 @@
      */
     var SidePanelComponent = /** @class */ (function () {
         function SidePanelComponent() {
+            this.closable = true;
+            this.saveable = true;
             this.hideSidePanel = new core.EventEmitter();
+            this.saveInSidePanel = new core.EventEmitter();
             this.onlyTitle = false;
         }
         /**
          * @return {?}
          */
-        SidePanelComponent.prototype.openSidePanel = /**
+        SidePanelComponent.prototype.closeSidePanel = /**
          * @return {?}
          */
         function () {
@@ -84,17 +266,28 @@
         /**
          * @return {?}
          */
+        SidePanelComponent.prototype.saveBySidePanel = /**
+         * @return {?}
+         */
+        function () {
+            this.saveInSidePanel.emit(true);
+        };
+        /**
+         * @return {?}
+         */
         SidePanelComponent.prototype.toggleTitleMode = /**
          * @return {?}
          */
         function () {
-            this.onlyTitle = !this.onlyTitle;
+            if (this.closable && !this.saveable) {
+                this.onlyTitle = !this.onlyTitle;
+            }
         };
         SidePanelComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-side-panel',
-                        template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"close\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"openSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close{display:flex;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header /deep/ gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
+                        template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"save\" *ngIf=\"saveable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\r\n    </div>\r\n    <div class=\"close\" *ngIf=\"closable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                        styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close,.gd-side-panel-wrapper .gd-side-panel-header .save{display:flex;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header ::ng-deep gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -102,10 +295,29 @@
         SidePanelComponent.propDecorators = {
             title: [{ type: core.Input }],
             icon: [{ type: core.Input }],
-            hideSidePanel: [{ type: core.Output }]
+            closable: [{ type: core.Input }],
+            saveable: [{ type: core.Input }],
+            hideSidePanel: [{ type: core.Output }],
+            saveInSidePanel: [{ type: core.Output }]
         };
         return SidePanelComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        SidePanelComponent.prototype.title;
+        /** @type {?} */
+        SidePanelComponent.prototype.icon;
+        /** @type {?} */
+        SidePanelComponent.prototype.closable;
+        /** @type {?} */
+        SidePanelComponent.prototype.saveable;
+        /** @type {?} */
+        SidePanelComponent.prototype.hideSidePanel;
+        /** @type {?} */
+        SidePanelComponent.prototype.saveInSidePanel;
+        /** @type {?} */
+        SidePanelComponent.prototype.onlyTitle;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -208,6 +420,28 @@
         };
         return WindowService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype.resizeSubject;
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype._resize$;
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype.width;
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype.height;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -221,6 +455,7 @@
             this.disabled = false;
             this.toggle = false;
             this.iconRegular = false;
+            this.elementPosition = 0;
             this.showToolTip = false;
             this.isDesktop = windowService.isDesktop();
             windowService.onResize.subscribe((/**
@@ -283,8 +518,8 @@
         ButtonComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-button',
-                        template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
+                        template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [position]=\"elementPosition\" class=\"button-tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                        styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;flex-direction:column;align-items:center;align-content:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}.button .button-tooltip{display:flex;flex-direction:column}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -301,10 +536,42 @@
             className: [{ type: core.Input }],
             toggle: [{ type: core.Input }],
             iconSize: [{ type: core.Input }],
-            iconRegular: [{ type: core.Input }]
+            iconRegular: [{ type: core.Input }],
+            elementPosition: [{ type: core.Input }]
         };
         return ButtonComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ButtonComponent.prototype.iconOnly;
+        /** @type {?} */
+        ButtonComponent.prototype.intent;
+        /** @type {?} */
+        ButtonComponent.prototype.disabled;
+        /** @type {?} */
+        ButtonComponent.prototype.icon;
+        /** @type {?} */
+        ButtonComponent.prototype.iconClass;
+        /** @type {?} */
+        ButtonComponent.prototype.tooltip;
+        /** @type {?} */
+        ButtonComponent.prototype.className;
+        /** @type {?} */
+        ButtonComponent.prototype.toggle;
+        /** @type {?} */
+        ButtonComponent.prototype.iconSize;
+        /** @type {?} */
+        ButtonComponent.prototype.iconRegular;
+        /** @type {?} */
+        ButtonComponent.prototype.elementPosition;
+        /** @type {?} */
+        ButtonComponent.prototype.showToolTip;
+        /**
+         * @type {?}
+         * @private
+         */
+        ButtonComponent.prototype.isDesktop;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -336,6 +603,12 @@
         };
         return LogoComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        LogoComponent.prototype.logo;
+        /** @type {?} */
+        LogoComponent.prototype.icon;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -343,8 +616,21 @@
      */
     var TooltipComponent = /** @class */ (function () {
         function TooltipComponent() {
+            this.position = 0;
             this.visibility = 'hidden';
         }
+        /**
+         * @return {?}
+         */
+        TooltipComponent.prototype.getClass = /**
+         * @return {?}
+         */
+        function () {
+            if (this.position === 0) {
+                return 'tooltip';
+            }
+            return 'tooltip ' + (this.position > 0 ? 'last-element' : 'first-element');
+        };
         Object.defineProperty(TooltipComponent.prototype, "show", {
             set: /**
              * @param {?} value
@@ -367,18 +653,27 @@
         TooltipComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-tooltip',
-                        template: "<span class=\"tooltip\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n",
-                        styles: [".tooltip{position:absolute;margin-top:37px;width:100px;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px 0;z-index:1;margin-left:-66px;font-size:10px;height:11px;line-height:11px}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
+                        template: "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n",
+                        styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:0!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
                     }] }
         ];
         /** @nocollapse */
         TooltipComponent.ctorParameters = function () { return []; };
         TooltipComponent.propDecorators = {
             text: [{ type: core.Input }],
+            position: [{ type: core.Input }],
             show: [{ type: core.Input }]
         };
         return TooltipComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TooltipComponent.prototype.text;
+        /** @type {?} */
+        TooltipComponent.prototype.position;
+        /** @type {?} */
+        TooltipComponent.prototype.visibility;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -390,14 +685,20 @@
         Api.VIEWER_APP = '/viewer';
         Api.SIGNATURE_APP = '/signature';
         Api.ANNOTATION_APP = '/annotation';
+        Api.SEARCH_APP = '/search';
         Api.EDITOR_APP = '/editor';
         Api.COMPARISON_APP = '/comparison';
         Api.CONVERSION_APP = '/conversion';
+        Api.METADATA_APP = '/metadata';
         Api.DEFAULT_API_ENDPOINT = window.location.href;
         Api.LOAD_FILE_TREE = '/loadFileTree';
         Api.LOAD_CONFIG = '/loadConfig';
         Api.LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
         Api.LOAD_DOCUMENT_PAGE = '/loadDocumentPage';
+        Api.LOAD_DOCUMENT_PROPERTIES = '/loadProperties';
+        Api.LOAD_DOCUMENT_PROPERTIES_NAMES = '/loadPropertiesNames';
+        Api.SAVE_PROPERTY = '/saveProperty';
+        Api.REMOVE_PROPERTY = '/removeProperty';
         Api.ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
         Api.UPLOAD_DOCUMENTS = '/uploadDocument';
         Api.DOWNLOAD_DOCUMENTS = '/downloadDocument';
@@ -409,6 +710,8 @@
         Api.COMPARE_FILES = '/compare';
         Api.CONVERT_FILE = '/convert';
         Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+        Api.REMOVE_FROM_INDEX = '/removeFromIndex';
+        Api.GET_FILE_STATUS = '/getFileStatus';
         Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
         Api.SAVE_TEXT = '/saveText';
         Api.SAVE_IMAGE = '/saveImage';
@@ -417,6 +720,8 @@
         Api.DOWNLOAD_SIGNED = '/downloadSigned';
         Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
         Api.ANNOTATE = '/annotate';
+        Api.SEARCH = '/search';
+        Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
         Api.httpOptionsJson = {
             headers: new http.HttpHeaders({
                 'Content-Type': 'application/json',
@@ -430,6 +735,92 @@
         };
         return Api;
     }());
+    if (false) {
+        /** @type {?} */
+        Api.VIEWER_APP;
+        /** @type {?} */
+        Api.SIGNATURE_APP;
+        /** @type {?} */
+        Api.ANNOTATION_APP;
+        /** @type {?} */
+        Api.SEARCH_APP;
+        /** @type {?} */
+        Api.EDITOR_APP;
+        /** @type {?} */
+        Api.COMPARISON_APP;
+        /** @type {?} */
+        Api.CONVERSION_APP;
+        /** @type {?} */
+        Api.METADATA_APP;
+        /** @type {?} */
+        Api.DEFAULT_API_ENDPOINT;
+        /** @type {?} */
+        Api.LOAD_FILE_TREE;
+        /** @type {?} */
+        Api.LOAD_CONFIG;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_DESCRIPTION;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_PAGE;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_PROPERTIES;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_PROPERTIES_NAMES;
+        /** @type {?} */
+        Api.SAVE_PROPERTY;
+        /** @type {?} */
+        Api.REMOVE_PROPERTY;
+        /** @type {?} */
+        Api.ROTATE_DOCUMENT_PAGE;
+        /** @type {?} */
+        Api.UPLOAD_DOCUMENTS;
+        /** @type {?} */
+        Api.DOWNLOAD_DOCUMENTS;
+        /** @type {?} */
+        Api.LOAD_PRINT;
+        /** @type {?} */
+        Api.LOAD_PRINT_PDF;
+        /** @type {?} */
+        Api.LOAD_THUMBNAILS;
+        /** @type {?} */
+        Api.LOAD_FORMATS;
+        /** @type {?} */
+        Api.SAVE_FILE;
+        /** @type {?} */
+        Api.COMPARE_FILES;
+        /** @type {?} */
+        Api.CONVERT_FILE;
+        /** @type {?} */
+        Api.DELETE_SIGNATURE_FILE;
+        /** @type {?} */
+        Api.REMOVE_FROM_INDEX;
+        /** @type {?} */
+        Api.GET_FILE_STATUS;
+        /** @type {?} */
+        Api.SAVE_OPTICAL_CODE;
+        /** @type {?} */
+        Api.SAVE_TEXT;
+        /** @type {?} */
+        Api.SAVE_IMAGE;
+        /** @type {?} */
+        Api.SAVE_STAMP;
+        /** @type {?} */
+        Api.SIGN;
+        /** @type {?} */
+        Api.DOWNLOAD_SIGNED;
+        /** @type {?} */
+        Api.LOAD_SIGNATURE_IMAGE;
+        /** @type {?} */
+        Api.ANNOTATE;
+        /** @type {?} */
+        Api.SEARCH;
+        /** @type {?} */
+        Api.ADD_FILES_TO_INDEX;
+        /** @type {?} */
+        Api.httpOptionsJson;
+        /** @type {?} */
+        Api.httpOptionsJsonResponseTypeBlob;
+    }
     var ConfigService = /** @class */ (function () {
         function ConfigService() {
             this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
@@ -501,6 +892,15 @@
         /**
          * @return {?}
          */
+        ConfigService.prototype.getMetadataApiEndpoint = /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
+        };
+        /**
+         * @return {?}
+         */
         ConfigService.prototype.getSignatureApiEndpoint = /**
          * @return {?}
          */
@@ -516,6 +916,15 @@
         function () {
             return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
         };
+        /**
+         * @return {?}
+         */
+        ConfigService.prototype.getSearchApiEndpoint = /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
+        };
         ConfigService.decorators = [
             { type: core.Injectable }
         ];
@@ -523,6 +932,13 @@
         ConfigService.ctorParameters = function () { return []; };
         return ConfigService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ConfigService.prototype._apiEndpoint;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -541,6 +957,24 @@
         CommonModals.InformationMessage = "gd-information-message";
         return CommonModals;
     }());
+    if (false) {
+        /** @type {?} */
+        CommonModals.PasswordRequired;
+        /** @type {?} */
+        CommonModals.ErrorMessage;
+        /** @type {?} */
+        CommonModals.BrowseFiles;
+        /** @type {?} */
+        CommonModals.CreateDocument;
+        /** @type {?} */
+        CommonModals.OperationSuccess;
+        /** @type {?} */
+        CommonModals.DrawHandSignature;
+        /** @type {?} */
+        CommonModals.DrawStampSignature;
+        /** @type {?} */
+        CommonModals.InformationMessage;
+    }
     var ModalService = /** @class */ (function () {
         function ModalService() {
             this.modals = [];
@@ -611,6 +1045,13 @@
         };
         return ModalService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ModalService.prototype.modals;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -698,7 +1139,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-modal',
                         template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\r\n</div>\r\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\r\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\r\n\r\n    <div class=\"gd-modal-header\">\r\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\r\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-body\">\r\n      <ng-content></ng-content>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-footer\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n",
-                        styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
+                        styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-dialog ::ng-deep .button{flex-direction:unset!important}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -714,6 +1155,28 @@
         };
         return ModalComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ModalComponent.prototype.id;
+        /** @type {?} */
+        ModalComponent.prototype.title;
+        /** @type {?} */
+        ModalComponent.prototype.visible;
+        /** @type {?} */
+        ModalComponent.prototype.cancel;
+        /** @type {?} */
+        ModalComponent.prototype.visibility;
+        /**
+         * @type {?}
+         * @private
+         */
+        ModalComponent.prototype.element;
+        /**
+         * @type {?}
+         * @private
+         */
+        ModalComponent.prototype.modalService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -724,11 +1187,31 @@
         }
         return PageModel;
     }());
+    if (false) {
+        /** @type {?} */
+        PageModel.prototype.data;
+        /** @type {?} */
+        PageModel.prototype.angle;
+        /** @type {?} */
+        PageModel.prototype.width;
+        /** @type {?} */
+        PageModel.prototype.height;
+        /** @type {?} */
+        PageModel.prototype.number;
+        /** @type {?} */
+        PageModel.prototype.editable;
+    }
     var RotatedPage = /** @class */ (function () {
         function RotatedPage() {
         }
         return RotatedPage;
     }());
+    if (false) {
+        /** @type {?} */
+        RotatedPage.prototype.pageNumber;
+        /** @type {?} */
+        RotatedPage.prototype.angle;
+    }
     var FileCredentials = /** @class */ (function () {
         function FileCredentials(guid, password) {
             this.guid = guid;
@@ -736,6 +1219,12 @@
         }
         return FileCredentials;
     }());
+    if (false) {
+        /** @type {?} */
+        FileCredentials.prototype.guid;
+        /** @type {?} */
+        FileCredentials.prototype.password;
+    }
     var SaveFile = /** @class */ (function (_super) {
         __extends(SaveFile, _super);
         function SaveFile(guid, password, content) {
@@ -745,17 +1234,45 @@
         }
         return SaveFile;
     }(FileCredentials));
+    if (false) {
+        /** @type {?} */
+        SaveFile.prototype.content;
+    }
     var FileDescription = /** @class */ (function () {
         function FileDescription() {
             this.printAllowed = true;
         }
         return FileDescription;
     }());
+    if (false) {
+        /** @type {?} */
+        FileDescription.prototype.guid;
+        /** @type {?} */
+        FileDescription.prototype.pages;
+        /** @type {?} */
+        FileDescription.prototype.printAllowed;
+        /** @type {?} */
+        FileDescription.prototype.showGridLines;
+        /** @type {?} */
+        FileDescription.prototype.thumbnails;
+    }
     var FileModel = /** @class */ (function () {
         function FileModel() {
         }
         return FileModel;
     }());
+    if (false) {
+        /** @type {?} */
+        FileModel.prototype.guid;
+        /** @type {?} */
+        FileModel.prototype.name;
+        /** @type {?} */
+        FileModel.prototype.directory;
+        /** @type {?} */
+        FileModel.prototype.size;
+        /** @type {?} */
+        FileModel.prototype.isDirectory;
+    }
     var HttpError = /** @class */ (function () {
         function HttpError() {
         }
@@ -768,6 +1285,22 @@
         HttpError.InternalServerError = 500;
         return HttpError;
     }());
+    if (false) {
+        /** @type {?} */
+        HttpError.BadRequest;
+        /** @type {?} */
+        HttpError.Unauthorized;
+        /** @type {?} */
+        HttpError.Forbidden;
+        /** @type {?} */
+        HttpError.NotFound;
+        /** @type {?} */
+        HttpError.TimeOut;
+        /** @type {?} */
+        HttpError.Conflict;
+        /** @type {?} */
+        HttpError.InternalServerError;
+    }
     var Utils = /** @class */ (function () {
         function Utils() {
         }
@@ -985,6 +1518,10 @@
         };
         return FileUtil;
     }());
+    if (false) {
+        /** @type {?} */
+        FileUtil.map;
+    }
     var FileService = /** @class */ (function () {
         function FileService() {
         }
@@ -1029,6 +1566,18 @@
         };
         return UploadFilesService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFilesService.prototype._uploadsChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFilesService.prototype._observer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1243,6 +1792,36 @@
         };
         return BrowseFilesModalComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.uploads;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.files;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.uploadConfig;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.selectedFileGuid;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.selectedDirectory;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.urlForUpload;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.closing;
+        /**
+         * @type {?}
+         * @private
+         */
+        BrowseFilesModalComponent.prototype.selectedFile;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.showUploadUrl;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.showUploadFile;
+        /**
+         * @type {?}
+         * @private
+         */
+        BrowseFilesModalComponent.prototype._uploadService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1326,6 +1905,23 @@
         };
         return ZoomService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomService.prototype._zoomChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomService.prototype._zoom;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1339,6 +1935,7 @@
             this._elementRef = _elementRef;
             this._zoomService = _zoomService;
             this._windowService = _windowService;
+            this.onpan = new core.EventEmitter();
             this.wait = false;
             this.docWidth = null;
             this.docHeight = null;
@@ -1479,6 +2076,7 @@
             }
             return { x: x, y: y };
         };
+        ;
         /**
          * @param {?} pos
          * @param {?} viewportDim
@@ -1500,6 +2098,7 @@
             }
             return pos;
         };
+        ;
         /**
          * @return {?}
          */
@@ -1510,6 +2109,7 @@
             this.lastX = this.x;
             this.lastY = this.y;
         };
+        ;
         /**
          * @param {?} deltaX
          * @param {?} deltaY
@@ -1534,6 +2134,7 @@
             this.container.scrollTop = -Math.ceil(newY * this.scale);
             this.doc.style.transform = 'scale(' + this.scale + ')';
         };
+        ;
         /**
          * @param {?} scaleBy
          * @return {?}
@@ -1549,6 +2150,7 @@
             // Adjust margins to make sure that we aren't out of bounds
             this.translate(0, 0);
         };
+        ;
         /**
          * @param {?} $event
          * @return {?}
@@ -1571,6 +2173,7 @@
             var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
             return { x: zoomX, y: zoomY };
         };
+        ;
         /**
          * @return {?}
          */
@@ -1580,6 +2183,7 @@
         function () {
             this.lastScale = this.scale;
         };
+        ;
         /**
          * @param {?} scaleBy
          * @param {?} rawZoomX
@@ -1614,6 +2218,7 @@
                 this.updateLastPos();
             }
         };
+        ;
         /**
          * @param {?} $event
          * @return {?}
@@ -1667,6 +2272,7 @@
             // if (!this.isDesktop) {
             //   this.translate($event.deltaX, $event.deltaY);
             // }
+            this.onpan.emit($event);
         };
         /**
          * @param {?} $event
@@ -1702,7 +2308,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-document',
                         template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1714,10 +2320,82 @@
         DocumentComponent.propDecorators = {
             mode: [{ type: core.Input }],
             preloadPageCount: [{ type: core.Input }],
-            file: [{ type: core.Input }]
+            file: [{ type: core.Input }],
+            onpan: [{ type: core.Output }]
         };
         return DocumentComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DocumentComponent.prototype.mode;
+        /** @type {?} */
+        DocumentComponent.prototype.preloadPageCount;
+        /** @type {?} */
+        DocumentComponent.prototype.file;
+        /** @type {?} */
+        DocumentComponent.prototype.onpan;
+        /** @type {?} */
+        DocumentComponent.prototype.wait;
+        /** @type {?} */
+        DocumentComponent.prototype.zoom;
+        /** @type {?} */
+        DocumentComponent.prototype.docWidth;
+        /** @type {?} */
+        DocumentComponent.prototype.docHeight;
+        /** @type {?} */
+        DocumentComponent.prototype.viewportWidth;
+        /** @type {?} */
+        DocumentComponent.prototype.viewportHeight;
+        /** @type {?} */
+        DocumentComponent.prototype.scale;
+        /** @type {?} */
+        DocumentComponent.prototype.lastScale;
+        /** @type {?} */
+        DocumentComponent.prototype.container;
+        /** @type {?} */
+        DocumentComponent.prototype.doc;
+        /** @type {?} */
+        DocumentComponent.prototype.x;
+        /** @type {?} */
+        DocumentComponent.prototype.lastX;
+        /** @type {?} */
+        DocumentComponent.prototype.y;
+        /** @type {?} */
+        DocumentComponent.prototype.lastY;
+        /** @type {?} */
+        DocumentComponent.prototype.pinchCenter;
+        /** @type {?} */
+        DocumentComponent.prototype.pinchCenterOffset;
+        /** @type {?} */
+        DocumentComponent.prototype.curWidth;
+        /** @type {?} */
+        DocumentComponent.prototype.curHeight;
+        /** @type {?} */
+        DocumentComponent.prototype.isDesktop;
+        /**
+         * @type {?}
+         * @protected
+         */
+        DocumentComponent.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        DocumentComponent.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        DocumentComponent.prototype._windowService;
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1759,6 +2437,18 @@
         };
         return PagePreloadService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        PagePreloadService.prototype._checkPreload;
+        /**
+         * @type {?}
+         * @private
+         */
+        PagePreloadService.prototype._observer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1891,6 +2581,33 @@
         /** @nocollapse */ NavigateService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(core.ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
         return NavigateService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._currentPage;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._countPages;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._navigate;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._pagePreloadService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2067,7 +2784,7 @@
          */
         function () {
             /** @type {?} */
-            var isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            var isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
             if (isIE && this.number === 0) {
                 this.editable = false;
             }
@@ -2096,7 +2813,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-excel-page',
                         template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}/deep/ th{color:#959da5;background-color:#f4f4f4;font-weight:unset;border:1px solid #e7e7e7!important;text-transform:uppercase;font-size:14px;overflow:hidden}/deep/ td{vertical-align:middle!important}/deep/ .page-grid-lines td{border:1px solid #e7e7e7!important}/deep/ .page td:nth-child(1){border:1px solid #e7e7e7!important}/deep/ tr td.excel:first-child{color:#959da5;background-color:#f4f4f4;font-weight:unset;width:1%;text-align:center}/deep/ tr td.excel:first-child div{width:80px}/deep/ tr th.excel:first-child{background-color:#f4f4f4;width:1%}/deep/ tr th.excel:first-child div{width:80px}.gd-page-image{height:100%!important;width:100%!important}"]
+                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}::ng-deep th{color:#959da5;background-color:#f4f4f4;font-weight:unset;border:1px solid #e7e7e7!important;text-transform:uppercase;font-size:14px;overflow:hidden}::ng-deep td{vertical-align:middle!important}::ng-deep .page-grid-lines td{border:1px solid #e7e7e7!important}::ng-deep .page td:nth-child(1){border:1px solid #e7e7e7!important}::ng-deep tr td.excel:first-child{color:#959da5;background-color:#f4f4f4;font-weight:unset;width:1%;text-align:center}::ng-deep tr td.excel:first-child div{width:80px}::ng-deep tr th.excel:first-child{background-color:#f4f4f4;width:1%}::ng-deep tr th.excel:first-child div{width:80px}.gd-page-image{height:100%!important;width:100%!important}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2114,6 +2831,29 @@
         };
         return ExcelPageComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ExcelPageComponent.prototype.angle;
+        /** @type {?} */
+        ExcelPageComponent.prototype.width;
+        /** @type {?} */
+        ExcelPageComponent.prototype.height;
+        /** @type {?} */
+        ExcelPageComponent.prototype.number;
+        /** @type {?} */
+        ExcelPageComponent.prototype.data;
+        /** @type {?} */
+        ExcelPageComponent.prototype.isHtml;
+        /** @type {?} */
+        ExcelPageComponent.prototype.editable;
+        /** @type {?} */
+        ExcelPageComponent.prototype.imgData;
+        /**
+         * @type {?}
+         * @private
+         */
+        ExcelPageComponent.prototype._excelPageService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2187,7 +2927,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-excel-document',
                         template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"file.showGridLines ? 'page-grid-lines' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\">\r\n      <gd-excel-page *ngIf=\"currentPageNo == page.number || page.number == 0\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-excel-page>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"sheets\">\r\n  <div class=\"sheets-wrapper\">\r\n    <div *ngFor=\"let page of file?.pages\">\r\n      <gd-button [icon]=\"'eye'\" [ngClass]=\"{'active': currentPageNo == page.number }\" (click)=\"selectSheet(page.number)\">Sheet {{page.number}}</gd-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-                        styles: [":host{overflow:scroll;width:100%;background-color:#e7e7e7}.document{width:100%;transition:.4s;padding:0;margin:0;position:relative}.sheets{background-color:#fff;display:flex;border-top:1px solid #e7e7e7;position:fixed;bottom:17px;right:17px;width:100%}.sheets /deep/ gd-button.active .text{background-color:#272727;border-radius:10px;color:#eee}.sheets /deep/ gd-button .text{padding:1px 12px;color:#000}.sheets /deep/ gd-button fa-icon{display:none}.sheets-wrapper{margin-left:29px;display:flex}.page{position:relative;display:inline-block;transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}.highlights{position:absolute;top:0;left:0;bottom:0;right:0}@media (max-width:1037px){.document{overflow-x:auto!important}.panzoom{flex-direction:column}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        styles: [":host{overflow:scroll;width:100%;background-color:#e7e7e7}.document{width:100%;transition:.4s;padding:0;margin:0;position:relative}.sheets{background-color:#fff;display:flex;border-top:1px solid #e7e7e7;position:fixed;bottom:17px;right:17px;width:100%}.sheets ::ng-deep gd-button.active .text{background-color:#272727;border-radius:10px;color:#eee}.sheets ::ng-deep gd-button .text{padding:1px 12px;color:#000}.sheets ::ng-deep gd-button fa-icon{display:none}.sheets-wrapper{margin-left:29px;display:flex}.page{position:relative;display:inline-block;transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform-origin:50% 50% 0;display:flex;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}.highlights{position:absolute;top:0;left:0;bottom:0;right:0}.page-grid-lines{background-color:#fff}@media (max-width:1037px){.document{overflow-x:auto!important}.panzoom{flex-direction:column}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2202,6 +2942,19 @@
         };
         return ExcelDocumentComponent;
     }(DocumentComponent));
+    if (false) {
+        /** @type {?} */
+        ExcelDocumentComponent.prototype.pages;
+        /** @type {?} */
+        ExcelDocumentComponent.prototype.currentPageNo;
+        /** @type {?} */
+        ExcelDocumentComponent.prototype.panzoom;
+        /**
+         * @type {?}
+         * @private
+         */
+        ExcelDocumentComponent.prototype._navigateService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2218,7 +2971,7 @@
          */
         function () {
             /** @type {?} */
-            var isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            var isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
             if (isIE && this.number === 0) {
                 this.editable = false;
             }
@@ -2234,7 +2987,12 @@
         function (changes) {
             // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
             // which leads to undesired spaces on the top of the docs pages
-            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
+            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><')
+                .replace(/\uFEFF/g, "")
+                .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+                .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+                .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
+                : null;
             /** @type {?} */
             var dataImagePngBase64 = 'data:image/png;base64,';
             this.imgData = dataImagePngBase64;
@@ -2246,7 +3004,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-page',
                         template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}"]
+                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2262,6 +3020,24 @@
         };
         return PageComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        PageComponent.prototype.angle;
+        /** @type {?} */
+        PageComponent.prototype.width;
+        /** @type {?} */
+        PageComponent.prototype.height;
+        /** @type {?} */
+        PageComponent.prototype.number;
+        /** @type {?} */
+        PageComponent.prototype.data;
+        /** @type {?} */
+        PageComponent.prototype.isHtml;
+        /** @type {?} */
+        PageComponent.prototype.editable;
+        /** @type {?} */
+        PageComponent.prototype.imgData;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2291,6 +3067,13 @@
         ]; };
         return SanitizeHtmlPipe;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SanitizeHtmlPipe.prototype.sanitizer;
+    }
     var SanitizeResourceHtmlPipe = /** @class */ (function () {
         function SanitizeResourceHtmlPipe(sanitizer) {
             this.sanitizer = sanitizer;
@@ -2315,6 +3098,13 @@
         ]; };
         return SanitizeResourceHtmlPipe;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SanitizeResourceHtmlPipe.prototype.sanitizer;
+    }
     var SanitizeStylePipe = /** @class */ (function () {
         function SanitizeStylePipe(sanitizer) {
             this.sanitizer = sanitizer;
@@ -2339,6 +3129,13 @@
         ]; };
         return SanitizeStylePipe;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SanitizeStylePipe.prototype.sanitizer;
+    }
     var HighlightSearchPipe = /** @class */ (function () {
         function HighlightSearchPipe() {
         }
@@ -2433,6 +3230,15 @@
         };
         return UploadFileZoneComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        UploadFileZoneComponent.prototype.closeUpload;
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFileZoneComponent.prototype._uploadService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2557,6 +3363,26 @@
         };
         return DndDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        DndDirective.prototype.closing;
+        /** @type {?} */
+        DndDirective.prototype.opening;
+        /** @type {?} */
+        DndDirective.prototype.dropped;
+        /** @type {?} */
+        DndDirective.prototype.active;
+        /**
+         * @type {?}
+         * @private
+         */
+        DndDirective.prototype.dragCounter;
+        /**
+         * @type {?}
+         * @protected
+         */
+        DndDirective.prototype._uploadFilesService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2660,6 +3486,7 @@
             this._windowService = _windowService;
             this._viewportService = _viewportService;
             this.zoom = 100;
+            this.loadedPagesSet = new Set();
             this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
             _zoomService.zoomChange.subscribe((/**
              * @param {?} val
@@ -2841,7 +3668,10 @@
                         }
                         currentPageSet = true;
                     }
-                    this._pagePreloadService.changeLastPageInView(page);
+                    if (!this.loadedPagesSet.has(page)) {
+                        this._pagePreloadService.changeLastPageInView(page);
+                        this.loadedPagesSet.add(page);
+                    }
                 }
             }
         };
@@ -2907,6 +3737,53 @@
         };
         return ScrollableDirective;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype.currentPage;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype.zoom;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype.loadedPagesSet;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._navigateService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._pagePreloadService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._viewportService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3019,6 +3896,19 @@
         };
         /**
          * @private
+         * @param {?} elm
+         * @return {?}
+         */
+        ZoomDirective.prototype.getScrollHeight = /**
+         * @private
+         * @param {?} elm
+         * @return {?}
+         */
+        function (elm) {
+            return elm.offsetHeight - elm.clientHeight;
+        };
+        /**
+         * @private
          * @param {?} zoom
          * @return {?}
          */
@@ -3033,8 +3923,13 @@
             /** @type {?} */
             var viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
             /** @type {?} */
+            var viewPortHeight = this.el.nativeElement.parentElement.offsetHeight;
+            /** @type {?} */
             var scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+            /** @type {?} */
+            var scrollHeight = this.getScrollHeight(this.el.nativeElement.parentElement);
             this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
+            this.height = (viewPortHeight / zoomInt - scrollHeight / zoomInt) + 'px';
         };
         /**
          * @return {?}
@@ -3063,10 +3958,41 @@
             transform: [{ type: core.HostBinding, args: ['style.transform',] }],
             transformOrigin: [{ type: core.HostBinding, args: ['style.transform-origin',] }],
             width: [{ type: core.HostBinding, args: ['style.width',] }],
+            height: [{ type: core.HostBinding, args: ['style.height',] }],
             minWidth: [{ type: core.HostBinding, args: ['style.min-width',] }]
         };
         return ZoomDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        ZoomDirective.prototype.zoomActive;
+        /** @type {?} */
+        ZoomDirective.prototype.file;
+        /** @type {?} */
+        ZoomDirective.prototype.zoomInt;
+        /** @type {?} */
+        ZoomDirective.prototype.transform;
+        /** @type {?} */
+        ZoomDirective.prototype.transformOrigin;
+        /** @type {?} */
+        ZoomDirective.prototype.width;
+        /** @type {?} */
+        ZoomDirective.prototype.height;
+        /** @type {?} */
+        ZoomDirective.prototype.minWidth;
+        /** @type {?} */
+        ZoomDirective.prototype.el;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomDirective.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomDirective.prototype._windowService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3108,11 +4034,35 @@
         /** @nocollapse */ OnCloseService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function OnCloseService_Factory() { return new OnCloseService(); }, token: OnCloseService, providedIn: "root" });
         return OnCloseService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        OnCloseService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        OnCloseService.prototype._onClose;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /**
+     * @record
+     */
+    function Option() { }
+    if (false) {
+        /** @type {?} */
+        Option.prototype.name;
+        /** @type {?} */
+        Option.prototype.value;
+        /** @type {?} */
+        Option.prototype.separator;
+    }
     var SelectComponent = /** @class */ (function () {
         function SelectComponent(_onCloseService) {
             var _this = this;
@@ -3210,6 +4160,23 @@
         };
         return SelectComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        SelectComponent.prototype.options;
+        /** @type {?} */
+        SelectComponent.prototype.disabled;
+        /** @type {?} */
+        SelectComponent.prototype.showSelected;
+        /** @type {?} */
+        SelectComponent.prototype.selected;
+        /** @type {?} */
+        SelectComponent.prototype.isOpen;
+        /**
+         * @type {?}
+         * @protected
+         */
+        SelectComponent.prototype._onCloseService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3262,6 +4229,12 @@
         };
         return DisabledCursorDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        DisabledCursorDirective.prototype.dis;
+        /** @type {?} */
+        DisabledCursorDirective.prototype.cursor;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3369,6 +4342,26 @@
         };
         return RotationDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        RotationDirective.prototype.angle;
+        /** @type {?} */
+        RotationDirective.prototype.isHtmlMode;
+        /** @type {?} */
+        RotationDirective.prototype.width;
+        /** @type {?} */
+        RotationDirective.prototype.height;
+        /** @type {?} */
+        RotationDirective.prototype.withMargin;
+        /** @type {?} */
+        RotationDirective.prototype.animation;
+        /** @type {?} */
+        RotationDirective.prototype.transition;
+        /** @type {?} */
+        RotationDirective.prototype.transform;
+        /** @type {?} */
+        RotationDirective.prototype.margin;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3417,6 +4410,16 @@
         };
         return InitStateComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        InitStateComponent.prototype.icon;
+        /** @type {?} */
+        InitStateComponent.prototype.text;
+        /** @type {?} */
+        InitStateComponent.prototype.fileDropped;
+        /** @type {?} */
+        InitStateComponent.prototype.showUploadFile;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3484,6 +4487,28 @@
         };
         return RenderPrintService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._render;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._renderBlob;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._observerBlob;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3635,6 +4660,15 @@
         };
         return RenderPrintDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        RenderPrintDirective.prototype.htmlMode;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintDirective.prototype._renderService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3668,6 +4702,18 @@
         };
         return ExceptionMessageService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ExceptionMessageService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        ExceptionMessageService.prototype._messageChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3703,6 +4749,10 @@
         ]; };
         return ErrorModalComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ErrorModalComponent.prototype.message;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3736,6 +4786,18 @@
         };
         return PasswordService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        PasswordService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        PasswordService.prototype._passChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3814,7 +4876,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-password-required',
                         template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\r\n  <section id=\"gd-password-section\">\r\n    <div class=\"gd-password-wrap\">\r\n      <label for=\"password\">Password</label>\r\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\r\n             (keyup.enter)=\"setPassword(pass.value)\">\r\n      <span class=\"gd-password-error\">{{message}}</span>\r\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\r\n          Open\r\n      </gd-button>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                        styles: ["#gd-password-section{width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
+                        styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3827,6 +4889,17 @@
         };
         return PasswordRequiredComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        PasswordRequiredComponent.prototype.message;
+        /** @type {?} */
+        PasswordRequiredComponent.prototype.cancelEvent;
+        /**
+         * @type {?}
+         * @private
+         */
+        PasswordRequiredComponent.prototype._passwordService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3905,6 +4978,18 @@
         /** @nocollapse */ ErrorInterceptorService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ErrorInterceptorService_Factory() { return new ErrorInterceptorService(core.ɵɵinject(ModalService), core.ɵɵinject(ExceptionMessageService)); }, token: ErrorInterceptorService, providedIn: "root" });
         return ErrorInterceptorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ErrorInterceptorService.prototype._modalService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ErrorInterceptorService.prototype._messageService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3984,6 +5069,38 @@
         };
         return SearchService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._textChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._observerCurrent;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._currentChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._observerTotal;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._totalChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4092,6 +5209,21 @@
         };
         return SearchComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        SearchComponent.prototype.hidePanel;
+        /** @type {?} */
+        SearchComponent.prototype.current;
+        /** @type {?} */
+        SearchComponent.prototype.total;
+        /** @type {?} */
+        SearchComponent.prototype.textElement;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchComponent.prototype._searchService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4289,6 +5421,39 @@
         ]; };
         return SearchableDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        SearchableDirective.prototype.text;
+        /** @type {?} */
+        SearchableDirective.prototype.current;
+        /** @type {?} */
+        SearchableDirective.prototype.total;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype.zoom;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._searchService;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._highlight;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._zoomService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4320,6 +5485,12 @@
         };
         return TabbedToolbarsComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TabbedToolbarsComponent.prototype.logo;
+        /** @type {?} */
+        TabbedToolbarsComponent.prototype.icon;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4353,6 +5524,18 @@
         };
         return TabActivatorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        TabActivatorService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        TabActivatorService.prototype._activeTabChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4415,7 +5598,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-tab',
                         template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
+                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px;width:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -4432,6 +5615,25 @@
         };
         return TabComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TabComponent.prototype.id;
+        /** @type {?} */
+        TabComponent.prototype.tabTitle;
+        /** @type {?} */
+        TabComponent.prototype.icon;
+        /** @type {?} */
+        TabComponent.prototype.disabled;
+        /** @type {?} */
+        TabComponent.prototype.active;
+        /** @type {?} */
+        TabComponent.prototype.content;
+        /**
+         * @type {?}
+         * @private
+         */
+        TabComponent.prototype._tabActivatorService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4480,6 +5682,28 @@
         };
         return Formatting;
     }());
+    if (false) {
+        /** @type {?} */
+        Formatting.prototype.bold;
+        /** @type {?} */
+        Formatting.prototype.italic;
+        /** @type {?} */
+        Formatting.prototype.underline;
+        /** @type {?} */
+        Formatting.prototype.fontSize;
+        /** @type {?} */
+        Formatting.prototype.color;
+        /** @type {?} */
+        Formatting.prototype.bgColor;
+        /** @type {?} */
+        Formatting.prototype.font;
+        /** @type {?} */
+        Formatting.prototype.strikeout;
+        /** @type {?} */
+        Formatting.prototype.align;
+        /** @type {?} */
+        Formatting.prototype.list;
+    }
     var FormattingService = /** @class */ (function () {
         function FormattingService() {
             this._observerBold = new rxjs.Subject();
@@ -4820,6 +6044,128 @@
         };
         return FormattingService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerBold;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatBoldChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerUnderline;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatUnderlineChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerUndo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._undo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerRedo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._redo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerItalic;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatItalicChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerColor;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatColorChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerBgColor;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatBgColorChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerFontSize;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatFontSizeChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerFont;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatFontChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerStrikeout;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatStrikeoutChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerAlign;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatAlignChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerList;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatListChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4893,6 +6239,18 @@
         };
         return ColorPickerComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ColorPickerComponent.prototype.isOpen;
+        /** @type {?} */
+        ColorPickerComponent.prototype.selectedColor;
+        /** @type {?} */
+        ColorPickerComponent.prototype.closeOutside;
+        /** @type {?} */
+        ColorPickerComponent.prototype.colors;
+        /** @type {?} */
+        ColorPickerComponent.prototype.white;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4920,7 +6278,7 @@
      */
     var SelectionService = /** @class */ (function () {
         function SelectionService() {
-            this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         }
         /**
          * @return {?}
@@ -4980,6 +6338,12 @@
         /** @nocollapse */ SelectionService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function SelectionService_Factory() { return new SelectionService(); }, token: SelectionService, providedIn: "root" });
         return SelectionService;
     }());
+    if (false) {
+        /** @type {?} */
+        SelectionService.prototype.selection;
+        /** @type {?} */
+        SelectionService.prototype.isIE;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4997,7 +6361,7 @@
             this.underline = false;
             this.strikeout = false;
             this.isIE = false;
-            this.isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            this.isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         }
         /**
          * @return {?}
@@ -5451,6 +6815,73 @@
         };
         return FormattingDirective;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.bold;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.italic;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.underline;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.color;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.bgColor;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.font;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.strikeout;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.align;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.list;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.isIE;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype._formattingService;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype._backFormattingService;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype._selectionService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5518,6 +6949,18 @@
         /** @nocollapse */ EditHtmlService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function EditHtmlService_Factory() { return new EditHtmlService(); }, token: EditHtmlService, providedIn: "root" });
         return EditHtmlService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        EditHtmlService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditHtmlService.prototype._htmlContent;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5527,7 +6970,7 @@
         function EditorDirective(_selectionService, _htmlService) {
             this._selectionService = _selectionService;
             this._htmlService = _htmlService;
-            this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         }
         /**
          * @param {?} event
@@ -5600,6 +7043,25 @@
         };
         return EditorDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        EditorDirective.prototype.text;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorDirective.prototype.isIE;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorDirective.prototype._selectionService;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorDirective.prototype._htmlService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5612,6 +7074,9 @@
             this.requests = [];
             this.stopList.push(Api.SAVE_TEXT);
             this.stopList.push(Api.SAVE_OPTICAL_CODE);
+            this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
+            this.stopList.push(Api.LOAD_THUMBNAILS);
+            this.stopList.push(Api.GET_FILE_STATUS);
         }
         /**
          * @param {?} req
@@ -5667,6 +7132,20 @@
         LoadingMaskService.ctorParameters = function () { return []; };
         return LoadingMaskService;
     }());
+    if (false) {
+        /** @type {?} */
+        LoadingMaskService.prototype.onLoadingChanged;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskService.prototype.stopList;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskService.prototype.requests;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5717,6 +7196,15 @@
         };
         return LoadingMaskComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        LoadingMaskComponent.prototype.loadingMask;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskComponent.prototype._loadingMaskService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5758,6 +7246,13 @@
         /** @nocollapse */ LoadingMaskInterceptorService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function LoadingMaskInterceptorService_Factory() { return new LoadingMaskInterceptorService(core.ɵɵinject(LoadingMaskService)); }, token: LoadingMaskInterceptorService, providedIn: "root" });
         return LoadingMaskInterceptorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskInterceptorService.prototype._loadingMaskService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5821,6 +7316,12 @@
         };
         return DropDownToggleComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownToggleComponent.prototype.click;
+        /** @type {?} */
+        DropDownToggleComponent.prototype.dropdown;
+    }
     /**
      *  DropDownItemsComponent
      */
@@ -5886,6 +7387,10 @@
         ]; };
         return DropDownItemsComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownItemsComponent.prototype.dropdown;
+    }
     /**
      *  DropDownItemComponent
      */
@@ -5931,6 +7436,16 @@
         };
         return DropDownItemComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownItemComponent.prototype.class;
+        /** @type {?} */
+        DropDownItemComponent.prototype.selected;
+        /** @type {?} */
+        DropDownItemComponent.prototype.click;
+        /** @type {?} */
+        DropDownItemComponent.prototype.dropdown;
+    }
     /**
      *  DropDownComponent
      */
@@ -5989,6 +7504,14 @@
         };
         return DropDownComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownComponent.prototype.placement;
+        /** @type {?} */
+        DropDownComponent.prototype.open;
+        /** @type {?} */
+        DropDownComponent.prototype.class;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6020,6 +7543,10 @@
         };
         return LeftSideBarComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        LeftSideBarComponent.prototype.showSpinner;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6061,6 +7588,10 @@
         };
         return TooltipDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        TooltipDirective.prototype.showToolTip;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6108,6 +7639,18 @@
         /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(core.ɵɵinject(core.ComponentFactoryResolver), core.ɵɵinject(core.ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
         return AddDynamicComponentService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        AddDynamicComponentService.prototype._factoryResolver;
+        /**
+         * @type {?}
+         * @private
+         */
+        AddDynamicComponentService.prototype._appRef;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6171,6 +7714,13 @@
         };
         return HostingDynamicComponentService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        HostingDynamicComponentService.prototype.hosts;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6215,6 +7765,17 @@
         };
         return HostDynamicDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        HostDynamicDirective.prototype.ident;
+        /** @type {?} */
+        HostDynamicDirective.prototype.viewContainerRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        HostDynamicDirective.prototype._hostingService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6426,6 +7987,52 @@
         };
         return ResizingComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ResizingComponent.prototype.init;
+        /** @type {?} */
+        ResizingComponent.prototype.id;
+        /** @type {?} */
+        ResizingComponent.prototype.se;
+        /** @type {?} */
+        ResizingComponent.prototype.ne;
+        /** @type {?} */
+        ResizingComponent.prototype.sw;
+        /** @type {?} */
+        ResizingComponent.prototype.nw;
+        /** @type {?} */
+        ResizingComponent.prototype.pageWidth;
+        /** @type {?} */
+        ResizingComponent.prototype.pageHeight;
+        /** @type {?} */
+        ResizingComponent.prototype.SE;
+        /** @type {?} */
+        ResizingComponent.prototype.NE;
+        /** @type {?} */
+        ResizingComponent.prototype.SW;
+        /** @type {?} */
+        ResizingComponent.prototype.NW;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetX;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetY;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetTop;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetLeft;
+        /** @type {?} */
+        ResizingComponent.prototype.release;
+        /**
+         * @type {?}
+         * @private
+         */
+        ResizingComponent.prototype.grab;
+        /**
+         * @type {?}
+         * @private
+         */
+        ResizingComponent.prototype.oldPosition;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6451,6 +8058,7 @@
             this._excMessageService = _excMessageService;
             this.disabled = false;
             this.activeTab = new core.EventEmitter();
+            this.elementPosition = 0;
             this.active = false;
             this.showToolTip = false;
             this._tabActivatorService.activeTabChange.subscribe((/**
@@ -6513,8 +8121,8 @@
         TopTabComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-top-tab',
-                        template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\"\r\n              *ngIf=\"tooltip\"></gd-tooltip>\r\n</div>\r\n",
-                        styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:flex;align-items:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
+                        template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" class=\"gd-tab-tooltip\"\r\n              *ngIf=\"tooltip\" [position]=\"elementPosition\"></gd-tooltip>\r\n</div>\r\n",
+                        styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:flex;flex-direction:column;align-items:center;align-content:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab .gd-tab-tooltip{display:flex;flex-direction:column;margin:0!important}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -6528,10 +8136,44 @@
             icon: [{ type: core.Input }],
             disabled: [{ type: core.Input }],
             tooltip: [{ type: core.Input }],
-            activeTab: [{ type: core.Output }]
+            activeTab: [{ type: core.Output }],
+            elementPosition: [{ type: core.Input }]
         };
         return TopTabComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TopTabComponent.prototype.id;
+        /** @type {?} */
+        TopTabComponent.prototype.icon;
+        /** @type {?} */
+        TopTabComponent.prototype.disabled;
+        /** @type {?} */
+        TopTabComponent.prototype.tooltip;
+        /** @type {?} */
+        TopTabComponent.prototype.activeTab;
+        /** @type {?} */
+        TopTabComponent.prototype.elementPosition;
+        /** @type {?} */
+        TopTabComponent.prototype.active;
+        /** @type {?} */
+        TopTabComponent.prototype.showToolTip;
+        /**
+         * @type {?}
+         * @private
+         */
+        TopTabComponent.prototype._tabActivatorService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TopTabComponent.prototype._modalService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TopTabComponent.prototype._excMessageService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6540,10 +8182,15 @@
     /** @type {?} */
     var $$8 = jquery;
     var TextMenuComponent = /** @class */ (function () {
-        function TextMenuComponent(_onCloseService) {
+        function TextMenuComponent(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
             var _this = this;
             this._onCloseService = _onCloseService;
+            this._zoomService = _zoomService;
+            this._windowService = _windowService;
+            this._elementRef = _elementRef;
+            this.renderer = renderer;
             this.decoration = true;
+            this.showTooltips = true;
             this.outFontSize = new core.EventEmitter();
             this.outFont = new core.EventEmitter();
             this.outBold = new core.EventEmitter();
@@ -6559,6 +8206,23 @@
             function () {
                 _this.colorPickerShow = false;
             }));
+            this.isMobile = _windowService.isMobile();
+            _windowService.onResize.subscribe((/**
+             * @param {?} w
+             * @return {?}
+             */
+            function (w) {
+                _this.isMobile = _windowService.isMobile();
+            }));
+            _zoomService.zoomChange.subscribe((/**
+             * @param {?} val
+             * @return {?}
+             */
+            function (val) {
+                if (_this.isMobile) {
+                    _this.changePosition(val);
+                }
+            }));
         }
         /**
          * @return {?}
@@ -6567,6 +8231,23 @@
          * @return {?}
          */
         function () {
+        };
+        /**
+         * @param {?} val
+         * @return {?}
+         */
+        TextMenuComponent.prototype.changePosition = /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            /** @type {?} */
+            var top = (window.innerHeight - 24 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
+            /** @type {?} */
+            var left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
+            this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
+            this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
+            this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
         };
         /**
          * @param {?} $event
@@ -6684,13 +8365,17 @@
         TextMenuComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-text-menu',
-                        template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"'Bold'\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"'Italic'\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"'Underline'\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"'Color'\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;bottom:0;left:0;right:0;width:100%;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-200px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
+                        template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;left:0;right:0;width:inherit;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070;transform-origin:top left;z-index:1000}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-185px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu{left:0}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
                     }] }
         ];
         /** @nocollapse */
         TextMenuComponent.ctorParameters = function () { return [
-            { type: OnCloseService }
+            { type: OnCloseService },
+            { type: ZoomService },
+            { type: WindowService },
+            { type: core.ElementRef },
+            { type: core.Renderer2 }
         ]; };
         TextMenuComponent.propDecorators = {
             blur: [{ type: core.Input }],
@@ -6701,6 +8386,7 @@
             underline: [{ type: core.Input }],
             color: [{ type: core.Input }],
             decoration: [{ type: core.Input }],
+            showTooltips: [{ type: core.Input }],
             outFontSize: [{ type: core.Output }],
             outFont: [{ type: core.Output }],
             outBold: [{ type: core.Output }],
@@ -6710,6 +8396,71 @@
         };
         return TextMenuComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TextMenuComponent.prototype.blur;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontSize;
+        /** @type {?} */
+        TextMenuComponent.prototype.font;
+        /** @type {?} */
+        TextMenuComponent.prototype.bold;
+        /** @type {?} */
+        TextMenuComponent.prototype.italic;
+        /** @type {?} */
+        TextMenuComponent.prototype.underline;
+        /** @type {?} */
+        TextMenuComponent.prototype.color;
+        /** @type {?} */
+        TextMenuComponent.prototype.decoration;
+        /** @type {?} */
+        TextMenuComponent.prototype.showTooltips;
+        /** @type {?} */
+        TextMenuComponent.prototype.outFontSize;
+        /** @type {?} */
+        TextMenuComponent.prototype.outFont;
+        /** @type {?} */
+        TextMenuComponent.prototype.outBold;
+        /** @type {?} */
+        TextMenuComponent.prototype.outItalic;
+        /** @type {?} */
+        TextMenuComponent.prototype.outUnderline;
+        /** @type {?} */
+        TextMenuComponent.prototype.outColor;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontSizeOptions;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontOptions;
+        /** @type {?} */
+        TextMenuComponent.prototype.colorPickerShow;
+        /** @type {?} */
+        TextMenuComponent.prototype.isMobile;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._onCloseService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @protected
+         */
+        TextMenuComponent.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype.renderer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6722,10 +8473,19 @@
         MenuType.FOR_ANNOTATION = "annotation";
         return MenuType;
     }());
+    if (false) {
+        /** @type {?} */
+        MenuType.FOR_SIGNATURE;
+        /** @type {?} */
+        MenuType.FOR_ANNOTATION;
+    }
     var ContextMenuComponent = /** @class */ (function () {
-        function ContextMenuComponent(_windowService) {
+        function ContextMenuComponent(_windowService, _zoomService, _elementRef, renderer) {
             var _this = this;
             this._windowService = _windowService;
+            this._zoomService = _zoomService;
+            this._elementRef = _elementRef;
+            this.renderer = renderer;
             this.formatting = Formatting.default();
             this.lock = false;
             this.translation = 0;
@@ -6742,6 +8502,15 @@
             function (w) {
                 _this.isMobile = _windowService.isMobile();
             }));
+            _zoomService.zoomChange.subscribe((/**
+             * @param {?} val
+             * @return {?}
+             */
+            function (val) {
+                if (_this.isMobile) {
+                    _this.changeScale(val);
+                }
+            }));
         }
         /**
          * @return {?}
@@ -6750,6 +8519,17 @@
          * @return {?}
          */
         function () {
+        };
+        /**
+         * @param {?} val
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.changeScale = /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1 / (val / 100) + ')');
         };
         /**
          * @return {?}
@@ -6891,12 +8671,15 @@
             { type: core.Component, args: [{
                         selector: 'gd-context-menu',
                         template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\" (touchstart)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
-                        styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-34px}}"]
+                        styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-42px;transform-origin:bottom center}}"]
                     }] }
         ];
         /** @nocollapse */
         ContextMenuComponent.ctorParameters = function () { return [
-            { type: WindowService }
+            { type: WindowService },
+            { type: ZoomService },
+            { type: core.ElementRef },
+            { type: core.Renderer2 }
         ]; };
         ContextMenuComponent.propDecorators = {
             formatting: [{ type: core.Input }],
@@ -6913,6 +8696,52 @@
         };
         return ContextMenuComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ContextMenuComponent.prototype.formatting;
+        /** @type {?} */
+        ContextMenuComponent.prototype.textMenu;
+        /** @type {?} */
+        ContextMenuComponent.prototype.topPosition;
+        /** @type {?} */
+        ContextMenuComponent.prototype.lock;
+        /** @type {?} */
+        ContextMenuComponent.prototype.translation;
+        /** @type {?} */
+        ContextMenuComponent.prototype.menuType;
+        /** @type {?} */
+        ContextMenuComponent.prototype.changeFormatting;
+        /** @type {?} */
+        ContextMenuComponent.prototype.removeItem;
+        /** @type {?} */
+        ContextMenuComponent.prototype.copySign;
+        /** @type {?} */
+        ContextMenuComponent.prototype.lockOut;
+        /** @type {?} */
+        ContextMenuComponent.prototype.comment;
+        /** @type {?} */
+        ContextMenuComponent.prototype.isMobile;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype._zoomService;
+        /**
+         * @type {?}
+         * @protected
+         */
+        ContextMenuComponent.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype.renderer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -7155,5 +8984,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=groupdocs.examples.angular-common-components.umd.js.map

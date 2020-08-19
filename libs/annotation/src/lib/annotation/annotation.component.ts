@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, AfterViewChecked} from '@angular/core';
 import {
   AnnotationData,
   AnnotationType,
@@ -8,7 +8,7 @@ import {
   RemoveAnnotation
 } from "../annotation-models";
 import {ActiveAnnotationService} from "../active-annotation.service";
-import {Formatting, Utils, MenuType} from "@groupdocs.examples.angular/common-components";
+import {Formatting, Utils, MenuType, ZoomService} from "@groupdocs.examples.angular/common-components";
 import {RemoveAnnotationService} from "../remove-annotation.service";
 import {CommentAnnotationService} from "../comment-annotation.service";
 import * as jquery from 'jquery';
@@ -20,7 +20,7 @@ const $ = jquery;
   templateUrl: './annotation.component.html',
   styleUrls: ['./annotation.component.less']
 })
-export class AnnotationComponent implements OnInit, AfterViewInit {
+export class AnnotationComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   id: number;
   position: Position;
@@ -44,7 +44,8 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
 
   constructor(private _activeAnnotationService: ActiveAnnotationService,
               private _removeAnnotationService: RemoveAnnotationService,
-              private _commentAnnotationService: CommentAnnotationService) {
+              private _commentAnnotationService: CommentAnnotationService,
+              private _zoomService: ZoomService) {
     this._activeAnnotationService.activeChange.subscribe((id: number) => {
       this.active = this.id === id;
       if (this.active) {
@@ -105,6 +106,10 @@ export class AnnotationComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.setTextFocus();
+  }
+
+  ngAfterViewChecked() {
+    this._zoomService.changeZoom(this._zoomService.zoom);
   }
 
   activation() {

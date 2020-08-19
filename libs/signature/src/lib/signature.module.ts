@@ -17,7 +17,6 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
-import {SignatureTabComponent} from './signature-tab/signature-tab.component';
 import {NewBarQrCodeComponent} from './new-bar-qr-code/new-bar-qr-code.component';
 import {UploadSignatureComponent} from './upload-signature/upload-signature.component';
 import {DndSignatureDirective} from './dnd-signature.directive';
@@ -52,7 +51,6 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 @NgModule({
   declarations: [SignatureAppComponent,
     SignatureListPanelComponent,
-    SignatureTabComponent,
     NewBarQrCodeComponent,
     UploadSignatureComponent,
     DndSignatureDirective,
@@ -64,7 +62,6 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     StampModalComponent],
   exports: [SignatureAppComponent,
     SignatureListPanelComponent,
-    SignatureTabComponent,
     NewBarQrCodeComponent,
     UploadSignatureComponent,
     DndSignatureDirective,
