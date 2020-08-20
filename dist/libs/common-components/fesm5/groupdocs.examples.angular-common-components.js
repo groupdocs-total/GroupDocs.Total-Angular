@@ -1998,13 +1998,6 @@ var DocumentComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._navigateService.navigate.subscribe(((/**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            console.log("document.component ngAfterViewInit");
-        })));
         // For current iteration we take .panzoom as a document
         this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
         // For current iteration we take .gd-document as a container
