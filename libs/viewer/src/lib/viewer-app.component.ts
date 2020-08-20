@@ -122,6 +122,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.isLoading = true;
       this.selectFile(this.viewerConfig.defaultDocument, "", "");
     }
+
+    this.selectedPageNumber = 1;
   }
 
   ngAfterViewInit() {
@@ -492,5 +494,25 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   selectCurrentPage(pageNumber)
   {
     this.selectedPageNumber = pageNumber;
+  }
+
+  onMouseWheelUp($event)
+  {
+    if (this.ifPresentation() && this.selectedPageNumber !== 1) {
+      this.selectedPageNumber = this.selectedPageNumber - 1;
+    }
+  }
+
+  onMouseWheelDown($event)
+  {
+    if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
+      if (!this.file.pages[this.selectedPageNumber + 1].data) {
+        this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
+        this.selectedPageNumber = this.selectedPageNumber + 1;
+      }
+      else {
+        this.selectedPageNumber = this.selectedPageNumber + 1;
+      }
+    }
   }
 }

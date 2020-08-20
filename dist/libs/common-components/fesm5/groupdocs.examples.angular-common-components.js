@@ -3272,6 +3272,92 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var $$4 = jquery;
+var MouseWheelDirective = /** @class */ (function () {
+    function MouseWheelDirective() {
+        this.mouseWheelUp = new EventEmitter();
+        this.mouseWheelDown = new EventEmitter();
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.onMouseWheelChrome = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.mouseWheelFunc(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.onMouseWheelFirefox = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.mouseWheelFunc(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.onMouseWheelIE = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.mouseWheelFunc(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.mouseWheelFunc = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event = window.event;
+        /** @type {?} */
+        var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+        if (delta > 0) {
+            console.log("this.mouseWheelUp.emit(event);");
+            this.mouseWheelUp.emit(event);
+        }
+        else if (delta < 0) {
+            console.log("this.mouseWheelDown.emit(event);");
+            this.mouseWheelDown.emit(event);
+        }
+    };
+    MouseWheelDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[gdMouseWheel]'
+                },] }
+    ];
+    MouseWheelDirective.propDecorators = {
+        mouseWheelUp: [{ type: Output }],
+        mouseWheelDown: [{ type: Output }],
+        onMouseWheelChrome: [{ type: HostListener, args: ['mousewheel', ['$event'],] }],
+        onMouseWheelFirefox: [{ type: HostListener, args: ['DOMMouseScroll', ['$event'],] }],
+        onMouseWheelIE: [{ type: HostListener, args: ['onmousewheel', ['$event'],] }]
+    };
+    return MouseWheelDirective;
+}());
+if (false) {
+    /** @type {?} */
+    MouseWheelDirective.prototype.mouseWheelUp;
+    /** @type {?} */
+    MouseWheelDirective.prototype.mouseWheelDown;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var ZoomDirective = /** @class */ (function () {
     function ZoomDirective(_zoomService, _windowService, el) {
         this._zoomService = _zoomService;
@@ -4287,7 +4373,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$4 = jquery;
+var $$5 = jquery;
 var PasswordRequiredComponent = /** @class */ (function () {
     function PasswordRequiredComponent(messageService, _passwordService) {
         var _this = this;
@@ -4333,14 +4419,14 @@ var PasswordRequiredComponent = /** @class */ (function () {
              */
             function () {
                 /** @type {?} */
-                var element = $$4("#password");
+                var element = $$5("#password");
                 if (element) {
                     element.focus();
                 }
             }), 100);
         }
         else {
-            $$4("#password").val("");
+            $$5("#password").val("");
         }
     };
     /**
@@ -4352,7 +4438,7 @@ var PasswordRequiredComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
-        $$4("#password").val("");
+        $$5("#password").val("");
         this.cancelEvent.emit(true);
     };
     PasswordRequiredComponent.decorators = [
@@ -4713,7 +4799,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$5 = jquery;
+var $$6 = jquery;
 var SearchableDirective = /** @class */ (function () {
     function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
         var _this = this;
@@ -4798,16 +4884,16 @@ var SearchableDirective = /** @class */ (function () {
              * @return {?}
              */
             function (value) {
-                $$5(value).removeClass('gd-highlight-select');
+                $$6(value).removeClass('gd-highlight-select');
             }));
             /** @type {?} */
             var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-            $$5(currentEl).addClass('gd-highlight-select');
+            $$6(currentEl).addClass('gd-highlight-select');
             if (currentEl) {
                 /** @type {?} */
                 var options = {
                     left: 0,
-                    top: ($$5(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+                    top: ($$6(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                 };
                 // using polyfill
                 el.parentElement.parentElement.scroll(options);
@@ -4826,7 +4912,7 @@ var SearchableDirective = /** @class */ (function () {
      */
     function (el) {
         /** @type {?} */
-        var textNodes = $$5(el).find('*').contents().filter((/**
+        var textNodes = $$6(el).find('*').contents().filter((/**
          * @return {?}
          */
         function () {
@@ -4851,7 +4937,7 @@ var SearchableDirective = /** @class */ (function () {
          */
         function () {
             /** @type {?} */
-            var $this = $$5(this);
+            var $this = $$6(this);
             /** @type {?} */
             var content = $this.text();
             content = highlight.transform(content, text);
@@ -5833,7 +5919,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$6 = jquery;
+var $$7 = jquery;
 var FormattingDirective = /** @class */ (function () {
     function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
         this._formattingService = _formattingService;
@@ -5862,7 +5948,7 @@ var FormattingDirective = /** @class */ (function () {
         this.list = this.checkList();
         //fix required by FireFox to get correct background color
         if (this.bgColor === "transparent") {
-            this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+            this.bgColor = $$7(window.getSelection().focusNode.parentNode).css('background-color').toString();
         }
         this.font = document.queryCommandValue("FontName").replace(/"/g, '');
         if (this.font.split(",").length > 1) {
@@ -6256,7 +6342,7 @@ var FormattingDirective = /** @class */ (function () {
         if (align === "full") {
             align = "justify";
         }
-        $$6(selection).css("text-align", align);
+        $$7(selection).css("text-align", align);
         this._selectionService.refreshSelection();
     };
     /**
@@ -7265,7 +7351,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$7 = jquery;
+var $$8 = jquery;
 var ResizingComponent = /** @class */ (function () {
     function ResizingComponent() {
         this.se = false;
@@ -7292,9 +7378,9 @@ var ResizingComponent = /** @class */ (function () {
     function () {
         var _this = this;
         /** @type {?} */
-        var elSE = $$7(this.getElementId(this.SE));
+        var elSE = $$8(this.getElementId(this.SE));
         /** @type {?} */
-        var elNW = $$7(this.getElementId(this.NW));
+        var elNW = $$8(this.getElementId(this.NW));
         if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
             /** @type {?} */
             var width_1 = elSE.offset().left - elNW.offset().left;
@@ -7663,7 +7749,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$8 = jquery;
+var $$9 = jquery;
 var TextMenuComponent = /** @class */ (function () {
     function TextMenuComponent(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
         var _this = this;
@@ -7741,9 +7827,9 @@ var TextMenuComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
-        $$8(".gd-wrapper").off("keyup");
+        $$9(".gd-wrapper").off("keyup");
         this.outFontSize.emit($event.value);
-        $$8(".gd-wrapper").on("keyup", (/**
+        $$9(".gd-wrapper").on("keyup", (/**
          * @return {?}
          */
         function () {
@@ -8286,6 +8372,7 @@ var CommonComponentsModule = /** @class */ (function () {
                         UploadFileZoneComponent,
                         DndDirective,
                         ScrollableDirective,
+                        MouseWheelDirective,
                         ZoomDirective,
                         SelectComponent,
                         DisabledCursorDirective,
@@ -8332,6 +8419,7 @@ var CommonComponentsModule = /** @class */ (function () {
                         SanitizeHtmlPipe,
                         UploadFileZoneComponent,
                         ScrollableDirective,
+                        MouseWheelDirective,
                         SelectComponent,
                         RotationDirective,
                         InitStateComponent,
@@ -8380,5 +8468,5 @@ var CommonComponentsModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

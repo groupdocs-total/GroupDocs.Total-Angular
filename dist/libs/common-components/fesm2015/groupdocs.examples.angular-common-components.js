@@ -2782,6 +2782,75 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const $$4 = jquery;
+class MouseWheelDirective {
+    constructor() {
+        this.mouseWheelUp = new EventEmitter();
+        this.mouseWheelDown = new EventEmitter();
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    onMouseWheelChrome(event) {
+        this.mouseWheelFunc(event);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    onMouseWheelFirefox(event) {
+        this.mouseWheelFunc(event);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    onMouseWheelIE(event) {
+        this.mouseWheelFunc(event);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    mouseWheelFunc(event) {
+        event = window.event;
+        /** @type {?} */
+        var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+        if (delta > 0) {
+            console.log("this.mouseWheelUp.emit(event);");
+            this.mouseWheelUp.emit(event);
+        }
+        else if (delta < 0) {
+            console.log("this.mouseWheelDown.emit(event);");
+            this.mouseWheelDown.emit(event);
+        }
+    }
+}
+MouseWheelDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[gdMouseWheel]'
+            },] }
+];
+MouseWheelDirective.propDecorators = {
+    mouseWheelUp: [{ type: Output }],
+    mouseWheelDown: [{ type: Output }],
+    onMouseWheelChrome: [{ type: HostListener, args: ['mousewheel', ['$event'],] }],
+    onMouseWheelFirefox: [{ type: HostListener, args: ['DOMMouseScroll', ['$event'],] }],
+    onMouseWheelIE: [{ type: HostListener, args: ['onmousewheel', ['$event'],] }]
+};
+if (false) {
+    /** @type {?} */
+    MouseWheelDirective.prototype.mouseWheelUp;
+    /** @type {?} */
+    MouseWheelDirective.prototype.mouseWheelDown;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 class ZoomDirective {
     /**
      * @param {?} _zoomService
@@ -3627,7 +3696,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$4 = jquery;
+const $$5 = jquery;
 class PasswordRequiredComponent {
     /**
      * @param {?} messageService
@@ -3665,14 +3734,14 @@ class PasswordRequiredComponent {
              */
             () => {
                 /** @type {?} */
-                const element = $$4("#password");
+                const element = $$5("#password");
                 if (element) {
                     element.focus();
                 }
             }), 100);
         }
         else {
-            $$4("#password").val("");
+            $$5("#password").val("");
         }
     }
     /**
@@ -3680,7 +3749,7 @@ class PasswordRequiredComponent {
      * @return {?}
      */
     cancel($event) {
-        $$4("#password").val("");
+        $$5("#password").val("");
         this.cancelEvent.emit(true);
     }
 }
@@ -3994,7 +4063,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$5 = jquery;
+const $$6 = jquery;
 class SearchableDirective {
     /**
      * @param {?} _elementRef
@@ -4076,16 +4145,16 @@ class SearchableDirective {
              * @return {?}
              */
             function (value) {
-                $$5(value).removeClass('gd-highlight-select');
+                $$6(value).removeClass('gd-highlight-select');
             }));
             /** @type {?} */
             const currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-            $$5(currentEl).addClass('gd-highlight-select');
+            $$6(currentEl).addClass('gd-highlight-select');
             if (currentEl) {
                 /** @type {?} */
                 const options = {
                     left: 0,
-                    top: ($$5(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+                    top: ($$6(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                 };
                 // using polyfill
                 el.parentElement.parentElement.scroll(options);
@@ -4099,7 +4168,7 @@ class SearchableDirective {
      */
     highlightEl(el) {
         /** @type {?} */
-        const textNodes = $$5(el).find('*').contents().filter((/**
+        const textNodes = $$6(el).find('*').contents().filter((/**
          * @return {?}
          */
         function () {
@@ -4124,7 +4193,7 @@ class SearchableDirective {
          */
         function () {
             /** @type {?} */
-            const $this = $$5(this);
+            const $this = $$6(this);
             /** @type {?} */
             let content = $this.text();
             content = highlight.transform(content, text);
@@ -4941,7 +5010,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$6 = jquery;
+const $$7 = jquery;
 class FormattingDirective {
     /**
      * @param {?} _formattingService
@@ -4972,7 +5041,7 @@ class FormattingDirective {
         this.list = this.checkList();
         //fix required by FireFox to get correct background color
         if (this.bgColor === "transparent") {
-            this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+            this.bgColor = $$7(window.getSelection().focusNode.parentNode).css('background-color').toString();
         }
         this.font = document.queryCommandValue("FontName").replace(/"/g, '');
         if (this.font.split(",").length > 1) {
@@ -5292,7 +5361,7 @@ class FormattingDirective {
         if (align === "full") {
             align = "justify";
         }
-        $$6(selection).css("text-align", align);
+        $$7(selection).css("text-align", align);
         this._selectionService.refreshSelection();
     }
     /**
@@ -6193,7 +6262,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$7 = jquery;
+const $$8 = jquery;
 class ResizingComponent {
     constructor() {
         this.se = false;
@@ -6216,9 +6285,9 @@ class ResizingComponent {
      */
     ngAfterViewInit() {
         /** @type {?} */
-        const elSE = $$7(this.getElementId(this.SE));
+        const elSE = $$8(this.getElementId(this.SE));
         /** @type {?} */
-        const elNW = $$7(this.getElementId(this.NW));
+        const elNW = $$8(this.getElementId(this.NW));
         if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
             /** @type {?} */
             let width = elSE.offset().left - elNW.offset().left;
@@ -6539,7 +6608,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$8 = jquery;
+const $$9 = jquery;
 class TextMenuComponent {
     /**
      * @param {?} _onCloseService
@@ -6612,9 +6681,9 @@ class TextMenuComponent {
      * @return {?}
      */
     selectFontSize($event) {
-        $$8(".gd-wrapper").off("keyup");
+        $$9(".gd-wrapper").off("keyup");
         this.outFontSize.emit($event.value);
-        $$8(".gd-wrapper").on("keyup", (/**
+        $$9(".gd-wrapper").on("keyup", (/**
          * @return {?}
          */
         () => {
@@ -7078,6 +7147,7 @@ CommonComponentsModule.decorators = [
                     UploadFileZoneComponent,
                     DndDirective,
                     ScrollableDirective,
+                    MouseWheelDirective,
                     ZoomDirective,
                     SelectComponent,
                     DisabledCursorDirective,
@@ -7124,6 +7194,7 @@ CommonComponentsModule.decorators = [
                     SanitizeHtmlPipe,
                     UploadFileZoneComponent,
                     ScrollableDirective,
+                    MouseWheelDirective,
                     SelectComponent,
                     RotationDirective,
                     InitStateComponent,
@@ -7170,5 +7241,5 @@ CommonComponentsModule.ctorParameters = () => [];
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
