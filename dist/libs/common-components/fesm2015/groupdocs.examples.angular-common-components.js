@@ -1680,6 +1680,9 @@ class DocumentComponent {
      * @return {?}
      */
     ngOnInit() {
+        if (this.ifPresentation()) {
+            this.selectedPage = 1;
+        }
     }
     /**
      * @return {?}
@@ -1697,6 +1700,13 @@ class DocumentComponent {
      * @return {?}
      */
     ngAfterViewInit() {
+        this._navigateService.navigate.subscribe(((/**
+         * @param {?} value
+         * @return {?}
+         */
+        value => {
+            console.log("document.component ngAfterViewInit");
+        })));
         // For current iteration we take .panzoom as a document
         this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
         // For current iteration we take .gd-document as a container
@@ -1950,7 +1960,7 @@ class DocumentComponent {
      */
     isVisible(pageNumber) {
         if (this.ifPresentation()) {
-            return pageNumber === this._navigateService.currentPage ? true : false;
+            return pageNumber === this.selectedPage ? true : false;
         }
         else {
             return true;
@@ -1975,6 +1985,7 @@ DocumentComponent.propDecorators = {
     mode: [{ type: Input }],
     preloadPageCount: [{ type: Input }],
     file: [{ type: Input }],
+    selectedPage: [{ type: Input }],
     onpan: [{ type: Output }]
 };
 if (false) {
@@ -1984,6 +1995,8 @@ if (false) {
     DocumentComponent.prototype.preloadPageCount;
     /** @type {?} */
     DocumentComponent.prototype.file;
+    /** @type {?} */
+    DocumentComponent.prototype.selectedPage;
     /** @type {?} */
     DocumentComponent.prototype.onpan;
     /** @type {?} */

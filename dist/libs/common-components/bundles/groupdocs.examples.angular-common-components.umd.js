@@ -2182,6 +2182,9 @@
          * @return {?}
          */
         function () {
+            if (this.ifPresentation()) {
+                this.selectedPage = 1;
+            }
         };
         /**
          * @return {?}
@@ -2205,6 +2208,13 @@
          * @return {?}
          */
         function () {
+            this._navigateService.navigate.subscribe(((/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                console.log("document.component ngAfterViewInit");
+            })));
             // For current iteration we take .panzoom as a document
             this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
             // For current iteration we take .gd-document as a container
@@ -2538,7 +2548,7 @@
          */
         function (pageNumber) {
             if (this.ifPresentation()) {
-                return pageNumber === this._navigateService.currentPage ? true : false;
+                return pageNumber === this.selectedPage ? true : false;
             }
             else {
                 return true;
@@ -2562,6 +2572,7 @@
             mode: [{ type: core.Input }],
             preloadPageCount: [{ type: core.Input }],
             file: [{ type: core.Input }],
+            selectedPage: [{ type: core.Input }],
             onpan: [{ type: core.Output }]
         };
         return DocumentComponent;
@@ -2573,6 +2584,8 @@
         DocumentComponent.prototype.preloadPageCount;
         /** @type {?} */
         DocumentComponent.prototype.file;
+        /** @type {?} */
+        DocumentComponent.prototype.selectedPage;
         /** @type {?} */
         DocumentComponent.prototype.onpan;
         /** @type {?} */

@@ -64,10 +64,11 @@ export class ViewerService {
     }, Api.httpOptionsJsonResponseTypeBlob);
   }
 
-  loadThumbnails(credentials: FileCredentials) {
+  loadThumbnails(credentials: FileCredentials, loadData) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_THUMBNAILS, {
       'guid': credentials.guid,
       'password': credentials.password,
+      'loadData': loadData,
     }, Api.httpOptionsJson);
   }
 }

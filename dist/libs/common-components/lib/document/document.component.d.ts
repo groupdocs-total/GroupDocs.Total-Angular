@@ -11,6 +11,7 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     mode: boolean;
     preloadPageCount: number;
     file: FileDescription;
+    selectedPage: number;
     onpan: EventEmitter<any>;
     wait: boolean;
     zoom: number;

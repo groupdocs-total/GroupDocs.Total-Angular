@@ -51,6 +51,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   fileParam: string;
   querySubscription: Subscription;
+  selectedPageNumber: number;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -234,12 +235,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
             this.options = this.zoomOptions();
             this.refreshZoom();
           }
-          const preloadPageCount = this.viewerConfig.preloadPageCount;
+          const preloadPageCount = !this.ifPresentation() ? this.viewerConfig.preloadPageCount 
+                                                          : (this.viewerConfig.preloadPageCount < 3 ? 3 
+                                                                                                    : this.viewerConfig.preloadPageCount);
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
 
-            this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+            this._viewerService.loadThumbnails(this.credentials, !this.ifPresentation()).subscribe((data: FileDescription) => {
               this.file.thumbnails = data.pages;
             })
           }
@@ -266,6 +269,15 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     for (let i = start; i <= end; i++) {
       this._viewerService.loadPage(this.credentials, i).subscribe((page: PageModel) => {
         this.file.pages[i - 1] = page;
+        if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data)
+        {
+          page.data = page.data.replace(/>\s+</g, '><')
+            .replace(/\uFEFF/g, "")
+            .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+            .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+            .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+          this.file.thumbnails[i - 1] = page;
+        }
       });
     }
   }
@@ -434,7 +446,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.showThumbnails = true;
     } else {
       if (this.file.thumbnails.filter(t => !t.data).length > 0) {
-        this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+        this._viewerService.loadThumbnails(this.credentials, !this.ifPresentation()).subscribe((data: FileDescription) => {
           this.file.thumbnails = data.pages;
           this.showThumbnails = true;
         })
@@ -475,5 +487,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   private refreshZoom() {
     this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
     this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+  }
+
+  selectCurrentPage(pageNumber)
+  {
+    this.selectedPageNumber = pageNumber;
   }
 }
