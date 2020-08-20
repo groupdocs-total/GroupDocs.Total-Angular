@@ -3535,11 +3535,9 @@
             /** @type {?} */
             var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
             if (delta > 0) {
-                console.log("this.mouseWheelUp.emit(event);");
                 this.mouseWheelUp.emit(event);
             }
             else if (delta < 0) {
-                console.log("this.mouseWheelDown.emit(event);");
                 this.mouseWheelDown.emit(event);
             }
         };
