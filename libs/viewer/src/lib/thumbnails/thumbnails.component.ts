@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnDestroy, AfterViewInit, OnChanges} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, AfterViewInit, OnChanges, Output, EventEmitter} from '@angular/core';
 import {NavigateService, PageModel, ZoomService, FileUtil} from "@groupdocs.examples.angular/common-components";
 
 @Component({
@@ -12,6 +12,7 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   @Input() guid: string;
   @Input() mode: boolean;
   @Input() isHtmlMode: boolean;
+  @Output() selectedPage = new EventEmitter<number>();
 
   constructor(private _navigateService: NavigateService, private _zoomService: ZoomService) {
   }
@@ -56,6 +57,7 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   }
 
   openPage(pageNumber: number) {
+    this.selectedPage.emit(pageNumber);
     this._navigateService.navigateTo(pageNumber);
   }
 

@@ -13,12 +13,14 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
   
   currentPageNo: number;
   panzoom = null;
+  navigateService: NavigateService;
 
   constructor(_elementRef: ElementRef<HTMLElement>,
               zoomService: ZoomService,
               windowService: WindowService,
-              private _navigateService: NavigateService) {
-    super(_elementRef, zoomService, windowService);
+              navigateService: NavigateService) {
+    super(_elementRef, zoomService, windowService, navigateService);
+    this.navigateService = navigateService;
   }
 
   ngOnInit(){
@@ -31,7 +33,7 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
         this.refreshExcelDocHeight();
     });
 
-    this._navigateService.navigate.subscribe(((
+    this.navigateService.navigate.subscribe(((
      value => {
          this.selectSheet(value);
      })));
