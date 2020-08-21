@@ -238,15 +238,21 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
             this.refreshZoom();
           }
           const preloadPageCount = !this.ifPresentation() ? this.viewerConfig.preloadPageCount 
-                                                          : (this.viewerConfig.preloadPageCount < 3 ? 3 
-                                                                                                    : this.viewerConfig.preloadPageCount);
+                                                          : (this.viewerConfig.preloadPageCount !== 0
+                                                             && this.viewerConfig.preloadPageCount < 3 ? 3
+                                                              : this.viewerConfig.preloadPageCount);
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
+            if (this.ifPresentation()) {
+              this.file.thumbnails = file.pages.slice();
+            }
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
 
-            this._viewerService.loadThumbnails(this.credentials, !this.ifPresentation()).subscribe((data: FileDescription) => {
-              this.file.thumbnails = data.pages;
-            })
+            if (!this.ifPresentation()) {
+              this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+                this.file.thumbnails = data.pages;
+              })
+            }
           }
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = 1;
@@ -271,14 +277,15 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     for (let i = start; i <= end; i++) {
       this._viewerService.loadPage(this.credentials, i).subscribe((page: PageModel) => {
         this.file.pages[i - 1] = page;
-        if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data)
-        {
-          page.data = page.data.replace(/>\s+</g, '><')
-            .replace(/\uFEFF/g, "")
-            .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-            .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-            .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
-          this.file.thumbnails[i - 1] = page;
+        if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data) {
+          if (page.data) {
+            page.data = page.data.replace(/>\s+</g, '><')
+              .replace(/\uFEFF/g, "")
+              .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+              .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+              .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+          }
+          this.file.thumbnails[i - 1].data = page.data;
         }
       });
     }
@@ -448,7 +455,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.showThumbnails = true;
     } else {
       if (this.file.thumbnails.filter(t => !t.data).length > 0) {
-        this._viewerService.loadThumbnails(this.credentials, !this.ifPresentation()).subscribe((data: FileDescription) => {
+        this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
           this.file.thumbnails = data.pages;
           this.showThumbnails = true;
         })
@@ -506,7 +513,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   onMouseWheelDown($event)
   {
     if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
-      if (!this.file.pages[this.selectedPageNumber + 1].data) {
+      if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
         this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
         this.selectedPageNumber = this.selectedPageNumber + 1;
       }
