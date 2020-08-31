@@ -39,6 +39,9 @@
 
       <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
                  (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && formatIcon !== 'file-powerpoint'"></gd-button>
+
+      <gd-button class="thumbnails-button" [icon]="'play'" [tooltip]="'Play'" [disabled]="playOn"
+                 (click)="play()" *ngIf="isDesktop && formatIcon == 'file-powerpoint'"></gd-button>
     </gd-top-toolbar>
   </div>
   <div class="doc-panel" *ngIf="file" #docPanel>

@@ -20,6 +20,7 @@ import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { faTintSlash } from '@fortawesome/free-solid-svg-icons';
 //import * as Hammer from 'hammerjs';
 
 @Component({
@@ -52,6 +53,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   fileParam: string;
   querySubscription: Subscription;
   selectedPageNumber: number;
+  playOn = false;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -307,12 +309,18 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     this._navigateService.nextPage();
+    if (this.ifPresentation()) {
+      this.selectedPageNumber = this._navigateService.currentPage;
+    }
   }
 
   prevPage() {
     if (this.formatDisabled)
       return;
     this._navigateService.prevPage();
+    if (this.ifPresentation()) {
+      this.selectedPageNumber = this._navigateService.currentPage;
+    }
   }
 
   toLastPage() {
@@ -521,5 +529,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         this.selectedPageNumber = this.selectedPageNumber + 1;
       }
     }
+  }
+
+  play($event){
+    this.playOn = !this.playOn;
+    this.showThumbnails = !this.showThumbnails;
   }
 }
