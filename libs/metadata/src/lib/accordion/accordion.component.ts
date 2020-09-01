@@ -10,22 +10,6 @@ import { AccordionGroupComponent } from './accordion-group/accordion-group.compo
 })
 
 export class AccordionComponent  implements AfterContentInit {
-  @ContentChildren(AccordionGroupComponent)
-  groups: QueryList<AccordionGroupComponent>;
-
   ngAfterContentInit() {
-    this.groups.toArray().forEach((group) => {
-      group.opened = true;
-
-      group.toggle.subscribe(($event) => {
-        $event.preventDefault();
-        $event.stopPropagation();
-        this.openGroup(group);
-      });
-    });
-  }
-
-  openGroup(group: AccordionGroupComponent) {
-    group.opened = !group.opened;
   }
 }

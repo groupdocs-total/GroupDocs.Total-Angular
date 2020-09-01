@@ -28,8 +28,7 @@
       [title]="'Metadata'"
       [icon]="'clipboard-list'">
       <gd-accordion>
-        <gd-accordion-group title="Build-in properties" [addDisabled]="isDisabled()" [addHidden]="false" [properties]="buildInProperties" [propertiesNames]="filePropertiesNames" (removeProperty)="removeProperty($event)"></gd-accordion-group>
-        <gd-accordion-group class="default" title="Default properties" [addDisabled]="true" [addHidden]="true" [properties]="defaultProperties"></gd-accordion-group>
+        <gd-accordion-group *ngFor="let package of packages" [title]="getPackageName(package)" [addDisabled]="false" [addHidden]="false" [properties]="package.properties" [knownProperties]="package.knownProperties" [packageId]="package.id" (removeProperty)="removeProperty($event)"></gd-accordion-group>
       </gd-accordion>
     </gd-side-panel>
   </div>

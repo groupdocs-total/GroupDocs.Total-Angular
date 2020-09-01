@@ -1,22 +1,23 @@
-import {BrowserModule} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
-import {DatePipe} from '@angular/common';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {MetadataAppComponent} from './metadata-app.component';
+import { DatePipe } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MetadataAppComponent } from './metadata-app.component';
 import {
   Api,
   CommonComponentsModule,
   ErrorInterceptorService, LoadingMaskInterceptorService,
   LoadingMaskService
 } from '@groupdocs.examples.angular/common-components';
-import {MetadataService} from "./metadata.service";
-import {ConfigService} from "@groupdocs.examples.angular/common-components";
-import {MetadataConfigService} from "./metadata-config.service";
+import { MetadataService } from "./metadata.service";
+import { ConfigService } from "@groupdocs.examples.angular/common-components";
+import { MetadataConfigService } from "./metadata-config.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AccordionComponent} from "./accordion/accordion.component";
-import { AccordionGroupComponent} from "./accordion/accordion-group/accordion-group.component";
+import { AccordionComponent } from "./accordion/accordion.component";
+import { AccordionGroupComponent } from "./accordion/accordion-group/accordion-group.component";
 import { FormsModule } from '@angular/forms';
 import { AccordionService } from './accordion.service';
+import { IntegerDirective } from "./directives/integer.directive";
 
 export function initializeApp(metadataConfigService: MetadataConfigService) {
   const result =  () => metadataConfigService.load();
@@ -33,7 +34,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   declarations: [
     MetadataAppComponent,
     AccordionComponent,
-    AccordionGroupComponent],
+    AccordionGroupComponent,
+    IntegerDirective
+  ],
   imports: [
     BrowserModule,
     CommonComponentsModule,
