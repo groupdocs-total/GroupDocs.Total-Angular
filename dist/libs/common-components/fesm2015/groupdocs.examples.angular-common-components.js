@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Injectable, ElementRef, ɵɵdefineInjectable, ɵɵinject, Pipe, Directive, HostBinding, HostListener, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
@@ -1464,6 +1464,177 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class PagePreloadService {
+    constructor() {
+        this._checkPreload = new Observable((/**
+         * @param {?} observer
+         * @return {?}
+         */
+        observer => this._observer = observer));
+    }
+    /**
+     * @return {?}
+     */
+    get checkPreload() {
+        return this._checkPreload;
+    }
+    /**
+     * @param {?} page
+     * @return {?}
+     */
+    changeLastPageInView(page) {
+        if (this._observer) {
+            this._observer.next(page);
+        }
+    }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    PagePreloadService.prototype._checkPreload;
+    /**
+     * @type {?}
+     * @private
+     */
+    PagePreloadService.prototype._observer;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class NavigateService {
+    /**
+     * @param {?} _pagePreloadService
+     */
+    constructor(_pagePreloadService) {
+        this._pagePreloadService = _pagePreloadService;
+        this._currentPage = 0;
+        this._countPages = 0;
+        this._navigate = new Observable((/**
+         * @param {?} observer
+         * @return {?}
+         */
+        observer => this._observer = observer));
+    }
+    /**
+     * @return {?}
+     */
+    get navigate() {
+        return this._navigate;
+    }
+    /**
+     * @return {?}
+     */
+    get countPages() {
+        return this._countPages;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set countPages(value) {
+        this._countPages = value;
+    }
+    /**
+     * @return {?}
+     */
+    get currentPage() {
+        return this._currentPage;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set currentPage(value) {
+        this._currentPage = value;
+    }
+    /**
+     * @return {?}
+     */
+    nextPage() {
+        if (this._currentPage < this._countPages) {
+            this._currentPage++;
+            this.navigateTo(this._currentPage);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    prevPage() {
+        if (this._currentPage > 1) {
+            this._currentPage--;
+            this.navigateTo(this._currentPage);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    toLastPage() {
+        this._currentPage = this._countPages;
+        this.navigateTo(this._currentPage);
+    }
+    /**
+     * @return {?}
+     */
+    toFirstPage() {
+        this._currentPage = 1;
+        this.navigateTo(this._currentPage);
+    }
+    /**
+     * @param {?} page
+     * @return {?}
+     */
+    navigateTo(page) {
+        this.currentPage = page;
+        this._pagePreloadService.changeLastPageInView(page);
+        this._observer.next(page);
+    }
+}
+NavigateService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root'
+            },] }
+];
+/** @nocollapse */
+NavigateService.ctorParameters = () => [
+    { type: PagePreloadService }
+];
+/** @nocollapse */ NavigateService.ngInjectableDef = ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._currentPage;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._countPages;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._navigate;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._pagePreloadService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 const $$1 = jquery;
 class DocumentComponent {
@@ -1471,11 +1642,13 @@ class DocumentComponent {
      * @param {?} _elementRef
      * @param {?} _zoomService
      * @param {?} _windowService
+     * @param {?} _navigateService
      */
-    constructor(_elementRef, _zoomService, _windowService) {
+    constructor(_elementRef, _zoomService, _windowService, _navigateService) {
         this._elementRef = _elementRef;
         this._zoomService = _zoomService;
         this._windowService = _windowService;
+        this._navigateService = _navigateService;
         this.onpan = new EventEmitter();
         this.wait = false;
         this.docWidth = null;
@@ -1507,6 +1680,9 @@ class DocumentComponent {
      * @return {?}
      */
     ngOnInit() {
+        if (this.ifPresentation()) {
+            this.selectedPage = 1;
+        }
     }
     /**
      * @return {?}
@@ -1548,11 +1724,18 @@ class DocumentComponent {
         return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
     }
     /**
-     * @param {?} value
      * @return {?}
      */
-    getDimensionWithUnit(value) {
-        return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+    ifPresentation() {
+        return FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint";
+    }
+    /**
+     * @param {?} value
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    getDimensionWithUnit(value, pageNumber) {
+        return this.ifPresentation() && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
     }
     /**
      * @return {?}
@@ -1764,24 +1947,38 @@ class DocumentComponent {
             }
         }
     }
+    /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    isVisible(pageNumber) {
+        if (this.ifPresentation()) {
+            return pageNumber === this.selectedPage ? true : false;
+        }
+        else {
+            return true;
+        }
+    }
 }
 DocumentComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-document',
-                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height)\"\n         [style.width]=\"getDimensionWithUnit(page.width)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
-                styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
+                styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;-webkit-transition:unset;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
             }] }
 ];
 /** @nocollapse */
 DocumentComponent.ctorParameters = () => [
     { type: ElementRef },
     { type: ZoomService },
-    { type: WindowService }
+    { type: WindowService },
+    { type: NavigateService }
 ];
 DocumentComponent.propDecorators = {
     mode: [{ type: Input }],
     preloadPageCount: [{ type: Input }],
     file: [{ type: Input }],
+    selectedPage: [{ type: Input }],
     onpan: [{ type: Output }]
 };
 if (false) {
@@ -1791,6 +1988,8 @@ if (false) {
     DocumentComponent.prototype.preloadPageCount;
     /** @type {?} */
     DocumentComponent.prototype.file;
+    /** @type {?} */
+    DocumentComponent.prototype.selectedPage;
     /** @type {?} */
     DocumentComponent.prototype.onpan;
     /** @type {?} */
@@ -1846,6 +2045,11 @@ if (false) {
      * @private
      */
     DocumentComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    DocumentComponent.prototype._navigateService;
     /* Skipping unhandled member: ;*/
     /* Skipping unhandled member: ;*/
     /* Skipping unhandled member: ;*/
@@ -1880,7 +2084,12 @@ class PageComponent {
     ngOnChanges(changes) {
         // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
         // which leads to undesired spaces on the top of the docs pages
-        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
+        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><')
+            .replace(/\uFEFF/g, "")
+            .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+            .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+            .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
+            : null;
         /** @type {?} */
         const dataImagePngBase64 = 'data:image/png;base64,';
         this.imgData = dataImagePngBase64;
@@ -2227,177 +2436,6 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class PagePreloadService {
-    constructor() {
-        this._checkPreload = new Observable((/**
-         * @param {?} observer
-         * @return {?}
-         */
-        observer => this._observer = observer));
-    }
-    /**
-     * @return {?}
-     */
-    get checkPreload() {
-        return this._checkPreload;
-    }
-    /**
-     * @param {?} page
-     * @return {?}
-     */
-    changeLastPageInView(page) {
-        if (this._observer) {
-            this._observer.next(page);
-        }
-    }
-}
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    PagePreloadService.prototype._checkPreload;
-    /**
-     * @type {?}
-     * @private
-     */
-    PagePreloadService.prototype._observer;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class NavigateService {
-    /**
-     * @param {?} _pagePreloadService
-     */
-    constructor(_pagePreloadService) {
-        this._pagePreloadService = _pagePreloadService;
-        this._currentPage = 0;
-        this._countPages = 0;
-        this._navigate = new Observable((/**
-         * @param {?} observer
-         * @return {?}
-         */
-        observer => this._observer = observer));
-    }
-    /**
-     * @return {?}
-     */
-    get navigate() {
-        return this._navigate;
-    }
-    /**
-     * @return {?}
-     */
-    get countPages() {
-        return this._countPages;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set countPages(value) {
-        this._countPages = value;
-    }
-    /**
-     * @return {?}
-     */
-    get currentPage() {
-        return this._currentPage;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set currentPage(value) {
-        this._currentPage = value;
-    }
-    /**
-     * @return {?}
-     */
-    nextPage() {
-        if (this._currentPage < this._countPages) {
-            this._currentPage++;
-            this.navigateTo(this._currentPage);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    prevPage() {
-        if (this._currentPage > 1) {
-            this._currentPage--;
-            this.navigateTo(this._currentPage);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    toLastPage() {
-        this._currentPage = this._countPages;
-        this.navigateTo(this._currentPage);
-    }
-    /**
-     * @return {?}
-     */
-    toFirstPage() {
-        this._currentPage = 1;
-        this.navigateTo(this._currentPage);
-    }
-    /**
-     * @param {?} page
-     * @return {?}
-     */
-    navigateTo(page) {
-        this.currentPage = page;
-        this._pagePreloadService.changeLastPageInView(page);
-        this._observer.next(page);
-    }
-}
-NavigateService.decorators = [
-    { type: Injectable, args: [{
-                providedIn: 'root'
-            },] }
-];
-/** @nocollapse */
-NavigateService.ctorParameters = () => [
-    { type: PagePreloadService }
-];
-/** @nocollapse */ NavigateService.ngInjectableDef = ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    NavigateService.prototype._currentPage;
-    /**
-     * @type {?}
-     * @private
-     */
-    NavigateService.prototype._countPages;
-    /**
-     * @type {?}
-     * @private
-     */
-    NavigateService.prototype._navigate;
-    /**
-     * @type {?}
-     * @private
-     */
-    NavigateService.prototype._observer;
-    /**
-     * @type {?}
-     * @private
-     */
-    NavigateService.prototype._pagePreloadService;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /** @type {?} */
 const $$2 = jquery;
 class ViewportService {
@@ -2738,6 +2776,73 @@ if (false) {
      * @private
      */
     ScrollableDirective.prototype._viewportService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const $$4 = jquery;
+class MouseWheelDirective {
+    constructor() {
+        this.mouseWheelUp = new EventEmitter();
+        this.mouseWheelDown = new EventEmitter();
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    onMouseWheelChrome(event) {
+        this.mouseWheelFunc(event);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    onMouseWheelFirefox(event) {
+        this.mouseWheelFunc(event);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    onMouseWheelIE(event) {
+        this.mouseWheelFunc(event);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    mouseWheelFunc(event) {
+        event = window.event;
+        /** @type {?} */
+        const delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+        if (delta > 0) {
+            this.mouseWheelUp.emit(event);
+        }
+        else if (delta < 0) {
+            this.mouseWheelDown.emit(event);
+        }
+    }
+}
+MouseWheelDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[gdMouseWheel]'
+            },] }
+];
+MouseWheelDirective.propDecorators = {
+    mouseWheelUp: [{ type: Output }],
+    mouseWheelDown: [{ type: Output }],
+    onMouseWheelChrome: [{ type: HostListener, args: ['mousewheel', ['$event'],] }],
+    onMouseWheelFirefox: [{ type: HostListener, args: ['DOMMouseScroll', ['$event'],] }],
+    onMouseWheelIE: [{ type: HostListener, args: ['onmousewheel', ['$event'],] }]
+};
+if (false) {
+    /** @type {?} */
+    MouseWheelDirective.prototype.mouseWheelUp;
+    /** @type {?} */
+    MouseWheelDirective.prototype.mouseWheelDown;
 }
 
 /**
@@ -3589,7 +3694,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$4 = jquery;
+const $$5 = jquery;
 class PasswordRequiredComponent {
     /**
      * @param {?} messageService
@@ -3627,14 +3732,14 @@ class PasswordRequiredComponent {
              */
             () => {
                 /** @type {?} */
-                const element = $$4("#password");
+                const element = $$5("#password");
                 if (element) {
                     element.focus();
                 }
             }), 100);
         }
         else {
-            $$4("#password").val("");
+            $$5("#password").val("");
         }
     }
     /**
@@ -3642,7 +3747,7 @@ class PasswordRequiredComponent {
      * @return {?}
      */
     cancel($event) {
-        $$4("#password").val("");
+        $$5("#password").val("");
         this.cancelEvent.emit(true);
     }
 }
@@ -3956,7 +4061,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$5 = jquery;
+const $$6 = jquery;
 class SearchableDirective {
     /**
      * @param {?} _elementRef
@@ -4038,16 +4143,16 @@ class SearchableDirective {
              * @return {?}
              */
             function (value) {
-                $$5(value).removeClass('gd-highlight-select');
+                $$6(value).removeClass('gd-highlight-select');
             }));
             /** @type {?} */
             const currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-            $$5(currentEl).addClass('gd-highlight-select');
+            $$6(currentEl).addClass('gd-highlight-select');
             if (currentEl) {
                 /** @type {?} */
                 const options = {
                     left: 0,
-                    top: ($$5(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+                    top: ($$6(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                 };
                 // using polyfill
                 el.parentElement.parentElement.scroll(options);
@@ -4061,7 +4166,7 @@ class SearchableDirective {
      */
     highlightEl(el) {
         /** @type {?} */
-        const textNodes = $$5(el).find('*').contents().filter((/**
+        const textNodes = $$6(el).find('*').contents().filter((/**
          * @return {?}
          */
         function () {
@@ -4086,7 +4191,7 @@ class SearchableDirective {
          */
         function () {
             /** @type {?} */
-            const $this = $$5(this);
+            const $this = $$6(this);
             /** @type {?} */
             let content = $this.text();
             content = highlight.transform(content, text);
@@ -4903,7 +5008,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$6 = jquery;
+const $$7 = jquery;
 class FormattingDirective {
     /**
      * @param {?} _formattingService
@@ -4934,7 +5039,7 @@ class FormattingDirective {
         this.list = this.checkList();
         //fix required by FireFox to get correct background color
         if (this.bgColor === "transparent") {
-            this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+            this.bgColor = $$7(window.getSelection().focusNode.parentNode).css('background-color').toString();
         }
         this.font = document.queryCommandValue("FontName").replace(/"/g, '');
         if (this.font.split(",").length > 1) {
@@ -5254,7 +5359,7 @@ class FormattingDirective {
         if (align === "full") {
             align = "justify";
         }
-        $$6(selection).css("text-align", align);
+        $$7(selection).css("text-align", align);
         this._selectionService.refreshSelection();
     }
     /**
@@ -6155,7 +6260,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$7 = jquery;
+const $$8 = jquery;
 class ResizingComponent {
     constructor() {
         this.se = false;
@@ -6178,9 +6283,9 @@ class ResizingComponent {
      */
     ngAfterViewInit() {
         /** @type {?} */
-        const elSE = $$7(this.getElementId(this.SE));
+        const elSE = $$8(this.getElementId(this.SE));
         /** @type {?} */
-        const elNW = $$7(this.getElementId(this.NW));
+        const elNW = $$8(this.getElementId(this.NW));
         if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
             /** @type {?} */
             let width = elSE.offset().left - elNW.offset().left;
@@ -6501,7 +6606,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const $$8 = jquery;
+const $$9 = jquery;
 class TextMenuComponent {
     /**
      * @param {?} _onCloseService
@@ -6574,9 +6679,9 @@ class TextMenuComponent {
      * @return {?}
      */
     selectFontSize($event) {
-        $$8(".gd-wrapper").off("keyup");
+        $$9(".gd-wrapper").off("keyup");
         this.outFontSize.emit($event.value);
-        $$8(".gd-wrapper").on("keyup", (/**
+        $$9(".gd-wrapper").on("keyup", (/**
          * @return {?}
          */
         () => {
@@ -7040,6 +7145,7 @@ CommonComponentsModule.decorators = [
                     UploadFileZoneComponent,
                     DndDirective,
                     ScrollableDirective,
+                    MouseWheelDirective,
                     ZoomDirective,
                     SelectComponent,
                     DisabledCursorDirective,
@@ -7086,6 +7192,7 @@ CommonComponentsModule.decorators = [
                     SanitizeHtmlPipe,
                     UploadFileZoneComponent,
                     ScrollableDirective,
+                    MouseWheelDirective,
                     SelectComponent,
                     RotationDirective,
                     InitStateComponent,
@@ -7132,5 +7239,5 @@ CommonComponentsModule.ctorParameters = () => [];
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
