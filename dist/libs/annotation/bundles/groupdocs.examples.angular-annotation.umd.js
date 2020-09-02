@@ -2275,6 +2275,10 @@
          * @return {?}
          */
         function () {
+            if (this.annotationConfig.defaultDocument !== "") {
+                this.isLoading = true;
+                this.selectFile(this.annotationConfig.defaultDocument, "", "");
+            }
         };
         /**
          * @private
