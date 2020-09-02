@@ -15,7 +15,7 @@
             <input #textinput *ngIf="property.type == metadataPropertyType.String" class="property-value" [(ngModel)]="property.value" />
             <input *ngIf="property.type == metadataPropertyType.DateTime" type="datetime-local" step="1" [ngClass]="isDesktop ? 'property-value' : 'property-value mobile-hide'" [ngModel]="property.value | date:'yyyy-MM-ddTHH:mm:ss'" (ngModelChange)="formatDateTime(property, $event)" />
             <input *ngIf="property.type == metadataPropertyType.DateTime" type="datetime-local" [ngClass]="isDesktop ? 'property-value desktop-hide' : 'property-value'" [ngModel]="property.value | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="formatDateTime(property, $event)" />
-            <input *ngIf="property.type == metadataPropertyType.Integer || property.type == metadataPropertyType.Long" type="text" class="property-value" [(ngModel)]="property.value" gd-integer />
+            <input *ngIf="property.type == metadataPropertyType.Integer || property.type == metadataPropertyType.Long" type="text" class="property-value" [(ngModel)]="property.value" gdInteger />
             <input *ngIf="property.type == metadataPropertyType.Double" type="number" class="property-value" [(ngModel)]="property.value" />
             <input *ngIf="property.type == metadataPropertyType.Boolean" type="checkbox" class="property-value" [(ngModel)]="property.value" />
         </div>

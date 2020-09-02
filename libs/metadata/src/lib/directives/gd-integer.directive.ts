@@ -3,7 +3,7 @@ import { Directive, ElementRef, HostListener, OnInit } from "@angular/core";
 import {NgModel} from "@angular/forms";
 
 @Directive({
-    selector: "[gd-integer]"
+    selector: "[gdInteger]"
 })
 export class GdIntegerDirective implements OnInit {
     private specialKeys = [ 
