@@ -3,9 +3,9 @@ import { Directive, ElementRef, HostListener, OnInit } from "@angular/core";
 import {NgModel} from "@angular/forms";
 
 @Directive({
-    selector: "[integer]"
+    selector: "[gd-integer]"
 })
-export class IntegerDirective implements OnInit {
+export class GdIntegerDirective implements OnInit {
     private specialKeys = [ 
         'Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Delete'
       ];
@@ -34,7 +34,7 @@ export class IntegerDirective implements OnInit {
         this.ngModel.control.valueChanges.subscribe(() => {
             const value = this.element.nativeElement.value;
             if (!value) return;
-            this.ngModel.control.setValue(value == "-" ? 0 : parseInt(value), { emitModelToViewChange: false, emitViewToModelChange: true, emitEvent: false });
+            this.ngModel.control.setValue(value === "-" ? 0 : parseInt(value, 10), { emitModelToViewChange: false, emitViewToModelChange: true, emitEvent: false });
         });
     }
 }

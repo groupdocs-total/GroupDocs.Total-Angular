@@ -126,7 +126,7 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
 
   updateNotAddedProperties() {
     const propertyDictionary = this.toDictionary(this.properties);
-    this.notAddedProperties = this.knownProperties.filter(p => (p.accessLevel & AccessLevels.Add) != 0 && !(p.name in propertyDictionary));
+    this.notAddedProperties = this.knownProperties.filter(p => (p.accessLevel & AccessLevels.Add) !== 0 && !(p.name in propertyDictionary));
   }
 
   isEditable(property: FilePropertyModel) {
@@ -138,7 +138,7 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
   }
 
   hasAccessTo(property: FilePropertyModel, accessLevel: AccessLevels) {
-    return property.name in this.knownPropertyDictionary && (this.knownPropertyDictionary[property.name].accessLevel & accessLevel) != 0;
+    return property.name in this.knownPropertyDictionary && (this.knownPropertyDictionary[property.name].accessLevel & accessLevel) !== 0;
   }
 
   toDictionary(array: any[]) {
