@@ -15,10 +15,29 @@ import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
 import {ExcelDocumentComponent} from './excel-document/excel-document.component';
 import {ExcelPageComponent} from './excel-page/excel-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterModule, Routes } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
   return result;
+}
+
+const routes: Routes = [
+  {
+    path: 'viewer',
+    component: ViewerAppComponent
+  },
+  {
+    path: 'viewer/:file',
+    component: ViewerAppComponent
+  }
+];
+
+export function endPoint() {
+  let config = new ConfigService();
+  config.apiEndpoint = Api.VIEWER_APP;
+  return config;
 }
 
 // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
@@ -37,7 +56,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule.forRoot(routes)
   ],
   exports : [
     ViewerAppComponent,
@@ -48,7 +68,10 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ],
   providers: [
     ViewerService,
-    ConfigService,
+    {
+      provide: ConfigService,
+      useFactory: endPoint
+    },
     ViewerConfigService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -66,14 +89,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
       useFactory: setupLoadingInterceptor,
       multi: true,
       deps: [LoadingMaskService]
-    }
+    },
+    { provide: APP_BASE_HREF, useValue: '/' }
   ]
 })
 export class ViewerModule {
-  static forRoot(apiEndpoint : string): ModuleWithProviders {
-    Api.DEFAULT_API_ENDPOINT = apiEndpoint
-    return {
-      ngModule: ViewerModule
-    };
-  }
 }
