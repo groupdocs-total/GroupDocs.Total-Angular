@@ -15,24 +15,11 @@ import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
 import {ExcelDocumentComponent} from './excel-document/excel-document.component';
 import {ExcelPageComponent} from './excel-page/excel-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RouterModule, Routes } from '@angular/router';
-import { APP_BASE_HREF } from '@angular/common';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
   return result;
 }
-
-const routes: Routes = [
-  {
-    path: 'viewer',
-    component: ViewerAppComponent
-  },
-  {
-    path: 'viewer/:file',
-    component: ViewerAppComponent
-  }
-];
 
 export function endPoint() {
   let config = new ConfigService();
@@ -56,8 +43,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule,
-    RouterModule.forRoot(routes)
+    FontAwesomeModule
   ],
   exports : [
     ViewerAppComponent,
@@ -89,9 +75,14 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
       useFactory: setupLoadingInterceptor,
       multi: true,
       deps: [LoadingMaskService]
-    },
-    { provide: APP_BASE_HREF, useValue: '/' }
+    }
   ]
 })
 export class ViewerModule {
+  static forRoot(apiEndpoint : string): ModuleWithProviders {
+    Api.DEFAULT_API_ENDPOINT = apiEndpoint
+    return {
+      ngModule: ViewerModule
+    };
+  }
 }
