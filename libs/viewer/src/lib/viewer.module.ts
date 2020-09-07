@@ -22,7 +22,7 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
 }
 
 export function endPoint() {
-  let config = new ConfigService();
+  const config = new ConfigService();
   config.apiEndpoint = Api.VIEWER_APP;
   return config;
 }
