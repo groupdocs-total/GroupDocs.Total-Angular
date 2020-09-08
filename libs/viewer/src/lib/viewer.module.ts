@@ -23,7 +23,7 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
 
 export function endPoint() {
   const config = new ConfigService();
-  config.apiEndpoint = Api.VIEWER_APP;
+  config.apiEndpoint = "http://localhost:8080";
   return config;
 }
 
