@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ElementRef, EventEmitter, Input, Output, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import * as jquery from 'jquery';
-import { Api, ConfigService, CommonModals, UploadFilesService, PagePreloadService, ModalService, TabActivatorService, PasswordService, FileUtil, ExceptionMessageService, PageModel, ZoomService, ZoomDirective, WindowService, DocumentComponent, NavigateService, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, UploadFilesService, PagePreloadService, ModalService, TabActivatorService, PasswordService, FileUtil, ExceptionMessageService, PageModel, ZoomService, ZoomDirective, WindowService, NavigateService, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -1378,8 +1378,8 @@ if (false) {
 var $$2 = jquery;
 var ResultDocumentComponent = /** @class */ (function (_super) {
     __extends(ResultDocumentComponent, _super);
-    function ResultDocumentComponent(_elementRef, zoomService, changeService, windowService) {
-        var _this = _super.call(this, _elementRef, zoomService, windowService) || this;
+    function ResultDocumentComponent(_elementRef, zoomService, changeService, windowService, navigateService) {
+        var _this = _super.call(this, _elementRef, zoomService, windowService, navigateService) || this;
         _this.changesService = changeService;
         return _this;
     }
@@ -1403,7 +1403,7 @@ var ResultDocumentComponent = /** @class */ (function (_super) {
     ResultDocumentComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-result-document',
-                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div class=\"panzoom\">\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height)\"\n         [style.width]=\"getDimensionWithUnit(page.width)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n      <div class=\"highlights\">\n        <gd-difference-highlight\n          *ngFor=\"let change of page?.changes\"\n          [change]=\"change\">\n        </gd-difference-highlight>\n      </div>\n    </div>\n  </div>\n</div>\n",
+                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div class=\"panzoom\">\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height, page.number)\"\n         [style.width]=\"getDimensionWithUnit(page.width, page.number)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n      <div class=\"highlights\">\n        <gd-difference-highlight\n          *ngFor=\"let change of page?.changes\"\n          [change]=\"change\">\n        </gd-difference-highlight>\n      </div>\n    </div>\n  </div>\n</div>\n",
                     // @TODO: this is replicated from base component until styles inheritance supported added to angular
                     providers: [ZoomService],
                     viewProviders: [ZoomDirective],
@@ -1415,7 +1415,8 @@ var ResultDocumentComponent = /** @class */ (function (_super) {
         { type: ElementRef },
         { type: ZoomService },
         { type: DifferencesService },
-        { type: WindowService }
+        { type: WindowService },
+        { type: NavigateService }
     ]; };
     return ResultDocumentComponent;
 }(DocumentComponent));

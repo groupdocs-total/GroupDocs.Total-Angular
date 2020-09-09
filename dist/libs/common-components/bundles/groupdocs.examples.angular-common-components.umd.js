@@ -1905,14 +1905,227 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var PagePreloadService = /** @class */ (function () {
+        function PagePreloadService() {
+            var _this = this;
+            this._checkPreload = new rxjs.Observable((/**
+             * @param {?} observer
+             * @return {?}
+             */
+            function (observer) {
+                return _this._observer = observer;
+            }));
+        }
+        Object.defineProperty(PagePreloadService.prototype, "checkPreload", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._checkPreload;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {?} page
+         * @return {?}
+         */
+        PagePreloadService.prototype.changeLastPageInView = /**
+         * @param {?} page
+         * @return {?}
+         */
+        function (page) {
+            if (this._observer) {
+                this._observer.next(page);
+            }
+        };
+        return PagePreloadService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        PagePreloadService.prototype._checkPreload;
+        /**
+         * @type {?}
+         * @private
+         */
+        PagePreloadService.prototype._observer;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var NavigateService = /** @class */ (function () {
+        function NavigateService(_pagePreloadService) {
+            var _this = this;
+            this._pagePreloadService = _pagePreloadService;
+            this._currentPage = 0;
+            this._countPages = 0;
+            this._navigate = new rxjs.Observable((/**
+             * @param {?} observer
+             * @return {?}
+             */
+            function (observer) {
+                return _this._observer = observer;
+            }));
+        }
+        Object.defineProperty(NavigateService.prototype, "navigate", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._navigate;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(NavigateService.prototype, "countPages", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._countPages;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._countPages = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(NavigateService.prototype, "currentPage", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._currentPage;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._currentPage = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        NavigateService.prototype.nextPage = /**
+         * @return {?}
+         */
+        function () {
+            if (this._currentPage < this._countPages) {
+                this._currentPage++;
+                this.navigateTo(this._currentPage);
+            }
+        };
+        /**
+         * @return {?}
+         */
+        NavigateService.prototype.prevPage = /**
+         * @return {?}
+         */
+        function () {
+            if (this._currentPage > 1) {
+                this._currentPage--;
+                this.navigateTo(this._currentPage);
+            }
+        };
+        /**
+         * @return {?}
+         */
+        NavigateService.prototype.toLastPage = /**
+         * @return {?}
+         */
+        function () {
+            this._currentPage = this._countPages;
+            this.navigateTo(this._currentPage);
+        };
+        /**
+         * @return {?}
+         */
+        NavigateService.prototype.toFirstPage = /**
+         * @return {?}
+         */
+        function () {
+            this._currentPage = 1;
+            this.navigateTo(this._currentPage);
+        };
+        /**
+         * @param {?} page
+         * @return {?}
+         */
+        NavigateService.prototype.navigateTo = /**
+         * @param {?} page
+         * @return {?}
+         */
+        function (page) {
+            this.currentPage = page;
+            this._pagePreloadService.changeLastPageInView(page);
+            this._observer.next(page);
+        };
+        NavigateService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        NavigateService.ctorParameters = function () { return [
+            { type: PagePreloadService }
+        ]; };
+        /** @nocollapse */ NavigateService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(core.ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
+        return NavigateService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._currentPage;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._countPages;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._navigate;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._pagePreloadService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     /** @type {?} */
     var $$1 = jquery;
     var DocumentComponent = /** @class */ (function () {
-        function DocumentComponent(_elementRef, _zoomService, _windowService) {
+        function DocumentComponent(_elementRef, _zoomService, _windowService, _navigateService) {
             var _this = this;
             this._elementRef = _elementRef;
             this._zoomService = _zoomService;
             this._windowService = _windowService;
+            this._navigateService = _navigateService;
             this.onpan = new core.EventEmitter();
             this.wait = false;
             this.docWidth = null;
@@ -1947,6 +2160,9 @@
          * @return {?}
          */
         function () {
+            if (this.ifPresentation()) {
+                this.selectedPage = 1;
+            }
         };
         /**
          * @return {?}
@@ -2000,15 +2216,26 @@
             return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
         };
         /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ifPresentation = /**
+         * @return {?}
+         */
+        function () {
+            return FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint";
+        };
+        /**
          * @param {?} value
+         * @param {?} pageNumber
          * @return {?}
          */
         DocumentComponent.prototype.getDimensionWithUnit = /**
          * @param {?} value
+         * @param {?} pageNumber
          * @return {?}
          */
-        function (value) {
-            return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+        function (value, pageNumber) {
+            return this.ifPresentation() && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
         };
         /**
          * @return {?}
@@ -2282,23 +2509,41 @@
                 }
             }
         };
+        /**
+         * @param {?} pageNumber
+         * @return {?}
+         */
+        DocumentComponent.prototype.isVisible = /**
+         * @param {?} pageNumber
+         * @return {?}
+         */
+        function (pageNumber) {
+            if (this.ifPresentation()) {
+                return pageNumber === this.selectedPage ? true : false;
+            }
+            else {
+                return true;
+            }
+        };
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height)\"\n         [style.width]=\"getDimensionWithUnit(page.width)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
-                        styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
+                        styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;-webkit-transition:unset;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
         /** @nocollapse */
         DocumentComponent.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: ZoomService },
-            { type: WindowService }
+            { type: WindowService },
+            { type: NavigateService }
         ]; };
         DocumentComponent.propDecorators = {
             mode: [{ type: core.Input }],
             preloadPageCount: [{ type: core.Input }],
             file: [{ type: core.Input }],
+            selectedPage: [{ type: core.Input }],
             onpan: [{ type: core.Output }]
         };
         return DocumentComponent;
@@ -2310,6 +2555,8 @@
         DocumentComponent.prototype.preloadPageCount;
         /** @type {?} */
         DocumentComponent.prototype.file;
+        /** @type {?} */
+        DocumentComponent.prototype.selectedPage;
         /** @type {?} */
         DocumentComponent.prototype.onpan;
         /** @type {?} */
@@ -2365,6 +2612,11 @@
          * @private
          */
         DocumentComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        DocumentComponent.prototype._navigateService;
         /* Skipping unhandled member: ;*/
         /* Skipping unhandled member: ;*/
         /* Skipping unhandled member: ;*/
@@ -2406,7 +2658,12 @@
         function (changes) {
             // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
             // which leads to undesired spaces on the top of the docs pages
-            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
+            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><')
+                .replace(/\uFEFF/g, "")
+                .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+                .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+                .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
+                : null;
             /** @type {?} */
             var dataImagePngBase64 = 'data:image/png;base64,';
             this.imgData = dataImagePngBase64;
@@ -2796,218 +3053,6 @@
          * @protected
          */
         DndDirective.prototype._uploadFilesService;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var PagePreloadService = /** @class */ (function () {
-        function PagePreloadService() {
-            var _this = this;
-            this._checkPreload = new rxjs.Observable((/**
-             * @param {?} observer
-             * @return {?}
-             */
-            function (observer) {
-                return _this._observer = observer;
-            }));
-        }
-        Object.defineProperty(PagePreloadService.prototype, "checkPreload", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._checkPreload;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} page
-         * @return {?}
-         */
-        PagePreloadService.prototype.changeLastPageInView = /**
-         * @param {?} page
-         * @return {?}
-         */
-        function (page) {
-            if (this._observer) {
-                this._observer.next(page);
-            }
-        };
-        return PagePreloadService;
-    }());
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        PagePreloadService.prototype._checkPreload;
-        /**
-         * @type {?}
-         * @private
-         */
-        PagePreloadService.prototype._observer;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var NavigateService = /** @class */ (function () {
-        function NavigateService(_pagePreloadService) {
-            var _this = this;
-            this._pagePreloadService = _pagePreloadService;
-            this._currentPage = 0;
-            this._countPages = 0;
-            this._navigate = new rxjs.Observable((/**
-             * @param {?} observer
-             * @return {?}
-             */
-            function (observer) {
-                return _this._observer = observer;
-            }));
-        }
-        Object.defineProperty(NavigateService.prototype, "navigate", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._navigate;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(NavigateService.prototype, "countPages", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._countPages;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                this._countPages = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(NavigateService.prototype, "currentPage", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._currentPage;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                this._currentPage = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        NavigateService.prototype.nextPage = /**
-         * @return {?}
-         */
-        function () {
-            if (this._currentPage < this._countPages) {
-                this._currentPage++;
-                this.navigateTo(this._currentPage);
-            }
-        };
-        /**
-         * @return {?}
-         */
-        NavigateService.prototype.prevPage = /**
-         * @return {?}
-         */
-        function () {
-            if (this._currentPage > 1) {
-                this._currentPage--;
-                this.navigateTo(this._currentPage);
-            }
-        };
-        /**
-         * @return {?}
-         */
-        NavigateService.prototype.toLastPage = /**
-         * @return {?}
-         */
-        function () {
-            this._currentPage = this._countPages;
-            this.navigateTo(this._currentPage);
-        };
-        /**
-         * @return {?}
-         */
-        NavigateService.prototype.toFirstPage = /**
-         * @return {?}
-         */
-        function () {
-            this._currentPage = 1;
-            this.navigateTo(this._currentPage);
-        };
-        /**
-         * @param {?} page
-         * @return {?}
-         */
-        NavigateService.prototype.navigateTo = /**
-         * @param {?} page
-         * @return {?}
-         */
-        function (page) {
-            this.currentPage = page;
-            this._pagePreloadService.changeLastPageInView(page);
-            this._observer.next(page);
-        };
-        NavigateService.decorators = [
-            { type: core.Injectable, args: [{
-                        providedIn: 'root'
-                    },] }
-        ];
-        /** @nocollapse */
-        NavigateService.ctorParameters = function () { return [
-            { type: PagePreloadService }
-        ]; };
-        /** @nocollapse */ NavigateService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(core.ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
-        return NavigateService;
-    }());
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        NavigateService.prototype._currentPage;
-        /**
-         * @type {?}
-         * @private
-         */
-        NavigateService.prototype._countPages;
-        /**
-         * @type {?}
-         * @private
-         */
-        NavigateService.prototype._navigate;
-        /**
-         * @type {?}
-         * @private
-         */
-        NavigateService.prototype._observer;
-        /**
-         * @type {?}
-         * @private
-         */
-        NavigateService.prototype._pagePreloadService;
     }
 
     /**
@@ -3409,6 +3454,90 @@
          * @private
          */
         ScrollableDirective.prototype._viewportService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var $$4 = jquery;
+    var MouseWheelDirective = /** @class */ (function () {
+        function MouseWheelDirective() {
+            this.mouseWheelUp = new core.EventEmitter();
+            this.mouseWheelDown = new core.EventEmitter();
+        }
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.onMouseWheelChrome = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.mouseWheelFunc(event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.onMouseWheelFirefox = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.mouseWheelFunc(event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.onMouseWheelIE = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.mouseWheelFunc(event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.mouseWheelFunc = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            event = window.event;
+            /** @type {?} */
+            var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+            if (delta > 0) {
+                this.mouseWheelUp.emit(event);
+            }
+            else if (delta < 0) {
+                this.mouseWheelDown.emit(event);
+            }
+        };
+        MouseWheelDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[gdMouseWheel]'
+                    },] }
+        ];
+        MouseWheelDirective.propDecorators = {
+            mouseWheelUp: [{ type: core.Output }],
+            mouseWheelDown: [{ type: core.Output }],
+            onMouseWheelChrome: [{ type: core.HostListener, args: ['mousewheel', ['$event'],] }],
+            onMouseWheelFirefox: [{ type: core.HostListener, args: ['DOMMouseScroll', ['$event'],] }],
+            onMouseWheelIE: [{ type: core.HostListener, args: ['onmousewheel', ['$event'],] }]
+        };
+        return MouseWheelDirective;
+    }());
+    if (false) {
+        /** @type {?} */
+        MouseWheelDirective.prototype.mouseWheelUp;
+        /** @type {?} */
+        MouseWheelDirective.prototype.mouseWheelDown;
     }
 
     /**
@@ -4430,7 +4559,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$4 = jquery;
+    var $$5 = jquery;
     var PasswordRequiredComponent = /** @class */ (function () {
         function PasswordRequiredComponent(messageService, _passwordService) {
             var _this = this;
@@ -4476,14 +4605,14 @@
                  */
                 function () {
                     /** @type {?} */
-                    var element = $$4("#password");
+                    var element = $$5("#password");
                     if (element) {
                         element.focus();
                     }
                 }), 100);
             }
             else {
-                $$4("#password").val("");
+                $$5("#password").val("");
             }
         };
         /**
@@ -4495,7 +4624,7 @@
          * @return {?}
          */
         function ($event) {
-            $$4("#password").val("");
+            $$5("#password").val("");
             this.cancelEvent.emit(true);
         };
         PasswordRequiredComponent.decorators = [
@@ -4856,7 +4985,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$5 = jquery;
+    var $$6 = jquery;
     var SearchableDirective = /** @class */ (function () {
         function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
             var _this = this;
@@ -4941,16 +5070,16 @@
                  * @return {?}
                  */
                 function (value) {
-                    $$5(value).removeClass('gd-highlight-select');
+                    $$6(value).removeClass('gd-highlight-select');
                 }));
                 /** @type {?} */
                 var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-                $$5(currentEl).addClass('gd-highlight-select');
+                $$6(currentEl).addClass('gd-highlight-select');
                 if (currentEl) {
                     /** @type {?} */
                     var options = {
                         left: 0,
-                        top: ($$5(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+                        top: ($$6(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                     };
                     // using polyfill
                     el.parentElement.parentElement.scroll(options);
@@ -4969,7 +5098,7 @@
          */
         function (el) {
             /** @type {?} */
-            var textNodes = $$5(el).find('*').contents().filter((/**
+            var textNodes = $$6(el).find('*').contents().filter((/**
              * @return {?}
              */
             function () {
@@ -4994,7 +5123,7 @@
              */
             function () {
                 /** @type {?} */
-                var $this = $$5(this);
+                var $this = $$6(this);
                 /** @type {?} */
                 var content = $this.text();
                 content = highlight.transform(content, text);
@@ -5976,7 +6105,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$6 = jquery;
+    var $$7 = jquery;
     var FormattingDirective = /** @class */ (function () {
         function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
             this._formattingService = _formattingService;
@@ -6005,7 +6134,7 @@
             this.list = this.checkList();
             //fix required by FireFox to get correct background color
             if (this.bgColor === "transparent") {
-                this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+                this.bgColor = $$7(window.getSelection().focusNode.parentNode).css('background-color').toString();
             }
             this.font = document.queryCommandValue("FontName").replace(/"/g, '');
             if (this.font.split(",").length > 1) {
@@ -6399,7 +6528,7 @@
             if (align === "full") {
                 align = "justify";
             }
-            $$6(selection).css("text-align", align);
+            $$7(selection).css("text-align", align);
             this._selectionService.refreshSelection();
         };
         /**
@@ -7408,7 +7537,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$7 = jquery;
+    var $$8 = jquery;
     var ResizingComponent = /** @class */ (function () {
         function ResizingComponent() {
             this.se = false;
@@ -7435,9 +7564,9 @@
         function () {
             var _this = this;
             /** @type {?} */
-            var elSE = $$7(this.getElementId(this.SE));
+            var elSE = $$8(this.getElementId(this.SE));
             /** @type {?} */
-            var elNW = $$7(this.getElementId(this.NW));
+            var elNW = $$8(this.getElementId(this.NW));
             if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
                 /** @type {?} */
                 var width_1 = elSE.offset().left - elNW.offset().left;
@@ -7806,7 +7935,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$8 = jquery;
+    var $$9 = jquery;
     var TextMenuComponent = /** @class */ (function () {
         function TextMenuComponent(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
             var _this = this;
@@ -7884,9 +8013,9 @@
          * @return {?}
          */
         function ($event) {
-            $$8(".gd-wrapper").off("keyup");
+            $$9(".gd-wrapper").off("keyup");
             this.outFontSize.emit($event.value);
-            $$8(".gd-wrapper").on("keyup", (/**
+            $$9(".gd-wrapper").on("keyup", (/**
              * @return {?}
              */
             function () {
@@ -8429,6 +8558,7 @@
                             UploadFileZoneComponent,
                             DndDirective,
                             ScrollableDirective,
+                            MouseWheelDirective,
                             ZoomDirective,
                             SelectComponent,
                             DisabledCursorDirective,
@@ -8475,6 +8605,7 @@
                             SanitizeHtmlPipe,
                             UploadFileZoneComponent,
                             ScrollableDirective,
+                            MouseWheelDirective,
                             SelectComponent,
                             RotationDirective,
                             InitStateComponent,
@@ -8556,6 +8687,7 @@
     exports.MenuType = MenuType;
     exports.ModalComponent = ModalComponent;
     exports.ModalService = ModalService;
+    exports.MouseWheelDirective = MouseWheelDirective;
     exports.NavigateService = NavigateService;
     exports.OnCloseService = OnCloseService;
     exports.PageComponent = PageComponent;
