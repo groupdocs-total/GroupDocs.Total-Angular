@@ -39,6 +39,7 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     fileWasDropped: false;
     selectFontShow: boolean;
     selectFontSizeShow: boolean;
+    newFile: boolean;
     constructor(_editorService: EditorService, _modalService: ModalService, configService: EditorConfigService, uploadFilesService: UploadFilesService, passwordService: PasswordService, _windowService: WindowService, _formattingService: FormattingService, _backFormattingService: BackFormattingService, _onCloseService: OnCloseService, _selectionService: SelectionService, _htmlService: EditHtmlService, _renderPrintService: RenderPrintService, _loadingMaskService: LoadingMaskService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
@@ -78,7 +79,8 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     downloadFile(): void;
     save(): void;
     saveFile(credentials: FileCredentials): void;
-    getPageWithRootTags(data: any): string;
+    saveNewFile(credentials: FileCredentials): void;
+    getPageWithRootTags(data: any, guid: any): string;
     printFile(): void;
     onCloseModal($event: any): void;
 }

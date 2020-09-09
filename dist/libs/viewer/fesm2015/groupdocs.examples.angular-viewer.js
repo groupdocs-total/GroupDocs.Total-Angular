@@ -3,7 +3,6 @@ import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, EventEmitter, 
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 /**
@@ -292,9 +291,8 @@ class ViewerAppComponent {
      * @param {?} passwordService
      * @param {?} _windowService
      * @param {?} _loadingMaskService
-     * @param {?} route
      */
-    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, route) {
+    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService) {
         this._viewerService = _viewerService;
         this._modalService = _modalService;
         this._navigateService = _navigateService;
@@ -302,7 +300,6 @@ class ViewerAppComponent {
         this._renderPrintService = _renderPrintService;
         this._windowService = _windowService;
         this._loadingMaskService = _loadingMaskService;
-        this.route = route;
         this.title = 'viewer';
         this.files = [];
         this.countPages = 0;
@@ -368,22 +365,6 @@ class ViewerAppComponent {
             this.isDesktop = _windowService.isDesktop();
             this.refreshZoom();
         }));
-        this.querySubscription = route.queryParams.subscribe((/**
-         * @param {?} queryParam
-         * @return {?}
-         */
-        (queryParam) => {
-            this.fileParam = queryParam['file'];
-            if (this.fileParam) {
-                this.isLoading = true;
-                if (this.validURL(this.fileParam)) {
-                    this.upload(this.fileParam);
-                }
-                else {
-                    this.selectFile(this.fileParam, '', '');
-                }
-            }
-        }));
     }
     /**
      * @return {?}
@@ -392,6 +373,11 @@ class ViewerAppComponent {
         if (this.viewerConfig.defaultDocument !== "") {
             this.isLoading = true;
             this.selectFile(this.viewerConfig.defaultDocument, "", "");
+        }
+        /** @type {?} */
+        const queryString = window.location.search;
+        if (queryString) {
+            this.TryOpenFileByUrl(queryString);
         }
         this.selectedPageNumber = 1;
     }
@@ -963,6 +949,25 @@ class ViewerAppComponent {
             }
         }
     }
+    /**
+     * @private
+     * @param {?} queryString
+     * @return {?}
+     */
+    TryOpenFileByUrl(queryString) {
+        /** @type {?} */
+        const urlParams = new URLSearchParams(queryString);
+        this.fileParam = urlParams.get('file');
+        if (this.fileParam) {
+            this.isLoading = true;
+            if (this.validURL(this.fileParam)) {
+                this.upload(this.fileParam);
+            }
+            else {
+                this.selectFile(this.fileParam, '', '');
+            }
+        }
+    }
 }
 ViewerAppComponent.decorators = [
     { type: Component, args: [{
@@ -983,8 +988,7 @@ ViewerAppComponent.ctorParameters = () => [
     { type: RenderPrintService },
     { type: PasswordService },
     { type: WindowService },
-    { type: LoadingMaskService },
-    { type: ActivatedRoute }
+    { type: LoadingMaskService }
 ];
 if (false) {
     /** @type {?} */
@@ -1064,11 +1068,6 @@ if (false) {
      * @private
      */
     ViewerAppComponent.prototype._loadingMaskService;
-    /**
-     * @type {?}
-     * @private
-     */
-    ViewerAppComponent.prototype.route;
 }
 
 /**
@@ -1508,6 +1507,15 @@ function initializeApp(viewerConfigService) {
     () => viewerConfigService.load());
     return result;
 }
+/**
+ * @return {?}
+ */
+function endPoint() {
+    /** @type {?} */
+    const config = new ConfigService();
+    config.apiEndpoint = "http://localhost:8080";
+    return config;
+}
 // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
 // @dynamic
 /**
@@ -1552,7 +1560,10 @@ ViewerModule.decorators = [
                 ],
                 providers: [
                     ViewerService,
-                    ConfigService,
+                    {
+                        provide: ConfigService,
+                        useFactory: endPoint
+                    },
                     ViewerConfigService,
                     {
                         provide: HTTP_INTERCEPTORS,
@@ -1585,5 +1596,5 @@ ViewerModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, ExcelDocumentComponent as ɵb, ExcelPageComponent as ɵc, ExcelPageService as ɵd };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, endPoint, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, ExcelDocumentComponent as ɵb, ExcelPageComponent as ɵc, ExcelPageService as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map

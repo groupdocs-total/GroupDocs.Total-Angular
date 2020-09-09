@@ -497,6 +497,7 @@ var Api = /** @class */ (function () {
     Api.LOAD_THUMBNAILS = '/loadThumbnails';
     Api.LOAD_FORMATS = '/loadFormats';
     Api.SAVE_FILE = '/saveFile';
+    Api.CREATE_FILE = '/createFile';
     Api.COMPARE_FILES = '/compare';
     Api.CONVERT_FILE = '/convert';
     Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
@@ -576,6 +577,8 @@ if (false) {
     Api.LOAD_FORMATS;
     /** @type {?} */
     Api.SAVE_FILE;
+    /** @type {?} */
+    Api.CREATE_FILE;
     /** @type {?} */
     Api.COMPARE_FILES;
     /** @type {?} */
