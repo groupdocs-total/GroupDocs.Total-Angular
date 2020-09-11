@@ -3,20 +3,37 @@
   <div class="top-panel">
     <gd-logo [logo]="'search'" icon="search"></gd-logo>
     <gd-top-toolbar class="toolbar-panel">
-      <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
-                 *ngIf="browseConfig" ></gd-button>
+      <gd-button [icon]="'arrow-left'"
+                 [tooltip]="'Go back'"
+                 (click)="goBack()"
+                 *ngIf="appState != 'Default'" ></gd-button>
+      <gd-button [icon]="'folder-plus'"
+                 [tooltip]="'Add files'"
+                 (click)="openModal(browseFilesModal)"
+                 *ngIf="appState == 'Default'" ></gd-button>
+      <gd-button [icon]="'search'"
+                 [tooltip]="'Search'"
+                 (click)="openSearch()"
+                 *ngIf="appState == 'Default'" ></gd-button>
+      <gd-button [icon]="'list'"
+                 [tooltip]="'Show indexed files'"
+                 (click)="openIndexedList()"
+                 *ngIf="appState == 'Default'" ></gd-button>
     </gd-top-toolbar>
-    <gd-search-panel (searchText)="search($event)" (clearQuery)="clearSearchResult()"></gd-search-panel>
   </div>
 
-  <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="indexedFiles.length === 0" (fileDropped)="fileDropped($event)">
-    Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
-    Or drop file here
+  <gd-search-panel *ngIf="appState == 'Search' || appState == 'SearchResult'" (searchText)="search($event)" (cleared)="clearSearchResult()"></gd-search-panel>
+
+  <gd-search-options-panel *ngIf="appState == 'Search'"></gd-search-options-panel>
+
+  <gd-search-result-summary [searchResult]="searchResult" *ngIf="appState == 'SearchResult'"></gd-search-result-summary>
+
+  <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="appState == 'Default'" (fileDropped)="fileDropped($event)">
+    Drop files here to add.<br>
+    Or click <fa-icon [icon]="['fas','folder-plus']"></fa-icon>&nbsp;<b>Add files</b> button.
   </gd-init-state>
 
-  <gd-indexed-files-list [files]="indexedFiles" *ngIf="indexedFiles.length > 0 && !searchResult"></gd-indexed-files-list>
-
-  <gd-search-result-summary [searchResult]="searchResult" *ngIf="searchResult"></gd-search-result-summary>
+  <gd-indexed-files-list [files]="indexedFiles" *ngIf="appState == 'IndexedList'"></gd-indexed-files-list>
 
   <gd-search-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
                          [uploadConfig]="uploadConfig" (selectAll)="selectAllItems($event)" (fileDropped)="fileDropped($event, true)"

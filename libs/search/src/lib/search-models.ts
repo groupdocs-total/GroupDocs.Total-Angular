@@ -41,3 +41,10 @@ export enum FileIndexingStatus {
   ProcessedWithError = "ProcessedWithError",
   PasswordRequired = "PasswordRequired"
 }
+
+export enum AppState {
+  Default = "Default",
+  Search = "Search",
+  SearchResult = "SearchResult",
+  IndexedList = "IndexedList",
+}

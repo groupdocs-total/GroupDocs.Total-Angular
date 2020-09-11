@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
 import { IndexedFileModel } from './search-models';
+import { SearchOptionsService } from './search-options.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class SearchService {
   private _itemToRemove = new BehaviorSubject<FileModel>(null);
   itemToRemove = this._itemToRemove.asObservable();
 
-  constructor(private _http: HttpClient, private _config: ConfigService) {
+  constructor(private _http: HttpClient,
+              private _config: ConfigService,
+              private _searchOptionsService: SearchOptionsService) {
   }
 
   addFilesToIndex(filesToIndex: FileModel[]) {
@@ -39,9 +42,14 @@ export class SearchService {
   }
 
   search(credentials: FileCredentials[], query: string) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.SEARCH, {
-      'query': query
-    }, Api.httpOptionsJson);
+    const body = {
+      'Query': query,
+      'CaseSensitiveSearch': this._searchOptionsService.CaseSensitiveSearch,
+      'FuzzySearch': this._searchOptionsService.FuzzySearch,
+      'FuzzySearchMistakeCount': this._searchOptionsService.FuzzySearchMistakeCount,
+      'FuzzySearchOnlyBestResults': this._searchOptionsService.FuzzySearchOnlyBestResults,
+    };
+    return this._http.post(this._config.getSearchApiEndpoint() + Api.SEARCH, body, Api.httpOptionsJson);
   }
 
   removeFile(file: FileModel) {

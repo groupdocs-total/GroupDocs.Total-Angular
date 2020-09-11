@@ -13,7 +13,7 @@ export class SearchPanelComponent implements OnInit {
 
   private text = "";
   @Output() searchText = new EventEmitter();
-  @Output() clearQuery = new EventEmitter();
+  @Output() cleared = new EventEmitter();
 
   constructor() {
   }
@@ -34,8 +34,8 @@ export class SearchPanelComponent implements OnInit {
   }
 
   clearQueryString() {
-    this.text = ""
+    this.text = "";
     this.textElement.nativeElement.value = '';
-    this.clearQuery.emit("");
+    this.cleared.emit();
   }
 }

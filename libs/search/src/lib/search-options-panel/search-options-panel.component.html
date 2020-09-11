@@ -1,0 +1,32 @@
+<div class='gd-search-options-panel'>
+  <label>
+    <input type="checkbox"
+           [checked]="options.CaseSensitiveSearch"
+           (change)="options.CaseSensitiveSearch = !options.CaseSensitiveSearch" />
+    Case sensitive search
+  </label>
+  <br>
+  <div class='options-container'>
+    <label>
+      <input type="checkbox"
+             [checked]="options.FuzzySearch"
+             (change)="options.FuzzySearch = !options.FuzzySearch" />
+      Fuzzy search
+    </label>
+    <gd-button [icon]="'arrow-down'"
+               class='options-button'
+               (click)="decreaseFuzzySearchMistakeCount()"></gd-button>
+    {{options.FuzzySearchMistakeCount}}
+    <gd-button [icon]="'arrow-up'"
+               class='options-button'
+               (click)="increaseFuzzySearchMistakeCount()"></gd-button>
+    Mistake count&nbsp;&nbsp;&nbsp;
+    <label>
+      <input type="checkbox"
+             [checked]="options.FuzzySearchOnlyBestResults"
+             (change)="options.FuzzySearchOnlyBestResults = !options.FuzzySearchOnlyBestResults" />
+      Only best results
+    </label>
+  </div>
+
+</div>

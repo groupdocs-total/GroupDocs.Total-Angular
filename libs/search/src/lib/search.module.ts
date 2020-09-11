@@ -18,6 +18,8 @@ import {SearchResultItemComponent} from './search-result-item/search-result-item
 import {IndexedFilesListComponent} from './indexed-files-list/indexed-files-list.component';
 import {IndexedFileComponent} from './indexed-file/indexed-file.component';
 import {SearchBrowseFilesModalComponent} from './search-browse-files-modal/search-browse-files-modal.component';
+import {SearchOptionsPanelComponent} from './search-options-panel/search-options-panel.component';
+import {SearchOptionsService} from './search-options.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -38,7 +40,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SearchResultItemComponent,
     IndexedFilesListComponent,
     IndexedFileComponent,
-    SearchBrowseFilesModalComponent
+    SearchBrowseFilesModalComponent,
+    SearchOptionsPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ],
   providers: [
     SearchService,
+    SearchOptionsService,
     ConfigService,
     SearchConfigService,
     {

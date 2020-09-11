@@ -15,16 +15,18 @@ import {
   SearchResult,
   SearchResultItemModel,
   ExtendedFileModel,
-  FileIndexingStatus
+  FileIndexingStatus,
+  AppState,
 } from "./search-models";
 
 @Component({
   selector: 'gd-search-app',
   templateUrl: './search-app.component.html',
-  styleUrls: ['./search-app.component.less']
+  styleUrls: ['./search-app.component.less'],
 })
 export class SearchAppComponent implements OnInit, AfterViewInit {
   title = 'search';
+  appState = AppState.Default;
   files: ExtendedFileModel[] = [];
   searchResultItems: SearchResultItemModel[] = [];
   indexedFiles: IndexedFileModel[] = [];
@@ -34,7 +36,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   isDesktop: boolean;
   isLoading: boolean;
   skipPasswordProtected: boolean;
-  firstSearchPerformed: boolean;
   searchResult: SearchResult;
 
   fileWasDropped = false;
@@ -110,6 +111,38 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     return this.searchConfig ? this.searchConfig.browse : true;
   }
 
+  clearSearchResult() {
+    this.appState = AppState.Search;
+    this.searchResult = null;
+  }
+
+  goBack() {
+    switch(this.appState) {
+      case AppState.Search: {
+        this.appState = AppState.Default;
+        break;
+      }
+      case AppState.SearchResult: {
+        this.appState = AppState.Search;
+        this.searchResult = null;
+        break;
+      }
+      case AppState.IndexedList: {
+        this.appState = AppState.Default;
+        break;
+      }
+    }
+  }
+
+  openSearch() {
+    this.appState = AppState.Search;
+  }
+
+  openIndexedList() {
+    this.appState = AppState.IndexedList;
+    this.loadIndexedFiles(true);
+  }
+
   openModal(id: string) {
     this._modalService.open(id);
   }
@@ -120,14 +153,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
   selectDir($event: string) {
     this._searchService.loadFiles($event).subscribe((files: ExtendedFileModel[]) => this.files = files || []);
-  }
-
-  clearSearchResult() {
-    this.searchResult = null;
-
-    if (this.firstSearchPerformed && this.indexedFiles.length === 0) {
-      this.loadIndexedFiles(true);
-    }
   }
 
   selectAllItems(checked: boolean) {
@@ -205,11 +230,12 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
   search($event: string) {
     if ($event === "") return;
+
+    this.appState = AppState.SearchResult;
     const creds = [];
     creds.push(this.credentials);
     this._searchService.search(creds, $event).subscribe((result: SearchResult) => {
       this.searchResult = result;
-      this.firstSearchPerformed = true;
     });
   }
 }
