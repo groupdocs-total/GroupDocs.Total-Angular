@@ -2,7 +2,8 @@ import { Component, Input, Output, EventEmitter, QueryList, ViewChildren, AfterV
 import { WindowService } from '@groupdocs.examples.angular/common-components';
 import { FilePropertyModel, KnownPropertyModel, AccessLevels, RemovePropertyModel, MetadataPropertyType } from '../../metadata-models';
 import { IDatePickerConfig } from 'ng2-date-picker';
-import * as moment from 'moment';
+import * as moment_ from 'moment';
+const moment = moment_;
 
 @Component({
   selector: 'gd-accordion-group',
