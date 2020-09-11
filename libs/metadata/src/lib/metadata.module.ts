@@ -18,6 +18,7 @@ import { AccordionGroupComponent } from "./accordion/accordion-group/accordion-g
 import { FormsModule } from '@angular/forms';
 import { AccordionService } from './accordion.service';
 import { GdIntegerDirective } from "./directives/gd-integer.directive";
+import { DpDatePickerModule } from 'ng2-date-picker';
 
 export function initializeApp(metadataConfigService: MetadataConfigService) {
   const result =  () => metadataConfigService.load();
@@ -42,7 +43,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     CommonComponentsModule,
     HttpClientModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    DpDatePickerModule
   ],
   exports : [
     MetadataAppComponent,

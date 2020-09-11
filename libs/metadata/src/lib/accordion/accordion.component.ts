@@ -1,5 +1,4 @@
-import { Component, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
-import { AccordionGroupComponent } from './accordion-group/accordion-group.component';
+import { Component, AfterContentInit } from '@angular/core';
 
 @Component({
   selector: 'gd-accordion',

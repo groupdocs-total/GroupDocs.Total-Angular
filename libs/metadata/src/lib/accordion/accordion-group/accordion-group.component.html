@@ -10,14 +10,13 @@
       <div *ngFor="let property of properties" class="property-wrapper">
           <div *ngIf="!property.added" [ngClass]="{'selected': property.selected, 'disabled': !isEditable(property)}" (click)="selectProperty(property)" class="property-name" title="{{property.name}}">{{property.name}}</div>
           <gd-select  class="property-name" *ngIf="property.added" id="propertiesNames" [disabled]="false" [options]="notAddedProperties" (selected)="selectPropName($event, property)" [showSelected]="{name : property.name, value : property.name}"></gd-select>
-          <div *ngIf="!property.added && !property.editing" [ngClass]="{'selected': property.selected}" (click)="editProperty(property)" class="property-value" title="{{property.value}}">{{formatValue(property)}}</div>
-          <div *ngIf="property.added || property.editing" class="input-wrapper">
+          <div *ngIf="!property.editing" [ngClass]="{'selected': property.selected}" (click)="editProperty(property)" class="property-value" title="{{property.value}}">{{formatValue(property)}}</div>
+          <div *ngIf="property.editing" class="input-wrapper">
             <input #textinput *ngIf="property.type == metadataPropertyType.String" class="property-value" [(ngModel)]="property.value" />
-            <input *ngIf="property.type == metadataPropertyType.DateTime" type="datetime-local" step="1" [ngClass]="isDesktop ? 'property-value' : 'property-value mobile-hide'" [ngModel]="property.value | date:'yyyy-MM-ddTHH:mm:ss'" (ngModelChange)="formatDateTime(property, $event)" />
-            <input *ngIf="property.type == metadataPropertyType.DateTime" type="datetime-local" [ngClass]="isDesktop ? 'property-value desktop-hide' : 'property-value'" [ngModel]="property.value | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="formatDateTime(property, $event)" />
             <input *ngIf="property.type == metadataPropertyType.Integer || property.type == metadataPropertyType.Long" type="text" class="property-value" [(ngModel)]="property.value" gdInteger />
             <input *ngIf="property.type == metadataPropertyType.Double" type="number" class="property-value" [(ngModel)]="property.value" />
             <input *ngIf="property.type == metadataPropertyType.Boolean" type="checkbox" class="property-value" [(ngModel)]="property.value" />
+            <dp-date-picker *ngIf="property.type == metadataPropertyType.DateTime" [mode]="'daytime'" [theme]="'dp-material dp-main'" [config]="datePickerConfig" [ngModel]="dateToPicker(property.value)" (ngModelChange)="dateFromPicker(property, $event)" ></dp-date-picker>
         </div>
       </div>
     </div>

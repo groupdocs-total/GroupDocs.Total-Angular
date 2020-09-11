@@ -1,7 +1,8 @@
 import { Component, Input, Output, EventEmitter, QueryList, ViewChildren, AfterViewInit, OnInit } from '@angular/core';
 import { WindowService } from '@groupdocs.examples.angular/common-components';
-import { DatePipe } from "@angular/common";
 import { FilePropertyModel, KnownPropertyModel, AccessLevels, RemovePropertyModel, MetadataPropertyType } from '../../metadata-models';
+import { IDatePickerConfig } from 'ng2-date-picker';
+import * as moment from 'moment';
 
 @Component({
   selector: 'gd-accordion-group',
@@ -23,9 +24,11 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
   metadataPropertyType: typeof MetadataPropertyType
   @ViewChildren('textinput') textinput: QueryList<any>;
   isDesktop: boolean;
+  datePickerConfig: IDatePickerConfig = {
+    format: 'DD-MM-YYYY HH:mm:ss'
+  };
 
-  constructor(private _datePipe: DatePipe,
-              private windowService: WindowService) {
+  constructor(private windowService: WindowService) {
   }
 
   ngOnInit() {
@@ -61,6 +64,7 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
     if (this.isAddAvailable()) {
       const addedProperty = new FilePropertyModel();
       addedProperty.added = true;
+      addedProperty.editing = true;
       addedProperty.name = "Select property";
       addedProperty.type = 1;
       this.properties.push(addedProperty);
@@ -99,7 +103,7 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
     property.type = $event.type;
     property.name = $event.name;
     if ($event.type === MetadataPropertyType.DateTime) {
-      property.value = new Date().toISOString().slice(0, 19);
+      property.value = moment().toISOString();
     }
     else {
       property.value = "";
@@ -107,18 +111,10 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
     this.updateNotAddedProperties();
   }
 
-  formatDateTime(property: FilePropertyModel, value: string){
-    if (value) {
-      const dateTime = new Date(value);
-      property.value = dateTime.toISOString().slice(0, 19);
-    }
-  }
-
   formatValue(property: FilePropertyModel){
     switch (property.type) {
       case MetadataPropertyType.DateTime:
-        return this.isDesktop ? this._datePipe.transform(new Date(property.value), 'MM/dd/yy, h:mm:ss a')
-                              : this._datePipe.transform(new Date(property.value), 'MM/dd/yy, h:mm a');
+        return this.dateToPicker(property.value);
       default:
         return property.value;
     }
@@ -126,6 +122,7 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
 
   updateNotAddedProperties() {
     const propertyDictionary = this.toDictionary(this.properties);
+    // tslint:disable-next-line:no-bitwise
     this.notAddedProperties = this.knownProperties.filter(p => (p.accessLevel & AccessLevels.Add) !== 0 && !(p.name in propertyDictionary));
   }
 
@@ -138,7 +135,22 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
   }
 
   hasAccessTo(property: FilePropertyModel, accessLevel: AccessLevels) {
+    // tslint:disable-next-line:no-bitwise
     return property.name in this.knownPropertyDictionary && (this.knownPropertyDictionary[property.name].accessLevel & accessLevel) !== 0;
+  }
+
+  dateToPicker(value: string) {
+    if (value) {
+      return moment.utc(value).local().format(this.datePickerConfig.format);
+    }
+    return null;
+  }
+
+  dateFromPicker(property: FilePropertyModel, value: string){
+    if (value) {
+      const dateTime = moment(value, this.datePickerConfig.format);
+      property.value = dateTime.toISOString();
+    }
   }
 
   toDictionary(array: any[]) {
