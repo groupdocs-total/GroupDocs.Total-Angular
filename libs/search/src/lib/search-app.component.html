@@ -6,21 +6,23 @@
       <gd-button [icon]="'arrow-left'"
                  [tooltip]="'Go back'"
                  (click)="goBack()"
-                 *ngIf="appState != 'Default'" ></gd-button>
+                 *ngIf="appState != 'Default'"></gd-button>
       <gd-button [icon]="'folder-plus'"
                  [tooltip]="'Add files'"
                  (click)="openModal(browseFilesModal)"
-                 *ngIf="appState == 'Default'" ></gd-button>
+                 *ngIf="appState == 'Default'"></gd-button>
       <gd-button [icon]="'search'"
                  [tooltip]="'Search'"
                  (click)="openSearch()"
-                 *ngIf="appState == 'Default'" ></gd-button>
+                 *ngIf="appState == 'Default'"></gd-button>
       <gd-button [icon]="'list'"
                  [tooltip]="'Show indexed files'"
                  (click)="openIndexedList()"
-                 *ngIf="appState == 'Default'" ></gd-button>
+                 *ngIf="appState == 'Default'"></gd-button>
     </gd-top-toolbar>
   </div>
+
+  <gd-index-properties-panel *ngIf="appState == 'Default'"></gd-index-properties-panel>
 
   <gd-search-panel *ngIf="appState == 'Search' || appState == 'SearchResult'" (searchText)="search($event)" (cleared)="clearSearchResult()"></gd-search-panel>
 

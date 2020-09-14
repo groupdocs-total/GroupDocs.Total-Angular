@@ -6,27 +6,94 @@
     Case sensitive search
   </label>
   <br>
-  <div class='options-container'>
-    <label>
-      <input type="checkbox"
-             [checked]="options.FuzzySearch"
-             (change)="options.FuzzySearch = !options.FuzzySearch" />
-      Fuzzy search
-    </label>
-    <gd-button [icon]="'arrow-down'"
+
+  <label>
+    <input type="checkbox"
+           [checked]="options.FuzzySearch"
+           (change)="options.FuzzySearch = !options.FuzzySearch" />
+    Fuzzy search
+  </label>
+  <br>
+
+  <div class='options-container option-indented'>
+    <gd-button [icon]="'caret-down'"
                class='options-button'
-               (click)="decreaseFuzzySearchMistakeCount()"></gd-button>
+               (click)="decreaseFuzzySearchMistakeCount()">
+    </gd-button>
     {{options.FuzzySearchMistakeCount}}
-    <gd-button [icon]="'arrow-up'"
+    <gd-button [icon]="'caret-up'"
                class='options-button'
-               (click)="increaseFuzzySearchMistakeCount()"></gd-button>
-    Mistake count&nbsp;&nbsp;&nbsp;
-    <label>
-      <input type="checkbox"
-             [checked]="options.FuzzySearchOnlyBestResults"
-             (change)="options.FuzzySearchOnlyBestResults = !options.FuzzySearchOnlyBestResults" />
-      Only best results
-    </label>
+               (click)="increaseFuzzySearchMistakeCount()">
+    </gd-button>
+    Mistake count
   </div>
+
+  <label class='option-indented'>
+    <input type="checkbox"
+           [checked]="options.FuzzySearchOnlyBestResults"
+           (change)="options.FuzzySearchOnlyBestResults = !options.FuzzySearchOnlyBestResults" />
+    Only best results
+  </label>
+  <br>
+
+  <label>
+    <input type="checkbox"
+           [checked]="options.KeyboardLayoutCorrection"
+           (change)="options.KeyboardLayoutCorrection = !options.KeyboardLayoutCorrection" />
+    Keyboard layout correction
+  </label>
+  <br>
+
+  <label>
+    <input type="checkbox"
+           [checked]="options.SynonymSearch"
+           (change)="options.SynonymSearch = !options.SynonymSearch" />
+    Synonym search
+  </label>
+  <br>
+
+  <label>
+    <input type="checkbox"
+           [checked]="options.HomophoneSearch"
+           (change)="options.HomophoneSearch = !options.HomophoneSearch" />
+    Homophone search
+  </label>
+  <br>
+
+  <label>
+    <input type="checkbox"
+           [checked]="options.WordFormsSearch"
+           (change)="options.WordFormsSearch = !options.WordFormsSearch" />
+    Word forms search
+  </label>
+  <br>
+
+  <label>
+    <input type="checkbox"
+           [checked]="options.SpellingCorrection"
+           (change)="options.SpellingCorrection = !options.SpellingCorrection" />
+    Spelling correction
+  </label>
+  <br>
+
+  <div class='options-container option-indented'>
+    <gd-button [icon]="'caret-down'"
+               class='options-button'
+               (click)="decreaseSpellingCorrectionMistakeCount()">
+    </gd-button>
+    {{options.SpellingCorrectionMistakeCount}}
+    <gd-button [icon]="'caret-up'"
+               class='options-button'
+               (click)="increaseSpellingCorrectionMistakeCount()">
+    </gd-button>
+    Mistake count
+  </div>
+
+  <label class='option-indented'>
+    <input type="checkbox"
+           [checked]="options.SpellingCorrectionOnlyBestResults"
+           (change)="options.SpellingCorrectionOnlyBestResults = !options.SpellingCorrectionOnlyBestResults" />
+    Only best results
+  </label>
 
 </div>

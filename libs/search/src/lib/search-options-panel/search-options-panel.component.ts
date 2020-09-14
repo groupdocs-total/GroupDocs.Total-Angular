@@ -27,4 +27,18 @@ export class SearchOptionsPanelComponent implements OnInit {
       this.options.FuzzySearchMistakeCount--;
     }
   }
+
+  increaseSpellingCorrectionMistakeCount() {
+    if (this.options.SpellingCorrectionMistakeCount < 9)
+    {
+      this.options.SpellingCorrectionMistakeCount++;
+    }
+  }
+
+  decreaseSpellingCorrectionMistakeCount() {
+    if (this.options.SpellingCorrectionMistakeCount > 1)
+    {
+      this.options.SpellingCorrectionMistakeCount--;
+    }
+  }
 }

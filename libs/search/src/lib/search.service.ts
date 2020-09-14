@@ -43,11 +43,18 @@ export class SearchService {
 
   search(credentials: FileCredentials[], query: string) {
     const body = {
-      'Query': query,
-      'CaseSensitiveSearch': this._searchOptionsService.CaseSensitiveSearch,
-      'FuzzySearch': this._searchOptionsService.FuzzySearch,
-      'FuzzySearchMistakeCount': this._searchOptionsService.FuzzySearchMistakeCount,
-      'FuzzySearchOnlyBestResults': this._searchOptionsService.FuzzySearchOnlyBestResults,
+      Query: query,
+      CaseSensitiveSearch: this._searchOptionsService.CaseSensitiveSearch,
+      FuzzySearch: this._searchOptionsService.FuzzySearch,
+      FuzzySearchMistakeCount: this._searchOptionsService.FuzzySearchMistakeCount,
+      FuzzySearchOnlyBestResults: this._searchOptionsService.FuzzySearchOnlyBestResults,
+      KeyboardLayoutCorrection: this._searchOptionsService.KeyboardLayoutCorrection,
+      SynonymSearch: this._searchOptionsService.SynonymSearch,
+      HomophoneSearch: this._searchOptionsService.HomophoneSearch,
+      WordFormsSearch: this._searchOptionsService.WordFormsSearch,
+      SpellingCorrection: this._searchOptionsService.SpellingCorrection,
+      SpellingCorrectionMistakeCount: this._searchOptionsService.SpellingCorrectionMistakeCount,
+      SpellingCorrectionOnlyBestResults: this._searchOptionsService.SpellingCorrectionOnlyBestResults,
     };
     return this._http.post(this._config.getSearchApiEndpoint() + Api.SEARCH, body, Api.httpOptionsJson);
   }
