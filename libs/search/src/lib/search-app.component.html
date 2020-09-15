@@ -19,6 +19,10 @@
                  [tooltip]="'Show indexed files'"
                  (click)="openIndexedList()"
                  *ngIf="appState == 'Default'"></gd-button>
+      <gd-button [icon]="'sync'"
+                 [tooltip]="'Refresh index properties'"
+                 (click)="refreshIndexProperties()"
+                 *ngIf="appState == 'Default'"></gd-button>
     </gd-top-toolbar>
   </div>
 

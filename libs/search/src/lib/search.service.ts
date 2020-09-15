@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { IndexedFileModel } from './search-models';
+import { IndexedFileModel, SearchApi } from './search-models';
 import { SearchOptionsService } from './search-options.service';
+import { IndexPropertiesService } from './index-properties.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class SearchService {
 
   constructor(private _http: HttpClient,
               private _config: ConfigService,
-              private _searchOptionsService: SearchOptionsService) {
+              private _searchOptionsService: SearchOptionsService,
+              private _indexPropertiesService: IndexPropertiesService) {
   }
 
   addFilesToIndex(filesToIndex: FileModel[]) {
@@ -69,5 +71,10 @@ export class SearchService {
 
   getDocumentStatus(files: IndexedFileModel[]) {
     return this._http.post(this._config.getSearchApiEndpoint() + Api.GET_FILE_STATUS, files, Api.httpOptionsJson);
+  }
+
+  getIndexProperties() {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_INDEX_PROPERTIES;
+    return this._http.post(url, Api.httpOptionsJson);
   }
 }

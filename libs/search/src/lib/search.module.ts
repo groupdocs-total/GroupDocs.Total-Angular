@@ -20,6 +20,7 @@ import {IndexedFileComponent} from './indexed-file/indexed-file.component';
 import {SearchBrowseFilesModalComponent} from './search-browse-files-modal/search-browse-files-modal.component';
 import {SearchOptionsPanelComponent} from './search-options-panel/search-options-panel.component';
 import {SearchOptionsService} from './search-options.service';
+import {IndexPropertiesService} from './index-properties.service';
 import { IndexPropertiesPanelComponent } from './index-properties-panel/index-properties-panel.component';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
@@ -64,6 +65,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   providers: [
     SearchService,
     SearchOptionsService,
+    IndexPropertiesService,
     ConfigService,
     SearchConfigService,
     {

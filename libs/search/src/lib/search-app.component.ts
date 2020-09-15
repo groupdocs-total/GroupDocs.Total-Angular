@@ -17,7 +17,9 @@ import {
   ExtendedFileModel,
   FileIndexingStatus,
   AppState,
+  IndexProperties,
 } from "./search-models";
+import { IndexPropertiesService } from './index-properties.service';
 
 @Component({
   selector: 'gd-search-app',
@@ -37,11 +39,11 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   isLoading: boolean;
   skipPasswordProtected: boolean;
   searchResult: SearchResult;
-
   fileWasDropped = false;
 
   constructor(private _searchService: SearchService,
               private _modalService: ModalService,
+              private _indexPropertiesService: IndexPropertiesService,
               configService: SearchConfigService,
               uploadFilesService: UploadFilesService,
               passwordService: PasswordService,
@@ -141,6 +143,12 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   openIndexedList() {
     this.appState = AppState.IndexedList;
     this.loadIndexedFiles(true);
+  }
+
+  refreshIndexProperties() {
+    this._searchService.getIndexProperties().subscribe((result: IndexProperties) => {
+      this._indexPropertiesService.properties = result;
+    });
   }
 
   openModal(id: string) {

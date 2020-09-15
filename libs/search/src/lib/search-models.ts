@@ -34,6 +34,21 @@ export class ExtendedFileModel implements FileModel {
   selected: boolean;
 }
 
+export class IndexProperties {
+  IndexVersion: string;
+  IndexType: string;
+  UseStopWords: boolean;
+  UseCharacterReplacements: boolean;
+  AutoDetectEncoding: boolean;
+  UseRawTextExtraction: boolean;
+  TextStorageCompression: string;
+  IndexedFiles: number;
+}
+
+export class SearchApi {
+  public static GET_INDEX_PROPERTIES = '/getIndexProperties';
+}
+
 export enum FileIndexingStatus {
   Indexing = "Indexing",
   SuccessfullyProcessed = "SuccessfullyProcessed",
