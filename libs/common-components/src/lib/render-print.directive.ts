@@ -19,19 +19,13 @@ export class RenderPrintDirective {
 
   private renderPrint(pages: PageModel[]) {
     let pagesHtml = '';
-    if (this.htmlMode) {
-      for (const page of pages) {
-        pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-          '<div class="gd-wrapper">' + page.data + '</div>' +
-          '</div>';
-      }
-    } else {
-      for (const page of pages) {
-        pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-          '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
-          '</div>';
-      }
+
+    for (const page of pages) {
+      pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
+        '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
+        '</div>';
     }
+
     this.openWindow(pagesHtml, pages[0].width, pages[0].height);
   }
 
