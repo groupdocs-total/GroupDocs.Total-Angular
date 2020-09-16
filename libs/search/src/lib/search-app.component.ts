@@ -40,6 +40,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   skipPasswordProtected: boolean;
   searchResult: SearchResult;
   fileWasDropped = false;
+  sidePanelVisible: boolean = false;
 
   constructor(private _searchService: SearchService,
               private _modalService: ModalService,
@@ -145,10 +146,20 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     this.loadIndexedFiles(true);
   }
 
-  refreshIndexProperties() {
-    this._searchService.getIndexProperties().subscribe((result: IndexProperties) => {
-      this._indexPropertiesService.properties = result;
-    });
+  showIndexProperties() {
+    if (this.sidePanelVisible) {
+      this.sidePanelVisible = false;
+    }
+    else {
+      this.sidePanelVisible = true;
+      this._searchService.getIndexProperties().subscribe((result: IndexProperties) => {
+        this._indexPropertiesService.properties = result;
+      });
+    }
+  }
+
+  hideIndexProperties() {
+    this.sidePanelVisible = false;
   }
 
   openModal(id: string) {

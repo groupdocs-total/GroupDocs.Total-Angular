@@ -4,46 +4,64 @@
     <gd-logo [logo]="'search'" icon="search"></gd-logo>
     <gd-top-toolbar class="toolbar-panel">
       <gd-button [icon]="'arrow-left'"
-                 [tooltip]="'Go back'"
-                 (click)="goBack()"
-                 *ngIf="appState != 'Default'"></gd-button>
+        [tooltip]="'Go back'"
+        (click)="goBack()"
+        *ngIf="appState != 'Default'"></gd-button>
       <gd-button [icon]="'folder-plus'"
-                 [tooltip]="'Add files'"
-                 (click)="openModal(browseFilesModal)"
-                 *ngIf="appState == 'Default'"></gd-button>
+        [tooltip]="'Add files'"
+        (click)="openModal(browseFilesModal)"
+        *ngIf="appState == 'Default'"></gd-button>
       <gd-button [icon]="'search'"
-                 [tooltip]="'Search'"
-                 (click)="openSearch()"
-                 *ngIf="appState == 'Default'"></gd-button>
+        [tooltip]="'Search'"
+        (click)="openSearch()"
+        *ngIf="appState == 'Default'"></gd-button>
       <gd-button [icon]="'list'"
-                 [tooltip]="'Show indexed files'"
-                 (click)="openIndexedList()"
-                 *ngIf="appState == 'Default'"></gd-button>
-      <gd-button [icon]="'sync'"
-                 [tooltip]="'Refresh index properties'"
-                 (click)="refreshIndexProperties()"
-                 *ngIf="appState == 'Default'"></gd-button>
+        [tooltip]="'Show indexed files'"
+        (click)="openIndexedList()"
+        *ngIf="appState == 'Default'"></gd-button>
+      <gd-button [icon]="'info'"
+        [tooltip]="'Show index properties'"
+        (click)="showIndexProperties()"
+        *ngIf="appState == 'Default'"></gd-button>
     </gd-top-toolbar>
   </div>
 
-  <gd-index-properties-panel *ngIf="appState == 'Default'"></gd-index-properties-panel>
+  <div id="main-container" *ngIf="appState == 'Default'">
+    <gd-side-panel *ngIf="appState == 'Default' && sidePanelVisible"
+      (hideSidePanel)="hideIndexProperties()"
+      [icon]="'info'"
+      [title]="'Index properties'"
+      [saveable]="false"
+      [closable]="true">
+      <gd-index-properties-panel></gd-index-properties-panel>
+    </gd-side-panel>
 
-  <gd-search-panel *ngIf="appState == 'Search' || appState == 'SearchResult'" (searchText)="search($event)" (cleared)="clearSearchResult()"></gd-search-panel>
+    <gd-init-state [icon]="'eye'"
+      [text]="'Drop file here to upload'"
+      *ngIf="appState == 'Default'"
+      (fileDropped)="fileDropped($event)">
+      Drop files here to add.<br>
+      Or click <fa-icon [icon]="['fas','folder-plus']"></fa-icon>&nbsp;<b>Add files</b> button.
+    </gd-init-state>
+  </div>
+
+  <gd-search-panel *ngIf="appState == 'Search' || appState == 'SearchResult'"
+    (searchText)="search($event)"
+    (cleared)="clearSearchResult()"></gd-search-panel>
 
   <gd-search-options-panel *ngIf="appState == 'Search'"></gd-search-options-panel>
 
   <gd-search-result-summary [searchResult]="searchResult" *ngIf="appState == 'SearchResult'"></gd-search-result-summary>
 
-  <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="appState == 'Default'" (fileDropped)="fileDropped($event)">
-    Drop files here to add.<br>
-    Or click <fa-icon [icon]="['fas','folder-plus']"></fa-icon>&nbsp;<b>Add files</b> button.
-  </gd-init-state>
-
   <gd-indexed-files-list [files]="indexedFiles" *ngIf="appState == 'IndexedList'"></gd-indexed-files-list>
 
-  <gd-search-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
-                         [uploadConfig]="uploadConfig" (selectAll)="selectAllItems($event)" (fileDropped)="fileDropped($event, true)"
-                         (filesAddedToIndex)="loadIndexedFiles($event)"></gd-search-browse-files-modal>
+  <gd-search-browse-files-modal (urlForUpload)="upload($event)"
+    [files]="files"
+    (selectedDirectory)="selectDir($event)"
+    [uploadConfig]="uploadConfig"
+    (selectAll)="selectAllItems($event)"
+    (fileDropped)="fileDropped($event, true)"
+    (filesAddedToIndex)="loadIndexedFiles($event)"></gd-search-browse-files-modal>
 
   <gd-error-modal></gd-error-modal>
   <gd-password-required (cancelEvent)="cancel($event)"></gd-password-required>

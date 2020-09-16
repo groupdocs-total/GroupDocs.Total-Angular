@@ -11,20 +11,6 @@
   user-select: text !important;
 }
 
-.current-page-number {
-  margin-left: 7px;
-  font-size  : 14px;
-  color      : @regent-gray;
-  width      : 37px;
-  height     : 37px;
-  line-height: 37px;
-  text-align : center;
-
-  &.active {
-    color: #fff;
-  }
-}
-
 .wrapper {
   align-items: stretch;
   height     : 100%;
@@ -53,9 +39,35 @@
   width      : 100%;
 }
 
+#main-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: auto;
+  height: 100%;
+
+  gd-side-panel {
+    width: 400px;
+  }
+
+  gd-init-state {
+    width: 100%;
+    height: auto;
+  }
+}
+
 .toolbar-panel {
   background-color: @nav-main-background;
   width           : 100%;
+}
+
+::ng-deep .gd-side-panel-body {
+  background-color: @wild-sand;
+}
+
+::ng-deep .gd-side-panel-wrapper {
+  width: 400px !important;
 }
 
 ::ng-deep .tools {
@@ -98,10 +110,24 @@
 @media (max-width: 1037px) {
 
   .mobile-hide,
-  .current-page-number {
-    display: none;
-  }
 
+  #main-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: auto;
+    height: 100%;
+  
+    gd-side-panel {
+      width: 400px;
+    }
+  
+    gd-init-state {
+      display: none;
+    }
+  }
+  
   ::ng-deep .tools {
     gd-button:nth-child(1)>.icon-button {
       margin: 0px 0px 0px 10px !important;

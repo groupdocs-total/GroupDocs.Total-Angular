@@ -1,28 +1,27 @@
 @import "../../../../common-components/src/styles/variables";
 
 .gd-index-properties-panel {
-  position            : absolute;
-  left                : 0;
-  top                 : 60px;
   width               : 100%;
-  background-color    : white;
-  align-items         : top;
-  height              : auto;
-  padding             : 5px;
-  -webkit-column-width: 370px;
-  -moz-column-width   : 370px;
-  column-width        : 370px;
-  -webkit-column-count: 4;
-  -moz-column-count   : 4;
-  column-count        : 4;
-  -webkit-column-gap  : 20px;
-  -moz-column-gap     : 20px;
-  column-gap          : 20px;
-  -webkit-column-rule : 1px solid #ccc;
-  -moz-column-rule    : 1px solid #ccc;
-  column-rule         : 1px solid #ccc;
+  height              : 100%;
+  padding             : 0;
+  display             : block;
+  overflow            : auto;
 
-  div {
-    padding           : 5px;
+  .row {
+    padding           : 0 15px;
+    height            : 60px;
+    width             : auto;
+    display           : flex;
+    flex-direction    : row;
+    align-items       : center;
+    border-bottom     : 1px solid gray;
+
+    .c1 {
+      width           : 240px;
+    }
+
+    .c2 {
+      font-weight     : bold;
+    }
   }
 }
