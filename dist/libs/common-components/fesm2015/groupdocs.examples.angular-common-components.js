@@ -3533,9 +3533,14 @@ class RenderPrintDirective {
         windowObject.document.writeln(cssPrint);
         windowObject.document.writeln(pagesHtml);
         windowObject.document.close();
-        windowObject.focus();
-        windowObject.print();
-        windowObject.close();
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            windowObject.focus();
+            windowObject.print();
+            windowObject.close();
+        }), 100);
     }
     /**
      * @private
