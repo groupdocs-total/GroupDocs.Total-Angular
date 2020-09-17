@@ -6,7 +6,7 @@ import { Comment, FileAnnotationDescription } from "./annotation-models";
 import { ActiveAnnotationService } from "./active-annotation.service";
 import { RemoveAnnotationService } from "./remove-annotation.service";
 import { CommentAnnotationService } from "./comment-annotation.service";
-import { AnnotationConfigService } from './annotation-config.service';
+import { AnnotationConfigService } from "./annotation-config.service";
 export declare class AnnotationAppComponent implements OnInit {
     private _annotationService;
     private _modalService;

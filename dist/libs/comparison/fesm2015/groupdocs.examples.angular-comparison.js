@@ -1183,9 +1183,10 @@ class ResultDocumentComponent extends DocumentComponent {
      * @param {?} zoomService
      * @param {?} changeService
      * @param {?} windowService
+     * @param {?} navigateService
      */
-    constructor(_elementRef, zoomService, changeService, windowService) {
-        super(_elementRef, zoomService, windowService);
+    constructor(_elementRef, zoomService, changeService, windowService, navigateService) {
+        super(_elementRef, zoomService, windowService, navigateService);
         this.changesService = changeService;
     }
     /**
@@ -1203,7 +1204,7 @@ class ResultDocumentComponent extends DocumentComponent {
 ResultDocumentComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-result-document',
-                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div class=\"panzoom\">\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height)\"\n         [style.width]=\"getDimensionWithUnit(page.width)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n      <div class=\"highlights\">\n        <gd-difference-highlight\n          *ngFor=\"let change of page?.changes\"\n          [change]=\"change\">\n        </gd-difference-highlight>\n      </div>\n    </div>\n  </div>\n</div>\n",
+                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div class=\"panzoom\">\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height, page.number)\"\n         [style.width]=\"getDimensionWithUnit(page.width, page.number)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n      <div class=\"highlights\">\n        <gd-difference-highlight\n          *ngFor=\"let change of page?.changes\"\n          [change]=\"change\">\n        </gd-difference-highlight>\n      </div>\n    </div>\n  </div>\n</div>\n",
                 // @TODO: this is replicated from base component until styles inheritance supported added to angular
                 providers: [ZoomService],
                 viewProviders: [ZoomDirective],
@@ -1215,7 +1216,8 @@ ResultDocumentComponent.ctorParameters = () => [
     { type: ElementRef },
     { type: ZoomService },
     { type: DifferencesService },
-    { type: WindowService }
+    { type: WindowService },
+    { type: NavigateService }
 ];
 if (false) {
     /**

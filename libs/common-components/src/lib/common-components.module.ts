@@ -21,6 +21,7 @@ import {UploadFileZoneComponent} from './upload-file-zone/upload-file-zone.compo
 import {UploadFilesService} from "./upload-files.service";
 import {DndDirective} from './dnd.directive';
 import {ScrollableDirective} from './scrollable.directive';
+import {MouseWheelDirective} from './mousewheel.directive';
 import {NavigateService} from "./navigate.service";
 import {PagePreloadService} from "./page-preload.service";
 import {ZoomDirective} from './zoom.directive';
@@ -124,6 +125,7 @@ const providers = [ConfigService,
     UploadFileZoneComponent,
     DndDirective,
     ScrollableDirective,
+    MouseWheelDirective,
     ZoomDirective,
     SelectComponent,
     DisabledCursorDirective,
@@ -170,6 +172,7 @@ const providers = [ConfigService,
     SanitizeHtmlPipe,
     UploadFileZoneComponent,
     ScrollableDirective,
+    MouseWheelDirective,
     SelectComponent,
     RotationDirective,
     InitStateComponent,

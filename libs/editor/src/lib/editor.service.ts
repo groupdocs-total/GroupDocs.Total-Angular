@@ -39,6 +39,10 @@ export class EditorService {
     return this._http.post(this._config.getEditorApiEndpoint() + Api.SAVE_FILE, file, Api.httpOptionsJson);
   }
 
+  create(file: SaveFile) {
+    return this._http.post(this._config.getEditorApiEndpoint() + Api.CREATE_FILE, file, Api.httpOptionsJson);
+  }
+
   getDownloadUrl(credentials: FileCredentials) {
     return this._config.getEditorApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
   }

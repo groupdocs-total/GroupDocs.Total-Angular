@@ -25,6 +25,7 @@ export declare class Api {
     static LOAD_THUMBNAILS: string;
     static LOAD_FORMATS: string;
     static SAVE_FILE: string;
+    static CREATE_FILE: string;
     static COMPARE_FILES: string;
     static CONVERT_FILE: string;
     static DELETE_SIGNATURE_FILE: string;
