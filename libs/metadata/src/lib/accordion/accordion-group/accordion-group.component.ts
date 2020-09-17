@@ -28,6 +28,15 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
   datePickerConfig: IDatePickerConfig = {
     format: 'DD-MM-YYYY HH:mm:ss'
   };
+  editableTypes: Set<MetadataPropertyType> = new Set<MetadataPropertyType>(
+    [
+      MetadataPropertyType.String, 
+      MetadataPropertyType.Integer, 
+      MetadataPropertyType.Long, 
+      MetadataPropertyType.Double,
+      MetadataPropertyType.Boolean,
+      MetadataPropertyType.DateTime
+    ]);
 
   constructor(private windowService: WindowService) {
   }
@@ -128,7 +137,9 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
   }
 
   isEditable(property: FilePropertyModel) {
-    return this.hasAccessTo(property, AccessLevels.Update);
+    if (this.editableTypes.has(property.type)) {
+      return this.hasAccessTo(property, AccessLevels.Update);
+    }
   }
 
   isRemovable(property: FilePropertyModel) {

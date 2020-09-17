@@ -29,7 +29,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   file: FileDescription;
   metadataConfig: MetadataConfig;
   countPages = 0;
-  formatDisabled = !this.file;
+  formatDisabled = true;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isLoading: boolean;
