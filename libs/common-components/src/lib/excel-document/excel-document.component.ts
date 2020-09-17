@@ -35,7 +35,7 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
         this.refreshExcelDocHeight();
     });
 
-    this.navigateService.navigate.subscribe(((
+    this.navigateService.navigate.subscribe(
      value => {
          this.selectSheet(value);
      });

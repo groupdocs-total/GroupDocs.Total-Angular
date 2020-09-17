@@ -5,11 +5,11 @@ import { NavigateService } from '../navigate.service';
 import { ZoomService } from '../zoom.service';
 import { ExcelPageComponent } from '../excel-page/excel-page.component';
 export declare class ExcelDocumentComponent extends DocumentComponent implements OnInit, AfterViewInit {
-    private _navigateService;
     pages: QueryList<ExcelPageComponent>;
     currentPageNo: number;
     panzoom: any;
-    constructor(_elementRef: ElementRef<HTMLElement>, zoomService: ZoomService, windowService: WindowService, _navigateService: NavigateService);
+    navigateService: NavigateService;
+    constructor(_elementRef: ElementRef<HTMLElement>, zoomService: ZoomService, windowService: WindowService, navigateService: NavigateService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     refreshExcelDocHeight(): void;
