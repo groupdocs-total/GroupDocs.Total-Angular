@@ -29,6 +29,7 @@ export * from './lib/password-required/password-required.component';
 export * from './lib/render-print.directive';
 export * from './lib/rotation.directive';
 export * from './lib/scrollable.directive';
+export * from './lib/mousewheel.directive';
 export * from './lib/search.service';
 export * from './lib/search/search.component';
 export * from './lib/searchable.directive';

@@ -285,6 +285,10 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.annotationConfig.defaultDocument !== ""){
+      this.isLoading = true;
+      this.selectFile(this.annotationConfig.defaultDocument, "", "");
+    }
   }
 
   private ptToPx(pt: number) {

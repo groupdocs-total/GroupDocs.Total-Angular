@@ -14,6 +14,7 @@ import {ZoomService} from "../zoom.service";
 import * as Hammer from 'hammerjs';
 import {WindowService} from '../window.service';
 import * as jquery from 'jquery';
+import { NavigateService } from '../navigate.service';
 
 const $ = jquery;
 
@@ -27,6 +28,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   @Input() mode: boolean;
   @Input() preloadPageCount: number;
   @Input() file: FileDescription;
+  @Input() selectedPage: number;
   @Output() onpan = new EventEmitter<any>();
   wait = false;
   zoom: number;
@@ -51,8 +53,8 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
 
   constructor(protected _elementRef: ElementRef<HTMLElement>,
               private _zoomService: ZoomService,
-              private _windowService: WindowService) {
-
+              private _windowService: WindowService,
+              private _navigateService: NavigateService,) {
     _zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val;
     });
@@ -61,6 +63,10 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   ngOnInit() {
+    if (this.ifPresentation())
+    {
+      this.selectedPage = 1;
+    }
   }
 
   ngOnChanges() {
@@ -98,8 +104,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
   }
 
-  getDimensionWithUnit(value: number) {
-    return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+  ifPresentation() {
+    return FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint";
+  }
+
+  getDimensionWithUnit(value: number, pageNumber: number) {
+    return this.ifPresentation() && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
   }
 
   ifEdge() {
@@ -248,6 +258,15 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
         const c = this.rawCenter($event);
         this.zoomAround(2, c.x, c.y, false);
       }
+    }
+  }
+
+  isVisible(pageNumber) {
+    if (this.ifPresentation()) {
+      return pageNumber === this.selectedPage ? true : false;
+    }
+    else {
+      return true;
     }
   }
 }

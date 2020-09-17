@@ -19,7 +19,6 @@ import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 //import * as Hammer from 'hammerjs';
 
 @Component({
@@ -51,6 +50,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   fileParam: string;
   querySubscription: Subscription;
+  selectedPageNumber: number;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -62,8 +62,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _loadingMaskService: LoadingMaskService,
-              private route: ActivatedRoute) {
+              private _loadingMaskService: LoadingMaskService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -99,21 +98,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.isDesktop = _windowService.isDesktop();
       this.refreshZoom();
     });
-
-    this.querySubscription = route.queryParams.subscribe(
-      (queryParam: any) => {
-        this.fileParam = queryParam['file'];
-        if (this.fileParam) {
-          this.isLoading = true;
-          if (this.validURL(this.fileParam)) {
-            this.upload(this.fileParam);
-          }
-          else {
-            this.selectFile(this.fileParam, '', '');
-          }
-        }
-      }
-    );
   }
 
   ngOnInit() {
@@ -121,6 +105,13 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.isLoading = true;
       this.selectFile(this.viewerConfig.defaultDocument, "", "");
     }
+
+    const queryString = window.location.search;
+    if (queryString) {
+      this.TryOpenFileByUrl(queryString);
+    }
+
+    this.selectedPageNumber = 1;
   }
 
   ngAfterViewInit() {
@@ -195,6 +186,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this._navigateService.currentPage;
   }
 
+  ifPresentation() {
+    return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint" : false;
+  }
+
   validURL(str) {
     const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
@@ -230,18 +225,33 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
             this.options = this.zoomOptions();
             this.refreshZoom();
           }
-          const preloadPageCount = this.viewerConfig.preloadPageCount;
+          const preloadPageCount = !this.ifPresentation() ? this.viewerConfig.preloadPageCount 
+                                                          : (this.viewerConfig.preloadPageCount !== 0
+                                                             && this.viewerConfig.preloadPageCount < 3 ? 3
+                                                              : this.viewerConfig.preloadPageCount);
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
+            if (this.ifPresentation()) {
+              this.file.thumbnails = file.pages.slice();
+            }
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
 
-            this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
-              this.file.thumbnails = data.pages;
-            })
+            if (!this.ifPresentation()) {
+              this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+                this.file.thumbnails = data.pages;
+              })
+            }
           }
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = 1;
           this.countPages = countPages;
+
+          if (this.ifPresentation()) {
+            this.showThumbnails = true;
+          }
+          else {
+            this.showThumbnails = false;
+          }
         }
       }
     );
@@ -255,6 +265,16 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     for (let i = start; i <= end; i++) {
       this._viewerService.loadPage(this.credentials, i).subscribe((page: PageModel) => {
         this.file.pages[i - 1] = page;
+        if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data) {
+          if (page.data) {
+            page.data = page.data.replace(/>\s+</g, '><')
+              .replace(/\uFEFF/g, "")
+              .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+              .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+              .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+          }
+          this.file.thumbnails[i - 1].data = page.data;
+        }
       });
     }
   }
@@ -464,5 +484,45 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   private refreshZoom() {
     this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
     this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+  }
+
+  selectCurrentPage(pageNumber)
+  {
+    this.selectedPageNumber = pageNumber;
+  }
+
+  onMouseWheelUp($event)
+  {
+    if (this.ifPresentation() && this.selectedPageNumber !== 1) {
+      this.selectedPageNumber = this.selectedPageNumber - 1;
+    }
+  }
+
+  onMouseWheelDown($event)
+  {
+    if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
+      if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
+        this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
+        this.selectedPageNumber = this.selectedPageNumber + 1;
+      }
+      else {
+        this.selectedPageNumber = this.selectedPageNumber + 1;
+      }
+    }
+  }
+
+  private TryOpenFileByUrl(queryString: string) {
+    const urlParams = new URLSearchParams(queryString);
+    this.fileParam = urlParams.get('file');
+
+    if (this.fileParam) {
+      this.isLoading = true;
+      if (this.validURL(this.fileParam)) {
+        this.upload(this.fileParam);
+      }
+      else {
+        this.selectFile(this.fileParam, '', '');
+      }
+    }
   }
 }

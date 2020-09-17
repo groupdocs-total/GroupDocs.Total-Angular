@@ -28,7 +28,6 @@ import {SearchAppComponent, SearchModule} from "@groupdocs.examples.angular/sear
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
       {path: 'viewer', component: ViewerAppComponent},
-      {path: 'viewer/:file', component: ViewerAppComponent},
       {path: 'editor', component: EditorAppComponent},
       {path: 'comparison', component: ComparisonAppComponent},
       {path: 'conversion', component: ConversionAppComponent},

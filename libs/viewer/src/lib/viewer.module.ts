@@ -19,6 +19,12 @@ export function initializeApp(viewerConfigService: ViewerConfigService) {
   return result;
 }
 
+export function endPoint() {
+  const config = new ConfigService();
+  config.apiEndpoint = "http://localhost:8080";
+  return config;
+}
+
 // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
 // @dynamic
 export function setupLoadingInterceptor(service: LoadingMaskService) {
@@ -43,7 +49,10 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ],
   providers: [
     ViewerService,
-    ConfigService,
+    {
+      provide: ConfigService,
+      useFactory: endPoint
+    },
     ViewerConfigService,
     {
       provide: HTTP_INTERCEPTORS,

@@ -5,7 +5,6 @@ import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
 import { WindowService } from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _viewerService;
     private _modalService;
@@ -14,7 +13,6 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _renderPrintService;
     private _windowService;
     private _loadingMaskService;
-    private route;
     title: string;
     files: FileModel[];
     file: FileDescription;
@@ -35,7 +33,8 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     formatIcon: string;
     fileParam: string;
     querySubscription: Subscription;
-    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService, route: ActivatedRoute);
+    selectedPageNumber: number;
+    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
@@ -52,6 +51,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     readonly saveRotateStateConfig: boolean;
     readonly enableRightClickConfig: boolean;
     readonly currentPage: number;
+    ifPresentation(): boolean;
     validURL(str: any): boolean;
     openModal(id: string): void;
     closeModal(id: string): void;
@@ -86,4 +86,8 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     onRightClick($event: MouseEvent): boolean;
     openSearch(): void;
     private refreshZoom;
+    selectCurrentPage(pageNumber: any): void;
+    onMouseWheelUp($event: any): void;
+    onMouseWheelDown($event: any): void;
+    private TryOpenFileByUrl;
 }

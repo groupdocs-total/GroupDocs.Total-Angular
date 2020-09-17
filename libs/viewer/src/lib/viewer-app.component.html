@@ -38,15 +38,17 @@
       <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" ></gd-search>
 
       <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
-                 (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel'"></gd-button>
+                 (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && formatIcon !== 'file-powerpoint'"></gd-button>
     </gd-top-toolbar>
   </div>
   <div class="doc-panel" *ngIf="file" #docPanel>
-    <gd-thumbnails *ngIf="showThumbnails" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
-                   [guid]="file.guid" [mode]="htmlModeConfig"></gd-thumbnails>
+    <gd-thumbnails *ngIf="showThumbnails && !ifPresentation()" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
+                   [guid]="file.guid" [mode]="htmlModeConfig" (selectedPage)="selectCurrentPage($event)"></gd-thumbnails>
+    <gd-thumbnails *ngIf="showThumbnails && ifPresentation()" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
+                   [guid]="file.guid" [mode]="htmlModeConfig" (selectedPage)="selectCurrentPage($event)" gdScrollable></gd-thumbnails>
 
     <gd-document class="gd-document" *ngIf="(file && formatIcon !== 'file-excel') || (formatIcon === 'file-excel' && !htmlModeConfig)" [file]="file" [mode]="htmlModeConfig" gdScrollable
-                 [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-document>
+                 [preloadPageCount]="viewerConfig?.preloadPageCount" [selectedPage]="selectedPageNumber" gdRenderPrint [htmlMode]="htmlModeConfig" gdMouseWheel (mouseWheelUp)="onMouseWheelUp($event)" (mouseWheelDown)="onMouseWheelDown($event)"></gd-document>
     <gd-excel-document class="gd-document" *ngIf="file && formatIcon === 'file-excel' && htmlModeConfig" [file]="file" [mode]="htmlModeConfig" gdScrollable
                  [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-excel-document>
   </div>
