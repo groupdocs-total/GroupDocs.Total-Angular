@@ -52,6 +52,7 @@ export declare class ComparisonAppComponent {
     getFirstFileName(): string;
     private checkPreload;
     compare(): void;
+    pxToPt(px: number): number;
     generateRandomInteger(): string;
     download(): void;
     hideSidePanel($event: any): void;
