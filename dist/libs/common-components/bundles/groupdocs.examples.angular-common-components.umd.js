@@ -2,21 +2,21 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('jquery'), require('hammerjs'), require('@angular/platform-browser'), require('ng-click-outside')) :
     typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', 'rxjs', 'rxjs/operators', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'jquery', 'hammerjs', '@angular/platform-browser', 'ng-click-outside'], factory) :
     (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.rxjs, global.rxjs.operators, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.jquery, global.Hammer, global.ng.platformBrowser, global.ngClickOutside));
-}(this, function (exports, core, common, rxjs, operators, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, jquery, Hammer, platformBrowser, ngClickOutside) { 'use strict';
+}(this, (function (exports, core, common, rxjs, operators, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, jquery, Hammer, platformBrowser, ngClickOutside) { 'use strict';
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -33,15 +33,194 @@
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                    t[p[i]] = s[p[i]];
+            }
+        return t;
+    }
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    }
+
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+    }
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    function __createBinding(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    }
+
+    function __exportStar(m, exports) {
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+
     function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
         if (m) return m.call(o);
-        return {
+        if (o && typeof o.length === "number") return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+    }
+
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m) return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+        }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) m.call(i);
+            }
+            finally { if (e) throw e.error; }
+        }
+        return ar;
+    }
+
+    function __spread() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+            ar = ar.concat(__read(arguments[i]));
+        return ar;
+    }
+
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    };
+
+    function __await(v) {
+        return this instanceof __await ? (this.v = v, this) : new __await(v);
+    }
+
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
+        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+    }
+
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+    }
+
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+    }
+
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        return cooked;
+    };
+
+    function __importStar(mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+        result.default = mod;
+        return result;
+    }
+
+    function __importDefault(mod) {
+        return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
     }
 
     /**
@@ -123,6 +302,22 @@
         };
         return SidePanelComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        SidePanelComponent.prototype.title;
+        /** @type {?} */
+        SidePanelComponent.prototype.icon;
+        /** @type {?} */
+        SidePanelComponent.prototype.closable;
+        /** @type {?} */
+        SidePanelComponent.prototype.saveable;
+        /** @type {?} */
+        SidePanelComponent.prototype.hideSidePanel;
+        /** @type {?} */
+        SidePanelComponent.prototype.saveInSidePanel;
+        /** @type {?} */
+        SidePanelComponent.prototype.onlyTitle;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -225,6 +420,28 @@
         };
         return WindowService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype.resizeSubject;
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype._resize$;
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype.width;
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype.height;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -324,6 +541,37 @@
         };
         return ButtonComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ButtonComponent.prototype.iconOnly;
+        /** @type {?} */
+        ButtonComponent.prototype.intent;
+        /** @type {?} */
+        ButtonComponent.prototype.disabled;
+        /** @type {?} */
+        ButtonComponent.prototype.icon;
+        /** @type {?} */
+        ButtonComponent.prototype.iconClass;
+        /** @type {?} */
+        ButtonComponent.prototype.tooltip;
+        /** @type {?} */
+        ButtonComponent.prototype.className;
+        /** @type {?} */
+        ButtonComponent.prototype.toggle;
+        /** @type {?} */
+        ButtonComponent.prototype.iconSize;
+        /** @type {?} */
+        ButtonComponent.prototype.iconRegular;
+        /** @type {?} */
+        ButtonComponent.prototype.elementPosition;
+        /** @type {?} */
+        ButtonComponent.prototype.showToolTip;
+        /**
+         * @type {?}
+         * @private
+         */
+        ButtonComponent.prototype.isDesktop;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -355,6 +603,12 @@
         };
         return LogoComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        LogoComponent.prototype.logo;
+        /** @type {?} */
+        LogoComponent.prototype.icon;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -412,6 +666,14 @@
         };
         return TooltipComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TooltipComponent.prototype.text;
+        /** @type {?} */
+        TooltipComponent.prototype.position;
+        /** @type {?} */
+        TooltipComponent.prototype.visibility;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -445,6 +707,7 @@
         Api.LOAD_THUMBNAILS = '/loadThumbnails';
         Api.LOAD_FORMATS = '/loadFormats';
         Api.SAVE_FILE = '/saveFile';
+        Api.CREATE_FILE = '/createFile';
         Api.COMPARE_FILES = '/compare';
         Api.CONVERT_FILE = '/convert';
         Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
@@ -473,6 +736,94 @@
         };
         return Api;
     }());
+    if (false) {
+        /** @type {?} */
+        Api.VIEWER_APP;
+        /** @type {?} */
+        Api.SIGNATURE_APP;
+        /** @type {?} */
+        Api.ANNOTATION_APP;
+        /** @type {?} */
+        Api.SEARCH_APP;
+        /** @type {?} */
+        Api.EDITOR_APP;
+        /** @type {?} */
+        Api.COMPARISON_APP;
+        /** @type {?} */
+        Api.CONVERSION_APP;
+        /** @type {?} */
+        Api.METADATA_APP;
+        /** @type {?} */
+        Api.DEFAULT_API_ENDPOINT;
+        /** @type {?} */
+        Api.LOAD_FILE_TREE;
+        /** @type {?} */
+        Api.LOAD_CONFIG;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_DESCRIPTION;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_PAGE;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_PROPERTIES;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_PROPERTIES_NAMES;
+        /** @type {?} */
+        Api.SAVE_PROPERTY;
+        /** @type {?} */
+        Api.REMOVE_PROPERTY;
+        /** @type {?} */
+        Api.ROTATE_DOCUMENT_PAGE;
+        /** @type {?} */
+        Api.UPLOAD_DOCUMENTS;
+        /** @type {?} */
+        Api.DOWNLOAD_DOCUMENTS;
+        /** @type {?} */
+        Api.LOAD_PRINT;
+        /** @type {?} */
+        Api.LOAD_PRINT_PDF;
+        /** @type {?} */
+        Api.LOAD_THUMBNAILS;
+        /** @type {?} */
+        Api.LOAD_FORMATS;
+        /** @type {?} */
+        Api.SAVE_FILE;
+        /** @type {?} */
+        Api.CREATE_FILE;
+        /** @type {?} */
+        Api.COMPARE_FILES;
+        /** @type {?} */
+        Api.CONVERT_FILE;
+        /** @type {?} */
+        Api.DELETE_SIGNATURE_FILE;
+        /** @type {?} */
+        Api.REMOVE_FROM_INDEX;
+        /** @type {?} */
+        Api.GET_FILE_STATUS;
+        /** @type {?} */
+        Api.SAVE_OPTICAL_CODE;
+        /** @type {?} */
+        Api.SAVE_TEXT;
+        /** @type {?} */
+        Api.SAVE_IMAGE;
+        /** @type {?} */
+        Api.SAVE_STAMP;
+        /** @type {?} */
+        Api.SIGN;
+        /** @type {?} */
+        Api.DOWNLOAD_SIGNED;
+        /** @type {?} */
+        Api.LOAD_SIGNATURE_IMAGE;
+        /** @type {?} */
+        Api.ANNOTATE;
+        /** @type {?} */
+        Api.SEARCH;
+        /** @type {?} */
+        Api.ADD_FILES_TO_INDEX;
+        /** @type {?} */
+        Api.httpOptionsJson;
+        /** @type {?} */
+        Api.httpOptionsJsonResponseTypeBlob;
+    }
     var ConfigService = /** @class */ (function () {
         function ConfigService() {
             this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
@@ -584,6 +935,13 @@
         ConfigService.ctorParameters = function () { return []; };
         return ConfigService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ConfigService.prototype._apiEndpoint;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -602,6 +960,24 @@
         CommonModals.InformationMessage = "gd-information-message";
         return CommonModals;
     }());
+    if (false) {
+        /** @type {?} */
+        CommonModals.PasswordRequired;
+        /** @type {?} */
+        CommonModals.ErrorMessage;
+        /** @type {?} */
+        CommonModals.BrowseFiles;
+        /** @type {?} */
+        CommonModals.CreateDocument;
+        /** @type {?} */
+        CommonModals.OperationSuccess;
+        /** @type {?} */
+        CommonModals.DrawHandSignature;
+        /** @type {?} */
+        CommonModals.DrawStampSignature;
+        /** @type {?} */
+        CommonModals.InformationMessage;
+    }
     var ModalService = /** @class */ (function () {
         function ModalService() {
             this.modals = [];
@@ -672,6 +1048,13 @@
         };
         return ModalService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ModalService.prototype.modals;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -775,6 +1158,28 @@
         };
         return ModalComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ModalComponent.prototype.id;
+        /** @type {?} */
+        ModalComponent.prototype.title;
+        /** @type {?} */
+        ModalComponent.prototype.visible;
+        /** @type {?} */
+        ModalComponent.prototype.cancel;
+        /** @type {?} */
+        ModalComponent.prototype.visibility;
+        /**
+         * @type {?}
+         * @private
+         */
+        ModalComponent.prototype.element;
+        /**
+         * @type {?}
+         * @private
+         */
+        ModalComponent.prototype.modalService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -785,11 +1190,31 @@
         }
         return PageModel;
     }());
+    if (false) {
+        /** @type {?} */
+        PageModel.prototype.data;
+        /** @type {?} */
+        PageModel.prototype.angle;
+        /** @type {?} */
+        PageModel.prototype.width;
+        /** @type {?} */
+        PageModel.prototype.height;
+        /** @type {?} */
+        PageModel.prototype.number;
+        /** @type {?} */
+        PageModel.prototype.editable;
+    }
     var RotatedPage = /** @class */ (function () {
         function RotatedPage() {
         }
         return RotatedPage;
     }());
+    if (false) {
+        /** @type {?} */
+        RotatedPage.prototype.pageNumber;
+        /** @type {?} */
+        RotatedPage.prototype.angle;
+    }
     var FileCredentials = /** @class */ (function () {
         function FileCredentials(guid, password) {
             this.guid = guid;
@@ -797,6 +1222,12 @@
         }
         return FileCredentials;
     }());
+    if (false) {
+        /** @type {?} */
+        FileCredentials.prototype.guid;
+        /** @type {?} */
+        FileCredentials.prototype.password;
+    }
     var SaveFile = /** @class */ (function (_super) {
         __extends(SaveFile, _super);
         function SaveFile(guid, password, content) {
@@ -806,17 +1237,45 @@
         }
         return SaveFile;
     }(FileCredentials));
+    if (false) {
+        /** @type {?} */
+        SaveFile.prototype.content;
+    }
     var FileDescription = /** @class */ (function () {
         function FileDescription() {
             this.printAllowed = true;
         }
         return FileDescription;
     }());
+    if (false) {
+        /** @type {?} */
+        FileDescription.prototype.guid;
+        /** @type {?} */
+        FileDescription.prototype.pages;
+        /** @type {?} */
+        FileDescription.prototype.printAllowed;
+        /** @type {?} */
+        FileDescription.prototype.showGridLines;
+        /** @type {?} */
+        FileDescription.prototype.thumbnails;
+    }
     var FileModel = /** @class */ (function () {
         function FileModel() {
         }
         return FileModel;
     }());
+    if (false) {
+        /** @type {?} */
+        FileModel.prototype.guid;
+        /** @type {?} */
+        FileModel.prototype.name;
+        /** @type {?} */
+        FileModel.prototype.directory;
+        /** @type {?} */
+        FileModel.prototype.size;
+        /** @type {?} */
+        FileModel.prototype.isDirectory;
+    }
     var HttpError = /** @class */ (function () {
         function HttpError() {
         }
@@ -829,6 +1288,22 @@
         HttpError.InternalServerError = 500;
         return HttpError;
     }());
+    if (false) {
+        /** @type {?} */
+        HttpError.BadRequest;
+        /** @type {?} */
+        HttpError.Unauthorized;
+        /** @type {?} */
+        HttpError.Forbidden;
+        /** @type {?} */
+        HttpError.NotFound;
+        /** @type {?} */
+        HttpError.TimeOut;
+        /** @type {?} */
+        HttpError.Conflict;
+        /** @type {?} */
+        HttpError.InternalServerError;
+    }
     var Utils = /** @class */ (function () {
         function Utils() {
         }
@@ -1046,6 +1521,10 @@
         };
         return FileUtil;
     }());
+    if (false) {
+        /** @type {?} */
+        FileUtil.map;
+    }
     var FileService = /** @class */ (function () {
         function FileService() {
         }
@@ -1090,6 +1569,18 @@
         };
         return UploadFilesService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFilesService.prototype._uploadsChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFilesService.prototype._observer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1304,6 +1795,36 @@
         };
         return BrowseFilesModalComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.uploads;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.files;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.uploadConfig;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.selectedFileGuid;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.selectedDirectory;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.urlForUpload;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.closing;
+        /**
+         * @type {?}
+         * @private
+         */
+        BrowseFilesModalComponent.prototype.selectedFile;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.showUploadUrl;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.showUploadFile;
+        /**
+         * @type {?}
+         * @private
+         */
+        BrowseFilesModalComponent.prototype._uploadService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1387,756 +1908,23 @@
         };
         return ZoomService;
     }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var $$1 = jquery;
-    var DocumentComponent = /** @class */ (function () {
-        function DocumentComponent(_elementRef, _zoomService, _windowService) {
-            var _this = this;
-            this._elementRef = _elementRef;
-            this._zoomService = _zoomService;
-            this._windowService = _windowService;
-            this.onpan = new core.EventEmitter();
-            this.wait = false;
-            this.docWidth = null;
-            this.docHeight = null;
-            this.viewportWidth = null;
-            this.viewportHeight = null;
-            this.scale = null;
-            this.lastScale = null;
-            this.container = null;
-            this.doc = null;
-            this.x = 0;
-            this.lastX = 0;
-            this.y = 0;
-            this.lastY = 0;
-            this.pinchCenter = null;
-            this.pinchCenterOffset = null;
-            this.curWidth = 0;
-            this.curHeight = 0;
-            _zoomService.zoomChange.subscribe((/**
-             * @param {?} val
-             * @return {?}
-             */
-            function (val) {
-                _this.zoom = val;
-            }));
-            this.isDesktop = _windowService.isDesktop();
-        }
+    if (false) {
         /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.ngOnChanges = /**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
-            ((/** @type {?} */ (panzoom))).style.transform = '';
-            // TODO: this intersects with zooming by zoom directive, but still needed
-            // for flush previous settings before opening another file
-            //this._zoomService.changeZoom(100);
-            //this.scale = 1;
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.ngAfterViewInit = /**
-         * @return {?}
-         */
-        function () {
-            // For current iteration we take .panzoom as a document
-            this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
-            // For current iteration we take .gd-document as a container
-            this.container = this._elementRef.nativeElement;
-            this.docWidth = this.doc.clientWidth;
-            this.docHeight = this.doc.clientHeight;
-            this.viewportWidth = this.doc.offsetWidth;
-            // For cases where we already have zoom defined we should include it
-            this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
-            this.lastScale = this.scale;
-            this.viewportHeight = this.container.offsetHeight;
-            this.curWidth = this.docWidth * this.scale;
-            this.curHeight = this.docHeight * this.scale;
-            /** @type {?} */
-            var hammer = new Hammer(this.container);
-        };
-        // TODO: this temporary crutch for Excel files should be documented
-        // TODO: this temporary crutch for Excel files should be documented
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.ifExcel = 
-        // TODO: this temporary crutch for Excel files should be documented
-        /**
-         * @return {?}
-         */
-        function () {
-            return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
-        };
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        DocumentComponent.prototype.getDimensionWithUnit = /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.ifEdge = /**
-         * @return {?}
-         */
-        function () {
-            return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.ngAfterViewChecked = /**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-            /** @type {?} */
-            var element = elementNodeListOf.item(0);
-            if (element) {
-                $$1(element).trigger('focus');
-            }
-        };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        DocumentComponent.prototype.absolutePosition = /**
-         * @param {?} el
-         * @return {?}
-         */
-        function (el) {
-            /** @type {?} */
-            var x = 0;
-            /** @type {?} */
-            var y = 0;
-            while (el !== null) {
-                x += el.offsetLeft;
-                y += el.offsetTop;
-                el = el.offsetParent;
-            }
-            return { x: x, y: y };
-        };
-        /**
-         * @param {?} pos
-         * @param {?} viewportDim
-         * @param {?} docDim
-         * @return {?}
-         */
-        DocumentComponent.prototype.restrictRawPos = /**
-         * @param {?} pos
-         * @param {?} viewportDim
-         * @param {?} docDim
-         * @return {?}
-         */
-        function (pos, viewportDim, docDim) {
-            if (pos < viewportDim / this.scale - docDim) { // too far left/up?
-                pos = viewportDim / this.scale - docDim;
-            }
-            else if (pos > 0) { // too far right/down?
-                pos = 0;
-            }
-            return pos;
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.updateLastPos = /**
-         * @return {?}
-         */
-        function () {
-            this.lastX = this.x;
-            this.lastY = this.y;
-        };
-        /**
-         * @param {?} deltaX
-         * @param {?} deltaY
-         * @return {?}
-         */
-        DocumentComponent.prototype.translate = /**
-         * @param {?} deltaX
-         * @param {?} deltaY
-         * @return {?}
-         */
-        function (deltaX, deltaY) {
-            // We restrict to the min of the viewport width/height or current width/height as the
-            // current width/height may be smaller than the viewport width/height
-            /** @type {?} */
-            var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
-            this.x = newX;
-            // TODO: value here and in the similar line below changes to positive to take any effect
-            this.container.scrollLeft = -Math.ceil(newX * this.scale);
-            /** @type {?} */
-            var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
-            this.y = newY;
-            this.container.scrollTop = -Math.ceil(newY * this.scale);
-            this.doc.style.transform = 'scale(' + this.scale + ')';
-        };
-        /**
-         * @param {?} scaleBy
-         * @return {?}
-         */
-        DocumentComponent.prototype.startZoom = /**
-         * @param {?} scaleBy
-         * @return {?}
-         */
-        function (scaleBy) {
-            this.scale = this.lastScale * scaleBy;
-            this.curWidth = this.docWidth * this.scale;
-            this.curHeight = this.docHeight * this.scale;
-            // Adjust margins to make sure that we aren't out of bounds
-            this.translate(0, 0);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.rawCenter = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            /** @type {?} */
-            var pos = this.absolutePosition(this.container);
-            // We need to account for the scroll position
-            /** @type {?} */
-            var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-            /** @type {?} */
-            var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
-            /** @type {?} */
-            var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
-            /** @type {?} */
-            var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
-            return { x: zoomX, y: zoomY };
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.updateLastScale = /**
-         * @return {?}
-         */
-        function () {
-            this.lastScale = this.scale;
-        };
-        /**
-         * @param {?} scaleBy
-         * @param {?} rawZoomX
-         * @param {?} rawZoomY
-         * @param {?} doNotUpdateLast
-         * @return {?}
-         */
-        DocumentComponent.prototype.zoomAround = /**
-         * @param {?} scaleBy
-         * @param {?} rawZoomX
-         * @param {?} rawZoomY
-         * @param {?} doNotUpdateLast
-         * @return {?}
-         */
-        function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
-            // Zoom
-            this.startZoom(scaleBy);
-            // New raw center of viewport
-            /** @type {?} */
-            var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
-            /** @type {?} */
-            var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
-            // Delta
-            /** @type {?} */
-            var deltaX = (rawCenterX - rawZoomX) * this.scale;
-            /** @type {?} */
-            var deltaY = (rawCenterY - rawZoomY) * this.scale;
-            // Translate back to zoom center
-            this.translate(deltaX, deltaY);
-            if (!doNotUpdateLast) {
-                this.updateLastScale();
-                this.updateLastPos();
-            }
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPinch = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            if (this.pinchCenter === null) {
-                this.pinchCenter = this.rawCenter($event);
-                /** @type {?} */
-                var offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
-                /** @type {?} */
-                var offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
-                this.pinchCenterOffset = { x: offsetX, y: offsetY };
-            }
-            /** @type {?} */
-            var newScale = this.scale * $event.scale;
-            /** @type {?} */
-            var zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
-            /** @type {?} */
-            var zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
-            /** @type {?} */
-            var zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
-            this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPinchEnd = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            this.updateLastScale();
-            this.updateLastPos();
-            this.pinchCenter = null;
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPan = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            // TODO: looks like native pan works better
-            // if (!this.isDesktop) {
-            //   this.translate($event.deltaX, $event.deltaY);
-            // }
-            this.onpan.emit($event);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPanEnd = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            // if (!this.isDesktop) {
-            //   this.updateLastPos();
-            // }
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onDoubleTap = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            if (!this.isDesktop) {
-                if ($event.tapCount === 2) {
-                    /** @type {?} */
-                    var c = this.rawCenter($event);
-                    this.zoomAround(2, c.x, c.y, false);
-                }
-            }
-        };
-        DocumentComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        DocumentComponent.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: ZoomService },
-            { type: WindowService }
-        ]; };
-        DocumentComponent.propDecorators = {
-            mode: [{ type: core.Input }],
-            preloadPageCount: [{ type: core.Input }],
-            file: [{ type: core.Input }],
-            onpan: [{ type: core.Output }]
-        };
-        return DocumentComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var PageComponent = /** @class */ (function () {
-        function PageComponent() {
-        }
-        /**
-         * @return {?}
-         */
-        PageComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
-            if (isIE && this.number === 0) {
-                this.editable = false;
-            }
-        };
-        /**
-         * @param {?} changes
-         * @return {?}
-         */
-        PageComponent.prototype.ngOnChanges = /**
-         * @param {?} changes
-         * @return {?}
-         */
-        function (changes) {
-            // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
-            // which leads to undesired spaces on the top of the docs pages
-            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
-            /** @type {?} */
-            var dataImagePngBase64 = 'data:image/png;base64,';
-            this.imgData = dataImagePngBase64;
-            if (!this.isHtml) {
-                this.imgData += this.data;
-            }
-        };
-        PageComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-page',
-                        template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        PageComponent.ctorParameters = function () { return []; };
-        PageComponent.propDecorators = {
-            angle: [{ type: core.Input }],
-            width: [{ type: core.Input }],
-            height: [{ type: core.Input }],
-            number: [{ type: core.Input }],
-            data: [{ type: core.Input }],
-            isHtml: [{ type: core.Input }],
-            editable: [{ type: core.Input }]
-        };
-        return PageComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var SanitizeHtmlPipe = /** @class */ (function () {
-        function SanitizeHtmlPipe(sanitizer) {
-            this.sanitizer = sanitizer;
-        }
-        /**
-         * @param {?} html
-         * @return {?}
-         */
-        SanitizeHtmlPipe.prototype.transform = /**
-         * @param {?} html
-         * @return {?}
-         */
-        function (html) {
-            return this.sanitizer.bypassSecurityTrustHtml(html);
-        };
-        SanitizeHtmlPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'safeHtml' },] }
-        ];
-        /** @nocollapse */
-        SanitizeHtmlPipe.ctorParameters = function () { return [
-            { type: platformBrowser.DomSanitizer }
-        ]; };
-        return SanitizeHtmlPipe;
-    }());
-    var SanitizeResourceHtmlPipe = /** @class */ (function () {
-        function SanitizeResourceHtmlPipe(sanitizer) {
-            this.sanitizer = sanitizer;
-        }
-        /**
-         * @param {?} html
-         * @return {?}
-         */
-        SanitizeResourceHtmlPipe.prototype.transform = /**
-         * @param {?} html
-         * @return {?}
-         */
-        function (html) {
-            return this.sanitizer.bypassSecurityTrustResourceUrl(html);
-        };
-        SanitizeResourceHtmlPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'safeResourceHtml' },] }
-        ];
-        /** @nocollapse */
-        SanitizeResourceHtmlPipe.ctorParameters = function () { return [
-            { type: platformBrowser.DomSanitizer }
-        ]; };
-        return SanitizeResourceHtmlPipe;
-    }());
-    var SanitizeStylePipe = /** @class */ (function () {
-        function SanitizeStylePipe(sanitizer) {
-            this.sanitizer = sanitizer;
-        }
-        /**
-         * @param {?} html
-         * @return {?}
-         */
-        SanitizeStylePipe.prototype.transform = /**
-         * @param {?} html
-         * @return {?}
-         */
-        function (html) {
-            return this.sanitizer.bypassSecurityTrustStyle(html);
-        };
-        SanitizeStylePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'safeStyle' },] }
-        ];
-        /** @nocollapse */
-        SanitizeStylePipe.ctorParameters = function () { return [
-            { type: platformBrowser.DomSanitizer }
-        ]; };
-        return SanitizeStylePipe;
-    }());
-    var HighlightSearchPipe = /** @class */ (function () {
-        function HighlightSearchPipe() {
-        }
-        /**
-         * @param {?} value
-         * @param {?} args
-         * @return {?}
-         */
-        HighlightSearchPipe.prototype.transform = /**
-         * @param {?} value
-         * @param {?} args
-         * @return {?}
-         */
-        function (value, args) {
-            if (!args) {
-                return value;
-            }
-            /** @type {?} */
-            var re = new RegExp(args, 'gi');
-            return value.replace(re, "<span class='gd-highlight'>$&</span>");
-        };
-        HighlightSearchPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'highlight' },] }
-        ];
-        return HighlightSearchPipe;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var UploadFileZoneComponent = /** @class */ (function () {
-        function UploadFileZoneComponent(_uploadService) {
-            this._uploadService = _uploadService;
-            this.closeUpload = new core.EventEmitter();
-        }
-        /**
-         * @return {?}
-         */
-        UploadFileZoneComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @param {?} files
-         * @return {?}
-         */
-        UploadFileZoneComponent.prototype.handleFileInput = /**
-         * @param {?} files
-         * @return {?}
-         */
-        function (files) {
-            this._uploadService.changeFilesList(files);
-            this.onCloseUpload();
-        };
-        /**
-         * @return {?}
-         */
-        UploadFileZoneComponent.prototype.onCloseUpload = /**
-         * @return {?}
-         */
-        function () {
-            this.closeUpload.emit(true);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        UploadFileZoneComponent.prototype.close = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            if ($event.target.id === 'gd-dropZone') {
-                this.onCloseUpload();
-            }
-        };
-        UploadFileZoneComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-upload-file-zone',
-                        template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\r\n  <div class=\"gd-drag-n-drop-icon\">\r\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\r\n  </div>\r\n  <h2>Drag &amp; Drop your files here</h2>\r\n  <h4>OR</h4>\r\n  <div class=\"gd-drag-n-drop-buttons\">\r\n    <label class=\"btn btn-primary\"> \r\n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\r\n      SELECT FILE\r\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\r\n      </label>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:flex;align-content:center;flex-direction:column;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        UploadFileZoneComponent.ctorParameters = function () { return [
-            { type: UploadFilesService }
-        ]; };
-        UploadFileZoneComponent.propDecorators = {
-            closeUpload: [{ type: core.Output }]
-        };
-        return UploadFileZoneComponent;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var DndDirective = /** @class */ (function () {
-        function DndDirective(_uploadFilesService) {
-            this._uploadFilesService = _uploadFilesService;
-            this.closing = new core.EventEmitter();
-            this.opening = new core.EventEmitter();
-            this.dropped = new core.EventEmitter();
-            this.active = false;
-            this.dragCounter = 0;
-        }
-        /**
-         * @param {?} evt
-         * @return {?}
-         */
-        DndDirective.prototype.onDragEnter = /**
-         * @param {?} evt
-         * @return {?}
-         */
-        function (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            this.dragCounter++;
-            this.active = true;
-            this.opening.emit(true);
-        };
-        /**
-         * @param {?} evt
-         * @return {?}
-         */
-        DndDirective.prototype.onDragOver = /**
-         * @param {?} evt
-         * @return {?}
-         */
-        function (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            return false;
-        };
-        /**
-         * @param {?} evt
-         * @return {?}
-         */
-        DndDirective.prototype.onDragLeave = /**
-         * @param {?} evt
-         * @return {?}
-         */
-        function (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            this.dragCounter--;
-            if (this.dragCounter === 0) {
-                this.active = false;
-                this.closeArea();
-            }
-        };
-        /**
-         * @param {?} evt
-         * @return {?}
-         */
-        DndDirective.prototype.onDrop = /**
-         * @param {?} evt
-         * @return {?}
-         */
-        function (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            /** @type {?} */
-            var files = evt.dataTransfer.files;
-            if (files.length > 0) {
-                this.active = false;
-                this.dropped.emit(true);
-                this._uploadFilesService.changeFilesList(files);
-                this.closeArea();
-            }
-        };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DndDirective.prototype.onClick = /**
-         * @param {?} event
-         * @return {?}
-         */
-        function (event) {
-            this.closeArea();
-        };
-        /**
+         * @type {?}
          * @private
-         * @return {?}
          */
-        DndDirective.prototype.closeArea = /**
+        ZoomService.prototype._observer;
+        /**
+         * @type {?}
          * @private
-         * @return {?}
          */
-        function () {
-            this.closing.emit(true);
-            this.opening.emit(false);
-        };
-        DndDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[gdDnd]'
-                    },] }
-        ];
-        /** @nocollapse */
-        DndDirective.ctorParameters = function () { return [
-            { type: UploadFilesService }
-        ]; };
-        DndDirective.propDecorators = {
-            closing: [{ type: core.Output }],
-            opening: [{ type: core.Output }],
-            dropped: [{ type: core.Output }],
-            active: [{ type: core.HostBinding, args: ['class.active',] }],
-            onDragEnter: [{ type: core.HostListener, args: ['dragenter', ['$event'],] }],
-            onDragOver: [{ type: core.HostListener, args: ['dragover', ['$event'],] }],
-            onDragLeave: [{ type: core.HostListener, args: ['dragleave', ['$event'],] }],
-            onDrop: [{ type: core.HostListener, args: ['drop', ['$event'],] }],
-            onClick: [{ type: core.HostListener, args: ['click', ['$event'],] }]
-        };
-        return DndDirective;
-    }());
+        ZoomService.prototype._zoomChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomService.prototype._zoom;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2178,6 +1966,18 @@
         };
         return PagePreloadService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        PagePreloadService.prototype._checkPreload;
+        /**
+         * @type {?}
+         * @private
+         */
+        PagePreloadService.prototype._observer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2310,6 +2110,975 @@
         /** @nocollapse */ NavigateService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(core.ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
         return NavigateService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._currentPage;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._countPages;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._navigate;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._pagePreloadService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var $$1 = jquery;
+    var DocumentComponent = /** @class */ (function () {
+        function DocumentComponent(_elementRef, _zoomService, _windowService, _navigateService) {
+            var _this = this;
+            this._elementRef = _elementRef;
+            this._zoomService = _zoomService;
+            this._windowService = _windowService;
+            this._navigateService = _navigateService;
+            this.onpan = new core.EventEmitter();
+            this.wait = false;
+            this.docWidth = null;
+            this.docHeight = null;
+            this.viewportWidth = null;
+            this.viewportHeight = null;
+            this.scale = null;
+            this.lastScale = null;
+            this.container = null;
+            this.doc = null;
+            this.x = 0;
+            this.lastX = 0;
+            this.y = 0;
+            this.lastY = 0;
+            this.pinchCenter = null;
+            this.pinchCenterOffset = null;
+            this.curWidth = 0;
+            this.curHeight = 0;
+            _zoomService.zoomChange.subscribe((/**
+             * @param {?} val
+             * @return {?}
+             */
+            function (val) {
+                _this.zoom = val;
+            }));
+            this.isDesktop = _windowService.isDesktop();
+        }
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            if (this.ifPresentation()) {
+                this.selectedPage = 1;
+            }
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ngOnChanges = /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
+            ((/** @type {?} */ (panzoom))).style.transform = '';
+            // TODO: this intersects with zooming by zoom directive, but still needed
+            // for flush previous settings before opening another file
+            //this._zoomService.changeZoom(100);
+            //this.scale = 1;
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+        function () {
+            // For current iteration we take .panzoom as a document
+            this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
+            // For current iteration we take .gd-document as a container
+            this.container = this._elementRef.nativeElement;
+            this.docWidth = this.doc.clientWidth;
+            this.docHeight = this.doc.clientHeight;
+            this.viewportWidth = this.doc.offsetWidth;
+            // For cases where we already have zoom defined we should include it
+            this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
+            this.lastScale = this.scale;
+            this.viewportHeight = this.container.offsetHeight;
+            this.curWidth = this.docWidth * this.scale;
+            this.curHeight = this.docHeight * this.scale;
+            /** @type {?} */
+            var hammer = new Hammer(this.container);
+        };
+        // TODO: this temporary crutch for Excel files should be documented
+        // TODO: this temporary crutch for Excel files should be documented
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ifExcel = 
+        // TODO: this temporary crutch for Excel files should be documented
+        /**
+         * @return {?}
+         */
+        function () {
+            return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ifPresentation = /**
+         * @return {?}
+         */
+        function () {
+            return FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint";
+        };
+        /**
+         * @param {?} value
+         * @param {?} pageNumber
+         * @return {?}
+         */
+        DocumentComponent.prototype.getDimensionWithUnit = /**
+         * @param {?} value
+         * @param {?} pageNumber
+         * @return {?}
+         */
+        function (value, pageNumber) {
+            return this.ifPresentation() && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ifEdge = /**
+         * @return {?}
+         */
+        function () {
+            return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+        };
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ngAfterViewChecked = /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+            /** @type {?} */
+            var element = elementNodeListOf.item(0);
+            if (element) {
+                $$1(element).trigger('focus');
+            }
+        };
+        /**
+         * @param {?} el
+         * @return {?}
+         */
+        DocumentComponent.prototype.absolutePosition = /**
+         * @param {?} el
+         * @return {?}
+         */
+        function (el) {
+            /** @type {?} */
+            var x = 0;
+            /** @type {?} */
+            var y = 0;
+            while (el !== null) {
+                x += el.offsetLeft;
+                y += el.offsetTop;
+                el = el.offsetParent;
+            }
+            return { x: x, y: y };
+        };
+        ;
+        /**
+         * @param {?} pos
+         * @param {?} viewportDim
+         * @param {?} docDim
+         * @return {?}
+         */
+        DocumentComponent.prototype.restrictRawPos = /**
+         * @param {?} pos
+         * @param {?} viewportDim
+         * @param {?} docDim
+         * @return {?}
+         */
+        function (pos, viewportDim, docDim) {
+            if (pos < viewportDim / this.scale - docDim) { // too far left/up?
+                pos = viewportDim / this.scale - docDim;
+            }
+            else if (pos > 0) { // too far right/down?
+                pos = 0;
+            }
+            return pos;
+        };
+        ;
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.updateLastPos = /**
+         * @return {?}
+         */
+        function () {
+            this.lastX = this.x;
+            this.lastY = this.y;
+        };
+        ;
+        /**
+         * @param {?} deltaX
+         * @param {?} deltaY
+         * @return {?}
+         */
+        DocumentComponent.prototype.translate = /**
+         * @param {?} deltaX
+         * @param {?} deltaY
+         * @return {?}
+         */
+        function (deltaX, deltaY) {
+            // We restrict to the min of the viewport width/height or current width/height as the
+            // current width/height may be smaller than the viewport width/height
+            /** @type {?} */
+            var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
+            this.x = newX;
+            // TODO: value here and in the similar line below changes to positive to take any effect
+            this.container.scrollLeft = -Math.ceil(newX * this.scale);
+            /** @type {?} */
+            var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
+            this.y = newY;
+            this.container.scrollTop = -Math.ceil(newY * this.scale);
+            this.doc.style.transform = 'scale(' + this.scale + ')';
+        };
+        ;
+        /**
+         * @param {?} scaleBy
+         * @return {?}
+         */
+        DocumentComponent.prototype.startZoom = /**
+         * @param {?} scaleBy
+         * @return {?}
+         */
+        function (scaleBy) {
+            this.scale = this.lastScale * scaleBy;
+            this.curWidth = this.docWidth * this.scale;
+            this.curHeight = this.docHeight * this.scale;
+            // Adjust margins to make sure that we aren't out of bounds
+            this.translate(0, 0);
+        };
+        ;
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.rawCenter = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            /** @type {?} */
+            var pos = this.absolutePosition(this.container);
+            // We need to account for the scroll position
+            /** @type {?} */
+            var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
+            /** @type {?} */
+            var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+            /** @type {?} */
+            var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
+            /** @type {?} */
+            var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
+            return { x: zoomX, y: zoomY };
+        };
+        ;
+        /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.updateLastScale = /**
+         * @return {?}
+         */
+        function () {
+            this.lastScale = this.scale;
+        };
+        ;
+        /**
+         * @param {?} scaleBy
+         * @param {?} rawZoomX
+         * @param {?} rawZoomY
+         * @param {?} doNotUpdateLast
+         * @return {?}
+         */
+        DocumentComponent.prototype.zoomAround = /**
+         * @param {?} scaleBy
+         * @param {?} rawZoomX
+         * @param {?} rawZoomY
+         * @param {?} doNotUpdateLast
+         * @return {?}
+         */
+        function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
+            // Zoom
+            this.startZoom(scaleBy);
+            // New raw center of viewport
+            /** @type {?} */
+            var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
+            /** @type {?} */
+            var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
+            // Delta
+            /** @type {?} */
+            var deltaX = (rawCenterX - rawZoomX) * this.scale;
+            /** @type {?} */
+            var deltaY = (rawCenterY - rawZoomY) * this.scale;
+            // Translate back to zoom center
+            this.translate(deltaX, deltaY);
+            if (!doNotUpdateLast) {
+                this.updateLastScale();
+                this.updateLastPos();
+            }
+        };
+        ;
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onPinch = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            if (this.pinchCenter === null) {
+                this.pinchCenter = this.rawCenter($event);
+                /** @type {?} */
+                var offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
+                /** @type {?} */
+                var offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
+                this.pinchCenterOffset = { x: offsetX, y: offsetY };
+            }
+            /** @type {?} */
+            var newScale = this.scale * $event.scale;
+            /** @type {?} */
+            var zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
+            /** @type {?} */
+            var zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
+            /** @type {?} */
+            var zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
+            this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onPinchEnd = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.updateLastScale();
+            this.updateLastPos();
+            this.pinchCenter = null;
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onPan = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            // TODO: looks like native pan works better
+            // if (!this.isDesktop) {
+            //   this.translate($event.deltaX, $event.deltaY);
+            // }
+            this.onpan.emit($event);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onPanEnd = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            // if (!this.isDesktop) {
+            //   this.updateLastPos();
+            // }
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        DocumentComponent.prototype.onDoubleTap = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            if (!this.isDesktop) {
+                if ($event.tapCount === 2) {
+                    /** @type {?} */
+                    var c = this.rawCenter($event);
+                    this.zoomAround(2, c.x, c.y, false);
+                }
+            }
+        };
+        /**
+         * @param {?} pageNumber
+         * @return {?}
+         */
+        DocumentComponent.prototype.isVisible = /**
+         * @param {?} pageNumber
+         * @return {?}
+         */
+        function (pageNumber) {
+            if (this.ifPresentation()) {
+                return pageNumber === this.selectedPage ? true : false;
+            }
+            else {
+                return true;
+            }
+        };
+        DocumentComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-document',
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        DocumentComponent.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: ZoomService },
+            { type: WindowService },
+            { type: NavigateService }
+        ]; };
+        DocumentComponent.propDecorators = {
+            mode: [{ type: core.Input }],
+            preloadPageCount: [{ type: core.Input }],
+            file: [{ type: core.Input }],
+            selectedPage: [{ type: core.Input }],
+            onpan: [{ type: core.Output }]
+        };
+        return DocumentComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        DocumentComponent.prototype.mode;
+        /** @type {?} */
+        DocumentComponent.prototype.preloadPageCount;
+        /** @type {?} */
+        DocumentComponent.prototype.file;
+        /** @type {?} */
+        DocumentComponent.prototype.selectedPage;
+        /** @type {?} */
+        DocumentComponent.prototype.onpan;
+        /** @type {?} */
+        DocumentComponent.prototype.wait;
+        /** @type {?} */
+        DocumentComponent.prototype.zoom;
+        /** @type {?} */
+        DocumentComponent.prototype.docWidth;
+        /** @type {?} */
+        DocumentComponent.prototype.docHeight;
+        /** @type {?} */
+        DocumentComponent.prototype.viewportWidth;
+        /** @type {?} */
+        DocumentComponent.prototype.viewportHeight;
+        /** @type {?} */
+        DocumentComponent.prototype.scale;
+        /** @type {?} */
+        DocumentComponent.prototype.lastScale;
+        /** @type {?} */
+        DocumentComponent.prototype.container;
+        /** @type {?} */
+        DocumentComponent.prototype.doc;
+        /** @type {?} */
+        DocumentComponent.prototype.x;
+        /** @type {?} */
+        DocumentComponent.prototype.lastX;
+        /** @type {?} */
+        DocumentComponent.prototype.y;
+        /** @type {?} */
+        DocumentComponent.prototype.lastY;
+        /** @type {?} */
+        DocumentComponent.prototype.pinchCenter;
+        /** @type {?} */
+        DocumentComponent.prototype.pinchCenterOffset;
+        /** @type {?} */
+        DocumentComponent.prototype.curWidth;
+        /** @type {?} */
+        DocumentComponent.prototype.curHeight;
+        /** @type {?} */
+        DocumentComponent.prototype.isDesktop;
+        /**
+         * @type {?}
+         * @protected
+         */
+        DocumentComponent.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        DocumentComponent.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        DocumentComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        DocumentComponent.prototype._navigateService;
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+        /* Skipping unhandled member: ;*/
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var PageComponent = /** @class */ (function () {
+        function PageComponent() {
+        }
+        /**
+         * @return {?}
+         */
+        PageComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            if (isIE && this.number === 0) {
+                this.editable = false;
+            }
+        };
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+        PageComponent.prototype.ngOnChanges = /**
+         * @param {?} changes
+         * @return {?}
+         */
+        function (changes) {
+            // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
+            // which leads to undesired spaces on the top of the docs pages
+            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><')
+                .replace(/\uFEFF/g, "")
+                .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+                .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+                .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
+                : null;
+            /** @type {?} */
+            var dataImagePngBase64 = 'data:image/png;base64,';
+            this.imgData = dataImagePngBase64;
+            if (!this.isHtml) {
+                this.imgData += this.data;
+            }
+        };
+        PageComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-page',
+                        template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
+                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        PageComponent.ctorParameters = function () { return []; };
+        PageComponent.propDecorators = {
+            angle: [{ type: core.Input }],
+            width: [{ type: core.Input }],
+            height: [{ type: core.Input }],
+            number: [{ type: core.Input }],
+            data: [{ type: core.Input }],
+            isHtml: [{ type: core.Input }],
+            editable: [{ type: core.Input }]
+        };
+        return PageComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        PageComponent.prototype.angle;
+        /** @type {?} */
+        PageComponent.prototype.width;
+        /** @type {?} */
+        PageComponent.prototype.height;
+        /** @type {?} */
+        PageComponent.prototype.number;
+        /** @type {?} */
+        PageComponent.prototype.data;
+        /** @type {?} */
+        PageComponent.prototype.isHtml;
+        /** @type {?} */
+        PageComponent.prototype.editable;
+        /** @type {?} */
+        PageComponent.prototype.imgData;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var SanitizeHtmlPipe = /** @class */ (function () {
+        function SanitizeHtmlPipe(sanitizer) {
+            this.sanitizer = sanitizer;
+        }
+        /**
+         * @param {?} html
+         * @return {?}
+         */
+        SanitizeHtmlPipe.prototype.transform = /**
+         * @param {?} html
+         * @return {?}
+         */
+        function (html) {
+            return this.sanitizer.bypassSecurityTrustHtml(html);
+        };
+        SanitizeHtmlPipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'safeHtml' },] }
+        ];
+        /** @nocollapse */
+        SanitizeHtmlPipe.ctorParameters = function () { return [
+            { type: platformBrowser.DomSanitizer }
+        ]; };
+        return SanitizeHtmlPipe;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SanitizeHtmlPipe.prototype.sanitizer;
+    }
+    var SanitizeResourceHtmlPipe = /** @class */ (function () {
+        function SanitizeResourceHtmlPipe(sanitizer) {
+            this.sanitizer = sanitizer;
+        }
+        /**
+         * @param {?} html
+         * @return {?}
+         */
+        SanitizeResourceHtmlPipe.prototype.transform = /**
+         * @param {?} html
+         * @return {?}
+         */
+        function (html) {
+            return this.sanitizer.bypassSecurityTrustResourceUrl(html);
+        };
+        SanitizeResourceHtmlPipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'safeResourceHtml' },] }
+        ];
+        /** @nocollapse */
+        SanitizeResourceHtmlPipe.ctorParameters = function () { return [
+            { type: platformBrowser.DomSanitizer }
+        ]; };
+        return SanitizeResourceHtmlPipe;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SanitizeResourceHtmlPipe.prototype.sanitizer;
+    }
+    var SanitizeStylePipe = /** @class */ (function () {
+        function SanitizeStylePipe(sanitizer) {
+            this.sanitizer = sanitizer;
+        }
+        /**
+         * @param {?} html
+         * @return {?}
+         */
+        SanitizeStylePipe.prototype.transform = /**
+         * @param {?} html
+         * @return {?}
+         */
+        function (html) {
+            return this.sanitizer.bypassSecurityTrustStyle(html);
+        };
+        SanitizeStylePipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'safeStyle' },] }
+        ];
+        /** @nocollapse */
+        SanitizeStylePipe.ctorParameters = function () { return [
+            { type: platformBrowser.DomSanitizer }
+        ]; };
+        return SanitizeStylePipe;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SanitizeStylePipe.prototype.sanitizer;
+    }
+    var HighlightSearchPipe = /** @class */ (function () {
+        function HighlightSearchPipe() {
+        }
+        /**
+         * @param {?} value
+         * @param {?} args
+         * @return {?}
+         */
+        HighlightSearchPipe.prototype.transform = /**
+         * @param {?} value
+         * @param {?} args
+         * @return {?}
+         */
+        function (value, args) {
+            if (!args) {
+                return value;
+            }
+            /** @type {?} */
+            var re = new RegExp(args, 'gi');
+            return value.replace(re, "<span class='gd-highlight'>$&</span>");
+        };
+        HighlightSearchPipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'highlight' },] }
+        ];
+        return HighlightSearchPipe;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var UploadFileZoneComponent = /** @class */ (function () {
+        function UploadFileZoneComponent(_uploadService) {
+            this._uploadService = _uploadService;
+            this.closeUpload = new core.EventEmitter();
+        }
+        /**
+         * @return {?}
+         */
+        UploadFileZoneComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        /**
+         * @param {?} files
+         * @return {?}
+         */
+        UploadFileZoneComponent.prototype.handleFileInput = /**
+         * @param {?} files
+         * @return {?}
+         */
+        function (files) {
+            this._uploadService.changeFilesList(files);
+            this.onCloseUpload();
+        };
+        /**
+         * @return {?}
+         */
+        UploadFileZoneComponent.prototype.onCloseUpload = /**
+         * @return {?}
+         */
+        function () {
+            this.closeUpload.emit(true);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        UploadFileZoneComponent.prototype.close = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            if ($event.target.id === 'gd-dropZone') {
+                this.onCloseUpload();
+            }
+        };
+        UploadFileZoneComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-upload-file-zone',
+                        template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\r\n  <div class=\"gd-drag-n-drop-icon\">\r\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\r\n  </div>\r\n  <h2>Drag &amp; Drop your files here</h2>\r\n  <h4>OR</h4>\r\n  <div class=\"gd-drag-n-drop-buttons\">\r\n    <label class=\"btn btn-primary\"> \r\n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\r\n      SELECT FILE\r\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\r\n      </label>\r\n  </div>\r\n</div>\r\n",
+                        styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:flex;align-content:center;flex-direction:column;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        UploadFileZoneComponent.ctorParameters = function () { return [
+            { type: UploadFilesService }
+        ]; };
+        UploadFileZoneComponent.propDecorators = {
+            closeUpload: [{ type: core.Output }]
+        };
+        return UploadFileZoneComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        UploadFileZoneComponent.prototype.closeUpload;
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFileZoneComponent.prototype._uploadService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var DndDirective = /** @class */ (function () {
+        function DndDirective(_uploadFilesService) {
+            this._uploadFilesService = _uploadFilesService;
+            this.closing = new core.EventEmitter();
+            this.opening = new core.EventEmitter();
+            this.dropped = new core.EventEmitter();
+            this.active = false;
+            this.dragCounter = 0;
+        }
+        /**
+         * @param {?} evt
+         * @return {?}
+         */
+        DndDirective.prototype.onDragEnter = /**
+         * @param {?} evt
+         * @return {?}
+         */
+        function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            this.dragCounter++;
+            this.active = true;
+            this.opening.emit(true);
+        };
+        /**
+         * @param {?} evt
+         * @return {?}
+         */
+        DndDirective.prototype.onDragOver = /**
+         * @param {?} evt
+         * @return {?}
+         */
+        function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            return false;
+        };
+        /**
+         * @param {?} evt
+         * @return {?}
+         */
+        DndDirective.prototype.onDragLeave = /**
+         * @param {?} evt
+         * @return {?}
+         */
+        function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            this.dragCounter--;
+            if (this.dragCounter === 0) {
+                this.active = false;
+                this.closeArea();
+            }
+        };
+        /**
+         * @param {?} evt
+         * @return {?}
+         */
+        DndDirective.prototype.onDrop = /**
+         * @param {?} evt
+         * @return {?}
+         */
+        function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            /** @type {?} */
+            var files = evt.dataTransfer.files;
+            if (files.length > 0) {
+                this.active = false;
+                this.dropped.emit(true);
+                this._uploadFilesService.changeFilesList(files);
+                this.closeArea();
+            }
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        DndDirective.prototype.onClick = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.closeArea();
+        };
+        /**
+         * @private
+         * @return {?}
+         */
+        DndDirective.prototype.closeArea = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            this.closing.emit(true);
+            this.opening.emit(false);
+        };
+        DndDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[gdDnd]'
+                    },] }
+        ];
+        /** @nocollapse */
+        DndDirective.ctorParameters = function () { return [
+            { type: UploadFilesService }
+        ]; };
+        DndDirective.propDecorators = {
+            closing: [{ type: core.Output }],
+            opening: [{ type: core.Output }],
+            dropped: [{ type: core.Output }],
+            active: [{ type: core.HostBinding, args: ['class.active',] }],
+            onDragEnter: [{ type: core.HostListener, args: ['dragenter', ['$event'],] }],
+            onDragOver: [{ type: core.HostListener, args: ['dragover', ['$event'],] }],
+            onDragLeave: [{ type: core.HostListener, args: ['dragleave', ['$event'],] }],
+            onDrop: [{ type: core.HostListener, args: ['drop', ['$event'],] }],
+            onClick: [{ type: core.HostListener, args: ['click', ['$event'],] }]
+        };
+        return DndDirective;
+    }());
+    if (false) {
+        /** @type {?} */
+        DndDirective.prototype.closing;
+        /** @type {?} */
+        DndDirective.prototype.opening;
+        /** @type {?} */
+        DndDirective.prototype.dropped;
+        /** @type {?} */
+        DndDirective.prototype.active;
+        /**
+         * @type {?}
+         * @private
+         */
+        DndDirective.prototype.dragCounter;
+        /**
+         * @type {?}
+         * @protected
+         */
+        DndDirective.prototype._uploadFilesService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2664,6 +3433,137 @@
         };
         return ScrollableDirective;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype.currentPage;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype.zoom;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype.loadedPagesSet;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._navigateService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._pagePreloadService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._viewportService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var $$4 = jquery;
+    var MouseWheelDirective = /** @class */ (function () {
+        function MouseWheelDirective() {
+            this.mouseWheelUp = new core.EventEmitter();
+            this.mouseWheelDown = new core.EventEmitter();
+        }
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.onMouseWheelChrome = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.mouseWheelFunc(event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.onMouseWheelFirefox = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.mouseWheelFunc(event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.onMouseWheelIE = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.mouseWheelFunc(event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.mouseWheelFunc = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            event = window.event;
+            /** @type {?} */
+            var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+            if (delta > 0) {
+                this.mouseWheelUp.emit(event);
+            }
+            else if (delta < 0) {
+                this.mouseWheelDown.emit(event);
+            }
+        };
+        MouseWheelDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[gdMouseWheel]'
+                    },] }
+        ];
+        MouseWheelDirective.propDecorators = {
+            mouseWheelUp: [{ type: core.Output }],
+            mouseWheelDown: [{ type: core.Output }],
+            onMouseWheelChrome: [{ type: core.HostListener, args: ['mousewheel', ['$event'],] }],
+            onMouseWheelFirefox: [{ type: core.HostListener, args: ['DOMMouseScroll', ['$event'],] }],
+            onMouseWheelIE: [{ type: core.HostListener, args: ['onmousewheel', ['$event'],] }]
+        };
+        return MouseWheelDirective;
+    }());
+    if (false) {
+        /** @type {?} */
+        MouseWheelDirective.prototype.mouseWheelUp;
+        /** @type {?} */
+        MouseWheelDirective.prototype.mouseWheelDown;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2843,6 +3743,36 @@
         };
         return ZoomDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        ZoomDirective.prototype.zoomActive;
+        /** @type {?} */
+        ZoomDirective.prototype.file;
+        /** @type {?} */
+        ZoomDirective.prototype.zoomInt;
+        /** @type {?} */
+        ZoomDirective.prototype.transform;
+        /** @type {?} */
+        ZoomDirective.prototype.transformOrigin;
+        /** @type {?} */
+        ZoomDirective.prototype.width;
+        /** @type {?} */
+        ZoomDirective.prototype.height;
+        /** @type {?} */
+        ZoomDirective.prototype.minWidth;
+        /** @type {?} */
+        ZoomDirective.prototype.el;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomDirective.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomDirective.prototype._windowService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2884,11 +3814,35 @@
         /** @nocollapse */ OnCloseService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function OnCloseService_Factory() { return new OnCloseService(); }, token: OnCloseService, providedIn: "root" });
         return OnCloseService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        OnCloseService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        OnCloseService.prototype._onClose;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /**
+     * @record
+     */
+    function Option() { }
+    if (false) {
+        /** @type {?} */
+        Option.prototype.name;
+        /** @type {?} */
+        Option.prototype.value;
+        /** @type {?} */
+        Option.prototype.separator;
+    }
     var SelectComponent = /** @class */ (function () {
         function SelectComponent(_onCloseService) {
             var _this = this;
@@ -2986,6 +3940,23 @@
         };
         return SelectComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        SelectComponent.prototype.options;
+        /** @type {?} */
+        SelectComponent.prototype.disabled;
+        /** @type {?} */
+        SelectComponent.prototype.showSelected;
+        /** @type {?} */
+        SelectComponent.prototype.selected;
+        /** @type {?} */
+        SelectComponent.prototype.isOpen;
+        /**
+         * @type {?}
+         * @protected
+         */
+        SelectComponent.prototype._onCloseService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3038,6 +4009,12 @@
         };
         return DisabledCursorDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        DisabledCursorDirective.prototype.dis;
+        /** @type {?} */
+        DisabledCursorDirective.prototype.cursor;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3145,6 +4122,26 @@
         };
         return RotationDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        RotationDirective.prototype.angle;
+        /** @type {?} */
+        RotationDirective.prototype.isHtmlMode;
+        /** @type {?} */
+        RotationDirective.prototype.width;
+        /** @type {?} */
+        RotationDirective.prototype.height;
+        /** @type {?} */
+        RotationDirective.prototype.withMargin;
+        /** @type {?} */
+        RotationDirective.prototype.animation;
+        /** @type {?} */
+        RotationDirective.prototype.transition;
+        /** @type {?} */
+        RotationDirective.prototype.transform;
+        /** @type {?} */
+        RotationDirective.prototype.margin;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3193,6 +4190,16 @@
         };
         return InitStateComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        InitStateComponent.prototype.icon;
+        /** @type {?} */
+        InitStateComponent.prototype.text;
+        /** @type {?} */
+        InitStateComponent.prototype.fileDropped;
+        /** @type {?} */
+        InitStateComponent.prototype.showUploadFile;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3260,6 +4267,28 @@
         };
         return RenderPrintService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._render;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._renderBlob;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._observerBlob;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3411,6 +4440,15 @@
         };
         return RenderPrintDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        RenderPrintDirective.prototype.htmlMode;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintDirective.prototype._renderService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3444,6 +4482,18 @@
         };
         return ExceptionMessageService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ExceptionMessageService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        ExceptionMessageService.prototype._messageChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3479,6 +4529,10 @@
         ]; };
         return ErrorModalComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ErrorModalComponent.prototype.message;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3512,13 +4566,25 @@
         };
         return PasswordService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        PasswordService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        PasswordService.prototype._passChange;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$4 = jquery;
+    var $$5 = jquery;
     var PasswordRequiredComponent = /** @class */ (function () {
         function PasswordRequiredComponent(messageService, _passwordService) {
             var _this = this;
@@ -3564,14 +4630,14 @@
                  */
                 function () {
                     /** @type {?} */
-                    var element = $$4("#password");
+                    var element = $$5("#password");
                     if (element) {
                         element.focus();
                     }
                 }), 100);
             }
             else {
-                $$4("#password").val("");
+                $$5("#password").val("");
             }
         };
         /**
@@ -3583,7 +4649,7 @@
          * @return {?}
          */
         function ($event) {
-            $$4("#password").val("");
+            $$5("#password").val("");
             this.cancelEvent.emit(true);
         };
         PasswordRequiredComponent.decorators = [
@@ -3603,6 +4669,17 @@
         };
         return PasswordRequiredComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        PasswordRequiredComponent.prototype.message;
+        /** @type {?} */
+        PasswordRequiredComponent.prototype.cancelEvent;
+        /**
+         * @type {?}
+         * @private
+         */
+        PasswordRequiredComponent.prototype._passwordService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3681,6 +4758,18 @@
         /** @nocollapse */ ErrorInterceptorService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ErrorInterceptorService_Factory() { return new ErrorInterceptorService(core.ɵɵinject(ModalService), core.ɵɵinject(ExceptionMessageService)); }, token: ErrorInterceptorService, providedIn: "root" });
         return ErrorInterceptorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ErrorInterceptorService.prototype._modalService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ErrorInterceptorService.prototype._messageService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3760,6 +4849,38 @@
         };
         return SearchService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._textChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._observerCurrent;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._currentChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._observerTotal;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._totalChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3868,13 +4989,28 @@
         };
         return SearchComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        SearchComponent.prototype.hidePanel;
+        /** @type {?} */
+        SearchComponent.prototype.current;
+        /** @type {?} */
+        SearchComponent.prototype.total;
+        /** @type {?} */
+        SearchComponent.prototype.textElement;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchComponent.prototype._searchService;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$5 = jquery;
+    var $$6 = jquery;
     var SearchableDirective = /** @class */ (function () {
         function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
             var _this = this;
@@ -3959,16 +5095,16 @@
                  * @return {?}
                  */
                 function (value) {
-                    $$5(value).removeClass('gd-highlight-select');
+                    $$6(value).removeClass('gd-highlight-select');
                 }));
                 /** @type {?} */
                 var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-                $$5(currentEl).addClass('gd-highlight-select');
+                $$6(currentEl).addClass('gd-highlight-select');
                 if (currentEl) {
                     /** @type {?} */
                     var options = {
                         left: 0,
-                        top: ($$5(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+                        top: ($$6(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                     };
                     // using polyfill
                     el.parentElement.parentElement.scroll(options);
@@ -3987,7 +5123,7 @@
          */
         function (el) {
             /** @type {?} */
-            var textNodes = $$5(el).find('*').contents().filter((/**
+            var textNodes = $$6(el).find('*').contents().filter((/**
              * @return {?}
              */
             function () {
@@ -4012,7 +5148,7 @@
              */
             function () {
                 /** @type {?} */
-                var $this = $$5(this);
+                var $this = $$6(this);
                 /** @type {?} */
                 var content = $this.text();
                 content = highlight.transform(content, text);
@@ -4065,6 +5201,39 @@
         ]; };
         return SearchableDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        SearchableDirective.prototype.text;
+        /** @type {?} */
+        SearchableDirective.prototype.current;
+        /** @type {?} */
+        SearchableDirective.prototype.total;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype.zoom;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._searchService;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._highlight;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._zoomService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4096,6 +5265,12 @@
         };
         return TabbedToolbarsComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TabbedToolbarsComponent.prototype.logo;
+        /** @type {?} */
+        TabbedToolbarsComponent.prototype.icon;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4129,6 +5304,18 @@
         };
         return TabActivatorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        TabActivatorService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        TabActivatorService.prototype._activeTabChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4191,7 +5378,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-tab',
                         template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
+                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px;width:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -4208,6 +5395,25 @@
         };
         return TabComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TabComponent.prototype.id;
+        /** @type {?} */
+        TabComponent.prototype.tabTitle;
+        /** @type {?} */
+        TabComponent.prototype.icon;
+        /** @type {?} */
+        TabComponent.prototype.disabled;
+        /** @type {?} */
+        TabComponent.prototype.active;
+        /** @type {?} */
+        TabComponent.prototype.content;
+        /**
+         * @type {?}
+         * @private
+         */
+        TabComponent.prototype._tabActivatorService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4256,6 +5462,28 @@
         };
         return Formatting;
     }());
+    if (false) {
+        /** @type {?} */
+        Formatting.prototype.bold;
+        /** @type {?} */
+        Formatting.prototype.italic;
+        /** @type {?} */
+        Formatting.prototype.underline;
+        /** @type {?} */
+        Formatting.prototype.fontSize;
+        /** @type {?} */
+        Formatting.prototype.color;
+        /** @type {?} */
+        Formatting.prototype.bgColor;
+        /** @type {?} */
+        Formatting.prototype.font;
+        /** @type {?} */
+        Formatting.prototype.strikeout;
+        /** @type {?} */
+        Formatting.prototype.align;
+        /** @type {?} */
+        Formatting.prototype.list;
+    }
     var FormattingService = /** @class */ (function () {
         function FormattingService() {
             this._observerBold = new rxjs.Subject();
@@ -4596,6 +5824,128 @@
         };
         return FormattingService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerBold;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatBoldChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerUnderline;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatUnderlineChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerUndo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._undo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerRedo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._redo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerItalic;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatItalicChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerColor;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatColorChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerBgColor;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatBgColorChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerFontSize;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatFontSizeChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerFont;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatFontChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerStrikeout;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatStrikeoutChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerAlign;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatAlignChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerList;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatListChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4669,6 +6019,18 @@
         };
         return ColorPickerComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ColorPickerComponent.prototype.isOpen;
+        /** @type {?} */
+        ColorPickerComponent.prototype.selectedColor;
+        /** @type {?} */
+        ColorPickerComponent.prototype.closeOutside;
+        /** @type {?} */
+        ColorPickerComponent.prototype.colors;
+        /** @type {?} */
+        ColorPickerComponent.prototype.white;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4696,7 +6058,7 @@
      */
     var SelectionService = /** @class */ (function () {
         function SelectionService() {
-            this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         }
         /**
          * @return {?}
@@ -4756,13 +6118,19 @@
         /** @nocollapse */ SelectionService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function SelectionService_Factory() { return new SelectionService(); }, token: SelectionService, providedIn: "root" });
         return SelectionService;
     }());
+    if (false) {
+        /** @type {?} */
+        SelectionService.prototype.selection;
+        /** @type {?} */
+        SelectionService.prototype.isIE;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$6 = jquery;
+    var $$7 = jquery;
     var FormattingDirective = /** @class */ (function () {
         function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
             this._formattingService = _formattingService;
@@ -4773,7 +6141,7 @@
             this.underline = false;
             this.strikeout = false;
             this.isIE = false;
-            this.isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            this.isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         }
         /**
          * @return {?}
@@ -4791,7 +6159,7 @@
             this.list = this.checkList();
             //fix required by FireFox to get correct background color
             if (this.bgColor === "transparent") {
-                this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+                this.bgColor = $$7(window.getSelection().focusNode.parentNode).css('background-color').toString();
             }
             this.font = document.queryCommandValue("FontName").replace(/"/g, '');
             if (this.font.split(",").length > 1) {
@@ -5185,7 +6553,7 @@
             if (align === "full") {
                 align = "justify";
             }
-            $$6(selection).css("text-align", align);
+            $$7(selection).css("text-align", align);
             this._selectionService.refreshSelection();
         };
         /**
@@ -5227,6 +6595,73 @@
         };
         return FormattingDirective;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.bold;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.italic;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.underline;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.color;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.bgColor;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.font;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.strikeout;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.align;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.list;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.isIE;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype._formattingService;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype._backFormattingService;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype._selectionService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5294,6 +6729,18 @@
         /** @nocollapse */ EditHtmlService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function EditHtmlService_Factory() { return new EditHtmlService(); }, token: EditHtmlService, providedIn: "root" });
         return EditHtmlService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        EditHtmlService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditHtmlService.prototype._htmlContent;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5303,7 +6750,7 @@
         function EditorDirective(_selectionService, _htmlService) {
             this._selectionService = _selectionService;
             this._htmlService = _htmlService;
-            this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         }
         /**
          * @param {?} event
@@ -5376,6 +6823,25 @@
         };
         return EditorDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        EditorDirective.prototype.text;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorDirective.prototype.isIE;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorDirective.prototype._selectionService;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorDirective.prototype._htmlService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5446,6 +6912,20 @@
         LoadingMaskService.ctorParameters = function () { return []; };
         return LoadingMaskService;
     }());
+    if (false) {
+        /** @type {?} */
+        LoadingMaskService.prototype.onLoadingChanged;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskService.prototype.stopList;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskService.prototype.requests;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5496,6 +6976,15 @@
         };
         return LoadingMaskComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        LoadingMaskComponent.prototype.loadingMask;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskComponent.prototype._loadingMaskService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5537,6 +7026,13 @@
         /** @nocollapse */ LoadingMaskInterceptorService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function LoadingMaskInterceptorService_Factory() { return new LoadingMaskInterceptorService(core.ɵɵinject(LoadingMaskService)); }, token: LoadingMaskInterceptorService, providedIn: "root" });
         return LoadingMaskInterceptorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskInterceptorService.prototype._loadingMaskService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5600,6 +7096,12 @@
         };
         return DropDownToggleComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownToggleComponent.prototype.click;
+        /** @type {?} */
+        DropDownToggleComponent.prototype.dropdown;
+    }
     /**
      *  DropDownItemsComponent
      */
@@ -5665,6 +7167,10 @@
         ]; };
         return DropDownItemsComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownItemsComponent.prototype.dropdown;
+    }
     /**
      *  DropDownItemComponent
      */
@@ -5710,6 +7216,16 @@
         };
         return DropDownItemComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownItemComponent.prototype.class;
+        /** @type {?} */
+        DropDownItemComponent.prototype.selected;
+        /** @type {?} */
+        DropDownItemComponent.prototype.click;
+        /** @type {?} */
+        DropDownItemComponent.prototype.dropdown;
+    }
     /**
      *  DropDownComponent
      */
@@ -5768,6 +7284,14 @@
         };
         return DropDownComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownComponent.prototype.placement;
+        /** @type {?} */
+        DropDownComponent.prototype.open;
+        /** @type {?} */
+        DropDownComponent.prototype.class;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5799,6 +7323,10 @@
         };
         return LeftSideBarComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        LeftSideBarComponent.prototype.showSpinner;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5840,6 +7368,10 @@
         };
         return TooltipDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        TooltipDirective.prototype.showToolTip;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5887,6 +7419,18 @@
         /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(core.ɵɵinject(core.ComponentFactoryResolver), core.ɵɵinject(core.ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
         return AddDynamicComponentService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        AddDynamicComponentService.prototype._factoryResolver;
+        /**
+         * @type {?}
+         * @private
+         */
+        AddDynamicComponentService.prototype._appRef;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5950,6 +7494,13 @@
         };
         return HostingDynamicComponentService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        HostingDynamicComponentService.prototype.hosts;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5994,13 +7545,24 @@
         };
         return HostDynamicDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        HostDynamicDirective.prototype.ident;
+        /** @type {?} */
+        HostDynamicDirective.prototype.viewContainerRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        HostDynamicDirective.prototype._hostingService;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$7 = jquery;
+    var $$8 = jquery;
     var ResizingComponent = /** @class */ (function () {
         function ResizingComponent() {
             this.se = false;
@@ -6027,9 +7589,9 @@
         function () {
             var _this = this;
             /** @type {?} */
-            var elSE = $$7(this.getElementId(this.SE));
+            var elSE = $$8(this.getElementId(this.SE));
             /** @type {?} */
-            var elNW = $$7(this.getElementId(this.NW));
+            var elNW = $$8(this.getElementId(this.NW));
             if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
                 /** @type {?} */
                 var width_1 = elSE.offset().left - elNW.offset().left;
@@ -6205,6 +7767,52 @@
         };
         return ResizingComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ResizingComponent.prototype.init;
+        /** @type {?} */
+        ResizingComponent.prototype.id;
+        /** @type {?} */
+        ResizingComponent.prototype.se;
+        /** @type {?} */
+        ResizingComponent.prototype.ne;
+        /** @type {?} */
+        ResizingComponent.prototype.sw;
+        /** @type {?} */
+        ResizingComponent.prototype.nw;
+        /** @type {?} */
+        ResizingComponent.prototype.pageWidth;
+        /** @type {?} */
+        ResizingComponent.prototype.pageHeight;
+        /** @type {?} */
+        ResizingComponent.prototype.SE;
+        /** @type {?} */
+        ResizingComponent.prototype.NE;
+        /** @type {?} */
+        ResizingComponent.prototype.SW;
+        /** @type {?} */
+        ResizingComponent.prototype.NW;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetX;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetY;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetTop;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetLeft;
+        /** @type {?} */
+        ResizingComponent.prototype.release;
+        /**
+         * @type {?}
+         * @private
+         */
+        ResizingComponent.prototype.grab;
+        /**
+         * @type {?}
+         * @private
+         */
+        ResizingComponent.prototype.oldPosition;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6313,13 +7921,46 @@
         };
         return TopTabComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TopTabComponent.prototype.id;
+        /** @type {?} */
+        TopTabComponent.prototype.icon;
+        /** @type {?} */
+        TopTabComponent.prototype.disabled;
+        /** @type {?} */
+        TopTabComponent.prototype.tooltip;
+        /** @type {?} */
+        TopTabComponent.prototype.activeTab;
+        /** @type {?} */
+        TopTabComponent.prototype.elementPosition;
+        /** @type {?} */
+        TopTabComponent.prototype.active;
+        /** @type {?} */
+        TopTabComponent.prototype.showToolTip;
+        /**
+         * @type {?}
+         * @private
+         */
+        TopTabComponent.prototype._tabActivatorService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TopTabComponent.prototype._modalService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TopTabComponent.prototype._excMessageService;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$8 = jquery;
+    var $$9 = jquery;
     var TextMenuComponent = /** @class */ (function () {
         function TextMenuComponent(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
             var _this = this;
@@ -6397,9 +8038,9 @@
          * @return {?}
          */
         function ($event) {
-            $$8(".gd-wrapper").off("keyup");
+            $$9(".gd-wrapper").off("keyup");
             this.outFontSize.emit($event.value);
-            $$8(".gd-wrapper").on("keyup", (/**
+            $$9(".gd-wrapper").on("keyup", (/**
              * @return {?}
              */
             function () {
@@ -6535,6 +8176,71 @@
         };
         return TextMenuComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TextMenuComponent.prototype.blur;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontSize;
+        /** @type {?} */
+        TextMenuComponent.prototype.font;
+        /** @type {?} */
+        TextMenuComponent.prototype.bold;
+        /** @type {?} */
+        TextMenuComponent.prototype.italic;
+        /** @type {?} */
+        TextMenuComponent.prototype.underline;
+        /** @type {?} */
+        TextMenuComponent.prototype.color;
+        /** @type {?} */
+        TextMenuComponent.prototype.decoration;
+        /** @type {?} */
+        TextMenuComponent.prototype.showTooltips;
+        /** @type {?} */
+        TextMenuComponent.prototype.outFontSize;
+        /** @type {?} */
+        TextMenuComponent.prototype.outFont;
+        /** @type {?} */
+        TextMenuComponent.prototype.outBold;
+        /** @type {?} */
+        TextMenuComponent.prototype.outItalic;
+        /** @type {?} */
+        TextMenuComponent.prototype.outUnderline;
+        /** @type {?} */
+        TextMenuComponent.prototype.outColor;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontSizeOptions;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontOptions;
+        /** @type {?} */
+        TextMenuComponent.prototype.colorPickerShow;
+        /** @type {?} */
+        TextMenuComponent.prototype.isMobile;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._onCloseService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @protected
+         */
+        TextMenuComponent.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype.renderer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6547,6 +8253,12 @@
         MenuType.FOR_ANNOTATION = "annotation";
         return MenuType;
     }());
+    if (false) {
+        /** @type {?} */
+        MenuType.FOR_SIGNATURE;
+        /** @type {?} */
+        MenuType.FOR_ANNOTATION;
+    }
     var ContextMenuComponent = /** @class */ (function () {
         function ContextMenuComponent(_windowService, _zoomService, _elementRef, renderer) {
             var _this = this;
@@ -6764,6 +8476,52 @@
         };
         return ContextMenuComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ContextMenuComponent.prototype.formatting;
+        /** @type {?} */
+        ContextMenuComponent.prototype.textMenu;
+        /** @type {?} */
+        ContextMenuComponent.prototype.topPosition;
+        /** @type {?} */
+        ContextMenuComponent.prototype.lock;
+        /** @type {?} */
+        ContextMenuComponent.prototype.translation;
+        /** @type {?} */
+        ContextMenuComponent.prototype.menuType;
+        /** @type {?} */
+        ContextMenuComponent.prototype.changeFormatting;
+        /** @type {?} */
+        ContextMenuComponent.prototype.removeItem;
+        /** @type {?} */
+        ContextMenuComponent.prototype.copySign;
+        /** @type {?} */
+        ContextMenuComponent.prototype.lockOut;
+        /** @type {?} */
+        ContextMenuComponent.prototype.comment;
+        /** @type {?} */
+        ContextMenuComponent.prototype.isMobile;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype._zoomService;
+        /**
+         * @type {?}
+         * @protected
+         */
+        ContextMenuComponent.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype.renderer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6825,6 +8583,7 @@
                             UploadFileZoneComponent,
                             DndDirective,
                             ScrollableDirective,
+                            MouseWheelDirective,
                             ZoomDirective,
                             SelectComponent,
                             DisabledCursorDirective,
@@ -6871,6 +8630,7 @@
                             SanitizeHtmlPipe,
                             UploadFileZoneComponent,
                             ScrollableDirective,
+                            MouseWheelDirective,
                             SelectComponent,
                             RotationDirective,
                             InitStateComponent,
@@ -6952,6 +8712,7 @@
     exports.MenuType = MenuType;
     exports.ModalComponent = ModalComponent;
     exports.ModalService = ModalService;
+    exports.MouseWheelDirective = MouseWheelDirective;
     exports.NavigateService = NavigateService;
     exports.OnCloseService = OnCloseService;
     exports.PageComponent = PageComponent;
@@ -6996,5 +8757,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=groupdocs.examples.angular-common-components.umd.js.map

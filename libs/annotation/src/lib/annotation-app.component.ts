@@ -27,7 +27,7 @@ import {ActiveAnnotationService} from "./active-annotation.service";
 import * as jquery from 'jquery';
 import {RemoveAnnotationService} from "./remove-annotation.service";
 import {CommentAnnotationService} from "./comment-annotation.service";
-import { AnnotationConfigService } from './annotation-config.service';
+import { AnnotationConfigService } from "./annotation-config.service";
 
 const $ = jquery;
 
@@ -285,6 +285,10 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.annotationConfig.defaultDocument !== ""){
+      this.isLoading = true;
+      this.selectFile(this.annotationConfig.defaultDocument, "", "");
+    }
   }
 
   private ptToPx(pt: number) {
@@ -383,7 +387,9 @@ export class AnnotationAppComponent implements OnInit {
     for (let i = start; i <= end; i++) {
       this._annotationService.loadPage(this.credentials, i).subscribe((page: PageAnnotationModel) => {
         this.file.pages[i - 1] = page;
-        this.importAnnotations(page.annotations ? page.annotations : []);
+        setTimeout(() => {
+          this.importAnnotations(page.annotations ? page.annotations : []);
+        }, 100);
       });
     }
   }
@@ -418,7 +424,7 @@ export class AnnotationAppComponent implements OnInit {
 
     this._annotationService.annotate(this.credentials, annotationsData, false).subscribe((ret: any) => {
       this._modalService.open(CommonModals.OperationSuccess);
-      this.selectFile(ret.guid, null, CommonModals.OperationSuccess);
+      this.selectFile(ret.guid, this.credentials.password, CommonModals.OperationSuccess);
     });
   }
 

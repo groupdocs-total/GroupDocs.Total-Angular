@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, Injectable, ElementRef, Pipe, Directive, HostBinding, HostListener, ɵɵdefineInjectable, ɵɵinject, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Injectable, ElementRef, ɵɵdefineInjectable, ɵɵinject, Pipe, Directive, HostBinding, HostListener, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
@@ -92,6 +92,22 @@ var SidePanelComponent = /** @class */ (function () {
     };
     return SidePanelComponent;
 }());
+if (false) {
+    /** @type {?} */
+    SidePanelComponent.prototype.title;
+    /** @type {?} */
+    SidePanelComponent.prototype.icon;
+    /** @type {?} */
+    SidePanelComponent.prototype.closable;
+    /** @type {?} */
+    SidePanelComponent.prototype.saveable;
+    /** @type {?} */
+    SidePanelComponent.prototype.hideSidePanel;
+    /** @type {?} */
+    SidePanelComponent.prototype.saveInSidePanel;
+    /** @type {?} */
+    SidePanelComponent.prototype.onlyTitle;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -194,6 +210,28 @@ var WindowService = /** @class */ (function () {
     };
     return WindowService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    WindowService.prototype.resizeSubject;
+    /**
+     * @type {?}
+     * @private
+     */
+    WindowService.prototype._resize$;
+    /**
+     * @type {?}
+     * @private
+     */
+    WindowService.prototype.width;
+    /**
+     * @type {?}
+     * @private
+     */
+    WindowService.prototype.height;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -293,6 +331,37 @@ var ButtonComponent = /** @class */ (function () {
     };
     return ButtonComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ButtonComponent.prototype.iconOnly;
+    /** @type {?} */
+    ButtonComponent.prototype.intent;
+    /** @type {?} */
+    ButtonComponent.prototype.disabled;
+    /** @type {?} */
+    ButtonComponent.prototype.icon;
+    /** @type {?} */
+    ButtonComponent.prototype.iconClass;
+    /** @type {?} */
+    ButtonComponent.prototype.tooltip;
+    /** @type {?} */
+    ButtonComponent.prototype.className;
+    /** @type {?} */
+    ButtonComponent.prototype.toggle;
+    /** @type {?} */
+    ButtonComponent.prototype.iconSize;
+    /** @type {?} */
+    ButtonComponent.prototype.iconRegular;
+    /** @type {?} */
+    ButtonComponent.prototype.elementPosition;
+    /** @type {?} */
+    ButtonComponent.prototype.showToolTip;
+    /**
+     * @type {?}
+     * @private
+     */
+    ButtonComponent.prototype.isDesktop;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -324,6 +393,12 @@ var LogoComponent = /** @class */ (function () {
     };
     return LogoComponent;
 }());
+if (false) {
+    /** @type {?} */
+    LogoComponent.prototype.logo;
+    /** @type {?} */
+    LogoComponent.prototype.icon;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -381,6 +456,14 @@ var TooltipComponent = /** @class */ (function () {
     };
     return TooltipComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TooltipComponent.prototype.text;
+    /** @type {?} */
+    TooltipComponent.prototype.position;
+    /** @type {?} */
+    TooltipComponent.prototype.visibility;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -414,6 +497,7 @@ var Api = /** @class */ (function () {
     Api.LOAD_THUMBNAILS = '/loadThumbnails';
     Api.LOAD_FORMATS = '/loadFormats';
     Api.SAVE_FILE = '/saveFile';
+    Api.CREATE_FILE = '/createFile';
     Api.COMPARE_FILES = '/compare';
     Api.CONVERT_FILE = '/convert';
     Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
@@ -442,6 +526,94 @@ var Api = /** @class */ (function () {
     };
     return Api;
 }());
+if (false) {
+    /** @type {?} */
+    Api.VIEWER_APP;
+    /** @type {?} */
+    Api.SIGNATURE_APP;
+    /** @type {?} */
+    Api.ANNOTATION_APP;
+    /** @type {?} */
+    Api.SEARCH_APP;
+    /** @type {?} */
+    Api.EDITOR_APP;
+    /** @type {?} */
+    Api.COMPARISON_APP;
+    /** @type {?} */
+    Api.CONVERSION_APP;
+    /** @type {?} */
+    Api.METADATA_APP;
+    /** @type {?} */
+    Api.DEFAULT_API_ENDPOINT;
+    /** @type {?} */
+    Api.LOAD_FILE_TREE;
+    /** @type {?} */
+    Api.LOAD_CONFIG;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_DESCRIPTION;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_PAGE;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_PROPERTIES;
+    /** @type {?} */
+    Api.LOAD_DOCUMENT_PROPERTIES_NAMES;
+    /** @type {?} */
+    Api.SAVE_PROPERTY;
+    /** @type {?} */
+    Api.REMOVE_PROPERTY;
+    /** @type {?} */
+    Api.ROTATE_DOCUMENT_PAGE;
+    /** @type {?} */
+    Api.UPLOAD_DOCUMENTS;
+    /** @type {?} */
+    Api.DOWNLOAD_DOCUMENTS;
+    /** @type {?} */
+    Api.LOAD_PRINT;
+    /** @type {?} */
+    Api.LOAD_PRINT_PDF;
+    /** @type {?} */
+    Api.LOAD_THUMBNAILS;
+    /** @type {?} */
+    Api.LOAD_FORMATS;
+    /** @type {?} */
+    Api.SAVE_FILE;
+    /** @type {?} */
+    Api.CREATE_FILE;
+    /** @type {?} */
+    Api.COMPARE_FILES;
+    /** @type {?} */
+    Api.CONVERT_FILE;
+    /** @type {?} */
+    Api.DELETE_SIGNATURE_FILE;
+    /** @type {?} */
+    Api.REMOVE_FROM_INDEX;
+    /** @type {?} */
+    Api.GET_FILE_STATUS;
+    /** @type {?} */
+    Api.SAVE_OPTICAL_CODE;
+    /** @type {?} */
+    Api.SAVE_TEXT;
+    /** @type {?} */
+    Api.SAVE_IMAGE;
+    /** @type {?} */
+    Api.SAVE_STAMP;
+    /** @type {?} */
+    Api.SIGN;
+    /** @type {?} */
+    Api.DOWNLOAD_SIGNED;
+    /** @type {?} */
+    Api.LOAD_SIGNATURE_IMAGE;
+    /** @type {?} */
+    Api.ANNOTATE;
+    /** @type {?} */
+    Api.SEARCH;
+    /** @type {?} */
+    Api.ADD_FILES_TO_INDEX;
+    /** @type {?} */
+    Api.httpOptionsJson;
+    /** @type {?} */
+    Api.httpOptionsJsonResponseTypeBlob;
+}
 var ConfigService = /** @class */ (function () {
     function ConfigService() {
         this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
@@ -553,6 +725,13 @@ var ConfigService = /** @class */ (function () {
     ConfigService.ctorParameters = function () { return []; };
     return ConfigService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ConfigService.prototype._apiEndpoint;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -571,6 +750,24 @@ var CommonModals = /** @class */ (function () {
     CommonModals.InformationMessage = "gd-information-message";
     return CommonModals;
 }());
+if (false) {
+    /** @type {?} */
+    CommonModals.PasswordRequired;
+    /** @type {?} */
+    CommonModals.ErrorMessage;
+    /** @type {?} */
+    CommonModals.BrowseFiles;
+    /** @type {?} */
+    CommonModals.CreateDocument;
+    /** @type {?} */
+    CommonModals.OperationSuccess;
+    /** @type {?} */
+    CommonModals.DrawHandSignature;
+    /** @type {?} */
+    CommonModals.DrawStampSignature;
+    /** @type {?} */
+    CommonModals.InformationMessage;
+}
 var ModalService = /** @class */ (function () {
     function ModalService() {
         this.modals = [];
@@ -641,6 +838,13 @@ var ModalService = /** @class */ (function () {
     };
     return ModalService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ModalService.prototype.modals;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -744,6 +948,28 @@ var ModalComponent = /** @class */ (function () {
     };
     return ModalComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ModalComponent.prototype.id;
+    /** @type {?} */
+    ModalComponent.prototype.title;
+    /** @type {?} */
+    ModalComponent.prototype.visible;
+    /** @type {?} */
+    ModalComponent.prototype.cancel;
+    /** @type {?} */
+    ModalComponent.prototype.visibility;
+    /**
+     * @type {?}
+     * @private
+     */
+    ModalComponent.prototype.element;
+    /**
+     * @type {?}
+     * @private
+     */
+    ModalComponent.prototype.modalService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -754,11 +980,31 @@ var PageModel = /** @class */ (function () {
     }
     return PageModel;
 }());
+if (false) {
+    /** @type {?} */
+    PageModel.prototype.data;
+    /** @type {?} */
+    PageModel.prototype.angle;
+    /** @type {?} */
+    PageModel.prototype.width;
+    /** @type {?} */
+    PageModel.prototype.height;
+    /** @type {?} */
+    PageModel.prototype.number;
+    /** @type {?} */
+    PageModel.prototype.editable;
+}
 var RotatedPage = /** @class */ (function () {
     function RotatedPage() {
     }
     return RotatedPage;
 }());
+if (false) {
+    /** @type {?} */
+    RotatedPage.prototype.pageNumber;
+    /** @type {?} */
+    RotatedPage.prototype.angle;
+}
 var FileCredentials = /** @class */ (function () {
     function FileCredentials(guid, password) {
         this.guid = guid;
@@ -766,6 +1012,12 @@ var FileCredentials = /** @class */ (function () {
     }
     return FileCredentials;
 }());
+if (false) {
+    /** @type {?} */
+    FileCredentials.prototype.guid;
+    /** @type {?} */
+    FileCredentials.prototype.password;
+}
 var SaveFile = /** @class */ (function (_super) {
     __extends(SaveFile, _super);
     function SaveFile(guid, password, content) {
@@ -775,17 +1027,45 @@ var SaveFile = /** @class */ (function (_super) {
     }
     return SaveFile;
 }(FileCredentials));
+if (false) {
+    /** @type {?} */
+    SaveFile.prototype.content;
+}
 var FileDescription = /** @class */ (function () {
     function FileDescription() {
         this.printAllowed = true;
     }
     return FileDescription;
 }());
+if (false) {
+    /** @type {?} */
+    FileDescription.prototype.guid;
+    /** @type {?} */
+    FileDescription.prototype.pages;
+    /** @type {?} */
+    FileDescription.prototype.printAllowed;
+    /** @type {?} */
+    FileDescription.prototype.showGridLines;
+    /** @type {?} */
+    FileDescription.prototype.thumbnails;
+}
 var FileModel = /** @class */ (function () {
     function FileModel() {
     }
     return FileModel;
 }());
+if (false) {
+    /** @type {?} */
+    FileModel.prototype.guid;
+    /** @type {?} */
+    FileModel.prototype.name;
+    /** @type {?} */
+    FileModel.prototype.directory;
+    /** @type {?} */
+    FileModel.prototype.size;
+    /** @type {?} */
+    FileModel.prototype.isDirectory;
+}
 var HttpError = /** @class */ (function () {
     function HttpError() {
     }
@@ -798,6 +1078,22 @@ var HttpError = /** @class */ (function () {
     HttpError.InternalServerError = 500;
     return HttpError;
 }());
+if (false) {
+    /** @type {?} */
+    HttpError.BadRequest;
+    /** @type {?} */
+    HttpError.Unauthorized;
+    /** @type {?} */
+    HttpError.Forbidden;
+    /** @type {?} */
+    HttpError.NotFound;
+    /** @type {?} */
+    HttpError.TimeOut;
+    /** @type {?} */
+    HttpError.Conflict;
+    /** @type {?} */
+    HttpError.InternalServerError;
+}
 var Utils = /** @class */ (function () {
     function Utils() {
     }
@@ -1015,6 +1311,10 @@ var FileUtil = /** @class */ (function () {
     };
     return FileUtil;
 }());
+if (false) {
+    /** @type {?} */
+    FileUtil.map;
+}
 var FileService = /** @class */ (function () {
     function FileService() {
     }
@@ -1059,6 +1359,18 @@ var UploadFilesService = /** @class */ (function () {
     };
     return UploadFilesService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    UploadFilesService.prototype._uploadsChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    UploadFilesService.prototype._observer;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1273,6 +1585,36 @@ var BrowseFilesModalComponent = /** @class */ (function () {
     };
     return BrowseFilesModalComponent;
 }());
+if (false) {
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.uploads;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.files;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.uploadConfig;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.selectedFileGuid;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.selectedDirectory;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.urlForUpload;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.closing;
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowseFilesModalComponent.prototype.selectedFile;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.showUploadUrl;
+    /** @type {?} */
+    BrowseFilesModalComponent.prototype.showUploadFile;
+    /**
+     * @type {?}
+     * @private
+     */
+    BrowseFilesModalComponent.prototype._uploadService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1356,756 +1698,23 @@ var ZoomService = /** @class */ (function () {
     };
     return ZoomService;
 }());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-var $$1 = jquery;
-var DocumentComponent = /** @class */ (function () {
-    function DocumentComponent(_elementRef, _zoomService, _windowService) {
-        var _this = this;
-        this._elementRef = _elementRef;
-        this._zoomService = _zoomService;
-        this._windowService = _windowService;
-        this.onpan = new EventEmitter();
-        this.wait = false;
-        this.docWidth = null;
-        this.docHeight = null;
-        this.viewportWidth = null;
-        this.viewportHeight = null;
-        this.scale = null;
-        this.lastScale = null;
-        this.container = null;
-        this.doc = null;
-        this.x = 0;
-        this.lastX = 0;
-        this.y = 0;
-        this.lastY = 0;
-        this.pinchCenter = null;
-        this.pinchCenterOffset = null;
-        this.curWidth = 0;
-        this.curHeight = 0;
-        _zoomService.zoomChange.subscribe((/**
-         * @param {?} val
-         * @return {?}
-         */
-        function (val) {
-            _this.zoom = val;
-        }));
-        this.isDesktop = _windowService.isDesktop();
-    }
+if (false) {
     /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-    };
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ngOnChanges = /**
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
-        ((/** @type {?} */ (panzoom))).style.transform = '';
-        // TODO: this intersects with zooming by zoom directive, but still needed
-        // for flush previous settings before opening another file
-        //this._zoomService.changeZoom(100);
-        //this.scale = 1;
-    };
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
-        // For current iteration we take .panzoom as a document
-        this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
-        // For current iteration we take .gd-document as a container
-        this.container = this._elementRef.nativeElement;
-        this.docWidth = this.doc.clientWidth;
-        this.docHeight = this.doc.clientHeight;
-        this.viewportWidth = this.doc.offsetWidth;
-        // For cases where we already have zoom defined we should include it
-        this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
-        this.lastScale = this.scale;
-        this.viewportHeight = this.container.offsetHeight;
-        this.curWidth = this.docWidth * this.scale;
-        this.curHeight = this.docHeight * this.scale;
-        /** @type {?} */
-        var hammer = new Hammer(this.container);
-    };
-    // TODO: this temporary crutch for Excel files should be documented
-    // TODO: this temporary crutch for Excel files should be documented
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ifExcel = 
-    // TODO: this temporary crutch for Excel files should be documented
-    /**
-     * @return {?}
-     */
-    function () {
-        return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
-    };
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    DocumentComponent.prototype.getDimensionWithUnit = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
-    };
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ifEdge = /**
-     * @return {?}
-     */
-    function () {
-        return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-    };
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.ngAfterViewChecked = /**
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-        /** @type {?} */
-        var element = elementNodeListOf.item(0);
-        if (element) {
-            $$1(element).trigger('focus');
-        }
-    };
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    DocumentComponent.prototype.absolutePosition = /**
-     * @param {?} el
-     * @return {?}
-     */
-    function (el) {
-        /** @type {?} */
-        var x = 0;
-        /** @type {?} */
-        var y = 0;
-        while (el !== null) {
-            x += el.offsetLeft;
-            y += el.offsetTop;
-            el = el.offsetParent;
-        }
-        return { x: x, y: y };
-    };
-    /**
-     * @param {?} pos
-     * @param {?} viewportDim
-     * @param {?} docDim
-     * @return {?}
-     */
-    DocumentComponent.prototype.restrictRawPos = /**
-     * @param {?} pos
-     * @param {?} viewportDim
-     * @param {?} docDim
-     * @return {?}
-     */
-    function (pos, viewportDim, docDim) {
-        if (pos < viewportDim / this.scale - docDim) { // too far left/up?
-            pos = viewportDim / this.scale - docDim;
-        }
-        else if (pos > 0) { // too far right/down?
-            pos = 0;
-        }
-        return pos;
-    };
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.updateLastPos = /**
-     * @return {?}
-     */
-    function () {
-        this.lastX = this.x;
-        this.lastY = this.y;
-    };
-    /**
-     * @param {?} deltaX
-     * @param {?} deltaY
-     * @return {?}
-     */
-    DocumentComponent.prototype.translate = /**
-     * @param {?} deltaX
-     * @param {?} deltaY
-     * @return {?}
-     */
-    function (deltaX, deltaY) {
-        // We restrict to the min of the viewport width/height or current width/height as the
-        // current width/height may be smaller than the viewport width/height
-        /** @type {?} */
-        var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
-        this.x = newX;
-        // TODO: value here and in the similar line below changes to positive to take any effect
-        this.container.scrollLeft = -Math.ceil(newX * this.scale);
-        /** @type {?} */
-        var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
-        this.y = newY;
-        this.container.scrollTop = -Math.ceil(newY * this.scale);
-        this.doc.style.transform = 'scale(' + this.scale + ')';
-    };
-    /**
-     * @param {?} scaleBy
-     * @return {?}
-     */
-    DocumentComponent.prototype.startZoom = /**
-     * @param {?} scaleBy
-     * @return {?}
-     */
-    function (scaleBy) {
-        this.scale = this.lastScale * scaleBy;
-        this.curWidth = this.docWidth * this.scale;
-        this.curHeight = this.docHeight * this.scale;
-        // Adjust margins to make sure that we aren't out of bounds
-        this.translate(0, 0);
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.rawCenter = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        /** @type {?} */
-        var pos = this.absolutePosition(this.container);
-        // We need to account for the scroll position
-        /** @type {?} */
-        var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-        /** @type {?} */
-        var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
-        /** @type {?} */
-        var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
-        /** @type {?} */
-        var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
-        return { x: zoomX, y: zoomY };
-    };
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.updateLastScale = /**
-     * @return {?}
-     */
-    function () {
-        this.lastScale = this.scale;
-    };
-    /**
-     * @param {?} scaleBy
-     * @param {?} rawZoomX
-     * @param {?} rawZoomY
-     * @param {?} doNotUpdateLast
-     * @return {?}
-     */
-    DocumentComponent.prototype.zoomAround = /**
-     * @param {?} scaleBy
-     * @param {?} rawZoomX
-     * @param {?} rawZoomY
-     * @param {?} doNotUpdateLast
-     * @return {?}
-     */
-    function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
-        // Zoom
-        this.startZoom(scaleBy);
-        // New raw center of viewport
-        /** @type {?} */
-        var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
-        /** @type {?} */
-        var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
-        // Delta
-        /** @type {?} */
-        var deltaX = (rawCenterX - rawZoomX) * this.scale;
-        /** @type {?} */
-        var deltaY = (rawCenterY - rawZoomY) * this.scale;
-        // Translate back to zoom center
-        this.translate(deltaX, deltaY);
-        if (!doNotUpdateLast) {
-            this.updateLastScale();
-            this.updateLastPos();
-        }
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onPinch = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        if (this.pinchCenter === null) {
-            this.pinchCenter = this.rawCenter($event);
-            /** @type {?} */
-            var offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
-            /** @type {?} */
-            var offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
-            this.pinchCenterOffset = { x: offsetX, y: offsetY };
-        }
-        /** @type {?} */
-        var newScale = this.scale * $event.scale;
-        /** @type {?} */
-        var zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
-        /** @type {?} */
-        var zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
-        /** @type {?} */
-        var zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
-        this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onPinchEnd = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        this.updateLastScale();
-        this.updateLastPos();
-        this.pinchCenter = null;
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onPan = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        // TODO: looks like native pan works better
-        // if (!this.isDesktop) {
-        //   this.translate($event.deltaX, $event.deltaY);
-        // }
-        this.onpan.emit($event);
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onPanEnd = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        // if (!this.isDesktop) {
-        //   this.updateLastPos();
-        // }
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onDoubleTap = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        if (!this.isDesktop) {
-            if ($event.tapCount === 2) {
-                /** @type {?} */
-                var c = this.rawCenter($event);
-                this.zoomAround(2, c.x, c.y, false);
-            }
-        }
-    };
-    DocumentComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'gd-document',
-                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
-                }] }
-    ];
-    /** @nocollapse */
-    DocumentComponent.ctorParameters = function () { return [
-        { type: ElementRef },
-        { type: ZoomService },
-        { type: WindowService }
-    ]; };
-    DocumentComponent.propDecorators = {
-        mode: [{ type: Input }],
-        preloadPageCount: [{ type: Input }],
-        file: [{ type: Input }],
-        onpan: [{ type: Output }]
-    };
-    return DocumentComponent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var PageComponent = /** @class */ (function () {
-    function PageComponent() {
-    }
-    /**
-     * @return {?}
-     */
-    PageComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
-        if (isIE && this.number === 0) {
-            this.editable = false;
-        }
-    };
-    /**
-     * @param {?} changes
-     * @return {?}
-     */
-    PageComponent.prototype.ngOnChanges = /**
-     * @param {?} changes
-     * @return {?}
-     */
-    function (changes) {
-        // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
-        // which leads to undesired spaces on the top of the docs pages
-        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
-        /** @type {?} */
-        var dataImagePngBase64 = 'data:image/png;base64,';
-        this.imgData = dataImagePngBase64;
-        if (!this.isHtml) {
-            this.imgData += this.data;
-        }
-    };
-    PageComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'gd-page',
-                    template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
-                    styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
-                }] }
-    ];
-    /** @nocollapse */
-    PageComponent.ctorParameters = function () { return []; };
-    PageComponent.propDecorators = {
-        angle: [{ type: Input }],
-        width: [{ type: Input }],
-        height: [{ type: Input }],
-        number: [{ type: Input }],
-        data: [{ type: Input }],
-        isHtml: [{ type: Input }],
-        editable: [{ type: Input }]
-    };
-    return PageComponent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var SanitizeHtmlPipe = /** @class */ (function () {
-    function SanitizeHtmlPipe(sanitizer) {
-        this.sanitizer = sanitizer;
-    }
-    /**
-     * @param {?} html
-     * @return {?}
-     */
-    SanitizeHtmlPipe.prototype.transform = /**
-     * @param {?} html
-     * @return {?}
-     */
-    function (html) {
-        return this.sanitizer.bypassSecurityTrustHtml(html);
-    };
-    SanitizeHtmlPipe.decorators = [
-        { type: Pipe, args: [{ name: 'safeHtml' },] }
-    ];
-    /** @nocollapse */
-    SanitizeHtmlPipe.ctorParameters = function () { return [
-        { type: DomSanitizer }
-    ]; };
-    return SanitizeHtmlPipe;
-}());
-var SanitizeResourceHtmlPipe = /** @class */ (function () {
-    function SanitizeResourceHtmlPipe(sanitizer) {
-        this.sanitizer = sanitizer;
-    }
-    /**
-     * @param {?} html
-     * @return {?}
-     */
-    SanitizeResourceHtmlPipe.prototype.transform = /**
-     * @param {?} html
-     * @return {?}
-     */
-    function (html) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(html);
-    };
-    SanitizeResourceHtmlPipe.decorators = [
-        { type: Pipe, args: [{ name: 'safeResourceHtml' },] }
-    ];
-    /** @nocollapse */
-    SanitizeResourceHtmlPipe.ctorParameters = function () { return [
-        { type: DomSanitizer }
-    ]; };
-    return SanitizeResourceHtmlPipe;
-}());
-var SanitizeStylePipe = /** @class */ (function () {
-    function SanitizeStylePipe(sanitizer) {
-        this.sanitizer = sanitizer;
-    }
-    /**
-     * @param {?} html
-     * @return {?}
-     */
-    SanitizeStylePipe.prototype.transform = /**
-     * @param {?} html
-     * @return {?}
-     */
-    function (html) {
-        return this.sanitizer.bypassSecurityTrustStyle(html);
-    };
-    SanitizeStylePipe.decorators = [
-        { type: Pipe, args: [{ name: 'safeStyle' },] }
-    ];
-    /** @nocollapse */
-    SanitizeStylePipe.ctorParameters = function () { return [
-        { type: DomSanitizer }
-    ]; };
-    return SanitizeStylePipe;
-}());
-var HighlightSearchPipe = /** @class */ (function () {
-    function HighlightSearchPipe() {
-    }
-    /**
-     * @param {?} value
-     * @param {?} args
-     * @return {?}
-     */
-    HighlightSearchPipe.prototype.transform = /**
-     * @param {?} value
-     * @param {?} args
-     * @return {?}
-     */
-    function (value, args) {
-        if (!args) {
-            return value;
-        }
-        /** @type {?} */
-        var re = new RegExp(args, 'gi');
-        return value.replace(re, "<span class='gd-highlight'>$&</span>");
-    };
-    HighlightSearchPipe.decorators = [
-        { type: Pipe, args: [{ name: 'highlight' },] }
-    ];
-    return HighlightSearchPipe;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var UploadFileZoneComponent = /** @class */ (function () {
-    function UploadFileZoneComponent(_uploadService) {
-        this._uploadService = _uploadService;
-        this.closeUpload = new EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    UploadFileZoneComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-    };
-    /**
-     * @param {?} files
-     * @return {?}
-     */
-    UploadFileZoneComponent.prototype.handleFileInput = /**
-     * @param {?} files
-     * @return {?}
-     */
-    function (files) {
-        this._uploadService.changeFilesList(files);
-        this.onCloseUpload();
-    };
-    /**
-     * @return {?}
-     */
-    UploadFileZoneComponent.prototype.onCloseUpload = /**
-     * @return {?}
-     */
-    function () {
-        this.closeUpload.emit(true);
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    UploadFileZoneComponent.prototype.close = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        if ($event.target.id === 'gd-dropZone') {
-            this.onCloseUpload();
-        }
-    };
-    UploadFileZoneComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'gd-upload-file-zone',
-                    template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\r\n  <div class=\"gd-drag-n-drop-icon\">\r\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\r\n  </div>\r\n  <h2>Drag &amp; Drop your files here</h2>\r\n  <h4>OR</h4>\r\n  <div class=\"gd-drag-n-drop-buttons\">\r\n    <label class=\"btn btn-primary\"> \r\n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\r\n      SELECT FILE\r\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\r\n      </label>\r\n  </div>\r\n</div>\r\n",
-                    styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:flex;align-content:center;flex-direction:column;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
-                }] }
-    ];
-    /** @nocollapse */
-    UploadFileZoneComponent.ctorParameters = function () { return [
-        { type: UploadFilesService }
-    ]; };
-    UploadFileZoneComponent.propDecorators = {
-        closeUpload: [{ type: Output }]
-    };
-    return UploadFileZoneComponent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var DndDirective = /** @class */ (function () {
-    function DndDirective(_uploadFilesService) {
-        this._uploadFilesService = _uploadFilesService;
-        this.closing = new EventEmitter();
-        this.opening = new EventEmitter();
-        this.dropped = new EventEmitter();
-        this.active = false;
-        this.dragCounter = 0;
-    }
-    /**
-     * @param {?} evt
-     * @return {?}
-     */
-    DndDirective.prototype.onDragEnter = /**
-     * @param {?} evt
-     * @return {?}
-     */
-    function (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        this.dragCounter++;
-        this.active = true;
-        this.opening.emit(true);
-    };
-    /**
-     * @param {?} evt
-     * @return {?}
-     */
-    DndDirective.prototype.onDragOver = /**
-     * @param {?} evt
-     * @return {?}
-     */
-    function (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        return false;
-    };
-    /**
-     * @param {?} evt
-     * @return {?}
-     */
-    DndDirective.prototype.onDragLeave = /**
-     * @param {?} evt
-     * @return {?}
-     */
-    function (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        this.dragCounter--;
-        if (this.dragCounter === 0) {
-            this.active = false;
-            this.closeArea();
-        }
-    };
-    /**
-     * @param {?} evt
-     * @return {?}
-     */
-    DndDirective.prototype.onDrop = /**
-     * @param {?} evt
-     * @return {?}
-     */
-    function (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        /** @type {?} */
-        var files = evt.dataTransfer.files;
-        if (files.length > 0) {
-            this.active = false;
-            this.dropped.emit(true);
-            this._uploadFilesService.changeFilesList(files);
-            this.closeArea();
-        }
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    DndDirective.prototype.onClick = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        this.closeArea();
-    };
-    /**
+     * @type {?}
      * @private
-     * @return {?}
      */
-    DndDirective.prototype.closeArea = /**
+    ZoomService.prototype._observer;
+    /**
+     * @type {?}
      * @private
-     * @return {?}
      */
-    function () {
-        this.closing.emit(true);
-        this.opening.emit(false);
-    };
-    DndDirective.decorators = [
-        { type: Directive, args: [{
-                    selector: '[gdDnd]'
-                },] }
-    ];
-    /** @nocollapse */
-    DndDirective.ctorParameters = function () { return [
-        { type: UploadFilesService }
-    ]; };
-    DndDirective.propDecorators = {
-        closing: [{ type: Output }],
-        opening: [{ type: Output }],
-        dropped: [{ type: Output }],
-        active: [{ type: HostBinding, args: ['class.active',] }],
-        onDragEnter: [{ type: HostListener, args: ['dragenter', ['$event'],] }],
-        onDragOver: [{ type: HostListener, args: ['dragover', ['$event'],] }],
-        onDragLeave: [{ type: HostListener, args: ['dragleave', ['$event'],] }],
-        onDrop: [{ type: HostListener, args: ['drop', ['$event'],] }],
-        onClick: [{ type: HostListener, args: ['click', ['$event'],] }]
-    };
-    return DndDirective;
-}());
+    ZoomService.prototype._zoomChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoomService.prototype._zoom;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2147,6 +1756,18 @@ var PagePreloadService = /** @class */ (function () {
     };
     return PagePreloadService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    PagePreloadService.prototype._checkPreload;
+    /**
+     * @type {?}
+     * @private
+     */
+    PagePreloadService.prototype._observer;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2279,6 +1900,975 @@ var NavigateService = /** @class */ (function () {
     /** @nocollapse */ NavigateService.ngInjectableDef = ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
     return NavigateService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._currentPage;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._countPages;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._navigate;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavigateService.prototype._pagePreloadService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$1 = jquery;
+var DocumentComponent = /** @class */ (function () {
+    function DocumentComponent(_elementRef, _zoomService, _windowService, _navigateService) {
+        var _this = this;
+        this._elementRef = _elementRef;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this._navigateService = _navigateService;
+        this.onpan = new EventEmitter();
+        this.wait = false;
+        this.docWidth = null;
+        this.docHeight = null;
+        this.viewportWidth = null;
+        this.viewportHeight = null;
+        this.scale = null;
+        this.lastScale = null;
+        this.container = null;
+        this.doc = null;
+        this.x = 0;
+        this.lastX = 0;
+        this.y = 0;
+        this.lastY = 0;
+        this.pinchCenter = null;
+        this.pinchCenterOffset = null;
+        this.curWidth = 0;
+        this.curHeight = 0;
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            _this.zoom = val;
+        }));
+        this.isDesktop = _windowService.isDesktop();
+    }
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        if (this.ifPresentation()) {
+            this.selectedPage = 1;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
+        ((/** @type {?} */ (panzoom))).style.transform = '';
+        // TODO: this intersects with zooming by zoom directive, but still needed
+        // for flush previous settings before opening another file
+        //this._zoomService.changeZoom(100);
+        //this.scale = 1;
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        // For current iteration we take .panzoom as a document
+        this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
+        // For current iteration we take .gd-document as a container
+        this.container = this._elementRef.nativeElement;
+        this.docWidth = this.doc.clientWidth;
+        this.docHeight = this.doc.clientHeight;
+        this.viewportWidth = this.doc.offsetWidth;
+        // For cases where we already have zoom defined we should include it
+        this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
+        this.lastScale = this.scale;
+        this.viewportHeight = this.container.offsetHeight;
+        this.curWidth = this.docWidth * this.scale;
+        this.curHeight = this.docHeight * this.scale;
+        /** @type {?} */
+        var hammer = new Hammer(this.container);
+    };
+    // TODO: this temporary crutch for Excel files should be documented
+    // TODO: this temporary crutch for Excel files should be documented
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ifExcel = 
+    // TODO: this temporary crutch for Excel files should be documented
+    /**
+     * @return {?}
+     */
+    function () {
+        return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ifPresentation = /**
+     * @return {?}
+     */
+    function () {
+        return FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint";
+    };
+    /**
+     * @param {?} value
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    DocumentComponent.prototype.getDimensionWithUnit = /**
+     * @param {?} value
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    function (value, pageNumber) {
+        return this.ifPresentation() && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ifEdge = /**
+     * @return {?}
+     */
+    function () {
+        return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ngAfterViewChecked = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+        /** @type {?} */
+        var element = elementNodeListOf.item(0);
+        if (element) {
+            $$1(element).trigger('focus');
+        }
+    };
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    DocumentComponent.prototype.absolutePosition = /**
+     * @param {?} el
+     * @return {?}
+     */
+    function (el) {
+        /** @type {?} */
+        var x = 0;
+        /** @type {?} */
+        var y = 0;
+        while (el !== null) {
+            x += el.offsetLeft;
+            y += el.offsetTop;
+            el = el.offsetParent;
+        }
+        return { x: x, y: y };
+    };
+    ;
+    /**
+     * @param {?} pos
+     * @param {?} viewportDim
+     * @param {?} docDim
+     * @return {?}
+     */
+    DocumentComponent.prototype.restrictRawPos = /**
+     * @param {?} pos
+     * @param {?} viewportDim
+     * @param {?} docDim
+     * @return {?}
+     */
+    function (pos, viewportDim, docDim) {
+        if (pos < viewportDim / this.scale - docDim) { // too far left/up?
+            pos = viewportDim / this.scale - docDim;
+        }
+        else if (pos > 0) { // too far right/down?
+            pos = 0;
+        }
+        return pos;
+    };
+    ;
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.updateLastPos = /**
+     * @return {?}
+     */
+    function () {
+        this.lastX = this.x;
+        this.lastY = this.y;
+    };
+    ;
+    /**
+     * @param {?} deltaX
+     * @param {?} deltaY
+     * @return {?}
+     */
+    DocumentComponent.prototype.translate = /**
+     * @param {?} deltaX
+     * @param {?} deltaY
+     * @return {?}
+     */
+    function (deltaX, deltaY) {
+        // We restrict to the min of the viewport width/height or current width/height as the
+        // current width/height may be smaller than the viewport width/height
+        /** @type {?} */
+        var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
+        this.x = newX;
+        // TODO: value here and in the similar line below changes to positive to take any effect
+        this.container.scrollLeft = -Math.ceil(newX * this.scale);
+        /** @type {?} */
+        var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
+        this.y = newY;
+        this.container.scrollTop = -Math.ceil(newY * this.scale);
+        this.doc.style.transform = 'scale(' + this.scale + ')';
+    };
+    ;
+    /**
+     * @param {?} scaleBy
+     * @return {?}
+     */
+    DocumentComponent.prototype.startZoom = /**
+     * @param {?} scaleBy
+     * @return {?}
+     */
+    function (scaleBy) {
+        this.scale = this.lastScale * scaleBy;
+        this.curWidth = this.docWidth * this.scale;
+        this.curHeight = this.docHeight * this.scale;
+        // Adjust margins to make sure that we aren't out of bounds
+        this.translate(0, 0);
+    };
+    ;
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.rawCenter = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        /** @type {?} */
+        var pos = this.absolutePosition(this.container);
+        // We need to account for the scroll position
+        /** @type {?} */
+        var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
+        /** @type {?} */
+        var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+        /** @type {?} */
+        var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
+        /** @type {?} */
+        var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
+        return { x: zoomX, y: zoomY };
+    };
+    ;
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.updateLastScale = /**
+     * @return {?}
+     */
+    function () {
+        this.lastScale = this.scale;
+    };
+    ;
+    /**
+     * @param {?} scaleBy
+     * @param {?} rawZoomX
+     * @param {?} rawZoomY
+     * @param {?} doNotUpdateLast
+     * @return {?}
+     */
+    DocumentComponent.prototype.zoomAround = /**
+     * @param {?} scaleBy
+     * @param {?} rawZoomX
+     * @param {?} rawZoomY
+     * @param {?} doNotUpdateLast
+     * @return {?}
+     */
+    function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
+        // Zoom
+        this.startZoom(scaleBy);
+        // New raw center of viewport
+        /** @type {?} */
+        var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
+        /** @type {?} */
+        var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
+        // Delta
+        /** @type {?} */
+        var deltaX = (rawCenterX - rawZoomX) * this.scale;
+        /** @type {?} */
+        var deltaY = (rawCenterY - rawZoomY) * this.scale;
+        // Translate back to zoom center
+        this.translate(deltaX, deltaY);
+        if (!doNotUpdateLast) {
+            this.updateLastScale();
+            this.updateLastPos();
+        }
+    };
+    ;
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.onPinch = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if (this.pinchCenter === null) {
+            this.pinchCenter = this.rawCenter($event);
+            /** @type {?} */
+            var offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
+            /** @type {?} */
+            var offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
+            this.pinchCenterOffset = { x: offsetX, y: offsetY };
+        }
+        /** @type {?} */
+        var newScale = this.scale * $event.scale;
+        /** @type {?} */
+        var zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
+        /** @type {?} */
+        var zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
+        /** @type {?} */
+        var zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
+        this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.onPinchEnd = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.updateLastScale();
+        this.updateLastPos();
+        this.pinchCenter = null;
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.onPan = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        // TODO: looks like native pan works better
+        // if (!this.isDesktop) {
+        //   this.translate($event.deltaX, $event.deltaY);
+        // }
+        this.onpan.emit($event);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.onPanEnd = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        // if (!this.isDesktop) {
+        //   this.updateLastPos();
+        // }
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    DocumentComponent.prototype.onDoubleTap = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if (!this.isDesktop) {
+            if ($event.tapCount === 2) {
+                /** @type {?} */
+                var c = this.rawCenter($event);
+                this.zoomAround(2, c.x, c.y, false);
+            }
+        }
+    };
+    /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    DocumentComponent.prototype.isVisible = /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    function (pageNumber) {
+        if (this.ifPresentation()) {
+            return pageNumber === this.selectedPage ? true : false;
+        }
+        else {
+            return true;
+        }
+    };
+    DocumentComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-document',
+                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    DocumentComponent.ctorParameters = function () { return [
+        { type: ElementRef },
+        { type: ZoomService },
+        { type: WindowService },
+        { type: NavigateService }
+    ]; };
+    DocumentComponent.propDecorators = {
+        mode: [{ type: Input }],
+        preloadPageCount: [{ type: Input }],
+        file: [{ type: Input }],
+        selectedPage: [{ type: Input }],
+        onpan: [{ type: Output }]
+    };
+    return DocumentComponent;
+}());
+if (false) {
+    /** @type {?} */
+    DocumentComponent.prototype.mode;
+    /** @type {?} */
+    DocumentComponent.prototype.preloadPageCount;
+    /** @type {?} */
+    DocumentComponent.prototype.file;
+    /** @type {?} */
+    DocumentComponent.prototype.selectedPage;
+    /** @type {?} */
+    DocumentComponent.prototype.onpan;
+    /** @type {?} */
+    DocumentComponent.prototype.wait;
+    /** @type {?} */
+    DocumentComponent.prototype.zoom;
+    /** @type {?} */
+    DocumentComponent.prototype.docWidth;
+    /** @type {?} */
+    DocumentComponent.prototype.docHeight;
+    /** @type {?} */
+    DocumentComponent.prototype.viewportWidth;
+    /** @type {?} */
+    DocumentComponent.prototype.viewportHeight;
+    /** @type {?} */
+    DocumentComponent.prototype.scale;
+    /** @type {?} */
+    DocumentComponent.prototype.lastScale;
+    /** @type {?} */
+    DocumentComponent.prototype.container;
+    /** @type {?} */
+    DocumentComponent.prototype.doc;
+    /** @type {?} */
+    DocumentComponent.prototype.x;
+    /** @type {?} */
+    DocumentComponent.prototype.lastX;
+    /** @type {?} */
+    DocumentComponent.prototype.y;
+    /** @type {?} */
+    DocumentComponent.prototype.lastY;
+    /** @type {?} */
+    DocumentComponent.prototype.pinchCenter;
+    /** @type {?} */
+    DocumentComponent.prototype.pinchCenterOffset;
+    /** @type {?} */
+    DocumentComponent.prototype.curWidth;
+    /** @type {?} */
+    DocumentComponent.prototype.curHeight;
+    /** @type {?} */
+    DocumentComponent.prototype.isDesktop;
+    /**
+     * @type {?}
+     * @protected
+     */
+    DocumentComponent.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    DocumentComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    DocumentComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    DocumentComponent.prototype._navigateService;
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var PageComponent = /** @class */ (function () {
+    function PageComponent() {
+    }
+    /**
+     * @return {?}
+     */
+    PageComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        if (isIE && this.number === 0) {
+            this.editable = false;
+        }
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    PageComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
+        // which leads to undesired spaces on the top of the docs pages
+        this.data = this.data !== null ? this.data.replace(/>\s+</g, '><')
+            .replace(/\uFEFF/g, "")
+            .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+            .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+            .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
+            : null;
+        /** @type {?} */
+        var dataImagePngBase64 = 'data:image/png;base64,';
+        this.imgData = dataImagePngBase64;
+        if (!this.isHtml) {
+            this.imgData += this.data;
+        }
+    };
+    PageComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-page',
+                    template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
+                    styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
+                }] }
+    ];
+    /** @nocollapse */
+    PageComponent.ctorParameters = function () { return []; };
+    PageComponent.propDecorators = {
+        angle: [{ type: Input }],
+        width: [{ type: Input }],
+        height: [{ type: Input }],
+        number: [{ type: Input }],
+        data: [{ type: Input }],
+        isHtml: [{ type: Input }],
+        editable: [{ type: Input }]
+    };
+    return PageComponent;
+}());
+if (false) {
+    /** @type {?} */
+    PageComponent.prototype.angle;
+    /** @type {?} */
+    PageComponent.prototype.width;
+    /** @type {?} */
+    PageComponent.prototype.height;
+    /** @type {?} */
+    PageComponent.prototype.number;
+    /** @type {?} */
+    PageComponent.prototype.data;
+    /** @type {?} */
+    PageComponent.prototype.isHtml;
+    /** @type {?} */
+    PageComponent.prototype.editable;
+    /** @type {?} */
+    PageComponent.prototype.imgData;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var SanitizeHtmlPipe = /** @class */ (function () {
+    function SanitizeHtmlPipe(sanitizer) {
+        this.sanitizer = sanitizer;
+    }
+    /**
+     * @param {?} html
+     * @return {?}
+     */
+    SanitizeHtmlPipe.prototype.transform = /**
+     * @param {?} html
+     * @return {?}
+     */
+    function (html) {
+        return this.sanitizer.bypassSecurityTrustHtml(html);
+    };
+    SanitizeHtmlPipe.decorators = [
+        { type: Pipe, args: [{ name: 'safeHtml' },] }
+    ];
+    /** @nocollapse */
+    SanitizeHtmlPipe.ctorParameters = function () { return [
+        { type: DomSanitizer }
+    ]; };
+    return SanitizeHtmlPipe;
+}());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SanitizeHtmlPipe.prototype.sanitizer;
+}
+var SanitizeResourceHtmlPipe = /** @class */ (function () {
+    function SanitizeResourceHtmlPipe(sanitizer) {
+        this.sanitizer = sanitizer;
+    }
+    /**
+     * @param {?} html
+     * @return {?}
+     */
+    SanitizeResourceHtmlPipe.prototype.transform = /**
+     * @param {?} html
+     * @return {?}
+     */
+    function (html) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(html);
+    };
+    SanitizeResourceHtmlPipe.decorators = [
+        { type: Pipe, args: [{ name: 'safeResourceHtml' },] }
+    ];
+    /** @nocollapse */
+    SanitizeResourceHtmlPipe.ctorParameters = function () { return [
+        { type: DomSanitizer }
+    ]; };
+    return SanitizeResourceHtmlPipe;
+}());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SanitizeResourceHtmlPipe.prototype.sanitizer;
+}
+var SanitizeStylePipe = /** @class */ (function () {
+    function SanitizeStylePipe(sanitizer) {
+        this.sanitizer = sanitizer;
+    }
+    /**
+     * @param {?} html
+     * @return {?}
+     */
+    SanitizeStylePipe.prototype.transform = /**
+     * @param {?} html
+     * @return {?}
+     */
+    function (html) {
+        return this.sanitizer.bypassSecurityTrustStyle(html);
+    };
+    SanitizeStylePipe.decorators = [
+        { type: Pipe, args: [{ name: 'safeStyle' },] }
+    ];
+    /** @nocollapse */
+    SanitizeStylePipe.ctorParameters = function () { return [
+        { type: DomSanitizer }
+    ]; };
+    return SanitizeStylePipe;
+}());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SanitizeStylePipe.prototype.sanitizer;
+}
+var HighlightSearchPipe = /** @class */ (function () {
+    function HighlightSearchPipe() {
+    }
+    /**
+     * @param {?} value
+     * @param {?} args
+     * @return {?}
+     */
+    HighlightSearchPipe.prototype.transform = /**
+     * @param {?} value
+     * @param {?} args
+     * @return {?}
+     */
+    function (value, args) {
+        if (!args) {
+            return value;
+        }
+        /** @type {?} */
+        var re = new RegExp(args, 'gi');
+        return value.replace(re, "<span class='gd-highlight'>$&</span>");
+    };
+    HighlightSearchPipe.decorators = [
+        { type: Pipe, args: [{ name: 'highlight' },] }
+    ];
+    return HighlightSearchPipe;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var UploadFileZoneComponent = /** @class */ (function () {
+    function UploadFileZoneComponent(_uploadService) {
+        this._uploadService = _uploadService;
+        this.closeUpload = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    UploadFileZoneComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} files
+     * @return {?}
+     */
+    UploadFileZoneComponent.prototype.handleFileInput = /**
+     * @param {?} files
+     * @return {?}
+     */
+    function (files) {
+        this._uploadService.changeFilesList(files);
+        this.onCloseUpload();
+    };
+    /**
+     * @return {?}
+     */
+    UploadFileZoneComponent.prototype.onCloseUpload = /**
+     * @return {?}
+     */
+    function () {
+        this.closeUpload.emit(true);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    UploadFileZoneComponent.prototype.close = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if ($event.target.id === 'gd-dropZone') {
+            this.onCloseUpload();
+        }
+    };
+    UploadFileZoneComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-upload-file-zone',
+                    template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\r\n  <div class=\"gd-drag-n-drop-icon\">\r\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\r\n  </div>\r\n  <h2>Drag &amp; Drop your files here</h2>\r\n  <h4>OR</h4>\r\n  <div class=\"gd-drag-n-drop-buttons\">\r\n    <label class=\"btn btn-primary\"> \r\n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\r\n      SELECT FILE\r\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\r\n      </label>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:flex;align-content:center;flex-direction:column;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
+                }] }
+    ];
+    /** @nocollapse */
+    UploadFileZoneComponent.ctorParameters = function () { return [
+        { type: UploadFilesService }
+    ]; };
+    UploadFileZoneComponent.propDecorators = {
+        closeUpload: [{ type: Output }]
+    };
+    return UploadFileZoneComponent;
+}());
+if (false) {
+    /** @type {?} */
+    UploadFileZoneComponent.prototype.closeUpload;
+    /**
+     * @type {?}
+     * @private
+     */
+    UploadFileZoneComponent.prototype._uploadService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var DndDirective = /** @class */ (function () {
+    function DndDirective(_uploadFilesService) {
+        this._uploadFilesService = _uploadFilesService;
+        this.closing = new EventEmitter();
+        this.opening = new EventEmitter();
+        this.dropped = new EventEmitter();
+        this.active = false;
+        this.dragCounter = 0;
+    }
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    DndDirective.prototype.onDragEnter = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.dragCounter++;
+        this.active = true;
+        this.opening.emit(true);
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    DndDirective.prototype.onDragOver = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        return false;
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    DndDirective.prototype.onDragLeave = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.dragCounter--;
+        if (this.dragCounter === 0) {
+            this.active = false;
+            this.closeArea();
+        }
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    DndDirective.prototype.onDrop = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        /** @type {?} */
+        var files = evt.dataTransfer.files;
+        if (files.length > 0) {
+            this.active = false;
+            this.dropped.emit(true);
+            this._uploadFilesService.changeFilesList(files);
+            this.closeArea();
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    DndDirective.prototype.onClick = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.closeArea();
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    DndDirective.prototype.closeArea = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        this.closing.emit(true);
+        this.opening.emit(false);
+    };
+    DndDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[gdDnd]'
+                },] }
+    ];
+    /** @nocollapse */
+    DndDirective.ctorParameters = function () { return [
+        { type: UploadFilesService }
+    ]; };
+    DndDirective.propDecorators = {
+        closing: [{ type: Output }],
+        opening: [{ type: Output }],
+        dropped: [{ type: Output }],
+        active: [{ type: HostBinding, args: ['class.active',] }],
+        onDragEnter: [{ type: HostListener, args: ['dragenter', ['$event'],] }],
+        onDragOver: [{ type: HostListener, args: ['dragover', ['$event'],] }],
+        onDragLeave: [{ type: HostListener, args: ['dragleave', ['$event'],] }],
+        onDrop: [{ type: HostListener, args: ['drop', ['$event'],] }],
+        onClick: [{ type: HostListener, args: ['click', ['$event'],] }]
+    };
+    return DndDirective;
+}());
+if (false) {
+    /** @type {?} */
+    DndDirective.prototype.closing;
+    /** @type {?} */
+    DndDirective.prototype.opening;
+    /** @type {?} */
+    DndDirective.prototype.dropped;
+    /** @type {?} */
+    DndDirective.prototype.active;
+    /**
+     * @type {?}
+     * @private
+     */
+    DndDirective.prototype.dragCounter;
+    /**
+     * @type {?}
+     * @protected
+     */
+    DndDirective.prototype._uploadFilesService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2633,6 +3223,137 @@ var ScrollableDirective = /** @class */ (function () {
     };
     return ScrollableDirective;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype.currentPage;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype.zoom;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype.loadedPagesSet;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._navigateService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._pagePreloadService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableDirective.prototype._viewportService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$4 = jquery;
+var MouseWheelDirective = /** @class */ (function () {
+    function MouseWheelDirective() {
+        this.mouseWheelUp = new EventEmitter();
+        this.mouseWheelDown = new EventEmitter();
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.onMouseWheelChrome = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.mouseWheelFunc(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.onMouseWheelFirefox = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.mouseWheelFunc(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.onMouseWheelIE = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.mouseWheelFunc(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.mouseWheelFunc = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event = window.event;
+        /** @type {?} */
+        var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+        if (delta > 0) {
+            this.mouseWheelUp.emit(event);
+        }
+        else if (delta < 0) {
+            this.mouseWheelDown.emit(event);
+        }
+    };
+    MouseWheelDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[gdMouseWheel]'
+                },] }
+    ];
+    MouseWheelDirective.propDecorators = {
+        mouseWheelUp: [{ type: Output }],
+        mouseWheelDown: [{ type: Output }],
+        onMouseWheelChrome: [{ type: HostListener, args: ['mousewheel', ['$event'],] }],
+        onMouseWheelFirefox: [{ type: HostListener, args: ['DOMMouseScroll', ['$event'],] }],
+        onMouseWheelIE: [{ type: HostListener, args: ['onmousewheel', ['$event'],] }]
+    };
+    return MouseWheelDirective;
+}());
+if (false) {
+    /** @type {?} */
+    MouseWheelDirective.prototype.mouseWheelUp;
+    /** @type {?} */
+    MouseWheelDirective.prototype.mouseWheelDown;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2812,6 +3533,36 @@ var ZoomDirective = /** @class */ (function () {
     };
     return ZoomDirective;
 }());
+if (false) {
+    /** @type {?} */
+    ZoomDirective.prototype.zoomActive;
+    /** @type {?} */
+    ZoomDirective.prototype.file;
+    /** @type {?} */
+    ZoomDirective.prototype.zoomInt;
+    /** @type {?} */
+    ZoomDirective.prototype.transform;
+    /** @type {?} */
+    ZoomDirective.prototype.transformOrigin;
+    /** @type {?} */
+    ZoomDirective.prototype.width;
+    /** @type {?} */
+    ZoomDirective.prototype.height;
+    /** @type {?} */
+    ZoomDirective.prototype.minWidth;
+    /** @type {?} */
+    ZoomDirective.prototype.el;
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoomDirective.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoomDirective.prototype._windowService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2853,11 +3604,35 @@ var OnCloseService = /** @class */ (function () {
     /** @nocollapse */ OnCloseService.ngInjectableDef = ɵɵdefineInjectable({ factory: function OnCloseService_Factory() { return new OnCloseService(); }, token: OnCloseService, providedIn: "root" });
     return OnCloseService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    OnCloseService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    OnCloseService.prototype._onClose;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function Option() { }
+if (false) {
+    /** @type {?} */
+    Option.prototype.name;
+    /** @type {?} */
+    Option.prototype.value;
+    /** @type {?} */
+    Option.prototype.separator;
+}
 var SelectComponent = /** @class */ (function () {
     function SelectComponent(_onCloseService) {
         var _this = this;
@@ -2955,6 +3730,23 @@ var SelectComponent = /** @class */ (function () {
     };
     return SelectComponent;
 }());
+if (false) {
+    /** @type {?} */
+    SelectComponent.prototype.options;
+    /** @type {?} */
+    SelectComponent.prototype.disabled;
+    /** @type {?} */
+    SelectComponent.prototype.showSelected;
+    /** @type {?} */
+    SelectComponent.prototype.selected;
+    /** @type {?} */
+    SelectComponent.prototype.isOpen;
+    /**
+     * @type {?}
+     * @protected
+     */
+    SelectComponent.prototype._onCloseService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3007,6 +3799,12 @@ var DisabledCursorDirective = /** @class */ (function () {
     };
     return DisabledCursorDirective;
 }());
+if (false) {
+    /** @type {?} */
+    DisabledCursorDirective.prototype.dis;
+    /** @type {?} */
+    DisabledCursorDirective.prototype.cursor;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3114,6 +3912,26 @@ var RotationDirective = /** @class */ (function () {
     };
     return RotationDirective;
 }());
+if (false) {
+    /** @type {?} */
+    RotationDirective.prototype.angle;
+    /** @type {?} */
+    RotationDirective.prototype.isHtmlMode;
+    /** @type {?} */
+    RotationDirective.prototype.width;
+    /** @type {?} */
+    RotationDirective.prototype.height;
+    /** @type {?} */
+    RotationDirective.prototype.withMargin;
+    /** @type {?} */
+    RotationDirective.prototype.animation;
+    /** @type {?} */
+    RotationDirective.prototype.transition;
+    /** @type {?} */
+    RotationDirective.prototype.transform;
+    /** @type {?} */
+    RotationDirective.prototype.margin;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3162,6 +3980,16 @@ var InitStateComponent = /** @class */ (function () {
     };
     return InitStateComponent;
 }());
+if (false) {
+    /** @type {?} */
+    InitStateComponent.prototype.icon;
+    /** @type {?} */
+    InitStateComponent.prototype.text;
+    /** @type {?} */
+    InitStateComponent.prototype.fileDropped;
+    /** @type {?} */
+    InitStateComponent.prototype.showUploadFile;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3229,6 +4057,28 @@ var RenderPrintService = /** @class */ (function () {
     };
     return RenderPrintService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintService.prototype._render;
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintService.prototype._renderBlob;
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintService.prototype._observerBlob;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3380,6 +4230,15 @@ var RenderPrintDirective = /** @class */ (function () {
     };
     return RenderPrintDirective;
 }());
+if (false) {
+    /** @type {?} */
+    RenderPrintDirective.prototype.htmlMode;
+    /**
+     * @type {?}
+     * @private
+     */
+    RenderPrintDirective.prototype._renderService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3413,6 +4272,18 @@ var ExceptionMessageService = /** @class */ (function () {
     };
     return ExceptionMessageService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ExceptionMessageService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    ExceptionMessageService.prototype._messageChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3448,6 +4319,10 @@ var ErrorModalComponent = /** @class */ (function () {
     ]; };
     return ErrorModalComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ErrorModalComponent.prototype.message;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3481,13 +4356,25 @@ var PasswordService = /** @class */ (function () {
     };
     return PasswordService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    PasswordService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    PasswordService.prototype._passChange;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$4 = jquery;
+var $$5 = jquery;
 var PasswordRequiredComponent = /** @class */ (function () {
     function PasswordRequiredComponent(messageService, _passwordService) {
         var _this = this;
@@ -3533,14 +4420,14 @@ var PasswordRequiredComponent = /** @class */ (function () {
              */
             function () {
                 /** @type {?} */
-                var element = $$4("#password");
+                var element = $$5("#password");
                 if (element) {
                     element.focus();
                 }
             }), 100);
         }
         else {
-            $$4("#password").val("");
+            $$5("#password").val("");
         }
     };
     /**
@@ -3552,7 +4439,7 @@ var PasswordRequiredComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
-        $$4("#password").val("");
+        $$5("#password").val("");
         this.cancelEvent.emit(true);
     };
     PasswordRequiredComponent.decorators = [
@@ -3572,6 +4459,17 @@ var PasswordRequiredComponent = /** @class */ (function () {
     };
     return PasswordRequiredComponent;
 }());
+if (false) {
+    /** @type {?} */
+    PasswordRequiredComponent.prototype.message;
+    /** @type {?} */
+    PasswordRequiredComponent.prototype.cancelEvent;
+    /**
+     * @type {?}
+     * @private
+     */
+    PasswordRequiredComponent.prototype._passwordService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3650,6 +4548,18 @@ var ErrorInterceptorService = /** @class */ (function () {
     /** @nocollapse */ ErrorInterceptorService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorInterceptorService_Factory() { return new ErrorInterceptorService(ɵɵinject(ModalService), ɵɵinject(ExceptionMessageService)); }, token: ErrorInterceptorService, providedIn: "root" });
     return ErrorInterceptorService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ErrorInterceptorService.prototype._modalService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ErrorInterceptorService.prototype._messageService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3729,6 +4639,38 @@ var SearchService = /** @class */ (function () {
     };
     return SearchService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._textChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._observerCurrent;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._currentChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._observerTotal;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchService.prototype._totalChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -3837,13 +4779,28 @@ var SearchComponent = /** @class */ (function () {
     };
     return SearchComponent;
 }());
+if (false) {
+    /** @type {?} */
+    SearchComponent.prototype.hidePanel;
+    /** @type {?} */
+    SearchComponent.prototype.current;
+    /** @type {?} */
+    SearchComponent.prototype.total;
+    /** @type {?} */
+    SearchComponent.prototype.textElement;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchComponent.prototype._searchService;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$5 = jquery;
+var $$6 = jquery;
 var SearchableDirective = /** @class */ (function () {
     function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
         var _this = this;
@@ -3928,16 +4885,16 @@ var SearchableDirective = /** @class */ (function () {
              * @return {?}
              */
             function (value) {
-                $$5(value).removeClass('gd-highlight-select');
+                $$6(value).removeClass('gd-highlight-select');
             }));
             /** @type {?} */
             var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-            $$5(currentEl).addClass('gd-highlight-select');
+            $$6(currentEl).addClass('gd-highlight-select');
             if (currentEl) {
                 /** @type {?} */
                 var options = {
                     left: 0,
-                    top: ($$5(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+                    top: ($$6(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                 };
                 // using polyfill
                 el.parentElement.parentElement.scroll(options);
@@ -3956,7 +4913,7 @@ var SearchableDirective = /** @class */ (function () {
      */
     function (el) {
         /** @type {?} */
-        var textNodes = $$5(el).find('*').contents().filter((/**
+        var textNodes = $$6(el).find('*').contents().filter((/**
          * @return {?}
          */
         function () {
@@ -3981,7 +4938,7 @@ var SearchableDirective = /** @class */ (function () {
          */
         function () {
             /** @type {?} */
-            var $this = $$5(this);
+            var $this = $$6(this);
             /** @type {?} */
             var content = $this.text();
             content = highlight.transform(content, text);
@@ -4034,6 +4991,39 @@ var SearchableDirective = /** @class */ (function () {
     ]; };
     return SearchableDirective;
 }());
+if (false) {
+    /** @type {?} */
+    SearchableDirective.prototype.text;
+    /** @type {?} */
+    SearchableDirective.prototype.current;
+    /** @type {?} */
+    SearchableDirective.prototype.total;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype.zoom;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._searchService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._highlight;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._zoomService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4065,6 +5055,12 @@ var TabbedToolbarsComponent = /** @class */ (function () {
     };
     return TabbedToolbarsComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TabbedToolbarsComponent.prototype.logo;
+    /** @type {?} */
+    TabbedToolbarsComponent.prototype.icon;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4098,6 +5094,18 @@ var TabActivatorService = /** @class */ (function () {
     };
     return TabActivatorService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    TabActivatorService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    TabActivatorService.prototype._activeTabChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4160,7 +5168,7 @@ var TabComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-tab',
                     template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
+                    styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px;width:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -4177,6 +5185,25 @@ var TabComponent = /** @class */ (function () {
     };
     return TabComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TabComponent.prototype.id;
+    /** @type {?} */
+    TabComponent.prototype.tabTitle;
+    /** @type {?} */
+    TabComponent.prototype.icon;
+    /** @type {?} */
+    TabComponent.prototype.disabled;
+    /** @type {?} */
+    TabComponent.prototype.active;
+    /** @type {?} */
+    TabComponent.prototype.content;
+    /**
+     * @type {?}
+     * @private
+     */
+    TabComponent.prototype._tabActivatorService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4225,6 +5252,28 @@ var Formatting = /** @class */ (function () {
     };
     return Formatting;
 }());
+if (false) {
+    /** @type {?} */
+    Formatting.prototype.bold;
+    /** @type {?} */
+    Formatting.prototype.italic;
+    /** @type {?} */
+    Formatting.prototype.underline;
+    /** @type {?} */
+    Formatting.prototype.fontSize;
+    /** @type {?} */
+    Formatting.prototype.color;
+    /** @type {?} */
+    Formatting.prototype.bgColor;
+    /** @type {?} */
+    Formatting.prototype.font;
+    /** @type {?} */
+    Formatting.prototype.strikeout;
+    /** @type {?} */
+    Formatting.prototype.align;
+    /** @type {?} */
+    Formatting.prototype.list;
+}
 var FormattingService = /** @class */ (function () {
     function FormattingService() {
         this._observerBold = new Subject();
@@ -4565,6 +5614,128 @@ var FormattingService = /** @class */ (function () {
     };
     return FormattingService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerBold;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatBoldChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerUnderline;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatUnderlineChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerUndo;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._undo;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerRedo;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._redo;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerItalic;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatItalicChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerColor;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatColorChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerBgColor;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatBgColorChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerFontSize;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatFontSizeChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerFont;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatFontChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerStrikeout;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatStrikeoutChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerAlign;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatAlignChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._observerList;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingService.prototype._formatListChange;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4638,6 +5809,18 @@ var ColorPickerComponent = /** @class */ (function () {
     };
     return ColorPickerComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ColorPickerComponent.prototype.isOpen;
+    /** @type {?} */
+    ColorPickerComponent.prototype.selectedColor;
+    /** @type {?} */
+    ColorPickerComponent.prototype.closeOutside;
+    /** @type {?} */
+    ColorPickerComponent.prototype.colors;
+    /** @type {?} */
+    ColorPickerComponent.prototype.white;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4665,7 +5848,7 @@ var BackFormattingService = /** @class */ (function (_super) {
  */
 var SelectionService = /** @class */ (function () {
     function SelectionService() {
-        this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     }
     /**
      * @return {?}
@@ -4725,13 +5908,19 @@ var SelectionService = /** @class */ (function () {
     /** @nocollapse */ SelectionService.ngInjectableDef = ɵɵdefineInjectable({ factory: function SelectionService_Factory() { return new SelectionService(); }, token: SelectionService, providedIn: "root" });
     return SelectionService;
 }());
+if (false) {
+    /** @type {?} */
+    SelectionService.prototype.selection;
+    /** @type {?} */
+    SelectionService.prototype.isIE;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$6 = jquery;
+var $$7 = jquery;
 var FormattingDirective = /** @class */ (function () {
     function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
         this._formattingService = _formattingService;
@@ -4742,7 +5931,7 @@ var FormattingDirective = /** @class */ (function () {
         this.underline = false;
         this.strikeout = false;
         this.isIE = false;
-        this.isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        this.isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     }
     /**
      * @return {?}
@@ -4760,7 +5949,7 @@ var FormattingDirective = /** @class */ (function () {
         this.list = this.checkList();
         //fix required by FireFox to get correct background color
         if (this.bgColor === "transparent") {
-            this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+            this.bgColor = $$7(window.getSelection().focusNode.parentNode).css('background-color').toString();
         }
         this.font = document.queryCommandValue("FontName").replace(/"/g, '');
         if (this.font.split(",").length > 1) {
@@ -5154,7 +6343,7 @@ var FormattingDirective = /** @class */ (function () {
         if (align === "full") {
             align = "justify";
         }
-        $$6(selection).css("text-align", align);
+        $$7(selection).css("text-align", align);
         this._selectionService.refreshSelection();
     };
     /**
@@ -5196,6 +6385,73 @@ var FormattingDirective = /** @class */ (function () {
     };
     return FormattingDirective;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.bold;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.italic;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.underline;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.color;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.bgColor;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.font;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.strikeout;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.align;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.list;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype.isIE;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype._formattingService;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype._backFormattingService;
+    /**
+     * @type {?}
+     * @private
+     */
+    FormattingDirective.prototype._selectionService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5263,6 +6519,18 @@ var EditHtmlService = /** @class */ (function () {
     /** @nocollapse */ EditHtmlService.ngInjectableDef = ɵɵdefineInjectable({ factory: function EditHtmlService_Factory() { return new EditHtmlService(); }, token: EditHtmlService, providedIn: "root" });
     return EditHtmlService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    EditHtmlService.prototype._observer;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditHtmlService.prototype._htmlContent;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5272,7 +6540,7 @@ var EditorDirective = /** @class */ (function () {
     function EditorDirective(_selectionService, _htmlService) {
         this._selectionService = _selectionService;
         this._htmlService = _htmlService;
-        this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     }
     /**
      * @param {?} event
@@ -5345,6 +6613,25 @@ var EditorDirective = /** @class */ (function () {
     };
     return EditorDirective;
 }());
+if (false) {
+    /** @type {?} */
+    EditorDirective.prototype.text;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditorDirective.prototype.isIE;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditorDirective.prototype._selectionService;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditorDirective.prototype._htmlService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5415,6 +6702,20 @@ var LoadingMaskService = /** @class */ (function () {
     LoadingMaskService.ctorParameters = function () { return []; };
     return LoadingMaskService;
 }());
+if (false) {
+    /** @type {?} */
+    LoadingMaskService.prototype.onLoadingChanged;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingMaskService.prototype.stopList;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingMaskService.prototype.requests;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5465,6 +6766,15 @@ var LoadingMaskComponent = /** @class */ (function () {
     };
     return LoadingMaskComponent;
 }());
+if (false) {
+    /** @type {?} */
+    LoadingMaskComponent.prototype.loadingMask;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingMaskComponent.prototype._loadingMaskService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5506,6 +6816,13 @@ var LoadingMaskInterceptorService = /** @class */ (function () {
     /** @nocollapse */ LoadingMaskInterceptorService.ngInjectableDef = ɵɵdefineInjectable({ factory: function LoadingMaskInterceptorService_Factory() { return new LoadingMaskInterceptorService(ɵɵinject(LoadingMaskService)); }, token: LoadingMaskInterceptorService, providedIn: "root" });
     return LoadingMaskInterceptorService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingMaskInterceptorService.prototype._loadingMaskService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5569,6 +6886,12 @@ var DropDownToggleComponent = /** @class */ (function () {
     };
     return DropDownToggleComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DropDownToggleComponent.prototype.click;
+    /** @type {?} */
+    DropDownToggleComponent.prototype.dropdown;
+}
 /**
  *  DropDownItemsComponent
  */
@@ -5634,6 +6957,10 @@ var DropDownItemsComponent = /** @class */ (function () {
     ]; };
     return DropDownItemsComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DropDownItemsComponent.prototype.dropdown;
+}
 /**
  *  DropDownItemComponent
  */
@@ -5679,6 +7006,16 @@ var DropDownItemComponent = /** @class */ (function () {
     };
     return DropDownItemComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DropDownItemComponent.prototype.class;
+    /** @type {?} */
+    DropDownItemComponent.prototype.selected;
+    /** @type {?} */
+    DropDownItemComponent.prototype.click;
+    /** @type {?} */
+    DropDownItemComponent.prototype.dropdown;
+}
 /**
  *  DropDownComponent
  */
@@ -5737,6 +7074,14 @@ var DropDownComponent = /** @class */ (function () {
     };
     return DropDownComponent;
 }());
+if (false) {
+    /** @type {?} */
+    DropDownComponent.prototype.placement;
+    /** @type {?} */
+    DropDownComponent.prototype.open;
+    /** @type {?} */
+    DropDownComponent.prototype.class;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5768,6 +7113,10 @@ var LeftSideBarComponent = /** @class */ (function () {
     };
     return LeftSideBarComponent;
 }());
+if (false) {
+    /** @type {?} */
+    LeftSideBarComponent.prototype.showSpinner;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5809,6 +7158,10 @@ var TooltipDirective = /** @class */ (function () {
     };
     return TooltipDirective;
 }());
+if (false) {
+    /** @type {?} */
+    TooltipDirective.prototype.showToolTip;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5856,6 +7209,18 @@ var AddDynamicComponentService = /** @class */ (function () {
     /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(ɵɵinject(ComponentFactoryResolver), ɵɵinject(ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
     return AddDynamicComponentService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    AddDynamicComponentService.prototype._factoryResolver;
+    /**
+     * @type {?}
+     * @private
+     */
+    AddDynamicComponentService.prototype._appRef;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5919,6 +7284,13 @@ var HostingDynamicComponentService = /** @class */ (function () {
     };
     return HostingDynamicComponentService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    HostingDynamicComponentService.prototype.hosts;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -5963,13 +7335,24 @@ var HostDynamicDirective = /** @class */ (function () {
     };
     return HostDynamicDirective;
 }());
+if (false) {
+    /** @type {?} */
+    HostDynamicDirective.prototype.ident;
+    /** @type {?} */
+    HostDynamicDirective.prototype.viewContainerRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    HostDynamicDirective.prototype._hostingService;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$7 = jquery;
+var $$8 = jquery;
 var ResizingComponent = /** @class */ (function () {
     function ResizingComponent() {
         this.se = false;
@@ -5996,9 +7379,9 @@ var ResizingComponent = /** @class */ (function () {
     function () {
         var _this = this;
         /** @type {?} */
-        var elSE = $$7(this.getElementId(this.SE));
+        var elSE = $$8(this.getElementId(this.SE));
         /** @type {?} */
-        var elNW = $$7(this.getElementId(this.NW));
+        var elNW = $$8(this.getElementId(this.NW));
         if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
             /** @type {?} */
             var width_1 = elSE.offset().left - elNW.offset().left;
@@ -6174,6 +7557,52 @@ var ResizingComponent = /** @class */ (function () {
     };
     return ResizingComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ResizingComponent.prototype.init;
+    /** @type {?} */
+    ResizingComponent.prototype.id;
+    /** @type {?} */
+    ResizingComponent.prototype.se;
+    /** @type {?} */
+    ResizingComponent.prototype.ne;
+    /** @type {?} */
+    ResizingComponent.prototype.sw;
+    /** @type {?} */
+    ResizingComponent.prototype.nw;
+    /** @type {?} */
+    ResizingComponent.prototype.pageWidth;
+    /** @type {?} */
+    ResizingComponent.prototype.pageHeight;
+    /** @type {?} */
+    ResizingComponent.prototype.SE;
+    /** @type {?} */
+    ResizingComponent.prototype.NE;
+    /** @type {?} */
+    ResizingComponent.prototype.SW;
+    /** @type {?} */
+    ResizingComponent.prototype.NW;
+    /** @type {?} */
+    ResizingComponent.prototype.offsetX;
+    /** @type {?} */
+    ResizingComponent.prototype.offsetY;
+    /** @type {?} */
+    ResizingComponent.prototype.offsetTop;
+    /** @type {?} */
+    ResizingComponent.prototype.offsetLeft;
+    /** @type {?} */
+    ResizingComponent.prototype.release;
+    /**
+     * @type {?}
+     * @private
+     */
+    ResizingComponent.prototype.grab;
+    /**
+     * @type {?}
+     * @private
+     */
+    ResizingComponent.prototype.oldPosition;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6282,13 +7711,46 @@ var TopTabComponent = /** @class */ (function () {
     };
     return TopTabComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TopTabComponent.prototype.id;
+    /** @type {?} */
+    TopTabComponent.prototype.icon;
+    /** @type {?} */
+    TopTabComponent.prototype.disabled;
+    /** @type {?} */
+    TopTabComponent.prototype.tooltip;
+    /** @type {?} */
+    TopTabComponent.prototype.activeTab;
+    /** @type {?} */
+    TopTabComponent.prototype.elementPosition;
+    /** @type {?} */
+    TopTabComponent.prototype.active;
+    /** @type {?} */
+    TopTabComponent.prototype.showToolTip;
+    /**
+     * @type {?}
+     * @private
+     */
+    TopTabComponent.prototype._tabActivatorService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TopTabComponent.prototype._modalService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TopTabComponent.prototype._excMessageService;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var $$8 = jquery;
+var $$9 = jquery;
 var TextMenuComponent = /** @class */ (function () {
     function TextMenuComponent(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
         var _this = this;
@@ -6366,9 +7828,9 @@ var TextMenuComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event) {
-        $$8(".gd-wrapper").off("keyup");
+        $$9(".gd-wrapper").off("keyup");
         this.outFontSize.emit($event.value);
-        $$8(".gd-wrapper").on("keyup", (/**
+        $$9(".gd-wrapper").on("keyup", (/**
          * @return {?}
          */
         function () {
@@ -6504,6 +7966,71 @@ var TextMenuComponent = /** @class */ (function () {
     };
     return TextMenuComponent;
 }());
+if (false) {
+    /** @type {?} */
+    TextMenuComponent.prototype.blur;
+    /** @type {?} */
+    TextMenuComponent.prototype.fontSize;
+    /** @type {?} */
+    TextMenuComponent.prototype.font;
+    /** @type {?} */
+    TextMenuComponent.prototype.bold;
+    /** @type {?} */
+    TextMenuComponent.prototype.italic;
+    /** @type {?} */
+    TextMenuComponent.prototype.underline;
+    /** @type {?} */
+    TextMenuComponent.prototype.color;
+    /** @type {?} */
+    TextMenuComponent.prototype.decoration;
+    /** @type {?} */
+    TextMenuComponent.prototype.showTooltips;
+    /** @type {?} */
+    TextMenuComponent.prototype.outFontSize;
+    /** @type {?} */
+    TextMenuComponent.prototype.outFont;
+    /** @type {?} */
+    TextMenuComponent.prototype.outBold;
+    /** @type {?} */
+    TextMenuComponent.prototype.outItalic;
+    /** @type {?} */
+    TextMenuComponent.prototype.outUnderline;
+    /** @type {?} */
+    TextMenuComponent.prototype.outColor;
+    /** @type {?} */
+    TextMenuComponent.prototype.fontSizeOptions;
+    /** @type {?} */
+    TextMenuComponent.prototype.fontOptions;
+    /** @type {?} */
+    TextMenuComponent.prototype.colorPickerShow;
+    /** @type {?} */
+    TextMenuComponent.prototype.isMobile;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype._onCloseService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @protected
+     */
+    TextMenuComponent.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    TextMenuComponent.prototype.renderer;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6516,6 +8043,12 @@ var MenuType = /** @class */ (function () {
     MenuType.FOR_ANNOTATION = "annotation";
     return MenuType;
 }());
+if (false) {
+    /** @type {?} */
+    MenuType.FOR_SIGNATURE;
+    /** @type {?} */
+    MenuType.FOR_ANNOTATION;
+}
 var ContextMenuComponent = /** @class */ (function () {
     function ContextMenuComponent(_windowService, _zoomService, _elementRef, renderer) {
         var _this = this;
@@ -6733,6 +8266,52 @@ var ContextMenuComponent = /** @class */ (function () {
     };
     return ContextMenuComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ContextMenuComponent.prototype.formatting;
+    /** @type {?} */
+    ContextMenuComponent.prototype.textMenu;
+    /** @type {?} */
+    ContextMenuComponent.prototype.topPosition;
+    /** @type {?} */
+    ContextMenuComponent.prototype.lock;
+    /** @type {?} */
+    ContextMenuComponent.prototype.translation;
+    /** @type {?} */
+    ContextMenuComponent.prototype.menuType;
+    /** @type {?} */
+    ContextMenuComponent.prototype.changeFormatting;
+    /** @type {?} */
+    ContextMenuComponent.prototype.removeItem;
+    /** @type {?} */
+    ContextMenuComponent.prototype.copySign;
+    /** @type {?} */
+    ContextMenuComponent.prototype.lockOut;
+    /** @type {?} */
+    ContextMenuComponent.prototype.comment;
+    /** @type {?} */
+    ContextMenuComponent.prototype.isMobile;
+    /**
+     * @type {?}
+     * @private
+     */
+    ContextMenuComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ContextMenuComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @protected
+     */
+    ContextMenuComponent.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ContextMenuComponent.prototype.renderer;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6794,6 +8373,7 @@ var CommonComponentsModule = /** @class */ (function () {
                         UploadFileZoneComponent,
                         DndDirective,
                         ScrollableDirective,
+                        MouseWheelDirective,
                         ZoomDirective,
                         SelectComponent,
                         DisabledCursorDirective,
@@ -6840,6 +8420,7 @@ var CommonComponentsModule = /** @class */ (function () {
                         SanitizeHtmlPipe,
                         UploadFileZoneComponent,
                         ScrollableDirective,
+                        MouseWheelDirective,
                         SelectComponent,
                         RotationDirective,
                         InitStateComponent,
@@ -6878,5 +8459,15 @@ var CommonComponentsModule = /** @class */ (function () {
     return CommonComponentsModule;
 }());
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
