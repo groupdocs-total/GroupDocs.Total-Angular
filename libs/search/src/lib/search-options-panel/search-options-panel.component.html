@@ -16,15 +16,15 @@
   <br>
 
   <div class='options-container option-indented'>
-    <gd-button [icon]="'caret-down'"
-               class='options-button'
-               (click)="decreaseFuzzySearchMistakeCount()">
-    </gd-button>
+    <button class='options-button'
+      (click)="decreaseFuzzySearchMistakeCount()">
+      <fa-icon [icon]="['fas','caret-down']" class="fa-lg"></fa-icon>
+    </button>
     {{options.FuzzySearchMistakeCount}}
-    <gd-button [icon]="'caret-up'"
-               class='options-button'
-               (click)="increaseFuzzySearchMistakeCount()">
-    </gd-button>
+    <button class='options-button'
+      (click)="increaseFuzzySearchMistakeCount()">
+      <fa-icon [icon]="['fas','caret-up']" class="fa-lg"></fa-icon>
+    </button>
     Mistake count
   </div>
 
@@ -77,15 +77,15 @@
   <br>
 
   <div class='options-container option-indented'>
-    <gd-button [icon]="'caret-down'"
-               class='options-button'
-               (click)="decreaseSpellingCorrectionMistakeCount()">
-    </gd-button>
+    <button class='options-button'
+      (click)="decreaseSpellingCorrectionMistakeCount()">
+      <fa-icon [icon]="['fas','caret-down']" class="fa-lg"></fa-icon>
+    </button>
     {{options.SpellingCorrectionMistakeCount}}
-    <gd-button [icon]="'caret-up'"
-               class='options-button'
-               (click)="increaseSpellingCorrectionMistakeCount()">
-    </gd-button>
+    <button class='options-button'
+      (click)="increaseSpellingCorrectionMistakeCount()">
+      <fa-icon [icon]="['fas','caret-up']" class="fa-lg"></fa-icon>
+    </button>
     Mistake count
   </div>
 
