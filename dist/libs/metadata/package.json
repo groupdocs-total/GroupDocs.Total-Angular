@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/metadata",
-  "version": "0.8.15",
+  "version": "0.8.18",
   "description": "Angular application that allows to display and manipulate documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {

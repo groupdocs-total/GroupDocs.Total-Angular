@@ -29,8 +29,8 @@ export declare class Rectangle {
     height: number;
 }
 export declare class PageInfo {
-    id: number;
     width: number;
     height: number;
     changes: ChangeInfo[];
+    pageNumber: number;
 }
