@@ -13,7 +13,8 @@ import {
   ErrorInterceptorService,
   ConfigService,
   LoadingMaskService,
-  LoadingMaskInterceptorService, Api
+  LoadingMaskInterceptorService, 
+  Api
 } from '@groupdocs.examples.angular/common-components';
 import {EditorConfigService} from "./editor-config.service";
 
@@ -29,7 +30,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations :[EditorAppComponent,CreateDocumentModalComponent],
+  declarations :[EditorAppComponent,
+    CreateDocumentModalComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,

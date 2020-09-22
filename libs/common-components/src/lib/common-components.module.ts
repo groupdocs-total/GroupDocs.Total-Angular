@@ -73,6 +73,7 @@ import {TopTabComponent} from './top-tab/top-tab.component';
 import {TopTabActivatorService} from "./top-tab-activator.service";
 import {TextMenuComponent} from './text-menu/text-menu.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
+import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
 
 const providers = [ConfigService,
   Api,
@@ -154,7 +155,8 @@ const providers = [ConfigService,
     ResizingComponent,
     TopTabComponent,
     TextMenuComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    ThumbnailsComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -201,7 +203,8 @@ const providers = [ConfigService,
     ResizingComponent,
     TopTabComponent,
     TextMenuComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    ThumbnailsComponent
   ],
   providers: providers
 })
