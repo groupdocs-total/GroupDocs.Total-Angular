@@ -114,6 +114,11 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     return this.searchConfig ? this.searchConfig.browse : true;
   }
 
+  private setDefaultAppState() {
+    this.appState = AppState.Default;
+    this.sidePanelVisible = false;
+  }
+
   clearSearchResult() {
     this.appState = AppState.Search;
     this.searchResult = null;
@@ -122,7 +127,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   goBack() {
     switch(this.appState) {
       case AppState.Search: {
-        this.appState = AppState.Default;
+        this.setDefaultAppState();
         break;
       }
       case AppState.SearchResult: {
@@ -131,7 +136,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
         break;
       }
       case AppState.IndexedList: {
-        this.appState = AppState.Default;
+        this.setDefaultAppState();
         break;
       }
     }
