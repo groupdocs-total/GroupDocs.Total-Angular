@@ -51,6 +51,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   fileParam: string;
   querySubscription: Subscription;
   selectedPageNumber: number;
+  runPresentation: boolean;
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -451,6 +452,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         this.showThumbnails = true;
       }
     }
+  }
+
+  startPresentation() {
+    this.runPresentation = !this.runPresentation;
   }
 
   private clearData() {
