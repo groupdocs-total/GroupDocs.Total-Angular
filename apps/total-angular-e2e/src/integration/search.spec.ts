@@ -28,17 +28,24 @@ describe('Search', () => {
       cy.route('POST','http://localhost:8080/search/loadFileTree', "@loadFileTreeDefault");
       cy.route('POST','http://localhost:8080/search/search', "@searchDefault");
     });
-  
+
     it('should see logo', () => {
       cy.visit('/search');
       cy.get('#gd-header-logo .text').should('have.text', 'search');
     });
-  
-    it('should be able to see search panel and drag and drop area', () => {
+
+    it('should be able to see drag and drop area', () => {
+      cy.visit('/search');
+      cy.wait(300);
+      cy.get('.init-state-wrapper').should('be.visible');
+    })
+
+    it('should be able to see search panel and search options panel', () => {
         cy.visit('/search');
+        cy.get('#open-search-button').click();
         cy.wait(300);
         cy.get('.gd-search-panel').should('be.visible');
-        cy.get('.init-state-wrapper').should('be.visible');
+        cy.get('.gd-search-options-panel').should('be.visible');
     })
 
     it('should open file dialog when clicked on open file icon', () => {
@@ -46,7 +53,7 @@ describe('Search', () => {
       cy.get('#tools > gd-button:nth-child(1)').click();
       cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     });
-  
+
     it('should be able to close dialog by clicking on x', () => {
       cy.visit('/search');
       cy.get('#tools > gd-button:nth-child(1)').click();
@@ -54,7 +61,7 @@ describe('Search', () => {
       cy.get('#gd-modal-content > div.gd-modal-header > div').click();
       cy.get('#gd-modal-content').should('not.exist');
     });
-  
+
     it('should be able to close dialog by clicking on backdrop', () => {
       cy.visit('/search');
       cy.get('#tools > gd-button:nth-child(1)').click();
@@ -62,7 +69,7 @@ describe('Search', () => {
       cy.get('#modalDialog').click({force:true});
       cy.get('#gd-modal-content').should('not.exist');
     });
-  
+
     it('should be able to see file dialog file entries with detail', () => {
       cy.visit('/search');
       cy.get('#tools > gd-button:nth-child(1)').click();
@@ -72,7 +79,7 @@ describe('Search', () => {
       cy.get(':nth-child(3) > .file-size').should('have.text', '11.63 KB');
       cy.get(':nth-child(3) > div.file-description > fa-icon').should('have.class', 'fa-file-word');
     });
-  
+
     it('when drag file over file dialog drop zone style changed', () => {
       cy.visit('/search');
       cy.get('#tools > gd-button:nth-child(1)').click();
@@ -87,6 +94,7 @@ describe('Search', () => {
 
     it('should send search request and show found files with found phrases', () => {
         cy.visit('/search');
+        cy.get('#open-search-button').click();
         cy.get('.gd-search-input').type('text');
         cy.get('.gd-search-btn > .button').click();
         cy.wait(300);

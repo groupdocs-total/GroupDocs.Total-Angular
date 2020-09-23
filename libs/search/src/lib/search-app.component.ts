@@ -40,7 +40,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   skipPasswordProtected: boolean;
   searchResult: SearchResult;
   fileWasDropped = false;
-  sidePanelVisible: boolean = false;
+  sidePanelVisible = false;
 
   constructor(private _searchService: SearchService,
               private _modalService: ModalService,
