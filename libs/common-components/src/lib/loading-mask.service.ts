@@ -15,6 +15,7 @@ export class LoadingMaskService {
     this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
     this.stopList.push(Api.LOAD_THUMBNAILS);
     this.stopList.push(Api.GET_FILE_STATUS);
+    this.stopList.push(Api.LOAD_PRINT);
   }
 
   onRequestStart(req: HttpRequest<any>): void {

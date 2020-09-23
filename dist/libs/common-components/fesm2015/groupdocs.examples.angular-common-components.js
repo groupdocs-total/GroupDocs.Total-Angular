@@ -3493,19 +3493,10 @@ class RenderPrintDirective {
     renderPrint(pages) {
         /** @type {?} */
         let pagesHtml = '';
-        if (this.htmlMode) {
-            for (const page of pages) {
-                pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-                    '<div class="gd-wrapper">' + page.data + '</div>' +
-                    '</div>';
-            }
-        }
-        else {
-            for (const page of pages) {
-                pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-                    '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
-                    '</div>';
-            }
+        for (const page of pages) {
+            pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
+                '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
+                '</div>';
         }
         this.openWindow(pagesHtml, pages[0].width, pages[0].height);
     }
@@ -3542,9 +3533,14 @@ class RenderPrintDirective {
         windowObject.document.writeln(cssPrint);
         windowObject.document.writeln(pagesHtml);
         windowObject.document.close();
-        windowObject.focus();
-        windowObject.print();
-        windowObject.close();
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            windowObject.focus();
+            windowObject.print();
+            windowObject.close();
+        }), 100);
     }
     /**
      * @private
@@ -5636,6 +5632,7 @@ class LoadingMaskService {
         this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
         this.stopList.push(Api.LOAD_THUMBNAILS);
         this.stopList.push(Api.GET_FILE_STATUS);
+        this.stopList.push(Api.LOAD_PRINT);
     }
     /**
      * @param {?} req

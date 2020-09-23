@@ -4114,42 +4114,23 @@ var RenderPrintDirective = /** @class */ (function () {
      * @return {?}
      */
     function (pages) {
-        var e_1, _a, e_2, _b;
+        var e_1, _a;
         /** @type {?} */
         var pagesHtml = '';
-        if (this.htmlMode) {
-            try {
-                for (var pages_1 = __values(pages), pages_1_1 = pages_1.next(); !pages_1_1.done; pages_1_1 = pages_1.next()) {
-                    var page = pages_1_1.value;
-                    pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-                        '<div class="gd-wrapper">' + page.data + '</div>' +
-                        '</div>';
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (pages_1_1 && !pages_1_1.done && (_a = pages_1.return)) _a.call(pages_1);
-                }
-                finally { if (e_1) throw e_1.error; }
+        try {
+            for (var pages_1 = __values(pages), pages_1_1 = pages_1.next(); !pages_1_1.done; pages_1_1 = pages_1.next()) {
+                var page = pages_1_1.value;
+                pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
+                    '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
+                    '</div>';
             }
         }
-        else {
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
             try {
-                for (var pages_2 = __values(pages), pages_2_1 = pages_2.next(); !pages_2_1.done; pages_2_1 = pages_2.next()) {
-                    var page = pages_2_1.value;
-                    pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-                        '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
-                        '</div>';
-                }
+                if (pages_1_1 && !pages_1_1.done && (_a = pages_1.return)) _a.call(pages_1);
             }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
-            finally {
-                try {
-                    if (pages_2_1 && !pages_2_1.done && (_b = pages_2.return)) _b.call(pages_2);
-                }
-                finally { if (e_2) throw e_2.error; }
-            }
+            finally { if (e_1) throw e_1.error; }
         }
         this.openWindow(pagesHtml, pages[0].width, pages[0].height);
     };
@@ -4193,9 +4174,14 @@ var RenderPrintDirective = /** @class */ (function () {
         windowObject.document.writeln(cssPrint);
         windowObject.document.writeln(pagesHtml);
         windowObject.document.close();
-        windowObject.focus();
-        windowObject.print();
-        windowObject.close();
+        setTimeout((/**
+         * @return {?}
+         */
+        function () {
+            windowObject.focus();
+            windowObject.print();
+            windowObject.close();
+        }), 100);
     };
     /**
      * @private
@@ -6647,6 +6633,7 @@ var LoadingMaskService = /** @class */ (function () {
         this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
         this.stopList.push(Api.LOAD_THUMBNAILS);
         this.stopList.push(Api.GET_FILE_STATUS);
+        this.stopList.push(Api.LOAD_PRINT);
     }
     /**
      * @param {?} req
