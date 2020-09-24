@@ -39,22 +39,26 @@
 
       <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
                  (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && formatIcon !== 'file-powerpoint'"></gd-button>
-      <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'play'" [tooltip]="'Run presentation'"
+      <gd-button class="thumbnails-button mobile-hide" [disabled]="formatDisabled" [icon]="'play'" [tooltip]="'Run presentation'"
                  (click)="startPresentation()" *ngIf="formatIcon === 'file-powerpoint'"></gd-button>
     </gd-top-toolbar>
   </div>
   <div class="doc-panel" *ngIf="file" #docPanel>
-    <gd-thumbnails *ngIf="showThumbnails && !ifPresentation()" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
+    <gd-thumbnails *ngIf="showThumbnails && !ifPresentation() && isDesktop" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
                    [guid]="file.guid" [mode]="htmlModeConfig" (selectedPage)="selectCurrentPage($event)"></gd-thumbnails>
-    <gd-thumbnails *ngIf="showThumbnails && ifPresentation() && !runPresentation" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
+    <gd-thumbnails *ngIf="showThumbnails && ifPresentation() && !runPresentation && isDesktop" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
                    [guid]="file.guid" [mode]="htmlModeConfig" (selectedPage)="selectCurrentPage($event)" gdScrollable></gd-thumbnails>
 
-    <gd-document class="gd-document" *ngIf="(file && formatIcon !== 'file-excel' && !runPresentation) || (formatIcon === 'file-excel' && !htmlModeConfig)" [file]="file" [mode]="htmlModeConfig" gdScrollable
+    <gd-document class="gd-document" *ngIf="(file &&
+                                            (ifExcel() && !htmlModeConfig) ||
+                                            (ifPresentation() && isDesktop && !runPresentation) ||
+                                            (!ifExcel() && !ifPresentation()))" [file]="file" [mode]="htmlModeConfig" gdScrollable
                  [preloadPageCount]="viewerConfig?.preloadPageCount" [selectedPage]="selectedPageNumber" gdRenderPrint [htmlMode]="htmlModeConfig" gdMouseWheel (mouseWheelUp)="onMouseWheelUp($event)" (mouseWheelDown)="onMouseWheelDown($event)"></gd-document>
     <gd-excel-document class="gd-document" *ngIf="file && formatIcon === 'file-excel' && htmlModeConfig" [file]="file" [mode]="htmlModeConfig" gdScrollable
                  [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-excel-document>
-    <gd-run-presentation *ngIf="file && runPresentation && ifPresentation()" class="gd-document" [ngClass]="{'new-file': newFile}" [file]="file" [mode]="true"
-                  [mode]="htmlModeConfig" [preloadPageCount]="0"></gd-run-presentation>
+    <gd-run-presentation class="gd-document" *ngIf="(file && ifPresentation() && runPresentation) ||
+                                                    (file && ifPresentation() && !isDesktop)" [ngClass]="{'new-file': newFile}" [file]="file" [mode]="htmlModeConfig"
+                 [preloadPageCount]="0"></gd-run-presentation>
   </div>
 
   <gd-init-state [icon]="'eye'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">

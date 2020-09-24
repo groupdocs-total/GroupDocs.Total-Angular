@@ -191,6 +191,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint" : false;
   }
 
+  ifExcel() {
+    return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft Excel" : false;
+  }
+
   validURL(str) {
     const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
@@ -253,6 +257,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           else {
             this.showThumbnails = false;
           }
+          this.runPresentation = false;
         }
       }
     );

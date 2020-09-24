@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import {FileDescription, FileUtil} from "@groupdocs.examples.angular/common-components";
 import {ZoomService} from "@groupdocs.examples.angular/common-components";
+import * as Hammer from 'hammerjs';
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 import * as jquery from 'jquery';
 import { NavigateService } from "@groupdocs.examples.angular/common-components";
@@ -94,6 +95,8 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.viewportHeight = this.container.offsetHeight;
     this.curWidth = this.docWidth * this.scale;
     this.curHeight = this.docHeight * this.scale;
+
+    const hammer = new Hammer(this.container);
   }
 
   ngAfterViewChecked(): void {
@@ -133,5 +136,17 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
 
   getDimensionWithUnit(value: number, pageNumber: number) {
     return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+  }
+
+  onPanLeft($event) {
+    if ($event.isFinal) {
+      this._navigateService.nextPage();
+    }
+  }
+
+  onPanRight($event) {
+    if ($event.isFinal) {
+      this._navigateService.prevPage();
+    }
   }
 }
