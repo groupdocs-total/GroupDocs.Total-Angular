@@ -121,7 +121,7 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
       start = (!start) ? timestamp : start;
 
       const time = timestamp - start;
-      let percent = Math.min(time / duration, 1);
+      const percent = Math.min(time / duration, 1);
 
       _elementRef.nativeElement.scrollTo({ left: startingX + diff * percent });
 
