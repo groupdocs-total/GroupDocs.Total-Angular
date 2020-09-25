@@ -38,9 +38,10 @@
       <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" ></gd-search>
 
       <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
-                 (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && formatIcon !== 'file-powerpoint'"></gd-button>
+                 (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && ((formatIcon !== 'file-powerpoint') ||
+                 formatIcon === 'file-powerpoint' && runPresentation)"></gd-button>
       <gd-button class="thumbnails-button mobile-hide" [disabled]="formatDisabled" [icon]="'play'" [tooltip]="'Run presentation'"
-                 (click)="startPresentation()" *ngIf="formatIcon === 'file-powerpoint'"></gd-button>
+                 (click)="startPresentation()" *ngIf="formatIcon === 'file-powerpoint' && !runPresentation"></gd-button>
     </gd-top-toolbar>
   </div>
   <div class="doc-panel" *ngIf="file" #docPanel>
@@ -57,7 +58,8 @@
     <gd-excel-document class="gd-document" *ngIf="file && formatIcon === 'file-excel' && htmlModeConfig" [file]="file" [mode]="htmlModeConfig" gdScrollable
                  [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-excel-document>
     <gd-run-presentation class="gd-document" *ngIf="(file && ifPresentation() && runPresentation) ||
-                                                    (file && ifPresentation() && !isDesktop)" [file]="file" [mode]="htmlModeConfig"
+                                                    (file && ifPresentation() && !isDesktop)" [file]="file" [currentPage]="currentPage" [mode]="htmlModeConfig"
+                                                    (selectedPage)="selectCurrentPage($event)"
                  [preloadPageCount]="0"></gd-run-presentation>
   </div>
 

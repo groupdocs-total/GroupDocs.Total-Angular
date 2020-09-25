@@ -29,7 +29,8 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
   @Input() mode: boolean;
   @Input() preloadPageCount: number;
   @Input() file: FileDescription;
-  @Output() onpan = new EventEmitter<any>();
+  @Input() currentPage: number;
+  @Output() selectedPage = new EventEmitter<number>();
   wait = false;
   zoom: number;
 
@@ -96,6 +97,11 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.curWidth = this.docWidth * this.scale;
     this.curHeight = this.docHeight * this.scale;
 
+    if (this.currentPage !== 1)
+    {
+      this.scrollTo(this.currentPage, true);
+    }
+
     const hammer = new Hammer(this.container);
   }
 
@@ -110,7 +116,9 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
   scrollTo(pageNumber: number, onRight: boolean) {
     const pagesWidth = this._elementRef.nativeElement.offsetWidth * (pageNumber - 1);
     const startingX = onRight ? pagesWidth - this._elementRef.nativeElement.offsetWidth : pagesWidth + this._elementRef.nativeElement.offsetWidth;
-    this.doScrolling(pagesWidth, startingX, 500, new Subject<any>(), this._elementRef)
+    this.doScrolling(pagesWidth, startingX, 500, new Subject<any>(), this._elementRef);
+
+    this.selectedPage.emit(pageNumber);
   }
 
   private doScrolling(elementX, startingX, duration, subject: Subject<any>, _elementRef) {

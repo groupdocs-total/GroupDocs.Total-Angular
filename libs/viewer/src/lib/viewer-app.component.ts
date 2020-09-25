@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit, Output, EventEmitter} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -112,7 +112,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.TryOpenFileByUrl(queryString);
     }
 
-    this.selectedPageNumber = 1;
+    this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
   }
 
   ngAfterViewInit() {
@@ -248,7 +248,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
             }
           }
           this._navigateService.countPages = countPages;
-          this._navigateService.currentPage = 1;
+          this._navigateService.currentPage = this.selectedPageNumber;
           this.countPages = countPages;
 
           if (this.ifPresentation()) {
@@ -445,6 +445,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
 
     if (this.viewerConfig.preloadPageCount === 0) {
+      this.runPresentation = false;
       this.showThumbnails = true;
     } else {
       if (this.file.thumbnails.filter(t => !t.data).length > 0) {
@@ -460,6 +461,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   startPresentation() {
+    this.showThumbnails = false;
     this.runPresentation = !this.runPresentation;
   }
 
@@ -498,6 +500,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   selectCurrentPage(pageNumber)
   {
     this.selectedPageNumber = pageNumber;
+    this._navigateService.currentPage = pageNumber;
   }
 
   onMouseWheelUp($event)

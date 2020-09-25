@@ -65,7 +65,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   ngOnInit() {
     if (this.ifPresentation())
     {
-      this.selectedPage = 1;
+      this.selectedPage = this._navigateService.currentPage;
     }
   }
 
