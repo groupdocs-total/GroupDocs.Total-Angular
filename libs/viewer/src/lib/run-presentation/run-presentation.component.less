@@ -35,11 +35,26 @@
   &.presentation {
     margin: 0px;
     transition: unset;
-    &.active {
+    margin: 20px;
+    width: calc(100% - 40px) !important;
+    display: flex !important;
+    justify-content: center !important;
+
+    &.vertical {
       margin: 20px;
       width: calc(100% - 40px) !important;
       display: flex !important;
       justify-content: center !important;
+
+      ::ng-deep .p1-rotate {
+        position: unset !important;
+        margin-right: -240px;
+      }
+
+      ::ng-deep gd-page {
+        height: 960pt;
+        width: 540pt;
+      }
     }
   }
 }

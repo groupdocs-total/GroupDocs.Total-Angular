@@ -9,7 +9,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import {FileDescription, FileUtil} from "@groupdocs.examples.angular/common-components";
+import {FileDescription, FileUtil, PageModel} from "@groupdocs.examples.angular/common-components";
 import {ZoomService} from "@groupdocs.examples.angular/common-components";
 import * as Hammer from 'hammerjs';
 import {WindowService} from "@groupdocs.examples.angular/common-components";
@@ -144,6 +144,10 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
 
   getDimensionWithUnit(value: number, pageNumber: number) {
     return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+  }
+
+  isVertical(page: PageModel) {
+    return page.height > page.width;
   }
 
   onPanLeft($event) {
