@@ -1,0 +1,10 @@
+<gd-modal id="{{ modalId }}" [title]="title">
+    <section id="gd-confirmation-section">
+      <div class="gd-confirmation-wrap">
+        <div>{{ text }}</div>
+        <gd-button [icon]="actionIcon" [intent]="'brand'" [iconOnly]="false" (click)="confirmClick()">
+            {{ actionText }}
+        </gd-button>
+      </div>
+    </section>
+  </gd-modal>

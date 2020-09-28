@@ -1,0 +1,9 @@
+<div title="Double click to change the name">
+    <div (dblclick)="openEditor()" *ngIf="!isEditorMode()">
+        {{ getName() }}
+    </div>
+
+    <input (clickOutside)="closeEditor()" [clickOutsideEvents]="'mousedown'"
+        [clickOutsideEnabled]="isEditorMode()" class="gd-field-editor" *ngIf="isEditorMode()" type="text"
+        [value]="getName()" (input)="setName($event.target.value)" (keyup)="keyUp($event)" />
+</div>

@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <div class="parser-wrapper wrapper">
+    <gd-tabbed-toolbars [logo]="'parser'" [icon]="'pen-square'">
+      <gd-tabs>
+        <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
+          <div class="toolbar-panel">
+            <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'"></gd-button>
+          </div>
+        </gd-tab>
+        <gd-tab [tabTitle]="'Template'" [icon]="'folder-open'" [id]="'2'">
+          <div class="toolbar-panel">
+            <app-template-name [name]="template.name" (nameChanged)="changeTemplateName($event)"></app-template-name>
+            <gd-button [icon]="'file'" [tooltip]="'New template'" (click)="createTemplate()"></gd-button>
+            <gd-button [icon]="'folder-open'" [tooltip]="'Open template'" (click)="selectTemplate()"></gd-button>
+            <gd-button [disabled]="!template.isStored()" [icon]="'trash-alt'" [tooltip]="'Delete template'"
+              (click)="deleteTemplate()"></gd-button>
+          </div>
+        </gd-tab>
+      </gd-tabs>
+    </gd-tabbed-toolbars>
+    <app-surface [template]="template"></app-surface>
+  </div>
+
+
+
+  <app-template-browser (choosed)="loadTemplate($event)"></app-template-browser>
+  <app-confirmation-modal [modalId]="'id-delete-template-modal'" [text]="'Delete template ' + template.name + '?'"
+    [title]="'Confirmation'" [actionText]="'Delete'" [actionIcon]="'trash-alt'"
+    (confirmEvent)="deleteTemplateById($event)"></app-confirmation-modal>
+</div>

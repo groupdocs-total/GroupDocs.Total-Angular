@@ -1,0 +1,24 @@
+<div (clickOutside)="deactivate()"
+    [clickOutsideEvents]="'mousedown'"
+    [clickOutsideEnabled]="isActive()"
+
+    class="gd-field" [style.left.px]="getLeft()" [style.top.px]="getTop()" [style.width.px]="getWidth()"
+    [style.height.px]="getHeight()">
+
+    <div class="gd-field-wrapper-border" (mousedown)="mouseDown($event, 'Move')" (dblclick)="activateEditMode()">
+        {{ getField().name }}         
+    </div>
+    
+    <input 
+        (clickOutside)="deactivateEditMode()"
+        [clickOutsideEvents]="'mousedown'"
+        [clickOutsideEnabled]="isEditMode()"
+        class="gd-field-editor" *ngIf="isEditMode()" type="text" 
+        [value]="getField().name" 
+        (input)="getField().name=$event.target.value"/>   
+
+    <div class="ui-resizable-handle se-resize" *ngIf="isActive()" (mousedown)="mouseDown($event, 'SE')"></div>
+    <div class="ui-resizable-handle ne-resize" *ngIf="isActive()"(mousedown)="mouseDown($event, 'NE')"></div>
+    <div class="ui-resizable-handle sw-resize" *ngIf="isActive()"(mousedown)="mouseDown($event, 'SW')"></div>
+    <div class="ui-resizable-handle nw-resize" *ngIf="isActive()"(mousedown)="mouseDown($event, 'NW')"></div>
+</div>

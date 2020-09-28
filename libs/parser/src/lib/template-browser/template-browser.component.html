@@ -1,0 +1,18 @@
+<gd-modal id="gd-browse-templates" [title]="'Open template'" (visible)="refresh($event)">
+    <div class="list-template-header">
+        <div class="header-name">Select the template:</div>
+    </div>
+
+    <section id="gd-templatebrowser-section">
+        <div id="gd-modal-templatebrowser" class="gd-modal-table">
+            <div class="list-template-body">
+                <div class="list-template-lines" *ngFor="let id of ids" (click)="choose(id);">
+                    <div class="template-description">
+                        <div class="template-name">{{id?.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</gd-modal>

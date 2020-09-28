@@ -1,0 +1,29 @@
+@import "./../../styles/variables";
+
+#gd-confirmation-section {
+  width: 375px;
+ // height: 164px;
+}
+
+.gd-confirmation-wrap {
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+  div {
+    font-size: 14px;
+    color: @silver-chalice;
+    padding-bottom: 12px;
+  }
+  gd-button {
+    align-self: flex-end;
+  }
+  ::ng-deep .button {
+    height: 37px;
+    width: 72px;
+    padding: 0px;
+    justify-content: center;
+    ::ng-deep .text {
+      font-size: 10px !important;
+    }
+  }
+}

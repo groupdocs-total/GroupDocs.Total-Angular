@@ -1,0 +1,35 @@
+@import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import "../../../common-components/src/styles/variables";
+
+.parser-wrapper {
+    z-index: 100;
+    ::ng-deep .button {
+      color: @primary  !important;
+  
+      .text {
+        padding: 0px !important;
+      }
+    }
+  
+    ::ng-deep .select {
+      color: @primary  !important;
+    }
+  }
+
+.toolbar-panel {
+    width      : 100%;
+    display    : flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.wrapper {
+  align-items: stretch;
+  height     : 100%;
+  width      : 100%;
+  position   : fixed;
+  top        : 0;
+  bottom     : 0;
+  left       : 0;
+  right      : 0;
+}

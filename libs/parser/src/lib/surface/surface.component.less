@@ -1,0 +1,36 @@
+@import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import "../../../../common-components/src/styles/variables";
+
+:host * {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  }
+  
+::ng-deep .page {
+  position: relative;
+}
+
+::ng-deep .gd-page-image {
+  width : unset;
+  height: unset;
+}
+
+::ng-deep .top-panel {
+  align-content: flex-start;
+}
+
+.doc-panel {
+  display: flex;
+  height : inherit;
+}
+
+
+.gd-document {
+  align-items: stretch;
+  width      : 100%;
+  position   : fixed;
+  top        : "calc(@{editor-nav-height})";
+  bottom     : 0;
+  left       : 0;
+  right      : 0;
+  height:~"calc(100% - @{editor-nav-height})";
+}
