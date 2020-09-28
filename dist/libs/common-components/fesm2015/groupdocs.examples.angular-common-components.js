@@ -1516,11 +1516,8 @@ class NavigateService {
         this._pagePreloadService = _pagePreloadService;
         this._currentPage = 0;
         this._countPages = 0;
-        this._navigate = new Observable((/**
-         * @param {?} observer
-         * @return {?}
-         */
-        observer => this._observer = observer));
+        this._observer = new BehaviorSubject(null);
+        this._navigate = this._observer.asObservable();
     }
     /**
      * @return {?}
@@ -1621,12 +1618,12 @@ if (false) {
      * @type {?}
      * @private
      */
-    NavigateService.prototype._navigate;
+    NavigateService.prototype._observer;
     /**
      * @type {?}
      * @private
      */
-    NavigateService.prototype._observer;
+    NavigateService.prototype._navigate;
     /**
      * @type {?}
      * @private
@@ -1678,6 +1675,13 @@ class DocumentComponent {
             this.zoom = val;
         }));
         this.isDesktop = _windowService.isDesktop();
+        this._navigateService.navigate.subscribe((((/**
+         * @param {?} value
+         * @return {?}
+         */
+        value => {
+            this.selectedPage = value;
+        }))));
     }
     /**
      * @return {?}

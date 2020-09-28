@@ -60,6 +60,11 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     });
 
     this.isDesktop = _windowService.isDesktop();
+
+    this._navigateService.navigate.subscribe(((
+      value => {
+        this.selectedPage = value;
+      })));
   }
 
   ngOnInit() {

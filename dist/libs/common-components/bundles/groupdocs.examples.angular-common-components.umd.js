@@ -1985,17 +1985,11 @@
      */
     var NavigateService = /** @class */ (function () {
         function NavigateService(_pagePreloadService) {
-            var _this = this;
             this._pagePreloadService = _pagePreloadService;
             this._currentPage = 0;
             this._countPages = 0;
-            this._navigate = new rxjs.Observable((/**
-             * @param {?} observer
-             * @return {?}
-             */
-            function (observer) {
-                return _this._observer = observer;
-            }));
+            this._observer = new rxjs.BehaviorSubject(null);
+            this._navigate = this._observer.asObservable();
         }
         Object.defineProperty(NavigateService.prototype, "navigate", {
             get: /**
@@ -2125,12 +2119,12 @@
          * @type {?}
          * @private
          */
-        NavigateService.prototype._navigate;
+        NavigateService.prototype._observer;
         /**
          * @type {?}
          * @private
          */
-        NavigateService.prototype._observer;
+        NavigateService.prototype._navigate;
         /**
          * @type {?}
          * @private
@@ -2177,6 +2171,13 @@
                 _this.zoom = val;
             }));
             this.isDesktop = _windowService.isDesktop();
+            this._navigateService.navigate.subscribe((((/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                _this.selectedPage = value;
+            }))));
         }
         /**
          * @return {?}
