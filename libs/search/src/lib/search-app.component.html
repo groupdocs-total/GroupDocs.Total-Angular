@@ -20,10 +20,18 @@
         [tooltip]="'Show indexed files'"
         (click)="openIndexedList()"
         *ngIf="appState == 'Default'"></gd-button>
+      <gd-button [icon]="'book'"
+        [tooltip]="'Edit index dictionaries'"
+        (click)="selectDictionary()"
+        *ngIf="appState == 'Default'"></gd-button>
       <gd-button [icon]="'info'"
         [tooltip]="'Show index properties'"
         (click)="showIndexProperties()"
         *ngIf="appState == 'Default'"></gd-button>
+      <gd-button [icon]="'save'"
+        [tooltip]="'Save changes'"
+        (click)="pushCommand('save')"
+        *ngIf="appState == 'AlphabetDictionary'"></gd-button>
     </gd-top-toolbar>
   </div>
 
@@ -55,6 +63,12 @@
   <gd-search-result-summary [searchResult]="searchResult" *ngIf="appState == 'SearchResult'"></gd-search-result-summary>
 
   <gd-indexed-files-list [files]="indexedFiles" *ngIf="appState == 'IndexedList'"></gd-indexed-files-list>
+
+  <gd-dictionary-list *ngIf="appState == 'DictionaryList'" (dictionarySelected)="onDictionarySelected($event)"></gd-dictionary-list>
+
+  <gd-alias-dictionary *ngIf="appState == 'AliasDictionary'"></gd-alias-dictionary>
+
+  <gd-alphabet-dictionary *ngIf="appState == 'AlphabetDictionary'"></gd-alphabet-dictionary>
 
   <gd-search-browse-files-modal (urlForUpload)="upload($event)"
     [files]="files"

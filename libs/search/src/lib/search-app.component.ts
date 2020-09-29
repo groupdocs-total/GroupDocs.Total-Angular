@@ -20,6 +20,7 @@ import {
   IndexProperties,
 } from "./search-models";
 import { IndexPropertiesService } from './index-properties.service';
+import { CommandsService } from './commands.service';
 
 @Component({
   selector: 'gd-search-app',
@@ -48,6 +49,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
               configService: SearchConfigService,
               uploadFilesService: UploadFilesService,
               passwordService: PasswordService,
+              private _commandsService: CommandsService,
               private _windowService: WindowService,
               private _loadingMaskService: LoadingMaskService) {
 
@@ -119,6 +121,10 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     this.sidePanelVisible = false;
   }
 
+  pushCommand(name: string) {
+    this._commandsService.pushCommand(name);
+  }
+
   clearSearchResult() {
     this.appState = AppState.Search;
     this.searchResult = null;
@@ -139,6 +145,10 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
         this.setDefaultAppState();
         break;
       }
+      default: {
+        this.setDefaultAppState();
+        break;
+      }
     }
   }
 
@@ -149,6 +159,14 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   openIndexedList() {
     this.appState = AppState.IndexedList;
     this.loadIndexedFiles(true);
+  }
+
+  selectDictionary() {
+    this.appState = AppState.DictionaryList;
+  }
+
+  onDictionarySelected(state: AppState) {
+    this.appState = state;
   }
 
   showIndexProperties() {

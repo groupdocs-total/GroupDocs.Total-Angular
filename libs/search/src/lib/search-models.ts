@@ -45,8 +45,30 @@ export class IndexProperties {
   IndexedFiles: number;
 }
 
+export class AlphabetCharacter {
+  Character: number;
+  Type: number;
+}
+
+export class AlphabetCharacterEx {
+  Id: number;
+  Character: string;
+  Code: string;
+  Type: string;
+}
+
+export class AlphabetReadResponse {
+  Characters: AlphabetCharacter[];
+}
+
+export class AlphabetUpdateRequest {
+  Characters: AlphabetCharacter[];
+}
+
 export class SearchApi {
   public static GET_INDEX_PROPERTIES = '/getIndexProperties';
+  public static GET_ALPHABET_DICTIONARY = '/getAlphabetDictionary';
+  public static SAVE_ALPHABET_DICTIONARY = '/saveAlphabetDictionary';
 }
 
 export enum FileIndexingStatus {
@@ -57,9 +79,25 @@ export enum FileIndexingStatus {
   PasswordRequired = "PasswordRequired"
 }
 
+export enum CharacterType {
+  Separator = 1,
+  Letter = 2,
+  Blended = 3,
+  SeparateWord = 4,
+}
+
 export enum AppState {
   Default = "Default",
   Search = "Search",
   SearchResult = "SearchResult",
   IndexedList = "IndexedList",
+  DictionaryList = "DictionaryList",
+  AliasDictionary = "AliasDictionary",
+  StopWordDictionary = "StopWordDictionary",
+  SynonymDictionary = "SynonymDictionary",
+  PasswordDictionary = "PasswordDictionary",
+  SpellingCorrectorDictionary = "SpellingCorrectorDictionary",
+  HomophoneDictionary = "HomophoneDictionary",
+  AlphabetDictionary = "AlphabetDictionary",
+  CharacterReplacementDictionary = "CharacterReplacementDictionary",
 }

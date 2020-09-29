@@ -1,0 +1,40 @@
+<div id="character-list">
+  <div id="character-descriptor" *ngFor="let pair of alphabet.page">
+    <span class="id">{{pair.Id}}</span>
+    <span class="code">{{pair.Code}}</span>
+    <span class="character">{{pair.Character}}</span>
+    <button class='change-type-button'
+      [ngClass]="{'separator' : pair.Type=='Separator', 'letter': pair.Type=='Letter', 'blended': pair.Type=='Blended', 'separate-word': pair.Type=='SeparateWord'}"
+      tabindex="-1"
+      (click)="changeType(pair.Id)">
+      <span class="type">{{pair.Type}}</span>
+    </button>
+  </div>
+</div>
+<div id="bottom-toolbar">
+  <button class="navigate-button"
+    (click)="firstPage()">
+    <fa-icon [icon]="['fas','step-backward']" class="fa-4x"></fa-icon>
+  </button>
+  <button class="navigate-button"
+    (click)="backward()">
+    <fa-icon [icon]="['fas','backward']" class="fa-5x"></fa-icon>
+  </button>
+  <button class="navigate-button"
+    (click)="previousPage()">
+    <fa-icon [icon]="['fas','caret-left']" class="fa-6x"></fa-icon>
+  </button>
+  <span id="page-index-label">{{alphabet.pageIndex}}</span>
+  <button class='navigate-button'
+    (click)="nextPage()">
+    <fa-icon [icon]="['fas','caret-right']" class="fa-6x"></fa-icon>
+  </button>
+  <button class="navigate-button"
+    (click)="forward()">
+    <fa-icon [icon]="['fas','forward']" class="fa-5x"></fa-icon>
+  </button>
+  <button class="navigate-button"
+    (click)="lastPage()">
+    <fa-icon [icon]="['fas','step-forward']" class="fa-4x"></fa-icon>
+  </button>
+</div>

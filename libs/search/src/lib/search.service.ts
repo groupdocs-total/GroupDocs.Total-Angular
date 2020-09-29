@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { IndexedFileModel, SearchApi } from './search-models';
+import { AlphabetUpdateRequest, IndexedFileModel, SearchApi } from './search-models';
 import { SearchOptionsService } from './search-options.service';
 import { IndexPropertiesService } from './index-properties.service';
 
@@ -76,5 +76,15 @@ export class SearchService {
   getIndexProperties() {
     const url = this._config.getSearchApiEndpoint() + SearchApi.GET_INDEX_PROPERTIES;
     return this._http.post(url, Api.httpOptionsJson);
+  }
+
+  getAlphabetDictionary() {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_ALPHABET_DICTIONARY;
+    return this._http.post(url, Api.httpOptionsJson);
+  }
+
+  saveAlphabetDictionary(data: AlphabetUpdateRequest) {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.SAVE_ALPHABET_DICTIONARY;
+    return this._http.post(url, data, Api.httpOptionsJson);
   }
 }

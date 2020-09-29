@@ -22,6 +22,11 @@ import {SearchOptionsPanelComponent} from './search-options-panel/search-options
 import {SearchOptionsService} from './search-options.service';
 import {IndexPropertiesService} from './index-properties.service';
 import { IndexPropertiesPanelComponent } from './index-properties-panel/index-properties-panel.component';
+import { DictionaryListComponent } from './dictionary-list/dictionary-list.component';
+import { AliasDictionaryComponent } from './alias-dictionary/alias-dictionary.component';
+import { AlphabetDictionaryComponent } from './alphabet-dictionary/alphabet-dictionary.component';
+import { AlphabetDictionaryService } from './alphabet-dictionary.service';
+import { CommandsService } from './commands.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -44,7 +49,10 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     IndexedFileComponent,
     SearchBrowseFilesModalComponent,
     SearchOptionsPanelComponent,
-    IndexPropertiesPanelComponent
+    IndexPropertiesPanelComponent,
+    DictionaryListComponent,
+    AliasDictionaryComponent,
+    AlphabetDictionaryComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +74,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SearchService,
     SearchOptionsService,
     IndexPropertiesService,
+    AlphabetDictionaryService,
+    CommandsService,
     ConfigService,
     SearchConfigService,
     {

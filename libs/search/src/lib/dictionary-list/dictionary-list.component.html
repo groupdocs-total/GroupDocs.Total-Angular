@@ -1,0 +1,29 @@
+<div id="dictionary-list-wrapper">
+  <h3>Select a dictionary to edit:</h3>
+  <div id="dictionary-list">
+    <button disabled (click)="selectDictionary('AliasDictionary')">
+      <fa-icon [icon]="['fas','book']" class="fa-lg"></fa-icon>
+      Alias dictionary</button>
+    <button disabled (click)="selectDictionary('StopWordDictionary')">
+      <fa-icon [icon]="['fas','book']" class="fa-lg"></fa-icon>
+      Stop word dictionary</button>
+    <button disabled (click)="selectDictionary('SynonymDictionary')">
+      <fa-icon [icon]="['fas','book']" class="fa-lg"></fa-icon>
+      Synonym dictionary</button>
+    <button disabled (click)="selectDictionary('PasswordDictionary')">
+      <fa-icon [icon]="['fas','book']" class="fa-lg"></fa-icon>
+      Password dictionary</button>
+    <button disabled (click)="selectDictionary('SpellingCorrectorDictionary')">
+      <fa-icon [icon]="['fas','book']" class="fa-lg"></fa-icon>
+      Spelling corrector dictionary</button>
+    <button disabled (click)="selectDictionary('HomophoneDictionary')">
+      <fa-icon [icon]="['fas','book']" class="fa-lg"></fa-icon>
+      Homophone dictionary</button>
+    <button (click)="selectDictionary('AlphabetDictionary')">
+      <fa-icon [icon]="['fas','book']" class="fa-lg"></fa-icon>
+      Alphabet dictionary</button>
+    <button disabled (click)="selectDictionary('CharacterReplacementDictionary')">
+      <fa-icon [icon]="['fas','book']" class="fa-lg"></fa-icon>
+      Character replacement dictionary</button>
+  </div>
+</div>
