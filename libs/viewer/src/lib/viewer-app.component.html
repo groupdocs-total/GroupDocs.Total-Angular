@@ -7,11 +7,11 @@
                  *ngIf="browseConfig" ></gd-button>
 
       <gd-select class="mobile-hide" [disabled]="formatDisabled" [options]="options" (selected)="selectZoom($event)"
-                 [showSelected]="{ name: zoom+'%', value : zoom}" *ngIf="zoomConfig" ></gd-select>
+                 [showSelected]="{ name: zoom+'%', value : zoom}" *ngIf="zoomConfig && !runPresentation" ></gd-select>
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"
-                 *ngIf="zoomConfig" ></gd-button>
+                 *ngIf="zoomConfig && !runPresentation" ></gd-button>
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
-                 (click)="zoomOut()" *ngIf="zoomConfig" ></gd-button>
+                 (click)="zoomOut()" *ngIf="zoomConfig && !runPresentation" ></gd-button>
 
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-double-left'" [tooltip]="'First Page'"
                  (click)="toFirstPage()" *ngIf="pageSelectorConfig && formatIcon !== 'file-excel'" ></gd-button>
@@ -24,9 +24,9 @@
                  (click)="toLastPage()" *ngIf="pageSelectorConfig && formatIcon !== 'file-excel'" ></gd-button>
 
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'undo'" [tooltip]="'Rotate CCW'" (click)="rotate(-90)"
-                 *ngIf="rotateConfig && formatIcon !== 'file-excel'" ></gd-button>
+                 *ngIf="rotateConfig && formatIcon !== 'file-excel' && !runPresentation" ></gd-button>
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Rotate CW'" (click)="rotate(90)"
-                 *ngIf="rotateConfig && formatIcon !== 'file-excel'" ></gd-button>
+                 *ngIf="rotateConfig && formatIcon !== 'file-excel' && !runPresentation" ></gd-button>
 
       <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                  (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
@@ -34,7 +34,7 @@
                  *ngIf="printConfig" ></gd-button>
 
       <gd-button [disabled]="formatDisabled" [icon]="'search'" [tooltip]="'Search'" (click)="openSearch()"
-                 *ngIf="searchConfig" ></gd-button>
+                 *ngIf="searchConfig && !ifPresentation() && !runPresentation" ></gd-button>
       <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" ></gd-search>
 
       <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
