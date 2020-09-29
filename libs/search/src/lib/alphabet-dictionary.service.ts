@@ -4,10 +4,11 @@ import { SearchService } from './search.service';
 
 @Injectable()
 export class AlphabetDictionaryService {
-  longStep = 1 << 4;
+  totalCount = 65536;
+  longStep = 16;
   alphabet: AlphabetCharacterEx[];
-  pageCapacity = 1 << 8;
-  pageCount = 1 << 8;
+  pageCapacity = 256;
+  pageCount = 256;
   pageIndex = 0;
   page: AlphabetCharacterEx[];
 
@@ -17,26 +18,25 @@ export class AlphabetDictionaryService {
   init() {
     this._searchService.getAlphabetDictionary().subscribe((result: AlphabetReadResponse) => {
 
-      this.alphabet = new Array(1 << 16);
+      this.alphabet = new Array(this.totalCount);
       for (let i = 0; i < result.Characters.length; i++) {
-        let ac = result.Characters[i];
+        const ac = result.Characters[i];
         this.create(ac.Character, ac.Type, this.alphabet);
       }
 
       let start = -1;
       for (let i = 0; i < result.Characters.length; i++) {
-        let ac = result.Characters[i];
-        let end = ac.Character;
+        const ac = result.Characters[i];
+        const end = ac.Character;
         for (let j = start + 1; j < end; j++) {
           this.create(j, CharacterType.Separator, this.alphabet);
         }
         start = end;
       }
-      const absoluteEnd = 2 << 16;
+      const absoluteEnd = this.totalCount;
       for (let j = start + 1; j < absoluteEnd; j++) {
         this.create(j, CharacterType.Separator, this.alphabet);
       }
-      result.Characters;
 
       this.pageIndex = 0;
 
@@ -51,17 +51,17 @@ export class AlphabetDictionaryService {
   save() {
     let count = 0;
     for (let i = 0; i < this.alphabet.length; i++) {
-      if (this.alphabet[i].Type != "Separator") {
+      if (this.alphabet[i].Type !== "Separator") {
         count++;
       }
     }
-    let request = new AlphabetUpdateRequest();
+    const request = new AlphabetUpdateRequest();
     request.Characters = new Array(count);
     let index = 0;
     for (let i = 0; i < this.alphabet.length; i++) {
-      let ace = this.alphabet[i];
-      if (ace.Type != "Separator") {
-        let ac = new AlphabetCharacter();
+      const ace = this.alphabet[i];
+      if (ace.Type !== "Separator") {
+        const ac = new AlphabetCharacter();
         ac.Character = ace.Id;
         ac.Type = CharacterType[ace.Type];
         request.Characters[index] = ac;
@@ -118,28 +118,28 @@ export class AlphabetDictionaryService {
 
   changeType(code: number) {
     const ace = this.alphabet[code];
-    let oldType = CharacterType[ace.Type];
-    let newType = this.getNextType(oldType);
+    const oldType = CharacterType[ace.Type];
+    const newType = this.getNextType(oldType);
     this.alphabet[code].Type = CharacterType[newType];
     this.populatePage();
   }
 
   private getNextType(type: CharacterType): CharacterType {
-    if (type == CharacterType.SeparateWord) {
+    if (type === CharacterType.SeparateWord) {
       return CharacterType.Separator;
     }
     return type + 1;
   }
 
   private populatePage() {
-    let baseIndex = this.pageIndex * this.pageCapacity;
+    const baseIndex = this.pageIndex * this.pageCapacity;
     for (let i = 0; i < this.page.length; i++) {
       this.page[i] = this.alphabet[i + baseIndex];
     }
   }
 
   private create(code: number, type: CharacterType, alphabet: AlphabetCharacterEx[]) {
-    let ace = new AlphabetCharacterEx();
+    const ace = new AlphabetCharacterEx();
     ace.Id = code;
     ace.Character = String.fromCharCode(code);
     ace.Code = code.toString(16).toUpperCase().padStart(4, "0");

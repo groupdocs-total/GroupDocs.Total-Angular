@@ -17,7 +17,7 @@ export class DictionaryListComponent implements OnInit {
 
   selectDictionary(name: string) {
     const state = AppState[name];
-    if (state == AppState.AlphabetDictionary) {
+    if (state === AppState.AlphabetDictionary) {
       this._alphabet.init();
     }
     this.dictionarySelected.emit(state);

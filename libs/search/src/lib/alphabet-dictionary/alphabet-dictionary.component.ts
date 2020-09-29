@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlphabetDictionaryService } from '../alphabet-dictionary.service';
 import { CommandsService } from '../commands.service';
 
@@ -7,7 +7,7 @@ import { CommandsService } from '../commands.service';
   templateUrl: './alphabet-dictionary.component.html',
   styleUrls: ['./alphabet-dictionary.component.less']
 })
-export class AlphabetDictionaryComponent implements OnInit {
+export class AlphabetDictionaryComponent implements OnInit, OnDestroy {
   subscription: any;
 
   constructor(public alphabet: AlphabetDictionaryService,
@@ -17,7 +17,7 @@ export class AlphabetDictionaryComponent implements OnInit {
   ngOnInit() {
     this.subscription = this._commandsService.getEventEmitter()
       .subscribe((name: string) => {
-        if (name == "save") {
+        if (name === "save") {
           this.alphabet.save();
         }
       });
