@@ -397,6 +397,12 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
     if (this.saveRotateStateConfig && this.file) {
       this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((page: PageModel) => {
+        const updatedData = page.data.replace(/>\s+</g,'><')
+          .replace(/\uFEFF/g,"")
+          .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+          .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+          .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+        page.data = updatedData;
         this.file.pages[pageNumber - 1] = page;
 
         if (this.file && this.file.pages && pageModel) {
