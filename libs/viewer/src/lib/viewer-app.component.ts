@@ -468,6 +468,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   startPresentation() {
     this.showThumbnails = false;
+    this.refreshZoom();
     this.runPresentation = !this.runPresentation;
   }
 
