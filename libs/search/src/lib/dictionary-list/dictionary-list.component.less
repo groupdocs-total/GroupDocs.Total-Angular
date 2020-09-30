@@ -1,19 +1,52 @@
-#dictionary-list-wrapper h3 {
-  margin: 10px 15px 8px 15px;
+.dictionary-list-wrapper {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
-#dictionary-list {
+.dictionary-list-label {
+  padding: 15px;
+  font-size: 16px;
+  background-color: lightgrey;
+}
+.dictionary-list {
+  display: flex;
+  flex: 1 1 80px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+  overflow: auto;
+}
+.dictionary-list-item {
+  outline: none;
+  font-size: 16px;
+  border: none;
+  background: none;
+  margin: 4px 20px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.dictionary-list-item:hover {
+  cursor: pointer;
+}
+.dictionary-icon {
+  margin: 10px;
+  font-size: 40px;
+}
+.dictionary-caption {
+  font-size: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-  padding: 0 10px;
+  align-items: flex-start;
 }
-#dictionary-list button {
-  font-size: 16px;
-  border: none;
-  border-radius: 10px;
-  background-color: #bdf;
-  margin: 5px;
-  width: 300px;
-  flex: 1 1 50px;
+.dictionary-name-label {
+  font-size: 20px;
+}
+.dictionary-word-label {
+  font-size: 20px;
 }
