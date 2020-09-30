@@ -232,7 +232,7 @@ export class StampModalComponent implements OnInit, OnDestroy {
   }
 
   getHeight() {
-    return this.isMobile ? this._windowService.getHeight() : 501;
+    return this.isMobile ? this._windowService.getHeight() - 180 : 501;
   }
 
   deleteText() {
