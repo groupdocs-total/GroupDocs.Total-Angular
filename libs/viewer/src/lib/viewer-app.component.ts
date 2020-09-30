@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit, Output, EventEmitter} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit, Output, EventEmitter, HostListener} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -52,6 +52,26 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   querySubscription: Subscription;
   selectedPageNumber: number;
   runPresentation: boolean;
+  isFullScreen: boolean;
+
+  docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
+    mozRequestFullScreen(): Promise<void>;
+    webkitRequestFullscreen(): Promise<void>;
+    msRequestFullscreen(): Promise<void>;
+  };
+  
+  docWithBrowsersExitFunctions = document as Document & {
+    mozCancelFullScreen(): Promise<void>;
+    webkitExitFullscreen(): Promise<void>;
+    msExitFullscreen(): Promise<void>;
+  };
+
+  @HostListener("document:fullscreenchange", [])
+  fullScreen() {
+    if (!document.fullscreenElement) {
+      this.closeFullScreen();
+    }
+  }
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
@@ -97,7 +117,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.isDesktop = _windowService.isDesktop();
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
-      this.refreshZoom();
+      if (!this.runPresentation) {
+        this.refreshZoom();
+      }
     });
   }
 
@@ -203,6 +225,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
       '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
     return !!pattern.test(str);
+  }
+
+  getFileName() {
+    return this.file.guid.replace(/^.*[\\\/]/, '');
   }
 
   openModal(id: string) {
@@ -468,8 +494,50 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   startPresentation() {
     this.showThumbnails = false;
-    this.refreshZoom();
+    this.openFullScreen();
+    this._zoomService.changeZoom(130);
     this.runPresentation = !this.runPresentation;
+  }
+
+  openFullScreen() {
+    const docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
+      mozRequestFullScreen(): Promise<void>;
+      webkitRequestFullscreen(): Promise<void>;
+      msRequestFullscreen(): Promise<void>;
+    };
+  
+    if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
+      docElmWithBrowsersFullScreenFunctions.requestFullscreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) { /* Firefox */
+      docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.msRequestFullscreen) { /* IE/Edge */
+      docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
+    }
+    this.isFullScreen = true;
+  }
+  
+  closeFullScreen(byButton: boolean = false){
+    if (byButton) {
+      const docWithBrowsersExitFunctions = document as Document & {
+        mozCancelFullScreen(): Promise<void>;
+        webkitExitFullscreen(): Promise<void>;
+        msExitFullscreen(): Promise<void>;
+      };
+      if (docWithBrowsersExitFunctions.exitFullscreen) {
+        docWithBrowsersExitFunctions.exitFullscreen();
+      } else if (docWithBrowsersExitFunctions.mozCancelFullScreen) { /* Firefox */
+        docWithBrowsersExitFunctions.mozCancelFullScreen();
+      } else if (docWithBrowsersExitFunctions.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+        docWithBrowsersExitFunctions.webkitExitFullscreen();
+      } else if (docWithBrowsersExitFunctions.msExitFullscreen) { /* IE/Edge */
+        docWithBrowsersExitFunctions.msExitFullscreen();
+      }
+    }
+    this.isFullScreen = false;
+    this.runPresentation = false;
+    this.showThumbnails = true;
   }
 
   private clearData() {

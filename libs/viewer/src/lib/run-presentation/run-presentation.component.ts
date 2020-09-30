@@ -75,8 +75,6 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
   }
 
   ngOnChanges() {
-    const panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
-    (panzoom as any).style.transform = '';
   }
 
   ngAfterViewInit() {
