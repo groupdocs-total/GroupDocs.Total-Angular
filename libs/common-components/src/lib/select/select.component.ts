@@ -19,6 +19,7 @@ export class SelectComponent {
   @Input() showSelected: Option;
   @Output() selected: EventEmitter<any> = new EventEmitter();
   @Input() isOpen = false;
+  @Input() icon: string;
 
   constructor(protected _onCloseService: OnCloseService) {
     _onCloseService.onClose.subscribe(() => {

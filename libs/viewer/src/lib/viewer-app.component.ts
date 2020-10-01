@@ -19,6 +19,7 @@ import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
 import { Constants } from './viewer.constants';
+import { IntervalTimer } from './interval-timer';
 //import * as Hammer from 'hammerjs';
 
 @Component({
@@ -44,7 +45,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   _pageWidth: number;
   _pageHeight: number;
   options;
-  //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
+  timerOptions;
+  intervalTime: number;
+  intervalTimer: IntervalTimer;
   fileWasDropped = false;
   formatIcon: string;
 
@@ -247,6 +250,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
             this._pageHeight = file.pages[0].height;
             this._pageWidth = file.pages[0].width;
             this.options = this.zoomOptions();
+            this.timerOptions = this.getTimerOptions();
             this.refreshZoom();
           }
           const preloadPageCount = !this.ifPresentation() ? this.viewerConfig.preloadPageCount 
@@ -319,6 +323,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   nextPage() {
     if (this.formatDisabled)
       return;
+    if (this._navigateService.currentPage + 1 > this.file.pages.length) {
+      this.intervalTimer.stop();
+    }
     this._navigateService.nextPage();
   }
 
@@ -402,6 +409,46 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     const width = this.getFitToWidth();
     const height = this.getFitToHeight();
     return this._zoomService.zoomOptions(width, height);
+  }
+
+  getTimerOptions() {
+    return [{value: 0, name: 'None', separator: false},
+      {value: 5, name: '5 sec', separator: false},
+      {value: 10, name: '10 sec', separator: false},
+      {value: 15, name: '15 sec', separator: false},
+      {value: 30, name: '30 sec', separator: false}];
+  }
+
+  toggleTimer($event){
+    this.intervalTime = $event.value;
+    if (this.intervalTime !== 0) {
+      this.startInterval(this.intervalTime);
+    }
+  }
+
+  private startInterval(intervalTime: number) {
+    this.intervalTimer = new IntervalTimer(() => this.nextPage(), intervalTime * 1000);
+  }
+
+  private resetInterval() {
+    this.intervalTimer.stop();
+    this.startInterval(this.intervalTime);
+  }
+
+  pausePresenting() {
+    this.intervalTimer.pause();
+  }
+
+  resumePresenting() {
+    this.intervalTimer.resume();
+  }
+
+  presentationRunning() {
+    return this.intervalTimer && this.intervalTimer.state === 1;
+  }
+
+  presentationPaused() {
+    return this.intervalTimer && this.intervalTimer.state === 2;
   }
 
   set zoom(zoom) {
@@ -542,6 +589,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.isFullScreen = false;
     this.runPresentation = false;
     this.showThumbnails = true;
+    this.intervalTimer.stop();
   }
 
   private clearData() {
@@ -572,6 +620,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   {
     this.selectedPageNumber = pageNumber;
     this._navigateService.currentPage = pageNumber;
+    if (this.runPresentation && this.intervalTime > 0) {
+      this.resetInterval();
+    }
   }
 
   onMouseWheelUp()

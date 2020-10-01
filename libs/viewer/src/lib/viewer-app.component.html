@@ -49,8 +49,12 @@
       <div class="slides-title">Viewer</div>
       <div class="slides-filename">{{getFileName()}}</div>
       <div class="slides-buttons">
-        <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'clock'" [tooltip]="'Timer'"
-        (click)="closeFullScreen(true)"></gd-button>
+        <gd-select class="mobile-hide" [disabled]="formatDisabled" [options]="timerOptions" (selected)="toggleTimer($event)"
+        [icon]="'clock'" *ngIf="zoomConfig" ></gd-select>
+        <gd-button class="mobile-hide" *ngIf="presentationRunning()" [disabled]="formatDisabled" [icon]="'pause'" [tooltip]="'Pause presenting'"
+        (click)="pausePresenting()"></gd-button>
+        <gd-button class="mobile-hide" *ngIf="presentationPaused()" [disabled]="formatDisabled" [icon]="'step-forward'" [tooltip]="'Pause presenting'"
+        (click)="resumePresenting()"></gd-button>
         <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'stop'" [tooltip]="'Stop presenting'"
         (click)="closeFullScreen(true)"></gd-button>
       </div>
