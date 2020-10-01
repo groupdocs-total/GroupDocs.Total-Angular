@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit, Output, EventEmitter, HostListener} from '@angular/core';
+import {AfterViewInit, Component, OnInit, HostListener} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -9,7 +9,6 @@ import {
   PagePreloadService,
   PageModel,
   ZoomService,
-  RotatedPage,
   RenderPrintService,
   FileUtil,
   PasswordService,
@@ -19,6 +18,7 @@ import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
+import { Constants } from './viewer.constants';
 //import * as Hammer from 'hammerjs';
 
 @Component({
@@ -115,7 +115,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     });
 
     this.isDesktop = _windowService.isDesktop();
-    _windowService.onResize.subscribe((w) => {
+    _windowService.onResize.subscribe(() => {
       this.isDesktop = _windowService.isDesktop();
       if (!this.runPresentation) {
         this.refreshZoom();
@@ -143,14 +143,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     .subscribe((loading: boolean) => this.isLoading = loading);
 
     this.refreshZoom();
-
-    // this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
-    // {
-    //   comps.toArray().forEach((item) => {
-    //     const hammer = new Hammer(item.nativeElement);
-    //     hammer.get('pinch').set({ enable: true });
-    //   });
-    // });
   }
 
   get rewriteConfig(): boolean {
@@ -250,6 +242,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         this.file = file;
         this.formatDisabled = !this.file;
         if (file) {
+          this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
           if (file.pages && file.pages[0]) {
             this._pageHeight = file.pages[0].height;
             this._pageWidth = file.pages[0].width;
@@ -384,7 +377,12 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
-    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+    const presentationThumbnails = this.ifPresentation() && !this.runPresentation;
+
+    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / (presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth 
+                                                                                                                                                      : window.innerWidth)) 
+                                                                                       : Math.round(((presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth 
+                                                                                                                             : window.innerHeight) / offsetWidth) * 100);
   }
 
   private getFitToHeight() {
@@ -392,8 +390,12 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
     const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
     const offsetHeight = pageHeight ? pageHeight : windowHeight;
-
-    return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
+    
+    if (!this.ifPresentation()) {
+      return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
+    }
+    else return Math.round((window.innerHeight - Constants.topbarWidth) * 100 / (!this.runPresentation ? offsetHeight + Constants.documentMargin*2 + Constants.scrollWidth 
+                                                                                                       : offsetHeight))
   }
 
   zoomOptions() {
@@ -495,8 +497,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   startPresentation() {
     this.showThumbnails = false;
     this.openFullScreen();
-    this._zoomService.changeZoom(130);
     this.runPresentation = !this.runPresentation;
+    setTimeout(() => {
+      this._zoomService.changeZoom(this.getFitToHeight());
+    }, 100);
   }
 
   openFullScreen() {
@@ -549,7 +553,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onRightClick($event: MouseEvent) {
+  onRightClick() {
     return this.enableRightClickConfig;
   }
 
@@ -558,14 +562,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       return;
     this.showSearch = !this.showSearch;
   }
-
-  // onPinchIn($event){
-  //   this.zoomOut();
-  // }
-
-  // onPinchOut($event){
-  //   this.zoomIn();
-  // }
 
   private refreshZoom() {
     this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
@@ -578,14 +574,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this._navigateService.currentPage = pageNumber;
   }
 
-  onMouseWheelUp($event)
+  onMouseWheelUp()
   {
     if (this.ifPresentation() && this.selectedPageNumber !== 1) {
       this.selectedPageNumber = this.selectedPageNumber - 1;
     }
   }
 
-  onMouseWheelDown($event)
+  onMouseWheelDown()
   {
     if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
       if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {

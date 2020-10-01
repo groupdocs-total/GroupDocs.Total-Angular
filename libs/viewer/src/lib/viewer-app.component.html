@@ -49,9 +49,9 @@
       <div class="slides-title">Viewer</div>
       <div class="slides-filename">{{getFileName()}}</div>
       <div class="slides-buttons">
-        <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'expand-alt'" [tooltip]="'Close fullscreen'"
-        (click)="closeFullScreen(true)"></gd-button>
         <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'clock'" [tooltip]="'Timer'"
+        (click)="closeFullScreen(true)"></gd-button>
+        <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'stop'" [tooltip]="'Stop presenting'"
         (click)="closeFullScreen(true)"></gd-button>
       </div>
     </gd-top-toolbar>

@@ -2145,7 +2145,6 @@
             this._zoomService = _zoomService;
             this._windowService = _windowService;
             this._navigateService = _navigateService;
-            this.onpan = new core.EventEmitter();
             this.wait = false;
             this.docWidth = null;
             this.docHeight = null;
@@ -2197,13 +2196,6 @@
          * @return {?}
          */
         function () {
-            /** @type {?} */
-            var panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
-            ((/** @type {?} */ (panzoom))).style.transform = '';
-            // TODO: this intersects with zooming by zoom directive, but still needed
-            // for flush previous settings before opening another file
-            //this._zoomService.changeZoom(100);
-            //this.scale = 1;
         };
         /**
          * @return {?}
@@ -2288,254 +2280,6 @@
             }
         };
         /**
-         * @param {?} el
-         * @return {?}
-         */
-        DocumentComponent.prototype.absolutePosition = /**
-         * @param {?} el
-         * @return {?}
-         */
-        function (el) {
-            /** @type {?} */
-            var x = 0;
-            /** @type {?} */
-            var y = 0;
-            while (el !== null) {
-                x += el.offsetLeft;
-                y += el.offsetTop;
-                el = el.offsetParent;
-            }
-            return { x: x, y: y };
-        };
-        ;
-        /**
-         * @param {?} pos
-         * @param {?} viewportDim
-         * @param {?} docDim
-         * @return {?}
-         */
-        DocumentComponent.prototype.restrictRawPos = /**
-         * @param {?} pos
-         * @param {?} viewportDim
-         * @param {?} docDim
-         * @return {?}
-         */
-        function (pos, viewportDim, docDim) {
-            if (pos < viewportDim / this.scale - docDim) { // too far left/up?
-                pos = viewportDim / this.scale - docDim;
-            }
-            else if (pos > 0) { // too far right/down?
-                pos = 0;
-            }
-            return pos;
-        };
-        ;
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.updateLastPos = /**
-         * @return {?}
-         */
-        function () {
-            this.lastX = this.x;
-            this.lastY = this.y;
-        };
-        ;
-        /**
-         * @param {?} deltaX
-         * @param {?} deltaY
-         * @return {?}
-         */
-        DocumentComponent.prototype.translate = /**
-         * @param {?} deltaX
-         * @param {?} deltaY
-         * @return {?}
-         */
-        function (deltaX, deltaY) {
-            // We restrict to the min of the viewport width/height or current width/height as the
-            // current width/height may be smaller than the viewport width/height
-            /** @type {?} */
-            var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
-            this.x = newX;
-            // TODO: value here and in the similar line below changes to positive to take any effect
-            this.container.scrollLeft = -Math.ceil(newX * this.scale);
-            /** @type {?} */
-            var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
-            this.y = newY;
-            this.container.scrollTop = -Math.ceil(newY * this.scale);
-            this.doc.style.transform = 'scale(' + this.scale + ')';
-        };
-        ;
-        /**
-         * @param {?} scaleBy
-         * @return {?}
-         */
-        DocumentComponent.prototype.startZoom = /**
-         * @param {?} scaleBy
-         * @return {?}
-         */
-        function (scaleBy) {
-            this.scale = this.lastScale * scaleBy;
-            this.curWidth = this.docWidth * this.scale;
-            this.curHeight = this.docHeight * this.scale;
-            // Adjust margins to make sure that we aren't out of bounds
-            this.translate(0, 0);
-        };
-        ;
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.rawCenter = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            /** @type {?} */
-            var pos = this.absolutePosition(this.container);
-            // We need to account for the scroll position
-            /** @type {?} */
-            var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-            /** @type {?} */
-            var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
-            /** @type {?} */
-            var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
-            /** @type {?} */
-            var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
-            return { x: zoomX, y: zoomY };
-        };
-        ;
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.updateLastScale = /**
-         * @return {?}
-         */
-        function () {
-            this.lastScale = this.scale;
-        };
-        ;
-        /**
-         * @param {?} scaleBy
-         * @param {?} rawZoomX
-         * @param {?} rawZoomY
-         * @param {?} doNotUpdateLast
-         * @return {?}
-         */
-        DocumentComponent.prototype.zoomAround = /**
-         * @param {?} scaleBy
-         * @param {?} rawZoomX
-         * @param {?} rawZoomY
-         * @param {?} doNotUpdateLast
-         * @return {?}
-         */
-        function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
-            // Zoom
-            this.startZoom(scaleBy);
-            // New raw center of viewport
-            /** @type {?} */
-            var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
-            /** @type {?} */
-            var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
-            // Delta
-            /** @type {?} */
-            var deltaX = (rawCenterX - rawZoomX) * this.scale;
-            /** @type {?} */
-            var deltaY = (rawCenterY - rawZoomY) * this.scale;
-            // Translate back to zoom center
-            this.translate(deltaX, deltaY);
-            if (!doNotUpdateLast) {
-                this.updateLastScale();
-                this.updateLastPos();
-            }
-        };
-        ;
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPinch = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            if (this.pinchCenter === null) {
-                this.pinchCenter = this.rawCenter($event);
-                /** @type {?} */
-                var offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
-                /** @type {?} */
-                var offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
-                this.pinchCenterOffset = { x: offsetX, y: offsetY };
-            }
-            /** @type {?} */
-            var newScale = this.scale * $event.scale;
-            /** @type {?} */
-            var zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
-            /** @type {?} */
-            var zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
-            /** @type {?} */
-            var zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
-            this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPinchEnd = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            this.updateLastScale();
-            this.updateLastPos();
-            this.pinchCenter = null;
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPan = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            // TODO: looks like native pan works better
-            // if (!this.isDesktop) {
-            //   this.translate($event.deltaX, $event.deltaY);
-            // }
-            this.onpan.emit($event);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPanEnd = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            // if (!this.isDesktop) {
-            //   this.updateLastPos();
-            // }
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onDoubleTap = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            if (!this.isDesktop) {
-                if ($event.tapCount === 2) {
-                    /** @type {?} */
-                    var c = this.rawCenter($event);
-                    this.zoomAround(2, c.x, c.y, false);
-                }
-            }
-        };
-        /**
          * @param {?} pageNumber
          * @return {?}
          */
@@ -2554,7 +2298,7 @@
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
                         styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
@@ -2569,8 +2313,7 @@
             mode: [{ type: core.Input }],
             preloadPageCount: [{ type: core.Input }],
             file: [{ type: core.Input }],
-            selectedPage: [{ type: core.Input }],
-            onpan: [{ type: core.Output }]
+            selectedPage: [{ type: core.Input }]
         };
         return DocumentComponent;
     }());
@@ -2583,8 +2326,6 @@
         DocumentComponent.prototype.file;
         /** @type {?} */
         DocumentComponent.prototype.selectedPage;
-        /** @type {?} */
-        DocumentComponent.prototype.onpan;
         /** @type {?} */
         DocumentComponent.prototype.wait;
         /** @type {?} */
@@ -2643,14 +2384,6 @@
          * @private
          */
         DocumentComponent.prototype._navigateService;
-        /* Skipping unhandled member: ;*/
-        /* Skipping unhandled member: ;*/
-        /* Skipping unhandled member: ;*/
-        /* Skipping unhandled member: ;*/
-        /* Skipping unhandled member: ;*/
-        /* Skipping unhandled member: ;*/
-        /* Skipping unhandled member: ;*/
-        /* Skipping unhandled member: ;*/
     }
 
     /**

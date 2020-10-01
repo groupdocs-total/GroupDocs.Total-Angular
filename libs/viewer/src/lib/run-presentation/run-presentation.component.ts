@@ -71,7 +71,7 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
   }
 
   ngOnInit() {
-    this.lastCurrentPage = 1;
+    this.lastCurrentPage = this._navigateService.currentPage;
   }
 
   ngOnChanges() {
