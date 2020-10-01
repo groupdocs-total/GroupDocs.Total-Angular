@@ -12,29 +12,17 @@
   </div>
 </div>
 <div class="bottom-toolbar">
-  <button class="navigate-button"
-    (click)="firstPage()">
-    <fa-icon [icon]="['fas','step-backward']" class="fa-4x"></fa-icon>
-  </button>
-  <button class="navigate-button"
-    (click)="backward()">
-    <fa-icon [icon]="['fas','backward']" class="fa-5x"></fa-icon>
-  </button>
-  <button class="navigate-button"
-    (click)="previousPage()">
-    <fa-icon [icon]="['fas','caret-left']" class="fa-6x"></fa-icon>
-  </button>
-  <div class="page-index-label">{{alphabet.pageIndex}}</div>
-  <button class='navigate-button'
-    (click)="nextPage()">
-    <fa-icon [icon]="['fas','caret-right']" class="fa-6x"></fa-icon>
-  </button>
-  <button class="navigate-button"
-    (click)="forward()">
-    <fa-icon [icon]="['fas','forward']" class="fa-5x"></fa-icon>
-  </button>
-  <button class="navigate-button"
-    (click)="lastPage()">
-    <fa-icon [icon]="['fas','step-forward']" class="fa-4x"></fa-icon>
-  </button>
+  <gd-button [icon]="'angle-double-left'"
+    [tooltip]="'Navigate backward'"
+    (click)="backward()"></gd-button>
+  <gd-button [icon]="'angle-left'"
+    [tooltip]="'Navigate previous'"
+    (click)="previousPage()"></gd-button>
+  <div class="page-index-label">{{alphabet.pageIndex + 1}}/256</div>
+  <gd-button [icon]="'angle-right'"
+    [tooltip]="'Navigate next'"
+    (click)="nextPage()"></gd-button>
+  <gd-button [icon]="'angle-double-right'"
+    [tooltip]="'Navigate forward'"
+    (click)="forward()"></gd-button>
 </div>

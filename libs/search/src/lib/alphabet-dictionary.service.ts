@@ -16,17 +16,17 @@ export class AlphabetDictionaryService {
   }
 
   init() {
-    this._searchService.getAlphabetDictionary().subscribe((result: AlphabetReadResponse) => {
+    this._searchService.getAlphabetDictionary().subscribe((response: AlphabetReadResponse) => {
 
       this.alphabet = new Array(this.totalCount);
-      for (let i = 0; i < result.Characters.length; i++) {
-        const ac = result.Characters[i];
+      for (let i = 0; i < response.Characters.length; i++) {
+        const ac = response.Characters[i];
         this.create(ac.Character, ac.Type, this.alphabet);
       }
 
       let start = -1;
-      for (let i = 0; i < result.Characters.length; i++) {
-        const ac = result.Characters[i];
+      for (let i = 0; i < response.Characters.length; i++) {
+        const ac = response.Characters[i];
         const end = ac.Character;
         for (let j = start + 1; j < end; j++) {
           this.create(j, CharacterType.Separator, this.alphabet);
@@ -69,8 +69,8 @@ export class AlphabetDictionaryService {
       }
     }
 
-    this._searchService.saveAlphabetDictionary(request).subscribe(() => {
-      console.log("Alphabet dictionary saved")
+    this._searchService.setAlphabetDictionary(request).subscribe(() => {
+      console.log("Alphabet dictionary updated")
     });
   }
 

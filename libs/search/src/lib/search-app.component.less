@@ -40,19 +40,19 @@
 }
 
 #main-container {
-  display: flex;
-  flex-direction: row-reverse;
+  display        : flex;
+  flex-direction : row-reverse;
   justify-content: flex-start;
-  align-items: stretch;
-  width: auto;
-  height: 100%;
+  align-items    : stretch;
+  width          : auto;
+  height         : 100%;
 
   gd-side-panel {
     width: 400px;
   }
 
   gd-init-state {
-    width: 100%;
+    width : 100%;
     height: auto;
   }
 }
@@ -68,6 +68,10 @@
 
 ::ng-deep .gd-side-panel-wrapper {
   width: 400px !important;
+}
+
+::ng-deep .button {
+  color: #fff !important;
 }
 
 ::ng-deep .tools {
@@ -112,22 +116,26 @@
   .mobile-hide,
 
   #main-container {
-    display: flex;
-    flex-direction: row-reverse;
+    display        : flex;
+    flex-direction : row-reverse;
     justify-content: flex-start;
-    align-items: stretch;
-    width: auto;
-    height: 100%;
-  
+    align-items    : stretch;
+    width          : auto;
+    height         : 100%;
+
     gd-side-panel {
       width: 400px;
     }
-  
+
     gd-init-state {
       display: none;
     }
   }
-  
+
+  .mobile-hide {
+    display: none;
+  }
+
   ::ng-deep .tools {
     gd-button:nth-child(1)>.icon-button {
       margin: 0px 0px 0px 10px !important;

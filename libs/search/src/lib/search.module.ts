@@ -27,6 +27,7 @@ import { AliasDictionaryComponent } from './alias-dictionary/alias-dictionary.co
 import { AlphabetDictionaryComponent } from './alphabet-dictionary/alphabet-dictionary.component';
 import { AlphabetDictionaryService } from './alphabet-dictionary.service';
 import { CommandsService } from './commands.service';
+import { StopWordDictionaryComponent } from './stop-word-dictionary/stop-word-dictionary.component';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -52,7 +53,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     IndexPropertiesPanelComponent,
     DictionaryListComponent,
     AliasDictionaryComponent,
-    AlphabetDictionaryComponent
+    AlphabetDictionaryComponent,
+    StopWordDictionaryComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,19 @@
+<div class="stop-word-list">
+  <div class="stop-word-item"
+    *ngFor="let word of dictionary.words; let i = index">
+    <span class="delete-stop-word-icon"
+      (click)="delete(i)">
+      &times;
+    </span>
+    <span class="stop-word">{{word}}</span>
+  </div>
+</div>
+<div class="bottom-toolbar">
+  <input type="text"
+    #newStopWord
+    class="toolbar-add-word-text"
+    (keyup.enter)="addWord(newStopWord.value); newStopWord.value=''">
+  <gd-button [icon]="'plus'"
+    [tooltip]="'Add stop word'"
+    (click)="addWord(newStopWord.value); newStopWord.value=''"></gd-button>
+</div>

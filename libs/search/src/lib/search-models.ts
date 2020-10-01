@@ -65,10 +65,20 @@ export class AlphabetUpdateRequest {
   Characters: AlphabetCharacter[];
 }
 
+export class StopWordsReadResponse {
+  StopWords: string[];
+}
+
+export class StopWordsUpdateRequest {
+  StopWords: string[];
+}
+
 export class SearchApi {
   public static GET_INDEX_PROPERTIES = '/getIndexProperties';
   public static GET_ALPHABET_DICTIONARY = '/getAlphabetDictionary';
-  public static SAVE_ALPHABET_DICTIONARY = '/saveAlphabetDictionary';
+  public static SET_ALPHABET_DICTIONARY = '/setAlphabetDictionary';
+  public static GET_STOP_WORD_DICTIONARY = '/getStopWordDictionary';
+  public static SET_STOP_WORD_DICTIONARY = '/setStopWordDictionary';
 }
 
 export enum FileIndexingStatus {

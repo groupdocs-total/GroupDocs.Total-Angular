@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { AlphabetUpdateRequest, IndexedFileModel, SearchApi } from './search-models';
+import { AlphabetUpdateRequest, IndexedFileModel, SearchApi, StopWordsUpdateRequest } from './search-models';
 import { SearchOptionsService } from './search-options.service';
 import { IndexPropertiesService } from './index-properties.service';
 
@@ -83,8 +83,18 @@ export class SearchService {
     return this._http.post(url, Api.httpOptionsJson);
   }
 
-  saveAlphabetDictionary(data: AlphabetUpdateRequest) {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.SAVE_ALPHABET_DICTIONARY;
+  setAlphabetDictionary(data: AlphabetUpdateRequest) {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_ALPHABET_DICTIONARY;
+    return this._http.post(url, data, Api.httpOptionsJson);
+  }
+
+  getStopWordDictionary() {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_STOP_WORD_DICTIONARY;
+    return this._http.post(url, Api.httpOptionsJson);
+  }
+
+  setStopWordDictionary(data: StopWordsUpdateRequest) {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_STOP_WORD_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 }
