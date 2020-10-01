@@ -5,7 +5,6 @@ import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
 import { WindowService } from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _viewerService;
     private _modalService;
@@ -14,7 +13,6 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _renderPrintService;
     private _windowService;
     private _loadingMaskService;
-    private route;
     title: string;
     files: FileModel[];
     file: FileDescription;
@@ -36,7 +34,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     fileParam: string;
     querySubscription: Subscription;
     selectedPageNumber: number;
-    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService, route: ActivatedRoute);
+    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
@@ -91,4 +89,5 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     selectCurrentPage(pageNumber: any): void;
     onMouseWheelUp($event: any): void;
     onMouseWheelDown($event: any): void;
+    private TryOpenFileByUrl;
 }

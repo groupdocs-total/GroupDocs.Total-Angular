@@ -1,3 +1,3 @@
-<div *ngFor="let change of changes; let i = index" data-id="{{i}}" (click)="highlightDifference(change.id,change.pageInfo.id,$event)">
+<div *ngFor="let change of changes; let i = index" data-id="{{i}}" (click)="highlightDifference(change.id,change.pageInfo.pageNumber,$event)">
   <gd-comparison-difference [change]="change"></gd-comparison-difference>
 </div>

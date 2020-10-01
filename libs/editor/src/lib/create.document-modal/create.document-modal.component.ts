@@ -36,17 +36,17 @@ export class CreateDocumentModalComponent implements OnInit {
   loadFormats() {
     this._editorService.getFormats().subscribe((formats: string[]) => {
         this.formats = this.formatOptions(formats);
-        this._format = "Docx";
+        this._format = "DOCX";
       }
     );
   }
 
   selectFormat($event: any) {
-    this._format = $event.value;
+    this._format = $event.name;
   }
 
   createFormatOption(val: string) {
-    return {value: val, name: val}
+    return {value: val, name: val.toUpperCase()}
   }
 
   formatOptions(formats) {
@@ -60,7 +60,7 @@ export class CreateDocumentModalComponent implements OnInit {
   save(name: string) {
     let fileName = "";
     if (name && name !== "") {
-      fileName = name + "." + this._format;
+      fileName = name + "." + this._format.toLowerCase();
     } else if (!this.file) {
       this._modalService.open(CommonModals.ErrorMessage);
       this._excMessageService.changeMessage("File name is empty");

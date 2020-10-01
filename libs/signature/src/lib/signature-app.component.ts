@@ -118,9 +118,11 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
 
     this.isDesktop = _windowService.isDesktop();
     _windowService.onResize.subscribe((w) => {
-      this.isDesktop = _windowService.isDesktop();
-      if (!this.isDesktop) {
-        this.refreshZoom();
+      if (!_windowService.isMobile()) {
+        this.isDesktop = _windowService.isDesktop();
+        if (!this.isDesktop) {
+          this.refreshZoom();
+        }
       }
     });
 

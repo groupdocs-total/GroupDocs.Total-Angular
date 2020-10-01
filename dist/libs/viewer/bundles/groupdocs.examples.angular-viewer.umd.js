@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@angular/router'), require('@fortawesome/angular-fontawesome')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/viewer', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@angular/router', '@fortawesome/angular-fontawesome'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.viewer = {}), global.ng.platformBrowser, global.ng.core, global.ng.common.http, global.commonComponents, global.rxjs, global.ng.router, global.angularFontawesome));
-}(this, (function (exports, platformBrowser, core, http, commonComponents, rxjs, router, angularFontawesome) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/viewer', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.viewer = {}), global.ng.platformBrowser, global.ng.core, global.ng.common.http, global.commonComponents, global.rxjs, global.angularFontawesome));
+}(this, (function (exports, platformBrowser, core, http, commonComponents, rxjs, angularFontawesome) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -521,7 +521,7 @@
      */
     //import * as Hammer from 'hammerjs';
     var ViewerAppComponent = /** @class */ (function () {
-        function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, route) {
+        function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService) {
             var _this = this;
             this._viewerService = _viewerService;
             this._modalService = _modalService;
@@ -530,7 +530,6 @@
             this._renderPrintService = _renderPrintService;
             this._windowService = _windowService;
             this._loadingMaskService = _loadingMaskService;
-            this.route = route;
             this.title = 'viewer';
             this.files = [];
             this.countPages = 0;
@@ -596,22 +595,6 @@
                 _this.isDesktop = _windowService.isDesktop();
                 _this.refreshZoom();
             }));
-            this.querySubscription = route.queryParams.subscribe((/**
-             * @param {?} queryParam
-             * @return {?}
-             */
-            function (queryParam) {
-                _this.fileParam = queryParam['file'];
-                if (_this.fileParam) {
-                    _this.isLoading = true;
-                    if (_this.validURL(_this.fileParam)) {
-                        _this.upload(_this.fileParam);
-                    }
-                    else {
-                        _this.selectFile(_this.fileParam, '', '');
-                    }
-                }
-            }));
         }
         /**
          * @return {?}
@@ -623,6 +606,11 @@
             if (this.viewerConfig.defaultDocument !== "") {
                 this.isLoading = true;
                 this.selectFile(this.viewerConfig.defaultDocument, "", "");
+            }
+            /** @type {?} */
+            var queryString = window.location.search;
+            if (queryString) {
+                this.TryOpenFileByUrl(queryString);
             }
             this.selectedPageNumber = 1;
         };
@@ -1245,14 +1233,13 @@
             var _this = this;
             if (this.formatDisabled)
                 return;
-            if (this.viewerConfig.preloadPageCount !== 0) {
+            if (this.viewerConfig.htmlMode) {
                 this._viewerService.loadPrint(this.credentials).subscribe((/**
                  * @param {?} data
                  * @return {?}
                  */
                 function (data) {
-                    _this.file.pages = data.pages;
-                    _this._renderPrintService.changePages(_this.file.pages);
+                    _this._renderPrintService.changePages(data.pages);
                 }));
             }
             else {
@@ -1419,6 +1406,30 @@
                 }
             }
         };
+        /**
+         * @private
+         * @param {?} queryString
+         * @return {?}
+         */
+        ViewerAppComponent.prototype.TryOpenFileByUrl = /**
+         * @private
+         * @param {?} queryString
+         * @return {?}
+         */
+        function (queryString) {
+            /** @type {?} */
+            var urlParams = new URLSearchParams(queryString);
+            this.fileParam = urlParams.get('file');
+            if (this.fileParam) {
+                this.isLoading = true;
+                if (this.validURL(this.fileParam)) {
+                    this.upload(this.fileParam);
+                }
+                else {
+                    this.selectFile(this.fileParam, '', '');
+                }
+            }
+        };
         ViewerAppComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-viewer',
@@ -1438,8 +1449,7 @@
             { type: commonComponents.RenderPrintService },
             { type: commonComponents.PasswordService },
             { type: commonComponents.WindowService },
-            { type: commonComponents.LoadingMaskService },
-            { type: router.ActivatedRoute }
+            { type: commonComponents.LoadingMaskService }
         ]; };
         return ViewerAppComponent;
     }());
@@ -1521,11 +1531,6 @@
          * @private
          */
         ViewerAppComponent.prototype._loadingMaskService;
-        /**
-         * @type {?}
-         * @private
-         */
-        ViewerAppComponent.prototype.route;
     }
 
     /**
@@ -2024,6 +2029,15 @@
         function () { return viewerConfigService.load(); });
         return result;
     }
+    /**
+     * @return {?}
+     */
+    function endPoint() {
+        /** @type {?} */
+        var config = new commonComponents.ConfigService();
+        config.apiEndpoint = "http://localhost:8080";
+        return config;
+    }
     // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
     // @dynamic
     /**
@@ -2073,7 +2087,10 @@
                         ],
                         providers: [
                             ViewerService,
-                            commonComponents.ConfigService,
+                            {
+                                provide: commonComponents.ConfigService,
+                                useFactory: endPoint
+                            },
                             ViewerConfigService,
                             {
                                 provide: http.HTTP_INTERCEPTORS,
@@ -2102,6 +2119,7 @@
     exports.ViewerConfigService = ViewerConfigService;
     exports.ViewerModule = ViewerModule;
     exports.ViewerService = ViewerService;
+    exports.endPoint = endPoint;
     exports.initializeApp = initializeApp;
     exports.setupLoadingInterceptor = setupLoadingInterceptor;
     exports.ɵa = ThumbnailsComponent;

@@ -27,6 +27,7 @@ export class Api {
   public static LOAD_THUMBNAILS = '/loadThumbnails';
   public static LOAD_FORMATS = '/loadFormats';
   public static SAVE_FILE = '/saveFile';
+  public static CREATE_FILE = '/createFile';
   public static COMPARE_FILES = '/compare';
   public static CONVERT_FILE = '/convert';
   public static DELETE_SIGNATURE_FILE = '/deleteSignatureFile';

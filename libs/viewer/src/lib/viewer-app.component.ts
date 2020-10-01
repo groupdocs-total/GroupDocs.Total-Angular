@@ -19,7 +19,6 @@ import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 //import * as Hammer from 'hammerjs';
 
 @Component({
@@ -63,8 +62,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _loadingMaskService: LoadingMaskService,
-              private route: ActivatedRoute) {
+              private _loadingMaskService: LoadingMaskService) {
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -100,27 +98,17 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.isDesktop = _windowService.isDesktop();
       this.refreshZoom();
     });
-
-    this.querySubscription = route.queryParams.subscribe(
-      (queryParam: any) => {
-        this.fileParam = queryParam['file'];
-        if (this.fileParam) {
-          this.isLoading = true;
-          if (this.validURL(this.fileParam)) {
-            this.upload(this.fileParam);
-          }
-          else {
-            this.selectFile(this.fileParam, '', '');
-          }
-        }
-      }
-    );
   }
 
   ngOnInit() {
     if (this.viewerConfig.defaultDocument !== ""){
       this.isLoading = true;
       this.selectFile(this.viewerConfig.defaultDocument, "", "");
+    }
+
+    const queryString = window.location.search;
+    if (queryString) {
+      this.TryOpenFileByUrl(queryString);
     }
 
     this.selectedPageNumber = 1;
@@ -432,10 +420,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   printFile() {
     if (this.formatDisabled)
       return;
-    if (this.viewerConfig.preloadPageCount !== 0) {
+    if (this.viewerConfig.htmlMode) {
       this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
-        this.file.pages = data.pages;
-        this._renderPrintService.changePages(this.file.pages);
+        this._renderPrintService.changePages(data.pages);
       });
     } else {
       this._renderPrintService.changePages(this.file.pages);
@@ -519,6 +506,21 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       }
       else {
         this.selectedPageNumber = this.selectedPageNumber + 1;
+      }
+    }
+  }
+
+  private TryOpenFileByUrl(queryString: string) {
+    const urlParams = new URLSearchParams(queryString);
+    this.fileParam = urlParams.get('file');
+
+    if (this.fileParam) {
+      this.isLoading = true;
+      if (this.validURL(this.fileParam)) {
+        this.upload(this.fileParam);
+      }
+      else {
+        this.selectFile(this.fileParam, '', '');
       }
     }
   }

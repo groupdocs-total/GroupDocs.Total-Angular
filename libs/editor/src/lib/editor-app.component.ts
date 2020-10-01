@@ -52,6 +52,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   fileWasDropped: false;
   selectFontShow = false;
   selectFontSizeShow = false;
+  newFile = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -241,11 +242,12 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   }
 
   createFile() {
+    this.newFile = true;
     this.file = new FileDescription();
     const page = new PageModel;
     page.width = 595;
     page.height = 842;
-    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body></body></html>';
+    page.data = '<!DOCTYPE HTML><html><head></head><body></body></html>';
     page.number = 1;
     page.editable = true;
     this.file.pages = [];
@@ -519,7 +521,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     if (!this.file || !this.file.pages)
       return;
       
-    this.textBackup = this.getPageWithRootTags(this.textBackup);
+    this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
 
     const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
@@ -529,9 +531,53 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     });
   }
 
-  getPageWithRootTags(data) {
+  saveNewFile(credentials: FileCredentials) {
+    if (!this.file || !this.file.pages)
+    {
+      return;
+    }
+
+    this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
+
+    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
+    this._editorService.create(saveFile).subscribe((loadFile: FileDescription) => {
+      this.loadFile(loadFile);
+      this.credentials = new FileCredentials(loadFile.guid, credentials.password);
+      this._modalService.open(CommonModals.OperationSuccess);
+      this.newFile = false;
+    });
+  }
+
+  // Returns root-tags in the HTML-markup which previously were removed by innerHTML.
+  getPageWithRootTags(data, guid) {
+    const pptFormats = ["ppt", "pptx", "pptm", "pps", "ppsx", "ppsm", "pot", "potx", "potm", "odp", "otp"];
     let resultData = "<html><head>" + data + "</body></html>";
-    resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+    
+    if (this.newFile)
+    {
+      resultData = resultData.replace('<head>', '<head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>');
+      if (pptFormats.includes(guid.split('.').pop()))
+      {
+        resultData = resultData.replace('<body>', '<body><div class="slide">');
+      }
+      else 
+      {
+        resultData = resultData.replace('<body>', '<body><div class="documentMainContent">');
+      }
+
+      resultData = resultData.replace('</body>', '</div></body>');
+    }
+    else 
+    {
+      // for Word files
+      resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+      // for Presentations files
+      resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
+      // for Excel files
+      resultData = resultData.replace('</style><table', '</style></head><body><table');
+    }
+
+    resultData = resultData.replace('<main class="documentMainContent">', '</head><body><main class="documentMainContent">');
     return resultData;
   }
 
