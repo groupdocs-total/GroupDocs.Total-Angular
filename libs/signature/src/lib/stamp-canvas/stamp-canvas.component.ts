@@ -189,7 +189,7 @@ export class StampCanvasComponent implements OnInit, AfterViewInit {
   }
 
   private calcDiff() {
-    return (this.active && !this.isMobile) ? 37 : 0;
+    return (this.active && !this.isMobile) ? 37 : this.isMobile ? -30 : 0;
   }
 
   resize($event) {
