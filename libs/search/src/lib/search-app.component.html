@@ -21,9 +21,8 @@
         (click)="openIndexedList()"
         *ngIf="appState == 'Default'"></gd-button>
       <gd-button [icon]="'book'"
-        class="mobile-hide"
         [tooltip]="'Edit index dictionaries'"
-        (click)="selectDictionary()"
+        (click)="openModal('gd-select-dictionary')"
         *ngIf="appState == 'Default'"></gd-button>
       <gd-button [icon]="'info'"
         class="mobile-hide"
@@ -66,8 +65,6 @@
 
   <gd-indexed-files-list [files]="indexedFiles" *ngIf="appState == 'IndexedList'"></gd-indexed-files-list>
 
-  <gd-dictionary-list *ngIf="appState == 'DictionaryList'" (dictionarySelected)="onDictionarySelected($event)"></gd-dictionary-list>
-
   <gd-alias-dictionary *ngIf="appState == 'AliasDictionary'"></gd-alias-dictionary>
 
   <gd-stop-word-dictionary *ngIf="appState == 'StopWordDictionary'"></gd-stop-word-dictionary>
@@ -81,6 +78,8 @@
     (selectAll)="selectAllItems($event)"
     (fileDropped)="fileDropped($event, true)"
     (filesAddedToIndex)="loadIndexedFiles($event)"></gd-search-browse-files-modal>
+
+  <gd-select-dictionary-modal (dictionarySelected)="onDictionarySelected($event)"></gd-select-dictionary-modal>
 
   <gd-error-modal></gd-error-modal>
   <gd-password-required (cancelEvent)="cancel($event)"></gd-password-required>

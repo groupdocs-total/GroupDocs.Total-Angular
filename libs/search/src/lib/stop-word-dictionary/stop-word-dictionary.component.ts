@@ -34,7 +34,7 @@ export class StopWordDictionaryComponent implements OnInit, OnDestroy {
   }
 
   addWord(newStopWord: string) {
-    let trimmed = newStopWord.trim().toLowerCase();
+    const trimmed = newStopWord.trim().toLowerCase();
     if (trimmed.length > 0 &&
       this.dictionary.words.indexOf(trimmed) < 0) {
       this.dictionary.words.push(trimmed);

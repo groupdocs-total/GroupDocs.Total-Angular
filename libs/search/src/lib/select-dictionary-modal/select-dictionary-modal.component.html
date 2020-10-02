@@ -1,0 +1,11 @@
+<gd-modal #modal id="gd-select-dictionary" [title]="'Select dictionary'">
+  <div class="dictionary-list">
+    <button class="dictionary-list-item"
+      *ngFor="let dictionary of dictionaries"
+      (click)="selectDictionary(dictionary.appState)"
+      [disabled]="dictionary.disabled">
+      <fa-icon [icon]="['fas','book']" class="dictionary-icon"></fa-icon>
+      <span class="dictionary-name-label">{{dictionary.name}} dictionary</span>
+    </button>
+  </div>
+</gd-modal>

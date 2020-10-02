@@ -22,12 +22,12 @@ import {SearchOptionsPanelComponent} from './search-options-panel/search-options
 import {SearchOptionsService} from './search-options.service';
 import {IndexPropertiesService} from './index-properties.service';
 import { IndexPropertiesPanelComponent } from './index-properties-panel/index-properties-panel.component';
-import { DictionaryListComponent } from './dictionary-list/dictionary-list.component';
 import { AliasDictionaryComponent } from './alias-dictionary/alias-dictionary.component';
 import { AlphabetDictionaryComponent } from './alphabet-dictionary/alphabet-dictionary.component';
 import { AlphabetDictionaryService } from './alphabet-dictionary.service';
 import { CommandsService } from './commands.service';
 import { StopWordDictionaryComponent } from './stop-word-dictionary/stop-word-dictionary.component';
+import { SelectDictionaryModalComponent } from './select-dictionary-modal/select-dictionary-modal.component';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -51,10 +51,10 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SearchBrowseFilesModalComponent,
     SearchOptionsPanelComponent,
     IndexPropertiesPanelComponent,
-    DictionaryListComponent,
     AliasDictionaryComponent,
     AlphabetDictionaryComponent,
-    StopWordDictionaryComponent
+    StopWordDictionaryComponent,
+    SelectDictionaryModalComponent
   ],
   imports: [
     BrowserModule,

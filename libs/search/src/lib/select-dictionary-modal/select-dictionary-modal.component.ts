@@ -1,16 +1,20 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ModalComponent } from '@groupdocs.examples.angular/common-components';
 import { AlphabetDictionaryService } from '../alphabet-dictionary.service';
 import { AppState } from '../search-models';
 import { StopWordDictionaryService } from '../stop-word-dictionary.service';
 
 @Component({
-  selector: 'gd-dictionary-list',
-  templateUrl: './dictionary-list.component.html',
-  styleUrls: ['./dictionary-list.component.less']
+  selector: 'gd-select-dictionary-modal',
+  templateUrl: './select-dictionary-modal.component.html',
+  styleUrls: ['./select-dictionary-modal.component.less']
 })
-export class DictionaryListComponent implements OnInit {
+export class SelectDictionaryModalComponent implements OnInit {
   @Output() dictionarySelected = new EventEmitter<AppState>();
   dictionaries: { appState: AppState, name: string, disabled: boolean }[];
+
+  @ViewChild('modal', {static: false})
+  modalComponent: ModalComponent;
 
   constructor(private _alphabet: AlphabetDictionaryService,
               private _stopWords: StopWordDictionaryService) {
@@ -41,6 +45,7 @@ export class DictionaryListComponent implements OnInit {
         break;
       }
     }
+    this.modalComponent.close();
     this.dictionarySelected.emit(state);
   }
 }
