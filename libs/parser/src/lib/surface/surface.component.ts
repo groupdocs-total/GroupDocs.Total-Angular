@@ -13,7 +13,7 @@ import {
   WindowService,
   ZoomService
 } from "@groupdocs.examples.angular/common-components";
-import { Point, Size, Template, TemplateField } from '../app-models';
+import { FileDescription, Point, Size, Template, TemplateField } from '../app-models';
 import { FieldComponent } from "../field/field.component";
 
 import * as jquery from 'jquery';
@@ -32,7 +32,7 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 
   addMode: boolean = false;
 
-  public file: any = null;
+  private _file: FileDescription;
 
   private _template: Template;
   private fieldAddedSubscription: Subscription;
@@ -40,6 +40,14 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 
   private lastId = -1;
   private fieldComponentRefs = new Map<TemplateField, ComponentRef<{}>>();
+
+  @Input() set file(file: FileDescription) {
+    this._file = file;
+  }
+
+  get file() {
+    return this._file;
+  }
 
   @Input() set template(template: Template) {
     this._template = template;
@@ -160,6 +168,8 @@ export class SurfaceComponent implements OnInit, OnDestroy {
     private hostingComponentsService: HostingDynamicComponentService,
     private addDynamicComponentService: AddDynamicComponentService,
     private activeFieldService: ActiveFieldService) {
+
+    return;
 
     this.file =
     {

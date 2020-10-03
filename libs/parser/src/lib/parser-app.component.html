@@ -4,7 +4,7 @@
       <gd-tabs>
         <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
           <div class="toolbar-panel">
-            <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'"></gd-button>
+            <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"></gd-button>
           </div>
         </gd-tab>
         <gd-tab [tabTitle]="'Template'" [icon]="'folder-open'" [id]="'2'">
@@ -18,10 +18,16 @@
         </gd-tab>
       </gd-tabs>
     </gd-tabbed-toolbars>
-    <app-surface [template]="template"></app-surface>
+    <app-surface [template]="template" [file]="file"></app-surface>
   </div>
 
+  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+                         (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
+                         [uploadConfig]="uploadConfig"></gd-browse-files-modal>
 
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
+  <gd-success-modal></gd-success-modal>
 
   <app-template-browser (choosed)="loadTemplate($event)"></app-template-browser>
   <app-confirmation-modal [modalId]="'id-delete-template-modal'" [text]="'Delete template ' + template.name + '?'"

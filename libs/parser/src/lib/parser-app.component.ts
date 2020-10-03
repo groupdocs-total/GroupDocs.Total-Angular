@@ -12,7 +12,9 @@ import {
   WindowService,
   ZoomService
 } from "@groupdocs.examples.angular/common-components";
-import { Template, TemplateId } from './app-models';
+import { FileDescription, Template, TemplateId } from './app-models';
+import { ParserService } from './parser.service';
+import { ParserConfig } from './parser-config';
 
 
 @Component({
@@ -22,14 +24,27 @@ import { Template, TemplateId } from './app-models';
 })
 export class ParserAppComponent implements OnInit {
   template: Template;
+  parserConfig: ParserConfig;
 
-  constructor(private _modalService: ModalService) { 
+  constructor(
+    private _modalService: ModalService,
+    private _parserService: ParserService,
+    uploadFilesService: UploadFilesService) {
 
-    //this._modalService.add("gd-browse-templates");
+    uploadFilesService.uploadsChange.subscribe((uploads) => {
+      if (uploads) {
+        let i: number;
+        for (i = 0; i < uploads.length; i++) {
+          this._parserService.upload(uploads.item(i), '', this.rewriteConfig).subscribe((obj: FileCredentials) => {
+            this.selectDir('');
+          });
+        }
+      }
+    });
   }
 
   ngOnInit(): void {
-    this.template = new Template();
+    this.createTemplate();
   }
 
   changeTemplateName(name: string) {
@@ -67,5 +82,57 @@ export class ParserAppComponent implements OnInit {
     }
   }
 
+  // File Browser
+  private _file: FileDescription;
 
+  files: FileModel[] = [];
+  credentials: FileCredentials;
+  browseFilesModal = CommonModals.BrowseFiles;
+
+  set file(file: FileDescription) {
+    this._file = file;
+    this.createTemplate();
+  }
+
+  get file() {
+    return this._file;
+  }
+
+  get uploadConfig(): boolean {
+    return this.parserConfig ? this.parserConfig.upload : true;
+  }
+
+  get browseConfig(): boolean {
+    return this.parserConfig ? this.parserConfig.browse : true;
+  }
+
+  get rewriteConfig(): boolean {
+    return this.parserConfig ? this.parserConfig.rewrite : true;
+  }
+
+  openModal(id: string) {
+    this._modalService.open(id);
+  }
+
+  upload($event: string) {
+    this._parserService.upload(null, $event, this.rewriteConfig).subscribe(() => {
+      this.selectDir('');
+    });
+  }
+
+  selectDir($event: string) {
+    this._parserService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
+  }
+
+  selectFile($event: string, password: string, modalId: string) {
+    this.credentials = new FileCredentials($event, password);
+    this.file = null;
+    this._parserService.loadFile(this.credentials).subscribe((file: FileDescription) => {
+      this.file = file;
+    }
+    );
+    if (modalId) {
+      this._modalService.close(modalId);
+    }
+  }
 }

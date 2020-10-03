@@ -1,5 +1,11 @@
 import { EventEmitter } from "events";
 import { Observable, Subject } from 'rxjs';
+import { PageModel } from "@groupdocs.examples.angular/common-components";
+
+export class FileDescription {
+  guid: string;
+  pages: PageModel[];
+}
 
 export class Point {
   readonly x: number;
