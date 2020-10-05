@@ -78,6 +78,9 @@
                                                     (selectedPage)="selectCurrentPage($event)"
                  [preloadPageCount]="0"></gd-run-presentation>
     <div class="slides-nav" *ngIf="runPresentation">
+      <div class="timer" *ngIf="showCountDown()">
+        <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon><span class="seconds-remaining">{{secondsLeft}}</span>
+      </div>
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
       (click)="prevPage()" *ngIf="pageSelectorConfig && formatIcon !== 'file-excel'" ></gd-button>
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-right'" [tooltip]="'Next Page'"

@@ -20,7 +20,6 @@ import {WindowService} from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
 import { Constants } from './viewer.constants';
 import { IntervalTimer } from './interval-timer';
-//import * as Hammer from 'hammerjs';
 
 @Component({
   selector: 'gd-viewer',
@@ -48,6 +47,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   timerOptions;
   intervalTime: number;
   intervalTimer: IntervalTimer;
+  countDownInterval: number;
+  secondsLeft: number;
   fileWasDropped = false;
   formatIcon: string;
 
@@ -323,8 +324,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   nextPage() {
     if (this.formatDisabled)
       return;
-    if (this._navigateService.currentPage + 1 > this.file.pages.length) {
+    if (this._navigateService.currentPage + 1 > this.countPages) {
       this.intervalTimer.stop();
+      this.intervalTime = 0;
     }
     this._navigateService.nextPage();
   }
@@ -422,12 +424,48 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   toggleTimer($event){
     this.intervalTime = $event.value;
     if (this.intervalTime !== 0) {
+      this.startCountDown(this.intervalTime);
       this.startInterval(this.intervalTime);
+    }
+    else{
+      this.intervalTimer.stop();
+    }
+  }
+
+  showCountDown() {
+    return this.intervalTimer && this.intervalTimer.timerId && (this._navigateService.currentPage + 1 <= this.countPages)
+  }
+
+  startCountDown(seconds: number, reset: boolean = false) {
+    clearInterval(this.countDownInterval);
+    if (seconds > 0) {
+      this.secondsLeft = seconds;
+      seconds--;
+      const interval = setInterval(() => {
+          this.secondsLeft = seconds;
+          seconds--;
+          if (seconds === 0) {
+            clearInterval(interval);
+          }
+      }, 1000);
+
+      this.countDownInterval = interval;
     }
   }
 
   private startInterval(intervalTime: number) {
-    this.intervalTimer = new IntervalTimer(() => this.nextPage(), intervalTime * 1000);
+    this.intervalTimer = new IntervalTimer(() => {
+      if (this._navigateService.currentPage + 1 <= this.countPages) {
+        this.nextPage();
+        if (this._navigateService.currentPage + 1 <= this.countPages) {
+          this.startCountDown(intervalTime);
+        }
+      }
+      else
+      {
+        this.intervalTimer.stop();
+      }
+    }, intervalTime * 1000);
   }
 
   private resetInterval() {
@@ -437,10 +475,13 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   pausePresenting() {
     this.intervalTimer.pause();
+    this.startCountDown(0, true);
   }
 
   resumePresenting() {
     this.intervalTimer.resume();
+    const secondsRemaining = Math.round(this.intervalTimer.remaining/1000);
+    this.startCountDown(secondsRemaining);
   }
 
   presentationRunning() {
@@ -620,8 +661,11 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   {
     this.selectedPageNumber = pageNumber;
     this._navigateService.currentPage = pageNumber;
-    if (this.runPresentation && this.intervalTime > 0) {
+    if (this.runPresentation && this.intervalTime > 0 && this.intervalTimer.state !== 3) {
       this.resetInterval();
+      if (this._navigateService.currentPage + 1 <= this.countPages) {
+        this.startCountDown(this.intervalTime, true);
+      }
     }
   }
 
