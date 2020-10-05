@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommandsService } from '../commands.service';
-import { StopWordDictionaryService } from '../stop-word-dictionary.service';
+import { StopWordDictionaryService, StopWordState, StopWordWrapper } from '../stop-word-dictionary.service';
 
 @Component({
   selector: 'gd-stop-word-dictionary',
@@ -28,17 +28,35 @@ export class StopWordDictionaryComponent implements OnInit, OnDestroy {
   }
 
   delete(index: number) {
-    if (index > -1) {
-      this.dictionary.words.splice(index, 1);
+    switch (this.dictionary.words[index].state) {
+      case StopWordState.Old: {
+        this.dictionary.words[index].state = StopWordState.DeletedOld;
+        break;
+      }
+      case StopWordState.DeletedOld: {
+        this.dictionary.words[index].state = StopWordState.Old;
+        break;
+      }
+      case StopWordState.New: {
+        this.dictionary.words[index].state = StopWordState.DeletedNew;
+        break;
+      }
+      case StopWordState.DeletedNew: {
+        this.dictionary.words[index].state = StopWordState.New;
+        break;
+      }
     }
   }
 
   addWord(newStopWord: string) {
     const trimmed = newStopWord.trim().toLowerCase();
     if (trimmed.length > 0 &&
-      this.dictionary.words.indexOf(trimmed) < 0) {
-      this.dictionary.words.push(trimmed);
-      this.dictionary.words.sort();
+      !this.dictionary.words.some(e => e.word === trimmed)) {
+      const sww = new StopWordWrapper();
+      sww.word = trimmed;
+      sww.state = StopWordState.New;
+      this.dictionary.words.push(sww);
+      this.dictionary.sort();
     }
   }
 }

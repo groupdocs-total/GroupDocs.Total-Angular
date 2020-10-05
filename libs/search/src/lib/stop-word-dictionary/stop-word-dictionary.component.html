@@ -5,7 +5,10 @@
       (click)="delete(i)">
       &times;
     </span>
-    <span class="stop-word">{{word}}</span>
+    <span class="stop-word"
+      [ngClass]="{'new' : word.state=='New', 'old': word.state=='Old', 'deleted-new': word.state=='DeletedNew', 'deleted-old': word.state=='DeletedOld'}">
+      {{word.word}}
+    </span>
   </div>
 </div>
 <div class="bottom-toolbar">
