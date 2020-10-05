@@ -28,8 +28,7 @@
     PropertyValueArray = 16
   }
 
-  export enum MetadataType
-  {
+  export enum MetadataType {
     Undefined = 0,
     Root = 1,
     Xmp = 2,
@@ -91,6 +90,7 @@
   export class PackageModel {
     id: string;
     name: string;
+    index: number;
     type: number;
     properties: FilePropertyModel[];
     knownProperties: KnownPropertyModel[];
@@ -106,7 +106,7 @@
     properties: FilePropertyModel[];
   }
 
-  export const PackageNames: { [id in MetadataType]? : string; } = {
+  export const PackageNameByMetadataType: { [id in MetadataType]? : string; } = {
     [MetadataType.WordProcessing]: "Document Properties",
     [MetadataType.Spreadsheet]: "Workbook Properties",
     [MetadataType.Presentation]: "Presentation Properties",
@@ -120,5 +120,15 @@
     [MetadataType.ImageResourceBlock]: "Image Resources",
     [MetadataType.MpegAudio]: "Mpeg Audio Properties",
     [MetadataType.DigitalSignature]: "Digital Signature Properties",
+  };
 
+  export const PackageNameByOriginalName: { [key: string] : string; } = {
+    "NotePage": "Page",
+    "ZipFile": "Archived File",
+    "TorrentSharedFilePackage": "Shared File",
+    "MovAtom": "Atom",
+    "CanonMakerNotePackage": "Canon Makernote",
+    "NikonMakerNotePackage": "Nikon Makernote",
+    "PanasonicMakerNotePackage": "Panasonic Makernote",
+    "SonyMakerNotePackage": "Sony Makernote",
   };

@@ -20,7 +20,7 @@ export class AccordionGroupComponent implements OnInit, AfterViewInit {
   @Input() addHidden: boolean;
   @Input() properties: FilePropertyModel[];
   @Output() removeProperty = new EventEmitter<RemovePropertyModel>();
-  knownPropertyDictionary: { [Key: string]: KnownPropertyModel };
+  knownPropertyDictionary: { [key: string]: KnownPropertyModel };
   notAddedProperties: KnownPropertyModel[];
   metadataPropertyType: typeof MetadataPropertyType
   @ViewChildren('textinput') textinput: QueryList<any>;

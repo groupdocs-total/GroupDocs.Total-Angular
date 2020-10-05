@@ -15,7 +15,7 @@ import {
 import { MetadataConfig } from "./metadata-config";
 import { MetadataConfigService } from "./metadata-config.service";
 import { WindowService } from "@groupdocs.examples.angular/common-components";
-import { RemovePropertyModel, PackageModel, PackageNames } from './metadata-models';
+import { RemovePropertyModel, PackageModel, PackageNameByMetadataType, PackageNameByOriginalName, MetadataType } from './metadata-models';
 
 @Component({
   selector: 'gd-metadata',
@@ -295,9 +295,16 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   getPackageName(packageInfo: PackageModel) {
-    if (packageInfo.type in PackageNames) {
-      return PackageNames[packageInfo.type];
+    if (packageInfo.name in PackageNameByOriginalName) {
+      if(packageInfo.index >= 0) {
+        return PackageNameByOriginalName[packageInfo.name].concat(" ", (packageInfo.index + 1).toString(10));
+      }
+      return PackageNameByOriginalName[packageInfo.name];
     }
-    return packageInfo.name;
+
+    if (packageInfo.type in PackageNameByMetadataType) {
+      return PackageNameByMetadataType[packageInfo.type];
+    }
+    return (MetadataType[packageInfo.type]).toString();
   }
 }
