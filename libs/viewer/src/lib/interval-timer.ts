@@ -35,6 +35,7 @@ export class IntervalTimer {
     };
 
     stop() {
+        this.state = 0;
         clearInterval(this.timerId);
     }
 

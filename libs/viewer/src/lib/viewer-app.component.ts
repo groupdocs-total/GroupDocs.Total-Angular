@@ -424,6 +424,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   toggleTimer($event){
     this.intervalTime = $event.value;
     if (this.intervalTime !== 0) {
+      if (this.intervalTimer && this.intervalTimer.state === 1) {
+        this.intervalTimer.stop();
+      }
       this.startCountDown(this.intervalTime);
       this.startInterval(this.intervalTime);
     }
@@ -433,7 +436,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   showCountDown() {
-    return this.intervalTimer && this.intervalTimer.timerId && (this._navigateService.currentPage + 1 <= this.countPages)
+    return this.intervalTime > 0 && (this.slideInRange())
   }
 
   startCountDown(seconds: number, reset: boolean = false) {
@@ -455,9 +458,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   private startInterval(intervalTime: number) {
     this.intervalTimer = new IntervalTimer(() => {
-      if (this._navigateService.currentPage + 1 <= this.countPages) {
+      if (this.slideInRange()) {
         this.nextPage();
-        if (this._navigateService.currentPage + 1 <= this.countPages) {
+        if (this.slideInRange()) {
           this.startCountDown(intervalTime);
         }
       }
@@ -466,6 +469,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         this.intervalTimer.stop();
       }
     }, intervalTime * 1000);
+  }
+
+  private slideInRange() {
+    return this._navigateService.currentPage + 1 <= this.countPages;
   }
 
   private resetInterval() {
@@ -631,6 +638,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.runPresentation = false;
     this.showThumbnails = true;
     this.intervalTimer.stop();
+    this.intervalTime = 0;
+    this.startCountDown(0);
   }
 
   private clearData() {
@@ -663,7 +672,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this._navigateService.currentPage = pageNumber;
     if (this.runPresentation && this.intervalTime > 0 && this.intervalTimer.state !== 3) {
       this.resetInterval();
-      if (this._navigateService.currentPage + 1 <= this.countPages) {
+      if (this.slideInRange()) {
         this.startCountDown(this.intervalTime, true);
       }
     }

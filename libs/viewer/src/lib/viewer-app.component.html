@@ -53,7 +53,7 @@
         [icon]="'clock'" *ngIf="zoomConfig" ></gd-select>
         <gd-button class="mobile-hide" *ngIf="presentationRunning()" [disabled]="formatDisabled" [icon]="'pause'" [tooltip]="'Pause presenting'"
         (click)="pausePresenting()"></gd-button>
-        <gd-button class="mobile-hide" *ngIf="presentationPaused()" [disabled]="formatDisabled" [icon]="'step-forward'" [tooltip]="'Pause presenting'"
+        <gd-button class="mobile-hide" *ngIf="presentationPaused()" [disabled]="formatDisabled" [icon]="'step-forward'" [tooltip]="'Resume presenting'"
         (click)="resumePresenting()"></gd-button>
         <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'stop'" [tooltip]="'Stop presenting'"
         (click)="closeFullScreen(true)"></gd-button>
