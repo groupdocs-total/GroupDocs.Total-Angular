@@ -131,4 +131,11 @@
     "NikonMakerNotePackage": "Nikon Makernote",
     "PanasonicMakerNotePackage": "Panasonic Makernote",
     "SonyMakerNotePackage": "Sony Makernote",
+    "MatroskaSegment": "Segment",
+    "MatroskaAudioTrack": "Track",
+    "MatroskaSubtitleTrack": "Track",
+    "MatroskaVideoTrack": "Track",
+    "MatroskaTrack": "Track",
+    "MatroskaTag": "Tag",
+    "MatroskaEbmlHeader": "Header",
   };
