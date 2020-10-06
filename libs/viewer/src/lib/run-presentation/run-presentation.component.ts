@@ -34,22 +34,8 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
   wait = false;
   zoom: number;
 
-  docWidth = null;
-  docHeight = null;
-  viewportWidth = null;
-  viewportHeight = null;
-  scale = null;
-  lastScale = null;
   container = null;
   doc = null;
-  x = 0;
-  lastX = 0;
-  y = 0;
-  lastY = 0;
-  pinchCenter = null;
-  pinchCenterOffset = null;
-  curWidth = 0;
-  curHeight = 0;
   isDesktop: boolean;
   lastCurrentPage: number;
 
@@ -82,19 +68,6 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
     // For current iteration we take .gd-document as a container
     this.container = this._elementRef.nativeElement;
-
-    this.docWidth = this.doc.clientWidth;
-    this.docHeight = this.doc.clientHeight;
-    this.viewportWidth = this.doc.offsetWidth;
-
-    // For cases where we already have zoom defined we should include it
-    this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
-
-    this.lastScale = this.scale;
-    this.viewportHeight = this.container.offsetHeight;
-    this.curWidth = this.docWidth * this.scale;
-    this.curHeight = this.docHeight * this.scale;
-
     if (this.currentPage !== 1)
     {
       this.scrollTo(this.currentPage, true);
@@ -119,9 +92,9 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.selectedPage.emit(pageNumber);
   }
 
-  private doScrolling(elementX, startingX, duration, subject: Subject<any>, _elementRef) {
+  private doScrolling(elementX: number, startingX: number, duration: number, subject: Subject<any>, _elementRef) {
     const diff = elementX - startingX;
-    let start;
+    let start : number;
 
     window.requestAnimationFrame(function step(timestamp) {
       start = (!start) ? timestamp : start;

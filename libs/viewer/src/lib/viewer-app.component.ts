@@ -386,12 +386,12 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
-    const presentationThumbnails = this.ifPresentation() && !this.runPresentation;
+    const presentationThumbnails = this.isDesktop && this.ifPresentation() && !this.runPresentation;
 
-    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / (presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth 
-                                                                                                                                                      : window.innerWidth)) 
-                                                                                       : Math.round(((presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth 
-                                                                                                                             : window.innerHeight) / offsetWidth) * 100);
+    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / (presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth : window.innerWidth))
+                                                                                       : (!this.isDesktop ? Math.round(window.innerWidth * 100 / offsetWidth) 
+                                                                                                          : Math.round(((presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth 
+                                                                                                                                                : window.innerHeight) / offsetWidth) * 100));
   }
 
   private getFitToHeight() {
@@ -419,84 +419,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       {value: 10, name: '10 sec', separator: false},
       {value: 15, name: '15 sec', separator: false},
       {value: 30, name: '30 sec', separator: false}];
-  }
-
-  toggleTimer($event){
-    this.intervalTime = $event.value;
-    if (this.intervalTime !== 0) {
-      if (this.intervalTimer && this.intervalTimer.state === 1) {
-        this.intervalTimer.stop();
-      }
-      this.startCountDown(this.intervalTime);
-      this.startInterval(this.intervalTime);
-    }
-    else{
-      this.intervalTimer.stop();
-    }
-  }
-
-  showCountDown() {
-    return this.intervalTime > 0 && (this.slideInRange())
-  }
-
-  startCountDown(seconds: number, reset: boolean = false) {
-    clearInterval(this.countDownInterval);
-    if (seconds > 0) {
-      this.secondsLeft = seconds;
-      seconds--;
-      const interval = setInterval(() => {
-          this.secondsLeft = seconds;
-          seconds--;
-          if (seconds === 0) {
-            clearInterval(interval);
-          }
-      }, 1000);
-
-      this.countDownInterval = interval;
-    }
-  }
-
-  private startInterval(intervalTime: number) {
-    this.intervalTimer = new IntervalTimer(() => {
-      if (this.slideInRange()) {
-        this.nextPage();
-        if (this.slideInRange()) {
-          this.startCountDown(intervalTime);
-        }
-      }
-      else
-      {
-        this.intervalTimer.stop();
-      }
-    }, intervalTime * 1000);
-  }
-
-  private slideInRange() {
-    return this._navigateService.currentPage + 1 <= this.countPages;
-  }
-
-  private resetInterval() {
-    this.intervalTimer.stop();
-    this.startInterval(this.intervalTime);
-  }
-
-  pausePresenting() {
-    this.intervalTimer.pause();
-    this.startCountDown(0, true);
-  }
-
-  resumePresenting() {
-    this.intervalTimer.resume();
-    const secondsRemaining = Math.round(this.intervalTimer.remaining/1000);
-    this.startCountDown(secondsRemaining);
-  }
-
-  presentationRunning() {
-    return this.intervalTimer && this.intervalTimer.state === 1;
-  }
-
-  presentationPaused() {
-    return this.intervalTimer && this.intervalTimer.state === 2;
   }
 
   set zoom(zoom) {
@@ -589,59 +511,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  startPresentation() {
-    this.showThumbnails = false;
-    this.openFullScreen();
-    this.runPresentation = !this.runPresentation;
-    setTimeout(() => {
-      this._zoomService.changeZoom(this.getFitToHeight());
-    }, 100);
-  }
-
-  openFullScreen() {
-    const docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
-      mozRequestFullScreen(): Promise<void>;
-      webkitRequestFullscreen(): Promise<void>;
-      msRequestFullscreen(): Promise<void>;
-    };
-  
-    if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
-      docElmWithBrowsersFullScreenFunctions.requestFullscreen();
-    } else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) { /* Firefox */
-      docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();
-    } else if (docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-      docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen();
-    } else if (docElmWithBrowsersFullScreenFunctions.msRequestFullscreen) { /* IE/Edge */
-      docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
-    }
-    this.isFullScreen = true;
-  }
-  
-  closeFullScreen(byButton: boolean = false){
-    if (byButton) {
-      const docWithBrowsersExitFunctions = document as Document & {
-        mozCancelFullScreen(): Promise<void>;
-        webkitExitFullscreen(): Promise<void>;
-        msExitFullscreen(): Promise<void>;
-      };
-      if (docWithBrowsersExitFunctions.exitFullscreen) {
-        docWithBrowsersExitFunctions.exitFullscreen();
-      } else if (docWithBrowsersExitFunctions.mozCancelFullScreen) { /* Firefox */
-        docWithBrowsersExitFunctions.mozCancelFullScreen();
-      } else if (docWithBrowsersExitFunctions.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-        docWithBrowsersExitFunctions.webkitExitFullscreen();
-      } else if (docWithBrowsersExitFunctions.msExitFullscreen) { /* IE/Edge */
-        docWithBrowsersExitFunctions.msExitFullscreen();
-      }
-    }
-    this.isFullScreen = false;
-    this.runPresentation = false;
-    this.showThumbnails = true;
-    this.intervalTimer.stop();
-    this.intervalTime = 0;
-    this.startCountDown(0);
-  }
-
   private clearData() {
     if (!this.file || !this.file.pages) {
       return;
@@ -662,8 +531,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   private refreshZoom() {
-    this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
-    this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+    if (this.file) {
+      this.formatIcon = FileUtil.find(this.file.guid, false).icon;
+      this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+    }
   }
 
   selectCurrentPage(pageNumber)
@@ -711,5 +582,140 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         this.selectFile(this.fileParam, '', '');
       }
     }
+  }
+
+  toggleTimer($event){
+    this.intervalTime = $event.value;
+    if (this.intervalTime !== 0) {
+      if (this.intervalTimer && this.intervalTimer.state === 1) {
+        this.intervalTimer.stop();
+      }
+      this.startCountDown(this.intervalTime);
+      this.startInterval(this.intervalTime);
+    }
+    else{
+      this.intervalTimer.stop();
+    }
+  }
+
+  showCountDown() {
+    return this.intervalTime > 0 && (this.slideInRange())
+  }
+
+  startCountDown(seconds: number, reset: boolean = false) {
+    clearInterval(this.countDownInterval);
+    if (seconds > 0) {
+      this.secondsLeft = seconds;
+      seconds--;
+      const interval = setInterval(() => {
+          this.secondsLeft = seconds;
+          seconds--;
+          if (seconds === 0) {
+            clearInterval(interval);
+          }
+      }, 1000);
+
+      this.countDownInterval = interval;
+    }
+  }
+
+  private startInterval(intervalTime: number) {
+    this.intervalTimer = new IntervalTimer(() => {
+      if (this.slideInRange()) {
+        this.nextPage();
+        if (this.slideInRange()) {
+          this.startCountDown(intervalTime);
+        }
+      }
+      else
+      {
+        this.intervalTimer.stop();
+      }
+    }, intervalTime * 1000);
+  }
+
+  private slideInRange() {
+    return this._navigateService.currentPage + 1 <= this.countPages;
+  }
+
+  private resetInterval() {
+    this.intervalTimer.stop();
+    this.startInterval(this.intervalTime);
+  }
+
+  pausePresenting() {
+    this.intervalTimer.pause();
+    this.startCountDown(0, true);
+  }
+
+  resumePresenting() {
+    this.intervalTimer.resume();
+    const secondsRemaining = Math.round(this.intervalTimer.remaining/1000);
+    this.startCountDown(secondsRemaining);
+  }
+
+  presentationRunning() {
+    return this.intervalTimer && this.intervalTimer.state === 1 && this.slideInRange();
+  }
+
+  presentationPaused() {
+    return this.intervalTimer && this.intervalTimer.state === 2 && this.slideInRange();
+  }
+
+  startPresentation() {
+    this.showThumbnails = false;
+    this.openFullScreen();
+    this.runPresentation = !this.runPresentation;
+    setTimeout(() => {
+      this._zoomService.changeZoom(this.getFitToHeight());
+    }, 100);
+  }
+
+  openFullScreen() {
+    const docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
+      mozRequestFullScreen(): Promise<void>;
+      webkitRequestFullscreen(): Promise<void>;
+      msRequestFullscreen(): Promise<void>;
+    };
+  
+    if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
+      docElmWithBrowsersFullScreenFunctions.requestFullscreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) { /* Firefox */
+      docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.msRequestFullscreen) { /* IE/Edge */
+      docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
+    }
+    this.isFullScreen = true;
+  }
+  
+  closeFullScreen(byButton: boolean = false){
+    if (byButton) {
+      const docWithBrowsersExitFunctions = document as Document & {
+        mozCancelFullScreen(): Promise<void>;
+        webkitExitFullscreen(): Promise<void>;
+        msExitFullscreen(): Promise<void>;
+      };
+      if (docWithBrowsersExitFunctions.exitFullscreen) {
+        docWithBrowsersExitFunctions.exitFullscreen();
+      } else if (docWithBrowsersExitFunctions.mozCancelFullScreen) { /* Firefox */
+        docWithBrowsersExitFunctions.mozCancelFullScreen();
+      } else if (docWithBrowsersExitFunctions.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+        docWithBrowsersExitFunctions.webkitExitFullscreen();
+      } else if (docWithBrowsersExitFunctions.msExitFullscreen) { /* IE/Edge */
+        docWithBrowsersExitFunctions.msExitFullscreen();
+      }
+    }
+
+    if (this.intervalTimer) {
+      this.intervalTimer.stop();
+    }
+
+    this.isFullScreen = false;
+    this.runPresentation = false;
+    this.showThumbnails = true;
+    this.intervalTime = 0;
+    this.startCountDown(0);
   }
 }

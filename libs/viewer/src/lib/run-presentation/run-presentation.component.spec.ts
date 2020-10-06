@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RunPresentationComponent } from './run-presentation.component';
 
-describe('DocumentComponent', () => {
+describe('RunPresentationComponent', () => {
   let component: RunPresentationComponent;
   let fixture: ComponentFixture<RunPresentationComponent>;
 
