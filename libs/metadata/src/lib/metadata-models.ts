@@ -138,5 +138,10 @@
     "MatroskaTrack": "Track",
     "MatroskaTag": "Tag",
     "MatroskaEbmlHeader": "Header",
-    "VCardCard": "Card"
+    "VCardCard": "Card",
+    "AsfCodec": "Codec",
+    "AsfBaseStreamProperty": "Stream",
+    "AsfAudioStreamProperty": "Stream",
+    "AsfVideoStreamProperty": "Stream",
+    "AsfMetadataDescriptorCollection": "Descriptors",
   };
