@@ -138,4 +138,5 @@
     "MatroskaTrack": "Track",
     "MatroskaTag": "Tag",
     "MatroskaEbmlHeader": "Header",
+    "VCardCard": "Card"
   };
