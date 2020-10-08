@@ -144,4 +144,5 @@
     "AsfAudioStreamProperty": "Stream",
     "AsfVideoStreamProperty": "Stream",
     "AsfMetadataDescriptorCollection": "Descriptors",
+    "OpenTypeFont": "Font",
   };
