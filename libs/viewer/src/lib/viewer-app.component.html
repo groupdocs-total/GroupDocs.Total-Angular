@@ -79,7 +79,7 @@
                  [preloadPageCount]="0"></gd-run-presentation>
     <div class="slides-nav" *ngIf="runPresentation">
       <div class="timer" *ngIf="showCountDown()">
-        <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon><span class="seconds-remaining">{{secondsLeft}}</span>
+        <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon><span [ngClass]="secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'">{{secondsLeft}}</span>
       </div>
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'angle-left'" [tooltip]="'Previous Page'"
       (click)="prevPage()" *ngIf="pageSelectorConfig && formatIcon !== 'file-excel'" ></gd-button>

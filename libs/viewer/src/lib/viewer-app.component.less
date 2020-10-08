@@ -118,10 +118,19 @@
     font-size: 37px;
   }
   ::ng-deep .timer {
-    font-size: 24px;
+    font-size: 42px;
+    line-height: 6px;
     color: @regent-gray;
+    position: relative;
     .seconds-remaining {
+      position: absolute;
       margin-left: 5px;
+      font-size: 16px;
+      top: 18px;
+      left: 12px;
+      &.two-digits {
+        left: 6px !important;
+      }
     }
   }
 }
