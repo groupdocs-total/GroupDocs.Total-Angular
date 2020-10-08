@@ -9,5 +9,6 @@ export declare class EditorService {
     loadFile(credentials: FileCredentials): import("rxjs").Observable<Object>;
     upload(file: File, url: string, rewrite: boolean): import("rxjs").Observable<Object>;
     save(file: SaveFile): import("rxjs").Observable<Object>;
+    create(file: SaveFile): import("rxjs").Observable<Object>;
     getDownloadUrl(credentials: FileCredentials): string;
 }

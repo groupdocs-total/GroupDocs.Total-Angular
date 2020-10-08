@@ -15,10 +15,17 @@ import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
 import {ExcelDocumentComponent} from './excel-document/excel-document.component';
 import {ExcelPageComponent} from './excel-page/excel-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {RunPresentationComponent} from './run-presentation/run-presentation.component';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
   return result;
+}
+
+export function endPoint() {
+  const config = new ConfigService();
+  config.apiEndpoint = "http://localhost:8080";
+  return config;
 }
 
 // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
@@ -31,6 +38,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   declarations: [
     ViewerAppComponent,
     ThumbnailsComponent,
+    RunPresentationComponent,
     ExcelDocumentComponent,
     ExcelPageComponent],
   imports: [
@@ -42,13 +50,17 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   exports : [
     ViewerAppComponent,
     ThumbnailsComponent,
+    RunPresentationComponent,
     ExcelDocumentComponent,
     ExcelPageComponent,
     CommonComponentsModule
   ],
   providers: [
     ViewerService,
-    ConfigService,
+    {
+      provide: ConfigService,
+      useFactory: endPoint
+    },
     ViewerConfigService,
     {
       provide: HTTP_INTERCEPTORS,

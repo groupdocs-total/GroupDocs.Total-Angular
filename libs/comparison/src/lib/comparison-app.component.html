@@ -43,7 +43,8 @@
                        [file]="file.get(first)"
                        [mode]="false"
                        [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
-                       [htmlMode]="false">
+                       [htmlMode]="false"
+                       gdScrollable>
           </gd-document>
         </div>
         <div class="upload-compare-file">
@@ -67,7 +68,8 @@
                        [file]="file.get(second)"
                        [mode]="false"
                        [preloadPageCount]="comparisonConfig?.preloadResultPageCount" gdRenderPrint
-                       [htmlMode]="false">
+                       [htmlMode]="false"
+                       gdScrollable>
           </gd-document>
         </div>
       </div>
@@ -91,6 +93,7 @@
     <gd-side-panel (hideSidePanel)="hideSidePanel($event)"
                    *ngIf="result && activeTab === resultTab"
                    [title]="'Differences'"
+                   [saveable]="false"
                    [icon]="'info-circle'">
       <gd-differences
         [changes]="result.changes">

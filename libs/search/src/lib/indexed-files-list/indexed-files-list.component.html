@@ -6,7 +6,7 @@
     <div>State</div>
   </div>
   <div class="gd-indexed-files-list-body">
-    <div *ngFor="let file of files">
+    <div class="gd-indexed-file-wrapper" *ngFor="let file of files">
         <gd-indexed-file [file]="file"></gd-indexed-file>
     </div>
   </div>

@@ -45,8 +45,10 @@
 }
 
 .gd-file-name {
-  text-align: left;
-  cursor    : default;
+  text-align   : left;
+  cursor       : default;
+  overflow     : hidden;
+  text-overflow: ellipsis;
 }
 
 .gd-indexed-file-size {
@@ -155,13 +157,31 @@
   .gd-indexed-file-name {
     white-space: nowrap;
     overflow   : hidden;
+    width      : 65%;
   }
 
   .gd-indexed-file-status-wrapper {
-    right: 20px;
+    right: 45px;
+    width: unset;
+
+    .gd-indexed-file-status {
+      fa-icon {
+        padding-right: unset;
+        font-size    : 16px;
+      }
+    }
   }
 
   .gd-indexed-file-remove {
-    margin: 0px 16px 0px 15px;
+    margin   : 0px 16px 0px 15px;
+    font-size: 24px;
+  }
+
+  .mobile-hide {
+    display: none;
+  }
+
+  .gd-indexed-file {
+    height: 85px;
   }
 }
