@@ -5,6 +5,7 @@ import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
 import { WindowService } from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
+import { IntervalTimer } from './interval-timer';
 export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _viewerService;
     private _modalService;
@@ -29,11 +30,29 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     _pageWidth: number;
     _pageHeight: number;
     options: any;
+    timerOptions: any;
+    intervalTime: number;
+    intervalTimer: IntervalTimer;
+    countDownInterval: number;
+    secondsLeft: number;
     fileWasDropped: boolean;
     formatIcon: string;
     fileParam: string;
     querySubscription: Subscription;
     selectedPageNumber: number;
+    runPresentation: boolean;
+    isFullScreen: boolean;
+    docElmWithBrowsersFullScreenFunctions: HTMLElement & {
+        mozRequestFullScreen(): Promise<void>;
+        webkitRequestFullscreen(): Promise<void>;
+        msRequestFullscreen(): Promise<void>;
+    };
+    docWithBrowsersExitFunctions: Document & {
+        mozCancelFullScreen(): Promise<void>;
+        webkitExitFullscreen(): Promise<void>;
+        msExitFullscreen(): Promise<void>;
+    };
+    fullScreen(): void;
     constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
@@ -52,7 +71,9 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     readonly enableRightClickConfig: boolean;
     readonly currentPage: number;
     ifPresentation(): boolean;
+    ifExcel(): boolean;
     validURL(str: any): boolean;
+    getFileName(): string;
     openModal(id: string): void;
     closeModal(id: string): void;
     selectDir($event: string): void;
@@ -75,6 +96,11 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
         name: string;
         separator: boolean;
     }[];
+    getTimerOptions(): {
+        value: number;
+        name: string;
+        separator: boolean;
+    }[];
     zoom: any;
     selectZoom($event: any): void;
     rotate(deg: number): void;
@@ -83,11 +109,24 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     printFile(): void;
     openThumbnails(): void;
     private clearData;
-    onRightClick($event: MouseEvent): boolean;
+    onRightClick(): boolean;
     openSearch(): void;
     private refreshZoom;
     selectCurrentPage(pageNumber: any): void;
-    onMouseWheelUp($event: any): void;
-    onMouseWheelDown($event: any): void;
+    onMouseWheelUp(): void;
+    onMouseWheelDown(): void;
     private TryOpenFileByUrl;
+    toggleTimer($event: any): void;
+    showCountDown(): boolean;
+    startCountDown(seconds: number, reset?: boolean): void;
+    private startInterval;
+    private slideInRange;
+    private resetInterval;
+    pausePresenting(): void;
+    resumePresenting(): void;
+    presentationRunning(): boolean;
+    presentationPaused(): boolean;
+    startPresentation(): void;
+    openFullScreen(): void;
+    closeFullScreen(byButton?: boolean): void;
 }

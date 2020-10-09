@@ -13,6 +13,7 @@ import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
 import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {RunPresentationComponent} from './run-presentation/run-presentation.component';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
@@ -34,7 +35,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 @NgModule({
   declarations: [
     ViewerAppComponent,
-    ThumbnailsComponent
+    ThumbnailsComponent,
+    RunPresentationComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   exports : [
     ViewerAppComponent,
     ThumbnailsComponent,
+    RunPresentationComponent,
     CommonComponentsModule
   ],
   providers: [

@@ -4,8 +4,8 @@ export declare class NavigateService {
     private _pagePreloadService;
     private _currentPage;
     private _countPages;
-    private readonly _navigate;
     private _observer;
+    private _navigate;
     constructor(_pagePreloadService: PagePreloadService);
     readonly navigate: Observable<number>;
     countPages: number;
