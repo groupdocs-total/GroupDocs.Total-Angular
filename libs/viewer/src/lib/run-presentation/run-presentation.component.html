@@ -1,0 +1,12 @@
+<div class="wait" *ngIf="wait">Please wait...</div>
+<div #slidesContent id="document" class="document" (panleft)="onPanLeft($event)" (panright)="onPanRight($event)">
+  <div [ngClass]="isDesktop ? 'panzoom' : 'panzoom mobile'" gdZoom [zoomActive]="true" [file]="file" gdSearchable>
+    <div [ngClass]="isVertical(page) ? 'page presentation vertical' : 'page presentation'" *ngFor="let page of file?.pages"
+      [style.height]="getDimensionWithUnit(page.height, page.number)" [style.width]="getDimensionWithUnit(page.width, page.number)" gdRotation
+      [angle]="page.angle" [isHtmlMode]="mode" [width]="page.width" [height]="page.height">
+      <gd-page [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle" [width]="page.width"
+        [height]="page.height" [editable]="page.editable"></gd-page>
+    </div>
+  </div>
+  <ng-content></ng-content>
+</div>

@@ -3,9 +3,10 @@
      (touchstart)="toggle($event)"
      (clickOutside)="onClickOutside($event)"
      [clickOutsideEnabled]="isOpen">
-  <div class="selected-value" gdDisabledCursor [dis]="disabled">
+  <div *ngIf="!icon" class="selected-value" gdDisabledCursor [dis]="disabled">
     {{showSelected?.name}}
   </div>
+  <fa-icon *ngIf="icon" [icon]="['fas',icon]"></fa-icon>
   <span class="nav-caret" gdDisabledCursor [dis]="disabled"></span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">

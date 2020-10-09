@@ -1778,17 +1778,11 @@ if (false) {
  */
 var NavigateService = /** @class */ (function () {
     function NavigateService(_pagePreloadService) {
-        var _this = this;
         this._pagePreloadService = _pagePreloadService;
         this._currentPage = 0;
         this._countPages = 0;
-        this._navigate = new Observable((/**
-         * @param {?} observer
-         * @return {?}
-         */
-        function (observer) {
-            return _this._observer = observer;
-        }));
+        this._observer = new BehaviorSubject(null);
+        this._navigate = this._observer.asObservable();
     }
     Object.defineProperty(NavigateService.prototype, "navigate", {
         get: /**
@@ -1918,12 +1912,12 @@ if (false) {
      * @type {?}
      * @private
      */
-    NavigateService.prototype._navigate;
+    NavigateService.prototype._observer;
     /**
      * @type {?}
      * @private
      */
-    NavigateService.prototype._observer;
+    NavigateService.prototype._navigate;
     /**
      * @type {?}
      * @private
@@ -1944,7 +1938,6 @@ var DocumentComponent = /** @class */ (function () {
         this._zoomService = _zoomService;
         this._windowService = _windowService;
         this._navigateService = _navigateService;
-        this.onpan = new EventEmitter();
         this.wait = false;
         this.docWidth = null;
         this.docHeight = null;
@@ -1970,6 +1963,13 @@ var DocumentComponent = /** @class */ (function () {
             _this.zoom = val;
         }));
         this.isDesktop = _windowService.isDesktop();
+        this._navigateService.navigate.subscribe((((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            _this.selectedPage = value;
+        }))));
     }
     /**
      * @return {?}
@@ -1979,7 +1979,7 @@ var DocumentComponent = /** @class */ (function () {
      */
     function () {
         if (this.ifPresentation()) {
-            this.selectedPage = 1;
+            this.selectedPage = this._navigateService.currentPage;
         }
     };
     /**
@@ -1989,13 +1989,6 @@ var DocumentComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        /** @type {?} */
-        var panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
-        ((/** @type {?} */ (panzoom))).style.transform = '';
-        // TODO: this intersects with zooming by zoom directive, but still needed
-        // for flush previous settings before opening another file
-        //this._zoomService.changeZoom(100);
-        //this.scale = 1;
     };
     /**
      * @return {?}
@@ -2080,254 +2073,6 @@ var DocumentComponent = /** @class */ (function () {
         }
     };
     /**
-     * @param {?} el
-     * @return {?}
-     */
-    DocumentComponent.prototype.absolutePosition = /**
-     * @param {?} el
-     * @return {?}
-     */
-    function (el) {
-        /** @type {?} */
-        var x = 0;
-        /** @type {?} */
-        var y = 0;
-        while (el !== null) {
-            x += el.offsetLeft;
-            y += el.offsetTop;
-            el = el.offsetParent;
-        }
-        return { x: x, y: y };
-    };
-    ;
-    /**
-     * @param {?} pos
-     * @param {?} viewportDim
-     * @param {?} docDim
-     * @return {?}
-     */
-    DocumentComponent.prototype.restrictRawPos = /**
-     * @param {?} pos
-     * @param {?} viewportDim
-     * @param {?} docDim
-     * @return {?}
-     */
-    function (pos, viewportDim, docDim) {
-        if (pos < viewportDim / this.scale - docDim) { // too far left/up?
-            pos = viewportDim / this.scale - docDim;
-        }
-        else if (pos > 0) { // too far right/down?
-            pos = 0;
-        }
-        return pos;
-    };
-    ;
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.updateLastPos = /**
-     * @return {?}
-     */
-    function () {
-        this.lastX = this.x;
-        this.lastY = this.y;
-    };
-    ;
-    /**
-     * @param {?} deltaX
-     * @param {?} deltaY
-     * @return {?}
-     */
-    DocumentComponent.prototype.translate = /**
-     * @param {?} deltaX
-     * @param {?} deltaY
-     * @return {?}
-     */
-    function (deltaX, deltaY) {
-        // We restrict to the min of the viewport width/height or current width/height as the
-        // current width/height may be smaller than the viewport width/height
-        /** @type {?} */
-        var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
-        this.x = newX;
-        // TODO: value here and in the similar line below changes to positive to take any effect
-        this.container.scrollLeft = -Math.ceil(newX * this.scale);
-        /** @type {?} */
-        var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
-        this.y = newY;
-        this.container.scrollTop = -Math.ceil(newY * this.scale);
-        this.doc.style.transform = 'scale(' + this.scale + ')';
-    };
-    ;
-    /**
-     * @param {?} scaleBy
-     * @return {?}
-     */
-    DocumentComponent.prototype.startZoom = /**
-     * @param {?} scaleBy
-     * @return {?}
-     */
-    function (scaleBy) {
-        this.scale = this.lastScale * scaleBy;
-        this.curWidth = this.docWidth * this.scale;
-        this.curHeight = this.docHeight * this.scale;
-        // Adjust margins to make sure that we aren't out of bounds
-        this.translate(0, 0);
-    };
-    ;
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.rawCenter = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        /** @type {?} */
-        var pos = this.absolutePosition(this.container);
-        // We need to account for the scroll position
-        /** @type {?} */
-        var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-        /** @type {?} */
-        var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
-        /** @type {?} */
-        var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
-        /** @type {?} */
-        var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
-        return { x: zoomX, y: zoomY };
-    };
-    ;
-    /**
-     * @return {?}
-     */
-    DocumentComponent.prototype.updateLastScale = /**
-     * @return {?}
-     */
-    function () {
-        this.lastScale = this.scale;
-    };
-    ;
-    /**
-     * @param {?} scaleBy
-     * @param {?} rawZoomX
-     * @param {?} rawZoomY
-     * @param {?} doNotUpdateLast
-     * @return {?}
-     */
-    DocumentComponent.prototype.zoomAround = /**
-     * @param {?} scaleBy
-     * @param {?} rawZoomX
-     * @param {?} rawZoomY
-     * @param {?} doNotUpdateLast
-     * @return {?}
-     */
-    function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
-        // Zoom
-        this.startZoom(scaleBy);
-        // New raw center of viewport
-        /** @type {?} */
-        var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
-        /** @type {?} */
-        var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
-        // Delta
-        /** @type {?} */
-        var deltaX = (rawCenterX - rawZoomX) * this.scale;
-        /** @type {?} */
-        var deltaY = (rawCenterY - rawZoomY) * this.scale;
-        // Translate back to zoom center
-        this.translate(deltaX, deltaY);
-        if (!doNotUpdateLast) {
-            this.updateLastScale();
-            this.updateLastPos();
-        }
-    };
-    ;
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onPinch = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        if (this.pinchCenter === null) {
-            this.pinchCenter = this.rawCenter($event);
-            /** @type {?} */
-            var offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
-            /** @type {?} */
-            var offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
-            this.pinchCenterOffset = { x: offsetX, y: offsetY };
-        }
-        /** @type {?} */
-        var newScale = this.scale * $event.scale;
-        /** @type {?} */
-        var zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
-        /** @type {?} */
-        var zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
-        /** @type {?} */
-        var zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
-        this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onPinchEnd = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        this.updateLastScale();
-        this.updateLastPos();
-        this.pinchCenter = null;
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onPan = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        // TODO: looks like native pan works better
-        // if (!this.isDesktop) {
-        //   this.translate($event.deltaX, $event.deltaY);
-        // }
-        this.onpan.emit($event);
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onPanEnd = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        // if (!this.isDesktop) {
-        //   this.updateLastPos();
-        // }
-    };
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    DocumentComponent.prototype.onDoubleTap = /**
-     * @param {?} $event
-     * @return {?}
-     */
-    function ($event) {
-        if (!this.isDesktop) {
-            if ($event.tapCount === 2) {
-                /** @type {?} */
-                var c = this.rawCenter($event);
-                this.zoomAround(2, c.x, c.y, false);
-            }
-        }
-    };
-    /**
      * @param {?} pageNumber
      * @return {?}
      */
@@ -2346,7 +2091,7 @@ var DocumentComponent = /** @class */ (function () {
     DocumentComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-document',
-                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
                     styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
@@ -2361,8 +2106,7 @@ var DocumentComponent = /** @class */ (function () {
         mode: [{ type: Input }],
         preloadPageCount: [{ type: Input }],
         file: [{ type: Input }],
-        selectedPage: [{ type: Input }],
-        onpan: [{ type: Output }]
+        selectedPage: [{ type: Input }]
     };
     return DocumentComponent;
 }());
@@ -2375,8 +2119,6 @@ if (false) {
     DocumentComponent.prototype.file;
     /** @type {?} */
     DocumentComponent.prototype.selectedPage;
-    /** @type {?} */
-    DocumentComponent.prototype.onpan;
     /** @type {?} */
     DocumentComponent.prototype.wait;
     /** @type {?} */
@@ -2435,14 +2177,6 @@ if (false) {
      * @private
      */
     DocumentComponent.prototype._navigateService;
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
 }
 
 /**
@@ -3153,7 +2887,9 @@ var ScrollableDirective = /** @class */ (function () {
                 if (!currentPageSet) {
                     if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
                         this.currentPage = page;
-                        this._navigateService.currentPage = page;
+                        if (this._navigateService.currentPage === 0) {
+                            this._navigateService.currentPage = page;
+                        }
                     }
                     currentPageSet = true;
                 }
@@ -3716,7 +3452,7 @@ var SelectComponent = /** @class */ (function () {
     SelectComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-select',
-                    template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [clickOutsideEnabled]=\"isOpen\">\r\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                     styles: [".select{min-width:50px;display:flex;flex-direction:row;justify-content:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
                 }] }
     ];
@@ -3729,7 +3465,8 @@ var SelectComponent = /** @class */ (function () {
         disabled: [{ type: Input }],
         showSelected: [{ type: Input }],
         selected: [{ type: Output }],
-        isOpen: [{ type: Input }]
+        isOpen: [{ type: Input }],
+        icon: [{ type: Input }]
     };
     return SelectComponent;
 }());
@@ -3744,6 +3481,8 @@ if (false) {
     SelectComponent.prototype.selected;
     /** @type {?} */
     SelectComponent.prototype.isOpen;
+    /** @type {?} */
+    SelectComponent.prototype.icon;
     /**
      * @type {?}
      * @protected
@@ -7926,7 +7665,7 @@ var TextMenuComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'gd-text-menu',
                     template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;left:0;right:0;width:inherit;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070;transform-origin:top left;z-index:1000}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-185px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu{left:0}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
+                    styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;left:0;right:0;width:inherit;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070;transform-origin:top left;z-index:1000}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-185px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu{left:0}.gd-text-menu ::ng-deep .button{margin:3px!important;font-size:16px}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -8230,7 +7969,7 @@ var ContextMenuComponent = /** @class */ (function () {
     ContextMenuComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-context-menu',
-                    template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\" (touchstart)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
+                    template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
                     styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-42px;transform-origin:bottom center}}"]
                 }] }
     ];

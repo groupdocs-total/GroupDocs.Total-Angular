@@ -15,6 +15,7 @@ import {ViewerConfigService} from "./viewer-config.service";
 import {ExcelDocumentComponent} from './excel-document/excel-document.component';
 import {ExcelPageComponent} from './excel-page/excel-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {RunPresentationComponent} from './run-presentation/run-presentation.component';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
@@ -36,6 +37,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 @NgModule({
   declarations: [
     ViewerAppComponent,
+    RunPresentationComponent,
     ExcelDocumentComponent,
     ExcelPageComponent],
   imports: [
@@ -46,6 +48,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ],
   exports : [
     ViewerAppComponent,
+    RunPresentationComponent,
     ExcelDocumentComponent,
     ExcelPageComponent,
     CommonComponentsModule

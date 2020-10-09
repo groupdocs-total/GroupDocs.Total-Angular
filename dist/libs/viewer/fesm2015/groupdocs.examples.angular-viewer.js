@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, EventEmitter, Input, Output, ElementRef, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, HostListener, EventEmitter, Input, Output, ElementRef, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import * as Hammer from 'hammerjs';
+import * as jquery from 'jquery';
 
 /**
  * @fileoverview added by tsickle
@@ -277,7 +279,116 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-//import * as Hammer from 'hammerjs';
+class Constants {
+}
+Constants.thumbnailsWidth = 300;
+Constants.scrollWidth = 17;
+Constants.topbarWidth = 60;
+Constants.documentMargin = 20;
+if (false) {
+    /** @type {?} */
+    Constants.thumbnailsWidth;
+    /** @type {?} */
+    Constants.scrollWidth;
+    /** @type {?} */
+    Constants.topbarWidth;
+    /** @type {?} */
+    Constants.documentMargin;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class IntervalTimer {
+    //  0 = idle, 1 = running, 2 = paused, 3= resumed
+    /**
+     * @param {?} callback
+     * @param {?} interval
+     */
+    constructor(callback, interval) {
+        this.remaining = 0;
+        this.state = 0; //  0 = idle, 1 = running, 2 = paused, 3= resumed
+        this.callback = callback;
+        this.interval = interval;
+        this.startTime = new Date().getTime();
+        /** @type {?} */
+        const _this = this;
+        this.timerId = setInterval((/**
+         * @return {?}
+         */
+        () => {
+            this.callback();
+            _this.startTime = new Date().getTime();
+        }), this.interval);
+        this.state = 1;
+    }
+    /**
+     * @return {?}
+     */
+    pause() {
+        if (this.state !== 1)
+            return;
+        this.remaining = this.interval - (new Date().getTime() - this.startTime);
+        clearInterval(this.timerId);
+        this.state = 2;
+    }
+    ;
+    /**
+     * @return {?}
+     */
+    resume() {
+        if (this.state !== 2)
+            return;
+        this.state = 3;
+        setTimeout((/**
+         * @return {?}
+         */
+        () => this.timeoutCallback()), this.remaining);
+    }
+    ;
+    /**
+     * @return {?}
+     */
+    stop() {
+        this.state = 0;
+        clearInterval(this.timerId);
+    }
+    /**
+     * @return {?}
+     */
+    timeoutCallback() {
+        if (this.state !== 3)
+            return;
+        this.callback();
+        this.startTime = new Date().getTime();
+        this.timerId = setInterval(this.callback, this.interval);
+        this.state = 1;
+    }
+    ;
+}
+if (false) {
+    /** @type {?} */
+    IntervalTimer.prototype.callback;
+    /** @type {?} */
+    IntervalTimer.prototype.interval;
+    /** @type {?} */
+    IntervalTimer.prototype.timerId;
+    /** @type {?} */
+    IntervalTimer.prototype.startTime;
+    /** @type {?} */
+    IntervalTimer.prototype.remaining;
+    /** @type {?} */
+    IntervalTimer.prototype.state;
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+    /* Skipping unhandled member: ;*/
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 class ViewerAppComponent {
     /**
      * @param {?} _viewerService
@@ -308,8 +419,9 @@ class ViewerAppComponent {
         this.browseFilesModal = CommonModals.BrowseFiles;
         this.showSearch = false;
         this._zoom = 100;
-        //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
         this.fileWasDropped = false;
+        this.docElmWithBrowsersFullScreenFunctions = (/** @type {?} */ (document.documentElement));
+        this.docWithBrowsersExitFunctions = (/** @type {?} */ (document));
         configService.updatedConfig.subscribe((/**
          * @param {?} viewerConfig
          * @return {?}
@@ -358,13 +470,22 @@ class ViewerAppComponent {
         }));
         this.isDesktop = _windowService.isDesktop();
         _windowService.onResize.subscribe((/**
-         * @param {?} w
          * @return {?}
          */
-        (w) => {
+        () => {
             this.isDesktop = _windowService.isDesktop();
-            this.refreshZoom();
+            if (!this.runPresentation) {
+                this.refreshZoom();
+            }
         }));
+    }
+    /**
+     * @return {?}
+     */
+    fullScreen() {
+        if (!document.fullscreenElement) {
+            this.closeFullScreen();
+        }
     }
     /**
      * @return {?}
@@ -379,7 +500,7 @@ class ViewerAppComponent {
         if (queryString) {
             this.TryOpenFileByUrl(queryString);
         }
-        this.selectedPageNumber = 1;
+        this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
     }
     /**
      * @return {?}
@@ -393,13 +514,6 @@ class ViewerAppComponent {
          */
         (loading) => this.isLoading = loading));
         this.refreshZoom();
-        // this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
-        // {
-        //   comps.toArray().forEach((item) => {
-        //     const hammer = new Hammer(item.nativeElement);
-        //     hammer.get('pinch').set({ enable: true });
-        //   });
-        // });
     }
     /**
      * @return {?}
@@ -492,6 +606,12 @@ class ViewerAppComponent {
         return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint" : false;
     }
     /**
+     * @return {?}
+     */
+    ifExcel() {
+        return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft Excel" : false;
+    }
+    /**
      * @param {?} str
      * @return {?}
      */
@@ -504,6 +624,12 @@ class ViewerAppComponent {
             '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
             '(\\#[-a-z\\d_]*)?$', 'i');
         return !!pattern.test(str);
+    }
+    /**
+     * @return {?}
+     */
+    getFileName() {
+        return this.file.guid.replace(/^.*[\\\/]/, '');
     }
     /**
      * @param {?} id
@@ -547,10 +673,12 @@ class ViewerAppComponent {
             this.file = file;
             this.formatDisabled = !this.file;
             if (file) {
+                this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
                 if (file.pages && file.pages[0]) {
                     this._pageHeight = file.pages[0].height;
                     this._pageWidth = file.pages[0].width;
                     this.options = this.zoomOptions();
+                    this.timerOptions = this.getTimerOptions();
                     this.refreshZoom();
                 }
                 /** @type {?} */
@@ -576,7 +704,7 @@ class ViewerAppComponent {
                     }
                 }
                 this._navigateService.countPages = countPages;
-                this._navigateService.currentPage = 1;
+                this._navigateService.currentPage = this.selectedPageNumber;
                 this.countPages = countPages;
                 if (this.ifPresentation()) {
                     this.showThumbnails = true;
@@ -584,6 +712,7 @@ class ViewerAppComponent {
                 else {
                     this.showThumbnails = false;
                 }
+                this.runPresentation = false;
             }
         }));
         if (modalId) {
@@ -642,6 +771,10 @@ class ViewerAppComponent {
     nextPage() {
         if (this.formatDisabled)
             return;
+        if (this._navigateService.currentPage + 1 > this.countPages) {
+            this.intervalTimer.stop();
+            this.intervalTime = 0;
+        }
         this._navigateService.nextPage();
     }
     /**
@@ -725,7 +858,12 @@ class ViewerAppComponent {
         const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
         /** @type {?} */
         const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
-        return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+        /** @type {?} */
+        const presentationThumbnails = this.isDesktop && this.ifPresentation() && !this.runPresentation;
+        return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / (presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth : window.innerWidth))
+            : (!this.isDesktop ? Math.round(window.innerWidth * 100 / offsetWidth)
+                : Math.round(((presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth
+                    : window.innerHeight) / offsetWidth) * 100));
     }
     /**
      * @private
@@ -740,7 +878,12 @@ class ViewerAppComponent {
         const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
         /** @type {?} */
         const offsetHeight = pageHeight ? pageHeight : windowHeight;
-        return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
+        if (!this.ifPresentation()) {
+            return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
+        }
+        else
+            return Math.round((window.innerHeight - Constants.topbarWidth) * 100 / (!this.runPresentation ? offsetHeight + Constants.documentMargin * 2 + Constants.scrollWidth
+                : offsetHeight));
     }
     /**
      * @return {?}
@@ -751,6 +894,16 @@ class ViewerAppComponent {
         /** @type {?} */
         const height = this.getFitToHeight();
         return this._zoomService.zoomOptions(width, height);
+    }
+    /**
+     * @return {?}
+     */
+    getTimerOptions() {
+        return [{ value: 0, name: 'None', separator: false },
+            { value: 5, name: '5 sec', separator: false },
+            { value: 10, name: '10 sec', separator: false },
+            { value: 15, name: '15 sec', separator: false },
+            { value: 30, name: '30 sec', separator: false }];
     }
     /**
      * @param {?} zoom
@@ -790,6 +943,13 @@ class ViewerAppComponent {
              * @return {?}
              */
             (page) => {
+                /** @type {?} */
+                const updatedData = page.data.replace(/>\s+</g, '><')
+                    .replace(/\uFEFF/g, "")
+                    .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+                    .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+                    .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                page.data = updatedData;
                 this.file.pages[pageNumber - 1] = page;
                 if (this.file && this.file.pages && pageModel) {
                     /** @type {?} */
@@ -854,6 +1014,7 @@ class ViewerAppComponent {
             return;
         }
         if (this.viewerConfig.preloadPageCount === 0) {
+            this.runPresentation = false;
             this.showThumbnails = true;
         }
         else {
@@ -889,10 +1050,9 @@ class ViewerAppComponent {
         }
     }
     /**
-     * @param {?} $event
      * @return {?}
      */
-    onRightClick($event) {
+    onRightClick() {
         return this.enableRightClickConfig;
     }
     /**
@@ -903,19 +1063,15 @@ class ViewerAppComponent {
             return;
         this.showSearch = !this.showSearch;
     }
-    // onPinchIn($event){
-    //   this.zoomOut();
-    // }
-    // onPinchOut($event){
-    //   this.zoomIn();
-    // }
     /**
      * @private
      * @return {?}
      */
     refreshZoom() {
-        this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
-        this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+        if (this.file) {
+            this.formatIcon = FileUtil.find(this.file.guid, false).icon;
+            this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+        }
     }
     /**
      * @param {?} pageNumber
@@ -923,21 +1079,26 @@ class ViewerAppComponent {
      */
     selectCurrentPage(pageNumber) {
         this.selectedPageNumber = pageNumber;
+        this._navigateService.currentPage = pageNumber;
+        if (this.runPresentation && this.intervalTime > 0 && this.intervalTimer.state !== 3) {
+            this.resetInterval();
+            if (this.slideInRange()) {
+                this.startCountDown(this.intervalTime, true);
+            }
+        }
     }
     /**
-     * @param {?} $event
      * @return {?}
      */
-    onMouseWheelUp($event) {
+    onMouseWheelUp() {
         if (this.ifPresentation() && this.selectedPageNumber !== 1) {
             this.selectedPageNumber = this.selectedPageNumber - 1;
         }
     }
     /**
-     * @param {?} $event
      * @return {?}
      */
-    onMouseWheelDown($event) {
+    onMouseWheelDown() {
         if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
             if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
                 this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
@@ -967,12 +1128,187 @@ class ViewerAppComponent {
             }
         }
     }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    toggleTimer($event) {
+        this.intervalTime = $event.value;
+        if (this.intervalTime !== 0) {
+            if (this.intervalTimer && this.intervalTimer.state === 1) {
+                this.intervalTimer.stop();
+            }
+            this.startCountDown(this.intervalTime);
+            this.startInterval(this.intervalTime);
+        }
+        else {
+            this.intervalTimer.stop();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    showCountDown() {
+        return this.intervalTime > 0 && (this.slideInRange());
+    }
+    /**
+     * @param {?} seconds
+     * @param {?=} reset
+     * @return {?}
+     */
+    startCountDown(seconds, reset = false) {
+        clearInterval(this.countDownInterval);
+        if (seconds > 0) {
+            this.secondsLeft = seconds;
+            seconds--;
+            /** @type {?} */
+            const interval = setInterval((/**
+             * @return {?}
+             */
+            () => {
+                this.secondsLeft = seconds;
+                seconds--;
+                if (seconds === 0) {
+                    clearInterval(interval);
+                }
+            }), 1000);
+            this.countDownInterval = interval;
+        }
+    }
+    /**
+     * @private
+     * @param {?} intervalTime
+     * @return {?}
+     */
+    startInterval(intervalTime) {
+        this.intervalTimer = new IntervalTimer((/**
+         * @return {?}
+         */
+        () => {
+            if (this.slideInRange()) {
+                this.nextPage();
+                if (this.slideInRange()) {
+                    this.startCountDown(intervalTime);
+                }
+            }
+            else {
+                this.intervalTimer.stop();
+            }
+        }), intervalTime * 1000);
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    slideInRange() {
+        return this._navigateService.currentPage + 1 <= this.countPages;
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    resetInterval() {
+        this.intervalTimer.stop();
+        this.startInterval(this.intervalTime);
+    }
+    /**
+     * @return {?}
+     */
+    pausePresenting() {
+        this.intervalTimer.pause();
+        this.startCountDown(0, true);
+    }
+    /**
+     * @return {?}
+     */
+    resumePresenting() {
+        this.intervalTimer.resume();
+        /** @type {?} */
+        const secondsRemaining = Math.round(this.intervalTimer.remaining / 1000);
+        this.startCountDown(secondsRemaining);
+    }
+    /**
+     * @return {?}
+     */
+    presentationRunning() {
+        return this.intervalTimer && this.intervalTimer.state === 1 && this.slideInRange();
+    }
+    /**
+     * @return {?}
+     */
+    presentationPaused() {
+        return this.intervalTimer && this.intervalTimer.state === 2 && this.slideInRange();
+    }
+    /**
+     * @return {?}
+     */
+    startPresentation() {
+        this.showThumbnails = false;
+        this.openFullScreen();
+        this.runPresentation = !this.runPresentation;
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            this._zoomService.changeZoom(this.getFitToHeight());
+        }), 100);
+    }
+    /**
+     * @return {?}
+     */
+    openFullScreen() {
+        /** @type {?} */
+        const docElmWithBrowsersFullScreenFunctions = (/** @type {?} */ (document.documentElement));
+        if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
+            docElmWithBrowsersFullScreenFunctions.requestFullscreen();
+        }
+        else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) { /* Firefox */
+            docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();
+        }
+        else if (docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen();
+        }
+        else if (docElmWithBrowsersFullScreenFunctions.msRequestFullscreen) { /* IE/Edge */
+            docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
+        }
+        this.isFullScreen = true;
+    }
+    /**
+     * @param {?=} byButton
+     * @return {?}
+     */
+    closeFullScreen(byButton = false) {
+        if (byButton) {
+            /** @type {?} */
+            const docWithBrowsersExitFunctions = (/** @type {?} */ (document));
+            if (docWithBrowsersExitFunctions.exitFullscreen) {
+                docWithBrowsersExitFunctions.exitFullscreen();
+            }
+            else if (docWithBrowsersExitFunctions.mozCancelFullScreen) { /* Firefox */
+                docWithBrowsersExitFunctions.mozCancelFullScreen();
+            }
+            else if (docWithBrowsersExitFunctions.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                docWithBrowsersExitFunctions.webkitExitFullscreen();
+            }
+            else if (docWithBrowsersExitFunctions.msExitFullscreen) { /* IE/Edge */
+                docWithBrowsersExitFunctions.msExitFullscreen();
+            }
+        }
+        if (this.intervalTimer) {
+            this.intervalTimer.stop();
+        }
+        this.isFullScreen = false;
+        this.runPresentation = false;
+        this.showThumbnails = true;
+        this.intervalTime = 0;
+        this.startCountDown(0);
+    }
 }
 ViewerAppComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-viewer',
-                template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick($event)\">\n  <div class=\"top-panel\">\n    <gd-logo [logo]=\"'viewer'\" icon=\"eye\"></gd-logo>\n    <gd-top-toolbar class=\"toolbar-panel\">\n      <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                 *ngIf=\"browseConfig\" ></gd-button>\n\n      <gd-select class=\"mobile-hide\" [disabled]=\"formatDisabled\" [options]=\"options\" (selected)=\"selectZoom($event)\"\n                 [showSelected]=\"{ name: zoom+'%', value : zoom}\" *ngIf=\"zoomConfig\" ></gd-select>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\" (click)=\"zoomIn()\"\n                 *ngIf=\"zoomConfig\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\"\n                 (click)=\"zoomOut()\" *ngIf=\"zoomConfig\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-left'\" [tooltip]=\"'First Page'\"\n                 (click)=\"toFirstPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" [tooltip]=\"'Previous Page'\"\n                 (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <div class=\"current-page-number\" [ngClass]=\"{'active': !formatDisabled}\" *ngIf=\"formatIcon !== 'file-excel'\">{{currentPage}}/{{countPages}}</div>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" [tooltip]=\"'Next Page'\"\n                 (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-right'\" [tooltip]=\"'Last Page'\"\n                 (click)=\"toLastPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'undo'\" [tooltip]=\"'Rotate CCW'\" (click)=\"rotate(-90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'redo'\" [tooltip]=\"'Rotate CW'\" (click)=\"rotate(90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                 (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'print'\" [tooltip]=\"'Print'\" (click)=\"printFile()\"\n                 *ngIf=\"printConfig\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'search'\" [tooltip]=\"'Search'\" (click)=\"openSearch()\"\n                 *ngIf=\"searchConfig\" ></gd-button>\n      <gd-search (hidePanel)=\"showSearch = !$event\" *ngIf=\"showSearch\" ></gd-search>\n\n      <gd-button class=\"thumbnails-button\" [disabled]=\"formatDisabled\" [icon]=\"'th-large'\" [tooltip]=\"'Thumbnails'\"\n                 (click)=\"openThumbnails()\" *ngIf=\"thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && formatIcon !== 'file-powerpoint'\"></gd-button>\n    </gd-top-toolbar>\n  </div>\n  <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\n    <gd-thumbnails *ngIf=\"showThumbnails && !ifPresentation()\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\"></gd-thumbnails>\n    <gd-thumbnails *ngIf=\"showThumbnails && ifPresentation()\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\" gdScrollable></gd-thumbnails>\n\n    <gd-document class=\"gd-document\" *ngIf=\"(file && formatIcon !== 'file-excel') || (formatIcon === 'file-excel' && !htmlModeConfig)\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" [selectedPage]=\"selectedPageNumber\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" gdMouseWheel (mouseWheelUp)=\"onMouseWheelUp($event)\" (mouseWheelDown)=\"onMouseWheelDown($event)\"></gd-document>\n    <gd-excel-document class=\"gd-document\" *ngIf=\"file && formatIcon === 'file-excel' && htmlModeConfig\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-excel-document>\n  </div>\n\n  <gd-init-state [icon]=\"'eye'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n    Or drop file here\n  </gd-init-state>\n\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n</div>\n",
-                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.current-page-number{margin-left:7px;font-size:14px;color:#959da5;width:37px;height:37px;line-height:37px;text-align:center}.current-page-number.active{color:#fff}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.thumbnails-button{position:absolute;right:3px}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}::ng-deep .tools .button,::ng-deep .tools .nav-caret,::ng-deep .tools .selected-value{color:#fff!important}::ng-deep .tools .button.inactive,::ng-deep .tools .nav-caret.inactive,::ng-deep .tools .selected-value.inactive{color:#959da5!important}::ng-deep .tools .button{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .dropdown-menu .option{color:#6e6e6e!important}::ng-deep .tools .dropdown-menu .option:hover{background-color:#4b566c!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}::ng-deep .tools .select{width:65px;height:37px;margin-left:7px;line-height:37px;text-align:center}@media (max-width:1037px){.current-page-number,.mobile-hide{display:none}::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .tools .gd-nav-search-btn .icon-button{height:37px;width:37px}::ng-deep .tools .gd-nav-search-btn .button{font-size:14px}}"]
+                template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick()\">\n  <div class=\"top-panel\" *ngIf=\"!runPresentation\">\n    <gd-logo [logo]=\"'viewer'\" icon=\"eye\"></gd-logo>\n    <gd-top-toolbar class=\"toolbar-panel\">\n      <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                 *ngIf=\"browseConfig\" ></gd-button>\n\n      <gd-select class=\"mobile-hide\" [disabled]=\"formatDisabled\" [options]=\"options\" (selected)=\"selectZoom($event)\"\n                 [showSelected]=\"{ name: zoom+'%', value : zoom}\" *ngIf=\"zoomConfig\" ></gd-select>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\" (click)=\"zoomIn()\"\n                 *ngIf=\"zoomConfig\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\"\n                 (click)=\"zoomOut()\" *ngIf=\"zoomConfig\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-left'\" [tooltip]=\"'First Page'\"\n                 (click)=\"toFirstPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" [tooltip]=\"'Previous Page'\"\n                 (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <div class=\"current-page-number\" [ngClass]=\"{'active': !formatDisabled}\" *ngIf=\"formatIcon !== 'file-excel'\">{{currentPage}}/{{countPages}}</div>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" [tooltip]=\"'Next Page'\"\n                 (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-right'\" [tooltip]=\"'Last Page'\"\n                 (click)=\"toLastPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'undo'\" [tooltip]=\"'Rotate CCW'\" (click)=\"rotate(-90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'redo'\" [tooltip]=\"'Rotate CW'\" (click)=\"rotate(90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                 (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'print'\" [tooltip]=\"'Print'\" (click)=\"printFile()\"\n                 *ngIf=\"printConfig\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'search'\" [tooltip]=\"'Search'\" (click)=\"openSearch()\"\n                 *ngIf=\"searchConfig && !ifPresentation()\" ></gd-button>\n      <gd-search (hidePanel)=\"showSearch = !$event\" *ngIf=\"showSearch\" ></gd-search>\n\n      <gd-button class=\"thumbnails-button\" [disabled]=\"formatDisabled\" [icon]=\"'th-large'\" [tooltip]=\"'Thumbnails'\"\n                 (click)=\"openThumbnails()\" *ngIf=\"thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && ((formatIcon !== 'file-powerpoint') ||\n                 formatIcon === 'file-powerpoint' && runPresentation)\"></gd-button>\n      <gd-button class=\"thumbnails-button mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'play'\" [tooltip]=\"'Run presentation'\"\n                 (click)=\"startPresentation()\" *ngIf=\"formatIcon === 'file-powerpoint' && !runPresentation\"></gd-button>\n    </gd-top-toolbar>\n  </div>\n  <div class=\"top-panel\" *ngIf=\"runPresentation\">\n    <gd-top-toolbar class=\"toolbar-panel\">\n      <div class=\"slides-title\">Viewer</div>\n      <div class=\"slides-filename\">{{getFileName()}}</div>\n      <div class=\"slides-buttons\">\n        <gd-select class=\"mobile-hide\" [disabled]=\"formatDisabled\" [options]=\"timerOptions\" (selected)=\"toggleTimer($event)\"\n        [icon]=\"'clock'\" *ngIf=\"zoomConfig\" ></gd-select>\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationRunning()\" [disabled]=\"formatDisabled\" [icon]=\"'pause'\" [tooltip]=\"'Pause presenting'\"\n        (click)=\"pausePresenting()\"></gd-button>\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationPaused()\" [disabled]=\"formatDisabled\" [icon]=\"'step-forward'\" [tooltip]=\"'Resume presenting'\"\n        (click)=\"resumePresenting()\"></gd-button>\n        <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'stop'\" [tooltip]=\"'Stop presenting'\"\n        (click)=\"closeFullScreen(true)\"></gd-button>\n      </div>\n    </gd-top-toolbar>\n  </div>\n  <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\n    <gd-thumbnails *ngIf=\"showThumbnails && !ifPresentation() && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\"></gd-thumbnails>\n    <gd-thumbnails *ngIf=\"showThumbnails && ifPresentation() && !runPresentation && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\" gdScrollable></gd-thumbnails>\n\n    <gd-document class=\"gd-document\" *ngIf=\"(file &&\n                                            (ifExcel() && !htmlModeConfig) ||\n                                            (ifPresentation() && isDesktop && !runPresentation) ||\n                                            (!ifExcel() && !ifPresentation()))\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" [selectedPage]=\"selectedPageNumber\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" gdMouseWheel (mouseWheelUp)=\"onMouseWheelUp()\" (mouseWheelDown)=\"onMouseWheelDown()\"></gd-document>\n    <gd-excel-document class=\"gd-document\" *ngIf=\"file && formatIcon === 'file-excel' && htmlModeConfig\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-excel-document>\n    <gd-run-presentation class=\"gd-document\" *ngIf=\"(file && ifPresentation() && runPresentation) ||\n                                                    (file && ifPresentation() && !isDesktop)\" [file]=\"file\" [currentPage]=\"currentPage\" [mode]=\"htmlModeConfig\"\n                                                    (selectedPage)=\"selectCurrentPage($event)\"\n                 [preloadPageCount]=\"0\"></gd-run-presentation>\n    <div class=\"slides-nav\" *ngIf=\"runPresentation\">\n      <div class=\"timer\" *ngIf=\"showCountDown()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon><span [ngClass]=\"secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'\">{{secondsLeft}}</span>\n      </div>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" [tooltip]=\"'Previous Page'\"\n      (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" [tooltip]=\"'Next Page'\"\n      (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n    </div>\n  </div>\n\n  <gd-init-state [icon]=\"'eye'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n    Or drop file here\n  </gd-init-state>\n\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n</div>\n",
+                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.current-page-number{margin-left:7px;font-size:14px;color:#959da5;width:37px;height:37px;line-height:37px;text-align:center}.current-page-number.active{color:#fff}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.thumbnails-button{position:absolute;right:3px}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}::ng-deep .tools .button,::ng-deep .tools .nav-caret,::ng-deep .tools .selected-value{color:#fff!important}::ng-deep .tools .button.inactive,::ng-deep .tools .nav-caret.inactive,::ng-deep .tools .selected-value.inactive{color:#959da5!important}::ng-deep .tools .button{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .dropdown-menu .option{color:#6e6e6e!important}::ng-deep .tools .dropdown-menu .option:hover{background-color:#4b566c!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}::ng-deep .tools .select{width:37px;height:37px;margin-left:7px;line-height:37px;text-align:center}::ng-deep .tools .slides-title{color:#fff;padding-left:12px;font-size:18px}::ng-deep .tools .slides-filename{-webkit-box-flex:1;flex-grow:1;text-align:center;color:#fff}::ng-deep .tools .slides-buttons{display:-webkit-box;display:flex}::ng-deep .tools .slides-buttons ::ng-deep .select{color:#fff;cursor:pointer}.slides-nav{position:absolute;right:30px;bottom:30px;display:-webkit-box;display:flex}.slides-nav ::ng-deep .button{font-size:37px}.slides-nav ::ng-deep .timer{font-size:42px;line-height:6px;color:#959da5;position:relative}.slides-nav ::ng-deep .timer .seconds-remaining{position:absolute;margin-left:5px;font-size:16px;top:18px;left:12px}.slides-nav ::ng-deep .timer .seconds-remaining.two-digits{left:6px!important}@media (max-width:1037px){.current-page-number,.mobile-hide{display:none}::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .tools .gd-nav-search-btn .icon-button{height:37px;width:37px}::ng-deep .tools .gd-nav-search-btn .button{font-size:14px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -989,6 +1325,9 @@ ViewerAppComponent.ctorParameters = () => [
     { type: WindowService },
     { type: LoadingMaskService }
 ];
+ViewerAppComponent.propDecorators = {
+    fullScreen: [{ type: HostListener, args: ["document:fullscreenchange", [],] }]
+};
 if (false) {
     /** @type {?} */
     ViewerAppComponent.prototype.title;
@@ -1023,6 +1362,16 @@ if (false) {
     /** @type {?} */
     ViewerAppComponent.prototype.options;
     /** @type {?} */
+    ViewerAppComponent.prototype.timerOptions;
+    /** @type {?} */
+    ViewerAppComponent.prototype.intervalTime;
+    /** @type {?} */
+    ViewerAppComponent.prototype.intervalTimer;
+    /** @type {?} */
+    ViewerAppComponent.prototype.countDownInterval;
+    /** @type {?} */
+    ViewerAppComponent.prototype.secondsLeft;
+    /** @type {?} */
     ViewerAppComponent.prototype.fileWasDropped;
     /** @type {?} */
     ViewerAppComponent.prototype.formatIcon;
@@ -1032,6 +1381,14 @@ if (false) {
     ViewerAppComponent.prototype.querySubscription;
     /** @type {?} */
     ViewerAppComponent.prototype.selectedPageNumber;
+    /** @type {?} */
+    ViewerAppComponent.prototype.runPresentation;
+    /** @type {?} */
+    ViewerAppComponent.prototype.isFullScreen;
+    /** @type {?} */
+    ViewerAppComponent.prototype.docElmWithBrowsersFullScreenFunctions;
+    /** @type {?} */
+    ViewerAppComponent.prototype.docWithBrowsersExitFunctions;
     /**
      * @type {?}
      * @private
@@ -1441,7 +1798,9 @@ class ExcelDocumentComponent extends DocumentComponent {
          * @return {?}
          */
         value => {
-            this.selectSheet(value);
+            if (value) {
+                this.selectSheet(value);
+            }
         }))));
     }
     /**
@@ -1488,6 +1847,229 @@ if (false) {
     ExcelDocumentComponent.prototype.panzoom;
     /** @type {?} */
     ExcelDocumentComponent.prototype.navigateService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const $ = jquery;
+class RunPresentationComponent {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _zoomService
+     * @param {?} _windowService
+     * @param {?} _navigateService
+     */
+    constructor(_elementRef, _zoomService, _windowService, _navigateService) {
+        this._elementRef = _elementRef;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this._navigateService = _navigateService;
+        this.selectedPage = new EventEmitter();
+        this.wait = false;
+        this.container = null;
+        this.doc = null;
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => {
+            this.zoom = val;
+        }));
+        this.isDesktop = _windowService.isDesktop();
+        this._navigateService.navigate.subscribe((((/**
+         * @param {?} value
+         * @return {?}
+         */
+        value => {
+            this.scrollTo(value, value > this.lastCurrentPage);
+            this.lastCurrentPage = value;
+        }))));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.lastCurrentPage = this._navigateService.currentPage;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnChanges() {
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        // For current iteration we take .panzoom as a document
+        this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
+        // For current iteration we take .gd-document as a container
+        this.container = this._elementRef.nativeElement;
+        if (this.currentPage !== 1) {
+            this.scrollTo(this.currentPage, true);
+        }
+        /** @type {?} */
+        const hammer = new Hammer(this.container);
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewChecked() {
+        /** @type {?} */
+        const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+        /** @type {?} */
+        const element = elementNodeListOf.item(0);
+        if (element) {
+            $(element).trigger('focus');
+        }
+    }
+    /**
+     * @param {?} pageNumber
+     * @param {?} onRight
+     * @return {?}
+     */
+    scrollTo(pageNumber, onRight) {
+        /** @type {?} */
+        const pagesWidth = this._elementRef.nativeElement.offsetWidth * (pageNumber - 1);
+        /** @type {?} */
+        const startingX = onRight ? pagesWidth - this._elementRef.nativeElement.offsetWidth : pagesWidth + this._elementRef.nativeElement.offsetWidth;
+        this.doScrolling(pagesWidth, startingX, 500, new Subject(), this._elementRef);
+        this.selectedPage.emit(pageNumber);
+    }
+    /**
+     * @private
+     * @param {?} elementX
+     * @param {?} startingX
+     * @param {?} duration
+     * @param {?} subject
+     * @param {?} _elementRef
+     * @return {?}
+     */
+    doScrolling(elementX, startingX, duration, subject, _elementRef) {
+        /** @type {?} */
+        const diff = elementX - startingX;
+        /** @type {?} */
+        let start;
+        window.requestAnimationFrame((/**
+         * @param {?} timestamp
+         * @return {?}
+         */
+        function step(timestamp) {
+            start = (!start) ? timestamp : start;
+            /** @type {?} */
+            const time = timestamp - start;
+            /** @type {?} */
+            const percent = Math.min(time / duration, 1);
+            _elementRef.nativeElement.scrollTo({ left: startingX + diff * percent });
+            if (time < duration) {
+                window.requestAnimationFrame(step);
+                subject.next({});
+            }
+            else {
+                subject.complete();
+            }
+        }));
+    }
+    /**
+     * @param {?} value
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    getDimensionWithUnit(value, pageNumber) {
+        return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+    }
+    /**
+     * @param {?} page
+     * @return {?}
+     */
+    isVertical(page) {
+        return page.height > page.width;
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    onPanLeft($event) {
+        if ($event.isFinal) {
+            this._navigateService.nextPage();
+        }
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    onPanRight($event) {
+        if ($event.isFinal) {
+            this._navigateService.prevPage();
+        }
+    }
+}
+RunPresentationComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'gd-run-presentation',
+                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div #slidesContent id=\"document\" class=\"document\" (panleft)=\"onPanLeft($event)\" (panright)=\"onPanRight($event)\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"isVertical(page) ? 'page presentation vertical' : 'page presentation'\" *ngFor=\"let page of file?.pages\"\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
+                styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow-y:hidden;touch-action:auto!important;overflow-x:hidden}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;margin:20px;-webkit-transition:.3s;transition:.3s}.page ::ng-deep gd-page{box-shadow:0 3px 6px rgba(0,0,0,.16);background-color:#fff}.page.presentation{-webkit-transition:unset;transition:unset;margin:0;width:100%!important;display:-webkit-box!important;display:flex!important;-webkit-box-pack:center!important;justify-content:center!important}.page.presentation.vertical{margin:0;width:100%!important;display:-webkit-box!important;display:flex!important;-webkit-box-pack:center!important;justify-content:center!important}.page.presentation.vertical ::ng-deep [class*=\"-rotate\"]{position:unset!important;margin-right:-240px}.page.presentation.vertical ::ng-deep gd-page{height:960pt;width:540pt}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;flex-wrap:wrap;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}.page ::ng-deep .gd-wrapper{pointer-events:none}}"]
+            }] }
+];
+/** @nocollapse */
+RunPresentationComponent.ctorParameters = () => [
+    { type: ElementRef },
+    { type: ZoomService },
+    { type: WindowService },
+    { type: NavigateService }
+];
+RunPresentationComponent.propDecorators = {
+    mode: [{ type: Input }],
+    preloadPageCount: [{ type: Input }],
+    file: [{ type: Input }],
+    currentPage: [{ type: Input }],
+    selectedPage: [{ type: Output }]
+};
+if (false) {
+    /** @type {?} */
+    RunPresentationComponent.prototype.mode;
+    /** @type {?} */
+    RunPresentationComponent.prototype.preloadPageCount;
+    /** @type {?} */
+    RunPresentationComponent.prototype.file;
+    /** @type {?} */
+    RunPresentationComponent.prototype.currentPage;
+    /** @type {?} */
+    RunPresentationComponent.prototype.selectedPage;
+    /** @type {?} */
+    RunPresentationComponent.prototype.wait;
+    /** @type {?} */
+    RunPresentationComponent.prototype.zoom;
+    /** @type {?} */
+    RunPresentationComponent.prototype.container;
+    /** @type {?} */
+    RunPresentationComponent.prototype.doc;
+    /** @type {?} */
+    RunPresentationComponent.prototype.isDesktop;
+    /** @type {?} */
+    RunPresentationComponent.prototype.lastCurrentPage;
+    /**
+     * @type {?}
+     * @protected
+     */
+    RunPresentationComponent.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    RunPresentationComponent.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    RunPresentationComponent.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    RunPresentationComponent.prototype._navigateService;
 }
 
 /**
@@ -1541,6 +2123,7 @@ ViewerModule.decorators = [
                 declarations: [
                     ViewerAppComponent,
                     ThumbnailsComponent,
+                    RunPresentationComponent,
                     ExcelDocumentComponent,
                     ExcelPageComponent
                 ],
@@ -1553,6 +2136,7 @@ ViewerModule.decorators = [
                 exports: [
                     ViewerAppComponent,
                     ThumbnailsComponent,
+                    RunPresentationComponent,
                     ExcelDocumentComponent,
                     ExcelPageComponent,
                     CommonComponentsModule
@@ -1595,5 +2179,5 @@ ViewerModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, endPoint, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, ExcelDocumentComponent as ɵb, ExcelPageComponent as ɵc, ExcelPageService as ɵd };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, endPoint, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map
