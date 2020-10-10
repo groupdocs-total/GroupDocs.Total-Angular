@@ -1,10 +1,14 @@
+<gd-loading-mask [loadingMask]="isLoading()"></gd-loading-mask>
 <div class="wrapper">
   <div class="parser-wrapper wrapper">
     <gd-tabbed-toolbars [logo]="'parser'" [icon]="'pen-square'">
       <gd-tabs>
         <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
           <div class="toolbar-panel">
-            <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"></gd-button>
+            <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)">
+            </gd-button>
+            <gd-button [icon]="'glasses'" [tooltip]="'Parse'" [disabled]="!file || template.isEmpty"
+              (click)="parseByTemplate()"></gd-button>
           </div>
         </gd-tab>
         <gd-tab [tabTitle]="'Template'" [icon]="'folder-open'" [id]="'2'">
@@ -14,22 +18,31 @@
             <gd-button [icon]="'folder-open'" [tooltip]="'Open template'" (click)="selectTemplate()"></gd-button>
             <gd-button [disabled]="!template.isStored()" [icon]="'trash-alt'" [tooltip]="'Delete template'"
               (click)="deleteTemplate()"></gd-button>
+
+            <gd-button [icon]="'plus'" [tooltip]="'Add field'" (click)="createField()"></gd-button>            
+
           </div>
         </gd-tab>
       </gd-tabs>
     </gd-tabbed-toolbars>
     <app-surface [template]="template" [file]="file"></app-surface>
+    <gd-init-state [icon]="'glasses'" *ngIf="!file && !isLoading()">
+      Click
+      <fa-icon [icon]="['fas','folder-open']"></fa-icon>
+      to open file. Use 'Template' tab to prepare the template.
+    </gd-init-state>
   </div>
 
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
-                         (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
-                         [uploadConfig]="uploadConfig"></gd-browse-files-modal>
+    (selectedFileGuid)="selectFile($event, null, browseFilesModal)" [uploadConfig]="uploadConfig">
+  </gd-browse-files-modal>
 
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>
   <gd-success-modal></gd-success-modal>
 
   <app-template-browser (choosed)="loadTemplate($event)"></app-template-browser>
+  <app-parse-results [template]="template" [guid]="file?.guid"></app-parse-results>
   <app-confirmation-modal [modalId]="'id-delete-template-modal'" [text]="'Delete template ' + template.name + '?'"
     [title]="'Confirmation'" [actionText]="'Delete'" [actionIcon]="'trash-alt'"
     (confirmEvent)="deleteTemplateById($event)"></app-confirmation-modal>

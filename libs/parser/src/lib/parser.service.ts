@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { FileCredentials, FileUtil } from "@groupdocs.examples.angular/common-components";
 import { ConfigService } from "../../../common-components/src/lib/config.service";
+import { Template } from './app-models';
 
 
 @Injectable({
@@ -29,7 +30,16 @@ export class ParserService {
     }
 
     return this._http.post(this._config.getParserApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
-  }  
+  }
+
+  parseByTemplate(documentGuid : string, template : Template){
+    const formData = new FormData();
+    formData.append("documentGuid", documentGuid);
+
+    const txt = JSON.stringify(template.getFields());
+
+    return this._http.post(this._config.getParserApiEndpoint() + Api.PARSE_BY_TEMPLATE, { guid: documentGuid, fields: template.getFields() }, Api.httpOptionsJson);
+  }
 }
 
 class Api {
@@ -75,6 +85,7 @@ class Api {
   public static ANNOTATE = '/annotate';
   public static SEARCH = '/search';
   public static ADD_FILES_TO_INDEX = '/addFilesToIndex';
+  public static PARSE_BY_TEMPLATE = '/parseByTemplate';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

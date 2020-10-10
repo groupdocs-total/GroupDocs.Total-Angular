@@ -16,7 +16,7 @@ export class FieldComponent implements OnInit, OnDestroy {
   id: number;
   pageSize: Size;
 
-  private field: TemplateField
+  private _field: TemplateField
 
   private left: number;
   private top: number;
@@ -49,18 +49,18 @@ export class FieldComponent implements OnInit, OnDestroy {
     }
   }
 
-  setField(field: TemplateField) {
-    this.field = field;
+  set field(field: TemplateField) {
+    this._field = field;
 
-    this.left = this.field.position.x;
-    this.top = this.field.position.y;
+    this.left = this._field.position.x;
+    this.top = this._field.position.y;
 
-    this.right = this.left + this.field.size.width;
-    this.bottom = this.top + this.field.size.height;
+    this.right = this.left + this._field.size.width;
+    this.bottom = this.top + this._field.size.height;
   }
 
-  getField() {
-    return this.field;
+  get field() {
+    return this._field;
   }
 
   getLeft() {
@@ -90,6 +90,7 @@ export class FieldComponent implements OnInit, OnDestroy {
   deactivate() {
     this.active = false;
     this.editMode = false;
+    this.field.update();
   }
 
   deactivateEditMode() {
@@ -122,7 +123,7 @@ export class FieldComponent implements OnInit, OnDestroy {
     }
 
     if ($event.key == "Delete" && !this.isEditMode()) {
-      this.field.remove();
+      this.remove();
     }
   }
 
@@ -220,6 +221,26 @@ export class FieldComponent implements OnInit, OnDestroy {
         this.bottom = Math.max(this.top + minHeight, Math.min(this.pageSize.height, newFieldPosition.y));
         break;
     }
+  }
+
+  remove() {
+    this.field.remove();
+  }
+
+  // Context menu
+  isContextMenuVisible = false;
+
+  rightClick($event) {
+    $event.preventDefault();
+    this.showContextMenu();
+  }
+
+  showContextMenu() {
+    this.isContextMenuVisible = true;  
+  }
+
+  hideContextMenu() {
+    this.isContextMenuVisible = false;  
   }
 }
 

@@ -1,24 +1,28 @@
-<div (clickOutside)="deactivate()"
-    [clickOutsideEvents]="'mousedown'"
-    [clickOutsideEnabled]="isActive()"
-
+<div (clickOutside)="deactivate()" (contextmenu)="rightClick($event)" [clickOutsideEvents]="'mousedown'" [clickOutsideEnabled]="isActive()"
     class="gd-field" [style.left.px]="getLeft()" [style.top.px]="getTop()" [style.width.px]="getWidth()"
     [style.height.px]="getHeight()">
 
-    <div class="gd-field-wrapper-border" (mousedown)="mouseDown($event, 'Move')" (dblclick)="activateEditMode()">
-        {{ getField().name }}         
+    <div class="gd-field-wrapper-border" *ngIf="!isEditMode()" (mousedown)="mouseDown($event, 'Move')"
+        (dblclick)="activateEditMode()">
+        {{ field.name }}
     </div>
-    
-    <input 
-        (clickOutside)="deactivateEditMode()"
-        [clickOutsideEvents]="'mousedown'"
-        [clickOutsideEnabled]="isEditMode()"
-        class="gd-field-editor" *ngIf="isEditMode()" type="text" 
-        [value]="getField().name" 
-        (input)="getField().name=$event.target.value"/>   
+
+    <textarea (clickOutside)="deactivateEditMode()" [clickOutsideEvents]="'mousedown'"
+        [clickOutsideEnabled]="isEditMode()" class="gd-field-editor" *ngIf="isEditMode()" type="text"
+        [value]="field.name" (input)="field.name=$event.target.value"></textarea>
 
     <div class="ui-resizable-handle se-resize" *ngIf="isActive()" (mousedown)="mouseDown($event, 'SE')"></div>
-    <div class="ui-resizable-handle ne-resize" *ngIf="isActive()"(mousedown)="mouseDown($event, 'NE')"></div>
-    <div class="ui-resizable-handle sw-resize" *ngIf="isActive()"(mousedown)="mouseDown($event, 'SW')"></div>
-    <div class="ui-resizable-handle nw-resize" *ngIf="isActive()"(mousedown)="mouseDown($event, 'NW')"></div>
+    <div class="ui-resizable-handle ne-resize" *ngIf="isActive()" (mousedown)="mouseDown($event, 'NE')"></div>
+    <div class="ui-resizable-handle sw-resize" *ngIf="isActive()" (mousedown)="mouseDown($event, 'SW')"></div>
+    <div class="ui-resizable-handle nw-resize" *ngIf="isActive()" (mousedown)="mouseDown($event, 'NW')"></div>
+
+    <div class="ui-error-container" *ngIf="field.error">
+        <div class="ui-error" title="{{field.error}}">
+            !
+        </div>
+    </div>
+
+    <div class="gd-field-menu" *ngIf="isContextMenuVisible" (clickOutside)="hideContextMenu()">
+        <gd-button [icon]="'trash-alt'" [iconOnly]="true" (click)="remove()"></gd-button>
+    </div>
 </div>

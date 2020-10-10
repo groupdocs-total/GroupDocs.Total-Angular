@@ -12,6 +12,8 @@ export class TemplateNameComponent implements OnInit {
 
   @Output() nameChanged = new EventEmitter();
 
+  showToolTip = false;
+
   constructor() { }
 
   ngOnInit() {

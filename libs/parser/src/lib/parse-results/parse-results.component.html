@@ -1,0 +1,25 @@
+<gd-modal id="gd-parse-results-modal" [title]="'Parse results'" (visible)="refresh($event)">
+    <div class="list-parse-results-header" *ngIf="isFieldsVisible()">
+        <div class="header-name">Field</div>
+        <div class="header-value">Value</div>
+    </div>
+
+    <section id="gd-parse-results-section">
+        <div id="gd-modal-parse-results" class="gd-modal-table">
+            <div class="list-parse-results-body">
+                <div class="list-parse-results-lines" *ngFor="let v of parseResults">
+                    <div class="parse-results-description">
+                        <div class="parse-results-name">{{v?.name}}</div>
+                        <div class="parse-results-value">{{v?.value}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="isSpinnerVisible()">
+            <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
+          &nbsp;Loading... Please wait.
+        </div>
+    </section>
+
+</gd-modal>

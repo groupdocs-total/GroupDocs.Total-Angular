@@ -10,12 +10,12 @@ import {
   TopTabActivatorService, UploadFilesService,
   Utils,
   WindowService,
-  ZoomService
+  ZoomService,
+  ExceptionMessageService
 } from "@groupdocs.examples.angular/common-components";
-import { FileDescription, Template, TemplateId } from './app-models';
+import { FileDescription, ParseResult, Template, TemplateField, TemplateId } from './app-models';
 import { ParserService } from './parser.service';
 import { ParserConfig } from './parser-config';
-
 
 @Component({
   selector: 'gd-app-parser',
@@ -23,12 +23,15 @@ import { ParserConfig } from './parser-config';
   styleUrls: ['./parser-app.component.less']
 })
 export class ParserAppComponent implements OnInit {
+  private readonly CREATE_FIELD_MODE = "createFieldMode";
+  private loading;
   template: Template;
   parserConfig: ParserConfig;
 
   constructor(
     private _modalService: ModalService,
     private _parserService: ParserService,
+    private _messageService: ExceptionMessageService,
     uploadFilesService: UploadFilesService) {
 
     uploadFilesService.uploadsChange.subscribe((uploads) => {
@@ -45,6 +48,10 @@ export class ParserAppComponent implements OnInit {
 
   ngOnInit(): void {
     this.createTemplate();
+  }
+
+  isLoading() {
+    return this.loading;
   }
 
   changeTemplateName(name: string) {
@@ -79,6 +86,30 @@ export class ParserAppComponent implements OnInit {
     if (this.template.isStored()) {
       this.template.remove();
       this.createTemplate();
+    }
+  }
+
+  // Create field
+
+  createField() {
+    if (this.file && this.template) {
+      const field = this.template.createField();
+      this.template.addField(field);
+    }
+  }
+
+  // Parse
+
+  parseByTemplate() {
+    if (this.template.hasErrors()) {
+      this._messageService.changeMessage("The template has errors. Fix them before parsing data.");
+      this._modalService.open(CommonModals.ErrorMessage);
+    } if (this.template.getFields().length == 0) {
+      this._messageService.changeMessage("The template is empty. Add some fields before parsing data.");
+      this._modalService.open(CommonModals.ErrorMessage);
+    }
+    else {
+      this._modalService.open("gd-parse-results-modal");
     }
   }
 
@@ -125,12 +156,14 @@ export class ParserAppComponent implements OnInit {
   }
 
   selectFile($event: string, password: string, modalId: string) {
+    this.loading = true;
     this.credentials = new FileCredentials($event, password);
     this.file = null;
     this._parserService.loadFile(this.credentials).subscribe((file: FileDescription) => {
       this.file = file;
-    }
-    );
+      this.loading = false;
+    });
+
     if (modalId) {
       this._modalService.close(modalId);
     }

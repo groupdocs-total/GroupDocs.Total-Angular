@@ -7,6 +7,11 @@ export class FileDescription {
   pages: PageModel[];
 }
 
+export class ParseResult {
+  name: string;
+  value: string;
+}
+
 export class Point {
   readonly x: number;
   readonly y: number;
@@ -35,6 +40,8 @@ export interface TemplateId {
 export class Template implements TemplateId {
   private _id: string = null;
   private _name: string = "template name";
+  private _hasErrors = false;
+  private _lastFieldId: number = -1;
 
   private fields = new Array<TemplateField>();
   private addSubject: Subject<TemplateField> = new Subject();
@@ -60,6 +67,10 @@ export class Template implements TemplateId {
     this.save();
   }
 
+  get isEmpty() {
+    return this.fields.length == 0;
+  }
+
   addField(field: TemplateField) {
     this.fields.push(field);
     this.save();
@@ -82,6 +93,10 @@ export class Template implements TemplateId {
     return this.fields;
   }
 
+  hasErrors() {
+    return this._hasErrors;
+  }
+
   static readonly TEMPLATE_MAX_ID = "TEMPLATEMAXID";
   static readonly TEMPLATE_PREFIX = "TEMPLATE_";
   static readonly FIELD_PREFIX = "FIELD_";
@@ -94,8 +109,8 @@ export class Template implements TemplateId {
       const key = localStorage.key(i);
       if (key.startsWith(Template.TEMPLATE_PREFIX)) {
         const id: TemplateId = {
-          id : key.substr(Template.TEMPLATE_PREFIX.length),
-          name : localStorage.getItem(key)
+          id: key.substr(Template.TEMPLATE_PREFIX.length),
+          name: localStorage.getItem(key)
         }
 
         ids.push(id);
@@ -126,10 +141,30 @@ export class Template implements TemplateId {
         field.size = data.size;
 
         template.fields.push(field);
+
+        template._lastFieldId = Math.max(template._lastFieldId, field.id);
       };
     }
 
+    template.validate();
+
     return template;
+  }
+
+  createField(): TemplateField {
+    let field = new TemplateField(this);
+    field.id = this.getNextFieldId();
+    field.name = "field" + field.id;
+    field.size = new Size(60, 20);
+    field.pageNumber = 1;
+    field.position = new Point(10, 10);
+
+    return field;
+  }
+
+  private getNextFieldId() {
+    this._lastFieldId++;
+    return this._lastFieldId;
   }
 
   save() {
@@ -167,11 +202,40 @@ export class Template implements TemplateId {
       localStorage.removeItem(Template.TEMPLATE_MAX_ID);
     }
   }
+
+  validate() {
+    let hasErrors = false;
+    let m = new Map<string, TemplateField>();
+
+    let i: number;
+    for (i = 0; i < this.fields.length; i++) {
+      this.fields[i].error = null;
+    }
+
+    for (i = 0; i < this.fields.length; i++) {
+      let f = this.fields[i];
+      if (f.name == null || f.name.length == 0) {
+        f.error = "Field name can't be empty";
+      }
+
+      if (m.has(f.name)) {
+        f.error = "Field name must be unique";
+        m.get(f.name).error = f.error;
+        hasErrors = true;
+      } else {
+        m.set(f.name, f);
+      }
+    }
+
+    this._hasErrors = hasErrors;
+  }
 }
 
 export class TemplateField {
+  private _name: string;
+  private _error: string;
+
   id: number;
-  name: string;
   pageNumber: number;
   position: Point;
   size: Size;
@@ -179,8 +243,30 @@ export class TemplateField {
   constructor(private template: Template) {
   }
 
+  set error(error: string) {
+    this._error = error;
+  }
+
+  get error() {
+    return this._error;
+  }
+
+  set name(name: string) {
+    this._name = name;
+
+    if (this.template) {
+      this.template.validate();
+    }
+  }
+
+  get name() {
+    return this._name;
+  }
+
   remove() {
-    this.template.removeField(this);
+    if (this.template) {
+      this.template.removeField(this);
+    }
   }
 
   update() {
