@@ -1,99 +1,128 @@
 <div class='gd-search-options-panel'>
-  <label>
-    <input type="checkbox"
-           [checked]="options.CaseSensitiveSearch"
-           (change)="options.CaseSensitiveSearch = !options.CaseSensitiveSearch" />
-    Case sensitive search
-  </label>
-  <br>
+  <div class='gd-search-options-panel-area'>
 
-  <label>
-    <input type="checkbox"
-           [checked]="options.FuzzySearch"
-           (change)="options.FuzzySearch = !options.FuzzySearch" />
-    Fuzzy search
-  </label>
-  <br>
+    <div class='gd-search-option-outer'>
+      <div class='gd-search-option-inner'>
+        <label>
+          <input type="checkbox"
+                [checked]="options.CaseSensitiveSearch"
+                (change)="options.CaseSensitiveSearch = !options.CaseSensitiveSearch" />
+          Case sensitive search
+        </label>
+      </div>
+    </div>
 
-  <div class='options-container option-indented'>
-    <button class='options-button'
-      (click)="decreaseFuzzySearchMistakeCount()">
-      <fa-icon [icon]="['fas','caret-down']" class="fa-lg"></fa-icon>
-    </button>
-    {{options.FuzzySearchMistakeCount}}
-    <button class='options-button'
-      (click)="increaseFuzzySearchMistakeCount()">
-      <fa-icon [icon]="['fas','caret-up']" class="fa-lg"></fa-icon>
-    </button>
-    Mistake count
+    <div class='gd-search-option-outer'>
+      <div class='gd-search-option-inner'>
+        <label>
+          <input type="checkbox"
+                [checked]="options.FuzzySearch"
+                (change)="options.FuzzySearch = !options.FuzzySearch" />
+          Fuzzy search
+        </label>
+
+        <div class='options-container option-indented'>
+          <button class='options-button'
+            (click)="decreaseFuzzySearchMistakeCount()">
+            <fa-icon [icon]="['fas','caret-down']" class="fa-lg"></fa-icon>
+          </button>
+          {{options.FuzzySearchMistakeCount}}
+          <button class='options-button'
+            (click)="increaseFuzzySearchMistakeCount()">
+            <fa-icon [icon]="['fas','caret-up']" class="fa-lg"></fa-icon>
+          </button>
+          Mistake count
+        </div>
+
+        <label class='option-indented'>
+          <input type="checkbox"
+                [checked]="options.FuzzySearchOnlyBestResults"
+                (change)="options.FuzzySearchOnlyBestResults = !options.FuzzySearchOnlyBestResults" />
+          Only best results
+        </label>
+      </div>
+      <div class="gd-search-option-overlap" *ngIf="options.CaseSensitiveSearch === true"></div>
+    </div>
+
+    <div class='gd-search-option-outer'>
+      <div class='gd-search-option-inner'>
+        <label>
+          <input type="checkbox"
+                [checked]="options.KeyboardLayoutCorrection"
+                (change)="options.KeyboardLayoutCorrection = !options.KeyboardLayoutCorrection" />
+          Keyboard layout correction
+        </label>
+      </div>
+      <div class="gd-search-option-overlap" *ngIf="options.CaseSensitiveSearch === true"></div>
+    </div>
+
+    <div class='gd-search-option-outer'>
+      <div class='gd-search-option-inner'>
+        <label>
+          <input type="checkbox"
+                [checked]="options.SynonymSearch"
+                (change)="options.SynonymSearch = !options.SynonymSearch" />
+          Synonym search
+        </label>
+      </div>
+      <div class="gd-search-option-overlap" *ngIf="options.CaseSensitiveSearch === true"></div>
+    </div>
+
+    <div class='gd-search-option-outer'>
+      <div class='gd-search-option-inner'>
+        <label>
+          <input type="checkbox"
+                [checked]="options.HomophoneSearch"
+                (change)="options.HomophoneSearch = !options.HomophoneSearch" />
+          Homophone search
+        </label>
+      </div>
+      <div class="gd-search-option-overlap" *ngIf="options.CaseSensitiveSearch === true"></div>
+    </div>
+
+    <div class='gd-search-option-outer'>
+      <div class='gd-search-option-inner'>
+        <label>
+          <input type="checkbox"
+                [checked]="options.WordFormsSearch"
+                (change)="options.WordFormsSearch = !options.WordFormsSearch" />
+          Word forms search
+        </label>
+      </div>
+      <div class="gd-search-option-overlap" *ngIf="options.CaseSensitiveSearch === true"></div>
+    </div>
+
+    <div class='gd-search-option-outer'>
+      <div class='gd-search-option-inner'>
+        <label>
+          <input type="checkbox"
+                [checked]="options.SpellingCorrection"
+                (change)="options.SpellingCorrection = !options.SpellingCorrection" />
+          Spelling correction
+        </label>
+
+        <div class='options-container option-indented'>
+          <button class='options-button'
+            (click)="decreaseSpellingCorrectionMistakeCount()">
+            <fa-icon [icon]="['fas','caret-down']" class="fa-lg"></fa-icon>
+          </button>
+          {{options.SpellingCorrectionMistakeCount}}
+          <button class='options-button'
+            (click)="increaseSpellingCorrectionMistakeCount()">
+            <fa-icon [icon]="['fas','caret-up']" class="fa-lg"></fa-icon>
+          </button>
+          Mistake count
+        </div>
+
+        <label class='option-indented'>
+          <input type="checkbox"
+                [checked]="options.SpellingCorrectionOnlyBestResults"
+                (change)="options.SpellingCorrectionOnlyBestResults = !options.SpellingCorrectionOnlyBestResults" />
+          Only best results
+        </label>
+      </div>
+      <div class="gd-search-option-overlap" *ngIf="options.CaseSensitiveSearch === true"></div>
+    </div>
+
   </div>
-
-  <label class='option-indented'>
-    <input type="checkbox"
-           [checked]="options.FuzzySearchOnlyBestResults"
-           (change)="options.FuzzySearchOnlyBestResults = !options.FuzzySearchOnlyBestResults" />
-    Only best results
-  </label>
-  <br>
-
-  <label>
-    <input type="checkbox"
-           [checked]="options.KeyboardLayoutCorrection"
-           (change)="options.KeyboardLayoutCorrection = !options.KeyboardLayoutCorrection" />
-    Keyboard layout correction
-  </label>
-  <br>
-
-  <label>
-    <input type="checkbox"
-           [checked]="options.SynonymSearch"
-           (change)="options.SynonymSearch = !options.SynonymSearch" />
-    Synonym search
-  </label>
-  <br>
-
-  <label>
-    <input type="checkbox"
-           [checked]="options.HomophoneSearch"
-           (change)="options.HomophoneSearch = !options.HomophoneSearch" />
-    Homophone search
-  </label>
-  <br>
-
-  <label>
-    <input type="checkbox"
-           [checked]="options.WordFormsSearch"
-           (change)="options.WordFormsSearch = !options.WordFormsSearch" />
-    Word forms search
-  </label>
-  <br>
-
-  <label>
-    <input type="checkbox"
-           [checked]="options.SpellingCorrection"
-           (change)="options.SpellingCorrection = !options.SpellingCorrection" />
-    Spelling correction
-  </label>
-  <br>
-
-  <div class='options-container option-indented'>
-    <button class='options-button'
-      (click)="decreaseSpellingCorrectionMistakeCount()">
-      <fa-icon [icon]="['fas','caret-down']" class="fa-lg"></fa-icon>
-    </button>
-    {{options.SpellingCorrectionMistakeCount}}
-    <button class='options-button'
-      (click)="increaseSpellingCorrectionMistakeCount()">
-      <fa-icon [icon]="['fas','caret-up']" class="fa-lg"></fa-icon>
-    </button>
-    Mistake count
-  </div>
-
-  <label class='option-indented'>
-    <input type="checkbox"
-           [checked]="options.SpellingCorrectionOnlyBestResults"
-           (change)="options.SpellingCorrectionOnlyBestResults = !options.SpellingCorrectionOnlyBestResults" />
-    Only best results
-  </label>
-
 </div>

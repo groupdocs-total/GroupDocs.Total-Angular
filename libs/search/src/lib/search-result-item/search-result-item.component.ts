@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchResultItemModel } from '../search-models';
 import { FileModel, FileUtil } from "@groupdocs.examples.angular/common-components";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'gd-search-result-item',
@@ -13,8 +14,16 @@ export class SearchResultItemComponent implements OnInit {
 
   constructor() {
   }
-  
+
   ngOnInit(): void {
+  }
+
+  getUrl(item: SearchResultItemModel): string {
+    let result = window.location.origin + "/viewer?file=" + encodeURIComponent(item.guid);
+    for (let i = 0; i < item.terms.length; i++) {
+      result += "&term=" + encodeURIComponent(item.terms[i]);
+    }
+    return result;
   }
 
   getSizeString(size: number) {

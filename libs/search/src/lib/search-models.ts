@@ -23,6 +23,7 @@ export class SearchResultItemModel implements FileModel {
   isDirectory: boolean;
   showPhrases: boolean;
   foundPhrases: string;
+  terms: string[];
 }
 
 export class ExtendedFileModel implements FileModel {

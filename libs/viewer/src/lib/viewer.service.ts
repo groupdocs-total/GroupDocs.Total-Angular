@@ -14,8 +14,12 @@ export class ViewerService {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
   }
 
-  loadFile(credentials: FileCredentials) {
-    return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
+  loadFile(credentials: FileCredentials, terms: string[]) {
+    return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, {
+      'guid': credentials.guid,
+      'password': credentials.password,
+      'terms': terms,
+    }, Api.httpOptionsJson);
   }
 
   upload(file: File, url: string, rewrite: boolean) {
@@ -29,11 +33,12 @@ export class ViewerService {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
   }
 
-  loadPage(credentials: FileCredentials, page: number) {
+  loadPage(credentials: FileCredentials, page: number, terms: string[]) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_PAGE, {
       'guid': credentials.guid,
       'password': credentials.password,
-      'page': page
+      'page': page,
+      'terms': terms,
     }, Api.httpOptionsJson);
   }
 
