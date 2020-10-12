@@ -2372,7 +2372,9 @@
              * @return {?}
              */
             function (value) {
-                _this.selectSheet(value);
+                if (value) {
+                    _this.selectSheet(value);
+                }
             }))));
         };
         /**

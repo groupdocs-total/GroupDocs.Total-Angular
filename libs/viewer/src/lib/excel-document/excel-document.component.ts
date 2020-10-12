@@ -35,7 +35,9 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
 
     this.navigateService.navigate.subscribe(((
      value => {
+       if (value) {
          this.selectSheet(value);
+       }
      })));
   }
 

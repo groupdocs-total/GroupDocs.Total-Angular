@@ -1798,7 +1798,9 @@ class ExcelDocumentComponent extends DocumentComponent {
          * @return {?}
          */
         value => {
-            this.selectSheet(value);
+            if (value) {
+                this.selectSheet(value);
+            }
         }))));
     }
     /**
