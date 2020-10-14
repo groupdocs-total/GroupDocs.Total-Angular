@@ -15,6 +15,7 @@ import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
 import {ExcelDocumentComponent} from './excel-document/excel-document.component';
 import {ExcelPageComponent} from './excel-page/excel-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {RunPresentationComponent} from './run-presentation/run-presentation.component';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
@@ -37,6 +38,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   declarations: [
     ViewerAppComponent,
     ThumbnailsComponent,
+    RunPresentationComponent,
     ExcelDocumentComponent,
     ExcelPageComponent],
   imports: [
@@ -48,6 +50,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   exports : [
     ViewerAppComponent,
     ThumbnailsComponent,
+    RunPresentationComponent,
     ExcelDocumentComponent,
     ExcelPageComponent,
     CommonComponentsModule

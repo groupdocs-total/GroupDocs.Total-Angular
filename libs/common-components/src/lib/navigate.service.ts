@@ -1,4 +1,4 @@
-import {Observable, Observer} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {PagePreloadService} from "./page-preload.service";
 import {Injectable} from "@angular/core";
 
@@ -8,12 +8,10 @@ import {Injectable} from "@angular/core";
 export class NavigateService {
   private _currentPage = 0;
   private _countPages = 0;
-  private readonly _navigate: Observable<number>;
-  private _observer: Observer<number>;
+  private _observer: BehaviorSubject<number> = new BehaviorSubject<number>(null);
+  private _navigate: Observable<number> = this._observer.asObservable();
 
   constructor(private _pagePreloadService: PagePreloadService) {
-    this._navigate = new Observable(observer =>
-      this._observer = observer);
   }
 
   get navigate(): Observable<number> {

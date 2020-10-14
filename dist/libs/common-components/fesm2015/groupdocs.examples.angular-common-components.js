@@ -1516,11 +1516,8 @@ class NavigateService {
         this._pagePreloadService = _pagePreloadService;
         this._currentPage = 0;
         this._countPages = 0;
-        this._navigate = new Observable((/**
-         * @param {?} observer
-         * @return {?}
-         */
-        observer => this._observer = observer));
+        this._observer = new BehaviorSubject(null);
+        this._navigate = this._observer.asObservable();
     }
     /**
      * @return {?}
@@ -1621,12 +1618,12 @@ if (false) {
      * @type {?}
      * @private
      */
-    NavigateService.prototype._navigate;
+    NavigateService.prototype._observer;
     /**
      * @type {?}
      * @private
      */
-    NavigateService.prototype._observer;
+    NavigateService.prototype._navigate;
     /**
      * @type {?}
      * @private
@@ -1652,7 +1649,6 @@ class DocumentComponent {
         this._zoomService = _zoomService;
         this._windowService = _windowService;
         this._navigateService = _navigateService;
-        this.onpan = new EventEmitter();
         this.wait = false;
         this.docWidth = null;
         this.docHeight = null;
@@ -1678,26 +1674,26 @@ class DocumentComponent {
             this.zoom = val;
         }));
         this.isDesktop = _windowService.isDesktop();
+        this._navigateService.navigate.subscribe((((/**
+         * @param {?} value
+         * @return {?}
+         */
+        value => {
+            this.selectedPage = value;
+        }))));
     }
     /**
      * @return {?}
      */
     ngOnInit() {
         if (this.ifPresentation()) {
-            this.selectedPage = 1;
+            this.selectedPage = this._navigateService.currentPage;
         }
     }
     /**
      * @return {?}
      */
     ngOnChanges() {
-        /** @type {?} */
-        const panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
-        ((/** @type {?} */ (panzoom))).style.transform = '';
-        // TODO: this intersects with zooming by zoom directive, but still needed
-        // for flush previous settings before opening another file
-        //this._zoomService.changeZoom(100);
-        //this.scale = 1;
     }
     /**
      * @return {?}
@@ -1759,198 +1755,6 @@ class DocumentComponent {
         }
     }
     /**
-     * @param {?} el
-     * @return {?}
-     */
-    absolutePosition(el) {
-        /** @type {?} */
-        let x = 0;
-        /** @type {?} */
-        let y = 0;
-        while (el !== null) {
-            x += el.offsetLeft;
-            y += el.offsetTop;
-            el = el.offsetParent;
-        }
-        return { x: x, y: y };
-    }
-    ;
-    /**
-     * @param {?} pos
-     * @param {?} viewportDim
-     * @param {?} docDim
-     * @return {?}
-     */
-    restrictRawPos(pos, viewportDim, docDim) {
-        if (pos < viewportDim / this.scale - docDim) { // too far left/up?
-            pos = viewportDim / this.scale - docDim;
-        }
-        else if (pos > 0) { // too far right/down?
-            pos = 0;
-        }
-        return pos;
-    }
-    ;
-    /**
-     * @return {?}
-     */
-    updateLastPos() {
-        this.lastX = this.x;
-        this.lastY = this.y;
-    }
-    ;
-    /**
-     * @param {?} deltaX
-     * @param {?} deltaY
-     * @return {?}
-     */
-    translate(deltaX, deltaY) {
-        // We restrict to the min of the viewport width/height or current width/height as the
-        // current width/height may be smaller than the viewport width/height
-        /** @type {?} */
-        const newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
-        this.x = newX;
-        // TODO: value here and in the similar line below changes to positive to take any effect
-        this.container.scrollLeft = -Math.ceil(newX * this.scale);
-        /** @type {?} */
-        const newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
-        this.y = newY;
-        this.container.scrollTop = -Math.ceil(newY * this.scale);
-        this.doc.style.transform = 'scale(' + this.scale + ')';
-    }
-    ;
-    /**
-     * @param {?} scaleBy
-     * @return {?}
-     */
-    startZoom(scaleBy) {
-        this.scale = this.lastScale * scaleBy;
-        this.curWidth = this.docWidth * this.scale;
-        this.curHeight = this.docHeight * this.scale;
-        // Adjust margins to make sure that we aren't out of bounds
-        this.translate(0, 0);
-    }
-    ;
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    rawCenter($event) {
-        /** @type {?} */
-        const pos = this.absolutePosition(this.container);
-        // We need to account for the scroll position
-        /** @type {?} */
-        const scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-        /** @type {?} */
-        const scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
-        /** @type {?} */
-        const zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
-        /** @type {?} */
-        const zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
-        return { x: zoomX, y: zoomY };
-    }
-    ;
-    /**
-     * @return {?}
-     */
-    updateLastScale() {
-        this.lastScale = this.scale;
-    }
-    ;
-    /**
-     * @param {?} scaleBy
-     * @param {?} rawZoomX
-     * @param {?} rawZoomY
-     * @param {?} doNotUpdateLast
-     * @return {?}
-     */
-    zoomAround(scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
-        // Zoom
-        this.startZoom(scaleBy);
-        // New raw center of viewport
-        /** @type {?} */
-        const rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
-        /** @type {?} */
-        const rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
-        // Delta
-        /** @type {?} */
-        const deltaX = (rawCenterX - rawZoomX) * this.scale;
-        /** @type {?} */
-        const deltaY = (rawCenterY - rawZoomY) * this.scale;
-        // Translate back to zoom center
-        this.translate(deltaX, deltaY);
-        if (!doNotUpdateLast) {
-            this.updateLastScale();
-            this.updateLastPos();
-        }
-    }
-    ;
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    onPinch($event) {
-        if (this.pinchCenter === null) {
-            this.pinchCenter = this.rawCenter($event);
-            /** @type {?} */
-            const offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
-            /** @type {?} */
-            const offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
-            this.pinchCenterOffset = { x: offsetX, y: offsetY };
-        }
-        /** @type {?} */
-        const newScale = this.scale * $event.scale;
-        /** @type {?} */
-        const zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
-        /** @type {?} */
-        const zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
-        /** @type {?} */
-        const zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
-        this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    onPinchEnd($event) {
-        this.updateLastScale();
-        this.updateLastPos();
-        this.pinchCenter = null;
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    onPan($event) {
-        // TODO: looks like native pan works better
-        // if (!this.isDesktop) {
-        //   this.translate($event.deltaX, $event.deltaY);
-        // }
-        this.onpan.emit($event);
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    onPanEnd($event) {
-        // if (!this.isDesktop) {
-        //   this.updateLastPos();
-        // }
-    }
-    /**
-     * @param {?} $event
-     * @return {?}
-     */
-    onDoubleTap($event) {
-        if (!this.isDesktop) {
-            if ($event.tapCount === 2) {
-                /** @type {?} */
-                const c = this.rawCenter($event);
-                this.zoomAround(2, c.x, c.y, false);
-            }
-        }
-    }
-    /**
      * @param {?} pageNumber
      * @return {?}
      */
@@ -1966,7 +1770,7 @@ class DocumentComponent {
 DocumentComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-document',
-                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
+                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page *ngIf=\"isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
                 styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;-webkit-transition:unset;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
             }] }
 ];
@@ -1981,8 +1785,7 @@ DocumentComponent.propDecorators = {
     mode: [{ type: Input }],
     preloadPageCount: [{ type: Input }],
     file: [{ type: Input }],
-    selectedPage: [{ type: Input }],
-    onpan: [{ type: Output }]
+    selectedPage: [{ type: Input }]
 };
 if (false) {
     /** @type {?} */
@@ -1993,8 +1796,6 @@ if (false) {
     DocumentComponent.prototype.file;
     /** @type {?} */
     DocumentComponent.prototype.selectedPage;
-    /** @type {?} */
-    DocumentComponent.prototype.onpan;
     /** @type {?} */
     DocumentComponent.prototype.wait;
     /** @type {?} */
@@ -2053,14 +1854,6 @@ if (false) {
      * @private
      */
     DocumentComponent.prototype._navigateService;
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
-    /* Skipping unhandled member: ;*/
 }
 
 /**
@@ -2676,7 +2469,9 @@ class ScrollableDirective {
                 if (!currentPageSet) {
                     if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
                         this.currentPage = page;
-                        this._navigateService.currentPage = page;
+                        if (this._navigateService.currentPage === 0) {
+                            this._navigateService.currentPage = page;
+                        }
                     }
                     currentPageSet = true;
                 }
@@ -3152,7 +2947,7 @@ class SelectComponent {
 SelectComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-select',
-                template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (touchstart)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [clickOutsideEnabled]=\"isOpen\">\n  <div class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </div>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\n           class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
+                template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (touchstart)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [clickOutsideEnabled]=\"isOpen\">\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\n           class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
                 styles: [".select{min-width:50px;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
             }] }
 ];
@@ -3165,7 +2960,8 @@ SelectComponent.propDecorators = {
     disabled: [{ type: Input }],
     showSelected: [{ type: Input }],
     selected: [{ type: Output }],
-    isOpen: [{ type: Input }]
+    isOpen: [{ type: Input }],
+    icon: [{ type: Input }]
 };
 if (false) {
     /** @type {?} */
@@ -3178,6 +2974,8 @@ if (false) {
     SelectComponent.prototype.selected;
     /** @type {?} */
     SelectComponent.prototype.isOpen;
+    /** @type {?} */
+    SelectComponent.prototype.icon;
     /**
      * @type {?}
      * @protected
