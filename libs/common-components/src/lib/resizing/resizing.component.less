@@ -1,3 +1,4 @@
+@import "../../styles/variables";
 
 .ui-resizable-handle {
   background-color: #679FFA;
@@ -31,4 +32,11 @@
   top: -5px;
   left: -5px;
   cursor: nw-resize;
+}
+
+@media @phone-down {
+  .ui-resizable-handle {
+    width: 12px;
+    height: 12px;
+  }
 }
