@@ -20,6 +20,7 @@ import {WindowService} from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
 import { Constants } from './viewer.constants';
 import { IntervalTimer } from './interval-timer';
+import { TermNavigationService } from './term-navigation.service';
 
 @Component({
   selector: 'gd-viewer',
@@ -79,6 +80,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   constructor(private _viewerService: ViewerService,
+              public termNavigation: TermNavigationService,
               private _modalService: ModalService,
               configService: ViewerConfigService,
               uploadFilesService: UploadFilesService,

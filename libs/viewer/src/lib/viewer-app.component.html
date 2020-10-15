@@ -37,6 +37,28 @@
                  *ngIf="searchConfig && !ifPresentation()" ></gd-button>
       <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" ></gd-search>
 
+      <gd-button class="mobile-hide"
+        [disabled]="formatDisabled"
+        [icon]="'angle-left'"
+        [tooltip]="'Previous Term'"
+        (click)="termNavigation.navigatePrevious()"
+        *ngIf="termNavigation.total > 0"></gd-button>
+      <div class="current-page-number"
+        [ngClass]="{'active': !formatDisabled}"
+        *ngIf="termNavigation.total > 0">{{termNavigation.current}}/{{termNavigation.total}}</div>
+      <gd-button class="mobile-hide"
+        [disabled]="formatDisabled"
+        [icon]="'angle-right'"
+        [tooltip]="'Next Term'"
+        (click)="termNavigation.navigateNext()"
+        *ngIf="termNavigation.total > 0"></gd-button>
+      <gd-button class="mobile-hide"
+        [disabled]="formatDisabled"
+        [icon]="'trash-alt'"
+        [tooltip]="'Delete Navigation'"
+        (click)="termNavigation.deleteNavigation()"
+        *ngIf="termNavigation.total > 0"></gd-button>
+
       <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
                  (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && ((formatIcon !== 'file-powerpoint') ||
                  formatIcon === 'file-powerpoint' && runPresentation)"></gd-button>
@@ -69,14 +91,14 @@
     <gd-document class="gd-document" *ngIf="(file &&
                                             (ifExcel() && !htmlModeConfig) ||
                                             (ifPresentation() && isDesktop && !runPresentation) ||
-                                            (!ifExcel() && !ifPresentation()))" [file]="file" [mode]="htmlModeConfig" gdScrollable
+                                            (!ifExcel() && !ifPresentation()))" [file]="file" [mode]="htmlModeConfig" gdScrollable gdTermNavigation
                  [preloadPageCount]="viewerConfig?.preloadPageCount" [selectedPage]="selectedPageNumber" gdRenderPrint [htmlMode]="htmlModeConfig" gdMouseWheel (mouseWheelUp)="onMouseWheelUp()" (mouseWheelDown)="onMouseWheelDown()"></gd-document>
     <gd-excel-document class="gd-document" *ngIf="file && formatIcon === 'file-excel' && htmlModeConfig" [file]="file" [mode]="htmlModeConfig" gdScrollable
-                 [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig"></gd-excel-document>
+                 [preloadPageCount]="viewerConfig?.preloadPageCount" gdRenderPrint [htmlMode]="htmlModeConfig" gdTermNavigation></gd-excel-document>
     <gd-run-presentation class="gd-document" *ngIf="(file && ifPresentation() && runPresentation) ||
                                                     (file && ifPresentation() && !isDesktop)" [file]="file" [currentPage]="currentPage" [mode]="htmlModeConfig"
                                                     (selectedPage)="selectCurrentPage($event)"
-                 [preloadPageCount]="0"></gd-run-presentation>
+                 [preloadPageCount]="0" gdTermNavigation></gd-run-presentation>
     <div class="slides-nav" *ngIf="runPresentation">
       <div class="timer" *ngIf="showCountDown()">
         <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon><span [ngClass]="secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'">{{secondsLeft}}</span>

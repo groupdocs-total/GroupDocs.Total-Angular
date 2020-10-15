@@ -16,6 +16,8 @@ import {ExcelDocumentComponent} from './excel-document/excel-document.component'
 import {ExcelPageComponent} from './excel-page/excel-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {RunPresentationComponent} from './run-presentation/run-presentation.component';
+import { TermNavigationDirective } from './term-navigation.directive';
+import { TermNavigationService } from './term-navigation.service';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
@@ -40,7 +42,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     ThumbnailsComponent,
     RunPresentationComponent,
     ExcelDocumentComponent,
-    ExcelPageComponent],
+    ExcelPageComponent,
+    TermNavigationDirective],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -57,6 +60,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ],
   providers: [
     ViewerService,
+    TermNavigationService,
     {
       provide: ConfigService,
       useFactory: endPoint

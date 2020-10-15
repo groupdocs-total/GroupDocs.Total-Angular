@@ -38,8 +38,8 @@ export class StopWordDictionaryService {
 
     let count = 0;
     for (let i = 0; i < this.words.length; i++) {
-      if (this.words[i].state == StopWordState.Old ||
-        this.words[i].state == StopWordState.New) {
+      if (this.words[i].state === StopWordState.Old ||
+        this.words[i].state === StopWordState.New) {
         count++;
       }
     }
@@ -47,8 +47,8 @@ export class StopWordDictionaryService {
     request.StopWords = new Array(count);
     let index = 0;
     for (let i = 0; i < this.words.length; i++) {
-      if (this.words[i].state == StopWordState.Old ||
-        this.words[i].state == StopWordState.New) {
+      if (this.words[i].state === StopWordState.Old ||
+        this.words[i].state === StopWordState.New) {
         request.StopWords[index] = this.words[i].word;
         index++;
       }
