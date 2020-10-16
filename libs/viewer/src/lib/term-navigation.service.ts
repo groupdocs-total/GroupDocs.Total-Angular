@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class TermNavigationService {
+  element: HTMLElement;
   total: number;
   current: number;
 
@@ -23,14 +24,15 @@ export class TermNavigationService {
     return this._deleteNavigationRequested;
   }
 
-  setTotal(value: number) {
-    this.total = value;
-    if (value > 0) {
-      this.current = 1;
-    }
-    else {
-      this.current = 0;
-    }
+  setElement(element: HTMLElement) {
+    this.current = 0;
+    this.element = element;
+  }
+
+  updateTotal() {
+    if (this.element === undefined) return;
+
+    this.total = this.element.querySelectorAll('.gd-found-term').length;
   }
 
   navigatePrevious() {

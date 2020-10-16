@@ -286,6 +286,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           }
           this.runPresentation = false;
         }
+
+        this.termNavigation.updateTotal();
       }
     );
     if (modalId) {
@@ -308,6 +310,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           }
           this.file.thumbnails[i - 1].data = page.data;
         }
+
+        this.termNavigation.updateTotal();
       });
     }
   }

@@ -10,6 +10,8 @@ export class TermNavigationDirective implements AfterViewInit {
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _termNavigationService: TermNavigationService) {
+    const element = this._elementRef ? this._elementRef.nativeElement : null;
+    _termNavigationService.setElement(element);
     this._termNavigationService.currentChanged.subscribe((current: number) => {
       this.moveToCurrent(current);
     });
@@ -20,9 +22,7 @@ export class TermNavigationDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      const element = this._elementRef ? this._elementRef.nativeElement : null;
-      const total = element.querySelectorAll('.gd-found-term').length;
-      this._termNavigationService.setTotal(total);
+      this._termNavigationService.updateTotal();
       this.moveToCurrent(this._termNavigationService.current);
     }, 100);
   }
