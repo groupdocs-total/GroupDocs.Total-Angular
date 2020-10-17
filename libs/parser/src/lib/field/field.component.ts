@@ -1,5 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Utils } from '@groupdocs.examples.angular/common-components';
+import { Utils, ZoomService } from '@groupdocs.examples.angular/common-components';
 import { Point, Size, TemplateField } from '../app-models';
 
 import * as jquery from 'jquery';
@@ -18,25 +18,34 @@ export class FieldComponent implements OnInit, OnDestroy {
 
   private _field: TemplateField
 
-  private left: number;
-  private top: number;
-  private right: number;
-  private bottom: number;
-  private active = false;
-  private editMode = false;
+  private _left: number;
+  private _top: number;
+  private _right: number;
+  private _bottom: number;
+  private _active = false;
+  private _editMode = false;
 
-  private mouseMoveParameters: MouseMoveParameters = null;
+  private _mouseMoveParameters: MouseMoveParameters = null;
 
-  private activeFieldSubscribtion: Subscription;
+  private _activeFieldSubscription: Subscription;
+  private _zoomSubscription: Subscription;
+  private _zoom: number;
 
-  constructor(private activeFieldService: ActiveFieldService) {
-    this.activeFieldSubscribtion = activeFieldService.changed.subscribe(id => {
+  constructor(
+    private _activeFieldService: ActiveFieldService,
+    private _zoomService: ZoomService) {
+    this._activeFieldSubscription = _activeFieldService.changed.subscribe(id => {
       const isActive = this.id == id;
-      if (!isActive && this.active) {
+      if (!isActive && this._active) {
         this.deactivate();
       }
 
-      this.active = isActive;
+      this._active = isActive;
+    });
+
+    this._zoom = _zoomService.zoom;
+    this._zoomSubscription = _zoomService.zoomChange.subscribe((zoom: number) => {
+      this._zoom = zoom;
     });
   }
 
@@ -44,62 +53,96 @@ export class FieldComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.activeFieldSubscribtion) {
-      this.activeFieldSubscribtion.unsubscribe();
+    if (this._activeFieldSubscription) {
+      this._activeFieldSubscription.unsubscribe();
+    }
+
+    if (this._zoomSubscription) {
+      this._zoomSubscription.unsubscribe();
     }
   }
 
   set field(field: TemplateField) {
     this._field = field;
 
-    this.left = this._field.position.x;
-    this.top = this._field.position.y;
+    this.left = this.field.position.x ;
+    this.top = this.field.position.y;
 
-    this.right = this.left + this._field.size.width;
-    this.bottom = this.top + this._field.size.height;
+    this.right = (this.field.position.x + this.field.size.width);
+    this.bottom = (this.field.position.y + this.field.size.height);
   }
 
   get field() {
     return this._field;
   }
 
-  getLeft() {
-    return this.left;
+  get left() {
+    return this._left;
   }
 
-  getTop() {
-    return this.top;
+  set left(left: number) {
+    this._left = left;
   }
 
-  getHeight() {
+  get top() {
+    return this._top;
+  }
+
+  set top(top: number) {
+    this._top = top;
+  }
+
+  get right() {
+    return this._right;
+  }
+
+  set right(right: number) {
+    this._right = right;
+  }
+
+  get bottom() {
+    return this._bottom;
+  }
+
+  set bottom(bottom: number) {
+    this._bottom = bottom;
+  }
+
+  get height() {
     return this.bottom - this.top;
   }
 
-  getWidth() {
+  get width() {
     return this.right - this.left;
   }
 
   isActive() {
-    return this.active;
+    return this._active;
   }
 
   isEditMode() {
-    return this.editMode;
+    return this._editMode;
   }
 
   deactivate() {
-    this.active = false;
-    this.editMode = false;
-    this.field.update();
+    this._active = false;
+    this._editMode = false;
+    this._field.update();
+
+    this.hideContextMenu();
   }
 
   deactivateEditMode() {
-    this.editMode = false;
-    this.field.update();
+    this._editMode = false;
+    this._field.update();
   }
 
   activateEditMode() {
-    this.editMode = true;    
+    this._editMode = true;
+  }
+
+  get scale() {
+    return this._zoom / 100;
   }
 
   @HostListener('document:mousemove', ['$event'])
@@ -161,29 +204,31 @@ export class FieldComponent implements OnInit, OnDestroy {
 
     $event.preventDefault();
 
-    this.activeFieldService.changeActive(this.id);
-    this.mouseMoveParameters = new MouseMoveParameters(
+    this._activeFieldService.changeActive(this.id);
+    this._mouseMoveParameters = new MouseMoveParameters(
       Utils.getMousePosition($event),
       position,
       mouseMoveMode,
+      this.scale
     );
   }
 
   mouseUp($event: MouseEvent) {
-    if (!this.mouseMoveParameters) {
+    if (!this._mouseMoveParameters) {
       return;
     }
 
     $event.preventDefault();
-    this.mouseMoveParameters = null;
+    this._mouseMoveParameters = null;
+
     this.field.position = new Point(this.left, this.top);
-    this.field.size = new Size(this.getWidth(), this.getHeight());
+    this.field.size = new Size(this.width, this.height);
 
     this.field.update();
   }
 
   mouseMove($event: MouseEvent) {
-    if (!this.mouseMoveParameters) {
+    if (!this._mouseMoveParameters) {
       return;
     }
 
@@ -191,14 +236,19 @@ export class FieldComponent implements OnInit, OnDestroy {
     const minHeight = 10;
 
     const newMousePosition = Utils.getMousePosition($event);
-    const newFieldPosition = this.mouseMoveParameters.getNewPosition(newMousePosition);
+    const newFieldPosition = this._mouseMoveParameters.getNewPosition(newMousePosition);
 
-    switch (this.mouseMoveParameters.mode) {
+    const pageWidth = this.pageSize.width;
+    const pageHeight = this.pageSize.height;
+    const fieldWidth = this.field.size.width;
+    const fieldHeight = this.field.size.height;
+
+    switch (this._mouseMoveParameters.mode) {
       case MouseMoveMode.Move:
-        this.left = Math.min(this.pageSize.width - this.field.size.width, Math.max(0, newFieldPosition.x));
-        this.top = Math.min(this.pageSize.height - this.field.size.height, Math.max(0, newFieldPosition.y));
-        this.right = this.left + this.field.size.width;
-        this.bottom = this.top + this.field.size.height;
+        this.left = Math.min(pageWidth - fieldWidth, Math.max(0, newFieldPosition.x));
+        this.top = Math.min(pageHeight - fieldHeight, Math.max(0, newFieldPosition.y));
+        this.right = this.left + fieldWidth;
+        this.bottom = this.top + fieldHeight;
         break;
 
       case MouseMoveMode.NW:
@@ -207,18 +257,18 @@ export class FieldComponent implements OnInit, OnDestroy {
         break;
 
       case MouseMoveMode.NE:
-        this.right = Math.max(this.left + minWidth, Math.min(this.pageSize.width, newFieldPosition.x));
+        this.right = Math.max(this.left + minWidth, Math.min(pageWidth, newFieldPosition.x));
         this.top = Math.min(this.bottom - minHeight, Math.max(0, newFieldPosition.y));
         break;
 
       case MouseMoveMode.SE:
-        this.right = Math.max(this.left + minWidth, Math.min(this.pageSize.width, newFieldPosition.x));
-        this.bottom = Math.max(this.top + minHeight, Math.min(this.pageSize.height, newFieldPosition.y));
+        this.right = Math.max(this.left + minWidth, Math.min(pageWidth, newFieldPosition.x));
+        this.bottom = Math.max(this.top + minHeight, Math.min(pageHeight, newFieldPosition.y));
         break;
 
       case MouseMoveMode.SW:
         this.left = Math.min(this.right - minWidth, Math.max(0, newFieldPosition.x));
-        this.bottom = Math.max(this.top + minHeight, Math.min(this.pageSize.height, newFieldPosition.y));
+        this.bottom = Math.max(this.top + minHeight, Math.min(pageHeight, newFieldPosition.y));
         break;
     }
   }
@@ -236,11 +286,11 @@ export class FieldComponent implements OnInit, OnDestroy {
   }
 
   showContextMenu() {
-    this.isContextMenuVisible = true;  
+    this.isContextMenuVisible = true;
   }
 
   hideContextMenu() {
-    this.isContextMenuVisible = false;  
+    this.isContextMenuVisible = false;
   }
 }
 
@@ -249,19 +299,21 @@ class MouseMoveParameters {
   private deltaY: number;
   readonly position: Point;
   readonly mode: MouseMoveMode;
+  readonly scale: number;
 
-  constructor(mousePosition: Point, position: Point, mode: MouseMoveMode) {
+  constructor(mousePosition: Point, position: Point, mode: MouseMoveMode, scale: number) {
     this.position = position;
     this.mode = mode;
+    this.scale = scale;
 
-    this.deltaX = mousePosition.x - position.x;
-    this.deltaY = mousePosition.y - position.y;
+    this.deltaX = mousePosition.x / scale - position.x;
+    this.deltaY = mousePosition.y / scale - position.y;
   }
 
   getNewPosition(newMousePosition: Point): Point {
     return new Point(
-      newMousePosition.x - this.deltaX,
-      newMousePosition.y - this.deltaY
+      newMousePosition.x / this.scale - this.deltaX,
+      newMousePosition.y / this.scale - this.deltaY
     );
   }
 }

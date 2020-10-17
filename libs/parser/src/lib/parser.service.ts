@@ -14,7 +14,7 @@ export class ParserService {
   constructor(private _http: HttpClient, private _config: ConfigService) { }
 
   loadFiles(path: string) {
-    return this._http.post(this._config.getParserApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
+    return this._http.post(this._config.getParserApiEndpoint() + Api.LOAD_FILE_TREE, { 'path': path }, Api.httpOptionsJson);
   }
 
   loadFile(credentials: FileCredentials) {
@@ -32,13 +32,13 @@ export class ParserService {
     return this._http.post(this._config.getParserApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
   }
 
-  parseByTemplate(documentGuid : string, template : Template){
+  parseByTemplate(documentGuid: string, password: string, template: Template) {
     const formData = new FormData();
     formData.append("documentGuid", documentGuid);
 
     const txt = JSON.stringify(template.getFields());
 
-    return this._http.post(this._config.getParserApiEndpoint() + Api.PARSE_BY_TEMPLATE, { guid: documentGuid, fields: template.getFields() }, Api.httpOptionsJson);
+    return this._http.post(this._config.getParserApiEndpoint() + Api.PARSE_BY_TEMPLATE, { guid: documentGuid, password: password, fields: template.getFields() }, Api.httpOptionsJson);
   }
 }
 

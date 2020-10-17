@@ -34,6 +34,7 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 
   private _file: FileDescription;
   private _template: Template;
+  private _zoom: number;
   private fieldAddedSubscription: Subscription;
   private fieldRemovedSubscription: Subscription;
 
@@ -66,6 +67,10 @@ export class SurfaceComponent implements OnInit, OnDestroy {
     this._template.getFields().forEach(field => {
       this.addField(field);
     });
+  }
+
+  get scale() {
+    return this._zoom / 100;
   }
 
   addField(field: TemplateField) {
@@ -126,7 +131,9 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 
       const field = this._template.createField();
       field.pageNumber = pageNumber;
-      field.position = new Point(currentPosition.x, currentPosition.y);
+      field.position = new Point(
+        currentPosition.x / this.scale,        
+        currentPosition.y / this.scale);
 
       this._template.addField(field);
     }
@@ -154,8 +161,11 @@ export class SurfaceComponent implements OnInit, OnDestroy {
   constructor(
     private hostingComponentsService: HostingDynamicComponentService,
     private addDynamicComponentService: AddDynamicComponentService,
-    private activeFieldService: ActiveFieldService) {
+    private _zoomService: ZoomService) {
 
+    this._zoom = _zoomService.zoom;
+    _zoomService.zoomChange.subscribe((zoom: number) => {
+      this._zoom = zoom;
+    });
   }
-
 }

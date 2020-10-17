@@ -1,3 +1,5 @@
 <div class="doc-panel" (mousedown)="createField($event)">
-  <gd-document class="gd-document" [file]="file" gdScrollable gdRenderPrint></gd-document>
+  <gd-document class="gd-document" *ngIf="file"
+    [mode]="false"
+    [file]="file" gdScrollable gdRenderPrint [htmlMode]="false"></gd-document>
 </div>

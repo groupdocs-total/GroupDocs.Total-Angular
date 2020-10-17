@@ -27,12 +27,17 @@ export class ParserAppComponent implements OnInit {
   private loading;
   template: Template;
   parserConfig: ParserConfig;
+  filePassword: string;
 
   constructor(
     private _modalService: ModalService,
     private _parserService: ParserService,
     private _messageService: ExceptionMessageService,
-    uploadFilesService: UploadFilesService) {
+    private _zoomService: ZoomService,
+    private _navigateService: NavigateService,
+    uploadFilesService: UploadFilesService,
+    windowService: WindowService,
+    passwordService : PasswordService) {
 
     uploadFilesService.uploadsChange.subscribe((uploads) => {
       if (uploads) {
@@ -44,6 +49,15 @@ export class ParserAppComponent implements OnInit {
         }
       }
     });
+
+    windowService.onResize.subscribe((w) => {
+      this.refreshZoom();
+    });
+
+    passwordService.passChange.subscribe((pass: string) => {
+      this.filePassword = pass;
+      this.selectFile(this.credentials.guid, CommonModals.PasswordRequired);
+    });    
   }
 
   ngOnInit(): void {
@@ -114,6 +128,7 @@ export class ParserAppComponent implements OnInit {
   }
 
   // File Browser
+
   private _file: FileDescription;
 
   files: FileModel[] = [];
@@ -122,7 +137,14 @@ export class ParserAppComponent implements OnInit {
 
   set file(file: FileDescription) {
     this._file = file;
-    this.createTemplate();
+
+    if (file) {
+      this.createTemplate();
+      this.refreshZoom();
+
+      this._navigateService.countPages = file.pages ? file.pages.length : 0;
+      this._navigateService.currentPage = 1;
+    }
   }
 
   get file() {
@@ -155,9 +177,9 @@ export class ParserAppComponent implements OnInit {
     this._parserService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
   }
 
-  selectFile($event: string, password: string, modalId: string) {
+  selectFile($event: string, modalId: string) {
     this.loading = true;
-    this.credentials = new FileCredentials($event, password);
+    this.credentials = new FileCredentials($event, this.filePassword);
     this.file = null;
     this._parserService.loadFile(this.credentials).subscribe((file: FileDescription) => {
       this.file = file;
@@ -167,5 +189,52 @@ export class ParserAppComponent implements OnInit {
     if (modalId) {
       this._modalService.close(modalId);
     }
+  }
+
+  // zoom
+
+  private _zoom = 100;
+
+  set zoom(zoom) {
+    this._zoom = zoom;
+    this._zoomService.changeZoom(this._zoom);
+  }
+
+  get zoom() {
+    return this._zoom;
+  }
+
+  zoomIn() {
+    if (this._zoom < 490) {
+      this.zoom = this._zoom + 10;
+    }
+  }
+
+  zoomOut() {
+    if (this._zoom > 30) {
+      this.zoom = this._zoom - 10;
+    }
+  }
+
+  private refreshZoom() {
+    this.zoom = this.getFitToWidth();
+  }
+
+  private getFitToWidth() {
+    if (!this.file) {
+      return 100;
+    }
+
+    // Images and Excel-related files receiving dimensions in px from server
+    const pageWidth = this.ptToPx(this.file.pages[0].width);
+    const pageHeight = this.ptToPx(this.file.pages[0].height);
+    const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
+
+    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+  }
+
+  private ptToPx(pt: number) {
+    //pt * 96 / 72 = px.
+    return pt * 96 / 72;
   }
 }

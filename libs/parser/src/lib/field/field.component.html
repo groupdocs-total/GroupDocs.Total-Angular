@@ -1,6 +1,6 @@
 <div (clickOutside)="deactivate()" (contextmenu)="rightClick($event)" [clickOutsideEvents]="'mousedown'" [clickOutsideEnabled]="isActive()"
-    class="gd-field" [style.left.px]="getLeft()" [style.top.px]="getTop()" [style.width.px]="getWidth()"
-    [style.height.px]="getHeight()">
+    class="gd-field" [style.left.px]="left" [style.top.px]="top" [style.width.px]="width"
+    [style.height.px]="height">
 
     <div class="gd-field-wrapper-border" *ngIf="!isEditMode()" (mousedown)="mouseDown($event, 'Move')"
         (dblclick)="activateEditMode()">
