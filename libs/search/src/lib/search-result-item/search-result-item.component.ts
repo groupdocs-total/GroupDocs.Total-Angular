@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SearchResultItemModel } from '../search-models';
 import { FileModel, FileUtil } from "@groupdocs.examples.angular/common-components";
 import { Router } from '@angular/router';
+import { SearchOptionsService } from '../search-options.service';
 
 @Component({
   selector: 'gd-search-result-item',
@@ -12,14 +13,15 @@ import { Router } from '@angular/router';
 export class SearchResultItemComponent implements OnInit {
   @Input() item: SearchResultItemModel;
 
-  constructor() {
+  constructor(private searchOptionsService: SearchOptionsService) {
   }
 
   ngOnInit(): void {
   }
 
   getUrl(item: SearchResultItemModel): string {
-    let result = window.location.origin + "/viewer?file=" + encodeURIComponent(item.guid);
+    const caseSensitive = this.searchOptionsService.CaseSensitiveSearch ? "true" : "false";
+    let result = window.location.origin + "/viewer?file=" + encodeURIComponent(item.guid) + "&caseSensitive=" + caseSensitive;
     for (let i = 0; i < item.terms.length; i++) {
       result += "&term=" + encodeURIComponent(item.terms[i]);
     }

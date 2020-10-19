@@ -14,11 +14,12 @@ export class ViewerService {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
   }
 
-  loadFile(credentials: FileCredentials, terms: string[]) {
+  loadFile(credentials: FileCredentials, terms: string[], caseSensitive: boolean) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, {
       'guid': credentials.guid,
       'password': credentials.password,
       'terms': terms,
+      'caseSensitive': caseSensitive,
     }, Api.httpOptionsJson);
   }
 
@@ -33,12 +34,13 @@ export class ViewerService {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
   }
 
-  loadPage(credentials: FileCredentials, page: number, terms: string[]) {
+  loadPage(credentials: FileCredentials, page: number, terms: string[], caseSensitive: boolean) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_PAGE, {
       'guid': credentials.guid,
       'password': credentials.password,
       'page': page,
       'terms': terms,
+      'caseSensitive': caseSensitive,
     }, Api.httpOptionsJson);
   }
 

@@ -55,6 +55,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   fileParam: string;
   termParams: string[];
+  caseSensitiveParam: boolean;
   querySubscription: Subscription;
   selectedPageNumber: number;
   runPresentation: boolean;
@@ -245,7 +246,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   selectFile($event: string, password: string, modalId: string) {
     this.credentials = {guid: $event, password: password};
     this.file = null;
-    this._viewerService.loadFile(this.credentials, this.termParams).subscribe((file: FileDescription) => {
+    this._viewerService.loadFile(this.credentials, this.termParams, this.caseSensitiveParam).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
         if (file) {
@@ -298,7 +299,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   preloadPages(start: number, end: number) {
     for (let i = start; i <= end; i++) {
-      this._viewerService.loadPage(this.credentials, i, this.termParams).subscribe((page: PageModel) => {
+      this._viewerService.loadPage(this.credentials, i, this.termParams, this.caseSensitiveParam).subscribe((page: PageModel) => {
         this.file.pages[i - 1] = page;
         if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data) {
           if (page.data) {
@@ -580,6 +581,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     const urlParams = new URLSearchParams(queryString);
     this.fileParam = urlParams.get('file');
     this.termParams = urlParams.getAll('term');
+    this.caseSensitiveParam = urlParams.get('caseSensitive') === "true";
 
     if (this.fileParam) {
       this.isLoading = true;
