@@ -65,13 +65,20 @@
 }
 
 .new {
-  color          : green;
+  color          : #888;
   text-decoration: none;
 }
 
 .deleted-new {
-  color          : green;
+  color          : #888;
   text-decoration: line-through;
+}
+
+.new::after, .deleted-new::after {
+  content        : " NEW";
+  color          : red;
+  font-weight    : bold;
+  font-size      : .5em;
 }
 
 .old {

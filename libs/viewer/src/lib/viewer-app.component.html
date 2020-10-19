@@ -37,6 +37,8 @@
                  *ngIf="searchConfig && !ifPresentation()" ></gd-button>
       <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" ></gd-search>
 
+      <div class="separator"
+        *ngIf="termNavigation.total > 0"></div>
       <gd-button class="mobile-hide"
         [disabled]="formatDisabled"
         [icon]="'angle-left'"
