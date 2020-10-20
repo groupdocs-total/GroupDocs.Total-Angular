@@ -213,6 +213,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft Excel" : false;
   }
 
+  ifImage() {
+    return this.file ? this.formatIcon === "file-image" : false;
+  }
+
   validURL(str) {
     const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
@@ -324,7 +328,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   nextPage() {
     if (this.formatDisabled)
       return;
-    if (this._navigateService.currentPage + 1 > this.countPages) {
+    if (this.intervalTimer && this._navigateService.currentPage + 1 > this.countPages) {
       this.intervalTimer.stop();
       this.intervalTime = 0;
     }
@@ -382,8 +386,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   private getFitToWidth() {
     // Images and Excel-related files receiving dimensions in px from server
-    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
-    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
+    const pageWidth = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageHeight : this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
     const presentationThumbnails = this.isDesktop && this.ifPresentation() && !this.runPresentation;
@@ -395,16 +399,23 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   private getFitToHeight() {
-    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
-    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
+    const pageWidth = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageHeight : this.ptToPx(this._pageHeight);
     const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
     const offsetHeight = pageHeight ? pageHeight : windowHeight;
     
-    if (!this.ifPresentation()) {
+    if (!this.ifPresentation() && !(this.ifImage())) {
       return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
     }
-    else return Math.round((window.innerHeight - Constants.topbarWidth) * 100 / (!this.runPresentation ? offsetHeight + Constants.documentMargin*2 + Constants.scrollWidth 
-                                                                                                       : offsetHeight))
+    if (this.ifPresentation()) 
+    {
+      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (!this.runPresentation ? offsetHeight + Constants.documentMargin*2 + Constants.scrollWidth 
+                                                                                                       : offsetHeight));
+    }
+    if (this.ifImage())
+    {
+      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (offsetHeight + Constants.documentMargin*2 + Constants.scrollWidth));
+    }
   }
 
   zoomOptions() {
@@ -533,7 +544,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   private refreshZoom() {
     if (this.file) {
       this.formatIcon = FileUtil.find(this.file.guid, false).icon;
-      this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+      this.zoom = this._windowService.isDesktop() && !(this.ifImage()) ? 100
+        : (this.ifImage() ? this.getFitToHeight()
+          : this.getFitToWidth());
     }
   }
 
