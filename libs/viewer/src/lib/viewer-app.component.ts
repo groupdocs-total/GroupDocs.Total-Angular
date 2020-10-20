@@ -392,10 +392,15 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
     const presentationThumbnails = this.isDesktop && this.ifPresentation() && !this.runPresentation;
 
-    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / (presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth : window.innerWidth))
-                                                                                       : (!this.isDesktop ? Math.round(window.innerWidth * 100 / offsetWidth) 
-                                                                                                          : Math.round(((presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth 
-                                                                                                                                                : window.innerHeight) / offsetWidth) * 100));
+    if (!this.runPresentation) {
+      return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / (presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth : window.innerWidth))
+        : (!this.isDesktop ? Math.round(window.innerWidth * 100 / offsetWidth)
+          : Math.round(((presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth
+            : window.innerHeight) / offsetWidth) * 100));
+    }
+    else {
+      return Math.round(window.innerWidth * 100 / offsetWidth);
+    }
   }
 
   private getFitToHeight() {
@@ -407,14 +412,12 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (!this.ifPresentation() && !(this.ifImage())) {
       return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
     }
-    if (this.ifPresentation()) 
-    {
-      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (!this.runPresentation ? offsetHeight + Constants.documentMargin*2 + Constants.scrollWidth 
-                                                                                                       : offsetHeight));
+    if (this.ifPresentation()) {
+      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (!this.runPresentation ? offsetHeight + Constants.documentMargin * 2 + Constants.scrollWidth
+        : offsetHeight));
     }
-    if (this.ifImage())
-    {
-      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (offsetHeight + Constants.documentMargin*2 + Constants.scrollWidth));
+    if (this.ifImage()) {
+      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (offsetHeight + Constants.documentMargin * 2 + Constants.scrollWidth));
     }
   }
 
@@ -680,7 +683,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.openFullScreen();
     this.runPresentation = !this.runPresentation;
     setTimeout(() => {
-      this._zoomService.changeZoom(this.getFitToHeight());
+      this._zoomService.changeZoom(window.innerWidth/window.innerHeight < 1.7 ? this.getFitToWidth() : this.getFitToHeight());
     }, 100);
   }
 
@@ -730,5 +733,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.showThumbnails = true;
     this.intervalTime = 0;
     this.startCountDown(0);
+    this.refreshZoom();
   }
 }
