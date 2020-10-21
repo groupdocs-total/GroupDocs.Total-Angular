@@ -70,6 +70,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     msExitFullscreen(): Promise<void>;
   };
 
+  zoomService: ZoomService;
+
   @HostListener("document:fullscreenchange", [])
   fullScreen() {
     if (!document.fullscreenElement) {
@@ -82,12 +84,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               configService: ViewerConfigService,
               uploadFilesService: UploadFilesService,
               private _navigateService: NavigateService,
-              private _zoomService: ZoomService,
+              zoomService: ZoomService,
               pagePreloadService: PagePreloadService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
               private _loadingMaskService: LoadingMaskService) {
+
+    this.zoomService = zoomService;
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -384,7 +388,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return pt * 96 / 72;
   }
 
-  private getFitToWidth() {
+  getFitToWidth() {
     // Images and Excel-related files receiving dimensions in px from server
     const pageWidth = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageWidth : this.ptToPx(this._pageWidth);
     const pageHeight = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageHeight : this.ptToPx(this._pageHeight);
@@ -403,7 +407,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private getFitToHeight() {
+  getFitToHeight() {
     const pageWidth = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageWidth : this.ptToPx(this._pageWidth);
     const pageHeight = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageHeight : this.ptToPx(this._pageHeight);
     const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
@@ -424,7 +428,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   zoomOptions() {
     const width = this.getFitToWidth();
     const height = this.getFitToHeight();
-    return this._zoomService.zoomOptions(width, height);
+    return this.zoomService.zoomOptions(width, height);
   }
 
   getTimerOptions() {
@@ -437,7 +441,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   set zoom(zoom) {
     this._zoom = zoom;
-    this._zoomService.changeZoom(this._zoom);
+    this.zoomService.changeZoom(this._zoom);
   }
 
   get zoom() {
@@ -683,7 +687,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.openFullScreen();
     this.runPresentation = !this.runPresentation;
     setTimeout(() => {
-      this._zoomService.changeZoom(window.innerWidth/window.innerHeight < 1.7 ? this.getFitToWidth() : this.getFitToHeight());
+      this.zoomService.changeZoom(window.innerWidth/window.innerHeight < 1.7 ? this.getFitToWidth() : this.getFitToHeight());
     }, 100);
   }
 
