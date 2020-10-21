@@ -72,6 +72,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     readonly currentPage: number;
     ifPresentation(): boolean;
     ifExcel(): boolean;
+    ifImage(): boolean;
     validURL(str: any): boolean;
     getFileName(): string;
     openModal(id: string): void;
