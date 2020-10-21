@@ -643,12 +643,11 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var ViewerAppComponent = /** @class */ (function () {
-        function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService) {
+        function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService) {
             var _this = this;
             this._viewerService = _viewerService;
             this._modalService = _modalService;
             this._navigateService = _navigateService;
-            this._zoomService = _zoomService;
             this._renderPrintService = _renderPrintService;
             this._windowService = _windowService;
             this._loadingMaskService = _loadingMaskService;
@@ -663,6 +662,7 @@
             this.fileWasDropped = false;
             this.docElmWithBrowsersFullScreenFunctions = (/** @type {?} */ (document.documentElement));
             this.docWithBrowsersExitFunctions = (/** @type {?} */ (document));
+            this.zoomService = zoomService;
             configService.updatedConfig.subscribe((/**
              * @param {?} viewerConfig
              * @return {?}
@@ -1242,11 +1242,9 @@
             return pt * 96 / 72;
         };
         /**
-         * @private
          * @return {?}
          */
         ViewerAppComponent.prototype.getFitToWidth = /**
-         * @private
          * @return {?}
          */
         function () {
@@ -1270,11 +1268,9 @@
             }
         };
         /**
-         * @private
          * @return {?}
          */
         ViewerAppComponent.prototype.getFitToHeight = /**
-         * @private
          * @return {?}
          */
         function () {
@@ -1308,7 +1304,7 @@
             var width = this.getFitToWidth();
             /** @type {?} */
             var height = this.getFitToHeight();
-            return this._zoomService.zoomOptions(width, height);
+            return this.zoomService.zoomOptions(width, height);
         };
         /**
          * @return {?}
@@ -1336,7 +1332,7 @@
              */
             function (zoom) {
                 this._zoom = zoom;
-                this._zoomService.changeZoom(this._zoom);
+                this.zoomService.changeZoom(this._zoom);
             },
             enumerable: true,
             configurable: true
@@ -1784,7 +1780,7 @@
              * @return {?}
              */
             function () {
-                _this._zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 ? _this.getFitToWidth() : _this.getFitToHeight());
+                _this.zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 ? _this.getFitToWidth() : _this.getFitToHeight());
             }), 100);
         };
         /**
@@ -1933,6 +1929,8 @@
         ViewerAppComponent.prototype.docElmWithBrowsersFullScreenFunctions;
         /** @type {?} */
         ViewerAppComponent.prototype.docWithBrowsersExitFunctions;
+        /** @type {?} */
+        ViewerAppComponent.prototype.zoomService;
         /**
          * @type {?}
          * @private
@@ -1948,11 +1946,6 @@
          * @private
          */
         ViewerAppComponent.prototype._navigateService;
-        /**
-         * @type {?}
-         * @private
-         */
-        ViewerAppComponent.prototype._zoomService;
         /**
          * @type {?}
          * @private

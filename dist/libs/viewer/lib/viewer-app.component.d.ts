@@ -10,7 +10,6 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _viewerService;
     private _modalService;
     private _navigateService;
-    private _zoomService;
     private _renderPrintService;
     private _windowService;
     private _loadingMaskService;
@@ -52,8 +51,9 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
         webkitExitFullscreen(): Promise<void>;
         msExitFullscreen(): Promise<void>;
     };
+    zoomService: ZoomService;
     fullScreen(): void;
-    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
+    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
@@ -90,8 +90,8 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     zoomOut(): void;
     fileDropped($event: any): void;
     private ptToPx;
-    private getFitToWidth;
-    private getFitToHeight;
+    getFitToWidth(): number;
+    getFitToHeight(): number;
     zoomOptions(): {
         value: any;
         name: string;
