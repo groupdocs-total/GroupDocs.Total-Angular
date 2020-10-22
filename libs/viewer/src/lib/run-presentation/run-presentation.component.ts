@@ -49,11 +49,11 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
 
     this.isDesktop = _windowService.isDesktop();
 
-    this._navigateService.navigate.subscribe(((
+    this._navigateService.navigate.subscribe((
       value => {
           this.scrollTo(value, value > this.lastCurrentPage);
           this.lastCurrentPage = value;
-      })));
+      }));
   }
 
   ngOnInit() {
@@ -70,7 +70,7 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.container = this._elementRef.nativeElement;
     if (this.currentPage !== 1)
     {
-      this.scrollTo(this.currentPage, true);
+      this.scrollTo(this.currentPage, true, false);
     }
 
     const hammer = new Hammer(this.container);
@@ -84,33 +84,38 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     }
   }
 
-  scrollTo(pageNumber: number, onRight: boolean) {
+  scrollTo(pageNumber: number, onRight: boolean, animate: boolean = true) {
     const pagesWidth = this._elementRef.nativeElement.offsetWidth * (pageNumber - 1);
     const startingX = onRight ? pagesWidth - this._elementRef.nativeElement.offsetWidth : pagesWidth + this._elementRef.nativeElement.offsetWidth;
-    this.doScrolling(pagesWidth, startingX, 500, new Subject<any>(), this._elementRef);
+    this.doScrolling(pagesWidth, startingX, 500, new Subject<any>(), this._elementRef, animate);
 
     this.selectedPage.emit(pageNumber);
   }
 
-  private doScrolling(elementX: number, startingX: number, duration: number, subject: Subject<any>, _elementRef) {
+  private doScrolling(elementX: number, startingX: number, duration: number, subject: Subject<any>, _elementRef, animate: boolean = true) {
     const diff = elementX - startingX;
     let start : number;
 
-    window.requestAnimationFrame(function step(timestamp) {
-      start = (!start) ? timestamp : start;
+    if (!animate) {
+      _elementRef.nativeElement.scrollTo({ left: startingX + diff});
+    }
+    else {
+      window.requestAnimationFrame(function step(timestamp) {
+        start = (!start) ? timestamp : start;
 
-      const time = timestamp - start;
-      const percent = Math.min(time / duration, 1);
+        const time = timestamp - start;
+        const percent = Math.min(time / duration, 1);
 
-      _elementRef.nativeElement.scrollTo({ left: startingX + diff * percent });
+        _elementRef.nativeElement.scrollTo({ left: startingX + diff * percent });
 
-      if (time < duration) {
-        window.requestAnimationFrame(step);
-        subject.next({});
-      } else {
-        subject.complete();
-      }
-    });
+        if (time < duration) {
+          window.requestAnimationFrame(step);
+          subject.next({});
+        } else {
+          subject.complete();
+        }
+      });
+    }
   }
 
   getDimensionWithUnit(value: number, pageNumber: number) {

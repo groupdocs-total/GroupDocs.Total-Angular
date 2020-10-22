@@ -357,12 +357,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this._navigateService.toFirstPage();
   }
 
-  navigateToPage(page: number) {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.navigateTo(page);
-  }
-
   zoomIn() {
     if (this.formatDisabled)
       return;
