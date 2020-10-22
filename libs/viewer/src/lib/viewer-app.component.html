@@ -6,7 +6,7 @@
       <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                  *ngIf="browseConfig" ></gd-button>
 
-      <gd-select class="mobile-hide" [disabled]="formatDisabled" [options]="options" (selected)="selectZoom($event)"
+      <gd-select class="mobile-hide select-left" [disabled]="formatDisabled" [options]="options" (selected)="selectZoom($event)"
                  [showSelected]="{ name: zoom+'%', value : zoom}" *ngIf="zoomConfig" ></gd-select>
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"
                  *ngIf="zoomConfig" ></gd-button>
@@ -37,10 +37,10 @@
                  *ngIf="searchConfig && !ifPresentation()" ></gd-button>
       <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" ></gd-search>
 
-      <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
+      <gd-button class="thumbnails-button btn-right" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
                  (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && (!ifPresentation() ||
                  ifPresentation() && runPresentation)"></gd-button>
-      <gd-button class="thumbnails-button mobile-hide" [disabled]="formatDisabled" [icon]="'play'" [tooltip]="'Run presentation'"
+      <gd-button class="thumbnails-button mobile-hide btn-right" [disabled]="formatDisabled" [icon]="'play'" [tooltip]="'Run presentation'"
                  (click)="startPresentation()" *ngIf="ifPresentation() && !runPresentation"></gd-button>
     </gd-top-toolbar>
   </div>
@@ -49,13 +49,13 @@
       <div class="slides-title">Viewer</div>
       <div class="slides-filename">{{getFileName()}}</div>
       <div class="slides-buttons">
-        <gd-select class="mobile-hide" [disabled]="formatDisabled" [options]="timerOptions" (selected)="toggleTimer($event)"
+        <gd-select class="mobile-hide select-right" [disabled]="formatDisabled" [options]="timerOptions" (selected)="toggleTimer($event)"
         [icon]="'clock'" *ngIf="zoomConfig" ></gd-select>
         <gd-button class="mobile-hide" *ngIf="presentationRunning()" [disabled]="formatDisabled" [icon]="'pause'" [tooltip]="'Pause presenting'"
         (click)="pausePresenting()"></gd-button>
         <gd-button class="mobile-hide" *ngIf="presentationPaused()" [disabled]="formatDisabled" [icon]="'step-forward'" [tooltip]="'Resume presenting'"
         (click)="resumePresenting()"></gd-button>
-        <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'stop'" [tooltip]="'Stop presenting'"
+        <gd-button class="mobile-hide btn-right" [disabled]="formatDisabled" [icon]="'stop'" [tooltip]="'Stop presenting'"
         (click)="closeFullScreen(true)"></gd-button>
       </div>
     </gd-top-toolbar>
