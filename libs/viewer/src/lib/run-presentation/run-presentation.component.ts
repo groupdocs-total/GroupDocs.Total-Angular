@@ -38,6 +38,7 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
   doc = null;
   isDesktop: boolean;
   lastCurrentPage: number;
+  offsetWidth: number;
 
   constructor(protected _elementRef: ElementRef<HTMLElement>,
               private _zoomService: ZoomService,
@@ -58,6 +59,7 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
 
   ngOnInit() {
     this.lastCurrentPage = this._navigateService.currentPage;
+    this.offsetWidth = this._elementRef.nativeElement.offsetWidth;
   }
 
   ngOnChanges() {
@@ -68,12 +70,19 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
     // For current iteration we take .gd-document as a container
     this.container = this._elementRef.nativeElement;
+    const hammer = new Hammer(this.container);
+
     if (this.currentPage !== 1)
     {
-      this.scrollTo(this.currentPage, true, false);
+      const timerId = setInterval(() => 
+      {
+        if (this._elementRef.nativeElement.offsetWidth === this.offsetWidth) {
+          console.log("this._elementRef.nativeElement.offsetWidth: " + this._elementRef.nativeElement.offsetWidth);
+          this.scrollTo(this.currentPage, true, false);
+          clearInterval(timerId);
+        }
+      }, 100);
     }
-
-    const hammer = new Hammer(this.container);
   }
 
   ngAfterViewChecked(): void {
