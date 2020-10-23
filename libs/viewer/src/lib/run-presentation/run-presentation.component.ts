@@ -16,6 +16,7 @@ import {WindowService} from "@groupdocs.examples.angular/common-components";
 import * as jquery from 'jquery';
 import { NavigateService } from "@groupdocs.examples.angular/common-components";
 import { Subject } from 'rxjs';
+import { Constants } from '../viewer.constants';
 
 const $ = jquery;
 
@@ -79,9 +80,16 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
         if (this._elementRef.nativeElement.offsetWidth === this.offsetWidth) {
           this.scrollTo(this.currentPage, true, false);
           clearInterval(timerId);
+          this.alignVert();
         }
       }, 100);
     }
+  }
+
+  alignVert(): void {
+    const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.presentation');
+    const zoom = this._zoomService.zoom/100;
+    elementNodeListOf.forEach(element => (element as HTMLElement).style.marginTop = ((window.innerHeight - element.clientHeight*zoom - Constants.topbarWidth)/2)/zoom + "px");
   }
 
   ngAfterViewChecked(): void {
