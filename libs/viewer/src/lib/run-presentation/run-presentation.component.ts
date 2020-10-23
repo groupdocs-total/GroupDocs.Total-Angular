@@ -77,7 +77,6 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
       const timerId = setInterval(() => 
       {
         if (this._elementRef.nativeElement.offsetWidth === this.offsetWidth) {
-          console.log("this._elementRef.nativeElement.offsetWidth: " + this._elementRef.nativeElement.offsetWidth);
           this.scrollTo(this.currentPage, true, false);
           clearInterval(timerId);
         }
