@@ -28,6 +28,9 @@ import { AlphabetDictionaryService } from './alphabet-dictionary.service';
 import { CommandsService } from './commands.service';
 import { StopWordDictionaryComponent } from './stop-word-dictionary/stop-word-dictionary.component';
 import { SelectDictionaryModalComponent } from './select-dictionary-modal/select-dictionary-modal.component';
+import { SynonymDictionaryComponent } from './synonym-dictionary/synonym-dictionary.component';
+import { SynonymDictionaryService } from './synonym-dictionary.service';
+import { StopWordDictionaryService } from './stop-word-dictionary.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -54,7 +57,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     AliasDictionaryComponent,
     AlphabetDictionaryComponent,
     StopWordDictionaryComponent,
-    SelectDictionaryModalComponent
+    SelectDictionaryModalComponent,
+    SynonymDictionaryComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +81,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SearchOptionsService,
     IndexPropertiesService,
     AlphabetDictionaryService,
+    StopWordDictionaryService,
+    SynonymDictionaryService,
     CommandsService,
     ConfigService,
     SearchConfigService,

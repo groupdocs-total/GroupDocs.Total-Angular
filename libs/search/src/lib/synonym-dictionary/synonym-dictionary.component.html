@@ -1,0 +1,36 @@
+<div class="synonym-group-list"
+  #scrollContainer>
+  <div class="synonym-groups"
+    *ngFor="let group of dictionary.synonymGroups; let groupIndex = index">
+    <span class="delete-synonym-group-icon"
+      (click)="deleteGroup(groupIndex)">
+      &times;
+    </span>
+    <div class="synonym-group"
+      *ngFor="let synonym of group; let synonymIndex = index">
+      <span class="delete-synonym-icon"
+        (click)="deleteWord(groupIndex, synonymIndex)">
+        &times;
+      </span>
+      <span class="synonym"
+        [ngClass]="{'new' : synonym.state=='New', 'old': synonym.state=='Old', 'deleted-new': synonym.state=='DeletedNew', 'deleted-old': synonym.state=='DeletedOld'}">
+        {{synonym.word}}
+      </span>
+    </div>
+    <div class="add-word">
+      <input type="text"
+        #newSynonym
+        class="add-word-text"
+        (keyup.enter)="addWord(newSynonym.value, groupIndex); newSynonym.value=''">
+      <button class="add-word-button"
+        (click)="addWord(newSynonym.value, groupIndex); newSynonym.value=''">
+        +
+      </button>
+    </div>
+  </div>
+</div>
+<div class="bottom-toolbar">
+  <gd-button [icon]="'plus'"
+    [tooltip]="'Add synonym group'"
+    (click)="addGroup()"></gd-button>
+</div>

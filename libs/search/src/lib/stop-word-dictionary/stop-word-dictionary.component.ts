@@ -12,15 +12,15 @@ export class StopWordDictionaryComponent implements OnInit, OnDestroy {
 
   constructor(public dictionary: StopWordDictionaryService,
               private _commandsService: CommandsService) {
-  }
-
-  ngOnInit() {
     this.subscription = this._commandsService.getEventEmitter()
       .subscribe((name: string) => {
         if (name === "save") {
           this.dictionary.save();
         }
       });
+  }
+
+  ngOnInit() {
   }
 
   ngOnDestroy() {

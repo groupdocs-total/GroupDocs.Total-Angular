@@ -1,4 +1,4 @@
-.stop-word-list {
+.synonym-group-list {
   position       : absolute;
   top            : 60px;
   bottom         : 60px;
@@ -6,22 +6,22 @@
   right          : 0;
   overflow       : auto;
   margin         : 0;
-  display        : inline-flex;
+  display        : block;
   flex-wrap      : wrap;
   justify-content: flex-start;
   align-items    : center;
 }
 
-.stop-word-item {
-  margin         : 2px 10px;
-  padding        : 10px;
-  display        : inline-flex;
-  justify-content: flex-start;
-  align-items    : center;
-  width          : 120px;
+.synonym-groups {
+  margin: 10px;
 }
 
-.delete-stop-word-icon {
+.synonym-group {
+  display: inline-block;
+  margin : 10px;
+}
+
+.delete-synonym-icon {
   font-size  : 18px;
   margin     : 0;
   padding    : 0;
@@ -34,13 +34,45 @@
   font-weight: bold;
 }
 
-.stop-word {
+.synonym {
   font-size  : 18px;
   height     : 20px;
   line-height: 20px;
   margin     : 0;
   padding    : 0;
   width      : 100px;
+}
+
+.add-word {
+  display: block;
+}
+
+.add-word-text {
+  margin   : 1px;
+  padding  : 0;
+  width    : 200px;
+  height   : 26px;
+  font-size: 20px;
+}
+
+.add-word-button {
+  margin   : 1px;
+  width    : 30px;
+  height   : 30px;
+  font-size: 20px;
+}
+
+.delete-synonym-group-icon {
+  font-size  : 22px;
+  margin     : 1px;
+  padding    : 0;
+  cursor     : pointer;
+  width      : 20px;
+  height     : 20px;
+  color      : #A00;
+  line-height: 20px;
+  text-align : center;
+  font-weight: bold;
 }
 
 .bottom-toolbar {
@@ -54,14 +86,6 @@
   display         : flex;
   justify-content : center;
   align-items     : center;
-}
-
-.toolbar-add-word-text {
-  outline  : none;
-  margin   : 1px;
-  width    : 200px;
-  height   : 30px;
-  font-size: 20px;
 }
 
 .new {

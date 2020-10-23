@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { StopWordsReadResponse, StopWordsUpdateRequest } from './search-models';
 import { SearchService } from './search.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class StopWordDictionaryService {
   words: StopWordWrapper[];
 

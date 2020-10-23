@@ -3,6 +3,7 @@ import { ModalComponent } from '@groupdocs.examples.angular/common-components';
 import { AlphabetDictionaryService } from '../alphabet-dictionary.service';
 import { AppState } from '../search-models';
 import { StopWordDictionaryService } from '../stop-word-dictionary.service';
+import { SynonymDictionaryService } from '../synonym-dictionary.service';
 
 @Component({
   selector: 'gd-select-dictionary-modal',
@@ -17,11 +18,12 @@ export class SelectDictionaryModalComponent implements OnInit {
   modalComponent: ModalComponent;
 
   constructor(private _alphabet: AlphabetDictionaryService,
-              private _stopWords: StopWordDictionaryService) {
+              private _stopWords: StopWordDictionaryService,
+              private _synonyms: SynonymDictionaryService) {
     this.dictionaries = [
       { appState: AppState.AliasDictionary, name: "Alias", disabled: true },
       { appState: AppState.StopWordDictionary, name: "Stop word", disabled: false },
-      { appState: AppState.SynonymDictionary, name: "Synonym", disabled: true },
+      { appState: AppState.SynonymDictionary, name: "Synonym", disabled: false },
       { appState: AppState.PasswordDictionary, name: "Password", disabled: true },
       { appState: AppState.SpellingCorrectorDictionary, name: "Spelling corrector", disabled: true },
       { appState: AppState.HomophoneDictionary, name: "Homophone", disabled: true },
@@ -42,6 +44,10 @@ export class SelectDictionaryModalComponent implements OnInit {
       }
       case AppState.StopWordDictionary: {
         this._stopWords.init();
+        break;
+      }
+      case AppState.SynonymDictionary: {
+        this._synonyms.init();
         break;
       }
     }

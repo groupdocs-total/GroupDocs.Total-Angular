@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { AlphabetUpdateRequest, IndexedFileModel, SearchApi, StopWordsUpdateRequest } from './search-models';
+import { AlphabetUpdateRequest, IndexedFileModel, SearchApi, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
 import { SearchOptionsService } from './search-options.service';
 import { IndexPropertiesService } from './index-properties.service';
 
@@ -95,6 +95,16 @@ export class SearchService {
 
   setStopWordDictionary(data: StopWordsUpdateRequest) {
     const url = this._config.getSearchApiEndpoint() + SearchApi.SET_STOP_WORD_DICTIONARY;
+    return this._http.post(url, data, Api.httpOptionsJson);
+  }
+
+  getSynonymDictionary() {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_SYNONYM_DICTIONARY;
+    return this._http.post(url, Api.httpOptionsJson);
+  }
+
+  setSynonymDictionary(data: SynonymsUpdateRequest) {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_SYNONYM_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 }

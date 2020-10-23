@@ -74,12 +74,22 @@ export class StopWordsUpdateRequest {
   StopWords: string[];
 }
 
+export class SynonymsReadResponse {
+  SynonymGroups: string[][];
+}
+
+export class SynonymsUpdateRequest {
+  SynonymGroups: string[][];
+}
+
 export class SearchApi {
   public static GET_INDEX_PROPERTIES = '/getIndexProperties';
   public static GET_ALPHABET_DICTIONARY = '/getAlphabetDictionary';
   public static SET_ALPHABET_DICTIONARY = '/setAlphabetDictionary';
   public static GET_STOP_WORD_DICTIONARY = '/getStopWordDictionary';
   public static SET_STOP_WORD_DICTIONARY = '/setStopWordDictionary';
+  public static GET_SYNONYM_DICTIONARY = '/getSynonymDictionary';
+  public static SET_SYNONYM_DICTIONARY = '/setSynonymDictionary';
 }
 
 export enum FileIndexingStatus {
