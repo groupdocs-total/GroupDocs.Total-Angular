@@ -85,7 +85,6 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     prevPage(): void;
     toLastPage(): void;
     toFirstPage(): void;
-    navigateToPage(page: number): void;
     zoomIn(): void;
     zoomOut(): void;
     fileDropped($event: any): void;

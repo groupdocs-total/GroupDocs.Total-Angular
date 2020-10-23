@@ -24,7 +24,7 @@ export declare class RunPresentationComponent implements OnInit, AfterViewChecke
     ngOnChanges(): void;
     ngAfterViewInit(): void;
     ngAfterViewChecked(): void;
-    scrollTo(pageNumber: number, onRight: boolean): void;
+    scrollTo(pageNumber: number, onRight: boolean, animate?: boolean): void;
     private doScrolling;
     getDimensionWithUnit(value: number, pageNumber: number): any;
     isVertical(page: PageModel): boolean;
