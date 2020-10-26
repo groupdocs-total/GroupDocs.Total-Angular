@@ -60,7 +60,6 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
 
   ngOnInit() {
     this.lastCurrentPage = this._navigateService.currentPage;
-    this.offsetWidth = this._elementRef.nativeElement.offsetWidth;
   }
 
   ngOnChanges() {
@@ -73,19 +72,15 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.container = this._elementRef.nativeElement;
     const hammer = new Hammer(this.container);
 
-    const timerId = setInterval(() => 
+    const timerId = setTimeout(() => 
     {
       if (this.currentPage !== 1)
       {
-        if (this._elementRef.nativeElement.offsetWidth === this.offsetWidth) {
-          this.scrollTo(this.currentPage, true, false);
-          clearInterval(timerId);
-          this.alignVert();
-        }
+        this.scrollTo(this.currentPage, true, false);
+        this.alignVert();
       }
 
       this.alignVert();
-      clearInterval(timerId);
     }, 100);
   }
 
