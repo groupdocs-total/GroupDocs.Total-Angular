@@ -16,6 +16,7 @@ import {WindowService} from "@groupdocs.examples.angular/common-components";
 import * as jquery from 'jquery';
 import { NavigateService } from "@groupdocs.examples.angular/common-components";
 import { Subject } from 'rxjs';
+import { Constants } from '../viewer.constants';
 
 const $ = jquery;
 
@@ -38,6 +39,7 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
   doc = null;
   isDesktop: boolean;
   lastCurrentPage: number;
+  offsetWidth: number;
 
   constructor(protected _elementRef: ElementRef<HTMLElement>,
               private _zoomService: ZoomService,
@@ -58,6 +60,7 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
 
   ngOnInit() {
     this.lastCurrentPage = this._navigateService.currentPage;
+    this.offsetWidth = this._elementRef.nativeElement.offsetWidth;
   }
 
   ngOnChanges() {
@@ -68,12 +71,28 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
     // For current iteration we take .gd-document as a container
     this.container = this._elementRef.nativeElement;
-    if (this.currentPage !== 1)
-    {
-      this.scrollTo(this.currentPage, true, false);
-    }
-
     const hammer = new Hammer(this.container);
+
+    const timerId = setInterval(() => 
+    {
+      if (this.currentPage !== 1)
+      {
+        if (this._elementRef.nativeElement.offsetWidth === this.offsetWidth) {
+          this.scrollTo(this.currentPage, true, false);
+          clearInterval(timerId);
+          this.alignVert();
+        }
+      }
+
+      this.alignVert();
+      clearInterval(timerId);
+    }, 100);
+  }
+
+  alignVert(): void {
+    const presentationElements = this._elementRef.nativeElement.querySelectorAll('.presentation');
+    const zoom = this._zoomService.zoom/100;
+    presentationElements.forEach(element => (element as HTMLElement).style.marginTop = ((window.innerHeight - element.clientHeight*zoom - Constants.topbarWidth)/2)/zoom + "px");
   }
 
   ngAfterViewChecked(): void {
