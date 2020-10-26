@@ -73,23 +73,26 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.container = this._elementRef.nativeElement;
     const hammer = new Hammer(this.container);
 
-    if (this.currentPage !== 1)
+    const timerId = setInterval(() => 
     {
-      const timerId = setInterval(() => 
+      if (this.currentPage !== 1)
       {
         if (this._elementRef.nativeElement.offsetWidth === this.offsetWidth) {
           this.scrollTo(this.currentPage, true, false);
           clearInterval(timerId);
           this.alignVert();
         }
-      }, 100);
-    }
+      }
+
+      this.alignVert();
+      clearInterval(timerId);
+    }, 100);
   }
 
   alignVert(): void {
-    const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.presentation');
+    const presentationElements = this._elementRef.nativeElement.querySelectorAll('.presentation');
     const zoom = this._zoomService.zoom/100;
-    elementNodeListOf.forEach(element => (element as HTMLElement).style.marginTop = ((window.innerHeight - element.clientHeight*zoom - Constants.topbarWidth)/2)/zoom + "px");
+    presentationElements.forEach(element => (element as HTMLElement).style.marginTop = ((window.innerHeight - element.clientHeight*zoom - Constants.topbarWidth)/2)/zoom + "px");
   }
 
   ngAfterViewChecked(): void {
