@@ -19,10 +19,12 @@ export declare class RunPresentationComponent implements OnInit, AfterViewChecke
     doc: any;
     isDesktop: boolean;
     lastCurrentPage: number;
+    offsetWidth: number;
     constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService, _windowService: WindowService, _navigateService: NavigateService);
     ngOnInit(): void;
     ngOnChanges(): void;
     ngAfterViewInit(): void;
+    alignVert(): void;
     ngAfterViewChecked(): void;
     scrollTo(pageNumber: number, onRight: boolean, animate?: boolean): void;
     private doScrolling;
