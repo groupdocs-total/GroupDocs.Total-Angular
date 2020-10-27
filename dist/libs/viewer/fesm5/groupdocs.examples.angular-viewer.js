@@ -2291,7 +2291,6 @@ var RunPresentationComponent = /** @class */ (function () {
      */
     function () {
         this.lastCurrentPage = this._navigateService.currentPage;
-        this.offsetWidth = this._elementRef.nativeElement.offsetWidth;
     };
     /**
      * @return {?}
@@ -2316,19 +2315,15 @@ var RunPresentationComponent = /** @class */ (function () {
         /** @type {?} */
         var hammer = new Hammer(this.container);
         /** @type {?} */
-        var timerId = setInterval((/**
+        var timerId = setTimeout((/**
          * @return {?}
          */
         function () {
             if (_this.currentPage !== 1) {
-                if (_this._elementRef.nativeElement.offsetWidth === _this.offsetWidth) {
-                    _this.scrollTo(_this.currentPage, true, false);
-                    clearInterval(timerId);
-                    _this.alignVert();
-                }
+                _this.scrollTo(_this.currentPage, true, false);
+                _this.alignVert();
             }
             _this.alignVert();
-            clearInterval(timerId);
         }), 100);
     };
     /**

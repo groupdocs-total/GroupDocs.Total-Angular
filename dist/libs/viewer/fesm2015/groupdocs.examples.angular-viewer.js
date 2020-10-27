@@ -1906,7 +1906,6 @@ class RunPresentationComponent {
      */
     ngOnInit() {
         this.lastCurrentPage = this._navigateService.currentPage;
-        this.offsetWidth = this._elementRef.nativeElement.offsetWidth;
     }
     /**
      * @return {?}
@@ -1924,19 +1923,15 @@ class RunPresentationComponent {
         /** @type {?} */
         const hammer = new Hammer(this.container);
         /** @type {?} */
-        const timerId = setInterval((/**
+        const timerId = setTimeout((/**
          * @return {?}
          */
         () => {
             if (this.currentPage !== 1) {
-                if (this._elementRef.nativeElement.offsetWidth === this.offsetWidth) {
-                    this.scrollTo(this.currentPage, true, false);
-                    clearInterval(timerId);
-                    this.alignVert();
-                }
+                this.scrollTo(this.currentPage, true, false);
+                this.alignVert();
             }
             this.alignVert();
-            clearInterval(timerId);
         }), 100);
     }
     /**
