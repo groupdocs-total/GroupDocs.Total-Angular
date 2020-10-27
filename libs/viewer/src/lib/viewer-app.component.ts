@@ -680,11 +680,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.showThumbnails = false;
     this.openFullScreen();
     this.runPresentation = !this.runPresentation;
-    const screenAspectRatio = window.innerWidth/window.innerHeight;
-    const pageAspectRatio = this._pageWidth/this._pageHeight;
-    setTimeout(() => {
-      this.zoomService.changeZoom(screenAspectRatio < 1.7 && pageAspectRatio > 1.7 ? this.getFitToWidth() : this.getFitToHeight());
-    }, 100);
+
+    const intervalId = setInterval(() => {
+      if (screen.height === window.innerHeight) {
+      this.zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 && this._pageWidth / this._pageHeight > 1.7 
+        ? this.getFitToWidth() : this.getFitToHeight());
+        clearInterval(intervalId);
+      }
+    }, 50);
   }
 
   openFullScreen() {
