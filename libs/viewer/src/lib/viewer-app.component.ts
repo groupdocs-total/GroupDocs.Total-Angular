@@ -682,7 +682,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.runPresentation = !this.runPresentation;
 
     const intervalId = setInterval(() => {
-      if (screen.height === window.innerHeight) {
+      if (screen.height === window.innerHeight && screen.width === window.innerWidth) {
       this.zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 && this._pageWidth / this._pageHeight > 1.7 
         ? this.getFitToWidth() : this.getFitToHeight());
         clearInterval(intervalId);
