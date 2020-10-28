@@ -39,7 +39,6 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
   doc = null;
   isDesktop: boolean;
   lastCurrentPage: number;
-  offsetWidth: number;
 
   constructor(protected _elementRef: ElementRef<HTMLElement>,
               private _zoomService: ZoomService,
@@ -47,6 +46,15 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
               private _navigateService: NavigateService,) {
     _zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val;
+
+      if (val !== 100) {
+        if (this.currentPage !== 1)
+        {
+            this.scrollTo(this.currentPage, true, false);
+        }
+
+        this.alignVert();
+      }
     });
 
     this.isDesktop = _windowService.isDesktop();
@@ -71,17 +79,6 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     // For current iteration we take .gd-document as a container
     this.container = this._elementRef.nativeElement;
     const hammer = new Hammer(this.container);
-
-    const timerId = setTimeout(() => 
-    {
-      if (this.currentPage !== 1)
-      {
-        this.scrollTo(this.currentPage, true, false);
-        this.alignVert();
-      }
-
-      this.alignVert();
-    }, 100);
   }
 
   alignVert(): void {

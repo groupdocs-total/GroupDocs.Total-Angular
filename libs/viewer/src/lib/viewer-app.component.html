@@ -40,8 +40,8 @@
       <gd-button class="thumbnails-button btn-right" [disabled]="formatDisabled" [icon]="'th-large'" title="Thumbnails"
                  (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && (!ifPresentation() ||
                  ifPresentation() && runPresentation)"></gd-button>
-      <gd-button class="thumbnails-button mobile-hide btn-right" [disabled]="formatDisabled" [icon]="'play'" title="Run presentation"
-                 (click)="startPresentation()" *ngIf="ifPresentation() && !runPresentation"></gd-button>
+      <gd-button class="thumbnails-button mobile-hide btn-right smp-start-stop" [disabled]="formatDisabled" [icon]="'play'" title="Run presentation"
+                 (click)="startPresentation()" *ngIf="ifPresentation() && !runPresentation">Present</gd-button>
     </gd-top-toolbar>
   </div>
   <div class="top-panel" *ngIf="runPresentation">
@@ -55,8 +55,8 @@
         (click)="pausePresenting()"></gd-button>
         <gd-button class="mobile-hide" *ngIf="presentationPaused()" [disabled]="formatDisabled" [icon]="'step-forward'" title="Resume presenting"
         (click)="resumePresenting()"></gd-button>
-        <gd-button class="mobile-hide btn-right" [disabled]="formatDisabled" [icon]="'stop'" title="Stop presenting"
-        (click)="closeFullScreen(true)"></gd-button>
+        <gd-button class="mobile-hide btn-right smp-start-stop" [disabled]="formatDisabled" [icon]="'stop'" title="Stop presenting"
+        (click)="closeFullScreen(true)">Stop</gd-button>
       </div>
     </gd-top-toolbar>
   </div>
