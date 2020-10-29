@@ -84,7 +84,8 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
   alignVert(): void {
     const presentationElements = this._elementRef.nativeElement.querySelectorAll('.presentation');
     const zoom = this._zoomService.zoom/100;
-    presentationElements.forEach(element => (element as HTMLElement).style.marginTop = ((window.innerHeight - element.clientHeight*zoom - Constants.topbarWidth)/2)/zoom + "px");
+    presentationElements.forEach(element => (element as HTMLElement).style.marginTop = 
+      ((window.innerHeight - (element.clientHeight ? element.clientHeight : element.scrollHeight)*zoom - Constants.topbarWidth)/2)/zoom + "px");
   }
 
   ngAfterViewChecked(): void {
