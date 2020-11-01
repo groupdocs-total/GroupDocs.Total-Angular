@@ -57,6 +57,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   selectedPageNumber: number;
   runPresentation: boolean;
   isFullScreen: boolean;
+  startScrollTime: number;
+  endScrollTime: number;
 
   docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
     mozRequestFullScreen(): Promise<void>;
@@ -92,6 +94,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               private _loadingMaskService: LoadingMaskService) {
 
     this.zoomService = zoomService;
+    this.startScrollTime = Date.now();
+    this.endScrollTime = Date.now();
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -545,7 +549,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   private refreshZoom() {
     if (this.file) {
       this.formatIcon = FileUtil.find(this.file.guid, false).icon;
-      this.zoom = this._windowService.isDesktop() && !(this.ifImage()) ? 100
+      this.zoom = this._windowService.isDesktop() && !(this.ifImage() || this.ifPresentation()) ? 100
         : (this.ifImage() ? this.getFitToHeight()
           : this.getFitToWidth());
     }
@@ -565,20 +569,29 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   onMouseWheelUp()
   {
+    this.startScrollTime = Date.now();
     if (this.ifPresentation() && this.selectedPageNumber !== 1) {
-      this.selectedPageNumber = this.selectedPageNumber - 1;
+      if (this.startScrollTime - this.endScrollTime > 500 ) {
+        this.selectedPageNumber = this.selectedPageNumber - 1;
+        this.endScrollTime = Date.now();
+      }
     }
   }
 
   onMouseWheelDown()
   {
+    this.startScrollTime = Date.now();
     if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
-      if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
-        this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
-        this.selectedPageNumber = this.selectedPageNumber + 1;
-      }
-      else {
-        this.selectedPageNumber = this.selectedPageNumber + 1;
+      if (this.startScrollTime - this.endScrollTime > 500 ) {
+        this.startScrollTime = Date.now();
+        if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
+          this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
+          this.selectedPageNumber = this.selectedPageNumber + 1;
+        }
+        else {
+          this.selectedPageNumber = this.selectedPageNumber + 1;
+        }
+        this.endScrollTime = Date.now();
       }
     }
   }
