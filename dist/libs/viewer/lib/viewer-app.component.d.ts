@@ -41,6 +41,8 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     selectedPageNumber: number;
     runPresentation: boolean;
     isFullScreen: boolean;
+    startScrollTime: number;
+    endScrollTime: number;
     docElmWithBrowsersFullScreenFunctions: HTMLElement & {
         mozRequestFullScreen(): Promise<void>;
         webkitRequestFullscreen(): Promise<void>;
@@ -115,6 +117,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     selectCurrentPage(pageNumber: any): void;
     onMouseWheelUp(): void;
     onMouseWheelDown(): void;
+    vertScrollEnded(onTop: boolean): boolean;
     private TryOpenFileByUrl;
     toggleTimer($event: any): void;
     showCountDown(): boolean;
