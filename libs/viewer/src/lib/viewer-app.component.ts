@@ -571,7 +571,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   {
     this.startScrollTime = Date.now();
     if (this.ifPresentation() && this.selectedPageNumber !== 1) {
-      if (this.startScrollTime - this.endScrollTime > 500 ) {
+      if (this.startScrollTime - this.endScrollTime > 300 && this.vertScrollEnded(true)) {
         this.selectedPageNumber = this.selectedPageNumber - 1;
         this.endScrollTime = Date.now();
       }
@@ -582,7 +582,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   {
     this.startScrollTime = Date.now();
     if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
-      if (this.startScrollTime - this.endScrollTime > 500 ) {
+      if (this.startScrollTime - this.endScrollTime > 300 && this.vertScrollEnded(false)) {
         this.startScrollTime = Date.now();
         if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
           this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
@@ -594,6 +594,15 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         this.endScrollTime = Date.now();
       }
     }
+  }
+
+  vertScrollEnded(onTop: boolean) {
+    const gdDocument = document.getElementsByClassName('gd-document')[0] as HTMLElement;
+    if (onTop)
+    {
+      return gdDocument.scrollTop === 0;
+    }
+    else return gdDocument.offsetHeight + gdDocument.scrollTop >= gdDocument.scrollHeight;
   }
 
   private TryOpenFileByUrl(queryString: string) {
