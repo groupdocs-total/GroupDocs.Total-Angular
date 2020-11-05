@@ -1,5 +1,10 @@
 <div class='gd-search-options-panel'>
-  <div class='gd-search-options-panel-area'>
+  <button class="toggle-options-visibility"
+    (click)="this.toggleOptionsVisibility()">
+    <fa-icon [icon]="['fas','caret-down']"></fa-icon>
+    Search options</button>
+  <div class='gd-search-options-panel-area'
+    *ngIf="this.isOptionsVisible">
 
     <div class='gd-search-option-outer'>
       <div class='gd-search-option-inner'>

@@ -7,11 +7,20 @@ import { SearchOptionsService } from '../search-options.service';
   styleUrls: ['./search-options-panel.component.less']
 })
 export class SearchOptionsPanelComponent implements OnInit {
+  isOptionsVisible = false;
 
   constructor(public options: SearchOptionsService) {
   }
 
   ngOnInit() {
+  }
+
+  toggleOptionsVisibility() {
+    if (this.isOptionsVisible) {
+      this.isOptionsVisible = false;
+    } else {
+      this.isOptionsVisible = true;
+    }
   }
 
   increaseFuzzySearchMistakeCount() {
