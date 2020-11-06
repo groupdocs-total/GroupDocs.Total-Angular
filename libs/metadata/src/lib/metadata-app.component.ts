@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Input, Component, OnInit} from '@angular/core';
 import {MetadataService, MetadataFileDescription} from "./metadata.service";
 import {
   FileDescription,
@@ -24,6 +24,7 @@ import { RemovePropertyModel, PackageModel, PackageNameByMetadataType, PackageNa
 })
 
 export class MetadataAppComponent implements OnInit, AfterViewInit {
+  @Input() initialFile: string;
   title = 'metadata';
   files: FileModel[] = [];
   file: FileDescription;
@@ -96,6 +97,10 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     if (this.metadataConfig.defaultDocument !== ""){
       this.isLoading = true;
       this.selectFile(this.metadataConfig.defaultDocument, "", "");
+    }
+
+    if (this.initialFile) {
+      this.selectFile(this.initialFile, null, null);
     }
   }
 
