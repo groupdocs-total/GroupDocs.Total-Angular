@@ -24,29 +24,25 @@ export class SearchOptionsPanelComponent implements OnInit {
   }
 
   increaseFuzzySearchMistakeCount() {
-    if (this.options.FuzzySearchMistakeCount < 9)
-    {
+    if (this.options.FuzzySearchMistakeCount < 9) {
       this.options.FuzzySearchMistakeCount++;
     }
   }
 
   decreaseFuzzySearchMistakeCount() {
-    if (this.options.FuzzySearchMistakeCount > 1)
-    {
+    if (this.options.FuzzySearchMistakeCount > 1) {
       this.options.FuzzySearchMistakeCount--;
     }
   }
 
   increaseSpellingCorrectionMistakeCount() {
-    if (this.options.SpellingCorrectionMistakeCount < 9)
-    {
+    if (this.options.SpellingCorrectionMistakeCount < 9) {
       this.options.SpellingCorrectionMistakeCount++;
     }
   }
 
   decreaseSpellingCorrectionMistakeCount() {
-    if (this.options.SpellingCorrectionMistakeCount > 1)
-    {
+    if (this.options.SpellingCorrectionMistakeCount > 1) {
       this.options.SpellingCorrectionMistakeCount--;
     }
   }

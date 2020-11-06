@@ -22,6 +22,16 @@
   right      : 0;
 }
 
+.extra-info-container {
+  position        : absolute;
+  left            : 0;
+  right           : 0;
+  top             : 120px;
+  bottom          : 0;
+  padding         : 0 10px 10px 10px;
+  overflow        : auto;
+}
+
 .doc-panel {
   display       : flex;
   height        : calc(100vh - 60px);
@@ -39,22 +49,9 @@
   width      : 100%;
 }
 
-#main-container {
-  display        : flex;
-  flex-direction : row-reverse;
-  justify-content: flex-start;
-  align-items    : stretch;
-  width          : auto;
-  height         : 100%;
-
-  gd-side-panel {
-    width: 400px;
-  }
-
-  gd-init-state {
-    width : 100%;
-    height: auto;
-  }
+gd-init-state {
+  width : 100%;
+  height: auto;
 }
 
 .toolbar-panel {
@@ -120,21 +117,8 @@
     height: 100vh !important;
   }
 
-  #main-container {
-    display        : flex;
-    flex-direction : row-reverse;
-    justify-content: flex-start;
-    align-items    : stretch;
-    width          : auto;
-    height         : 100%;
-
-    gd-side-panel {
-      width: 400px;
-    }
-
-    gd-init-state {
-      display: none;
-    }
+  gd-init-state {
+    display: none;
   }
 
   .mobile-hide {

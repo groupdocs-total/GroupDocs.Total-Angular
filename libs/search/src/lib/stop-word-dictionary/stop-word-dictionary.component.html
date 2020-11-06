@@ -1,3 +1,5 @@
+<gd-view-header [title]="'Stop word dictionary'"></gd-view-header>
+
 <div class="stop-word-list">
   <div class="stop-word-item"
     *ngFor="let word of dictionary.words; let i = index">
@@ -11,6 +13,7 @@
     </span>
   </div>
 </div>
+
 <div class="bottom-toolbar">
   <input type="text"
     #newStopWord

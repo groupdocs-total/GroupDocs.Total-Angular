@@ -7,10 +7,20 @@ import { IndexPropertiesService } from '../index-properties.service';
   styleUrls: ['./index-properties-panel.component.less']
 })
 export class IndexPropertiesPanelComponent implements OnInit {
+  arePropertiesVisible = false;
 
   constructor(public properties: IndexPropertiesService) {
   }
 
   ngOnInit() {
+  }
+
+  toggleVisibility() {
+    if (this.arePropertiesVisible) {
+      this.arePropertiesVisible = false;
+    } else {
+      this.arePropertiesVisible = true;
+      this.properties.load();
+    }
   }
 }

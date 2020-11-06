@@ -109,7 +109,6 @@ export enum CharacterType {
 
 export enum AppState {
   Default = "Default",
-  Search = "Search",
   SearchResult = "SearchResult",
   IndexedList = "IndexedList",
   DictionaryList = "DictionaryList",

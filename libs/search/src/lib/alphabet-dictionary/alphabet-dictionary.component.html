@@ -1,3 +1,5 @@
+<gd-view-header [title]="'Alphabet dictionary'"></gd-view-header>
+
 <div class="character-list">
   <div class="character-descriptor"
     [ngClass]="{'separator' : pair.Type=='Separator', 'letter': pair.Type=='Letter', 'blended': pair.Type=='Blended', 'separate-word': pair.Type=='SeparateWord'}"
@@ -11,6 +13,7 @@
     </button>
   </div>
 </div>
+
 <div class="bottom-toolbar">
   <gd-button [icon]="'angle-double-left'"
     [tooltip]="'Navigate backward'"

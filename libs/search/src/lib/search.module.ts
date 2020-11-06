@@ -31,6 +31,7 @@ import { SelectDictionaryModalComponent } from './select-dictionary-modal/select
 import { SynonymDictionaryComponent } from './synonym-dictionary/synonym-dictionary.component';
 import { SynonymDictionaryService } from './synonym-dictionary.service';
 import { StopWordDictionaryService } from './stop-word-dictionary.service';
+import { ViewHeaderComponent } from './view-header/view-header.component';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -58,7 +59,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     AlphabetDictionaryComponent,
     StopWordDictionaryComponent,
     SelectDictionaryModalComponent,
-    SynonymDictionaryComponent
+    SynonymDictionaryComponent,
+    ViewHeaderComponent
   ],
   imports: [
     BrowserModule,

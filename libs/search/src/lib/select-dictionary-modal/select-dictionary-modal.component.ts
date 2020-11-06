@@ -12,7 +12,7 @@ import { SynonymDictionaryService } from '../synonym-dictionary.service';
 })
 export class SelectDictionaryModalComponent implements OnInit {
   @Output() dictionarySelected = new EventEmitter<AppState>();
-  dictionaries: { appState: AppState, name: string, disabled: boolean }[];
+  dictionaries: { appState: AppState, name: string, disabled: boolean, link: string }[];
 
   @ViewChild('modal', {static: false})
   modalComponent: ModalComponent;
@@ -21,14 +21,14 @@ export class SelectDictionaryModalComponent implements OnInit {
               private _stopWords: StopWordDictionaryService,
               private _synonyms: SynonymDictionaryService) {
     this.dictionaries = [
-      { appState: AppState.AliasDictionary, name: "Alias", disabled: true },
-      { appState: AppState.StopWordDictionary, name: "Stop word", disabled: false },
-      { appState: AppState.SynonymDictionary, name: "Synonym", disabled: false },
-      { appState: AppState.PasswordDictionary, name: "Password", disabled: true },
-      { appState: AppState.SpellingCorrectorDictionary, name: "Spelling corrector", disabled: true },
-      { appState: AppState.HomophoneDictionary, name: "Homophone", disabled: true },
-      { appState: AppState.AlphabetDictionary, name: "Alphabet", disabled: false },
-      { appState: AppState.CharacterReplacementDictionary, name: "Character replacement", disabled: true },
+      { appState: AppState.AliasDictionary, name: "Alias", disabled: true, link: "https://docs.groupdocs.com/search/net/using-aliases/" },
+      { appState: AppState.StopWordDictionary, name: "Stop word", disabled: false, link: "https://docs.groupdocs.com/search/net/indexing-with-stop-words/" },
+      { appState: AppState.SynonymDictionary, name: "Synonym", disabled: false, link: "https://docs.groupdocs.com/search/net/synonym-search/" },
+      { appState: AppState.PasswordDictionary, name: "Password", disabled: true, link: "https://docs.groupdocs.com/search/net/indexing-password-protected-documents/" },
+      { appState: AppState.SpellingCorrectorDictionary, name: "Spelling corrector", disabled: true, link: "https://docs.groupdocs.com/search/net/spell-checking/" },
+      { appState: AppState.HomophoneDictionary, name: "Homophone", disabled: true, link: "https://docs.groupdocs.com/search/net/homophone-search/" },
+      { appState: AppState.AlphabetDictionary, name: "Alphabet", disabled: false, link: "https://docs.groupdocs.com/search/net/character-types/" },
+      { appState: AppState.CharacterReplacementDictionary, name: "Character replacement", disabled: true, link: "https://docs.groupdocs.com/search/net/character-replacement-during-indexing/" },
     ];
   }
 

@@ -11,11 +11,6 @@
         [tooltip]="'Add files'"
         (click)="openModal(browseFilesModal)"
         *ngIf="appState == 'Default'"></gd-button>
-      <gd-button [icon]="'search'"
-        id="open-search-button"
-        [tooltip]="'Search'"
-        (click)="openSearch()"
-        *ngIf="appState == 'Default'"></gd-button>
       <gd-button [icon]="'list'"
         [tooltip]="'Show indexed files'"
         (click)="openIndexedList()"
@@ -24,11 +19,6 @@
         [tooltip]="'Edit index dictionaries'"
         (click)="openModal('gd-select-dictionary')"
         *ngIf="appState == 'Default'"></gd-button>
-      <gd-button [icon]="'info'"
-        class="mobile-hide"
-        [tooltip]="'Show index properties'"
-        (click)="showIndexProperties()"
-        *ngIf="appState == 'Default'"></gd-button>
       <gd-button [icon]="'save'"
         [tooltip]="'Save changes'"
         (click)="pushCommand('save')"
@@ -36,30 +26,25 @@
     </gd-top-toolbar>
   </div>
 
-  <div id="main-container" *ngIf="appState == 'Default'">
-    <gd-side-panel *ngIf="appState == 'Default' && sidePanelVisible"
-      (hideSidePanel)="hideIndexProperties()"
-      [icon]="'info'"
-      [title]="'Index properties'"
-      [saveable]="false"
-      [closable]="true">
-      <gd-index-properties-panel></gd-index-properties-panel>
-    </gd-side-panel>
+  <gd-init-state [icon]="'eye'"
+    [text]="'Drop file here to upload'"
+    *ngIf="appState == 'Default'"
+    (fileDropped)="fileDropped($event)">
+    Drop files here to add.<br>
+    Or click <fa-icon [icon]="['fas','folder-plus']"></fa-icon>&nbsp;<b>Add files</b> button.
+  </gd-init-state>
 
-    <gd-init-state [icon]="'eye'"
-      [text]="'Drop file here to upload'"
-      *ngIf="appState == 'Default'"
-      (fileDropped)="fileDropped($event)">
-      Drop files here to add.<br>
-      Or click <fa-icon [icon]="['fas','folder-plus']"></fa-icon>&nbsp;<b>Add files</b> button.
-    </gd-init-state>
-  </div>
-
-  <gd-search-panel *ngIf="appState == 'Search' || appState == 'SearchResult'"
+  <gd-search-panel *ngIf="appState == 'Default' || appState == 'SearchResult'"
     (searchText)="search($event)"
-    (cleared)="clearSearchResult()"></gd-search-panel>
+    (cleared)="clearSearchResult()">
+  </gd-search-panel>
 
-  <gd-search-options-panel *ngIf="appState == 'Search'"></gd-search-options-panel>
+  <div class="extra-info-container"
+    *ngIf="appState == 'Default'">
+    <gd-search-options-panel *ngIf="appState == 'Default'"></gd-search-options-panel>
+
+    <gd-index-properties-panel *ngIf="appState == 'Default'"></gd-index-properties-panel>
+  </div>
 
   <gd-search-result-summary [searchResult]="searchResult" *ngIf="appState == 'SearchResult'"></gd-search-result-summary>
 

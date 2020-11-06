@@ -16,8 +16,7 @@ export class SearchService {
 
   constructor(private _http: HttpClient,
               private _config: ConfigService,
-              private _searchOptionsService: SearchOptionsService,
-              private _indexPropertiesService: IndexPropertiesService) {
+              private _searchOptionsService: SearchOptionsService) {
   }
 
   addFilesToIndex(filesToIndex: FileModel[]) {

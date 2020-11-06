@@ -1,10 +1,17 @@
 <div class="gd-index-properties-panel">
-  <div class='row'><div class='c1'>Index version:</div><div class='c2'>{{properties.properties.IndexVersion}}</div></div>
-  <div class='row'><div class='c1'>Index type:</div><div class='c2'>{{properties.properties.IndexType}}</div></div>
-  <div class='row'><div class='c1'>Use stop words:</div><div class='c2'>{{properties.properties.UseStopWords}}</div></div>
-  <div class='row'><div class='c1'>Use character replacements:</div><div class='c2'>{{properties.properties.UseCharacterReplacements}}</div></div>
-  <div class='row'><div class='c1'>Auto detect encoding:</div><div class='c2'>{{properties.properties.AutoDetectEncoding}}</div></div>
-  <div class='row'><div class='c1'>Use raw text extraction:</div><div class='c2'>{{properties.properties.UseRawTextExtraction}}</div></div>
-  <div class='row'><div class='c1'>Text storage compression:</div><div class='c2'>{{properties.properties.TextStorageCompression}}</div></div>
-  <div class='row'><div class='c1'>Indexed files:</div><div class='c2'>{{properties.properties.IndexedFiles}}</div></div>
+  <button class="toggle-visibility"
+    (click)="this.toggleVisibility()">
+    <fa-icon [icon]="['fas','caret-down']"></fa-icon>
+    Index properties</button>
+  <div class="gd-index-properties-area"
+    *ngIf="arePropertiesVisible">
+    <div class='row'><div class='c1'>Index version:</div><div class='c2'>{{properties.properties.IndexVersion}}</div></div>
+    <div class='row'><div class='c1'>Index type:</div><div class='c2'>{{properties.properties.IndexType}}</div></div>
+    <div class='row'><div class='c1'>Stop words:</div><div class='c2'>{{properties.properties.UseStopWords}}</div></div>
+    <div class='row'><div class='c1'>Character replacements:</div><div class='c2'>{{properties.properties.UseCharacterReplacements}}</div></div>
+    <div class='row'><div class='c1'>Auto detect encoding:</div><div class='c2'>{{properties.properties.AutoDetectEncoding}}</div></div>
+    <div class='row'><div class='c1'>Raw text extraction:</div><div class='c2'>{{properties.properties.UseRawTextExtraction}}</div></div>
+    <div class='row'><div class='c1'>Storage compression:</div><div class='c2'>{{properties.properties.TextStorageCompression}}</div></div>
+    <div class='row'><div class='c1'>Indexed files:</div><div class='c2'>{{properties.properties.IndexedFiles}}</div></div>
+  </div>
 </div>

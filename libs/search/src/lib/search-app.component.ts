@@ -41,11 +41,9 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   skipPasswordProtected: boolean;
   searchResult: SearchResult;
   fileWasDropped = false;
-  sidePanelVisible = false;
-
+  
   constructor(private _searchService: SearchService,
               private _modalService: ModalService,
-              private _indexPropertiesService: IndexPropertiesService,
               configService: SearchConfigService,
               uploadFilesService: UploadFilesService,
               passwordService: PasswordService,
@@ -118,7 +116,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
   private setDefaultAppState() {
     this.appState = AppState.Default;
-    this.sidePanelVisible = false;
   }
 
   pushCommand(name: string) {
@@ -126,18 +123,14 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   clearSearchResult() {
-    this.appState = AppState.Search;
+    this.appState = AppState.Default;
     this.searchResult = null;
   }
 
   goBack() {
     switch(this.appState) {
-      case AppState.Search: {
-        this.setDefaultAppState();
-        break;
-      }
       case AppState.SearchResult: {
-        this.appState = AppState.Search;
+        this.appState = AppState.Default;
         this.searchResult = null;
         break;
       }
@@ -152,10 +145,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openSearch() {
-    this.appState = AppState.Search;
-  }
-
   openIndexedList() {
     this.appState = AppState.IndexedList;
     this.loadIndexedFiles(true);
@@ -167,22 +156,6 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
   onDictionarySelected(state: AppState) {
     this.appState = state;
-  }
-
-  showIndexProperties() {
-    if (this.sidePanelVisible) {
-      this.sidePanelVisible = false;
-    }
-    else {
-      this.sidePanelVisible = true;
-      this._searchService.getIndexProperties().subscribe((result: IndexProperties) => {
-        this._indexPropertiesService.properties = result;
-      });
-    }
-  }
-
-  hideIndexProperties() {
-    this.sidePanelVisible = false;
   }
 
   openModal(id: string) {
