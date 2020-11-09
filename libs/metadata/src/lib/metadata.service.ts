@@ -36,6 +36,10 @@ export class MetadataService {
     return this._http.post(this._config.getMetadataApiEndpoint() + Api.REMOVE_PROPERTY, metadataFile, Api.httpOptionsJson);
   }
 
+  cleanMetadata(metadataFile: FileCredentials) {
+    return this._http.post(this._config.getMetadataApiEndpoint() + Api.CLEAN_METADATA, metadataFile, Api.httpOptionsJson);
+  }
+
   upload(file: File, url: string, rewrite: boolean) {
     const formData = new FormData();
     formData.append("file", file);
@@ -57,6 +61,10 @@ export class MetadataService {
 
   getDownloadUrl(credentials: FileCredentials) {
     return this._config.getMetadataApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
+  }
+
+  exportProperties(credentials: FileCredentials) {
+    return this._http.post(this._config.getMetadataApiEndpoint() + Api.EXPORT_METADATA, credentials, Api.httpOptionsJsonResponseTypeBlob);
   }
 
   loadPrint(credentials: FileCredentials) {

@@ -238,6 +238,12 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     window.location.assign(this.metadataService.getDownloadUrl(this.credentials));
   }
 
+  exportProperties() {
+    if (this.formatDisabled) return;
+    this.metadataService.exportProperties(this.credentials).subscribe((exportedFile: Blob) => 
+      this.saveBlob(exportedFile, "ExportedProperties.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")); 
+  }
+
   private clearData() {
     if (!this.file || !this.file.pages) {
       return;
@@ -272,7 +278,17 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  cleanMetadata() {
+    if (this.formatDisabled) return;
+    this.metadataService.cleanMetadata(this.credentials).subscribe(() => {
+      this.loadProperties();
+      this.disabled = false;
+      this.modalService.open(CommonModals.OperationSuccess);
+    });
+  }
+
   loadProperties() {
+    if (!this.file) return;
     this.metadataService.loadProperties(this.credentials).subscribe((packages: PackageModel[]) => {
       this.packages = packages;
     });
@@ -311,5 +327,30 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
       return PackageNameByMetadataType[packageInfo.type];
     }
     return (MetadataType[packageInfo.type]).toString();
+  }
+
+  private saveBlob(blob: Blob, fileName: string, mimeType: string) {
+    var newBlob = new Blob([blob], { type: mimeType });
+
+    // IE
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(newBlob);
+        return;
+    }
+
+    
+    const data = window.URL.createObjectURL(newBlob);
+
+    var link = document.createElement('a');
+    link.href = data;
+    link.download = fileName;
+    // Firefox
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+
+    setTimeout(function () {
+        // Firefox
+        window.URL.revokeObjectURL(data);
+        link.remove();
+    }, 100);
   }
 }

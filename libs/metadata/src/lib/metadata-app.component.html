@@ -7,12 +7,16 @@
         <gd-top-toolbar class="toolbar-panel">
           <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                     *ngIf="browseConfig" ></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'trash'" [tooltip]="'Clean Metadata'" (click)="cleanMetadata()">
+                    </gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="save()">
                     </gd-button>
           <gd-button [hidden] ="isDesktop" [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties()">
                     </gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                     (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'file-excel'" [tooltip]="'Export Properties'"
+                    (click)="exportProperties()" ></gd-button>
         </gd-top-toolbar>
       </div>
       <div class="doc-panel" *ngIf="file" #docPanel>
@@ -32,7 +36,7 @@
       </gd-accordion>
     </gd-side-panel>
   </div>
-  <gd-init-state [icon]="'clipboard-list'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">
+  <gd-init-state [icon]="'clipboard-list'" [text]="'Drop file here to upload'" *ngIf="!file && uploadConfig" (fileDropped)="fileDropped($event)">
     Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
     Or drop file here
   </gd-init-state>
