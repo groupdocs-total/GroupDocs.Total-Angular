@@ -1,22 +1,22 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome'), require('@angular/forms')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/metadata', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome', '@angular/forms'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.metadata = {}), global.ng.platformBrowser, global.ng.core, global.ng.common, global.ng.common.http, global.commonComponents, global.rxjs, global.angularFontawesome, global.ng.forms));
-}(this, (function (exports, platformBrowser, core, common, http, commonComponents, rxjs, angularFontawesome, forms) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome'), require('moment'), require('@angular/forms'), require('ng2-date-picker')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/metadata', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome', 'moment', '@angular/forms', 'ng2-date-picker'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.metadata = {}), global.ng.platformBrowser, global.ng.core, global.ng.common, global.ng.common.http, global.commonComponents, global.rxjs, global.angularFontawesome, global.moment_, global.ng.forms, global.ng2DatePicker));
+}(this, (function (exports, platformBrowser, core, common, http, commonComponents, rxjs, angularFontawesome, moment_, forms, ng2DatePicker) { 'use strict';
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -72,10 +72,11 @@
     }
 
     function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
             function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
             function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
@@ -108,19 +109,25 @@
         }
     }
 
+    function __createBinding(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    }
+
     function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 
     function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
         if (m) return m.call(o);
-        return {
+        if (o && typeof o.length === "number") return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
 
     function __read(o, n) {
@@ -201,6 +208,21 @@
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
 
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
+    }
+
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
@@ -277,6 +299,17 @@
             return this._http.post(this._config.getMetadataApiEndpoint() + commonComponents.Api.REMOVE_PROPERTY, metadataFile, commonComponents.Api.httpOptionsJson);
         };
         /**
+         * @param {?} metadataFile
+         * @return {?}
+         */
+        MetadataService.prototype.cleanMetadata = /**
+         * @param {?} metadataFile
+         * @return {?}
+         */
+        function (metadataFile) {
+            return this._http.post(this._config.getMetadataApiEndpoint() + commonComponents.Api.CLEAN_METADATA, metadataFile, commonComponents.Api.httpOptionsJson);
+        };
+        /**
          * @param {?} file
          * @param {?} url
          * @param {?} rewrite
@@ -330,6 +363,17 @@
          * @param {?} credentials
          * @return {?}
          */
+        MetadataService.prototype.exportProperties = /**
+         * @param {?} credentials
+         * @return {?}
+         */
+        function (credentials) {
+            return this._http.post(this._config.getMetadataApiEndpoint() + commonComponents.Api.EXPORT_METADATA, credentials, commonComponents.Api.httpOptionsJsonResponseTypeBlob);
+        };
+        /**
+         * @param {?} credentials
+         * @return {?}
+         */
         MetadataService.prototype.loadPrint = /**
          * @param {?} credentials
          * @return {?}
@@ -374,7 +418,9 @@
         /** @type {?} */
         MetadataFileDescription.prototype.guid;
         /** @type {?} */
-        MetadataFileDescription.prototype.properties;
+        MetadataFileDescription.prototype.password;
+        /** @type {?} */
+        MetadataFileDescription.prototype.packages;
     }
 
     /**
@@ -496,70 +542,146 @@
         MetadataConfigService.prototype._config;
     }
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var AccordionService = /** @class */ (function () {
-        function AccordionService() {
-            this._addingObserver = new rxjs.BehaviorSubject(null);
-            this._addedProperty = this._addingObserver.asObservable();
-        }
-        Object.defineProperty(AccordionService.prototype, "addedProperty", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._addedProperty;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} addedProperty
-         * @return {?}
-         */
-        AccordionService.prototype.addProperty = /**
-         * @param {?} addedProperty
-         * @return {?}
-         */
-        function (addedProperty) {
-            this._addingObserver.next(addedProperty);
-        };
-        AccordionService.decorators = [
-            { type: core.Injectable, args: [{
-                        providedIn: 'root'
-                    },] }
-        ];
-        /** @nocollapse */
-        AccordionService.ctorParameters = function () { return []; };
-        /** @nocollapse */ AccordionService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AccordionService_Factory() { return new AccordionService(); }, token: AccordionService, providedIn: "root" });
-        return AccordionService;
-    }());
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        AccordionService.prototype._addingObserver;
-        /**
-         * @type {?}
-         * @private
-         */
-        AccordionService.prototype._addedProperty;
-    }
-
+    var _a;
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @enum {number} */
-    var FilePropertyCategory = {
-        BuildIn: 0,
-        Default: 1,
+    var AccessLevels = {
+        Read: 0,
+        Update: 1,
+        Remove: 2,
+        Add: 4,
+        AddOrUpdate: 5,
+        Full: 7,
     };
-    FilePropertyCategory[FilePropertyCategory.BuildIn] = 'BuildIn';
-    FilePropertyCategory[FilePropertyCategory.Default] = 'Default';
+    AccessLevels[AccessLevels.Read] = 'Read';
+    AccessLevels[AccessLevels.Update] = 'Update';
+    AccessLevels[AccessLevels.Remove] = 'Remove';
+    AccessLevels[AccessLevels.Add] = 'Add';
+    AccessLevels[AccessLevels.AddOrUpdate] = 'AddOrUpdate';
+    AccessLevels[AccessLevels.Full] = 'Full';
+    /** @enum {number} */
+    var MetadataPropertyType = {
+        Empty: 0,
+        String: 1,
+        Boolean: 2,
+        DateTime: 3,
+        TimeSpan: 4,
+        Integer: 5,
+        Long: 6,
+        Double: 7,
+        StringArray: 8,
+        ByteArray: 9,
+        DoubleArray: 10,
+        IntegerArray: 11,
+        LongArray: 12,
+        Metadata: 13,
+        MetadataArray: 14,
+        Guid: 15,
+        PropertyValueArray: 16,
+    };
+    MetadataPropertyType[MetadataPropertyType.Empty] = 'Empty';
+    MetadataPropertyType[MetadataPropertyType.String] = 'String';
+    MetadataPropertyType[MetadataPropertyType.Boolean] = 'Boolean';
+    MetadataPropertyType[MetadataPropertyType.DateTime] = 'DateTime';
+    MetadataPropertyType[MetadataPropertyType.TimeSpan] = 'TimeSpan';
+    MetadataPropertyType[MetadataPropertyType.Integer] = 'Integer';
+    MetadataPropertyType[MetadataPropertyType.Long] = 'Long';
+    MetadataPropertyType[MetadataPropertyType.Double] = 'Double';
+    MetadataPropertyType[MetadataPropertyType.StringArray] = 'StringArray';
+    MetadataPropertyType[MetadataPropertyType.ByteArray] = 'ByteArray';
+    MetadataPropertyType[MetadataPropertyType.DoubleArray] = 'DoubleArray';
+    MetadataPropertyType[MetadataPropertyType.IntegerArray] = 'IntegerArray';
+    MetadataPropertyType[MetadataPropertyType.LongArray] = 'LongArray';
+    MetadataPropertyType[MetadataPropertyType.Metadata] = 'Metadata';
+    MetadataPropertyType[MetadataPropertyType.MetadataArray] = 'MetadataArray';
+    MetadataPropertyType[MetadataPropertyType.Guid] = 'Guid';
+    MetadataPropertyType[MetadataPropertyType.PropertyValueArray] = 'PropertyValueArray';
+    /** @enum {number} */
+    var MetadataType = {
+        Undefined: 0,
+        Root: 1,
+        Xmp: 2,
+        Exif: 3,
+        Iptc: 4,
+        DublinCore: 5,
+        ImageResourceBlock: 6,
+        FileFormat: 7,
+        DigitalSignature: 8,
+        Presentation: 9,
+        Spreadsheet: 10,
+        WordProcessing: 11,
+        Diagram: 12,
+        Note: 13,
+        ProjectManagement: 14,
+        Pdf: 15,
+        DocumentStatistics: 16,
+        Psd: 17,
+        Jpeg2000: 18,
+        Dicom: 19,
+        Bmp: 20,
+        Wav: 21,
+        ID3V1: 22,
+        ID3V2: 23,
+        MpegAudio: 24,
+        Lyrics3: 25,
+        ApeV2: 26,
+        Avi: 27,
+        Flv: 28,
+        Asf: 29,
+        Mov: 30,
+        Matroska: 31,
+        Zip: 32,
+        VCard: 33,
+        Epub: 34,
+        OpenType: 35,
+        Cad: 36,
+        Eml: 37,
+        Msg: 38,
+        Torrent: 39,
+    };
+    MetadataType[MetadataType.Undefined] = 'Undefined';
+    MetadataType[MetadataType.Root] = 'Root';
+    MetadataType[MetadataType.Xmp] = 'Xmp';
+    MetadataType[MetadataType.Exif] = 'Exif';
+    MetadataType[MetadataType.Iptc] = 'Iptc';
+    MetadataType[MetadataType.DublinCore] = 'DublinCore';
+    MetadataType[MetadataType.ImageResourceBlock] = 'ImageResourceBlock';
+    MetadataType[MetadataType.FileFormat] = 'FileFormat';
+    MetadataType[MetadataType.DigitalSignature] = 'DigitalSignature';
+    MetadataType[MetadataType.Presentation] = 'Presentation';
+    MetadataType[MetadataType.Spreadsheet] = 'Spreadsheet';
+    MetadataType[MetadataType.WordProcessing] = 'WordProcessing';
+    MetadataType[MetadataType.Diagram] = 'Diagram';
+    MetadataType[MetadataType.Note] = 'Note';
+    MetadataType[MetadataType.ProjectManagement] = 'ProjectManagement';
+    MetadataType[MetadataType.Pdf] = 'Pdf';
+    MetadataType[MetadataType.DocumentStatistics] = 'DocumentStatistics';
+    MetadataType[MetadataType.Psd] = 'Psd';
+    MetadataType[MetadataType.Jpeg2000] = 'Jpeg2000';
+    MetadataType[MetadataType.Dicom] = 'Dicom';
+    MetadataType[MetadataType.Bmp] = 'Bmp';
+    MetadataType[MetadataType.Wav] = 'Wav';
+    MetadataType[MetadataType.ID3V1] = 'ID3V1';
+    MetadataType[MetadataType.ID3V2] = 'ID3V2';
+    MetadataType[MetadataType.MpegAudio] = 'MpegAudio';
+    MetadataType[MetadataType.Lyrics3] = 'Lyrics3';
+    MetadataType[MetadataType.ApeV2] = 'ApeV2';
+    MetadataType[MetadataType.Avi] = 'Avi';
+    MetadataType[MetadataType.Flv] = 'Flv';
+    MetadataType[MetadataType.Asf] = 'Asf';
+    MetadataType[MetadataType.Mov] = 'Mov';
+    MetadataType[MetadataType.Matroska] = 'Matroska';
+    MetadataType[MetadataType.Zip] = 'Zip';
+    MetadataType[MetadataType.VCard] = 'VCard';
+    MetadataType[MetadataType.Epub] = 'Epub';
+    MetadataType[MetadataType.OpenType] = 'OpenType';
+    MetadataType[MetadataType.Cad] = 'Cad';
+    MetadataType[MetadataType.Eml] = 'Eml';
+    MetadataType[MetadataType.Msg] = 'Msg';
+    MetadataType[MetadataType.Torrent] = 'Torrent';
     var FilePropertyModel = /** @class */ (function () {
         function FilePropertyModel() {
         }
@@ -567,66 +689,167 @@
     }());
     if (false) {
         /** @type {?} */
-        FilePropertyModel.prototype.category;
-        /** @type {?} */
         FilePropertyModel.prototype.name;
         /** @type {?} */
         FilePropertyModel.prototype.value;
         /** @type {?} */
         FilePropertyModel.prototype.type;
         /** @type {?} */
-        FilePropertyModel.prototype.original;
+        FilePropertyModel.prototype.added;
         /** @type {?} */
         FilePropertyModel.prototype.selected;
         /** @type {?} */
         FilePropertyModel.prototype.editing;
         /** @type {?} */
         FilePropertyModel.prototype.edited;
-        /** @type {?} */
-        FilePropertyModel.prototype.disabled;
     }
+    var KnownPropertyModel = /** @class */ (function () {
+        function KnownPropertyModel() {
+        }
+        return KnownPropertyModel;
+    }());
+    if (false) {
+        /** @type {?} */
+        KnownPropertyModel.prototype.name;
+        /** @type {?} */
+        KnownPropertyModel.prototype.type;
+        /** @type {?} */
+        KnownPropertyModel.prototype.accessLevel;
+    }
+    var PackageModel = /** @class */ (function () {
+        function PackageModel() {
+        }
+        return PackageModel;
+    }());
+    if (false) {
+        /** @type {?} */
+        PackageModel.prototype.id;
+        /** @type {?} */
+        PackageModel.prototype.name;
+        /** @type {?} */
+        PackageModel.prototype.index;
+        /** @type {?} */
+        PackageModel.prototype.type;
+        /** @type {?} */
+        PackageModel.prototype.properties;
+        /** @type {?} */
+        PackageModel.prototype.knownProperties;
+    }
+    var RemovePropertyModel = /** @class */ (function () {
+        function RemovePropertyModel() {
+        }
+        return RemovePropertyModel;
+    }());
+    if (false) {
+        /** @type {?} */
+        RemovePropertyModel.prototype.packageId;
+        /** @type {?} */
+        RemovePropertyModel.prototype.property;
+    }
+    var ChangedPackageModel = /** @class */ (function () {
+        function ChangedPackageModel() {
+        }
+        return ChangedPackageModel;
+    }());
+    if (false) {
+        /** @type {?} */
+        ChangedPackageModel.prototype.id;
+        /** @type {?} */
+        ChangedPackageModel.prototype.properties;
+    }
+    /** @type {?} */
+    var PackageNameByMetadataType = (_a = {},
+        _a[MetadataType.WordProcessing] = "Document Properties",
+        _a[MetadataType.Spreadsheet] = "Workbook Properties",
+        _a[MetadataType.Presentation] = "Presentation Properties",
+        _a[MetadataType.ProjectManagement] = "Project Properties",
+        _a[MetadataType.Diagram] = "Diagram Properties",
+        _a[MetadataType.Note] = "Note Properties",
+        _a[MetadataType.Pdf] = "PDF Properties",
+        _a[MetadataType.FileFormat] = "File Format Info",
+        _a[MetadataType.DocumentStatistics] = "Document Statistics",
+        _a[MetadataType.DublinCore] = "Dublin Core Properties",
+        _a[MetadataType.ImageResourceBlock] = "Image Resources",
+        _a[MetadataType.MpegAudio] = "Mpeg Audio Properties",
+        _a[MetadataType.DigitalSignature] = "Digital Signature Properties",
+        _a);
+    /** @type {?} */
+    var PackageNameByOriginalName = {
+        "NotePage": "Page",
+        "ZipFile": "Archived File",
+        "TorrentSharedFilePackage": "Shared File",
+        "MovAtom": "Atom",
+        "CanonMakerNotePackage": "Canon Makernote",
+        "NikonMakerNotePackage": "Nikon Makernote",
+        "PanasonicMakerNotePackage": "Panasonic Makernote",
+        "SonyMakerNotePackage": "Sony Makernote",
+        "MatroskaSegment": "Segment",
+        "MatroskaAudioTrack": "Track",
+        "MatroskaSubtitleTrack": "Track",
+        "MatroskaVideoTrack": "Track",
+        "MatroskaTrack": "Track",
+        "MatroskaTag": "Tag",
+        "MatroskaEbmlHeader": "Header",
+        "VCardCard": "Card",
+        "AsfCodec": "Codec",
+        "AsfBaseStreamProperty": "Stream",
+        "AsfAudioStreamProperty": "Stream",
+        "AsfVideoStreamProperty": "Stream",
+        "AsfMetadataDescriptorCollection": "Descriptors",
+        "OpenTypeFont": "Font",
+    };
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var MetadataAppComponent = /** @class */ (function () {
-        function MetadataAppComponent(_metadataService, _modalService, configService, uploadFilesService, _navigateService, _zoomService, pagePreloadService, passwordService, _loadingMaskService, _accrodionService, _windowService) {
-            var _this = this;
-            this._metadataService = _metadataService;
-            this._modalService = _modalService;
-            this._navigateService = _navigateService;
-            this._zoomService = _zoomService;
-            this._loadingMaskService = _loadingMaskService;
-            this._accrodionService = _accrodionService;
-            this._windowService = _windowService;
+        function MetadataAppComponent(metadataService, modalService, configService, uploadFilesService, navigateService, zoomService, pagePreloadService, passwordService, loadingMaskService, windowService) {
+            this.metadataService = metadataService;
+            this.modalService = modalService;
+            this.configService = configService;
+            this.uploadFilesService = uploadFilesService;
+            this.navigateService = navigateService;
+            this.zoomService = zoomService;
+            this.pagePreloadService = pagePreloadService;
+            this.passwordService = passwordService;
+            this.loadingMaskService = loadingMaskService;
+            this.windowService = windowService;
             this.title = 'metadata';
             this.files = [];
             this.countPages = 0;
-            this.formatDisabled = !this.file;
+            this.formatDisabled = true;
             this.browseFilesModal = commonComponents.CommonModals.BrowseFiles;
-            this._zoom = 100;
+            this.previewZoom = 100;
             this.fileWasDropped = false;
             this.disabled = false;
             this.showSidePanel = true;
-            this.disabledProperties = ["generator", "producer", "creator"];
-            this.isDesktop = _windowService.isDesktop();
-            _windowService.onResize.subscribe((/**
+        }
+        /**
+         * @return {?}
+         */
+        MetadataAppComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            this.isDesktop = this.windowService.isDesktop();
+            this.windowService.onResize.subscribe((/**
              * @param {?} w
              * @return {?}
              */
             function (w) {
-                _this.isDesktop = _windowService.isDesktop();
+                _this.isDesktop = _this.windowService.isDesktop();
                 _this.refreshZoom();
             }));
-            configService.updatedConfig.subscribe((/**
+            this.configService.updatedConfig.subscribe((/**
              * @param {?} metadataConfig
              * @return {?}
              */
             function (metadataConfig) {
                 _this.metadataConfig = metadataConfig;
             }));
-            uploadFilesService.uploadsChange.subscribe((/**
+            this.uploadFilesService.uploadsChange.subscribe((/**
              * @param {?} uploads
              * @return {?}
              */
@@ -635,7 +858,7 @@
                     /** @type {?} */
                     var i = void 0;
                     for (i = 0; i < uploads.length; i++) {
-                        _this._metadataService.upload(uploads.item(i), '', _this.metadataConfig.rewrite).subscribe((/**
+                        _this.metadataService.upload(uploads.item(i), '', _this.metadataConfig.rewrite).subscribe((/**
                          * @param {?} obj
                          * @return {?}
                          */
@@ -645,7 +868,7 @@
                     }
                 }
             }));
-            pagePreloadService.checkPreload.subscribe((/**
+            this.pagePreloadService.checkPreload.subscribe((/**
              * @param {?} page
              * @return {?}
              */
@@ -658,48 +881,19 @@
                     }
                 }
             }));
-            passwordService.passChange.subscribe((/**
+            this.passwordService.passChange.subscribe((/**
              * @param {?} pass
              * @return {?}
              */
             function (pass) {
                 _this.selectFile(_this.credentials.guid, pass, commonComponents.CommonModals.PasswordRequired);
             }));
-            _accrodionService.addedProperty.subscribe((/**
-             * @param {?} addedProperty
-             * @return {?}
-             */
-            function (addedProperty) {
-                if (addedProperty) {
-                    _this.addedProperty = addedProperty;
-                    /** @type {?} */
-                    var propObject = {
-                        original: addedProperty.original,
-                        name: "Select property",
-                        value: "",
-                        category: 0,
-                        type: 1,
-                        selected: false,
-                        editing: false,
-                        edited: false,
-                        disabled: false
-                    };
-                    if (_this.buildInProperties) {
-                        _this.buildInProperties.push(propObject);
-                    }
-                }
-            }));
-        }
-        /**
-         * @return {?}
-         */
-        MetadataAppComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
             if (this.metadataConfig.defaultDocument !== "") {
                 this.isLoading = true;
                 this.selectFile(this.metadataConfig.defaultDocument, "", "");
+            }
+            if (this.initialFile) {
+                this.selectFile(this.initialFile, null, null);
             }
         };
         /**
@@ -710,7 +904,7 @@
          */
         function () {
             var _this = this;
-            this._loadingMaskService
+            this.loadingMaskService
                 .onLoadingChanged
                 .subscribe((/**
              * @param {?} loading
@@ -768,7 +962,7 @@
          * @return {?}
          */
         function (id) {
-            this._modalService.open(id);
+            this.modalService.open(id);
         };
         /**
          * @param {?} id
@@ -779,7 +973,7 @@
          * @return {?}
          */
         function (id) {
-            this._modalService.close(id);
+            this.modalService.close(id);
         };
         /**
          * @param {?} $event
@@ -791,7 +985,7 @@
          */
         function ($event) {
             var _this = this;
-            this._metadataService.loadFiles($event).subscribe((/**
+            this.metadataService.loadFiles($event).subscribe((/**
              * @param {?} files
              * @return {?}
              */
@@ -813,7 +1007,7 @@
             var _this = this;
             this.credentials = { guid: $event, password: password };
             this.file = null;
-            this._metadataService.loadFile(this.credentials).subscribe((/**
+            this.metadataService.loadFile(this.credentials).subscribe((/**
              * @param {?} file
              * @return {?}
              */
@@ -822,8 +1016,8 @@
                 _this.formatDisabled = !_this.file;
                 if (file) {
                     if (file.pages && file.pages[0]) {
-                        _this._pageHeight = file.pages[0].height;
-                        _this._pageWidth = file.pages[0].width;
+                        _this.pageHeight = file.pages[0].height;
+                        _this.pageWidth = file.pages[0].width;
                         _this.options = _this.zoomOptions();
                         _this.refreshZoom();
                     }
@@ -834,14 +1028,14 @@
                     if (preloadPageCount > 0) {
                         _this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
                     }
-                    _this._navigateService.countPages = countPages;
-                    _this._navigateService.currentPage = 1;
+                    _this.navigateService.countPages = countPages;
+                    _this.navigateService.currentPage = 1;
                     _this.countPages = countPages;
                     _this.loadProperties();
                 }
             }));
             if (modalId) {
-                this._modalService.close(modalId);
+                this.modalService.close(modalId);
             }
             this.clearData();
         };
@@ -858,7 +1052,7 @@
         function (start, end) {
             var _this = this;
             var _loop_1 = function (i) {
-                this_1._metadataService.loadPage(this_1.credentials, i).subscribe((/**
+                this_1.metadataService.loadPage(this_1.credentials, i).subscribe((/**
                  * @param {?} page
                  * @return {?}
                  */
@@ -881,7 +1075,7 @@
          */
         function ($event) {
             var _this = this;
-            this._metadataService.upload(null, $event, this.rewriteConfig).subscribe((/**
+            this.metadataService.upload(null, $event, this.rewriteConfig).subscribe((/**
              * @return {?}
              */
             function () {
@@ -924,9 +1118,9 @@
         function () {
             // Images and Excel-related files receiving dimensions in px from server
             /** @type {?} */
-            var pageWidth = this.ptToPx(this._pageWidth);
+            var pageWidth = this.ptToPx(this.pageWidth);
             /** @type {?} */
-            var pageHeight = this.ptToPx(this._pageHeight);
+            var pageHeight = this.ptToPx(this.pageHeight);
             /** @type {?} */
             var offsetWidth = pageWidth ? pageWidth : window.innerWidth;
             return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
@@ -941,9 +1135,9 @@
          */
         function () {
             /** @type {?} */
-            var pageWidth = this.ptToPx(this._pageWidth);
+            var pageWidth = this.ptToPx(this.pageWidth);
             /** @type {?} */
-            var pageHeight = this.ptToPx(this._pageHeight);
+            var pageHeight = this.ptToPx(this.pageHeight);
             /** @type {?} */
             var windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
             /** @type {?} */
@@ -961,22 +1155,22 @@
             var width = this.getFitToWidth();
             /** @type {?} */
             var height = this.getFitToHeight();
-            return this._zoomService.zoomOptions(width, height);
+            return this.zoomService.zoomOptions(width, height);
         };
         Object.defineProperty(MetadataAppComponent.prototype, "zoom", {
             get: /**
              * @return {?}
              */
             function () {
-                return this._zoom;
+                return this.previewZoom;
             },
             set: /**
              * @param {?} zoom
              * @return {?}
              */
             function (zoom) {
-                this._zoom = zoom;
-                this._zoomService.changeZoom(this._zoom);
+                this.previewZoom = zoom;
+                this.zoomService.changeZoom(this.previewZoom);
             },
             enumerable: true,
             configurable: true
@@ -990,7 +1184,7 @@
          * @return {?}
          */
         function () {
-            this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+            this.zoom = this.windowService.isDesktop() ? 100 : this.getFitToWidth();
         };
         /**
          * @return {?}
@@ -1001,7 +1195,25 @@
         function () {
             if (this.formatDisabled)
                 return;
-            window.location.assign(this._metadataService.getDownloadUrl(this.credentials));
+            window.location.assign(this.metadataService.getDownloadUrl(this.credentials));
+        };
+        /**
+         * @return {?}
+         */
+        MetadataAppComponent.prototype.exportProperties = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            if (this.formatDisabled)
+                return;
+            this.metadataService.exportProperties(this.credentials).subscribe((/**
+             * @param {?} exportedFile
+             * @return {?}
+             */
+            function (exportedFile) {
+                return _this.saveBlob(exportedFile, "ExportedProperties.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            }));
         };
         /**
          * @private
@@ -1050,23 +1262,55 @@
             if (!this.file || !this.file.pages)
                 return;
             /** @type {?} */
-            var savingProperty = this.buildInProperties.filter((/**
-             * @param {?} p
-             * @return {?}
-             */
-            function (p) { return !p.original || p.edited; }));
-            /** @type {?} */
             var savingFile = new MetadataFileDescription();
             savingFile.guid = this.file.guid;
-            savingFile.properties = savingProperty;
-            this._metadataService.saveProperty(savingFile).subscribe((/**
-             * @param {?} loadFile
+            savingFile.password = this.credentials.password;
+            savingFile.packages = this.packages
+                .map((/**
+             * @param {?} updatedPackage
              * @return {?}
              */
-            function (loadFile) {
+            function (updatedPackage) {
+                return { id: updatedPackage.id, properties: updatedPackage.properties.filter((/**
+                     * @param {?} p
+                     * @return {?}
+                     */
+                    function (p) { return p.added || p.edited; })) };
+            }))
+                .filter((/**
+             * @param {?} updatedPackage
+             * @return {?}
+             */
+            function (updatedPackage) { return updatedPackage.properties.length > 0; }));
+            if (savingFile.packages.length > 0) {
+                this.metadataService.saveProperty(savingFile).subscribe((/**
+                 * @param {?} loadFile
+                 * @return {?}
+                 */
+                function (loadFile) {
+                    _this.loadProperties();
+                    _this.disabled = false;
+                    _this.modalService.open(commonComponents.CommonModals.OperationSuccess);
+                }));
+            }
+        };
+        /**
+         * @return {?}
+         */
+        MetadataAppComponent.prototype.cleanMetadata = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            if (this.formatDisabled)
+                return;
+            this.metadataService.cleanMetadata(this.credentials).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this.loadProperties();
                 _this.disabled = false;
-                _this._modalService.open(commonComponents.CommonModals.OperationSuccess);
+                _this.modalService.open(commonComponents.CommonModals.OperationSuccess);
             }));
         };
         /**
@@ -1077,41 +1321,14 @@
          */
         function () {
             var _this = this;
-            this._metadataService.loadProperties(this.credentials).subscribe((/**
-             * @param {?} fileProperties
+            if (!this.file)
+                return;
+            this.metadataService.loadProperties(this.credentials).subscribe((/**
+             * @param {?} packages
              * @return {?}
              */
-            function (fileProperties) {
-                _this.buildInProperties = fileProperties.filter((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) { return p.category === FilePropertyCategory.BuildIn; }));
-                _this.buildInProperties.forEach((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) {
-                    if (_this.disabledProperties.some((/**
-                     * @param {?} dp
-                     * @return {?}
-                     */
-                    function (dp) { return dp === p.name.toLowerCase(); }))) {
-                        p.disabled = true;
-                    }
-                }));
-                _this.defaultProperties = fileProperties.filter((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) { return p.category === FilePropertyCategory.Default; }));
-                _this._metadataService.loadPropertiesNames(_this.credentials).subscribe((/**
-                 * @param {?} filePropertiesNames
-                 * @return {?}
-                 */
-                function (filePropertiesNames) {
-                    _this.filePropertiesNames = filePropertiesNames;
-                }));
+            function (packages) {
+                _this.packages = packages;
             }));
             if (!this.showSidePanel) {
                 this.showSidePanel = true;
@@ -1129,36 +1346,94 @@
             this.showSidePanel = !this.showSidePanel;
         };
         /**
-         * @param {?} $event
+         * @param {?} propertyInfo
          * @return {?}
          */
         MetadataAppComponent.prototype.removeProperty = /**
-         * @param {?} $event
+         * @param {?} propertyInfo
          * @return {?}
          */
-        function ($event) {
+        function (propertyInfo) {
             var _this = this;
-            /** @type {?} */
-            var removedProperty = $event;
             if (this.file) {
                 /** @type {?} */
                 var metadataFile = new MetadataFileDescription();
                 metadataFile.guid = this.file.guid;
-                metadataFile.properties = [removedProperty];
-                this._metadataService.removeProperty(metadataFile).subscribe((/**
+                metadataFile.password = this.credentials.password;
+                metadataFile.packages = [{ id: propertyInfo.packageId, properties: [propertyInfo.property] }];
+                this.metadataService.removeProperty(metadataFile).subscribe((/**
                  * @return {?}
                  */
                 function () {
                     _this.loadProperties();
-                    _this._modalService.open(commonComponents.CommonModals.OperationSuccess);
+                    _this.modalService.open(commonComponents.CommonModals.OperationSuccess);
                 }));
             }
+        };
+        /**
+         * @param {?} packageInfo
+         * @return {?}
+         */
+        MetadataAppComponent.prototype.getPackageName = /**
+         * @param {?} packageInfo
+         * @return {?}
+         */
+        function (packageInfo) {
+            if (packageInfo.name in PackageNameByOriginalName) {
+                if (packageInfo.index >= 0) {
+                    return PackageNameByOriginalName[packageInfo.name].concat(" ", (packageInfo.index + 1).toString(10));
+                }
+                return PackageNameByOriginalName[packageInfo.name];
+            }
+            if (packageInfo.type in PackageNameByMetadataType) {
+                return PackageNameByMetadataType[packageInfo.type];
+            }
+            return (MetadataType[packageInfo.type]).toString();
+        };
+        /**
+         * @private
+         * @param {?} blob
+         * @param {?} fileName
+         * @param {?} mimeType
+         * @return {?}
+         */
+        MetadataAppComponent.prototype.saveBlob = /**
+         * @private
+         * @param {?} blob
+         * @param {?} fileName
+         * @param {?} mimeType
+         * @return {?}
+         */
+        function (blob, fileName, mimeType) {
+            /** @type {?} */
+            var newBlob = new Blob([blob], { type: mimeType });
+            // IE
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                window.navigator.msSaveOrOpenBlob(newBlob);
+                return;
+            }
+            /** @type {?} */
+            var data = window.URL.createObjectURL(newBlob);
+            /** @type {?} */
+            var link = document.createElement('a');
+            link.href = data;
+            link.download = fileName;
+            // Firefox
+            link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                // Firefox
+                window.URL.revokeObjectURL(data);
+                link.remove();
+            }), 100);
         };
         MetadataAppComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-metadata',
-                        template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\">\n  <div class=\"row\">\n    <div class=\"column\">\n      <div class=\"top-panel\">\n        <gd-logo [logo]=\"'metadata'\" icon=\"clipboard-list\"></gd-logo>\n        <gd-top-toolbar class=\"toolbar-panel\">\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\n                    *ngIf=\"browseConfig\" ></gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"save()\">\n                    </gd-button>\n          <gd-button [hidden] =\"isDesktop\" [disabled]=\"formatDisabled\" [icon]=\"'file-export'\" [tooltip]=\"'Attributes'\" (click)=\"loadProperties()\">\n                    </gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                    (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n        </gd-top-toolbar>\n      </div>\n      <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\n        <gd-document class=\"gd-document\" *ngIf=\"file\" [file]=\"file\" [mode]=\"false\" gdScrollable\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\n      </div>\n    </div>\n    <gd-side-panel *ngIf=\"file && showSidePanel\"\n      (hideSidePanel)=\"hideSidePanel($event)\"\n      (saveInSidePanel)=\"save()\"\n      [closable]=\"isDesktop ? false : true\"\n      [saveable]=\"isDesktop ? false : true\"\n      [title]=\"'Metadata'\"\n      [icon]=\"'clipboard-list'\">\n      <gd-accordion>\n        <gd-accordion-group title=\"Build-in properties\" [addDisabled]=\"isDisabled()\" [addHidden]=\"false\" [properties]=\"buildInProperties\" [propertiesNames]=\"filePropertiesNames\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\n        <gd-accordion-group class=\"default\" title=\"Default properties\" [addDisabled]=\"true\" [addHidden]=\"true\" [properties]=\"defaultProperties\"></gd-accordion-group>\n      </gd-accordion>\n    </gd-side-panel>\n  </div>\n  <gd-init-state [icon]=\"'clipboard-list'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n    Or drop file here\n  </gd-init-state>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n</div>\n",
-                        styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}::ng-deep .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .button.inactive{color:#959da5!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}.row{display:-webkit-box;display:flex}.column{width:100%}::ng-deep .gd-side-panel-body{background-color:#f4f4f4}::ng-deep .gd-side-panel-wrapper{width:464px!important}::ng-deep .page.excel{overflow:unset!important}@media (max-width:1037px){::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .gd-side-panel-wrapper{width:375px!important}}"]
+                        template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\">\r\n  <div class=\"row\">\r\n    <div class=\"column\">\r\n      <div class=\"top-panel\">\r\n        <gd-logo [logo]=\"'metadata'\" icon=\"clipboard-list\"></gd-logo>\r\n        <gd-top-toolbar class=\"toolbar-panel\">\r\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\r\n                    *ngIf=\"browseConfig\" ></gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'trash'\" [tooltip]=\"'Clean Metadata'\" (click)=\"cleanMetadata()\">\r\n                    </gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"save()\">\r\n                    </gd-button>\r\n          <gd-button [hidden] =\"isDesktop\" [disabled]=\"formatDisabled\" [icon]=\"'file-export'\" [tooltip]=\"'Attributes'\" (click)=\"loadProperties()\">\r\n                    </gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\r\n                    (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'file-excel'\" [tooltip]=\"'Export Properties'\"\r\n                    (click)=\"exportProperties()\" ></gd-button>\r\n        </gd-top-toolbar>\r\n      </div>\r\n      <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\r\n        <gd-document class=\"gd-document\" *ngIf=\"file\" [file]=\"file\" [mode]=\"false\" gdScrollable\r\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\r\n      </div>\r\n    </div>\r\n    <gd-side-panel *ngIf=\"file && showSidePanel\"\r\n      (hideSidePanel)=\"hideSidePanel($event)\"\r\n      (saveInSidePanel)=\"save()\"\r\n      [closable]=\"isDesktop ? false : true\"\r\n      [saveable]=\"isDesktop ? false : true\"\r\n      [title]=\"'Metadata'\"\r\n      [icon]=\"'clipboard-list'\">\r\n      <gd-accordion>\r\n        <gd-accordion-group *ngFor=\"let package of packages\" [title]=\"getPackageName(package)\" [addDisabled]=\"false\" [addHidden]=\"false\" [properties]=\"package.properties\" [knownProperties]=\"package.knownProperties\" [packageId]=\"package.id\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\r\n      </gd-accordion>\r\n    </gd-side-panel>\r\n  </div>\r\n  <gd-init-state [icon]=\"'clipboard-list'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file && uploadConfig\" (fileDropped)=\"fileDropped($event)\">\r\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n    Or drop file here\r\n  </gd-init-state>\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\r\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-success-modal></gd-success-modal>\r\n</div>\r\n",
+                        styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}::ng-deep .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .button.inactive{color:#959da5!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}.row{display:-webkit-box;display:flex}.column{width:100%;overflow-x:hidden;overflow-y:hidden}::ng-deep .gd-side-panel-body{background-color:#f4f4f4}::ng-deep .gd-side-panel-wrapper{width:464px!important}::ng-deep .page.excel{overflow:unset!important}@media (max-width:1037px){::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .gd-side-panel-wrapper{width:375px!important}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1172,12 +1447,16 @@
             { type: commonComponents.PagePreloadService },
             { type: commonComponents.PasswordService },
             { type: commonComponents.LoadingMaskService },
-            { type: AccordionService },
             { type: commonComponents.WindowService }
         ]; };
+        MetadataAppComponent.propDecorators = {
+            initialFile: [{ type: core.Input }]
+        };
         return MetadataAppComponent;
     }());
     if (false) {
+        /** @type {?} */
+        MetadataAppComponent.prototype.initialFile;
         /** @type {?} */
         MetadataAppComponent.prototype.title;
         /** @type {?} */
@@ -1197,92 +1476,143 @@
         /** @type {?} */
         MetadataAppComponent.prototype.isLoading;
         /** @type {?} */
-        MetadataAppComponent.prototype._zoom;
+        MetadataAppComponent.prototype.previewZoom;
         /** @type {?} */
-        MetadataAppComponent.prototype._pageWidth;
+        MetadataAppComponent.prototype.pageWidth;
         /** @type {?} */
-        MetadataAppComponent.prototype._pageHeight;
+        MetadataAppComponent.prototype.pageHeight;
         /** @type {?} */
         MetadataAppComponent.prototype.options;
         /** @type {?} */
         MetadataAppComponent.prototype.fileWasDropped;
         /** @type {?} */
-        MetadataAppComponent.prototype.buildInProperties;
-        /** @type {?} */
-        MetadataAppComponent.prototype.defaultProperties;
-        /** @type {?} */
-        MetadataAppComponent.prototype.addedProperty;
-        /** @type {?} */
-        MetadataAppComponent.prototype.removedProperty;
-        /** @type {?} */
-        MetadataAppComponent.prototype.filePropertiesNames;
+        MetadataAppComponent.prototype.packages;
         /** @type {?} */
         MetadataAppComponent.prototype.disabled;
         /** @type {?} */
         MetadataAppComponent.prototype.isDesktop;
         /** @type {?} */
         MetadataAppComponent.prototype.showSidePanel;
-        /** @type {?} */
-        MetadataAppComponent.prototype.disabledProperties;
         /**
          * @type {?}
          * @private
          */
-        MetadataAppComponent.prototype._metadataService;
+        MetadataAppComponent.prototype.metadataService;
         /**
          * @type {?}
          * @private
          */
-        MetadataAppComponent.prototype._modalService;
+        MetadataAppComponent.prototype.modalService;
         /**
          * @type {?}
          * @private
          */
-        MetadataAppComponent.prototype._navigateService;
+        MetadataAppComponent.prototype.configService;
         /**
          * @type {?}
          * @private
          */
-        MetadataAppComponent.prototype._zoomService;
+        MetadataAppComponent.prototype.uploadFilesService;
         /**
          * @type {?}
          * @private
          */
-        MetadataAppComponent.prototype._loadingMaskService;
+        MetadataAppComponent.prototype.navigateService;
         /**
          * @type {?}
          * @private
          */
-        MetadataAppComponent.prototype._accrodionService;
+        MetadataAppComponent.prototype.zoomService;
         /**
          * @type {?}
          * @private
          */
-        MetadataAppComponent.prototype._windowService;
+        MetadataAppComponent.prototype.pagePreloadService;
+        /**
+         * @type {?}
+         * @private
+         */
+        MetadataAppComponent.prototype.passwordService;
+        /**
+         * @type {?}
+         * @private
+         */
+        MetadataAppComponent.prototype.loadingMaskService;
+        /**
+         * @type {?}
+         * @private
+         */
+        MetadataAppComponent.prototype.windowService;
     }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var AccordionComponent = /** @class */ (function () {
+        function AccordionComponent() {
+        }
+        /**
+         * @return {?}
+         */
+        AccordionComponent.prototype.ngAfterContentInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        AccordionComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-accordion',
+                        template: "\n    <ng-content></ng-content>\n",
+                        styles: [""]
+                    }] }
+        ];
+        return AccordionComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var moment = moment_;
     var AccordionGroupComponent = /** @class */ (function () {
-        function AccordionGroupComponent(_accordionService, _datePipe, _windowService) {
-            var _this = this;
-            this._accordionService = _accordionService;
-            this._datePipe = _datePipe;
-            this._windowService = _windowService;
-            this.opened = false;
-            this.toggle = new core.EventEmitter();
+        function AccordionGroupComponent(windowService) {
+            this.windowService = windowService;
+            this.opened = true;
             this.removeProperty = new core.EventEmitter();
-            this.isDesktop = _windowService.isDesktop();
-            _windowService.onResize.subscribe((/**
+            this.datePickerConfig = {
+                format: 'DD-MM-YYYY HH:mm:ss'
+            };
+            this.editableTypes = new Set([
+                MetadataPropertyType.String,
+                MetadataPropertyType.Integer,
+                MetadataPropertyType.Long,
+                MetadataPropertyType.Double,
+                MetadataPropertyType.Boolean,
+                MetadataPropertyType.DateTime
+            ]);
+        }
+        /**
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            this.isDesktop = this.windowService.isDesktop();
+            this.windowService.onResize.subscribe((/**
              * @param {?} w
              * @return {?}
              */
             function (w) {
-                _this.isDesktop = _windowService.isDesktop();
+                _this.isDesktop = _this.windowService.isDesktop();
             }));
-        }
+            this.knownPropertyDictionary = this.toDictionary(this.knownProperties);
+            this.updateNotAddedProperties();
+            this.metadataPropertyType = MetadataPropertyType;
+        };
         /**
          * @return {?}
          */
@@ -1301,27 +1631,28 @@
             }));
         };
         /**
-         * @param {?=} onlyEditing
          * @return {?}
          */
         AccordionGroupComponent.prototype.resetProperties = /**
-         * @param {?=} onlyEditing
          * @return {?}
          */
-        function (onlyEditing) {
-            if (onlyEditing === void 0) { onlyEditing = false; }
-            if (!onlyEditing) {
-                this.properties.forEach((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) { return p.selected = false; }));
-            }
+        function () {
             this.properties.forEach((/**
              * @param {?} p
              * @return {?}
              */
-            function (p) { return p.editing = false; }));
+            function (p) { p.selected = false; p.editing = false; }));
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.toggle = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            this.opened = !this.opened;
         };
         /**
          * @param {?} $event
@@ -1335,11 +1666,14 @@
             $event.preventDefault();
             $event.stopPropagation();
             this.resetProperties();
-            if (!this.addDisabled) {
+            if (this.isAddAvailable()) {
                 /** @type {?} */
                 var addedProperty = new FilePropertyModel();
-                addedProperty.original = false;
-                this._accordionService.addProperty(addedProperty);
+                addedProperty.added = true;
+                addedProperty.editing = true;
+                addedProperty.name = "Select property";
+                addedProperty.type = 1;
+                this.properties.push(addedProperty);
             }
         };
         /**
@@ -1351,21 +1685,8 @@
          * @return {?}
          */
         function (property) {
-            if (property.category === 0 && !property.disabled) {
-                this.resetProperties(true);
-                /** @type {?} */
-                var selectedProperty = this.properties.filter((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) { return p.name.toLocaleLowerCase() === property.name.toLocaleLowerCase(); }))[0];
-                selectedProperty.selected = !selectedProperty.selected;
-                this.properties.filter((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) { return p.name === property.name; }))[0].selected = selectedProperty.selected;
-            }
+            this.resetProperties();
+            property.selected = !property.selected;
         };
         /**
          * @param {?} property
@@ -1376,26 +1697,10 @@
          * @return {?}
          */
         function (property) {
-            // we can edit only first group props
-            if (property.category === 0 && !property.disabled) {
+            if (this.isEditable(property)) {
                 this.resetProperties();
-                /** @type {?} */
-                var selectedProperty = this.properties.filter((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) { return p.name.toLocaleLowerCase() === property.name.toLocaleLowerCase(); }))[0];
-                selectedProperty.editing = !selectedProperty.editing;
-                this.properties.filter((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) { return p.name === property.name; }))[0].editing = selectedProperty.editing;
-                this.properties.filter((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) { return p.name === property.name; }))[0].edited = true;
+                property.editing = !property.editing;
+                property.edited = true;
             }
         };
         /**
@@ -1415,24 +1720,30 @@
              * @return {?}
              */
             function (p) { return p.selected; }))[0];
-            this.removeProperty.emit(selectedProperty);
+            this.removeProperty.emit({ packageId: this.packageId, property: selectedProperty });
         };
         /**
          * @return {?}
          */
-        AccordionGroupComponent.prototype.wasSelected = /**
+        AccordionGroupComponent.prototype.isRemoveAvailable = /**
          * @return {?}
          */
         function () {
-            if (this.properties && this.properties.length > 0) {
-                return this.properties.filter((/**
-                 * @param {?} p
-                 * @return {?}
-                 */
-                function (p) { return p.selected; })).length === 1;
-            }
-            else
-                return false;
+            var _this = this;
+            return this.properties && this.properties.filter((/**
+             * @param {?} p
+             * @return {?}
+             */
+            function (p) { return p.selected && _this.isRemovable(p); })).length === 1;
+        };
+        /**
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.isAddAvailable = /**
+         * @return {?}
+         */
+        function () {
+            return !this.addDisabled && this.notAddedProperties.length > 0;
         };
         /**
          * @param {?} $event
@@ -1447,29 +1758,13 @@
         function ($event, property) {
             property.type = $event.type;
             property.name = $event.name;
-            if ($event.type === 3) {
-                property.value = new Date().toISOString().slice(0, 19);
+            if ($event.type === MetadataPropertyType.DateTime) {
+                property.value = moment().toISOString();
             }
             else {
                 property.value = "";
             }
-        };
-        /**
-         * @param {?} property
-         * @param {?} value
-         * @return {?}
-         */
-        AccordionGroupComponent.prototype.formatDateTime = /**
-         * @param {?} property
-         * @param {?} value
-         * @return {?}
-         */
-        function (property, value) {
-            if (value) {
-                /** @type {?} */
-                var dateTime = new Date(value);
-                property.value = dateTime.toISOString().slice(0, 19);
-            }
+            this.updateNotAddedProperties();
         };
         /**
          * @param {?} property
@@ -1481,34 +1776,135 @@
          */
         function (property) {
             switch (property.type) {
-                case 3:
-                    return this.isDesktop ? this._datePipe.transform(new Date(property.value), 'MM/dd/yy, h:mm:ss a')
-                        : this._datePipe.transform(new Date(property.value), 'MM/dd/yy, h:mm a');
+                case MetadataPropertyType.DateTime:
+                    return this.dateToPicker(property.value);
                 default:
                     return property.value;
             }
         };
+        /**
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.updateNotAddedProperties = /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var propertyDictionary = this.toDictionary(this.properties);
+            // tslint:disable-next-line:no-bitwise
+            this.notAddedProperties = this.knownProperties.filter((/**
+             * @param {?} p
+             * @return {?}
+             */
+            function (p) { return (p.accessLevel & AccessLevels.Add) !== 0 && !(p.name in propertyDictionary); }));
+        };
+        /**
+         * @param {?} property
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.isEditable = /**
+         * @param {?} property
+         * @return {?}
+         */
+        function (property) {
+            if (this.editableTypes.has(property.type)) {
+                return this.hasAccessTo(property, AccessLevels.Update);
+            }
+        };
+        /**
+         * @param {?} property
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.isRemovable = /**
+         * @param {?} property
+         * @return {?}
+         */
+        function (property) {
+            return this.hasAccessTo(property, AccessLevels.Remove);
+        };
+        /**
+         * @param {?} property
+         * @param {?} accessLevel
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.hasAccessTo = /**
+         * @param {?} property
+         * @param {?} accessLevel
+         * @return {?}
+         */
+        function (property, accessLevel) {
+            // tslint:disable-next-line:no-bitwise
+            return property.name in this.knownPropertyDictionary && (this.knownPropertyDictionary[property.name].accessLevel & accessLevel) !== 0;
+        };
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.dateToPicker = /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (value) {
+                return moment.utc(value).local().format(this.datePickerConfig.format);
+            }
+            return null;
+        };
+        /**
+         * @param {?} property
+         * @param {?} value
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.dateFromPicker = /**
+         * @param {?} property
+         * @param {?} value
+         * @return {?}
+         */
+        function (property, value) {
+            if (value) {
+                /** @type {?} */
+                var dateTime = moment(value, this.datePickerConfig.format);
+                property.value = dateTime.toISOString();
+            }
+        };
+        /**
+         * @param {?} array
+         * @return {?}
+         */
+        AccordionGroupComponent.prototype.toDictionary = /**
+         * @param {?} array
+         * @return {?}
+         */
+        function (array) {
+            return array.reduce((/**
+             * @param {?} obj
+             * @param {?} item
+             * @return {?}
+             */
+            function (obj, item) {
+                obj[item.name] = item;
+                return obj;
+            }), {});
+        };
         AccordionGroupComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-accordion-group',
-                        template: "<div class=\"accordion-wrapper\">\n    <div class=\"title\" (click)=\"toggle.emit($event)\">\n      <fa-icon *ngIf=\"!opened\" class=\"chevron\" [icon]=\"['fas', 'chevron-down']\"></fa-icon>\n      <fa-icon *ngIf=\"opened\" class=\"chevron\" [icon]=\"['fas', 'chevron-up']\"></fa-icon>\n      <div class=\"text\">{{title}}</div>\n      <fa-icon class=\"trash\" *ngIf=\"wasSelected()\" [icon]=\"['fas', 'trash']\" (click)=\"delete($event)\"></fa-icon>\n      <gd-button class=\"plus\" [icon]=\"['plus']\" [hidden]=\"addHidden\" [disabled]=\"addDisabled\" (click)=\"addProperty($event)\"></gd-button>\n    </div>\n    <div class=\"body\" [ngClass]=\"{'hidden': !opened}\">\n      <div *ngFor=\"let property of properties\" class=\"property-wrapper\" [ngClass]=\"{'disabled': property.disabled}\">\n          <div *ngIf=\"property.original\" [ngClass]=\"{'selected': property.selected}\" (click)=\"selectProperty(property)\" class=\"property-name\" title=\"{{property.name}}\">{{property.name}}</div>\n          <gd-select  class=\"property-name\" *ngIf=\"!property.original\" id=\"propertiesNames\" [disabled]=\"false\" [options]=\"propertiesNames\" (selected)=\"selectPropName($event, property)\" [showSelected]=\"{name : property.name, value : property.name}\"></gd-select>\n          <div *ngIf=\"property.original && !property.editing\" [ngClass]=\"{'selected': property.selected}\" (click)=\"editProperty(property)\" class=\"property-value\" title=\"{{property.value}}\">{{formatValue(property)}}</div>\n          <div *ngIf=\"!property.original || property.editing\" class=\"input-wrapper\">\n            <input #textinput *ngIf=\"property.type == 1 || property.type == 5\" class=\"property-value\" [(ngModel)]=\"property.value\">\n            <input *ngIf=\"property.type == 3\" type=\"datetime-local\" step=\"1\" [ngClass]=\"isDesktop ? 'property-value' : 'property-value mobile-hide'\" [ngModel]=\"property.value | date:'yyyy-MM-ddTHH:mm:ss'\" (ngModelChange)=\"formatDateTime(property, $event)\">\n            <input *ngIf=\"property.type == 3\" type=\"datetime-local\" [ngClass]=\"isDesktop ? 'property-value desktop-hide' : 'property-value'\" [ngModel]=\"property.value | date:'yyyy-MM-ddTHH:mm'\" (ngModelChange)=\"formatDateTime(property, $event)\">\n        </div>\n      </div>\n    </div>\n  <div>",
-                        styles: [".accordion-wrapper{background-color:#fff}.accordion-wrapper .title{width:100%;cursor:pointer;border-bottom:1px solid #6e6e6e;background-color:#539cf0;color:#f4f4f4;font-weight:700;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;height:37px;line-height:37px;font-size:13px}.accordion-wrapper .title .text{width:100%}.chevron{padding:0 16px 0 15px}.plus{margin-left:auto}::ng-deep .title .button{color:#fff!important;display:block!important;margin-right:0!important}::ng-deep .title .button.active fa-icon{color:#fff!important}.accordion-wrapper .body.hidden,.trash.hidden{display:none}.property-wrapper{display:-webkit-box;display:flex;height:35px;font-size:12px;border-bottom:1px solid #e7e7e7;line-height:35px}.property-wrapper.disabled{cursor:not-allowed;color:#acacac}.property-name{width:216px;text-transform:uppercase;font-weight:700;padding-left:15px;border-right:1px solid #e7e7e7;text-overflow:ellipsis;word-wrap:break-word}.property-name ::ng-deep .select{height:35px;line-height:37px;text-align:center;-webkit-box-pack:unset;justify-content:unset;position:relative}.property-name ::ng-deep .select .nav-caret{display:none}.property-name ::ng-deep .select .selected-value{max-width:none;font-size:unset;text-transform:none;font-weight:400}.property-name ::ng-deep .select .dropdown-menu{width:216px;margin-left:-15px;top:36px}.property-value{font-family:'Courier New',Courier,monospace;padding-left:12px;text-overflow:ellipsis;width:216px;white-space:nowrap;overflow:hidden;word-wrap:break-word;display:inline-block}.property-value.desktop-hide{display:none}.input-wrapper input{height:30px;border:0;font-size:12px}.input-wrapper input.hidden{display:none}.input-wrapper input[type=datetime-local]::-webkit-clear-button,.input-wrapper input[type=datetime-local]::-webkit-inner-spin-button{-webkit-appearance:none;display:none}.selected{background-color:#3e4e5a;color:#fff}::ng-deep .default .property-name{color:#acacac}@media (max-width:1037px){.property-value{width:194px!important}.property-name{width:150px!important}.property-value.mobile-hide{display:none}.input-wrapper{width:185px!important}}"]
+                        template: "<div class=\"accordion-wrapper\">\r\n    <div class=\"title\" (click)=\"toggle($event)\">\r\n      <fa-icon *ngIf=\"!opened\" class=\"chevron\" [icon]=\"['fas', 'chevron-down']\"></fa-icon>\r\n      <fa-icon *ngIf=\"opened\" class=\"chevron\" [icon]=\"['fas', 'chevron-up']\"></fa-icon>\r\n      <div class=\"text\">{{title}}</div>\r\n      <fa-icon class=\"trash\" *ngIf=\"isRemoveAvailable()\" [icon]=\"['fas', 'trash']\" (click)=\"delete($event)\"></fa-icon>\r\n      <gd-button class=\"plus\" [icon]=\"['plus']\" [hidden]=\"addHidden\" [disabled]=\"!isAddAvailable()\" (click)=\"addProperty($event)\"></gd-button>\r\n    </div>\r\n    <div class=\"body\" [ngClass]=\"{'hidden': !opened}\">\r\n      <div *ngFor=\"let property of properties\" class=\"property-wrapper\">\r\n          <div *ngIf=\"!property.added\" [ngClass]=\"{'selected': property.selected, 'disabled': !isEditable(property)}\" (click)=\"selectProperty(property)\" class=\"property-name property-name-simple\" title=\"{{property.name}}\">{{property.name}}</div>\r\n          <gd-select  class=\"property-name\" *ngIf=\"property.added\" id=\"propertiesNames\" [disabled]=\"false\" [options]=\"notAddedProperties\" (selected)=\"selectPropName($event, property)\" [showSelected]=\"{name : property.name, value : property.name}\"></gd-select>\r\n          <div *ngIf=\"!property.editing\" [ngClass]=\"{'selected': property.selected}\" (click)=\"editProperty(property)\" class=\"property-value\" title=\"{{property.value}}\">{{formatValue(property)}}</div>\r\n          <div *ngIf=\"property.editing\" class=\"input-wrapper\">\r\n            <input #textinput *ngIf=\"property.type == metadataPropertyType.String\" class=\"property-value\" [(ngModel)]=\"property.value\" />\r\n            <input *ngIf=\"property.type == metadataPropertyType.Integer || property.type == metadataPropertyType.Long\" type=\"text\" class=\"property-value\" [(ngModel)]=\"property.value\" gdInteger />\r\n            <input *ngIf=\"property.type == metadataPropertyType.Double\" type=\"number\" class=\"property-value\" [(ngModel)]=\"property.value\" />\r\n            <input *ngIf=\"property.type == metadataPropertyType.Boolean\" type=\"checkbox\" class=\"property-value\" [(ngModel)]=\"property.value\" />\r\n            <dp-date-picker *ngIf=\"property.type == metadataPropertyType.DateTime\" [mode]=\"'daytime'\" [theme]=\"'dp-material dp-main'\" [config]=\"datePickerConfig\" [ngModel]=\"dateToPicker(property.value)\" (ngModelChange)=\"dateFromPicker(property, $event)\" ></dp-date-picker>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  <div>",
+                        styles: [".accordion-wrapper{background-color:#fff}.accordion-wrapper .title{width:100%;cursor:pointer;border-bottom:1px solid #6e6e6e;background-color:#539cf0;color:#f4f4f4;font-weight:700;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;height:37px;line-height:37px;font-size:13px}.accordion-wrapper .title .text{width:100%}.chevron{padding:0 16px 0 15px}.plus{margin-left:auto}::ng-deep .title .button{color:#fff!important;display:block!important;margin-right:0!important}::ng-deep .title .button.active fa-icon{color:#fff!important}.accordion-wrapper .body.hidden,.trash.hidden{display:none}.property-wrapper{display:-webkit-box;display:flex;height:35px;font-size:12px;border-bottom:1px solid #e7e7e7;line-height:35px}.property-wrapper.disabled{cursor:not-allowed;color:#acacac}.property-name{width:216px;text-transform:uppercase;font-weight:700;padding-left:15px;border-right:1px solid #e7e7e7;text-overflow:ellipsis;word-wrap:break-word}.property-name.disabled{color:#acacac}.property-name ::ng-deep .select{height:35px;line-height:37px;text-align:center;-webkit-box-pack:unset;justify-content:unset;position:relative}.property-name ::ng-deep .select .nav-caret{display:none}.property-name ::ng-deep .select .selected-value{max-width:none;font-size:unset;text-transform:none;font-weight:400}.property-name ::ng-deep .select .dropdown-menu{width:216px;margin-left:-15px;top:36px}.property-name-simple{overflow-x:hidden;word-wrap:normal}.property-value{font-family:'Courier New',Courier,monospace;padding-left:12px;text-overflow:ellipsis;width:216px;white-space:nowrap;overflow:hidden;word-wrap:break-word;display:inline-block}.property-value.desktop-hide{display:none}::ng-deep dp-date-picker.dp-material .dp-picker-input,::ng-deep dp-day-time-calendar *{font-family:'Courier New',Courier,monospace}.input-wrapper input{height:30px;border:0;font-size:12px}.input-wrapper input.hidden{display:none}.input-wrapper input[type=datetime-local]::-webkit-clear-button,.input-wrapper input[type=datetime-local]::-webkit-inner-spin-button{-webkit-appearance:none;display:none}.selected{background-color:#3e4e5a;color:#fff}::ng-deep .default .property-name{color:#acacac}@media (max-width:1037px){.property-value{width:194px!important}.property-name{width:150px!important}.property-value.mobile-hide{display:none}.input-wrapper{width:185px!important}}"]
                     }] }
         ];
         /** @nocollapse */
         AccordionGroupComponent.ctorParameters = function () { return [
-            { type: AccordionService },
-            { type: common.DatePipe },
             { type: commonComponents.WindowService }
         ]; };
         AccordionGroupComponent.propDecorators = {
+            knownProperties: [{ type: core.Input }],
             opened: [{ type: core.Input }],
             title: [{ type: core.Input }],
+            packageId: [{ type: core.Input }],
             addDisabled: [{ type: core.Input }],
             addHidden: [{ type: core.Input }],
             properties: [{ type: core.Input }],
-            propertiesNames: [{ type: core.Input }],
-            toggle: [{ type: core.Output }],
             removeProperty: [{ type: core.Output }],
             textinput: [{ type: core.ViewChildren, args: ['textinput',] }]
         };
@@ -1516,9 +1912,13 @@
     }());
     if (false) {
         /** @type {?} */
+        AccordionGroupComponent.prototype.knownProperties;
+        /** @type {?} */
         AccordionGroupComponent.prototype.opened;
         /** @type {?} */
         AccordionGroupComponent.prototype.title;
+        /** @type {?} */
+        AccordionGroupComponent.prototype.packageId;
         /** @type {?} */
         AccordionGroupComponent.prototype.addDisabled;
         /** @type {?} */
@@ -1526,90 +1926,178 @@
         /** @type {?} */
         AccordionGroupComponent.prototype.properties;
         /** @type {?} */
-        AccordionGroupComponent.prototype.propertiesNames;
-        /** @type {?} */
-        AccordionGroupComponent.prototype.toggle;
-        /** @type {?} */
         AccordionGroupComponent.prototype.removeProperty;
+        /** @type {?} */
+        AccordionGroupComponent.prototype.knownPropertyDictionary;
+        /** @type {?} */
+        AccordionGroupComponent.prototype.notAddedProperties;
+        /** @type {?} */
+        AccordionGroupComponent.prototype.metadataPropertyType;
         /** @type {?} */
         AccordionGroupComponent.prototype.textinput;
         /** @type {?} */
         AccordionGroupComponent.prototype.isDesktop;
+        /** @type {?} */
+        AccordionGroupComponent.prototype.datePickerConfig;
+        /** @type {?} */
+        AccordionGroupComponent.prototype.editableTypes;
         /**
          * @type {?}
          * @private
          */
-        AccordionGroupComponent.prototype._accordionService;
-        /**
-         * @type {?}
-         * @private
-         */
-        AccordionGroupComponent.prototype._datePipe;
-        /**
-         * @type {?}
-         * @private
-         */
-        AccordionGroupComponent.prototype._windowService;
+        AccordionGroupComponent.prototype.windowService;
     }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var AccordionComponent = /** @class */ (function () {
-        function AccordionComponent() {
+    var AccordionService = /** @class */ (function () {
+        function AccordionService() {
+            this._addingObserver = new rxjs.BehaviorSubject(null);
+            this._addedProperty = this._addingObserver.asObservable();
         }
+        Object.defineProperty(AccordionService.prototype, "addedProperty", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._addedProperty;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {?} addedProperty
+         * @return {?}
+         */
+        AccordionService.prototype.addProperty = /**
+         * @param {?} addedProperty
+         * @return {?}
+         */
+        function (addedProperty) {
+            this._addingObserver.next(addedProperty);
+        };
+        AccordionService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        AccordionService.ctorParameters = function () { return []; };
+        /** @nocollapse */ AccordionService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AccordionService_Factory() { return new AccordionService(); }, token: AccordionService, providedIn: "root" });
+        return AccordionService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        AccordionService.prototype._addingObserver;
+        /**
+         * @type {?}
+         * @private
+         */
+        AccordionService.prototype._addedProperty;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var GdIntegerDirective = /** @class */ (function () {
+        function GdIntegerDirective(ngModel, element) {
+            this.ngModel = ngModel;
+            this.element = element;
+            this.specialKeys = [
+                'Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Delete'
+            ];
+        }
+        /**
+         * @private
+         * @param {?} value
+         * @return {?}
+         */
+        GdIntegerDirective.prototype.isInteger = /**
+         * @private
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            return String(value).match(new RegExp(/^(\-){0,1}\d*$/));
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        GdIntegerDirective.prototype.onKeyDown = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            if (this.specialKeys.indexOf(event.key) !== -1) {
+                return;
+            }
+            /** @type {?} */
+            var current = this.element.nativeElement.value;
+            /** @type {?} */
+            var position = this.element.nativeElement.selectionStart;
+            /** @type {?} */
+            var next = [current.slice(0, position), event.key, current.slice(position)].join('');
+            if (next && !this.isInteger(next)) {
+                event.preventDefault();
+            }
+        };
         /**
          * @return {?}
          */
-        AccordionComponent.prototype.ngAfterContentInit = /**
+        GdIntegerDirective.prototype.ngOnInit = /**
          * @return {?}
          */
         function () {
             var _this = this;
-            this.groups.toArray().forEach((/**
-             * @param {?} group
+            this.ngModel.control.valueChanges.subscribe((/**
              * @return {?}
              */
-            function (group) {
-                group.opened = true;
-                group.toggle.subscribe((/**
-                 * @param {?} $event
-                 * @return {?}
-                 */
-                function ($event) {
-                    $event.preventDefault();
-                    $event.stopPropagation();
-                    _this.openGroup(group);
-                }));
+            function () {
+                /** @type {?} */
+                var value = _this.element.nativeElement.value;
+                if (!value)
+                    return;
+                _this.ngModel.control.setValue(value === "-" ? 0 : parseInt(value, 10), { emitModelToViewChange: false, emitViewToModelChange: true, emitEvent: false });
             }));
         };
-        /**
-         * @param {?} group
-         * @return {?}
-         */
-        AccordionComponent.prototype.openGroup = /**
-         * @param {?} group
-         * @return {?}
-         */
-        function (group) {
-            group.opened = !group.opened;
-        };
-        AccordionComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-accordion',
-                        template: "\n    <ng-content></ng-content>\n",
-                        styles: [""]
-                    }] }
+        GdIntegerDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: "[gdInteger]"
+                    },] }
         ];
-        AccordionComponent.propDecorators = {
-            groups: [{ type: core.ContentChildren, args: [AccordionGroupComponent,] }]
+        /** @nocollapse */
+        GdIntegerDirective.ctorParameters = function () { return [
+            { type: forms.NgModel },
+            { type: core.ElementRef }
+        ]; };
+        GdIntegerDirective.propDecorators = {
+            onKeyDown: [{ type: core.HostListener, args: ["keydown", ["$event"],] }]
         };
-        return AccordionComponent;
+        return GdIntegerDirective;
     }());
     if (false) {
-        /** @type {?} */
-        AccordionComponent.prototype.groups;
+        /**
+         * @type {?}
+         * @private
+         */
+        GdIntegerDirective.prototype.specialKeys;
+        /**
+         * @type {?}
+         * @private
+         */
+        GdIntegerDirective.prototype.ngModel;
+        /**
+         * @type {?}
+         * @private
+         */
+        GdIntegerDirective.prototype.element;
     }
 
     /**
@@ -1659,14 +2147,16 @@
                         declarations: [
                             MetadataAppComponent,
                             AccordionComponent,
-                            AccordionGroupComponent
+                            AccordionGroupComponent,
+                            GdIntegerDirective
                         ],
                         imports: [
                             platformBrowser.BrowserModule,
                             commonComponents.CommonComponentsModule,
                             http.HttpClientModule,
                             angularFontawesome.FontAwesomeModule,
-                            forms.FormsModule
+                            forms.FormsModule,
+                            ng2DatePicker.DpDatePickerModule
                         ],
                         exports: [
                             MetadataAppComponent,
@@ -1703,18 +2193,27 @@
         return MetadataModule;
     }());
 
+    exports.AccessLevels = AccessLevels;
     exports.AccordionService = AccordionService;
-    exports.FilePropertyCategory = FilePropertyCategory;
+    exports.ChangedPackageModel = ChangedPackageModel;
     exports.FilePropertyModel = FilePropertyModel;
+    exports.KnownPropertyModel = KnownPropertyModel;
     exports.MetadataAppComponent = MetadataAppComponent;
     exports.MetadataConfigService = MetadataConfigService;
     exports.MetadataFileDescription = MetadataFileDescription;
     exports.MetadataModule = MetadataModule;
+    exports.MetadataPropertyType = MetadataPropertyType;
     exports.MetadataService = MetadataService;
+    exports.MetadataType = MetadataType;
+    exports.PackageModel = PackageModel;
+    exports.PackageNameByMetadataType = PackageNameByMetadataType;
+    exports.PackageNameByOriginalName = PackageNameByOriginalName;
+    exports.RemovePropertyModel = RemovePropertyModel;
     exports.initializeApp = initializeApp;
     exports.setupLoadingInterceptor = setupLoadingInterceptor;
     exports.ɵa = AccordionComponent;
     exports.ɵb = AccordionGroupComponent;
+    exports.ɵc = GdIntegerDirective;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

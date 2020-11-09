@@ -41,6 +41,8 @@ export declare class Api {
     static ANNOTATE: string;
     static SEARCH: string;
     static ADD_FILES_TO_INDEX: string;
+    static CLEAN_METADATA: string;
+    static EXPORT_METADATA: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };
