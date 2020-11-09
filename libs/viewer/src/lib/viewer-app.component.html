@@ -37,29 +37,29 @@
                  *ngIf="searchConfig && !ifPresentation()" ></gd-button>
       <gd-search (hidePanel)="showSearch = !$event" *ngIf="showSearch" ></gd-search>
 
-      <div class="separator"
-        *ngIf="termNavigation.total > 0"></div>
+      <div class="separator mobile-hide"
+        *ngIf="termNavigation.enabled"></div>
       <gd-button class="mobile-hide"
         [disabled]="formatDisabled"
         [icon]="'angle-left'"
         [tooltip]="'Previous Term'"
         (click)="termNavigation.navigatePrevious()"
-        *ngIf="termNavigation.total > 0"></gd-button>
+        *ngIf="termNavigation.enabled"></gd-button>
       <div class="current-page-number"
         [ngClass]="{'active': !formatDisabled}"
-        *ngIf="termNavigation.total > 0">{{termNavigation.current}}/{{termNavigation.total}}</div>
+        *ngIf="termNavigation.enabled">{{termNavigation.current}}/{{termNavigation.total}}</div>
       <gd-button class="mobile-hide"
         [disabled]="formatDisabled"
         [icon]="'angle-right'"
         [tooltip]="'Next Term'"
         (click)="termNavigation.navigateNext()"
-        *ngIf="termNavigation.total > 0"></gd-button>
+        *ngIf="termNavigation.enabled"></gd-button>
       <gd-button class="mobile-hide"
         [disabled]="formatDisabled"
         [icon]="'trash-alt'"
         [tooltip]="'Delete Navigation'"
         (click)="termNavigation.deleteNavigation()"
-        *ngIf="termNavigation.total > 0"></gd-button>
+        *ngIf="termNavigation.enabled"></gd-button>
 
       <gd-button class="thumbnails-button" [disabled]="formatDisabled" [icon]="'th-large'" [tooltip]="'Thumbnails'"
                  (click)="openThumbnails()" *ngIf="thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && ((formatIcon !== 'file-powerpoint') ||

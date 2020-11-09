@@ -582,6 +582,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.fileParam = urlParams.get('file');
     this.termParams = urlParams.getAll('term');
     this.caseSensitiveParam = urlParams.get('caseSensitive') === "true";
+    if (this.termParams != null && this.termParams.length > 0) {
+      this.termNavigation.enable();
+    }
 
     if (this.fileParam) {
       this.isLoading = true;

@@ -4,8 +4,9 @@ import { Observable, Subject } from 'rxjs';
 @Injectable()
 export class TermNavigationService {
   element: HTMLElement;
-  total: number;
-  current: number;
+  total = 0;
+  current = 0;
+  enabled = false;
 
   private _observerCurrent: Subject<number> = new Subject();
   private readonly _currentChanged: Observable<number> = this._observerCurrent.asObservable();
@@ -24,6 +25,10 @@ export class TermNavigationService {
     return this._deleteNavigationRequested;
   }
 
+  enable() {
+    this.enabled = true;
+  }
+
   setElement(element: HTMLElement) {
     this.current = 0;
     this.element = element;
@@ -32,7 +37,11 @@ export class TermNavigationService {
   updateTotal() {
     if (this.element === undefined) return;
 
-    this.total = this.element.querySelectorAll('.gd-found-term').length;
+    if (this.enabled) {
+      this.total = this.element.querySelectorAll('.gd-found-term').length;
+    } else {
+      this.deleteNavigation();
+    }
   }
 
   navigatePrevious() {
@@ -53,5 +62,6 @@ export class TermNavigationService {
     this.total = 0;
     this.current = 0;
     this._observerDeleteNavigation.next();
+    this.enabled = false;
   }
 }
