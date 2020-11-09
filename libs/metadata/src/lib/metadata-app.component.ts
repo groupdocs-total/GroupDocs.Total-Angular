@@ -330,7 +330,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   private saveBlob(blob: Blob, fileName: string, mimeType: string) {
-    var newBlob = new Blob([blob], { type: mimeType });
+    const newBlob = new Blob([blob], { type: mimeType });
 
     // IE
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
@@ -341,7 +341,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     
     const data = window.URL.createObjectURL(newBlob);
 
-    var link = document.createElement('a');
+    const link = document.createElement('a');
     link.href = data;
     link.download = fileName;
     // Firefox
