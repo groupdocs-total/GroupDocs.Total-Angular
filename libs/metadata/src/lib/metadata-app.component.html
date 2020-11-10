@@ -3,13 +3,13 @@
   <div class="row">
     <div class="column">
       <div class="top-panel">
-        <gd-logo [logo]="'metadata'" icon="clipboard-list"></gd-logo>
+        <a class="logo-link" [href]="returnUrl"><gd-logo [logo]="'metadata'" icon="clipboard-list"></gd-logo></a>
         <gd-top-toolbar class="toolbar-panel">
           <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
                     *ngIf="browseConfig" ></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'trash'" [tooltip]="'Clean Metadata'" (click)="cleanMetadata()">
+          <gd-button [disabled]="formatDisabled" [icon]="'trash'" [tooltip]="'Clean Metadata'" (click)="openModal(confirmCleanModalId)">
                     </gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="save()">
+          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="openModal(confirmSaveModalId)">
                     </gd-button>
           <gd-button [hidden] ="isDesktop" [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties()">
                     </gd-button>
@@ -47,4 +47,7 @@
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>
   <gd-success-modal></gd-success-modal>
+  <gd-confirm-modal [id]="confirmCleanModalId" [text]="'Are you sure, you want to clean metadata in this file?'" (confirm)="cleanMetadata()"></gd-confirm-modal>
+  <gd-confirm-modal [id]="confirmSaveModalId" [text]="'Do you want to save the changes?'" (confirm)="save()"></gd-confirm-modal>
+  
 </div>

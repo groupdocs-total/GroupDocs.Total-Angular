@@ -377,7 +377,7 @@ TooltipComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-tooltip',
                 template: "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n",
-                styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:0!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
+                styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:8px!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
             }] }
 ];
 /** @nocollapse */
@@ -1522,8 +1522,8 @@ class NavigateService {
         this._pagePreloadService = _pagePreloadService;
         this._currentPage = 0;
         this._countPages = 0;
-        this._observer = new BehaviorSubject(null);
-        this._navigate = this._observer.asObservable();
+        this._observer = new Subject();
+        this._navigate = this._observer;
     }
     /**
      * @return {?}
@@ -2452,9 +2452,14 @@ class ScrollableDirective {
         const pageEl = this.getPage(1);
         /** @type {?} */
         const offset = 150;
-        /** @type {?} */
-        const count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
-        return count === 0 ? 1 : count;
+        if (pageEl) {
+            /** @type {?} */
+            const count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
+            if (count !== 0) {
+                return count;
+            }
+        }
+        return 1;
     }
     /**
      * @return {?}

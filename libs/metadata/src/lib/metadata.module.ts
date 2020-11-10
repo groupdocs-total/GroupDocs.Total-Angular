@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { AccordionService } from './accordion.service';
 import { GdIntegerDirective } from "./directives/gd-integer.directive";
 import { DpDatePickerModule } from 'ng2-date-picker';
+import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
 
 export function initializeApp(metadataConfigService: MetadataConfigService) {
   const result =  () => metadataConfigService.load();
@@ -36,7 +37,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     MetadataAppComponent,
     AccordionComponent,
     AccordionGroupComponent,
-    GdIntegerDirective
+    GdIntegerDirective,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

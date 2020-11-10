@@ -25,6 +25,7 @@ import { RemovePropertyModel, PackageModel, PackageNameByMetadataType, PackageNa
 
 export class MetadataAppComponent implements OnInit, AfterViewInit {
   @Input() initialFile: string;
+  @Input() returnUrl: string = window.location.href;
   title = 'metadata';
   files: FileModel[] = [];
   file: FileDescription;
@@ -44,6 +45,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   disabled = false;
   isDesktop: boolean;
   showSidePanel = true;
+  confirmCleanModalId = "confirm-clean";
+  confirmSaveModalId = "confirm-save";
 
   constructor(private metadataService: MetadataService,
               private modalService: ModalService,
@@ -129,11 +132,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   openModal(id: string) {
+    if (this.formatDisabled) return;
     this.modalService.open(id);
-  }
-
-  closeModal(id: string) {
-    this.modalService.close(id);
   }
 
   selectDir($event: string) {
@@ -258,7 +258,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   save() {
-    if (!this.file || !this.file.pages) return;
     const savingFile = new MetadataFileDescription();
     savingFile.guid = this.file.guid;
     savingFile.password = this.credentials.password;
@@ -279,7 +278,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   cleanMetadata() {
-    if (this.formatDisabled) return;
     this.metadataService.cleanMetadata(this.credentials).subscribe(() => {
       this.loadProperties();
       this.disabled = false;
