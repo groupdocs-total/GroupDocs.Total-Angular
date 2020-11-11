@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { DocumentComponent, NavigateService, WindowService } from '@groupdocs.examples.angular/common-components';
 import {ZoomService,ZoomDirective} from  '@groupdocs.examples.angular/common-components';
 import * as jquery from 'jquery';
@@ -19,8 +19,9 @@ export class ResultDocumentComponent extends DocumentComponent implements OnInit
               zoomService: ZoomService,
               changeService : DifferencesService,
               windowService: WindowService,
-              navigateService: NavigateService) {
-    super(_elementRef, zoomService, windowService, navigateService);
+              navigateService: NavigateService,
+              renderer: Renderer2) {
+    super(_elementRef, zoomService, windowService, navigateService, renderer);
     this.changesService = changeService;
   }
 

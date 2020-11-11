@@ -1,4 +1,4 @@
-import { AfterViewChecked, ElementRef, OnInit, AfterViewInit, OnChanges } from '@angular/core';
+import { AfterViewChecked, ElementRef, OnInit, AfterViewInit, OnChanges, Renderer2 } from '@angular/core';
 import { FileDescription } from "../file.service";
 import { ZoomService } from "../zoom.service";
 import { WindowService } from '../window.service';
@@ -31,7 +31,8 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     curWidth: number;
     curHeight: number;
     isDesktop: boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService, _windowService: WindowService, _navigateService: NavigateService);
+    renderer: Renderer2;
+    constructor(_elementRef: ElementRef<HTMLElement>, _zoomService: ZoomService, _windowService: WindowService, _navigateService: NavigateService, renderer: Renderer2);
     ngOnInit(): void;
     ngOnChanges(): void;
     ngAfterViewInit(): void;

@@ -19,8 +19,8 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
               zoomService: ZoomService,
               windowService: WindowService,
               navigateService: NavigateService,
-              private renderer: Renderer2) {
-    super(_elementRef, zoomService, windowService, navigateService);
+              renderer: Renderer2) {
+    super(_elementRef, zoomService, windowService, navigateService, renderer);
     this.navigateService = navigateService;
   }
 

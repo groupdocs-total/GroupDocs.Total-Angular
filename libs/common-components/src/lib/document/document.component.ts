@@ -7,7 +7,8 @@ import {
   AfterViewInit,
   OnChanges,
   Output,
-  EventEmitter
+  EventEmitter,
+  Renderer2
 } from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
@@ -50,10 +51,16 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   curHeight = 0;
   isDesktop: boolean;
 
+  renderer: Renderer2;
+
   constructor(protected _elementRef: ElementRef<HTMLElement>,
               private _zoomService: ZoomService,
               private _windowService: WindowService,
-              private _navigateService: NavigateService,) {
+              private _navigateService: NavigateService,
+              renderer: Renderer2) {
+
+     this.renderer = renderer;
+
     _zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val;
     });
@@ -95,6 +102,26 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     this.curHeight = this.docHeight * this.scale;
 
     const hammer = new Hammer(this.container);
+
+    const inputs = this._elementRef.nativeElement.querySelectorAll('input');
+    inputs.forEach(input => {
+      this.renderer.listen(input, 'keyup', (event) => {
+        input.setAttribute('value', input.value); 
+      })
+    });
+
+    const selects = this._elementRef.nativeElement.querySelectorAll('select');
+    selects.forEach(select => {
+      this.renderer.listen(select, 'change', (event) => {
+        selects.forEach(s => {
+          for (let i = s.options.length-1; i >= 0; i--) {
+          s.options[i].removeAttribute('selected');
+          }
+        });
+
+        select.options[select.selectedIndex].setAttribute('selected', 'selected');
+      })
+    });
   }
 
   // TODO: this temporary crutch for Excel files should be documented
@@ -118,7 +145,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
     const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
     const element = elementNodeListOf.item(0);
     if (element) {
-      $(element).trigger('focus');
+      //$(element).trigger('focus');
     }
   }
 
