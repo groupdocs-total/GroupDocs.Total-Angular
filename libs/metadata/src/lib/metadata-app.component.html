@@ -1,7 +1,7 @@
 <gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
 <div class="wrapper">
   <div class="row">
-    <div class="column">
+    <div class="column" [ngClass]="{'document-loaded': !formatDisabled}">
       <div class="top-panel">
         <a class="logo-link" [href]="returnUrl"><gd-logo [logo]="'metadata'" icon="clipboard-list"></gd-logo></a>
         <gd-top-toolbar class="toolbar-panel">

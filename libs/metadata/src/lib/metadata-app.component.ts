@@ -7,8 +7,6 @@ import {
   ZoomService,
   UploadFilesService,
   NavigateService,
-  PagePreloadService,
-  PageModel,
   PasswordService,
   FileCredentials, CommonModals, LoadingMaskService
 } from "@groupdocs.examples.angular/common-components";
@@ -54,7 +52,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
               private uploadFilesService: UploadFilesService,
               private navigateService: NavigateService,
               private zoomService: ZoomService,
-              private pagePreloadService: PagePreloadService,
               private passwordService: PasswordService,
               private loadingMaskService: LoadingMaskService,
               private windowService: WindowService) {
@@ -79,16 +76,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
           this.metadataService.upload(uploads.item(i), '', this.metadataConfig.rewrite).subscribe((obj: FileCredentials) => {
             this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
           });
-        }
-      }
-    });
-
-    this.pagePreloadService.checkPreload.subscribe((page: number) => {
-      if (this.metadataConfig.preloadPageCount !== 0) {
-        for (let i = page; i < page + 2; i++) {
-          if (i > 0 && i <= this.countPages && !this.file.pages[i - 1].data) {
-            this.preloadPages(i, i);
-          }
         }
       }
     });
@@ -153,11 +140,9 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
             this.options = this.zoomOptions();
             this.refreshZoom();
           }
-          const preloadPageCount = this.metadataConfig.preloadPageCount;
+
           const countPages = file.pages ? file.pages.length : 0;
-          if (preloadPageCount > 0) {
-            this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
-          }
+          
           this.navigateService.countPages = countPages;
           this.navigateService.currentPage = 1;
           this.countPages = countPages;
@@ -170,14 +155,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
       this.modalService.close(modalId);
     }
     this.clearData();
-  }
-
-  preloadPages(start: number, end: number) {
-    for (let i = start; i <= end; i++) {
-      this.metadataService.loadPage(this.credentials, i).subscribe((page: PageModel) => {
-        this.file.pages[i - 1] = page;
-      });
-    }
   }
 
   upload($event: string) {

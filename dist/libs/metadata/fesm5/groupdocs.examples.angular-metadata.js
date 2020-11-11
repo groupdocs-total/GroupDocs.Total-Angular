@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, EventEmitter, Output, ViewChildren, Directive, ElementRef, HostListener, NgModule, APP_INITIALIZER } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, EventEmitter, Output, ViewChildren, Directive, ElementRef, HostListener, ViewChild, NgModule, APP_INITIALIZER } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { __values } from 'tslib';
-import { Api, ConfigService, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, PasswordService, LoadingMaskService, WindowService, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PasswordService, LoadingMaskService, WindowService, ModalComponent, ButtonComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import * as moment_ from 'moment';
@@ -591,17 +591,17 @@ var PackageNameByOriginalName = {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MetadataAppComponent = /** @class */ (function () {
-    function MetadataAppComponent(metadataService, modalService, configService, uploadFilesService, navigateService, zoomService, pagePreloadService, passwordService, loadingMaskService, windowService) {
+    function MetadataAppComponent(metadataService, modalService, configService, uploadFilesService, navigateService, zoomService, passwordService, loadingMaskService, windowService) {
         this.metadataService = metadataService;
         this.modalService = modalService;
         this.configService = configService;
         this.uploadFilesService = uploadFilesService;
         this.navigateService = navigateService;
         this.zoomService = zoomService;
-        this.pagePreloadService = pagePreloadService;
         this.passwordService = passwordService;
         this.loadingMaskService = loadingMaskService;
         this.windowService = windowService;
+        this.returnUrl = window.location.href;
         this.title = 'metadata';
         this.files = [];
         this.countPages = 0;
@@ -611,6 +611,8 @@ var MetadataAppComponent = /** @class */ (function () {
         this.fileWasDropped = false;
         this.disabled = false;
         this.showSidePanel = true;
+        this.confirmCleanModalId = "confirm-clean";
+        this.confirmSaveModalId = "confirm-save";
     }
     /**
      * @return {?}
@@ -652,19 +654,6 @@ var MetadataAppComponent = /** @class */ (function () {
                     function (obj) {
                         _this.fileWasDropped ? _this.selectFile(obj.guid, '', '') : _this.selectDir('');
                     }));
-                }
-            }
-        }));
-        this.pagePreloadService.checkPreload.subscribe((/**
-         * @param {?} page
-         * @return {?}
-         */
-        function (page) {
-            if (_this.metadataConfig.preloadPageCount !== 0) {
-                for (var i = page; i < page + 2; i++) {
-                    if (i > 0 && i <= _this.countPages && !_this.file.pages[i - 1].data) {
-                        _this.preloadPages(i, i);
-                    }
                 }
             }
         }));
@@ -749,18 +738,9 @@ var MetadataAppComponent = /** @class */ (function () {
      * @return {?}
      */
     function (id) {
+        if (this.formatDisabled)
+            return;
         this.modalService.open(id);
-    };
-    /**
-     * @param {?} id
-     * @return {?}
-     */
-    MetadataAppComponent.prototype.closeModal = /**
-     * @param {?} id
-     * @return {?}
-     */
-    function (id) {
-        this.modalService.close(id);
     };
     /**
      * @param {?} $event
@@ -809,12 +789,7 @@ var MetadataAppComponent = /** @class */ (function () {
                     _this.refreshZoom();
                 }
                 /** @type {?} */
-                var preloadPageCount = _this.metadataConfig.preloadPageCount;
-                /** @type {?} */
                 var countPages = file.pages ? file.pages.length : 0;
-                if (preloadPageCount > 0) {
-                    _this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
-                }
                 _this.navigateService.countPages = countPages;
                 _this.navigateService.currentPage = 1;
                 _this.countPages = countPages;
@@ -825,32 +800,6 @@ var MetadataAppComponent = /** @class */ (function () {
             this.modalService.close(modalId);
         }
         this.clearData();
-    };
-    /**
-     * @param {?} start
-     * @param {?} end
-     * @return {?}
-     */
-    MetadataAppComponent.prototype.preloadPages = /**
-     * @param {?} start
-     * @param {?} end
-     * @return {?}
-     */
-    function (start, end) {
-        var _this = this;
-        var _loop_1 = function (i) {
-            this_1.metadataService.loadPage(this_1.credentials, i).subscribe((/**
-             * @param {?} page
-             * @return {?}
-             */
-            function (page) {
-                _this.file.pages[i - 1] = page;
-            }));
-        };
-        var this_1 = this;
-        for (var i = start; i <= end; i++) {
-            _loop_1(i);
-        }
     };
     /**
      * @param {?} $event
@@ -1046,8 +995,6 @@ var MetadataAppComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (!this.file || !this.file.pages)
-            return;
         /** @type {?} */
         var savingFile = new MetadataFileDescription();
         savingFile.guid = this.file.guid;
@@ -1089,8 +1036,6 @@ var MetadataAppComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (this.formatDisabled)
-            return;
         this.metadataService.cleanMetadata(this.credentials).subscribe((/**
          * @return {?}
          */
@@ -1219,8 +1164,8 @@ var MetadataAppComponent = /** @class */ (function () {
     MetadataAppComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-metadata',
-                    template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\">\r\n  <div class=\"row\">\r\n    <div class=\"column\">\r\n      <div class=\"top-panel\">\r\n        <gd-logo [logo]=\"'metadata'\" icon=\"clipboard-list\"></gd-logo>\r\n        <gd-top-toolbar class=\"toolbar-panel\">\r\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\r\n                    *ngIf=\"browseConfig\" ></gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'trash'\" [tooltip]=\"'Clean Metadata'\" (click)=\"cleanMetadata()\">\r\n                    </gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"save()\">\r\n                    </gd-button>\r\n          <gd-button [hidden] =\"isDesktop\" [disabled]=\"formatDisabled\" [icon]=\"'file-export'\" [tooltip]=\"'Attributes'\" (click)=\"loadProperties()\">\r\n                    </gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\r\n                    (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'file-excel'\" [tooltip]=\"'Export Properties'\"\r\n                    (click)=\"exportProperties()\" ></gd-button>\r\n        </gd-top-toolbar>\r\n      </div>\r\n      <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\r\n        <gd-document class=\"gd-document\" *ngIf=\"file\" [file]=\"file\" [mode]=\"false\" gdScrollable\r\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\r\n      </div>\r\n    </div>\r\n    <gd-side-panel *ngIf=\"file && showSidePanel\"\r\n      (hideSidePanel)=\"hideSidePanel($event)\"\r\n      (saveInSidePanel)=\"save()\"\r\n      [closable]=\"isDesktop ? false : true\"\r\n      [saveable]=\"isDesktop ? false : true\"\r\n      [title]=\"'Metadata'\"\r\n      [icon]=\"'clipboard-list'\">\r\n      <gd-accordion>\r\n        <gd-accordion-group *ngFor=\"let package of packages\" [title]=\"getPackageName(package)\" [addDisabled]=\"false\" [addHidden]=\"false\" [properties]=\"package.properties\" [knownProperties]=\"package.knownProperties\" [packageId]=\"package.id\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\r\n      </gd-accordion>\r\n    </gd-side-panel>\r\n  </div>\r\n  <gd-init-state [icon]=\"'clipboard-list'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file && uploadConfig\" (fileDropped)=\"fileDropped($event)\">\r\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n    Or drop file here\r\n  </gd-init-state>\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\r\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-success-modal></gd-success-modal>\r\n</div>\r\n",
-                    styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}::ng-deep .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .button.inactive{color:#959da5!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}.row{display:-webkit-box;display:flex}.column{width:100%;overflow-x:hidden;overflow-y:hidden}::ng-deep .gd-side-panel-body{background-color:#f4f4f4}::ng-deep .gd-side-panel-wrapper{width:464px!important}::ng-deep .page.excel{overflow:unset!important}@media (max-width:1037px){::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .gd-side-panel-wrapper{width:375px!important}}"]
+                    template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\">\r\n  <div class=\"row\">\r\n    <div class=\"column\" [ngClass]=\"{'document-loaded': !formatDisabled}\">\r\n      <div class=\"top-panel\">\r\n        <a class=\"logo-link\" [href]=\"returnUrl\"><gd-logo [logo]=\"'metadata'\" icon=\"clipboard-list\"></gd-logo></a>\r\n        <gd-top-toolbar class=\"toolbar-panel\">\r\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal)\"\r\n                    *ngIf=\"browseConfig\" ></gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'trash'\" [tooltip]=\"'Clean Metadata'\" (click)=\"openModal(confirmCleanModalId)\">\r\n                    </gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"openModal(confirmSaveModalId)\">\r\n                    </gd-button>\r\n          <gd-button [hidden] =\"isDesktop\" [disabled]=\"formatDisabled\" [icon]=\"'file-export'\" [tooltip]=\"'Attributes'\" (click)=\"loadProperties()\">\r\n                    </gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\r\n                    (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\r\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'file-excel'\" [tooltip]=\"'Export Properties'\"\r\n                    (click)=\"exportProperties()\" ></gd-button>\r\n        </gd-top-toolbar>\r\n      </div>\r\n      <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\r\n        <gd-document class=\"gd-document\" *ngIf=\"file\" [file]=\"file\" [mode]=\"false\" gdScrollable\r\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\r\n      </div>\r\n    </div>\r\n    <gd-side-panel *ngIf=\"file && showSidePanel\"\r\n      (hideSidePanel)=\"hideSidePanel($event)\"\r\n      (saveInSidePanel)=\"save()\"\r\n      [closable]=\"isDesktop ? false : true\"\r\n      [saveable]=\"isDesktop ? false : true\"\r\n      [title]=\"'Metadata'\"\r\n      [icon]=\"'clipboard-list'\">\r\n      <gd-accordion>\r\n        <gd-accordion-group *ngFor=\"let package of packages\" [title]=\"getPackageName(package)\" [addDisabled]=\"false\" [addHidden]=\"false\" [properties]=\"package.properties\" [knownProperties]=\"package.knownProperties\" [packageId]=\"package.id\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\r\n      </gd-accordion>\r\n    </gd-side-panel>\r\n  </div>\r\n  <gd-init-state [icon]=\"'clipboard-list'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file && uploadConfig\" (fileDropped)=\"fileDropped($event)\">\r\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n    Or drop file here\r\n  </gd-init-state>\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\r\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-success-modal></gd-success-modal>\r\n  <gd-confirm-modal [id]=\"confirmCleanModalId\" [text]=\"'Are you sure, you want to clean metadata in this file?'\" (confirm)=\"cleanMetadata()\"></gd-confirm-modal>\r\n  <gd-confirm-modal [id]=\"confirmSaveModalId\" [text]=\"'Do you want to save the changes?'\" (confirm)=\"save()\"></gd-confirm-modal>\r\n  \r\n</div>\r\n",
+                    styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.logo-link{color:inherit;text-decoration:inherit}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}::ng-deep .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .button.inactive{color:#959da5!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}.row{display:-webkit-box;display:flex}.column{width:100%;background-color:#e7e7e7}.document-loaded{overflow:hidden}::ng-deep .gd-side-panel-body{background-color:#f4f4f4}::ng-deep .gd-side-panel-wrapper{width:464px!important}::ng-deep .page.excel{overflow:unset!important}@media (max-width:1037px){::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .gd-side-panel-wrapper{width:375px!important}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1231,19 +1176,21 @@ var MetadataAppComponent = /** @class */ (function () {
         { type: UploadFilesService },
         { type: NavigateService },
         { type: ZoomService },
-        { type: PagePreloadService },
         { type: PasswordService },
         { type: LoadingMaskService },
         { type: WindowService }
     ]; };
     MetadataAppComponent.propDecorators = {
-        initialFile: [{ type: Input }]
+        initialFile: [{ type: Input }],
+        returnUrl: [{ type: Input }]
     };
     return MetadataAppComponent;
 }());
 if (false) {
     /** @type {?} */
     MetadataAppComponent.prototype.initialFile;
+    /** @type {?} */
+    MetadataAppComponent.prototype.returnUrl;
     /** @type {?} */
     MetadataAppComponent.prototype.title;
     /** @type {?} */
@@ -1280,6 +1227,10 @@ if (false) {
     MetadataAppComponent.prototype.isDesktop;
     /** @type {?} */
     MetadataAppComponent.prototype.showSidePanel;
+    /** @type {?} */
+    MetadataAppComponent.prototype.confirmCleanModalId;
+    /** @type {?} */
+    MetadataAppComponent.prototype.confirmSaveModalId;
     /**
      * @type {?}
      * @private
@@ -1310,11 +1261,6 @@ if (false) {
      * @private
      */
     MetadataAppComponent.prototype.zoomService;
-    /**
-     * @type {?}
-     * @private
-     */
-    MetadataAppComponent.prototype.pagePreloadService;
     /**
      * @type {?}
      * @private
@@ -1891,6 +1837,90 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var ConfirmModalComponent = /** @class */ (function () {
+    function ConfirmModalComponent() {
+        this.confirm = new EventEmitter();
+        this.cancel = new EventEmitter();
+    }
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ConfirmModalComponent.prototype.onConfirm = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.cleanUpAndClose($event);
+        this.confirm.emit();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ConfirmModalComponent.prototype.onCancel = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.cleanUpAndClose($event);
+        this.cancel.emit();
+    };
+    /**
+     * @private
+     * @param {?} $event
+     * @return {?}
+     */
+    ConfirmModalComponent.prototype.cleanUpAndClose = /**
+     * @private
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $event.stopPropagation();
+        this.buttons.forEach((/**
+         * @param {?} button
+         * @return {?}
+         */
+        function (button) { return button.onUnhovering(); }));
+        this.modal.close();
+    };
+    ConfirmModalComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-confirm-modal',
+                    template: "<gd-modal [id]=\"id\" [title]=\"'Confirm action'\">\r\n    <section id=\"gd-confirm-section\">\r\n        <div class=\"gd-confirm-wrap\">\r\n          <span class=\"gd-confirm-text\">{{text}}</span>\r\n          <div class=\"gd-confirm-button-wrap\">\r\n            <gd-button id=\"cancel-button\" [icon]=\"'times'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"onCancel($event)\">\r\n                Cancel\r\n            </gd-button>\r\n            <gd-button id=\"confirm-button\" [icon]=\"'check'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"onConfirm($event)\">\r\n                Confirm\r\n            </gd-button>\r\n        </div>\r\n        </div>\r\n      </section>\r\n</gd-modal>",
+                    styles: ["#gd-confirm-section{width:375px}.gd-confirm-wrap{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:24px}.gd-confirm-wrap ::ng-deep .button{height:37px;width:75px;padding:0;-webkit-box-pack:center;justify-content:center}.gd-confirm-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-confirm-text{color:#000;padding:10px 0 45px;height:20px;font-size:16px}.gd-confirm-button-wrap{height:40px}.gd-confirm-button-wrap gd-button{float:right;padding-left:15px}@media (max-width:1037px){#gd-confirm-section{max-width:375px}}"]
+                }] }
+    ];
+    ConfirmModalComponent.propDecorators = {
+        id: [{ type: Input }],
+        text: [{ type: Input }],
+        confirm: [{ type: Output }],
+        cancel: [{ type: Output }],
+        modal: [{ type: ViewChild, args: [ModalComponent, { static: false },] }],
+        buttons: [{ type: ViewChildren, args: [ButtonComponent,] }]
+    };
+    return ConfirmModalComponent;
+}());
+if (false) {
+    /** @type {?} */
+    ConfirmModalComponent.prototype.id;
+    /** @type {?} */
+    ConfirmModalComponent.prototype.text;
+    /** @type {?} */
+    ConfirmModalComponent.prototype.confirm;
+    /** @type {?} */
+    ConfirmModalComponent.prototype.cancel;
+    /** @type {?} */
+    ConfirmModalComponent.prototype.modal;
+    /** @type {?} */
+    ConfirmModalComponent.prototype.buttons;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} metadataConfigService
  * @return {?}
@@ -1935,7 +1965,8 @@ var MetadataModule = /** @class */ (function () {
                         MetadataAppComponent,
                         AccordionComponent,
                         AccordionGroupComponent,
-                        GdIntegerDirective
+                        GdIntegerDirective,
+                        ConfirmModalComponent
                     ],
                     imports: [
                         BrowserModule,
@@ -1990,5 +2021,5 @@ var MetadataModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AccessLevels, AccordionService, ChangedPackageModel, FilePropertyModel, KnownPropertyModel, MetadataAppComponent, MetadataConfigService, MetadataFileDescription, MetadataModule, MetadataPropertyType, MetadataService, MetadataType, PackageModel, PackageNameByMetadataType, PackageNameByOriginalName, RemovePropertyModel, initializeApp, setupLoadingInterceptor, AccordionComponent as ɵa, AccordionGroupComponent as ɵb, GdIntegerDirective as ɵc };
+export { AccessLevels, AccordionService, ChangedPackageModel, FilePropertyModel, KnownPropertyModel, MetadataAppComponent, MetadataConfigService, MetadataFileDescription, MetadataModule, MetadataPropertyType, MetadataService, MetadataType, PackageModel, PackageNameByMetadataType, PackageNameByOriginalName, RemovePropertyModel, initializeApp, setupLoadingInterceptor, AccordionComponent as ɵa, AccordionGroupComponent as ɵb, GdIntegerDirective as ɵc, ConfirmModalComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-metadata.js.map
