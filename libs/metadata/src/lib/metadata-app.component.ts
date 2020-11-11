@@ -118,8 +118,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     return this.metadataConfig ? this.metadataConfig.browse : true;
   }
 
-  openModal(id: string) {
-    if (this.formatDisabled) return;
+  openModal(id: string, fileShouldBeLoaded: boolean) {
+    if (fileShouldBeLoaded && this.formatDisabled) return;
     this.modalService.open(id);
   }
 

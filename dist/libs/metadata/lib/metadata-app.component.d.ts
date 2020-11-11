@@ -44,7 +44,7 @@ export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     readonly downloadConfig: boolean;
     readonly uploadConfig: boolean;
     readonly browseConfig: boolean;
-    openModal(id: string): void;
+    openModal(id: string, fileShouldBeLoaded: boolean): void;
     selectDir($event: string): void;
     selectFile($event: string, password: string, modalId: string): void;
     upload($event: string): void;

@@ -5,11 +5,11 @@
       <div class="top-panel">
         <a class="logo-link" [href]="returnUrl"><gd-logo [logo]="'metadata'" icon="clipboard-list"></gd-logo></a>
         <gd-top-toolbar class="toolbar-panel">
-          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal, false)"
                     *ngIf="browseConfig" ></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'trash'" [tooltip]="'Clean Metadata'" (click)="openModal(confirmCleanModalId)">
+          <gd-button [disabled]="formatDisabled" [icon]="'trash'" [tooltip]="'Clean Metadata'" (click)="openModal(confirmCleanModalId, true)">
                     </gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="openModal(confirmSaveModalId)">
+          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="openModal(confirmSaveModalId, true)">
                     </gd-button>
           <gd-button [hidden] ="isDesktop" [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties()">
                     </gd-button>
