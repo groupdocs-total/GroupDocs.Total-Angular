@@ -1,24 +1,34 @@
 .synonym-group-list {
-  position       : absolute;
-  top            : 150px;
-  bottom         : 0;
-  left           : 0;
-  right          : 0;
-  overflow       : auto;
-  margin         : 0;
-  display        : block;
-  flex-wrap      : wrap;
-  justify-content: flex-start;
-  align-items    : center;
+  position        : absolute;
+  top             : 150px;
+  bottom          : 0;
+  left            : 0;
+  right           : 0;
+  overflow        : auto;
+  margin          : 0;
+  display         : block;
+  flex-wrap       : wrap;
+  justify-content : flex-start;
+  align-items     : center;
+  background-color: #ddd;
 }
 
-.synonym-groups {
-  margin: 10px;
+.synonym-groups-wrapper {
+  margin          : 1px auto 0 auto;
+  max-width       : 800px;
+  background-color: white;
+}
+
+.synonym-group-wrapper {
+  display      : block;
+  padding      : 10px 0 0 0;
+  border-bottom: 1px solid #ddd;
 }
 
 .synonym-group {
-  display: inline-block;
-  margin : 10px;
+  display      : inline-block;
+  padding      : 1px 10px;
+  margin       : 1px;
 }
 
 .delete-synonym-icon {
@@ -45,26 +55,33 @@
 
 .add-word {
   display: block;
+  margin : 7px 10px 1px 10px;
 }
 
 .add-word-text {
-  margin   : 1px;
-  padding  : 0;
-  width    : 200px;
-  height   : 26px;
-  font-size: 20px;
+  margin        : 1px 1px 10px 1px;
+  padding       : 0;
+  width         : 200px;
+  height        : 26px;
+  font-size     : 20px;
+  vertical-align: middle;
 }
 
 .add-word-button {
-  margin   : 1px;
-  width    : 30px;
-  height   : 30px;
-  font-size: 20px;
+  background    : none;
+  border        : none;
+  color         : green;
+  cursor        : pointer;
+  margin        : 1px 1px 10px 1px;
+  width         : 30px;
+  height        : 30px;
+  font-size     : 24px;
+  vertical-align: middle;
 }
 
 .delete-synonym-group-icon {
   font-size  : 22px;
-  margin     : 1px;
+  margin     : 1px 1px 1px 10px;
   padding    : 0;
   cursor     : pointer;
   width      : 20px;
