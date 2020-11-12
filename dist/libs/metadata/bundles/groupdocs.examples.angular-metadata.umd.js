@@ -881,7 +881,8 @@
                 this.isLoading = true;
                 this.selectFile(this.metadataConfig.defaultDocument, "", "");
             }
-            if (this.initialFile) {
+            else if (this.initialFile) {
+                this.isLoading = true;
                 this.selectFile(this.initialFile, null, null);
             }
         };
