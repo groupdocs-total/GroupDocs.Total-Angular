@@ -1,0 +1,10 @@
+<div class="template-name" gdTooltip (showToolTip)="showToolTip = $event">
+    <div (dblclick)="openEditor()" *ngIf="!isEditorMode()">
+        {{ getName() }}    
+        <gd-tooltip [text]="'Double click to rename'" [show]="showToolTip" class="template-name-tooltip"></gd-tooltip>
+    </div>
+
+    <input (clickOutside)="closeEditor()" [clickOutsideEvents]="'mousedown'"
+        [clickOutsideEnabled]="isEditorMode()" class="gd-field-editor" *ngIf="isEditorMode()" type="text"
+        [value]="getName()" (input)="setName($event.target.value)" (keyup)="keyUp($event)" />
+</div>

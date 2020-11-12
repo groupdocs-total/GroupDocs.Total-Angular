@@ -1,0 +1,64 @@
+@import "./../../styles/variables";
+#gd-templatebrowser-section {
+    width: 640px;
+    height: 480px;
+    overflow-y: auto;
+  }
+
+.gd-modal-table {
+    width: 100%;
+    text-align: left;
+}
+
+.list-template-header {
+    height: 60px;
+    color: @dove-gray;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: @wild-sand;
+    margin-top: 24px;
+  }
+
+.header-name {
+    padding-left: 24px;
+    width: 90%;
+    line-height: 60px;
+  }
+
+.list-template-lines, .list-template-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }  
+
+.list-template-lines {
+    border-bottom: 1px solid @mercury;
+  }
+
+.gd-template-name {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+  }
+
+.template-description {
+    display: flex;
+    width: 90%;
+    padding: 18px 0px 18px 24px;
+    font-size: 14px;
+    flex: 1;    
+    cursor: pointer;
+    overflow: hidden;
+  }  
+
+.template-name {
+    font-size: 16px;
+    color: @dove-gray;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+.list-template-lines:hover{
+    background-color: @nav-accent-background;
+  }

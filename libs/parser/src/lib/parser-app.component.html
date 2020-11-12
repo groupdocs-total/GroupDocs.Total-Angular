@@ -1,0 +1,51 @@
+<gd-loading-mask [loadingMask]="isLoading()"></gd-loading-mask>
+<div class="wrapper">
+  <div class="parser-wrapper wrapper">
+    <gd-tabbed-toolbars [logo]="'parser'" [icon]="'glasses'">
+      <gd-tabs>
+        <gd-tab [tabTitle]="'File'" [icon]="'folder-open'" [id]="'1'" [active]="true">
+          <div class="toolbar-panel">
+            <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)">
+            </gd-button>
+            <gd-button [icon]="'glasses'" [tooltip]="'Parse'" *ngIf="file" [disabled]="!file || template.isEmpty"
+              (click)="parseByTemplate()"></gd-button>
+            
+            <gd-button [icon]="'search-plus'" [tooltip]="'Zoom In'" *ngIf="file" (click)="zoomIn()"></gd-button>
+            <gd-button [icon]="'search-minus'" [tooltip]="'Zoom Out'" *ngIf="file" (click)="zoomOut()"></gd-button>   
+          </div>
+        </gd-tab>
+        <gd-tab [tabTitle]="'Template'" [icon]="'th-large'" [id]="'2'" *ngIf="file">
+          <div class="toolbar-panel">
+            <app-template-name [name]="template.name" (nameChanged)="changeTemplateName($event)"></app-template-name>
+            <gd-button [icon]="'file'" [tooltip]="'New template'" (click)="createTemplate()"></gd-button>
+            <gd-button [icon]="'folder-open'" [tooltip]="'Open template'" (click)="selectTemplate()"></gd-button>
+            <gd-button [disabled]="!template.isStored()" [icon]="'trash-alt'" [tooltip]="'Delete template'"
+              (click)="deleteTemplate()"></gd-button>
+
+            <gd-button [icon]="'plus'" [tooltip]="'Add field'" (click)="createField()"></gd-button>
+          </div>
+        </gd-tab>
+      </gd-tabs>
+    </gd-tabbed-toolbars>
+    <app-surface [template]="template" [file]="file"></app-surface>
+    <gd-init-state [icon]="'glasses'" *ngIf="!file && !isLoading()">
+      Click
+      <fa-icon [icon]="['fas','folder-open']"></fa-icon>
+      to open file. Use 'Template' tab to prepare the template.
+    </gd-init-state>
+  </div>
+
+  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+    (selectedFileGuid)="selectFile($event, browseFilesModal)" [uploadConfig]="uploadConfig">
+  </gd-browse-files-modal>
+
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
+  <gd-success-modal></gd-success-modal>
+
+  <app-template-browser (choosed)="loadTemplate($event)"></app-template-browser>
+  <app-parse-results [template]="template" [guid]="file?.guid" [password]="filePassword"></app-parse-results>
+  <app-confirmation-modal [modalId]="'id-delete-template-modal'" [text]="'Delete template ' + template.name + '?'"
+    [title]="'Confirmation'" [actionText]="'Delete'" [actionIcon]="'trash-alt'"
+    (confirmEvent)="deleteTemplateById($event)"></app-confirmation-modal>
+</div>

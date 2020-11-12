@@ -1,0 +1,28 @@
+<div (clickOutside)="deactivate()" (contextmenu)="rightClick($event)" [clickOutsideEvents]="'mousedown'" [clickOutsideEnabled]="isActive()"
+    class="gd-field" [style.left.px]="left" [style.top.px]="top" [style.width.px]="width"
+    [style.height.px]="height">
+
+    <div class="gd-field-wrapper-border" *ngIf="!isEditMode()" (mousedown)="mouseDown($event, 'Move')"
+        (dblclick)="activateEditMode()">
+        {{ field.name }}
+    </div>
+
+    <textarea (clickOutside)="deactivateEditMode()" [clickOutsideEvents]="'mousedown'"
+        [clickOutsideEnabled]="isEditMode()" class="gd-field-editor" *ngIf="isEditMode()" type="text"
+        [value]="field.name" (input)="field.name=$event.target.value"></textarea>
+
+    <div class="ui-resizable-handle se-resize" *ngIf="isActive()" (mousedown)="mouseDown($event, 'SE')"></div>
+    <div class="ui-resizable-handle ne-resize" *ngIf="isActive()" (mousedown)="mouseDown($event, 'NE')"></div>
+    <div class="ui-resizable-handle sw-resize" *ngIf="isActive()" (mousedown)="mouseDown($event, 'SW')"></div>
+    <div class="ui-resizable-handle nw-resize" *ngIf="isActive()" (mousedown)="mouseDown($event, 'NW')"></div>
+
+    <div class="ui-error-container" *ngIf="field.error">
+        <div class="ui-error" title="{{field.error}}">
+            !
+        </div>
+    </div>
+
+    <div class="gd-field-menu" *ngIf="isContextMenuVisible" (clickOutside)="hideContextMenu()">
+        <gd-button [icon]="'trash-alt'" [iconOnly]="true" (click)="remove()"></gd-button>
+    </div>
+</div>

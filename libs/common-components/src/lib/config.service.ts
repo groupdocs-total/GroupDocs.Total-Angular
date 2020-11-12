@@ -10,6 +10,7 @@ export class Api {
   public static COMPARISON_APP = '/comparison';
   public static CONVERSION_APP = '/conversion';
   public static METADATA_APP = '/metadata';
+  public static PARSER_APP = '/parser';
   public static DEFAULT_API_ENDPOINT = window.location.href;
   public static LOAD_FILE_TREE = '/loadFileTree';
   public static LOAD_CONFIG = '/loadConfig';
@@ -92,6 +93,10 @@ export class ConfigService {
 
   getMetadataApiEndpoint() {
     return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
+  }
+  
+  getParserApiEndpoint() {
+    return this._apiEndpoint.trim().endsWith(Api.PARSER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.PARSER_APP;
   }
 
   get apiEndpoint() {
