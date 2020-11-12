@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, Injectable, ElementRef, ɵɵdefineInjectable, ɵɵinject, Renderer2, Pipe, Directive, HostBinding, HostListener, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Injectable, ElementRef, ɵɵdefineInjectable, ɵɵinject, Pipe, Directive, HostBinding, HostListener, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
@@ -1643,9 +1643,8 @@ class DocumentComponent {
      * @param {?} _zoomService
      * @param {?} _windowService
      * @param {?} _navigateService
-     * @param {?} renderer
      */
-    constructor(_elementRef, _zoomService, _windowService, _navigateService, renderer) {
+    constructor(_elementRef, _zoomService, _windowService, _navigateService) {
         this._elementRef = _elementRef;
         this._zoomService = _zoomService;
         this._windowService = _windowService;
@@ -1667,7 +1666,6 @@ class DocumentComponent {
         this.pinchCenterOffset = null;
         this.curWidth = 0;
         this.curHeight = 0;
-        this.renderer = renderer;
         _zoomService.zoomChange.subscribe((/**
          * @param {?} val
          * @return {?}
@@ -1716,52 +1714,6 @@ class DocumentComponent {
         this.curHeight = this.docHeight * this.scale;
         /** @type {?} */
         const hammer = new Hammer(this.container);
-        this.initControlsListeners();
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    initControlsListeners() {
-        /** @type {?} */
-        const inputs = this._elementRef.nativeElement.querySelectorAll('input');
-        inputs.forEach((/**
-         * @param {?} input
-         * @return {?}
-         */
-        input => {
-            this.renderer.listen(input, 'keyup', (/**
-             * @param {?} event
-             * @return {?}
-             */
-            (event) => {
-                input.setAttribute('value', input.value);
-            }));
-        }));
-        /** @type {?} */
-        const selects = this._elementRef.nativeElement.querySelectorAll('select');
-        selects.forEach((/**
-         * @param {?} select
-         * @return {?}
-         */
-        select => {
-            this.renderer.listen(select, 'change', (/**
-             * @param {?} event
-             * @return {?}
-             */
-            (event) => {
-                selects.forEach((/**
-                 * @param {?} s
-                 * @return {?}
-                 */
-                s => {
-                    for (let i = s.options.length - 1; i >= 0; i--) {
-                        s.options[i].removeAttribute('selected');
-                    }
-                }));
-                select.options[select.selectedIndex].setAttribute('selected', 'selected');
-            }));
-        }));
     }
     // TODO: this temporary crutch for Excel files should be documented
     /**
@@ -1826,8 +1778,7 @@ DocumentComponent.ctorParameters = () => [
     { type: ElementRef },
     { type: ZoomService },
     { type: WindowService },
-    { type: NavigateService },
-    { type: Renderer2 }
+    { type: NavigateService }
 ];
 DocumentComponent.propDecorators = {
     mode: [{ type: Input }],
@@ -1882,8 +1833,6 @@ if (false) {
     DocumentComponent.prototype.curHeight;
     /** @type {?} */
     DocumentComponent.prototype.isDesktop;
-    /** @type {?} */
-    DocumentComponent.prototype.renderer;
     /**
      * @type {?}
      * @protected

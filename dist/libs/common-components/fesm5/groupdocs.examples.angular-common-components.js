@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, Injectable, ElementRef, ɵɵdefineInjectable, ɵɵinject, Renderer2, Pipe, Directive, HostBinding, HostListener, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Injectable, ElementRef, ɵɵdefineInjectable, ɵɵinject, Pipe, Directive, HostBinding, HostListener, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
 import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
@@ -1929,7 +1929,7 @@ if (false) {
 /** @type {?} */
 var $$1 = jquery;
 var DocumentComponent = /** @class */ (function () {
-    function DocumentComponent(_elementRef, _zoomService, _windowService, _navigateService, renderer) {
+    function DocumentComponent(_elementRef, _zoomService, _windowService, _navigateService) {
         var _this = this;
         this._elementRef = _elementRef;
         this._zoomService = _zoomService;
@@ -1952,7 +1952,6 @@ var DocumentComponent = /** @class */ (function () {
         this.pinchCenterOffset = null;
         this.curWidth = 0;
         this.curHeight = 0;
-        this.renderer = renderer;
         _zoomService.zoomChange.subscribe((/**
          * @param {?} val
          * @return {?}
@@ -2010,57 +2009,6 @@ var DocumentComponent = /** @class */ (function () {
         this.curHeight = this.docHeight * this.scale;
         /** @type {?} */
         var hammer = new Hammer(this.container);
-        this.initControlsListeners();
-    };
-    /**
-     * @private
-     * @return {?}
-     */
-    DocumentComponent.prototype.initControlsListeners = /**
-     * @private
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        /** @type {?} */
-        var inputs = this._elementRef.nativeElement.querySelectorAll('input');
-        inputs.forEach((/**
-         * @param {?} input
-         * @return {?}
-         */
-        function (input) {
-            _this.renderer.listen(input, 'keyup', (/**
-             * @param {?} event
-             * @return {?}
-             */
-            function (event) {
-                input.setAttribute('value', input.value);
-            }));
-        }));
-        /** @type {?} */
-        var selects = this._elementRef.nativeElement.querySelectorAll('select');
-        selects.forEach((/**
-         * @param {?} select
-         * @return {?}
-         */
-        function (select) {
-            _this.renderer.listen(select, 'change', (/**
-             * @param {?} event
-             * @return {?}
-             */
-            function (event) {
-                selects.forEach((/**
-                 * @param {?} s
-                 * @return {?}
-                 */
-                function (s) {
-                    for (var i = s.options.length - 1; i >= 0; i--) {
-                        s.options[i].removeAttribute('selected');
-                    }
-                }));
-                select.options[select.selectedIndex].setAttribute('selected', 'selected');
-            }));
-        }));
     };
     // TODO: this temporary crutch for Excel files should be documented
     // TODO: this temporary crutch for Excel files should be documented
@@ -2148,8 +2096,7 @@ var DocumentComponent = /** @class */ (function () {
         { type: ElementRef },
         { type: ZoomService },
         { type: WindowService },
-        { type: NavigateService },
-        { type: Renderer2 }
+        { type: NavigateService }
     ]; };
     DocumentComponent.propDecorators = {
         mode: [{ type: Input }],
@@ -2206,8 +2153,6 @@ if (false) {
     DocumentComponent.prototype.curHeight;
     /** @type {?} */
     DocumentComponent.prototype.isDesktop;
-    /** @type {?} */
-    DocumentComponent.prototype.renderer;
     /**
      * @type {?}
      * @protected
