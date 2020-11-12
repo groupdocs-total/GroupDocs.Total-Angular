@@ -1995,7 +1995,6 @@ var DocumentComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var _this = this;
         // For current iteration we take .panzoom as a document
         this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
         // For current iteration we take .gd-document as a container
@@ -2011,6 +2010,18 @@ var DocumentComponent = /** @class */ (function () {
         this.curHeight = this.docHeight * this.scale;
         /** @type {?} */
         var hammer = new Hammer(this.container);
+        this.initControlsListeners();
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    DocumentComponent.prototype.initControlsListeners = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        var _this = this;
         /** @type {?} */
         var inputs = this._elementRef.nativeElement.querySelectorAll('input');
         inputs.forEach((/**
@@ -2102,13 +2113,12 @@ var DocumentComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        /** @type {?} */
-        var elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-        /** @type {?} */
-        var element = elementNodeListOf.item(0);
-        if (element) {
-            //$(element).trigger('focus');
-        }
+        // for now we are not sure that need this action in current implementation
+        // const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+        // const element = elementNodeListOf.item(0);
+        // if (element) {
+        //   $(element).trigger('focus');
+        // }
     };
     /**
      * @param {?} pageNumber

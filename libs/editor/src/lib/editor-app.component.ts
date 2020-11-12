@@ -520,7 +520,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
  saveFile(credentials: FileCredentials) {
     if (!this.file || !this.file.pages)
       return;
-      
+
     this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
 
     const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
@@ -551,7 +551,11 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   // Returns root-tags in the HTML-markup which previously were removed by innerHTML.
   getPageWithRootTags(data, guid) {
     const pptFormats = ["ppt", "pptx", "pptm", "pps", "ppsx", "ppsm", "pot", "potx", "potm", "odp", "otp"];
-    let resultData = "<html><head>" + data + "</body></html>";
+    let resultData = data;
+
+    if (!data.startsWith("<html><head>") && !data.endsWith("</body></html>")) {
+      resultData = "<html><head>" + data + "</body></html>";
+    }
     
     if (this.newFile)
     {

@@ -103,24 +103,28 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
 
     const hammer = new Hammer(this.container);
 
+    this.initControlsListeners();
+  }
+
+  private initControlsListeners() {
     const inputs = this._elementRef.nativeElement.querySelectorAll('input');
     inputs.forEach(input => {
       this.renderer.listen(input, 'keyup', (event) => {
-        input.setAttribute('value', input.value); 
-      })
+        input.setAttribute('value', input.value);
+      });
     });
 
     const selects = this._elementRef.nativeElement.querySelectorAll('select');
     selects.forEach(select => {
       this.renderer.listen(select, 'change', (event) => {
         selects.forEach(s => {
-          for (let i = s.options.length-1; i >= 0; i--) {
-          s.options[i].removeAttribute('selected');
+          for (let i = s.options.length - 1; i >= 0; i--) {
+            s.options[i].removeAttribute('selected');
           }
         });
 
         select.options[select.selectedIndex].setAttribute('selected', 'selected');
-      })
+      });
     });
   }
 
@@ -142,11 +146,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   ngAfterViewChecked(): void {
-    const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-    const element = elementNodeListOf.item(0);
-    if (element) {
-      //$(element).trigger('focus');
-    }
+    // for now we are not sure that need this action in current implementation
+    // const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+    // const element = elementNodeListOf.item(0);
+    // if (element) {
+    //   $(element).trigger('focus');
+    // }
   }
 
   isVisible(pageNumber) {

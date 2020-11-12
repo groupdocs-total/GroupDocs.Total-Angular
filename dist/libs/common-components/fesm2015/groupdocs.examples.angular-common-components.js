@@ -1716,6 +1716,13 @@ class DocumentComponent {
         this.curHeight = this.docHeight * this.scale;
         /** @type {?} */
         const hammer = new Hammer(this.container);
+        this.initControlsListeners();
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    initControlsListeners() {
         /** @type {?} */
         const inputs = this._elementRef.nativeElement.querySelectorAll('input');
         inputs.forEach((/**
@@ -1787,13 +1794,12 @@ class DocumentComponent {
      * @return {?}
      */
     ngAfterViewChecked() {
-        /** @type {?} */
-        const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-        /** @type {?} */
-        const element = elementNodeListOf.item(0);
-        if (element) {
-            //$(element).trigger('focus');
-        }
+        // for now we are not sure that need this action in current implementation
+        // const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+        // const element = elementNodeListOf.item(0);
+        // if (element) {
+        //   $(element).trigger('focus');
+        // }
     }
     /**
      * @param {?} pageNumber

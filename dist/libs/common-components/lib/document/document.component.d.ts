@@ -36,6 +36,7 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     ngOnInit(): void;
     ngOnChanges(): void;
     ngAfterViewInit(): void;
+    private initControlsListeners;
     ifExcel(): boolean;
     ifPresentation(): boolean;
     getDimensionWithUnit(value: number, pageNumber: number): any;
