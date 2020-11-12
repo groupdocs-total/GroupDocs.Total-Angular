@@ -312,7 +312,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         window.navigator.msSaveOrOpenBlob(newBlob);
         return;
     }
-
     
     const data = window.URL.createObjectURL(newBlob);
 

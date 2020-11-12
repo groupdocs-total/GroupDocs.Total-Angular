@@ -229,8 +229,6 @@ if (false) {
     /** @type {?} */
     MetadataConfig.prototype.browse;
     /** @type {?} */
-    MetadataConfig.prototype.filesDirectory;
-    /** @type {?} */
     MetadataConfig.prototype.defaultDocument;
     /** @type {?} */
     MetadataConfig.prototype.preloadPageCount;
