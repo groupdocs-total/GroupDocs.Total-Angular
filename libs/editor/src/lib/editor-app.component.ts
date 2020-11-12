@@ -295,14 +295,17 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
     this.downloadDisabled = false;
 
     // adding listeners on inputs if present on existing page
+    let count = 0;
     const timerId = setInterval(() => { 
-      let page = document.querySelectorAll('.page');
+      count++;
+      const page = document.querySelectorAll('.page');
       if (page)
       {
         this.initControlsListeners();
         clearInterval(timerId);
       }
-    }, 1000);
+      if (count === 20) clearInterval();
+    }, 100);
   }
 
   private initControlsListeners() {
