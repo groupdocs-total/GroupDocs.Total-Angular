@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/annotation",
-  "version": "0.8.30",
+  "version": "0.8.31",
   "description": "Angular application that allows to annotate documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {
