@@ -29,6 +29,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   @Input() preloadPageCount: number;
   @Input() file: FileDescription;
   @Input() selectedPage: number;
+  @Input() showActiveSlide: boolean;
   wait = false;
   zoom: number;
 
@@ -107,7 +108,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   getDimensionWithUnit(value: number, pageNumber: number) {
-    return this.ifPresentation() && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+    return this.ifPresentation() && this.showActiveSlide && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
   }
 
   ifEdge() {
