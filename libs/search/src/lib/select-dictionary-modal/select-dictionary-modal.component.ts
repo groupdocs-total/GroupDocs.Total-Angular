@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalComponent } from '@groupdocs.examples.angular/common-components';
 import { AlphabetDictionaryService } from '../alphabet-dictionary.service';
+import { HomophoneDictionaryService } from '../homophone-dictionary.service';
 import { AppState } from '../search-models';
 import { StopWordDictionaryService } from '../stop-word-dictionary.service';
 import { SynonymDictionaryService } from '../synonym-dictionary.service';
@@ -19,14 +20,15 @@ export class SelectDictionaryModalComponent implements OnInit {
 
   constructor(private _alphabet: AlphabetDictionaryService,
               private _stopWords: StopWordDictionaryService,
-              private _synonyms: SynonymDictionaryService) {
+              private _synonyms: SynonymDictionaryService,
+              private _homophones: HomophoneDictionaryService) {
     this.dictionaries = [
       { appState: AppState.AliasDictionary, name: "Alias", disabled: true, link: "https://docs.groupdocs.com/search/net/using-aliases/" },
       { appState: AppState.StopWordDictionary, name: "Stop word", disabled: false, link: "https://docs.groupdocs.com/search/net/indexing-with-stop-words/" },
       { appState: AppState.SynonymDictionary, name: "Synonym", disabled: false, link: "https://docs.groupdocs.com/search/net/synonym-search/" },
       { appState: AppState.PasswordDictionary, name: "Password", disabled: true, link: "https://docs.groupdocs.com/search/net/indexing-password-protected-documents/" },
       { appState: AppState.SpellingCorrectorDictionary, name: "Spelling corrector", disabled: true, link: "https://docs.groupdocs.com/search/net/spell-checking/" },
-      { appState: AppState.HomophoneDictionary, name: "Homophone", disabled: true, link: "https://docs.groupdocs.com/search/net/homophone-search/" },
+      { appState: AppState.HomophoneDictionary, name: "Homophone", disabled: false, link: "https://docs.groupdocs.com/search/net/homophone-search/" },
       { appState: AppState.AlphabetDictionary, name: "Alphabet", disabled: false, link: "https://docs.groupdocs.com/search/net/character-types/" },
       { appState: AppState.CharacterReplacementDictionary, name: "Character replacement", disabled: true, link: "https://docs.groupdocs.com/search/net/character-replacement-during-indexing/" },
     ];
@@ -48,6 +50,10 @@ export class SelectDictionaryModalComponent implements OnInit {
       }
       case AppState.SynonymDictionary: {
         this._synonyms.init();
+        break;
+      }
+      case AppState.HomophoneDictionary: {
+        this._homophones.init();
         break;
       }
     }

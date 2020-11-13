@@ -1,21 +1,21 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommandsService } from '../commands.service';
 import { WordState, WordWrapper } from '../search-models';
-import { SynonymDictionaryService } from '../synonym-dictionary.service';
+import { HomophoneDictionaryService } from '../homophone-dictionary.service';
 
 @Component({
-  selector: 'gd-synonym-dictionary',
-  templateUrl: './synonym-dictionary.component.html',
-  styleUrls: ['./synonym-dictionary.component.less']
+  selector: 'gd-homophone-dictionary',
+  templateUrl: './homophone-dictionary.component.html',
+  styleUrls: ['./homophone-dictionary.component.less']
 })
-export class SynonymDictionaryComponent implements OnInit, AfterViewChecked {
+export class HomophoneDictionaryComponent implements OnInit, AfterViewChecked {
   subscription: any;
   needToScroll = false;
 
   @ViewChild('scrollContainer', {static: false})
   private scrollContainer: ElementRef;
 
-  constructor(public dictionary: SynonymDictionaryService,
+  constructor(public dictionary: HomophoneDictionaryService,
               private _commandsService: CommandsService) {
     this.subscription = this._commandsService.getEventEmitter()
       .subscribe((name: string) => {
@@ -34,13 +34,13 @@ export class SynonymDictionaryComponent implements OnInit, AfterViewChecked {
 
   addGroup() {
     const group = new Array<WordWrapper>(0);
-    this.dictionary.synonymGroups.push(group);
+    this.dictionary.homophoneGroups.push(group);
     this.needToScroll = true;
   }
 
-  addWord(newSynonym: string, groupIndex: number) {
-    const trimmed = newSynonym.trim().toLowerCase();
-    const group = this.dictionary.synonymGroups[groupIndex];
+  addWord(newHomophone: string, groupIndex: number) {
+    const trimmed = newHomophone.trim().toLowerCase();
+    const group = this.dictionary.homophoneGroups[groupIndex];
     if (trimmed.length > 0 &&
       !group.some(e => e.word === trimmed)) {
       const ww = new WordWrapper();
@@ -52,9 +52,9 @@ export class SynonymDictionaryComponent implements OnInit, AfterViewChecked {
   }
 
   deleteGroup(groupIndex: number) {
-    const group = this.dictionary.synonymGroups[groupIndex];
+    const group = this.dictionary.homophoneGroups[groupIndex];
     if (group.length === 0) {
-      this.dictionary.synonymGroups.splice(groupIndex, 1);
+      this.dictionary.homophoneGroups.splice(groupIndex, 1);
       return;
     }
 
@@ -88,7 +88,7 @@ export class SynonymDictionaryComponent implements OnInit, AfterViewChecked {
   }
 
   deleteWord(groupIndex: number, wordIndex: number) {
-    const wrapper = this.dictionary.synonymGroups[groupIndex][wordIndex];
+    const wrapper = this.dictionary.homophoneGroups[groupIndex][wordIndex];
     switch (wrapper.state) {
       case WordState.Old: {
         wrapper.state = WordState.DeletedOld;

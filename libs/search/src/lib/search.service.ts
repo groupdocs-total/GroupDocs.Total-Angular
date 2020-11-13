@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { AlphabetUpdateRequest, IndexedFileModel, SearchApi, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
+import { AlphabetUpdateRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
 import { SearchOptionsService } from './search-options.service';
-import { IndexPropertiesService } from './index-properties.service';
 
 @Injectable({
   providedIn: 'root'
@@ -104,6 +103,16 @@ export class SearchService {
 
   setSynonymDictionary(data: SynonymsUpdateRequest) {
     const url = this._config.getSearchApiEndpoint() + SearchApi.SET_SYNONYM_DICTIONARY;
+    return this._http.post(url, data, Api.httpOptionsJson);
+  }
+
+  getHomophoneDictionary() {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_HOMOPHONE_DICTIONARY;
+    return this._http.post(url, Api.httpOptionsJson);
+  }
+
+  setHomophoneDictionary(data: HomophonesUpdateRequest) {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_HOMOPHONE_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 }

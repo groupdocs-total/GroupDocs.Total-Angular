@@ -22,7 +22,7 @@
       <gd-button [icon]="'save'"
         [tooltip]="'Save changes'"
         (click)="pushCommand('save')"
-        *ngIf="appState == 'AlphabetDictionary' || appState == 'StopWordDictionary' || appState == 'SynonymDictionary'"></gd-button>
+        *ngIf="appState == 'AlphabetDictionary' || appState == 'StopWordDictionary' || appState == 'SynonymDictionary' || appState == 'HomophoneDictionary'"></gd-button>
     </gd-top-toolbar>
   </div>
 
@@ -57,6 +57,8 @@
   <gd-alphabet-dictionary *ngIf="appState == 'AlphabetDictionary'"></gd-alphabet-dictionary>
 
   <gd-synonym-dictionary *ngIf="appState == 'SynonymDictionary'"></gd-synonym-dictionary>
+
+  <gd-homophone-dictionary *ngIf="appState == 'HomophoneDictionary'"></gd-homophone-dictionary>
 
   <gd-search-browse-files-modal (urlForUpload)="upload($event)"
     [files]="files"

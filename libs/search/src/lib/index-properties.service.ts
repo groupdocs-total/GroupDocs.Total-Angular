@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { IndexProperties } from './search-models';
+import { IndexPropertiesResponse } from './search-models';
 import { SearchService } from './search.service';
 
 @Injectable()
 export class IndexPropertiesService {
-  properties: IndexProperties = new IndexProperties();
+  properties: IndexPropertiesResponse = new IndexPropertiesResponse();
 
   constructor(private _searchService: SearchService) {
     this.load();
   }
 
   private load() {
-    this._searchService.getIndexProperties().subscribe((result: IndexProperties) => {
+    this._searchService.getIndexProperties().subscribe((result: IndexPropertiesResponse) => {
       this.properties = result;
     });
   }

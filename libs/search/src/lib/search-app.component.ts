@@ -17,9 +17,7 @@ import {
   ExtendedFileModel,
   FileIndexingStatus,
   AppState,
-  IndexProperties,
 } from "./search-models";
-import { IndexPropertiesService } from './index-properties.service';
 import { CommandsService } from './commands.service';
 
 @Component({

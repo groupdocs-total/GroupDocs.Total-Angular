@@ -1,0 +1,45 @@
+<gd-view-header [title]="'Homophone dictionary'"></gd-view-header>
+
+<div class="homophone-group-list"
+  #scrollContainer>
+  <div class="homophone-groups-wrapper">
+    <div class="homophone-group-wrapper"
+      *ngFor="let group of dictionary.homophoneGroups; let groupIndex = index">
+      <span class="delete-homophone-group-icon"
+        (click)="deleteGroup(groupIndex)">
+        &times;
+      </span>
+
+      <div class="homophone-group"
+        *ngFor="let homophone of group; let homophoneIndex = index">
+        <span class="delete-homophone-icon"
+          (click)="deleteWord(groupIndex, homophoneIndex)">
+          &times;
+        </span>
+
+        <span class="homophone"
+          [ngClass]="{'new' : homophone.state=='New', 'old': homophone.state=='Old', 'deleted-new': homophone.state=='DeletedNew', 'deleted-old': homophone.state=='DeletedOld'}">
+          {{homophone.word}}
+        </span>
+      </div>
+
+      <div class="add-word">
+        <input type="text"
+          #newHomophone
+          class="add-word-text"
+          (keyup.enter)="addWord(newHomophone.value, groupIndex); newHomophone.value=''">
+
+        <button class="add-word-button"
+          (click)="addWord(newHomophone.value, groupIndex); newHomophone.value=''">
+          +
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-toolbar">
+  <gd-button [icon]="'plus'"
+    [tooltip]="'Add homophone group'"
+    (click)="addGroup()"></gd-button>
+</div>

@@ -35,7 +35,7 @@ export class ExtendedFileModel implements FileModel {
   selected: boolean;
 }
 
-export class IndexProperties {
+export class IndexPropertiesResponse {
   IndexVersion: string;
   IndexType: string;
   UseStopWords: boolean;
@@ -81,6 +81,14 @@ export class SynonymsUpdateRequest {
   SynonymGroups: string[][];
 }
 
+export class HomophonesReadResponse {
+  HomophoneGroups: string[][];
+}
+
+export class HomophonesUpdateRequest {
+  HomophoneGroups: string[][];
+}
+
 export class SearchApi {
   public static GET_INDEX_PROPERTIES = '/getIndexProperties';
   public static GET_ALPHABET_DICTIONARY = '/getAlphabetDictionary';
@@ -89,6 +97,8 @@ export class SearchApi {
   public static SET_STOP_WORD_DICTIONARY = '/setStopWordDictionary';
   public static GET_SYNONYM_DICTIONARY = '/getSynonymDictionary';
   public static SET_SYNONYM_DICTIONARY = '/setSynonymDictionary';
+  public static GET_HOMOPHONE_DICTIONARY = '/getHomophoneDictionary';
+  public static SET_HOMOPHONE_DICTIONARY = '/setHomophoneDictionary';
 }
 
 export enum FileIndexingStatus {
@@ -119,4 +129,16 @@ export enum AppState {
   HomophoneDictionary = "HomophoneDictionary",
   AlphabetDictionary = "AlphabetDictionary",
   CharacterReplacementDictionary = "CharacterReplacementDictionary",
+}
+
+export enum WordState {
+  Old = "Old",
+  DeletedOld = "DeletedOld",
+  New = "New",
+  DeletedNew = "DeletedNew",
+}
+
+export class WordWrapper {
+  word: string;
+  state: WordState;
 }

@@ -1,36 +1,36 @@
 import { Injectable } from '@angular/core';
+import { HomophonesReadResponse, HomophonesUpdateRequest, WordState, WordWrapper } from './search-models';
 import { SearchService } from './search.service';
-import { SynonymsReadResponse, SynonymsUpdateRequest, WordState, WordWrapper } from './search-models';
 
 @Injectable()
-export class SynonymDictionaryService {
-  synonymGroups: WordWrapper[][];
+export class HomophoneDictionaryService {
+  homophoneGroups: WordWrapper[][];
 
   constructor(private _searchService: SearchService) {
   }
 
   init() {
-    this._searchService.getSynonymDictionary().subscribe((response: SynonymsReadResponse) => {
-      this.synonymGroups = new Array(response.SynonymGroups.length);
-      for (let i = 0; i < response.SynonymGroups.length; i++) {
-        const wordArray = response.SynonymGroups[i];
+    this._searchService.getHomophoneDictionary().subscribe((response: HomophonesReadResponse) => {
+      this.homophoneGroups = new Array(response.HomophoneGroups.length);
+      for (let i = 0; i < response.HomophoneGroups.length; i++) {
+        const wordArray = response.HomophoneGroups[i];
         const wrapperArray = new Array(wordArray.length);
         for (let j = 0; j < wrapperArray.length; j++) {
           wrapperArray[j] = new WordWrapper();
           wrapperArray[j].word = wordArray[j];
           wrapperArray[j].state = WordState.Old;
         }
-        this.synonymGroups[i] = wrapperArray;
+        this.homophoneGroups[i] = wrapperArray;
       }
       this.sort();
     });
   }
 
   private sort() {
-    for (let i = 0; i < this.synonymGroups.length; i++) {
-      this.synonymGroups[i].sort((a, b) => this.compare(a.word, b.word));
+    for (let i = 0; i < this.homophoneGroups.length; i++) {
+      this.homophoneGroups[i].sort((a, b) => this.compare(a.word, b.word));
     }
-    this.synonymGroups.sort((a, b) => this.compare(a[0].word, b[0].word));
+    this.homophoneGroups.sort((a, b) => this.compare(a[0].word, b[0].word));
   }
 
   private compare(a: string, b:string) {
@@ -40,10 +40,10 @@ export class SynonymDictionaryService {
   }
 
   save() {
-    let result = new Array<string[]>(this.synonymGroups.length);
+    let result = new Array<string[]>(this.homophoneGroups.length);
     let groupIndex = 0;
-    for (let i = 0; i < this.synonymGroups.length; i++) {
-      const group = this.synonymGroups[i];
+    for (let i = 0; i < this.homophoneGroups.length; i++) {
+      const group = this.homophoneGroups[i];
       let wordCount = 0;
       for (let j = 0; j < group.length; j++) {
         if (group[j].state === WordState.Old ||
@@ -70,10 +70,10 @@ export class SynonymDictionaryService {
       result = result.slice(0, groupIndex);
     }
 
-    const request = new SynonymsUpdateRequest();
-    request.SynonymGroups = result;
-    this._searchService.setSynonymDictionary(request).subscribe(() => {
-      console.log("Synonym dictionary updated")
+    const request = new HomophonesUpdateRequest();
+    request.HomophoneGroups = result;
+    this._searchService.setHomophoneDictionary(request).subscribe(() => {
+      console.log("Homophone dictionary updated")
       this.init();
     });
   }
