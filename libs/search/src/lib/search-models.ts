@@ -43,7 +43,6 @@ export class IndexProperties {
   AutoDetectEncoding: boolean;
   UseRawTextExtraction: boolean;
   TextStorageCompression: string;
-  IndexedFiles: number;
 }
 
 export class AlphabetCharacter {

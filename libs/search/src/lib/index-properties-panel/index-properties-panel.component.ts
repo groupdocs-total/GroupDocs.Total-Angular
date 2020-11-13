@@ -20,7 +20,6 @@ export class IndexPropertiesPanelComponent implements OnInit {
       this.arePropertiesVisible = false;
     } else {
       this.arePropertiesVisible = true;
-      this.properties.load();
     }
   }
 }

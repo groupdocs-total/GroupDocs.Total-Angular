@@ -1,3 +1,5 @@
+@synonyms-background-color: #e7e7e7;
+
 .synonym-group-list {
   position        : absolute;
   top             : 150px;
@@ -10,19 +12,19 @@
   flex-wrap       : wrap;
   justify-content : flex-start;
   align-items     : center;
-  background-color: #ddd;
+  background-color: @synonyms-background-color;
 }
 
 .synonym-groups-wrapper {
   margin          : 1px auto 0 auto;
-  max-width       : 800px;
+  max-width       : 1000px;
   background-color: white;
 }
 
 .synonym-group-wrapper {
   display      : block;
   padding      : 10px 0 0 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid @synonyms-background-color;
 }
 
 .synonym-group {

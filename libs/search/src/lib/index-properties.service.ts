@@ -7,9 +7,10 @@ export class IndexPropertiesService {
   properties: IndexProperties = new IndexProperties();
 
   constructor(private _searchService: SearchService) {
+    this.load();
   }
 
-  load() {
+  private load() {
     this._searchService.getIndexProperties().subscribe((result: IndexProperties) => {
       this.properties = result;
     });
