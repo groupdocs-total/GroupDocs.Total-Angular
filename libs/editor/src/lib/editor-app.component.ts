@@ -166,6 +166,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
 
     this._htmlService.htmlContent.subscribe((text: string) => {
       if (this.file && this.file.pages) {
+        text = text.replace('<div class="footer-title">Footer</div>', "");
+        text = text.replace('<div class="header-title">Header</div>', "");
         this.textBackup = text;
       }
     });
