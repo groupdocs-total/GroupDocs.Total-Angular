@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, EventEmitter, Input, Output, NgModule, APP_INITIALIZER } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Renderer2, EventEmitter, Input, Output, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Api, ConfigService, CommonModals, Formatting, FormattingService, FileDescription, PageModel, FileCredentials, SaveFile, ModalService, UploadFilesService, PasswordService, WindowService, BackFormattingService, OnCloseService, SelectionService, EditHtmlService, RenderPrintService, LoadingMaskService, ExceptionMessageService, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
@@ -244,8 +244,9 @@ class EditorAppComponent {
      * @param {?} _htmlService
      * @param {?} _renderPrintService
      * @param {?} _loadingMaskService
+     * @param {?} _renderer
      */
-    constructor(_editorService, _modalService, configService, uploadFilesService, passwordService, _windowService, _formattingService, _backFormattingService, _onCloseService, _selectionService, _htmlService, _renderPrintService, _loadingMaskService) {
+    constructor(_editorService, _modalService, configService, uploadFilesService, passwordService, _windowService, _formattingService, _backFormattingService, _onCloseService, _selectionService, _htmlService, _renderPrintService, _loadingMaskService, _renderer) {
         this._editorService = _editorService;
         this._modalService = _modalService;
         this._windowService = _windowService;
@@ -256,6 +257,7 @@ class EditorAppComponent {
         this._htmlService = _htmlService;
         this._renderPrintService = _renderPrintService;
         this._loadingMaskService = _loadingMaskService;
+        this._renderer = _renderer;
         this.title = 'editor';
         this.files = [];
         this.formatDisabled = !this.file;
@@ -653,6 +655,69 @@ class EditorAppComponent {
         }
         this.formatDisabled = !this.file;
         this.downloadDisabled = false;
+        // adding listeners on inputs if present on existing page
+        /** @type {?} */
+        let count = 0;
+        /** @type {?} */
+        const timerId = setInterval((/**
+         * @return {?}
+         */
+        () => {
+            count++;
+            /** @type {?} */
+            const page = document.querySelectorAll('.page');
+            if (page) {
+                this.initControlsListeners();
+                clearInterval(timerId);
+            }
+            if (count === 20)
+                clearInterval();
+        }), 100);
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    initControlsListeners() {
+        /** @type {?} */
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach((/**
+         * @param {?} input
+         * @return {?}
+         */
+        input => {
+            this._renderer.listen(input, 'keyup', (/**
+             * @param {?} event
+             * @return {?}
+             */
+            (event) => {
+                input.setAttribute('value', input.value);
+            }));
+        }));
+        /** @type {?} */
+        const selects = document.querySelectorAll('select');
+        selects.forEach((/**
+         * @param {?} select
+         * @return {?}
+         */
+        select => {
+            this._renderer.listen(select, 'change', (/**
+             * @param {?} event
+             * @return {?}
+             */
+            (event) => {
+                selects.forEach((/**
+                 * @param {?} s
+                 * @return {?}
+                 */
+                s => {
+                    for (let i = s.options.length - 1; i >= 0; i--) {
+                        s.options[i].removeAttribute('selected');
+                    }
+                }));
+                select.options[select.selectedIndex].setAttribute('selected', 'selected');
+            }));
+        }));
     }
     /**
      * @private
@@ -860,6 +925,10 @@ class EditorAppComponent {
         this.colorPickerShow = false;
         this.bgColorPickerShow = false;
         this._onCloseService.close(true);
+        // we try to save the changes on any click outside
+        if (document.querySelectorAll('.gd-wrapper')[0]) {
+            this.textBackup = document.querySelectorAll('.gd-wrapper')[0].innerHTML.toString();
+        }
     }
     /**
      * @param {?} event
@@ -991,7 +1060,10 @@ class EditorAppComponent {
         /** @type {?} */
         const pptFormats = ["ppt", "pptx", "pptm", "pps", "ppsx", "ppsm", "pot", "potx", "potm", "odp", "otp"];
         /** @type {?} */
-        let resultData = "<html><head>" + data + "</body></html>";
+        let resultData = data;
+        if (!data.startsWith("<html><head>") && !data.endsWith("</body></html>")) {
+            resultData = "<html><head>" + data + "</body></html>";
+        }
         if (this.newFile) {
             resultData = resultData.replace('<head>', '<head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>');
             if (pptFormats.includes(guid.split('.').pop())) {
@@ -1068,7 +1140,8 @@ EditorAppComponent.ctorParameters = () => [
     { type: SelectionService },
     { type: EditHtmlService },
     { type: RenderPrintService },
-    { type: LoadingMaskService }
+    { type: LoadingMaskService },
+    { type: Renderer2 }
 ];
 if (false) {
     /** @type {?} */
@@ -1168,6 +1241,11 @@ if (false) {
      * @private
      */
     EditorAppComponent.prototype._loadingMaskService;
+    /**
+     * @type {?}
+     * @private
+     */
+    EditorAppComponent.prototype._renderer;
 }
 
 /**
