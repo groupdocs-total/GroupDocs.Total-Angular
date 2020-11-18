@@ -16,7 +16,6 @@ export declare class ConversionBrowseFilesModalComponent extends BrowseFilesModa
     selectAll: EventEmitter<boolean>;
     dynamicOptions: Option[];
     constructor(_uploadService: UploadFilesService, _conversionService: ConversionService, _modalService: ModalService);
-    selectDD(entry: any): void;
     selectAllItems(checked: boolean): void;
     selectSingleItem(checked: boolean, file: ExtendedFileModel): void;
     getLabelString(): string;

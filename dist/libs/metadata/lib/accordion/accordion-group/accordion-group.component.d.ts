@@ -1,0 +1,31 @@
+import { EventEmitter, QueryList, AfterViewInit } from '@angular/core';
+import { WindowService } from '@groupdocs.examples.angular/common-components';
+import { AccordionService } from './../../accordion.service';
+import { DatePipe } from "@angular/common";
+import { FilePropertyModel } from '../../metadata-models';
+export declare class AccordionGroupComponent implements AfterViewInit {
+    private _accordionService;
+    private _datePipe;
+    private _windowService;
+    opened: boolean;
+    title: string;
+    addDisabled: boolean;
+    addHidden: boolean;
+    properties: FilePropertyModel[];
+    propertiesNames: string[];
+    toggle: EventEmitter<any>;
+    removeProperty: EventEmitter<FilePropertyModel>;
+    textinput: QueryList<any>;
+    isDesktop: boolean;
+    constructor(_accordionService: AccordionService, _datePipe: DatePipe, _windowService: WindowService);
+    ngAfterViewInit(): void;
+    resetProperties(onlyEditing?: boolean): void;
+    addProperty($event: Event): void;
+    selectProperty(property: FilePropertyModel): void;
+    editProperty(property: FilePropertyModel): void;
+    delete($event: Event): void;
+    wasSelected(): boolean;
+    selectPropName($event: any, property: FilePropertyModel): void;
+    formatDateTime(property: FilePropertyModel, value: string): void;
+    formatValue(property: FilePropertyModel): any;
+}

@@ -1,17 +1,18 @@
-import { AfterViewInit, OnInit } from '@angular/core';
+import { AfterViewInit, OnInit, AfterViewChecked } from '@angular/core';
 import { Position, AddedSignature } from "../signature-models";
-import { Formatting } from "@groupdocs.examples.angular/common-components";
+import { Formatting, ZoomService } from "@groupdocs.examples.angular/common-components";
 import { SignatureService } from "../signature.service";
 import { RemoveSignatureService } from "../remove-signature.service";
 import { ActiveSignatureService } from "../active-signature.service";
 import { SignaturesHolderService } from "../signatures-holder.service";
 import { CopySignatureService } from "../copy-signature.service";
-export declare class Signature implements OnInit, AfterViewInit {
+export declare class Signature implements OnInit, AfterViewInit, AfterViewChecked {
     private _signatureService;
     private _removeSignatureService;
     private _copySignatureService;
     private _activeSignatureService;
     private _signaturesHolderService;
+    private _zoomService;
     id: number;
     data: AddedSignature;
     position: Position;
@@ -24,8 +25,9 @@ export declare class Signature implements OnInit, AfterViewInit {
     baseCopied: boolean;
     private oldPosition;
     private subject;
-    constructor(_signatureService: SignatureService, _removeSignatureService: RemoveSignatureService, _copySignatureService: CopySignatureService, _activeSignatureService: ActiveSignatureService, _signaturesHolderService: SignaturesHolderService);
+    constructor(_signatureService: SignatureService, _removeSignatureService: RemoveSignatureService, _copySignatureService: CopySignatureService, _activeSignatureService: ActiveSignatureService, _signaturesHolderService: SignaturesHolderService, _zoomService: ZoomService);
     ngOnInit(): void;
+    ngAfterViewChecked(): void;
     getData(): string;
     dragOver($event: DragEvent): void;
     dragStart($event: DragEvent): void;

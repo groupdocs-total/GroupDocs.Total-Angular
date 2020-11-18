@@ -9,6 +9,8 @@ describe('Viewer', () => {
     cy.fixture("editorLoadConfigDefault").as('editorLoadConfigDefault');
     cy.fixture("signatureLoadConfigDefault").as('signatureLoadConfigDefault');
     cy.fixture("annotationLoadConfigDefault").as('annotationLoadConfigDefault');
+    cy.fixture("metadataLoadConfigDefault").as('metadataLoadConfigDefault');
+    cy.fixture("searchLoadConfigDefault").as('searchLoadConfigDefault');
     cy.fixture("loadFileTreeDefault").as('loadFileTreeDefault');
     cy.fixture("loadFileTreeSubFolder").as('loadFileTreeSubFolder');
     cy.fixture("loadDocumentDescriptionDefault").as('loadDocumentDescriptionDefault');
@@ -19,6 +21,8 @@ describe('Viewer', () => {
     cy.route('http://localhost:8080/editor/loadConfig', "@editorLoadConfigDefault");
     cy.route('http://localhost:8080/signature/loadConfig', "@signatureLoadConfigDefault");
     cy.route('http://localhost:8080/annotation/loadConfig', "@annotationLoadConfigDefault");
+    cy.route('http://localhost:8080/metadata/loadConfig', "@metadataLoadConfigDefault");
+    cy.route('http://localhost:8080/search/loadConfig', "@searchLoadConfigDefault");
 
     cy.route('POST','http://localhost:8080/viewer/loadFileTree', "@loadFileTreeDefault");
     cy.route('POST','http://localhost:8080/viewer/loadDocumentDescription', "@loadDocumentDescriptionDefault");
@@ -95,7 +99,6 @@ describe('Viewer', () => {
     cy.get('.page').its('length').should('eq',5);
   });
 
-
   it('for opened file when thumbnail button clicked should open thumbnail panel', () => {
     cy.visit('/viewer');
     cy.get('#tools > gd-button:nth-child(1)').click();
@@ -114,7 +117,5 @@ describe('Viewer', () => {
     cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
     cy.get('#gd-thumbnails-page-3').should('be.visible').click();
     cy.get('#page-3').should('be.visible');
-
   });
-
 });

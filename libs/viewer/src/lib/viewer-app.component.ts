@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChildren, QueryList, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, HostListener} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -9,7 +9,6 @@ import {
   PagePreloadService,
   PageModel,
   ZoomService,
-  RotatedPage,
   RenderPrintService,
   FileUtil,
   PasswordService,
@@ -18,7 +17,9 @@ import {
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
 import {WindowService} from "@groupdocs.examples.angular/common-components";
-//import * as Hammer from 'hammerjs';
+import { Subscription } from 'rxjs';
+import { Constants } from './viewer.constants';
+import { IntervalTimer } from './interval-timer';
 
 @Component({
   selector: 'gd-viewer',
@@ -43,21 +44,58 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   _pageWidth: number;
   _pageHeight: number;
   options;
-  //@ViewChildren('docPanel') docPanelComponent: QueryList<ElementRef>;
+  timerOptions;
+  intervalTime: number;
+  intervalTimer: IntervalTimer;
+  countDownInterval: number;
+  secondsLeft: number;
   fileWasDropped = false;
   formatIcon: string;
+
+  fileParam: string;
+  querySubscription: Subscription;
+  selectedPageNumber: number;
+  runPresentation: boolean;
+  isFullScreen: boolean;
+  startScrollTime: number;
+  endScrollTime: number;
+
+  docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
+    mozRequestFullScreen(): Promise<void>;
+    webkitRequestFullscreen(): Promise<void>;
+    msRequestFullscreen(): Promise<void>;
+  };
+  
+  docWithBrowsersExitFunctions = document as Document & {
+    mozCancelFullScreen(): Promise<void>;
+    webkitExitFullscreen(): Promise<void>;
+    msExitFullscreen(): Promise<void>;
+  };
+
+  zoomService: ZoomService;
+
+  @HostListener("document:fullscreenchange", [])
+  fullScreen() {
+    if (!document.fullscreenElement) {
+      this.closeFullScreen();
+    }
+  }
 
   constructor(private _viewerService: ViewerService,
               private _modalService: ModalService,
               configService: ViewerConfigService,
               uploadFilesService: UploadFilesService,
               private _navigateService: NavigateService,
-              private _zoomService: ZoomService,
+              zoomService: ZoomService,
               pagePreloadService: PagePreloadService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
               private _loadingMaskService: LoadingMaskService) {
+
+    this.zoomService = zoomService;
+    this.startScrollTime = Date.now();
+    this.endScrollTime = Date.now();
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -89,9 +127,11 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     });
 
     this.isDesktop = _windowService.isDesktop();
-    _windowService.onResize.subscribe((w) => {
+    _windowService.onResize.subscribe(() => {
       this.isDesktop = _windowService.isDesktop();
-      this.refreshZoom();
+      if (!this.runPresentation) {
+        this.refreshZoom();
+      }
     });
   }
 
@@ -100,6 +140,13 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.isLoading = true;
       this.selectFile(this.viewerConfig.defaultDocument, "", "");
     }
+
+    const queryString = window.location.search;
+    if (queryString) {
+      this.TryOpenFileByUrl(queryString);
+    }
+
+    this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
   }
 
   ngAfterViewInit() {
@@ -108,14 +155,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     .subscribe((loading: boolean) => this.isLoading = loading);
 
     this.refreshZoom();
-
-    // this.docPanelComponent.changes.subscribe((comps: QueryList<ElementRef>) =>
-    // {
-    //   comps.toArray().forEach((item) => {
-    //     const hammer = new Hammer(item.nativeElement);
-    //     hammer.get('pinch').set({ enable: true });
-    //   });
-    // });
   }
 
   get rewriteConfig(): boolean {
@@ -174,6 +213,32 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this._navigateService.currentPage;
   }
 
+  ifPresentation() {
+    return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint" : false;
+  }
+
+  ifExcel() {
+    return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft Excel" : false;
+  }
+
+  ifImage() {
+    return this.file ? this.formatIcon === "file-image" : false;
+  }
+
+  validURL(str) {
+    const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(str);
+  }
+
+  getFileName() {
+    return this.file.guid.replace(/^.*[\\\/]/, '');
+  }
+
   openModal(id: string) {
     this._modalService.open(id);
   }
@@ -193,20 +258,42 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         this.file = file;
         this.formatDisabled = !this.file;
         if (file) {
+          this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
           if (file.pages && file.pages[0]) {
             this._pageHeight = file.pages[0].height;
             this._pageWidth = file.pages[0].width;
             this.options = this.zoomOptions();
+            this.timerOptions = this.getTimerOptions();
             this.refreshZoom();
           }
-          const preloadPageCount = this.viewerConfig.preloadPageCount;
+          const preloadPageCount = !this.ifPresentation() ? this.viewerConfig.preloadPageCount 
+                                                          : (this.viewerConfig.preloadPageCount !== 0
+                                                             && this.viewerConfig.preloadPageCount < 3 ? 3
+                                                              : this.viewerConfig.preloadPageCount);
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
+            if (this.ifPresentation()) {
+              this.file.thumbnails = file.pages.slice();
+            }
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
+
+            if (!this.ifPresentation()) {
+              this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+                this.file.thumbnails = data.pages;
+              })
+            }
           }
           this._navigateService.countPages = countPages;
-          this._navigateService.currentPage = 1;
+          this._navigateService.currentPage = this.selectedPageNumber;
           this.countPages = countPages;
+
+          if (this.ifPresentation()) {
+            this.showThumbnails = true;
+          }
+          else {
+            this.showThumbnails = false;
+          }
+          this.runPresentation = false;
         }
       }
     );
@@ -220,19 +307,39 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     for (let i = start; i <= end; i++) {
       this._viewerService.loadPage(this.credentials, i).subscribe((page: PageModel) => {
         this.file.pages[i - 1] = page;
+        if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data) {
+          if (page.data) {
+            page.data = page.data.replace(/>\s+</g, '><')
+              .replace(/\uFEFF/g, "")
+              .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+              .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+              .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+          }
+          this.file.thumbnails[i - 1].data = page.data;
+        }
       });
     }
   }
 
   upload($event: string) {
-    this._viewerService.upload(null, $event, this.rewriteConfig).subscribe(() => {
-      this.selectDir('');
+    this._viewerService.upload(null, $event, this.rewriteConfig).subscribe((uploadedDocument: any) => {
+      if (this.fileParam !== '') {
+        this.selectFile(uploadedDocument.guid, '', '');
+        this.fileParam = '';
+      }
+      else {
+        this.selectDir('');
+      }
     });
   }
 
   nextPage() {
     if (this.formatDisabled)
       return;
+    if (this.intervalTimer && this._navigateService.currentPage + 1 > this.countPages) {
+      this.intervalTimer.stop();
+      this.intervalTime = 0;
+    }
     this._navigateService.nextPage();
   }
 
@@ -252,12 +359,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     this._navigateService.toFirstPage();
-  }
-
-  navigateToPage(page: number) {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.navigateTo(page);
   }
 
   zoomIn() {
@@ -285,33 +386,60 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return pt * 96 / 72;
   }
 
-  private getFitToWidth() {
+  getFitToWidth() {
     // Images and Excel-related files receiving dimensions in px from server
-    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
-    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
+    const pageWidth = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageHeight : this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
-    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+    const presentationThumbnails = this.isDesktop && this.ifPresentation() && !this.runPresentation;
+
+    if (!this.runPresentation) {
+      return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / (presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth : window.innerWidth))
+        : (!this.isDesktop ? Math.round(window.innerWidth * 100 / offsetWidth)
+          : Math.round(((presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth
+            : window.innerHeight) / offsetWidth) * 100));
+    }
+    else {
+      return Math.round(window.innerWidth * 100 / offsetWidth);
+    }
   }
 
-  private getFitToHeight() {
-    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
-    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
+  getFitToHeight() {
+    const pageWidth = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageHeight : this.ptToPx(this._pageHeight);
     const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
     const offsetHeight = pageHeight ? pageHeight : windowHeight;
-
-    return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
+    
+    if (!this.ifPresentation() && !(this.ifImage())) {
+      return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
+    }
+    if (this.ifPresentation()) {
+      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (!this.runPresentation ? offsetHeight + Constants.documentMargin * 2 + Constants.scrollWidth
+        : offsetHeight));
+    }
+    if (this.ifImage()) {
+      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (offsetHeight + Constants.documentMargin * 2 + Constants.scrollWidth));
+    }
   }
 
   zoomOptions() {
     const width = this.getFitToWidth();
     const height = this.getFitToHeight();
-    return this._zoomService.zoomOptions(width, height);
+    return this.zoomService.zoomOptions(width, height);
+  }
+
+  getTimerOptions() {
+    return [{value: 0, name: 'None', separator: false},
+      {value: 5, name: '5 sec', separator: false},
+      {value: 10, name: '10 sec', separator: false},
+      {value: 15, name: '15 sec', separator: false},
+      {value: 30, name: '30 sec', separator: false}];
   }
 
   set zoom(zoom) {
     this._zoom = zoom;
-    this._zoomService.changeZoom(this._zoom);
+    this.zoomService.changeZoom(this._zoom);
   }
 
   get zoom() {
@@ -326,28 +454,29 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     const pageNumber = this._navigateService.currentPage;
+    const pageModel = this.file.pages[pageNumber - 1];
 
     if (this.saveRotateStateConfig && this.file) {
-      this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((data: RotatedPage[]) => {
-        for (const page of data) {
-          const pageModel = this.file.pages[page.pageNumber - 1];
-          if (this.file && this.file.pages && pageModel) {
-            this.changeAngle(pageModel, page.angle);
+      this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((page: PageModel) => {
+        const updatedData = page.data.replace(/>\s+</g,'><')
+          .replace(/\uFEFF/g,"")
+          .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+          .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+          .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+        page.data = updatedData;
+        this.file.pages[pageNumber - 1] = page;
+
+        if (this.file && this.file.pages && pageModel) {
+          const angle = pageModel.angle + deg;
+          if (angle > 360) {
+            this.changeAngle(pageModel, 90);
+          } else if (angle < -360) {
+            this.changeAngle(pageModel, -90);
+          } else {
+            this.changeAngle(pageModel, angle);
           }
         }
       })
-    } else {
-      const pageModel = this.file.pages[pageNumber - 1];
-      if (this.file && this.file.pages && pageModel) {
-        const angle = pageModel.angle + deg;
-        if (angle > 360) {
-          this.changeAngle(pageModel, 90);
-        } else if (angle < -360) {
-          this.changeAngle(pageModel, -90);
-        } else {
-          this.changeAngle(pageModel, angle);
-        }
-      }
     }
   }
 
@@ -364,18 +493,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   printFile() {
     if (this.formatDisabled)
       return;
-    if (this.viewerConfig.preloadPageCount !== 0) {
-      if (FileUtil.find(this.file.guid, false).format === "Portable Document Format") {
-        this._viewerService.loadPrintPdf(this.credentials).subscribe(blob => {
-          const file = new Blob([blob], {type: 'application/pdf'});
-          this._renderPrintService.changeBlob(file);
-        });
-      } else {
-        this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
-          this.file.pages = data.pages;
-          this._renderPrintService.changePages(this.file.pages);
-        });
-      }
+    if (this.viewerConfig.htmlMode) {
+      this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
+        this._renderPrintService.changePages(data.pages);
+      });
     } else {
       this._renderPrintService.changePages(this.file.pages);
     }
@@ -391,12 +512,18 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
 
     if (this.viewerConfig.preloadPageCount === 0) {
+      this.runPresentation = false;
       this.showThumbnails = true;
     } else {
-      this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
-        this.file.pages = data.pages;
+      if (this.file.thumbnails.filter(t => !t.data).length > 0) {
+        this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
+          this.file.thumbnails = data.pages;
+          this.showThumbnails = true;
+        })
+      }
+      else {
         this.showThumbnails = true;
-      })
+      }
     }
   }
 
@@ -409,7 +536,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onRightClick($event: MouseEvent) {
+  onRightClick() {
     return this.enableRightClickConfig;
   }
 
@@ -419,16 +546,218 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.showSearch = !this.showSearch;
   }
 
-  // onPinchIn($event){
-  //   this.zoomOut();
-  // }
-
-  // onPinchOut($event){
-  //   this.zoomIn();
-  // }
-
   private refreshZoom() {
-    this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
-    this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+    if (this.file) {
+      this.formatIcon = FileUtil.find(this.file.guid, false).icon;
+      this.zoom = this._windowService.isDesktop() && !(this.ifImage() || this.ifPresentation()) ? 100
+        : (this.ifImage() ? this.getFitToHeight()
+          : this.getFitToWidth());
+    }
+  }
+
+  selectCurrentPage(pageNumber)
+  {
+    this.selectedPageNumber = pageNumber;
+    this._navigateService.currentPage = pageNumber;
+    if (this.runPresentation && this.intervalTime > 0 && this.intervalTimer.state !== 3) {
+      this.resetInterval();
+      if (this.slideInRange()) {
+        this.startCountDown(this.intervalTime, true);
+      }
+    }
+  }
+
+  onMouseWheelUp()
+  {
+    this.startScrollTime = Date.now();
+    if (this.ifPresentation() && this.selectedPageNumber !== 1) {
+      if (this.startScrollTime - this.endScrollTime > 300 && this.vertScrollEnded(true)) {
+        this.selectedPageNumber = this.selectedPageNumber - 1;
+        this.endScrollTime = Date.now();
+      }
+    }
+  }
+
+  onMouseWheelDown()
+  {
+    this.startScrollTime = Date.now();
+    if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
+      if (this.startScrollTime - this.endScrollTime > 300 && this.vertScrollEnded(false)) {
+        this.startScrollTime = Date.now();
+        if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
+          this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
+          this.selectedPageNumber = this.selectedPageNumber + 1;
+        }
+        else {
+          this.selectedPageNumber = this.selectedPageNumber + 1;
+        }
+        this.endScrollTime = Date.now();
+      }
+    }
+  }
+
+  vertScrollEnded(onTop: boolean) {
+    const gdDocument = document.getElementsByClassName('gd-document')[0] as HTMLElement;
+    if (onTop)
+    {
+      return gdDocument.scrollTop === 0;
+    }
+    else return gdDocument.offsetHeight + gdDocument.scrollTop >= gdDocument.scrollHeight;
+  }
+
+  private TryOpenFileByUrl(queryString: string) {
+    const urlParams = new URLSearchParams(queryString);
+    this.fileParam = urlParams.get('file');
+
+    if (this.fileParam) {
+      this.isLoading = true;
+      if (this.validURL(this.fileParam)) {
+        this.upload(this.fileParam);
+      }
+      else {
+        this.selectFile(this.fileParam, '', '');
+      }
+    }
+  }
+
+  toggleTimer($event){
+    this.intervalTime = $event.value;
+    if (this.intervalTime !== 0) {
+      if (this.intervalTimer && this.intervalTimer.state === 1) {
+        this.intervalTimer.stop();
+      }
+      this.startCountDown(this.intervalTime);
+      this.startInterval(this.intervalTime);
+    }
+    else{
+      this.intervalTimer.stop();
+    }
+  }
+
+  showCountDown() {
+    return this.intervalTime > 0 && (this.slideInRange())
+  }
+
+  startCountDown(seconds: number, reset: boolean = false) {
+    clearInterval(this.countDownInterval);
+    if (seconds > 0) {
+      this.secondsLeft = seconds;
+      seconds--;
+      const interval = setInterval(() => {
+          this.secondsLeft = seconds;
+          seconds--;
+          if (seconds === 0) {
+            clearInterval(interval);
+          }
+      }, 1000);
+
+      this.countDownInterval = interval;
+    }
+  }
+
+  private startInterval(intervalTime: number) {
+    this.intervalTimer = new IntervalTimer(() => {
+      if (this.slideInRange()) {
+        this.nextPage();
+        if (this.slideInRange()) {
+          this.startCountDown(intervalTime);
+        }
+      }
+      else
+      {
+        this.intervalTimer.stop();
+      }
+    }, intervalTime * 1000);
+  }
+
+  private slideInRange() {
+    return this._navigateService.currentPage + 1 <= this.countPages;
+  }
+
+  private resetInterval() {
+    this.intervalTimer.stop();
+    this.startInterval(this.intervalTime);
+  }
+
+  pausePresenting() {
+    this.intervalTimer.pause();
+    this.startCountDown(0, true);
+  }
+
+  resumePresenting() {
+    this.intervalTimer.resume();
+    const secondsRemaining = Math.round(this.intervalTimer.remaining/1000);
+    this.startCountDown(secondsRemaining);
+  }
+
+  presentationRunning() {
+    return this.intervalTimer && this.intervalTimer.state === 1 && this.slideInRange();
+  }
+
+  presentationPaused() {
+    return this.intervalTimer && this.intervalTimer.state === 2 && this.slideInRange();
+  }
+
+  startPresentation() {
+    this.showThumbnails = false;
+    this.openFullScreen();
+    this.runPresentation = !this.runPresentation;
+
+    const intervalId = setInterval(() => {
+      if (screen.height === window.innerHeight && screen.width === window.innerWidth) {
+      this.zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 && this._pageWidth / this._pageHeight > 1.7 
+        ? this.getFitToWidth() : this.getFitToHeight());
+        clearInterval(intervalId);
+      }
+    }, 50);
+  }
+
+  openFullScreen() {
+    const docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
+      mozRequestFullScreen(): Promise<void>;
+      webkitRequestFullscreen(): Promise<void>;
+      msRequestFullscreen(): Promise<void>;
+    };
+  
+    if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
+      docElmWithBrowsersFullScreenFunctions.requestFullscreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) { /* Firefox */
+      docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen();
+    } else if (docElmWithBrowsersFullScreenFunctions.msRequestFullscreen) { /* IE/Edge */
+      docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
+    }
+    this.isFullScreen = true;
+  }
+  
+  closeFullScreen(byButton: boolean = false){
+    if (byButton) {
+      const docWithBrowsersExitFunctions = document as Document & {
+        mozCancelFullScreen(): Promise<void>;
+        webkitExitFullscreen(): Promise<void>;
+        msExitFullscreen(): Promise<void>;
+      };
+      if (docWithBrowsersExitFunctions.exitFullscreen) {
+        docWithBrowsersExitFunctions.exitFullscreen();
+      } else if (docWithBrowsersExitFunctions.mozCancelFullScreen) { /* Firefox */
+        docWithBrowsersExitFunctions.mozCancelFullScreen();
+      } else if (docWithBrowsersExitFunctions.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+        docWithBrowsersExitFunctions.webkitExitFullscreen();
+      } else if (docWithBrowsersExitFunctions.msExitFullscreen) { /* IE/Edge */
+        docWithBrowsersExitFunctions.msExitFullscreen();
+      }
+    }
+
+    if (this.intervalTimer) {
+      this.intervalTimer.stop();
+    }
+
+    this.isFullScreen = false;
+    this.runPresentation = false;
+    this.showThumbnails = true;
+    this.intervalTime = 0;
+    this.startCountDown(0);
+    this.refreshZoom();
   }
 }

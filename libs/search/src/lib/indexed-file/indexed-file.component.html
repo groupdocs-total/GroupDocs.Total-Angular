@@ -1,0 +1,18 @@
+<div *ngIf="file" class="gd-indexed-file">
+  <div class="gd-indexed-file-remove" (click)="removeFile($event, file)">
+    <span>&times;</span>
+  </div>
+  <div class="gd-indexed-file-name disabled">
+    <fa-icon [icon]="['fas', getFormatIcon()]" [class]="'ng-fa-icon'" [ngClass]="['fa-' + getFormatIcon()]"></fa-icon>
+    <div class="gd-file-name">{{file.name}}
+      <div class="gd-file-format">{{getFormatName()}}</div>
+    </div>
+  </div>
+  <div class="gd-file-size gd-indexed-file-size">{{getSizeString(file.size)}}</div>
+  <div class="gd-indexed-file-status-wrapper">
+    <div class="gd-indexed-file-status">
+      <fa-icon class="gd-indexed-file-successful" [icon]="['fas',getStatusIcon()]" [spin]="getStatusIcon() === 'circle-notch'"></fa-icon>
+      <span class="mobile-hide">{{getStatusTitle()}}</span>
+    </div>
+  </div>
+</div>

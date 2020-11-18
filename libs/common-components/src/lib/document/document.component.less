@@ -1,52 +1,60 @@
 @import "./../../../../common-components/src/styles/variables.less";
 
 :host {
-  flex: 1;
-  transition: all 0.4s;
+  flex            : 1;
+  transition      : all 0.4s;
   background-color: @mercury;
-  height: 100%;
-  overflow: scroll;
+  height          : 100%;
+  overflow        : scroll;
+  touch-action    : auto !important;
+
+  .document {
+    // lines below added to get rid of `user-select: none` added by hammerjs
+    user-select : text !important;
+    touch-action: auto !important;
+  }
 }
 
 .page {
-  display: inline-block;
-  background-color: #ffffff;
-  margin: 20px;
+  display           : inline-block;
+  background-color  : #ffffff;
+  margin            : 20px;
   -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-  -moz-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-  transition: all 0.3s;
+  -moz-box-shadow   : 0px 3px 6px rgba(0, 0, 0, 0.16);
+  box-shadow        : 0px 3px 6px rgba(0, 0, 0, 0.16);
+  transition        : all 0.3s;
+
   &.excel {
     overflow: auto;
+  }
+
+  &.presentation {
+    margin: 0px;
+    transition: unset;
+    &.active {
+      margin: 20px;
+    }
   }
 }
 
 .wait {
   position: absolute;
-  top: 55px;
-  left: Calc(50% - 20px);
+  top     : 55px;
+  left    : Calc(50% - 20px);
 }
 
 .panzoom {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display        : flex;
+  flex-direction : row;
+  flex-wrap      : wrap;
   justify-content: center;
-  align-content: flex-start;
-  &.mobile {
-    //overflow: scroll;
-  }
+  align-content  : flex-start;
 }
 
 @media @phone-down {
-  .document {
-    //TODO: removed because of unneded scrolls
-    //overflow-x: auto !important;
-  }
-
   .page {
-    min-width: unset !important;
+    min-width : unset !important;
     min-height: unset !important;
-    margin: 5px 0px;
+    margin    : 5px 0px;
   }
 }

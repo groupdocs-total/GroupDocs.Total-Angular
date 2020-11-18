@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy, AfterViewInit, OnChanges } from '@angular/core';
+import { OnInit, OnDestroy, AfterViewInit, OnChanges, EventEmitter } from '@angular/core';
 import { NavigateService, PageModel, ZoomService } from "@groupdocs.examples.angular/common-components";
 export declare class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     private _navigateService;
@@ -7,6 +7,7 @@ export declare class ThumbnailsComponent implements OnInit, OnChanges, AfterView
     guid: string;
     mode: boolean;
     isHtmlMode: boolean;
+    selectedPage: EventEmitter<number>;
     constructor(_navigateService: NavigateService, _zoomService: ZoomService);
     ngOnInit(): void;
     ngOnChanges(): void;

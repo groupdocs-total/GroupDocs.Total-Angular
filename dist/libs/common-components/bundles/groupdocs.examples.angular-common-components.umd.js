@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@angular/common/http'), require('jquery'), require('hammerjs'), require('@angular/platform-browser'), require('ng-click-outside')) :
     typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/common-components', ['exports', '@angular/core', '@angular/common', 'rxjs', 'rxjs/operators', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@angular/common/http', 'jquery', 'hammerjs', '@angular/platform-browser', 'ng-click-outside'], factory) :
     (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular['common-components'] = {}), global.ng.core, global.ng.common, global.rxjs, global.rxjs.operators, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ng.common.http, global.jquery, global.Hammer, global.ng.platformBrowser, global.ngClickOutside));
-}(this, function (exports, core, common, rxjs, operators, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, jquery, Hammer, platformBrowser, ngClickOutside) { 'use strict';
+}(this, (function (exports, core, common, rxjs, operators, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, http, jquery, Hammer, platformBrowser, ngClickOutside) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -33,6 +33,85 @@
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                    t[p[i]] = s[p[i]];
+            }
+        return t;
+    }
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    }
+
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+    }
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    function __exportStar(m, exports) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+
     function __values(o) {
         var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
         if (m) return m.call(o);
@@ -42,6 +121,84 @@
                 return { value: o && o[i++], done: !o };
             }
         };
+    }
+
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m) return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+        }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) m.call(i);
+            }
+            finally { if (e) throw e.error; }
+        }
+        return ar;
+    }
+
+    function __spread() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+            ar = ar.concat(__read(arguments[i]));
+        return ar;
+    }
+
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    };
+
+    function __await(v) {
+        return this instanceof __await ? (this.v = v, this) : new __await(v);
+    }
+
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
+        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+    }
+
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+    }
+
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+    }
+
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        return cooked;
+    };
+
+    function __importStar(mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+        result.default = mod;
+        return result;
+    }
+
+    function __importDefault(mod) {
+        return (mod && mod.__esModule) ? mod : { default: mod };
     }
 
     /**
@@ -55,7 +212,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-top-toolbar',
                         template: "<div class=\"top-toolbar\">\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:flex;align-items:center}.tools{width:100%;height:100%;display:flex;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:flex;align-items:center;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
+                        styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.tools{width:100%;height:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-transition:.3s ease-in-out;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -69,13 +226,16 @@
      */
     var SidePanelComponent = /** @class */ (function () {
         function SidePanelComponent() {
+            this.closable = true;
+            this.saveable = true;
             this.hideSidePanel = new core.EventEmitter();
+            this.saveInSidePanel = new core.EventEmitter();
             this.onlyTitle = false;
         }
         /**
          * @return {?}
          */
-        SidePanelComponent.prototype.openSidePanel = /**
+        SidePanelComponent.prototype.closeSidePanel = /**
          * @return {?}
          */
         function () {
@@ -84,17 +244,28 @@
         /**
          * @return {?}
          */
+        SidePanelComponent.prototype.saveBySidePanel = /**
+         * @return {?}
+         */
+        function () {
+            this.saveInSidePanel.emit(true);
+        };
+        /**
+         * @return {?}
+         */
         SidePanelComponent.prototype.toggleTitleMode = /**
          * @return {?}
          */
         function () {
-            this.onlyTitle = !this.onlyTitle;
+            if (this.closable && !this.saveable) {
+                this.onlyTitle = !this.onlyTitle;
+            }
         };
         SidePanelComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-side-panel',
-                        template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"close\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"openSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;transition:margin-right .2s;display:flex;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:flex;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close{display:flex;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header /deep/ gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:flex;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
+                        template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"save\" *ngIf=\"saveable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\r\n    </div>\r\n    <div class=\"close\" *ngIf=\"closable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                        styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;-webkit-transition:margin-right .2s;transition:margin-right .2s;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close,.gd-side-panel-wrapper .gd-side-panel-header .save{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header ::ng-deep gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -102,10 +273,29 @@
         SidePanelComponent.propDecorators = {
             title: [{ type: core.Input }],
             icon: [{ type: core.Input }],
-            hideSidePanel: [{ type: core.Output }]
+            closable: [{ type: core.Input }],
+            saveable: [{ type: core.Input }],
+            hideSidePanel: [{ type: core.Output }],
+            saveInSidePanel: [{ type: core.Output }]
         };
         return SidePanelComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        SidePanelComponent.prototype.title;
+        /** @type {?} */
+        SidePanelComponent.prototype.icon;
+        /** @type {?} */
+        SidePanelComponent.prototype.closable;
+        /** @type {?} */
+        SidePanelComponent.prototype.saveable;
+        /** @type {?} */
+        SidePanelComponent.prototype.hideSidePanel;
+        /** @type {?} */
+        SidePanelComponent.prototype.saveInSidePanel;
+        /** @type {?} */
+        SidePanelComponent.prototype.onlyTitle;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -208,6 +398,28 @@
         };
         return WindowService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype.resizeSubject;
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype._resize$;
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype.width;
+        /**
+         * @type {?}
+         * @private
+         */
+        WindowService.prototype.height;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -285,7 +497,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-button',
                         template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [position]=\"elementPosition\" class=\"button-tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:flex;flex-direction:column;align-items:center;align-content:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}.button .button-tooltip{display:flex;flex-direction:column}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
+                        styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;align-content:center;-webkit-box-pack:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}.button .button-tooltip{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -307,6 +519,37 @@
         };
         return ButtonComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ButtonComponent.prototype.iconOnly;
+        /** @type {?} */
+        ButtonComponent.prototype.intent;
+        /** @type {?} */
+        ButtonComponent.prototype.disabled;
+        /** @type {?} */
+        ButtonComponent.prototype.icon;
+        /** @type {?} */
+        ButtonComponent.prototype.iconClass;
+        /** @type {?} */
+        ButtonComponent.prototype.tooltip;
+        /** @type {?} */
+        ButtonComponent.prototype.className;
+        /** @type {?} */
+        ButtonComponent.prototype.toggle;
+        /** @type {?} */
+        ButtonComponent.prototype.iconSize;
+        /** @type {?} */
+        ButtonComponent.prototype.iconRegular;
+        /** @type {?} */
+        ButtonComponent.prototype.elementPosition;
+        /** @type {?} */
+        ButtonComponent.prototype.showToolTip;
+        /**
+         * @type {?}
+         * @private
+         */
+        ButtonComponent.prototype.isDesktop;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -327,7 +570,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-logo',
                         template: "<div id=\"gd-header-logo\" class=\"logo\">\r\n  <span class=\"text\" [innerHTML]=\"logo\"></span>\r\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n\r\n",
-                        styles: [".logo{background-color:#25c2d4;height:60px;display:flex;align-items:center;justify-content:center}.text{color:#fff;font-size:15px;text-transform:uppercase;margin:0 14px}.icon{display:none;font-size:32px;color:rgba(255,255,255,.5);margin:14px}@media (max-width:1037px){.logo{width:60px;height:60px}.logo .text{display:none}.logo .icon{display:block}}"]
+                        styles: [".logo{background-color:#25c2d4;height:60px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.text{color:#fff;font-size:15px;text-transform:uppercase;margin:0 14px}.icon{display:none;font-size:32px;color:rgba(255,255,255,.5);margin:14px}@media (max-width:1037px){.logo{width:60px;height:60px}.logo .text{display:none}.logo .icon{display:block}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -338,6 +581,12 @@
         };
         return LogoComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        LogoComponent.prototype.logo;
+        /** @type {?} */
+        LogoComponent.prototype.icon;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -383,7 +632,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-tooltip',
                         template: "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n",
-                        styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:0!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
+                        styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:8px!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
                     }] }
         ];
         /** @nocollapse */
@@ -395,6 +644,14 @@
         };
         return TooltipComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TooltipComponent.prototype.text;
+        /** @type {?} */
+        TooltipComponent.prototype.position;
+        /** @type {?} */
+        TooltipComponent.prototype.visibility;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -406,14 +663,20 @@
         Api.VIEWER_APP = '/viewer';
         Api.SIGNATURE_APP = '/signature';
         Api.ANNOTATION_APP = '/annotation';
+        Api.SEARCH_APP = '/search';
         Api.EDITOR_APP = '/editor';
         Api.COMPARISON_APP = '/comparison';
         Api.CONVERSION_APP = '/conversion';
+        Api.METADATA_APP = '/metadata';
         Api.DEFAULT_API_ENDPOINT = window.location.href;
         Api.LOAD_FILE_TREE = '/loadFileTree';
         Api.LOAD_CONFIG = '/loadConfig';
         Api.LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
         Api.LOAD_DOCUMENT_PAGE = '/loadDocumentPage';
+        Api.LOAD_DOCUMENT_PROPERTIES = '/loadProperties';
+        Api.LOAD_DOCUMENT_PROPERTIES_NAMES = '/loadPropertiesNames';
+        Api.SAVE_PROPERTY = '/saveProperty';
+        Api.REMOVE_PROPERTY = '/removeProperty';
         Api.ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
         Api.UPLOAD_DOCUMENTS = '/uploadDocument';
         Api.DOWNLOAD_DOCUMENTS = '/downloadDocument';
@@ -422,9 +685,12 @@
         Api.LOAD_THUMBNAILS = '/loadThumbnails';
         Api.LOAD_FORMATS = '/loadFormats';
         Api.SAVE_FILE = '/saveFile';
+        Api.CREATE_FILE = '/createFile';
         Api.COMPARE_FILES = '/compare';
         Api.CONVERT_FILE = '/convert';
         Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+        Api.REMOVE_FROM_INDEX = '/removeFromIndex';
+        Api.GET_FILE_STATUS = '/getFileStatus';
         Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
         Api.SAVE_TEXT = '/saveText';
         Api.SAVE_IMAGE = '/saveImage';
@@ -433,6 +699,8 @@
         Api.DOWNLOAD_SIGNED = '/downloadSigned';
         Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
         Api.ANNOTATE = '/annotate';
+        Api.SEARCH = '/search';
+        Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
         Api.httpOptionsJson = {
             headers: new http.HttpHeaders({
                 'Content-Type': 'application/json',
@@ -446,6 +714,94 @@
         };
         return Api;
     }());
+    if (false) {
+        /** @type {?} */
+        Api.VIEWER_APP;
+        /** @type {?} */
+        Api.SIGNATURE_APP;
+        /** @type {?} */
+        Api.ANNOTATION_APP;
+        /** @type {?} */
+        Api.SEARCH_APP;
+        /** @type {?} */
+        Api.EDITOR_APP;
+        /** @type {?} */
+        Api.COMPARISON_APP;
+        /** @type {?} */
+        Api.CONVERSION_APP;
+        /** @type {?} */
+        Api.METADATA_APP;
+        /** @type {?} */
+        Api.DEFAULT_API_ENDPOINT;
+        /** @type {?} */
+        Api.LOAD_FILE_TREE;
+        /** @type {?} */
+        Api.LOAD_CONFIG;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_DESCRIPTION;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_PAGE;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_PROPERTIES;
+        /** @type {?} */
+        Api.LOAD_DOCUMENT_PROPERTIES_NAMES;
+        /** @type {?} */
+        Api.SAVE_PROPERTY;
+        /** @type {?} */
+        Api.REMOVE_PROPERTY;
+        /** @type {?} */
+        Api.ROTATE_DOCUMENT_PAGE;
+        /** @type {?} */
+        Api.UPLOAD_DOCUMENTS;
+        /** @type {?} */
+        Api.DOWNLOAD_DOCUMENTS;
+        /** @type {?} */
+        Api.LOAD_PRINT;
+        /** @type {?} */
+        Api.LOAD_PRINT_PDF;
+        /** @type {?} */
+        Api.LOAD_THUMBNAILS;
+        /** @type {?} */
+        Api.LOAD_FORMATS;
+        /** @type {?} */
+        Api.SAVE_FILE;
+        /** @type {?} */
+        Api.CREATE_FILE;
+        /** @type {?} */
+        Api.COMPARE_FILES;
+        /** @type {?} */
+        Api.CONVERT_FILE;
+        /** @type {?} */
+        Api.DELETE_SIGNATURE_FILE;
+        /** @type {?} */
+        Api.REMOVE_FROM_INDEX;
+        /** @type {?} */
+        Api.GET_FILE_STATUS;
+        /** @type {?} */
+        Api.SAVE_OPTICAL_CODE;
+        /** @type {?} */
+        Api.SAVE_TEXT;
+        /** @type {?} */
+        Api.SAVE_IMAGE;
+        /** @type {?} */
+        Api.SAVE_STAMP;
+        /** @type {?} */
+        Api.SIGN;
+        /** @type {?} */
+        Api.DOWNLOAD_SIGNED;
+        /** @type {?} */
+        Api.LOAD_SIGNATURE_IMAGE;
+        /** @type {?} */
+        Api.ANNOTATE;
+        /** @type {?} */
+        Api.SEARCH;
+        /** @type {?} */
+        Api.ADD_FILES_TO_INDEX;
+        /** @type {?} */
+        Api.httpOptionsJson;
+        /** @type {?} */
+        Api.httpOptionsJsonResponseTypeBlob;
+    }
     var ConfigService = /** @class */ (function () {
         function ConfigService() {
             this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
@@ -517,6 +873,15 @@
         /**
          * @return {?}
          */
+        ConfigService.prototype.getMetadataApiEndpoint = /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
+        };
+        /**
+         * @return {?}
+         */
         ConfigService.prototype.getSignatureApiEndpoint = /**
          * @return {?}
          */
@@ -532,6 +897,15 @@
         function () {
             return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
         };
+        /**
+         * @return {?}
+         */
+        ConfigService.prototype.getSearchApiEndpoint = /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
+        };
         ConfigService.decorators = [
             { type: core.Injectable }
         ];
@@ -539,6 +913,13 @@
         ConfigService.ctorParameters = function () { return []; };
         return ConfigService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ConfigService.prototype._apiEndpoint;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -557,6 +938,24 @@
         CommonModals.InformationMessage = "gd-information-message";
         return CommonModals;
     }());
+    if (false) {
+        /** @type {?} */
+        CommonModals.PasswordRequired;
+        /** @type {?} */
+        CommonModals.ErrorMessage;
+        /** @type {?} */
+        CommonModals.BrowseFiles;
+        /** @type {?} */
+        CommonModals.CreateDocument;
+        /** @type {?} */
+        CommonModals.OperationSuccess;
+        /** @type {?} */
+        CommonModals.DrawHandSignature;
+        /** @type {?} */
+        CommonModals.DrawStampSignature;
+        /** @type {?} */
+        CommonModals.InformationMessage;
+    }
     var ModalService = /** @class */ (function () {
         function ModalService() {
             this.modals = [];
@@ -627,6 +1026,13 @@
         };
         return ModalService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ModalService.prototype.modals;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -714,7 +1120,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-modal',
                         template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\r\n</div>\r\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\r\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\r\n\r\n    <div class=\"gd-modal-header\">\r\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\r\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-body\">\r\n      <ng-content></ng-content>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-footer\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n",
-                        styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1051}.gd-modal-content{background-color:#fff;height:100%;display:flex;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
+                        styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:1051}.gd-modal-dialog ::ng-deep .button{-webkit-box-orient:unset!important;-webkit-box-direction:unset!important;flex-direction:unset!important}.gd-modal-content{background-color:#fff;height:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -730,6 +1136,28 @@
         };
         return ModalComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ModalComponent.prototype.id;
+        /** @type {?} */
+        ModalComponent.prototype.title;
+        /** @type {?} */
+        ModalComponent.prototype.visible;
+        /** @type {?} */
+        ModalComponent.prototype.cancel;
+        /** @type {?} */
+        ModalComponent.prototype.visibility;
+        /**
+         * @type {?}
+         * @private
+         */
+        ModalComponent.prototype.element;
+        /**
+         * @type {?}
+         * @private
+         */
+        ModalComponent.prototype.modalService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -740,11 +1168,31 @@
         }
         return PageModel;
     }());
+    if (false) {
+        /** @type {?} */
+        PageModel.prototype.data;
+        /** @type {?} */
+        PageModel.prototype.angle;
+        /** @type {?} */
+        PageModel.prototype.width;
+        /** @type {?} */
+        PageModel.prototype.height;
+        /** @type {?} */
+        PageModel.prototype.number;
+        /** @type {?} */
+        PageModel.prototype.editable;
+    }
     var RotatedPage = /** @class */ (function () {
         function RotatedPage() {
         }
         return RotatedPage;
     }());
+    if (false) {
+        /** @type {?} */
+        RotatedPage.prototype.pageNumber;
+        /** @type {?} */
+        RotatedPage.prototype.angle;
+    }
     var FileCredentials = /** @class */ (function () {
         function FileCredentials(guid, password) {
             this.guid = guid;
@@ -752,6 +1200,12 @@
         }
         return FileCredentials;
     }());
+    if (false) {
+        /** @type {?} */
+        FileCredentials.prototype.guid;
+        /** @type {?} */
+        FileCredentials.prototype.password;
+    }
     var SaveFile = /** @class */ (function (_super) {
         __extends(SaveFile, _super);
         function SaveFile(guid, password, content) {
@@ -761,17 +1215,45 @@
         }
         return SaveFile;
     }(FileCredentials));
+    if (false) {
+        /** @type {?} */
+        SaveFile.prototype.content;
+    }
     var FileDescription = /** @class */ (function () {
         function FileDescription() {
             this.printAllowed = true;
         }
         return FileDescription;
     }());
+    if (false) {
+        /** @type {?} */
+        FileDescription.prototype.guid;
+        /** @type {?} */
+        FileDescription.prototype.pages;
+        /** @type {?} */
+        FileDescription.prototype.printAllowed;
+        /** @type {?} */
+        FileDescription.prototype.showGridLines;
+        /** @type {?} */
+        FileDescription.prototype.thumbnails;
+    }
     var FileModel = /** @class */ (function () {
         function FileModel() {
         }
         return FileModel;
     }());
+    if (false) {
+        /** @type {?} */
+        FileModel.prototype.guid;
+        /** @type {?} */
+        FileModel.prototype.name;
+        /** @type {?} */
+        FileModel.prototype.directory;
+        /** @type {?} */
+        FileModel.prototype.size;
+        /** @type {?} */
+        FileModel.prototype.isDirectory;
+    }
     var HttpError = /** @class */ (function () {
         function HttpError() {
         }
@@ -784,6 +1266,22 @@
         HttpError.InternalServerError = 500;
         return HttpError;
     }());
+    if (false) {
+        /** @type {?} */
+        HttpError.BadRequest;
+        /** @type {?} */
+        HttpError.Unauthorized;
+        /** @type {?} */
+        HttpError.Forbidden;
+        /** @type {?} */
+        HttpError.NotFound;
+        /** @type {?} */
+        HttpError.TimeOut;
+        /** @type {?} */
+        HttpError.Conflict;
+        /** @type {?} */
+        HttpError.InternalServerError;
+    }
     var Utils = /** @class */ (function () {
         function Utils() {
         }
@@ -1001,6 +1499,10 @@
         };
         return FileUtil;
     }());
+    if (false) {
+        /** @type {?} */
+        FileUtil.map;
+    }
     var FileService = /** @class */ (function () {
         function FileService() {
         }
@@ -1045,6 +1547,18 @@
         };
         return UploadFilesService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFilesService.prototype._uploadsChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFilesService.prototype._observer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1242,7 +1756,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-browse-files-modal',
                         template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\r\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\r\n    <div class=\"dnd-wrapper\">\r\n      <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n      <span class=\"text\">Drop file here to upload</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\r\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\r\n            (change)=\"handleFileInput($event.target.files)\">\r\n    <div class=\"context\">\r\n      <div class=\"context-actions\">\r\n        <gd-drop-down>\r\n          <gd-drop-down-toggle>\r\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\r\n              Upload file\r\n            </gd-button>\r\n          </gd-drop-down-toggle>\r\n          <gd-drop-down-items>\r\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\r\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\r\n              <div class=\"text\">{{item.name}}</div>\r\n            </gd-drop-down-item>\r\n          </gd-drop-down-items>\r\n        </gd-drop-down>\r\n      </div>\r\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\r\n        <div class=\"upload-url\">\r\n          <input class=\"url-input\" placeholder=\"https://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\r\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\r\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\r\n    <div class=\"header-name\">FILE</div>\r\n    <div class=\"header-size\">SIZE</div>\r\n  </div>\r\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\r\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\r\n      <div class=\"list-files-body\">\r\n        <div class=\"go-up\" (click)=\"goUp()\">\r\n            <div class=\"go-up-icon\">\r\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\r\n            </div>\r\n            <div class=\"go-up-dots\">..</div>\r\n        </div>\r\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\r\n          <div class=\"file-description\">\r\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\r\n            <div class=\"file-name-format\">\r\n              <div class=\"file-name\">{{file?.name}}</div>\r\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\r\n            </div>\r\n          </div>\r\n          <div class=\"file-size\">\r\n            {{getSize(file?.size)}}\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n      &nbsp;Loading... Please wait.\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                        styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:flex;width:100%;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:flex;position:relative;width:100%}.upload-panel .context{display:flex;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;width:96px;padding:0;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:flex;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:flex;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:100%;height:calc(100% - 60px);background:rgba(255,255,255,.7);z-index:1;display:flex;justify-content:center;align-items:center}.dnd-wrapper{display:flex;flex-direction:column;align-items:center;justify-content:center;top:259px;position:absolute}.dnd-wrapper .text{color:#6e6e6e;font-size:14px}.dnd-wrapper .icon{display:flex;width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
+                        styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:-webkit-box;display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;-webkit-box-flex:1;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:-webkit-box;display:flex;width:100%;-webkit-box-pack:justify;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:-webkit-box;display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:-webkit-box;display:flex;position:relative;width:100%}.upload-panel .context{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;width:96px;padding:0;-webkit-box-pack:center;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:100%;height:calc(100% - 60px);background:rgba(255,255,255,.7);z-index:1;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.dnd-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;top:259px;position:absolute}.dnd-wrapper .text{color:#6e6e6e;font-size:14px}.dnd-wrapper .icon{display:-webkit-box;display:flex;width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1259,6 +1773,36 @@
         };
         return BrowseFilesModalComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.uploads;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.files;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.uploadConfig;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.selectedFileGuid;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.selectedDirectory;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.urlForUpload;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.closing;
+        /**
+         * @type {?}
+         * @private
+         */
+        BrowseFilesModalComponent.prototype.selectedFile;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.showUploadUrl;
+        /** @type {?} */
+        BrowseFilesModalComponent.prototype.showUploadFile;
+        /**
+         * @type {?}
+         * @private
+         */
+        BrowseFilesModalComponent.prototype._uploadService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1342,6 +1886,229 @@
         };
         return ZoomService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomService.prototype._zoomChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomService.prototype._zoom;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var PagePreloadService = /** @class */ (function () {
+        function PagePreloadService() {
+            var _this = this;
+            this._checkPreload = new rxjs.Observable((/**
+             * @param {?} observer
+             * @return {?}
+             */
+            function (observer) {
+                return _this._observer = observer;
+            }));
+        }
+        Object.defineProperty(PagePreloadService.prototype, "checkPreload", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._checkPreload;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {?} page
+         * @return {?}
+         */
+        PagePreloadService.prototype.changeLastPageInView = /**
+         * @param {?} page
+         * @return {?}
+         */
+        function (page) {
+            if (this._observer) {
+                this._observer.next(page);
+            }
+        };
+        return PagePreloadService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        PagePreloadService.prototype._checkPreload;
+        /**
+         * @type {?}
+         * @private
+         */
+        PagePreloadService.prototype._observer;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var NavigateService = /** @class */ (function () {
+        function NavigateService(_pagePreloadService) {
+            this._pagePreloadService = _pagePreloadService;
+            this._currentPage = 0;
+            this._countPages = 0;
+            this._observer = new rxjs.Subject();
+            this._navigate = this._observer;
+        }
+        Object.defineProperty(NavigateService.prototype, "navigate", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._navigate;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(NavigateService.prototype, "countPages", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._countPages;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._countPages = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(NavigateService.prototype, "currentPage", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._currentPage;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._currentPage = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        NavigateService.prototype.nextPage = /**
+         * @return {?}
+         */
+        function () {
+            if (this._currentPage < this._countPages) {
+                this._currentPage++;
+                this.navigateTo(this._currentPage);
+            }
+        };
+        /**
+         * @return {?}
+         */
+        NavigateService.prototype.prevPage = /**
+         * @return {?}
+         */
+        function () {
+            if (this._currentPage > 1) {
+                this._currentPage--;
+                this.navigateTo(this._currentPage);
+            }
+        };
+        /**
+         * @return {?}
+         */
+        NavigateService.prototype.toLastPage = /**
+         * @return {?}
+         */
+        function () {
+            this._currentPage = this._countPages;
+            this.navigateTo(this._currentPage);
+        };
+        /**
+         * @return {?}
+         */
+        NavigateService.prototype.toFirstPage = /**
+         * @return {?}
+         */
+        function () {
+            this._currentPage = 1;
+            this.navigateTo(this._currentPage);
+        };
+        /**
+         * @param {?} page
+         * @return {?}
+         */
+        NavigateService.prototype.navigateTo = /**
+         * @param {?} page
+         * @return {?}
+         */
+        function (page) {
+            this.currentPage = page;
+            this._pagePreloadService.changeLastPageInView(page);
+            this._observer.next(page);
+        };
+        NavigateService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        NavigateService.ctorParameters = function () { return [
+            { type: PagePreloadService }
+        ]; };
+        /** @nocollapse */ NavigateService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(core.ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
+        return NavigateService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._currentPage;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._countPages;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._navigate;
+        /**
+         * @type {?}
+         * @private
+         */
+        NavigateService.prototype._pagePreloadService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1350,11 +2117,12 @@
     /** @type {?} */
     var $$1 = jquery;
     var DocumentComponent = /** @class */ (function () {
-        function DocumentComponent(_elementRef, _zoomService, _windowService) {
+        function DocumentComponent(_elementRef, _zoomService, _windowService, _navigateService) {
             var _this = this;
             this._elementRef = _elementRef;
             this._zoomService = _zoomService;
             this._windowService = _windowService;
+            this._navigateService = _navigateService;
             this.wait = false;
             this.docWidth = null;
             this.docHeight = null;
@@ -1380,6 +2148,13 @@
                 _this.zoom = val;
             }));
             this.isDesktop = _windowService.isDesktop();
+            this._navigateService.navigate.subscribe((((/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                _this.selectedPage = value;
+            }))));
         }
         /**
          * @return {?}
@@ -1388,6 +2163,9 @@
          * @return {?}
          */
         function () {
+            if (this.ifPresentation()) {
+                this.selectedPage = this._navigateService.currentPage;
+            }
         };
         /**
          * @return {?}
@@ -1396,13 +2174,6 @@
          * @return {?}
          */
         function () {
-            /** @type {?} */
-            var panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
-            ((/** @type {?} */ (panzoom))).style.transform = '';
-            // TODO: this intersects with zooming by zoom directive, but still needed
-            // for flush previous settings before opening another file
-            //this._zoomService.changeZoom(100);
-            //this.scale = 1;
         };
         /**
          * @return {?}
@@ -1441,15 +2212,26 @@
             return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
         };
         /**
+         * @return {?}
+         */
+        DocumentComponent.prototype.ifPresentation = /**
+         * @return {?}
+         */
+        function () {
+            return FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint";
+        };
+        /**
          * @param {?} value
+         * @param {?} pageNumber
          * @return {?}
          */
         DocumentComponent.prototype.getDimensionWithUnit = /**
          * @param {?} value
+         * @param {?} pageNumber
          * @return {?}
          */
-        function (value) {
-            return value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+        function (value, pageNumber) {
+            return this.ifPresentation() && this.showActiveSlide && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
         };
         /**
          * @return {?}
@@ -1467,273 +2249,122 @@
          * @return {?}
          */
         function () {
-            /** @type {?} */
-            var elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-            /** @type {?} */
-            var element = elementNodeListOf.item(0);
-            if (element) {
-                $$1(element).trigger('focus');
-            }
-        };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        DocumentComponent.prototype.absolutePosition = /**
-         * @param {?} el
-         * @return {?}
-         */
-        function (el) {
-            /** @type {?} */
-            var x = 0;
-            /** @type {?} */
-            var y = 0;
-            while (el !== null) {
-                x += el.offsetLeft;
-                y += el.offsetTop;
-                el = el.offsetParent;
-            }
-            return { x: x, y: y };
-        };
-        /**
-         * @param {?} pos
-         * @param {?} viewportDim
-         * @param {?} docDim
-         * @return {?}
-         */
-        DocumentComponent.prototype.restrictRawPos = /**
-         * @param {?} pos
-         * @param {?} viewportDim
-         * @param {?} docDim
-         * @return {?}
-         */
-        function (pos, viewportDim, docDim) {
-            if (pos < viewportDim / this.scale - docDim) { // too far left/up?
-                pos = viewportDim / this.scale - docDim;
-            }
-            else if (pos > 0) { // too far right/down?
-                pos = 0;
-            }
-            return pos;
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.updateLastPos = /**
-         * @return {?}
-         */
-        function () {
-            this.lastX = this.x;
-            this.lastY = this.y;
-        };
-        /**
-         * @param {?} deltaX
-         * @param {?} deltaY
-         * @return {?}
-         */
-        DocumentComponent.prototype.translate = /**
-         * @param {?} deltaX
-         * @param {?} deltaY
-         * @return {?}
-         */
-        function (deltaX, deltaY) {
-            // We restrict to the min of the viewport width/height or current width/height as the
-            // current width/height may be smaller than the viewport width/height
-            /** @type {?} */
-            var newX = this.restrictRawPos(this.lastX + deltaX / this.scale, Math.min(this.viewportWidth, this.curWidth), this.docWidth);
-            this.x = newX;
-            // TODO: value here and in the similar line below changes to positive to take any effect
-            this.container.scrollLeft = -Math.ceil(newX * this.scale);
-            /** @type {?} */
-            var newY = this.restrictRawPos(this.lastY + deltaY / this.scale, Math.min(this.viewportHeight, this.curHeight), this.docHeight);
-            this.y = newY;
-            this.container.scrollTop = -Math.ceil(newY * this.scale);
-            this.doc.style.transform = 'scale(' + this.scale + ')';
-        };
-        /**
-         * @param {?} scaleBy
-         * @return {?}
-         */
-        DocumentComponent.prototype.startZoom = /**
-         * @param {?} scaleBy
-         * @return {?}
-         */
-        function (scaleBy) {
-            this.scale = this.lastScale * scaleBy;
-            this.curWidth = this.docWidth * this.scale;
-            this.curHeight = this.docHeight * this.scale;
-            // Adjust margins to make sure that we aren't out of bounds
-            this.translate(0, 0);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.rawCenter = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            /** @type {?} */
-            var pos = this.absolutePosition(this.container);
-            // We need to account for the scroll position
-            /** @type {?} */
-            var scrollLeft = window.pageXOffset ? window.pageXOffset : document.body.scrollLeft;
-            /** @type {?} */
-            var scrollTop = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
-            /** @type {?} */
-            var zoomX = -this.x + ($event.center.x - pos.x + scrollLeft) / this.scale;
-            /** @type {?} */
-            var zoomY = -this.y + ($event.center.y - pos.y + scrollTop) / this.scale;
-            return { x: zoomX, y: zoomY };
-        };
-        /**
-         * @return {?}
-         */
-        DocumentComponent.prototype.updateLastScale = /**
-         * @return {?}
-         */
-        function () {
-            this.lastScale = this.scale;
-        };
-        /**
-         * @param {?} scaleBy
-         * @param {?} rawZoomX
-         * @param {?} rawZoomY
-         * @param {?} doNotUpdateLast
-         * @return {?}
-         */
-        DocumentComponent.prototype.zoomAround = /**
-         * @param {?} scaleBy
-         * @param {?} rawZoomX
-         * @param {?} rawZoomY
-         * @param {?} doNotUpdateLast
-         * @return {?}
-         */
-        function (scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
-            // Zoom
-            this.startZoom(scaleBy);
-            // New raw center of viewport
-            /** @type {?} */
-            var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
-            /** @type {?} */
-            var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
-            // Delta
-            /** @type {?} */
-            var deltaX = (rawCenterX - rawZoomX) * this.scale;
-            /** @type {?} */
-            var deltaY = (rawCenterY - rawZoomY) * this.scale;
-            // Translate back to zoom center
-            this.translate(deltaX, deltaY);
-            if (!doNotUpdateLast) {
-                this.updateLastScale();
-                this.updateLastPos();
-            }
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPinch = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            if (this.pinchCenter === null) {
-                this.pinchCenter = this.rawCenter($event);
-                /** @type {?} */
-                var offsetX = this.pinchCenter.x * this.scale - (-this.x * this.scale + Math.min(this.viewportWidth, this.curWidth) / 2);
-                /** @type {?} */
-                var offsetY = this.pinchCenter.y * this.scale - (-this.y * this.scale + Math.min(this.viewportHeight, this.curHeight) / 2);
-                this.pinchCenterOffset = { x: offsetX, y: offsetY };
-            }
-            /** @type {?} */
-            var newScale = this.scale * $event.scale;
-            /** @type {?} */
-            var zoomX = this.pinchCenter.x * newScale - this.pinchCenterOffset.x;
-            /** @type {?} */
-            var zoomY = this.pinchCenter.y * newScale - this.pinchCenterOffset.y;
-            /** @type {?} */
-            var zoomCenter = { x: zoomX / newScale, y: zoomY / newScale };
-            this.zoomAround($event.scale, zoomCenter.x, zoomCenter.y, true);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPinchEnd = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            this.updateLastScale();
-            this.updateLastPos();
-            this.pinchCenter = null;
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onPan = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            // TODO: looks like native pan works better
-            // if (!this.isDesktop) {
-            //   this.translate($event.deltaX, $event.deltaY);
+            // for now we are not sure that need this action in current implementation
+            // const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+            // const element = elementNodeListOf.item(0);
+            // if (element) {
+            //   $(element).trigger('focus');
             // }
         };
         /**
-         * @param {?} $event
+         * @param {?} pageNumber
          * @return {?}
          */
-        DocumentComponent.prototype.onPanEnd = /**
-         * @param {?} $event
+        DocumentComponent.prototype.isVisible = /**
+         * @param {?} pageNumber
          * @return {?}
          */
-        function ($event) {
-            // if (!this.isDesktop) {
-            //   this.updateLastPos();
-            // }
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        DocumentComponent.prototype.onDoubleTap = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            if (!this.isDesktop) {
-                if ($event.tapCount === 2) {
-                    /** @type {?} */
-                    var c = this.rawCenter($event);
-                    this.zoomAround(2, c.x, c.y, false);
-                }
+        function (pageNumber) {
+            if (this.ifPresentation()) {
+                return pageNumber === this.selectedPage ? true : false;
+            }
+            else {
+                return true;
             }
         };
         DocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (tap)=\"onDoubleTap($event)\" (pinch)=\"onPinch($event)\" \r\n  (pinchend)=\"onPinchEnd($event)\" (pan)=\"onPan($event)\" (panend)=\"onPanEnd($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         [style.height]=\"getDimensionWithUnit(page.height)\"\r\n         [style.width]=\"getDimensionWithUnit(page.width)\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\" gdEditHeaderFooter></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [":host{flex:1;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);transition:.3s}.page.excel{overflow:auto}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"!showActiveSlide || isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\" gdEditHeaderFooter></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;-webkit-transition:unset;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
         /** @nocollapse */
         DocumentComponent.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: ZoomService },
-            { type: WindowService }
+            { type: WindowService },
+            { type: NavigateService }
         ]; };
         DocumentComponent.propDecorators = {
             mode: [{ type: core.Input }],
             preloadPageCount: [{ type: core.Input }],
-            file: [{ type: core.Input }]
+            file: [{ type: core.Input }],
+            selectedPage: [{ type: core.Input }],
+            showActiveSlide: [{ type: core.Input }]
         };
         return DocumentComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DocumentComponent.prototype.mode;
+        /** @type {?} */
+        DocumentComponent.prototype.preloadPageCount;
+        /** @type {?} */
+        DocumentComponent.prototype.file;
+        /** @type {?} */
+        DocumentComponent.prototype.selectedPage;
+        /** @type {?} */
+        DocumentComponent.prototype.showActiveSlide;
+        /** @type {?} */
+        DocumentComponent.prototype.wait;
+        /** @type {?} */
+        DocumentComponent.prototype.zoom;
+        /** @type {?} */
+        DocumentComponent.prototype.docWidth;
+        /** @type {?} */
+        DocumentComponent.prototype.docHeight;
+        /** @type {?} */
+        DocumentComponent.prototype.viewportWidth;
+        /** @type {?} */
+        DocumentComponent.prototype.viewportHeight;
+        /** @type {?} */
+        DocumentComponent.prototype.scale;
+        /** @type {?} */
+        DocumentComponent.prototype.lastScale;
+        /** @type {?} */
+        DocumentComponent.prototype.container;
+        /** @type {?} */
+        DocumentComponent.prototype.doc;
+        /** @type {?} */
+        DocumentComponent.prototype.x;
+        /** @type {?} */
+        DocumentComponent.prototype.lastX;
+        /** @type {?} */
+        DocumentComponent.prototype.y;
+        /** @type {?} */
+        DocumentComponent.prototype.lastY;
+        /** @type {?} */
+        DocumentComponent.prototype.pinchCenter;
+        /** @type {?} */
+        DocumentComponent.prototype.pinchCenterOffset;
+        /** @type {?} */
+        DocumentComponent.prototype.curWidth;
+        /** @type {?} */
+        DocumentComponent.prototype.curHeight;
+        /** @type {?} */
+        DocumentComponent.prototype.isDesktop;
+        /**
+         * @type {?}
+         * @protected
+         */
+        DocumentComponent.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        DocumentComponent.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        DocumentComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        DocumentComponent.prototype._navigateService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1750,7 +2381,7 @@
          */
         function () {
             /** @type {?} */
-            var isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            var isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
             if (isIE && this.number === 0) {
                 this.editable = false;
             }
@@ -1766,7 +2397,12 @@
         function (changes) {
             // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
             // which leads to undesired spaces on the top of the docs pages
-            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "") : null;
+            this.data = this.data !== null ? this.data.replace(/>\s+</g, '><')
+                .replace(/\uFEFF/g, "")
+                .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+                .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+                .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
+                : null;
             /** @type {?} */
             var dataImagePngBase64 = 'data:image/png;base64,';
             this.imgData = dataImagePngBase64;
@@ -1778,7 +2414,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-page',
                         template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}/deep/ .gd-highlight{background-color:#ff0}/deep/ .gd-highlight-select{background-color:#ff9b00}"]
+                        styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1794,6 +2430,24 @@
         };
         return PageComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        PageComponent.prototype.angle;
+        /** @type {?} */
+        PageComponent.prototype.width;
+        /** @type {?} */
+        PageComponent.prototype.height;
+        /** @type {?} */
+        PageComponent.prototype.number;
+        /** @type {?} */
+        PageComponent.prototype.data;
+        /** @type {?} */
+        PageComponent.prototype.isHtml;
+        /** @type {?} */
+        PageComponent.prototype.editable;
+        /** @type {?} */
+        PageComponent.prototype.imgData;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1823,6 +2477,13 @@
         ]; };
         return SanitizeHtmlPipe;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SanitizeHtmlPipe.prototype.sanitizer;
+    }
     var SanitizeResourceHtmlPipe = /** @class */ (function () {
         function SanitizeResourceHtmlPipe(sanitizer) {
             this.sanitizer = sanitizer;
@@ -1847,6 +2508,13 @@
         ]; };
         return SanitizeResourceHtmlPipe;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SanitizeResourceHtmlPipe.prototype.sanitizer;
+    }
     var SanitizeStylePipe = /** @class */ (function () {
         function SanitizeStylePipe(sanitizer) {
             this.sanitizer = sanitizer;
@@ -1871,6 +2539,13 @@
         ]; };
         return SanitizeStylePipe;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SanitizeStylePipe.prototype.sanitizer;
+    }
     var HighlightSearchPipe = /** @class */ (function () {
         function HighlightSearchPipe() {
         }
@@ -1953,7 +2628,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-upload-file-zone',
                         template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\r\n  <div class=\"gd-drag-n-drop-icon\">\r\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\r\n  </div>\r\n  <h2>Drag &amp; Drop your files here</h2>\r\n  <h4>OR</h4>\r\n  <div class=\"gd-drag-n-drop-buttons\">\r\n    <label class=\"btn btn-primary\"> \r\n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\r\n      SELECT FILE\r\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\r\n      </label>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:flex;align-content:center;flex-direction:column;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
+                        styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:-webkit-box;display:flex;align-content:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1965,6 +2640,15 @@
         };
         return UploadFileZoneComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        UploadFileZoneComponent.prototype.closeUpload;
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFileZoneComponent.prototype._uploadService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2089,179 +2773,26 @@
         };
         return DndDirective;
     }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var PagePreloadService = /** @class */ (function () {
-        function PagePreloadService() {
-            var _this = this;
-            this._checkPreload = new rxjs.Observable((/**
-             * @param {?} observer
-             * @return {?}
-             */
-            function (observer) {
-                return _this._observer = observer;
-            }));
-        }
-        Object.defineProperty(PagePreloadService.prototype, "checkPreload", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._checkPreload;
-            },
-            enumerable: true,
-            configurable: true
-        });
+    if (false) {
+        /** @type {?} */
+        DndDirective.prototype.closing;
+        /** @type {?} */
+        DndDirective.prototype.opening;
+        /** @type {?} */
+        DndDirective.prototype.dropped;
+        /** @type {?} */
+        DndDirective.prototype.active;
         /**
-         * @param {?} page
-         * @return {?}
+         * @type {?}
+         * @private
          */
-        PagePreloadService.prototype.changeLastPageInView = /**
-         * @param {?} page
-         * @return {?}
-         */
-        function (page) {
-            if (this._observer) {
-                this._observer.next(page);
-            }
-        };
-        return PagePreloadService;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var NavigateService = /** @class */ (function () {
-        function NavigateService(_pagePreloadService) {
-            var _this = this;
-            this._pagePreloadService = _pagePreloadService;
-            this._currentPage = 0;
-            this._countPages = 0;
-            this._navigate = new rxjs.Observable((/**
-             * @param {?} observer
-             * @return {?}
-             */
-            function (observer) {
-                return _this._observer = observer;
-            }));
-        }
-        Object.defineProperty(NavigateService.prototype, "navigate", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._navigate;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(NavigateService.prototype, "countPages", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._countPages;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                this._countPages = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(NavigateService.prototype, "currentPage", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._currentPage;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                this._currentPage = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
+        DndDirective.prototype.dragCounter;
         /**
-         * @return {?}
+         * @type {?}
+         * @protected
          */
-        NavigateService.prototype.nextPage = /**
-         * @return {?}
-         */
-        function () {
-            if (this._currentPage < this._countPages) {
-                this._currentPage++;
-                this.navigateTo(this._currentPage);
-            }
-        };
-        /**
-         * @return {?}
-         */
-        NavigateService.prototype.prevPage = /**
-         * @return {?}
-         */
-        function () {
-            if (this._currentPage > 1) {
-                this._currentPage--;
-                this.navigateTo(this._currentPage);
-            }
-        };
-        /**
-         * @return {?}
-         */
-        NavigateService.prototype.toLastPage = /**
-         * @return {?}
-         */
-        function () {
-            this._currentPage = this._countPages;
-            this.navigateTo(this._currentPage);
-        };
-        /**
-         * @return {?}
-         */
-        NavigateService.prototype.toFirstPage = /**
-         * @return {?}
-         */
-        function () {
-            this._currentPage = 1;
-            this.navigateTo(this._currentPage);
-        };
-        /**
-         * @param {?} page
-         * @return {?}
-         */
-        NavigateService.prototype.navigateTo = /**
-         * @param {?} page
-         * @return {?}
-         */
-        function (page) {
-            this.currentPage = page;
-            this._pagePreloadService.changeLastPageInView(page);
-            this._observer.next(page);
-        };
-        NavigateService.decorators = [
-            { type: core.Injectable, args: [{
-                        providedIn: 'root'
-                    },] }
-        ];
-        /** @nocollapse */
-        NavigateService.ctorParameters = function () { return [
-            { type: PagePreloadService }
-        ]; };
-        /** @nocollapse */ NavigateService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function NavigateService_Factory() { return new NavigateService(core.ɵɵinject(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
-        return NavigateService;
-    }());
+        DndDirective.prototype._uploadFilesService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2365,6 +2896,7 @@
             this._windowService = _windowService;
             this._viewportService = _viewportService;
             this.zoom = 100;
+            this.loadedPagesSet = new Set();
             this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
             _zoomService.zoomChange.subscribe((/**
              * @param {?} val
@@ -2542,11 +3074,16 @@
                     if (!currentPageSet) {
                         if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
                             this.currentPage = page;
-                            this._navigateService.currentPage = page;
+                            if (this._navigateService.currentPage === 0) {
+                                this._navigateService.currentPage = page;
+                            }
                         }
                         currentPageSet = true;
                     }
-                    this._pagePreloadService.changeLastPageInView(page);
+                    if (!this.loadedPagesSet.has(page)) {
+                        this._pagePreloadService.changeLastPageInView(page);
+                        this.loadedPagesSet.add(page);
+                    }
                 }
             }
         };
@@ -2612,6 +3149,137 @@
         };
         return ScrollableDirective;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype.currentPage;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype.zoom;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype.loadedPagesSet;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._navigateService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._pagePreloadService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ScrollableDirective.prototype._viewportService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var $$4 = jquery;
+    var MouseWheelDirective = /** @class */ (function () {
+        function MouseWheelDirective() {
+            this.mouseWheelUp = new core.EventEmitter();
+            this.mouseWheelDown = new core.EventEmitter();
+        }
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.onMouseWheelChrome = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.mouseWheelFunc(event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.onMouseWheelFirefox = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.mouseWheelFunc(event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.onMouseWheelIE = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.mouseWheelFunc(event);
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        MouseWheelDirective.prototype.mouseWheelFunc = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            event = window.event;
+            /** @type {?} */
+            var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+            if (delta > 0) {
+                this.mouseWheelUp.emit(event);
+            }
+            else if (delta < 0) {
+                this.mouseWheelDown.emit(event);
+            }
+        };
+        MouseWheelDirective.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[gdMouseWheel]'
+                    },] }
+        ];
+        MouseWheelDirective.propDecorators = {
+            mouseWheelUp: [{ type: core.Output }],
+            mouseWheelDown: [{ type: core.Output }],
+            onMouseWheelChrome: [{ type: core.HostListener, args: ['mousewheel', ['$event'],] }],
+            onMouseWheelFirefox: [{ type: core.HostListener, args: ['DOMMouseScroll', ['$event'],] }],
+            onMouseWheelIE: [{ type: core.HostListener, args: ['onmousewheel', ['$event'],] }]
+        };
+        return MouseWheelDirective;
+    }());
+    if (false) {
+        /** @type {?} */
+        MouseWheelDirective.prototype.mouseWheelUp;
+        /** @type {?} */
+        MouseWheelDirective.prototype.mouseWheelDown;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2724,6 +3392,19 @@
         };
         /**
          * @private
+         * @param {?} elm
+         * @return {?}
+         */
+        ZoomDirective.prototype.getScrollHeight = /**
+         * @private
+         * @param {?} elm
+         * @return {?}
+         */
+        function (elm) {
+            return elm.offsetHeight - elm.clientHeight;
+        };
+        /**
+         * @private
          * @param {?} zoom
          * @return {?}
          */
@@ -2738,8 +3419,13 @@
             /** @type {?} */
             var viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
             /** @type {?} */
+            var viewPortHeight = this.el.nativeElement.parentElement.offsetHeight;
+            /** @type {?} */
             var scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+            /** @type {?} */
+            var scrollHeight = this.getScrollHeight(this.el.nativeElement.parentElement);
             this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
+            this.height = (viewPortHeight / zoomInt - scrollHeight / zoomInt) + 'px';
         };
         /**
          * @return {?}
@@ -2768,10 +3454,41 @@
             transform: [{ type: core.HostBinding, args: ['style.transform',] }],
             transformOrigin: [{ type: core.HostBinding, args: ['style.transform-origin',] }],
             width: [{ type: core.HostBinding, args: ['style.width',] }],
+            height: [{ type: core.HostBinding, args: ['style.height',] }],
             minWidth: [{ type: core.HostBinding, args: ['style.min-width',] }]
         };
         return ZoomDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        ZoomDirective.prototype.zoomActive;
+        /** @type {?} */
+        ZoomDirective.prototype.file;
+        /** @type {?} */
+        ZoomDirective.prototype.zoomInt;
+        /** @type {?} */
+        ZoomDirective.prototype.transform;
+        /** @type {?} */
+        ZoomDirective.prototype.transformOrigin;
+        /** @type {?} */
+        ZoomDirective.prototype.width;
+        /** @type {?} */
+        ZoomDirective.prototype.height;
+        /** @type {?} */
+        ZoomDirective.prototype.minWidth;
+        /** @type {?} */
+        ZoomDirective.prototype.el;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomDirective.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ZoomDirective.prototype._windowService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2813,11 +3530,35 @@
         /** @nocollapse */ OnCloseService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function OnCloseService_Factory() { return new OnCloseService(); }, token: OnCloseService, providedIn: "root" });
         return OnCloseService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        OnCloseService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        OnCloseService.prototype._onClose;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /**
+     * @record
+     */
+    function Option() { }
+    if (false) {
+        /** @type {?} */
+        Option.prototype.name;
+        /** @type {?} */
+        Option.prototype.value;
+        /** @type {?} */
+        Option.prototype.separator;
+    }
     var SelectComponent = /** @class */ (function () {
         function SelectComponent(_onCloseService) {
             var _this = this;
@@ -2898,8 +3639,8 @@
         SelectComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-select',
-                        template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".select{min-width:50px;display:flex;flex-direction:row;justify-content:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
+                        template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [clickOutsideEnabled]=\"isOpen\">\r\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                        styles: [".select{min-width:50px;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2911,10 +3652,30 @@
             disabled: [{ type: core.Input }],
             showSelected: [{ type: core.Input }],
             selected: [{ type: core.Output }],
-            isOpen: [{ type: core.Input }]
+            isOpen: [{ type: core.Input }],
+            icon: [{ type: core.Input }]
         };
         return SelectComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        SelectComponent.prototype.options;
+        /** @type {?} */
+        SelectComponent.prototype.disabled;
+        /** @type {?} */
+        SelectComponent.prototype.showSelected;
+        /** @type {?} */
+        SelectComponent.prototype.selected;
+        /** @type {?} */
+        SelectComponent.prototype.isOpen;
+        /** @type {?} */
+        SelectComponent.prototype.icon;
+        /**
+         * @type {?}
+         * @protected
+         */
+        SelectComponent.prototype._onCloseService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2967,6 +3728,12 @@
         };
         return DisabledCursorDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        DisabledCursorDirective.prototype.dis;
+        /** @type {?} */
+        DisabledCursorDirective.prototype.cursor;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3074,6 +3841,26 @@
         };
         return RotationDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        RotationDirective.prototype.angle;
+        /** @type {?} */
+        RotationDirective.prototype.isHtmlMode;
+        /** @type {?} */
+        RotationDirective.prototype.width;
+        /** @type {?} */
+        RotationDirective.prototype.height;
+        /** @type {?} */
+        RotationDirective.prototype.withMargin;
+        /** @type {?} */
+        RotationDirective.prototype.animation;
+        /** @type {?} */
+        RotationDirective.prototype.transition;
+        /** @type {?} */
+        RotationDirective.prototype.transform;
+        /** @type {?} */
+        RotationDirective.prototype.margin;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3110,7 +3897,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-init-state',
                         template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\r\n  <div class=\"init-state-wrapper\">\r\n    <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <span class=\"start\">\r\n      <ng-content></ng-content>\r\n    </span>\r\n  </div>\r\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\r\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n    <span class=\"text\">{{text}}</span>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".wrapper{color:#959da5;background-color:#e7e7e7;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%}.icon{font-size:65px;margin-bottom:43px;display:flex;color:#959da5}.start{font-size:15px;text-align:center;color:#959da5}.gd-drag-n-drop-wrap.active{background-color:#fff;position:fixed;top:0;background:rgba(255,255,255,.8)}.gd-drag-n-drop-wrap.active .init-state-wrapper{position:absolute;opacity:.2;top:unset}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper{top:0;z-index:999}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon{width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}.gd-drag-n-drop-wrap.active .text{color:#6e6e6e;font-size:14px}.init-state-dnd-wrapper,.init-state-wrapper{display:flex;flex-direction:column;width:250px;height:250px;align-items:center;justify-content:center}.init-state-wrapper{top:-60px;position:relative}"]
+                        styles: [".wrapper{color:#959da5;background-color:#e7e7e7;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%;height:100%}.icon{font-size:65px;margin-bottom:43px;display:-webkit-box;display:flex;color:#959da5}.start{font-size:15px;text-align:center;color:#959da5}.gd-drag-n-drop-wrap.active{background-color:#fff;position:fixed;top:0;background:rgba(255,255,255,.8)}.gd-drag-n-drop-wrap.active .init-state-wrapper{position:absolute;opacity:.2;top:unset}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper{top:0;z-index:999}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon{width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}.gd-drag-n-drop-wrap.active .text{color:#6e6e6e;font-size:14px}.init-state-dnd-wrapper,.init-state-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:250px;height:250px;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.init-state-wrapper{top:-60px;position:relative}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3122,6 +3909,16 @@
         };
         return InitStateComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        InitStateComponent.prototype.icon;
+        /** @type {?} */
+        InitStateComponent.prototype.text;
+        /** @type {?} */
+        InitStateComponent.prototype.fileDropped;
+        /** @type {?} */
+        InitStateComponent.prototype.showUploadFile;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3189,6 +3986,28 @@
         };
         return RenderPrintService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._render;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._renderBlob;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintService.prototype._observerBlob;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3224,42 +4043,23 @@
          * @return {?}
          */
         function (pages) {
-            var e_1, _a, e_2, _b;
+            var e_1, _a;
             /** @type {?} */
             var pagesHtml = '';
-            if (this.htmlMode) {
-                try {
-                    for (var pages_1 = __values(pages), pages_1_1 = pages_1.next(); !pages_1_1.done; pages_1_1 = pages_1.next()) {
-                        var page = pages_1_1.value;
-                        pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-                            '<div class="gd-wrapper">' + page.data + '</div>' +
-                            '</div>';
-                    }
-                }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (pages_1_1 && !pages_1_1.done && (_a = pages_1.return)) _a.call(pages_1);
-                    }
-                    finally { if (e_1) throw e_1.error; }
+            try {
+                for (var pages_1 = __values(pages), pages_1_1 = pages_1.next(); !pages_1_1.done; pages_1_1 = pages_1.next()) {
+                    var page = pages_1_1.value;
+                    pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
+                        '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
+                        '</div>';
                 }
             }
-            else {
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
                 try {
-                    for (var pages_2 = __values(pages), pages_2_1 = pages_2.next(); !pages_2_1.done; pages_2_1 = pages_2.next()) {
-                        var page = pages_2_1.value;
-                        pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-                            '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
-                            '</div>';
-                    }
+                    if (pages_1_1 && !pages_1_1.done && (_a = pages_1.return)) _a.call(pages_1);
                 }
-                catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                finally {
-                    try {
-                        if (pages_2_1 && !pages_2_1.done && (_b = pages_2.return)) _b.call(pages_2);
-                    }
-                    finally { if (e_2) throw e_2.error; }
-                }
+                finally { if (e_1) throw e_1.error; }
             }
             this.openWindow(pagesHtml, pages[0].width, pages[0].height);
         };
@@ -3303,9 +4103,14 @@
             windowObject.document.writeln(cssPrint);
             windowObject.document.writeln(pagesHtml);
             windowObject.document.close();
-            windowObject.focus();
-            windowObject.print();
-            windowObject.close();
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                windowObject.focus();
+                windowObject.print();
+                windowObject.close();
+            }), 100);
         };
         /**
          * @private
@@ -3340,6 +4145,15 @@
         };
         return RenderPrintDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        RenderPrintDirective.prototype.htmlMode;
+        /**
+         * @type {?}
+         * @private
+         */
+        RenderPrintDirective.prototype._renderService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3373,6 +4187,18 @@
         };
         return ExceptionMessageService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ExceptionMessageService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        ExceptionMessageService.prototype._messageChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3399,7 +4225,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-error-modal',
                         template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\r\n  <section id=\"gd-error-section\">\r\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\r\n    <div class=\"gd-modal-error\">\r\n      <div class=\"gd-modal-error-title\">Something went wrong</div>\r\n      <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                        styles: [".gd-modal-error{display:inline-flex;flex-direction:column;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0;word-break:break-word}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:flex}#gd-error-section fa-icon{flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center;max-width:46px}"]
+                        styles: [".gd-modal-error{display:-webkit-inline-box;display:inline-flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-flex:1;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0;word-break:break-word}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:-webkit-box;display:flex}#gd-error-section fa-icon{-webkit-box-flex:1;flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center;max-width:46px}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3408,6 +4234,10 @@
         ]; };
         return ErrorModalComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ErrorModalComponent.prototype.message;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3441,13 +4271,25 @@
         };
         return PasswordService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        PasswordService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        PasswordService.prototype._passChange;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$4 = jquery;
+    var $$5 = jquery;
     var PasswordRequiredComponent = /** @class */ (function () {
         function PasswordRequiredComponent(messageService, _passwordService) {
             var _this = this;
@@ -3493,14 +4335,14 @@
                  */
                 function () {
                     /** @type {?} */
-                    var element = $$4("#password");
+                    var element = $$5("#password");
                     if (element) {
                         element.focus();
                     }
                 }), 100);
             }
             else {
-                $$4("#password").val("");
+                $$5("#password").val("");
             }
         };
         /**
@@ -3512,14 +4354,14 @@
          * @return {?}
          */
         function ($event) {
-            $$4("#password").val("");
+            $$5("#password").val("");
             this.cancelEvent.emit(true);
         };
         PasswordRequiredComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-password-required',
                         template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\r\n  <section id=\"gd-password-section\">\r\n    <div class=\"gd-password-wrap\">\r\n      <label for=\"password\">Password</label>\r\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\r\n             (keyup.enter)=\"setPassword(pass.value)\">\r\n      <span class=\"gd-password-error\">{{message}}</span>\r\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\r\n          Open\r\n      </gd-button>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                        styles: ["#gd-password-section{width:468px;height:164px}.gd-password-wrap{display:flex;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
+                        styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;-webkit-box-pack:center;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3532,6 +4374,17 @@
         };
         return PasswordRequiredComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        PasswordRequiredComponent.prototype.message;
+        /** @type {?} */
+        PasswordRequiredComponent.prototype.cancelEvent;
+        /**
+         * @type {?}
+         * @private
+         */
+        PasswordRequiredComponent.prototype._passwordService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3610,6 +4463,18 @@
         /** @nocollapse */ ErrorInterceptorService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ErrorInterceptorService_Factory() { return new ErrorInterceptorService(core.ɵɵinject(ModalService), core.ɵɵinject(ExceptionMessageService)); }, token: ErrorInterceptorService, providedIn: "root" });
         return ErrorInterceptorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ErrorInterceptorService.prototype._modalService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ErrorInterceptorService.prototype._messageService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3689,6 +4554,38 @@
         };
         return SearchService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._textChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._observerCurrent;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._currentChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._observerTotal;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchService.prototype._totalChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -3782,7 +4679,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-search',
                         template: "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" (keydown.enter)=\"next()\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\r\n  </gd-button>\r\n</div>\r\n",
-                        styles: [".gd-nav-search-btn{margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;transform:translate(-50%,0);display:flex}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}input[type=text]::-ms-clear{display:none}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:193px;top:15px}.gd-nav-search-container{width:100%}}"]
+                        styles: [".gd-nav-search-btn{margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;-webkit-transform:translate(-50%,0);transform:translate(-50%,0);display:-webkit-box;display:flex}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}input[type=text]::-ms-clear{display:none}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:193px;top:15px}.gd-nav-search-container{width:100%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -3797,13 +4694,28 @@
         };
         return SearchComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        SearchComponent.prototype.hidePanel;
+        /** @type {?} */
+        SearchComponent.prototype.current;
+        /** @type {?} */
+        SearchComponent.prototype.total;
+        /** @type {?} */
+        SearchComponent.prototype.textElement;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchComponent.prototype._searchService;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$5 = jquery;
+    var $$6 = jquery;
     var SearchableDirective = /** @class */ (function () {
         function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
             var _this = this;
@@ -3888,16 +4800,16 @@
                  * @return {?}
                  */
                 function (value) {
-                    $$5(value).removeClass('gd-highlight-select');
+                    $$6(value).removeClass('gd-highlight-select');
                 }));
                 /** @type {?} */
                 var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-                $$5(currentEl).addClass('gd-highlight-select');
+                $$6(currentEl).addClass('gd-highlight-select');
                 if (currentEl) {
                     /** @type {?} */
                     var options = {
                         left: 0,
-                        top: ($$5(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+                        top: ($$6(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
                     };
                     // using polyfill
                     el.parentElement.parentElement.scroll(options);
@@ -3916,7 +4828,7 @@
          */
         function (el) {
             /** @type {?} */
-            var textNodes = $$5(el).find('*').contents().filter((/**
+            var textNodes = $$6(el).find('*').contents().filter((/**
              * @return {?}
              */
             function () {
@@ -3941,7 +4853,7 @@
              */
             function () {
                 /** @type {?} */
-                var $this = $$5(this);
+                var $this = $$6(this);
                 /** @type {?} */
                 var content = $this.text();
                 content = highlight.transform(content, text);
@@ -3994,6 +4906,39 @@
         ]; };
         return SearchableDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        SearchableDirective.prototype.text;
+        /** @type {?} */
+        SearchableDirective.prototype.current;
+        /** @type {?} */
+        SearchableDirective.prototype.total;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype.zoom;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._searchService;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._highlight;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._zoomService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4138,6 +5083,24 @@
         };
         return EditHeaderFooterDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        EditHeaderFooterDirective.prototype.el;
+        /** @type {?} */
+        EditHeaderFooterDirective.prototype.footerRef;
+        /** @type {?} */
+        EditHeaderFooterDirective.prototype.headerRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditHeaderFooterDirective.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditHeaderFooterDirective.prototype._windowService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4158,7 +5121,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-tabbed-toolbars',
                         template: "<div class=\"top-panel\">\r\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [".top-panel{background:#3e4e5a;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:1037px){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
+                        styles: [".top-panel{background:#3e4e5a;display:-webkit-box;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:1037px){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -4169,6 +5132,12 @@
         };
         return TabbedToolbarsComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TabbedToolbarsComponent.prototype.logo;
+        /** @type {?} */
+        TabbedToolbarsComponent.prototype.icon;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4202,6 +5171,18 @@
         };
         return TabActivatorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        TabActivatorService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        TabActivatorService.prototype._activeTabChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4263,8 +5244,8 @@
         TabComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-tab',
-                        template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px;margin:auto 23px}.gd-tab .title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block}}"]
+                        template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"smp-tab-title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                        styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:-webkit-box;display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px}.gd-tab .smp-tab-title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px;width:60px}.gd-tab .title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -4281,6 +5262,25 @@
         };
         return TabComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TabComponent.prototype.id;
+        /** @type {?} */
+        TabComponent.prototype.tabTitle;
+        /** @type {?} */
+        TabComponent.prototype.icon;
+        /** @type {?} */
+        TabComponent.prototype.disabled;
+        /** @type {?} */
+        TabComponent.prototype.active;
+        /** @type {?} */
+        TabComponent.prototype.content;
+        /**
+         * @type {?}
+         * @private
+         */
+        TabComponent.prototype._tabActivatorService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4293,7 +5293,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-tabs',
                         template: "<div class=\"gd-tabs\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [".gd-tabs{display:flex}"]
+                        styles: [".gd-tabs{display:-webkit-box;display:flex}"]
                     }] }
         ];
         /** @nocollapse */
@@ -4329,6 +5329,28 @@
         };
         return Formatting;
     }());
+    if (false) {
+        /** @type {?} */
+        Formatting.prototype.bold;
+        /** @type {?} */
+        Formatting.prototype.italic;
+        /** @type {?} */
+        Formatting.prototype.underline;
+        /** @type {?} */
+        Formatting.prototype.fontSize;
+        /** @type {?} */
+        Formatting.prototype.color;
+        /** @type {?} */
+        Formatting.prototype.bgColor;
+        /** @type {?} */
+        Formatting.prototype.font;
+        /** @type {?} */
+        Formatting.prototype.strikeout;
+        /** @type {?} */
+        Formatting.prototype.align;
+        /** @type {?} */
+        Formatting.prototype.list;
+    }
     var FormattingService = /** @class */ (function () {
         function FormattingService() {
             this._observerBold = new rxjs.Subject();
@@ -4669,6 +5691,128 @@
         };
         return FormattingService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerBold;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatBoldChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerUnderline;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatUnderlineChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerUndo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._undo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerRedo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._redo;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerItalic;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatItalicChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerColor;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatColorChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerBgColor;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatBgColorChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerFontSize;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatFontSizeChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerFont;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatFontChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerStrikeout;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatStrikeoutChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerAlign;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatAlignChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._observerList;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingService.prototype._formatListChange;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4730,7 +5874,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-color-picker',
                         template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"bcPicker-palette\">\r\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\"\r\n      (click)=\"select($event, color)\" [style.border]=\"'1px solid ' + (color === white ? '#707070' : color)\"\r\n      (touchstart)=\"select($event, color)\"></div>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:250px;background-color:#fdfdfd;z-index:999;box-shadow:0 0 5px #efefef;display:flex;flex-wrap:wrap;justify-content:center}.bcPicker-palette>.bcPicker-color{width:18px;height:18px;margin:2px;cursor:pointer}"]
+                        styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:250px;background-color:#fdfdfd;z-index:999;box-shadow:0 0 5px #efefef;display:-webkit-box;display:flex;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center}.bcPicker-palette>.bcPicker-color{width:18px;height:18px;margin:2px;cursor:pointer}"]
                     }] }
         ];
         /** @nocollapse */
@@ -4742,6 +5886,18 @@
         };
         return ColorPickerComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ColorPickerComponent.prototype.isOpen;
+        /** @type {?} */
+        ColorPickerComponent.prototype.selectedColor;
+        /** @type {?} */
+        ColorPickerComponent.prototype.closeOutside;
+        /** @type {?} */
+        ColorPickerComponent.prototype.colors;
+        /** @type {?} */
+        ColorPickerComponent.prototype.white;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4769,7 +5925,7 @@
      */
     var SelectionService = /** @class */ (function () {
         function SelectionService() {
-            this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         }
         /**
          * @return {?}
@@ -4829,13 +5985,19 @@
         /** @nocollapse */ SelectionService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function SelectionService_Factory() { return new SelectionService(); }, token: SelectionService, providedIn: "root" });
         return SelectionService;
     }());
+    if (false) {
+        /** @type {?} */
+        SelectionService.prototype.selection;
+        /** @type {?} */
+        SelectionService.prototype.isIE;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$6 = jquery;
+    var $$7 = jquery;
     var FormattingDirective = /** @class */ (function () {
         function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
             this._formattingService = _formattingService;
@@ -4846,7 +6008,7 @@
             this.underline = false;
             this.strikeout = false;
             this.isIE = false;
-            this.isIE = /*@cc_on!@*/  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            this.isIE = /*@cc_on!@*/ false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         }
         /**
          * @return {?}
@@ -4864,7 +6026,7 @@
             this.list = this.checkList();
             //fix required by FireFox to get correct background color
             if (this.bgColor === "transparent") {
-                this.bgColor = $$6(window.getSelection().focusNode.parentNode).css('background-color').toString();
+                this.bgColor = $$7(window.getSelection().focusNode.parentNode).css('background-color').toString();
             }
             this.font = document.queryCommandValue("FontName").replace(/"/g, '');
             if (this.font.split(",").length > 1) {
@@ -5258,7 +6420,7 @@
             if (align === "full") {
                 align = "justify";
             }
-            $$6(selection).css("text-align", align);
+            $$7(selection).css("text-align", align);
             this._selectionService.refreshSelection();
         };
         /**
@@ -5300,6 +6462,73 @@
         };
         return FormattingDirective;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.bold;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.italic;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.underline;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.color;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.bgColor;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.font;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.strikeout;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.align;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.list;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype.isIE;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype._formattingService;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype._backFormattingService;
+        /**
+         * @type {?}
+         * @private
+         */
+        FormattingDirective.prototype._selectionService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5320,7 +6549,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-success-modal',
                         template: "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\r\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\r\n    <div class=\"sa-icon sa-success animate\">\r\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\r\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\r\n        <div class=\"sa-placeholder\"></div>\r\n        <div class=\"sa-fix\"></div>\r\n      </div>\r\n  </div></div>\r\n  </gd-modal>\r\n",
-                        styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;transform:rotate(-45deg);transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;transform:rotate(-45deg);transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1037px){#gd-modal-success{left:50%;top:50%;position:relative;transform:translate(-50%,-50%)}}"]
+                        styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:-webkit-box;display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;-webkit-transform:scale(1.18);transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:60px 60px;transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:0 60px;transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1037px){#gd-modal-success{left:50%;top:50%;position:relative;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5367,6 +6596,18 @@
         /** @nocollapse */ EditHtmlService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function EditHtmlService_Factory() { return new EditHtmlService(); }, token: EditHtmlService, providedIn: "root" });
         return EditHtmlService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        EditHtmlService.prototype._observer;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditHtmlService.prototype._htmlContent;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5376,7 +6617,7 @@
         function EditorDirective(_selectionService, _htmlService) {
             this._selectionService = _selectionService;
             this._htmlService = _htmlService;
-            this.isIE =  !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+            this.isIE = false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         }
         /**
          * @param {?} event
@@ -5449,6 +6690,25 @@
         };
         return EditorDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        EditorDirective.prototype.text;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorDirective.prototype.isIE;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorDirective.prototype._selectionService;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorDirective.prototype._htmlService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5461,6 +6721,10 @@
             this.requests = [];
             this.stopList.push(Api.SAVE_TEXT);
             this.stopList.push(Api.SAVE_OPTICAL_CODE);
+            this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
+            this.stopList.push(Api.LOAD_THUMBNAILS);
+            this.stopList.push(Api.GET_FILE_STATUS);
+            this.stopList.push(Api.LOAD_PRINT);
         }
         /**
          * @param {?} req
@@ -5516,6 +6780,20 @@
         LoadingMaskService.ctorParameters = function () { return []; };
         return LoadingMaskService;
     }());
+    if (false) {
+        /** @type {?} */
+        LoadingMaskService.prototype.onLoadingChanged;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskService.prototype.stopList;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskService.prototype.requests;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5554,7 +6832,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-loading-mask',
                         template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\r\n    <div class=\"loading-message\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;Loading... Please wait.\r\n    </div>\r\n</div>\r\n",
-                        styles: [".loading-wrapper{background:rgba(0,0,0,.5);width:100%;height:100%;font-size:14px;color:#fff;position:fixed;top:0;left:0;z-index:99999}.loading-message{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}"]
+                        styles: [".loading-wrapper{background:rgba(0,0,0,.5);width:100%;height:100%;font-size:14px;color:#fff;position:fixed;top:0;left:0;z-index:99999}.loading-message{position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5566,6 +6844,15 @@
         };
         return LoadingMaskComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        LoadingMaskComponent.prototype.loadingMask;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskComponent.prototype._loadingMaskService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5607,6 +6894,13 @@
         /** @nocollapse */ LoadingMaskInterceptorService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function LoadingMaskInterceptorService_Factory() { return new LoadingMaskInterceptorService(core.ɵɵinject(LoadingMaskService)); }, token: LoadingMaskInterceptorService, providedIn: "root" });
         return LoadingMaskInterceptorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingMaskInterceptorService.prototype._loadingMaskService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5655,7 +6949,7 @@
                         selector: 'gd-drop-down-toggle',
                         template: '<ng-content></ng-content>',
                         encapsulation: core.ViewEncapsulation.None,
-                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                        styles: [".drop-down{position:relative}.show .drop-down-items{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:justify;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5670,6 +6964,12 @@
         };
         return DropDownToggleComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownToggleComponent.prototype.click;
+        /** @type {?} */
+        DropDownToggleComponent.prototype.dropdown;
+    }
     /**
      *  DropDownItemsComponent
      */
@@ -5723,7 +7023,7 @@
                         selector: 'gd-drop-down-items',
                         template: '<div class="drop-down-items" (clickOutside)="onClickOutside($event)" [clickOutsideEnabled]="isOpen" [style.right]="horizontalAlign" [style.top]="verticalAlign"><ng-content></ng-content></div>',
                         encapsulation: core.ViewEncapsulation.None,
-                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                        styles: [".drop-down{position:relative}.show .drop-down-items{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:justify;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5735,6 +7035,10 @@
         ]; };
         return DropDownItemsComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownItemsComponent.prototype.dropdown;
+    }
     /**
      *  DropDownItemComponent
      */
@@ -5763,7 +7067,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-drop-down-item',
                         template: '<div class="drop-down-item"><ng-content></ng-content></div>',
-                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                        styles: [".drop-down{position:relative}.show .drop-down-items{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:justify;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5780,6 +7084,16 @@
         };
         return DropDownItemComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownItemComponent.prototype.class;
+        /** @type {?} */
+        DropDownItemComponent.prototype.selected;
+        /** @type {?} */
+        DropDownItemComponent.prototype.click;
+        /** @type {?} */
+        DropDownItemComponent.prototype.dropdown;
+    }
     /**
      *  DropDownComponent
      */
@@ -5828,7 +7142,7 @@
                         selector: 'gd-drop-down',
                         template: '<div class="drop-down"><ng-content></ng-content></div>',
                         encapsulation: core.ViewEncapsulation.None,
-                        styles: [".drop-down{position:relative}.show .drop-down-items{display:flex;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:flex;flex-direction:row;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                        styles: [".drop-down{position:relative}.show .drop-down-items{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:justify;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
                     }] }
         ];
         DropDownComponent.propDecorators = {
@@ -5838,6 +7152,14 @@
         };
         return DropDownComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        DropDownComponent.prototype.placement;
+        /** @type {?} */
+        DropDownComponent.prototype.open;
+        /** @type {?} */
+        DropDownComponent.prototype.class;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5859,7 +7181,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-left-side-bar',
                         template: "<div class=\"left-panel\">\r\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\r\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: [".left-panel{border-radius:0;float:left}.gd-left-bar-fade{margin:auto;overflow:hidden;-webkit-overflow-scrolling:touch;transition:transform .3s ease-out;width:100%;height:100%;display:flex;justify-content:center;align-items:center;position:fixed;z-index:1000}@media (max-width:1037px){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
+                        styles: [".left-panel{border-radius:0;float:left}.gd-left-bar-fade{margin:auto;overflow:hidden;-webkit-overflow-scrolling:touch;-webkit-transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;transition:transform .3s ease-out,-webkit-transform .3s ease-out;width:100%;height:100%;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;position:fixed;z-index:1000}@media (max-width:1037px){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -5869,6 +7191,10 @@
         };
         return LeftSideBarComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        LeftSideBarComponent.prototype.showSpinner;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5910,6 +7236,10 @@
         };
         return TooltipDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        TooltipDirective.prototype.showToolTip;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -5957,6 +7287,18 @@
         /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(core.ɵɵinject(core.ComponentFactoryResolver), core.ɵɵinject(core.ApplicationRef)); }, token: AddDynamicComponentService, providedIn: "root" });
         return AddDynamicComponentService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        AddDynamicComponentService.prototype._factoryResolver;
+        /**
+         * @type {?}
+         * @private
+         */
+        AddDynamicComponentService.prototype._appRef;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6020,6 +7362,13 @@
         };
         return HostingDynamicComponentService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        HostingDynamicComponentService.prototype.hosts;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6064,13 +7413,24 @@
         };
         return HostDynamicDirective;
     }());
+    if (false) {
+        /** @type {?} */
+        HostDynamicDirective.prototype.ident;
+        /** @type {?} */
+        HostDynamicDirective.prototype.viewContainerRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        HostDynamicDirective.prototype._hostingService;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$7 = jquery;
+    var $$8 = jquery;
     var ResizingComponent = /** @class */ (function () {
         function ResizingComponent() {
             this.se = false;
@@ -6097,9 +7457,9 @@
         function () {
             var _this = this;
             /** @type {?} */
-            var elSE = $$7(this.getElementId(this.SE));
+            var elSE = $$8(this.getElementId(this.SE));
             /** @type {?} */
-            var elNW = $$7(this.getElementId(this.NW));
+            var elNW = $$8(this.getElementId(this.NW));
             if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
                 /** @type {?} */
                 var width_1 = elSE.offset().left - elNW.offset().left;
@@ -6275,6 +7635,52 @@
         };
         return ResizingComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ResizingComponent.prototype.init;
+        /** @type {?} */
+        ResizingComponent.prototype.id;
+        /** @type {?} */
+        ResizingComponent.prototype.se;
+        /** @type {?} */
+        ResizingComponent.prototype.ne;
+        /** @type {?} */
+        ResizingComponent.prototype.sw;
+        /** @type {?} */
+        ResizingComponent.prototype.nw;
+        /** @type {?} */
+        ResizingComponent.prototype.pageWidth;
+        /** @type {?} */
+        ResizingComponent.prototype.pageHeight;
+        /** @type {?} */
+        ResizingComponent.prototype.SE;
+        /** @type {?} */
+        ResizingComponent.prototype.NE;
+        /** @type {?} */
+        ResizingComponent.prototype.SW;
+        /** @type {?} */
+        ResizingComponent.prototype.NW;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetX;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetY;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetTop;
+        /** @type {?} */
+        ResizingComponent.prototype.offsetLeft;
+        /** @type {?} */
+        ResizingComponent.prototype.release;
+        /**
+         * @type {?}
+         * @private
+         */
+        ResizingComponent.prototype.grab;
+        /**
+         * @type {?}
+         * @private
+         */
+        ResizingComponent.prototype.oldPosition;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6364,7 +7770,7 @@
             { type: core.Component, args: [{
                         selector: 'gd-top-tab',
                         template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" class=\"gd-tab-tooltip\"\r\n              *ngIf=\"tooltip\" [position]=\"elementPosition\"></gd-tooltip>\r\n</div>\r\n",
-                        styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:flex;flex-direction:column;align-items:center;align-content:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab .gd-tab-tooltip{display:flex;flex-direction:column;margin:0!important}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
+                        styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;align-content:center;-webkit-box-pack:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab .gd-tab-tooltip{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:0!important}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -6383,17 +7789,54 @@
         };
         return TopTabComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TopTabComponent.prototype.id;
+        /** @type {?} */
+        TopTabComponent.prototype.icon;
+        /** @type {?} */
+        TopTabComponent.prototype.disabled;
+        /** @type {?} */
+        TopTabComponent.prototype.tooltip;
+        /** @type {?} */
+        TopTabComponent.prototype.activeTab;
+        /** @type {?} */
+        TopTabComponent.prototype.elementPosition;
+        /** @type {?} */
+        TopTabComponent.prototype.active;
+        /** @type {?} */
+        TopTabComponent.prototype.showToolTip;
+        /**
+         * @type {?}
+         * @private
+         */
+        TopTabComponent.prototype._tabActivatorService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TopTabComponent.prototype._modalService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TopTabComponent.prototype._excMessageService;
+    }
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $$8 = jquery;
+    var $$9 = jquery;
     var TextMenuComponent = /** @class */ (function () {
-        function TextMenuComponent(_onCloseService) {
+        function TextMenuComponent(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
             var _this = this;
             this._onCloseService = _onCloseService;
+            this._zoomService = _zoomService;
+            this._windowService = _windowService;
+            this._elementRef = _elementRef;
+            this.renderer = renderer;
             this.decoration = true;
             this.showTooltips = true;
             this.outFontSize = new core.EventEmitter();
@@ -6411,6 +7854,23 @@
             function () {
                 _this.colorPickerShow = false;
             }));
+            this.isMobile = _windowService.isMobile();
+            _windowService.onResize.subscribe((/**
+             * @param {?} w
+             * @return {?}
+             */
+            function (w) {
+                _this.isMobile = _windowService.isMobile();
+            }));
+            _zoomService.zoomChange.subscribe((/**
+             * @param {?} val
+             * @return {?}
+             */
+            function (val) {
+                if (_this.isMobile) {
+                    _this.changePosition(val);
+                }
+            }));
         }
         /**
          * @return {?}
@@ -6421,6 +7881,23 @@
         function () {
         };
         /**
+         * @param {?} val
+         * @return {?}
+         */
+        TextMenuComponent.prototype.changePosition = /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            /** @type {?} */
+            var top = (window.innerHeight - 24 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
+            /** @type {?} */
+            var left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
+            this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
+            this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
+            this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
+        };
+        /**
          * @param {?} $event
          * @return {?}
          */
@@ -6429,9 +7906,9 @@
          * @return {?}
          */
         function ($event) {
-            $$8(".gd-wrapper").off("keyup");
+            $$9(".gd-wrapper").off("keyup");
             this.outFontSize.emit($event.value);
-            $$8(".gd-wrapper").on("keyup", (/**
+            $$9(".gd-wrapper").on("keyup", (/**
              * @return {?}
              */
             function () {
@@ -6537,12 +8014,16 @@
             { type: core.Component, args: [{
                         selector: 'gd-text-menu',
                         template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                        styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:flex;flex-direction:row}.gd-text-menu .format-select{height:37px;display:flex;justify-content:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;bottom:0;left:0;right:0;width:100%;height:60px;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-200px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .button{margin:3px!important}}"]
+                        styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.gd-text-menu .format-select{height:37px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;left:0;right:0;width:inherit;height:60px;-webkit-box-align:center;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070;-webkit-transform-origin:top left;transform-origin:top left;z-index:1000}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-185px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu{left:0}.gd-text-menu ::ng-deep .button{margin:3px!important;font-size:16px}}"]
                     }] }
         ];
         /** @nocollapse */
         TextMenuComponent.ctorParameters = function () { return [
-            { type: OnCloseService }
+            { type: OnCloseService },
+            { type: ZoomService },
+            { type: WindowService },
+            { type: core.ElementRef },
+            { type: core.Renderer2 }
         ]; };
         TextMenuComponent.propDecorators = {
             blur: [{ type: core.Input }],
@@ -6563,6 +8044,71 @@
         };
         return TextMenuComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        TextMenuComponent.prototype.blur;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontSize;
+        /** @type {?} */
+        TextMenuComponent.prototype.font;
+        /** @type {?} */
+        TextMenuComponent.prototype.bold;
+        /** @type {?} */
+        TextMenuComponent.prototype.italic;
+        /** @type {?} */
+        TextMenuComponent.prototype.underline;
+        /** @type {?} */
+        TextMenuComponent.prototype.color;
+        /** @type {?} */
+        TextMenuComponent.prototype.decoration;
+        /** @type {?} */
+        TextMenuComponent.prototype.showTooltips;
+        /** @type {?} */
+        TextMenuComponent.prototype.outFontSize;
+        /** @type {?} */
+        TextMenuComponent.prototype.outFont;
+        /** @type {?} */
+        TextMenuComponent.prototype.outBold;
+        /** @type {?} */
+        TextMenuComponent.prototype.outItalic;
+        /** @type {?} */
+        TextMenuComponent.prototype.outUnderline;
+        /** @type {?} */
+        TextMenuComponent.prototype.outColor;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontSizeOptions;
+        /** @type {?} */
+        TextMenuComponent.prototype.fontOptions;
+        /** @type {?} */
+        TextMenuComponent.prototype.colorPickerShow;
+        /** @type {?} */
+        TextMenuComponent.prototype.isMobile;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._onCloseService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._zoomService;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @protected
+         */
+        TextMenuComponent.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        TextMenuComponent.prototype.renderer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6575,10 +8121,19 @@
         MenuType.FOR_ANNOTATION = "annotation";
         return MenuType;
     }());
+    if (false) {
+        /** @type {?} */
+        MenuType.FOR_SIGNATURE;
+        /** @type {?} */
+        MenuType.FOR_ANNOTATION;
+    }
     var ContextMenuComponent = /** @class */ (function () {
-        function ContextMenuComponent(_windowService) {
+        function ContextMenuComponent(_windowService, _zoomService, _elementRef, renderer) {
             var _this = this;
             this._windowService = _windowService;
+            this._zoomService = _zoomService;
+            this._elementRef = _elementRef;
+            this.renderer = renderer;
             this.formatting = Formatting.default();
             this.lock = false;
             this.translation = 0;
@@ -6595,6 +8150,15 @@
             function (w) {
                 _this.isMobile = _windowService.isMobile();
             }));
+            _zoomService.zoomChange.subscribe((/**
+             * @param {?} val
+             * @return {?}
+             */
+            function (val) {
+                if (_this.isMobile) {
+                    _this.changeScale(val);
+                }
+            }));
         }
         /**
          * @return {?}
@@ -6603,6 +8167,17 @@
          * @return {?}
          */
         function () {
+        };
+        /**
+         * @param {?} val
+         * @return {?}
+         */
+        ContextMenuComponent.prototype.changeScale = /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1 / (val / 100) + ')');
         };
         /**
          * @return {?}
@@ -6743,13 +8318,16 @@
         ContextMenuComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-context-menu',
-                        template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\" (touchstart)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
-                        styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:flex;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-34px}}"]
+                        template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
+                        styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-42px;-webkit-transform-origin:bottom center;transform-origin:bottom center}}"]
                     }] }
         ];
         /** @nocollapse */
         ContextMenuComponent.ctorParameters = function () { return [
-            { type: WindowService }
+            { type: WindowService },
+            { type: ZoomService },
+            { type: core.ElementRef },
+            { type: core.Renderer2 }
         ]; };
         ContextMenuComponent.propDecorators = {
             formatting: [{ type: core.Input }],
@@ -6766,6 +8344,52 @@
         };
         return ContextMenuComponent;
     }());
+    if (false) {
+        /** @type {?} */
+        ContextMenuComponent.prototype.formatting;
+        /** @type {?} */
+        ContextMenuComponent.prototype.textMenu;
+        /** @type {?} */
+        ContextMenuComponent.prototype.topPosition;
+        /** @type {?} */
+        ContextMenuComponent.prototype.lock;
+        /** @type {?} */
+        ContextMenuComponent.prototype.translation;
+        /** @type {?} */
+        ContextMenuComponent.prototype.menuType;
+        /** @type {?} */
+        ContextMenuComponent.prototype.changeFormatting;
+        /** @type {?} */
+        ContextMenuComponent.prototype.removeItem;
+        /** @type {?} */
+        ContextMenuComponent.prototype.copySign;
+        /** @type {?} */
+        ContextMenuComponent.prototype.lockOut;
+        /** @type {?} */
+        ContextMenuComponent.prototype.comment;
+        /** @type {?} */
+        ContextMenuComponent.prototype.isMobile;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype._windowService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype._zoomService;
+        /**
+         * @type {?}
+         * @protected
+         */
+        ContextMenuComponent.prototype._elementRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        ContextMenuComponent.prototype.renderer;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -6827,6 +8451,7 @@
                             UploadFileZoneComponent,
                             DndDirective,
                             ScrollableDirective,
+                            MouseWheelDirective,
                             ZoomDirective,
                             SelectComponent,
                             DisabledCursorDirective,
@@ -6874,6 +8499,7 @@
                             SanitizeHtmlPipe,
                             UploadFileZoneComponent,
                             ScrollableDirective,
+                            MouseWheelDirective,
                             SelectComponent,
                             RotationDirective,
                             InitStateComponent,
@@ -6956,6 +8582,7 @@
     exports.MenuType = MenuType;
     exports.ModalComponent = ModalComponent;
     exports.ModalService = ModalService;
+    exports.MouseWheelDirective = MouseWheelDirective;
     exports.NavigateService = NavigateService;
     exports.OnCloseService = OnCloseService;
     exports.PageComponent = PageComponent;
@@ -7001,5 +8628,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=groupdocs.examples.angular-common-components.umd.js.map

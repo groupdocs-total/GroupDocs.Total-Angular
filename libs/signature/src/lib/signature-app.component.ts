@@ -80,6 +80,10 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
   isLoading: boolean;
   fileWasDropped = false;
 
+  _zoom = 100;
+  _pageWidth: number;
+  _pageHeight: number;
+
   constructor(private _signatureService: SignatureService,
               private _modalService: ModalService,
               configService: SignatureConfigService,
@@ -109,6 +113,16 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
           this._signatureTabActivationService.changeActiveTab(this.activeSignatureTab);
         }
         this.activeSignatureTab = null;
+      }
+    });
+
+    this.isDesktop = _windowService.isDesktop();
+    _windowService.onResize.subscribe((w) => {
+      if (!_windowService.isMobile()) {
+        this.isDesktop = _windowService.isDesktop();
+        if (!this.isDesktop) {
+          this.refreshZoom();
+        }
       }
     });
 
@@ -201,7 +215,6 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
     });
-
   }
 
   private createDraggableSign(comp, copySign: CopySign, page) {
@@ -233,12 +246,55 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     }
   }
 
+  private ptToPx(pt: number) {
+    //pt * 96 / 72 = px.
+    return pt * 96 / 72;
+  }
+
+  private getFitToWidth() {
+    // Images and Excel-related files receiving dimensions in px from server
+    const pageWidth = this.ptToPx(this._pageWidth);
+    const pageHeight = this.ptToPx(this._pageHeight);
+    const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
+
+    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / window.innerWidth) : Math.round(window.innerWidth * 100 / offsetWidth);
+  }
+
+  set zoom(zoom) {
+    this._zoom = zoom;
+    this._zoomService.changeZoom(this._zoom);
+  }
+
+  get zoom() {
+    return this._zoom;
+  }
+
+  private refreshZoom() {
+    this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+  }
+
+  zoomIn() {
+    if (this.formatDisabled)
+      return;
+    if (this._zoom < 490) {
+      this.zoom = this._zoom + 10;
+    }
+  }
+
+  zoomOut() {
+    if (this.formatDisabled)
+      return;
+    if (this._zoom > 30) {
+      this.zoom = this._zoom - 10;
+    }
+  }
+
   get rewriteConfig(): boolean {
     return this.signatureConfig ? this.signatureConfig.rewrite : true;
   }
 
   get zoomConfig(): boolean {
-    return false;
+    return this.signatureConfig ? this.signatureConfig.zoom : true;
   }
 
   get pageSelectorConfig(): boolean {
@@ -336,6 +392,11 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
         this.file = file;
         this.formatDisabled = !this.file;
         if (file) {
+          if (!this.isDesktop && file.pages && file.pages[0]) {
+            this._pageHeight = file.pages[0].height;
+            this._pageWidth = file.pages[0].width;
+            this.refreshZoom();
+          }
           const preloadPageCount = this.preloadPageCountConfig;
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
@@ -419,8 +480,8 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
     const currentPage = document.elementFromPoint(position.x, position.y);
     if (currentPage && $(currentPage).parent().parent() && $(currentPage).parent().parent().parent().hasClass("page")) {
       const documentPage = $(currentPage).parent().parent()[0];
-      const left = position.x - $(documentPage).offset().left;
-      const top = position.y - $(documentPage).offset().top;
+      const left = (position.x - $(documentPage).offset().left)/(this.zoom/100);
+      const top = (position.y - $(documentPage).offset().top)/(this.zoom/100);
       const currentPosition = new Position(left, top);
       const sign = this._dragSignatureService.sign;
       if (sign) {
@@ -521,10 +582,8 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
   newSign($event: string) {
     if (SignatureType.HAND.id === $event) {
       this._modalService.open(CommonModals.DrawHandSignature);
-      this._signatureTabActivationService.changeActiveTab(SignatureType.HAND.id);
     } else if (SignatureType.STAMP.id === $event) {
       this._modalService.open(CommonModals.DrawStampSignature);
-      this._signatureTabActivationService.changeActiveTab(SignatureType.STAMP.id);
     } else if (SignatureType.TEXT.id === $event) {
       this.addTextSign();
       this._signatureTabActivationService.changeActiveTab(SignatureType.TEXT.id);
@@ -626,5 +685,10 @@ export class SignatureAppComponent implements OnDestroy, OnInit {
       return 1;
     }
     return 0;
+  }
+
+  onPan($event)
+  {
+    this._zoomService.changeZoom(this._zoom);
   }
 }

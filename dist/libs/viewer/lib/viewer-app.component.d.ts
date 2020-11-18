@@ -4,11 +4,12 @@ import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateS
 import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
 import { WindowService } from "@groupdocs.examples.angular/common-components";
+import { Subscription } from 'rxjs';
+import { IntervalTimer } from './interval-timer';
 export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _viewerService;
     private _modalService;
     private _navigateService;
-    private _zoomService;
     private _renderPrintService;
     private _windowService;
     private _loadingMaskService;
@@ -28,9 +29,33 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     _pageWidth: number;
     _pageHeight: number;
     options: any;
+    timerOptions: any;
+    intervalTime: number;
+    intervalTimer: IntervalTimer;
+    countDownInterval: number;
+    secondsLeft: number;
     fileWasDropped: boolean;
     formatIcon: string;
-    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, _zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
+    fileParam: string;
+    querySubscription: Subscription;
+    selectedPageNumber: number;
+    runPresentation: boolean;
+    isFullScreen: boolean;
+    startScrollTime: number;
+    endScrollTime: number;
+    docElmWithBrowsersFullScreenFunctions: HTMLElement & {
+        mozRequestFullScreen(): Promise<void>;
+        webkitRequestFullscreen(): Promise<void>;
+        msRequestFullscreen(): Promise<void>;
+    };
+    docWithBrowsersExitFunctions: Document & {
+        mozCancelFullScreen(): Promise<void>;
+        webkitExitFullscreen(): Promise<void>;
+        msExitFullscreen(): Promise<void>;
+    };
+    zoomService: ZoomService;
+    fullScreen(): void;
+    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
@@ -47,6 +72,11 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     readonly saveRotateStateConfig: boolean;
     readonly enableRightClickConfig: boolean;
     readonly currentPage: number;
+    ifPresentation(): boolean;
+    ifExcel(): boolean;
+    ifImage(): boolean;
+    validURL(str: any): boolean;
+    getFileName(): string;
     openModal(id: string): void;
     closeModal(id: string): void;
     selectDir($event: string): void;
@@ -57,15 +87,19 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     prevPage(): void;
     toLastPage(): void;
     toFirstPage(): void;
-    navigateToPage(page: number): void;
     zoomIn(): void;
     zoomOut(): void;
     fileDropped($event: any): void;
     private ptToPx;
-    private getFitToWidth;
-    private getFitToHeight;
+    getFitToWidth(): number;
+    getFitToHeight(): number;
     zoomOptions(): {
         value: any;
+        name: string;
+        separator: boolean;
+    }[];
+    getTimerOptions(): {
+        value: number;
         name: string;
         separator: boolean;
     }[];
@@ -77,7 +111,25 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     printFile(): void;
     openThumbnails(): void;
     private clearData;
-    onRightClick($event: MouseEvent): boolean;
+    onRightClick(): boolean;
     openSearch(): void;
     private refreshZoom;
+    selectCurrentPage(pageNumber: any): void;
+    onMouseWheelUp(): void;
+    onMouseWheelDown(): void;
+    vertScrollEnded(onTop: boolean): boolean;
+    private TryOpenFileByUrl;
+    toggleTimer($event: any): void;
+    showCountDown(): boolean;
+    startCountDown(seconds: number, reset?: boolean): void;
+    private startInterval;
+    private slideInRange;
+    private resetInterval;
+    pausePresenting(): void;
+    resumePresenting(): void;
+    presentationRunning(): boolean;
+    presentationPaused(): boolean;
+    startPresentation(): void;
+    openFullScreen(): void;
+    closeFullScreen(byButton?: boolean): void;
 }

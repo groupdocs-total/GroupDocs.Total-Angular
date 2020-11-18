@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, OnInit} from '@angular/core';
+import {Component, AfterViewInit, OnInit, Renderer2} from '@angular/core';
 import {EditorService} from "./editor.service";
 import {
   FileDescription,
@@ -30,7 +30,7 @@ const $ = jquery;
   templateUrl: './editor-app.component.html',
   styleUrls: ['./editor-app.component.less']
 })
-export class EditorAppComponent implements OnInit, AfterViewInit  {
+export class EditorAppComponent implements OnInit, AfterViewInit {
   title = 'editor';
   files: FileModel[] = [];
   file: FileDescription;
@@ -46,12 +46,13 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   bgColorPickerShow = false;
   colorPickerShow = false;
   active = false;
-  private textBackup: string;
+  public textBackup: string;
   private isIE = false;
   isLoading: boolean;
   fileWasDropped: false;
   selectFontShow = false;
   selectFontSizeShow = false;
+  newFile = false;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -66,6 +67,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
               private _htmlService: EditHtmlService,
               private _renderPrintService: RenderPrintService,
               private _loadingMaskService: LoadingMaskService,
+              private _renderer: Renderer2
   ) {
     this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     configService.updatedConfig.subscribe((editorConfig) => {
@@ -243,11 +245,12 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   }
 
   createFile() {
+    this.newFile = true;
     this.file = new FileDescription();
     const page = new PageModel;
     page.width = 595;
     page.height = 842;
-    page.data = '<!DOCTYPE HTML><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body></body></html>';
+    page.data = '<!DOCTYPE HTML><html><head></head><body></body></html>';
     page.number = 1;
     page.editable = true;
     this.file.pages = [];
@@ -292,6 +295,41 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     }
     this.formatDisabled = !this.file;
     this.downloadDisabled = false;
+
+    // adding listeners on inputs if present on existing page
+    let count = 0;
+    const timerId = setInterval(() => { 
+      count++;
+      const page = document.querySelectorAll('.page');
+      if (page)
+      {
+        this.initControlsListeners();
+        clearInterval(timerId);
+      }
+      if (count === 20) clearInterval();
+    }, 100);
+  }
+
+  private initControlsListeners() {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+      this._renderer.listen(input, 'keyup', (event) => {
+        input.setAttribute('value', input.value);
+      });
+    });
+
+    const selects = document.querySelectorAll('select');
+    selects.forEach(select => {
+      this._renderer.listen(select, 'change', (event) => {
+        selects.forEach(s => {
+          for (let i = s.options.length - 1; i >= 0; i--) {
+            s.options[i].removeAttribute('selected');
+          }
+        });
+
+        select.options[select.selectedIndex].setAttribute('selected', 'selected');
+      });
+    });
   }
 
   private clearData() {
@@ -451,6 +489,11 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     this.colorPickerShow = false;
     this.bgColorPickerShow = false;
     this._onCloseService.close(true);
+
+    // we try to save the changes on any click outside
+    if (document.querySelectorAll('.gd-wrapper')[0]) {
+      this.textBackup = document.querySelectorAll('.gd-wrapper')[0].innerHTML.toString();
+    }
   }
 
   toggleStrikeout(event) {
@@ -521,8 +564,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     if (!this.file || !this.file.pages)
       return;
 
-    this.textBackup = this.getPageWithRootTags(this.textBackup);
-      
+    this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
+
     const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
@@ -531,10 +574,57 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     });
   }
 
-  getPageWithRootTags(data) {
-    let resultData = "<html><head>" + data + "</body></html>";
-    resultData = resultData.replace('<div class="documentMainContent">', '<body><div class="documentMainContent">');
-    resultData = resultData.replace('<body><div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+  saveNewFile(credentials: FileCredentials) {
+    if (!this.file || !this.file.pages)
+    {
+      return;
+    }
+
+    this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
+
+    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
+    this._editorService.create(saveFile).subscribe((loadFile: FileDescription) => {
+      this.loadFile(loadFile);
+      this.credentials = new FileCredentials(loadFile.guid, credentials.password);
+      this._modalService.open(CommonModals.OperationSuccess);
+      this.newFile = false;
+    });
+  }
+
+  // Returns root-tags in the HTML-markup which previously were removed by innerHTML.
+  getPageWithRootTags(data, guid) {
+    const pptFormats = ["ppt", "pptx", "pptm", "pps", "ppsx", "ppsm", "pot", "potx", "potm", "odp", "otp"];
+    let resultData = data;
+
+    if (!data.startsWith("<html><head>") && !data.endsWith("</body></html>")) {
+      resultData = "<html><head>" + data + "</body></html>";
+    }
+    
+    if (this.newFile)
+    {
+      resultData = resultData.replace('<head>', '<head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>');
+      if (pptFormats.includes(guid.split('.').pop()))
+      {
+        resultData = resultData.replace('<body>', '<body><div class="slide">');
+      }
+      else 
+      {
+        resultData = resultData.replace('<body>', '<body><div class="documentMainContent">');
+      }
+
+      resultData = resultData.replace('</body>', '</div></body>');
+    }
+    else 
+    {
+      // for Word files
+      resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+      // for Presentations files
+      resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
+      // for Excel files
+      resultData = resultData.replace('</style><table', '</style></head><body><table');
+    }
+
+    resultData = resultData.replace('<main class="documentMainContent">', '</head><body><main class="documentMainContent">');
     return resultData;
   }
 

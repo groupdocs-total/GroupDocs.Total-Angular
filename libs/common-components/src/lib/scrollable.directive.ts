@@ -23,6 +23,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
 
   private currentPage: number;
   private zoom = 100;
+  private loadedPagesSet = new Set();
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _navigateService: NavigateService,
@@ -119,11 +120,16 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
         if (!currentPageSet) {
           if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
             this.currentPage = page;
-            this._navigateService.currentPage = page;
+            if (this._navigateService.currentPage === 0) {
+              this._navigateService.currentPage = page;
+            }
           }
           currentPageSet = true;
         }
-        this._pagePreloadService.changeLastPageInView(page);
+        if (!this.loadedPagesSet.has(page)) {
+          this._pagePreloadService.changeLastPageInView(page);
+          this.loadedPagesSet.add(page);
+        }
       }
     }
   }

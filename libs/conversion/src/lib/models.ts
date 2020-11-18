@@ -5,6 +5,7 @@ export class ConversionRequestModel{
   destinationType: string;
   guid: string;
   size: number;
+  destDocumentType: number;
 }
 
 export class ConversionItemModel implements FileModel {

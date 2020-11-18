@@ -19,5 +19,7 @@ export class SignatureConfig {
   stampSignature: boolean;
   handSignature: boolean;
   downloadOriginal: boolean;
-  downloadSigned: boolean
+  downloadSigned: boolean;
+
+  zoom: boolean;
 }

@@ -12,6 +12,7 @@ export declare class SelectComponent {
     showSelected: Option;
     selected: EventEmitter<any>;
     isOpen: boolean;
+    icon: string;
     constructor(_onCloseService: OnCloseService);
     open(): void;
     close(): void;

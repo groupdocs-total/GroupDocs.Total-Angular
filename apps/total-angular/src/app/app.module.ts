@@ -10,6 +10,8 @@ import {ComparisonModule, ComparisonAppComponent} from '@groupdocs.examples.angu
 import {SignatureModule, SignatureAppComponent} from "@groupdocs.examples.angular/signature";
 import {ConversionModule, ConversionAppComponent} from "@groupdocs.examples.angular/conversion";
 import {AnnotationModule, AnnotationAppComponent} from "@groupdocs.examples.angular/annotation";
+import {MetadataModule, MetadataAppComponent} from "@groupdocs.examples.angular/metadata";
+import {SearchAppComponent, SearchModule} from "@groupdocs.examples.angular/search";
 
 @NgModule({
   declarations: [AppComponent, TotalNavComponent, TotalViewComponent],
@@ -21,6 +23,8 @@ import {AnnotationModule, AnnotationAppComponent} from "@groupdocs.examples.angu
     ConversionModule.forRoot("http://localhost:8080"),
     SignatureModule.forRoot("http://localhost:8080"),
     AnnotationModule.forRoot("http://localhost:8080"),
+    MetadataModule.forRoot("http://localhost:8080"),
+    SearchModule.forRoot("http://localhost:8080"),
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
       {path: 'viewer', component: ViewerAppComponent},
@@ -29,6 +33,8 @@ import {AnnotationModule, AnnotationAppComponent} from "@groupdocs.examples.angu
       {path: 'conversion', component: ConversionAppComponent},
       {path: 'signature', component: SignatureAppComponent},
       {path: 'annotation', component: AnnotationAppComponent},
+      {path: 'metadata', component: MetadataAppComponent},
+      {path: 'search', component: SearchAppComponent},
     ], {initialNavigation: 'enabled'})
   ],
   providers: [],

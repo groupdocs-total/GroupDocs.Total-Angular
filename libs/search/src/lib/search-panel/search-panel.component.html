@@ -1,0 +1,5 @@
+<div class="gd-search-panel">
+  <input type="text" class="gd-search-input" (keydown.enter)="search()" #text (input)="setText(text.value)" placeholder="Search query"/>
+  <gd-button class="gd-clear-btn" [icon]="'times'" [tooltip]="'Clear search query'" (click)="clearQueryString()" *ngIf="text.value"></gd-button>
+  <gd-button class="gd-search-btn" [icon]="'search'" (click)="search()" [iconOnly]="false"></gd-button>
+</div>

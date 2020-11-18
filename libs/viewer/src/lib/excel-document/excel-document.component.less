@@ -1,39 +1,40 @@
 @import "./../../../../common-components/src/styles/variables.less";
 
 :host {
-  overflow: scroll;
-  width: 100%;
+  overflow        : scroll;
+  width           : 100%;
   background-color: @mercury;
 }
 
 .document {
-  width: 100%;
+  width     : 100%;
   transition: all 0.4s;
-  padding: 0px;
-  margin: 0px;
-  position: relative;
+  padding   : 0px;
+  margin    : 0px;
+  position  : relative;
 }
 
 .sheets {
   background-color: #fff;
-  display: flex;
-  border-top: 1px solid @mercury;
-  position: fixed;
-  bottom: 17px;
-  right: 17px;
-  width: 100%;
-  /deep/ gd-button {
+  display         : flex;
+  border-top      : 1px solid @mercury;
+  position        : fixed;
+  width           : 100%;
+
+  ::ng-deep gd-button {
     &.active {
       .text {
-          background-color: #272727;
-          border-radius: 10px;
-          color: #eee;
+        background-color: #272727;
+        border-radius   : 10px;
+        color           : #eee;
       }
     }
+
     .text {
       padding: 1px 12px;
-      color: #000;
+      color  : #000;
     }
+
     fa-icon {
       display: none;
     }
@@ -42,40 +43,44 @@
 
 .sheets-wrapper {
   margin-left: 29px;
-  display: flex;
+  display    : flex;
 }
 
 .page {
-  position: relative;
-  display: inline-block;
+  position        : relative;
+  display         : inline-block;
   background-color: #ffffff;
-  transition: all 0.3s;
+  transition      : all 0.3s;
 }
 
 .wait {
   position: absolute;
-  top: 55px;
-  left: Calc(50% - 20px);
+  top     : 55px;
+  left    : Calc(50% - 20px);
 }
 
 .panzoom {
-  transform: none;
+  transform          : none;
   backface-visibility: hidden;
-  transform-origin: 50% 50% 0px;
-  display: flex;
-  flex-wrap: wrap;
+  transform-origin   : 50% 50% 0px;
+  display            : flex;
+  flex-wrap          : wrap;
 }
 
 .gd-zoomed {
   margin: 10px 98px;
 }
 
-.highlights{
+.highlights {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
+  top     : 0px;
+  left    : 0px;
+  bottom  : 0px;
+  right   : 0px;
+}
+
+.page-grid-lines {
+  background-color: white;
 }
 
 @media @phone-down {
@@ -83,13 +88,9 @@
     overflow-x: auto !important;
   }
 
-  .panzoom {
-    flex-direction: column;
-  }
-
   .page {
-    min-width: unset !important;
+    min-width : unset !important;
     min-height: unset !important;
-    margin: 5px 0px;
+    margin    : 5px 0px;
   }
 }

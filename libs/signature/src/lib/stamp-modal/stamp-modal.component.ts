@@ -79,6 +79,7 @@ export class StampModalComponent implements OnInit, OnDestroy {
     const img = canvasComponent.canvas.nativeElement.toDataURL("image/png");
     this._signatureService.saveStamp(img, props).subscribe(() => {
       this._tabActivationService.changeActiveTab(SignatureType.STAMP.id);
+      this._signatureService.refreshSignatures();
     });
     this.close();
   }
@@ -231,7 +232,7 @@ export class StampModalComponent implements OnInit, OnDestroy {
   }
 
   getHeight() {
-    return this.isMobile ? this._windowService.getHeight() : 501;
+    return this.isMobile ? this._windowService.getHeight() - 180 : 501;
   }
 
   deleteText() {

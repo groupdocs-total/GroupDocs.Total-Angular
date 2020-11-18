@@ -1,0 +1,187 @@
+@import "../../../../common-components/src/styles/variables";
+
+.gd-indexed-file {
+  display         : flex;
+  width           : 100%;
+  height          : 98px;
+  border-bottom   : 1px solid @mercury;
+  background-color: #fff;
+  align-items     : center;
+  position        : relative;
+}
+
+.gd-indexed-file-remove {
+  font-size: 18px;
+  color    : #6E6E6E;
+  margin   : 0px 24px;
+  cursor   : pointer;
+
+  span {
+    width      : 37px;
+    height     : 37px;
+    display    : block;
+    line-height: 37px;
+    text-align : center;
+    font-weight: bold;
+  }
+
+  &.disabled {
+    color  : @regent-gray;
+    opacity: 0.4;
+  }
+}
+
+.gd-indexed-file-name {
+  display: flex;
+}
+
+.gd-indexed-file-name fa-icon {
+  font-size: 32px;
+  margin   : 19px 21px 0 0;
+}
+
+.gd-indexed-file-name.disabled fa-icon {
+  color: @dove-gray;
+}
+
+.gd-file-name {
+  text-align   : left;
+  cursor       : default;
+  overflow     : hidden;
+  text-overflow: ellipsis;
+}
+
+.gd-indexed-file-size {
+  width     : 70px;
+  color     : #777777;
+  text-align: left;
+  font-size : 12px;
+  right     : 265px;
+  position  : absolute;
+}
+
+.gd-indexed-file-status-wrapper {
+  color    : #777777;
+  font-size: 12px;
+  right    : 104px;
+  position : absolute;
+  width    : 70px;
+}
+
+.gd-indexed-file-status {
+  display: flex;
+
+  fa-icon {
+    padding-right: 7px;
+  }
+}
+
+.gd-file-format {
+  font-size  : 10px;
+  color      : @silver-chalice;
+  padding-top: 4px;
+
+  &.mobile {
+    display: none;
+  }
+}
+
+.disabled {
+  cursor: not-allowed !important;
+}
+
+.gd-indexed-file .ng-fa-icon.fa-file-pdf {
+  color: #E21717;
+}
+
+.gd-indexed-file .ng-fa-icon.fa-file-word {
+  color: #6979B9;
+}
+
+.gd-indexed-file .ng-fa-icon.fa-file-powerpoint {
+  color: #E29417;
+}
+
+.gd-indexed-file .ng-fa-icon.fa-file-excel {
+  color: #3FA300;
+}
+
+.gd-indexed-file .ng-fa-icon.fa-file-image {
+  color: #E217DA;
+}
+
+.gd-indexed-file .ng-fa-icon.fa-file-text .fa-folder {
+  color: #5D6A75;
+}
+
+.gd-indexed-file-name .ng-fa-icon {
+  font-size: 33px;
+}
+
+.gd-indexed-file-name fa-icon {
+  font-size: 32px;
+  margin   : 0 11px 0 0;
+}
+
+@media @phone-down {
+
+  .gd-indexed-file-size {
+    display: none;
+  }
+
+  .gd-file-format {
+    font-size: 10px;
+
+    &.mobile {
+      display: block;
+
+      >fa-icon {
+        color: #bebebe;
+      }
+
+      fa-icon {
+        font-size   : 10px;
+        margin-right: 2.1px;
+      }
+
+      fa-icon:nth-child(1) {
+        margin-right: 6px;
+      }
+    }
+  }
+
+  .gd-file-format {
+    font-size: 11px;
+  }
+
+  .gd-indexed-file-name {
+    white-space: nowrap;
+    overflow   : hidden;
+    width      : 65%;
+  }
+
+  .gd-indexed-file-status-wrapper {
+    right: 45px;
+    width: unset;
+
+    .gd-indexed-file-status {
+      fa-icon {
+        padding-right: unset;
+        font-size    : 16px;
+      }
+    }
+  }
+
+  .gd-indexed-file-remove {
+    margin   : 0px 16px 0px 15px;
+    font-size: 24px;
+  }
+
+  .mobile-hide {
+    display: none;
+  }
+
+  .gd-indexed-file {
+    height: 85px;
+  }
+}

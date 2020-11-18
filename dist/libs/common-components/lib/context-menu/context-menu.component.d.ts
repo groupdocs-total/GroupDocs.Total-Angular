@@ -1,12 +1,16 @@
-import { EventEmitter, OnInit } from '@angular/core';
+import { EventEmitter, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { Formatting } from "../formatting.service";
 import { WindowService } from "../window.service";
+import { ZoomService } from '../zoom.service';
 export declare class MenuType {
     static FOR_SIGNATURE: string;
     static FOR_ANNOTATION: string;
 }
 export declare class ContextMenuComponent implements OnInit {
     private _windowService;
+    private _zoomService;
+    protected _elementRef: ElementRef<HTMLElement>;
+    private renderer;
     formatting: Formatting;
     textMenu: boolean;
     topPosition: number;
@@ -19,8 +23,9 @@ export declare class ContextMenuComponent implements OnInit {
     lockOut: EventEmitter<boolean>;
     comment: EventEmitter<boolean>;
     isMobile: boolean;
-    constructor(_windowService: WindowService);
+    constructor(_windowService: WindowService, _zoomService: ZoomService, _elementRef: ElementRef<HTMLElement>, renderer: Renderer2);
     ngOnInit(): void;
+    changeScale(val: number): void;
     saveChanges(): void;
     selectFontSize($event: number): void;
     selectFont($event: string): void;

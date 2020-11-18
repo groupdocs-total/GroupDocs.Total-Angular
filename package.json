@@ -10,7 +10,7 @@
     "lint": "nx lint && ng lint",
     "e2e": "ng e2e",
     "e2e:dev": "ng e2e total-angular-e2e --watch",
-    "build:packages": "ng build common-components && ng build viewer && ng build editor && ng build comparison && ng build conversion && ng build signature && ng build annotation",
+    "build:packages": "ng build common-components && ng build viewer && ng build editor && ng build comparison && ng build conversion && ng build signature && ng build annotation && ng build metadata && ng build search",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",

@@ -1,0 +1,91 @@
+@import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import "../../../common-components/src/styles/variables";
+
+:host * {
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+.wrapper {
+  align-items: stretch;
+  height     : 100%;
+  width      : 100%;
+  position   : fixed;
+  top        : 0;
+  bottom     : 0;
+  left       : 0;
+  right      : 0;
+}
+
+.doc-panel {
+  display       : flex;
+  height        : calc(100vh - 60px);
+  flex-direction: row;
+}
+
+.top-panel {
+  display    : flex;
+  align-items: center;
+  width      : 100%;
+}
+
+.toolbar-panel {
+  background-color: @nav-main-background;
+  width           : 100%;
+}
+
+::ng-deep .tools {
+  .button {
+    color: #fff !important;
+
+    &.inactive {
+      color: @regent-gray  !important;
+    }
+  }
+
+  .button {
+    flex-flow: column;
+  }
+
+  .icon-button {
+    margin: 0px 0px 0px 7px !important;
+  }
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  width: 100%;
+}
+
+::ng-deep .gd-side-panel-body {
+  background-color: @wild-sand;
+}
+
+::ng-deep .gd-side-panel-wrapper {
+  width: 464px !important;
+}
+
+::ng-deep .page {
+  &.excel {
+    overflow: unset !important;
+  }
+}
+
+@media (max-width: 1037px) {
+  ::ng-deep .tools {
+    gd-button:nth-child(1)>.icon-button {
+      margin: 0px 0px 0px 10px !important;
+    }
+
+    .icon-button {
+      height: 60px;
+      width : 60px;
+    }
+  }
+
+  ::ng-deep .gd-side-panel-wrapper {
+    width: 375px !important;
+  }
+}

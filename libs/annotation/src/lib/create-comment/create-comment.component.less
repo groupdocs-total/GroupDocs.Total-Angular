@@ -1,31 +1,53 @@
+@import "../../../../common-components/src/styles/variables";
+
 .gd-new-comment {
-  display: flex;
-  flex-direction: column;
+  display        : flex;
+  flex-direction : column;
   justify-content: center;
-  align-items: center;
-  padding-top: 20px;
-  width: 294px;
-  font-size: 14px;
+  align-items    : center;
+  padding-top    : 20px;
+  width          : 294px;
+  font-size      : 14px;
+
+  ::ng-deep .button {
+    padding: 0px !important;
+    width  : 96px;
+
+    .text {
+      font-size: 12px !important;
+    }
+
+    fa-icon {
+      font-size: 14px;
+    }
+  }
 
   .gd-buttons {
-    display: flex;
-    margin-top: 20px;
-    width: 294px;
+    display        : flex;
+    margin-top     : 20px;
+    width          : 294px;
     justify-content: flex-end;
 
     .gd-add-comment {
       background-color: #4B566C !important;
-      margin-left: 10px;
-      border: 1px solid #707070;
+      margin-left     : 10px;
+      border          : 1px solid #707070;
 
       ::ng-deep .button {
-        color: #FFFFFF !important;
+        color          : #FFFFFF !important;
+        display        : flex;
+        flex-direction : row;
+        justify-content: flex-start;
+
+        fa-icon {
+          padding: 0 11px;
+        }
       }
     }
 
     .gd-cancel-comment {
       background-color: transparent;
-      border: 1px solid #707070;
+      border          : 1px solid #707070;
 
       ::ng-deep .button {
         color: #ACACAC !important;
@@ -34,15 +56,28 @@
   }
 
   .gd-name {
-    width: 100%;
+    width : 100%;
     height: 37px;
     border: 1px solid #6E6E6E;
+    box-sizing: border-box;
   }
 
   .gd-text {
-    width: 100%;
-    height: 100px;
-    border: 1px solid #6E6E6E;
+    width     : 100%;
+    height    : 100px;
+    border    : 1px solid #6E6E6E;
     margin-top: 20px;
+    box-sizing: border-box;
+  }
+}
+
+@media @phone-down {
+  .gd-new-comment {
+    width: 100%;
+    padding-bottom: 20px;
+
+    .gd-buttons {
+      width: 100%;
+    }
   }
 }

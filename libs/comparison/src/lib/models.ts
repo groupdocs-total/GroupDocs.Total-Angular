@@ -35,9 +35,9 @@ export class Rectangle {
 }
 
 export class PageInfo {
-  id: number;
   width: number;
   height: number;
   changes: ChangeInfo[];
+  pageNumber: number;
 }
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnDestroy, AfterViewInit, OnChanges} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, AfterViewInit, OnChanges, Output, EventEmitter} from '@angular/core';
 import {NavigateService, PageModel, ZoomService, FileUtil} from "@groupdocs.examples.angular/common-components";
 
 @Component({
@@ -12,6 +12,7 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   @Input() guid: string;
   @Input() mode: boolean;
   @Input() isHtmlMode: boolean;
+  @Output() selectedPage = new EventEmitter<number>();
 
   constructor(private _navigateService: NavigateService, private _zoomService: ZoomService) {
   }
@@ -22,9 +23,17 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   ngOnChanges() {
     // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
     // which leads to undesired spaces on the top of the docs pages
-    this.pages.forEach(page => {
-      page.data = page.data.replace(/>\s+</g,'><').replace(/\uFEFF/g,"");
-    });
+    if (this.pages) {
+      this.pages.forEach(page => {
+        if (page.data) {
+          page.data = page.data.replace(/>\s+</g,'><')
+                               .replace(/\uFEFF/g,"")
+                               .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
+                               .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
+                               .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+        }
+      });
+    }
   }
 
   ngAfterViewInit() {
@@ -32,7 +41,9 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   }
 
   ngOnDestroy() {
-    this._zoomService.changeZoom(this._zoomService.zoom);
+    setTimeout(() => {
+      this._zoomService.changeZoom(this._zoomService.zoom);
+    }, 100);
   }
 
   imgData(data: string) {
@@ -48,6 +59,7 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   }
 
   openPage(pageNumber: number) {
+    this.selectedPage.emit(pageNumber);
     this._navigateService.navigateTo(pageNumber);
   }
 
