@@ -5,9 +5,7 @@ import {
   Input,
   OnInit,
   AfterViewInit,
-  OnChanges,
-  Output,
-  EventEmitter
+  OnChanges
 } from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
@@ -54,7 +52,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   constructor(protected _elementRef: ElementRef<HTMLElement>,
               private _zoomService: ZoomService,
               private _windowService: WindowService,
-              private _navigateService: NavigateService,) {
+              private _navigateService: NavigateService) {
     _zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val;
     });
@@ -116,11 +114,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   ngAfterViewChecked(): void {
-    const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-    const element = elementNodeListOf.item(0);
-    if (element) {
-      $(element).trigger('focus');
-    }
+    // for now we are not sure that need this action in current implementation
+    // const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+    // const element = elementNodeListOf.item(0);
+    // if (element) {
+    //   $(element).trigger('focus');
+    // }
   }
 
   isVisible(pageNumber) {
