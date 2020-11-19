@@ -29,7 +29,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   file: FileDescription;
   metadataConfig: MetadataConfig;
   countPages = 0;
-  formatDisabled = true;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isLoading: boolean;
@@ -40,7 +39,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   options;
   fileWasDropped = false;
   public packages: PackageModel[];
-  disabled = false;
   isDesktop: boolean;
   showSidePanel = true;
   confirmCleanModalId = "confirm-clean";
@@ -70,27 +68,24 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     });
 
     this.uploadFilesService.uploadsChange.subscribe((uploads) => {
-      if (uploads) {
-        let i: number;
-        for (i = 0; i < uploads.length; i++) {
-          this.metadataService.upload(uploads.item(i), '', this.metadataConfig.rewrite).subscribe((obj: FileCredentials) => {
-            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
+      if (uploads && uploads.length > 0) {
+          this.metadataService.upload(uploads.item(0), '', this.metadataConfig.rewrite).subscribe((obj: FileCredentials) => {
+            this.fileWasDropped ? this.selectFile1(obj.guid, '', '') : this.selectDir('');
           });
-        }
       }
     });
 
     this.passwordService.passChange.subscribe((pass: string) => {
-      this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
+      this.selectFile1(this.credentials.guid, pass, CommonModals.PasswordRequired);
     });
 
     if (this.metadataConfig.defaultDocument !== ""){
       this.isLoading = true;
-      this.selectFile(this.metadataConfig.defaultDocument, "", "");
+      this.selectFile1(this.metadataConfig.defaultDocument, "", "");
     }
     else if (this.initialFile) {
       this.isLoading = true;
-      this.selectFile(this.initialFile, null, null);
+      this.selectFile1(this.initialFile, null, null);
     }
   }
 
@@ -119,7 +114,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   openModal(id: string, fileShouldBeLoaded: boolean) {
-    if (fileShouldBeLoaded && this.formatDisabled) return;
+    if (fileShouldBeLoaded && !this.isFileLoaded()) return;
     this.modalService.open(id);
   }
 
@@ -132,7 +127,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     this.file = null;
     this.metadataService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
-        this.formatDisabled = !this.file;
         if (file) {
           if (file.pages && file.pages[0]) {
             this.pageHeight = file.pages[0].height;
@@ -210,13 +204,13 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   downloadFile() {
-    if (this.formatDisabled)
+    if (!this.isFileLoaded())
       return;
     window.location.assign(this.metadataService.getDownloadUrl(this.credentials));
   }
 
   exportProperties() {
-    if (this.formatDisabled) return;
+    if (!this.isFileLoaded()) return;
     this.metadataService.exportProperties(this.credentials).subscribe((exportedFile: Blob) => 
       this.saveBlob(exportedFile, "ExportedProperties.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")); 
   }
@@ -228,10 +222,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     for (const page of this.file.pages) {
       page.data = null;
     }
-  }
-
-  isDisabled() {
-    return !this.file || this.disabled;
   }
 
   save() {
@@ -247,8 +237,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     if (savingFile.packages.length > 0)
     {
       this.metadataService.saveProperty(savingFile).subscribe((loadFile: FileDescription) => {
-        this.loadProperties();
-        this.disabled = false;
+        this.loadProperties1();
         this.modalService.open(CommonModals.OperationSuccess);
       });
     }
@@ -256,8 +245,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
 
   cleanMetadata() {
     this.metadataService.cleanMetadata(this.credentials).subscribe(() => {
-      this.loadProperties();
-      this.disabled = false;
+      this.loadProperties1();
       this.modalService.open(CommonModals.OperationSuccess);
     });
   }
@@ -284,7 +272,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
       metadataFile.password = this.credentials.password;
       metadataFile.packages = [{id: propertyInfo.packageId, properties: [propertyInfo.property] }];
       this.metadataService.removeProperty(metadataFile).subscribe(() => {
-        this.loadProperties();
+        this.loadProperties1();
         this.modalService.open(CommonModals.OperationSuccess);
       });
     }
@@ -326,5 +314,49 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         window.URL.revokeObjectURL(data);
         link.remove();
     }, 100);
+  }
+
+
+
+  loadProperties1() {
+    this.metadataService.loadProperties(this.credentials).subscribe((packages: PackageModel[]) => {
+      this.packages = packages;
+      this.isLoading = false;
+      if (!this.showSidePanel) {
+        this.showSidePanel = true;
+      }
+    });
+  }
+
+  selectFile1($event: string, password: string, modalId: string) {
+    this.credentials = { guid: $event, password: password };
+    this.file = null;
+    this.loadProperties1();
+    this.metadataService.loadFile(this.credentials).subscribe((file: FileDescription) => {
+        this.file = file;
+        if (file) {
+          if (file.pages && file.pages.length > 0) {
+            this.pageHeight = file.pages[0].height;
+            this.pageWidth = file.pages[0].width;
+            this.options = this.zoomOptions();
+            this.refreshZoom();
+          }
+
+          const countPages = file.pages ? file.pages.length : 0;
+          
+          this.navigateService.countPages = countPages;
+          this.navigateService.currentPage = 1;
+          this.countPages = countPages;
+        }
+      }
+    );
+    if (modalId) {
+      this.modalService.close(modalId);
+    }
+    this.clearData();
+  }
+
+  private isFileLoaded() {
+    return this.packages != null && this.packages.length > 0;
   }
 }
