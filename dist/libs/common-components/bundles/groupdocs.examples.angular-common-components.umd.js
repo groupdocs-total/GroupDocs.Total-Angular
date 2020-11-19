@@ -2277,13 +2277,12 @@
          * @return {?}
          */
         function () {
-            /** @type {?} */
-            var elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-            /** @type {?} */
-            var element = elementNodeListOf.item(0);
-            if (element) {
-                $$1(element).trigger('focus');
-            }
+            // for now we are not sure that need this action in current implementation
+            // const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+            // const element = elementNodeListOf.item(0);
+            // if (element) {
+            //   $(element).trigger('focus');
+            // }
         };
         /**
          * @param {?} pageNumber

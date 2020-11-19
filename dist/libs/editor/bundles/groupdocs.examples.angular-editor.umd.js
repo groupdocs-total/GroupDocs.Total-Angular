@@ -456,7 +456,7 @@
     /** @type {?} */
     var $ = jquery;
     var EditorAppComponent = /** @class */ (function () {
-        function EditorAppComponent(_editorService, _modalService, configService, uploadFilesService, passwordService, _windowService, _formattingService, _backFormattingService, _onCloseService, _selectionService, _htmlService, _renderPrintService, _loadingMaskService) {
+        function EditorAppComponent(_editorService, _modalService, configService, uploadFilesService, passwordService, _windowService, _formattingService, _backFormattingService, _onCloseService, _selectionService, _htmlService, _renderPrintService, _loadingMaskService, _renderer) {
             var _this = this;
             this._editorService = _editorService;
             this._modalService = _modalService;
@@ -468,6 +468,7 @@
             this._htmlService = _htmlService;
             this._renderPrintService = _renderPrintService;
             this._loadingMaskService = _loadingMaskService;
+            this._renderer = _renderer;
             this.title = 'editor';
             this.files = [];
             this.formatDisabled = !this.file;
@@ -935,6 +936,7 @@
          * @return {?}
          */
         function (file) {
+            var _this = this;
             this.file = file;
             if (this.file && this.file.pages[0]) {
                 this.file.pages[0].editable = true;
@@ -944,6 +946,74 @@
             }
             this.formatDisabled = !this.file;
             this.downloadDisabled = false;
+            // adding listeners on inputs if present on existing page
+            /** @type {?} */
+            var count = 0;
+            /** @type {?} */
+            var timerId = setInterval((/**
+             * @return {?}
+             */
+            function () {
+                count++;
+                /** @type {?} */
+                var page = document.querySelectorAll('.page');
+                if (page) {
+                    _this.initControlsListeners();
+                    clearInterval(timerId);
+                }
+                if (count === 20)
+                    clearInterval();
+            }), 100);
+        };
+        /**
+         * @private
+         * @return {?}
+         */
+        EditorAppComponent.prototype.initControlsListeners = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            /** @type {?} */
+            var inputs = document.querySelectorAll('input');
+            inputs.forEach((/**
+             * @param {?} input
+             * @return {?}
+             */
+            function (input) {
+                _this._renderer.listen(input, 'keyup', (/**
+                 * @param {?} event
+                 * @return {?}
+                 */
+                function (event) {
+                    input.setAttribute('value', input.value);
+                }));
+            }));
+            /** @type {?} */
+            var selects = document.querySelectorAll('select');
+            selects.forEach((/**
+             * @param {?} select
+             * @return {?}
+             */
+            function (select) {
+                _this._renderer.listen(select, 'change', (/**
+                 * @param {?} event
+                 * @return {?}
+                 */
+                function (event) {
+                    selects.forEach((/**
+                     * @param {?} s
+                     * @return {?}
+                     */
+                    function (s) {
+                        for (var i = s.options.length - 1; i >= 0; i--) {
+                            s.options[i].removeAttribute('selected');
+                        }
+                    }));
+                    select.options[select.selectedIndex].setAttribute('selected', 'selected');
+                }));
+            }));
         };
         /**
          * @private
@@ -1215,6 +1285,10 @@
             this.colorPickerShow = false;
             this.bgColorPickerShow = false;
             this._onCloseService.close(true);
+            // we try to save the changes on any click outside
+            if (document.querySelectorAll('.gd-wrapper')[0]) {
+                this.textBackup = document.querySelectorAll('.gd-wrapper')[0].innerHTML.toString();
+            }
         };
         /**
          * @param {?} event
@@ -1382,7 +1456,10 @@
             /** @type {?} */
             var pptFormats = ["ppt", "pptx", "pptm", "pps", "ppsx", "ppsm", "pot", "potx", "potm", "odp", "otp"];
             /** @type {?} */
-            var resultData = "<html><head>" + data + "</body></html>";
+            var resultData = data;
+            if (!data.startsWith("<html><head>") && !data.endsWith("</body></html>")) {
+                resultData = "<html><head>" + data + "</body></html>";
+            }
             if (this.newFile) {
                 resultData = resultData.replace('<head>', '<head><meta http-equiv="content-type" content="text/html; charset=utf-8"></head><body>');
                 if (pptFormats.includes(guid.split('.').pop())) {
@@ -1465,7 +1542,8 @@
             { type: commonComponents.SelectionService },
             { type: commonComponents.EditHtmlService },
             { type: commonComponents.RenderPrintService },
-            { type: commonComponents.LoadingMaskService }
+            { type: commonComponents.LoadingMaskService },
+            { type: core.Renderer2 }
         ]; };
         return EditorAppComponent;
     }());
@@ -1567,6 +1645,11 @@
          * @private
          */
         EditorAppComponent.prototype._loadingMaskService;
+        /**
+         * @type {?}
+         * @private
+         */
+        EditorAppComponent.prototype._renderer;
     }
 
     /**
