@@ -163,14 +163,6 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
     this._formattingService.formatListChange.subscribe((list: string) => {
       this.formatting.list = list;
     });
-
-    this._htmlService.htmlContent.subscribe((text: string) => {
-      if (this.file && this.file.pages) {
-        text = text.replace('<div class="footer-title">Footer</div>', "");
-        text = text.replace('<div class="header-title">Header</div>', "");
-        this.textBackup = text;
-      }
-    });
   }
 
   ngOnInit() {
@@ -618,6 +610,10 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
     {
       // for Word files
       resultData = resultData.replace('<div class="documentMainContent">', '</head><body><div class="documentMainContent">');
+      resultData = resultData.replace('<header class="header disabled"', '<header class="header"');
+      resultData = resultData.replace('<footer class="footer disabled"', '<footer class="footer"');
+      resultData = resultData.replace('<div class="footer-title">Footer</div>', "");
+      resultData = resultData.replace('<div class="header-title">Header</div>', "");
       // for Presentations files
       resultData = resultData.replace('<div class="slide"', '</head><body><div class="slide"');
       // for Excel files
