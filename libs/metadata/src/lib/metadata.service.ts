@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Api, ConfigService, FileCredentials} from "@groupdocs.examples.angular/common-components";
-import { FilePropertyModel } from './metadata-models';
+import { ChangedPackageModel } from './metadata-models';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,10 @@ export class MetadataService {
     return this._http.post(this._config.getMetadataApiEndpoint() + Api.REMOVE_PROPERTY, metadataFile, Api.httpOptionsJson);
   }
 
+  cleanMetadata(metadataFile: FileCredentials) {
+    return this._http.post(this._config.getMetadataApiEndpoint() + Api.CLEAN_METADATA, metadataFile, Api.httpOptionsJson);
+  }
+
   upload(file: File, url: string, rewrite: boolean) {
     const formData = new FormData();
     formData.append("file", file);
@@ -59,6 +63,10 @@ export class MetadataService {
     return this._config.getMetadataApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
   }
 
+  exportProperties(credentials: FileCredentials) {
+    return this._http.post(this._config.getMetadataApiEndpoint() + Api.EXPORT_METADATA, credentials, Api.httpOptionsJsonResponseTypeBlob);
+  }
+
   loadPrint(credentials: FileCredentials) {
     return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_PRINT, {
       'guid': credentials.guid,
@@ -69,5 +77,6 @@ export class MetadataService {
 
 export class MetadataFileDescription {
   guid: string;
-  properties: FilePropertyModel[];
+  password: string;
+  packages: ChangedPackageModel[];
 }

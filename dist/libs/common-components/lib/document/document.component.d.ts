@@ -12,6 +12,7 @@ export declare class DocumentComponent implements OnInit, AfterViewChecked, Afte
     preloadPageCount: number;
     file: FileDescription;
     selectedPage: number;
+    showActiveSlide: boolean;
     wait: boolean;
     zoom: number;
     docWidth: any;

@@ -1,18 +1,22 @@
 <gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
 <div class="wrapper">
   <div class="row">
-    <div class="column">
+    <div class="column" [ngClass]="{'document-loaded': !formatDisabled}">
       <div class="top-panel">
-        <gd-logo [logo]="'metadata'" icon="clipboard-list"></gd-logo>
+        <a class="logo-link" [href]="returnUrl"><gd-logo [logo]="'metadata'" icon="clipboard-list"></gd-logo></a>
         <gd-top-toolbar class="toolbar-panel">
-          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal)"
+          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal, false)"
                     *ngIf="browseConfig" ></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="save()">
+          <gd-button [disabled]="formatDisabled" [icon]="'trash'" [tooltip]="'Clean Metadata'" (click)="openModal(confirmCleanModalId, true)">
+                    </gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="openModal(confirmSaveModalId, true)">
                     </gd-button>
           <gd-button [hidden] ="isDesktop" [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties()">
                     </gd-button>
           <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
                     (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
+          <gd-button [disabled]="formatDisabled" [icon]="'file-excel'" [tooltip]="'Export Properties'"
+                    (click)="exportProperties()" ></gd-button>
         </gd-top-toolbar>
       </div>
       <div class="doc-panel" *ngIf="file" #docPanel>
@@ -28,12 +32,11 @@
       [title]="'Metadata'"
       [icon]="'clipboard-list'">
       <gd-accordion>
-        <gd-accordion-group title="Build-in properties" [addDisabled]="isDisabled()" [addHidden]="false" [properties]="buildInProperties" [propertiesNames]="filePropertiesNames" (removeProperty)="removeProperty($event)"></gd-accordion-group>
-        <gd-accordion-group class="default" title="Default properties" [addDisabled]="true" [addHidden]="true" [properties]="defaultProperties"></gd-accordion-group>
+        <gd-accordion-group *ngFor="let package of packages" [title]="getPackageName(package)" [addDisabled]="false" [addHidden]="false" [properties]="package.properties" [knownProperties]="package.knownProperties" [packageId]="package.id" (removeProperty)="removeProperty($event)"></gd-accordion-group>
       </gd-accordion>
     </gd-side-panel>
   </div>
-  <gd-init-state [icon]="'clipboard-list'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">
+  <gd-init-state [icon]="'clipboard-list'" [text]="'Drop file here to upload'" *ngIf="!file && uploadConfig" (fileDropped)="fileDropped($event)">
     Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
     Or drop file here
   </gd-init-state>
@@ -44,4 +47,7 @@
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>
   <gd-success-modal></gd-success-modal>
+  <gd-confirm-modal [id]="confirmCleanModalId" [text]="'Are you sure, you want to clean metadata in this file?'" (confirm)="cleanMetadata()"></gd-confirm-modal>
+  <gd-confirm-modal [id]="confirmSaveModalId" [text]="'Do you want to save the changes?'" (confirm)="save()"></gd-confirm-modal>
+  
 </div>

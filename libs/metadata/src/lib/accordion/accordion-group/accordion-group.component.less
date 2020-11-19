@@ -76,6 +76,10 @@
   text-overflow : ellipsis;
   word-wrap     : break-word;
 
+  &.disabled {
+    color : @silver-chalice;
+  }
+  
   ::ng-deep .select {
     height         : 35px;
     line-height    : 37px;
@@ -102,6 +106,11 @@
   }
 }
 
+.property-name-simple {
+    overflow-x: hidden;
+    word-wrap : normal;
+}
+
 .property-value {
   font-family  : 'Courier New', Courier, monospace;
   padding-left : 12px;
@@ -115,6 +124,10 @@
   &.desktop-hide {
     display: none;
   }
+}
+
+::ng-deep dp-date-picker.dp-material .dp-picker-input, ::ng-deep  dp-day-time-calendar * {
+  font-family  : 'Courier New', Courier, monospace;
 }
 
 .input-wrapper {
