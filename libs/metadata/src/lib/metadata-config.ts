@@ -4,7 +4,6 @@ export class MetadataConfig {
   upload: boolean;
   browse: boolean;
 
-  filesDirectory: string;
   defaultDocument: string;
   preloadPageCount: 0;
   cache: boolean;

@@ -1,0 +1,15 @@
+<gd-modal [id]="id" [title]="'Confirm action'">
+    <section id="gd-confirm-section">
+        <div class="gd-confirm-wrap">
+          <span class="gd-confirm-text">{{text}}</span>
+          <div class="gd-confirm-button-wrap">
+            <gd-button id="cancel-button" [icon]="'times'" [intent]="'brand'" [iconOnly]="false" (click)="onCancel($event)">
+                Cancel
+            </gd-button>
+            <gd-button id="confirm-button" [icon]="'check'" [intent]="'brand'" [iconOnly]="false" (click)="onConfirm($event)">
+                Confirm
+            </gd-button>
+        </div>
+        </div>
+      </section>
+</gd-modal>
