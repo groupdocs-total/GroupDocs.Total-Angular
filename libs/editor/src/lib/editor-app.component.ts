@@ -297,9 +297,11 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   private loadFile(file: FileDescription) {
     this.file = file;
     if (this.file && this.file.pages[0]) {
-      this.file.pages[0].editable = true;
-      this.file.pages[0].width = this.ifPresentation() ? 960 : 595;
-      this.file.pages[0].height = this.ifPresentation() ? 540 : 842;
+      this.file.pages.forEach((page) => {
+        page.editable = true;
+        page.width = this.ifPresentation() ? 960 : 595;
+        page.height = this.ifPresentation() ? 540 : 842;
+      });
       this.textBackup = this.file.pages[0].data;
     }
     this.formatDisabled = !this.file;
