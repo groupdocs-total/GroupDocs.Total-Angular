@@ -300,8 +300,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
     if (this.file && this.file.pages[0]) {
       this.file.pages.forEach((page) => {
         page.editable = true;
-        page.width = this.ifPresentation() ? 960 : 595;
-        page.height = this.ifPresentation() ? 540 : 842;
+        if (page.width === 0) page.width = this.ifPresentation() ? 960 : 595;
+        if (page.height === 0) page.height = this.ifPresentation() ? 540 : 842;
       });
       this.textBackup = this.file.pages[0].data;
     }
