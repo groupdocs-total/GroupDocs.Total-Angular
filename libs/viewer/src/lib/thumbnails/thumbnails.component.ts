@@ -41,7 +41,9 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   }
 
   ngOnDestroy() {
-    this._zoomService.changeZoom(this._zoomService.zoom);
+    setTimeout(() => {
+      this._zoomService.changeZoom(this._zoomService.zoom);
+    }, 100);
   }
 
   imgData(data: string) {

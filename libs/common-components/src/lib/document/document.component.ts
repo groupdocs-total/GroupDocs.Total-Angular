@@ -5,9 +5,7 @@ import {
   Input,
   OnInit,
   AfterViewInit,
-  OnChanges,
-  Output,
-  EventEmitter
+  OnChanges
 } from '@angular/core';
 import {FileDescription, FileUtil} from "../file.service";
 import {ZoomService} from "../zoom.service";
@@ -29,6 +27,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   @Input() preloadPageCount: number;
   @Input() file: FileDescription;
   @Input() selectedPage: number;
+  @Input() showActiveSlide: boolean;
   wait = false;
   zoom: number;
 
@@ -53,7 +52,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   constructor(protected _elementRef: ElementRef<HTMLElement>,
               private _zoomService: ZoomService,
               private _windowService: WindowService,
-              private _navigateService: NavigateService,) {
+              private _navigateService: NavigateService) {
     _zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val;
     });
@@ -107,7 +106,7 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   getDimensionWithUnit(value: number, pageNumber: number) {
-    return this.ifPresentation() && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+    return this.ifPresentation() && this.showActiveSlide && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
   }
 
   ifEdge() {
@@ -115,11 +114,12 @@ export class DocumentComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
   ngAfterViewChecked(): void {
-    const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-    const element = elementNodeListOf.item(0);
-    if (element) {
-      $(element).trigger('focus');
-    }
+    // for now we are not sure that need this action in current implementation
+    // const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+    // const element = elementNodeListOf.item(0);
+    // if (element) {
+    //   $(element).trigger('focus');
+    // }
   }
 
   isVisible(pageNumber) {

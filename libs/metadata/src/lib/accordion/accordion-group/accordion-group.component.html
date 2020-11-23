@@ -1,20 +1,22 @@
 <div class="accordion-wrapper">
-    <div class="title" (click)="toggle.emit($event)">
+    <div class="title" (click)="toggle($event)">
       <fa-icon *ngIf="!opened" class="chevron" [icon]="['fas', 'chevron-down']"></fa-icon>
       <fa-icon *ngIf="opened" class="chevron" [icon]="['fas', 'chevron-up']"></fa-icon>
       <div class="text">{{title}}</div>
-      <fa-icon class="trash" *ngIf="wasSelected()" [icon]="['fas', 'trash']" (click)="delete($event)"></fa-icon>
-      <gd-button class="plus" [icon]="['plus']" [hidden]="addHidden" [disabled]="addDisabled" (click)="addProperty($event)"></gd-button>
+      <fa-icon class="trash" *ngIf="isRemoveAvailable()" [icon]="['fas', 'trash']" (click)="delete($event)"></fa-icon>
+      <gd-button class="plus" [icon]="['plus']" [hidden]="addHidden" [disabled]="!isAddAvailable()" (click)="addProperty($event)"></gd-button>
     </div>
     <div class="body" [ngClass]="{'hidden': !opened}">
-      <div *ngFor="let property of properties" class="property-wrapper" [ngClass]="{'disabled': property.disabled}">
-          <div *ngIf="property.original" [ngClass]="{'selected': property.selected}" (click)="selectProperty(property)" class="property-name" title="{{property.name}}">{{property.name}}</div>
-          <gd-select  class="property-name" *ngIf="!property.original" id="propertiesNames" [disabled]="false" [options]="propertiesNames" (selected)="selectPropName($event, property)" [showSelected]="{name : property.name, value : property.name}"></gd-select>
-          <div *ngIf="property.original && !property.editing" [ngClass]="{'selected': property.selected}" (click)="editProperty(property)" class="property-value" title="{{property.value}}">{{formatValue(property)}}</div>
-          <div *ngIf="!property.original || property.editing" class="input-wrapper">
-            <input #textinput *ngIf="property.type == 1 || property.type == 5" class="property-value" [(ngModel)]="property.value">
-            <input *ngIf="property.type == 3" type="datetime-local" step="1" [ngClass]="isDesktop ? 'property-value' : 'property-value mobile-hide'" [ngModel]="property.value | date:'yyyy-MM-ddTHH:mm:ss'" (ngModelChange)="formatDateTime(property, $event)">
-            <input *ngIf="property.type == 3" type="datetime-local" [ngClass]="isDesktop ? 'property-value desktop-hide' : 'property-value'" [ngModel]="property.value | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="formatDateTime(property, $event)">
+      <div *ngFor="let property of properties" class="property-wrapper">
+          <div *ngIf="!property.added" [ngClass]="{'selected': property.selected, 'disabled': !isEditable(property)}" (click)="selectProperty(property)" class="property-name property-name-simple" title="{{property.name}}">{{property.name}}</div>
+          <gd-select  class="property-name" *ngIf="property.added" id="propertiesNames" [disabled]="false" [options]="notAddedProperties" (selected)="selectPropName($event, property)" [showSelected]="{name : property.name, value : property.name}"></gd-select>
+          <div *ngIf="!property.editing" [ngClass]="{'selected': property.selected}" (click)="editProperty(property)" class="property-value" title="{{property.value}}">{{formatValue(property)}}</div>
+          <div *ngIf="property.editing" class="input-wrapper">
+            <input #textinput *ngIf="property.type == metadataPropertyType.String" class="property-value" [(ngModel)]="property.value" />
+            <input *ngIf="property.type == metadataPropertyType.Integer || property.type == metadataPropertyType.Long" type="text" class="property-value" [(ngModel)]="property.value" gdInteger />
+            <input *ngIf="property.type == metadataPropertyType.Double" type="number" class="property-value" [(ngModel)]="property.value" />
+            <input *ngIf="property.type == metadataPropertyType.Boolean" type="checkbox" class="property-value" [(ngModel)]="property.value" />
+            <dp-date-picker *ngIf="property.type == metadataPropertyType.DateTime" [mode]="'daytime'" [theme]="'dp-material dp-main'" [config]="datePickerConfig" [ngModel]="dateToPicker(property.value)" (ngModelChange)="dateFromPicker(property, $event)" ></dp-date-picker>
         </div>
       </div>
     </div>

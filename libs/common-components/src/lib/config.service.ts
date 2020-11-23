@@ -44,6 +44,8 @@ export class Api {
   public static ANNOTATE = '/annotate';
   public static SEARCH = '/search';
   public static ADD_FILES_TO_INDEX = '/addFilesToIndex';
+  public static CLEAN_METADATA = '/clean';
+  public static EXPORT_METADATA = '/export';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

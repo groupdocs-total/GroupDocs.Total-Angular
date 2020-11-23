@@ -1,8 +1,9 @@
-import { Component, Input, Output, EventEmitter, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, QueryList, ViewChildren, AfterViewInit, OnInit } from '@angular/core';
 import { WindowService } from '@groupdocs.examples.angular/common-components';
-import { AccordionService } from './../../accordion.service';
-import {DatePipe} from "@angular/common";
-import { FilePropertyModel } from '../../metadata-models';
+import { FilePropertyModel, KnownPropertyModel, AccessLevels, RemovePropertyModel, MetadataPropertyType } from '../../metadata-models';
+import { IDatePickerConfig } from 'ng2-date-picker';
+import * as moment_ from 'moment';
+const moment = moment_;
 
 @Component({
   selector: 'gd-accordion-group',
@@ -10,25 +11,44 @@ import { FilePropertyModel } from '../../metadata-models';
   styleUrls: ['./accordion-group.component.less']
 })
 
-export class AccordionGroupComponent implements AfterViewInit {
-  @Input() opened = false;
+export class AccordionGroupComponent implements OnInit, AfterViewInit {
+  @Input() knownProperties: KnownPropertyModel[]
+  @Input() opened = true;
   @Input() title: string;
+  @Input() packageId: string;
   @Input() addDisabled: boolean;
   @Input() addHidden: boolean;
   @Input() properties: FilePropertyModel[];
-  @Input() propertiesNames: string[];
-  @Output() toggle: EventEmitter<any> = new EventEmitter<any>();
-  @Output() removeProperty = new EventEmitter<FilePropertyModel>();
+  @Output() removeProperty = new EventEmitter<RemovePropertyModel>();
+  knownPropertyDictionary: { [key: string]: KnownPropertyModel };
+  notAddedProperties: KnownPropertyModel[];
+  metadataPropertyType: typeof MetadataPropertyType
   @ViewChildren('textinput') textinput: QueryList<any>;
   isDesktop: boolean;
+  datePickerConfig: IDatePickerConfig = {
+    format: 'DD-MM-YYYY HH:mm:ss'
+  };
+  editableTypes: Set<MetadataPropertyType> = new Set<MetadataPropertyType>(
+    [
+      MetadataPropertyType.String, 
+      MetadataPropertyType.Integer, 
+      MetadataPropertyType.Long, 
+      MetadataPropertyType.Double,
+      MetadataPropertyType.Boolean,
+      MetadataPropertyType.DateTime
+    ]);
 
-  constructor(private _accordionService: AccordionService,
-              private _datePipe: DatePipe,
-              private _windowService: WindowService) {
-    this.isDesktop = _windowService.isDesktop();
-    _windowService.onResize.subscribe((w) => {
-      this.isDesktop = _windowService.isDesktop();
+  constructor(private windowService: WindowService) {
+  }
+
+  ngOnInit() {
+    this.isDesktop = this.windowService.isDesktop();
+    this.windowService.onResize.subscribe((w) => {
+      this.isDesktop = this.windowService.isDesktop();
     });
+    this.knownPropertyDictionary = this.toDictionary(this.knownProperties);
+    this.updateNotAddedProperties();
+    this.metadataPropertyType = MetadataPropertyType;
   }
 
   ngAfterViewInit() {
@@ -36,48 +56,41 @@ export class AccordionGroupComponent implements AfterViewInit {
       if (i.length) {
         i.first.nativeElement.focus();
       }
-  });
+    });
   }
 
-  resetProperties(onlyEditing: boolean = false) {
-    if (!onlyEditing) {
-      this.properties.forEach(p => p.selected = false);
-    }
-    this.properties.forEach(p => p.editing = false);
+  resetProperties() {
+      this.properties.forEach(p => { p.selected = false; p.editing = false; });
+  }
+
+  toggle($event: Event) {
+    this.opened = !this.opened;
   }
 
   addProperty($event: Event) {
     $event.preventDefault();
     $event.stopPropagation();
-
     this.resetProperties();
-
-    if (!this.addDisabled) {
+    if (this.isAddAvailable()) {
       const addedProperty = new FilePropertyModel();
-      addedProperty.original = false;
-      this._accordionService.addProperty(addedProperty);
+      addedProperty.added = true;
+      addedProperty.editing = true;
+      addedProperty.name = "Select property";
+      addedProperty.type = 1;
+      this.properties.push(addedProperty);
     }
   }
 
-  selectProperty(property: FilePropertyModel){
-    if (property.category === 0 && !property.disabled) {
-      this.resetProperties(true);
-
-      const selectedProperty = this.properties.filter(p => p.name.toLocaleLowerCase() === property.name.toLocaleLowerCase())[0];
-      selectedProperty.selected = !selectedProperty.selected;
-      this.properties.filter(p => p.name === property.name)[0].selected = selectedProperty.selected;
-    }
+  selectProperty(property: FilePropertyModel) {
+      this.resetProperties();
+      property.selected = !property.selected;
   }
 
   editProperty(property: FilePropertyModel){
-    // we can edit only first group props
-    if (property.category === 0 && !property.disabled) {
+    if (this.isEditable(property)) {
       this.resetProperties();
-
-      const selectedProperty = this.properties.filter(p => p.name.toLocaleLowerCase() === property.name.toLocaleLowerCase())[0];
-      selectedProperty.editing = !selectedProperty.editing;
-      this.properties.filter(p => p.name === property.name)[0].editing = selectedProperty.editing;
-      this.properties.filter(p => p.name === property.name)[0].edited = true;
+      property.editing = !property.editing;
+      property.edited = true;
     }
   }
 
@@ -85,41 +98,77 @@ export class AccordionGroupComponent implements AfterViewInit {
     $event.preventDefault();
     $event.stopPropagation();
     const selectedProperty = this.properties.filter(p => p.selected)[0];
-    this.removeProperty.emit(selectedProperty);
+    this.removeProperty.emit({ packageId: this.packageId, property: selectedProperty });
   }
 
-  wasSelected() {
-    if (this.properties && this.properties.length > 0) {
-      return this.properties.filter(p => p.selected).length === 1;
-    }
-    else return false;
+  isRemoveAvailable() {
+    return this.properties && this.properties.filter(p => p.selected && this.isRemovable(p)).length === 1;
+  }
+
+  isAddAvailable() {
+    return !this.addDisabled && this.notAddedProperties.length > 0;
   }
 
   selectPropName($event: any, property: FilePropertyModel) {
     property.type = $event.type;
     property.name = $event.name;
-    if ($event.type === 3) {
-      property.value = new Date().toISOString().slice(0, 19);
+    if ($event.type === MetadataPropertyType.DateTime) {
+      property.value = moment().toISOString();
     }
     else {
       property.value = "";
     }
-  }
-
-  formatDateTime(property: FilePropertyModel, value: string){
-    if (value) {
-      const dateTime = new Date(value);
-      property.value = dateTime.toISOString().slice(0, 19);
-    }
+    this.updateNotAddedProperties();
   }
 
   formatValue(property: FilePropertyModel){
     switch (property.type) {
-      case 3:
-        return this.isDesktop ? this._datePipe.transform(new Date(property.value), 'MM/dd/yy, h:mm:ss a')
-                              : this._datePipe.transform(new Date(property.value), 'MM/dd/yy, h:mm a');
+      case MetadataPropertyType.DateTime:
+        return this.dateToPicker(property.value);
       default:
         return property.value;
     }
+  }
+
+  updateNotAddedProperties() {
+    const propertyDictionary = this.toDictionary(this.properties);
+    // tslint:disable-next-line:no-bitwise
+    this.notAddedProperties = this.knownProperties.filter(p => (p.accessLevel & AccessLevels.Add) !== 0 && !(p.name in propertyDictionary));
+  }
+
+  isEditable(property: FilePropertyModel) {
+    if (this.editableTypes.has(property.type)) {
+      return this.hasAccessTo(property, AccessLevels.Update);
+    }
+  }
+
+  isRemovable(property: FilePropertyModel) {
+    return this.hasAccessTo(property, AccessLevels.Remove);
+  }
+
+  hasAccessTo(property: FilePropertyModel, accessLevel: AccessLevels) {
+    // tslint:disable-next-line:no-bitwise
+    return property.name in this.knownPropertyDictionary && (this.knownPropertyDictionary[property.name].accessLevel & accessLevel) !== 0;
+  }
+
+  dateToPicker(value: string) {
+    if (value) {
+      return moment.utc(value).local().format(this.datePickerConfig.format);
+    }
+    return null;
+  }
+
+  dateFromPicker(property: FilePropertyModel, value: string){
+    if (value) {
+      const dateTime = moment(value, this.datePickerConfig.format);
+      property.value = dateTime.toISOString();
+    }
+  }
+
+  toDictionary(array: any[]) {
+    return array.reduce((obj, item) => {
+      obj[item.name] = item;
+      return obj;
+    }, {});
   }
 }

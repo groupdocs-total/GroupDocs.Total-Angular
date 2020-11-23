@@ -16,6 +16,7 @@ import {WindowService} from "@groupdocs.examples.angular/common-components";
 import * as jquery from 'jquery';
 import { NavigateService } from "@groupdocs.examples.angular/common-components";
 import { Subject } from 'rxjs';
+import { Constants } from '../viewer.constants';
 
 const $ = jquery;
 
@@ -45,15 +46,24 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
               private _navigateService: NavigateService,) {
     _zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val;
+
+      if (val !== 100) {
+        if (this.currentPage !== 1)
+        {
+            this.scrollTo(this.currentPage, true, false);
+        }
+
+        this.alignVert();
+      }
     });
 
     this.isDesktop = _windowService.isDesktop();
 
-    this._navigateService.navigate.subscribe(((
+    this._navigateService.navigate.subscribe((
       value => {
           this.scrollTo(value, value > this.lastCurrentPage);
           this.lastCurrentPage = value;
-      })));
+      }));
   }
 
   ngOnInit() {
@@ -68,12 +78,14 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
     // For current iteration we take .gd-document as a container
     this.container = this._elementRef.nativeElement;
-    if (this.currentPage !== 1)
-    {
-      this.scrollTo(this.currentPage, true);
-    }
-
     const hammer = new Hammer(this.container);
+  }
+
+  alignVert(): void {
+    const presentationElements = this._elementRef.nativeElement.querySelectorAll('.presentation');
+    const zoom = this._zoomService.zoom/100;
+    presentationElements.forEach(element => (element as HTMLElement).style.marginTop = 
+      ((window.innerHeight - (element.clientHeight ? element.clientHeight : element.scrollHeight)*zoom - Constants.topbarWidth)/2)/zoom + "px");
   }
 
   ngAfterViewChecked(): void {
@@ -84,33 +96,38 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     }
   }
 
-  scrollTo(pageNumber: number, onRight: boolean) {
+  scrollTo(pageNumber: number, onRight: boolean, animate: boolean = true) {
     const pagesWidth = this._elementRef.nativeElement.offsetWidth * (pageNumber - 1);
     const startingX = onRight ? pagesWidth - this._elementRef.nativeElement.offsetWidth : pagesWidth + this._elementRef.nativeElement.offsetWidth;
-    this.doScrolling(pagesWidth, startingX, 500, new Subject<any>(), this._elementRef);
+    this.doScrolling(pagesWidth, startingX, 500, new Subject<any>(), this._elementRef, animate);
 
     this.selectedPage.emit(pageNumber);
   }
 
-  private doScrolling(elementX: number, startingX: number, duration: number, subject: Subject<any>, _elementRef) {
+  private doScrolling(elementX: number, startingX: number, duration: number, subject: Subject<any>, _elementRef, animate: boolean = true) {
     const diff = elementX - startingX;
     let start : number;
 
-    window.requestAnimationFrame(function step(timestamp) {
-      start = (!start) ? timestamp : start;
+    if (!animate) {
+      _elementRef.nativeElement.scrollTo({ left: startingX + diff});
+    }
+    else {
+      window.requestAnimationFrame(function step(timestamp) {
+        start = (!start) ? timestamp : start;
 
-      const time = timestamp - start;
-      const percent = Math.min(time / duration, 1);
+        const time = timestamp - start;
+        const percent = Math.min(time / duration, 1);
 
-      _elementRef.nativeElement.scrollTo({ left: startingX + diff * percent });
+        _elementRef.nativeElement.scrollTo({ left: startingX + diff * percent });
 
-      if (time < duration) {
-        window.requestAnimationFrame(step);
-        subject.next({});
-      } else {
-        subject.complete();
-      }
-    });
+        if (time < duration) {
+          window.requestAnimationFrame(step);
+          subject.next({});
+        } else {
+          subject.complete();
+        }
+      });
+    }
   }
 
   getDimensionWithUnit(value: number, pageNumber: number) {

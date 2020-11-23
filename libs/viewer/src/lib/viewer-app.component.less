@@ -59,12 +59,25 @@
   width           : 100%;
 }
 
+.btn-right {
+  margin-right: 7px;
+}
+
 ::ng-deep .gd-found-term {
   background-color: #8f8;
 }
 
 ::ng-deep .gd-found-term-selected {
   background-color: #4d4;
+}
+
+.smp-start-stop {
+  ::ng-deep .button {
+    flex-direction: row;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 0px 10px !important;
+  }
 }
 
 ::ng-deep .tools {
@@ -83,6 +96,28 @@
     flex-flow: column;
   }
 
+  .select-left {
+    .select {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      top: 40px;
+      left: 0px;
+    }
+  }
+
+  .select-right {
+    .select {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      top: 40px;
+      right: 0px;
+    }
+  }
+
   .dropdown-menu .option {
     color: @dove-gray  !important;
   }
@@ -92,7 +127,7 @@
   }
 
   .icon-button {
-    margin: 0px 0px 0px 7px !important;
+    margin: 0px 0px 0px 15px !important;
   }
 
   .select {
@@ -113,6 +148,10 @@
     flex-grow : 1;
     text-align: center;
     color     : white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 20px;
+    overflow: hidden;
   }
 
   .slides-buttons {
@@ -122,6 +161,11 @@
       color : white;
       cursor: pointer;
     }
+  }
+
+  ::ng-deep .gd-nav-search-container 
+  .icon-button {
+    margin: 0 0 0 7px !important;
   }
 }
 
@@ -133,6 +177,8 @@
 
   ::ng-deep .button {
     font-size: 37px;
+    background-color: @porcelain;
+    border-radius: 3px;
   }
 
   ::ng-deep .timer {
@@ -153,6 +199,10 @@
       }
     }
   }
+}
+
+::ng-deep .gd-wrapper {
+  pointer-events: none;
 }
 
 @media (max-width: 1037px) {
@@ -181,6 +231,10 @@
       .button {
         font-size: 14px;
       }
+    }
+
+    .gd-nav-search-container {
+      top: 59px !important;
     }
   }
 }
