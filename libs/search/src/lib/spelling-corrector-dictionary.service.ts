@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { StopWordsReadResponse, StopWordsUpdateRequest, WordState, WordWrapper } from './search-models';
+import { SpellingCorrectorReadResponse, SpellingCorrectorUpdateRequest, WordState, WordWrapper } from './search-models';
 import { SearchService } from './search.service';
 
 @Injectable()
-export class StopWordDictionaryService {
+export class SpellingCorrectorDictionaryService {
   words: WordWrapper[];
 
   constructor(private _searchService: SearchService) {
   }
 
   init() {
-    this._searchService.getStopWordDictionary().subscribe((response: StopWordsReadResponse) => {
-      this.words = new Array(response.StopWords.length);
-      for (let i = 0; i < response.StopWords.length; i++) {
+    this._searchService.getSpellingCorrectorDictionary().subscribe((response: SpellingCorrectorReadResponse) => {
+      this.words = new Array(response.Words.length);
+      for (let i = 0; i < response.Words.length; i++) {
         this.words[i] = new WordWrapper();
-        this.words[i].word = response.StopWords[i];
+        this.words[i].word = response.Words[i];
         this.words[i].state = WordState.Old;
       }
       this.sort();
@@ -32,7 +32,7 @@ export class StopWordDictionaryService {
   }
 
   save() {
-    const request = new StopWordsUpdateRequest();
+    const request = new SpellingCorrectorUpdateRequest();
 
     let count = 0;
     for (let i = 0; i < this.words.length; i++) {
@@ -42,18 +42,18 @@ export class StopWordDictionaryService {
       }
     }
 
-    request.StopWords = new Array(count);
+    request.Words = new Array(count);
     let index = 0;
     for (let i = 0; i < this.words.length; i++) {
       if (this.words[i].state === WordState.Old ||
         this.words[i].state === WordState.New) {
-        request.StopWords[index] = this.words[i].word;
+        request.Words[index] = this.words[i].word;
         index++;
       }
     }
 
-    this._searchService.setStopWordDictionary(request).subscribe(() => {
-      console.log("Stop word dictionary updated")
+    this._searchService.setSpellingCorrectorDictionary(request).subscribe(() => {
+      console.log("Spelling corrector dictionary updated")
       this.init();
     });
   }

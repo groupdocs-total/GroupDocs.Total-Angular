@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommandsService } from '../commands.service';
 import { WordState, WordWrapper } from '../search-models';
-import { StopWordDictionaryService } from '../stop-word-dictionary.service';
+import { SpellingCorrectorDictionaryService } from '../spelling-corrector-dictionary.service';
 
 @Component({
-  selector: 'gd-stop-word-dictionary',
-  templateUrl: './stop-word-dictionary.component.html',
-  styleUrls: ['./stop-word-dictionary.component.less']
+  selector: 'gd-spelling-corrector-dictionary',
+  templateUrl: './spelling-corrector-dictionary.component.html',
+  styleUrls: ['./spelling-corrector-dictionary.component.less']
 })
-export class StopWordDictionaryComponent implements OnInit, OnDestroy {
+export class SpellingCorrectorDictionaryComponent implements OnInit, OnDestroy {
   subscription: any;
 
-  constructor(public dictionary: StopWordDictionaryService,
+  constructor(public dictionary: SpellingCorrectorDictionaryService,
               private _commandsService: CommandsService) {
     this.subscription = this._commandsService.getEventEmitter()
       .subscribe((name: string) => {
@@ -49,14 +49,14 @@ export class StopWordDictionaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  addWord(newStopWord: string) {
-    const trimmed = newStopWord.trim().toLowerCase();
+  addWord(newWord: string) {
+    const trimmed = newWord.trim().toLowerCase();
     if (trimmed.length > 0 &&
       !this.dictionary.words.some(e => e.word === trimmed)) {
-      const sww = new WordWrapper();
-      sww.word = trimmed;
-      sww.state = WordState.New;
-      this.dictionary.words.push(sww);
+      const ww = new WordWrapper();
+      ww.word = trimmed;
+      ww.state = WordState.New;
+      this.dictionary.words.push(ww);
       this.dictionary.sort();
     }
   }

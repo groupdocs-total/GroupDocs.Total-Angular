@@ -1,0 +1,93 @@
+.word-list {
+  position       : absolute;
+  top            : 150px;
+  bottom         : 0;
+  left           : 0;
+  right          : 0;
+  overflow       : auto;
+  margin         : 0;
+  display        : inline-flex;
+  flex-wrap      : wrap;
+  justify-content: flex-start;
+  align-items    : center;
+}
+
+.word-item {
+  margin         : 2px 10px;
+  padding        : 10px;
+  display        : inline-flex;
+  justify-content: flex-start;
+  align-items    : center;
+  width          : 120px;
+}
+
+.delete-word-icon {
+  font-size  : 18px;
+  margin     : 0;
+  padding    : 0;
+  cursor     : pointer;
+  width      : 20px;
+  height     : 20px;
+  color      : red;
+  line-height: 20px;
+  text-align : center;
+  font-weight: bold;
+}
+
+.word-text {
+  font-size  : 18px;
+  height     : 20px;
+  line-height: 20px;
+  margin     : 0;
+  padding    : 0;
+  width      : 100px;
+}
+
+.bottom-toolbar {
+  position        : absolute;
+  top             : 90px;
+  height          : 60px;
+  left            : 0;
+  right           : 0;
+  margin          : 0;
+  background-color: #3e4e5a;
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+}
+
+.toolbar-add-word-text {
+  outline  : none;
+  margin   : 1px;
+  width    : 200px;
+  height   : 30px;
+  font-size: 20px;
+}
+
+.new {
+  color          : #888;
+  text-decoration: none;
+}
+
+.deleted-new {
+  color          : #888;
+  text-decoration: line-through;
+}
+
+.new::after,
+.deleted-new::after {
+  content    : " NEW";
+  color      : red;
+  font-weight: bold;
+  font-size  : .5em;
+}
+
+.old {
+  color          : black;
+  text-decoration: none;
+}
+
+.deleted-old {
+  color          : black;
+  text-decoration: line-through;
+}

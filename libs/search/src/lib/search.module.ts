@@ -34,6 +34,8 @@ import { StopWordDictionaryService } from './stop-word-dictionary.service';
 import { ViewHeaderComponent } from './view-header/view-header.component';
 import { HomophoneDictionaryComponent } from './homophone-dictionary/homophone-dictionary.component';
 import { HomophoneDictionaryService } from './homophone-dictionary.service';
+import { SpellingCorrectorDictionaryComponent } from './spelling-corrector-dictionary/spelling-corrector-dictionary.component';
+import { SpellingCorrectorDictionaryService } from './spelling-corrector-dictionary.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -63,7 +65,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SelectDictionaryModalComponent,
     SynonymDictionaryComponent,
     ViewHeaderComponent,
-    HomophoneDictionaryComponent
+    HomophoneDictionaryComponent,
+    SpellingCorrectorDictionaryComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +92,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     StopWordDictionaryService,
     SynonymDictionaryService,
     HomophoneDictionaryService,
+    SpellingCorrectorDictionaryService,
     CommandsService,
     ConfigService,
     SearchConfigService,

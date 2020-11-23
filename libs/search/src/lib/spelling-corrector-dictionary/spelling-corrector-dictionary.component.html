@@ -1,0 +1,25 @@
+<gd-view-header [title]="'Spelling corrector dictionary'"></gd-view-header>
+
+<div class="word-list">
+  <div class="word-item"
+    *ngFor="let word of dictionary.words; let i = index">
+    <span class="delete-word-icon"
+      (click)="delete(i)">
+      &times;
+    </span>
+    <span class="word-text"
+      [ngClass]="{'new' : word.state=='New', 'old': word.state=='Old', 'deleted-new': word.state=='DeletedNew', 'deleted-old': word.state=='DeletedOld'}">
+      {{word.word}}
+    </span>
+  </div>
+</div>
+
+<div class="bottom-toolbar">
+  <input type="text"
+    #newWord
+    class="toolbar-add-word-text"
+    (keyup.enter)="addWord(newWord.value); newWord.value=''">
+  <gd-button [icon]="'plus'"
+    [tooltip]="'Add word'"
+    (click)="addWord(newWord.value); newWord.value=''"></gd-button>
+</div>

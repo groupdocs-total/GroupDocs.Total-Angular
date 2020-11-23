@@ -89,6 +89,14 @@ export class HomophonesUpdateRequest {
   HomophoneGroups: string[][];
 }
 
+export class SpellingCorrectorReadResponse {
+  Words: string[];
+}
+
+export class SpellingCorrectorUpdateRequest {
+  Words: string[];
+}
+
 export class SearchApi {
   public static GET_INDEX_PROPERTIES = '/getIndexProperties';
   public static GET_ALPHABET_DICTIONARY = '/getAlphabetDictionary';
@@ -99,6 +107,8 @@ export class SearchApi {
   public static SET_SYNONYM_DICTIONARY = '/setSynonymDictionary';
   public static GET_HOMOPHONE_DICTIONARY = '/getHomophoneDictionary';
   public static SET_HOMOPHONE_DICTIONARY = '/setHomophoneDictionary';
+  public static GET_SPELLING_CORRECTOR_DICTIONARY = '/getSpellingCorrectorDictionary';
+  public static SET_SPELLING_CORRECTOR_DICTIONARY = '/setSpellingCorrectorDictionary';
 }
 
 export enum FileIndexingStatus {
