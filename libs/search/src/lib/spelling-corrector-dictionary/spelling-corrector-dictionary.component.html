@@ -2,7 +2,7 @@
 
 <div class="word-list">
   <div class="word-item"
-    *ngFor="let word of dictionary.words; let i = index">
+    *ngFor="let word of dictionary.page; let i = index">
     <span class="delete-word-icon"
       (click)="delete(i)">
       &times;
@@ -14,12 +14,26 @@
   </div>
 </div>
 
-<div class="bottom-toolbar">
+<div class="extra-toolbar">
+  <gd-button [icon]="'angle-double-left'"
+    [tooltip]="'Navigate backward'"
+    (click)="backward()"></gd-button>
+  <gd-button [icon]="'angle-left'"
+    [tooltip]="'Navigate previous'"
+    (click)="previousPage()"></gd-button>
+  <div class="page-index-label">{{dictionary.pageIndex + 1}}/{{dictionary.pageCount}}</div>
+  <gd-button [icon]="'angle-right'"
+    [tooltip]="'Navigate next'"
+    (click)="nextPage()"></gd-button>
+  <gd-button [icon]="'angle-double-right'"
+    [tooltip]="'Navigate forward'"
+    (click)="forward()"></gd-button>
   <input type="text"
     #newWord
-    class="toolbar-add-word-text"
+    class="toolbar-add-word-text mobile-hide"
     (keyup.enter)="addWord(newWord.value); newWord.value=''">
   <gd-button [icon]="'plus'"
+    class="mobile-hide"
     [tooltip]="'Add word'"
     (click)="addWord(newWord.value); newWord.value=''"></gd-button>
 </div>

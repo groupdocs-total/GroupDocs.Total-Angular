@@ -18,7 +18,7 @@
   display        : inline-flex;
   justify-content: flex-start;
   align-items    : center;
-  width          : 120px;
+  width          : 180px;
 }
 
 .delete-word-icon {
@@ -40,10 +40,10 @@
   line-height: 20px;
   margin     : 0;
   padding    : 0;
-  width      : 100px;
+  width      : 160px;
 }
 
-.bottom-toolbar {
+.extra-toolbar {
   position        : absolute;
   top             : 90px;
   height          : 60px;
@@ -62,6 +62,14 @@
   width    : 200px;
   height   : 30px;
   font-size: 20px;
+}
+
+.page-index-label {
+  margin    : 1px 1px 4px 1px;
+  width     : 80px;
+  font-size : 20px;
+  color     : white;
+  text-align: center;
 }
 
 .new {
@@ -90,4 +98,11 @@
 .deleted-old {
   color          : black;
   text-decoration: line-through;
+}
+
+@media (max-width: 1037px) {
+
+  .mobile-hide {
+    display: none;
+  }
 }

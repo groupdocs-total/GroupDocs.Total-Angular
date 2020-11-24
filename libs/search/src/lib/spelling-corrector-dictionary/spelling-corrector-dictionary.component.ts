@@ -28,6 +28,30 @@ export class SpellingCorrectorDictionaryComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  firstPage() {
+    this.dictionary.firstPage();
+  }
+
+  lastPage() {
+    this.dictionary.lastPage();
+  }
+
+  nextPage() {
+    this.dictionary.nextPage();
+  }
+
+  previousPage() {
+    this.dictionary.previousPage();
+  }
+
+  forward() {
+    this.dictionary.forward();
+  }
+
+  backward() {
+    this.dictionary.backward();
+  }
+
   delete(index: number) {
     switch (this.dictionary.words[index].state) {
       case WordState.Old: {
