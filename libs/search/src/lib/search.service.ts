@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { AlphabetUpdateRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
+import { AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
 import { SearchOptionsService } from './search-options.service';
 
 @Injectable({
@@ -123,6 +123,16 @@ export class SearchService {
 
   setSpellingCorrectorDictionary(data: SpellingCorrectorUpdateRequest) {
     const url = this._config.getSearchApiEndpoint() + SearchApi.SET_SPELLING_CORRECTOR_DICTIONARY;
+    return this._http.post(url, data, Api.httpOptionsJson);
+  }
+
+  getCharacterReplacementDictionary() {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_CHARACTER_REPLACEMENT_DICTIONARY;
+    return this._http.post(url, Api.httpOptionsJson);
+  }
+
+  setCharacterReplacementDictionary(data: CharacterReplacementsUpdateRequest) {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_CHARACTER_REPLACEMENT_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 }

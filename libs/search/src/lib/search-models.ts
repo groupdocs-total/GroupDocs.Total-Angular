@@ -57,6 +57,15 @@ export class AlphabetCharacterEx {
   Type: string;
 }
 
+export class CharacterReplacement {
+  CharacterId: number;
+  Character: string;
+  CharacterCode: string;
+  ReplacementId: number;
+  Replacement: string;
+  ReplacementCode: string;
+}
+
 export class AlphabetReadResponse {
   Characters: AlphabetCharacter[];
 }
@@ -97,6 +106,14 @@ export class SpellingCorrectorUpdateRequest {
   Words: string[];
 }
 
+export class CharacterReplacementsReadResponse {
+  Replacements: number[];
+}
+
+export class CharacterReplacementsUpdateRequest {
+  Replacements: number[];
+}
+
 export class SearchApi {
   public static GET_INDEX_PROPERTIES = '/getIndexProperties';
   public static GET_ALPHABET_DICTIONARY = '/getAlphabetDictionary';
@@ -109,6 +126,8 @@ export class SearchApi {
   public static SET_HOMOPHONE_DICTIONARY = '/setHomophoneDictionary';
   public static GET_SPELLING_CORRECTOR_DICTIONARY = '/getSpellingCorrectorDictionary';
   public static SET_SPELLING_CORRECTOR_DICTIONARY = '/setSpellingCorrectorDictionary';
+  public static GET_CHARACTER_REPLACEMENT_DICTIONARY = '/getCharacterReplacementDictionary';
+  public static SET_CHARACTER_REPLACEMENT_DICTIONARY = '/setCharacterReplacementDictionary';
 }
 
 export enum FileIndexingStatus {
