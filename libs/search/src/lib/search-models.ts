@@ -66,6 +66,11 @@ export class CharacterReplacement {
   ReplacementCode: string;
 }
 
+export class KeyPasswordPair {
+  Key: string;
+  Password: string;
+}
+
 export class AlphabetReadResponse {
   Characters: AlphabetCharacter[];
 }
@@ -114,6 +119,14 @@ export class CharacterReplacementsUpdateRequest {
   Replacements: number[];
 }
 
+export class DocumentPasswordsReadResponse {
+  Passwords: KeyPasswordPair[];
+}
+
+export class DocumentPasswordsUpdateRequest {
+  Passwords: KeyPasswordPair[];
+}
+
 export class SearchApi {
   public static GET_INDEX_PROPERTIES = '/getIndexProperties';
   public static GET_ALPHABET_DICTIONARY = '/getAlphabetDictionary';
@@ -128,6 +141,8 @@ export class SearchApi {
   public static SET_SPELLING_CORRECTOR_DICTIONARY = '/setSpellingCorrectorDictionary';
   public static GET_CHARACTER_REPLACEMENT_DICTIONARY = '/getCharacterReplacementDictionary';
   public static SET_CHARACTER_REPLACEMENT_DICTIONARY = '/setCharacterReplacementDictionary';
+  public static GET_DOCUMENT_PASSWORD_DICTIONARY = '/getDocumentPasswordDictionary';
+  public static SET_DOCUMENT_PASSWORD_DICTIONARY = '/setDocumentPasswordDictionary';
 }
 
 export enum FileIndexingStatus {

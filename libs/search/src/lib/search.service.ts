@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
+import { AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, DocumentPasswordsUpdateRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
 import { SearchOptionsService } from './search-options.service';
 
 @Injectable({
@@ -133,6 +133,16 @@ export class SearchService {
 
   setCharacterReplacementDictionary(data: CharacterReplacementsUpdateRequest) {
     const url = this._config.getSearchApiEndpoint() + SearchApi.SET_CHARACTER_REPLACEMENT_DICTIONARY;
+    return this._http.post(url, data, Api.httpOptionsJson);
+  }
+
+  getDocumentPasswordDictionary() {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_DOCUMENT_PASSWORD_DICTIONARY;
+    return this._http.post(url, Api.httpOptionsJson);
+  }
+
+  setDocumentPasswordDictionary(data: DocumentPasswordsUpdateRequest) {
+    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_DOCUMENT_PASSWORD_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 }

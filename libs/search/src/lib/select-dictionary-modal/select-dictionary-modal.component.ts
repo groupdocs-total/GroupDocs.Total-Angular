@@ -3,7 +3,8 @@ import { ModalComponent } from '@groupdocs.examples.angular/common-components';
 import { AlphabetDictionaryService } from '../alphabet-dictionary.service';
 import { CharacterReplacementDictionaryService } from '../character-replacement-dictionary.service';
 import { HomophoneDictionaryService } from '../homophone-dictionary.service';
-import { AppState } from '../search-models';
+import { PasswordDictionaryService } from '../password-dictionary.service';
+import { AppState, DocumentPasswordsReadResponse } from '../search-models';
 import { SpellingCorrectorDictionaryService } from '../spelling-corrector-dictionary.service';
 import { StopWordDictionaryService } from '../stop-word-dictionary.service';
 import { SynonymDictionaryService } from '../synonym-dictionary.service';
@@ -25,16 +26,17 @@ export class SelectDictionaryModalComponent implements OnInit {
               private _synonyms: SynonymDictionaryService,
               private _homophones: HomophoneDictionaryService,
               private _spellingCorrectorWords: SpellingCorrectorDictionaryService,
-              private _characterReplacements: CharacterReplacementDictionaryService) {
+              private _characterReplacements: CharacterReplacementDictionaryService,
+              private _passwords: PasswordDictionaryService) {
     this.dictionaries = [
-      { appState: AppState.AliasDictionary, name: "Alias", disabled: true, link: "https://docs.groupdocs.com/search/net/using-aliases/" },
+      //{ appState: AppState.AliasDictionary, name: "Alias", disabled: true, link: "https://docs.groupdocs.com/search/net/using-aliases/" },
       { appState: AppState.StopWordDictionary, name: "Stop word", disabled: false, link: "https://docs.groupdocs.com/search/net/indexing-with-stop-words/" },
       { appState: AppState.SynonymDictionary, name: "Synonym", disabled: false, link: "https://docs.groupdocs.com/search/net/synonym-search/" },
-      { appState: AppState.PasswordDictionary, name: "Password", disabled: true, link: "https://docs.groupdocs.com/search/net/indexing-password-protected-documents/" },
+      //{ appState: AppState.PasswordDictionary, name: "Password", disabled: false, link: "https://docs.groupdocs.com/search/net/indexing-password-protected-documents/" },
       { appState: AppState.SpellingCorrectorDictionary, name: "Spelling corrector", disabled: false, link: "https://docs.groupdocs.com/search/net/spell-checking/" },
       { appState: AppState.HomophoneDictionary, name: "Homophone", disabled: false, link: "https://docs.groupdocs.com/search/net/homophone-search/" },
       { appState: AppState.AlphabetDictionary, name: "Alphabet", disabled: false, link: "https://docs.groupdocs.com/search/net/character-types/" },
-      { appState: AppState.CharacterReplacementDictionary, name: "Character replacement", disabled: false, link: "https://docs.groupdocs.com/search/net/character-replacement-during-indexing/" },
+      //{ appState: AppState.CharacterReplacementDictionary, name: "Character replacement", disabled: false, link: "https://docs.groupdocs.com/search/net/character-replacement-during-indexing/" },
     ];
   }
 
@@ -66,6 +68,10 @@ export class SelectDictionaryModalComponent implements OnInit {
       }
       case AppState.CharacterReplacementDictionary: {
         this._characterReplacements.init();
+        break;
+      }
+      case AppState.PasswordDictionary: {
+        this._passwords.init();
         break;
       }
     }
