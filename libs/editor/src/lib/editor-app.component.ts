@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, OnInit} from '@angular/core';
+import {Component, AfterViewInit, OnInit, Renderer2} from '@angular/core';
 import {EditorService} from "./editor.service";
 import {
   FileDescription,
@@ -31,7 +31,7 @@ const $ = jquery;
   templateUrl: './editor-app.component.html',
   styleUrls: ['./editor-app.component.less']
 })
-export class EditorAppComponent implements OnInit, AfterViewInit  {
+export class EditorAppComponent implements OnInit, AfterViewInit {
   title = 'editor';
   files: FileModel[] = [];
   file: FileDescription;
@@ -69,6 +69,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
               private _htmlService: EditHtmlService,
               private _renderPrintService: RenderPrintService,
               private _loadingMaskService: LoadingMaskService,
+              private _renderer: Renderer2,
               private _excelPageService: ExcelPageService
   ) {
     this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
@@ -296,6 +297,41 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     }
     this.formatDisabled = !this.file;
     this.downloadDisabled = false;
+
+    // adding listeners on inputs if present on existing page
+    let count = 0;
+    const timerId = setInterval(() => { 
+      count++;
+      const page = document.querySelectorAll('.page');
+      if (page)
+      {
+        this.initControlsListeners();
+        clearInterval(timerId);
+      }
+      if (count === 20) clearInterval();
+    }, 100);
+  }
+
+  private initControlsListeners() {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+      this._renderer.listen(input, 'keyup', (event) => {
+        input.setAttribute('value', input.value);
+      });
+    });
+
+    const selects = document.querySelectorAll('select');
+    selects.forEach(select => {
+      this._renderer.listen(select, 'change', (event) => {
+        selects.forEach(s => {
+          for (let i = s.options.length - 1; i >= 0; i--) {
+            s.options[i].removeAttribute('selected');
+          }
+        });
+
+        select.options[select.selectedIndex].setAttribute('selected', 'selected');
+      });
+    });
   }
 
   private clearData() {
@@ -455,6 +491,11 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
     this.colorPickerShow = false;
     this.bgColorPickerShow = false;
     this._onCloseService.close(true);
+
+    // we try to save the changes on any click outside
+    if (document.querySelectorAll('.gd-wrapper')[0]) {
+      this.textBackup = document.querySelectorAll('.gd-wrapper')[0].innerHTML.toString();
+    }
   }
 
   toggleStrikeout(event) {
@@ -524,6 +565,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
  saveFile(credentials: FileCredentials) {
     if (!this.file || !this.file.pages)
       return;
+
+    this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
+
     const updatedTextBackup = credentials.guid.includes('xls') ? 
                               this._excelPageService.getPageWithoutHeader(this.textBackup) :
                               this.getPageWithRootTags(this.textBackup, credentials.guid);
@@ -555,7 +599,11 @@ export class EditorAppComponent implements OnInit, AfterViewInit  {
   // Returns root-tags in the HTML-markup which previously were removed by innerHTML.
   getPageWithRootTags(data, guid) {
     const pptFormats = ["ppt", "pptx", "pptm", "pps", "ppsx", "ppsm", "pot", "potx", "potm", "odp", "otp"];
-    let resultData = "<html><head>" + data + "</body></html>";
+    let resultData = data;
+
+    if (!data.startsWith("<html><head>") && !data.endsWith("</body></html>")) {
+      resultData = "<html><head>" + data + "</body></html>";
+    }
     
     if (this.newFile)
     {

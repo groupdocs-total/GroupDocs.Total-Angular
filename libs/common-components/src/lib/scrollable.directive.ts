@@ -105,8 +105,13 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
   private countPagesOnWidth() {
     const pageEl = this.getPage(1);
     const offset = 150;
-    const count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
-    return count === 0 ? 1 : count;
+    if (pageEl) {
+      const count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
+      if (count !== 0) {
+        return count;
+      }
+    }
+    return 1;
   }
 
   refresh() {

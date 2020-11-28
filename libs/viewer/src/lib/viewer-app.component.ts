@@ -57,6 +57,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   selectedPageNumber: number;
   runPresentation: boolean;
   isFullScreen: boolean;
+  startScrollTime: number;
+  endScrollTime: number;
 
   docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
     mozRequestFullScreen(): Promise<void>;
@@ -70,6 +72,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     msExitFullscreen(): Promise<void>;
   };
 
+  zoomService: ZoomService;
+
   @HostListener("document:fullscreenchange", [])
   fullScreen() {
     if (!document.fullscreenElement) {
@@ -82,12 +86,16 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               configService: ViewerConfigService,
               uploadFilesService: UploadFilesService,
               private _navigateService: NavigateService,
-              private _zoomService: ZoomService,
+              zoomService: ZoomService,
               pagePreloadService: PagePreloadService,
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
               private _loadingMaskService: LoadingMaskService) {
+
+    this.zoomService = zoomService;
+    this.startScrollTime = Date.now();
+    this.endScrollTime = Date.now();
 
     configService.updatedConfig.subscribe((viewerConfig) => {
       this.viewerConfig = viewerConfig;
@@ -213,6 +221,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft Excel" : false;
   }
 
+  ifImage() {
+    return this.file ? this.formatIcon === "file-image" : false;
+  }
+
   validURL(str) {
     const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
@@ -324,7 +336,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   nextPage() {
     if (this.formatDisabled)
       return;
-    if (this._navigateService.currentPage + 1 > this.countPages) {
+    if (this.intervalTimer && this._navigateService.currentPage + 1 > this.countPages) {
       this.intervalTimer.stop();
       this.intervalTime = 0;
     }
@@ -347,12 +359,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.formatDisabled)
       return;
     this._navigateService.toFirstPage();
-  }
-
-  navigateToPage(page: number) {
-    if (this.formatDisabled)
-      return;
-    this._navigateService.navigateTo(page);
   }
 
   zoomIn() {
@@ -380,37 +386,47 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return pt * 96 / 72;
   }
 
-  private getFitToWidth() {
+  getFitToWidth() {
     // Images and Excel-related files receiving dimensions in px from server
-    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
-    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
+    const pageWidth = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageHeight : this.ptToPx(this._pageHeight);
     const offsetWidth = pageWidth ? pageWidth : window.innerWidth;
 
     const presentationThumbnails = this.isDesktop && this.ifPresentation() && !this.runPresentation;
 
-    return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / (presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth : window.innerWidth))
-                                                                                       : (!this.isDesktop ? Math.round(window.innerWidth * 100 / offsetWidth) 
-                                                                                                          : Math.round(((presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth 
-                                                                                                                                                : window.innerHeight) / offsetWidth) * 100));
+    if (!this.runPresentation) {
+      return (pageHeight > pageWidth && Math.round(offsetWidth / window.innerWidth) < 2) ? 200 - Math.round(offsetWidth * 100 / (presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth : window.innerWidth))
+        : (!this.isDesktop ? Math.round(window.innerWidth * 100 / offsetWidth)
+          : Math.round(((presentationThumbnails ? window.innerWidth - Constants.thumbnailsWidth - Constants.scrollWidth
+            : window.innerHeight) / offsetWidth) * 100));
+    }
+    else {
+      return Math.round(window.innerWidth * 100 / offsetWidth);
+    }
   }
 
-  private getFitToHeight() {
-    const pageWidth = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageWidth : this.ptToPx(this._pageWidth);
-    const pageHeight = this.formatIcon && (this.formatIcon === "file-excel" || this.formatIcon === "file-image") ? this._pageHeight : this.ptToPx(this._pageHeight);
+  getFitToHeight() {
+    const pageWidth = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageWidth : this.ptToPx(this._pageWidth);
+    const pageHeight = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageHeight : this.ptToPx(this._pageHeight);
     const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
     const offsetHeight = pageHeight ? pageHeight : windowHeight;
     
-    if (!this.ifPresentation()) {
+    if (!this.ifPresentation() && !(this.ifImage())) {
       return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
     }
-    else return Math.round((window.innerHeight - Constants.topbarWidth) * 100 / (!this.runPresentation ? offsetHeight + Constants.documentMargin*2 + Constants.scrollWidth 
-                                                                                                       : offsetHeight))
+    if (this.ifPresentation()) {
+      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (!this.runPresentation ? offsetHeight + Constants.documentMargin * 2 + Constants.scrollWidth
+        : offsetHeight));
+    }
+    if (this.ifImage()) {
+      return Math.floor((window.innerHeight - Constants.topbarWidth) * 100 / (offsetHeight + Constants.documentMargin * 2 + Constants.scrollWidth));
+    }
   }
 
   zoomOptions() {
     const width = this.getFitToWidth();
     const height = this.getFitToHeight();
-    return this._zoomService.zoomOptions(width, height);
+    return this.zoomService.zoomOptions(width, height);
   }
 
   getTimerOptions() {
@@ -423,7 +439,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   set zoom(zoom) {
     this._zoom = zoom;
-    this._zoomService.changeZoom(this._zoom);
+    this.zoomService.changeZoom(this._zoom);
   }
 
   get zoom() {
@@ -533,7 +549,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   private refreshZoom() {
     if (this.file) {
       this.formatIcon = FileUtil.find(this.file.guid, false).icon;
-      this.zoom = this._windowService.isDesktop() ? 100 : this.getFitToWidth();
+      this.zoom = this._windowService.isDesktop() && !(this.ifImage() || this.ifPresentation()) ? 100
+        : (this.ifImage() ? this.getFitToHeight()
+          : this.getFitToWidth());
     }
   }
 
@@ -551,22 +569,40 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   onMouseWheelUp()
   {
+    this.startScrollTime = Date.now();
     if (this.ifPresentation() && this.selectedPageNumber !== 1) {
-      this.selectedPageNumber = this.selectedPageNumber - 1;
+      if (this.startScrollTime - this.endScrollTime > 300 && this.vertScrollEnded(true)) {
+        this.selectedPageNumber = this.selectedPageNumber - 1;
+        this.endScrollTime = Date.now();
+      }
     }
   }
 
   onMouseWheelDown()
   {
+    this.startScrollTime = Date.now();
     if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
-      if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
-        this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
-        this.selectedPageNumber = this.selectedPageNumber + 1;
-      }
-      else {
-        this.selectedPageNumber = this.selectedPageNumber + 1;
+      if (this.startScrollTime - this.endScrollTime > 300 && this.vertScrollEnded(false)) {
+        this.startScrollTime = Date.now();
+        if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
+          this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
+          this.selectedPageNumber = this.selectedPageNumber + 1;
+        }
+        else {
+          this.selectedPageNumber = this.selectedPageNumber + 1;
+        }
+        this.endScrollTime = Date.now();
       }
     }
+  }
+
+  vertScrollEnded(onTop: boolean) {
+    const gdDocument = document.getElementsByClassName('gd-document')[0] as HTMLElement;
+    if (onTop)
+    {
+      return gdDocument.scrollTop === 0;
+    }
+    else return gdDocument.offsetHeight + gdDocument.scrollTop >= gdDocument.scrollHeight;
   }
 
   private TryOpenFileByUrl(queryString: string) {
@@ -666,9 +702,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.showThumbnails = false;
     this.openFullScreen();
     this.runPresentation = !this.runPresentation;
-    setTimeout(() => {
-      this._zoomService.changeZoom(this.getFitToHeight());
-    }, 100);
+
+    const intervalId = setInterval(() => {
+      if (screen.height === window.innerHeight && screen.width === window.innerWidth) {
+      this.zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 && this._pageWidth / this._pageHeight > 1.7 
+        ? this.getFitToWidth() : this.getFitToHeight());
+        clearInterval(intervalId);
+      }
+    }, 50);
   }
 
   openFullScreen() {
@@ -717,5 +758,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.showThumbnails = true;
     this.intervalTime = 0;
     this.startCountDown(0);
+    this.refreshZoom();
   }
 }

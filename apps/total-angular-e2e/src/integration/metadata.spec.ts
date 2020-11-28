@@ -103,18 +103,19 @@ describe('Metadata', () => {
     cy.get('.page').its('length').should('eq',5);
   });
 
-  it('should show side-panel with two groups of file properties', () => {
+  it('should show side-panel with several metadata packages', () => {
     cy.visit('/metadata');
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
     cy.get('.gd-side-panel-header > .title').should('have.text', 'Metadata');
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .title').should('have.text', 'Build-in properties');
-    cy.get('gd-accordion-group.default > .accordion-wrapper > .title').should('have.text', 'Default properties');
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('have.text', 'Author');
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-value').should('have.text', 'Kovid Goyal');
-    cy.get('gd-accordion-group.default > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('have.text', 'FileFormat');
-    cy.get('gd-accordion-group.default > .accordion-wrapper > .body > :nth-child(1) > .property-value').should('have.text', '3');
+    cy.get('gd-accordion > gd-accordion-group:nth-child(1) > .accordion-wrapper > .title').should('have.text', 'File Format Info');
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .title').should('have.text', 'Document Properties');
+    
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('have.text', 'Author');
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .body > :nth-child(1) > .property-value').should('have.text', 'test author');
+    cy.get('gd-accordion > gd-accordion-group:nth-child(1) > .accordion-wrapper > .body > :nth-child(2) > .property-name').should('have.text', 'FileFormat');
+    cy.get('gd-accordion > gd-accordion-group:nth-child(1) > .accordion-wrapper > .body > :nth-child(2) > .property-value').should('have.text', '3');
   });
 
   it('should create new file property after click on plus icon in the group title', () => {
@@ -122,7 +123,7 @@ describe('Metadata', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('gd-accordion > gd-accordion-group:nth-child(1) > div > div.title > gd-button > div').click();
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > div > div.title > gd-button > div').click();
     cy.get('.select > .selected-value').should('have.text', ' Select property '); // @TODO: trim spaces
     cy.get('.input-wrapper > .property-value').should('have.text', ''); 
   });
@@ -132,11 +133,11 @@ describe('Metadata', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('be.visible')
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .title').click();
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('not.be.visible')
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .title').click();
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('be.visible')
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('be.visible')
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .title').click();
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('not.be.visible')
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .title').click();
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('be.visible')
   });
 
   it('should show the trash button after selecting the property', () => {
@@ -144,8 +145,9 @@ describe('Metadata', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').click();
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('have.class', 'selected');
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .body > :nth-child(1) > .property-name').click();
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .body > :nth-child(1) > .property-name').should('have.class', 'selected');
+    cy.get('.trash').scrollIntoView();
     cy.get('.trash').should('be.visible');
   });
 
@@ -154,7 +156,7 @@ describe('Metadata', () => {
     cy.get('#tools > gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('[title="Build-in properties"] > .accordion-wrapper > .body > :nth-child(1) > .property-value').click();
+    cy.get('gd-accordion > gd-accordion-group:nth-child(2) > .accordion-wrapper > .body > :nth-child(1) > .property-value').click();
     cy.get('.input-wrapper > .property-value').should('be.visible');
   });
 });

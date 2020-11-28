@@ -1,0 +1,41 @@
+@import "./../../../../common-components/src/styles/variables.less";
+
+#gd-confirm-section {
+    width: 375px;
+  }
+
+.gd-confirm-wrap {
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+  ::ng-deep .button {
+    height: 37px;
+    width: 75px;
+    padding: 0px;
+    justify-content: center;
+    ::ng-deep .text {
+      font-size: 10px !important;
+    }
+  }
+}
+
+.gd-confirm-text {
+  color: black;
+  padding: 10px 0px 45px 0px;
+  height: 20px;
+  font-size: 16px;
+}
+
+.gd-confirm-button-wrap {
+  height: 40px;
+  gd-button {
+    float: right;
+    padding-left: 15px;
+  }
+}
+
+@media @phone-down {
+  #gd-confirm-section {
+    max-width: 375px;
+  }
+}

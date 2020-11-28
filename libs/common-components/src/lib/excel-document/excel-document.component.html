@@ -11,7 +11,7 @@
 <div class="sheets">
   <div class="sheets-wrapper">
     <div *ngFor="let page of file?.pages">
-      <gd-button [icon]="'eye'" [ngClass]="{'active': currentPageNo == page.number }" (click)="selectSheet(page.number)">Sheet {{page.number}}</gd-button>
+      <gd-button [icon]="'eye'" [ngClass]="{'active': currentPageNo == page.number }" (click)="selectSheet(page.number)">{{page.sheetName}}</gd-button>
     </div>
   </div>
 </div>

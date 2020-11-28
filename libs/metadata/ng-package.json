@@ -13,6 +13,7 @@
     "ng-click-outside",
     "hammerjs",
     "jquery",
-    "smoothscroll-polyfill"
+    "smoothscroll-polyfill",
+	"ng2-date-picker"
   ]
 }
