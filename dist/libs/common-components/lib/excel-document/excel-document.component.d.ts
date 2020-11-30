@@ -1,4 +1,4 @@
-import { ElementRef, OnInit, QueryList, AfterViewInit, Renderer2 } from '@angular/core';
+import { ElementRef, OnInit, QueryList, AfterViewInit, Renderer2, EventEmitter } from '@angular/core';
 import { DocumentComponent } from '../document/document.component';
 import { WindowService } from '../window.service';
 import { NavigateService } from '../navigate.service';
@@ -10,6 +10,7 @@ export declare class ExcelDocumentComponent extends DocumentComponent implements
     currentPageNo: number;
     panzoom: any;
     navigateService: NavigateService;
+    selectedSheet: EventEmitter<number>;
     constructor(_elementRef: ElementRef<HTMLElement>, zoomService: ZoomService, windowService: WindowService, navigateService: NavigateService, renderer: Renderer2);
     ngOnInit(): void;
     ngAfterViewInit(): void;

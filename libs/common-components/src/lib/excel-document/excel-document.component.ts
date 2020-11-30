@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChildren, QueryList, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChildren, QueryList, AfterViewInit, Renderer2, Output, EventEmitter } from '@angular/core';
 import { DocumentComponent } from '../document/document.component';
 import { WindowService } from '../window.service';
 import { NavigateService } from '../navigate.service';
@@ -17,6 +17,7 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
   currentPageNo: number;
   panzoom = null;
   navigateService: NavigateService;
+  @Output() selectedSheet = new EventEmitter<number>();
 
   constructor(_elementRef: ElementRef<HTMLElement>,
               zoomService: ZoomService,
@@ -68,6 +69,7 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
 
   selectSheet(number){
     this.currentPageNo = number;
+    this.selectedSheet.emit(number);
   }
 
   getSheetName(page) {

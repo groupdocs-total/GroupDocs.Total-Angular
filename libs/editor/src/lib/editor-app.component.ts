@@ -55,6 +55,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
   selectFontSizeShow = false;
   newFile = false;
   formatIcon: string;
+  selectedPageNumber: number;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -179,6 +180,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
       this.isLoading = true;
       this.selectFile(this.editorConfig.defaultDocument, "", "");
     }
+
+    this.selectedPageNumber = 1;
   }
 
   ngAfterViewInit() {
@@ -290,7 +293,10 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
   private loadFile(file: FileDescription) {
     this.file = file;
     if (this.file && this.file.pages[0]) {
-      this.file.pages[0].editable = true;
+      // this.file.pages[0].editable = true;
+      this.file.pages.forEach((page) => {
+        page.editable = true;
+      });
       this.file.pages[0].width = 595;
       this.file.pages[0].height = 842;
       this.textBackup = this.file.pages[0].data;
@@ -571,7 +577,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
     const updatedTextBackup = credentials.guid.includes('xls') ? 
                               this._excelPageService.getPageWithoutHeader(this.textBackup) :
                               this.getPageWithRootTags(this.textBackup, credentials.guid);
-    const saveFile = new SaveFile(credentials.guid, credentials.password, updatedTextBackup);
+    const saveFile = new SaveFile(credentials.guid, credentials.password, updatedTextBackup, this.selectedPageNumber - 1);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);
@@ -587,7 +593,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
 
     this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
 
-    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
+    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup, 0);
     this._editorService.create(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);
@@ -656,5 +662,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
       }
       this._selectionService.restoreSelection();
     }
+  }
+
+  selectCurrentSheet($event) {
+    this.selectedPageNumber = $event;
   }
 }

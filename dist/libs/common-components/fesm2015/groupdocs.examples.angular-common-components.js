@@ -885,15 +885,19 @@ class SaveFile extends FileCredentials {
      * @param {?} guid
      * @param {?} password
      * @param {?} content
+     * @param {?} pageNumber
      */
-    constructor(guid, password, content) {
+    constructor(guid, password, content, pageNumber) {
         super(guid, password);
         this.content = content;
+        this.pageNumber = pageNumber;
     }
 }
 if (false) {
     /** @type {?} */
     SaveFile.prototype.content;
+    /** @type {?} */
+    SaveFile.prototype.pageNumber;
 }
 class FileDescription {
     constructor() {
@@ -2108,6 +2112,7 @@ class ExcelDocumentComponent extends DocumentComponent {
         super(_elementRef, zoomService, windowService, navigateService);
         this.renderer = renderer;
         this.panzoom = null;
+        this.selectedSheet = new EventEmitter();
         this.navigateService = navigateService;
     }
     /**
@@ -2170,6 +2175,7 @@ class ExcelDocumentComponent extends DocumentComponent {
      */
     selectSheet(number) {
         this.currentPageNo = number;
+        this.selectedSheet.emit(number);
     }
     /**
      * @param {?} page
@@ -2195,7 +2201,8 @@ ExcelDocumentComponent.ctorParameters = () => [
     { type: Renderer2 }
 ];
 ExcelDocumentComponent.propDecorators = {
-    pages: [{ type: ViewChildren, args: [ExcelPageComponent,] }]
+    pages: [{ type: ViewChildren, args: [ExcelPageComponent,] }],
+    selectedSheet: [{ type: Output }]
 };
 if (false) {
     /** @type {?} */
@@ -2206,6 +2213,8 @@ if (false) {
     ExcelDocumentComponent.prototype.panzoom;
     /** @type {?} */
     ExcelDocumentComponent.prototype.navigateService;
+    /** @type {?} */
+    ExcelDocumentComponent.prototype.selectedSheet;
     /**
      * @type {?}
      * @private

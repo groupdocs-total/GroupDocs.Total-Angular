@@ -1214,9 +1214,10 @@
     }
     var SaveFile = /** @class */ (function (_super) {
         __extends(SaveFile, _super);
-        function SaveFile(guid, password, content) {
+        function SaveFile(guid, password, content, pageNumber) {
             var _this = _super.call(this, guid, password) || this;
             _this.content = content;
+            _this.pageNumber = pageNumber;
             return _this;
         }
         return SaveFile;
@@ -1224,6 +1225,8 @@
     if (false) {
         /** @type {?} */
         SaveFile.prototype.content;
+        /** @type {?} */
+        SaveFile.prototype.pageNumber;
     }
     var FileDescription = /** @class */ (function () {
         function FileDescription() {
@@ -2633,6 +2636,7 @@
             var _this = _super.call(this, _elementRef, zoomService, windowService, navigateService) || this;
             _this.renderer = renderer;
             _this.panzoom = null;
+            _this.selectedSheet = new core.EventEmitter();
             _this.navigateService = navigateService;
             return _this;
         }
@@ -2713,6 +2717,7 @@
          */
         function (number) {
             this.currentPageNo = number;
+            this.selectedSheet.emit(number);
         };
         /**
          * @param {?} page
@@ -2741,7 +2746,8 @@
             { type: core.Renderer2 }
         ]; };
         ExcelDocumentComponent.propDecorators = {
-            pages: [{ type: core.ViewChildren, args: [ExcelPageComponent,] }]
+            pages: [{ type: core.ViewChildren, args: [ExcelPageComponent,] }],
+            selectedSheet: [{ type: core.Output }]
         };
         return ExcelDocumentComponent;
     }(DocumentComponent));
@@ -2754,6 +2760,8 @@
         ExcelDocumentComponent.prototype.panzoom;
         /** @type {?} */
         ExcelDocumentComponent.prototype.navigateService;
+        /** @type {?} */
+        ExcelDocumentComponent.prototype.selectedSheet;
         /**
          * @type {?}
          * @private
