@@ -4,6 +4,7 @@ import { WindowService } from '../window.service';
 import { NavigateService } from '../navigate.service';
 import { ZoomService } from  '../zoom.service';
 import { ExcelPageComponent } from '../excel-page/excel-page.component';
+import { PageModel } from '../file.service';
 
 @Component({
   selector: 'gd-excel-document',
@@ -67,5 +68,9 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
 
   selectSheet(number){
     this.currentPageNo = number;
+  }
+
+  getSheetName(page) {
+    return page.sheetName ? page.sheetName : "Sheet " + page.number;
   }
 }

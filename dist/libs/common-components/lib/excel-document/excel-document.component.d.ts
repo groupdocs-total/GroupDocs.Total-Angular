@@ -16,4 +16,5 @@ export declare class ExcelDocumentComponent extends DocumentComponent implements
     getScrollBarWidth(): number;
     refreshExcelDocHeight(): void;
     selectSheet(number: any): void;
+    getSheetName(page: any): any;
 }
