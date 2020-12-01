@@ -34,15 +34,15 @@ describe('Search', () => {
       cy.get('#gd-header-logo .text').should('have.text', 'search');
     });
 
-    it('should be able to see drag and drop area', () => {
+    it('should be able to see index properties and search options', () => {
       cy.visit('/search');
       cy.wait(300);
-      cy.get('.init-state-wrapper').should('be.visible');
+      cy.get('.gd-search-options-panel').should('be.visible');
+      cy.get('.gd-index-properties-panel').should('be.visible');
     })
 
     it('should be able to see search panel and search options panel', () => {
         cy.visit('/search');
-        cy.get('#open-search-button').click();
         cy.wait(300);
         cy.get('.gd-search-panel').should('be.visible');
         cy.get('.gd-search-options-panel').should('be.visible');
@@ -94,10 +94,9 @@ describe('Search', () => {
 
     it('should send search request and show found files with found phrases', () => {
         cy.visit('/search');
-        cy.get('#open-search-button').click();
         cy.get('.gd-search-input').type('text');
         cy.get('.gd-search-btn > .button').click();
-        cy.wait(300);
+        cy.wait(30000);
         cy.get('.gd-search-result-summary-status').should('be.visible');
         cy.get('.gd-search-result-summary-header').should('be.visible');
         cy.get('.gd-search-result-summary-body').should('be.visible');
