@@ -14,6 +14,7 @@ describe('Search', () => {
       cy.fixture("loadFileTreeDefault").as('loadFileTreeDefault');
       cy.fixture("loadFileTreeSubFolder").as('loadFileTreeSubFolder');
       cy.fixture("loadDocumentDescriptionDefault").as('loadDocumentDescriptionDefault');
+      cy.fixture("searchGetIndexPropertiesDefault").as('searchGetIndexPropertiesDefault');
       cy.fixture("searchDefault").as('searchDefault');
   
       cy.route('http://localhost:8080/viewer/loadConfig', "@viewerLoadConfigDefault");
@@ -26,6 +27,7 @@ describe('Search', () => {
       cy.route('http://localhost:8080/search/loadConfig', "@searchLoadConfigDefault");
   
       cy.route('POST','http://localhost:8080/search/loadFileTree', "@loadFileTreeDefault");
+      cy.route('POST','http://localhost:8080/search/getIndexProperties', "@searchGetIndexPropertiesDefault");
       cy.route('POST','http://localhost:8080/search/search', "@searchDefault");
     });
 
@@ -100,10 +102,10 @@ describe('Search', () => {
         cy.get('.gd-search-result-summary-status').should('be.visible');
         cy.get('.gd-search-result-summary-header').should('be.visible');
         cy.get('.gd-search-result-summary-body').should('be.visible');
-        cy.get('.gd-search-result-item').its('length').should('eq', 3);
-        cy.get(':nth-child(2) > gd-search-result-item > .gd-search-result-item > .gd-file-occurrences > .gd-search-result-occurrences').click();
+        cy.get('.gd-search-result-item').its('length').should('eq', 1);
+        cy.get(':nth-child(1) > gd-search-result-item > .gd-search-result-item > .gd-file-occurrences > .gd-search-result-occurrences').click();
         cy.get('.gd-found-phrases-content-wrapper').should('be.visible');
-        cy.get('.gd-search-result-phrase').its('length').should('eq', 4);
+        cy.get('.gd-search-result-phrase').its('length').should('eq', 2);
         cy.get('.gd-close-btn').click();
         cy.get('.gd-found-phrases-content-wrapper').should('not.be.visible');
     });

@@ -1,89 +1,16 @@
 {
-  "totalOccurences": 45,
-  "totalFiles": 3,
-  "indexedFiles": 6,
+  "totalOccurences": 2,
+  "totalFiles": 1,
+  "indexedFiles": 1,
   "foundFiles": [
     {
-      "foundFields": [
-        {
-          "FieldName": "content",
-          "OccurrenceCount": 40,
-          "Terms": [
-            "text"
-          ],
-          "TermsOccurrences": [
-            40
-          ],
-          "TermSequences": [],
-          "TermSequencesOccurrences": []
-        }
-      ],
-      "guid": "E:\\git\\GroupDocs.Total-for-NET-MVC\\src\\DocumentSamples\\Search\\sample.pdf",
-      "name": "sample.pdf",
-      "size": 3028,
-      "occurrences": 40,
-      "foundPhrases": [
-        " the Virtual Mechanics tutorials. More <a title=\"text\" name=\"hit0\"><span style=\"background-color: #FFD800;\">text</span></a>. And more  <a title=\"text\" name=\"hit1\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit2\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit3\"><span style=\"background-color: #FFD800;\">text</span></a>",
-        ". And more <a title=\"text\" name=\"hit4\"><span style=\"background-color: #FFD800;\">text</span></a>.  And more <a title=\"text\" name=\"hit5\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit6\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit7\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit8\"><span style=\"background-color: #FFD800;\">text</span></a>",
-        ". And more  <a title=\"text\" name=\"hit9\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit10\"><span style=\"background-color: #FFD800;\">text</span></a>. Boring, zzzzz. And more <a title=\"text\" name=\"hit11\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit12\"><span style=\"background-color: #FFD800;\">text</span></a>. And",
-        "  more <a title=\"text\" name=\"hit13\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit14\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit15\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit16\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit17\"><span style=\"background-color: #FFD800;\">text</span></a>.  And",
-        " more <a title=\"text\" name=\"hit18\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit19\"><span style=\"background-color: #FFD800;\">text</span></a>.  And more <a title=\"text\" name=\"hit20\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit21\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit22\"><span style=\"background-color: #FFD800;\">text</span></a>. And",
-        " more <a title=\"text\" name=\"hit23\"><span style=\"background-color: #FFD800;\">text</span></a>. And more  <a title=\"text\" name=\"hit24\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit25\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit26\"><span style=\"background-color: #FFD800;\">text</span></a>. Even more. Continued on",
-        " from page 1. Yet more <a title=\"text\" name=\"hit27\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit28\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit29\"><span style=\"background-color: #FFD800;\">text</span></a>.  And more <a title=\"text\" name=\"hit30\"><span style=\"background-color: #FFD800;\">text</span></a>",
-        ". And more <a title=\"text\" name=\"hit31\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit32\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit33\"><span style=\"background-color: #FFD800;\">text</span></a>. And more  <a title=\"text\" name=\"hit34\"><span style=\"background-color: #FFD800;\">text</span></a>. Oh, how boring",
-        " watching  paint dry. And more <a title=\"text\" name=\"hit35\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit36\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit37\"><span style=\"background-color: #FFD800;\">text</span></a>. And more <a title=\"text\" name=\"hit38\"><span style=\"background-color: #FFD800;\">text</span></a>",
-        ".  Boring.  More, a little more <a title=\"text\" name=\"hit39\"><span style=\"background-color: #FFD800;\">text</span></a>. The end, and just as"
-      ]
-    },
-    {
-      "foundFields": [
-        {
-          "FieldName": "content",
-          "OccurrenceCount": 4,
-          "Terms": [
-            "text"
-          ],
-          "TermsOccurrences": [
-            4
-          ],
-          "TermSequences": [],
-          "TermSequencesOccurrences": []
-        }
-      ],
-      "guid": "E:\\git\\GroupDocs.Total-for-NET-MVC\\src\\DocumentSamples\\Search\\sample.rtf",
-      "name": "sample.rtf",
-      "size": 110310,
-      "occurrences": 4,
-      "foundPhrases": [
-        " (test) test (test. 111)<br>\r\nsample <a title=\"text\" name=\"hit0\"><span style=\"background-color: #FFD800;\">text</span></a> here <br>\r\nName of est\u0007Distinctive",
-        "\u0007\u0007<br>\r\norem Ipsum is simply dummy <a title=\"text\" name=\"hit1\"><span style=\"background-color: #FFD800;\">text</span></a> of the printing and typesetting",
-        " the industry&#39;s standard dummy <a title=\"text\" name=\"hit2\"><span style=\"background-color: #FFD800;\">text</span></a> ever since the 1500s, when",
-        " Ipsum as their default model <a title=\"text\" name=\"hit3\"><span style=\"background-color: #FFD800;\">text</span></a>, and a search for &#39;lorem"
-      ]
-    },
-    {
-      "foundFields": [
-        {
-          "FieldName": "content",
-          "OccurrenceCount": 1,
-          "Terms": [
-            "text"
-          ],
-          "TermsOccurrences": [
-            1
-          ],
-          "TermSequences": [],
-          "TermSequencesOccurrences": []
-        }
-      ],
-      "guid": "E:\\git\\GroupDocs.Total-for-NET-MVC\\src\\DocumentSamples\\Search\\simple_text_3.docx",
-      "name": "simple_text_3.docx",
-      "size": 7407,
-      "occurrences": 1,
-      "foundPhrases": [
-        "-simple Word-file with simple <a title=\"text\" name=\"hit0\"><span style=\"background-color: #FFD800;\">text</span></a> string inside on the one"
-      ]
+      "guid": "C:\\Projects\\GroupDocs.Total-for-NET-MVC\\src\\DocumentSamples\\Search\\Indexed\\Agrippa.txt",
+      "name": "Agrippa.txt",
+      "size": 10212,
+      "occurrences": 2,
+      "foundPhrases": [ " easily be the record\r\nof <a title=\"some\" name=\"hit0\"><span style=\"background-color: #FFD800;\">some</span></a> later demolition, and\r\nHis cotton", " stands a cone of sawdust <a title=\"some\" name=\"hit1\"><span style=\"background-color: #FFD800;\">some</span></a> thirty feet in height.\r\n(How" ],
+      "terms": [ "some" ]
     }
   ],
-  "searchDuration": "00.00"
+  "searchDuration": "< 1"
 }

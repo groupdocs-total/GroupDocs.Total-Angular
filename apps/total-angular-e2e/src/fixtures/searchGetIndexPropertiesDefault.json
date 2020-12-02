@@ -1,0 +1,9 @@
+{
+  "AutoDetectEncoding": false,
+  "IndexType": "NormalIndex",
+  "IndexVersion": "20.11",
+  "TextStorageCompression": "No storage",
+  "UseCharacterReplacements": false,
+  "UseRawTextExtraction": false,
+  "UseStopWords": true
+}
