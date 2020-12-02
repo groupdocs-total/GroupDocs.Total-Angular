@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommandsService } from '../commands.service';
 import { PasswordDictionaryService } from '../password-dictionary.service';
 
@@ -7,7 +7,7 @@ import { PasswordDictionaryService } from '../password-dictionary.service';
   templateUrl: './password-dictionary.component.html',
   styleUrls: ['./password-dictionary.component.less']
 })
-export class PasswordDictionaryComponent implements OnInit {
+export class PasswordDictionaryComponent implements OnInit, OnDestroy {
   subscription: any;
 
   constructor(public dictionary: PasswordDictionaryService,
