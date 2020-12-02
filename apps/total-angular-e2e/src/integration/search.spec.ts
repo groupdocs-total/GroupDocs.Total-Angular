@@ -96,7 +96,7 @@ describe('Search', () => {
         cy.visit('/search');
         cy.get('.gd-search-input').type('text');
         cy.get('.gd-search-btn > .button').click();
-        cy.wait(30000);
+        cy.wait(300);
         cy.get('.gd-search-result-summary-status').should('be.visible');
         cy.get('.gd-search-result-summary-header').should('be.visible');
         cy.get('.gd-search-result-summary-body').should('be.visible');

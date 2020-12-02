@@ -27,4 +27,7 @@ export class PasswordDictionaryComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
+  addPassword() {
+    // Not implemented
+  }
 }
