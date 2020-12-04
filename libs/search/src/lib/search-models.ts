@@ -128,6 +128,8 @@ export class DocumentPasswordsUpdateRequest {
 }
 
 export class SearchApi {
+  public static GET_UPLOADED_FILES = '/getUploadedFiles';
+  public static GET_INDEXED_FILES = '/getIndexedFiles';
   public static GET_INDEX_PROPERTIES = '/getIndexProperties';
   public static GET_ALPHABET_DICTIONARY = '/getAlphabetDictionary';
   public static SET_ALPHABET_DICTIONARY = '/setAlphabetDictionary';

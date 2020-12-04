@@ -39,7 +39,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   skipPasswordProtected: boolean;
   searchResult: SearchResult;
   fileWasDropped = false;
-  
+
   constructor(private _searchService: SearchService,
               private _modalService: ModalService,
               configService: SearchConfigService,
@@ -165,7 +165,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   selectDir($event: string) {
-    this._searchService.loadFiles($event).subscribe((files: ExtendedFileModel[]) => this.files = files || []);
+    this._searchService.getUploadedFiles().subscribe((files: ExtendedFileModel[]) => this.files = files || []);
   }
 
   selectAllItems(checked: boolean) {
@@ -177,7 +177,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   loadIndexedFiles($event) {
     if (!$event) return;
 
-    this._searchService.loadFiles(this.searchConfig.indexedFilesDirectory).subscribe((indexingFiles: IndexedFileModel[]) => 
+    this._searchService.getIndexedFiles().subscribe((indexingFiles: IndexedFileModel[]) => 
     {
       if (indexingFiles && this.skipPasswordProtected && indexingFiles.filter(f => f.documentStatus === FileIndexingStatus.PasswordRequired).length > 0)
       {
@@ -229,7 +229,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
     if (reloadFiles)
     {
-      this._searchService.loadFiles('').subscribe((files: ExtendedFileModel[]) => this.files = files || []);
+      this._searchService.getUploadedFiles().subscribe((files: ExtendedFileModel[]) => this.files = files || []);
     }
   }
 

@@ -22,8 +22,12 @@ export class SearchService {
     return this._http.post(this._config.getSearchApiEndpoint() + Api.ADD_FILES_TO_INDEX, filesToIndex, Api.httpOptionsJson);
   }
 
-  loadFiles(path: string) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
+  getUploadedFiles() {
+    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.GET_UPLOADED_FILES, Api.httpOptionsJson);
+  }
+
+  getIndexedFiles() {
+    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.GET_INDEXED_FILES, Api.httpOptionsJson);
   }
 
   loadFile(credentials: FileCredentials) {
