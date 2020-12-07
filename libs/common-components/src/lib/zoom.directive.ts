@@ -95,7 +95,6 @@ export class ZoomDirective implements OnInit, OnDestroy, AfterViewInit, OnChange
     const scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
     const scrollHeight = this.getScrollHeight(this.el.nativeElement.parentElement);
     this.width = (viewPortWidth/zoomInt - scrollWidth/zoomInt) + 'px';
-    this.height = (viewPortHeight/zoomInt - scrollHeight/zoomInt) + 'px';
   }
 
   ngAfterViewInit(): void {

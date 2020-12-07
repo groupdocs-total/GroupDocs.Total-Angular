@@ -60,7 +60,7 @@ export class ScrollableDirective implements AfterViewInit, OnChanges, OnInit {
     const el = this._elementRef.nativeElement;
     const page = this.getPage(pageNumber);
     const prev = pageNumber > 0 ? this.getPage(pageNumber - 1) : null;
-    const isSameTop = (prev && $(prev).offset().top === $(page).offset().top);
+    const isSameTop = (prev && $(prev).offset() && $(page).offset() && $(prev).offset().top === $(page).offset().top);
     if (this._viewportService.checkInViewport(page, this.zoom) && isSameTop) {
       return;
     }
