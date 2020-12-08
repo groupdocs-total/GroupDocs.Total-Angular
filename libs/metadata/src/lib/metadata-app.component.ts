@@ -1,7 +1,6 @@
 import {AfterViewInit, Input, Component, OnInit} from '@angular/core';
 import {MetadataService, MetadataFileDescription} from "./metadata.service";
 import {
-  FileDescription,
   FileModel,
   ModalService,
   ZoomService,
@@ -12,8 +11,10 @@ import {
 } from "@groupdocs.examples.angular/common-components";
 import { MetadataConfig } from "./metadata-config";
 import { MetadataConfigService } from "./metadata-config.service";
-import { WindowService } from "@groupdocs.examples.angular/common-components";
-import { RemovePropertyModel, PackageModel, PackageNameByMetadataType, PackageNameByOriginalName, MetadataType } from './metadata-models';
+import { WindowService, Api } from "@groupdocs.examples.angular/common-components";
+import { RemovePropertyModel, PackageModel, PackageNameByMetadataType, PackageNameByOriginalName, MetadataType, FilePreview } from './metadata-models';
+import { Subscription } from 'rxjs';
+import { PreviewStatus } from './preview-status/preview-models';
 
 @Component({
   selector: 'gd-metadata',
@@ -26,13 +27,12 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   @Input() returnUrl: string = window.location.href;
   title = 'metadata';
   files: FileModel[] = [];
-  file: FileDescription;
+  preview: FilePreview;
   metadataConfig: MetadataConfig;
   countPages = 0;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   isLoading: boolean;
-
   previewZoom = 100;
   pageWidth: number;
   pageHeight: number;
@@ -43,6 +43,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   showSidePanel = true;
   confirmCleanModalId = "confirm-clean";
   confirmSaveModalId = "confirm-save";
+  previewStatus: PreviewStatus = PreviewStatus.Undefined;
+  private documentPreviewSubscription: Subscription;
 
   constructor(private metadataService: MetadataService,
               private modalService: ModalService,
@@ -57,6 +59,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.loadingMaskService.addStopUrl(Api.LOAD_DOCUMENT_DESCRIPTION);
     this.isDesktop = this.windowService.isDesktop();
     this.windowService.onResize.subscribe((w) => {
       this.isDesktop = this.windowService.isDesktop();
@@ -70,22 +73,22 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     this.uploadFilesService.uploadsChange.subscribe((uploads) => {
       if (uploads && uploads.length > 0) {
           this.metadataService.upload(uploads.item(0), '', this.metadataConfig.rewrite).subscribe((obj: FileCredentials) => {
-            this.fileWasDropped ? this.selectFile1(obj.guid, '', '') : this.selectDir('');
+            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
           });
       }
     });
 
     this.passwordService.passChange.subscribe((pass: string) => {
-      this.selectFile1(this.credentials.guid, pass, CommonModals.PasswordRequired);
+      this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
     });
 
     if (this.metadataConfig.defaultDocument !== ""){
       this.isLoading = true;
-      this.selectFile1(this.metadataConfig.defaultDocument, "", "");
+      this.selectFile(this.metadataConfig.defaultDocument, "", "");
     }
     else if (this.initialFile) {
       this.isLoading = true;
-      this.selectFile1(this.initialFile, null, null);
+      this.selectFile(this.initialFile, null, null);
     }
   }
 
@@ -120,35 +123,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
 
   selectDir($event: string) {
     this.metadataService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
-  }
-
-  selectFile($event: string, password: string, modalId: string) {
-    this.credentials = {guid: $event, password: password};
-    this.file = null;
-    this.metadataService.loadFile(this.credentials).subscribe((file: FileDescription) => {
-        this.file = file;
-        if (file) {
-          if (file.pages && file.pages[0]) {
-            this.pageHeight = file.pages[0].height;
-            this.pageWidth = file.pages[0].width;
-            this.options = this.zoomOptions();
-            this.refreshZoom();
-          }
-
-          const countPages = file.pages ? file.pages.length : 0;
-          
-          this.navigateService.countPages = countPages;
-          this.navigateService.currentPage = 1;
-          this.countPages = countPages;
-
-          this.loadProperties();
-        }
-      }
-    );
-    if (modalId) {
-      this.modalService.close(modalId);
-    }
-    this.clearData();
   }
 
   upload($event: string) {
@@ -215,18 +189,9 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
       this.saveBlob(exportedFile, "ExportedProperties.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")); 
   }
 
-  private clearData() {
-    if (!this.file || !this.file.pages) {
-      return;
-    }
-    for (const page of this.file.pages) {
-      page.data = null;
-    }
-  }
-
   save() {
     const savingFile = new MetadataFileDescription();
-    savingFile.guid = this.file.guid;
+    savingFile.guid = this.credentials.guid;
     savingFile.password = this.credentials.password;
     savingFile.packages = this.packages
       .map(updatedPackage => { 
@@ -236,8 +201,8 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
 
     if (savingFile.packages.length > 0)
     {
-      this.metadataService.saveProperty(savingFile).subscribe((loadFile: FileDescription) => {
-        this.loadProperties1();
+      this.metadataService.saveProperty(savingFile).subscribe(() => {
+        this.loadProperties();
         this.modalService.open(CommonModals.OperationSuccess);
       });
     }
@@ -245,20 +210,9 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
 
   cleanMetadata() {
     this.metadataService.cleanMetadata(this.credentials).subscribe(() => {
-      this.loadProperties1();
+      this.loadProperties();
       this.modalService.open(CommonModals.OperationSuccess);
     });
-  }
-
-  loadProperties() {
-    if (!this.file) return;
-    this.metadataService.loadProperties(this.credentials).subscribe((packages: PackageModel[]) => {
-      this.packages = packages;
-    });
-
-    if (!this.showSidePanel) {
-      this.showSidePanel = true;
-    }
   }
 
   hideSidePanel($event: Event) {
@@ -266,16 +220,14 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   removeProperty(propertyInfo: RemovePropertyModel) {
-    if (this.file) {
       const metadataFile = new MetadataFileDescription();
-      metadataFile.guid = this.file.guid;
+      metadataFile.guid = this.credentials.guid;
       metadataFile.password = this.credentials.password;
       metadataFile.packages = [{id: propertyInfo.packageId, properties: [propertyInfo.property] }];
       this.metadataService.removeProperty(metadataFile).subscribe(() => {
-        this.loadProperties1();
+        this.loadProperties();
         this.modalService.open(CommonModals.OperationSuccess);
       });
-    }
   }
 
   getPackageName(packageInfo: PackageModel) {
@@ -290,6 +242,53 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
       return PackageNameByMetadataType[packageInfo.type];
     }
     return (MetadataType[packageInfo.type]).toString();
+  }
+
+  loadProperties() {
+    this.metadataService.loadProperties(this.credentials).subscribe((packages: PackageModel[]) => {
+      this.packages = packages;
+      if (!this.showSidePanel) {
+        this.showSidePanel = true;
+      }
+    });
+  }
+
+  selectFile($event: string, password: string, modalId: string) {
+    if (this.documentPreviewSubscription && !this.documentPreviewSubscription.closed) {
+      this.documentPreviewSubscription.unsubscribe();
+    }
+    this.credentials = { guid: $event, password: password };
+    this.preview = null;
+    this.loadProperties();
+    this.previewStatus = PreviewStatus.InProgress;
+    this.documentPreviewSubscription = this.metadataService.loadFile(this.credentials).subscribe((preview: FilePreview) => {
+        this.preview = preview;
+        if (preview.pages && preview.pages.length > 0) {
+          this.pageHeight = preview.pages[0].height;
+          this.pageWidth = preview.pages[0].width;
+          this.options = this.zoomOptions();
+          this.refreshZoom();
+          this.previewStatus = PreviewStatus.Loaded;
+        }
+        else {
+          if (preview.timeLimitExceeded) {
+            this.previewStatus = PreviewStatus.Timeout;
+          }
+          else {
+            this.previewStatus = PreviewStatus.Unavailable;
+          }
+        }
+
+        const countPages = preview.pages ? preview.pages.length : 0;
+        
+        this.navigateService.countPages = countPages;
+        this.navigateService.currentPage = 1;
+        this.countPages = countPages;
+      }
+    );
+    if (modalId) {
+      this.modalService.close(modalId);
+    }
   }
 
   private saveBlob(blob: Blob, fileName: string, mimeType: string) {
@@ -316,47 +315,11 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     }, 100);
   }
 
-
-
-  loadProperties1() {
-    this.metadataService.loadProperties(this.credentials).subscribe((packages: PackageModel[]) => {
-      this.packages = packages;
-      this.isLoading = false;
-      if (!this.showSidePanel) {
-        this.showSidePanel = true;
-      }
-    });
-  }
-
-  selectFile1($event: string, password: string, modalId: string) {
-    this.credentials = { guid: $event, password: password };
-    this.file = null;
-    this.loadProperties1();
-    this.metadataService.loadFile(this.credentials).subscribe((file: FileDescription) => {
-        this.file = file;
-        if (file) {
-          if (file.pages && file.pages.length > 0) {
-            this.pageHeight = file.pages[0].height;
-            this.pageWidth = file.pages[0].width;
-            this.options = this.zoomOptions();
-            this.refreshZoom();
-          }
-
-          const countPages = file.pages ? file.pages.length : 0;
-          
-          this.navigateService.countPages = countPages;
-          this.navigateService.currentPage = 1;
-          this.countPages = countPages;
-        }
-      }
-    );
-    if (modalId) {
-      this.modalService.close(modalId);
-    }
-    this.clearData();
-  }
-
   private isFileLoaded() {
     return this.packages != null && this.packages.length > 0;
+  }
+
+  private isPreviewLoaded() {
+    return this.previewStatus !== PreviewStatus.Undefined;
   }
 }

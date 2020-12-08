@@ -11,7 +11,7 @@ TabsComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-tabs',
                 template: "<div class=\"gd-tabs\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                styles: [".gd-tabs{display:-webkit-box;display:flex}"]
+                styles: [".gd-tabs{display:flex}"]
             }] }
 ];
 /** @nocollapse */

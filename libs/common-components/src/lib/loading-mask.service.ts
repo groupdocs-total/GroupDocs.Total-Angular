@@ -34,6 +34,10 @@ export class LoadingMaskService {
     this.notify();
   }
 
+  addStopUrl(url: string) {
+    this.stopList.push(url);
+  }
+
   private notify(): void {
     this.onLoadingChanged.emit(this.requests.length !== 0);
   }

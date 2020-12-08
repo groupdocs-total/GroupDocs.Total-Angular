@@ -1,4 +1,6 @@
- 
+
+import { FileDescription } from "@groupdocs.examples.angular/common-components";
+
   export enum AccessLevels {
     Read = 0,
     Update = 1,
@@ -104,6 +106,10 @@
   export class ChangedPackageModel {
     id: string;
     properties: FilePropertyModel[];
+  }
+
+  export class FilePreview extends FileDescription {
+    timeLimitExceeded: boolean
   }
 
   export const PackageNameByMetadataType: { [id in MetadataType]? : string; } = {
