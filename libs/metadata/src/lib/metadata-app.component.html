@@ -19,6 +19,11 @@
                     (click)="exportProperties()" ></gd-button>
         </gd-top-toolbar>
       </div>
+      <gd-init-state [icon]="'clipboard-list'" [text]="'Drop file here to upload'" *ngIf="!isFileLoaded() && uploadConfig && !isPreviewLoaded()" (fileDropped)="fileDropped($event)">
+        Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
+        Or drop file here
+      </gd-init-state>
+      <gd-preview-status [status]="previewStatus"></gd-preview-status>
       <div class="doc-panel" *ngIf="preview" #docPanel>
         <gd-document class="gd-document" *ngIf="preview" [file]="preview" [mode]="false" gdScrollable
                     [preloadPageCount]="metadataConfig?.preloadPageCount" gdRenderPrint [htmlMode]="false"></gd-document>
@@ -36,12 +41,7 @@
       </gd-accordion>
     </gd-side-panel>
   </div>
-  <gd-init-state [icon]="'clipboard-list'" [text]="'Drop file here to upload'" *ngIf="!isFileLoaded() && uploadConfig && !isPreviewLoaded()" (fileDropped)="fileDropped($event)">
-    Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
-    Or drop file here
-  </gd-init-state>
 
-  <gd-preview-status [status]="previewStatus"></gd-preview-status>
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
                          (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
                          [uploadConfig]="uploadConfig"></gd-browse-files-modal>

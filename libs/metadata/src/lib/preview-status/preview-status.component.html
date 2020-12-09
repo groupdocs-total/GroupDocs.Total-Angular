@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div *ngIf="status != previewStatus.Undefined && status != previewStatus.Loaded" class="wrapper">
     <div *ngIf="status == previewStatus.InProgress" class="status-wrapper">
       <fa-icon class="status-icon" [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
       <span class="status-text">File preview is being created</span>

@@ -244,26 +244,22 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     return (MetadataType[packageInfo.type]).toString();
   }
 
-  loadProperties() {
+  loadProperties(loadPreview: boolean = false) {
     this.metadataService.loadProperties(this.credentials).subscribe((packages: PackageModel[]) => {
       this.packages = packages;
       if (!this.showSidePanel) {
         this.showSidePanel = true;
       }
-    });
-  }
 
-  selectFile($event: string, password: string, modalId: string) {
-    if (this.documentPreviewSubscription && !this.documentPreviewSubscription.closed) {
-      this.documentPreviewSubscription.unsubscribe();
-    }
-    this.credentials = { guid: $event, password: password };
-    this.preview = null;
-    this.loadProperties();
-    this.previewStatus = PreviewStatus.InProgress;
-    this.documentPreviewSubscription = this.metadataService.loadFile(this.credentials).subscribe((preview: FilePreview) => {
-        this.preview = preview;
+      if (loadPreview) {
+        if (this.documentPreviewSubscription && !this.documentPreviewSubscription.closed) {
+          this.documentPreviewSubscription.unsubscribe();
+        }
+        this.preview = null;
+        this.previewStatus = PreviewStatus.InProgress;
+        this.documentPreviewSubscription = this.metadataService.loadFile(this.credentials).subscribe((preview: FilePreview) => {
         if (preview.pages && preview.pages.length > 0) {
+          this.preview = preview;
           this.pageHeight = preview.pages[0].height;
           this.pageWidth = preview.pages[0].width;
           this.options = this.zoomOptions();
@@ -284,8 +280,14 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         this.navigateService.countPages = countPages;
         this.navigateService.currentPage = 1;
         this.countPages = countPages;
+       }, () => { this.previewStatus = PreviewStatus.Unavailable; });
       }
-    );
+    });
+  }
+
+  selectFile($event: string, password: string, modalId: string) {
+    this.credentials = { guid: $event, password: password };
+    this.loadProperties(true);
     if (modalId) {
       this.modalService.close(modalId);
     }
