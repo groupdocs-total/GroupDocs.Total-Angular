@@ -18,7 +18,7 @@
       <gd-button [icon]="'book'"
         [tooltip]="'Edit index dictionaries'"
         (click)="openModal('gd-select-dictionary')"
-        *ngIf="appState == 'Default'"></gd-button>
+        *ngIf="this.configService.isAdmin && appState == 'Default'"></gd-button>
       <gd-button [icon]="'save'"
         [tooltip]="'Save changes'"
         (click)="pushCommand('save')"
@@ -68,6 +68,7 @@
 
   <gd-search-browse-files-modal (urlForUpload)="upload($event)"
     [files]="files"
+    [folderName]="this.configService.folderName"
     (selectedDirectory)="selectDir($event)"
     [uploadConfig]="uploadConfig"
     (selectAll)="selectAllItems($event)"

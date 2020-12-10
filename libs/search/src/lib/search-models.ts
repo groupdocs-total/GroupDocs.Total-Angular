@@ -127,6 +127,14 @@ export class DocumentPasswordsUpdateRequest {
   Passwords: KeyPasswordPair[];
 }
 
+export class SearchBaseRequest {
+  FolderName: string;
+}
+
+export class AddToIndexRequest extends SearchBaseRequest {
+  Files: FileModel[];
+}
+
 export class SearchApi {
   public static GET_UPLOADED_FILES = '/getUploadedFiles';
   public static GET_INDEXED_FILES = '/getIndexedFiles';

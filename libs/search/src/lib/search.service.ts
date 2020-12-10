@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, DocumentPasswordsUpdateRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
+import { AddToIndexRequest, AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, DocumentPasswordsUpdateRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SearchBaseRequest, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
 import { SearchOptionsService } from './search-options.service';
 
 @Injectable({
@@ -18,26 +18,26 @@ export class SearchService {
               private _searchOptionsService: SearchOptionsService) {
   }
 
-  addFilesToIndex(filesToIndex: FileModel[]) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.ADD_FILES_TO_INDEX, filesToIndex, Api.httpOptionsJson);
+  addFilesToIndex(request: AddToIndexRequest) {
+    return this._http.post(this._config.getSearchApiEndpoint() + Api.ADD_FILES_TO_INDEX, request, Api.httpOptionsJson);
   }
 
-  getUploadedFiles() {
-    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.GET_UPLOADED_FILES, Api.httpOptionsJson);
+  getUploadedFiles(request: SearchBaseRequest) {
+    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.GET_UPLOADED_FILES, request, Api.httpOptionsJson);
   }
 
-  getIndexedFiles() {
-    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.GET_INDEXED_FILES, Api.httpOptionsJson);
+  getIndexedFiles(request: SearchBaseRequest) {
+    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.GET_INDEXED_FILES, request, Api.httpOptionsJson);
   }
 
   loadFile(credentials: FileCredentials) {
     return this._http.post(this._config.getSearchApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
   }
 
-  upload(file: File, url: string, rewrite: boolean) {
+  upload(file: File, url: string, folderName: string) {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append('rewrite', String(rewrite));
+    formData.append('folderName', folderName);
     if (url) {
       formData.append("url", url);
     }
@@ -45,8 +45,9 @@ export class SearchService {
     return this._http.post(this._config.getSearchApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
   }
 
-  search(credentials: FileCredentials[], query: string) {
+  search(credentials: FileCredentials[], query: string, folderName: string) {
     const body = {
+      FolderName: folderName,
       Query: query,
       CaseSensitiveSearch: this._searchOptionsService.CaseSensitiveSearch,
       FuzzySearch: this._searchOptionsService.FuzzySearch,
@@ -63,8 +64,12 @@ export class SearchService {
     return this._http.post(this._config.getSearchApiEndpoint() + Api.SEARCH, body, Api.httpOptionsJson);
   }
 
-  removeFile(file: FileModel) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.REMOVE_FROM_INDEX, file, Api.httpOptionsJson);
+  removeFile(file: FileModel, folderName: string) {
+    const data = {
+      guid: file.guid,
+      FolderName: folderName,
+    };
+    return this._http.post(this._config.getSearchApiEndpoint() + Api.REMOVE_FROM_INDEX, data, Api.httpOptionsJson);
   }
 
   selectedItemToRemove(file: FileModel) {
@@ -75,9 +80,9 @@ export class SearchService {
     return this._http.post(this._config.getSearchApiEndpoint() + Api.GET_FILE_STATUS, files, Api.httpOptionsJson);
   }
 
-  getIndexProperties() {
+  getIndexProperties(request: SearchBaseRequest) {
     const url = this._config.getSearchApiEndpoint() + SearchApi.GET_INDEX_PROPERTIES;
-    return this._http.post(url, Api.httpOptionsJson);
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
   getAlphabetDictionary() {

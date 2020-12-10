@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BrowseFilesModalComponent, UploadFilesService, ModalService, CommonModals } from '@groupdocs.examples.angular/common-components';
 import { SearchService } from '../search.service';
-import { ExtendedFileModel } from "../search-models";
+import { AddToIndexRequest, ExtendedFileModel } from "../search-models";
 
 export interface Option {
   name: string;
@@ -17,6 +17,7 @@ export interface Option {
 
 export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent implements OnInit {
   @Input() files: ExtendedFileModel[];
+  @Input() folderName: string;
   @Output() selectAll = new EventEmitter<boolean>();
   @Output() filesAddedToIndex = new EventEmitter<boolean>();
   @Output() fileDropped = new EventEmitter<boolean>();
@@ -75,7 +76,10 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
       }
     });
 
-    this._searchService.addFilesToIndex(itemsToIndex).subscribe(() => {
+    const request = new AddToIndexRequest();
+    request.FolderName = this.folderName;
+    request.Files = itemsToIndex;
+    this._searchService.addFilesToIndex(request).subscribe(() => {
       this.filesAddedToIndex.emit(true);
     });
 

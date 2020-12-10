@@ -17,6 +17,8 @@ import {
   ExtendedFileModel,
   FileIndexingStatus,
   AppState,
+  SearchBaseRequest,
+  AddToIndexRequest,
 } from "./search-models";
 import { CommandsService } from './commands.service';
 
@@ -42,7 +44,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
   constructor(private _searchService: SearchService,
               private _modalService: ModalService,
-              configService: SearchConfigService,
+              public configService: SearchConfigService,
               uploadFilesService: UploadFilesService,
               passwordService: PasswordService,
               private _commandsService: CommandsService,
@@ -57,7 +59,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
       if (uploads) {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
-          this._searchService.upload(uploads.item(i), '', this.searchConfig.rewrite).subscribe((obj: FileCredentials) => {
+          this._searchService.upload(uploads.item(i), '', this.configService.folderName).subscribe((obj: FileCredentials) => {
             if (!this.fileWasDropped) 
             {
               this.selectDir('');
@@ -72,7 +74,10 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
       const passwordRequiredFile = this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.PasswordRequired)[0];
       passwordRequiredFile.password = pass;
-      this._searchService.addFilesToIndex([passwordRequiredFile]).subscribe(() => {
+      const request = new AddToIndexRequest();
+      request.FolderName = this.configService.folderName;
+      request.Files = [passwordRequiredFile];
+      this._searchService.addFilesToIndex(request).subscribe(() => {
         this.loadIndexedFiles(true);
       });
     });
@@ -84,7 +89,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
     _searchService.itemToRemove.subscribe(file => {
       if (file) {
-        this._searchService.removeFile(file).subscribe(() => {
+        this._searchService.removeFile(file, this.configService.folderName).subscribe(() => {
           this.removeFileFromList(file);
         });
       }
@@ -92,6 +97,16 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    const queryString = window.location.search;
+    this.initParameters(queryString);
+  }
+
+  private initParameters(queryString: string) {
+    if (queryString) {
+      const urlParams = new URLSearchParams(queryString);
+      this.configService.folderName = urlParams.get('FolderName');
+      this.configService.isAdmin = urlParams.get('IsAdmin') === "true";
+    }
   }
 
   ngAfterViewInit() {
@@ -165,7 +180,9 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   selectDir($event: string) {
-    this._searchService.getUploadedFiles().subscribe((files: ExtendedFileModel[]) => this.files = files || []);
+    const request = new SearchBaseRequest();
+    request.FolderName = this.configService.folderName;
+    this._searchService.getUploadedFiles(request).subscribe((files: ExtendedFileModel[]) => this.files = files || []);
   }
 
   selectAllItems(checked: boolean) {
@@ -177,7 +194,9 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   loadIndexedFiles($event) {
     if (!$event) return;
 
-    this._searchService.getIndexedFiles().subscribe((indexingFiles: IndexedFileModel[]) => 
+    const request = new SearchBaseRequest();
+    request.FolderName = this.configService.folderName;
+    this._searchService.getIndexedFiles(request).subscribe((indexingFiles: IndexedFileModel[]) => 
     {
       if (indexingFiles && this.skipPasswordProtected && indexingFiles.filter(f => f.documentStatus === FileIndexingStatus.PasswordRequired).length > 0)
       {
@@ -219,7 +238,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   upload($event: string) {
-    this._searchService.upload(null, $event, this.rewriteConfig).subscribe(() => {
+    this._searchService.upload(null, $event, this.configService.folderName).subscribe(() => {
       this.selectDir('');
     });
   }
@@ -229,7 +248,9 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
     if (reloadFiles)
     {
-      this._searchService.getUploadedFiles().subscribe((files: ExtendedFileModel[]) => this.files = files || []);
+      const request = new SearchBaseRequest();
+      request.FolderName = this.configService.folderName;
+      this._searchService.getUploadedFiles(request).subscribe((files: ExtendedFileModel[]) => this.files = files || []);
     }
   }
 
@@ -247,7 +268,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     this.appState = AppState.SearchResult;
     const creds = [];
     creds.push(this.credentials);
-    this._searchService.search(creds, $event).subscribe((result: SearchResult) => {
+    this._searchService.search(creds, $event, this.configService.folderName).subscribe((result: SearchResult) => {
       this.searchResult = result;
     });
   }

@@ -4,12 +4,13 @@ import {Api, ConfigService} from "@groupdocs.examples.angular/common-components"
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SearchConfigService {
   private _searchConfig: BehaviorSubject<SearchConfig> = new BehaviorSubject(new SearchConfig());
   private _updatedConfig: Observable<SearchConfig> = this._searchConfig.asObservable();
+
+  folderName = '';
+  isAdmin = false;
 
   constructor(private _http: HttpClient, private _config: ConfigService) {
   }
