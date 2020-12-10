@@ -202,16 +202,14 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     if (savingFile.packages.length > 0)
     {
       this.metadataService.saveProperty(savingFile).subscribe(() => {
-        this.loadProperties();
-        this.modalService.open(CommonModals.OperationSuccess);
+        this.loadProperties(false, true);
       });
     }
   }
 
   cleanMetadata() {
     this.metadataService.cleanMetadata(this.credentials).subscribe(() => {
-      this.loadProperties();
-      this.modalService.open(CommonModals.OperationSuccess);
+      this.loadProperties(false, true);
     });
   }
 
@@ -225,8 +223,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
       metadataFile.password = this.credentials.password;
       metadataFile.packages = [{id: propertyInfo.packageId, properties: [propertyInfo.property] }];
       this.metadataService.removeProperty(metadataFile).subscribe(() => {
-        this.loadProperties();
-        this.modalService.open(CommonModals.OperationSuccess);
+        this.loadProperties(false, true);
       });
   }
 
@@ -244,7 +241,7 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     return (MetadataType[packageInfo.type]).toString();
   }
 
-  loadProperties(loadPreview: boolean = false) {
+  loadProperties(loadPreview: boolean = false, showSuccessModal = false) {
     this.metadataService.loadProperties(this.credentials).subscribe((packages: PackageModel[]) => {
       this.packages = packages;
       if (!this.showSidePanel) {
@@ -281,6 +278,10 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         this.navigateService.currentPage = 1;
         this.countPages = countPages;
        }, () => { this.previewStatus = PreviewStatus.Unavailable; });
+      }
+
+      if (showSuccessModal) {
+        this.modalService.open(CommonModals.OperationSuccess);
       }
     });
   }
