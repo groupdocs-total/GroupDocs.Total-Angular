@@ -4,7 +4,24 @@
     <fa-icon [icon]="['fas','caret-down']"></fa-icon>
     Search options</button>
   <div class='gd-search-options-panel-area'
-    *ngIf="this.isOptionsVisible">
+    *ngIf="options.isOptionsVisible">
+
+    <div class='gd-search-option-outer'>
+      <div class='gd-search-option-inner'>
+        <label>
+          <input type="radio" value="PhraseSearch" [checked]="options.SearchType == 'PhraseSearch'" name="searchType" (change)="changeSearchType($event)">
+          Phrase search
+        </label>
+        <label>
+          <input type="radio" value="SearchAll" [checked]="options.SearchType == 'SearchAll'" name="searchType" (change)="changeSearchType($event)">
+          Search all words
+        </label>
+        <label>
+          <input type="radio" value="SearchAny" [checked]="options.SearchType == 'SearchAny'" name="searchType" (change)="changeSearchType($event)">
+          Search for any word
+        </label>
+      </div>
+    </div>
 
     <div class='gd-search-option-outer'>
       <div class='gd-search-option-inner'>

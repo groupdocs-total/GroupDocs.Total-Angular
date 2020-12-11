@@ -21,6 +21,7 @@ import {
   AddToIndexRequest,
 } from "./search-models";
 import { CommandsService } from './commands.service';
+import { SearchOptionsService } from './search-options.service';
 
 @Component({
   selector: 'gd-search-app',
@@ -45,6 +46,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   constructor(private _searchService: SearchService,
               private _modalService: ModalService,
               public configService: SearchConfigService,
+              private _searchOptionsService: SearchOptionsService,
               uploadFilesService: UploadFilesService,
               passwordService: PasswordService,
               private _commandsService: CommandsService,
@@ -118,6 +120,9 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
           this.loadIndexedFiles(true);
         });
       }
+    }
+    else {
+      this.configService.isAdmin = true;
     }
   }
 

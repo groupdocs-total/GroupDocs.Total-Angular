@@ -7,7 +7,6 @@ import { SearchOptionsService } from '../search-options.service';
   styleUrls: ['./search-options-panel.component.less']
 })
 export class SearchOptionsPanelComponent implements OnInit {
-  isOptionsVisible = false;
 
   constructor(public options: SearchOptionsService) {
   }
@@ -15,11 +14,15 @@ export class SearchOptionsPanelComponent implements OnInit {
   ngOnInit() {
   }
 
+  changeSearchType(e: any) {
+    this.options.SearchType = e.target.value;
+  }
+
   toggleOptionsVisibility() {
-    if (this.isOptionsVisible) {
-      this.isOptionsVisible = false;
+    if (this.options.isOptionsVisible) {
+      this.options.isOptionsVisible = false;
     } else {
-      this.isOptionsVisible = true;
+      this.options.isOptionsVisible = true;
     }
   }
 

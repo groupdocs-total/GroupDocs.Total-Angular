@@ -49,6 +49,7 @@ export class SearchService {
     const body = {
       FolderName: folderName,
       Query: query,
+      SearchType: this._searchOptionsService.SearchType,
       CaseSensitiveSearch: this._searchOptionsService.CaseSensitiveSearch,
       FuzzySearch: this._searchOptionsService.FuzzySearch,
       FuzzySearchMistakeCount: this._searchOptionsService.FuzzySearchMistakeCount,
