@@ -106,6 +106,18 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
       const urlParams = new URLSearchParams(queryString);
       this.configService.folderName = urlParams.get('FolderName');
       this.configService.isAdmin = urlParams.get('IsAdmin') === "true";
+
+      const fileName = urlParams.get('FileName');
+      if (this.configService.folderName && fileName) {
+        const file = new FileModel();
+        file.guid = fileName;
+        const request = new AddToIndexRequest();
+        request.FolderName = this.configService.folderName;
+        request.Files = [file];
+        this._searchService.addFilesToIndex(request).subscribe(() => {
+          this.loadIndexedFiles(true);
+        });
+      }
     }
   }
 
