@@ -22,6 +22,10 @@ export class SearchService {
     return this._http.post(this._config.getSearchApiEndpoint() + Api.ADD_FILES_TO_INDEX, request, Api.httpOptionsJson);
   }
 
+  downloadAndAddToIndex(request: AddToIndexRequest) {
+    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.DOWNLOAD_AND_ADD_TO_INDEX, request, Api.httpOptionsJson);
+  }
+
   getUploadedFiles(request: SearchBaseRequest) {
     return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.GET_UPLOADED_FILES, request, Api.httpOptionsJson);
   }

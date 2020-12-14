@@ -136,6 +136,7 @@ export class AddToIndexRequest extends SearchBaseRequest {
 }
 
 export class SearchApi {
+  public static DOWNLOAD_AND_ADD_TO_INDEX = '/downloadAndAddToIndex';
   public static GET_UPLOADED_FILES = '/getUploadedFiles';
   public static GET_INDEXED_FILES = '/getIndexedFiles';
   public static GET_INDEX_PROPERTIES = '/getIndexProperties';

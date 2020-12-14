@@ -116,7 +116,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
         const request = new AddToIndexRequest();
         request.FolderName = this.configService.folderName;
         request.Files = [file];
-        this._searchService.addFilesToIndex(request).subscribe(() => {
+        this._searchService.downloadAndAddToIndex(request).subscribe(() => {
           this.loadIndexedFiles(true);
         });
       }
