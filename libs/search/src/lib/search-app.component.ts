@@ -19,9 +19,12 @@ import {
   AppState,
   SearchBaseRequest,
   AddToIndexRequest,
+  FileUploadResult,
+  LicenseRestrictionResponse,
 } from "./search-models";
 import { CommandsService } from './commands.service';
 import { SearchOptionsService } from './search-options.service';
+import { MessageModalService } from './message-modal.service';
 
 @Component({
   selector: 'gd-search-app',
@@ -45,6 +48,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
   constructor(private _searchService: SearchService,
               private _modalService: ModalService,
+              private _messageModalService: MessageModalService,
               public configService: SearchConfigService,
               private _searchOptionsService: SearchOptionsService,
               uploadFilesService: UploadFilesService,
@@ -61,10 +65,12 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
       if (uploads) {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
-          this._searchService.upload(uploads.item(i), '', this.configService.folderName).subscribe((obj: FileCredentials) => {
-            if (!this.fileWasDropped) 
-            {
+          this._searchService.upload(uploads.item(i), '', this.configService.folderName).subscribe((result: FileUploadResult) => {
+            if (!this.fileWasDropped) {
               this.selectDir('');
+            }
+            if (result.isRestricted) {
+              _messageModalService.setDemoRestrictionsMessage(result.message);
             }
           });
         }
@@ -79,8 +85,11 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
       const request = new AddToIndexRequest();
       request.FolderName = this.configService.folderName;
       request.Files = [passwordRequiredFile];
-      this._searchService.addFilesToIndex(request).subscribe(() => {
+      this._searchService.addFilesToIndex(request).subscribe((response: LicenseRestrictionResponse) => {
         this.loadIndexedFiles(true);
+        if (response.isRestricted) {
+          _messageModalService.setDemoRestrictionsMessage(response.message);
+        }
       });
     });
 
@@ -116,8 +125,11 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
         const request = new AddToIndexRequest();
         request.FolderName = this.configService.folderName;
         request.Files = [file];
-        this._searchService.downloadAndAddToIndex(request).subscribe(() => {
+        this._searchService.downloadAndAddToIndex(request).subscribe((response: LicenseRestrictionResponse) => {
           this.loadIndexedFiles(true);
+          if (response.isRestricted) {
+            this._messageModalService.setDemoRestrictionsMessage(response.message);
+          }
         });
       }
     }
@@ -255,8 +267,11 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   upload($event: string) {
-    this._searchService.upload(null, $event, this.configService.folderName).subscribe(() => {
+    this._searchService.upload(null, $event, this.configService.folderName).subscribe((result: FileUploadResult) => {
       this.selectDir('');
+      if (result.isRestricted) {
+        this._messageModalService.setDemoRestrictionsMessage(result.message);
+      }
     });
   }
 

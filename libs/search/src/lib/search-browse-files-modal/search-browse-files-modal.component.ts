@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BrowseFilesModalComponent, UploadFilesService, ModalService, CommonModals } from '@groupdocs.examples.angular/common-components';
 import { SearchService } from '../search.service';
-import { AddToIndexRequest, ExtendedFileModel } from "../search-models";
+import { AddToIndexRequest, ExtendedFileModel, LicenseRestrictionResponse } from "../search-models";
+import { MessageModalService } from '../message-modal.service';
 
 export interface Option {
   name: string;
@@ -23,6 +24,7 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
   @Output() fileDropped = new EventEmitter<boolean>();
 
   constructor(_uploadService: UploadFilesService,
+    private _messageModalService: MessageModalService,
     private _searchService: SearchService,
     private _modalService: ModalService) {
     super(_uploadService);
@@ -79,9 +81,12 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
     const request = new AddToIndexRequest();
     request.FolderName = this.folderName;
     request.Files = itemsToIndex;
-    this._searchService.addFilesToIndex(request).subscribe(() => {
+    this._searchService.addFilesToIndex(request).subscribe((response: LicenseRestrictionResponse) => {
       this.filesAddedToIndex.emit(true);
-    });
+      if (response.isRestricted) {
+        this._messageModalService.setDemoRestrictionsMessage(response.message);
+      }
+  });
 
     this._modalService.close(CommonModals.BrowseFiles);
   }

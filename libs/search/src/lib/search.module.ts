@@ -40,6 +40,8 @@ import { CharacterReplacementDictionaryComponent } from './character-replacement
 import { CharacterReplacementDictionaryService } from './character-replacement-dictionary.service';
 import { PasswordDictionaryComponent } from './password-dictionary/password-dictionary.component';
 import { PasswordDictionaryService } from './password-dictionary.service';
+import { MessageModalComponent } from './message-modal/message-modal.component';
+import { MessageModalService } from './message-modal.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -72,7 +74,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     HomophoneDictionaryComponent,
     SpellingCorrectorDictionaryComponent,
     CharacterReplacementDictionaryComponent,
-    PasswordDictionaryComponent
+    PasswordDictionaryComponent,
+    MessageModalComponent
   ],
   imports: [
     BrowserModule,
@@ -104,6 +107,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     CommandsService,
     ConfigService,
     SearchConfigService,
+    MessageModalService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

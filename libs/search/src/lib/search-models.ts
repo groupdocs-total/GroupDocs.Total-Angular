@@ -1,4 +1,4 @@
-import { FileModel } from "@groupdocs.examples.angular/common-components";
+import { FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 
 export class IndexedFileModel extends FileModel {
   documentStatus: string;
@@ -133,6 +133,16 @@ export class SearchBaseRequest {
 
 export class AddToIndexRequest extends SearchBaseRequest {
   Files: FileModel[];
+}
+
+export class FileUploadResult extends FileCredentials {
+  isRestricted: boolean;
+  message: string;
+}
+
+export class LicenseRestrictionResponse {
+  isRestricted: boolean;
+  message: string;
 }
 
 export class SearchApi {

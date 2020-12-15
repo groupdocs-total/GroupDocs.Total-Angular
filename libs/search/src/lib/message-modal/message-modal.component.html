@@ -1,0 +1,9 @@
+<gd-modal id="gd-message-modal" [title]="messageModalService.title">
+  <section id="gd-message-section">
+    <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+    <div class="message-content-container">
+      <div class="message-modal-header">{{messageModalService.header}}</div>
+      <div class="message-modal-text">{{messageModalService.message}}</div>
+    </div>
+  </section>
+</gd-modal>
