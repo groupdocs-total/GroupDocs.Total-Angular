@@ -1,4 +1,4 @@
-import { AfterViewInit, OnInit } from '@angular/core';
+import { AfterViewInit, OnInit, Renderer2 } from '@angular/core';
 import { EditorService } from "./editor.service";
 import { FileDescription, FileModel, ModalService, UploadFilesService, PasswordService, FileCredentials, FormattingService, Formatting, BackFormattingService, OnCloseService, SelectionService, EditHtmlService, RenderPrintService, WindowService, LoadingMaskService, Option } from '@groupdocs.examples.angular/common-components';
 import { EditorConfig } from "./editor-config";
@@ -14,6 +14,7 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     private _htmlService;
     private _renderPrintService;
     private _loadingMaskService;
+    private _renderer;
     title: string;
     files: FileModel[];
     file: FileDescription;
@@ -40,7 +41,7 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     selectFontShow: boolean;
     selectFontSizeShow: boolean;
     newFile: boolean;
-    constructor(_editorService: EditorService, _modalService: ModalService, configService: EditorConfigService, uploadFilesService: UploadFilesService, passwordService: PasswordService, _windowService: WindowService, _formattingService: FormattingService, _backFormattingService: BackFormattingService, _onCloseService: OnCloseService, _selectionService: SelectionService, _htmlService: EditHtmlService, _renderPrintService: RenderPrintService, _loadingMaskService: LoadingMaskService);
+    constructor(_editorService: EditorService, _modalService: ModalService, configService: EditorConfigService, uploadFilesService: UploadFilesService, passwordService: PasswordService, _windowService: WindowService, _formattingService: FormattingService, _backFormattingService: BackFormattingService, _onCloseService: OnCloseService, _selectionService: SelectionService, _htmlService: EditHtmlService, _renderPrintService: RenderPrintService, _loadingMaskService: LoadingMaskService, _renderer: Renderer2);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
@@ -60,6 +61,7 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     selectFile($event: string, password: string, modalId: string): void;
     fileDropped($event: any): void;
     private loadFile;
+    private initControlsListeners;
     private clearData;
     upload($event: string): void;
     selectFontSize($event: Option): void;
@@ -80,7 +82,7 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     save(): void;
     saveFile(credentials: FileCredentials): void;
     saveNewFile(credentials: FileCredentials): void;
-    getPageWithRootTags(data: any, guid: any): string;
+    getPageWithRootTags(data: any, guid: any): any;
     printFile(): void;
     onCloseModal($event: any): void;
 }
