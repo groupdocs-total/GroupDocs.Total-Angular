@@ -294,6 +294,14 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  isFileLoaded() {
+    return this.packages != null && this.packages.length > 0;
+  }
+
+  isPreviewLoaded() {
+    return this.previewStatus !== PreviewStatus.Undefined;
+  }
+
   private saveBlob(blob: Blob, fileName: string, mimeType: string) {
     const newBlob = new Blob([blob], { type: mimeType });
 
@@ -316,13 +324,5 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
         window.URL.revokeObjectURL(data);
         link.remove();
     }, 100);
-  }
-
-  private isFileLoaded() {
-    return this.packages != null && this.packages.length > 0;
-  }
-
-  private isPreviewLoaded() {
-    return this.previewStatus !== PreviewStatus.Undefined;
   }
 }
