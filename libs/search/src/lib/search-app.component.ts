@@ -21,6 +21,7 @@ import {
   AddToIndexRequest,
   FileUploadResult,
   LicenseRestrictionResponse,
+  FileStatusGetRequest,
 } from "./search-models";
 import { CommandsService } from './commands.service';
 import { SearchOptionsService } from './search-options.service';
@@ -100,8 +101,13 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
 
     _searchService.itemToRemove.subscribe(file => {
       if (file) {
-        this._searchService.removeFile(file, this.configService.folderName).subscribe(() => {
-          this.removeFileFromList(file);
+        this._searchService.removeFile(file, this.configService.folderName).subscribe((response: LicenseRestrictionResponse) => {
+          if (response.isRestricted) {
+            _messageModalService.setDemoRestrictionsMessage(response.message);
+          }
+          else {
+            this.removeFileFromList(file);
+          }
         });
       }
     });
@@ -238,8 +244,12 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
       {
         const timerId = setInterval(() => 
         {
-          this._searchService.getDocumentStatus(this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing ||
-            (!this.skipPasswordProtected && f.documentStatus === FileIndexingStatus.PasswordRequired))).toPromise().then((searchIndexFiles: IndexedFileModel[]) => 
+          const files = this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing ||
+            (!this.skipPasswordProtected && f.documentStatus === FileIndexingStatus.PasswordRequired));
+          const request = new FileStatusGetRequest();
+          request.FolderName = this.configService.folderName;
+          request.Files = files;
+          this._searchService.getDocumentStatus(request).toPromise().then((searchIndexFiles: IndexedFileModel[]) => 
           {
             searchIndexFiles.forEach((searchFile) => {
               if (searchFile.documentStatus !== FileIndexingStatus.Indexing)

@@ -56,6 +56,14 @@ export class IndexedFileComponent implements OnInit {
         return "times";
       case FileIndexingStatus.Skipped:
         return "forward";
+      case FileIndexingStatus.Pending:
+        return "pause";
+      case FileIndexingStatus.Removing:
+        return "trash";
+      case FileIndexingStatus.Indexed:
+        return "check";
+      case FileIndexingStatus.NotIndexed:
+        return "cloud";
       default:
         return "times";
     }
@@ -72,6 +80,14 @@ export class IndexedFileComponent implements OnInit {
         return "Error"
       case FileIndexingStatus.Skipped:
         return "Skipped";
+      case FileIndexingStatus.Pending:
+        return "Pending";
+      case FileIndexingStatus.Removing:
+        return "Removing";
+      case FileIndexingStatus.Indexed:
+        return "Indexed";
+      case FileIndexingStatus.NotIndexed:
+        return "Not indexed";
       default:
         return "times";
     }

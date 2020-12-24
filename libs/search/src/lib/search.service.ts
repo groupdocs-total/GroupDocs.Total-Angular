@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { AddToIndexRequest, AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, DocumentPasswordsUpdateRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SearchBaseRequest, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
+import { AddToIndexRequest, AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, DocumentPasswordsUpdateRequest, FileStatusGetRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SearchBaseRequest, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
 import { SearchOptionsService } from './search-options.service';
 
 @Injectable({
@@ -81,8 +81,8 @@ export class SearchService {
     this._itemToRemove.next(file);
   }
 
-  getDocumentStatus(files: IndexedFileModel[]) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.GET_FILE_STATUS, files, Api.httpOptionsJson);
+  getDocumentStatus(request: FileStatusGetRequest) {
+    return this._http.post(this._config.getSearchApiEndpoint() + Api.GET_FILE_STATUS, request, Api.httpOptionsJson);
   }
 
   getIndexProperties(request: SearchBaseRequest) {

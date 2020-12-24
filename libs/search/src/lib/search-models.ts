@@ -5,6 +5,11 @@ export class IndexedFileModel extends FileModel {
   password: string;
 }
 
+export class FileStatusGetRequest {
+  FolderName: string;
+  Files: IndexedFileModel[];
+}
+
 export class SearchResult {
   foundFiles: SearchResultItemModel[];
   filePath: string;
@@ -171,7 +176,11 @@ export enum FileIndexingStatus {
   SuccessfullyProcessed = "SuccessfullyProcessed",
   Skipped = "Skipped",
   ProcessedWithError = "ProcessedWithError",
-  PasswordRequired = "PasswordRequired"
+  PasswordRequired = "PasswordRequired",
+  Pending = "Pending",
+  Removing = "Removing",
+  Indexed = "Indexed",
+  NotIndexed = "NotIndexed",
 }
 
 export enum CharacterType {

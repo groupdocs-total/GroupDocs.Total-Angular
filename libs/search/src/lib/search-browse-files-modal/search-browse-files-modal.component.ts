@@ -86,7 +86,7 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
       if (response.isRestricted) {
         this._messageModalService.setDemoRestrictionsMessage(response.message);
       }
-  });
+    });
 
     this._modalService.close(CommonModals.BrowseFiles);
   }
