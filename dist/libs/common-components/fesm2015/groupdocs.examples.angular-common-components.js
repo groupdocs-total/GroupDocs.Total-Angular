@@ -6932,7 +6932,7 @@ class PageMarkerDirective {
      */
     ngAfterViewInit() {
         /** @type {?} */
-        var sections = document.querySelectorAll(this.naming.sectionSelector);
+        const sections = document.querySelectorAll(this.naming.sectionSelector);
         for (let index = 0; index < sections.length; index++) {
             // get section
             /** @type {?} */
@@ -6958,7 +6958,7 @@ class PageMarkerDirective {
         const mutationFirst = mutationsList[0];
         // get parent section.
         /** @type {?} */
-        let target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
+        const target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
         if (target === null || target === "undefined") {
             return;
         }
@@ -6991,7 +6991,7 @@ class PageMarkerDirective {
         /** @type {?} */
         const styling = getComputedStyle(section, null);
         /** @type {?} */
-        let minHeight = styling.getPropertyValue('min-height');
+        const minHeight = styling.getPropertyValue('min-height');
         /** @type {?} */
         const minHeightNumber = parseFloat(minHeight);
         /** @type {?} */
@@ -7002,7 +7002,7 @@ class PageMarkerDirective {
         let endPageCoordinate = contentHeight;
         while (endPageCoordinate < realHeight) {
             /** @type {?} */
-            let marker = this.htmlToElements("<span class='page8marker' style='top:" + Math.ceil(endPageCoordinate) +
+            const marker = this.htmlToElements("<span class='page8marker' style='top:" + Math.ceil(endPageCoordinate) +
                 "px;'></span>");
             marker.forEach((/**
              * @param {?} item
@@ -7036,11 +7036,11 @@ class PageMarkerDirective {
         /** @type {?} */
         const height = content.getBoundingClientRect().height;
         /** @type {?} */
-        var styling = getComputedStyle(content, null);
+        const styling = getComputedStyle(content, null);
         /** @type {?} */
-        var paddingBottom = styling.getPropertyValue('padding-bottom');
+        const paddingBottom = styling.getPropertyValue('padding-bottom');
         /** @type {?} */
-        var paddingTop = styling.getPropertyValue('padding-top');
+        const paddingTop = styling.getPropertyValue('padding-top');
         return height - parseFloat(paddingBottom) - parseFloat(paddingTop);
     }
     ;
@@ -7062,7 +7062,7 @@ class PageMarkerDirective {
      */
     htmlToElements(html) {
         /** @type {?} */
-        var template = document.createElement('template');
+        const template = document.createElement('template');
         template.innerHTML = html;
         return template.content.childNodes;
     }

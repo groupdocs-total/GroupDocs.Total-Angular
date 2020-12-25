@@ -34,7 +34,7 @@ config = {
   }
 
   ngAfterViewInit(): void {
-    var sections = document.querySelectorAll(this.naming.sectionSelector);
+    const sections = document.querySelectorAll(this.naming.sectionSelector);
 
     for (let index = 0; index < sections.length; index++) {
         // get section
@@ -53,7 +53,7 @@ callback(mutationsList, observer) {
     // get first MutationRecord from list.
     const mutationFirst = mutationsList[0];
     // get parent section.
-    let target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
+    const target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
     if (target === null || target === "undefined") {
         return;
     }
@@ -73,13 +73,13 @@ callback(mutationsList, observer) {
     const footerHeight = this.processFooter(section);
     // get max page height - from css 'paginal.css'
     const styling = getComputedStyle(section, null);
-    let minHeight = styling.getPropertyValue('min-height');
+    const minHeight = styling.getPropertyValue('min-height');
     const minHeightNumber = parseFloat(minHeight);
     const contentHeight = minHeightNumber - headerHeight - footerHeight;
     const realHeight = this.processContent(section);
     let endPageCoordinate = contentHeight;
     while (endPageCoordinate < realHeight) {
-        let marker = this.htmlToElements("<span class='page8marker' style='top:" + Math.ceil(endPageCoordinate) +
+        const marker = this.htmlToElements("<span class='page8marker' style='top:" + Math.ceil(endPageCoordinate) +
             "px;'></span>");
         marker.forEach(item => {
             section.appendChild(item);
@@ -98,9 +98,9 @@ callback(mutationsList, observer) {
     processContent(section) {
         const content = section.querySelector(this.naming.contentSelector);
         const height = content.getBoundingClientRect().height;
-        var styling = getComputedStyle(content, null);
-        var paddingBottom = styling.getPropertyValue('padding-bottom');
-        var paddingTop = styling.getPropertyValue('padding-top');
+        const styling = getComputedStyle(content, null);
+        const paddingBottom = styling.getPropertyValue('padding-bottom');
+        const paddingTop = styling.getPropertyValue('padding-top');
         return height - parseFloat(paddingBottom) - parseFloat(paddingTop)
     };
 
@@ -112,7 +112,7 @@ callback(mutationsList, observer) {
 
     // create dom element from string.
     htmlToElements(html) {
-        var template = document.createElement('template');
+        const template = document.createElement('template');
         template.innerHTML = html;
         return template.content.childNodes;
     }
