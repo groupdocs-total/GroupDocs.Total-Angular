@@ -73,7 +73,9 @@
     [uploadConfig]="uploadConfig"
     (selectAll)="selectAllItems($event)"
     (fileDropped)="fileDropped($event, true)"
-    (filesAddedToIndex)="loadIndexedFiles($event)"></gd-search-browse-files-modal>
+    (filesAddedToIndex)="loadIndexedFiles($event)"
+    (filesDeleted)="selectDir($event)">
+  </gd-search-browse-files-modal>
 
   <gd-select-dictionary-modal (dictionarySelected)="onDictionarySelected($event)"></gd-select-dictionary-modal>
 

@@ -140,6 +140,10 @@ export class AddToIndexRequest extends SearchBaseRequest {
   Files: FileModel[];
 }
 
+export class FilesDeleteRequest extends SearchBaseRequest {
+  Files: FileModel[];
+}
+
 export class FileUploadResult extends FileCredentials {
   isRestricted: boolean;
   message: string;
@@ -151,6 +155,7 @@ export class LicenseRestrictionResponse {
 }
 
 export class SearchApi {
+  public static DELETE_FILES = '/deleteFiles';
   public static DOWNLOAD_AND_ADD_TO_INDEX = '/downloadAndAddToIndex';
   public static GET_UPLOADED_FILES = '/getUploadedFiles';
   public static GET_INDEXED_FILES = '/getIndexedFiles';

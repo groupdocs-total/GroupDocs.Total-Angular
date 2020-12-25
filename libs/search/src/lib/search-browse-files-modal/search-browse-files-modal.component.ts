@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BrowseFilesModalComponent, UploadFilesService, ModalService, CommonModals } from '@groupdocs.examples.angular/common-components';
 import { SearchService } from '../search.service';
-import { AddToIndexRequest, ExtendedFileModel, LicenseRestrictionResponse } from "../search-models";
+import { AddToIndexRequest, ExtendedFileModel, FilesDeleteRequest, LicenseRestrictionResponse } from "../search-models";
 import { MessageModalService } from '../message-modal.service';
 
 export interface Option {
@@ -22,6 +22,7 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
   @Output() selectAll = new EventEmitter<boolean>();
   @Output() filesAddedToIndex = new EventEmitter<boolean>();
   @Output() fileDropped = new EventEmitter<boolean>();
+  @Output() filesDeleted = new EventEmitter<boolean>();
 
   constructor(_uploadService: UploadFilesService,
     private _messageModalService: MessageModalService,
@@ -30,7 +31,7 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
     super(_uploadService);
   }
 
-  selectAllItems(checked: boolean){
+  selectAllItems(checked: boolean) {
     this.selectAll.emit(checked);
   }
 
@@ -41,12 +42,28 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
     }
   }
 
-  getLabelString(){
+  getAddLabelString() {
     const label = 'Add to index'
-
     if (this.files && this.files.length > 0) {
       const selectedCount = this.files.filter(file => file.selected).length;
       return selectedCount > 0 ? 'Add ' + selectedCount + ' to index' : label;
+    }
+    else
+    {
+      return label;
+    }
+  }
+
+  getDeleteLabelString() {
+    const label = 'Delete files'
+    if (this.files && this.files.length > 0) {
+      const selectedCount = this.files.filter(file => file.selected).length;
+      if (selectedCount === 1) {
+        return 'Delete 1 file'
+      }
+      else {
+        return selectedCount > 0 ? 'Delete ' + selectedCount + ' files' : label;
+      }
     }
     else
     {
@@ -89,6 +106,23 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
     });
 
     this._modalService.close(CommonModals.BrowseFiles);
+  }
+
+  deleteSelected() {
+    const itemsToDelete = new Array<ExtendedFileModel>();
+
+    this.files.forEach((f) => {
+      if (f.selected && !f.isDirectory && !f.directory){
+        itemsToDelete.push(f);
+      }
+    });
+
+    const request = new FilesDeleteRequest();
+    request.FolderName = this.folderName;
+    request.Files = itemsToDelete;
+    this._searchService.deleteFiles(request).subscribe(() => {
+      this.filesDeleted.emit(true);
+    });
   }
 
   dropped($event) {
