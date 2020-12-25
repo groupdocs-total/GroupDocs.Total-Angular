@@ -63,18 +63,8 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     });
 
     uploadFilesService.uploadsChange.subscribe((uploads) => {
-      if (uploads) {
-        let i: number;
-        for (i = 0; i < uploads.length; i++) {
-          this._searchService.upload(uploads.item(i), '', this.configService.folderName).subscribe((result: FileUploadResult) => {
-            if (!this.fileWasDropped) {
-              this.selectDir('');
-            }
-            if (result.isRestricted) {
-              _messageModalService.setDemoRestrictionsMessage(result.message);
-            }
-          });
-        }
+      if (uploads && uploads.length > 0) {
+        this.uploadFile(uploads, 0);
       }
     });
 
@@ -116,6 +106,23 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     const queryString = window.location.search;
     this.initParameters(queryString);
+  }
+
+  private uploadFile(uploads: FileList, index: number) {
+    this._searchService.upload(uploads.item(index), '', this.configService.folderName).subscribe((result: FileUploadResult) => {
+      if (!this.fileWasDropped) {
+        this.selectDir('');
+      }
+      if (result.isRestricted) {
+        this._messageModalService.setDemoRestrictionsMessage(result.message);
+      }
+      else {
+        const nextIndex = index + 1;
+        if (nextIndex < uploads.length) {
+          this.uploadFile(uploads, nextIndex)
+        }
+      }
+    });
   }
 
   private initParameters(queryString: string) {
