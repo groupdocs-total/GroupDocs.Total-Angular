@@ -311,15 +311,7 @@ gd-tab {
     .icon-button {
       height: 60px !important;
       width : 60px;
-    }
-  }
-
-  ::ng-deep #formatting-tab,
-  ::ng-deep #paragraph-tab {
-    ::ng-deep .tools {
-      .icon-button {
-        margin: 0px !important;
-      }
+      margin: 0px !important;
     }
   }
 
@@ -374,5 +366,9 @@ gd-tab {
 
   ::ng-deep .init-state-wrapper {
     position: unset !important;
+  }
+
+  ::ng-deep .gd-document {
+    height: ~"calc(100% - @{nav-height})" !important;
   }
 }
