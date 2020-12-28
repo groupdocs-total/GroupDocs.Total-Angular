@@ -8309,24 +8309,28 @@
             var mutationFirst = mutationsList[0];
             // get parent section.
             /** @type {?} */
-            var target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
-            if (target === null || target === "undefined") {
-                return;
+            var parentNode = mutationFirst.target.parentNode;
+            if (parentNode) {
+                /** @type {?} */
+                var target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
+                if (target === null || target === "undefined") {
+                    return;
+                }
+                // remove all markers in the current section.
+                target.querySelectorAll(this.naming.markerSelector).forEach((/**
+                 * @param {?} element
+                 * @return {?}
+                 */
+                function (element) {
+                    element.remove();
+                }));
+                // add marker to target sections.
+                this.processSection(target);
+                // a list of all matching DOM changes that have been detected but not yet processed by the observer's callback function, leaving the mutation queue empty.
+                // MAIN REASON - leaving the mutation queue empty. 
+                /** @type {?} */
+                var lest = observer.takeRecords();
             }
-            // remove all markers in the current section.
-            target.querySelectorAll(this.naming.markerSelector).forEach((/**
-             * @param {?} element
-             * @return {?}
-             */
-            function (element) {
-                element.remove();
-            }));
-            // add marker to target sections.
-            this.processSection(target);
-            // a list of all matching DOM changes that have been detected but not yet processed by the observer's callback function, leaving the mutation queue empty.
-            // MAIN REASON - leaving the mutation queue empty. 
-            /** @type {?} */
-            var lest = observer.takeRecords();
         };
         ;
         /**

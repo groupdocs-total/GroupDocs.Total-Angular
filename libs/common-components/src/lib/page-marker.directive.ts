@@ -53,19 +53,22 @@ callback(mutationsList, observer) {
     // get first MutationRecord from list.
     const mutationFirst = mutationsList[0];
     // get parent section.
-    const target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
-    if (target === null || target === "undefined") {
-        return;
+    const parentNode = mutationFirst.target.parentNode;
+    if (parentNode) {
+        const target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
+        if (target === null || target === "undefined") {
+            return;
+        }
+        // remove all markers in the current section.
+        target.querySelectorAll(this.naming.markerSelector).forEach(element => {
+            element.remove();
+        })
+        // add marker to target sections.
+        this.processSection(target);
+        // a list of all matching DOM changes that have been detected but not yet processed by the observer's callback function, leaving the mutation queue empty.
+        // MAIN REASON - leaving the mutation queue empty. 
+        const lest = observer.takeRecords();
     }
-    // remove all markers in the current section.
-    target.querySelectorAll(this.naming.markerSelector).forEach(element => {
-        element.remove();
-    })
-    // add marker to target sections.
-    this.processSection(target);
-    // a list of all matching DOM changes that have been detected but not yet processed by the observer's callback function, leaving the mutation queue empty.
-    // MAIN REASON - leaving the mutation queue empty. 
-    const lest = observer.takeRecords();
 };
 
   processSection(section) {
