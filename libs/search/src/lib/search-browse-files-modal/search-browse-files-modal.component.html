@@ -14,16 +14,29 @@
     </div>
     <div class="context">
       <div class="context-actions">
-        <gd-button [icon]="'plus'" [disabled]="!anyItemSelected()" [intent]="'primary'" [iconOnly]="false" (click)="addSelectedToIndex()">
+        <gd-button
+          [icon]="'plus'"
+          [disabled]="!anyItemSelected()"
+          [intent]="'primary'"
+          [iconOnly]="false"
+          (click)="addSelectedToIndex()">
           {{getAddLabelString()}}
         </gd-button>
-        <gd-button [icon]="'minus'" [disabled]="!anyItemSelected()" [intent]="'primary'" [iconOnly]="false" (click)="deleteSelected()">
+        <gd-button
+          [icon]="'minus'"
+          [disabled]="!anyItemSelected()"
+          [intent]="'primary'"
+          [iconOnly]="false"
+          (click)="deleteSelected()">
           {{getDeleteLabelString()}}
         </gd-button>
         <gd-drop-down>
           <gd-drop-down-toggle>
-            <gd-button [icon]="'upload'" [intent]="'brand'" [iconOnly]="false">
-              Upload file
+            <gd-button
+              [icon]="'upload'"
+              [intent]="'brand'"
+              [iconOnly]="false">
+              Upload
             </gd-button>
           </gd-drop-down-toggle>
           <gd-drop-down-items>

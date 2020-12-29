@@ -43,10 +43,10 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
   }
 
   getAddLabelString() {
-    const label = 'Add to index'
+    const label = 'Index'
     if (this.files && this.files.length > 0) {
       const selectedCount = this.files.filter(file => file.selected).length;
-      return selectedCount > 0 ? 'Add ' + selectedCount + ' to index' : label;
+      return selectedCount > 0 ? 'Index ' + selectedCount : label;
     }
     else
     {
@@ -55,14 +55,14 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
   }
 
   getDeleteLabelString() {
-    const label = 'Delete files'
+    const label = 'Delete'
     if (this.files && this.files.length > 0) {
       const selectedCount = this.files.filter(file => file.selected).length;
       if (selectedCount === 1) {
-        return 'Delete 1 file'
+        return 'Delete 1'
       }
       else {
-        return selectedCount > 0 ? 'Delete ' + selectedCount + ' files' : label;
+        return selectedCount > 0 ? 'Delete ' + selectedCount : label;
       }
     }
     else
