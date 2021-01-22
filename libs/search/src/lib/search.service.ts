@@ -19,27 +19,27 @@ export class SearchService {
   }
 
   addFilesToIndex(request: AddToIndexRequest) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.ADD_FILES_TO_INDEX, request, Api.httpOptionsJson);
+    return this._http.post(this._config.apiEndpoint + Api.ADD_FILES_TO_INDEX, request, Api.httpOptionsJson);
   }
 
   deleteFiles(request: FilesDeleteRequest) {
-    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.DELETE_FILES, request, Api.httpOptionsJson);
+    return this._http.post(this._config.apiEndpoint + SearchApi.DELETE_FILES, request, Api.httpOptionsJson);
   }
 
   downloadAndAddToIndex(request: AddToIndexRequest) {
-    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.DOWNLOAD_AND_ADD_TO_INDEX, request, Api.httpOptionsJson);
+    return this._http.post(this._config.apiEndpoint + SearchApi.DOWNLOAD_AND_ADD_TO_INDEX, request, Api.httpOptionsJson);
   }
 
   getUploadedFiles(request: SearchBaseRequest) {
-    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.GET_UPLOADED_FILES, request, Api.httpOptionsJson);
+    return this._http.post(this._config.apiEndpoint + SearchApi.GET_UPLOADED_FILES, request, Api.httpOptionsJson);
   }
 
   getIndexedFiles(request: SearchBaseRequest) {
-    return this._http.post(this._config.getSearchApiEndpoint() + SearchApi.GET_INDEXED_FILES, request, Api.httpOptionsJson);
+    return this._http.post(this._config.apiEndpoint + SearchApi.GET_INDEXED_FILES, request, Api.httpOptionsJson);
   }
 
   loadFile(credentials: FileCredentials) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
+    return this._http.post(this._config.apiEndpoint + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
   }
 
   upload(file: File, url: string, folderName: string) {
@@ -50,7 +50,7 @@ export class SearchService {
       formData.append("url", url);
     }
 
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
+    return this._http.post(this._config.apiEndpoint + Api.UPLOAD_DOCUMENTS, formData);
   }
 
   search(credentials: FileCredentials[], query: string, folderName: string) {
@@ -70,7 +70,7 @@ export class SearchService {
       SpellingCorrectionMistakeCount: this._searchOptionsService.SpellingCorrectionMistakeCount,
       SpellingCorrectionOnlyBestResults: this._searchOptionsService.SpellingCorrectionOnlyBestResults,
     };
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.SEARCH, body, Api.httpOptionsJson);
+    return this._http.post(this._config.apiEndpoint + Api.SEARCH, body, Api.httpOptionsJson);
   }
 
   removeFile(file: FileModel, folderName: string) {
@@ -78,7 +78,7 @@ export class SearchService {
       guid: file.guid,
       FolderName: folderName,
     };
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.REMOVE_FROM_INDEX, data, Api.httpOptionsJson);
+    return this._http.post(this._config.apiEndpoint + Api.REMOVE_FROM_INDEX, data, Api.httpOptionsJson);
   }
 
   selectedItemToRemove(file: FileModel) {
@@ -86,81 +86,81 @@ export class SearchService {
   }
 
   getDocumentStatus(request: FileStatusGetRequest) {
-    return this._http.post(this._config.getSearchApiEndpoint() + Api.GET_FILE_STATUS, request, Api.httpOptionsJson);
+    return this._http.post(this._config.apiEndpoint + Api.GET_FILE_STATUS, request, Api.httpOptionsJson);
   }
 
   getIndexProperties(request: SearchBaseRequest) {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_INDEX_PROPERTIES;
+    const url = this._config.apiEndpoint + SearchApi.GET_INDEX_PROPERTIES;
     return this._http.post(url, request, Api.httpOptionsJson);
   }
 
   getAlphabetDictionary() {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_ALPHABET_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.GET_ALPHABET_DICTIONARY;
     return this._http.post(url, Api.httpOptionsJson);
   }
 
   setAlphabetDictionary(data: AlphabetUpdateRequest) {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_ALPHABET_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.SET_ALPHABET_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 
   getStopWordDictionary() {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_STOP_WORD_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.GET_STOP_WORD_DICTIONARY;
     return this._http.post(url, Api.httpOptionsJson);
   }
 
   setStopWordDictionary(data: StopWordsUpdateRequest) {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_STOP_WORD_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.SET_STOP_WORD_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 
   getSynonymDictionary() {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_SYNONYM_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.GET_SYNONYM_DICTIONARY;
     return this._http.post(url, Api.httpOptionsJson);
   }
 
   setSynonymDictionary(data: SynonymsUpdateRequest) {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_SYNONYM_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.SET_SYNONYM_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 
   getHomophoneDictionary() {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_HOMOPHONE_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.GET_HOMOPHONE_DICTIONARY;
     return this._http.post(url, Api.httpOptionsJson);
   }
 
   setHomophoneDictionary(data: HomophonesUpdateRequest) {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_HOMOPHONE_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.SET_HOMOPHONE_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 
   getSpellingCorrectorDictionary() {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_SPELLING_CORRECTOR_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.GET_SPELLING_CORRECTOR_DICTIONARY;
     return this._http.post(url, Api.httpOptionsJson);
   }
 
   setSpellingCorrectorDictionary(data: SpellingCorrectorUpdateRequest) {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_SPELLING_CORRECTOR_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.SET_SPELLING_CORRECTOR_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 
   getCharacterReplacementDictionary() {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_CHARACTER_REPLACEMENT_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.GET_CHARACTER_REPLACEMENT_DICTIONARY;
     return this._http.post(url, Api.httpOptionsJson);
   }
 
   setCharacterReplacementDictionary(data: CharacterReplacementsUpdateRequest) {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_CHARACTER_REPLACEMENT_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.SET_CHARACTER_REPLACEMENT_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 
   getDocumentPasswordDictionary() {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.GET_DOCUMENT_PASSWORD_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.GET_DOCUMENT_PASSWORD_DICTIONARY;
     return this._http.post(url, Api.httpOptionsJson);
   }
 
   setDocumentPasswordDictionary(data: DocumentPasswordsUpdateRequest) {
-    const url = this._config.getSearchApiEndpoint() + SearchApi.SET_DOCUMENT_PASSWORD_DICTIONARY;
+    const url = this._config.apiEndpoint + SearchApi.SET_DOCUMENT_PASSWORD_DICTIONARY;
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 }

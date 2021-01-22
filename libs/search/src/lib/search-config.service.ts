@@ -21,7 +21,7 @@ export class SearchConfigService {
 
   load() {
     return new Promise<void>((resolve, reject) => {
-      const configEndpoint = this._config.getConfigEndpoint(Api.SEARCH_APP);
+      const configEndpoint = this._config.apiEndpoint + Api.LOAD_CONFIG;
       this._http.get(configEndpoint, Api.httpOptionsJson).toPromise().then((response: SearchConfig) => {
         const searchConfig = <SearchConfig>response;
         this._searchConfig.next(searchConfig);
