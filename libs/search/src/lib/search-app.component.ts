@@ -227,6 +227,26 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     this._searchService.getUploadedFiles(request).subscribe((files: ExtendedFileModel[]) => this.files = files || []);
   }
 
+  canGetReport() {
+    return this.configService.folderName.endsWith("5b4e8099");
+  }
+
+  getReport() {
+    this._searchService.getReport(this.configService.folderName).subscribe((response: any) => {
+      const dataType = response.type;
+      const binaryData = [];
+      binaryData.push(response);
+      const url = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+      //window.open(url, '_blank');
+
+      const downloadLink = document.createElement('a');
+      downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+      downloadLink.setAttribute('download', 'Report.txt');
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+    });
+  }
+
   selectAllItems(checked: boolean) {
     this.files.forEach( (f) => {
       if (!f.isDirectory && !f.directory) f.selected = checked;

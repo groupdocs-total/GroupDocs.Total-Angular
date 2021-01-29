@@ -23,6 +23,10 @@
         [tooltip]="'Save changes'"
         (click)="pushCommand('save')"
         *ngIf="appState == 'AlphabetDictionary' || appState == 'StopWordDictionary' || appState == 'SynonymDictionary' || appState == 'HomophoneDictionary' || appState == 'SpellingCorrectorDictionary' || appState == 'CharacterReplacementDictionary' || appState == 'PasswordDictionary'"></gd-button>
+      <gd-button [icon]="'file-download'"
+        [tooltip]="'Get report'"
+        (click)="getReport()"
+        *ngIf="canGetReport()"></gd-button>
     </gd-top-toolbar>
   </div>
 
