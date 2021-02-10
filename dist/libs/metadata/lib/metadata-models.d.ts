@@ -68,16 +68,25 @@ export declare enum MetadataType {
     Msg = 38,
     Torrent = 39
 }
-export declare class FilePropertyModel {
+export declare enum PropertyState {
+    Unchanged = 0,
+    Added = 1,
+    Edited = 2,
+    Deleted = 3
+}
+export interface IProperty {
+    name: string;
+}
+export declare class FilePropertyModel implements IProperty {
     name: string;
     value: any;
     type: number;
-    added: boolean;
+    state: PropertyState;
     selected: boolean;
     editing: boolean;
-    edited: boolean;
+    adding: boolean;
 }
-export declare class KnownPropertyModel {
+export declare class KnownPropertyModel implements IProperty {
     name: string;
     type: number;
     accessLevel: number;
@@ -90,9 +99,10 @@ export declare class PackageModel {
     properties: FilePropertyModel[];
     knownProperties: KnownPropertyModel[];
 }
-export declare class RemovePropertyModel {
-    packageId: string;
-    property: FilePropertyModel;
+export declare class ChangedFileModel {
+    guid: string;
+    password: string;
+    packages: ChangedPackageModel[];
 }
 export declare class ChangedPackageModel {
     id: string;

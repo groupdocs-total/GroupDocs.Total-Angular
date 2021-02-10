@@ -1,5 +1,5 @@
-import {AfterViewInit, Input, Component, OnInit} from '@angular/core';
-import {MetadataService, MetadataFileDescription} from "./metadata.service";
+import { AfterViewInit, Input, Component, OnInit } from '@angular/core';
+import { MetadataService } from "./metadata.service";
 import {
   FileModel,
   ModalService,
@@ -12,7 +12,7 @@ import {
 import { MetadataConfig } from "./metadata-config";
 import { MetadataConfigService } from "./metadata-config.service";
 import { WindowService, Api } from "@groupdocs.examples.angular/common-components";
-import { RemovePropertyModel, PackageModel, PackageNameByMetadataType, PackageNameByOriginalName, MetadataType, FilePreview } from './metadata-models';
+import { PackageModel, PackageNameByMetadataType, PackageNameByOriginalName, MetadataType, FilePreview, ChangedFileModel } from './metadata-models';
 import { Subscription } from 'rxjs';
 import { PreviewStatus } from './preview-status/preview-models';
 
@@ -190,15 +190,14 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
   }
 
   save() {
-    const savingFile = new MetadataFileDescription();
+    const savingFile = new ChangedFileModel();
     savingFile.guid = this.credentials.guid;
     savingFile.password = this.credentials.password;
     savingFile.packages = this.packages
       .map(updatedPackage => { 
-        return { id: updatedPackage.id, properties: updatedPackage.properties.filter(p => p.added || p.edited)}; 
+        return { id: updatedPackage.id, properties: updatedPackage.properties.filter(p => p.state)}; 
       })
       .filter(updatedPackage => updatedPackage.properties.length > 0);
-
     if (savingFile.packages.length > 0)
     {
       this.metadataService.saveProperty(savingFile).subscribe(() => {
@@ -215,16 +214,6 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
 
   hideSidePanel($event: Event) {
     this.showSidePanel = !this.showSidePanel;
-  }
-
-  removeProperty(propertyInfo: RemovePropertyModel) {
-      const metadataFile = new MetadataFileDescription();
-      metadataFile.guid = this.credentials.guid;
-      metadataFile.password = this.credentials.password;
-      metadataFile.packages = [{id: propertyInfo.packageId, properties: [propertyInfo.property] }];
-      this.metadataService.removeProperty(metadataFile).subscribe(() => {
-        this.loadProperties(false, true);
-      });
   }
 
   getPackageName(packageInfo: PackageModel) {

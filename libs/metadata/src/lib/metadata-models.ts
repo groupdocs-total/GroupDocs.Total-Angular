@@ -73,17 +73,28 @@ import { FileDescription } from "@groupdocs.examples.angular/common-components";
     Torrent = 39
   }
   
-  export class FilePropertyModel {
+  export enum PropertyState {
+    Unchanged = 0,
+    Added = 1,
+    Edited = 2,
+    Deleted = 3
+  }
+
+  export interface IProperty {
+    name:string;
+  }
+
+  export class FilePropertyModel implements IProperty {
     name: string;
     value: any;
     type: number;
-    added: boolean;
+    state: PropertyState;
     selected: boolean;
     editing: boolean;
-    edited: boolean;
+    adding: boolean;
   }
 
-  export class KnownPropertyModel {
+  export class KnownPropertyModel implements IProperty {
     name: string;
     type: number;
     accessLevel: number;
@@ -98,11 +109,12 @@ import { FileDescription } from "@groupdocs.examples.angular/common-components";
     knownProperties: KnownPropertyModel[];
   }
 
-  export class RemovePropertyModel {
-    packageId: string;
-    property: FilePropertyModel
+  export class ChangedFileModel {
+    guid: string;
+    password: string;
+    packages: ChangedPackageModel[];
   }
-
+  
   export class ChangedPackageModel {
     id: string;
     properties: FilePropertyModel[];

@@ -1,6 +1,6 @@
-import { EventEmitter, QueryList, AfterViewInit, OnInit } from '@angular/core';
+import { QueryList, AfterViewInit, OnInit } from '@angular/core';
 import { WindowService } from '@groupdocs.examples.angular/common-components';
-import { FilePropertyModel, KnownPropertyModel, AccessLevels, RemovePropertyModel, MetadataPropertyType } from '../../metadata-models';
+import { FilePropertyModel, KnownPropertyModel, AccessLevels, MetadataPropertyType, IProperty } from '../../metadata-models';
 import { IDatePickerConfig } from 'ng2-date-picker';
 export declare class AccordionGroupComponent implements OnInit, AfterViewInit {
     private windowService;
@@ -11,7 +11,6 @@ export declare class AccordionGroupComponent implements OnInit, AfterViewInit {
     addDisabled: boolean;
     addHidden: boolean;
     properties: FilePropertyModel[];
-    removeProperty: EventEmitter<RemovePropertyModel>;
     knownPropertyDictionary: {
         [key: string]: KnownPropertyModel;
     };
@@ -40,5 +39,8 @@ export declare class AccordionGroupComponent implements OnInit, AfterViewInit {
     hasAccessTo(property: FilePropertyModel, accessLevel: AccessLevels): boolean;
     dateToPicker(value: string): string;
     dateFromPicker(property: FilePropertyModel, value: string): void;
-    toDictionary(array: any[]): any;
+    getVisiblePoperties(): FilePropertyModel[];
+    toDictionary<T extends IProperty>(array: T[]): {
+        [id: string]: T;
+    };
 }

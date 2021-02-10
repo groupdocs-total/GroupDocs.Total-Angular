@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Api, ConfigService, FileCredentials} from "@groupdocs.examples.angular/common-components";
-import { ChangedPackageModel } from './metadata-models';
+import { ChangedFileModel } from './metadata-models';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +24,8 @@ export class MetadataService {
     return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_DOCUMENT_PROPERTIES, credentials, Api.httpOptionsJson);
   }
 
-  saveProperty(metadataFile: MetadataFileDescription) {
+  saveProperty(metadataFile: ChangedFileModel) {
     return this._http.post(this._config.getMetadataApiEndpoint() + Api.SAVE_PROPERTY, metadataFile, Api.httpOptionsJson);
-  }
-
-  removeProperty(metadataFile: MetadataFileDescription) {
-    return this._http.post(this._config.getMetadataApiEndpoint() + Api.REMOVE_PROPERTY, metadataFile, Api.httpOptionsJson);
   }
 
   cleanMetadata(metadataFile: FileCredentials) {
@@ -69,10 +65,4 @@ export class MetadataService {
       'password': credentials.password,
     }, Api.httpOptionsJson);
   }
-}
-
-export class MetadataFileDescription {
-  guid: string;
-  password: string;
-  packages: ChangedPackageModel[];
 }

@@ -4,7 +4,7 @@ import { FileModel, ModalService, ZoomService, UploadFilesService, NavigateServi
 import { MetadataConfig } from "./metadata-config";
 import { MetadataConfigService } from "./metadata-config.service";
 import { WindowService } from "@groupdocs.examples.angular/common-components";
-import { RemovePropertyModel, PackageModel, FilePreview } from './metadata-models';
+import { PackageModel, FilePreview } from './metadata-models';
 import { PreviewStatus } from './preview-status/preview-models';
 export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     private metadataService;
@@ -64,7 +64,6 @@ export declare class MetadataAppComponent implements OnInit, AfterViewInit {
     save(): void;
     cleanMetadata(): void;
     hideSidePanel($event: Event): void;
-    removeProperty(propertyInfo: RemovePropertyModel): void;
     getPackageName(packageInfo: PackageModel): any;
     loadProperties(loadPreview?: boolean, showSuccessModal?: boolean): void;
     selectFile($event: string, password: string, modalId: string): void;
