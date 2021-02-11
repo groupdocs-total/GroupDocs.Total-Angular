@@ -5,14 +5,14 @@
       <div class="top-panel">
         <a class="logo-link" [href]="returnUrl"><gd-logo [logo]="'metadata'" icon="clipboard-list"></gd-logo></a>
         <gd-top-toolbar class="toolbar-panel">
+          <gd-button [hidden] ="isDesktop" [disabled]="!isFileLoaded()" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties()">
+                    </gd-button>
           <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal, false)"
                     *ngIf="browseConfig" ></gd-button>
           <gd-button [disabled]="!isFileLoaded()" [icon]="'trash'" [tooltip]="'Clean Metadata'" (click)="openModal(confirmCleanModalId, true)">
                     </gd-button>
           <gd-button [disabled]="!isFileLoaded()" [icon]="'save'" [tooltip]="'Save'" (click)="openModal(confirmSaveModalId, true)">
-                    </gd-button>
-          <gd-button [hidden] ="isDesktop" [disabled]="!isFileLoaded()" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties()">
-                    </gd-button>
+                    </gd-button>          
           <gd-button [disabled]="!isFileLoaded()" [icon]="'download'" [tooltip]="'Download'"
                     (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
           <gd-button [disabled]="!isFileLoaded()" [icon]="'file-excel'" [tooltip]="'Export Properties'"
@@ -31,7 +31,7 @@
     </div>
     <gd-side-panel *ngIf="isFileLoaded() && showSidePanel"
       (hideSidePanel)="hideSidePanel($event)"
-      (saveInSidePanel)="save()"
+      (saveInSidePanel)="openModal(confirmSaveModalId, true)"
       [closable]="isDesktop ? false : true"
       [saveable]="isDesktop ? false : true"
       [title]="'Metadata'"
