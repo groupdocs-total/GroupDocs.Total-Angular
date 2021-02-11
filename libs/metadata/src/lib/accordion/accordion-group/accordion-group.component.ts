@@ -14,6 +14,7 @@ const moment = moment_;
 export class AccordionGroupComponent implements OnInit, AfterViewInit {
   @Input() knownProperties: KnownPropertyModel[]
   @Input() opened = true;
+  @Input() invalid = false;
   @Input() title: string;
   @Input() packageId: string;
   @Input() addDisabled: boolean;

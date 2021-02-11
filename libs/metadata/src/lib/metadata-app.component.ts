@@ -227,7 +227,16 @@ export class MetadataAppComponent implements OnInit, AfterViewInit {
     if (packageInfo.type in PackageNameByMetadataType) {
       return PackageNameByMetadataType[packageInfo.type];
     }
+
+    if (packageInfo.type === MetadataType.Undefined) {
+      return packageInfo.id;
+    }
+
     return (MetadataType[packageInfo.type]).toString();
+  }
+
+  isPackageInvalid(packageInfo: PackageModel) {
+    return packageInfo.type === MetadataType.Undefined;
   }
 
   loadProperties(loadPreview: boolean = false, showSuccessModal = false) {

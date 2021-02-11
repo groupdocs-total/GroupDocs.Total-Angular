@@ -37,7 +37,7 @@
       [title]="'Metadata'"
       [icon]="'clipboard-list'">
       <gd-accordion>
-        <gd-accordion-group *ngFor="let package of packages" [title]="getPackageName(package)" [addDisabled]="false" [addHidden]="false" [properties]="package.properties" [knownProperties]="package.knownProperties" [packageId]="package.id"></gd-accordion-group>
+        <gd-accordion-group *ngFor="let package of packages" [title]="getPackageName(package)" [addDisabled]="false" [addHidden]="false" [properties]="package.properties" [knownProperties]="package.knownProperties" [packageId]="package.id" [invalid]="isPackageInvalid(package)"></gd-accordion-group>
       </gd-accordion>
     </gd-side-panel>
   </div>
