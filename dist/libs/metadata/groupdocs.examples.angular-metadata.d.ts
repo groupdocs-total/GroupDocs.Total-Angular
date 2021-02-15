@@ -6,3 +6,4 @@ export { AccordionGroupComponent as ɵb } from './lib/accordion/accordion-group/
 export { AccordionComponent as ɵa } from './lib/accordion/accordion.component';
 export { ConfirmModalComponent as ɵd } from './lib/confirm-modal/confirm-modal.component';
 export { GdIntegerDirective as ɵc } from './lib/directives/gd-integer.directive';
+export { PreviewStatusComponent as ɵe } from './lib/preview-status/preview-status.component';
