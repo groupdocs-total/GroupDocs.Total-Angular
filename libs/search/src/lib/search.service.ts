@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { AddToIndexRequest, AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, DocumentPasswordsUpdateRequest, FilesDeleteRequest, FileStatusGetRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SearchBaseRequest, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
+import { AddToIndexRequest, AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, DocumentPasswordsUpdateRequest, FilesDeleteRequest, FileStatusGetRequest, HighlightRequest, HomophonesUpdateRequest, IndexedFileModel, SearchApi, SearchBaseRequest, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
 import { SearchOptionsService } from './search-options.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable()
 export class SearchService {
   private _itemToRemove = new BehaviorSubject<FileModel>(null);
   itemToRemove = this._itemToRemove.asObservable();
@@ -75,6 +72,10 @@ export class SearchService {
 
   getReport(id: string) {
     return this._http.get(this._config.apiEndpoint + SearchApi.GET_REPORT + "?id=" + id, { responseType: 'blob' as 'json' });
+  }
+
+  highlight(request: HighlightRequest) {
+    return this._http.post(this._config.apiEndpoint + SearchApi.HIGHLIGHT, request, { responseType: 'text' });
   }
 
   removeFile(file: FileModel, folderName: string) {

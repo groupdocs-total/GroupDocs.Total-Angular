@@ -27,6 +27,31 @@
         [tooltip]="'Get report'"
         (click)="getReport()"
         *ngIf="canGetReport()"></gd-button>
+
+      <div class="separator"
+        *ngIf="highlightDocumentService.displayDocument"></div>
+      <gd-button
+        [icon]="'angle-double-left'"
+        [tooltip]="'First term'"
+        (click)="termNavigation.navigateFirst()"
+        *ngIf="highlightDocumentService.displayDocument"></gd-button>
+      <gd-button
+        [icon]="'angle-left'"
+        [tooltip]="'Previous term'"
+        (click)="termNavigation.navigatePrevious()"
+        *ngIf="highlightDocumentService.displayDocument"></gd-button>
+      <div class="current-page-number"
+        *ngIf="highlightDocumentService.displayDocument">{{termNavigation.current}}/{{termNavigation.total}}</div>
+      <gd-button
+        [icon]="'angle-right'"
+        [tooltip]="'Next term'"
+        (click)="termNavigation.navigateNext()"
+        *ngIf="highlightDocumentService.displayDocument"></gd-button>
+      <gd-button
+        [icon]="'angle-double-right'"
+        [tooltip]="'Last term'"
+        (click)="termNavigation.navigateLast()"
+        *ngIf="highlightDocumentService.displayDocument"></gd-button>
     </gd-top-toolbar>
   </div>
 
@@ -53,6 +78,8 @@
   <gd-search-result-summary [searchResult]="searchResult" *ngIf="appState == 'SearchResult'"></gd-search-result-summary>
 
   <gd-indexed-files-list [files]="indexedFiles" *ngIf="appState == 'IndexedList'"></gd-indexed-files-list>
+
+  <gd-highlight-document *ngIf="highlightDocumentService.displayDocument === true"></gd-highlight-document>
 
   <gd-alias-dictionary *ngIf="appState == 'AliasDictionary'"></gd-alias-dictionary>
 

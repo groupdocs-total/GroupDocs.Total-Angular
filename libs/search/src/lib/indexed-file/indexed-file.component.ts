@@ -89,7 +89,7 @@ export class IndexedFileComponent implements OnInit {
       case FileIndexingStatus.NotIndexed:
         return "Not indexed";
       default:
-        return "times";
+        return "Unknown";
     }
   }
 }

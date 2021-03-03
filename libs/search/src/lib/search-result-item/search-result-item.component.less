@@ -62,7 +62,7 @@
 
 .gd-found-file-name {
   display     : flex;
-  width       : 253px;
+  width       : 100%;
   padding-left: 17px;
 }
 
@@ -103,7 +103,10 @@
 }
 
 .gd-file-occurrences {
-  color: #777777;
+  position: absolute;
+  right   : 180px;
+  width   : 180px;
+  color   : #777777;
 }
 
 .gd-search-result-item .ng-fa-icon.fa-file-pdf {
@@ -137,6 +140,11 @@
 .gd-found-file-name fa-icon {
   font-size: 32px;
   margin   : 0 11px 0 0;
+}
+
+.gd-found-document-name {
+  text-decoration: underline;
+  cursor         : pointer;
 }
 
 .gd-search-result-occurrences {

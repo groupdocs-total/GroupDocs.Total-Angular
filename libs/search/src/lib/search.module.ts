@@ -42,6 +42,10 @@ import { PasswordDictionaryComponent } from './password-dictionary/password-dict
 import { PasswordDictionaryService } from './password-dictionary.service';
 import { MessageModalComponent } from './message-modal/message-modal.component';
 import { MessageModalService } from './message-modal.service';
+import { HighlightDocumentComponent } from './highlight-document/highlight-document.component';
+import { HighlightDocumentService } from './highlight-document.service';
+import { FoundTermNavigationDirective } from './found-term-navigation.directive';
+import { FoundTermNavigationService } from './found-term-navigation.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -75,7 +79,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SpellingCorrectorDictionaryComponent,
     CharacterReplacementDictionaryComponent,
     PasswordDictionaryComponent,
-    MessageModalComponent
+    MessageModalComponent,
+    HighlightDocumentComponent,
+    FoundTermNavigationDirective
   ],
   imports: [
     BrowserModule,
@@ -108,6 +114,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     ConfigService,
     SearchConfigService,
     MessageModalService,
+    HighlightDocumentService,
+    FoundTermNavigationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
