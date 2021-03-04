@@ -18,6 +18,7 @@ export class SelectComponent {
   @Input() disabled = false;
   @Input() showSelected: Option;
   @Output() selected: EventEmitter<any> = new EventEmitter();
+  @Output() opened: EventEmitter<boolean> = new EventEmitter();
   @Input() isOpen = false;
   @Input() icon: string;
 
@@ -47,6 +48,7 @@ export class SelectComponent {
     $event.stopPropagation();
     if (!this.disabled) {
       this.isOpen = !this.isOpen;
+      if (this.isOpen) this.opened.emit(true);
     }
   }
 
