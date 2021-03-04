@@ -78,6 +78,14 @@ export class SearchService {
     return this._http.post(this._config.apiEndpoint + SearchApi.HIGHLIGHT, request, { responseType: 'text' });
   }
 
+  downloadSourceFile(request: HighlightRequest) {
+    return this._http.post(this._config.apiEndpoint + SearchApi.DOWNLOAD_SOURCE_FILE, request, { responseType: 'blob' as 'json' });
+  }
+
+  downloadExtractedText(request: HighlightRequest) {
+    return this._http.post(this._config.apiEndpoint + SearchApi.DOWNLOAD_EXTRACTED_TEXT, request, { responseType: 'blob' as 'json' });
+  }
+
   removeFile(file: FileModel, folderName: string) {
     const data = {
       guid: file.guid,

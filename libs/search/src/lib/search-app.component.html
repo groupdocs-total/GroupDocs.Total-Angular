@@ -28,9 +28,9 @@
         (click)="getReport()"
         *ngIf="canGetReport()"></gd-button>
 
-      <div class="separator"
+      <div class="separator mobile-hide"
         *ngIf="highlightDocumentService.displayDocument"></div>
-      <gd-button
+      <gd-button class="mobile-hide"
         [icon]="'angle-double-left'"
         [tooltip]="'First term'"
         (click)="termNavigation.navigateFirst()"
@@ -47,10 +47,22 @@
         [tooltip]="'Next term'"
         (click)="termNavigation.navigateNext()"
         *ngIf="highlightDocumentService.displayDocument"></gd-button>
-      <gd-button
+      <gd-button class="mobile-hide"
         [icon]="'angle-double-right'"
         [tooltip]="'Last term'"
         (click)="termNavigation.navigateLast()"
+        *ngIf="highlightDocumentService.displayDocument"></gd-button>
+      <div class="separator mobile-hide"
+        *ngIf="highlightDocumentService.displayDocument"></div>
+      <gd-button class="mobile-hide"
+        [icon]="'download'"
+        [tooltip]="'Download source file'"
+        (click)="highlightDocumentService.downloadSourceFile()"
+        *ngIf="highlightDocumentService.displayDocument"></gd-button>
+      <gd-button class="mobile-hide"
+        [icon]="'file-download'"
+        [tooltip]="'Download extracted text'"
+        (click)="highlightDocumentService.downloadExtractedText()"
         *ngIf="highlightDocumentService.displayDocument"></gd-button>
     </gd-top-toolbar>
   </div>

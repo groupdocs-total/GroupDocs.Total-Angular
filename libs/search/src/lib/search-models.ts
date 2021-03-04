@@ -154,11 +154,6 @@ export class FileUploadResult extends FileCredentials {
   message: string;
 }
 
-export class HighlightTermsResponse {
-  Header: string;
-  Body: string;
-}
-
 export class LicenseRestrictionResponse {
   isRestricted: boolean;
   message: string;
@@ -167,6 +162,8 @@ export class LicenseRestrictionResponse {
 export class SearchApi {
   public static GET_REPORT = '/getReport';
   public static HIGHLIGHT = '/highlight';
+  public static DOWNLOAD_SOURCE_FILE = '/downloadSourceFile';
+  public static DOWNLOAD_EXTRACTED_TEXT = '/downloadExtractedText';
   public static DELETE_FILES = '/deleteFiles';
   public static DOWNLOAD_AND_ADD_TO_INDEX = '/downloadAndAddToIndex';
   public static GET_UPLOADED_FILES = '/getUploadedFiles';
