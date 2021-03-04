@@ -2,5 +2,7 @@
   <div class="highlight-document-header">
     {{highlightDocumentService.documentName}}
   </div>
-  <div class="highlight-document-container" gdFoundTermNavigation [innerHTML]="highlightDocumentService.documentBody"></div>
+  <div class="highlight-document-container" gdFoundTermNavigation>
+    <div class="highlight-document-holder" [innerHTML]="highlightDocumentService.documentBody"></div>
+  </div>
 </div>
