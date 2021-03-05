@@ -2,9 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, EventEmitter, Output, ViewChildren, Directive, ElementRef, HostListener, ViewChild, NgModule, APP_INITIALIZER } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { __values } from 'tslib';
-import { Api, ConfigService, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PasswordService, LoadingMaskService, WindowService, ModalComponent, ButtonComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, FileDescription, CommonModals, ModalService, UploadFilesService, NavigateService, ZoomService, PasswordService, LoadingMaskService, WindowService, ModalComponent, ButtonComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
+import { __extends } from 'tslib';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import * as moment_ from 'moment';
 import { NgModel, FormsModule } from '@angular/forms';
@@ -51,17 +51,6 @@ var MetadataService = /** @class */ (function () {
      */
     function (credentials) {
         return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_DOCUMENT_PROPERTIES, credentials, Api.httpOptionsJson);
-    };
-    /**
-     * @param {?} credentials
-     * @return {?}
-     */
-    MetadataService.prototype.loadPropertiesNames = /**
-     * @param {?} credentials
-     * @return {?}
-     */
-    function (credentials) {
-        return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_DOCUMENT_PROPERTIES_NAMES, credentials, Api.httpOptionsJson);
     };
     /**
      * @param {?} metadataFile
@@ -328,10 +317,6 @@ if (false) {
 }
 
 var _a;
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /** @enum {number} */
 var AccessLevels = {
     Read: 0,
@@ -542,6 +527,17 @@ if (false) {
     /** @type {?} */
     ChangedPackageModel.prototype.properties;
 }
+var FilePreview = /** @class */ (function (_super) {
+    __extends(FilePreview, _super);
+    function FilePreview() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return FilePreview;
+}(FileDescription));
+if (false) {
+    /** @type {?} */
+    FilePreview.prototype.timeLimitExceeded;
+}
 /** @type {?} */
 var PackageNameByMetadataType = (_a = {},
     _a[MetadataType.WordProcessing] = "Document Properties",
@@ -588,6 +584,24 @@ var PackageNameByOriginalName = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @enum {number} */
+var PreviewStatus = {
+    Undefined: 0,
+    InProgress: 1,
+    Timeout: 2,
+    Unavailable: 3,
+    Loaded: 4,
+};
+PreviewStatus[PreviewStatus.Undefined] = 'Undefined';
+PreviewStatus[PreviewStatus.InProgress] = 'InProgress';
+PreviewStatus[PreviewStatus.Timeout] = 'Timeout';
+PreviewStatus[PreviewStatus.Unavailable] = 'Unavailable';
+PreviewStatus[PreviewStatus.Loaded] = 'Loaded';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var MetadataAppComponent = /** @class */ (function () {
     function MetadataAppComponent(metadataService, modalService, configService, uploadFilesService, navigateService, zoomService, passwordService, loadingMaskService, windowService) {
         this.metadataService = metadataService;
@@ -603,14 +617,13 @@ var MetadataAppComponent = /** @class */ (function () {
         this.title = 'metadata';
         this.files = [];
         this.countPages = 0;
-        this.formatDisabled = true;
         this.browseFilesModal = CommonModals.BrowseFiles;
         this.previewZoom = 100;
         this.fileWasDropped = false;
-        this.disabled = false;
         this.showSidePanel = true;
         this.confirmCleanModalId = "confirm-clean";
         this.confirmSaveModalId = "confirm-save";
+        this.previewStatus = PreviewStatus.Undefined;
     }
     /**
      * @return {?}
@@ -620,6 +633,7 @@ var MetadataAppComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
+        this.loadingMaskService.addStopUrl(Api.LOAD_DOCUMENT_DESCRIPTION);
         this.isDesktop = this.windowService.isDesktop();
         this.windowService.onResize.subscribe((/**
          * @param {?} w
@@ -641,18 +655,14 @@ var MetadataAppComponent = /** @class */ (function () {
          * @return {?}
          */
         function (uploads) {
-            if (uploads) {
-                /** @type {?} */
-                var i = void 0;
-                for (i = 0; i < uploads.length; i++) {
-                    _this.metadataService.upload(uploads.item(i), '', _this.metadataConfig.rewrite).subscribe((/**
-                     * @param {?} obj
-                     * @return {?}
-                     */
-                    function (obj) {
-                        _this.fileWasDropped ? _this.selectFile(obj.guid, '', '') : _this.selectDir('');
-                    }));
-                }
+            if (uploads && uploads.length > 0) {
+                _this.metadataService.upload(uploads.item(0), '', _this.metadataConfig.rewrite).subscribe((/**
+                 * @param {?} obj
+                 * @return {?}
+                 */
+                function (obj) {
+                    _this.fileWasDropped ? _this.selectFile(obj.guid, '', '') : _this.selectDir('');
+                }));
             }
         }));
         this.passwordService.passChange.subscribe((/**
@@ -739,7 +749,7 @@ var MetadataAppComponent = /** @class */ (function () {
      * @return {?}
      */
     function (id, fileShouldBeLoaded) {
-        if (fileShouldBeLoaded && this.formatDisabled)
+        if (fileShouldBeLoaded && !this.isFileLoaded())
             return;
         this.modalService.open(id);
     };
@@ -758,49 +768,6 @@ var MetadataAppComponent = /** @class */ (function () {
          * @return {?}
          */
         function (files) { return _this.files = files || []; }));
-    };
-    /**
-     * @param {?} $event
-     * @param {?} password
-     * @param {?} modalId
-     * @return {?}
-     */
-    MetadataAppComponent.prototype.selectFile = /**
-     * @param {?} $event
-     * @param {?} password
-     * @param {?} modalId
-     * @return {?}
-     */
-    function ($event, password, modalId) {
-        var _this = this;
-        this.credentials = { guid: $event, password: password };
-        this.file = null;
-        this.metadataService.loadFile(this.credentials).subscribe((/**
-         * @param {?} file
-         * @return {?}
-         */
-        function (file) {
-            _this.file = file;
-            _this.formatDisabled = !_this.file;
-            if (file) {
-                if (file.pages && file.pages[0]) {
-                    _this.pageHeight = file.pages[0].height;
-                    _this.pageWidth = file.pages[0].width;
-                    _this.options = _this.zoomOptions();
-                    _this.refreshZoom();
-                }
-                /** @type {?} */
-                var countPages = file.pages ? file.pages.length : 0;
-                _this.navigateService.countPages = countPages;
-                _this.navigateService.currentPage = 1;
-                _this.countPages = countPages;
-                _this.loadProperties();
-            }
-        }));
-        if (modalId) {
-            this.modalService.close(modalId);
-        }
-        this.clearData();
     };
     /**
      * @param {?} $event
@@ -930,7 +897,7 @@ var MetadataAppComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this.formatDisabled)
+        if (!this.isFileLoaded())
             return;
         window.location.assign(this.metadataService.getDownloadUrl(this.credentials));
     };
@@ -942,7 +909,7 @@ var MetadataAppComponent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (this.formatDisabled)
+        if (!this.isFileLoaded())
             return;
         this.metadataService.exportProperties(this.credentials).subscribe((/**
          * @param {?} exportedFile
@@ -951,42 +918,6 @@ var MetadataAppComponent = /** @class */ (function () {
         function (exportedFile) {
             return _this.saveBlob(exportedFile, "ExportedProperties.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }));
-    };
-    /**
-     * @private
-     * @return {?}
-     */
-    MetadataAppComponent.prototype.clearData = /**
-     * @private
-     * @return {?}
-     */
-    function () {
-        var e_1, _a;
-        if (!this.file || !this.file.pages) {
-            return;
-        }
-        try {
-            for (var _b = __values(this.file.pages), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var page = _c.value;
-                page.data = null;
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MetadataAppComponent.prototype.isDisabled = /**
-     * @return {?}
-     */
-    function () {
-        return !this.file || this.disabled;
     };
     /**
      * @return {?}
@@ -998,7 +929,7 @@ var MetadataAppComponent = /** @class */ (function () {
         var _this = this;
         /** @type {?} */
         var savingFile = new MetadataFileDescription();
-        savingFile.guid = this.file.guid;
+        savingFile.guid = this.credentials.guid;
         savingFile.password = this.credentials.password;
         savingFile.packages = this.packages
             .map((/**
@@ -1019,13 +950,10 @@ var MetadataAppComponent = /** @class */ (function () {
         function (updatedPackage) { return updatedPackage.properties.length > 0; }));
         if (savingFile.packages.length > 0) {
             this.metadataService.saveProperty(savingFile).subscribe((/**
-             * @param {?} loadFile
              * @return {?}
              */
-            function (loadFile) {
-                _this.loadProperties();
-                _this.disabled = false;
-                _this.modalService.open(CommonModals.OperationSuccess);
+            function () {
+                _this.loadProperties(false, true);
             }));
         }
     };
@@ -1041,31 +969,8 @@ var MetadataAppComponent = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            _this.loadProperties();
-            _this.disabled = false;
-            _this.modalService.open(CommonModals.OperationSuccess);
+            _this.loadProperties(false, true);
         }));
-    };
-    /**
-     * @return {?}
-     */
-    MetadataAppComponent.prototype.loadProperties = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (!this.file)
-            return;
-        this.metadataService.loadProperties(this.credentials).subscribe((/**
-         * @param {?} packages
-         * @return {?}
-         */
-        function (packages) {
-            _this.packages = packages;
-        }));
-        if (!this.showSidePanel) {
-            this.showSidePanel = true;
-        }
     };
     /**
      * @param {?} $event
@@ -1088,20 +993,17 @@ var MetadataAppComponent = /** @class */ (function () {
      */
     function (propertyInfo) {
         var _this = this;
-        if (this.file) {
-            /** @type {?} */
-            var metadataFile = new MetadataFileDescription();
-            metadataFile.guid = this.file.guid;
-            metadataFile.password = this.credentials.password;
-            metadataFile.packages = [{ id: propertyInfo.packageId, properties: [propertyInfo.property] }];
-            this.metadataService.removeProperty(metadataFile).subscribe((/**
-             * @return {?}
-             */
-            function () {
-                _this.loadProperties();
-                _this.modalService.open(CommonModals.OperationSuccess);
-            }));
-        }
+        /** @type {?} */
+        var metadataFile = new MetadataFileDescription();
+        metadataFile.guid = this.credentials.guid;
+        metadataFile.password = this.credentials.password;
+        metadataFile.packages = [{ id: propertyInfo.packageId, properties: [propertyInfo.property] }];
+        this.metadataService.removeProperty(metadataFile).subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.loadProperties(false, true);
+        }));
     };
     /**
      * @param {?} packageInfo
@@ -1122,6 +1024,108 @@ var MetadataAppComponent = /** @class */ (function () {
             return PackageNameByMetadataType[packageInfo.type];
         }
         return (MetadataType[packageInfo.type]).toString();
+    };
+    /**
+     * @param {?=} loadPreview
+     * @param {?=} showSuccessModal
+     * @return {?}
+     */
+    MetadataAppComponent.prototype.loadProperties = /**
+     * @param {?=} loadPreview
+     * @param {?=} showSuccessModal
+     * @return {?}
+     */
+    function (loadPreview, showSuccessModal) {
+        var _this = this;
+        if (loadPreview === void 0) { loadPreview = false; }
+        if (showSuccessModal === void 0) { showSuccessModal = false; }
+        this.metadataService.loadProperties(this.credentials).subscribe((/**
+         * @param {?} packages
+         * @return {?}
+         */
+        function (packages) {
+            _this.packages = packages;
+            if (!_this.showSidePanel) {
+                _this.showSidePanel = true;
+            }
+            if (loadPreview) {
+                if (_this.documentPreviewSubscription && !_this.documentPreviewSubscription.closed) {
+                    _this.documentPreviewSubscription.unsubscribe();
+                }
+                _this.preview = null;
+                _this.previewStatus = PreviewStatus.InProgress;
+                _this.documentPreviewSubscription = _this.metadataService.loadFile(_this.credentials).subscribe((/**
+                 * @param {?} preview
+                 * @return {?}
+                 */
+                function (preview) {
+                    if (preview.pages && preview.pages.length > 0) {
+                        _this.preview = preview;
+                        _this.pageHeight = preview.pages[0].height;
+                        _this.pageWidth = preview.pages[0].width;
+                        _this.options = _this.zoomOptions();
+                        _this.refreshZoom();
+                        _this.previewStatus = PreviewStatus.Loaded;
+                    }
+                    else {
+                        if (preview.timeLimitExceeded) {
+                            _this.previewStatus = PreviewStatus.Timeout;
+                        }
+                        else {
+                            _this.previewStatus = PreviewStatus.Unavailable;
+                        }
+                    }
+                    /** @type {?} */
+                    var countPages = preview.pages ? preview.pages.length : 0;
+                    _this.navigateService.countPages = countPages;
+                    _this.navigateService.currentPage = 1;
+                    _this.countPages = countPages;
+                }), (/**
+                 * @return {?}
+                 */
+                function () { _this.previewStatus = PreviewStatus.Unavailable; }));
+            }
+            if (showSuccessModal) {
+                _this.modalService.open(CommonModals.OperationSuccess);
+            }
+        }));
+    };
+    /**
+     * @param {?} $event
+     * @param {?} password
+     * @param {?} modalId
+     * @return {?}
+     */
+    MetadataAppComponent.prototype.selectFile = /**
+     * @param {?} $event
+     * @param {?} password
+     * @param {?} modalId
+     * @return {?}
+     */
+    function ($event, password, modalId) {
+        this.credentials = { guid: $event, password: password };
+        this.loadProperties(true);
+        if (modalId) {
+            this.modalService.close(modalId);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MetadataAppComponent.prototype.isFileLoaded = /**
+     * @return {?}
+     */
+    function () {
+        return this.packages != null && this.packages.length > 0;
+    };
+    /**
+     * @return {?}
+     */
+    MetadataAppComponent.prototype.isPreviewLoaded = /**
+     * @return {?}
+     */
+    function () {
+        return this.previewStatus !== PreviewStatus.Undefined;
     };
     /**
      * @private
@@ -1165,8 +1169,8 @@ var MetadataAppComponent = /** @class */ (function () {
     MetadataAppComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-metadata',
-                    template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\">\n  <div class=\"row\">\n    <div class=\"column\" [ngClass]=\"{'document-loaded': !formatDisabled}\">\n      <div class=\"top-panel\">\n        <a class=\"logo-link\" [href]=\"returnUrl\"><gd-logo [logo]=\"'metadata'\" icon=\"clipboard-list\"></gd-logo></a>\n        <gd-top-toolbar class=\"toolbar-panel\">\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal, false)\"\n                    *ngIf=\"browseConfig\" ></gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'trash'\" [tooltip]=\"'Clean Metadata'\" (click)=\"openModal(confirmCleanModalId, true)\">\n                    </gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"openModal(confirmSaveModalId, true)\">\n                    </gd-button>\n          <gd-button [hidden] =\"isDesktop\" [disabled]=\"formatDisabled\" [icon]=\"'file-export'\" [tooltip]=\"'Attributes'\" (click)=\"loadProperties()\">\n                    </gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                    (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n          <gd-button [disabled]=\"formatDisabled\" [icon]=\"'file-excel'\" [tooltip]=\"'Export Properties'\"\n                    (click)=\"exportProperties()\" ></gd-button>\n        </gd-top-toolbar>\n      </div>\n      <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\n        <gd-document class=\"gd-document\" *ngIf=\"file\" [file]=\"file\" [mode]=\"false\" gdScrollable\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\n      </div>\n    </div>\n    <gd-side-panel *ngIf=\"file && showSidePanel\"\n      (hideSidePanel)=\"hideSidePanel($event)\"\n      (saveInSidePanel)=\"save()\"\n      [closable]=\"isDesktop ? false : true\"\n      [saveable]=\"isDesktop ? false : true\"\n      [title]=\"'Metadata'\"\n      [icon]=\"'clipboard-list'\">\n      <gd-accordion>\n        <gd-accordion-group *ngFor=\"let package of packages\" [title]=\"getPackageName(package)\" [addDisabled]=\"false\" [addHidden]=\"false\" [properties]=\"package.properties\" [knownProperties]=\"package.knownProperties\" [packageId]=\"package.id\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\n      </gd-accordion>\n    </gd-side-panel>\n  </div>\n  <gd-init-state [icon]=\"'clipboard-list'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file && uploadConfig\" (fileDropped)=\"fileDropped($event)\">\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n    Or drop file here\n  </gd-init-state>\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n  <gd-confirm-modal [id]=\"confirmCleanModalId\" [text]=\"'Are you sure, you want to clean metadata in this file?'\" (confirm)=\"cleanMetadata()\"></gd-confirm-modal>\n  <gd-confirm-modal [id]=\"confirmSaveModalId\" [text]=\"'Do you want to save the changes?'\" (confirm)=\"save()\"></gd-confirm-modal>\n  \n</div>\n",
-                    styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.logo-link{color:inherit;text-decoration:inherit}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}::ng-deep .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .button.inactive{color:#959da5!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}.row{display:-webkit-box;display:flex}.column{width:100%;background-color:#e7e7e7}.document-loaded{overflow:hidden}::ng-deep .gd-side-panel-body{background-color:#f4f4f4}::ng-deep .gd-side-panel-wrapper{width:464px!important}::ng-deep .page.excel{overflow:unset!important}@media (max-width:1037px){::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .gd-side-panel-wrapper{width:375px!important}}"]
+                    template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\">\n  <div class=\"row\">\n    <div class=\"column\" [ngClass]=\"{'document-loaded': isFileLoaded()}\">\n      <div class=\"top-panel\">\n        <a class=\"logo-link\" [href]=\"returnUrl\"><gd-logo [logo]=\"'metadata'\" icon=\"clipboard-list\"></gd-logo></a>\n        <gd-top-toolbar class=\"toolbar-panel\">\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal, false)\"\n                    *ngIf=\"browseConfig\" ></gd-button>\n          <gd-button [disabled]=\"!isFileLoaded()\" [icon]=\"'trash'\" [tooltip]=\"'Clean Metadata'\" (click)=\"openModal(confirmCleanModalId, true)\">\n                    </gd-button>\n          <gd-button [disabled]=\"!isFileLoaded()\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"openModal(confirmSaveModalId, true)\">\n                    </gd-button>\n          <gd-button [hidden] =\"isDesktop\" [disabled]=\"!isFileLoaded()\" [icon]=\"'file-export'\" [tooltip]=\"'Attributes'\" (click)=\"loadProperties()\">\n                    </gd-button>\n          <gd-button [disabled]=\"!isFileLoaded()\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\n                    (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n          <gd-button [disabled]=\"!isFileLoaded()\" [icon]=\"'file-excel'\" [tooltip]=\"'Export Properties'\"\n                    (click)=\"exportProperties()\" ></gd-button>\n        </gd-top-toolbar>\n      </div>\n      <gd-init-state [icon]=\"'clipboard-list'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!isFileLoaded() && uploadConfig && !isPreviewLoaded()\" (fileDropped)=\"fileDropped($event)\">\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n        Or drop file here\n      </gd-init-state>\n      <gd-preview-status [status]=\"previewStatus\"></gd-preview-status>\n      <div class=\"doc-panel\" *ngIf=\"preview\" #docPanel>\n        <gd-document class=\"gd-document\" *ngIf=\"preview\" [file]=\"preview\" [mode]=\"false\" gdScrollable\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\n      </div>\n    </div>\n    <gd-side-panel *ngIf=\"isFileLoaded() && showSidePanel\"\n      (hideSidePanel)=\"hideSidePanel($event)\"\n      (saveInSidePanel)=\"save()\"\n      [closable]=\"isDesktop ? false : true\"\n      [saveable]=\"isDesktop ? false : true\"\n      [title]=\"'Metadata'\"\n      [icon]=\"'clipboard-list'\">\n      <gd-accordion>\n        <gd-accordion-group *ngFor=\"let package of packages\" [title]=\"getPackageName(package)\" [addDisabled]=\"false\" [addHidden]=\"false\" [properties]=\"package.properties\" [knownProperties]=\"package.knownProperties\" [packageId]=\"package.id\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\n      </gd-accordion>\n    </gd-side-panel>\n  </div>\n\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n  <gd-success-modal></gd-success-modal>\n  <gd-confirm-modal [id]=\"confirmCleanModalId\" [text]=\"'Are you sure, you want to clean metadata in this file?'\" (confirm)=\"cleanMetadata()\"></gd-confirm-modal>\n  <gd-confirm-modal [id]=\"confirmSaveModalId\" [text]=\"'Do you want to save the changes?'\" (confirm)=\"save()\"></gd-confirm-modal>\n  \n</div>\n",
+                    styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.logo-link{color:inherit;text-decoration:inherit}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}::ng-deep .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .button.inactive{color:#959da5!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}.row{display:-webkit-box;display:flex}.column{width:100%;height:100vh;background-color:#e7e7e7;overflow:hidden}::ng-deep .gd-side-panel-body{background-color:#f4f4f4}::ng-deep .gd-side-panel-wrapper{width:464px!important}::ng-deep .page.excel{overflow:unset!important}@media (max-width:1037px){::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .gd-side-panel-wrapper{width:375px!important}}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1197,13 +1201,11 @@ if (false) {
     /** @type {?} */
     MetadataAppComponent.prototype.files;
     /** @type {?} */
-    MetadataAppComponent.prototype.file;
+    MetadataAppComponent.prototype.preview;
     /** @type {?} */
     MetadataAppComponent.prototype.metadataConfig;
     /** @type {?} */
     MetadataAppComponent.prototype.countPages;
-    /** @type {?} */
-    MetadataAppComponent.prototype.formatDisabled;
     /** @type {?} */
     MetadataAppComponent.prototype.credentials;
     /** @type {?} */
@@ -1223,8 +1225,6 @@ if (false) {
     /** @type {?} */
     MetadataAppComponent.prototype.packages;
     /** @type {?} */
-    MetadataAppComponent.prototype.disabled;
-    /** @type {?} */
     MetadataAppComponent.prototype.isDesktop;
     /** @type {?} */
     MetadataAppComponent.prototype.showSidePanel;
@@ -1232,6 +1232,13 @@ if (false) {
     MetadataAppComponent.prototype.confirmCleanModalId;
     /** @type {?} */
     MetadataAppComponent.prototype.confirmSaveModalId;
+    /** @type {?} */
+    MetadataAppComponent.prototype.previewStatus;
+    /**
+     * @type {?}
+     * @private
+     */
+    MetadataAppComponent.prototype.documentPreviewSubscription;
     /**
      * @type {?}
      * @private
@@ -1922,6 +1929,35 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var PreviewStatusComponent = /** @class */ (function () {
+    function PreviewStatusComponent() {
+        this.previewStatus = PreviewStatus;
+    }
+    PreviewStatusComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-preview-status',
+                    template: "<div *ngIf=\"status != previewStatus.Undefined && status != previewStatus.Loaded\" class=\"wrapper\">\n    <div *ngIf=\"status == previewStatus.InProgress\" class=\"status-wrapper\">\n      <fa-icon class=\"status-icon\" [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n      <span class=\"status-text\">File preview is being created</span>\n    </div>\n    <div *ngIf=\"status == previewStatus.Timeout\" class=\"status-wrapper\">\n      <fa-icon class=\"status-icon\" [icon]=\"['fas','stopwatch']\"></fa-icon>\n      <span class=\"status-text\">Preview generation process dropped due to timeout. We are sorry</span>\n    </div>\n    <div *ngIf=\"status == previewStatus.Unavailable\" class=\"status-wrapper\">\n      <fa-icon class=\"status-icon\" [icon]=\"['fas','eye-slash']\"></fa-icon>\n      <span class=\"status-text\">Preview is unavailable for the uploaded file</span>\n    </div>\n  </div>",
+                    styles: [".wrapper{color:#959da5;background-color:#e7e7e7;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%;height:100%}.status-icon{font-size:65px;margin-bottom:30px;display:-webkit-box;display:flex;color:#959da5}.status-text{font-size:15px;text-align:center;color:#959da5}.status-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:300px;height:250px;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;top:-60px;position:relative}"]
+                }] }
+    ];
+    /** @nocollapse */
+    PreviewStatusComponent.ctorParameters = function () { return []; };
+    PreviewStatusComponent.propDecorators = {
+        status: [{ type: Input }]
+    };
+    return PreviewStatusComponent;
+}());
+if (false) {
+    /** @type {?} */
+    PreviewStatusComponent.prototype.status;
+    /** @type {?} */
+    PreviewStatusComponent.prototype.previewStatus;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} metadataConfigService
  * @return {?}
@@ -1967,7 +2003,8 @@ var MetadataModule = /** @class */ (function () {
                         AccordionComponent,
                         AccordionGroupComponent,
                         GdIntegerDirective,
-                        ConfirmModalComponent
+                        ConfirmModalComponent,
+                        PreviewStatusComponent
                     ],
                     imports: [
                         BrowserModule,
@@ -2022,5 +2059,5 @@ var MetadataModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AccessLevels, AccordionService, ChangedPackageModel, FilePropertyModel, KnownPropertyModel, MetadataAppComponent, MetadataConfigService, MetadataFileDescription, MetadataModule, MetadataPropertyType, MetadataService, MetadataType, PackageModel, PackageNameByMetadataType, PackageNameByOriginalName, RemovePropertyModel, initializeApp, setupLoadingInterceptor, AccordionComponent as ɵa, AccordionGroupComponent as ɵb, GdIntegerDirective as ɵc, ConfirmModalComponent as ɵd };
+export { AccessLevels, AccordionService, ChangedPackageModel, FilePreview, FilePropertyModel, KnownPropertyModel, MetadataAppComponent, MetadataConfigService, MetadataFileDescription, MetadataModule, MetadataPropertyType, MetadataService, MetadataType, PackageModel, PackageNameByMetadataType, PackageNameByOriginalName, RemovePropertyModel, initializeApp, setupLoadingInterceptor, AccordionComponent as ɵa, AccordionGroupComponent as ɵb, GdIntegerDirective as ɵc, ConfirmModalComponent as ɵd, PreviewStatusComponent as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-metadata.js.map

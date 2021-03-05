@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/comparison",
-  "version": "0.8.37",
+  "version": "0.8.38",
   "description": "Angular application that allows to comapre documents supported by GroupDocs.Comparison library",
   "license": "MIT",
   "publishConfig": {

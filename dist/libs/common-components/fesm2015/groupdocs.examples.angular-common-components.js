@@ -5474,6 +5474,13 @@ class LoadingMaskService {
         this.notify();
     }
     /**
+     * @param {?} url
+     * @return {?}
+     */
+    addStopUrl(url) {
+        this.stopList.push(url);
+    }
+    /**
      * @private
      * @return {?}
      */

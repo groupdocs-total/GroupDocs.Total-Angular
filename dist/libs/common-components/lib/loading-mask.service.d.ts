@@ -7,5 +7,6 @@ export declare class LoadingMaskService {
     constructor();
     onRequestStart(req: HttpRequest<any>): void;
     onRequestFinish(req: HttpRequest<any>): void;
+    addStopUrl(url: string): void;
     private notify;
 }

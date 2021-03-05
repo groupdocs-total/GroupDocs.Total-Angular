@@ -6424,6 +6424,17 @@ var LoadingMaskService = /** @class */ (function () {
         this.notify();
     };
     /**
+     * @param {?} url
+     * @return {?}
+     */
+    LoadingMaskService.prototype.addStopUrl = /**
+     * @param {?} url
+     * @return {?}
+     */
+    function (url) {
+        this.stopList.push(url);
+    };
+    /**
      * @private
      * @return {?}
      */

@@ -8,7 +8,6 @@ export declare class MetadataService {
     loadFiles(path: string): import("rxjs").Observable<Object>;
     loadFile(credentials: FileCredentials): import("rxjs").Observable<Object>;
     loadProperties(credentials: FileCredentials): import("rxjs").Observable<Object>;
-    loadPropertiesNames(credentials: FileCredentials): import("rxjs").Observable<Object>;
     saveProperty(metadataFile: MetadataFileDescription): import("rxjs").Observable<Object>;
     removeProperty(metadataFile: MetadataFileDescription): import("rxjs").Observable<Object>;
     cleanMetadata(metadataFile: FileCredentials): import("rxjs").Observable<Object>;
