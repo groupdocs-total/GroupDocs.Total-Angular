@@ -59,12 +59,13 @@
   left    : Calc(50% - 20px);
 }
 
-.panzoom {
+.panzoom.auto-height {
   transform          : none;
   backface-visibility: hidden;
   transform-origin   : 50% 50% 0px;
   display            : flex;
   flex-wrap          : wrap;
+  height             : auto !important;
 }
 
 .gd-zoomed {
