@@ -28,10 +28,10 @@
           <gd-button *ngIf="isDesktop"  [disabled]="formatDisabled" [icon]="'redo'" [tooltip]="'Redo'"
                      (click)="toggleRedo()"></gd-button>
           <gd-select class="format-select mobile-hide" [disabled]="formatDisabled" [options]="fontOptions"
-                     [isOpen]="selectFontShow" (selected)="selectFont($event)" (click)="toggleFontSelect($event, true)"
+                     [isOpen]="selectFontShow" (selected)="selectFont($event)" (opened)="toggleFontSelect($event, true)"
                      [showSelected]="{name : formatting.font, value : formatting.font}"></gd-select>
           <gd-select class="format-select mobile-hide" [disabled]="formatDisabled" [options]="fontSizeOptions"
-                     [isOpen]="selectFontSizeShow" (selected)="selectFontSize($event)" (click)="toggleFontSelect($event, false)"
+                     [isOpen]="selectFontSizeShow" (selected)="selectFontSize($event)" (opened)="toggleFontSelect($event, false)"
                      [showSelected]="{name : formatting.fontSize + 'px', value : formatting.fontSize}"></gd-select>
           <gd-button [disabled]="formatDisabled" [icon]="'bold'" [tooltip]="'Bold'"
                      (click)="toggleBold($event)" [toggle]="formatting.bold"></gd-button>
