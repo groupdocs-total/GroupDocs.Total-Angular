@@ -1,3 +1,4 @@
+import { SafeHtml } from "@angular/platform-browser";
 import { FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 
 export class IndexedFileModel extends FileModel {
@@ -30,6 +31,7 @@ export class SearchResultItemModel implements FileModel {
   foundPhrases: string;
   terms: string[];
   documentId: string;
+  isCaseSensitive: boolean;
 }
 
 export class ExtendedFileModel implements FileModel {
@@ -137,6 +139,29 @@ export class SearchBaseRequest {
   FolderName: string;
 }
 
+export class GetDocumentPageRequest extends SearchBaseRequest {
+  fileName : string;
+  password : string;
+  pageNumber : number;
+  terms : string[];
+  caseSensitive : Boolean;
+}
+
+export class GetDocumentPageResponse {
+  width : number;
+  height : number;
+  pageNumber : number;
+  pageCount : number;
+  data : string;
+  sheetName : string;
+}
+
+export class DocumentPage {
+  Width : number;
+  Height : number;
+  Data : SafeHtml;
+}
+
 export class HighlightRequest extends SearchBaseRequest {
   FoundDocumentId: string;
 }
@@ -161,6 +186,7 @@ export class LicenseRestrictionResponse {
 
 export class SearchApi {
   public static GET_REPORT = '/getReport';
+  public static GET_DOCUMENT_PAGE = '/getDocumentPage';
   public static HIGHLIGHT = '/highlight';
   public static DOWNLOAD_SOURCE_FILE = '/downloadSourceFile';
   public static DOWNLOAD_EXTRACTED_TEXT = '/downloadExtractedText';

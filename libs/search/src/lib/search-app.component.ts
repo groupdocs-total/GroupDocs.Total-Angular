@@ -28,6 +28,7 @@ import { SearchOptionsService } from './search-options.service';
 import { MessageModalService } from './message-modal.service';
 import { HighlightDocumentService } from './highlight-document.service';
 import { FoundTermNavigationService } from './found-term-navigation.service';
+import { DocumentViewService } from './document-view.service';
 
 @Component({
   selector: 'gd-search-app',
@@ -60,6 +61,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
               private _windowService: WindowService,
               private _loadingMaskService: LoadingMaskService,
               public highlightDocumentService: HighlightDocumentService,
+              public documentViewService: DocumentViewService,
               public termNavigation: FoundTermNavigationService) {
 
     configService.updatedConfig.subscribe((searchConfig) => {
@@ -191,6 +193,9 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
       case AppState.SearchResult: {
         if (this.highlightDocumentService.displayDocument) {
           this.highlightDocumentService.close();
+        }
+        else if (this.documentViewService.displayDocument) {
+          this.documentViewService.close();
         }
         else {
           this.appState = AppState.Default;

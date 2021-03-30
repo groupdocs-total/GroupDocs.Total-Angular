@@ -14,7 +14,7 @@ export class IndexedFileComponent implements OnInit {
 
   constructor(private _searchService: SearchService) {
   }
-  
+
   ngOnInit(): void {
   }
 

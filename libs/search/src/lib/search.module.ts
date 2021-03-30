@@ -46,6 +46,9 @@ import { HighlightDocumentComponent } from './highlight-document/highlight-docum
 import { HighlightDocumentService } from './highlight-document.service';
 import { FoundTermNavigationDirective } from './found-term-navigation.directive';
 import { FoundTermNavigationService } from './found-term-navigation.service';
+import { DocumentViewComponent } from './document-view/document-view.component';
+import { DocumentPageComponent } from './document-page/document-page.component';
+import { DocumentViewService } from './document-view.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -81,7 +84,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     PasswordDictionaryComponent,
     MessageModalComponent,
     HighlightDocumentComponent,
-    FoundTermNavigationDirective
+    FoundTermNavigationDirective,
+    DocumentViewComponent,
+    DocumentPageComponent
   ],
   imports: [
     BrowserModule,
@@ -116,6 +121,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     MessageModalService,
     HighlightDocumentService,
     FoundTermNavigationService,
+    DocumentViewService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

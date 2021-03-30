@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchResultItemModel } from '../search-models';
 import { FileModel, FileUtil } from "@groupdocs.examples.angular/common-components";
-import { Router } from '@angular/router';
 import { SearchOptionsService } from '../search-options.service';
 import { HighlightDocumentService } from '../highlight-document.service';
+import { DocumentViewService } from '../document-view.service';
 
 @Component({
   selector: 'gd-search-result-item',
@@ -15,7 +15,8 @@ export class SearchResultItemComponent implements OnInit {
   @Input() item: SearchResultItemModel;
 
   constructor(private searchOptionsService: SearchOptionsService,
-              private highlightDocumentService: HighlightDocumentService) {
+              private highlightDocumentService: HighlightDocumentService,
+              private documentViewService: DocumentViewService) {
   }
 
   ngOnInit(): void {
@@ -55,7 +56,11 @@ export class SearchResultItemComponent implements OnInit {
     return "Found <b>" + occurrences + "</b> occurrences"
   }
 
-  openDocument() {
+  openDocumentPages() {
+    this.documentViewService.open(this.item);
+  }
+
+  openDocumentText() {
     this.highlightDocumentService.open(this.item);
   }
 

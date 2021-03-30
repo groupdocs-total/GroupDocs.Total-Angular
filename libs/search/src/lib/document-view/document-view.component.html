@@ -1,0 +1,10 @@
+<div class="gd-document-view">
+  <div class="document-view-header">
+    {{documentViewService.documentName}}
+  </div>
+  <div class="document-view-container" gdFoundTermNavigation>
+    <div class="document-view-pages" *ngFor="let page of documentViewService.pages">
+      <gd-document-page [page]="page"></gd-document-page>
+    </div>
+  </div>
+</div>

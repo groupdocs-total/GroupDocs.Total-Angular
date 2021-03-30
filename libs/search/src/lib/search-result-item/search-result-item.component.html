@@ -3,7 +3,7 @@
     <fa-icon [icon]="['fas', getFormatIcon(item)]" [class]="'ng-fa-icon'" [ngClass]="['fa-' + getFormatIcon(item)]"></fa-icon>
     <div class="gd-file-name gd-search-result-name">
       <!-- <a href="{{getUrl(item)}}" target="_blank">{{item.name}}</a> -->
-      <span class="gd-found-document-name" (click)="openDocument()">{{item.name}}</span>
+      <span class="gd-found-document-name" (click)="openDocumentPages()">{{item.name}}</span>
       <div class="gd-file-format">{{getFormatName(item)}}</div>
     </div>
   </div>
