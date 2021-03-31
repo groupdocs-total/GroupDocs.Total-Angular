@@ -148,18 +148,10 @@ export class GetDocumentPageRequest extends SearchBaseRequest {
 }
 
 export class GetDocumentPageResponse {
-  width : number;
-  height : number;
   pageNumber : number;
   pageCount : number;
   data : string;
   sheetName : string;
-}
-
-export class DocumentPage {
-  Width : number;
-  Height : number;
-  Data : SafeHtml;
 }
 
 export class HighlightRequest extends SearchBaseRequest {

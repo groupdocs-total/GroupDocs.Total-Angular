@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { FoundTermNavigationService } from './found-term-navigation.service';
 import { SearchConfigService } from './search-config.service';
-import { DocumentPage, GetDocumentPageRequest, GetDocumentPageResponse, SearchResultItemModel } from './search-models';
+import { GetDocumentPageRequest, GetDocumentPageResponse, SearchApi, SearchResultItemModel } from './search-models';
 import { SearchService } from './search.service';
 
 @Injectable()
 export class DocumentViewService {
   displayDocument = false;
   documentName = "";
-  pages: DocumentPage[] = [];
+  pages: SafeHtml[] = [];
 
   constructor(private _searchService : SearchService,
               private _searchConfigService: SearchConfigService,
               private _foundTermNavigationService: FoundTermNavigationService,
+              private _loadingMaskService: LoadingMaskService,
               private _sanitizer: DomSanitizer) {
+    _loadingMaskService['stopList'].push(SearchApi.GET_DOCUMENT_PAGE);
   }
 
   open(item: SearchResultItemModel) {
@@ -40,10 +43,10 @@ export class DocumentViewService {
 
     this._searchService.getDocumentPage(request).subscribe((response: GetDocumentPageResponse) => {
       if (response.pageNumber === pageNumber) {
-        const page = new DocumentPage();
-        page.Width = response.width;
-        page.Height = response.height;
-        page.Data = this._sanitizer.bypassSecurityTrustHtml(response.data);
+        if (this.pages.length !== response.pageCount) {
+          this.pages.length = response.pageCount;
+        }
+        const page = this._sanitizer.bypassSecurityTrustHtml(response.data);
 
         setTimeout(() => {
           this._foundTermNavigationService.updateTotal();
