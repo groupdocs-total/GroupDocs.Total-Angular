@@ -102,10 +102,17 @@
   }
 }
 
+.gd-extracted-text {
+  position: absolute;
+  right   : 360px;
+  width   : 120px;
+  color   : #777777;
+}
+
 .gd-file-occurrences {
   position: absolute;
-  right   : 180px;
-  width   : 180px;
+  right   : 160px;
+  width   : 160px;
   color   : #777777;
 }
 
@@ -147,12 +154,21 @@
   cursor         : pointer;
 }
 
+.gd-search-result-text {
+  text-decoration: underline;
+  cursor         : pointer;
+}
+
 .gd-search-result-occurrences {
   text-decoration: underline;
   cursor         : pointer;
 }
 
 @media @phone-down {
+  .gd-extracted-text {
+    display: none;
+  }
+
   .gd-file-size {
     display: none;
   }
@@ -190,7 +206,7 @@
   }
 
   .gd-file-occurrences {
-    width   : 94px;
+    width   : 130px;
     position: absolute;
     right   : 15px;
   }

@@ -19,6 +19,7 @@ export class FoundTermNavigationService {
 
   setElement(element: HTMLElement) {
     this.current = 0;
+    this.total = 0;
     this.element = element;
   }
 

@@ -11,6 +11,7 @@ export class DocumentViewService {
   displayDocument = false;
   documentName = "";
   pages: SafeHtml[] = [];
+  private initialized: boolean;
 
   constructor(private _searchService : SearchService,
               private _searchConfigService: SearchConfigService,
@@ -50,7 +51,10 @@ export class DocumentViewService {
 
         setTimeout(() => {
           this._foundTermNavigationService.updateTotal();
-          this._foundTermNavigationService.navigateFirst();
+          if (!this.initialized) {
+            this._foundTermNavigationService.navigateFirst();
+            this.initialized = true;
+          }
         }, 100);
 
         this.pages[response.pageNumber - 1] = page;

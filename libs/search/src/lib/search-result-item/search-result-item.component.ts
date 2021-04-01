@@ -56,6 +56,10 @@ export class SearchResultItemComponent implements OnInit {
     return "Found <b>" + occurrences + "</b> occurrences"
   }
 
+  getTextMessage() {
+    return "Extracted text";
+  }
+
   openDocumentPages() {
     this.documentViewService.open(this.item);
   }

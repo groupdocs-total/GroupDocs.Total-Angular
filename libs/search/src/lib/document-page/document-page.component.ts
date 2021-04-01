@@ -15,5 +15,4 @@ export class DocumentPageComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

@@ -7,6 +7,9 @@
       <div class="gd-file-format">{{getFormatName(item)}}</div>
     </div>
   </div>
+  <div class="gd-extracted-text gd-search-result-size">
+    <span class="gd-search-result-text" [innerHTML]="getTextMessage()" (click)="openDocumentText()"></span>
+  </div>
   <div class="gd-file-occurrences gd-search-result-size">
     <span class="gd-search-result-occurrences" [innerHTML]="getOccurrencesMessage(item.occurrences)" (click)="togglePhrases(item)"></span>
   </div>
