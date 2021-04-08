@@ -28,8 +28,8 @@ export class ErrorReportModalComponent
   Email: string;
   TopicLink: string;
   PostError: string;
-  PostIsPrivate: boolean = true;
-  WindowTitle: string = "Error occured";
+  PostIsPrivate = true;
+  WindowTitle = "Error occured";
   
   public windowView: typeof CurrentWindowView = CurrentWindowView;
 
@@ -60,14 +60,14 @@ export class ErrorReportModalComponent
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
 
-      var request = new ForumPostRequest();
+      let request = new ForumPostRequest();
       request.CategoryId = ForumCategory.Viewer;
       request.Email = this.Email;
       request.IsPrivatePost = this.PostIsPrivate;
       request.UserName = this.Email.split('@')[0];
       request.IsSendNotification = true;
 
-      var fileParam = urlParams.get('file');
+      let fileParam = urlParams.get('file');
 
       if (fileParam) 
       {
@@ -76,13 +76,13 @@ export class ErrorReportModalComponent
 
       if (this.httpEvent instanceof HttpErrorResponse)
       {
-        var httpErrorResponse = (this.httpEvent as HttpErrorResponse);
+        let httpErrorResponse = (this.httpEvent as HttpErrorResponse);
 
         request.Message =  request.ExceptionMessage = httpErrorResponse.error.exceptionMessage;
         request.InnerExceptionMessage = httpErrorResponse.error.innerExceptionMessage;
         request.OriginalUrl = httpErrorResponse.url;
 
-        if (httpErrorResponse.error.exceptionMessage == undefined)
+        if (httpErrorResponse.error.exceptionMessage === undefined)
         {
           request.Message =  request.ExceptionMessage = httpErrorResponse.error.message;
         }
@@ -94,15 +94,15 @@ export class ErrorReportModalComponent
 
       request.Title = "Viewer issue - " + request.Message + " "+ new Date().toISOString();
       this.viewerService.reportError(request).subscribe((data: ForumPostResponse) => {
-          if (data == undefined || data == null)
+          if (data === undefined || data === null)
           {
             this.PostError = "Unknown error";  
             this.currentWindowMode = CurrentWindowView.PostFailedView;
-          }else if ((data.error!="" && data.error != null))
+          }else if ((data.error!=="" && data.error !== null))
           {
             this.PostError = data.error;  
             this.currentWindowMode = CurrentWindowView.PostFailedView;
-          }else if (data.url!="" && data.url != null)
+          }else if (data.url!=="" && data.url !== null)
           {
             this.TopicLink = data.url;
             this.WindowTitle = "Error reported!";

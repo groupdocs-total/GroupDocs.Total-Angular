@@ -2344,25 +2344,25 @@ class ErrorReportModalComponent {
             /** @type {?} */
             const urlParams = new URLSearchParams(queryString);
             /** @type {?} */
-            var request = new ForumPostRequest();
+            let request = new ForumPostRequest();
             request.CategoryId = ForumCategory.Viewer;
             request.Email = this.Email;
             request.IsPrivatePost = this.PostIsPrivate;
             request.UserName = this.Email.split('@')[0];
             request.IsSendNotification = true;
             /** @type {?} */
-            var fileParam = urlParams.get('file');
+            let fileParam = urlParams.get('file');
             if (fileParam) {
                 request.FolderPath = urlParams.get('file');
                 ;
             }
             if (this.httpEvent instanceof HttpErrorResponse) {
                 /** @type {?} */
-                var httpErrorResponse = ((/** @type {?} */ (this.httpEvent)));
+                let httpErrorResponse = ((/** @type {?} */ (this.httpEvent)));
                 request.Message = request.ExceptionMessage = httpErrorResponse.error.exceptionMessage;
                 request.InnerExceptionMessage = httpErrorResponse.error.innerExceptionMessage;
                 request.OriginalUrl = httpErrorResponse.url;
-                if (httpErrorResponse.error.exceptionMessage == undefined) {
+                if (httpErrorResponse.error.exceptionMessage === undefined) {
                     request.Message = request.ExceptionMessage = httpErrorResponse.error.message;
                 }
             }
@@ -2375,15 +2375,15 @@ class ErrorReportModalComponent {
              * @return {?}
              */
             (data) => {
-                if (data == undefined || data == null) {
+                if (data === undefined || data === null) {
                     this.PostError = "Unknown error";
                     this.currentWindowMode = CurrentWindowView.PostFailedView;
                 }
-                else if ((data.error != "" && data.error != null)) {
+                else if ((data.error !== "" && data.error !== null)) {
                     this.PostError = data.error;
                     this.currentWindowMode = CurrentWindowView.PostFailedView;
                 }
-                else if (data.url != "" && data.url != null) {
+                else if (data.url !== "" && data.url !== null) {
                     this.TopicLink = data.url;
                     this.WindowTitle = "Error reported!";
                     this.currentWindowMode = CurrentWindowView.SuccessPostView;

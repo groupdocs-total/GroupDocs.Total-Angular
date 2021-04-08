@@ -2816,7 +2816,7 @@ var ErrorReportModalComponent = /** @class */ (function () {
                 request.Message = request.ExceptionMessage = httpErrorResponse.error.exceptionMessage;
                 request.InnerExceptionMessage = httpErrorResponse.error.innerExceptionMessage;
                 request.OriginalUrl = httpErrorResponse.url;
-                if (httpErrorResponse.error.exceptionMessage == undefined) {
+                if (httpErrorResponse.error.exceptionMessage === undefined) {
                     request.Message = request.ExceptionMessage = httpErrorResponse.error.message;
                 }
             }
@@ -2829,15 +2829,15 @@ var ErrorReportModalComponent = /** @class */ (function () {
              * @return {?}
              */
             function (data) {
-                if (data == undefined || data == null) {
+                if (data === undefined || data === null) {
                     _this.PostError = "Unknown error";
                     _this.currentWindowMode = CurrentWindowView.PostFailedView;
                 }
-                else if ((data.error != "" && data.error != null)) {
+                else if ((data.error !== "" && data.error !== null)) {
                     _this.PostError = data.error;
                     _this.currentWindowMode = CurrentWindowView.PostFailedView;
                 }
-                else if (data.url != "" && data.url != null) {
+                else if (data.url !== "" && data.url !== null) {
                     _this.TopicLink = data.url;
                     _this.WindowTitle = "Error reported!";
                     _this.currentWindowMode = CurrentWindowView.SuccessPostView;
