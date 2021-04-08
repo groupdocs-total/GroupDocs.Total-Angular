@@ -7,4 +7,5 @@ export declare class ErrorInterceptorService implements HttpInterceptor {
     private _messageService;
     constructor(_modalService: ModalService, _messageService: ExceptionMessageService);
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>;
+    showErrorWindowModal(logFormat: string, exception: any): void;
 }

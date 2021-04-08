@@ -1,7 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
+
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ViewerAppComponent} from './viewer-app.component';
+import { FormsModule } from '@angular/forms';   
 import {
   Api,
   CommonComponentsModule,
@@ -16,6 +18,8 @@ import {ExcelDocumentComponent} from './excel-document/excel-document.component'
 import {ExcelPageComponent} from './excel-page/excel-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {RunPresentationComponent} from './run-presentation/run-presentation.component';
+import { ViewerErrorInterceptorService } from './ViewerErrorInterceptorService';
+import { ErrorReportModalComponent } from './error-report-modal/error-report-modal.component';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
   const result =  () => viewerConfigService.load();
@@ -40,20 +44,23 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     ThumbnailsComponent,
     RunPresentationComponent,
     ExcelDocumentComponent,
+    ErrorReportModalComponent,
     ExcelPageComponent],
   imports: [
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule,
   ],
   exports : [
     ViewerAppComponent,
     ThumbnailsComponent,
     RunPresentationComponent,
     ExcelDocumentComponent,
+    ErrorReportModalComponent,
     ExcelPageComponent,
-    CommonComponentsModule
+    CommonComponentsModule,
   ],
   providers: [
     ViewerService,
@@ -64,7 +71,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     ViewerConfigService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptorService,
+      useClass: ViewerErrorInterceptorService,
       multi: true
     },
     {

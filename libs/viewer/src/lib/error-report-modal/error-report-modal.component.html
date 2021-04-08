@@ -1,0 +1,41 @@
+<gd-modal id="gd-error-report-window" [title]="WindowTitle">
+    <section id="gd-error-section">
+      <div *ngIf="currentWindowMode == windowView.ReportErrorView">
+        <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+        <div class="gd-modal-error">
+          <div class="gd-modal-error-title">Something went wrong</div>
+          <div class="gd-modal-error-message">{{message ? message : 'Server is not available'}}</div>
+        </div>
+        <div class="gd-error-report-body">
+          <div class='email-row'><input type="text" placeholder="E-mail" class='email-input'  [(ngModel)]="Email" /></div>
+          <div class='email-row-validation' *ngIf="!emailIsValid()">Please enter your E-mail address.</div>
+            <div>
+              <input type="checkbox" [(ngModel)]="PostIsPrivate" title="Make this forum private, so that it will only be accessable to you and our developers." />&nbsp;Make this forum private, so that it will only be accessable to you and our developers.
+            </div>
+            <button ng-disabled="!emailIsValid()" class="btn-report" (click)="reportError()"><fa-icon [icon]="['fas', 'flag']"></fa-icon>Report error</button>
+        </div>
+    </div>
+
+    <div *ngIf="currentWindowMode == windowView.SuccessPostView">
+      <fa-icon [icon]="['fas', 'check-circle']" [styles]="{'color': 'green'}" ></fa-icon>
+      <div class="gd-modal-error">
+        <div class="gd-modal-error-title">Error reported successfully!</div>
+      </div>
+      <div class="gd-error-report-body">
+          You have successfully reported the error, You will get the notification email when error is fixed, <a href='{{TopicLink}}'>click here</a> to visit the forums.
+      </div>
+    </div>
+
+    <div *ngIf="currentWindowMode == windowView.PostFailedView">
+      <fa-icon [icon]="['fas', 'times']"></fa-icon>
+      <div class="gd-modal-error">
+        <div class="gd-modal-error-title">Post to forums failed</div>
+      </div>
+      <div class="gd-error-report-body">
+          {{PostError}}
+      </div>
+    </div>
+
+    </section>
+  </gd-modal>
+  

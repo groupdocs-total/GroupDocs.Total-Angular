@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpEvent} from "@angular/common/http";
 import {Api, ConfigService, FileCredentials} from "@groupdocs.examples.angular/common-components";
+import { ForumPostRequest } from './error-report-modal/forum-post-request';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,27 @@ export class ViewerService {
   loadFiles(path: string) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
   }
-
+  
   loadFile(credentials: FileCredentials) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
+  }
+
+  reportError(forumPostRequest:ForumPostRequest)
+  {
+     return this._http.post(this._config.getViewerApiEndpoint() + Api.REPORT_ERROR_TO_FORUM, 
+     { 'email': forumPostRequest.Email,
+       'username': forumPostRequest.UserName,
+       'originalUrl':forumPostRequest.OriginalUrl,
+       'categoryId':forumPostRequest.CategoryId,
+       'title':forumPostRequest.Title,
+       'message':forumPostRequest.Message,
+       'exceptionMessage':forumPostRequest.ExceptionMessage,
+       'innerExceptionMessage':forumPostRequest.InnerExceptionMessage,
+       'folderPath':forumPostRequest.FolderPath,
+       'isprivatepost': forumPostRequest.IsPrivatePost,
+       'isSendNotification': forumPostRequest.IsSendNotification,
+    },
+      Api.httpOptionsJson);
   }
 
   upload(file: File, url: string, rewrite: boolean) {

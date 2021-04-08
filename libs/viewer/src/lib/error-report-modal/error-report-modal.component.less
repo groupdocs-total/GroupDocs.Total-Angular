@@ -1,0 +1,88 @@
+@import "./../../../../common-components/src/styles/variables.less";
+
+.gd-modal-error {
+  display: inline-flex;
+  flex-direction: column;
+  flex: 1;
+  .gd-modal-error-message {
+    font-size: 12px;
+    margin: 0px 24px 24px 0px;
+    word-break: break-word;
+    max-width: 320px;
+  }
+  .gd-modal-error-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 14px 0px 10px 0px;
+  }
+}
+
+#gd-error-section {
+  max-width: 468px;
+  margin:20px;
+  fa-icon {
+    flex: 1;
+    color: @pdf;
+    font-size: 40px;
+    margin: 13px 23px 90px 23px;
+    text-align: center;
+    max-width: 46px;
+  }
+}
+
+.email-input
+{
+  height: 30px;
+  width: 267px;
+  font-size: 14px;
+  color: #6e6e6e;
+  border: 1px solid #25c2d4;
+  margin: 7px 0 7px 7px;
+  box-sizing: border-box;
+  padding: 6px 0 5px 9px;
+}
+
+.email-row{
+  margin-bottom:10px;
+  input{
+    margin-left:5px;
+    width: 300px;
+  }
+}
+
+.email-row-validation {
+  color:red;
+  margin-top:1px;
+  margin-left:5px;
+  margin-bottom:10px;
+}
+
+/* Style buttons */
+.btn-report {
+   margin-top:10px;
+    flex-direction: row;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 0px 10px !important;
+    min-width: 37px;
+    height: 37px;
+    text-align: center;
+    cursor: pointer;
+  
+  .ng-fa-icon
+  {
+    font-size: 14px !important;
+    margin: 7px !important;
+  }
+}
+
+
+.btn-report:focus {
+  outline: none !important;
+  border: 0 !important;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}

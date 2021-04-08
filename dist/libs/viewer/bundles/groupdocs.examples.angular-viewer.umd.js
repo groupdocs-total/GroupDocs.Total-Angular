@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome'), require('hammerjs'), require('jquery')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/viewer', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome', 'hammerjs', 'jquery'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.viewer = {}), global.ng.platformBrowser, global.ng.core, global.ng.common.http, global.commonComponents, global.rxjs, global.angularFontawesome, global.Hammer, global.jquery));
-}(this, (function (exports, platformBrowser, core, http, commonComponents, rxjs, angularFontawesome, Hammer, jquery) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@angular/forms'), require('@fortawesome/angular-fontawesome'), require('hammerjs'), require('jquery')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/viewer', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@angular/forms', '@fortawesome/angular-fontawesome', 'hammerjs', 'jquery'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.viewer = {}), global.ng.platformBrowser, global.ng.core, global.ng.common.http, global.commonComponents, global.rxjs, global.ng.forms, global.angularFontawesome, global.Hammer, global.jquery));
+}(this, (function (exports, platformBrowser, core, http, commonComponents, rxjs, forms, angularFontawesome, Hammer, jquery) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -231,6 +231,28 @@
          */
         function (credentials) {
             return this._http.post(this._config.getViewerApiEndpoint() + commonComponents.Api.LOAD_DOCUMENT_DESCRIPTION, credentials, commonComponents.Api.httpOptionsJson);
+        };
+        /**
+         * @param {?} forumPostRequest
+         * @return {?}
+         */
+        ViewerService.prototype.reportError = /**
+         * @param {?} forumPostRequest
+         * @return {?}
+         */
+        function (forumPostRequest) {
+            return this._http.post(this._config.getViewerApiEndpoint() + commonComponents.Api.REPORT_ERROR_TO_FORUM, { 'email': forumPostRequest.Email,
+                'username': forumPostRequest.UserName,
+                'originalUrl': forumPostRequest.OriginalUrl,
+                'categoryId': forumPostRequest.CategoryId,
+                'title': forumPostRequest.Title,
+                'message': forumPostRequest.Message,
+                'exceptionMessage': forumPostRequest.ExceptionMessage,
+                'innerExceptionMessage': forumPostRequest.InnerExceptionMessage,
+                'folderPath': forumPostRequest.FolderPath,
+                'isprivatepost': forumPostRequest.IsPrivatePost,
+                'isSendNotification': forumPostRequest.IsSendNotification,
+            }, commonComponents.Api.httpOptionsJson);
         };
         /**
          * @param {?} file
@@ -1865,7 +1887,7 @@
         ViewerAppComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-viewer',
-                        template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick()\">\n  <div class=\"top-panel\" *ngIf=\"!runPresentation\">\n    <gd-logo [logo]=\"'viewer'\" icon=\"eye\"></gd-logo>\n    <gd-top-toolbar class=\"toolbar-panel\">\n      <gd-button [icon]=\"'folder-open'\" title=\"Browse files\" (click)=\"openModal(browseFilesModal)\"\n                 *ngIf=\"browseConfig\" ></gd-button>\n\n      <gd-select class=\"mobile-hide select-left\" [disabled]=\"formatDisabled\" [options]=\"options\" (selected)=\"selectZoom($event)\"\n                 [showSelected]=\"{ name: zoom+'%', value : zoom}\" *ngIf=\"zoomConfig\" ></gd-select>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" title=\"Zoom In\" (click)=\"zoomIn()\"\n                 *ngIf=\"zoomConfig\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" title=\"Zoom Out\"\n                 (click)=\"zoomOut()\" *ngIf=\"zoomConfig\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-left'\" title=\"First Page\"\n                 (click)=\"toFirstPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" title=\"Previous Page\"\n                 (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <div class=\"current-page-number\" [ngClass]=\"{'active': !formatDisabled}\" *ngIf=\"formatIcon !== 'file-excel'\">{{currentPage}}/{{countPages}}</div>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" title=\"Next Page\"\n                 (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-right'\" title=\"Last Page\"\n                 (click)=\"toLastPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'undo'\" title=\"Rotate CCW\" (click)=\"rotate(-90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'redo'\" title=\"Rotate CW\" (click)=\"rotate(90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" title=\"Download\"\n                 (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'print'\" title=\"Print\" (click)=\"printFile()\"\n                 *ngIf=\"printConfig\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'search'\" title=\"Search\" (click)=\"openSearch()\"\n                 *ngIf=\"searchConfig && !ifPresentation()\" ></gd-button>\n      <gd-search (hidePanel)=\"showSearch = !$event\" *ngIf=\"showSearch\" ></gd-search>\n\n      <gd-button class=\"thumbnails-button btn-right\" [disabled]=\"formatDisabled\" [icon]=\"'th-large'\" title=\"Thumbnails\"\n                 (click)=\"openThumbnails()\" *ngIf=\"thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && (!ifPresentation() ||\n                 ifPresentation() && runPresentation)\"></gd-button>\n      <gd-button class=\"thumbnails-button mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'play'\" title=\"Run presentation\"\n                 (click)=\"startPresentation()\" *ngIf=\"ifPresentation() && !runPresentation\">Present</gd-button>\n    </gd-top-toolbar>\n  </div>\n  <div class=\"top-panel\" *ngIf=\"runPresentation\">\n    <gd-top-toolbar class=\"toolbar-panel\">\n      <div class=\"slides-title\">Viewer</div>\n      <div class=\"slides-filename\">{{getFileName()}}</div>\n      <div class=\"slides-buttons\">\n        <gd-select class=\"mobile-hide select-right\" [disabled]=\"formatDisabled\" [options]=\"timerOptions\" (selected)=\"toggleTimer($event)\"\n        [icon]=\"'clock'\" *ngIf=\"zoomConfig\" ></gd-select>\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationRunning()\" [disabled]=\"formatDisabled\" [icon]=\"'pause'\" title=\"Pause presenting\"\n        (click)=\"pausePresenting()\"></gd-button>\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationPaused()\" [disabled]=\"formatDisabled\" [icon]=\"'step-forward'\" title=\"Resume presenting\"\n        (click)=\"resumePresenting()\"></gd-button>\n        <gd-button class=\"mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'stop'\" title=\"Stop presenting\"\n        (click)=\"closeFullScreen(true)\">Stop</gd-button>\n      </div>\n    </gd-top-toolbar>\n  </div>\n  <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\n    <gd-thumbnails *ngIf=\"showThumbnails && !ifPresentation() && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\"></gd-thumbnails>\n    <gd-thumbnails *ngIf=\"showThumbnails && ifPresentation() && !runPresentation && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\" gdScrollable></gd-thumbnails>\n\n    <gd-document class=\"gd-document\" *ngIf=\"(file &&\n                                            (ifExcel() && !htmlModeConfig) ||\n                                            (ifPresentation() && isDesktop && !runPresentation) ||\n                                            (!ifExcel() && !ifPresentation()))\" [file]=\"file\" [mode]=\"htmlModeConfig\" [showActiveSlide]=\"true\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" [selectedPage]=\"selectedPageNumber\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" gdMouseWheel (mouseWheelUp)=\"onMouseWheelUp()\" (mouseWheelDown)=\"onMouseWheelDown()\"></gd-document>\n    <gd-excel-document class=\"gd-document\" *ngIf=\"file && ifExcel() && htmlModeConfig\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-excel-document>\n    <gd-run-presentation class=\"gd-document\" *ngIf=\"(file && ifPresentation() && runPresentation) ||\n                                                    (file && ifPresentation() && !isDesktop)\" [file]=\"file\" [currentPage]=\"currentPage\" [mode]=\"htmlModeConfig\"\n                                                    (selectedPage)=\"selectCurrentPage($event)\"\n                 [preloadPageCount]=\"0\"></gd-run-presentation>\n    <div class=\"slides-nav\" *ngIf=\"runPresentation\">\n      <div class=\"timer\" *ngIf=\"showCountDown()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon><span [ngClass]=\"secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'\">{{secondsLeft}}</span>\n      </div>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\"\n      (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\"\n      (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n    </div>\n  </div>\n\n  <gd-init-state [icon]=\"'eye'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n    Or drop file here\n  </gd-init-state>\n\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n</div>\n",
+                        template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\" (contextmenu)=\"onRightClick()\">\r\n  <div class=\"top-panel\" *ngIf=\"!runPresentation\">\r\n    <gd-logo [logo]=\"'viewer'\" icon=\"eye\"></gd-logo>\r\n    <gd-top-toolbar class=\"toolbar-panel\">\r\n      <gd-button [icon]=\"'folder-open'\" title=\"Browse files\" (click)=\"openModal(browseFilesModal)\"\r\n                 *ngIf=\"browseConfig\" ></gd-button>\r\n\r\n      <gd-select class=\"mobile-hide select-left\" [disabled]=\"formatDisabled\" [options]=\"options\" (selected)=\"selectZoom($event)\"\r\n                 [showSelected]=\"{ name: zoom+'%', value : zoom}\" *ngIf=\"zoomConfig\" ></gd-select>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" title=\"Zoom In\" (click)=\"zoomIn()\"\r\n                 *ngIf=\"zoomConfig\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" title=\"Zoom Out\"\r\n                 (click)=\"zoomOut()\" *ngIf=\"zoomConfig\" ></gd-button>\r\n\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-left'\" title=\"First Page\"\r\n                 (click)=\"toFirstPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" title=\"Previous Page\"\r\n                 (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <div class=\"current-page-number\" [ngClass]=\"{'active': !formatDisabled}\" *ngIf=\"formatIcon !== 'file-excel'\">{{currentPage}}/{{countPages}}</div>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" title=\"Next Page\"\r\n                 (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-right'\" title=\"Last Page\"\r\n                 (click)=\"toLastPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'undo'\" title=\"Rotate CCW\" (click)=\"rotate(-90)\"\r\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'redo'\" title=\"Rotate CW\" (click)=\"rotate(90)\"\r\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" title=\"Download\"\r\n                 (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'print'\" title=\"Print\" (click)=\"printFile()\"\r\n                 *ngIf=\"printConfig\" ></gd-button>\r\n\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'search'\" title=\"Search\" (click)=\"openSearch()\"\r\n                 *ngIf=\"searchConfig && !ifPresentation()\" ></gd-button>\r\n      <gd-search (hidePanel)=\"showSearch = !$event\" *ngIf=\"showSearch\" ></gd-search>\r\n\r\n      <gd-button class=\"thumbnails-button btn-right\" [disabled]=\"formatDisabled\" [icon]=\"'th-large'\" title=\"Thumbnails\"\r\n                 (click)=\"openThumbnails()\" *ngIf=\"thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && (!ifPresentation() ||\r\n                 ifPresentation() && runPresentation)\"></gd-button>\r\n      <gd-button class=\"thumbnails-button mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'play'\" title=\"Run presentation\"\r\n                 (click)=\"startPresentation()\" *ngIf=\"ifPresentation() && !runPresentation\">Present</gd-button>\r\n    </gd-top-toolbar>\r\n  </div>\r\n  <div class=\"top-panel\" *ngIf=\"runPresentation\">\r\n    <gd-top-toolbar class=\"toolbar-panel\">\r\n      <div class=\"slides-title\">Viewer</div>\r\n      <div class=\"slides-filename\">{{getFileName()}}</div>\r\n      <div class=\"slides-buttons\">\r\n        <gd-select class=\"mobile-hide select-right\" [disabled]=\"formatDisabled\" [options]=\"timerOptions\" (selected)=\"toggleTimer($event)\"\r\n        [icon]=\"'clock'\" *ngIf=\"zoomConfig\" ></gd-select>\r\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationRunning()\" [disabled]=\"formatDisabled\" [icon]=\"'pause'\" title=\"Pause presenting\"\r\n        (click)=\"pausePresenting()\"></gd-button>\r\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationPaused()\" [disabled]=\"formatDisabled\" [icon]=\"'step-forward'\" title=\"Resume presenting\"\r\n        (click)=\"resumePresenting()\"></gd-button>\r\n        <gd-button class=\"mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'stop'\" title=\"Stop presenting\"\r\n        (click)=\"closeFullScreen(true)\">Stop</gd-button>\r\n      </div>\r\n    </gd-top-toolbar>\r\n  </div>\r\n  <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\r\n    <gd-thumbnails *ngIf=\"showThumbnails && !ifPresentation() && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\r\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\"></gd-thumbnails>\r\n    <gd-thumbnails *ngIf=\"showThumbnails && ifPresentation() && !runPresentation && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\r\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\" gdScrollable></gd-thumbnails>\r\n\r\n    <gd-document class=\"gd-document\" *ngIf=\"(file &&\r\n                                            (ifExcel() && !htmlModeConfig) ||\r\n                                            (ifPresentation() && isDesktop && !runPresentation) ||\r\n                                            (!ifExcel() && !ifPresentation()))\" [file]=\"file\" [mode]=\"htmlModeConfig\" [showActiveSlide]=\"true\" gdScrollable\r\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" [selectedPage]=\"selectedPageNumber\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" gdMouseWheel (mouseWheelUp)=\"onMouseWheelUp()\" (mouseWheelDown)=\"onMouseWheelDown()\"></gd-document>\r\n    <gd-excel-document class=\"gd-document\" *ngIf=\"file && ifExcel() && htmlModeConfig\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\r\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-excel-document>\r\n    <gd-run-presentation class=\"gd-document\" *ngIf=\"(file && ifPresentation() && runPresentation) ||\r\n                                                    (file && ifPresentation() && !isDesktop)\" [file]=\"file\" [currentPage]=\"currentPage\" [mode]=\"htmlModeConfig\"\r\n                                                    (selectedPage)=\"selectCurrentPage($event)\"\r\n                 [preloadPageCount]=\"0\"></gd-run-presentation>\r\n    <div class=\"slides-nav\" *ngIf=\"runPresentation\">\r\n      <div class=\"timer\" *ngIf=\"showCountDown()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon><span [ngClass]=\"secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'\">{{secondsLeft}}</span>\r\n      </div>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\"\r\n      (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\"\r\n      (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n    </div>\r\n  </div>\r\n\r\n  <gd-init-state [icon]=\"'eye'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\r\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n    Or drop file here\r\n  </gd-init-state>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\r\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-error-report-window></gd-error-report-window>\r\n</div>\r\n",
                         styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.current-page-number{margin-left:7px;font-size:14px;color:#959da5;width:37px;height:37px;line-height:37px;text-align:center}.current-page-number.active{color:#fff}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.thumbnails-button{position:absolute;right:3px}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}.btn-right{margin-right:7px}.smp-start-stop ::ng-deep .button{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;border:1px solid;border-radius:5px;padding:0 10px!important}::ng-deep .tools .button,::ng-deep .tools .nav-caret,::ng-deep .tools .selected-value{color:#fff!important}::ng-deep .tools .button.inactive,::ng-deep .tools .nav-caret.inactive,::ng-deep .tools .selected-value.inactive{color:#959da5!important}::ng-deep .tools .button{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .select-left .select{position:relative}::ng-deep .tools .select-left .dropdown-menu{top:40px;left:0}::ng-deep .tools .select-right .select{position:relative}::ng-deep .tools .select-right .dropdown-menu{top:40px;right:0}::ng-deep .tools .dropdown-menu .option{color:#6e6e6e!important}::ng-deep .tools .dropdown-menu .option:hover{background-color:#4b566c!important}::ng-deep .tools .icon-button{margin:0 0 0 15px!important}::ng-deep .tools .select{width:37px;height:37px;margin-left:7px;line-height:37px;text-align:center}::ng-deep .tools .slides-title{color:#fff;padding-left:12px;font-size:18px}::ng-deep .tools .slides-filename{-webkit-box-flex:1;flex-grow:1;text-align:center;color:#fff;text-overflow:ellipsis;white-space:nowrap;padding-left:20px;overflow:hidden}::ng-deep .tools .slides-buttons{display:-webkit-box;display:flex}::ng-deep .tools .slides-buttons ::ng-deep .select{color:#fff;cursor:pointer}::ng-deep .tools ::ng-deep .gd-nav-search-container .icon-button{margin:0 0 0 7px!important}.slides-nav{position:absolute;right:30px;bottom:30px;display:-webkit-box;display:flex}.slides-nav ::ng-deep .button{font-size:37px;background-color:#edf0f2;border-radius:3px}.slides-nav ::ng-deep .timer{font-size:42px;line-height:6px;color:#959da5;position:relative}.slides-nav ::ng-deep .timer .seconds-remaining{position:absolute;margin-left:5px;font-size:16px;top:18px;left:12px}.slides-nav ::ng-deep .timer .seconds-remaining.two-digits{left:6px!important}::ng-deep .page.presentation .gd-wrapper{pointer-events:none}@media (max-width:1037px){.current-page-number,.mobile-hide{display:none}::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .tools .gd-nav-search-btn .icon-button{height:37px;width:37px}::ng-deep .tools .gd-nav-search-btn .button{font-size:14px}::ng-deep .tools .gd-nav-search-container{top:59px!important}}"]
                     }] }
         ];
@@ -2113,7 +2135,7 @@
         ThumbnailsComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-thumbnails',
-                        template: "<div class=\"gd-thumbnails\">\n  <div class=\"gd-thumbnails-panzoom\">\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && isHtmlMode\"\n           [innerHTML]=\"page.data | safeHtml\"></div>\n      <div class=\"gd-wrapper\" \n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && !isHtmlMode\">\n           <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\n             alt/>\n      </div>\n    </div>\n  </div>\n</div>\n",
+                        template: "<div class=\"gd-thumbnails\">\r\n  <div class=\"gd-thumbnails-panzoom\">\r\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\r\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <div class=\"gd-wrapper\"\r\n           [style.height]=\"getDimensionWithUnit(page.height)\"\r\n           [style.width]=\"getDimensionWithUnit(page.width)\"\r\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\r\n           *ngIf=\"page.data && isHtmlMode\"\r\n           [innerHTML]=\"page.data | safeHtml\"></div>\r\n      <div class=\"gd-wrapper\" \r\n           [style.height]=\"getDimensionWithUnit(page.height)\"\r\n           [style.width]=\"getDimensionWithUnit(page.width)\"\r\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\r\n           *ngIf=\"page.data && !isHtmlMode\">\r\n           <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\r\n             alt/>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                         styles: [":host{-webkit-box-flex:0;flex:0 0 300px;background:#f5f5f5;color:#fff;overflow-y:auto;display:block;-webkit-transition:margin-left .2s;transition:margin-left .2s;height:100%}.gd-page{width:272px;height:272px;-webkit-transition:.3s;transition:.3s;background-color:#e7e7e7;cursor:pointer;margin:14px 14px 0}.gd-page:hover{background-color:silver}.gd-wrapper{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);left:50%;top:50%;position:relative;background-color:#fff;box-shadow:0 4px 12px -4px rgba(0,0,0,.38);pointer-events:none}.gd-wrapper ::ng-deep img{width:inherit}.gd-thumbnails::-webkit-scrollbar{width:0;background-color:#f5f5f5}.gd-thumbnails-panzoom>.gd-thumbnails-landscape{margin:-134px 0 -1px 12px}.gd-thumbnails .gd-page-image{height:inherit}.gd-thumbnails-landscape-image{margin:-90px 0 -23px!important}.gd-thumbnails-landscape-image-rotated{margin:126px 0 -3px -104px!important}"]
                     }] }
         ];
@@ -2331,7 +2353,7 @@
         ExcelPageComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-excel-page',
-                        template: "<div id=\"page-{{number}}\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
+                        template: "<div id=\"page-{{number}}\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
                         styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}::ng-deep th{color:#959da5;background-color:#f4f4f4;font-weight:unset;border:1px solid #e7e7e7!important;text-transform:uppercase;font-size:14px;overflow:hidden}::ng-deep td{vertical-align:middle!important}::ng-deep .page-grid-lines td{border:1px solid #e7e7e7!important}::ng-deep .page td:nth-child(1){border:1px solid #e7e7e7!important}::ng-deep tr td.excel:first-child{color:#959da5;background-color:#f4f4f4;font-weight:unset;width:1%;text-align:center}::ng-deep tr td.excel:first-child div{width:80px}::ng-deep tr th.excel:first-child{background-color:#f4f4f4;width:1%}::ng-deep tr th.excel:first-child div{width:80px}.gd-page-image{height:100%!important;width:100%!important}"]
                     }] }
         ];
@@ -2468,7 +2490,7 @@
         ExcelDocumentComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-excel-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div [ngClass]=\"isDesktop ? 'panzoom auto-height' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"file.showGridLines ? 'page-grid-lines' : 'page'\" *ngFor=\"let page of file?.pages\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\">\n      <gd-excel-page *ngIf=\"currentPageNo == page.number\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-excel-page>\n    </div>\n  </div>\n</div>\n<div class=\"sheets\">\n  <div class=\"sheets-wrapper\">\n    <div *ngFor=\"let page of file?.pages\">\n      <gd-button [icon]=\"'eye'\" [ngClass]=\"{'active': currentPageNo == page.number }\" (click)=\"selectSheet(page.number)\">{{page.sheetName}}</gd-button>\n    </div>\n  </div>\n</div>\n",
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom auto-height' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"file.showGridLines ? 'page-grid-lines' : 'page'\" *ngFor=\"let page of file?.pages\"\r\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\">\r\n      <gd-excel-page *ngIf=\"currentPageNo == page.number\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\r\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-excel-page>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"sheets\">\r\n  <div class=\"sheets-wrapper\">\r\n    <div *ngFor=\"let page of file?.pages\">\r\n      <gd-button [icon]=\"'eye'\" [ngClass]=\"{'active': currentPageNo == page.number }\" (click)=\"selectSheet(page.number)\">{{page.sheetName}}</gd-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                         styles: [":host{overflow:scroll;width:100%;background-color:#e7e7e7}.document{width:100%;-webkit-transition:.4s;transition:.4s;padding:0;margin:0;position:relative}.sheets{background-color:#fff;display:-webkit-box;display:flex;border-top:1px solid #e7e7e7;position:fixed;width:100%}.sheets ::ng-deep gd-button.active .text{background-color:#272727;border-radius:10px;color:#eee}.sheets ::ng-deep gd-button .text{padding:1px 12px;color:#000}.sheets ::ng-deep gd-button fa-icon{display:none}.sheets-wrapper{margin-left:29px;display:-webkit-box;display:flex}.page{position:relative;display:inline-block;background-color:#fff;-webkit-transition:.3s;transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom.auto-height{-webkit-transform:none;transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform-origin:50% 50% 0;transform-origin:50% 50% 0;display:-webkit-box;display:flex;flex-wrap:wrap;height:auto!important}.gd-zoomed{margin:10px 98px}.highlights{position:absolute;top:0;left:0;bottom:0;right:0}.page-grid-lines{background-color:#fff}@media (max-width:1037px){.document{overflow-x:auto!important}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                     }] }
         ];
@@ -2730,7 +2752,7 @@
         RunPresentationComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-run-presentation',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\" (panleft)=\"onPanLeft($event)\" (panright)=\"onPanRight($event)\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"isVertical(page) ? 'page presentation vertical' : 'page presentation'\" *ngFor=\"let page of file?.pages\"\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\" (panleft)=\"onPanLeft($event)\" (panright)=\"onPanRight($event)\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"isVertical(page) ? 'page presentation vertical' : 'page presentation'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
                         styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow-y:hidden;touch-action:auto!important;overflow-x:hidden}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;margin:20px;-webkit-transition:.3s;transition:.3s}.page ::ng-deep gd-page{box-shadow:0 3px 6px rgba(0,0,0,.16);background-color:#fff}.page.presentation{-webkit-transition:unset;transition:unset;margin:0;width:100%!important;display:-webkit-box!important;display:flex!important;-webkit-box-pack:center!important;justify-content:center!important}.page.presentation.vertical{margin:0;width:100%!important;display:-webkit-box!important;display:flex!important;-webkit-box-pack:center!important;justify-content:center!important}.page.presentation.vertical ::ng-deep [class*=\"-rotate\"]{position:unset!important;margin-right:-240px}.page.presentation.vertical ::ng-deep gd-page{height:960pt;width:540pt}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;flex-wrap:wrap;align-content:flex-start}@media (max-width:1037px){:host{overflow-y:unset}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}.page ::ng-deep .gd-wrapper{pointer-events:none}}"]
                     }] }
         ];
@@ -2799,6 +2821,270 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var ViewerErrorInterceptorService = /** @class */ (function (_super) {
+        __extends(ViewerErrorInterceptorService, _super);
+        function ViewerErrorInterceptorService(_viewerModalService, _viewerMessageService) {
+            var _this = _super.call(this, _viewerModalService, _viewerMessageService) || this;
+            _this._viewerModalService = _viewerModalService;
+            _this._viewerMessageService = _viewerMessageService;
+            return _this;
+        }
+        /**
+         * @param {?} logFormat
+         * @param {?} exception
+         * @return {?}
+         */
+        ViewerErrorInterceptorService.prototype.showErrorWindowModal = /**
+         * @param {?} logFormat
+         * @param {?} exception
+         * @return {?}
+         */
+        function (logFormat, exception) {
+            this._viewerMessageService.changeHttpEvent(exception);
+            this._viewerModalService.open("gd-error-report-window");
+        };
+        ViewerErrorInterceptorService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        ViewerErrorInterceptorService.ctorParameters = function () { return [
+            { type: commonComponents.ModalService },
+            { type: commonComponents.ExceptionMessageService }
+        ]; };
+        /** @nocollapse */ ViewerErrorInterceptorService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ViewerErrorInterceptorService_Factory() { return new ViewerErrorInterceptorService(core.ɵɵinject(commonComponents.ModalService), core.ɵɵinject(commonComponents.ExceptionMessageService)); }, token: ViewerErrorInterceptorService, providedIn: "root" });
+        return ViewerErrorInterceptorService;
+    }(commonComponents.ErrorInterceptorService));
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ViewerErrorInterceptorService.prototype._viewerModalService;
+        /**
+         * @type {?}
+         * @private
+         */
+        ViewerErrorInterceptorService.prototype._viewerMessageService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @enum {number} */
+    var ForumCategory = {
+        Conversion: 8,
+        Viewer: 7,
+        Metadata: 9,
+        Assembly: 10,
+        Parser: 11,
+        Watermark: 12,
+        Comparison: 13,
+        Search: 14,
+        Ediroe: 15,
+        Classification: 16,
+        Annotation: 17,
+    };
+    ForumCategory[ForumCategory.Conversion] = 'Conversion';
+    ForumCategory[ForumCategory.Viewer] = 'Viewer';
+    ForumCategory[ForumCategory.Metadata] = 'Metadata';
+    ForumCategory[ForumCategory.Assembly] = 'Assembly';
+    ForumCategory[ForumCategory.Parser] = 'Parser';
+    ForumCategory[ForumCategory.Watermark] = 'Watermark';
+    ForumCategory[ForumCategory.Comparison] = 'Comparison';
+    ForumCategory[ForumCategory.Search] = 'Search';
+    ForumCategory[ForumCategory.Ediroe] = 'Ediroe';
+    ForumCategory[ForumCategory.Classification] = 'Classification';
+    ForumCategory[ForumCategory.Annotation] = 'Annotation';
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ForumPostRequest = /** @class */ (function () {
+        function ForumPostRequest() {
+        }
+        return ForumPostRequest;
+    }());
+    if (false) {
+        /** @type {?} */
+        ForumPostRequest.prototype.Email;
+        /** @type {?} */
+        ForumPostRequest.prototype.UserName;
+        /** @type {?} */
+        ForumPostRequest.prototype.OriginalUrl;
+        /** @type {?} */
+        ForumPostRequest.prototype.CategoryId;
+        /** @type {?} */
+        ForumPostRequest.prototype.Title;
+        /** @type {?} */
+        ForumPostRequest.prototype.Message;
+        /** @type {?} */
+        ForumPostRequest.prototype.ExceptionMessage;
+        /** @type {?} */
+        ForumPostRequest.prototype.InnerExceptionMessage;
+        /** @type {?} */
+        ForumPostRequest.prototype.FolderPath;
+        /** @type {?} */
+        ForumPostRequest.prototype.IsPrivatePost;
+        /** @type {?} */
+        ForumPostRequest.prototype.IsSendNotification;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @enum {number} */
+    var CurrentWindowView = {
+        ReportErrorView: 0,
+        SuccessPostView: 1,
+        PostFailedView: 2,
+    };
+    CurrentWindowView[CurrentWindowView.ReportErrorView] = 'ReportErrorView';
+    CurrentWindowView[CurrentWindowView.SuccessPostView] = 'SuccessPostView';
+    CurrentWindowView[CurrentWindowView.PostFailedView] = 'PostFailedView';
+    var ErrorReportModalComponent = /** @class */ (function () {
+        function ErrorReportModalComponent(messageService, viewerService) {
+            var _this = this;
+            this.viewerService = viewerService;
+            this.currentWindowMode = CurrentWindowView.ReportErrorView;
+            this.PostIsPrivate = true;
+            this.WindowTitle = "Error occured";
+            this.windowView = CurrentWindowView;
+            messageService.httpEventChange.subscribe((/**
+             * @param {?} httpEvent
+             * @return {?}
+             */
+            function (httpEvent) {
+                _this.httpEvent = httpEvent;
+                if (_this.httpEvent instanceof http.HttpErrorResponse) {
+                    _this.message = _this.httpEvent.message;
+                }
+            }));
+        }
+        /**
+         * @return {?}
+         */
+        ErrorReportModalComponent.prototype.emailIsValid = /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(this.Email).toLowerCase());
+        };
+        /**
+         * @return {?}
+         */
+        ErrorReportModalComponent.prototype.reportError = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            if (this.emailIsValid()) {
+                /** @type {?} */
+                var queryString = window.location.search;
+                /** @type {?} */
+                var urlParams = new URLSearchParams(queryString);
+                /** @type {?} */
+                var request = new ForumPostRequest();
+                request.CategoryId = ForumCategory.Viewer;
+                request.Email = this.Email;
+                request.IsPrivatePost = this.PostIsPrivate;
+                request.UserName = this.Email.split('@')[0];
+                request.IsSendNotification = true;
+                /** @type {?} */
+                var fileParam = urlParams.get('file');
+                if (fileParam) {
+                    request.FolderPath = urlParams.get('file');
+                    ;
+                }
+                if (this.httpEvent instanceof http.HttpErrorResponse) {
+                    /** @type {?} */
+                    var httpErrorResponse = ((/** @type {?} */ (this.httpEvent)));
+                    request.Message = request.ExceptionMessage = httpErrorResponse.error.exceptionMessage;
+                    request.InnerExceptionMessage = httpErrorResponse.error.innerExceptionMessage;
+                    request.OriginalUrl = httpErrorResponse.url;
+                    if (httpErrorResponse.error.exceptionMessage == undefined) {
+                        request.Message = request.ExceptionMessage = httpErrorResponse.error.message;
+                    }
+                }
+                else {
+                    request.Message = "Unknown error " + (this.httpEvent == null ? "" : this.httpEvent.type.toString());
+                }
+                request.Title = "Viewer issue - " + request.Message + " " + new Date().toISOString();
+                this.viewerService.reportError(request).subscribe((/**
+                 * @param {?} data
+                 * @return {?}
+                 */
+                function (data) {
+                    if (data == undefined || data == null) {
+                        _this.PostError = "Unknown error";
+                        _this.currentWindowMode = CurrentWindowView.PostFailedView;
+                    }
+                    else if ((data.error != "" && data.error != null)) {
+                        _this.PostError = data.error;
+                        _this.currentWindowMode = CurrentWindowView.PostFailedView;
+                    }
+                    else if (data.url != "" && data.url != null) {
+                        _this.TopicLink = data.url;
+                        _this.WindowTitle = "Error reported!";
+                        _this.currentWindowMode = CurrentWindowView.SuccessPostView;
+                    }
+                    else {
+                        _this.PostError = "Unknown error";
+                        _this.currentWindowMode = CurrentWindowView.PostFailedView;
+                    }
+                }));
+            }
+        };
+        ErrorReportModalComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-error-report-window',
+                        template: "<gd-modal id=\"gd-error-report-window\" [title]=\"WindowTitle\">\r\n    <section id=\"gd-error-section\">\r\n      <div *ngIf=\"currentWindowMode == windowView.ReportErrorView\">\r\n        <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\r\n        <div class=\"gd-modal-error\">\r\n          <div class=\"gd-modal-error-title\">Something went wrong</div>\r\n          <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\r\n        </div>\r\n        <div class=\"gd-error-report-body\">\r\n          <div class='email-row'><input type=\"text\" placeholder=\"E-mail\" class='email-input'  [(ngModel)]=\"Email\" /></div>\r\n          <div class='email-row-validation' *ngIf=\"!emailIsValid()\">Please enter your E-mail address.</div>\r\n            <div>\r\n              <input type=\"checkbox\" [(ngModel)]=\"PostIsPrivate\" title=\"Make this forum private, so that it will only be accessable to you and our developers.\" />&nbsp;Make this forum private, so that it will only be accessable to you and our developers.\r\n            </div>\r\n            <button ng-disabled=\"!emailIsValid()\" class=\"btn-report\" (click)=\"reportError()\"><fa-icon [icon]=\"['fas', 'flag']\"></fa-icon>Report error</button>\r\n        </div>\r\n    </div>\r\n\r\n    <div *ngIf=\"currentWindowMode == windowView.SuccessPostView\">\r\n      <fa-icon [icon]=\"['fas', 'check-circle']\" [styles]=\"{'color': 'green'}\" ></fa-icon>\r\n      <div class=\"gd-modal-error\">\r\n        <div class=\"gd-modal-error-title\">Error reported successfully!</div>\r\n      </div>\r\n      <div class=\"gd-error-report-body\">\r\n          You have successfully reported the error, You will get the notification email when error is fixed, <a href='{{TopicLink}}'>click here</a> to visit the forums.\r\n      </div>\r\n    </div>\r\n\r\n    <div *ngIf=\"currentWindowMode == windowView.PostFailedView\">\r\n      <fa-icon [icon]=\"['fas', 'times']\"></fa-icon>\r\n      <div class=\"gd-modal-error\">\r\n        <div class=\"gd-modal-error-title\">Post to forums failed</div>\r\n      </div>\r\n      <div class=\"gd-error-report-body\">\r\n          {{PostError}}\r\n      </div>\r\n    </div>\r\n\r\n    </section>\r\n  </gd-modal>\r\n  ",
+                        styles: [".gd-modal-error{display:-webkit-inline-box;display:inline-flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-flex:1;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0;word-break:break-word;max-width:320px}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;margin:20px}#gd-error-section fa-icon{-webkit-box-flex:1;flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center;max-width:46px}.email-input{height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}.email-row{margin-bottom:10px}.email-row input{margin-left:5px;width:300px}.email-row-validation{color:red;margin-top:1px;margin-left:5px;margin-bottom:10px}.btn-report{margin-top:10px;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;border:1px solid;border-radius:5px;padding:0 10px!important;min-width:37px;height:37px;text-align:center;cursor:pointer}.btn-report .ng-fa-icon{font-size:14px!important;margin:7px!important}.btn-report:focus{outline:0!important;border:0!important}.btn:hover{background-color:#4169e1}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        ErrorReportModalComponent.ctorParameters = function () { return [
+            { type: commonComponents.ExceptionMessageService },
+            { type: ViewerService }
+        ]; };
+        return ErrorReportModalComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        ErrorReportModalComponent.prototype.httpEvent;
+        /** @type {?} */
+        ErrorReportModalComponent.prototype.message;
+        /** @type {?} */
+        ErrorReportModalComponent.prototype.currentWindowMode;
+        /** @type {?} */
+        ErrorReportModalComponent.prototype.Email;
+        /** @type {?} */
+        ErrorReportModalComponent.prototype.TopicLink;
+        /** @type {?} */
+        ErrorReportModalComponent.prototype.PostError;
+        /** @type {?} */
+        ErrorReportModalComponent.prototype.PostIsPrivate;
+        /** @type {?} */
+        ErrorReportModalComponent.prototype.WindowTitle;
+        /** @type {?} */
+        ErrorReportModalComponent.prototype.windowView;
+        /**
+         * @type {?}
+         * @private
+         */
+        ErrorReportModalComponent.prototype.viewerService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     /**
      * @param {?} viewerConfigService
      * @return {?}
@@ -2853,21 +3139,24 @@
                             ThumbnailsComponent,
                             RunPresentationComponent,
                             ExcelDocumentComponent,
+                            ErrorReportModalComponent,
                             ExcelPageComponent
                         ],
                         imports: [
                             platformBrowser.BrowserModule,
                             commonComponents.CommonComponentsModule,
                             http.HttpClientModule,
-                            angularFontawesome.FontAwesomeModule
+                            angularFontawesome.FontAwesomeModule,
+                            forms.FormsModule,
                         ],
                         exports: [
                             ViewerAppComponent,
                             ThumbnailsComponent,
                             RunPresentationComponent,
                             ExcelDocumentComponent,
+                            ErrorReportModalComponent,
                             ExcelPageComponent,
-                            commonComponents.CommonComponentsModule
+                            commonComponents.CommonComponentsModule,
                         ],
                         providers: [
                             ViewerService,
@@ -2878,7 +3167,7 @@
                             ViewerConfigService,
                             {
                                 provide: http.HTTP_INTERCEPTORS,
-                                useClass: commonComponents.ErrorInterceptorService,
+                                useClass: ViewerErrorInterceptorService,
                                 multi: true
                             },
                             {
@@ -2911,6 +3200,8 @@
     exports.ɵc = ExcelDocumentComponent;
     exports.ɵd = ExcelPageComponent;
     exports.ɵe = ExcelPageService;
+    exports.ɵf = ErrorReportModalComponent;
+    exports.ɵg = ViewerErrorInterceptorService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

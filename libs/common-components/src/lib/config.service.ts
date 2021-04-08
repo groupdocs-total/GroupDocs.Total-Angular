@@ -45,6 +45,7 @@ export class Api {
   public static ADD_FILES_TO_INDEX = '/addFilesToIndex';
   public static CLEAN_METADATA = '/clean';
   public static EXPORT_METADATA = '/export';
+  public static REPORT_ERROR_TO_FORUM = '/reportErrorToForum';
 
   public static httpOptionsJson = {
     headers: new HttpHeaders({

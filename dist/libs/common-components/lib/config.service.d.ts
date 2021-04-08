@@ -43,6 +43,7 @@ export declare class Api {
     static ADD_FILES_TO_INDEX: string;
     static CLEAN_METADATA: string;
     static EXPORT_METADATA: string;
+    static REPORT_ERROR_TO_FORUM: string;
     static httpOptionsJson: {
         headers: HttpHeaders;
     };

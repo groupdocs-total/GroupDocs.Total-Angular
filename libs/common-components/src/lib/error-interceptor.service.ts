@@ -39,8 +39,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
                 break;
               case HttpError.InternalServerError:
                 console.error('%c big bad 500', logFormat);
-                this._messageService.changeMessage(exception.error.message);
-                this._modalService.open(CommonModals.ErrorMessage);
+                this.showErrorWindowModal(logFormat, exception);
                 break;
 
               case HttpError.Forbidden:
@@ -52,5 +51,10 @@ export class ErrorInterceptorService implements HttpInterceptor {
           }
           return throwError(exception);
         }));
+  }
+
+  showErrorWindowModal(logFormat: string, exception) {
+    this._messageService.changeMessage(exception.error.message);
+    this._modalService.open(CommonModals.ErrorMessage);
   }
 }
