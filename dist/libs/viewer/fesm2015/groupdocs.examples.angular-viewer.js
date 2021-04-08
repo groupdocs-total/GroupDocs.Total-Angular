@@ -2344,21 +2344,21 @@ class ErrorReportModalComponent {
             /** @type {?} */
             const urlParams = new URLSearchParams(queryString);
             /** @type {?} */
-            let request = new ForumPostRequest();
+            const request = new ForumPostRequest();
             request.CategoryId = ForumCategory.Viewer;
             request.Email = this.Email;
             request.IsPrivatePost = this.PostIsPrivate;
             request.UserName = this.Email.split('@')[0];
             request.IsSendNotification = true;
             /** @type {?} */
-            let fileParam = urlParams.get('file');
+            const fileParam = urlParams.get('file');
             if (fileParam) {
                 request.FolderPath = urlParams.get('file');
                 ;
             }
             if (this.httpEvent instanceof HttpErrorResponse) {
                 /** @type {?} */
-                let httpErrorResponse = ((/** @type {?} */ (this.httpEvent)));
+                const httpErrorResponse = ((/** @type {?} */ (this.httpEvent)));
                 request.Message = request.ExceptionMessage = httpErrorResponse.error.exceptionMessage;
                 request.InnerExceptionMessage = httpErrorResponse.error.innerExceptionMessage;
                 request.OriginalUrl = httpErrorResponse.url;

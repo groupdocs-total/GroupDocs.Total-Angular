@@ -60,14 +60,14 @@ export class ErrorReportModalComponent
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
 
-      let request = new ForumPostRequest();
+      const request = new ForumPostRequest();
       request.CategoryId = ForumCategory.Viewer;
       request.Email = this.Email;
       request.IsPrivatePost = this.PostIsPrivate;
       request.UserName = this.Email.split('@')[0];
       request.IsSendNotification = true;
 
-      let fileParam = urlParams.get('file');
+      const fileParam = urlParams.get('file');
 
       if (fileParam) 
       {
@@ -76,7 +76,7 @@ export class ErrorReportModalComponent
 
       if (this.httpEvent instanceof HttpErrorResponse)
       {
-        let httpErrorResponse = (this.httpEvent as HttpErrorResponse);
+        const httpErrorResponse = (this.httpEvent as HttpErrorResponse);
 
         request.Message =  request.ExceptionMessage = httpErrorResponse.error.exceptionMessage;
         request.InnerExceptionMessage = httpErrorResponse.error.innerExceptionMessage;
