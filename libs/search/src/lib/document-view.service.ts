@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { LoadingMaskService } from '@groupdocs.examples.angular/common-components';
+import { CurrentDocumentService } from './current-document.service';
 import { FoundTermNavigationService } from './found-term-navigation.service';
 import { SearchConfigService } from './search-config.service';
 import { GetDocumentPageRequest, GetDocumentPageResponse, SearchApi, SearchResultItemModel } from './search-models';
@@ -8,12 +9,13 @@ import { SearchService } from './search.service';
 
 @Injectable()
 export class DocumentViewService {
-  displayDocument = false;
+  visible = false;
   documentName = "";
   pages: SafeHtml[] = [];
-  private initialized: boolean;
+  private initialized = false;
 
   constructor(private _searchService : SearchService,
+              private _currentDocumentService: CurrentDocumentService,
               private _searchConfigService: SearchConfigService,
               private _foundTermNavigationService: FoundTermNavigationService,
               private _loadingMaskService: LoadingMaskService,
@@ -23,15 +25,23 @@ export class DocumentViewService {
 
   open(item: SearchResultItemModel) {
     this.documentName = item.name;
+    if (item.formatFamily !== "presentation") {
+      this._foundTermNavigationService.enable();
+    }
     this.pages.length = 0;
     this.loadPage(item, 1);
-    this.displayDocument = true;
+    this._currentDocumentService.setDocument(item);
+    this._currentDocumentService.setVisible();
+    this.visible = true;
   }
 
   close() {
-    this.displayDocument = false;
+    this._foundTermNavigationService.disable();
+    this.visible = false;
+    this._currentDocumentService.close();
     this.pages.length = 0;
     this.documentName = "";
+    this.initialized = false;
   }
 
   private loadPage(item: SearchResultItemModel, pageNumber : number) {

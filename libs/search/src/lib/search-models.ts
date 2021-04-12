@@ -32,6 +32,7 @@ export class SearchResultItemModel implements FileModel {
   terms: string[];
   documentId: string;
   isCaseSensitive: boolean;
+  formatFamily: string;
 }
 
 export class ExtendedFileModel implements FileModel {

@@ -3,10 +3,11 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class FoundTermNavigationService {
+  enabled = false;
   element: HTMLElement;
   total = 0;
   current = 0;
-  
+
   private _observerCurrent: Subject<number> = new Subject();
   private readonly _currentChanged: Observable<number> = this._observerCurrent.asObservable();
 
@@ -21,6 +22,14 @@ export class FoundTermNavigationService {
     this.current = 0;
     this.total = 0;
     this.element = element;
+  }
+
+  enable() {
+    this.enabled = true;
+  }
+
+  disable() {
+    this.enabled = false;
   }
 
   updateTotal() {

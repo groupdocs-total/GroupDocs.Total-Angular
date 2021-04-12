@@ -29,41 +29,41 @@
         *ngIf="canGetReport()"></gd-button>
 
       <div class="separator mobile-hide"
-        *ngIf="highlightDocumentService.displayDocument || documentViewService.displayDocument"></div>
+        *ngIf="termNavigation.enabled"></div>
       <gd-button class="mobile-hide"
         [icon]="'angle-double-left'"
         [tooltip]="'First term'"
         (click)="termNavigation.navigateFirst()"
-        *ngIf="highlightDocumentService.displayDocument || documentViewService.displayDocument"></gd-button>
+        *ngIf="termNavigation.enabled"></gd-button>
       <gd-button
         [icon]="'angle-left'"
         [tooltip]="'Previous term'"
         (click)="termNavigation.navigatePrevious()"
-        *ngIf="highlightDocumentService.displayDocument || documentViewService.displayDocument"></gd-button>
+        *ngIf="termNavigation.enabled"></gd-button>
       <div class="current-page-number"
-        *ngIf="highlightDocumentService.displayDocument || documentViewService.displayDocument">{{termNavigation.current}}/{{termNavigation.total}}</div>
+        *ngIf="termNavigation.enabled">{{termNavigation.current}}/{{termNavigation.total}}</div>
       <gd-button
         [icon]="'angle-right'"
         [tooltip]="'Next term'"
         (click)="termNavigation.navigateNext()"
-        *ngIf="highlightDocumentService.displayDocument || documentViewService.displayDocument"></gd-button>
+        *ngIf="termNavigation.enabled"></gd-button>
       <gd-button class="mobile-hide"
         [icon]="'angle-double-right'"
         [tooltip]="'Last term'"
         (click)="termNavigation.navigateLast()"
-        *ngIf="highlightDocumentService.displayDocument || documentViewService.displayDocument"></gd-button>
+        *ngIf="termNavigation.enabled"></gd-button>
       <div class="separator mobile-hide"
-        *ngIf="highlightDocumentService.displayDocument || documentViewService.displayDocument"></div>
+        *ngIf="currentDocumentService.displayDocument"></div>
       <gd-button class="mobile-hide"
         [icon]="'download'"
         [tooltip]="'Download source file'"
-        (click)="highlightDocumentService.downloadSourceFile()"
-        *ngIf="highlightDocumentService.displayDocument || documentViewService.displayDocument"></gd-button>
+        (click)="currentDocumentService.downloadSourceFile()"
+        *ngIf="currentDocumentService.displayDocument"></gd-button>
       <gd-button class="mobile-hide"
         [icon]="'file-download'"
         [tooltip]="'Download extracted text'"
-        (click)="highlightDocumentService.downloadExtractedText()"
-        *ngIf="highlightDocumentService.displayDocument || documentViewService.displayDocument"></gd-button>
+        (click)="currentDocumentService.downloadExtractedText()"
+        *ngIf="currentDocumentService.displayDocument"></gd-button>
     </gd-top-toolbar>
   </div>
 
@@ -91,9 +91,9 @@
 
   <gd-indexed-files-list [files]="indexedFiles" *ngIf="appState == 'IndexedList'"></gd-indexed-files-list>
 
-  <gd-highlight-document *ngIf="highlightDocumentService.displayDocument === true"></gd-highlight-document>
+  <gd-highlight-document *ngIf="highlightDocumentService.visible === true"></gd-highlight-document>
 
-  <gd-document-view *ngIf="documentViewService.displayDocument === true"></gd-document-view>
+  <gd-document-view *ngIf="documentViewService.visible === true"></gd-document-view>
 
   <gd-alias-dictionary *ngIf="appState == 'AliasDictionary'"></gd-alias-dictionary>
 

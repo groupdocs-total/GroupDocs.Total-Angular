@@ -49,6 +49,7 @@ import { FoundTermNavigationService } from './found-term-navigation.service';
 import { DocumentViewComponent } from './document-view/document-view.component';
 import { DocumentPageComponent } from './document-page/document-page.component';
 import { DocumentViewService } from './document-view.service';
+import { CurrentDocumentService } from './current-document.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -122,6 +123,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     HighlightDocumentService,
     FoundTermNavigationService,
     DocumentViewService,
+    CurrentDocumentService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,
