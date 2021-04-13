@@ -4180,6 +4180,8 @@
         function ExceptionMessageService() {
             this._observer = new rxjs.BehaviorSubject('Server is not available');
             this._messageChange = this._observer.asObservable();
+            this._observerHttpEvent = new rxjs.BehaviorSubject(null);
+            this._httpEventChange = this._observerHttpEvent.asObservable();
         }
         Object.defineProperty(ExceptionMessageService.prototype, "messageChange", {
             get: /**
@@ -4187,6 +4189,16 @@
              */
             function () {
                 return this._messageChange;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ExceptionMessageService.prototype, "httpEventChange", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._httpEventChange;
             },
             enumerable: true,
             configurable: true
@@ -4202,6 +4214,17 @@
         function (message) {
             this._observer.next(message);
         };
+        /**
+         * @param {?} httpEvent
+         * @return {?}
+         */
+        ExceptionMessageService.prototype.changeHttpEvent = /**
+         * @param {?} httpEvent
+         * @return {?}
+         */
+        function (httpEvent) {
+            this._observerHttpEvent.next(httpEvent);
+        };
         return ExceptionMessageService;
     }());
     if (false) {
@@ -4215,6 +4238,16 @@
          * @private
          */
         ExceptionMessageService.prototype._messageChange;
+        /**
+         * @type {?}
+         * @private
+         */
+        ExceptionMessageService.prototype._observerHttpEvent;
+        /**
+         * @type {?}
+         * @private
+         */
+        ExceptionMessageService.prototype._httpEventChange;
     }
 
     /**
@@ -4455,7 +4488,8 @@
                         case HttpError.InternalServerError:
                             console.error('%c big bad 500', logFormat);
                             _this._messageService.changeMessage(exception.error.message);
-                            _this._modalService.open(CommonModals.ErrorMessage);
+                            _this._messageService.changeHttpEvent(exception);
+                            _this._modalService.open(ErrorInterceptorService.ErrorMessageWindowName);
                             break;
                         case HttpError.Forbidden:
                             console.error('%c Forbidden 403', logFormat);
@@ -4467,6 +4501,7 @@
                 return rxjs.throwError(exception);
             })));
         };
+        ErrorInterceptorService.ErrorMessageWindowName = CommonModals.ErrorMessage;
         ErrorInterceptorService.decorators = [
             { type: core.Injectable, args: [{
                         providedIn: 'root'
@@ -4481,6 +4516,8 @@
         return ErrorInterceptorService;
     }());
     if (false) {
+        /** @type {?} */
+        ErrorInterceptorService.ErrorMessageWindowName;
         /**
          * @type {?}
          * @private

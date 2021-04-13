@@ -3404,6 +3404,8 @@ class ExceptionMessageService {
     constructor() {
         this._observer = new BehaviorSubject('Server is not available');
         this._messageChange = this._observer.asObservable();
+        this._observerHttpEvent = new BehaviorSubject(null);
+        this._httpEventChange = this._observerHttpEvent.asObservable();
     }
     /**
      * @return {?}
@@ -3412,11 +3414,24 @@ class ExceptionMessageService {
         return this._messageChange;
     }
     /**
+     * @return {?}
+     */
+    get httpEventChange() {
+        return this._httpEventChange;
+    }
+    /**
      * @param {?} message
      * @return {?}
      */
     changeMessage(message) {
         this._observer.next(message);
+    }
+    /**
+     * @param {?} httpEvent
+     * @return {?}
+     */
+    changeHttpEvent(httpEvent) {
+        this._observerHttpEvent.next(httpEvent);
     }
 }
 if (false) {
@@ -3430,6 +3445,16 @@ if (false) {
      * @private
      */
     ExceptionMessageService.prototype._messageChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    ExceptionMessageService.prototype._observerHttpEvent;
+    /**
+     * @type {?}
+     * @private
+     */
+    ExceptionMessageService.prototype._httpEventChange;
 }
 
 /**
@@ -3644,7 +3669,8 @@ class ErrorInterceptorService {
                     case HttpError.InternalServerError:
                         console.error('%c big bad 500', logFormat);
                         this._messageService.changeMessage(exception.error.message);
-                        this._modalService.open(CommonModals.ErrorMessage);
+                        this._messageService.changeHttpEvent(exception);
+                        this._modalService.open(ErrorInterceptorService.ErrorMessageWindowName);
                         break;
                     case HttpError.Forbidden:
                         console.error('%c Forbidden 403', logFormat);
@@ -3657,6 +3683,7 @@ class ErrorInterceptorService {
         })));
     }
 }
+ErrorInterceptorService.ErrorMessageWindowName = CommonModals.ErrorMessage;
 ErrorInterceptorService.decorators = [
     { type: Injectable, args: [{
                 providedIn: 'root'
@@ -3669,6 +3696,8 @@ ErrorInterceptorService.ctorParameters = () => [
 ];
 /** @nocollapse */ ErrorInterceptorService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorInterceptorService_Factory() { return new ErrorInterceptorService(ɵɵinject(ModalService), ɵɵinject(ExceptionMessageService)); }, token: ErrorInterceptorService, providedIn: "root" });
 if (false) {
+    /** @type {?} */
+    ErrorInterceptorService.ErrorMessageWindowName;
     /**
      * @type {?}
      * @private
