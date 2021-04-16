@@ -38,7 +38,7 @@ export class AnnotationService {
   }
 
   getDownloadUrl(credentials: FileCredentials) {
-    return this._config.getAnnotationApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
+    return this._config.getAnnotationApiEndpoint() + Api.DOWNLOAD_ANNOTATED + '/?path=' + credentials.guid;
   }
 
   annotate(credentials: FileCredentials, annotationsData: any, print: boolean) {
