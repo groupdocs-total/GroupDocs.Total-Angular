@@ -435,7 +435,7 @@
          * @return {?}
          */
         function (credentials) {
-            return this._config.getAnnotationApiEndpoint() + commonComponents.Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
+            return this._config.getAnnotationApiEndpoint() + commonComponents.Api.DOWNLOAD_ANNOTATED + '/?path=' + credentials.guid;
         };
         /**
          * @param {?} credentials

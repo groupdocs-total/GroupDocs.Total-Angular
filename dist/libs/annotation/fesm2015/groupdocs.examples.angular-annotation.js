@@ -217,7 +217,7 @@ class AnnotationService {
      * @return {?}
      */
     getDownloadUrl(credentials) {
-        return this._config.getAnnotationApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
+        return this._config.getAnnotationApiEndpoint() + Api.DOWNLOAD_ANNOTATED + '/?path=' + credentials.guid;
     }
     /**
      * @param {?} credentials
