@@ -22,6 +22,7 @@ export class Api {
   public static ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
   public static UPLOAD_DOCUMENTS = '/uploadDocument';
   public static DOWNLOAD_DOCUMENTS = '/downloadDocument';
+  public static DOWNLOAD_ANNOTATED = '/downloadAnnotated';
   public static LOAD_PRINT = '/loadPrint';
   public static LOAD_PRINT_PDF = '/printPdf';
   public static LOAD_THUMBNAILS = '/loadThumbnails';
