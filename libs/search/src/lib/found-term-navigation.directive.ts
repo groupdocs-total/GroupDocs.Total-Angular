@@ -24,12 +24,12 @@ export class FoundTermNavigationDirective {
 
     const element = this._elementRef ? this._elementRef.nativeElement : null;
     if (element) {
-      element.querySelectorAll('.highlighted-term-selected').forEach(function (value) {
-        $(value).removeClass('highlighted-term-selected');
+      element.querySelectorAll('.counted-term-selected').forEach(function (value) {
+        $(value).removeClass('counted-term-selected');
       });
-      const elements = element.querySelectorAll('.highlighted-term');
+      const elements = element.querySelectorAll('.counted-term');
       const currentElement = elements[current - 1];
-      $(currentElement).addClass('highlighted-term-selected');
+      $(currentElement).addClass('counted-term-selected');
       if (currentElement) {
         const options = {
           left: 0,

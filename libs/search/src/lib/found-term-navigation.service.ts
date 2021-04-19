@@ -35,7 +35,7 @@ export class FoundTermNavigationService {
   updateTotal() {
     if (this.element === undefined) return;
 
-    this.total = this.element.querySelectorAll('.highlighted-term').length;
+    this.total = this.element.querySelectorAll('.counted-term').length;
   }
 
   navigateFirst() {

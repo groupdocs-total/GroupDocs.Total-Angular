@@ -30,6 +30,7 @@ export class SearchResultItemModel implements FileModel {
   showPhrases: boolean;
   foundPhrases: string;
   terms: string[];
+  termSequences: string[][];
   documentId: string;
   isCaseSensitive: boolean;
   formatFamily: string;
@@ -145,10 +146,12 @@ export class GetDocumentPageRequest extends SearchBaseRequest {
   password : string;
   pageNumber : number;
   terms : string[];
+  termSequences : string[][];
   caseSensitive : Boolean;
 }
 
 export class GetDocumentPageResponse {
+  fileName : string;
   pageNumber : number;
   pageCount : number;
   data : string;

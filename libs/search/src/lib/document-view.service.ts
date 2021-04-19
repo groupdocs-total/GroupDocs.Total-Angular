@@ -50,6 +50,7 @@ export class DocumentViewService {
     request.pageNumber = pageNumber;
     request.fileName = item.guid;
     request.terms = item.terms;
+    request.termSequences = item.termSequences;
     request.caseSensitive = item.isCaseSensitive;
 
     this._searchService.getDocumentPage(request).subscribe((response: GetDocumentPageResponse) => {
@@ -69,7 +70,9 @@ export class DocumentViewService {
 
         this.pages[response.pageNumber - 1] = page;
 
-        if (response.pageNumber < response.pageCount) {
+        if (response.fileName === request.fileName &&
+          response.pageNumber === request.pageNumber &&
+          response.pageNumber < response.pageCount) {
           this.loadPage(item, response.pageNumber + 1);
         }
       }
