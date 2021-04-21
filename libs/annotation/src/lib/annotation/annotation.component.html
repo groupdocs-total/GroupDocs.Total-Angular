@@ -25,7 +25,7 @@
               [style.font-family]="formatting?.font"
               [style.font-size.px]="formatting?.fontSize"
               [style.width.px]="getWidth()"
-              [style.height.px]="getHeight()"></textarea>
+              [style.height.px]="getHeight()">{{textValue}}</textarea>
     <div *ngIf="isPoint()" class="gd-point">
       <fa-icon class="icon" [icon]="['fas','thumbtack']" [size]="'lg'"></fa-icon>
     </div>
