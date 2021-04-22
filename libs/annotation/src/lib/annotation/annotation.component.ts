@@ -37,6 +37,7 @@ export class AnnotationComponent implements OnInit, AfterViewInit, AfterViewChec
   pointsValue = "";
   svgPath = "";
   formatting = Formatting.default();
+  hidden: boolean;
 
   private oldPosition: { x: number; y: number };
   private points = [];

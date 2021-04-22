@@ -512,6 +512,12 @@ export class AnnotationAppComponent implements OnInit {
     this.comments = new Map<number, Comment[]>();
   }
 
+  private hideAnnotations() {
+    for (const annotationCompRef of this.annotations.values()) {
+      (<AnnotationComponent>annotationCompRef.instance).hidden = !(<AnnotationComponent>annotationCompRef.instance).hidden;
+    }
+  }
+
   private clearData() {
     if (!this.file || !this.file.pages) {
       return;
