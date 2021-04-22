@@ -15,7 +15,7 @@
               (click)="zoomIn()" *ngIf="zoomConfig"></gd-button>
             <gd-button class="desktop-hide" [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
               (click)="zoomOut()" *ngIf="zoomConfig"></gd-button>
-            <gd-button [disabled]="formatDisabled" [icon]="'eye'" [tooltip]="'Hide annotations'" (click)="hideAnnotations()"></gd-button>
+            <gd-button [disabled]="formatDisabled" [icon]="annotationsHidden ? 'toggle-off' : 'toggle-on'" [tooltip]="'Hide annotations'" (click)="hideAnnotations()"></gd-button>
           </div>
         </gd-tab>
         <gd-tab [tabTitle]="'Annotations'" [icon]="'highlighter'" [id]="'2'"
