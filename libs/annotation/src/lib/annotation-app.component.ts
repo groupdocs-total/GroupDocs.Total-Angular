@@ -90,7 +90,7 @@ export class AnnotationAppComponent implements OnInit {
   public annotations = new Map<number, ComponentRef<any>>();
   private creatingAnnotationId: number;
   private activeAnnotationId: number;
-  private annotationsHidden: boolean;
+  annotationsHidden: boolean;
 
   constructor(private _annotationService: AnnotationService,
               private _modalService: ModalService,
