@@ -356,7 +356,6 @@ export class AnnotationAppComponent implements OnInit {
         this.file = file;
         this.formatDisabled = !this.file;
         if (file) {
-          this.annotationsHidden = false;
           if (!this.isDesktop && file.pages && file.pages[0]) {
             this._pageHeight = file.pages[0].height;
             this._pageWidth = file.pages[0].width;
@@ -590,6 +589,7 @@ export class AnnotationAppComponent implements OnInit {
       });
       (<AnnotationComponent>annotationComponent.instance).pageWidth = pageModel.width;
       (<AnnotationComponent>annotationComponent.instance).pageHeight = pageModel.height;
+      (<AnnotationComponent>annotationComponent.instance).hidden = this.annotationsHidden;
       this.annotations.set(id, annotationComponent);
       return id;
     }
