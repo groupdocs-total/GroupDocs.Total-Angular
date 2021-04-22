@@ -512,7 +512,7 @@ export class AnnotationAppComponent implements OnInit {
     this.comments = new Map<number, Comment[]>();
   }
 
-  private hideAnnotations() {
+  hideAnnotations() {
     for (const annotationCompRef of this.annotations.values()) {
       (<AnnotationComponent>annotationCompRef.instance).hidden = !(<AnnotationComponent>annotationCompRef.instance).hidden;
     }
