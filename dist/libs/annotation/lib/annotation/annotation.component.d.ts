@@ -24,6 +24,7 @@ export declare class AnnotationComponent implements OnInit, AfterViewInit, After
     pointsValue: string;
     svgPath: string;
     formatting: Formatting;
+    hidden: boolean;
     private oldPosition;
     private points;
     private endPosition;

@@ -59,6 +59,7 @@ export declare class AnnotationAppComponent implements OnInit {
     annotations: Map<number, ComponentRef<any>>;
     private creatingAnnotationId;
     private activeAnnotationId;
+    annotationsHidden: boolean;
     constructor(_annotationService: AnnotationService, _modalService: ModalService, _navigateService: NavigateService, _tabActivatorService: TopTabActivatorService, _hostingComponentsService: HostingDynamicComponentService, _addDynamicComponentService: AddDynamicComponentService, _activeAnnotationService: ActiveAnnotationService, _removeAnnotationService: RemoveAnnotationService, _commentAnnotationService: CommentAnnotationService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, passwordService: PasswordService, _windowService: WindowService, _zoomService: ZoomService, configService: AnnotationConfigService);
     getComments(): Comment[];
     readonly rewriteConfig: boolean;
@@ -113,6 +114,7 @@ export declare class AnnotationAppComponent implements OnInit {
     private getAnnotationTypeConfig;
     fileDropped($event: any): void;
     private cleanAnnotations;
+    hideAnnotations(): void;
     private clearData;
     createAnnotation($event: MouseEvent): void;
     private addAnnotationComponent;
