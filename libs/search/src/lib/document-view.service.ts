@@ -13,6 +13,7 @@ export class DocumentViewService {
   documentName = "";
   pages: SafeHtml[] = [];
   private initialized = false;
+  request: GetDocumentPageRequest;
 
   constructor(private _searchService : SearchService,
               private _currentDocumentService: CurrentDocumentService,
@@ -36,6 +37,7 @@ export class DocumentViewService {
   }
 
   close() {
+    this.request = null;
     this._foundTermNavigationService.disable();
     this.visible = false;
     this._currentDocumentService.close();
@@ -45,15 +47,15 @@ export class DocumentViewService {
   }
 
   private loadPage(item: SearchResultItemModel, pageNumber : number) {
-    const request = new GetDocumentPageRequest();
-    request.FolderName = this._searchConfigService.folderName;
-    request.pageNumber = pageNumber;
-    request.fileName = item.guid;
-    request.terms = item.terms;
-    request.termSequences = item.termSequences;
-    request.caseSensitive = item.isCaseSensitive;
+    this.request = new GetDocumentPageRequest();
+    this.request.FolderName = this._searchConfigService.folderName;
+    this.request.pageNumber = pageNumber;
+    this.request.fileName = item.guid;
+    this.request.terms = item.terms;
+    this.request.termSequences = item.termSequences;
+    this.request.caseSensitive = item.isCaseSensitive;
 
-    this._searchService.getDocumentPage(request).subscribe((response: GetDocumentPageResponse) => {
+    this._searchService.getDocumentPage(this.request).subscribe((response: GetDocumentPageResponse) => {
       if (response.pageNumber === pageNumber) {
         if (this.pages.length !== response.pageCount) {
           this.pages.length = response.pageCount;
@@ -70,8 +72,9 @@ export class DocumentViewService {
 
         this.pages[response.pageNumber - 1] = page;
 
-        if (response.fileName === request.fileName &&
-          response.pageNumber === request.pageNumber &&
+        if (this.request != null &&
+          response.fileName === this.request.fileName &&
+          response.pageNumber === this.request.pageNumber &&
           response.pageNumber < response.pageCount) {
           this.loadPage(item, response.pageNumber + 1);
         }
