@@ -231,6 +231,8 @@ export class AnnotationComponent implements OnInit, AfterViewInit, AfterViewChec
       case AnnotationType.TEXT_REDACTION.id:
         return "gd-annotation-wrapper-border gd-text-redaction-annotation";
       case AnnotationType.TEXT_REPLACEMENT.id:
+      case AnnotationType.TEXT_FIELD.id:
+      case AnnotationType.WATERMARK.id:
         return "gd-annotation-wrapper-border gd-text-replacement-annotation";
       case AnnotationType.POINT.id:
         return "";

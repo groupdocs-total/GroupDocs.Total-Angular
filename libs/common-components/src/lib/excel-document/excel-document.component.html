@@ -1,6 +1,6 @@
 <div class="wait" *ngIf="wait">Please wait...</div>
 <div id="document" class="document">
-  <div [ngClass]="isDesktop ? 'panzoom' : 'panzoom mobile'" gdZoom [zoomActive]="true" [file]="file" gdSearchable>
+  <div [ngClass]="isDesktop ? 'panzoom auto-height' : 'panzoom mobile'" gdZoom [zoomActive]="true" [file]="file" gdSearchable>
     <div [ngClass]="file.showGridLines ? 'page-grid-lines' : 'page'" *ngFor="let page of file?.pages"
          gdRotation [angle]="page.angle" [isHtmlMode]="mode">
       <gd-excel-page *ngIf="currentPageNo == page.number || page.number == 0" [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"

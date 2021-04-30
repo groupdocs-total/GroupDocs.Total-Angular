@@ -20,6 +20,7 @@ export declare class Api {
     static ROTATE_DOCUMENT_PAGE: string;
     static UPLOAD_DOCUMENTS: string;
     static DOWNLOAD_DOCUMENTS: string;
+    static DOWNLOAD_ANNOTATED: string;
     static LOAD_PRINT: string;
     static LOAD_PRINT_PDF: string;
     static LOAD_THUMBNAILS: string;

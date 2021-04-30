@@ -11,6 +11,7 @@ export declare class SelectComponent {
     disabled: boolean;
     showSelected: Option;
     selected: EventEmitter<any>;
+    opened: EventEmitter<boolean>;
     isOpen: boolean;
     icon: string;
     constructor(_onCloseService: OnCloseService);

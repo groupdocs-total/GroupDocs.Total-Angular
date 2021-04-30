@@ -407,8 +407,6 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
   }
 
   toggleFontSelect($event, isFontName: boolean) {
-    $event.preventDefault();
-    $event.stopPropagation();
     if (isFontName) {
       this.selectFontShow = !this.selectFontShow;
       this.selectFontSizeShow = false;
