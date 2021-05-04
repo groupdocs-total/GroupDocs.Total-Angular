@@ -3,7 +3,7 @@
   <div [ngClass]="isDesktop ? 'panzoom auto-height' : 'panzoom mobile'" gdZoom [zoomActive]="true" [file]="file" gdSearchable>
     <div [ngClass]="file.showGridLines ? 'page-grid-lines' : 'page'" *ngFor="let page of file?.pages"
          gdRotation [angle]="page.angle" [isHtmlMode]="mode">
-      <gd-excel-page *ngIf="currentPageNo == page.number" [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
+      <gd-excel-page *ngIf="currentPageNo == page.number || page.number == 0" [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle"
                [width]="page.width" [height]="page.height" [editable]="page.editable"></gd-excel-page>
     </div>
   </div>
@@ -11,7 +11,7 @@
 <div class="sheets">
   <div class="sheets-wrapper">
     <div *ngFor="let page of file?.pages">
-      <gd-button [icon]="'eye'" [ngClass]="{'active': currentPageNo == page.number }" (click)="selectSheet(page.number)">{{page.sheetName}}</gd-button>
+      <gd-button [icon]="'eye'" [ngClass]="{'active': currentPageNo == page.number }" (click)="selectSheet(page.number)">{{getSheetName(page)}}</gd-button>
     </div>
   </div>
 </div>

@@ -1,7 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChildren, QueryList, AfterViewInit, Renderer2 } from '@angular/core';
-import { DocumentComponent, WindowService, NavigateService } from '@groupdocs.examples.angular/common-components';
-import { ZoomService } from  '@groupdocs.examples.angular/common-components';
+import { Component, ElementRef, OnInit, ViewChildren, QueryList, AfterViewInit, Renderer2, Output, EventEmitter } from '@angular/core';
+import { DocumentComponent } from '../document/document.component';
+import { WindowService } from '../window.service';
+import { NavigateService } from '../navigate.service';
+import { ZoomService } from  '../zoom.service';
 import { ExcelPageComponent } from '../excel-page/excel-page.component';
+import { PageModel } from '../file.service';
 
 @Component({
   selector: 'gd-excel-document',
@@ -14,6 +17,7 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
   currentPageNo: number;
   panzoom = null;
   navigateService: NavigateService;
+  @Output() selectedSheet = new EventEmitter<number>();
 
   constructor(_elementRef: ElementRef<HTMLElement>,
               zoomService: ZoomService,
@@ -34,12 +38,12 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
         this.refreshExcelDocHeight();
     });
 
-    this.navigateService.navigate.subscribe(((
+    this.navigateService.navigate.subscribe(
      value => {
        if (value) {
          this.selectSheet(value);
        }
-     })));
+     });
 
     const scrollbarWidth = this.getScrollBarWidth();
     this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.sheets'), 'right', this.getScrollBarWidth() + 'px');
@@ -65,5 +69,10 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
 
   selectSheet(number){
     this.currentPageNo = number;
+    this.selectedSheet.emit(number);
+  }
+
+  getSheetName(page) {
+    return page.sheetName ? page.sheetName : "Sheet " + page.number;
   }
 }

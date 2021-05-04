@@ -107,9 +107,12 @@
                    [className]="'palette ' + (bgColorPickerShow ? 'background-color-picker' : 'color-picker')"
                    (selectedColor)="selectColor($event)"></gd-color-picker>
   <div class="doc-panel" *ngIf="file">
-    <gd-document class="gd-document" *ngIf="file" [ngClass]="{'new-file': newFile}" [file]="file" [mode]="true" [htmlMode]="true"
+    <gd-document class="gd-document" *ngIf="file && formatIcon !== 'file-excel'" [ngClass]="{'new-file': newFile}" [file]="file" [mode]="true" [htmlMode]="true"
                  [preloadPageCount]="0" gdFormatting gdRenderPrint gdScrollable>
     </gd-document>
+    <gd-excel-document class="gd-document" *ngIf="file && formatIcon === 'file-excel'" [file]="file" [mode]="true" [htmlMode]="true"
+                 [preloadPageCount]="0" (selectedSheet)="selectCurrentSheet($event)" gdFormatting gdRenderPrint gdScrollable>
+    </gd-excel-document>
   </div>
   <gd-init-state [icon]="'pen-square'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">
       Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>

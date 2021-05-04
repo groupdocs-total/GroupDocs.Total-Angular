@@ -25,6 +25,22 @@ export class ExcelPageService {
     return resultData.replace(/a0:/g,"").replace(/:a0/g,"");
   }
 
+  getPageWithoutHeader(data) {
+    const doc = new DOMParser().parseFromString(data, "text/html");
+    doc.querySelector('colgroup').remove();
+    const newTable = doc.querySelector('table');
+    newTable.deleteRow(0);
+
+    newTable.querySelectorAll('tr').forEach(row => {
+      row.deleteCell(0);
+    });
+
+    doc.querySelector('table').replaceWith(newTable);
+
+    const resultData = new XMLSerializer().serializeToString(doc);
+    return resultData;
+  }
+
   createHeader(numCols, table){
     const header = document.createElement('thead');
     header.append(document.createElement('tr'));
@@ -32,6 +48,7 @@ export class ExcelPageService {
     for(let i = 0; i < numCols; ++i){
       const th = document.createElement('th');
       th.innerText = this.colName(i);
+      th.setAttribute("contenteditable", "false");
       header.querySelector("tr").append(th);
     }
     
@@ -50,11 +67,13 @@ export class ExcelPageService {
         td.className = "excel"
         td.append(div);
         div.innerText = cnt.toString();
+        div.setAttribute("contenteditable", "false");
         row.prepend(td);
       }
       else {
         const th = document.createElement('th');
         th.append(div);
+        div.setAttribute("contenteditable", "false");
         row.prepend(th);
       }
       cnt++;

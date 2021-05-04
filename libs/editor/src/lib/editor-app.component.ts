@@ -18,7 +18,8 @@ import {
   EditHtmlService,
   RenderPrintService,
   WindowService,
-  LoadingMaskService, Option
+  LoadingMaskService, Option, FileUtil,
+  ExcelPageService
 } from '@groupdocs.examples.angular/common-components';
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -53,6 +54,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
   selectFontShow = false;
   selectFontSizeShow = false;
   newFile = false;
+  formatIcon: string;
+  selectedPageNumber: number;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -67,7 +70,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
               private _htmlService: EditHtmlService,
               private _renderPrintService: RenderPrintService,
               private _loadingMaskService: LoadingMaskService,
-              private _renderer: Renderer2
+              private _renderer: Renderer2,
+              private _excelPageService: ExcelPageService
   ) {
     this.isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
     configService.updatedConfig.subscribe((editorConfig) => {
@@ -176,6 +180,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
       this.isLoading = true;
       this.selectFile(this.editorConfig.defaultDocument, "", "");
     }
+
+    this.selectedPageNumber = 1;
   }
 
   ngAfterViewInit() {
@@ -263,6 +269,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
     this.credentials = new FileCredentials($event, password);
     this._editorService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.loadFile(file);
+        this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
         const isIE = /*@cc_on!@*/false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
         if(isIE) {
           const observer = new MutationObserver(function (mutations) {
@@ -286,7 +293,10 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
   private loadFile(file: FileDescription) {
     this.file = file;
     if (this.file && this.file.pages[0]) {
-      this.file.pages[0].editable = true;
+      // this.file.pages[0].editable = true;
+      this.file.pages.forEach((page) => {
+        page.editable = true;
+      });
       this.file.pages[0].width = 595;
       this.file.pages[0].height = 842;
       this.textBackup = this.file.pages[0].data;
@@ -562,7 +572,10 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
 
     this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
 
-    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
+    const updatedTextBackup = credentials.guid.includes('xls') ? 
+                              this._excelPageService.getPageWithoutHeader(this.textBackup) :
+                              this.getPageWithRootTags(this.textBackup, credentials.guid);
+    const saveFile = new SaveFile(credentials.guid, credentials.password, updatedTextBackup, this.selectedPageNumber - 1);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);
@@ -578,7 +591,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
 
     this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
 
-    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
+    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup, 0);
     this._editorService.create(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);
@@ -647,5 +660,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
       }
       this._selectionService.restoreSelection();
     }
+  }
+
+  selectCurrentSheet($event) {
+    this.selectedPageNumber = $event;
   }
 }

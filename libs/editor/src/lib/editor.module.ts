@@ -29,14 +29,16 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations :[EditorAppComponent,CreateDocumentModalComponent],
+  declarations: [EditorAppComponent,
+    CreateDocumentModalComponent
+  ],
   imports: [
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
     FontAwesomeModule
   ],
-  exports : [
+  exports: [
     CreateDocumentModalComponent,
     EditorAppComponent,
     CommonComponentsModule

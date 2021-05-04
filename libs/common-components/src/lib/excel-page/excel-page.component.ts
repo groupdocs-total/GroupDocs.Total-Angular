@@ -41,5 +41,7 @@ export class ExcelPageComponent implements OnInit, OnChanges {
     } else {
       this.imgData = 'data:image/png;base64,' + this.data;
     }
+
+    this.data = this.data !== null && changes.data ? this._excelPageService.getUpdatedPage(this.data) : this.data;
   }
 }
