@@ -24,8 +24,8 @@ matrix:
     - git fetch origin master
     - npm install -g @angular/cli
     - npm install
-    - npm run e2e --headless
     - npm run build:packages
+    - npm run e2e --headless
     - npm run lint
   - stage: Release fix
     dist: trusty
