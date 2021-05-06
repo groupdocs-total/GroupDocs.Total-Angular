@@ -7,4 +7,5 @@
       <gd-document-page [page]="page"></gd-document-page>
     </div>
   </div>
+  <gd-prepare-document *ngIf="documentViewService.isPreparing === true"></gd-prepare-document>
 </div>

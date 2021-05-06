@@ -4,16 +4,18 @@ import { LoadingMaskService } from '@groupdocs.examples.angular/common-component
 import { CurrentDocumentService } from './current-document.service';
 import { FoundTermNavigationService } from './found-term-navigation.service';
 import { SearchConfigService } from './search-config.service';
-import { GetDocumentPageRequest, GetDocumentPageResponse, SearchApi, SearchResultItemModel } from './search-models';
+import { GetDocumentPageRequest, GetDocumentPageResponse, PrepareDocumentRequest, PrepareDocumentResponse, SearchApi, SearchResultItemModel } from './search-models';
 import { SearchService } from './search.service';
 
 @Injectable()
 export class DocumentViewService {
+  isPreparing = false;
   visible = false;
   documentName = "";
   pages: SafeHtml[] = [];
   private initialized = false;
   request: GetDocumentPageRequest;
+  prepareRequest: PrepareDocumentRequest;
 
   constructor(private _searchService : SearchService,
               private _currentDocumentService: CurrentDocumentService,
@@ -21,6 +23,7 @@ export class DocumentViewService {
               private _foundTermNavigationService: FoundTermNavigationService,
               private _loadingMaskService: LoadingMaskService,
               private _sanitizer: DomSanitizer) {
+    _loadingMaskService['stopList'].push(SearchApi.PREPARE_DOCUMENT);
     _loadingMaskService['stopList'].push(SearchApi.GET_DOCUMENT_PAGE);
   }
 
@@ -30,20 +33,42 @@ export class DocumentViewService {
       this._foundTermNavigationService.enable();
     }
     this.pages.length = 0;
-    this.loadPage(item, 1);
+    this.prepare(item);
     this._currentDocumentService.setDocument(item);
     this._currentDocumentService.setVisible();
     this.visible = true;
+    this.isPreparing = true;
   }
 
   close() {
     this.request = null;
     this._foundTermNavigationService.disable();
     this.visible = false;
+    this.isPreparing = false;
     this._currentDocumentService.close();
     this.pages.length = 0;
     this.documentName = "";
     this.initialized = false;
+  }
+
+  private prepare(item: SearchResultItemModel) {
+    this.prepareRequest = new PrepareDocumentRequest();
+    this.prepareRequest.FolderName = this._searchConfigService.folderName;
+    this.prepareRequest.fileName = item.guid;
+
+    this._searchService.prepareDocument(this.prepareRequest).subscribe((response: PrepareDocumentResponse) => {
+      if (response.fileName == this.prepareRequest.fileName) {
+        if (response.isPrepared) {
+          this.isPreparing = false;
+          this.loadPage(item, 1);
+        }
+        else {
+          setTimeout(() => {
+            this.prepare(item);
+          }, 1000);
+        }
+      }
+    });
   }
 
   private loadPage(item: SearchResultItemModel, pageNumber : number) {

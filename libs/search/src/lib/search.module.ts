@@ -50,6 +50,7 @@ import { DocumentViewComponent } from './document-view/document-view.component';
 import { DocumentPageComponent } from './document-page/document-page.component';
 import { DocumentViewService } from './document-view.service';
 import { CurrentDocumentService } from './current-document.service';
+import { PrepareDocumentComponent } from './prepare-document/prepare-document.component';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -87,7 +88,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     HighlightDocumentComponent,
     FoundTermNavigationDirective,
     DocumentViewComponent,
-    DocumentPageComponent
+    DocumentPageComponent,
+    PrepareDocumentComponent
   ],
   imports: [
     BrowserModule,

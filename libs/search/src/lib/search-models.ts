@@ -141,21 +141,30 @@ export class SearchBaseRequest {
   FolderName: string;
 }
 
+export class PrepareDocumentRequest extends SearchBaseRequest {
+  fileName: string;
+  password: string;
+}
+
+export class PrepareDocumentResponse {
+  fileName: string;
+  isPrepared: boolean;
+}
+
 export class GetDocumentPageRequest extends SearchBaseRequest {
-  fileName : string;
-  password : string;
-  pageNumber : number;
-  terms : string[];
-  termSequences : string[][];
-  caseSensitive : Boolean;
+  fileName: string;
+  pageNumber: number;
+  terms: string[];
+  termSequences: string[][];
+  caseSensitive: Boolean;
 }
 
 export class GetDocumentPageResponse {
-  fileName : string;
-  pageNumber : number;
-  pageCount : number;
-  data : string;
-  sheetName : string;
+  fileName: string;
+  pageNumber: number;
+  pageCount: number;
+  data: string;
+  sheetName: string;
 }
 
 export class HighlightRequest extends SearchBaseRequest {
@@ -182,6 +191,7 @@ export class LicenseRestrictionResponse {
 
 export class SearchApi {
   public static GET_REPORT = '/getReport';
+  public static PREPARE_DOCUMENT = '/prepareDocument';
   public static GET_DOCUMENT_PAGE = '/getDocumentPage';
   public static HIGHLIGHT = '/highlight';
   public static DOWNLOAD_SOURCE_FILE = '/downloadSourceFile';
