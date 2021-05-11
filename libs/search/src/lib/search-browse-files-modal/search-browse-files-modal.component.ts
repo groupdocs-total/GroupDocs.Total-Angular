@@ -3,6 +3,7 @@ import { BrowseFilesModalComponent, UploadFilesService, ModalService, CommonModa
 import { SearchService } from '../search.service';
 import { AddToIndexRequest, ExtendedFileModel, FilesDeleteRequest, LicenseRestrictionResponse } from "../search-models";
 import { MessageModalService } from '../message-modal.service';
+import { IndexingOptionsService } from '../indexing-options.service';
 
 export interface Option {
   name: string;
@@ -24,11 +25,17 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
   @Output() fileDropped = new EventEmitter<boolean>();
   @Output() filesDeleted = new EventEmitter<boolean>();
 
-  constructor(_uploadService: UploadFilesService,
+  constructor(
+    _uploadService: UploadFilesService,
     private _messageModalService: MessageModalService,
     private _searchService: SearchService,
-    private _modalService: ModalService) {
+    private _modalService: ModalService,
+    public indexingOptionsService: IndexingOptionsService) {
     super(_uploadService);
+  }
+
+  setIndexAfterUpload(value: boolean) {
+    this.indexingOptionsService.indexAfterUpload = value;
   }
 
   selectAllItems(checked: boolean) {

@@ -46,6 +46,15 @@
             </gd-drop-down-item>
           </gd-drop-down-items>
         </gd-drop-down>
+        <div class="index-after-upload">
+          <input
+            id="index-after-upload-checkbox"
+            type="checkbox"
+            class="gd-checkbox"
+            [checked]="indexingOptionsService.indexAfterUpload"
+            (change)="setIndexAfterUpload($event.target.checked);">
+            <label for="index-after-upload-checkbox"> Index after upload</label>
+        </div>
       </div>
       <div class="context-panel" *ngIf="showUploadUrl">
         <div class="upload-url">

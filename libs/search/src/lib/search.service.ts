@@ -39,10 +39,11 @@ export class SearchService {
     return this._http.post(this._config.apiEndpoint + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
   }
 
-  upload(file: File, url: string, folderName: string) {
+  upload(file: File, url: string, folderName: string, indexAfterUpload: boolean) {
     const formData = new FormData();
     formData.append("file", file);
     formData.append('folderName', folderName);
+    formData.append('indexAfterUpload', indexAfterUpload ? 'true' : 'false');
     if (url) {
       formData.append("url", url);
     }

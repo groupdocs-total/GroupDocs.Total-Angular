@@ -51,6 +51,7 @@ import { DocumentPageComponent } from './document-page/document-page.component';
 import { DocumentViewService } from './document-view.service';
 import { CurrentDocumentService } from './current-document.service';
 import { PrepareDocumentComponent } from './prepare-document/prepare-document.component';
+import { IndexingOptionsService } from './indexing-options.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -126,6 +127,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     FoundTermNavigationService,
     DocumentViewService,
     CurrentDocumentService,
+    IndexingOptionsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

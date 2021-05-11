@@ -30,6 +30,7 @@ import { HighlightDocumentService } from './highlight-document.service';
 import { FoundTermNavigationService } from './found-term-navigation.service';
 import { DocumentViewService } from './document-view.service';
 import { CurrentDocumentService } from './current-document.service';
+import { IndexingOptionsService } from './indexing-options.service';
 
 @Component({
   selector: 'gd-search-app',
@@ -61,6 +62,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
               private _commandsService: CommandsService,
               private _windowService: WindowService,
               private _loadingMaskService: LoadingMaskService,
+              private _indexingOptionsService: IndexingOptionsService,
               public highlightDocumentService: HighlightDocumentService,
               public documentViewService: DocumentViewService,
               public currentDocumentService: CurrentDocumentService,
@@ -117,7 +119,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   private uploadFile(uploads: FileList, index: number) {
-    this._searchService.upload(uploads.item(index), '', this.configService.folderName).subscribe((result: FileUploadResult) => {
+    this._searchService.upload(uploads.item(index), '', this.configService.folderName, this._indexingOptionsService.indexAfterUpload).subscribe((result: FileUploadResult) => {
       if (!this.fileWasDropped) {
         this.selectDir('');
       }
@@ -320,7 +322,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   upload($event: string) {
-    this._searchService.upload(null, $event, this.configService.folderName).subscribe((result: FileUploadResult) => {
+    this._searchService.upload(null, $event, this.configService.folderName, this._indexingOptionsService.indexAfterUpload).subscribe((result: FileUploadResult) => {
       this.selectDir('');
       if (result.isRestricted) {
         this._messageModalService.setDemoRestrictionsMessage(result.message);
