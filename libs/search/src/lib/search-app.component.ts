@@ -73,6 +73,10 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     if (this.returnUrl == null) {
       this.returnUrl = "/search/total";
     }
+    const questionMarkIndex = this.returnUrl.indexOf("?");
+    if (questionMarkIndex >= 0) {
+      this.returnUrl = this.returnUrl.substring(0, questionMarkIndex);
+    }
 
     configService.updatedConfig.subscribe((searchConfig) => {
       this.searchConfig = searchConfig;
