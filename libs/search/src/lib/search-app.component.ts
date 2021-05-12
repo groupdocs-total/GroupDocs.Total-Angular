@@ -51,6 +51,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   skipPasswordProtected: boolean;
   searchResult: SearchResult;
   fileWasDropped = false;
+  returnUrl: string;
 
   constructor(private _searchService: SearchService,
               private _modalService: ModalService,
@@ -67,6 +68,11 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
               public documentViewService: DocumentViewService,
               public currentDocumentService: CurrentDocumentService,
               public termNavigation: FoundTermNavigationService) {
+
+    this.returnUrl = localStorage.getItem('searchReturnUrl');
+    if (this.returnUrl == null) {
+      this.returnUrl = "/search/total";
+    }
 
     configService.updatedConfig.subscribe((searchConfig) => {
       this.searchConfig = searchConfig;

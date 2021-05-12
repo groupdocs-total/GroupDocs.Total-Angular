@@ -1,7 +1,9 @@
 <gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
 <div class="wrapper">
   <div class="top-panel">
-    <gd-logo [logo]="'search'" icon="search"></gd-logo>
+    <a class="return-link" [href]="returnUrl">
+      <gd-logo [logo]="'search'" icon="search"></gd-logo>
+    </a>
     <gd-top-toolbar class="toolbar-panel">
       <gd-button [icon]="'arrow-left'"
         [tooltip]="'Go back'"
