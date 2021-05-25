@@ -310,10 +310,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data) {
           if (page.data) {
             page.data = page.data.replace(/>\s+</g, '><')
-              .replace(/\uFEFF/g, "")
-              .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-              .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-              .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+              .replace(/\uFEFF/g, "");
           }
           this.file.thumbnails[i - 1].data = page.data;
         }
@@ -459,10 +456,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.saveRotateStateConfig && this.file) {
       this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((page: PageModel) => {
         const updatedData = page.data.replace(/>\s+</g,'><')
-          .replace(/\uFEFF/g,"")
-          .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-          .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-          .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+          .replace(/\uFEFF/g,"");
         page.data = updatedData;
         this.file.pages[pageNumber - 1] = page;
 
