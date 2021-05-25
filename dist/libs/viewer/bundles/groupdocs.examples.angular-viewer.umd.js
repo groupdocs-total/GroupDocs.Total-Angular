@@ -1093,10 +1093,7 @@
                     if (_this.ifPresentation() && _this.file.thumbnails && !_this.file.thumbnails[i - 1].data) {
                         if (page.data) {
                             page.data = page.data.replace(/>\s+</g, '><')
-                                .replace(/\uFEFF/g, "")
-                                .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                                .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                                .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                                .replace(/\uFEFF/g, "");
                         }
                         _this.file.thumbnails[i - 1].data = page.data;
                     }
@@ -1361,10 +1358,7 @@
                 function (page) {
                     /** @type {?} */
                     var updatedData = page.data.replace(/>\s+</g, '><')
-                        .replace(/\uFEFF/g, "")
-                        .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                        .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                        .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                        .replace(/\uFEFF/g, "");
                     page.data = updatedData;
                     _this.file.pages[pageNumber - 1] = page;
                     if (_this.file && _this.file.pages && pageModel) {
@@ -2022,10 +2016,7 @@
                 function (page) {
                     if (page.data) {
                         page.data = page.data.replace(/>\s+</g, '><')
-                            .replace(/\uFEFF/g, "")
-                            .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                            .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                            .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                            .replace(/\uFEFF/g, "");
                     }
                 }));
             }
@@ -2319,9 +2310,6 @@
                 this.data = this.data
                     ? this.data.replace(/>\s+</g, '><')
                         .replace(/\uFEFF/g, "")
-                        .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                        .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                        .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
                     : null;
             }
             else {
@@ -2811,15 +2799,6 @@
         function () { return viewerConfigService.load(); });
         return result;
     }
-    /**
-     * @return {?}
-     */
-    function endPoint() {
-        /** @type {?} */
-        var config = new commonComponents.ConfigService();
-        config.apiEndpoint = "http://localhost:8080";
-        return config;
-    }
     // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
     // @dynamic
     /**
@@ -2871,10 +2850,7 @@
                         ],
                         providers: [
                             ViewerService,
-                            {
-                                provide: commonComponents.ConfigService,
-                                useFactory: endPoint
-                            },
+                            commonComponents.ConfigService,
                             ViewerConfigService,
                             {
                                 provide: http.HTTP_INTERCEPTORS,
@@ -2903,7 +2879,6 @@
     exports.ViewerConfigService = ViewerConfigService;
     exports.ViewerModule = ViewerModule;
     exports.ViewerService = ViewerService;
-    exports.endPoint = endPoint;
     exports.initializeApp = initializeApp;
     exports.setupLoadingInterceptor = setupLoadingInterceptor;
     exports.ɵa = ThumbnailsComponent;

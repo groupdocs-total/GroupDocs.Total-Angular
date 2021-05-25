@@ -900,10 +900,7 @@ var ViewerAppComponent = /** @class */ (function () {
                 if (_this.ifPresentation() && _this.file.thumbnails && !_this.file.thumbnails[i - 1].data) {
                     if (page.data) {
                         page.data = page.data.replace(/>\s+</g, '><')
-                            .replace(/\uFEFF/g, "")
-                            .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                            .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                            .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                            .replace(/\uFEFF/g, "");
                     }
                     _this.file.thumbnails[i - 1].data = page.data;
                 }
@@ -1168,10 +1165,7 @@ var ViewerAppComponent = /** @class */ (function () {
             function (page) {
                 /** @type {?} */
                 var updatedData = page.data.replace(/>\s+</g, '><')
-                    .replace(/\uFEFF/g, "")
-                    .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                    .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                    .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                    .replace(/\uFEFF/g, "");
                 page.data = updatedData;
                 _this.file.pages[pageNumber - 1] = page;
                 if (_this.file && _this.file.pages && pageModel) {
@@ -1829,10 +1823,7 @@ var ThumbnailsComponent = /** @class */ (function () {
             function (page) {
                 if (page.data) {
                     page.data = page.data.replace(/>\s+</g, '><')
-                        .replace(/\uFEFF/g, "")
-                        .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                        .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                        .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                        .replace(/\uFEFF/g, "");
                 }
             }));
         }
@@ -2126,9 +2117,6 @@ var ExcelPageComponent = /** @class */ (function () {
             this.data = this.data
                 ? this.data.replace(/>\s+</g, '><')
                     .replace(/\uFEFF/g, "")
-                    .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                    .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                    .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
                 : null;
         }
         else {
@@ -2618,15 +2606,6 @@ function initializeApp(viewerConfigService) {
     function () { return viewerConfigService.load(); });
     return result;
 }
-/**
- * @return {?}
- */
-function endPoint() {
-    /** @type {?} */
-    var config = new ConfigService();
-    config.apiEndpoint = "http://localhost:8080";
-    return config;
-}
 // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
 // @dynamic
 /**
@@ -2678,10 +2657,7 @@ var ViewerModule = /** @class */ (function () {
                     ],
                     providers: [
                         ViewerService,
-                        {
-                            provide: ConfigService,
-                            useFactory: endPoint
-                        },
+                        ConfigService,
                         ViewerConfigService,
                         {
                             provide: HTTP_INTERCEPTORS,
@@ -2716,5 +2692,5 @@ var ViewerModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, endPoint, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map

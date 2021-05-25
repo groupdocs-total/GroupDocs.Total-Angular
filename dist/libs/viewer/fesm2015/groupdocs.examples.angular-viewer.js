@@ -744,10 +744,7 @@ class ViewerAppComponent {
                 if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data) {
                     if (page.data) {
                         page.data = page.data.replace(/>\s+</g, '><')
-                            .replace(/\uFEFF/g, "")
-                            .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                            .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                            .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                            .replace(/\uFEFF/g, "");
                     }
                     this.file.thumbnails[i - 1].data = page.data;
                 }
@@ -951,10 +948,7 @@ class ViewerAppComponent {
             (page) => {
                 /** @type {?} */
                 const updatedData = page.data.replace(/>\s+</g, '><')
-                    .replace(/\uFEFF/g, "")
-                    .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                    .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                    .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                    .replace(/\uFEFF/g, "");
                 page.data = updatedData;
                 this.file.pages[pageNumber - 1] = page;
                 if (this.file && this.file.pages && pageModel) {
@@ -1496,10 +1490,7 @@ class ThumbnailsComponent {
             page => {
                 if (page.data) {
                     page.data = page.data.replace(/>\s+</g, '><')
-                        .replace(/\uFEFF/g, "")
-                        .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                        .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                        .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                        .replace(/\uFEFF/g, "");
                 }
             }));
         }
@@ -1747,9 +1738,6 @@ class ExcelPageComponent {
             this.data = this.data
                 ? this.data.replace(/>\s+</g, '><')
                     .replace(/\uFEFF/g, "")
-                    .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                    .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                    .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
                 : null;
         }
         else {
@@ -2179,15 +2167,6 @@ function initializeApp(viewerConfigService) {
     () => viewerConfigService.load());
     return result;
 }
-/**
- * @return {?}
- */
-function endPoint() {
-    /** @type {?} */
-    const config = new ConfigService();
-    config.apiEndpoint = "http://localhost:8080";
-    return config;
-}
 // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
 // @dynamic
 /**
@@ -2234,10 +2213,7 @@ ViewerModule.decorators = [
                 ],
                 providers: [
                     ViewerService,
-                    {
-                        provide: ConfigService,
-                        useFactory: endPoint
-                    },
+                    ConfigService,
                     ViewerConfigService,
                     {
                         provide: HTTP_INTERCEPTORS,
@@ -2270,5 +2246,5 @@ ViewerModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, endPoint, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map
