@@ -34,9 +34,6 @@ export class ExcelPageComponent implements OnInit, OnChanges {
       this.data = this.data 
         ? this.data.replace(/>\s+</g,'><')
         .replace(/\uFEFF/g,"")
-        .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-        .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-        .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
       : null;
     } else {
       this.imgData = 'data:image/png;base64,' + this.data;
