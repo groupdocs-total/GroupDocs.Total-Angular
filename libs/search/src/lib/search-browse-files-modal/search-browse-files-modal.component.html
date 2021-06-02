@@ -55,6 +55,15 @@
             (change)="setIndexAfterUpload($event.target.checked);">
             <label for="index-after-upload-checkbox"> Index after upload</label>
         </div>
+        <div class="recognize-text-in-images">
+          <input
+            id="recognize-text-in-images-checkbox"
+            type="checkbox"
+            class="gd-checkbox"
+            [checked]="indexingOptionsService.recognizeTextInImages"
+            (change)="setRecognizeTextInImages($event.target.checked);">
+            <label for="recognize-text-in-images-checkbox"> Recognize text in images</label>
+        </div>
       </div>
       <div class="context-panel" *ngIf="showUploadUrl">
         <div class="upload-url">

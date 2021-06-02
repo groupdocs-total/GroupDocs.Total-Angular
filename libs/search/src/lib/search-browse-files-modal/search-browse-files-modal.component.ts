@@ -38,6 +38,10 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
     this.indexingOptionsService.indexAfterUpload = value;
   }
 
+  setRecognizeTextInImages(value: boolean) {
+    this.indexingOptionsService.recognizeTextInImages = value;
+  }
+
   selectAllItems(checked: boolean) {
     this.selectAll.emit(checked);
   }
@@ -105,6 +109,7 @@ export class SearchBrowseFilesModalComponent extends BrowseFilesModalComponent i
     const request = new AddToIndexRequest();
     request.FolderName = this.folderName;
     request.Files = itemsToIndex;
+    request.RecognizeTextInImages = this.indexingOptionsService.recognizeTextInImages;
     this._searchService.addFilesToIndex(request).subscribe((response: LicenseRestrictionResponse) => {
       this.filesAddedToIndex.emit(true);
       if (response.isRestricted) {

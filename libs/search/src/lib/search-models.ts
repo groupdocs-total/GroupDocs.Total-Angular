@@ -173,6 +173,7 @@ export class HighlightRequest extends SearchBaseRequest {
 
 export class AddToIndexRequest extends SearchBaseRequest {
   Files: FileModel[];
+  RecognizeTextInImages: boolean;
 }
 
 export class FilesDeleteRequest extends SearchBaseRequest {

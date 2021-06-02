@@ -96,6 +96,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
       const request = new AddToIndexRequest();
       request.FolderName = this.configService.folderName;
       request.Files = [passwordRequiredFile];
+      request.RecognizeTextInImages = _indexingOptionsService.recognizeTextInImages;
       this._searchService.addFilesToIndex(request).subscribe((response: LicenseRestrictionResponse) => {
         this.loadIndexedFiles(true);
         if (response.isRestricted) {
@@ -129,7 +130,12 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   private uploadFile(uploads: FileList, index: number) {
-    this._searchService.upload(uploads.item(index), '', this.configService.folderName, this._indexingOptionsService.indexAfterUpload).subscribe((result: FileUploadResult) => {
+    this._searchService.upload(
+        uploads.item(index),
+        '',
+        this.configService.folderName,
+        this._indexingOptionsService.indexAfterUpload,
+        this._indexingOptionsService.recognizeTextInImages).subscribe((result: FileUploadResult) => {
       if (!this.fileWasDropped) {
         this.selectDir('');
       }
@@ -158,6 +164,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
         const request = new AddToIndexRequest();
         request.FolderName = this.configService.folderName;
         request.Files = [file];
+        request.RecognizeTextInImages = this._indexingOptionsService.recognizeTextInImages;
         this._searchService.downloadAndAddToIndex(request).subscribe((response: LicenseRestrictionResponse) => {
           this.loadIndexedFiles(true);
           if (response.isRestricted) {
@@ -332,7 +339,12 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   upload($event: string) {
-    this._searchService.upload(null, $event, this.configService.folderName, this._indexingOptionsService.indexAfterUpload).subscribe((result: FileUploadResult) => {
+    this._searchService.upload(
+        null,
+        $event,
+        this.configService.folderName,
+        this._indexingOptionsService.indexAfterUpload,
+        this._indexingOptionsService.recognizeTextInImages).subscribe((result: FileUploadResult) => {
       this.selectDir('');
       if (result.isRestricted) {
         this._messageModalService.setDemoRestrictionsMessage(result.message);
