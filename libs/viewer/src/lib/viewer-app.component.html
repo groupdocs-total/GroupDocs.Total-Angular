@@ -64,7 +64,7 @@
     <gd-thumbnails *ngIf="showThumbnails && !ifPresentation() && isDesktop" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
                    [guid]="file.guid" [mode]="htmlModeConfig" (selectedPage)="selectCurrentPage($event)"></gd-thumbnails>
     <gd-thumbnails *ngIf="showThumbnails && ifPresentation() && !runPresentation && isDesktop" [pages]="viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails" [isHtmlMode]="htmlModeConfig"
-                   [guid]="file.guid" [mode]="htmlModeConfig" (selectedPage)="selectCurrentPage($event)" gdScrollable></gd-thumbnails>
+                   [guid]="file.guid" [mode]="htmlModeConfig" (selectedPage)="selectCurrentPage($event)" gdScrollable [isPresentation]="ifPresentation()"></gd-thumbnails>
 
     <gd-document class="gd-document" *ngIf="(file &&
                                             (ifExcel() && !htmlModeConfig) ||
