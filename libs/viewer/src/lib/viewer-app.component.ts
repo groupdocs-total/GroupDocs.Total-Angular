@@ -53,6 +53,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   formatIcon: string;
 
   fileParam: string;
+  urlParam: string;
   querySubscription: Subscription;
   selectedPageNumber: number;
   runPresentation: boolean;
@@ -139,14 +140,29 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (this.viewerConfig.defaultDocument !== ""){
       this.isLoading = true;
       this.selectFile(this.viewerConfig.defaultDocument, "", "");
+      this.selectCurrentOrFirstPage();
+      return;
     }
 
     const queryString = window.location.search;
     if (queryString) {
-      this.TryOpenFileByUrl(queryString);
-    }
+      const urlParams = new URLSearchParams(queryString);
 
-    this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
+      this.fileParam = urlParams.get('file');
+      if(this.fileParam) {
+        this.isLoading = true;
+        this.selectFile(this.fileParam, '', '');
+        this.selectCurrentOrFirstPage();
+        return;
+      }
+
+      this.urlParam = urlParams.get('url');
+      if(this.urlParam) {
+        this.isLoading = true;
+        this.upload(this.urlParam);
+        this.selectCurrentOrFirstPage();
+      }
+    }
   }
 
   ngAfterViewInit() {
@@ -224,17 +240,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   ifImage() {
     return this.file ? this.formatIcon === "file-image" : false;
   }
-
-  validURL(str) {
-    const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    return !!pattern.test(str);
-  }
-
+  
   getFileName() {
     return this.file.guid.replace(/^.*[\\\/]/, '');
   }
@@ -249,6 +255,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   selectDir($event: string) {
     this._viewerService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
+  }
+
+  selectCurrentOrFirstPage() {
+    this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
   }
 
   selectFile($event: string, password: string, modalId: string) {
@@ -597,21 +607,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       return gdDocument.scrollTop === 0;
     }
     else return gdDocument.offsetHeight + gdDocument.scrollTop >= gdDocument.scrollHeight;
-  }
-
-  private TryOpenFileByUrl(queryString: string) {
-    const urlParams = new URLSearchParams(queryString);
-    this.fileParam = urlParams.get('file');
-
-    if (this.fileParam) {
-      this.isLoading = true;
-      if (this.validURL(this.fileParam)) {
-        this.upload(this.fileParam);
-      }
-      else {
-        this.selectFile(this.fileParam, '', '');
-      }
-    }
   }
 
   toggleTimer($event){
