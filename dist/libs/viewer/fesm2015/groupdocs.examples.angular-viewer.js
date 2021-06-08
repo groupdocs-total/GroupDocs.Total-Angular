@@ -496,13 +496,28 @@ class ViewerAppComponent {
         if (this.viewerConfig.defaultDocument !== "") {
             this.isLoading = true;
             this.selectFile(this.viewerConfig.defaultDocument, "", "");
+            this.selectCurrentOrFirstPage();
+            return;
         }
         /** @type {?} */
         const queryString = window.location.search;
         if (queryString) {
-            this.TryOpenFileByUrl(queryString);
+            /** @type {?} */
+            const urlParams = new URLSearchParams(queryString);
+            this.fileParam = urlParams.get('file');
+            if (this.fileParam) {
+                this.isLoading = true;
+                this.selectFile(this.fileParam, '', '');
+                this.selectCurrentOrFirstPage();
+                return;
+            }
+            this.urlParam = urlParams.get('url');
+            if (this.urlParam) {
+                this.isLoading = true;
+                this.upload(this.urlParam);
+                this.selectCurrentOrFirstPage();
+            }
         }
-        this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
     }
     /**
      * @return {?}
@@ -620,20 +635,6 @@ class ViewerAppComponent {
         return this.file ? this.formatIcon === "file-image" : false;
     }
     /**
-     * @param {?} str
-     * @return {?}
-     */
-    validURL(str) {
-        /** @type {?} */
-        const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-            '(\\#[-a-z\\d_]*)?$', 'i');
-        return !!pattern.test(str);
-    }
-    /**
      * @return {?}
      */
     getFileName() {
@@ -663,6 +664,12 @@ class ViewerAppComponent {
          * @return {?}
          */
         (files) => this.files = files || []));
+    }
+    /**
+     * @return {?}
+     */
+    selectCurrentOrFirstPage() {
+        this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
     }
     /**
      * @param {?} $event
@@ -1134,25 +1141,6 @@ class ViewerAppComponent {
             return gdDocument.offsetHeight + gdDocument.scrollTop >= gdDocument.scrollHeight;
     }
     /**
-     * @private
-     * @param {?} queryString
-     * @return {?}
-     */
-    TryOpenFileByUrl(queryString) {
-        /** @type {?} */
-        const urlParams = new URLSearchParams(queryString);
-        this.fileParam = urlParams.get('file');
-        if (this.fileParam) {
-            this.isLoading = true;
-            if (this.validURL(this.fileParam)) {
-                this.upload(this.fileParam);
-            }
-            else {
-                this.selectFile(this.fileParam, '', '');
-            }
-        }
-    }
-    /**
      * @param {?} $event
      * @return {?}
      */
@@ -1407,6 +1395,8 @@ if (false) {
     ViewerAppComponent.prototype.formatIcon;
     /** @type {?} */
     ViewerAppComponent.prototype.fileParam;
+    /** @type {?} */
+    ViewerAppComponent.prototype.urlParam;
     /** @type {?} */
     ViewerAppComponent.prototype.querySubscription;
     /** @type {?} */
