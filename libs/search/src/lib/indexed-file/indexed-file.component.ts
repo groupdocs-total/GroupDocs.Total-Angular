@@ -60,6 +60,8 @@ export class IndexedFileComponent implements OnInit {
         return "pause";
       case FileIndexingStatus.Removing:
         return "trash";
+      case FileIndexingStatus.Merging:
+        return "circle-notch";
       case FileIndexingStatus.Indexed:
         return "check";
       case FileIndexingStatus.NotIndexed:
@@ -84,6 +86,8 @@ export class IndexedFileComponent implements OnInit {
         return "Pending";
       case FileIndexingStatus.Removing:
         return "Removing";
+      case FileIndexingStatus.Merging:
+        return "Merging";
       case FileIndexingStatus.Indexed:
         return "Indexed";
       case FileIndexingStatus.NotIndexed:

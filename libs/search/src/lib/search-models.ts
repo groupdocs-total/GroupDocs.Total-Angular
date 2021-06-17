@@ -226,6 +226,7 @@ export enum FileIndexingStatus {
   PasswordRequired = "PasswordRequired",
   Pending = "Pending",
   Removing = "Removing",
+  Merging = "Merging",
   Indexed = "Indexed",
   NotIndexed = "NotIndexed",
 }

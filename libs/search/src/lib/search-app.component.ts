@@ -307,6 +307,10 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
         const timerId = setInterval(() => 
         {
           const files = this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing ||
+            f.documentStatus === FileIndexingStatus.Pending ||
+            f.documentStatus === FileIndexingStatus.Merging ||
+            f.documentStatus === FileIndexingStatus.Removing ||
+            f.documentStatus === FileIndexingStatus.NotIndexed ||
             (!this.skipPasswordProtected && f.documentStatus === FileIndexingStatus.PasswordRequired));
           const request = new FileStatusGetRequest();
           request.FolderName = this.configService.folderName;
@@ -314,13 +318,14 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
           this._searchService.getDocumentStatus(request).toPromise().then((searchIndexFiles: IndexedFileModel[]) => 
           {
             searchIndexFiles.forEach((searchFile) => {
-              if (searchFile.documentStatus !== FileIndexingStatus.Indexing)
-              {
-                this.indexedFiles.filter(f => f.guid === searchFile.guid)[0].documentStatus = searchFile.documentStatus;
-              }
+              this.indexedFiles.filter(f => f.guid === searchFile.guid)[0].documentStatus = searchFile.documentStatus;
             });
 
-            if (this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing).length === 0)
+            if (this.indexedFiles.filter(f => f.documentStatus === FileIndexingStatus.Indexing ||
+              f.documentStatus === FileIndexingStatus.Pending ||
+              f.documentStatus === FileIndexingStatus.Merging ||
+              f.documentStatus === FileIndexingStatus.Removing ||
+              f.documentStatus === FileIndexingStatus.NotIndexed).length === 0)
             {
               clearInterval(timerId);
             }
