@@ -21,7 +21,7 @@ export class DocumentViewService {
               private _currentDocumentService: CurrentDocumentService,
               private _searchConfigService: SearchConfigService,
               private _foundTermNavigationService: FoundTermNavigationService,
-              private _loadingMaskService: LoadingMaskService,
+              _loadingMaskService: LoadingMaskService,
               private _sanitizer: DomSanitizer) {
     _loadingMaskService['stopList'].push(SearchApi.PREPARE_DOCUMENT);
     _loadingMaskService['stopList'].push(SearchApi.GET_DOCUMENT_PAGE);

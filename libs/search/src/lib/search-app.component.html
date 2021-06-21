@@ -113,6 +113,8 @@
 
   <gd-password-dictionary *ngIf="appState == 'PasswordDictionary'"></gd-password-dictionary>
 
+  <gd-status-bar></gd-status-bar>
+
   <gd-search-browse-files-modal (urlForUpload)="upload($event)"
     [files]="files"
     [folderName]="this.configService.folderName"

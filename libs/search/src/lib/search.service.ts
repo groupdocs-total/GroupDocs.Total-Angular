@@ -108,6 +108,10 @@ export class SearchService {
     this._itemToRemove.next(file);
   }
 
+  getStatus(request: SearchBaseRequest) {
+    return this._http.post(this._config.apiEndpoint + SearchApi.GET_STATUS, request, Api.httpOptionsJson);
+  }
+
   getDocumentStatus(request: FileStatusGetRequest) {
     return this._http.post(this._config.apiEndpoint + Api.GET_FILE_STATUS, request, Api.httpOptionsJson);
   }

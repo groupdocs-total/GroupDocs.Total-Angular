@@ -190,6 +190,12 @@ export class LicenseRestrictionResponse {
   message: string;
 }
 
+export class GetStatusResponse {
+  indexing: number;
+  pending: number;
+  indexed: number;
+}
+
 export class SearchApi {
   public static GET_REPORT = '/getReport';
   public static PREPARE_DOCUMENT = '/prepareDocument';
@@ -216,6 +222,7 @@ export class SearchApi {
   public static SET_CHARACTER_REPLACEMENT_DICTIONARY = '/setCharacterReplacementDictionary';
   public static GET_DOCUMENT_PASSWORD_DICTIONARY = '/getDocumentPasswordDictionary';
   public static SET_DOCUMENT_PASSWORD_DICTIONARY = '/setDocumentPasswordDictionary';
+  public static GET_STATUS = '/getStatus';
 }
 
 export enum FileIndexingStatus {
