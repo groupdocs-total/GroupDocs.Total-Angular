@@ -12,7 +12,7 @@ export class SearchResultSummaryComponent implements OnInit {
 
   constructor() {
   }
-  
+
   ngOnInit(): void {
   }
 
