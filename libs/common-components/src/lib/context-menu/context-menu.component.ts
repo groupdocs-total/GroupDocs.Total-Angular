@@ -38,10 +38,7 @@ export class ContextMenuComponent implements OnInit {
     });
 
     _zoomService.zoomChange.subscribe((val: number) => {
-      if (this.isMobile)
-      {
-        this.changeScale(val);
-      }
+      this.changeScale(val);
     });
   }
 
@@ -50,6 +47,9 @@ export class ContextMenuComponent implements OnInit {
 
   changeScale(val: number){
     this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1/(val/100) + ')');
+    if (!this.isMobile && val && val !== 100) {
+      this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'left', this.translation + 'px');
+    }
   }
 
   saveChanges() {

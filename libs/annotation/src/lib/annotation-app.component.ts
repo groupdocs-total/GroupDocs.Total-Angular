@@ -115,9 +115,9 @@ export class AnnotationAppComponent implements OnInit {
     this.isDesktop = _windowService.isDesktop();
     _windowService.onResize.subscribe((w) => {
       this.isDesktop = _windowService.isDesktop();
-      if (!this.isDesktop) {
+      //if (!this.isDesktop) {
         this.refreshZoom();
-      }
+      //}
     });
 
     this._activeAnnotationService.activeChange.subscribe((id: number) => {
