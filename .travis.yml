@@ -21,6 +21,7 @@ matrix:
         packages:
         - libgconf-2-4
     script:
+    - rm -rf node_modules
     - git fetch origin master
     - npm install -g @angular/cli
     - npm install
