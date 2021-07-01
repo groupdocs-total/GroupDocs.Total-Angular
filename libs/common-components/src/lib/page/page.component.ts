@@ -35,7 +35,9 @@ export class PageComponent implements OnInit, OnChanges {
         .replace(/\uFEFF/g,"")
       : null;
     } else {
-      this.imgData = 'data:image/png;base64,' + this.data;
+      this.imgData = this.data.startsWith('data:image') 
+        ? this.data 
+        : 'data:image/png;base64,' + this.data;
     }
   }
 }
