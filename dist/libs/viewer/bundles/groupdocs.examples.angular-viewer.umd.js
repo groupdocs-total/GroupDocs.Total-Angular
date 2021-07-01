@@ -2038,12 +2038,9 @@
          * @return {?}
          */
         function (data) {
-            /** @type {?} */
-            var dataImagePngBase64 = 'data:image/png;base64,';
-            if (!this.isHtmlMode) {
-                return dataImagePngBase64 + data;
-            }
-            return dataImagePngBase64;
+            return data.startsWith('data:image')
+                ? data
+                : 'data:image/png;base64,' + data;
         };
         /**
          * @param {?} x
@@ -2297,7 +2294,9 @@
                     : null;
             }
             else {
-                this.imgData = 'data:image/png;base64,' + this.data;
+                this.imgData = this.data.startsWith('data:image')
+                    ? this.data
+                    : 'data:image/png;base64,' + this.data;
             }
         };
         ExcelPageComponent.decorators = [
