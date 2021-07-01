@@ -21,8 +21,12 @@ export class RenderPrintDirective {
     let pagesHtml = '';
 
     for (const page of pages) {
+      let imageSrc = page.data.startsWith('data:image') 
+        ? page.data
+        : 'data:image/png;base64,' + page.data;
+      
       pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-        '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
+        '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="' + imageSrc + '" alt></image></div>' +
         '</div>';
     }
 
