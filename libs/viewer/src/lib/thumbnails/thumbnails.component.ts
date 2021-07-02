@@ -44,9 +44,12 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   }
 
   imgData(data: string) {
-    return data.startsWith('data:image') 
-      ? data 
-      : 'data:image/png;base64,' + data;
+    if(data) {
+      return data.startsWith('data:image') 
+        ? data 
+        : 'data:image/png;base64,' + data;
+    }
+    return null;
   }
 
   getScale(x: number, y: number) {
