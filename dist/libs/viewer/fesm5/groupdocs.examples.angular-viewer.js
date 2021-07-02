@@ -1845,9 +1845,12 @@ var ThumbnailsComponent = /** @class */ (function () {
      * @return {?}
      */
     function (data) {
-        return data.startsWith('data:image')
-            ? data
-            : 'data:image/png;base64,' + data;
+        if (data) {
+            return data.startsWith('data:image')
+                ? data
+                : 'data:image/png;base64,' + data;
+        }
+        return null;
     };
     /**
      * @param {?} x
@@ -2101,9 +2104,11 @@ var ExcelPageComponent = /** @class */ (function () {
                 : null;
         }
         else {
-            this.imgData = this.data.startsWith('data:image')
-                ? this.data
-                : 'data:image/png;base64,' + this.data;
+            if (this.data) {
+                this.imgData = this.data.startsWith('data:image')
+                    ? this.data
+                    : 'data:image/png;base64,' + this.data;
+            }
         }
     };
     ExcelPageComponent.decorators = [

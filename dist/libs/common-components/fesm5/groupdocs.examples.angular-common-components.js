@@ -2225,7 +2225,9 @@ var PageComponent = /** @class */ (function () {
                 : null;
         }
         else {
-            this.imgData = this.data.startsWith('data:image') ? this.data : 'data:image/png;base64,' + this.data;
+            if (this.data) {
+                this.imgData = this.data.startsWith('data:image') ? this.data : 'data:image/png;base64,' + this.data;
+            }
         }
     };
     PageComponent.decorators = [
