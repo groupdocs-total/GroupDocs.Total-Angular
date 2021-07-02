@@ -2225,7 +2225,7 @@ var PageComponent = /** @class */ (function () {
                 : null;
         }
         else {
-            this.imgData = 'data:image/png;base64,' + this.data;
+            this.imgData = this.data.startsWith('data:image') ? this.data : 'data:image/png;base64,' + this.data;
         }
     };
     PageComponent.decorators = [
@@ -3881,8 +3881,10 @@ var RenderPrintDirective = /** @class */ (function () {
         try {
             for (var pages_1 = __values(pages), pages_1_1 = pages_1.next(); !pages_1_1.done; pages_1_1 = pages_1.next()) {
                 var page = pages_1_1.value;
+                /** @type {?} */
+                var data = page.data.startsWith('data:image') ? page.data : 'data:image/png;base64,' + page.data;
                 pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-                    '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
+                    '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="' + data + '" alt></image></div>' +
                     '</div>';
             }
         }
