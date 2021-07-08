@@ -27,10 +27,7 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
       this.pages.forEach(page => {
         if (page.data) {
           page.data = page.data.replace(/>\s+</g,'><')
-                               .replace(/\uFEFF/g,"")
-                               .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                               .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                               .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer');
+                               .replace(/\uFEFF/g,"");
         }
       });
     }
@@ -47,11 +44,12 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   }
 
   imgData(data: string) {
-    const dataImagePngBase64 = 'data:image/png;base64,';
-    if (!this.isHtmlMode) {
-      return dataImagePngBase64 + data;
+    if(data) {
+      return data.startsWith('data:image') 
+        ? data 
+        : 'data:image/png;base64,' + data;
     }
-    return dataImagePngBase64;
+    return null;
   }
 
   getScale(x: number, y: number) {

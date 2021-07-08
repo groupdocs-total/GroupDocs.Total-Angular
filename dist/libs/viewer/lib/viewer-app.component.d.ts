@@ -37,6 +37,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     fileWasDropped: boolean;
     formatIcon: string;
     fileParam: string;
+    urlParam: string;
     querySubscription: Subscription;
     selectedPageNumber: number;
     runPresentation: boolean;
@@ -75,11 +76,11 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     ifPresentation(): boolean;
     ifExcel(): boolean;
     ifImage(): boolean;
-    validURL(str: any): boolean;
     getFileName(): string;
     openModal(id: string): void;
     closeModal(id: string): void;
     selectDir($event: string): void;
+    selectCurrentOrFirstPage(): void;
     selectFile($event: string, password: string, modalId: string): void;
     preloadPages(start: number, end: number): void;
     upload($event: string): void;
@@ -118,7 +119,6 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     onMouseWheelUp(): void;
     onMouseWheelDown(): void;
     vertScrollEnded(onTop: boolean): boolean;
-    private TryOpenFileByUrl;
     toggleTimer($event: any): void;
     showCountDown(): boolean;
     startCountDown(seconds: number, reset?: boolean): void;

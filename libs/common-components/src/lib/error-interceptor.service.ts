@@ -11,6 +11,8 @@ import {CommonModals, ModalService} from "./modal.service";
 })
 export class ErrorInterceptorService implements HttpInterceptor {
 
+  public static ErrorMessageWindowName:string = CommonModals.ErrorMessage;
+
   constructor(private _modalService: ModalService, private _messageService: ExceptionMessageService) {
   }
 
@@ -40,7 +42,8 @@ export class ErrorInterceptorService implements HttpInterceptor {
               case HttpError.InternalServerError:
                 console.error('%c big bad 500', logFormat);
                 this._messageService.changeMessage(exception.error.message);
-                this._modalService.open(CommonModals.ErrorMessage);
+                this._messageService.changeHttpEvent(exception);
+                this._modalService.open(ErrorInterceptorService.ErrorMessageWindowName);
                 break;
 
               case HttpError.Forbidden:

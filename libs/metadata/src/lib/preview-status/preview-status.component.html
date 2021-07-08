@@ -1,0 +1,14 @@
+<div *ngIf="status != previewStatus.Undefined && status != previewStatus.Loaded" class="wrapper">
+    <div *ngIf="status == previewStatus.InProgress" class="status-wrapper">
+      <fa-icon class="status-icon" [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
+      <span class="status-text">File preview is being created</span>
+    </div>
+    <div *ngIf="status == previewStatus.Timeout" class="status-wrapper">
+      <fa-icon class="status-icon" [icon]="['fas','stopwatch']"></fa-icon>
+      <span class="status-text">Preview generation process dropped due to timeout. We are sorry</span>
+    </div>
+    <div *ngIf="status == previewStatus.Unavailable" class="status-wrapper">
+      <fa-icon class="status-icon" [icon]="['fas','eye-slash']"></fa-icon>
+      <span class="status-text">Preview is unavailable for the uploaded file</span>
+    </div>
+  </div>

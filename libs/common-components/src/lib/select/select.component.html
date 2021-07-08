@@ -2,7 +2,7 @@
      (click)="toggle($event)"
      (touchstart)="toggle($event)"
      (clickOutside)="onClickOutside($event)"
-     [clickOutsideEnabled]="isOpen">
+     [attachOutsideOnClick]="true">
   <div *ngIf="!icon" class="selected-value" gdDisabledCursor [dis]="disabled">
     {{showSelected?.name}}
   </div>

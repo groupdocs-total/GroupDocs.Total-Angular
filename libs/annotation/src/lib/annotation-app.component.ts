@@ -90,6 +90,7 @@ export class AnnotationAppComponent implements OnInit {
   public annotations = new Map<number, ComponentRef<any>>();
   private creatingAnnotationId: number;
   private activeAnnotationId: number;
+  annotationsHidden: boolean;
 
   constructor(private _annotationService: AnnotationService,
               private _modalService: ModalService,
@@ -512,6 +513,12 @@ export class AnnotationAppComponent implements OnInit {
     this.comments = new Map<number, Comment[]>();
   }
 
+  hideAnnotations() {
+    for (const annotationCompRef of this.annotations.values()) {
+      this.annotationsHidden = (<AnnotationComponent>annotationCompRef.instance).hidden = !(<AnnotationComponent>annotationCompRef.instance).hidden;
+    }
+  }
+
   private clearData() {
     if (!this.file || !this.file.pages) {
       return;
@@ -582,6 +589,7 @@ export class AnnotationAppComponent implements OnInit {
       });
       (<AnnotationComponent>annotationComponent.instance).pageWidth = pageModel.width;
       (<AnnotationComponent>annotationComponent.instance).pageHeight = pageModel.height;
+      (<AnnotationComponent>annotationComponent.instance).hidden = this.annotationsHidden;
       this.annotations.set(id, annotationComponent);
       return id;
     }

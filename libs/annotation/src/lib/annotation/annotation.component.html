@@ -1,4 +1,4 @@
-<div class="gd-annotation"
+<div [hidden]="hidden" class="gd-annotation"
      (clickOutside)="hideMenu($event)"
      [exclude]="'gd-context-menu,.ui-resizable-handle,.gd-comments-panel'"
      [excludeBeforeClick]="true"
@@ -25,7 +25,7 @@
               [style.font-family]="formatting?.font"
               [style.font-size.px]="formatting?.fontSize"
               [style.width.px]="getWidth()"
-              [style.height.px]="getHeight()"></textarea>
+              [style.height.px]="getHeight()">{{textValue}}</textarea>
     <div *ngIf="isPoint()" class="gd-point">
       <fa-icon class="icon" [icon]="['fas','thumbtack']" [size]="'lg'"></fa-icon>
     </div>
@@ -37,7 +37,7 @@
                [se]="true" [sw]="true" [ne]="true" [nw]="true"
                [pageHeight]="pageHeight" [pageWidth]="pageWidth"></gd-resizing>
 </div>
-<svg *ngIf="isSVG()" class="svg" xmlns="http://www.w3.org/2000/svg">
+<svg *ngIf="isSVG() && !hidden" class="svg" xmlns="http://www.w3.org/2000/svg">
   <polyline *ngIf="isPolyline()" [attr.id]="id" [attr.points]="pointsValue" [ngStyle]="setStyles()">
   </polyline>
   <path id="{{'gd-path-' + id}}" *ngIf="isPath()" [attr.d]="pathValue" [attr.marker-end]="bottom()"

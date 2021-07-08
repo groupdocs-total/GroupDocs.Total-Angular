@@ -422,6 +422,7 @@ Api.REMOVE_PROPERTY = '/removeProperty';
 Api.ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
 Api.UPLOAD_DOCUMENTS = '/uploadDocument';
 Api.DOWNLOAD_DOCUMENTS = '/downloadDocument';
+Api.DOWNLOAD_ANNOTATED = '/downloadAnnotated';
 Api.LOAD_PRINT = '/loadPrint';
 Api.LOAD_PRINT_PDF = '/printPdf';
 Api.LOAD_THUMBNAILS = '/loadThumbnails';
@@ -497,6 +498,8 @@ if (false) {
     Api.UPLOAD_DOCUMENTS;
     /** @type {?} */
     Api.DOWNLOAD_DOCUMENTS;
+    /** @type {?} */
+    Api.DOWNLOAD_ANNOTATED;
     /** @type {?} */
     Api.LOAD_PRINT;
     /** @type {?} */
@@ -1892,13 +1895,12 @@ class PageComponent {
             this.data = this.data
                 ? this.data.replace(/>\s+</g, '><')
                     .replace(/\uFEFF/g, "")
-                    .replace(/href="\/viewer/g, 'href="http://localhost:8080/viewer')
-                    .replace(/src="\/viewer/g, 'src="http://localhost:8080/viewer')
-                    .replace(/data="\/viewer/g, 'data="http://localhost:8080/viewer')
                 : null;
         }
         else {
-            this.imgData = 'data:image/png;base64,' + this.data;
+            if (this.data) {
+                this.imgData = this.data.startsWith('data:image') ? this.data : 'data:image/png;base64,' + this.data;
+            }
         }
     }
 }
@@ -2482,7 +2484,7 @@ class ScrollableDirective {
                 if (!currentPageSet) {
                     if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
                         this.currentPage = page;
-                        if (this._navigateService.currentPage === 0) {
+                        if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
                             this._navigateService.currentPage = page;
                         }
                     }
@@ -2538,10 +2540,13 @@ ScrollableDirective.ctorParameters = () => [
     { type: ViewportService }
 ];
 ScrollableDirective.propDecorators = {
+    isPresentation: [{ type: Input }],
     scrolling: [{ type: HostListener, args: ['scroll',] }],
     resizing: [{ type: HostListener, args: ['window:resize',] }]
 };
 if (false) {
+    /** @type {?} */
+    ScrollableDirective.prototype.isPresentation;
     /**
      * @type {?}
      * @private
@@ -2904,6 +2909,7 @@ class SelectComponent {
         this._onCloseService = _onCloseService;
         this.disabled = false;
         this.selected = new EventEmitter();
+        this.opened = new EventEmitter();
         this.isOpen = false;
         _onCloseService.onClose.subscribe((/**
          * @return {?}
@@ -2943,6 +2949,8 @@ class SelectComponent {
         $event.stopPropagation();
         if (!this.disabled) {
             this.isOpen = !this.isOpen;
+            if (this.isOpen)
+                this.opened.emit(true);
         }
     }
     /**
@@ -2960,7 +2968,7 @@ class SelectComponent {
 SelectComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-select',
-                template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [clickOutsideEnabled]=\"isOpen\">\r\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [attachOutsideOnClick]=\"true\">\r\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                 styles: [".select{min-width:50px;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
             }] }
 ];
@@ -2973,6 +2981,7 @@ SelectComponent.propDecorators = {
     disabled: [{ type: Input }],
     showSelected: [{ type: Input }],
     selected: [{ type: Output }],
+    opened: [{ type: Output }],
     isOpen: [{ type: Input }],
     icon: [{ type: Input }]
 };
@@ -2985,6 +2994,8 @@ if (false) {
     SelectComponent.prototype.showSelected;
     /** @type {?} */
     SelectComponent.prototype.selected;
+    /** @type {?} */
+    SelectComponent.prototype.opened;
     /** @type {?} */
     SelectComponent.prototype.isOpen;
     /** @type {?} */
@@ -3305,8 +3316,10 @@ class RenderPrintDirective {
         /** @type {?} */
         let pagesHtml = '';
         for (const page of pages) {
+            /** @type {?} */
+            const data = page.data.startsWith('data:image') ? page.data : 'data:image/png;base64,' + page.data;
             pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-                '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="data:image/png;base64,' + page.data + '" alt></image></div>' +
+                '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="' + data + '" alt></image></div>' +
                 '</div>';
         }
         this.openWindow(pagesHtml, pages[0].width, pages[0].height);
@@ -3398,6 +3411,8 @@ class ExceptionMessageService {
     constructor() {
         this._observer = new BehaviorSubject('Server is not available');
         this._messageChange = this._observer.asObservable();
+        this._observerHttpEvent = new BehaviorSubject(null);
+        this._httpEventChange = this._observerHttpEvent.asObservable();
     }
     /**
      * @return {?}
@@ -3406,11 +3421,24 @@ class ExceptionMessageService {
         return this._messageChange;
     }
     /**
+     * @return {?}
+     */
+    get httpEventChange() {
+        return this._httpEventChange;
+    }
+    /**
      * @param {?} message
      * @return {?}
      */
     changeMessage(message) {
         this._observer.next(message);
+    }
+    /**
+     * @param {?} httpEvent
+     * @return {?}
+     */
+    changeHttpEvent(httpEvent) {
+        this._observerHttpEvent.next(httpEvent);
     }
 }
 if (false) {
@@ -3424,6 +3452,16 @@ if (false) {
      * @private
      */
     ExceptionMessageService.prototype._messageChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    ExceptionMessageService.prototype._observerHttpEvent;
+    /**
+     * @type {?}
+     * @private
+     */
+    ExceptionMessageService.prototype._httpEventChange;
 }
 
 /**
@@ -3638,7 +3676,8 @@ class ErrorInterceptorService {
                     case HttpError.InternalServerError:
                         console.error('%c big bad 500', logFormat);
                         this._messageService.changeMessage(exception.error.message);
-                        this._modalService.open(CommonModals.ErrorMessage);
+                        this._messageService.changeHttpEvent(exception);
+                        this._modalService.open(ErrorInterceptorService.ErrorMessageWindowName);
                         break;
                     case HttpError.Forbidden:
                         console.error('%c Forbidden 403', logFormat);
@@ -3651,6 +3690,7 @@ class ErrorInterceptorService {
         })));
     }
 }
+ErrorInterceptorService.ErrorMessageWindowName = CommonModals.ErrorMessage;
 ErrorInterceptorService.decorators = [
     { type: Injectable, args: [{
                 providedIn: 'root'
@@ -3663,6 +3703,8 @@ ErrorInterceptorService.ctorParameters = () => [
 ];
 /** @nocollapse */ ErrorInterceptorService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorInterceptorService_Factory() { return new ErrorInterceptorService(ɵɵinject(ModalService), ɵɵinject(ExceptionMessageService)); }, token: ErrorInterceptorService, providedIn: "root" });
 if (false) {
+    /** @type {?} */
+    ErrorInterceptorService.ErrorMessageWindowName;
     /**
      * @type {?}
      * @private
@@ -5472,6 +5514,13 @@ class LoadingMaskService {
             this.requests.splice(index, 1);
         }
         this.notify();
+    }
+    /**
+     * @param {?} url
+     * @return {?}
+     */
+    addStopUrl(url) {
+        this.stopList.push(url);
     }
     /**
      * @private
