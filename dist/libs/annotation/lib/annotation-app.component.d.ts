@@ -116,7 +116,7 @@ export declare class AnnotationAppComponent implements OnInit {
     private cleanAnnotations;
     hideAnnotations(): void;
     private clearData;
-    createAnnotation($event: MouseEvent): void;
+    createAnnotation($event: any): void;
     private addAnnotationComponent;
     resizingCreatingAnnotation($event: MouseEvent): void;
     private getCurrentPosition;
