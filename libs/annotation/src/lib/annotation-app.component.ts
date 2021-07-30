@@ -532,29 +532,31 @@ export class AnnotationAppComponent implements OnInit {
     }
   }
 
-  createAnnotation($event: MouseEvent) {
-    if (this.activeAnnotationTab) {
-      $event.preventDefault();
-    }
+  createAnnotation($event: any) {
+    if ($event.target.classList[0] == 'svg') {
+      if (this.activeAnnotationTab) {
+        $event.preventDefault();
+      }
 
-    if (this.activeAnnotationTab) {
-      const position = Utils.getMousePosition($event);
+      if (this.activeAnnotationTab) {
+        const position = Utils.getMousePosition($event);
 
-      const elements = document.elementsFromPoint(position.x, position.y);
-      const currentPage = elements.find(x => x.id && x.id.startsWith("page-"));
-      if (currentPage) {
-        const documentPage = $(currentPage).parent().parent()[0];
-        const currentPosition = this.getCurrentPosition(position, $(documentPage));
-        const pageId = currentPage.id;
-        let pageNumber = 1;
-        if (pageId) {
-          const split = pageId.split('-');
-          pageNumber = split.length === 2 ? parseInt(split[1], 10) : pageNumber;
+        const elements = document.elementsFromPoint(position.x, position.y);
+        const currentPage = elements.find(x => x.id && x.id.startsWith("page-"));
+        if (currentPage) {
+          const documentPage = $(currentPage).parent().parent()[0];
+          const currentPosition = this.getCurrentPosition(position, $(documentPage));
+          const pageId = currentPage.id;
+          let pageNumber = 1;
+          if (pageId) {
+            const split = pageId.split('-');
+            pageNumber = split.length === 2 ? parseInt(split[1], 10) : pageNumber;
+          }
+          const id = this.addAnnotationComponent(pageNumber, currentPosition, null);
+          this._activeAnnotationService.changeActive(id);
+          this.creatingAnnotationId = id;
+          // this._tabActivatorService.changeActiveTab(null);
         }
-        const id = this.addAnnotationComponent(pageNumber, currentPosition, null);
-        this._activeAnnotationService.changeActive(id);
-        this.creatingAnnotationId = id;
-        // this._tabActivatorService.changeActiveTab(null);
       }
     }
   }
