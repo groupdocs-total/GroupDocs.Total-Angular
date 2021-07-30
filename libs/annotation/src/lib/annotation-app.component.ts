@@ -533,7 +533,7 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   createAnnotation($event: any) {
-    if ($event.target.classList[0] == 'svg') {
+    if ($event.target.classList[0] === 'svg' || $event.target.classList[0] === 'gd-page-image') {
       if (this.activeAnnotationTab) {
         $event.preventDefault();
       }
