@@ -448,7 +448,7 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   activeTab($event) {
-    if (this.activeAnnotationTab && $event == this.activeAnnotationTab) {
+    if (this.activeAnnotationTab && $event === this.activeAnnotationTab) {
       this.activeAnnotationTab = null;
     } else {
       this.activeAnnotationTab = $event;
