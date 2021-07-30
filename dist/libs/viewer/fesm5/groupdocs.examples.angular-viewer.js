@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { __values, __extends } from 'tslib';
 import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
@@ -450,7 +450,7 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ViewerAppComponent = /** @class */ (function () {
-    function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService) {
+    function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr) {
         var _this = this;
         this._viewerService = _viewerService;
         this._modalService = _modalService;
@@ -458,6 +458,7 @@ var ViewerAppComponent = /** @class */ (function () {
         this._renderPrintService = _renderPrintService;
         this._windowService = _windowService;
         this._loadingMaskService = _loadingMaskService;
+        this.cdr = cdr;
         this.title = 'viewer';
         this.files = [];
         this.countPages = 0;
@@ -867,6 +868,7 @@ var ViewerAppComponent = /** @class */ (function () {
                         }));
                     }
                 }
+                _this.selectedPageNumber = _this.selectedPageNumber ? _this.selectedPageNumber : 1;
                 _this._navigateService.countPages = countPages;
                 _this._navigateService.currentPage = _this.selectedPageNumber;
                 _this.countPages = countPages;
@@ -878,6 +880,7 @@ var ViewerAppComponent = /** @class */ (function () {
                 }
                 _this.runPresentation = false;
             }
+            _this.cdr.detectChanges();
         }));
         if (modalId) {
             this._modalService.close(modalId);
@@ -1664,7 +1667,8 @@ var ViewerAppComponent = /** @class */ (function () {
         { type: RenderPrintService },
         { type: PasswordService },
         { type: WindowService },
-        { type: LoadingMaskService }
+        { type: LoadingMaskService },
+        { type: ChangeDetectorRef }
     ]; };
     ViewerAppComponent.propDecorators = {
         fullScreen: [{ type: HostListener, args: ["document:fullscreenchange", [],] }]
@@ -1770,6 +1774,11 @@ if (false) {
      * @private
      */
     ViewerAppComponent.prototype._loadingMaskService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ViewerAppComponent.prototype.cdr;
 }
 
 /**

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -402,14 +402,16 @@ class ViewerAppComponent {
      * @param {?} passwordService
      * @param {?} _windowService
      * @param {?} _loadingMaskService
+     * @param {?} cdr
      */
-    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService) {
+    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr) {
         this._viewerService = _viewerService;
         this._modalService = _modalService;
         this._navigateService = _navigateService;
         this._renderPrintService = _renderPrintService;
         this._windowService = _windowService;
         this._loadingMaskService = _loadingMaskService;
+        this.cdr = cdr;
         this.title = 'viewer';
         this.files = [];
         this.countPages = 0;
@@ -718,6 +720,7 @@ class ViewerAppComponent {
                         }));
                     }
                 }
+                this.selectedPageNumber = this.selectedPageNumber ? this.selectedPageNumber : 1;
                 this._navigateService.countPages = countPages;
                 this._navigateService.currentPage = this.selectedPageNumber;
                 this.countPages = countPages;
@@ -729,6 +732,7 @@ class ViewerAppComponent {
                 }
                 this.runPresentation = false;
             }
+            this.cdr.detectChanges();
         }));
         if (modalId) {
             this._modalService.close(modalId);
@@ -1341,7 +1345,8 @@ ViewerAppComponent.ctorParameters = () => [
     { type: RenderPrintService },
     { type: PasswordService },
     { type: WindowService },
-    { type: LoadingMaskService }
+    { type: LoadingMaskService },
+    { type: ChangeDetectorRef }
 ];
 ViewerAppComponent.propDecorators = {
     fullScreen: [{ type: HostListener, args: ["document:fullscreenchange", [],] }]
@@ -1445,6 +1450,11 @@ if (false) {
      * @private
      */
     ViewerAppComponent.prototype._loadingMaskService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ViewerAppComponent.prototype.cdr;
 }
 
 /**

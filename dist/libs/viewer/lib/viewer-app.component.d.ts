@@ -1,4 +1,4 @@
-import { AfterViewInit, OnInit } from '@angular/core';
+import { AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ViewerService } from "./viewer.service";
 import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
 import { ViewerConfig } from "./viewer-config";
@@ -13,6 +13,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _renderPrintService;
     private _windowService;
     private _loadingMaskService;
+    private cdr;
     title: string;
     files: FileModel[];
     file: FileDescription;
@@ -56,7 +57,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     };
     zoomService: ZoomService;
     fullScreen(): void;
-    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
+    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService, cdr: ChangeDetectorRef);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
