@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, HostListener} from '@angular/core';
+import {AfterViewInit, Component, OnInit, HostListener, ChangeDetectorRef} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -92,7 +92,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               private _renderPrintService: RenderPrintService,
               passwordService: PasswordService,
               private _windowService: WindowService,
-              private _loadingMaskService: LoadingMaskService) {
+              private _loadingMaskService: LoadingMaskService,
+              private cdr: ChangeDetectorRef) {
 
     this.zoomService = zoomService;
     this.startScrollTime = Date.now();
@@ -293,6 +294,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               })
             }
           }
+
+          this.selectedPageNumber = this.selectedPageNumber ? this.selectedPageNumber : 1;
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = this.selectedPageNumber;
           this.countPages = countPages;
@@ -305,6 +308,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           }
           this.runPresentation = false;
         }
+        
+        this.cdr.detectChanges();
       }
     );
     if (modalId) {
