@@ -282,6 +282,18 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     });
   }
 
+  canRequestReindex() {
+    return this.configService.folderName.endsWith("5b4e8099");
+  }
+
+  requestReindex() {
+    const request = new SearchBaseRequest();
+    request.FolderName = this.configService.folderName;
+    this._searchService.requestReindex(request).subscribe((result) => {
+      console.log(result);
+    });
+  }
+
   selectAllItems(checked: boolean) {
     this.files.forEach( (f) => {
       if (!f.isDirectory && !f.directory) f.selected = checked;

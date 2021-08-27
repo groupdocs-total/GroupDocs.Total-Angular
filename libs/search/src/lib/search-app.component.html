@@ -29,6 +29,10 @@
         [tooltip]="'Get report'"
         (click)="getReport()"
         *ngIf="canGetReport()"></gd-button>
+      <gd-button [icon]="'retweet'"
+        [tooltip]="'Re-index documents'"
+        (click)="requestReindex()"
+        *ngIf="canRequestReindex()"></gd-button>
 
       <div class="separator mobile-hide"
         *ngIf="termNavigation.enabled"></div>

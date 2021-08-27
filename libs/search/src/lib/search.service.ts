@@ -73,7 +73,13 @@ export class SearchService {
   }
 
   getReport(id: string) {
-    return this._http.get(this._config.apiEndpoint + SearchApi.GET_REPORT + "?id=" + id, { responseType: 'blob' as 'json' });
+    const url = this._config.apiEndpoint + SearchApi.GET_REPORT + "?id=" + id;
+    return this._http.get(url, { responseType: 'blob' as 'json' });
+  }
+
+  requestReindex(request: SearchBaseRequest) {
+    const url = this._config.apiEndpoint + SearchApi.REQUEST_REINDEX;
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
   prepareDocument(request: PrepareDocumentRequest) {

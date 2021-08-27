@@ -198,6 +198,7 @@ export class GetStatusResponse {
 
 export class SearchApi {
   public static GET_REPORT = '/getReport';
+  public static REQUEST_REINDEX = '/requestReindex';
   public static PREPARE_DOCUMENT = '/prepareDocument';
   public static GET_DOCUMENT_PAGE = '/getDocumentPage';
   public static HIGHLIGHT = '/highlight';
