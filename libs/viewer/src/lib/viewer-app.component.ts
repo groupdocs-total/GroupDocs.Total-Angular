@@ -39,6 +39,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   showSearch = false;
   isDesktop: boolean;
   isLoading: boolean;
+  pagesToPreload: number[] = [];
 
   _zoom = 100;
   _pageWidth: number;
@@ -268,6 +269,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
+        this.pagesToPreload = [];
         if (file) {
           this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
           if (file.pages && file.pages[0]) {
@@ -277,10 +279,11 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
             this.timerOptions = this.getTimerOptions();
             this.refreshZoom();
           }
-          const preloadPageCount = !this.ifPresentation() ? this.viewerConfig.preloadPageCount 
-                                                          : (this.viewerConfig.preloadPageCount !== 0
-                                                             && this.viewerConfig.preloadPageCount < 3 ? 3
-                                                              : this.viewerConfig.preloadPageCount);
+          const preloadPageCount = !this.ifPresentation() 
+            ? this.viewerConfig.preloadPageCount 
+            : this.viewerConfig.preloadPageCount !== 0 && this.viewerConfig.preloadPageCount < 3 
+              ? 3
+              : this.viewerConfig.preloadPageCount;
           const countPages = file.pages ? file.pages.length : 0;
           if (preloadPageCount > 0) {
             if (this.ifPresentation()) {
@@ -320,6 +323,12 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   preloadPages(start: number, end: number) {
     for (let i = start; i <= end; i++) {
+      if(this.pagesToPreload.indexOf(i) !== -1){
+        continue;
+      }
+
+      this.pagesToPreload.push(i);
+
       this._viewerService.loadPage(this.credentials, i).subscribe((page: PageModel) => {
         this.file.pages[i - 1] = page;
         if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data) {
