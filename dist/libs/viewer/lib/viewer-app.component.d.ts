@@ -26,6 +26,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     showSearch: boolean;
     isDesktop: boolean;
     isLoading: boolean;
+    pagesToPreload: number[];
     _zoom: number;
     _pageWidth: number;
     _pageHeight: number;

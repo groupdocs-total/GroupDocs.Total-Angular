@@ -419,6 +419,7 @@ class ViewerAppComponent {
         this.showThumbnails = false;
         this.browseFilesModal = CommonModals.BrowseFiles;
         this.showSearch = false;
+        this.pagesToPreload = [];
         this._zoom = 100;
         this.fileWasDropped = false;
         this.docElmWithBrowsersFullScreenFunctions = (/** @type {?} */ (document.documentElement));
@@ -689,6 +690,7 @@ class ViewerAppComponent {
         (file) => {
             this.file = file;
             this.formatDisabled = !this.file;
+            this.pagesToPreload = [];
             if (file) {
                 this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
                 if (file.pages && file.pages[0]) {
@@ -699,10 +701,11 @@ class ViewerAppComponent {
                     this.refreshZoom();
                 }
                 /** @type {?} */
-                const preloadPageCount = !this.ifPresentation() ? this.viewerConfig.preloadPageCount
-                    : (this.viewerConfig.preloadPageCount !== 0
-                        && this.viewerConfig.preloadPageCount < 3 ? 3
-                        : this.viewerConfig.preloadPageCount);
+                const preloadPageCount = !this.ifPresentation()
+                    ? this.viewerConfig.preloadPageCount
+                    : this.viewerConfig.preloadPageCount !== 0 && this.viewerConfig.preloadPageCount < 3
+                        ? 3
+                        : this.viewerConfig.preloadPageCount;
                 /** @type {?} */
                 const countPages = file.pages ? file.pages.length : 0;
                 if (preloadPageCount > 0) {
@@ -746,6 +749,10 @@ class ViewerAppComponent {
      */
     preloadPages(start, end) {
         for (let i = start; i <= end; i++) {
+            if (this.pagesToPreload.indexOf(i) !== -1) {
+                continue;
+            }
+            this.pagesToPreload.push(i);
             this._viewerService.loadPage(this.credentials, i).subscribe((/**
              * @param {?} page
              * @return {?}
@@ -1376,6 +1383,8 @@ if (false) {
     ViewerAppComponent.prototype.isDesktop;
     /** @type {?} */
     ViewerAppComponent.prototype.isLoading;
+    /** @type {?} */
+    ViewerAppComponent.prototype.pagesToPreload;
     /** @type {?} */
     ViewerAppComponent.prototype._zoom;
     /** @type {?} */

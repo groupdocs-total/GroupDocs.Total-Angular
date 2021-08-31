@@ -659,6 +659,7 @@
             this.showThumbnails = false;
             this.browseFilesModal = commonComponents.CommonModals.BrowseFiles;
             this.showSearch = false;
+            this.pagesToPreload = [];
             this._zoom = 100;
             this.fileWasDropped = false;
             this.docElmWithBrowsersFullScreenFunctions = (/** @type {?} */ (document.documentElement));
@@ -1030,6 +1031,7 @@
             function (file) {
                 _this.file = file;
                 _this.formatDisabled = !_this.file;
+                _this.pagesToPreload = [];
                 if (file) {
                     _this.formatIcon = _this.file ? commonComponents.FileUtil.find(_this.file.guid, false).icon : null;
                     if (file.pages && file.pages[0]) {
@@ -1040,10 +1042,11 @@
                         _this.refreshZoom();
                     }
                     /** @type {?} */
-                    var preloadPageCount = !_this.ifPresentation() ? _this.viewerConfig.preloadPageCount
-                        : (_this.viewerConfig.preloadPageCount !== 0
-                            && _this.viewerConfig.preloadPageCount < 3 ? 3
-                            : _this.viewerConfig.preloadPageCount);
+                    var preloadPageCount = !_this.ifPresentation()
+                        ? _this.viewerConfig.preloadPageCount
+                        : _this.viewerConfig.preloadPageCount !== 0 && _this.viewerConfig.preloadPageCount < 3
+                            ? 3
+                            : _this.viewerConfig.preloadPageCount;
                     /** @type {?} */
                     var countPages = file.pages ? file.pages.length : 0;
                     if (preloadPageCount > 0) {
@@ -1093,6 +1096,10 @@
         function (start, end) {
             var _this = this;
             var _loop_1 = function (i) {
+                if (this_1.pagesToPreload.indexOf(i) !== -1) {
+                    return "continue";
+                }
+                this_1.pagesToPreload.push(i);
                 this_1._viewerService.loadPage(this_1.credentials, i).subscribe((/**
                  * @param {?} page
                  * @return {?}
@@ -1893,6 +1900,8 @@
         ViewerAppComponent.prototype.isDesktop;
         /** @type {?} */
         ViewerAppComponent.prototype.isLoading;
+        /** @type {?} */
+        ViewerAppComponent.prototype.pagesToPreload;
         /** @type {?} */
         ViewerAppComponent.prototype._zoom;
         /** @type {?} */
