@@ -278,7 +278,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     const thumbnails = pages.slice();
 
     for (let thumbIndex = 0; thumbIndex < thumbnails.length; thumbIndex++) {
-      let thumb = thumbnails[thumbIndex];
+      const thumb = thumbnails[thumbIndex];
       if(!thumb.data) {
         const emptyThumb = new PageModel();
         emptyThumb.number = thumb.number;
