@@ -655,7 +655,7 @@
             this.title = 'viewer';
             this.files = [];
             this.countPages = 0;
-            this.formatDisabled = !this.file;
+            this.formatDisabled = true;
             this.showThumbnails = false;
             this.browseFilesModal = commonComponents.CommonModals.BrowseFiles;
             this.showSearch = false;
@@ -1009,6 +1009,49 @@
             this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
         };
         /**
+         * @return {?}
+         */
+        ViewerAppComponent.prototype.getPreloadPageCount = /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var minPresentationPagesToPreload = 3;
+            /** @type {?} */
+            var preloadPageCount = !this.ifPresentation()
+                ? this.viewerConfig.preloadPageCount
+                : this.viewerConfig.preloadPageCount !== 0 && this.viewerConfig.preloadPageCount < minPresentationPagesToPreload
+                    ? minPresentationPagesToPreload
+                    : this.viewerConfig.preloadPageCount;
+            return preloadPageCount;
+        };
+        /**
+         * @param {?} pages
+         * @return {?}
+         */
+        ViewerAppComponent.prototype.copyThumbnails = /**
+         * @param {?} pages
+         * @return {?}
+         */
+        function (pages) {
+            /** @type {?} */
+            var thumbnails = pages.slice();
+            for (var thumbIndex = 0; thumbIndex < thumbnails.length; thumbIndex++) {
+                /** @type {?} */
+                var thumb = thumbnails[thumbIndex];
+                if (!thumb.data) {
+                    /** @type {?} */
+                    var emptyThumb = new commonComponents.PageModel();
+                    emptyThumb.number = thumb.number;
+                    emptyThumb.data = "<div style=\"height:100%;display:grid;color:#bfbfbf\"><div style=\"font-size:10vw;margin:auto;text-align:center;\">Click here to load page " + thumb.number + "</div></div>";
+                    emptyThumb.width = 800;
+                    emptyThumb.height = 800;
+                    thumbnails[thumbIndex] = emptyThumb;
+                }
+            }
+            return thumbnails;
+        };
+        /**
          * @param {?} $event
          * @param {?} password
          * @param {?} modalId
@@ -1042,38 +1085,18 @@
                         _this.refreshZoom();
                     }
                     /** @type {?} */
-                    var preloadPageCount = !_this.ifPresentation()
-                        ? _this.viewerConfig.preloadPageCount
-                        : _this.viewerConfig.preloadPageCount !== 0 && _this.viewerConfig.preloadPageCount < 3
-                            ? 3
-                            : _this.viewerConfig.preloadPageCount;
+                    var preloadPageCount = _this.getPreloadPageCount();
                     /** @type {?} */
                     var countPages = file.pages ? file.pages.length : 0;
                     if (preloadPageCount > 0) {
-                        if (_this.ifPresentation()) {
-                            _this.file.thumbnails = file.pages.slice();
-                        }
+                        _this.file.thumbnails = _this.copyThumbnails(file.pages);
                         _this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
-                        if (!_this.ifPresentation()) {
-                            _this._viewerService.loadThumbnails(_this.credentials).subscribe((/**
-                             * @param {?} data
-                             * @return {?}
-                             */
-                            function (data) {
-                                _this.file.thumbnails = data.pages;
-                            }));
-                        }
                     }
-                    _this.selectedPageNumber = _this.selectedPageNumber ? _this.selectedPageNumber : 1;
+                    _this.selectedPageNumber = 1;
                     _this._navigateService.countPages = countPages;
                     _this._navigateService.currentPage = _this.selectedPageNumber;
                     _this.countPages = countPages;
-                    if (_this.ifPresentation()) {
-                        _this.showThumbnails = true;
-                    }
-                    else {
-                        _this.showThumbnails = false;
-                    }
+                    _this.showThumbnails = _this.ifPresentation();
                     _this.runPresentation = false;
                 }
                 _this.cdr.detectChanges();
@@ -1095,29 +1118,28 @@
          */
         function (start, end) {
             var _this = this;
-            var _loop_1 = function (i) {
-                if (this_1.pagesToPreload.indexOf(i) !== -1) {
+            var _loop_1 = function (pageNumber) {
+                if (this_1.pagesToPreload.indexOf(pageNumber) !== -1) {
                     return "continue";
                 }
-                this_1.pagesToPreload.push(i);
-                this_1._viewerService.loadPage(this_1.credentials, i).subscribe((/**
+                this_1.pagesToPreload.push(pageNumber);
+                this_1._viewerService.loadPage(this_1.credentials, pageNumber).subscribe((/**
                  * @param {?} page
                  * @return {?}
                  */
                 function (page) {
-                    _this.file.pages[i - 1] = page;
-                    if (_this.ifPresentation() && _this.file.thumbnails && !_this.file.thumbnails[i - 1].data) {
-                        if (page.data) {
-                            page.data = page.data.replace(/>\s+</g, '><')
-                                .replace(/\uFEFF/g, "");
-                        }
-                        _this.file.thumbnails[i - 1].data = page.data;
+                    if (page.data) {
+                        page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
+                    }
+                    _this.file.pages[pageNumber - 1] = page;
+                    if (_this.file.thumbnails) {
+                        _this.file.thumbnails[pageNumber - 1] = page;
                     }
                 }));
             };
             var this_1 = this;
-            for (var i = start; i <= end; i++) {
-                _loop_1(i);
+            for (var pageNumber = start; pageNumber <= end; pageNumber++) {
+                _loop_1(pageNumber);
             }
         };
         /**
@@ -1449,36 +1471,14 @@
          * @return {?}
          */
         function () {
-            var _this = this;
             if (this.formatDisabled)
                 return;
             if (this.showThumbnails) {
                 this.showThumbnails = false;
                 return;
             }
-            if (this.viewerConfig.preloadPageCount === 0) {
-                this.runPresentation = false;
-                this.showThumbnails = true;
-            }
-            else {
-                if (this.file.thumbnails.filter((/**
-                 * @param {?} t
-                 * @return {?}
-                 */
-                function (t) { return !t.data; })).length > 0) {
-                    this._viewerService.loadThumbnails(this.credentials).subscribe((/**
-                     * @param {?} data
-                     * @return {?}
-                     */
-                    function (data) {
-                        _this.file.thumbnails = data.pages;
-                        _this.showThumbnails = true;
-                    }));
-                }
-                else {
-                    this.showThumbnails = true;
-                }
-            }
+            this.runPresentation = false;
+            this.showThumbnails = true;
         };
         /**
          * @private

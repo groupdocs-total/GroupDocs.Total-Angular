@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, FileUtil, PageModel, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import * as Hammer from 'hammerjs';
@@ -415,7 +415,7 @@ class ViewerAppComponent {
         this.title = 'viewer';
         this.files = [];
         this.countPages = 0;
-        this.formatDisabled = !this.file;
+        this.formatDisabled = true;
         this.showThumbnails = false;
         this.browseFilesModal = CommonModals.BrowseFiles;
         this.showSearch = false;
@@ -675,6 +675,42 @@ class ViewerAppComponent {
         this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
     }
     /**
+     * @return {?}
+     */
+    getPreloadPageCount() {
+        /** @type {?} */
+        const minPresentationPagesToPreload = 3;
+        /** @type {?} */
+        const preloadPageCount = !this.ifPresentation()
+            ? this.viewerConfig.preloadPageCount
+            : this.viewerConfig.preloadPageCount !== 0 && this.viewerConfig.preloadPageCount < minPresentationPagesToPreload
+                ? minPresentationPagesToPreload
+                : this.viewerConfig.preloadPageCount;
+        return preloadPageCount;
+    }
+    /**
+     * @param {?} pages
+     * @return {?}
+     */
+    copyThumbnails(pages) {
+        /** @type {?} */
+        const thumbnails = pages.slice();
+        for (let thumbIndex = 0; thumbIndex < thumbnails.length; thumbIndex++) {
+            /** @type {?} */
+            const thumb = thumbnails[thumbIndex];
+            if (!thumb.data) {
+                /** @type {?} */
+                const emptyThumb = new PageModel();
+                emptyThumb.number = thumb.number;
+                emptyThumb.data = `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">Click here to load page ${thumb.number}</div></div>`;
+                emptyThumb.width = 800;
+                emptyThumb.height = 800;
+                thumbnails[thumbIndex] = emptyThumb;
+            }
+        }
+        return thumbnails;
+    }
+    /**
      * @param {?} $event
      * @param {?} password
      * @param {?} modalId
@@ -701,38 +737,18 @@ class ViewerAppComponent {
                     this.refreshZoom();
                 }
                 /** @type {?} */
-                const preloadPageCount = !this.ifPresentation()
-                    ? this.viewerConfig.preloadPageCount
-                    : this.viewerConfig.preloadPageCount !== 0 && this.viewerConfig.preloadPageCount < 3
-                        ? 3
-                        : this.viewerConfig.preloadPageCount;
+                const preloadPageCount = this.getPreloadPageCount();
                 /** @type {?} */
                 const countPages = file.pages ? file.pages.length : 0;
                 if (preloadPageCount > 0) {
-                    if (this.ifPresentation()) {
-                        this.file.thumbnails = file.pages.slice();
-                    }
+                    this.file.thumbnails = this.copyThumbnails(file.pages);
                     this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
-                    if (!this.ifPresentation()) {
-                        this._viewerService.loadThumbnails(this.credentials).subscribe((/**
-                         * @param {?} data
-                         * @return {?}
-                         */
-                        (data) => {
-                            this.file.thumbnails = data.pages;
-                        }));
-                    }
                 }
-                this.selectedPageNumber = this.selectedPageNumber ? this.selectedPageNumber : 1;
+                this.selectedPageNumber = 1;
                 this._navigateService.countPages = countPages;
                 this._navigateService.currentPage = this.selectedPageNumber;
                 this.countPages = countPages;
-                if (this.ifPresentation()) {
-                    this.showThumbnails = true;
-                }
-                else {
-                    this.showThumbnails = false;
-                }
+                this.showThumbnails = this.ifPresentation();
                 this.runPresentation = false;
             }
             this.cdr.detectChanges();
@@ -748,23 +764,22 @@ class ViewerAppComponent {
      * @return {?}
      */
     preloadPages(start, end) {
-        for (let i = start; i <= end; i++) {
-            if (this.pagesToPreload.indexOf(i) !== -1) {
+        for (let pageNumber = start; pageNumber <= end; pageNumber++) {
+            if (this.pagesToPreload.indexOf(pageNumber) !== -1) {
                 continue;
             }
-            this.pagesToPreload.push(i);
-            this._viewerService.loadPage(this.credentials, i).subscribe((/**
+            this.pagesToPreload.push(pageNumber);
+            this._viewerService.loadPage(this.credentials, pageNumber).subscribe((/**
              * @param {?} page
              * @return {?}
              */
             (page) => {
-                this.file.pages[i - 1] = page;
-                if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data) {
-                    if (page.data) {
-                        page.data = page.data.replace(/>\s+</g, '><')
-                            .replace(/\uFEFF/g, "");
-                    }
-                    this.file.thumbnails[i - 1].data = page.data;
+                if (page.data) {
+                    page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
+                }
+                this.file.pages[pageNumber - 1] = page;
+                if (this.file.thumbnails) {
+                    this.file.thumbnails[pageNumber - 1] = page;
                 }
             }));
         }
@@ -1031,29 +1046,8 @@ class ViewerAppComponent {
             this.showThumbnails = false;
             return;
         }
-        if (this.viewerConfig.preloadPageCount === 0) {
-            this.runPresentation = false;
-            this.showThumbnails = true;
-        }
-        else {
-            if (this.file.thumbnails.filter((/**
-             * @param {?} t
-             * @return {?}
-             */
-            t => !t.data)).length > 0) {
-                this._viewerService.loadThumbnails(this.credentials).subscribe((/**
-                 * @param {?} data
-                 * @return {?}
-                 */
-                (data) => {
-                    this.file.thumbnails = data.pages;
-                    this.showThumbnails = true;
-                }));
-            }
-            else {
-                this.showThumbnails = true;
-            }
-        }
+        this.runPresentation = false;
+        this.showThumbnails = true;
     }
     /**
      * @private
