@@ -32,7 +32,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   file: FileDescription;
   viewerConfig: ViewerConfig;
   countPages = 0;
-  formatDisabled = !this.file;
+  formatDisabled = true;
   showThumbnails = false;
   credentials: FileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
@@ -263,6 +263,36 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.selectedPageNumber = this._navigateService.currentPage !== 0 ? this._navigateService.currentPage : 1;
   }
 
+  getPreloadPageCount() {
+    const minPresentationPagesToPreload = 3;
+    const preloadPageCount = !this.ifPresentation() 
+      ? this.viewerConfig.preloadPageCount 
+      : this.viewerConfig.preloadPageCount !== 0 && this.viewerConfig.preloadPageCount < minPresentationPagesToPreload 
+        ? minPresentationPagesToPreload
+        : this.viewerConfig.preloadPageCount;
+
+    return preloadPageCount;
+  }
+
+  copyThumbnails(pages: PageModel[]) {
+    const thumbnails = pages.slice();
+
+    for (let thumbIndex = 0; thumbIndex < thumbnails.length; thumbIndex++) {
+      const thumb = thumbnails[thumbIndex];
+      if(!thumb.data) {
+        const emptyThumb = new PageModel();
+        emptyThumb.number = thumb.number;
+        emptyThumb.data = `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">Click here to load page ${thumb.number}</div></div>`
+        emptyThumb.width = 800;
+        emptyThumb.height = 800;
+        
+        thumbnails[thumbIndex] = emptyThumb;
+      }
+    }
+
+    return thumbnails;
+  }
+
   selectFile($event: string, password: string, modalId: string) {
     this.credentials = {guid: $event, password: password};
     this.file = null;
@@ -279,39 +309,22 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
             this.timerOptions = this.getTimerOptions();
             this.refreshZoom();
           }
-          const preloadPageCount = !this.ifPresentation() 
-            ? this.viewerConfig.preloadPageCount 
-            : this.viewerConfig.preloadPageCount !== 0 && this.viewerConfig.preloadPageCount < 3 
-              ? 3
-              : this.viewerConfig.preloadPageCount;
-          const countPages = file.pages ? file.pages.length : 0;
-          if (preloadPageCount > 0) {
-            if (this.ifPresentation()) {
-              this.file.thumbnails = file.pages.slice();
-            }
-            this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
 
-            if (!this.ifPresentation()) {
-              this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
-                this.file.thumbnails = data.pages;
-              })
-            }
+          const preloadPageCount = this.getPreloadPageCount();
+          const countPages = file.pages ? file.pages.length : 0;
+
+          if (preloadPageCount > 0) {
+            this.file.thumbnails = this.copyThumbnails(file.pages);
+            this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
           }
 
-          this.selectedPageNumber = this.selectedPageNumber ? this.selectedPageNumber : 1;
+          this.selectedPageNumber = 1;
           this._navigateService.countPages = countPages;
           this._navigateService.currentPage = this.selectedPageNumber;
           this.countPages = countPages;
-
-          if (this.ifPresentation()) {
-            this.showThumbnails = true;
-          }
-          else {
-            this.showThumbnails = false;
-          }
+          this.showThumbnails = this.ifPresentation();
           this.runPresentation = false;
         }
-        
         this.cdr.detectChanges();
       }
     );
@@ -322,21 +335,21 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   preloadPages(start: number, end: number) {
-    for (let i = start; i <= end; i++) {
-      if(this.pagesToPreload.indexOf(i) !== -1){
+    for (let pageNumber = start; pageNumber <= end; pageNumber++) {
+      if(this.pagesToPreload.indexOf(pageNumber) !== -1){
         continue;
       }
 
-      this.pagesToPreload.push(i);
+      this.pagesToPreload.push(pageNumber);
 
-      this._viewerService.loadPage(this.credentials, i).subscribe((page: PageModel) => {
-        this.file.pages[i - 1] = page;
-        if (this.ifPresentation() && this.file.thumbnails && !this.file.thumbnails[i - 1].data) {
-          if (page.data) {
-            page.data = page.data.replace(/>\s+</g, '><')
-              .replace(/\uFEFF/g, "");
-          }
-          this.file.thumbnails[i - 1].data = page.data;
+      this._viewerService.loadPage(this.credentials, pageNumber).subscribe((page: PageModel) => {
+        if(page.data) {
+          page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
+        }
+
+        this.file.pages[pageNumber - 1] = page;
+        if (this.file.thumbnails) {
+          this.file.thumbnails[pageNumber - 1] = page;
         }
       });
     }
@@ -529,20 +542,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    if (this.viewerConfig.preloadPageCount === 0) {
-      this.runPresentation = false;
-      this.showThumbnails = true;
-    } else {
-      if (this.file.thumbnails.filter(t => !t.data).length > 0) {
-        this._viewerService.loadThumbnails(this.credentials).subscribe((data: FileDescription) => {
-          this.file.thumbnails = data.pages;
-          this.showThumbnails = true;
-        })
-      }
-      else {
-        this.showThumbnails = true;
-      }
-    }
+    this.runPresentation = false;
+    this.showThumbnails = true;
   }
 
   private clearData() {
