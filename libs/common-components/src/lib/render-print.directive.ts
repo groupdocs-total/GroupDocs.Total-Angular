@@ -2,6 +2,8 @@ import {Directive, Input} from '@angular/core';
 import {PageModel} from "./file.service";
 import {RenderPrintService} from "./render-print.service";
 
+type IFrame = HTMLElement & {contentWindow: Window}
+
 @Directive({
   selector: '[gdRenderPrint]'
 })
@@ -59,10 +61,40 @@ export class RenderPrintDirective {
   }
 
   private renderPrintBlob(file: Blob) {
-    const fileURL = URL.createObjectURL(file);
-    const windowObject = window.open(fileURL, "PrintWindow", "width=750,height=650,top=50,left=50,toolbars=yes,scrollbars=yes,status=yes,resizable=yes");
-    windowObject.focus();
-    windowObject.print();
-    windowObject.close();
+    const iframeId = 'print-window';
+    const objectUrl = window.URL.createObjectURL(file)
+
+    // Remove previous iframe if exists
+    let iframe = document.getElementById(iframeId)
+    if (iframe) {
+      iframe.remove()
+    }
+
+    // Create new iframe
+    iframe = document.createElement('iframe')
+    iframe.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute; border: 0');
+    iframe.setAttribute('id', iframeId)
+    iframe.setAttribute('src', objectUrl)
+
+    // Append to the document
+    document.getElementsByTagName('body')[0].appendChild(iframe);
+
+    // Wait and print
+    const iframeElement = document.getElementById(iframeId) as IFrame;
+    setTimeout(() => this.doPrint(iframeElement), 1000);  
   }
+
+  doPrint (iframe: IFrame) {
+    try {
+        iframe.focus()
+        iframe.contentWindow.document.execCommand('print', false)
+    } catch (e) {
+        iframe.contentWindow.print()
+    } finally {
+        // Hide iframe
+        iframe.style.visibility = 'hidden'
+        iframe.style.left = '-1px'
+    }
+  }
+
 }
