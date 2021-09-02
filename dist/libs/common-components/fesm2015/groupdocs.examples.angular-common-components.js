@@ -3373,12 +3373,49 @@ class RenderPrintDirective {
      */
     renderPrintBlob(file) {
         /** @type {?} */
-        const fileURL = URL.createObjectURL(file);
+        const iframeId = 'print-window';
         /** @type {?} */
-        const windowObject = window.open(fileURL, "PrintWindow", "width=750,height=650,top=50,left=50,toolbars=yes,scrollbars=yes,status=yes,resizable=yes");
-        windowObject.focus();
-        windowObject.print();
-        windowObject.close();
+        const objectUrl = window.URL.createObjectURL(file)
+        // Remove previous iframe if exists
+        ;
+        // Remove previous iframe if exists
+        /** @type {?} */
+        let iframe = document.getElementById(iframeId);
+        if (iframe) {
+            iframe.remove();
+        }
+        // Create new iframe
+        iframe = document.createElement('iframe');
+        iframe.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute; border: 0');
+        iframe.setAttribute('id', iframeId);
+        iframe.setAttribute('src', objectUrl);
+        // Append to the document
+        document.getElementsByTagName('body')[0].appendChild(iframe);
+        // Wait and print
+        /** @type {?} */
+        const iframeElement = (/** @type {?} */ (document.getElementById(iframeId)));
+        setTimeout((/**
+         * @return {?}
+         */
+        () => this.doPrint(iframeElement)), 1000);
+    }
+    /**
+     * @param {?} iframe
+     * @return {?}
+     */
+    doPrint(iframe) {
+        try {
+            iframe.focus();
+            iframe.contentWindow.document.execCommand('print', false);
+        }
+        catch (e) {
+            iframe.contentWindow.print();
+        }
+        finally {
+            // Hide iframe
+            iframe.style.visibility = 'hidden';
+            iframe.style.left = '-1px';
+        }
     }
 }
 RenderPrintDirective.decorators = [

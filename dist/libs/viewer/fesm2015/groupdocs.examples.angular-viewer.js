@@ -1023,18 +1023,13 @@ class ViewerAppComponent {
     printFile() {
         if (this.formatDisabled)
             return;
-        if (this.viewerConfig.htmlMode) {
-            this._viewerService.loadPrint(this.credentials).subscribe((/**
-             * @param {?} data
-             * @return {?}
-             */
-            (data) => {
-                this._renderPrintService.changePages(data.pages);
-            }));
-        }
-        else {
-            this._renderPrintService.changePages(this.file.pages);
-        }
+        this._viewerService.loadPrintPdf(this.credentials).subscribe((/**
+         * @param {?} data
+         * @return {?}
+         */
+        (data) => {
+            this._renderPrintService.changeBlob(data);
+        }));
     }
     /**
      * @return {?}

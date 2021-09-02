@@ -3959,13 +3959,55 @@ var RenderPrintDirective = /** @class */ (function () {
      * @return {?}
      */
     function (file) {
+        var _this = this;
         /** @type {?} */
-        var fileURL = URL.createObjectURL(file);
+        var iframeId = 'print-window';
         /** @type {?} */
-        var windowObject = window.open(fileURL, "PrintWindow", "width=750,height=650,top=50,left=50,toolbars=yes,scrollbars=yes,status=yes,resizable=yes");
-        windowObject.focus();
-        windowObject.print();
-        windowObject.close();
+        var objectUrl = window.URL.createObjectURL(file)
+        // Remove previous iframe if exists
+        ;
+        // Remove previous iframe if exists
+        /** @type {?} */
+        var iframe = document.getElementById(iframeId);
+        if (iframe) {
+            iframe.remove();
+        }
+        // Create new iframe
+        iframe = document.createElement('iframe');
+        iframe.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute; border: 0');
+        iframe.setAttribute('id', iframeId);
+        iframe.setAttribute('src', objectUrl);
+        // Append to the document
+        document.getElementsByTagName('body')[0].appendChild(iframe);
+        // Wait and print
+        /** @type {?} */
+        var iframeElement = (/** @type {?} */ (document.getElementById(iframeId)));
+        setTimeout((/**
+         * @return {?}
+         */
+        function () { return _this.doPrint(iframeElement); }), 1000);
+    };
+    /**
+     * @param {?} iframe
+     * @return {?}
+     */
+    RenderPrintDirective.prototype.doPrint = /**
+     * @param {?} iframe
+     * @return {?}
+     */
+    function (iframe) {
+        try {
+            iframe.focus();
+            iframe.contentWindow.document.execCommand('print', false);
+        }
+        catch (e) {
+            iframe.contentWindow.print();
+        }
+        finally {
+            // Hide iframe
+            iframe.style.visibility = 'hidden';
+            iframe.style.left = '-1px';
+        }
     };
     RenderPrintDirective.decorators = [
         { type: Directive, args: [{
