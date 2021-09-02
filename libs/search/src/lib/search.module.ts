@@ -54,6 +54,8 @@ import { PrepareDocumentComponent } from './prepare-document/prepare-document.co
 import { IndexingOptionsService } from './indexing-options.service';
 import { IndexingStatusService } from './indexing-status.service';
 import { StatusBarComponent } from './status-bar/status-bar.component';
+import { StateMonitorComponent } from './state-monitor/state-monitor.component';
+import { StateMonitorService } from './state-monitor.service';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -93,7 +95,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     DocumentViewComponent,
     DocumentPageComponent,
     PrepareDocumentComponent,
-    StatusBarComponent
+    StatusBarComponent,
+    StateMonitorComponent
   ],
   imports: [
     BrowserModule,
@@ -132,6 +135,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     CurrentDocumentService,
     IndexingStatusService,
     IndexingOptionsService,
+    StateMonitorService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

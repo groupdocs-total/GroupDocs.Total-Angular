@@ -31,6 +31,7 @@ import { FoundTermNavigationService } from './found-term-navigation.service';
 import { DocumentViewService } from './document-view.service';
 import { CurrentDocumentService } from './current-document.service';
 import { IndexingOptionsService } from './indexing-options.service';
+import { StateMonitorService } from './state-monitor.service';
 
 @Component({
   selector: 'gd-search-app',
@@ -67,7 +68,8 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
               public highlightDocumentService: HighlightDocumentService,
               public documentViewService: DocumentViewService,
               public currentDocumentService: CurrentDocumentService,
-              public termNavigation: FoundTermNavigationService) {
+              public termNavigation: FoundTermNavigationService,
+              private _stateMonitor: StateMonitorService) {
 
     this.returnUrl = localStorage.getItem('searchReturnUrl');
     if (this.returnUrl == null) {
@@ -228,6 +230,11 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
         this.setDefaultAppState();
         break;
       }
+      case AppState.StateMonitor: {
+        this.setDefaultAppState();
+        this._stateMonitor.stop();
+        break;
+      }
       default: {
         this.setDefaultAppState();
         break;
@@ -292,6 +299,15 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
     this._searchService.requestReindex(request).subscribe((result) => {
       console.log(result);
     });
+  }
+
+  canOpenStateMonitor() {
+    return this.configService.folderName.endsWith("5b4e8099") && this.appState == AppState.Default;
+  }
+
+  openStateMonitor() {
+    this.appState = AppState.StateMonitor;
+    this._stateMonitor.start();
   }
 
   selectAllItems(checked: boolean) {

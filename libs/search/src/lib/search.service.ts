@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Api, ConfigService, FileCredentials, FileModel } from "@groupdocs.examples.angular/common-components";
 import { BehaviorSubject } from 'rxjs';
-import { AddToIndexRequest, AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, DocumentPasswordsUpdateRequest, FilesDeleteRequest, FileStatusGetRequest, GetDocumentPageRequest, HighlightRequest, HomophonesUpdateRequest, IndexedFileModel, PrepareDocumentRequest, SearchApi, SearchBaseRequest, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
+import { AddToIndexRequest, AlphabetUpdateRequest, CharacterReplacementsUpdateRequest, DocumentPasswordsUpdateRequest, FilesDeleteRequest, FileStatusGetRequest, GetDocumentPageRequest, HighlightRequest, HomophonesUpdateRequest, IndexedFileModel, PrepareDocumentRequest, SearchApi, SearchAppInfo, SearchBaseRequest, SpellingCorrectorUpdateRequest, StopWordsUpdateRequest, SynonymsUpdateRequest } from './search-models';
 import { SearchOptionsService } from './search-options.service';
 
 @Injectable()
@@ -125,6 +125,10 @@ export class SearchService {
   getIndexProperties(request: SearchBaseRequest) {
     const url = this._config.apiEndpoint + SearchApi.GET_INDEX_PROPERTIES;
     return this._http.post(url, request, Api.httpOptionsJson);
+  }
+
+  getInfo() {
+    return this._http.post(this._config.apiEndpoint + SearchApi.GET_INFO, null, Api.httpOptionsJson);
   }
 
   getAlphabetDictionary() {

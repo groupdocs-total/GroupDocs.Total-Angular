@@ -33,6 +33,10 @@
         [tooltip]="'Re-index documents'"
         (click)="requestReindex()"
         *ngIf="canRequestReindex()"></gd-button>
+      <gd-button [icon]="'info'"
+        [tooltip]="'State monitor'"
+        (click)="openStateMonitor()"
+        *ngIf="canOpenStateMonitor()"></gd-button>
 
       <div class="separator mobile-hide"
         *ngIf="termNavigation.enabled"></div>
@@ -116,6 +120,8 @@
   <gd-character-replacement-dictionary *ngIf="appState == 'CharacterReplacementDictionary'"></gd-character-replacement-dictionary>
 
   <gd-password-dictionary *ngIf="appState == 'PasswordDictionary'"></gd-password-dictionary>
+
+  <gd-state-monitor *ngIf="appState == 'StateMonitor'"></gd-state-monitor>
 
   <gd-status-bar></gd-status-bar>
 

@@ -141,6 +141,41 @@ export class SearchBaseRequest {
   FolderName: string;
 }
 
+export class SearchAppInfo {
+  indexStatus: IndexStatusInfo;
+  preprocessingQueue: PreprocessingQueueInfo;
+  taskQueue: TaskQueueInfo;
+  documentList: ExistingDocumentInfo[];
+  folderList: ExistingFolderInfo[];
+}
+
+export class IndexStatusInfo {
+  indexStatus: string;
+  version: string;
+}
+
+export class ExistingDocumentInfo {
+  folderName: string;
+  fileName: string;
+  length: number;
+  status: string;
+}
+
+export class ExistingFolderInfo {
+  folderName: string;
+  documentCount: number;
+  documentList: ExistingDocumentInfo[];
+}
+
+export class PreprocessingQueueInfo {
+  activeTasks: string[];
+  queuedTasks: string[];
+}
+
+export class TaskQueueInfo {
+  tasks: string[];
+}
+
 export class PrepareDocumentRequest extends SearchBaseRequest {
   fileName: string;
   password: string;
@@ -224,6 +259,7 @@ export class SearchApi {
   public static GET_DOCUMENT_PASSWORD_DICTIONARY = '/getDocumentPasswordDictionary';
   public static SET_DOCUMENT_PASSWORD_DICTIONARY = '/setDocumentPasswordDictionary';
   public static GET_STATUS = '/getStatus';
+  public static GET_INFO = '/getInfo';
 }
 
 export enum FileIndexingStatus {
@@ -259,6 +295,7 @@ export enum AppState {
   HomophoneDictionary = "HomophoneDictionary",
   AlphabetDictionary = "AlphabetDictionary",
   CharacterReplacementDictionary = "CharacterReplacementDictionary",
+  StateMonitor = "StateMonitor",
 }
 
 export enum WordState {
