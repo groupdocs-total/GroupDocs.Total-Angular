@@ -1,33 +1,37 @@
-<div class="gd-state-monitor">
-    Index info:<br>
-    <div class="info-block">
+<div class="gd-state-monitor" *ngIf="state.response != undefined">
+    <div class="info-block" *ngIf="state.response.indexStatus != undefined">
+        <div class="caption-block">Index info:</div>
         Version: {{state.response.indexStatus.version}}<br>
         Status: {{state.response.indexStatus.indexStatus}}
     </div>
-    Preprocessing active tasks ({{state.response.preprocessingQueue.activeTasks.length}}):<p></p>
-    <!-- <div class="info-block" *ngFor="let task of state.response.preprocessingQueue.activeTasks; let i = index;">
-        {{('' + (i + 1)).padStart(3, "0")}} &mdash;
-        {{task}}
-    </div> -->
-    Preprocessing queued tasks ({{state.response.preprocessingQueue.queuedTasks.length}}):<p></p>
-    <!-- <div class="info-block" *ngFor="let task of state.response.preprocessingQueue.queuedTasks; let i = index;">
-        {{('' + (i + 1)).padStart(3, "0")}} &mdash;
-        {{task}}
-    </div> -->
-    Index tasks ({{state.response.taskQueue.tasks.length}}):<p></p>
-    <!-- <div class="info-block" *ngFor="let task of state.response.taskQueue.tasks; let i = index;">
-        {{('' + (i + 1)).padStart(3, "0")}} &mdash;
-        {{task}}
-    </div> -->
-    All documents ({{state.response.documentList.length}}):<br>
+    <div class="info-block" *ngIf="state.response.preprocessingQueue != undefined">
+        <div class="caption-block">Preprocessing active tasks ({{state.response.preprocessingQueue.activeTasks.length}}):</div>
+        <!-- <div *ngFor="let task of state.response.preprocessingQueue.activeTasks; let i = index;">
+            {{('' + (i + 1)).padStart(3, "0")}} &mdash;
+            {{task}}
+        </div> -->
+    </div>
+    <div class="info-block" *ngIf="state.response.preprocessingQueue != undefined">
+        <div class="caption-block">Preprocessing queued tasks ({{state.response.preprocessingQueue.queuedTasks.length}}):</div>
+        <!-- <div *ngFor="let task of state.response.preprocessingQueue.queuedTasks; let i = index;">
+            {{('' + (i + 1)).padStart(3, "0")}} &mdash;
+            {{task}}
+        </div> -->
+    </div>
+    <div class="info-block" *ngIf="state.response.taskQueue != undefined">
+        <div class="caption-block">Index tasks ({{state.response.taskQueue.tasks.length}}):</div>
+        <!-- <div *ngFor="let task of state.response.taskQueue.tasks; let i = index;">
+            {{('' + (i + 1)).padStart(3, "0")}} &mdash;
+            {{task}}
+        </div> -->
+    </div>
     <div class="info-block">
+        <div class="caption-block">All documents ({{state.response.documentList.length}}):</div>
         <div class="document-descriptor" *ngFor="let document of state.response.documentList; let i = index;">
-            <div class="document-info">
-                {{('' + (i + 1)).padStart(4, "0")}} &mdash;
-                {{document.length.toLocaleString(undefined, {minimumIntegerDigits: 9})}} &mdash;
-                {{document.folderName}} / {{document.fileName}} &mdash;
-                <span [ngStyle]="{'background-color': getBackgroundColor(document.status)}">{{document.status}}</span>
-            </div>
+            {{('' + (i + 1)).padStart(4, "0")}} &mdash;
+            {{document.length.toLocaleString(undefined, {minimumIntegerDigits: 9})}} &mdash;
+            {{document.folderName}} / {{document.fileName}} &mdash;
+            <span [ngStyle]="{'background-color': getBackgroundColor(document.status)}">{{document.status}}</span>
         </div>
     </div>
 </div>
