@@ -524,13 +524,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   printFile() {
     if (this.formatDisabled)
       return;
-    if (this.viewerConfig.htmlMode) {
-      this._viewerService.loadPrint(this.credentials).subscribe((data: FileDescription) => {
-        this._renderPrintService.changePages(data.pages);
-      });
-    } else {
-      this._renderPrintService.changePages(this.file.pages);
-    }
+
+    this._viewerService.loadPrintPdf(this.credentials).subscribe((data: Blob) => {
+      this._renderPrintService.changeBlob(data);
+    });
   }
 
   openThumbnails() {
