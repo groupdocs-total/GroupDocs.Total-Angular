@@ -10,7 +10,7 @@ export class Api {
   public static COMPARISON_APP = '/comparison';
   public static CONVERSION_APP = '/conversion';
   public static METADATA_APP = '/metadata';
-  public static DEFAULT_API_ENDPOINT = window.location.href;
+  public static DEFAULT_API_ENDPOINT = window.location.protocol + "//" + window.location.host + window.location.pathname;
   public static LOAD_FILE_TREE = '/loadFileTree';
   public static LOAD_CONFIG = '/loadConfig';
   public static LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
