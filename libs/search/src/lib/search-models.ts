@@ -152,6 +152,7 @@ export class SearchAppInfo {
 export class IndexStatusInfo {
   indexStatus: string;
   version: string;
+  time: string;
 }
 
 export class ExistingDocumentInfo {
@@ -174,6 +175,7 @@ export class PreprocessingQueueInfo {
 
 export class TaskQueueInfo {
   tasks: string[];
+  taskLogs: string[];
 }
 
 export class PrepareDocumentRequest extends SearchBaseRequest {

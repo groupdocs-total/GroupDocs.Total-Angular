@@ -2,7 +2,8 @@
     <div class="info-block" *ngIf="state.response.indexStatus != undefined">
         <div class="caption-block">Index info:</div>
         Version: {{state.response.indexStatus.version}}<br>
-        Status: {{state.response.indexStatus.indexStatus}}
+        Status: {{state.response.indexStatus.indexStatus}}<br>
+        Server time: {{state.response.indexStatus.time}}
     </div>
     <div class="info-block" *ngIf="state.response.preprocessingQueue != undefined">
         <div class="caption-block">Preprocessing active tasks ({{state.response.preprocessingQueue.activeTasks.length}}):</div>
@@ -25,10 +26,20 @@
             {{task}}
         </div> -->
     </div>
+    <div class="info-block" *ngIf="state.response.taskQueue != undefined">
+        <div class="caption-block"
+             (click)="changeShowErrorList($event)">Errors ({{state.response.taskQueue.taskLogs.length}}):</div>
+        <div class="error-list" *ngIf="showErrorList === true">
+            <div *ngFor="let message of state.response.taskQueue.taskLogs; let i = index;">
+                <b>{{('' + (i + 1)).padStart(3, "0")}}</b> &mdash;
+                {{message}}
+            </div>
+        </div>
+    </div>
     <div class="info-block">
         <div class="caption-block">All documents ({{state.response.documentList.length}}):</div>
         <div class="document-descriptor" *ngFor="let document of state.response.documentList; let i = index;">
-            {{('' + (i + 1)).padStart(4, "0")}} &mdash;
+            <b>{{('' + (i + 1)).padStart(4, "0")}}</b> &mdash;
             {{document.length.toLocaleString(undefined, {minimumIntegerDigits: 9})}} &mdash;
             {{document.folderName}} / {{document.fileName}} &mdash;
             <span [ngStyle]="{'background-color': getBackgroundColor(document.status)}">{{document.status}}</span>

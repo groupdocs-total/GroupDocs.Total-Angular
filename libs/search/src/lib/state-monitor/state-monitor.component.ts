@@ -7,6 +7,7 @@ import { StateMonitorService } from '../state-monitor.service';
   styleUrls: ['./state-monitor.component.less']
 })
 export class StateMonitorComponent implements OnInit {
+  showErrorList = false;
 
   constructor(public state: StateMonitorService) { }
 
@@ -26,5 +27,9 @@ export class StateMonitorComponent implements OnInit {
       case 'ProcessedWithError': return '#FAA';
       default: return '#AAA';
     }
+  }
+
+  public changeShowErrorList(event: any) {
+    this.showErrorList = !this.showErrorList;
   }
 }
