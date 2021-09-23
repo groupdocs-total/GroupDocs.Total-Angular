@@ -668,7 +668,7 @@
         Api.COMPARISON_APP = '/comparison';
         Api.CONVERSION_APP = '/conversion';
         Api.METADATA_APP = '/metadata';
-        Api.DEFAULT_API_ENDPOINT = window.location.href;
+        Api.DEFAULT_API_ENDPOINT = window.location.protocol + "//" + window.location.host + window.location.pathname;
         Api.LOAD_FILE_TREE = '/loadFileTree';
         Api.LOAD_CONFIG = '/loadConfig';
         Api.LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
