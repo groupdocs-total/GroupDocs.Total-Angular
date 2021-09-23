@@ -4,7 +4,8 @@
 name: release fix
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ master ]
 
 jobs:
   build:
@@ -36,4 +37,6 @@ jobs:
     - run: git commit -am "Build new version" || true
     - run: git status
     - run: npx lerna publish patch --yes
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - run: git status
