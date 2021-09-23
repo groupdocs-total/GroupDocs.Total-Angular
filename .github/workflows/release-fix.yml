@@ -36,7 +36,8 @@ jobs:
     - run: git add dist
     - run: git commit -am "Build new version" || true
     - run: git status
-    - run: npx lerna publish patch --yes
+    - run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - run: npx lerna publish patch --yes
     - run: git status
