@@ -61,3 +61,4 @@ export * from './lib/top-tab-activator.service'
 export * from './lib/context-menu/context-menu.component'
 export * from './lib/text-menu/text-menu.component'
 export * from './lib/page-marker.directive';
+export * from './lib/translation/static-translate.loader';
