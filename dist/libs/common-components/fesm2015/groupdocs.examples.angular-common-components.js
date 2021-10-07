@@ -11,6 +11,7 @@ import * as jquery from 'jquery';
 import * as Hammer from 'hammerjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -1232,19 +1233,45 @@ class BrowseFilesModalComponent {
      * @return {?}
      */
     getSize(size) {
+        return this.getSizeValue(size) + ' ' + this.getSizeUnits(size);
+    }
+    /**
+     * @param {?} size
+     * @return {?}
+     */
+    getSizeValue(size) {
         /** @type {?} */
         const mb = size / 1024 / 1024;
         if (mb > 1) {
-            return (Math.round(mb * 100) / 100) + ' MB';
+            return (Math.round(mb * 100) / 100);
         }
         else {
             /** @type {?} */
             const kb = size / 1024;
             if (kb > 1) {
-                return (Math.round(kb * 100) / 100) + ' KB';
+                return (Math.round(kb * 100) / 100);
             }
         }
-        return size + ' Bytes';
+        return size;
+    }
+    /**
+     * @param {?} size
+     * @return {?}
+     */
+    getSizeUnits(size) {
+        /** @type {?} */
+        const mb = size / 1024 / 1024;
+        if (mb > 1) {
+            return 'MB';
+        }
+        else {
+            /** @type {?} */
+            const kb = size / 1024;
+            if (kb > 1) {
+                return 'KB';
+            }
+        }
+        return 'Bytes';
     }
     /**
      * @param {?} file
@@ -1351,8 +1378,8 @@ class BrowseFilesModalComponent {
 BrowseFilesModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-browse-files-modal',
-                template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\n    <div class=\"dnd-wrapper\">\n      <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n      <span class=\"text\">Drop file here to upload</span>\n    </div>\n  </div>\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\n            (change)=\"handleFileInput($event.target.files)\">\n    <div class=\"context\">\n      <div class=\"context-actions\">\n        <gd-drop-down>\n          <gd-drop-down-toggle>\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\n              Upload file\n            </gd-button>\n          </gd-drop-down-toggle>\n          <gd-drop-down-items>\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\n              <div class=\"text\">{{item.name}}</div>\n            </gd-drop-down-item>\n          </gd-drop-down-items>\n        </gd-drop-down>\n      </div>\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\n        <div class=\"upload-url\">\n          <input class=\"url-input\" placeholder=\"https://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\n    <div class=\"header-name\">FILE</div>\n    <div class=\"header-size\">SIZE</div>\n  </div>\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\n      <div class=\"list-files-body\">\n        <div class=\"go-up\" (click)=\"goUp()\">\n            <div class=\"go-up-icon\">\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\n            </div>\n            <div class=\"go-up-dots\">..</div>\n        </div>\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\n          <div class=\"file-description\">\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\n            <div class=\"file-name-format\">\n              <div class=\"file-name\">{{file?.name}}</div>\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\n            </div>\n          </div>\n          <div class=\"file-size\">\n            {{getSize(file?.size)}}\n          </div>\n        </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n      &nbsp;Loading... Please wait.\n    </div>\n  </section>\n</gd-modal>\n",
-                styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:-webkit-box;display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;-webkit-box-flex:1;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:-webkit-box;display:flex;width:100%;-webkit-box-pack:justify;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:-webkit-box;display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:-webkit-box;display:flex;position:relative;width:100%}.upload-panel .context{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;width:96px;padding:0;-webkit-box-pack:center;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:100%;height:calc(100% - 60px);background:rgba(255,255,255,.7);z-index:1;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.dnd-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;top:259px;position:absolute}.dnd-wrapper .text{color:#6e6e6e;font-size:14px}.dnd-wrapper .icon{display:-webkit-box;display:flex;width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
+                template: "<gd-modal id=\"gd-browse-files\" title=\"{{'Open document' | translate }}\" (visible)=\"refresh($event)\">\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\n    <div class=\"dnd-wrapper\">\n      <fa-icon class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n      <span class=\"text\">{{'Drop file here to upload' | translate}}</span>\n    </div>\n  </div>\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\n            (change)=\"handleFileInput($event.target.files)\">\n    <div class=\"context\">\n      <div class=\"context-actions\">\n        <gd-drop-down>\n          <gd-drop-down-toggle>\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\n              {{'Upload file' | translate}}\n            </gd-button>\n          </gd-drop-down-toggle>\n          <gd-drop-down-items>\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\n              <div class=\"text\">{{item.name | translate}}</div>\n            </gd-drop-down-item>\n          </gd-drop-down-items>\n        </gd-drop-down>\n      </div>\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\n        <div class=\"upload-url\">\n          <input class=\"url-input\" placeholder=\"https://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\n    <div class=\"header-name\">{{'FILE' | translate }}</div>\n    <div class=\"header-size\">{{'SIZE' | translate }}</div>\n  </div>\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\n      <div class=\"list-files-body\">\n        <div class=\"go-up\" (click)=\"goUp()\">\n            <div class=\"go-up-icon\">\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\n            </div>\n            <div class=\"go-up-dots\">..</div>\n        </div>\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\n          <div class=\"file-description\">\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\n            <div class=\"file-name-format\">\n              <div class=\"file-name\">{{file?.name}}</div>\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\n            </div>\n          </div>\n          <div class=\"file-size\">\n            {{getSizeValue(file?.size)}} {{getSizeUnits(file?.size) | translate}}\n          </div>\n        </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n      &nbsp;{{'Loading... Please wait.' | translate}}\n    </div>\n  </section>\n</gd-modal>\n",
+                styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:-webkit-box;display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;-webkit-box-flex:1;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:-webkit-box;display:flex;width:100%;-webkit-box-pack:justify;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:-webkit-box;display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:-webkit-box;display:flex;position:relative;width:100%}.upload-panel .context{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;padding:0 10px;-webkit-box-pack:center;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:100%;height:calc(100% - 60px);background:rgba(255,255,255,.7);z-index:1;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.dnd-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;top:259px;position:absolute}.dnd-wrapper .text{color:#6e6e6e;font-size:14px}.dnd-wrapper .icon{display:-webkit-box;display:flex;width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
             }] }
 ];
 /** @nocollapse */
@@ -1778,7 +1805,7 @@ class DocumentComponent {
 DocumentComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-document',
-                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page *ngIf=\"!showActiveSlide || isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\n        [height]=\"page.height\" [editable]=\"page.editable\" gdPageMarker></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
+                template: "<div class=\"wait\" *ngIf=\"wait\">{{'Please wait...' | translate}}</div>\n<div id=\"document\" class=\"document\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page *ngIf=\"!showActiveSlide || isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\n        [height]=\"page.height\" [editable]=\"page.editable\" gdPageMarker></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
                 styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;-webkit-transition:unset;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
             }] }
 ];
@@ -1907,7 +1934,7 @@ class PageComponent {
 PageComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-page',
-                template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;Loading... Please wait.\n  </div>\n</div>\n",
+                template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;{{'Loading... Please wait.' | translate}}\n  </div>\n</div>\n",
                 styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
             }] }
 ];
@@ -2968,7 +2995,7 @@ class SelectComponent {
 SelectComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-select',
-                template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (touchstart)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [attachOutsideOnClick]=\"true\">\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name}}\n  </div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\n           class=\"option\">{{option.name}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
+                template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (touchstart)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [attachOutsideOnClick]=\"true\">\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name | translate}}\n  </div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\n           class=\"option\">{{option.name | translate}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
                 styles: [".select{min-width:50px;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
             }] }
 ];
@@ -3525,7 +3552,7 @@ class ErrorModalComponent {
 ErrorModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-error-modal',
-                template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\n  <section id=\"gd-error-section\">\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\n    <div class=\"gd-modal-error\">\n      <div class=\"gd-modal-error-title\">Something went wrong</div>\n      <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\n    </div>\n  </section>\n</gd-modal>\n",
+                template: "<gd-modal id=\"gd-error-message\" title=\"{{'Error' | translate}}\">\n  <section id=\"gd-error-section\">\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\n    <div class=\"gd-modal-error\">\n      <div class=\"gd-modal-error-title\">{{'Something went wrong' | translate}}</div>\n      <div class=\"gd-modal-error-message\">{{(message ? message : 'Server is not available') | translate}}</div>\n    </div>\n  </section>\n</gd-modal>\n",
                 styles: [".gd-modal-error{display:-webkit-inline-box;display:inline-flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-flex:1;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0;word-break:break-word}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:-webkit-box;display:flex}#gd-error-section fa-icon{-webkit-box-flex:1;flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center;max-width:46px}"]
             }] }
 ];
@@ -3639,8 +3666,8 @@ class PasswordRequiredComponent {
 PasswordRequiredComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-password-required',
-                template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n          Open\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
-                styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;-webkit-box-pack:center;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
+                template: "<gd-modal id=\"gd-password-required\" title=\"{{'Password protected document' | translate}}\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">{{'Password' | translate}}</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message | translate}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n        {{'Open' | translate}}\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
+                styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;padding:0 10px;-webkit-box-pack:center;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -3915,7 +3942,7 @@ class SearchComponent {
 SearchComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-search',
-                template: "<div class=\"gd-nav-search-container\">\n  <input type=\"text\" class=\"gd-search-input\" (keydown.enter)=\"next()\" #text (input)=\"setText(text.value)\"/>\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\n  </gd-button>\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\n  </gd-button>\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\n  </gd-button>\n</div>\n",
+                template: "<div class=\"gd-nav-search-container\">\n  <input type=\"text\" class=\"gd-search-input\" (keydown.enter)=\"next()\" #text (input)=\"setText(text.value)\"/>\n  <div class=\"gd-search-count\">{{current}} {{'of' | translate}}  {{total}}</div>\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\n  </gd-button>\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\n  </gd-button>\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\n  </gd-button>\n</div>\n",
                 styles: [".gd-nav-search-btn{margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;-webkit-transform:translate(-50%,0);transform:translate(-50%,0);display:-webkit-box;display:flex}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}input[type=text]::-ms-clear{display:none}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:193px;top:15px}.gd-nav-search-container{width:100%}}"]
             }] }
 ];
@@ -5620,7 +5647,7 @@ class LoadingMaskComponent {
 LoadingMaskComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-loading-mask',
-                template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\n    <div class=\"loading-message\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;Loading... Please wait.\n    </div>\n</div>\n",
+                template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\n    <div class=\"loading-message\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;{{'Loading... Please wait.' | translate}}\n    </div>\n</div>\n",
                 styles: [".loading-wrapper{background:rgba(0,0,0,.5);width:100%;height:100%;font-size:14px;color:#fff;position:fixed;top:0;left:0;z-index:99999}.loading-message{position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
             }] }
 ];
@@ -7234,7 +7261,12 @@ class CommonComponentsModule {
 }
 CommonComponentsModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
+                imports: [
+                    CommonModule,
+                    FontAwesomeModule,
+                    ClickOutsideModule,
+                    TranslateModule
+                ],
                 declarations: [
                     TopToolbarComponent,
                     SidePanelComponent,
@@ -7342,11 +7374,1012 @@ CommonComponentsModule.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const AR = {
+    "Open document": "افتح المستند",
+    "Upload file": "رفع ملف",
+    "Drop file here to upload": "قم بإسقاط الملف هنا للتحميل",
+    "Disc": "قرص",
+    "URL": "URL",
+    "FILE": "ملف",
+    "SIZE": "بحجم",
+    "MB": "ميغا بايت",
+    "KB": "كيلو بايت",
+    "Bytes": "بايت",
+    "Loading... Please wait.": "جاري التحميل انتظر من فضلك.",
+    "Fit Width": "العرض المناسب",
+    "Fit Height": "ارتفاع ملائم",
+    "Password protected document": "وثيقة محمية بكلمة مرور",
+    "Password": "كلمه السر",
+    "Open": "افتح",
+    "Password Required": "كلمة المرور مطلوبة",
+    "Incorrect password": "كلمة سر خاطئة",
+    "Error": "خطأ",
+    "Something went wrong": "هناك خطأ ما",
+    "Server is not available": "الخادم غير متاح",
+    "of": "من",
+    "Please wait...": "ارجوك انتظر..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const CA = {
+    "Open document": "Obre el document",
+    "Upload file": "Penja el document",
+    "Drop file here to upload": "Deixa anar el fitxer aquí per penjar-lo",
+    "Disc": "Disc",
+    "URL": "URL",
+    "FILE": "DOSSIER",
+    "SIZE": "TALLA",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Carregant, esperi, si us plau.",
+    "Fit Width": "Amplada d’ajust",
+    "Fit Height": "Ajust de l'alçada",
+    "Password protected document": "Document protegit amb contrasenya",
+    "Password": "Contrasenya",
+    "Open": "Obert",
+    "Password Required": "Es requereix una contrasenya",
+    "Incorrect password": "contrasenya incorrecta",
+    "Error": "Error",
+    "Something went wrong": "Alguna cosa ha anat malament",
+    "Server is not available": "El servidor no està disponible",
+    "of": "de",
+    "Please wait...": "Si us plau, espereu ..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const CS = {
+    "Open document": "Otevřít dokument",
+    "Upload file": "Nahrát soubor",
+    "Drop file here to upload": "Přetáhněte soubor sem a nahrajte jej",
+    "Disc": "Disk",
+    "URL": "URL",
+    "FILE": "SOUBOR",
+    "SIZE": "VELIKOST",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bajty",
+    "Loading... Please wait.": "Načítání prosím čekejte.",
+    "Fit Width": "Přizpůsobit šířce",
+    "Fit Height": "Přizpůsobit výšce",
+    "Password protected document": "Dokument chráněný heslem",
+    "Password": "Heslo",
+    "Open": "Otevřeno",
+    "Password Required": "Vyžadováno heslo",
+    "Incorrect password": "Nesprávné heslo",
+    "Error": "Chyba",
+    "Something went wrong": "Něco se pokazilo",
+    "Server is not available": "Server není k dispozici",
+    "of": "z",
+    "Please wait...": "Prosím, čekejte..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const DA = {
+    "Open document": "Åbn dokument",
+    "Upload file": "Upload fil",
+    "Drop file here to upload": "Drop filen her for at uploade",
+    "Disc": "Disk",
+    "URL": "URL",
+    "FILE": "FIL",
+    "SIZE": "STØRRELSE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Indlæser vent venligst.",
+    "Fit Width": "Tilpas bredde",
+    "Fit Height": "Tilpas højde",
+    "Password protected document": "Adgangskodebeskyttet dokument",
+    "Password": "Adgangskode",
+    "Open": "Åben",
+    "Password Required": "Adgangskode påkrævet",
+    "Incorrect password": "forkert kodeord",
+    "Error": "Fejl",
+    "Something went wrong": "Noget gik galt",
+    "Server is not available": "Serveren er ikke tilgængelig",
+    "of": "af",
+    "Please wait...": "Vent venligst..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const DE = {
+    "Open document": "Dokument öffnen",
+    "Upload file": "Datei hochladen",
+    "Drop file here to upload": "Datei zum Hochladen hier ablegen",
+    "Disc": "Rabatt",
+    "URL": "URL",
+    "FILE": "DATEI",
+    "SIZE": "GRÖSSE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Laden, bitte warten.",
+    "Fit Width": "Breite anpassen",
+    "Fit Height": "Passende Höhe",
+    "Password protected document": "Passwortgeschütztes Dokument",
+    "Password": "Passwort",
+    "Open": "Offen",
+    "Password Required": "Passwort erforderlich",
+    "Incorrect password": "Falsches Passwort",
+    "Error": "Fehler",
+    "Something went wrong": "Etwas ist schief gelaufen",
+    "Server is not available": "Server nicht verfügbar",
+    "of": "von",
+    "Please wait...": "Warten Sie mal..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const EL = {
+    "Open document": "Άνοιγμα εγγράφου",
+    "Upload file": "Ανέβασμα αρχείου",
+    "Drop file here to upload": "Αφήστε το αρχείο εδώ για μεταφόρτωση",
+    "Disc": "Δίσκος",
+    "URL": "URL",
+    "FILE": "ΑΡΧΕΙΟ",
+    "SIZE": "ΜΕΓΕΘΟΣ",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Φορτώνει παρακαλώ περιμένετε.",
+    "Fit Width": "Fit Width",
+    "Fit Height": "Fit Height",
+    "Password protected document": "Έγγραφο προστατευμένο με κωδικό πρόσβασης",
+    "Password": "Κωδικός πρόσβασης",
+    "Open": "Ανοιξε",
+    "Password Required": "Απαιτείται κωδικός πρόσβασης",
+    "Incorrect password": "Λάθος κωδικός",
+    "Error": "Λάθος",
+    "Something went wrong": "Κάτι πήγε στραβά",
+    "Server is not available": "Ο διακομιστής δεν είναι διαθέσιμος",
+    "of": "του",
+    "Please wait...": "Παρακαλώ περιμένετε..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const EN = {
+    "Open document": "Open document",
+    "Upload file": "Upload file",
+    "Drop file here to upload": "Drop file here to upload",
+    "Disc": "Disc",
+    "URL": "URL",
+    "FILE": "FILE",
+    "SIZE": "SIZE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Loading... Please wait.",
+    "Fit Width": "Fit Width",
+    "Fit Height": "Fit Height",
+    "Password protected document": "Password protected document",
+    "Password": "Password",
+    "Open": "Open",
+    "Password Required": "Password Required",
+    "Incorrect password": "Incorrect password",
+    "Error": "Error",
+    "Something went wrong": "Something went wrong",
+    "Server is not available": "Server is not available",
+    "of": "of",
+    "Please wait...": "Please wait..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ES = {
+    "Open document": "Abrir documento",
+    "Upload file": "Subir archivo",
+    "Drop file here to upload": "Suelta el archivo aquí para subirlo",
+    "Disc": "Desct",
+    "URL": "URL",
+    "FILE": "EXPEDIENTE",
+    "SIZE": "TALLA",
+    "MB": "MEGABYTE",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Cargando por favor espere.",
+    "Fit Width": "Ajuste ancho",
+    "Fit Height": "Altura de ajuste",
+    "Password protected document": "Documento protegido con contraseña",
+    "Password": "Contraseña",
+    "Open": "Abierto",
+    "Password Required": "Se requiere contraseña",
+    "Incorrect password": "Contraseña incorrecta",
+    "Error": "Error",
+    "Something went wrong": "Algo salió mal",
+    "Server is not available": "El servidor no esta disponible",
+    "of": "de",
+    "Please wait...": "Espere por favor..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const FIL = {
+    "Open document": "Buksan ang dokumento",
+    "Upload file": "Mag-upload ng file",
+    "Drop file here to upload": "I-drop ang file dito upang mai-upload",
+    "Disc": "Disc",
+    "URL": "URL",
+    "FILE": "FILE",
+    "SIZE": "SIZE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Mga byte",
+    "Loading... Please wait.": "Naglo-load ... Mangyaring maghintay.",
+    "Fit Width": "Pagkasyahin ang Lapad",
+    "Fit Height": "Pagkasyahin sa Taas",
+    "Password protected document": "Dokumentong protektado ng password",
+    "Password": "Password",
+    "Open": "Buksan",
+    "Password Required": "Kailangan ng password",
+    "Incorrect password": "Maling password",
+    "Error": "Error",
+    "Something went wrong": "May nangyaring mali",
+    "Server is not available": "Hindi magagamit ang server",
+    "of": "ng",
+    "Please wait...": "Mangyaring maghintay ..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const FR = {
+    "Open document": "Ouvrir le document",
+    "Upload file": "Téléverser un fichier",
+    "Drop file here to upload": "Déposez le fichier ici pour le télécharger",
+    "Disc": "Disque",
+    "URL": "URL",
+    "FILE": "DÉPOSER",
+    "SIZE": "TAILLE",
+    "MB": "Mo",
+    "KB": "Ko",
+    "Bytes": "Octets",
+    "Loading... Please wait.": "Chargement, veuillez patienter.",
+    "Fit Width": "Ajuster la largeur",
+    "Fit Height": "Hauteur d'ajustement",
+    "Password protected document": "Document protégé par mot de passe",
+    "Password": "Mot de passe",
+    "Open": "Ouvert",
+    "Password Required": "Mot de passe requis",
+    "Incorrect password": "Mot de passe incorrect",
+    "Error": "Erreur",
+    "Something went wrong": "Quelque chose s'est mal passé",
+    "Server is not available": "Le serveur n'est pas disponible",
+    "of": "de",
+    "Please wait...": "S'il vous plaît, attendez..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const HE = {
+    "Open document": "מסמך פתוח",
+    "Upload file": "העלה קובץ",
+    "Drop file here to upload": "זרוק את הקובץ כאן להעלאה",
+    "Disc": "דיסק",
+    "URL": "כתובת URL",
+    "FILE": "קוֹבֶץ",
+    "SIZE": "גודל",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "בתים",
+    "Loading... Please wait.": "טוען אנא המתן.",
+    "Fit Width": "רוחב התאמה",
+    "Fit Height": "התאמת גובה",
+    "Password protected document": "מסמך המוגן באמצעות סיסמה",
+    "Password": "סיסמה",
+    "Open": "לִפְתוֹחַ",
+    "Password Required": "נדרשת סיסמה",
+    "Incorrect password": "סיסמא לא נכונה",
+    "Error": "שְׁגִיאָה",
+    "Something went wrong": "משהו השתבש",
+    "Server is not available": "השרת אינו זמין",
+    "of": "שֶׁל",
+    "Please wait...": "המתן בבקשה..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const HI = {
+    "Open document": "दस्तावेज़ खोलें",
+    "Upload file": "फ़ाइल अपलोड करें",
+    "Drop file here to upload": "अपलोड करने के लिए फ़ाइल यहाँ छोड़ें",
+    "Disc": "डिस्क",
+    "URL": "यूआरएल",
+    "FILE": "फ़ाइल",
+    "SIZE": "आकार",
+    "MB": "एमबी",
+    "KB": "केबी",
+    "Bytes": "बाइट्स",
+    "Loading... Please wait.": "लोड हो रहा है कृपया प्रतीक्षा करें।",
+    "Fit Width": "चौड़ाई पर फ़िट",
+    "Fit Height": "ठीक ऊंचाई",
+    "Password protected document": "पासवर्ड से सुरक्षित दस्तावेज़",
+    "Password": "पासवर्ड",
+    "Open": "खोलना",
+    "Password Required": "पासवर्ड आवश्यक",
+    "Incorrect password": "गलत पासवर्ड",
+    "Error": "त्रुटि",
+    "Something went wrong": "कुछ गलत हो गया",
+    "Server is not available": "सर्वर उपलब्ध नहीं है",
+    "of": "का",
+    "Please wait...": "कृपया प्रतीक्षा करें..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ID = {
+    "Open document": "Buka dokumen",
+    "Upload file": "Unggah data",
+    "Drop file here to upload": "Jatuhkan file di sini untuk mengunggah",
+    "Disc": "Cakram",
+    "URL": "URL",
+    "FILE": "MENGAJUKAN",
+    "SIZE": "UKURAN",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Byte",
+    "Loading... Please wait.": "Sedang memuat... Harap tunggu.",
+    "Fit Width": "Cocok Lebar",
+    "Fit Height": "Cocok Tinggi",
+    "Password protected document": "Dokumen yang dilindungi kata sandi",
+    "Password": "Kata sandi",
+    "Open": "Membuka",
+    "Password Required": "Diperlukan Kata Sandi",
+    "Incorrect password": "kata kunci Salah",
+    "Error": "Kesalahan",
+    "Something went wrong": "Ada yang salah",
+    "Server is not available": "Server tidak tersedia",
+    "of": "dari",
+    "Please wait...": "Mohon tunggu..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const IT = {
+    "Open document": "Apri documento",
+    "Upload file": "Caricare un file",
+    "Drop file here to upload": "Trascina qui il file da caricare",
+    "Disc": "Disco",
+    "URL": "URL",
+    "FILE": "FILE",
+    "SIZE": "DIMENSIONE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Byte",
+    "Loading... Please wait.": "Attendere il caricamento prego.",
+    "Fit Width": "Larghezza adatta",
+    "Fit Height": "Altezza giusta",
+    "Password protected document": "Documento protetto da password",
+    "Password": "Parola d'ordine",
+    "Open": "Aprire",
+    "Password Required": "Password richiesta",
+    "Incorrect password": "password errata",
+    "Error": "Errore",
+    "Something went wrong": "Qualcosa è andato storto",
+    "Server is not available": "Il server non è disponibile",
+    "of": "di",
+    "Please wait...": "Attendere prego..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const JA = {
+    "Open document": "ドキュメントを開く",
+    "Upload file": "ファイルをアップロードする",
+    "Drop file here to upload": "ここにファイルをドロップしてアップロードします",
+    "Disc": "ディスク",
+    "URL": "URL",
+    "FILE": "ファイル",
+    "SIZE": "サイズ",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "バイト",
+    "Loading... Please wait.": "読み込み中。。。待って下さい。",
+    "Fit Width": "フィット幅",
+    "Fit Height": "フィットの高さ",
+    "Password protected document": "パスワードで保護されたドキュメント",
+    "Password": "パスワード",
+    "Open": "開ける",
+    "Password Required": "パスワードが必要",
+    "Incorrect password": "パスワードが正しくありません",
+    "Error": "エラー",
+    "Something went wrong": "何かがうまくいかなかった",
+    "Server is not available": "サーバーは利用できません",
+    "of": "の",
+    "Please wait...": "お待ちください..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const KK = {
+    "Open document": "Құжатты ашу",
+    "Upload file": "Файлды жүктеу",
+    "Drop file here to upload": "Файлды жүктеу үшін осы жерге қойыңыз",
+    "Disc": "Диск",
+    "URL": "URL",
+    "FILE": "ФАЙЛ",
+    "SIZE": "SIZE",
+    "MB": "МБ",
+    "KB": "КБ",
+    "Bytes": "Байт",
+    "Loading... Please wait.": "Жүктелуде ... Күте тұрыңыз.",
+    "Fit Width": "Ені сәйкес",
+    "Fit Height": "Сәйкес биіктік",
+    "Password protected document": "Құпия сөзбен қорғалған құжат",
+    "Password": "Құпия сөз",
+    "Open": "Ашық",
+    "Password Required": "Құпия сөз қажет",
+    "Incorrect password": "Қате құпиясөз",
+    "Error": "Қате",
+    "Something went wrong": "Бірдеңе дұрыс болмады",
+    "Server is not available": "Сервер қол жетімді емес",
+    "of": "ның",
+    "Please wait...": "Өтінемін күте тұрыңыз..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const KO = {
+    "Open document": "문서 열기",
+    "Upload file": "파일 업로드",
+    "Drop file here to upload": "업로드하려면 여기에 파일을 드롭하세요.",
+    "Disc": "디스크",
+    "URL": "URL",
+    "FILE": "파일",
+    "SIZE": "크기",
+    "MB": "메가바이트",
+    "KB": "KB",
+    "Bytes": "바이트",
+    "Loading... Please wait.": "로딩 중 기다려주세요.",
+    "Fit Width": "너비 맞추기",
+    "Fit Height": "맞는 높이",
+    "Password protected document": "암호로 보호된 문서",
+    "Password": "비밀번호",
+    "Open": "열려있는",
+    "Password Required": "비밀번호가 필요합니다",
+    "Incorrect password": "잘못된 비밀번호",
+    "Error": "오류",
+    "Something went wrong": "문제가 발생했습니다.",
+    "Server is not available": "서버를 사용할 수 없습니다",
+    "of": "NS",
+    "Please wait...": "기다리세요..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const MS = {
+    "Open document": "Buka dokumen",
+    "Upload file": "Muat naik fail",
+    "Drop file here to upload": "Jatuhkan fail di sini untuk dimuat naik",
+    "Disc": "Cakera",
+    "URL": "URL",
+    "FILE": "FILE",
+    "SIZE": "SAIZ",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bait",
+    "Loading... Please wait.": "Muat turun sila tunggu.",
+    "Fit Width": "Lebar Fit",
+    "Fit Height": "Tinggi Ketepatan",
+    "Password protected document": "Dokumen dilindungi kata laluan",
+    "Password": "Kata Laluan",
+    "Open": "Buka",
+    "Password Required": "Kata laluan diperlukan",
+    "Incorrect password": "kata laluan salah",
+    "Error": "Ralat",
+    "Something went wrong": "Ada yang tidak kena",
+    "Server is not available": "Pelayan tidak tersedia",
+    "of": "daripada",
+    "Please wait...": "Sila tunggu..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const NL = {
+    "Open document": "Document openen",
+    "Upload file": "Upload bestand",
+    "Drop file here to upload": "Zet het bestand hier neer om te uploaden",
+    "Disc": "Schijf",
+    "URL": "URL",
+    "FILE": "HET DOSSIER",
+    "SIZE": "MAAT",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Laden even geduld aub.",
+    "Fit Width": "Fit Breedte",
+    "Fit Height": "Past de hoogte",
+    "Password protected document": "Met wachtwoord beveiligd document",
+    "Password": "Wachtwoord",
+    "Open": "Open",
+    "Password Required": "Wachtwoord benodigd",
+    "Incorrect password": "Incorrect wachtwoord",
+    "Error": "Fout",
+    "Something went wrong": "Er is iets fout gegaan",
+    "Server is not available": "Server is niet beschikbaar",
+    "of": "van",
+    "Please wait...": "Even geduld aub..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const PL = {
+    "Open document": "Otwórz dokument",
+    "Upload file": "Przesyłanie pliku",
+    "Drop file here to upload": "Upuść plik tutaj, aby go przesłać",
+    "Disc": "Dysk",
+    "URL": "URL",
+    "FILE": "PLIK",
+    "SIZE": "ROZMIAR",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bajty",
+    "Loading... Please wait.": "Ładowanie proszę czekać.",
+    "Fit Width": "Dopasuj szerokość",
+    "Fit Height": "Dopasuj wysokość",
+    "Password protected document": "Dokument chroniony hasłem",
+    "Password": "Hasło",
+    "Open": "otwarty",
+    "Password Required": "Wymagane hasło",
+    "Incorrect password": "niepoprawne hasło",
+    "Error": "Błąd",
+    "Something went wrong": "Coś poszło nie tak",
+    "Server is not available": "Serwer jest niedostępny",
+    "of": "z",
+    "Please wait...": "Proszę czekać..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const PT = {
+    "Open document": "Abrir documento",
+    "Upload file": "Subir arquivo",
+    "Drop file here to upload": "Solte o arquivo aqui para fazer o upload",
+    "Disc": "Disco",
+    "URL": "URL",
+    "FILE": "ARQUIVO",
+    "SIZE": "TAMANHO",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Carregando, por favor espere.",
+    "Fit Width": "Largura de ajuste",
+    "Fit Height": "Altura de ajuste",
+    "Password protected document": "Documento protegido por senha",
+    "Password": "Senha",
+    "Open": "Abrir",
+    "Password Required": "Senha requerida",
+    "Incorrect password": "Senha incorreta",
+    "Error": "Erro",
+    "Something went wrong": "Algo deu errado",
+    "Server is not available": "Servidor não disponível",
+    "of": "do",
+    "Please wait...": "Por favor, espere..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const RO = {
+    "Open document": "Deschideți documentul",
+    "Upload file": "Incarca fisier",
+    "Drop file here to upload": "Plasați fișierul aici pentru încărcare",
+    "Disc": "Disc",
+    "URL": "URL",
+    "FILE": "FIŞIER",
+    "SIZE": "MĂRIMEA",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Octet",
+    "Loading... Please wait.": "Încărcare va rugam asteptati.",
+    "Fit Width": "Lățime potrivită",
+    "Fit Height": "Înălțime potrivită",
+    "Password protected document": "Document protejat prin parolă",
+    "Password": "Parola",
+    "Open": "Deschis",
+    "Password Required": "Parolă obligatorie",
+    "Incorrect password": "Parola incorecta",
+    "Error": "Eroare",
+    "Something went wrong": "Ceva n-a mers bine",
+    "Server is not available": "Serverul nu este disponibil",
+    "of": "de",
+    "Please wait...": "Va rugam asteptati..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const RU = {
+    "Open document": "Открыть документ",
+    "Upload file": "Загрузить файл",
+    "Drop file here to upload": "Перетащите файл сюда, чтобы загрузить",
+    "Disc": "Диск",
+    "URL": "URL",
+    "FILE": "ФАЙЛ",
+    "SIZE": "РАЗМЕР",
+    "MB": "МБ",
+    "KB": "КБ",
+    "Bytes": "Байтов",
+    "Loading... Please wait.": "Загрузка, пожалуйста подождите.",
+    "Fit Width": "По ширине",
+    "Fit Height": "По высоте",
+    "Password protected document": "Документ, защищенный паролем",
+    "Password": "Пароль",
+    "Open": "Открытым",
+    "Password Required": "Требуется пароль",
+    "Incorrect password": "Неверный пароль",
+    "Error": "Ошибка",
+    "Something went wrong": "Что-то пошло не так",
+    "Server is not available": "Сервер недоступен",
+    "of": "из",
+    "Please wait...": "Подождите пожалуйста..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const SV = {
+    "Open document": "Öppna dokument",
+    "Upload file": "Ladda upp fil",
+    "Drop file here to upload": "Släpp filen här för att ladda upp",
+    "Disc": "Skiva",
+    "URL": "URL",
+    "FILE": "FIL",
+    "SIZE": "STORLEK",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Laddar ... Vänta.",
+    "Fit Width": "Passformsbredd",
+    "Fit Height": "Passformshöjd",
+    "Password protected document": "Lösenordsskyddat dokument",
+    "Password": "Lösenord",
+    "Open": "Öppen",
+    "Password Required": "Lösenord krävs",
+    "Incorrect password": "fel lösenord",
+    "Error": "Fel",
+    "Something went wrong": "Något gick fel",
+    "Server is not available": "Servern är inte tillgänglig",
+    "of": "av",
+    "Please wait...": "Vänta..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const TH = {
+    "Open document": "เปิดเอกสาร",
+    "Upload file": "อัพโหลดไฟล์",
+    "Drop file here to upload": "วางไฟล์ที่นี่เพื่ออัพโหลด",
+    "Disc": "ดิสก์",
+    "URL": "URL",
+    "FILE": "ไฟล์",
+    "SIZE": "ขนาด",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "ไบต์",
+    "Loading... Please wait.": "กำลังโหลด... กรุณารอสักครู่",
+    "Fit Width": "พอดีความกว้าง",
+    "Fit Height": "พอดีกับความสูง",
+    "Password protected document": "เอกสารป้องกันด้วยรหัสผ่าน",
+    "Password": "รหัสผ่าน",
+    "Open": "เปิด",
+    "Password Required": "ต้องใช้รหัสผ่าน",
+    "Incorrect password": "รหัสผ่านผิดพลาด",
+    "Error": "ข้อผิดพลาด",
+    "Something went wrong": "อะไรบางอย่างผิดปกติ",
+    "Server is not available": "เซิร์ฟเวอร์ไม่พร้อมใช้งาน",
+    "of": "ของ",
+    "Please wait...": "โปรดรอ..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const TR = {
+    "Open document": "Belgeyi aç",
+    "Upload file": "Dosya yükleme",
+    "Drop file here to upload": "Yüklemek için dosyayı buraya bırakın",
+    "Disc": "Disk",
+    "URL": "URL",
+    "FILE": "DOSYA",
+    "SIZE": "BOY",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "bayt",
+    "Loading... Please wait.": "Yükleniyor lütfen bekleyin.",
+    "Fit Width": "Sığdır Genişliği",
+    "Fit Height": "Uygun Yükseklik",
+    "Password protected document": "Parola korumalı belge",
+    "Password": "Parola",
+    "Open": "Açık",
+    "Password Required": "Şifre gerekli",
+    "Incorrect password": "yanlış parola",
+    "Error": "Hata",
+    "Something went wrong": "Bir şeyler yanlış gitti",
+    "Server is not available": "Sunucu kullanılamıyor",
+    "of": "ile ilgili",
+    "Please wait...": "Lütfen bekle..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const UK = {
+    "Open document": "Відкрити документ",
+    "Upload file": "Завантажити файл",
+    "Drop file here to upload": "Перетягніть файл у цю область для завантаження",
+    "Disc": "Пристрій",
+    "URL": "Посилання",
+    "FILE": "Файл",
+    "SIZE": "Розмір",
+    "MB": "МБ",
+    "KB": "КБ",
+    "Bytes": "Байт",
+    "Loading... Please wait.": "Завантаження... Зачекайте, будь ласка.",
+    "Fit Width": "По ширині",
+    "Fit Height": "По висоті",
+    "Password protected document": "Документ захищено паролем",
+    "Password": "Пароль",
+    "Open": "Відкрити",
+    "Password Required": "Необхідно ввести пароль",
+    "Incorrect password": "Неправильний пароль",
+    "Error": "Помилка",
+    "Something went wrong": "Щось пішло не так",
+    "Server is not available": "Сервер недоступний",
+    "of": "з",
+    "Please wait...": "Зачекайте, будь ласка..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const VI = {
+    "Open document": "Mở tài liệu",
+    "Upload file": "Cập nhật dử liệu",
+    "Drop file here to upload": "Thả tệp vào đây để tải lên",
+    "Disc": "Đĩa",
+    "URL": "URL",
+    "FILE": "TẬP TIN",
+    "SIZE": "KÍCH THƯỚC",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Byte",
+    "Loading... Please wait.": "Tải vui lòng đợi.",
+    "Fit Width": "Vừa chiều rộng",
+    "Fit Height": "Chiều cao phù hợp",
+    "Password protected document": "Tài liệu được bảo vệ bằng mật khẩu",
+    "Password": "Mật khẩu",
+    "Open": "Mở ra",
+    "Password Required": "Mật khẩu được yêu câu",
+    "Incorrect password": "mật khẩu không đúng",
+    "Error": "Lỗi",
+    "Something went wrong": "Đã xảy ra sự cố",
+    "Server is not available": "Máy chủ không có sẵn",
+    "of": "của",
+    "Please wait...": "Vui lòng chờ..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ZHHANS = {
+    "Open document": "打开文档",
+    "Upload file": "上传文件",
+    "Drop file here to upload": "将文件拖放到此处以上传",
+    "Disc": "光盘",
+    "URL": "网址",
+    "FILE": "文件",
+    "SIZE": "尺寸",
+    "MB": "MB",
+    "KB": "知识库",
+    "Bytes": "字节",
+    "Loading... Please wait.": "加载请稍候。",
+    "Fit Width": "适合宽度",
+    "Fit Height": "适合高度",
+    "Password protected document": "受密码保护的文件",
+    "Password": "密码",
+    "Open": "打开",
+    "Password Required": "需要密码",
+    "Incorrect password": "密码错误",
+    "Error": "错误",
+    "Something went wrong": "出了些问题",
+    "Server is not available": "服务器不可用",
+    "of": "的",
+    "Please wait...": "请稍等..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ZHHANT = {
+    "Open document": "打開文檔",
+    "Upload file": "上傳文件",
+    "Drop file here to upload": "將文件拖放到此處以上傳",
+    "Disc": "光盤",
+    "URL": "網址",
+    "FILE": "文件",
+    "SIZE": "尺寸",
+    "MB": "MB",
+    "KB": "知識庫",
+    "Bytes": "字節",
+    "Loading... Please wait.": "加載請稍候。",
+    "Fit Width": "適合寬度",
+    "Fit Height": "適合高度",
+    "Password protected document": "受密碼保護的文件",
+    "Password": "密碼",
+    "Open": "打開",
+    "Password Required": "需要密碼",
+    "Incorrect password": "密碼錯誤",
+    "Error": "錯誤",
+    "Something went wrong": "出了些問題",
+    "Server is not available": "服務器不可用",
+    "of": "的",
+    "Please wait...": "請稍等..."
+};
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class StaticTranslateLoader {
+    /**
+     * @param {?} translations
+     */
+    constructor(translations) {
+        this.translations = {};
+        this.translations['ar'] = Object.assign({}, AR, translations['ar']);
+        this.translations['ca'] = Object.assign({}, CA, translations['ca']);
+        this.translations['cs'] = Object.assign({}, CS, translations['cs']);
+        this.translations['da'] = Object.assign({}, DA, translations['da']);
+        this.translations['de'] = Object.assign({}, DE, translations['de']);
+        this.translations['el'] = Object.assign({}, EL, translations['el']);
+        this.translations['en'] = Object.assign({}, EN, translations['en']);
+        this.translations['es'] = Object.assign({}, ES, translations['es']);
+        this.translations['fil'] = Object.assign({}, FIL, translations['fil']);
+        this.translations['fr'] = Object.assign({}, FR, translations['fr']);
+        this.translations['he'] = Object.assign({}, HE, translations['he']);
+        this.translations['hi'] = Object.assign({}, HI, translations['hi']);
+        this.translations['id'] = Object.assign({}, ID, translations['id']);
+        this.translations['it'] = Object.assign({}, IT, translations['it']);
+        this.translations['ja'] = Object.assign({}, JA, translations['ja']);
+        this.translations['kk'] = Object.assign({}, KK, translations['kk']);
+        this.translations['ko'] = Object.assign({}, KO, translations['ko']);
+        this.translations['ms'] = Object.assign({}, MS, translations['ms']);
+        this.translations['nl'] = Object.assign({}, NL, translations['nl']);
+        this.translations['pl'] = Object.assign({}, PL, translations['pl']);
+        this.translations['pt'] = Object.assign({}, PT, translations['pt']);
+        this.translations['ro'] = Object.assign({}, RO, translations['ro']);
+        this.translations['ru'] = Object.assign({}, RU, translations['ru']);
+        this.translations['sv'] = Object.assign({}, SV, translations['sv']);
+        this.translations['th'] = Object.assign({}, TH, translations['th']);
+        this.translations['tr'] = Object.assign({}, TR, translations['tr']);
+        this.translations['uk'] = Object.assign({}, UK, translations['uk']);
+        this.translations['vi'] = Object.assign({}, VI, translations['vi']);
+        this.translations['zh-hans'] = Object.assign({}, ZHHANS, translations['zh-hans']);
+        this.translations['zh-hant'] = Object.assign({}, ZHHANT, translations['zh-hant']);
+    }
+    /**
+     * @param {?} lang
+     * @return {?}
+     */
+    getTranslation(lang) {
+        /** @type {?} */
+        const translation = this.translations[lang]
+            ? this.translations[lang]
+            : this.translations[this.defaultLanguage];
+        return new Observable((/**
+         * @param {?} subscriber
+         * @return {?}
+         */
+        subscriber => {
+            subscriber.next(translation);
+        }));
+    }
+}
+if (false) {
+    /** @type {?} */
+    StaticTranslateLoader.prototype.translations;
+    /** @type {?} */
+    StaticTranslateLoader.prototype.defaultLanguage;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, StaticTranslateLoader, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

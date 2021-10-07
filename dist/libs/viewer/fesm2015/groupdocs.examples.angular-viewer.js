@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Api, ConfigService, CommonModals, FileUtil, PageModel, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, FileUtil, PageModel, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, StaticTranslateLoader, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import * as Hammer from 'hammerjs';
 import * as jquery from 'jquery';
@@ -187,6 +188,12 @@ if (false) {
     ViewerConfig.prototype.printAllowed;
     /** @type {?} */
     ViewerConfig.prototype.showGridLines;
+    /** @type {?} */
+    ViewerConfig.prototype.showLanguageMenu;
+    /** @type {?} */
+    ViewerConfig.prototype.defaultLanguage;
+    /** @type {?} */
+    ViewerConfig.prototype.supportedLanguages;
 }
 
 /**
@@ -279,12 +286,73 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class Language {
+    /**
+     * @param {?} code
+     * @param {?} alternateCode
+     * @param {?} name
+     */
+    constructor(code, alternateCode, name) {
+        this.code = code;
+        this.alternateCode = alternateCode;
+        this.name = name;
+    }
+    /**
+     * @param {?} code
+     * @return {?}
+     */
+    is(code) {
+        return this.code === code || this.alternateCode === code;
+    }
+}
+if (false) {
+    /** @type {?} */
+    Language.prototype.code;
+    /** @type {?} */
+    Language.prototype.alternateCode;
+    /** @type {?} */
+    Language.prototype.name;
+}
 class Constants {
 }
 Constants.thumbnailsWidth = 300;
 Constants.scrollWidth = 17;
 Constants.topbarWidth = 60;
 Constants.documentMargin = 20;
+Constants.defaultShowLanguageMenu = true;
+Constants.defaultLanguage = new Language("en", "en-us", "English");
+Constants.defaultSupportedLanguages = [
+    new Language("ar", "ar", "العربية"),
+    new Language("ca", "ca-ES", "Català"),
+    new Language("cs", "cs-CZ", "Čeština"),
+    new Language("da", "da-DK", "Dansk"),
+    new Language("de", "de-DE", "Deutsch"),
+    new Language("el", "el-GR", "Ελληνικά"),
+    new Language("en", "en-US", "English"),
+    new Language("es", "es-ES", "Español"),
+    new Language("fil", "fil-PH", "Filipino"),
+    new Language("fr", "fr-FR", "Français"),
+    new Language("he", "he-IL", "עברית"),
+    new Language("hi", "hi-IN", "हिन्दी"),
+    new Language("id", "id-ID", "Indonesia"),
+    new Language("it", "it-IT", "Italiano"),
+    new Language("ja", "ja-JP", "日本語"),
+    new Language("kk", "kk-KZ", "Қазақ Тілі"),
+    new Language("ko", "ko-KR", "한국어"),
+    new Language("ms", "ms-MY", "Melayu"),
+    new Language("nl", "nl-NL", "Nederlands"),
+    new Language("pl", "pl-PL", "Polski"),
+    new Language("pt", "pt-PT", "Português"),
+    new Language("ro", "ro-RO", "Română"),
+    new Language("ru", "ru-RU", "Русский"),
+    new Language("sv", "sv-SE", "Svenska"),
+    new Language("vi", "vi-VN", "Tiếng Việt"),
+    new Language("th", "th-TH", "ไทย"),
+    new Language("tr", "tr-TR", "Türkçe"),
+    new Language("uk", "uk-UA", "Українська"),
+    new Language("zh", "zh-Hans", "中文"),
+    new Language("zh", "zh-Hant", "中文"),
+];
 if (false) {
     /** @type {?} */
     Constants.thumbnailsWidth;
@@ -294,6 +362,12 @@ if (false) {
     Constants.topbarWidth;
     /** @type {?} */
     Constants.documentMargin;
+    /** @type {?} */
+    Constants.defaultShowLanguageMenu;
+    /** @type {?} */
+    Constants.defaultLanguage;
+    /** @type {?} */
+    Constants.defaultSupportedLanguages;
 }
 
 /**
@@ -403,8 +477,9 @@ class ViewerAppComponent {
      * @param {?} _windowService
      * @param {?} _loadingMaskService
      * @param {?} cdr
+     * @param {?} translate
      */
-    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr) {
+    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr, translate) {
         this._viewerService = _viewerService;
         this._modalService = _modalService;
         this._navigateService = _navigateService;
@@ -412,6 +487,7 @@ class ViewerAppComponent {
         this._windowService = _windowService;
         this._loadingMaskService = _loadingMaskService;
         this.cdr = cdr;
+        this.translate = translate;
         this.title = 'viewer';
         this.files = [];
         this.countPages = 0;
@@ -502,6 +578,28 @@ class ViewerAppComponent {
             this.selectCurrentOrFirstPage();
             return;
         }
+        /** @type {?} */
+        const defaultLanguage = this.defaultLanguageConfig;
+        /** @type {?} */
+        const supportedLanguages = this.supportedLanguagesConfig
+            .map((/**
+         * @param {?} language
+         * @return {?}
+         */
+        language => {
+            return {
+                name: language.name,
+                value: language.code,
+                separator: false
+            };
+        }));
+        this.supportedLanguages = supportedLanguages;
+        this.selectedLanguage = supportedLanguages.find((/**
+         * @param {?} lang
+         * @return {?}
+         */
+        lang => lang.value === defaultLanguage.code));
+        this.translate.use(defaultLanguage.code);
         /** @type {?} */
         const queryString = window.location.search;
         if (queryString) {
@@ -622,6 +720,77 @@ class ViewerAppComponent {
     /**
      * @return {?}
      */
+    get showLanguageMenu() {
+        if (this.viewerConfig !== undefined && this.viewerConfig.showLanguageMenu !== undefined) {
+            return this.viewerConfig.showLanguageMenu;
+        }
+        return Constants.defaultShowLanguageMenu;
+    }
+    /**
+     * @return {?}
+     */
+    get supportedLanguagesConfig() {
+        if (this.viewerConfig && this.viewerConfig.supportedLanguages) {
+            /** @type {?} */
+            const supportedLanguages = this.viewerConfig.supportedLanguages;
+            return Constants.defaultSupportedLanguages
+                .filter((/**
+             * @param {?} lang
+             * @return {?}
+             */
+            lang => supportedLanguages.indexOf(lang.code) !== -1 || supportedLanguages.indexOf(lang.alternateCode) !== -1));
+        }
+        return Constants.defaultSupportedLanguages;
+    }
+    /**
+     * @return {?}
+     */
+    get defaultLanguageConfig() {
+        if (this.viewerConfig && this.viewerConfig.defaultLanguage) {
+            return this.supportedLanguagesConfig
+                .find((/**
+             * @param {?} lang
+             * @return {?}
+             */
+            lang => lang.is(this.viewerConfig.defaultLanguage)));
+        }
+        /** @type {?} */
+        const pathname = window.location.pathname;
+        if (pathname) {
+            /** @type {?} */
+            const parts = pathname.split('/');
+            /** @type {?} */
+            const langOrNothing = this.supportedLanguagesConfig
+                .filter((/**
+             * @param {?} supported
+             * @return {?}
+             */
+            supported => parts.includes(supported.code) || parts.includes(supported.alternateCode)))
+                .shift();
+            if (langOrNothing)
+                return langOrNothing;
+        }
+        /** @type {?} */
+        const queryString = window.location.search;
+        if (queryString) {
+            /** @type {?} */
+            const urlParams = new URLSearchParams(queryString);
+            /** @type {?} */
+            const candidate = urlParams.get('lang');
+            if (candidate) {
+                return this.supportedLanguagesConfig
+                    .find((/**
+                 * @param {?} lang
+                 * @return {?}
+                 */
+                lang => lang.is(candidate)));
+            }
+        }
+        return Constants.defaultLanguage;
+    }
+    /**
+     * @return {?}
+     */
     ifPresentation() {
         return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint" : false;
     }
@@ -702,7 +871,7 @@ class ViewerAppComponent {
                 /** @type {?} */
                 const emptyThumb = new PageModel();
                 emptyThumb.number = thumb.number;
-                emptyThumb.data = `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">Click here to load page ${thumb.number}</div></div>`;
+                emptyThumb.data = `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">${thumb.number}</div></div>`;
                 emptyThumb.width = 800;
                 emptyThumb.height = 800;
                 thumbnails[thumbIndex] = emptyThumb;
@@ -1321,12 +1490,20 @@ class ViewerAppComponent {
         this.startCountDown(0);
         this.refreshZoom();
     }
+    /**
+     * @param {?} selectedLanguage
+     * @return {?}
+     */
+    selectLanguage(selectedLanguage) {
+        this.selectedLanguage = selectedLanguage;
+        this.translate.use(selectedLanguage.value);
+    }
 }
 ViewerAppComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-viewer',
-                template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick()\">\n  <div class=\"top-panel\" *ngIf=\"!runPresentation\">\n    <gd-logo [logo]=\"'viewer'\" icon=\"eye\"></gd-logo>\n    <gd-top-toolbar class=\"toolbar-panel\">\n      <gd-button [icon]=\"'folder-open'\" title=\"Browse files\" (click)=\"openModal(browseFilesModal)\"\n                 *ngIf=\"browseConfig\" ></gd-button>\n\n      <gd-select class=\"mobile-hide select-left\" [disabled]=\"formatDisabled\" [options]=\"options\" (selected)=\"selectZoom($event)\"\n                 [showSelected]=\"{ name: zoom+'%', value : zoom}\" *ngIf=\"zoomConfig\" ></gd-select>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" title=\"Zoom In\" (click)=\"zoomIn()\"\n                 *ngIf=\"zoomConfig\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" title=\"Zoom Out\"\n                 (click)=\"zoomOut()\" *ngIf=\"zoomConfig\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-left'\" title=\"First Page\"\n                 (click)=\"toFirstPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" title=\"Previous Page\"\n                 (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <div class=\"current-page-number\" [ngClass]=\"{'active': !formatDisabled}\" *ngIf=\"formatIcon !== 'file-excel'\">{{currentPage}}/{{countPages}}</div>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" title=\"Next Page\"\n                 (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-right'\" title=\"Last Page\"\n                 (click)=\"toLastPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'undo'\" title=\"Rotate CCW\" (click)=\"rotate(-90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'redo'\" title=\"Rotate CW\" (click)=\"rotate(90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" title=\"Download\"\n                 (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'print'\" title=\"Print\" (click)=\"printFile()\"\n                 *ngIf=\"printConfig\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'search'\" title=\"Search\" (click)=\"openSearch()\"\n                 *ngIf=\"searchConfig && !ifPresentation()\" ></gd-button>\n      <gd-search (hidePanel)=\"showSearch = !$event\" *ngIf=\"showSearch\" ></gd-search>\n\n      <gd-button class=\"thumbnails-button btn-right\" [disabled]=\"formatDisabled\" [icon]=\"'th-large'\" title=\"Thumbnails\"\n                 (click)=\"openThumbnails()\" *ngIf=\"thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && (!ifPresentation() ||\n                 ifPresentation() && runPresentation)\"></gd-button>\n      <gd-button class=\"thumbnails-button mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'play'\" title=\"Run presentation\"\n                 (click)=\"startPresentation()\" *ngIf=\"ifPresentation() && !runPresentation\">Present</gd-button>\n    </gd-top-toolbar>\n  </div>\n  <div class=\"top-panel\" *ngIf=\"runPresentation\">\n    <gd-top-toolbar class=\"toolbar-panel\">\n      <div class=\"slides-title\">Viewer</div>\n      <div class=\"slides-filename\">{{getFileName()}}</div>\n      <div class=\"slides-buttons\">\n        <gd-select class=\"mobile-hide select-right\" [disabled]=\"formatDisabled\" [options]=\"timerOptions\" (selected)=\"toggleTimer($event)\"\n        [icon]=\"'clock'\" *ngIf=\"zoomConfig\" ></gd-select>\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationRunning()\" [disabled]=\"formatDisabled\" [icon]=\"'pause'\" title=\"Pause presenting\"\n        (click)=\"pausePresenting()\"></gd-button>\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationPaused()\" [disabled]=\"formatDisabled\" [icon]=\"'step-forward'\" title=\"Resume presenting\"\n        (click)=\"resumePresenting()\"></gd-button>\n        <gd-button class=\"mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'stop'\" title=\"Stop presenting\"\n        (click)=\"closeFullScreen(true)\">Stop</gd-button>\n      </div>\n    </gd-top-toolbar>\n  </div>\n  <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\n    <gd-thumbnails *ngIf=\"showThumbnails && !ifPresentation() && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\"></gd-thumbnails>\n    <gd-thumbnails *ngIf=\"showThumbnails && ifPresentation() && !runPresentation && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\" gdScrollable [isPresentation]=\"ifPresentation()\"></gd-thumbnails>\n\n    <gd-document class=\"gd-document\" *ngIf=\"(file &&\n                                            (ifExcel() && !htmlModeConfig) ||\n                                            (ifPresentation() && isDesktop && !runPresentation) ||\n                                            (!ifExcel() && !ifPresentation()))\" [file]=\"file\" [mode]=\"htmlModeConfig\" [showActiveSlide]=\"true\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" [selectedPage]=\"selectedPageNumber\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" gdMouseWheel (mouseWheelUp)=\"onMouseWheelUp()\" (mouseWheelDown)=\"onMouseWheelDown()\"></gd-document>\n    <gd-excel-document class=\"gd-document\" *ngIf=\"file && ifExcel() && htmlModeConfig\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-excel-document>\n    <gd-run-presentation class=\"gd-document\" *ngIf=\"(file && ifPresentation() && runPresentation) ||\n                                                    (file && ifPresentation() && !isDesktop)\" [file]=\"file\" [currentPage]=\"currentPage\" [mode]=\"htmlModeConfig\"\n                                                    (selectedPage)=\"selectCurrentPage($event)\"\n                 [preloadPageCount]=\"0\"></gd-run-presentation>\n    <div class=\"slides-nav\" *ngIf=\"runPresentation\">\n      <div class=\"timer\" *ngIf=\"showCountDown()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon><span [ngClass]=\"secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'\">{{secondsLeft}}</span>\n      </div>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\"\n      (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\"\n      (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n    </div>\n  </div>\n\n  <gd-init-state [icon]=\"'eye'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n    Or drop file here\n  </gd-init-state>\n\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n</div>\n",
-                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.current-page-number{margin-left:7px;font-size:14px;color:#959da5;width:37px;height:37px;line-height:37px;text-align:center}.current-page-number.active{color:#fff}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.thumbnails-button{position:absolute;right:3px}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}.btn-right{margin-right:7px}.smp-start-stop ::ng-deep .button{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;border:1px solid;border-radius:5px;padding:0 10px!important}::ng-deep .tools .button,::ng-deep .tools .nav-caret,::ng-deep .tools .selected-value{color:#fff!important}::ng-deep .tools .button.inactive,::ng-deep .tools .nav-caret.inactive,::ng-deep .tools .selected-value.inactive{color:#959da5!important}::ng-deep .tools .button{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .select-left .select{position:relative}::ng-deep .tools .select-left .dropdown-menu{top:40px;left:0}::ng-deep .tools .select-right .select{position:relative}::ng-deep .tools .select-right .dropdown-menu{top:40px;right:0}::ng-deep .tools .dropdown-menu .option{color:#6e6e6e!important}::ng-deep .tools .dropdown-menu .option:hover{background-color:#4b566c!important}::ng-deep .tools .icon-button{margin:0 0 0 15px!important}::ng-deep .tools .select{width:37px;height:37px;margin-left:7px;line-height:37px;text-align:center}::ng-deep .tools .slides-title{color:#fff;padding-left:12px;font-size:18px}::ng-deep .tools .slides-filename{-webkit-box-flex:1;flex-grow:1;text-align:center;color:#fff;text-overflow:ellipsis;white-space:nowrap;padding-left:20px;overflow:hidden}::ng-deep .tools .slides-buttons{display:-webkit-box;display:flex}::ng-deep .tools .slides-buttons ::ng-deep .select{color:#fff;cursor:pointer}::ng-deep .tools ::ng-deep .gd-nav-search-container .icon-button{margin:0 0 0 7px!important}.slides-nav{position:absolute;right:30px;bottom:30px;display:-webkit-box;display:flex}.slides-nav ::ng-deep .button{font-size:37px;background-color:#edf0f2;border-radius:3px}.slides-nav ::ng-deep .timer{font-size:42px;line-height:6px;color:#959da5;position:relative}.slides-nav ::ng-deep .timer .seconds-remaining{position:absolute;margin-left:5px;font-size:16px;top:18px;left:12px}.slides-nav ::ng-deep .timer .seconds-remaining.two-digits{left:6px!important}::ng-deep .page.presentation .gd-wrapper{pointer-events:none}@media (max-width:1037px){.current-page-number,.mobile-hide{display:none}::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .tools .gd-nav-search-btn .icon-button{height:37px;width:37px}::ng-deep .tools .gd-nav-search-btn .button{font-size:14px}::ng-deep .tools .gd-nav-search-container{top:59px!important}}"]
+                template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\n<div class=\"wrapper\" (contextmenu)=\"onRightClick()\">\n  <div class=\"top-panel\" *ngIf=\"!runPresentation\">\n    <gd-logo [logo]=\"'viewer'\" icon=\"eye\"></gd-logo>\n    <gd-top-toolbar class=\"toolbar-panel\">\n      <gd-button [icon]=\"'folder-open'\" title=\"{{'Browse files' | translate}}\" (click)=\"openModal(browseFilesModal)\"\n                 *ngIf=\"browseConfig\" ></gd-button>\n\n      <gd-select class=\"mobile-hide select-left\" [disabled]=\"formatDisabled\" [options]=\"options\" (selected)=\"selectZoom($event)\"\n                 [showSelected]=\"{ name: zoom+'%', value : zoom}\" *ngIf=\"zoomConfig\" ></gd-select>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" title=\"{{'Zoom In' | translate}}\" (click)=\"zoomIn()\"\n                 *ngIf=\"zoomConfig\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" title=\"{{'Zoom Out' | translate}}\"\n                 (click)=\"zoomOut()\" *ngIf=\"zoomConfig\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-left'\" title=\"{{'First Page' | translate }}\"\n                 (click)=\"toFirstPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" title=\"{{'Previous Page' | translate}}\"\n                 (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <div class=\"current-page-number\" [ngClass]=\"{'active': !formatDisabled}\" *ngIf=\"formatIcon !== 'file-excel'\">{{currentPage}}/{{countPages}}</div>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" title=\"{{'Next Page' | translate }}\"\n                 (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-right'\" title=\"{{'Last Page' | translate }}\"\n                 (click)=\"toLastPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'undo'\" title=\"{{'Rotate CCW' | translate}}\" (click)=\"rotate(-90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'redo'\" title=\"{{'Rotate CW' | translate}}\"  (click)=\"rotate(90)\"\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" title=\"{{'Download' | translate}}\"\n                 (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'print'\" title=\"{{'Print' | translate}}\" (click)=\"printFile()\"\n                 *ngIf=\"printConfig\" ></gd-button>\n\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'search'\" title=\"{{'Search' | translate}}\" (click)=\"openSearch()\"\n                 *ngIf=\"searchConfig && !ifPresentation()\" ></gd-button>\n      <gd-search (hidePanel)=\"showSearch = !$event\" *ngIf=\"showSearch\" ></gd-search>\n\n      <div class=\"toolbar-panel-right\">\n        <div class=\"language-menu mobile-hide\" *ngIf=\"showLanguageMenu\">\n          <gd-select class=\"select-language-menu\" [disabled]=\"false\" [options]=\"supportedLanguages\"\n            (selected)=\"selectLanguage($event)\" [showSelected]=\"selectedLanguage\"></gd-select>\n        </div>\n\n        <gd-button class=\"thumbnails-button btn-right\" [disabled]=\"formatDisabled\" [icon]=\"'th-large'\" title=\"{{'Thumbnails' | translate}}\"\n                   (click)=\"openThumbnails()\" *ngIf=\"thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && (!ifPresentation() ||\n                   ifPresentation() && runPresentation)\"></gd-button>\n        <gd-button class=\"thumbnails-button mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'play'\" title=\"{{'Run presentation' | translate}}\"\n                   (click)=\"startPresentation()\" *ngIf=\"ifPresentation() && !runPresentation\">{{'Present' | translate}}</gd-button>\n      </div>\n    </gd-top-toolbar>\n  </div>\n  <div class=\"top-panel\" *ngIf=\"runPresentation\">\n    <gd-top-toolbar class=\"toolbar-panel\">\n      <div class=\"slides-title\">Viewer</div>\n      <div class=\"slides-filename\">{{getFileName()}}</div>\n      <div class=\"slides-buttons\">\n        <gd-select class=\"mobile-hide select-right\" [disabled]=\"formatDisabled\" [options]=\"timerOptions\" (selected)=\"toggleTimer($event)\"\n        [icon]=\"'clock'\" *ngIf=\"zoomConfig\" ></gd-select>\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationRunning()\" [disabled]=\"formatDisabled\" [icon]=\"'pause'\" title=\"{{'Pause presenting' | translate}}\"\n        (click)=\"pausePresenting()\"></gd-button>\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationPaused()\" [disabled]=\"formatDisabled\" [icon]=\"'step-forward'\" title=\"{{'Resume presenting' | translate}}\"\n        (click)=\"resumePresenting()\"></gd-button>\n        <gd-button class=\"mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'stop'\" title=\"{{'Stop presenting' | translate}}\"\n        (click)=\"closeFullScreen(true)\">{{'Stop' | translate}} </gd-button>\n      </div>\n    </gd-top-toolbar>\n  </div>\n  <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\n    <gd-thumbnails *ngIf=\"showThumbnails && !ifPresentation() && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\"></gd-thumbnails>\n    <gd-thumbnails *ngIf=\"showThumbnails && ifPresentation() && !runPresentation && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\" gdScrollable [isPresentation]=\"ifPresentation()\"></gd-thumbnails>\n\n    <gd-document class=\"gd-document\" *ngIf=\"(file &&\n                                            (ifExcel() && !htmlModeConfig) ||\n                                            (ifPresentation() && isDesktop && !runPresentation) ||\n                                            (!ifExcel() && !ifPresentation()))\" [file]=\"file\" [mode]=\"htmlModeConfig\" [showActiveSlide]=\"true\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" [selectedPage]=\"selectedPageNumber\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" gdMouseWheel (mouseWheelUp)=\"onMouseWheelUp()\" (mouseWheelDown)=\"onMouseWheelDown()\"></gd-document>\n    <gd-excel-document class=\"gd-document\" *ngIf=\"file && ifExcel() && htmlModeConfig\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-excel-document>\n    <gd-run-presentation class=\"gd-document\" *ngIf=\"(file && ifPresentation() && runPresentation) ||\n                                                    (file && ifPresentation() && !isDesktop)\" [file]=\"file\" [currentPage]=\"currentPage\" [mode]=\"htmlModeConfig\"\n                                                    (selectedPage)=\"selectCurrentPage($event)\"\n                 [preloadPageCount]=\"0\"></gd-run-presentation>\n    <div class=\"slides-nav\" *ngIf=\"runPresentation\">\n      <div class=\"timer\" *ngIf=\"showCountDown()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon><span [ngClass]=\"secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'\">{{secondsLeft}}</span>\n      </div>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\"\n      (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\"\n      (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\n    </div>\n  </div>\n\n  <gd-init-state [icon]=\"'eye'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\n    {{'Click' | translate}} <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> {{'to open file' | translate}}<br>\n    {{'Or drop file here' | translate}}\n  </gd-init-state>\n\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\n\n  <gd-error-modal></gd-error-modal>\n  <gd-password-required></gd-password-required>\n</div>\n",
+                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.current-page-number{margin-left:7px;font-size:14px;color:#959da5;width:37px;height:37px;line-height:37px;text-align:center}.current-page-number.active{color:#fff}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}.toolbar-panel-right{display:-webkit-box;display:flex;-webkit-box-flex:1;flex:1;place-content:flex-end}.btn-right{margin-right:7px}.smp-start-stop ::ng-deep .button{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;border:1px solid;border-radius:5px;padding:0 10px!important}.select-language-menu ::ng-deep .select{width:100%}.select-language-menu ::ng-deep .selected-value{max-width:100%}::ng-deep .tools .button,::ng-deep .tools .nav-caret,::ng-deep .tools .selected-value{color:#fff!important}::ng-deep .tools .button.inactive,::ng-deep .tools .nav-caret.inactive,::ng-deep .tools .selected-value.inactive{color:#959da5!important}::ng-deep .tools .button{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .select-left .select{position:relative}::ng-deep .tools .select-left .dropdown-menu{top:40px;left:0}::ng-deep .tools .select-right .select{position:relative}::ng-deep .tools .select-right .dropdown-menu{top:40px;right:0}::ng-deep .tools .dropdown-menu .option{color:#6e6e6e!important}::ng-deep .tools .dropdown-menu .option:hover{background-color:#4b566c!important}::ng-deep .tools .icon-button{margin:0 0 0 15px!important}::ng-deep .tools .select{width:37px;height:37px;margin-left:7px;line-height:37px;text-align:center}::ng-deep .tools .slides-title{color:#fff;padding-left:12px;font-size:18px}::ng-deep .tools .slides-filename{-webkit-box-flex:1;flex-grow:1;text-align:center;color:#fff;text-overflow:ellipsis;white-space:nowrap;padding-left:20px;overflow:hidden}::ng-deep .tools .slides-buttons{display:-webkit-box;display:flex}::ng-deep .tools .slides-buttons ::ng-deep .select{color:#fff;cursor:pointer}::ng-deep .tools ::ng-deep .gd-nav-search-container .icon-button{margin:0 0 0 7px!important}.slides-nav{position:absolute;right:30px;bottom:30px;display:-webkit-box;display:flex}.slides-nav ::ng-deep .button{font-size:37px;background-color:#edf0f2;border-radius:3px}.slides-nav ::ng-deep .timer{font-size:42px;line-height:6px;color:#959da5;position:relative}.slides-nav ::ng-deep .timer .seconds-remaining{position:absolute;margin-left:5px;font-size:16px;top:18px;left:12px}.slides-nav ::ng-deep .timer .seconds-remaining.two-digits{left:6px!important}::ng-deep .page.presentation .gd-wrapper{pointer-events:none}@media (max-width:1037px){.current-page-number,.mobile-hide{display:none}::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .tools .gd-nav-search-btn .icon-button{height:37px;width:37px}::ng-deep .tools .gd-nav-search-btn .button{font-size:14px}::ng-deep .tools .gd-nav-search-container{top:59px!important}}"]
             }] }
 ];
 /** @nocollapse */
@@ -1342,7 +1519,8 @@ ViewerAppComponent.ctorParameters = () => [
     { type: PasswordService },
     { type: WindowService },
     { type: LoadingMaskService },
-    { type: ChangeDetectorRef }
+    { type: ChangeDetectorRef },
+    { type: TranslateService }
 ];
 ViewerAppComponent.propDecorators = {
     fullScreen: [{ type: HostListener, args: ["document:fullscreenchange", [],] }]
@@ -1413,6 +1591,10 @@ if (false) {
     /** @type {?} */
     ViewerAppComponent.prototype.endScrollTime;
     /** @type {?} */
+    ViewerAppComponent.prototype.supportedLanguages;
+    /** @type {?} */
+    ViewerAppComponent.prototype.selectedLanguage;
+    /** @type {?} */
     ViewerAppComponent.prototype.docElmWithBrowsersFullScreenFunctions;
     /** @type {?} */
     ViewerAppComponent.prototype.docWithBrowsersExitFunctions;
@@ -1453,6 +1635,8 @@ if (false) {
      * @private
      */
     ViewerAppComponent.prototype.cdr;
+    /** @type {?} */
+    ViewerAppComponent.prototype.translate;
 }
 
 /**
@@ -2141,6 +2325,1061 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const AR = {
+    "Click": "انقر",
+    "to open file": "لفتح الملف",
+    "Or drop file here": "أو قم بإسقاط الملف هنا",
+    "Browse files": "تصفح ملفات",
+    "Zoom In": "تكبير",
+    "Zoom Out": "تصغير",
+    "First Page": "الصفحة الأولى",
+    "Previous Page": "الصفحة السابقة",
+    "Next Page": "الصفحة التالية",
+    "Last Page": "آخر صفحة",
+    "Rotate CCW": "تدوير CCW",
+    "Rotate CW": "تدوير CW",
+    "Download": "تحميل",
+    "Print": "مطبعة",
+    "Search": "بحث",
+    "Run presentation": "تشغيل العرض التقديمي",
+    "Present": "الحالي",
+    "Stop": "قف",
+    "Stop presenting": "توقف عن التقديم",
+    "Resume presenting": "استئناف التقديم",
+    "Pause presenting": "توقف مؤقتًا عن التقديم",
+    "None": "لا أحد",
+    "5 sec": "5 ثوانى",
+    "10 sec": "10 ثوانى",
+    "15 sec": "15 ثانية",
+    "30 sec": "30 ثانية",
+    "Thumbnails": "المصغرات"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const CA = {
+    "Click": "Feu clic a",
+    "to open file": "per obrir el fitxer",
+    "Or drop file here": "O deixeu anar el fitxer aquí",
+    "Browse files": "Cercar fitxers",
+    "Zoom In": "Apropar",
+    "Zoom Out": "Disminuir el zoom",
+    "First Page": "Primera pàgina",
+    "Previous Page": "Pàgina anterior",
+    "Next Page": "Pàgina següent",
+    "Last Page": "Darrera pàgina",
+    "Rotate CCW": "Gira CCW",
+    "Rotate CW": "Gira CW",
+    "Download": "descarregar",
+    "Print": "Imprimir",
+    "Search": "Cerca",
+    "Run presentation": "Executa la presentació",
+    "Present": "Present",
+    "Stop": "Atura",
+    "Stop presenting": "Deixa de presentar-te",
+    "Resume presenting": "Reprèn la presentació",
+    "Pause presenting": "Posa en pausa la presentació",
+    "None": "Cap",
+    "5 sec": "5 seg",
+    "10 sec": "10 seg",
+    "15 sec": "15 seg",
+    "30 sec": "30 seg",
+    "Thumbnails": "Miniatures"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const CS = {
+    "Click": "Klikněte",
+    "to open file": "k otevření souboru",
+    "Or drop file here": "Nebo sem přetáhněte soubor",
+    "Browse files": "Procházet soubory",
+    "Zoom In": "Přiblížit",
+    "Zoom Out": "Oddálit",
+    "First Page": "První strana",
+    "Previous Page": "Předchozí stránka",
+    "Next Page": "Další strana",
+    "Last Page": "Poslední strana",
+    "Rotate CCW": "Otočit CCW",
+    "Rotate CW": "Otočit CW",
+    "Download": "Stažení",
+    "Print": "Tisk",
+    "Search": "Vyhledávání",
+    "Run presentation": "Spustit prezentaci",
+    "Present": "Současnost, dárek",
+    "Stop": "Stop",
+    "Stop presenting": "Přestaňte prezentovat",
+    "Resume presenting": "Obnovte prezentaci",
+    "Pause presenting": "Pozastavit prezentaci",
+    "None": "Žádný",
+    "5 sec": "5 s",
+    "10 sec": "10 s",
+    "15 sec": "15 s",
+    "30 sec": "30 s",
+    "Thumbnails": "Miniatury"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const DA = {
+    "Click": "Klik på",
+    "to open file": "for at åbne filen",
+    "Or drop file here": "Eller slip filen her",
+    "Browse files": "Gennemse filer",
+    "Zoom In": "Zoom ind",
+    "Zoom Out": "Zoome ud",
+    "First Page": "Første side",
+    "Previous Page": "Forrige side",
+    "Next Page": "Næste side",
+    "Last Page": "Sidste side",
+    "Rotate CCW": "Drej CCW",
+    "Rotate CW": "Drej CW",
+    "Download": "Hent",
+    "Print": "Print",
+    "Search": "Søg",
+    "Run presentation": "Kør præsentation",
+    "Present": "Til stede",
+    "Stop": "Hold op",
+    "Stop presenting": "Stop med at præsentere",
+    "Resume presenting": "Genoptag præsentationen",
+    "Pause presenting": "Hold pause med præsentationen",
+    "None": "Ingen",
+    "5 sec": "5 sek",
+    "10 sec": "10 sek",
+    "15 sec": "15 sek",
+    "30 sec": "30 sek",
+    "Thumbnails": "Miniaturebilleder"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const DE = {
+    "Click": "Klicken",
+    "to open file": "Datei öffnen",
+    "Or drop file here": "Oder Datei hier ablegen",
+    "Browse files": "Dateien durchsuchen",
+    "Zoom In": "Hineinzoomen",
+    "Zoom Out": "Rauszoomen",
+    "First Page": "Erste Seite",
+    "Previous Page": "Vorherige Seite",
+    "Next Page": "Nächste Seite",
+    "Last Page": "Letzte Seite",
+    "Rotate CCW": "Gegen den Uhrzeigersinn drehen",
+    "Rotate CW": "Im Uhrzeigersinn drehen",
+    "Download": "Herunterladen",
+    "Print": "Drucken",
+    "Search": "Suche",
+    "Run presentation": "Präsentation ausführen",
+    "Present": "Gegenwärtig",
+    "Stop": "Halt",
+    "Stop presenting": "Hör auf zu präsentieren",
+    "Resume presenting": "Präsentation fortsetzen",
+    "Pause presenting": "Präsentation unterbrechen",
+    "None": "Keiner",
+    "5 sec": "5 Sek.",
+    "10 sec": "10 Sek.",
+    "15 sec": "15 Sek.",
+    "30 sec": "30 Sekunden",
+    "Thumbnails": "Miniaturansichten"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const EL = {
+    "Click": "Κάντε κλικ",
+    "to open file": "για άνοιγμα αρχείου",
+    "Or drop file here": "Or ρίξτε το αρχείο εδώ",
+    "Browse files": "ΕΞΕΡΕΥΝΗΣΗ ΑΡΧΕΙΩΝ",
+    "Zoom In": "Μεγέθυνση",
+    "Zoom Out": "Σμίκρυνση",
+    "First Page": "Πρώτη σελίδα",
+    "Previous Page": "Προηγούμενη σελίδα",
+    "Next Page": "Επόμενη σελίδα",
+    "Last Page": "Τελευταία σελίδα",
+    "Rotate CCW": "Περιστροφή CCW",
+    "Rotate CW": "Περιστροφή CW",
+    "Download": "Κατεβάστε",
+    "Print": "Τυπώνω",
+    "Search": "Αναζήτηση",
+    "Run presentation": "Εκτέλεση παρουσίασης",
+    "Present": "Παρόν",
+    "Stop": "Να σταματήσει",
+    "Stop presenting": "Σταματήστε να παρουσιάζετε",
+    "Resume presenting": "Συνέχιση παρουσίασης",
+    "Pause presenting": "Παύση παρουσίασης",
+    "None": "Κανένας",
+    "5 sec": "5 δευτ",
+    "10 sec": "10 δευτ",
+    "15 sec": "15 δευτ",
+    "30 sec": "30 δευτ",
+    "Thumbnails": "Μικρογραφίες"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const EN = {
+    "Click": "Click",
+    "to open file": "to open file",
+    "Or drop file here": "Or drop file here",
+    "Browse files": "Browse files",
+    "Zoom In": "Zoom In",
+    "Zoom Out": "Zoom Out",
+    "First Page": "First Page",
+    "Previous Page": "Previous Page",
+    "Next Page": "Next Page",
+    "Last Page": "Last Page",
+    "Rotate CCW": "Rotate CCW",
+    "Rotate CW": "Rotate CW",
+    "Download": "Download",
+    "Print": "Print",
+    "Search": "Search",
+    "Run presentation": "Run presentation",
+    "Present": "Present",
+    "Stop": "Stop",
+    "Stop presenting": "Stop presenting",
+    "Resume presenting": "Resume presenting",
+    "Pause presenting": "Pause presenting",
+    "None": "None",
+    "5 sec": "5 sec",
+    "10 sec": "10 sec",
+    "15 sec": "15 sec",
+    "30 sec": "30 sec",
+    "Thumbnails": "Thumbnails"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ES = {
+    "Click": "Hacer clic",
+    "to open file": "abrir archivo",
+    "Or drop file here": "O suelte el archivo aquí",
+    "Browse files": "Búsqueda de archivos",
+    "Zoom In": "Acercarse",
+    "Zoom Out": "Disminuir el zoom",
+    "First Page": "Primera página",
+    "Previous Page": "Pagina anterior",
+    "Next Page": "Siguiente página",
+    "Last Page": "Última página",
+    "Rotate CCW": "Girar CCW",
+    "Rotate CW": "Girar CW",
+    "Download": "Descargar",
+    "Print": "Impresión",
+    "Search": "Buscar",
+    "Run presentation": "Ejecutar presentación",
+    "Present": "Regalo",
+    "Stop": "Parada",
+    "Stop presenting": "Deja de presentar",
+    "Resume presenting": "Reanudar la presentación",
+    "Pause presenting": "Pausar presentación",
+    "None": "Ninguno",
+    "5 sec": "5 segundos",
+    "10 sec": "10 segundos",
+    "15 sec": "15 segundos",
+    "30 sec": "30 segundos",
+    "Thumbnails": "Miniaturas"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const FIL = {
+    "Click": "Mag-click",
+    "to open file": "upang buksan ang file",
+    "Or drop file here": "O ihulog ang file dito",
+    "Browse files": "Mag-browse ng Mga file",
+    "Zoom In": "Palakihin",
+    "Zoom Out": "Mag-zoom Out",
+    "First Page": "Unang pahina",
+    "Previous Page": "Nakaraang pahina",
+    "Next Page": "Susunod na pahina",
+    "Last Page": "Huling pahina",
+    "Rotate CCW": "Paikutin ang CCW",
+    "Rotate CW": "Paikutin ang CW",
+    "Download": "Mag-download",
+    "Print": "I-print",
+    "Search": "Maghanap",
+    "Run presentation": "Patakbuhin ang pagtatanghal",
+    "Present": "Kasalukuyan",
+    "Stop": "Tigilan mo na",
+    "Stop presenting": "Huwag nang iharap",
+    "Resume presenting": "Ipagpatuloy ang pagtatanghal",
+    "Pause presenting": "I-pause ang pagtatanghal",
+    "None": "Wala",
+    "5 sec": "5 sec",
+    "10 sec": "10 sec",
+    "15 sec": "15 sec",
+    "30 sec": "30 sec",
+    "Thumbnails": "Mga Thumbnail"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const FR = {
+    "Click": "Cliquez sur",
+    "to open file": "ouvrir le fichier",
+    "Or drop file here": "Ou déposez le fichier ici",
+    "Browse files": "Parcourir les fichiers",
+    "Zoom In": "Agrandir",
+    "Zoom Out": "Dézoomer",
+    "First Page": "Première page",
+    "Previous Page": "Page précédente",
+    "Next Page": "Page suivante",
+    "Last Page": "Dernière page",
+    "Rotate CCW": "Rotation dans le sens antihoraire",
+    "Rotate CW": "Rotation CW",
+    "Download": "Télécharger",
+    "Print": "Imprimer",
+    "Search": "Chercher",
+    "Run presentation": "Exécuter la présentation",
+    "Present": "Présent",
+    "Stop": "Arrêter",
+    "Stop presenting": "Arrêter de présenter",
+    "Resume presenting": "Reprendre la présentation",
+    "Pause presenting": "Suspendre la présentation",
+    "None": "Rien",
+    "5 sec": "5 secondes",
+    "10 sec": "10 secondes",
+    "15 sec": "15 secondes",
+    "30 sec": "30 secondes",
+    "Thumbnails": "Vignettes"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const HE = {
+    "Click": "נְקִישָׁה",
+    "to open file": "לפתיחת הקובץ",
+    "Or drop file here": "או שחרר קובץ כאן",
+    "Browse files": "עיון בקבצים",
+    "Zoom In": "לְהִתְמַקֵד",
+    "Zoom Out": "להקטין את התצוגה",
+    "First Page": "עמוד ראשון",
+    "Previous Page": "עמוד קודם",
+    "Next Page": "עמוד הבא",
+    "Last Page": "עמוד אחרון",
+    "Rotate CCW": "סובב CCW",
+    "Rotate CW": "סובב את CW",
+    "Download": "הורד",
+    "Print": "הדפס",
+    "Search": "לחפש",
+    "Run presentation": "הפעל מצגת",
+    "Present": "מתנה",
+    "Stop": "תפסיק",
+    "Stop presenting": "תפסיק להציג",
+    "Resume presenting": "המשך להציג",
+    "Pause presenting": "השהה את ההצגה",
+    "None": "אף אחד",
+    "5 sec": "5 שניות",
+    "10 sec": "10 שניות",
+    "15 sec": "15 שניות",
+    "30 sec": "30 שניות",
+    "Thumbnails": "תמונות ממוזערות"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const HI = {
+    "Click": "क्लिक",
+    "to open file": "फ़ाइल खोलने के लिए",
+    "Or drop file here": "या फ़ाइल यहाँ छोड़ें",
+    "Browse files": "फाइलों में खोजें",
+    "Zoom In": "ज़ूम इन",
+    "Zoom Out": "ज़ूम आउट",
+    "First Page": "पहला पन्ना",
+    "Previous Page": "पिछला पृष्ठ",
+    "Next Page": "अगला पृष्ठ",
+    "Last Page": "अंतिम पृष्ठ",
+    "Rotate CCW": "सीसीडब्ल्यू घुमाएँ",
+    "Rotate CW": "सीडब्ल्यू घुमाएँ",
+    "Download": "डाउनलोड",
+    "Print": "छाप",
+    "Search": "खोज",
+    "Run presentation": "प्रस्तुति चलाएं",
+    "Present": "वर्तमान",
+    "Stop": "विराम",
+    "Stop presenting": "प्रस्तुत करना बंद करें",
+    "Resume presenting": "प्रस्तुत करना फिर से शुरू करें",
+    "Pause presenting": "प्रस्तुत करना रोकें",
+    "None": "कोई नहीं",
+    "5 sec": "5 सेकंड",
+    "10 sec": "10 सेकंड",
+    "15 sec": "१५ सेकंड",
+    "30 sec": "३० सेकंड",
+    "Thumbnails": "थंबनेल"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ID = {
+    "Click": "Klik",
+    "to open file": "untuk membuka file",
+    "Or drop file here": "Atau letakkan file di sini",
+    "Browse files": "Mencari berkas",
+    "Zoom In": "Perbesar",
+    "Zoom Out": "Perkecil",
+    "First Page": "Halaman pertama",
+    "Previous Page": "Halaman sebelumnya",
+    "Next Page": "Halaman selanjutnya",
+    "Last Page": "Halaman terakhir",
+    "Rotate CCW": "Putar CCW",
+    "Rotate CW": "Putar CW",
+    "Download": "Unduh",
+    "Print": "Mencetak",
+    "Search": "Mencari",
+    "Run presentation": "Jalankan presentasi",
+    "Present": "Hadiah",
+    "Stop": "Berhenti",
+    "Stop presenting": "Berhenti menyajikan",
+    "Resume presenting": "Lanjutkan presentasi",
+    "Pause presenting": "Jeda presentasi",
+    "None": "Tidak ada",
+    "5 sec": "5 detik",
+    "10 sec": "10 detik",
+    "15 sec": "15 detik",
+    "30 sec": "30 detik",
+    "Thumbnails": "Gambar kecil"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const IT = {
+    "Click": "Clic",
+    "to open file": "per aprire il file",
+    "Or drop file here": "Oppure trascina il file qui",
+    "Browse files": "Sfoglia i file",
+    "Zoom In": "Ingrandire",
+    "Zoom Out": "Rimpicciolisci",
+    "First Page": "Prima pagina",
+    "Previous Page": "Pagina precedente",
+    "Next Page": "Pagina successiva",
+    "Last Page": "Ultima pagina",
+    "Rotate CCW": "Ruota in senso antiorario",
+    "Rotate CW": "Ruota in senso orario",
+    "Download": "Scarica",
+    "Print": "Stampa",
+    "Search": "Ricerca",
+    "Run presentation": "Esegui presentazione",
+    "Present": "Regalo",
+    "Stop": "Fermare",
+    "Stop presenting": "Smettila di presentare",
+    "Resume presenting": "Riprendi a presentare",
+    "Pause presenting": "Metti in pausa la presentazione",
+    "None": "Nessuno",
+    "5 sec": "5 secondi",
+    "10 sec": "10 secondi",
+    "15 sec": "15 secondi",
+    "30 sec": "30 secondi",
+    "Thumbnails": "Miniature"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const JA = {
+    "Click": "クリック",
+    "to open file": "ファイルを開く",
+    "Or drop file here": "または、ここにファイルをドロップします",
+    "Browse files": "ブラウズファイル",
+    "Zoom In": "ズームイン",
+    "Zoom Out": "ズームアウトする",
+    "First Page": "先頭ページ",
+    "Previous Page": "前のページ",
+    "Next Page": "次のページ",
+    "Last Page": "最後のページ",
+    "Rotate CCW": "CCWを回転させる",
+    "Rotate CW": "CWを回転させる",
+    "Download": "ダウンロード",
+    "Print": "印刷",
+    "Search": "検索",
+    "Run presentation": "プレゼンテーションを実行する",
+    "Present": "現在",
+    "Stop": "やめる",
+    "Stop presenting": "提示を停止します",
+    "Resume presenting": "発表を再開する",
+    "Pause presenting": "提示を一時停止",
+    "None": "なし",
+    "5 sec": "5秒",
+    "10 sec": "10秒",
+    "15 sec": "15秒",
+    "30 sec": "30秒",
+    "Thumbnails": "サムネイル"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const KK = {
+    "Click": "Шертіңіз",
+    "to open file": "файлды ашу үшін",
+    "Or drop file here": "Немесе файлды осында тастаңыз",
+    "Browse files": "Файлдарды шолу",
+    "Zoom In": "Үлкейту",
+    "Zoom Out": "Кішірейту",
+    "First Page": "Бірінші бет",
+    "Previous Page": "Алдыңғы бет",
+    "Next Page": "Келесі бет",
+    "Last Page": "Соңғы бет",
+    "Rotate CCW": "CCW айналдыру",
+    "Rotate CW": "CW айналдыру",
+    "Download": "Жүктеу",
+    "Print": "Басып шығару",
+    "Search": "Іздеу",
+    "Run presentation": "Презентацияны іске қосыңыз",
+    "Present": "Ұсыну",
+    "Stop": "Тоқта",
+    "Stop presenting": "Көрсетуді тоқтатыңыз",
+    "Resume presenting": "Ұсынуды жалғастыру",
+    "Pause presenting": "Ұсынуды кідірту",
+    "None": "Ешқайсысы",
+    "5 sec": "5 сек",
+    "10 sec": "10 сек",
+    "15 sec": "15 сек",
+    "30 sec": "30 сек",
+    "Thumbnails": "Нобайлар"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const KO = {
+    "Click": "딸깍 하는 소리",
+    "to open file": "파일을 열다",
+    "Or drop file here": "또는 여기에 파일을 드롭",
+    "Browse files": "파일 찾아보기",
+    "Zoom In": "확대",
+    "Zoom Out": "축소",
+    "First Page": "첫 페이지",
+    "Previous Page": "이전 페이지",
+    "Next Page": "다음 페이지",
+    "Last Page": "마지막 페이지",
+    "Rotate CCW": "시계 반대 방향으로 회전",
+    "Rotate CW": "시계 방향으로 회전",
+    "Download": "다운로드",
+    "Print": "인쇄",
+    "Search": "찾다",
+    "Run presentation": "프레젠테이션 실행",
+    "Present": "현재의",
+    "Stop": "중지",
+    "Stop presenting": "발표 중지",
+    "Resume presenting": "프레젠테이션 재개",
+    "Pause presenting": "발표 일시중지",
+    "None": "없음",
+    "5 sec": "5초",
+    "10 sec": "10초",
+    "15 sec": "15초",
+    "30 sec": "30초",
+    "Thumbnails": "썸네일"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const MS = {
+    "Click": "Klik",
+    "to open file": "untuk membuka fail",
+    "Or drop file here": "Atau jatuhkan fail di sini",
+    "Browse files": "Semak imbas fail",
+    "Zoom In": "Mengezum masuk",
+    "Zoom Out": "Zum keluar",
+    "First Page": "Muka surat pertama",
+    "Previous Page": "Halaman sebelumnya",
+    "Next Page": "Muka surat seterusnya",
+    "Last Page": "Muka surat terakhir",
+    "Rotate CCW": "Putar CCW",
+    "Rotate CW": "Putar CW",
+    "Download": "Muat turun",
+    "Print": "Cetak",
+    "Search": "Cari",
+    "Run presentation": "Jalankan persembahan",
+    "Present": "Hadir",
+    "Stop": "Berhenti",
+    "Stop presenting": "Berhenti membentangkan",
+    "Resume presenting": "Sambung semula pembentangan",
+    "Pause presenting": "Jeda pembentangan",
+    "None": "Tiada",
+    "5 sec": "5 saat",
+    "10 sec": "10 saat",
+    "15 sec": "15 saat",
+    "30 sec": "30 saat",
+    "Thumbnails": "Gambar kecil"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const NL = {
+    "Click": "Klik",
+    "to open file": "bestand openen",
+    "Or drop file here": "Of zet het bestand hier neer",
+    "Browse files": "Bestanden doorbladeren",
+    "Zoom In": "In zoomen",
+    "Zoom Out": "Uitzoomen",
+    "First Page": "Eerste pagina",
+    "Previous Page": "Vorige pagina",
+    "Next Page": "Volgende bladzijde",
+    "Last Page": "Laatste pagina",
+    "Rotate CCW": "Linksom draaien",
+    "Rotate CW": "Draai CW",
+    "Download": "Downloaden",
+    "Print": "Afdrukken",
+    "Search": "Zoeken",
+    "Run presentation": "Presentatie uitvoeren",
+    "Present": "Cadeau",
+    "Stop": "Stop",
+    "Stop presenting": "Stop met presenteren",
+    "Resume presenting": "Presentatie hervatten",
+    "Pause presenting": "Presentatie pauzeren",
+    "None": "Geen",
+    "5 sec": "5 seconden",
+    "10 sec": "10 seconden",
+    "15 sec": "15 seconden",
+    "30 sec": "30 seconden",
+    "Thumbnails": "Miniaturen"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const PL = {
+    "Click": "Kliknij",
+    "to open file": "otworzyć plik",
+    "Or drop file here": "Lub upuść plik tutaj",
+    "Browse files": "Przeglądaj pliki",
+    "Zoom In": "Zbliżenie",
+    "Zoom Out": "Pomniejsz",
+    "First Page": "Pierwsza strona",
+    "Previous Page": "Poprzednia strona",
+    "Next Page": "Następna strona",
+    "Last Page": "Ostatnia strona",
+    "Rotate CCW": "Obróć w lewo",
+    "Rotate CW": "Obróć w prawo",
+    "Download": "Pobierać",
+    "Print": "Wydrukować",
+    "Search": "Szukaj",
+    "Run presentation": "Uruchom prezentację",
+    "Present": "Obecny",
+    "Stop": "Zatrzymać",
+    "Stop presenting": "Zatrzymaj prezentację",
+    "Resume presenting": "Wznów prezentację",
+    "Pause presenting": "Wstrzymaj prezentację",
+    "None": "Nic",
+    "5 sec": "5 sekund",
+    "10 sec": "10 sekund",
+    "15 sec": "15 sekund",
+    "30 sec": "30 sekund",
+    "Thumbnails": "Miniatury"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const PT = {
+    "Click": "Clique",
+    "to open file": "para abrir arquivo",
+    "Or drop file here": "Ou solte o arquivo aqui",
+    "Browse files": "Navegar nos arquivos",
+    "Zoom In": "Mais Zoom",
+    "Zoom Out": "Reduzir o zoom",
+    "First Page": "Primeira página",
+    "Previous Page": "Página anterior",
+    "Next Page": "Próxima página",
+    "Last Page": "Última página",
+    "Rotate CCW": "Girar no sentido anti-horário",
+    "Rotate CW": "Girar no sentido horário",
+    "Download": "Download",
+    "Print": "Imprimir",
+    "Search": "Procurar",
+    "Run presentation": "Executar apresentação",
+    "Present": "Presente",
+    "Stop": "Pare",
+    "Stop presenting": "Pare de apresentar",
+    "Resume presenting": "Retomar apresentação",
+    "Pause presenting": "Pausar apresentação",
+    "None": "Nenhum",
+    "5 sec": "5 s",
+    "10 sec": "10 s",
+    "15 sec": "15 s",
+    "30 sec": "30 s",
+    "Thumbnails": "Miniaturas"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const RO = {
+    "Click": "Clic",
+    "to open file": "pentru a deschide fișierul",
+    "Or drop file here": "Sau aruncați fișierul aici",
+    "Browse files": "Cauta fisiere",
+    "Zoom In": "Mareste",
+    "Zoom Out": "A micsora",
+    "First Page": "Prima pagina",
+    "Previous Page": "Pagina precedentă",
+    "Next Page": "Pagina următoare",
+    "Last Page": "Ultima pagina",
+    "Rotate CCW": "Rotiți CCW",
+    "Rotate CW": "Rotiți CW",
+    "Download": "Descarca",
+    "Print": "Imprimare",
+    "Search": "Căutare",
+    "Run presentation": "Rulați prezentarea",
+    "Present": "Prezent",
+    "Stop": "Stop",
+    "Stop presenting": "Nu mai prezenta",
+    "Resume presenting": "Reluați prezentarea",
+    "Pause presenting": "Pauză prezentare",
+    "None": "Nici unul",
+    "5 sec": "5 sec",
+    "10 sec": "10 sec",
+    "15 sec": "15 sec",
+    "30 sec": "30 sec",
+    "Thumbnails": "Miniaturi"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const RU = {
+    "Click": "Нажмите",
+    "to open file": "чтобы открыть файл",
+    "Or drop file here": "Или перетащите файл сюда",
+    "Browse files": "Просмотр файлов",
+    "Zoom In": "Увеличить",
+    "Zoom Out": "Уменьшить",
+    "First Page": "Первая страница",
+    "Previous Page": "Предыдущая страница",
+    "Next Page": "Следующая Страница",
+    "Last Page": "Последняя страница",
+    "Rotate CCW": "Повернуть против часовой стрелки",
+    "Rotate CW": "Повернуть по часовой стрелке",
+    "Download": "Скачать",
+    "Print": "Распечатать",
+    "Search": "Поиск",
+    "Run presentation": "Запустить презентацию",
+    "Present": "Запустить презентацию",
+    "Stop": "Стоп",
+    "Stop presenting": "Остановить презентацию",
+    "Resume presenting": "Возобновить презентацию",
+    "Pause presenting": "Приостановить презентацию",
+    "None": "-",
+    "5 sec": "5 сек.",
+    "10 sec": "10 сек.",
+    "15 sec": "15 сек.",
+    "30 sec": "30 сек.",
+    "Thumbnails": "Миниатюры"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const SV = {
+    "Click": "Klick",
+    "to open file": "för att öppna filen",
+    "Or drop file here": "Eller släpp filen här",
+    "Browse files": "Bläddra bland filer",
+    "Zoom In": "Zooma in",
+    "Zoom Out": "Zooma ut",
+    "First Page": "Första sidan",
+    "Previous Page": "Föregående sida",
+    "Next Page": "Nästa sida",
+    "Last Page": "Sista sidan",
+    "Rotate CCW": "Vrid CCW",
+    "Rotate CW": "Rotera CW",
+    "Download": "Ladda ner",
+    "Print": "Skriva ut",
+    "Search": "Sök",
+    "Run presentation": "Kör presentationen",
+    "Present": "Närvarande",
+    "Stop": "Sluta",
+    "Stop presenting": "Sluta presentera",
+    "Resume presenting": "Återuppta presentationen",
+    "Pause presenting": "Pausa presentationen",
+    "None": "Ingen",
+    "5 sec": "5 sek",
+    "10 sec": "10 sek",
+    "15 sec": "15 sek",
+    "30 sec": "30 sek",
+    "Thumbnails": "Miniatyrer"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const TH = {
+    "Click": "คลิก",
+    "to open file": "เพื่อเปิดไฟล์",
+    "Or drop file here": "หรือวางไฟล์ที่นี่",
+    "Browse files": "เรียกดูไฟล์",
+    "Zoom In": "ขยายเข้า",
+    "Zoom Out": "ซูมออก",
+    "First Page": "หน้าแรก",
+    "Previous Page": "หน้าก่อน",
+    "Next Page": "หน้าต่อไป",
+    "Last Page": "หน้าสุดท้าย",
+    "Rotate CCW": "หมุนทวนเข็มนาฬิกา",
+    "Rotate CW": "หมุน CW",
+    "Download": "ดาวน์โหลด",
+    "Print": "พิมพ์",
+    "Search": "ค้นหา",
+    "Run presentation": "เรียกใช้การนำเสนอ",
+    "Present": "ปัจจุบัน",
+    "Stop": "หยุด",
+    "Stop presenting": "หยุดนำเสนอ",
+    "Resume presenting": "นำเสนอต่อ",
+    "Pause presenting": "หยุดการนำเสนอชั่วคราว",
+    "None": "ไม่มี",
+    "5 sec": "5 วินาที",
+    "10 sec": "10 วินาที",
+    "15 sec": "15 วินาที",
+    "30 sec": "30 วินาที",
+    "Thumbnails": "รูปขนาดย่อ"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const TR = {
+    "Click": "Tıklamak",
+    "to open file": "dosyayı açmak için",
+    "Or drop file here": "Veya dosyayı buraya bırakın",
+    "Browse files": "Dosyalara göz atın",
+    "Zoom In": "Yakınlaştır",
+    "Zoom Out": "Uzaklaştırmak",
+    "First Page": "İlk sayfa",
+    "Previous Page": "Önceki sayfa",
+    "Next Page": "Sonraki Sayfa",
+    "Last Page": "Son Sayfa",
+    "Rotate CCW": "CCW'yi döndür",
+    "Rotate CW": "CW'yi döndür",
+    "Download": "İndirmek",
+    "Print": "Yazdır",
+    "Search": "Arama",
+    "Run presentation": "Sunuyu çalıştır",
+    "Present": "Sunmak",
+    "Stop": "Durmak",
+    "Stop presenting": "Sunmayı durdur",
+    "Resume presenting": "Sunuma devam et",
+    "Pause presenting": "Sunumu duraklat",
+    "None": "Hiçbiri",
+    "5 sec": "5 saniye",
+    "10 sec": "10 saniye",
+    "15 sec": "15 saniye",
+    "30 sec": "30 saniye",
+    "Thumbnails": "küçük resimler"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const UK = {
+    "Click": "Клікніть",
+    "to open file": "щоб відкрити файл",
+    "Or drop file here": "Або перетягніть файл у цю область",
+    "Browse files": "Переглянути файли",
+    "Zoom In": "Збільшити",
+    "Zoom Out": "Зменшити",
+    "First Page": "Перша сторінка",
+    "Previous Page": "Попередня сторінка",
+    "Next Page": "Наступна сторінка",
+    "Last Page": "Остання сторінка",
+    "Rotate CCW": "Повернути проти годинникової стрілки",
+    "Rotate CW": "Повернути за годинниковою стрілкою",
+    "Download": "Завантажити",
+    "Print": "Друк",
+    "Search": "Пошук",
+    "Run presentation": "Запустити презентацію",
+    "Present": "Запустити презентацію",
+    "Stop": "Зупинити",
+    "Stop presenting": "Зупинити презентацію",
+    "Resume presenting": "Продовжити презентацію",
+    "Pause presenting": "Призупинити презентацію",
+    "None": "-",
+    "5 sec": "5 секунд",
+    "10 sec": "10 секунд",
+    "15 sec": "15 секунд",
+    "30 sec": "30 секунд",
+    "Thumbnails": "Ескізи",
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const VI = {
+    "Click": "Nhấp chuột",
+    "to open file": "để mở tệp",
+    "Or drop file here": "Hoặc thả tệp vào đây",
+    "Browse files": "Duyệt qua các tệp",
+    "Zoom In": "Phóng to",
+    "Zoom Out": "Thu nhỏ",
+    "First Page": "Trang đầu tiên",
+    "Previous Page": "Trang trước",
+    "Next Page": "Trang tiếp theo",
+    "Last Page": "Trang cuối",
+    "Rotate CCW": "Xoay CCW",
+    "Rotate CW": "Xoay CW",
+    "Download": "Tải xuống",
+    "Print": "In",
+    "Search": "Tìm kiếm",
+    "Run presentation": "Chạy bản trình bày",
+    "Present": "Món quà",
+    "Stop": "Ngừng lại",
+    "Stop presenting": "Dừng trình bày",
+    "Resume presenting": "Tiếp tục trình bày",
+    "Pause presenting": "Tạm dừng trình bày",
+    "None": "Không có",
+    "5 sec": "5 giây",
+    "10 sec": "10 giây",
+    "15 sec": "15 giây",
+    "30 sec": "30 giây",
+    "Thumbnails": "Hình thu nhỏ"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ZHHANS = {
+    "Click": "点击",
+    "to open file": "打开文件",
+    "Or drop file here": "或将文件拖放到此处",
+    "Browse files": "浏览文件",
+    "Zoom In": "放大",
+    "Zoom Out": "缩小",
+    "First Page": "第一页",
+    "Previous Page": "上一页",
+    "Next Page": "下一页",
+    "Last Page": "最后一页",
+    "Rotate CCW": "逆时针旋转",
+    "Rotate CW": "顺时针旋转",
+    "Download": "下载",
+    "Print": "打印",
+    "Search": "搜索",
+    "Run presentation": "运行演示",
+    "Present": "展示",
+    "Stop": "停止",
+    "Stop presenting": "停止展示",
+    "Resume presenting": "简历展示",
+    "Pause presenting": "暂停演示",
+    "None": "没有任何",
+    "5 sec": "5 秒",
+    "10 sec": "10 秒",
+    "15 sec": "15 秒",
+    "30 sec": "30 秒",
+    "Thumbnails": "缩略图"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ZHHANT = {
+    "Click": "點擊",
+    "to open file": "打開文件",
+    "Or drop file here": "或將文件拖放到此處",
+    "Browse files": "瀏覽文件",
+    "Zoom In": "放大",
+    "Zoom Out": "縮小",
+    "First Page": "第一頁",
+    "Previous Page": "上一頁",
+    "Next Page": "下一頁",
+    "Last Page": "最後一頁",
+    "Rotate CCW": "逆時針旋轉",
+    "Rotate CW": "順時針旋轉",
+    "Download": "下載",
+    "Print": "打印",
+    "Search": "搜索",
+    "Run presentation": "運行演示",
+    "Present": "展示",
+    "Stop": "停止",
+    "Stop presenting": "停止展示",
+    "Resume presenting": "簡歷展示",
+    "Pause presenting": "暫停演示",
+    "None": "沒有任何",
+    "5 sec": "5 秒",
+    "10 sec": "10 秒",
+    "15 sec": "15 秒",
+    "30 sec": "30 秒",
+    "Thumbnails": "縮略圖"
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} viewerConfigService
  * @return {?}
@@ -2162,6 +3401,46 @@ function initializeApp(viewerConfigService) {
 function setupLoadingInterceptor(service) {
     return new LoadingMaskInterceptorService(service);
 }
+// AoT requires an exported function for factories
+/**
+ * @return {?}
+ */
+function StaticTranslateLoaderFactory() {
+    /** @type {?} */
+    const translations = {};
+    translations['ar'] = AR;
+    translations['ca'] = CA;
+    translations['cs'] = CS;
+    translations['da'] = DA;
+    translations['de'] = DE;
+    translations['el'] = EL;
+    translations['en'] = EN;
+    translations['es'] = ES;
+    translations['fil'] = FIL;
+    translations['fr'] = FR;
+    translations['he'] = HE;
+    translations['hi'] = HI;
+    translations['id'] = ID;
+    translations['it'] = IT;
+    translations['ja'] = JA;
+    translations['kk'] = KK;
+    translations['ko'] = KO;
+    translations['ms'] = MS;
+    translations['nl'] = NL;
+    translations['pl'] = PL;
+    translations['pt'] = PT;
+    translations['ro'] = RO;
+    translations['ru'] = RU;
+    translations['sv'] = SV;
+    translations['th'] = TH;
+    translations['tr'] = TR;
+    translations['uk'] = UK;
+    translations['vi'] = VI;
+    translations['zh-hans'] = ZHHANS;
+    translations['zh-hant'] = ZHHANT;
+    return new StaticTranslateLoader(translations);
+}
+const ɵ0 = window;
 class ViewerModule {
     /**
      * @param {?} apiEndpoint
@@ -2187,7 +3466,13 @@ ViewerModule.decorators = [
                     BrowserModule,
                     CommonComponentsModule,
                     HttpClientModule,
-                    FontAwesomeModule
+                    FontAwesomeModule,
+                    TranslateModule.forRoot({
+                        loader: {
+                            provide: TranslateLoader,
+                            useFactory: StaticTranslateLoaderFactory
+                        }
+                    })
                 ],
                 exports: [
                     ViewerAppComponent,
@@ -2217,7 +3502,8 @@ ViewerModule.decorators = [
                         useFactory: setupLoadingInterceptor,
                         multi: true,
                         deps: [LoadingMaskService]
-                    }
+                    },
+                    { provide: Window, useValue: ɵ0 },
                 ]
             },] }
 ];
@@ -2232,5 +3518,5 @@ ViewerModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
+export { StaticTranslateLoaderFactory, ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map
