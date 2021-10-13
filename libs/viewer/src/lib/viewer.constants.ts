@@ -50,7 +50,7 @@ export class Constants {
         new Language("th", "th-TH", "ไทย"),
         new Language("tr", "tr-TR", "Türkçe"),
         new Language("uk", "uk-UA", "Українська"),
-        new Language("zh", "zh-Hans", "中文"),
-        new Language("zh", "zh-Hant", "中文"),
+        new Language("zh-hans", "zh-Hans", "中文"),
+        new Language("zh-hant", "zh-Hant", "中文"),
     ];
 }
