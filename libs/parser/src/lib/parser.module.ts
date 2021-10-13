@@ -2,7 +2,8 @@ import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
   CommonComponentsModule, ExceptionMessageService,
-  ErrorInterceptorService, LoadingMaskInterceptorService, LoadingMaskService
+  ErrorInterceptorService, LoadingMaskInterceptorService, LoadingMaskService,
+  Api, ConfigService 
 } from "@groupdocs.examples.angular/common-components";
 
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -15,7 +16,6 @@ import { ParserAppComponent } from './parser-app.component';
 import { SurfaceComponent } from './surface/surface.component';
 import { FieldComponent } from './field/field.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
-import { Api, ConfigService } from "../../../common-components/src/lib/config.service";
 import { SidePanelComponent } from './side-panel/side-panel.component';
 import { RenameModalComponent } from './rename-modal/rename-modal.component';
 import { PlaceholderComponent } from './placeholder/placeholder.component';

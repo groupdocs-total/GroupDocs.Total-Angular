@@ -21,7 +21,6 @@ import { TemplateService } from './template.service';
 import { SourceFileService } from './source-file.service';
 import { Subject } from 'rxjs';
 import { PlaceholderService } from './placeholder.service';
-import { SettingsService } from './settings.service';
 import { stringify } from '@angular/compiler/src/util';
 import { DocumentPageService } from './document-page.service';
 
@@ -57,7 +56,6 @@ export class ParserAppComponent implements OnInit {
     private _zoomService: ZoomService,
     private _navigateService: NavigateService,
     private _placeholderService: PlaceholderService,
-    private _settingsService: SettingsService,
     private _documentPageService: DocumentPageService,
     private _uploadFilesService: UploadFilesService,
     windowService: WindowService) {

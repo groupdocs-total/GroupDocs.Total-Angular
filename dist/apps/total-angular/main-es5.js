@@ -1,5 +1,7286 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
 
+/***/ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js":
+/*!***************************************************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js ***!
+  \***************************************************************************************************************************/
+/*! exports provided: AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, ɵa, ɵb, ɵc, ɵd */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddDynamicComponentService", function() { return AddDynamicComponentService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Api", function() { return Api; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BackFormattingService", function() { return BackFormattingService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BrowseFilesModalComponent", function() { return BrowseFilesModalComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return ButtonComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColorPickerComponent", function() { return ColorPickerComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonComponentsModule", function() { return CommonComponentsModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonModals", function() { return CommonModals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigService", function() { return ConfigService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContextMenuComponent", function() { return ContextMenuComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DisabledCursorDirective", function() { return DisabledCursorDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DndDirective", function() { return DndDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DocumentComponent", function() { return DocumentComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropDownComponent", function() { return DropDownComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropDownItemComponent", function() { return DropDownItemComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropDownItemsComponent", function() { return DropDownItemsComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropDownToggleComponent", function() { return DropDownToggleComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditHtmlService", function() { return EditHtmlService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditorDirective", function() { return EditorDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorInterceptorService", function() { return ErrorInterceptorService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorModalComponent", function() { return ErrorModalComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExceptionMessageService", function() { return ExceptionMessageService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileCredentials", function() { return FileCredentials; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileDescription", function() { return FileDescription; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileModel", function() { return FileModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileService", function() { return FileService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileUtil", function() { return FileUtil; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Formatting", function() { return Formatting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormattingDirective", function() { return FormattingDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormattingService", function() { return FormattingService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HighlightSearchPipe", function() { return HighlightSearchPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HostDynamicDirective", function() { return HostDynamicDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HostingDynamicComponentService", function() { return HostingDynamicComponentService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpError", function() { return HttpError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitStateComponent", function() { return InitStateComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LeftSideBarComponent", function() { return LeftSideBarComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadingMaskComponent", function() { return LoadingMaskComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadingMaskInterceptorService", function() { return LoadingMaskInterceptorService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadingMaskService", function() { return LoadingMaskService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogoComponent", function() { return LogoComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuType", function() { return MenuType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalComponent", function() { return ModalComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalService", function() { return ModalService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MouseWheelDirective", function() { return MouseWheelDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavigateService", function() { return NavigateService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnCloseService", function() { return OnCloseService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageComponent", function() { return PageComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageMarkerDirective", function() { return PageMarkerDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageModel", function() { return PageModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PagePreloadService", function() { return PagePreloadService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PasswordRequiredComponent", function() { return PasswordRequiredComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PasswordService", function() { return PasswordService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderPrintDirective", function() { return RenderPrintDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderPrintService", function() { return RenderPrintService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RotatedPage", function() { return RotatedPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RotationDirective", function() { return RotationDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SanitizeHtmlPipe", function() { return SanitizeHtmlPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SanitizeResourceHtmlPipe", function() { return SanitizeResourceHtmlPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SanitizeStylePipe", function() { return SanitizeStylePipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SaveFile", function() { return SaveFile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ScrollableDirective", function() { return ScrollableDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchComponent", function() { return SearchComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchService", function() { return SearchService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchableDirective", function() { return SearchableDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return SelectComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectionService", function() { return SelectionService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidePanelComponent", function() { return SidePanelComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SuccessModalComponent", function() { return SuccessModalComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabActivatorService", function() { return TabActivatorService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabComponent", function() { return TabComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabbedToolbarsComponent", function() { return TabbedToolbarsComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TextMenuComponent", function() { return TextMenuComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TooltipComponent", function() { return TooltipComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopTabActivatorService", function() { return TopTabActivatorService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopToolbarComponent", function() { return TopToolbarComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UploadFileZoneComponent", function() { return UploadFileZoneComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UploadFilesService", function() { return UploadFilesService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Utils", function() { return Utils; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewportService", function() { return ViewportService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WindowService", function() { return WindowService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZoomDirective", function() { return ZoomDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZoomService", function() { return ZoomService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return TabsComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return TooltipDirective; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵc", function() { return ResizingComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵd", function() { return TopTabComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
+/* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "../../node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "../../node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons */ "../../node_modules/@fortawesome/free-regular-svg-icons/index.es.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib_esmodule/index.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TopToolbarComponent = /** @class */ (function () {
+    function TopToolbarComponent() {
+    }
+    TopToolbarComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-top-toolbar',
+                    template: "<div class=\"top-toolbar\">\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.tools{width:100%;height:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-transition:.3s ease-in-out;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TopToolbarComponent.ctorParameters = function () { return []; };
+    return TopToolbarComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var SidePanelComponent = /** @class */ (function () {
+    function SidePanelComponent() {
+        this.closable = true;
+        this.saveable = true;
+        this.hideSidePanel = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.saveInSidePanel = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.onlyTitle = false;
+    }
+    /**
+     * @return {?}
+     */
+    SidePanelComponent.prototype.closeSidePanel = /**
+     * @return {?}
+     */
+    function () {
+        this.hideSidePanel.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    SidePanelComponent.prototype.saveBySidePanel = /**
+     * @return {?}
+     */
+    function () {
+        this.saveInSidePanel.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    SidePanelComponent.prototype.toggleTitleMode = /**
+     * @return {?}
+     */
+    function () {
+        if (this.closable && !this.saveable) {
+            this.onlyTitle = !this.onlyTitle;
+        }
+    };
+    SidePanelComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-side-panel',
+                    template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"save\" *ngIf=\"saveable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\r\n    </div>\r\n    <div class=\"close\" *ngIf=\"closable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;-webkit-transition:margin-right .2s;transition:margin-right .2s;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close,.gd-side-panel-wrapper .gd-side-panel-header .save{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header ::ng-deep gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    SidePanelComponent.ctorParameters = function () { return []; };
+    SidePanelComponent.propDecorators = {
+        title: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        icon: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        closable: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        saveable: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        hideSidePanel: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        saveInSidePanel: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return SidePanelComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var MOBILE_MAX_WIDTH = 425;
+/** @type {?} */
+var TABLET_MAX_WIDTH = 1024;
+var WindowService = /** @class */ (function () {
+    function WindowService() {
+        var _this = this;
+        this.resizeSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this._resize$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(window, 'resize')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["debounceTime"])(200), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["distinctUntilChanged"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            _this.resizeSubject.next((/** @type {?} */ (event.target)));
+            _this.width = ((/** @type {?} */ (event.target))).innerWidth;
+            _this.height = ((/** @type {?} */ (event.target))).innerHeight;
+        })));
+        this._resize$.subscribe();
+    }
+    Object.defineProperty(WindowService.prototype, "onResize", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.resizeSubject.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isMobile = /**
+     * @return {?}
+     */
+    function () {
+        return this.width <= MOBILE_MAX_WIDTH;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isTablet = /**
+     * @return {?}
+     */
+    function () {
+        return this.width <= TABLET_MAX_WIDTH;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isDesktop = /**
+     * @return {?}
+     */
+    function () {
+        return !this.isMobile() && !this.isTablet();
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.getWidth = /**
+     * @return {?}
+     */
+    function () {
+        return this.width;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.getHeight = /**
+     * @return {?}
+     */
+    function () {
+        return this.height;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isEdge = /**
+     * @return {?}
+     */
+    function () {
+        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+    };
+    /**
+     * @return {?}
+     */
+    WindowService.prototype.isFirefox = /**
+     * @return {?}
+     */
+    function () {
+        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    };
+    return WindowService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ButtonComponent = /** @class */ (function () {
+    function ButtonComponent(windowService) {
+        var _this = this;
+        this.iconOnly = true;
+        this.intent = 'default';
+        this.disabled = false;
+        this.toggle = false;
+        this.iconRegular = false;
+        this.elementPosition = 0;
+        this.showToolTip = false;
+        this.isDesktop = windowService.isDesktop();
+        windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        function (w) {
+            _this.isDesktop = windowService.isDesktop();
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    ButtonComponent.prototype.iconButtonClass = /**
+     * @return {?}
+     */
+    function () {
+        return this.iconOnly ? 'icon-button' : '';
+    };
+    /**
+     * @return {?}
+     */
+    ButtonComponent.prototype.onHovering = /**
+     * @return {?}
+     */
+    function () {
+        if (this.isDesktop && !this.disabled) {
+            this.className += ' active';
+        }
+    };
+    /**
+     * @return {?}
+     */
+    ButtonComponent.prototype.onUnhovering = /**
+     * @return {?}
+     */
+    function () {
+        if (this.isDesktop && !this.disabled) {
+            this.className = this.cleanAll(this.className, ' active');
+        }
+    };
+    /**
+     * @private
+     * @param {?} str
+     * @param {?} val
+     * @return {?}
+     */
+    ButtonComponent.prototype.cleanAll = /**
+     * @private
+     * @param {?} str
+     * @param {?} val
+     * @return {?}
+     */
+    function (str, val) {
+        while (str && str.indexOf(val) !== -1) {
+            str = str.replace(val, '');
+        }
+        return str;
+    };
+    ButtonComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-button',
+                    template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [position]=\"elementPosition\" class=\"button-tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;align-content:center;-webkit-box-pack:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}.button .button-tooltip{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ButtonComponent.ctorParameters = function () { return [
+        { type: WindowService }
+    ]; };
+    ButtonComponent.propDecorators = {
+        iconOnly: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        intent: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        disabled: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        icon: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        iconClass: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        tooltip: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        className: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        toggle: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        iconSize: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        iconRegular: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        elementPosition: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return ButtonComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var LogoComponent = /** @class */ (function () {
+    function LogoComponent() {
+    }
+    /**
+     * @return {?}
+     */
+    LogoComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    LogoComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-logo',
+                    template: "<div id=\"gd-header-logo\" class=\"logo\">\r\n  <span class=\"text\" [innerHTML]=\"logo\"></span>\r\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n\r\n",
+                    styles: [".logo{background-color:#25c2d4;height:60px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.text{color:#fff;font-size:15px;text-transform:uppercase;margin:0 14px}.icon{display:none;font-size:32px;color:rgba(255,255,255,.5);margin:14px}@media (max-width:1037px){.logo{width:60px;height:60px}.logo .text{display:none}.logo .icon{display:block}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    LogoComponent.ctorParameters = function () { return []; };
+    LogoComponent.propDecorators = {
+        logo: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        icon: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return LogoComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TooltipComponent = /** @class */ (function () {
+    function TooltipComponent() {
+        this.position = 0;
+        this.visibility = 'hidden';
+    }
+    /**
+     * @return {?}
+     */
+    TooltipComponent.prototype.getClass = /**
+     * @return {?}
+     */
+    function () {
+        if (this.position === 0) {
+            return 'tooltip';
+        }
+        return 'tooltip ' + (this.position > 0 ? 'last-element' : 'first-element');
+    };
+    Object.defineProperty(TooltipComponent.prototype, "show", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this.visibility = value ? 'shown' : 'hidden';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    TooltipComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    TooltipComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-tooltip',
+                    template: "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n",
+                    styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:8px!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TooltipComponent.ctorParameters = function () { return []; };
+    TooltipComponent.propDecorators = {
+        text: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        position: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        show: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return TooltipComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var Api = /** @class */ (function () {
+    function Api() {
+    }
+    Api.VIEWER_APP = '/viewer';
+    Api.SIGNATURE_APP = '/signature';
+    Api.ANNOTATION_APP = '/annotation';
+    Api.SEARCH_APP = '/search';
+    Api.EDITOR_APP = '/editor';
+    Api.COMPARISON_APP = '/comparison';
+    Api.CONVERSION_APP = '/conversion';
+    Api.METADATA_APP = '/metadata';
+    Api.PARSER_APP = '/parser';
+    Api.DEFAULT_API_ENDPOINT = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    Api.LOAD_FILE_TREE = '/loadFileTree';
+    Api.LOAD_CONFIG = '/loadConfig';
+    Api.LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
+    Api.LOAD_DOCUMENT_PAGE = '/loadDocumentPage';
+    Api.LOAD_DOCUMENT_PROPERTIES = '/loadProperties';
+    Api.LOAD_DOCUMENT_PROPERTIES_NAMES = '/loadPropertiesNames';
+    Api.SAVE_PROPERTY = '/saveProperty';
+    Api.REMOVE_PROPERTY = '/removeProperty';
+    Api.ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
+    Api.UPLOAD_DOCUMENTS = '/uploadDocument';
+    Api.DOWNLOAD_DOCUMENTS = '/downloadDocument';
+    Api.DOWNLOAD_ANNOTATED = '/downloadAnnotated';
+    Api.LOAD_PRINT = '/loadPrint';
+    Api.LOAD_PRINT_PDF = '/printPdf';
+    Api.LOAD_THUMBNAILS = '/loadThumbnails';
+    Api.LOAD_FORMATS = '/loadFormats';
+    Api.SAVE_FILE = '/saveFile';
+    Api.CREATE_FILE = '/createFile';
+    Api.COMPARE_FILES = '/compare';
+    Api.CONVERT_FILE = '/convert';
+    Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
+    Api.REMOVE_FROM_INDEX = '/removeFromIndex';
+    Api.GET_FILE_STATUS = '/getFileStatus';
+    Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
+    Api.SAVE_TEXT = '/saveText';
+    Api.SAVE_IMAGE = '/saveImage';
+    Api.SAVE_STAMP = '/saveStamp';
+    Api.SIGN = '/sign';
+    Api.DOWNLOAD_SIGNED = '/downloadSigned';
+    Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
+    Api.ANNOTATE = '/annotate';
+    Api.SEARCH = '/search';
+    Api.PARSE = '/parse';
+    Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
+    Api.CLEAN_METADATA = '/clean';
+    Api.EXPORT_METADATA = '/export';
+    Api.httpOptionsJson = {
+        headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpHeaders"]({
+            'Content-Type': 'application/json',
+        })
+    };
+    Api.httpOptionsJsonResponseTypeBlob = {
+        headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpHeaders"]({
+            'Content-Type': 'application/json',
+        }),
+        responseType: (/** @type {?} */ ('blob'))
+    };
+    return Api;
+}());
+if (false) {}
+var ConfigService = /** @class */ (function () {
+    function ConfigService() {
+        this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
+    }
+    Object.defineProperty(ConfigService.prototype, "apiEndpoint", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._apiEndpoint;
+        },
+        set: /**
+         * @param {?} url
+         * @return {?}
+         */
+        function (url) {
+            this._apiEndpoint = url && url.trim().endsWith('/') ? url.substring(0, url.length - 1) : url;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} app
+     * @return {?}
+     */
+    ConfigService.prototype.getConfigEndpoint = /**
+     * @param {?} app
+     * @return {?}
+     */
+    function (app) {
+        return (this.apiEndpoint.endsWith(app) ? this.apiEndpoint : this.apiEndpoint + app) + Api.LOAD_CONFIG;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getViewerApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.VIEWER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.VIEWER_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getEditorApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.trim().endsWith(Api.EDITOR_APP) ? this._apiEndpoint : this._apiEndpoint + Api.EDITOR_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getComparisonApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getConversionApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getMetadataApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getSignatureApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getAnnotationApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getSearchApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
+    };
+    /**
+     * @return {?}
+     */
+    ConfigService.prototype.getParserApiEndpoint = /**
+     * @return {?}
+     */
+    function () {
+        return this._apiEndpoint.endsWith(Api.PARSER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.PARSER_APP;
+    };
+    ConfigService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] }
+    ];
+    /** @nocollapse */
+    ConfigService.ctorParameters = function () { return []; };
+    return ConfigService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var CommonModals = /** @class */ (function () {
+    function CommonModals() {
+    }
+    CommonModals.PasswordRequired = "gd-password-required";
+    CommonModals.ErrorMessage = "gd-error-message";
+    CommonModals.BrowseFiles = "gd-browse-files";
+    CommonModals.CreateDocument = "gd-create-document";
+    CommonModals.OperationSuccess = "gd-success-modal";
+    CommonModals.DrawHandSignature = "gd-draw-hand-signature";
+    CommonModals.DrawStampSignature = "gd-draw-stamp-signature";
+    CommonModals.InformationMessage = "gd-information-message";
+    return CommonModals;
+}());
+if (false) {}
+var ModalService = /** @class */ (function () {
+    function ModalService() {
+        this.modals = [];
+    }
+    /**
+     * @param {?} modal
+     * @return {?}
+     */
+    ModalService.prototype.add = /**
+     * @param {?} modal
+     * @return {?}
+     */
+    function (modal) {
+        this.modals.push(modal);
+    };
+    /**
+     * @param {?} id
+     * @return {?}
+     */
+    ModalService.prototype.remove = /**
+     * @param {?} id
+     * @return {?}
+     */
+    function (id) {
+        this.modals = this.modals.filter((/**
+         * @param {?} x
+         * @return {?}
+         */
+        function (x) { return x.id !== id; }));
+    };
+    /**
+     * @param {?} id
+     * @return {?}
+     */
+    ModalService.prototype.open = /**
+     * @param {?} id
+     * @return {?}
+     */
+    function (id) {
+        /** @type {?} */
+        var modal = this.modals.filter((/**
+         * @param {?} x
+         * @return {?}
+         */
+        function (x) { return x.id === id; }))[0];
+        if (modal) {
+            modal.open();
+        }
+    };
+    /**
+     * @param {?} id
+     * @return {?}
+     */
+    ModalService.prototype.close = /**
+     * @param {?} id
+     * @return {?}
+     */
+    function (id) {
+        /** @type {?} */
+        var modal = this.modals.filter((/**
+         * @param {?} x
+         * @return {?}
+         */
+        function (x) { return x.id === id; }))[0];
+        if (modal) {
+            modal.close();
+        }
+    };
+    return ModalService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ModalComponent = /** @class */ (function () {
+    function ModalComponent(modalService, el) {
+        this.modalService = modalService;
+        this.visible = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.cancel = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.visibility = false;
+        this.element = el.nativeElement;
+    }
+    /**
+     * @return {?}
+     */
+    ModalComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        if (!this.id) {
+            console.error('modal must have an id');
+            return;
+        }
+        document.body.appendChild(this.element);
+        this.modalService.add(this);
+    };
+    /**
+     * @return {?}
+     */
+    ModalComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.modalService.remove(this.id);
+        this.element.remove();
+    };
+    /**
+     * @return {?}
+     */
+    ModalComponent.prototype.open = /**
+     * @return {?}
+     */
+    function () {
+        this.visibility = true;
+        this.visible.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    ModalComponent.prototype.close = /**
+     * @return {?}
+     */
+    function () {
+        event.preventDefault();
+        event.stopPropagation();
+        this.visibility = false;
+        this.visible.emit(false);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ModalComponent.prototype.onClose = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $event.stopPropagation();
+        if ($event && $event.target && ((/** @type {?} */ ($event.target))).id === 'modalDialog') {
+            this.close();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    ModalComponent.prototype.cancelClose = /**
+     * @return {?}
+     */
+    function () {
+        this.cancel.emit(false);
+        this.close();
+    };
+    ModalComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-modal',
+                    template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\r\n</div>\r\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\r\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\r\n\r\n    <div class=\"gd-modal-header\">\r\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\r\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-body\">\r\n      <ng-content></ng-content>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-footer\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n",
+                    styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:1051}.gd-modal-dialog ::ng-deep .button{-webkit-box-orient:unset!important;-webkit-box-direction:unset!important;flex-direction:unset!important}.gd-modal-content{background-color:#fff;height:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ModalComponent.ctorParameters = function () { return [
+        { type: ModalService },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+    ]; };
+    ModalComponent.propDecorators = {
+        id: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        title: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        visible: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        cancel: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return ModalComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var PageModel = /** @class */ (function () {
+    function PageModel() {
+    }
+    return PageModel;
+}());
+if (false) {}
+var RotatedPage = /** @class */ (function () {
+    function RotatedPage() {
+    }
+    return RotatedPage;
+}());
+if (false) {}
+var FileCredentials = /** @class */ (function () {
+    function FileCredentials(guid, password) {
+        this.guid = guid;
+        this.password = password;
+    }
+    return FileCredentials;
+}());
+if (false) {}
+var SaveFile = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_9__["__extends"])(SaveFile, _super);
+    function SaveFile(guid, password, content) {
+        var _this = _super.call(this, guid, password) || this;
+        _this.content = content;
+        return _this;
+    }
+    return SaveFile;
+}(FileCredentials));
+if (false) {}
+var FileDescription = /** @class */ (function () {
+    function FileDescription() {
+        this.printAllowed = true;
+    }
+    return FileDescription;
+}());
+if (false) {}
+var FileModel = /** @class */ (function () {
+    function FileModel() {
+    }
+    return FileModel;
+}());
+if (false) {}
+var HttpError = /** @class */ (function () {
+    function HttpError() {
+    }
+    HttpError.BadRequest = 400;
+    HttpError.Unauthorized = 401;
+    HttpError.Forbidden = 403;
+    HttpError.NotFound = 404;
+    HttpError.TimeOut = 408;
+    HttpError.Conflict = 409;
+    HttpError.InternalServerError = 500;
+    return HttpError;
+}());
+if (false) {}
+var Utils = /** @class */ (function () {
+    function Utils() {
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    Utils.getMousePosition = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        /** @type {?} */
+        var mouse = {
+            x: 0,
+            y: 0
+        };
+        /** @type {?} */
+        var wEvent = (/** @type {?} */ (window.event));
+        /** @type {?} */
+        var ev = event || wEvent;
+        if (ev.pageX || wEvent.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
+            //Moz
+            /** @type {?} */
+            var pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0 ? ev.pageX : wEvent.pageX;
+            /** @type {?} */
+            var pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0 ? ev.pageY : wEvent.pageY;
+            /** @type {?} */
+            var screenX_1 = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
+            /** @type {?} */
+            var screenY_1 = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
+            mouse.x = pageX ? pageX : (screenX_1 ? wEvent.screenX : ev.touches[0].pageX);
+            mouse.y = pageY ? pageY : (screenY_1 ? wEvent.screenY : ev.touches[0].pageY);
+        }
+        else if (ev.clientX) { //IE
+            mouse.x = ev.clientX + document.body.scrollLeft;
+            mouse.y = ev.clientY + document.body.scrollTop;
+        }
+        return mouse;
+    };
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    Utils.toRgb = /**
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        /** @type {?} */
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+        if (result) {
+            /** @type {?} */
+            var r = parseInt(result[1], 16);
+            /** @type {?} */
+            var g = parseInt(result[2], 16);
+            /** @type {?} */
+            var b = parseInt(result[3], 16);
+            return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
+        }
+        return color;
+    };
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    Utils.toHex = /**
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        // check if color is standard hex value
+        if (color.match(/[0-9A-F]{6}|[0-9A-F]{3}$/i)) {
+            return (color.charAt(0) === "#") ? color : ("#" + color);
+            // check if color is RGB value -> convert to hex
+        }
+        else if (color.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)) {
+            /** @type {?} */
+            var c = ([parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10), parseInt(RegExp.$3, 10)]);
+            /** @type {?} */
+            var pad = (/**
+             * @param {?} str
+             * @return {?}
+             */
+            function (str) {
+                if (str.length < 2) {
+                    for (var i = 0, len = 2 - str.length; i < len; i++) {
+                        str = '0' + str;
+                    }
+                }
+                return str;
+            });
+            if (c.length === 3) {
+                /** @type {?} */
+                var r = pad(c[0].toString(16));
+                /** @type {?} */
+                var g = pad(c[1].toString(16));
+                /** @type {?} */
+                var b = pad(c[2].toString(16));
+                return '#' + r + g + b;
+            }
+            // else do nothing
+        }
+        else {
+            return '';
+        }
+    };
+    return Utils;
+}());
+var FileUtil = /** @class */ (function () {
+    function FileUtil() {
+    }
+    /**
+     * @param {?} filename
+     * @param {?} isDirectory
+     * @return {?}
+     */
+    FileUtil.find = /**
+     * @param {?} filename
+     * @param {?} isDirectory
+     * @return {?}
+     */
+    function (filename, isDirectory) {
+        if (filename && !isDirectory) {
+            /** @type {?} */
+            var strings = filename.split('.');
+            /** @type {?} */
+            var name_1 = strings.pop().toLowerCase();
+            if (typeof FileUtil.map[name_1] === "undefined") {
+                return strings.length > 0 ? FileUtil.map['unknown'] : FileUtil.map['folder'];
+            }
+            else {
+                return FileUtil.map[name_1];
+            }
+        }
+        else {
+            return FileUtil.map['folder'];
+        }
+    };
+    FileUtil.map = {
+        'folder': { 'format': '', 'icon': 'folder' },
+        'pdf': { 'format': 'Portable Document Format', 'icon': 'file-pdf', 'unit': 'pt' },
+        'doc': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+        'docx': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+        'docm': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+        'dot': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+        'dotx': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+        'dotm': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
+        'xls': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+        'xlsx': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+        'xlsm': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+        'xlsb': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+        'xls2003': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+        'xltx': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+        'xltm': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
+        'ppt': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'pptx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'pps': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'ppsx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'vsd': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'vdx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'vss': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'vsx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'vst': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'vtx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'vsdx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'vdw': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'vstx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'vssx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
+        'mpp': { 'format': 'Microsoft Project', 'icon': 'file-alt', 'unit': 'pt' },
+        'mpt': { 'format': 'Microsoft Project', 'icon': 'file-alt', 'unit': 'pt' },
+        'msg': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
+        'eml': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
+        'emlx': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
+        'one': { 'format': 'Microsoft OneNote', 'icon': 'file-word', 'unit': 'pt' },
+        'odt': { 'format': 'Open Document Text', 'icon': 'file-word', 'unit': 'pt' },
+        'ott': { 'format': 'Open Document Text Template', 'icon': 'file-word', 'unit': 'pt' },
+        'ods': { 'format': 'Open Document Spreadsheet', 'icon': 'file-excel', 'unit': 'px' },
+        'odp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'otp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'ots': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'potx': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'potm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'pptm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'ppsm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
+        'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt', 'unit': 'pt' },
+        'txt': { 'format': 'Plain Text File', 'icon': 'file-alt', 'unit': 'pt' },
+        'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel', 'unit': 'px' },
+        'html': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+        'mht': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+        'mhtml': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+        'xml': { 'format': 'Extensible Markup Language', 'icon': 'file-word', 'unit': 'pt' },
+        'xps': { 'format': 'XML Paper Specification', 'icon': 'file-word', 'unit': 'pt' },
+        'dxf': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image', 'unit': 'px' },
+        'dwg': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image', 'unit': 'px' },
+        'bmp': { 'format': 'Bitmap Picture', 'icon': 'file-image', 'unit': 'px' },
+        'gif': { 'format': 'Graphics Interchange Format', 'icon': 'file-image', 'unit': 'px' },
+        'jpg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+        'jpe': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+        'jpeg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+        'jfif': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
+        'png': { 'format': 'Portable Network Graphics', 'icon': 'file-image', 'unit': 'px' },
+        'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+        'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+        'psd': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+        'svg': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+        'jp2': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
+        'epub': { 'format': 'Electronic Publication', 'icon': 'file-pdf', 'unit': 'pt' },
+        'ico': { 'format': 'Windows Icon', 'icon': 'file-image', 'unit': 'px' },
+        'webp': { 'format': 'Compressed Image', 'icon': 'file-image', 'unit': 'px' },
+        'mobi': { 'format': 'Mobipocket eBook', 'icon': 'file-pdf', 'unit': 'pt' },
+        'tex': { 'format': 'LaTeX Source Document', 'icon': 'file-pdf', 'unit': 'pt' },
+        'djvu': { 'format': 'Multi-Layer Raster Image', 'icon': 'file-alt', 'unit': 'pt' },
+        'unknown': { 'format': 'This format is not supported', 'icon': 'file' },
+    };
+    return FileUtil;
+}());
+if (false) {}
+var FileService = /** @class */ (function () {
+    function FileService() {
+    }
+    return FileService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var UploadFilesService = /** @class */ (function () {
+    function UploadFilesService() {
+        var _this = this;
+        this._uploadsChange = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"]((/**
+         * @param {?} observer
+         * @return {?}
+         */
+        function (observer) {
+            return _this._observer = observer;
+        }));
+    }
+    Object.defineProperty(UploadFilesService.prototype, "uploadsChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._uploadsChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} filesList
+     * @return {?}
+     */
+    UploadFilesService.prototype.changeFilesList = /**
+     * @param {?} filesList
+     * @return {?}
+     */
+    function (filesList) {
+        this._observer.next(filesList);
+    };
+    return UploadFilesService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $ = jquery__WEBPACK_IMPORTED_MODULE_10__;
+/** @type {?} */
+var upload_disc = 'Disc';
+/** @type {?} */
+var upload_url = 'URL';
+/** @type {?} */
+var uploads_choices = [{ name: upload_disc, icon: 'hdd' }, { name: upload_url, icon: 'link' }];
+var BrowseFilesModalComponent = /** @class */ (function () {
+    function BrowseFilesModalComponent(_uploadService) {
+        this._uploadService = _uploadService;
+        this.uploads = uploads_choices;
+        this.selectedFileGuid = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.selectedDirectory = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.urlForUpload = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.closing = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.showUploadUrl = false;
+        this.showUploadFile = false;
+    }
+    /**
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} size
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.getSize = /**
+     * @param {?} size
+     * @return {?}
+     */
+    function (size) {
+        /** @type {?} */
+        var mb = size / 1024 / 1024;
+        if (mb > 1) {
+            return (Math.round(mb * 100) / 100) + ' MB';
+        }
+        else {
+            /** @type {?} */
+            var kb = size / 1024;
+            if (kb > 1) {
+                return (Math.round(kb * 100) / 100) + ' KB';
+            }
+        }
+        return size + ' Bytes';
+    };
+    /**
+     * @param {?} file
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.getFormatName = /**
+     * @param {?} file
+     * @return {?}
+     */
+    function (file) {
+        return FileUtil.find(file.name, file.directory).format;
+    };
+    /**
+     * @param {?} file
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.getFormatIcon = /**
+     * @param {?} file
+     * @return {?}
+     */
+    function (file) {
+        return FileUtil.find(file.name, file.directory).icon;
+    };
+    /**
+     * @param {?} file
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.choose = /**
+     * @param {?} file
+     * @return {?}
+     */
+    function (file) {
+        this.selectedFile = file;
+        if (file.directory || file.isDirectory) {
+            this.selectedDirectory.emit(file.name);
+        }
+        else {
+            this.selectedFileGuid.emit(file.guid);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.goUp = /**
+     * @return {?}
+     */
+    function () {
+        if (this.selectedFile) {
+            /** @type {?} */
+            var guid = this.selectedFile.guid;
+            if (guid.length > 0 && guid.indexOf('/') === -1) {
+                guid = '';
+            }
+            else {
+                guid = guid.replace(/\/[^\/]+\/?$/, '');
+            }
+            this.selectedDirectory.emit(guid);
+        }
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.selectUpload = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if (upload_url === $event) {
+            this.showUploadUrl = true;
+        }
+        else {
+            this.showUploadUrl = false;
+            $("#gd-upload-input").trigger('click');
+        }
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.refresh = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if ($event) {
+            this.files = null;
+            this.selectedDirectory.emit('');
+            this.showUploadUrl = false;
+            this.selectedFile = null;
+        }
+        else {
+            this.closing.emit(true);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.showSpinner = /**
+     * @return {?}
+     */
+    function () {
+        return !this.files;
+    };
+    /**
+     * @param {?} url
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.uploadUrl = /**
+     * @param {?} url
+     * @return {?}
+     */
+    function (url) {
+        if (url) {
+            this.urlForUpload.emit(url);
+            this.cleanUpload();
+        }
+    };
+    /**
+     * @param {?} files
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.handleFileInput = /**
+     * @param {?} files
+     * @return {?}
+     */
+    function (files) {
+        this._uploadService.changeFilesList(files);
+    };
+    /**
+     * @return {?}
+     */
+    BrowseFilesModalComponent.prototype.cleanUpload = /**
+     * @return {?}
+     */
+    function () {
+        this.showUploadFile = false;
+        this.showUploadUrl = false;
+    };
+    BrowseFilesModalComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-browse-files-modal',
+                    template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\r\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\r\n    <div class=\"dnd-wrapper\">\r\n      <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n      <span class=\"text\">Drop file here to upload</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\r\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\r\n            (change)=\"handleFileInput($event.target.files)\">\r\n    <div class=\"context\">\r\n      <div class=\"context-actions\">\r\n        <gd-drop-down>\r\n          <gd-drop-down-toggle>\r\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\r\n              Upload file\r\n            </gd-button>\r\n          </gd-drop-down-toggle>\r\n          <gd-drop-down-items>\r\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\r\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\r\n              <div class=\"text\">{{item.name}}</div>\r\n            </gd-drop-down-item>\r\n          </gd-drop-down-items>\r\n        </gd-drop-down>\r\n      </div>\r\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\r\n        <div class=\"upload-url\">\r\n          <input class=\"url-input\" placeholder=\"https://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\r\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\r\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\r\n    <div class=\"header-name\">FILE</div>\r\n    <div class=\"header-size\">SIZE</div>\r\n  </div>\r\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\r\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\r\n      <div class=\"list-files-body\">\r\n        <div class=\"go-up\" (click)=\"goUp()\">\r\n            <div class=\"go-up-icon\">\r\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\r\n            </div>\r\n            <div class=\"go-up-dots\">..</div>\r\n        </div>\r\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\r\n          <div class=\"file-description\">\r\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\r\n            <div class=\"file-name-format\">\r\n              <div class=\"file-name\">{{file?.name}}</div>\r\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\r\n            </div>\r\n          </div>\r\n          <div class=\"file-size\">\r\n            {{getSize(file?.size)}}\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n      &nbsp;Loading... Please wait.\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
+                    styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:-webkit-box;display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;-webkit-box-flex:1;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:-webkit-box;display:flex;width:100%;-webkit-box-pack:justify;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:-webkit-box;display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:-webkit-box;display:flex;position:relative;width:100%}.upload-panel .context{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;width:96px;padding:0;-webkit-box-pack:center;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:100%;height:calc(100% - 60px);background:rgba(255,255,255,.7);z-index:1;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.dnd-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;top:259px;position:absolute}.dnd-wrapper .text{color:#6e6e6e;font-size:14px}.dnd-wrapper .icon{display:-webkit-box;display:flex;width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    BrowseFilesModalComponent.ctorParameters = function () { return [
+        { type: UploadFilesService }
+    ]; };
+    BrowseFilesModalComponent.propDecorators = {
+        files: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        uploadConfig: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        selectedFileGuid: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        selectedDirectory: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        urlForUpload: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        closing: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return BrowseFilesModalComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ZoomService = /** @class */ (function () {
+    function ZoomService() {
+        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._zoomChange = this._observer.asObservable();
+    }
+    Object.defineProperty(ZoomService.prototype, "zoom", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._zoom;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ZoomService.prototype, "zoomChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._zoomChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} zoom
+     * @return {?}
+     */
+    ZoomService.prototype.changeZoom = /**
+     * @param {?} zoom
+     * @return {?}
+     */
+    function (zoom) {
+        this._zoom = zoom;
+        this._observer.next(zoom);
+    };
+    /**
+     * @private
+     * @param {?} val
+     * @param {?} name
+     * @param {?=} sep
+     * @return {?}
+     */
+    ZoomService.prototype.createZoomOption = /**
+     * @private
+     * @param {?} val
+     * @param {?} name
+     * @param {?=} sep
+     * @return {?}
+     */
+    function (val, name, sep) {
+        if (sep === void 0) { sep = false; }
+        return { value: val, name: name, separator: sep };
+    };
+    /**
+     * @param {?} width
+     * @param {?} height
+     * @return {?}
+     */
+    ZoomService.prototype.zoomOptions = /**
+     * @param {?} width
+     * @param {?} height
+     * @return {?}
+     */
+    function (width, height) {
+        return [this.createZoomOption(25, '25%'),
+            this.createZoomOption(50, '50%'),
+            this.createZoomOption(100, '100%'),
+            this.createZoomOption(150, '150%'),
+            this.createZoomOption(200, '200%'),
+            this.createZoomOption(300, '300%'),
+            this.createZoomOption(0, '', true),
+            this.createZoomOption(width, 'Fit Width'),
+            this.createZoomOption(height, 'Fit Height')];
+    };
+    return ZoomService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var PagePreloadService = /** @class */ (function () {
+    function PagePreloadService() {
+        var _this = this;
+        this._checkPreload = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"]((/**
+         * @param {?} observer
+         * @return {?}
+         */
+        function (observer) {
+            return _this._observer = observer;
+        }));
+    }
+    Object.defineProperty(PagePreloadService.prototype, "checkPreload", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._checkPreload;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} page
+     * @return {?}
+     */
+    PagePreloadService.prototype.changeLastPageInView = /**
+     * @param {?} page
+     * @return {?}
+     */
+    function (page) {
+        if (this._observer) {
+            this._observer.next(page);
+        }
+    };
+    return PagePreloadService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var NavigateService = /** @class */ (function () {
+    function NavigateService(_pagePreloadService) {
+        this._pagePreloadService = _pagePreloadService;
+        this._currentPage = 0;
+        this._countPages = 0;
+        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._navigate = this._observer;
+    }
+    Object.defineProperty(NavigateService.prototype, "navigate", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._navigate;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NavigateService.prototype, "countPages", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._countPages;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._countPages = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NavigateService.prototype, "currentPage", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._currentPage;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._currentPage = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    NavigateService.prototype.nextPage = /**
+     * @return {?}
+     */
+    function () {
+        if (this._currentPage < this._countPages) {
+            this._currentPage++;
+            this.navigateTo(this._currentPage);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NavigateService.prototype.prevPage = /**
+     * @return {?}
+     */
+    function () {
+        if (this._currentPage > 1) {
+            this._currentPage--;
+            this.navigateTo(this._currentPage);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NavigateService.prototype.toLastPage = /**
+     * @return {?}
+     */
+    function () {
+        this._currentPage = this._countPages;
+        this.navigateTo(this._currentPage);
+    };
+    /**
+     * @return {?}
+     */
+    NavigateService.prototype.toFirstPage = /**
+     * @return {?}
+     */
+    function () {
+        this._currentPage = 1;
+        this.navigateTo(this._currentPage);
+    };
+    /**
+     * @param {?} page
+     * @return {?}
+     */
+    NavigateService.prototype.navigateTo = /**
+     * @param {?} page
+     * @return {?}
+     */
+    function (page) {
+        this.currentPage = page;
+        this._pagePreloadService.changeLastPageInView(page);
+        this._observer.next(page);
+    };
+    NavigateService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    NavigateService.ctorParameters = function () { return [
+        { type: PagePreloadService }
+    ]; };
+    /** @nocollapse */ NavigateService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function NavigateService_Factory() { return new NavigateService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(PagePreloadService)); }, token: NavigateService, providedIn: "root" });
+    return NavigateService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$1 = jquery__WEBPACK_IMPORTED_MODULE_10__;
+var DocumentComponent = /** @class */ (function () {
+    function DocumentComponent(_elementRef, _zoomService, _windowService, _navigateService) {
+        var _this = this;
+        this._elementRef = _elementRef;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this._navigateService = _navigateService;
+        this.wait = false;
+        this.docWidth = null;
+        this.docHeight = null;
+        this.viewportWidth = null;
+        this.viewportHeight = null;
+        this.scale = null;
+        this.lastScale = null;
+        this.container = null;
+        this.doc = null;
+        this.x = 0;
+        this.lastX = 0;
+        this.y = 0;
+        this.lastY = 0;
+        this.pinchCenter = null;
+        this.pinchCenterOffset = null;
+        this.curWidth = 0;
+        this.curHeight = 0;
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            _this.zoom = val;
+        }));
+        this.isDesktop = _windowService.isDesktop();
+        this._navigateService.navigate.subscribe((((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            _this.selectedPage = value;
+        }))));
+    }
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        if (this.ifPresentation()) {
+            this.selectedPage = this._navigateService.currentPage;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        // For current iteration we take .panzoom as a document
+        this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
+        // For current iteration we take .gd-document as a container
+        this.container = this._elementRef.nativeElement;
+        this.docWidth = this.doc.clientWidth;
+        this.docHeight = this.doc.clientHeight;
+        this.viewportWidth = this.doc.offsetWidth;
+        // For cases where we already have zoom defined we should include it
+        this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
+        this.lastScale = this.scale;
+        this.viewportHeight = this.container.offsetHeight;
+        this.curWidth = this.docWidth * this.scale;
+        this.curHeight = this.docHeight * this.scale;
+        /** @type {?} */
+        var hammer = new hammerjs__WEBPACK_IMPORTED_MODULE_11__(this.container);
+    };
+    // TODO: this temporary crutch for Excel files should be documented
+    // TODO: this temporary crutch for Excel files should be documented
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ifExcel = 
+    // TODO: this temporary crutch for Excel files should be documented
+    /**
+     * @return {?}
+     */
+    function () {
+        return FileUtil.find(this.file.guid, false).format === "Microsoft Excel";
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ifPresentation = /**
+     * @return {?}
+     */
+    function () {
+        return FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint";
+    };
+    /**
+     * @param {?} value
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    DocumentComponent.prototype.getDimensionWithUnit = /**
+     * @param {?} value
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    function (value, pageNumber) {
+        return this.ifPresentation() && this.showActiveSlide && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? FileUtil.find(this.file.guid, false).unit : 'px');
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ifEdge = /**
+     * @return {?}
+     */
+    function () {
+        return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+    };
+    /**
+     * @return {?}
+     */
+    DocumentComponent.prototype.ngAfterViewChecked = /**
+     * @return {?}
+     */
+    function () {
+        // for now we are not sure that need this action in current implementation
+        // const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
+        // const element = elementNodeListOf.item(0);
+        // if (element) {
+        //   $(element).trigger('focus');
+        // }
+    };
+    /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    DocumentComponent.prototype.isVisible = /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    function (pageNumber) {
+        if (this.ifPresentation()) {
+            return pageNumber === this.selectedPage ? true : false;
+        }
+        else {
+            return true;
+        }
+    };
+    DocumentComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-document',
+                    template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"!showActiveSlide || isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\" gdPageMarker></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;-webkit-transition:unset;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    DocumentComponent.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+        { type: ZoomService },
+        { type: WindowService },
+        { type: NavigateService }
+    ]; };
+    DocumentComponent.propDecorators = {
+        mode: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        preloadPageCount: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        file: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        selectedPage: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        showActiveSlide: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return DocumentComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var PageComponent = /** @class */ (function () {
+    function PageComponent() {
+    }
+    /**
+     * @return {?}
+     */
+    PageComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var isIE = /*@cc_on!@*/  false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+        if (isIE && this.number === 0) {
+            this.editable = false;
+        }
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    PageComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (this.isHtml) {
+            // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
+            // which leads to undesired spaces on the top of the docs pages
+            this.data = this.data
+                ? this.data.replace(/>\s+</g, '><')
+                    .replace(/\uFEFF/g, "")
+                : null;
+        }
+        else {
+            if (this.data) {
+                this.imgData = this.data.startsWith('data:image') ? this.data : 'data:image/png;base64,' + this.data;
+            }
+        }
+    };
+    PageComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-page',
+                    template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
+                    styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
+                }] }
+    ];
+    /** @nocollapse */
+    PageComponent.ctorParameters = function () { return []; };
+    PageComponent.propDecorators = {
+        angle: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        width: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        height: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        number: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        data: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        isHtml: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        editable: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return PageComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var SanitizeHtmlPipe = /** @class */ (function () {
+    function SanitizeHtmlPipe(sanitizer) {
+        this.sanitizer = sanitizer;
+    }
+    /**
+     * @param {?} html
+     * @return {?}
+     */
+    SanitizeHtmlPipe.prototype.transform = /**
+     * @param {?} html
+     * @return {?}
+     */
+    function (html) {
+        return this.sanitizer.bypassSecurityTrustHtml(html);
+    };
+    SanitizeHtmlPipe.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{ name: 'safeHtml' },] }
+    ];
+    /** @nocollapse */
+    SanitizeHtmlPipe.ctorParameters = function () { return [
+        { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__["DomSanitizer"] }
+    ]; };
+    return SanitizeHtmlPipe;
+}());
+if (false) {}
+var SanitizeResourceHtmlPipe = /** @class */ (function () {
+    function SanitizeResourceHtmlPipe(sanitizer) {
+        this.sanitizer = sanitizer;
+    }
+    /**
+     * @param {?} html
+     * @return {?}
+     */
+    SanitizeResourceHtmlPipe.prototype.transform = /**
+     * @param {?} html
+     * @return {?}
+     */
+    function (html) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(html);
+    };
+    SanitizeResourceHtmlPipe.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{ name: 'safeResourceHtml' },] }
+    ];
+    /** @nocollapse */
+    SanitizeResourceHtmlPipe.ctorParameters = function () { return [
+        { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__["DomSanitizer"] }
+    ]; };
+    return SanitizeResourceHtmlPipe;
+}());
+if (false) {}
+var SanitizeStylePipe = /** @class */ (function () {
+    function SanitizeStylePipe(sanitizer) {
+        this.sanitizer = sanitizer;
+    }
+    /**
+     * @param {?} html
+     * @return {?}
+     */
+    SanitizeStylePipe.prototype.transform = /**
+     * @param {?} html
+     * @return {?}
+     */
+    function (html) {
+        return this.sanitizer.bypassSecurityTrustStyle(html);
+    };
+    SanitizeStylePipe.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{ name: 'safeStyle' },] }
+    ];
+    /** @nocollapse */
+    SanitizeStylePipe.ctorParameters = function () { return [
+        { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__["DomSanitizer"] }
+    ]; };
+    return SanitizeStylePipe;
+}());
+if (false) {}
+var HighlightSearchPipe = /** @class */ (function () {
+    function HighlightSearchPipe() {
+    }
+    /**
+     * @param {?} value
+     * @param {?} args
+     * @return {?}
+     */
+    HighlightSearchPipe.prototype.transform = /**
+     * @param {?} value
+     * @param {?} args
+     * @return {?}
+     */
+    function (value, args) {
+        if (!args) {
+            return value;
+        }
+        /** @type {?} */
+        var re = new RegExp(args, 'gi');
+        return value.replace(re, "<span class='gd-highlight'>$&</span>");
+    };
+    HighlightSearchPipe.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{ name: 'highlight' },] }
+    ];
+    return HighlightSearchPipe;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var UploadFileZoneComponent = /** @class */ (function () {
+    function UploadFileZoneComponent(_uploadService) {
+        this._uploadService = _uploadService;
+        this.closeUpload = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    /**
+     * @return {?}
+     */
+    UploadFileZoneComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} files
+     * @return {?}
+     */
+    UploadFileZoneComponent.prototype.handleFileInput = /**
+     * @param {?} files
+     * @return {?}
+     */
+    function (files) {
+        this._uploadService.changeFilesList(files);
+        this.onCloseUpload();
+    };
+    /**
+     * @return {?}
+     */
+    UploadFileZoneComponent.prototype.onCloseUpload = /**
+     * @return {?}
+     */
+    function () {
+        this.closeUpload.emit(true);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    UploadFileZoneComponent.prototype.close = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if ($event.target.id === 'gd-dropZone') {
+            this.onCloseUpload();
+        }
+    };
+    UploadFileZoneComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-upload-file-zone',
+                    template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\r\n  <div class=\"gd-drag-n-drop-icon\">\r\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\r\n  </div>\r\n  <h2>Drag &amp; Drop your files here</h2>\r\n  <h4>OR</h4>\r\n  <div class=\"gd-drag-n-drop-buttons\">\r\n    <label class=\"btn btn-primary\"> \r\n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\r\n      SELECT FILE\r\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\r\n      </label>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:-webkit-box;display:flex;align-content:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
+                }] }
+    ];
+    /** @nocollapse */
+    UploadFileZoneComponent.ctorParameters = function () { return [
+        { type: UploadFilesService }
+    ]; };
+    UploadFileZoneComponent.propDecorators = {
+        closeUpload: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return UploadFileZoneComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var DndDirective = /** @class */ (function () {
+    function DndDirective(_uploadFilesService) {
+        this._uploadFilesService = _uploadFilesService;
+        this.closing = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.opening = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.dropped = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.active = false;
+        this.dragCounter = 0;
+    }
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    DndDirective.prototype.onDragEnter = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.dragCounter++;
+        this.active = true;
+        this.opening.emit(true);
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    DndDirective.prototype.onDragOver = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        return false;
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    DndDirective.prototype.onDragLeave = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.dragCounter--;
+        if (this.dragCounter === 0) {
+            this.active = false;
+            this.closeArea();
+        }
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    DndDirective.prototype.onDrop = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        /** @type {?} */
+        var files = evt.dataTransfer.files;
+        if (files.length > 0) {
+            this.active = false;
+            this.dropped.emit(true);
+            this._uploadFilesService.changeFilesList(files);
+            this.closeArea();
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    DndDirective.prototype.onClick = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.closeArea();
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    DndDirective.prototype.closeArea = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        this.closing.emit(true);
+        this.opening.emit(false);
+    };
+    DndDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdDnd]'
+                },] }
+    ];
+    /** @nocollapse */
+    DndDirective.ctorParameters = function () { return [
+        { type: UploadFilesService }
+    ]; };
+    DndDirective.propDecorators = {
+        closing: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        opening: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        dropped: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        active: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['class.active',] }],
+        onDragEnter: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['dragenter', ['$event'],] }],
+        onDragOver: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['dragover', ['$event'],] }],
+        onDragLeave: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['dragleave', ['$event'],] }],
+        onDrop: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['drop', ['$event'],] }],
+        onClick: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['click', ['$event'],] }]
+    };
+    return DndDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$2 = jquery__WEBPACK_IMPORTED_MODULE_10__;
+var ViewportService = /** @class */ (function () {
+    function ViewportService() {
+    }
+    /**
+     * @param {?} el
+     * @param {?=} zoom
+     * @param {?=} leftOffset
+     * @param {?=} deltaX
+     * @return {?}
+     */
+    ViewportService.prototype.checkInViewport = /**
+     * @param {?} el
+     * @param {?=} zoom
+     * @param {?=} leftOffset
+     * @param {?=} deltaX
+     * @return {?}
+     */
+    function (el, zoom, leftOffset, deltaX) {
+        if (zoom === void 0) { zoom = 100; }
+        if (leftOffset === void 0) { leftOffset = 0; }
+        if (deltaX === void 0) { deltaX = 0.5; }
+        if (!el) {
+            return false;
+        }
+        /** @type {?} */
+        var x = deltaX;
+        /** @type {?} */
+        var y = 0.5;
+        /** @type {?} */
+        var win = $$2(window);
+        /** @type {?} */
+        var viewport = {
+            top: win.scrollTop(),
+            left: win.scrollLeft() + leftOffset,
+            right: win.scrollLeft() + win.width() - 10,
+            bottom: win.scrollTop() + win.height()
+        };
+        if (isNaN(zoom)) {
+            zoom = 100;
+        }
+        /** @type {?} */
+        var zoomN = zoom / 100;
+        /** @type {?} */
+        var height = $$2(el).outerHeight() * (zoomN);
+        /** @type {?} */
+        var width = $$2(el).outerWidth() * (zoomN);
+        if (!width || !height) {
+            return false;
+        }
+        /** @type {?} */
+        var bounds = $$2(el).offset();
+        /** @type {?} */
+        var right = (bounds.left * (zoomN)) + width;
+        /** @type {?} */
+        var bottom = (bounds.top * (zoomN)) + height;
+        /** @type {?} */
+        var visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
+        if (!visible) {
+            return false;
+        }
+        /** @type {?} */
+        var deltas = {
+            top: parseFloat(Math.min(1, (bottom - viewport.top) / height).toFixed(2)),
+            bottom: parseFloat(Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height).toFixed(2)),
+            left: parseFloat(Math.min(1, (right - viewport.left) / width).toFixed(2)),
+            right: parseFloat(Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width).toFixed(2))
+        };
+        return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
+    };
+    ViewportService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    ViewportService.ctorParameters = function () { return []; };
+    /** @nocollapse */ ViewportService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function ViewportService_Factory() { return new ViewportService(); }, token: ViewportService, providedIn: "root" });
+    return ViewportService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$3 = jquery__WEBPACK_IMPORTED_MODULE_10__;
+var ScrollableDirective = /** @class */ (function () {
+    function ScrollableDirective(_elementRef, _navigateService, _pagePreloadService, _zoomService, _windowService, _viewportService) {
+        var _this = this;
+        this._elementRef = _elementRef;
+        this._navigateService = _navigateService;
+        this._pagePreloadService = _pagePreloadService;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this._viewportService = _viewportService;
+        this.zoom = 100;
+        this.loadedPagesSet = new Set();
+        this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            _this.zoom = val ? val : _this.zoom;
+            _this.refresh();
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    ScrollableDirective.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.zoom = this._zoomService.zoom ? this._zoomService.zoom : this.zoom;
+        this._navigateService.navigate.subscribe(((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            _this.currentPage = value;
+            _this.scrollToPage(value);
+        })));
+        this.refresh();
+    };
+    /**
+     * @return {?}
+     */
+    ScrollableDirective.prototype.scrolling = /**
+     * @return {?}
+     */
+    function () {
+        this.refresh();
+    };
+    /**
+     * @return {?}
+     */
+    ScrollableDirective.prototype.resizing = /**
+     * @return {?}
+     */
+    function () {
+        this.refresh();
+    };
+    /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    ScrollableDirective.prototype.scrollToPage = /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    function (pageNumber) {
+        /** @type {?} */
+        var el = this._elementRef.nativeElement;
+        /** @type {?} */
+        var page = this.getPage(pageNumber);
+        /** @type {?} */
+        var prev = pageNumber > 0 ? this.getPage(pageNumber - 1) : null;
+        /** @type {?} */
+        var isSameTop = (prev && $$3(prev).offset().top === $$3(page).offset().top);
+        if (this._viewportService.checkInViewport(page, this.zoom) && isSameTop) {
+            return;
+        }
+        /** @type {?} */
+        var pagesHeight = this.calculateOffset(pageNumber);
+        /** @type {?} */
+        var options = {
+            left: 0,
+            top: pagesHeight
+        };
+        if (el) {
+            // using polyfill
+            el.scroll(options);
+        }
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    ScrollableDirective.prototype.getChildren = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var el = this._elementRef ? this._elementRef.nativeElement : null;
+        if (el) {
+            // here and in the similar line below we getting the document pages
+            return el.children.item(0).children.item(0).children;
+        }
+    };
+    /**
+     * @private
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    ScrollableDirective.prototype.getPage = /**
+     * @private
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    function (pageNumber) {
+        /** @type {?} */
+        var el = this._elementRef ? this._elementRef.nativeElement : null;
+        if (el) {
+            return el.children.item(0).children.item(0).children.item(pageNumber - 1);
+        }
+    };
+    /**
+     * @private
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    ScrollableDirective.prototype.calculateOffset = /**
+     * @private
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    function (pageNumber) {
+        /** @type {?} */
+        var count = this._windowService.isFirefox() ? 1 : this.countPagesOnWidth();
+        /** @type {?} */
+        var margin = this._windowService.isDesktop() ? 40 : 10;
+        /** @type {?} */
+        var pagesHeight = 0;
+        for (var i = 1; i < pageNumber / count; i++) {
+            /** @type {?} */
+            var item = this.getPage(i);
+            /** @type {?} */
+            var clientHeight = item ? item.clientHeight : 0;
+            pagesHeight += clientHeight > 0 ? clientHeight * this.getZoom() + margin : 0;
+        }
+        return pagesHeight;
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    ScrollableDirective.prototype.countPagesOnWidth = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var pageEl = this.getPage(1);
+        /** @type {?} */
+        var offset = 150;
+        if (pageEl) {
+            /** @type {?} */
+            var count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
+            if (count !== 0) {
+                return count;
+            }
+        }
+        return 1;
+    };
+    /**
+     * @return {?}
+     */
+    ScrollableDirective.prototype.refresh = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var page;
+        /** @type {?} */
+        var currentPageSet = false;
+        /** @type {?} */
+        var pageElem = this.getPage(this.currentPage);
+        /** @type {?} */
+        var currentPageRect = this.currentPage && pageElem ? pageElem.getBoundingClientRect() : null;
+        for (page = 1; page < this.getChildren().length + 1; page++) {
+            /** @type {?} */
+            var element = this.getPage(page);
+            if (this._viewportService.checkInViewport(element, this.zoom)) {
+                if (!currentPageSet) {
+                    if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
+                        this.currentPage = page;
+                        if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
+                            this._navigateService.currentPage = page;
+                        }
+                    }
+                    currentPageSet = true;
+                }
+                if (!this.loadedPagesSet.has(page)) {
+                    this._pagePreloadService.changeLastPageInView(page);
+                    this.loadedPagesSet.add(page);
+                }
+            }
+        }
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ScrollableDirective.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        this.refresh();
+    };
+    /**
+     * @return {?}
+     */
+    ScrollableDirective.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.zoom = this._zoomService.zoom ? this._zoomService.zoom : this.zoom;
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    ScrollableDirective.prototype.getWidth = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        return this._elementRef ? this._elementRef.nativeElement.offsetWidth : window.innerWidth;
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    ScrollableDirective.prototype.getZoom = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        return this.zoom / 100;
+    };
+    ScrollableDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdScrollable]'
+                },] }
+    ];
+    /** @nocollapse */
+    ScrollableDirective.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+        { type: NavigateService },
+        { type: PagePreloadService },
+        { type: ZoomService },
+        { type: WindowService },
+        { type: ViewportService }
+    ]; };
+    ScrollableDirective.propDecorators = {
+        isPresentation: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        scrolling: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['scroll',] }],
+        resizing: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['window:resize',] }]
+    };
+    return ScrollableDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$4 = jquery__WEBPACK_IMPORTED_MODULE_10__;
+var MouseWheelDirective = /** @class */ (function () {
+    function MouseWheelDirective() {
+        this.mouseWheelUp = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.mouseWheelDown = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.onMouseWheelChrome = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.mouseWheelFunc(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.onMouseWheelFirefox = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.mouseWheelFunc(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.onMouseWheelIE = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.mouseWheelFunc(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MouseWheelDirective.prototype.mouseWheelFunc = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event = window.event;
+        /** @type {?} */
+        var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+        if (delta > 0) {
+            this.mouseWheelUp.emit(event);
+        }
+        else if (delta < 0) {
+            this.mouseWheelDown.emit(event);
+        }
+    };
+    MouseWheelDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdMouseWheel]'
+                },] }
+    ];
+    MouseWheelDirective.propDecorators = {
+        mouseWheelUp: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        mouseWheelDown: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        onMouseWheelChrome: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['mousewheel', ['$event'],] }],
+        onMouseWheelFirefox: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['DOMMouseScroll', ['$event'],] }],
+        onMouseWheelIE: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['onmousewheel', ['$event'],] }]
+    };
+    return MouseWheelDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ZoomDirective = /** @class */ (function () {
+    function ZoomDirective(_zoomService, _windowService, el) {
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this.zoomActive = true;
+        this.el = el;
+    }
+    /**
+     * @return {?}
+     */
+    ZoomDirective.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    ZoomDirective.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        this.setStyles(this._zoomService.zoom);
+        this.resizePages(this._zoomService.zoom);
+    };
+    /**
+     * @return {?}
+     */
+    ZoomDirective.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this.zoomActive) {
+            return;
+        }
+        this.setStyles(this._zoomService.zoom);
+        this._zoomService.zoomChange.subscribe((/**
+         * @param {?} zoom
+         * @return {?}
+         */
+        function (zoom) {
+            _this.setStyles(zoom);
+            _this.resizePages(zoom);
+        }));
+    };
+    /**
+     * @private
+     * @param {?} zoom
+     * @return {?}
+     */
+    ZoomDirective.prototype.setStyles = /**
+     * @private
+     * @param {?} zoom
+     * @return {?}
+     */
+    function (zoom) {
+        if (!this.zoomActive) {
+            return;
+        }
+        /** @type {?} */
+        var zoomInt = zoom === 100 ? 1 : zoom / 100;
+        if (this._windowService.isEdge()) {
+            this.zoomInt = zoomInt;
+        }
+        else {
+            this.zoomInt = null;
+        }
+        if (!this._windowService.isEdge()) {
+            this.transform = 'scale(' + zoomInt + ')';
+            this.transformOrigin = 'top left';
+        }
+        else {
+            this.transform = "";
+            this.transformOrigin = "";
+        }
+        /** @type {?} */
+        var maxWidth = 0;
+        this.file.pages.forEach((/**
+         * @param {?} page
+         * @return {?}
+         */
+        function (page) {
+            {
+                if (page.width > maxWidth) {
+                    maxWidth = page.width;
+                }
+            }
+        }));
+        // Images and Excel-related files receiving dimensions in px from server
+        this.minWidth = maxWidth + FileUtil.find(this.file.guid, false).unit;
+    };
+    /**
+     * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    ZoomDirective.prototype.getScrollWidth = /**
+     * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    function (elm) {
+        return elm.offsetWidth - elm.clientWidth;
+    };
+    /**
+     * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    ZoomDirective.prototype.getScrollHeight = /**
+     * @private
+     * @param {?} elm
+     * @return {?}
+     */
+    function (elm) {
+        return elm.offsetHeight - elm.clientHeight;
+    };
+    /**
+     * @private
+     * @param {?} zoom
+     * @return {?}
+     */
+    ZoomDirective.prototype.resizePages = /**
+     * @private
+     * @param {?} zoom
+     * @return {?}
+     */
+    function (zoom) {
+        /** @type {?} */
+        var zoomInt = zoom === 100 ? 1 : zoom / 100;
+        /** @type {?} */
+        var viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
+        /** @type {?} */
+        var viewPortHeight = this.el.nativeElement.parentElement.offsetHeight;
+        /** @type {?} */
+        var scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
+        /** @type {?} */
+        var scrollHeight = this.getScrollHeight(this.el.nativeElement.parentElement);
+        this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
+        this.height = (viewPortHeight / zoomInt - scrollHeight / zoomInt) + 'px';
+    };
+    /**
+     * @return {?}
+     */
+    ZoomDirective.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        this.setStyles(this._zoomService.zoom);
+    };
+    ZoomDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdZoom]'
+                },] }
+    ];
+    /** @nocollapse */
+    ZoomDirective.ctorParameters = function () { return [
+        { type: ZoomService },
+        { type: WindowService },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+    ]; };
+    ZoomDirective.propDecorators = {
+        zoomActive: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        file: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        zoomInt: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.zoom',] }],
+        transform: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.transform',] }],
+        transformOrigin: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.transform-origin',] }],
+        width: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.width',] }],
+        height: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.height',] }],
+        minWidth: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.min-width',] }]
+    };
+    return ZoomDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var OnCloseService = /** @class */ (function () {
+    function OnCloseService() {
+        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._onClose = this._observer.asObservable();
+    }
+    Object.defineProperty(OnCloseService.prototype, "onClose", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._onClose;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} close
+     * @return {?}
+     */
+    OnCloseService.prototype.close = /**
+     * @param {?} close
+     * @return {?}
+     */
+    function (close) {
+        this._observer.next(close);
+    };
+    OnCloseService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    OnCloseService.ctorParameters = function () { return []; };
+    /** @nocollapse */ OnCloseService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function OnCloseService_Factory() { return new OnCloseService(); }, token: OnCloseService, providedIn: "root" });
+    return OnCloseService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function Option() { }
+if (false) {}
+var SelectComponent = /** @class */ (function () {
+    function SelectComponent(_onCloseService) {
+        var _this = this;
+        this._onCloseService = _onCloseService;
+        this.disabled = false;
+        this.selected = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.opened = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.isOpen = false;
+        _onCloseService.onClose.subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.close();
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    SelectComponent.prototype.open = /**
+     * @return {?}
+     */
+    function () {
+        if (!this.disabled) {
+            this.isOpen = true;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    SelectComponent.prototype.close = /**
+     * @return {?}
+     */
+    function () {
+        this.isOpen = false;
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    SelectComponent.prototype.onClickOutside = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.close();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    SelectComponent.prototype.toggle = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        // TODO: following lines were uncommented due to needness in signature app
+        $event.preventDefault();
+        $event.stopPropagation();
+        if (!this.disabled) {
+            this.isOpen = !this.isOpen;
+            if (this.isOpen)
+                this.opened.emit(true);
+        }
+    };
+    /**
+     * @param {?} $event
+     * @param {?} value
+     * @return {?}
+     */
+    SelectComponent.prototype.select = /**
+     * @param {?} $event
+     * @param {?} value
+     * @return {?}
+     */
+    function ($event, value) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        this.selected.emit(value);
+        this.close();
+    };
+    SelectComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-select',
+                    template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [attachOutsideOnClick]=\"true\">\r\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".select{min-width:50px;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
+                }] }
+    ];
+    /** @nocollapse */
+    SelectComponent.ctorParameters = function () { return [
+        { type: OnCloseService }
+    ]; };
+    SelectComponent.propDecorators = {
+        options: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        disabled: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        showSelected: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        selected: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        opened: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        isOpen: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        icon: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return SelectComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var DisabledCursorDirective = /** @class */ (function () {
+    function DisabledCursorDirective() {
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    DisabledCursorDirective.prototype.updateCursor = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        this.cursor = this.dis ? true : false;
+    };
+    /**
+     * @return {?}
+     */
+    DisabledCursorDirective.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.updateCursor();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    DisabledCursorDirective.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        this.updateCursor();
+    };
+    DisabledCursorDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdDisabledCursor]'
+                },] }
+    ];
+    /** @nocollapse */
+    DisabledCursorDirective.ctorParameters = function () { return []; };
+    DisabledCursorDirective.propDecorators = {
+        dis: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        cursor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['class.inactive',] }]
+    };
+    return DisabledCursorDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var RotationDirective = /** @class */ (function () {
+    function RotationDirective() {
+        this.withMargin = true;
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    RotationDirective.prototype.updateCursor = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        if (typeof this.angle === "string") {
+            this.angle = parseInt(this.angle, 10);
+        }
+        if (this.angle) {
+            this.animation = 'none';
+            this.transition = 'none';
+            this.transform = 'rotate(' + this.angle + 'deg)';
+        }
+        else if (this.angle === 0 && this.animation) {
+            this.animation = null;
+            this.transition = null;
+            this.transform = null;
+        }
+        if (this.withMargin) {
+            if (this.angle === 90 || this.angle === 270 || this.angle === -90 || this.angle === -270) {
+                if (this.isHtmlMode) {
+                    if (this.isLandscape()) {
+                        this.margin = '164px 254px';
+                    }
+                    else {
+                        this.margin = '-111px 254px';
+                    }
+                }
+                else {
+                    if (this.isLandscape()) {
+                        this.margin = '129px 100px -79px';
+                    }
+                    else {
+                        this.margin = '-72px 100px -79px';
+                    }
+                }
+            }
+            else if (this.angle === -180 || this.angle === 180) {
+                this.margin = '280px';
+            }
+            else {
+                this.margin = null;
+            }
+        }
+    };
+    /**
+     * @return {?}
+     */
+    RotationDirective.prototype.isLandscape = /**
+     * @return {?}
+     */
+    function () {
+        return this.width > this.height;
+    };
+    /**
+     * @return {?}
+     */
+    RotationDirective.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.updateCursor();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    RotationDirective.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        this.updateCursor();
+    };
+    RotationDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdRotation]'
+                },] }
+    ];
+    /** @nocollapse */
+    RotationDirective.ctorParameters = function () { return []; };
+    RotationDirective.propDecorators = {
+        angle: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        isHtmlMode: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        width: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        height: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        withMargin: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        animation: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.animation',] }],
+        transition: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.transition-property',] }],
+        transform: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.transform',] }],
+        margin: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.margin',] }]
+    };
+    return RotationDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var InitStateComponent = /** @class */ (function () {
+    function InitStateComponent() {
+        this.fileDropped = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.showUploadFile = false;
+    }
+    /**
+     * @return {?}
+     */
+    InitStateComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    InitStateComponent.prototype.dropped = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if ($event) {
+            this.fileDropped.emit($event);
+            this.showUploadFile = false;
+        }
+    };
+    InitStateComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-init-state',
+                    template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\r\n  <div class=\"init-state-wrapper\">\r\n    <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <span class=\"start\">\r\n      <ng-content></ng-content>\r\n    </span>\r\n  </div>\r\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\r\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n    <span class=\"text\">{{text}}</span>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".wrapper{color:#959da5;background-color:#e7e7e7;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%;height:100%}.icon{font-size:65px;margin-bottom:43px;display:-webkit-box;display:flex;color:#959da5}.start{font-size:15px;text-align:center;color:#959da5}.gd-drag-n-drop-wrap.active{background-color:#fff;position:fixed;top:0;background:rgba(255,255,255,.8)}.gd-drag-n-drop-wrap.active .init-state-wrapper{position:absolute;opacity:.2;top:unset}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper{top:0;z-index:999}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon{width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}.gd-drag-n-drop-wrap.active .text{color:#6e6e6e;font-size:14px}.init-state-dnd-wrapper,.init-state-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:250px;height:250px;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.init-state-wrapper{top:-60px;position:relative}"]
+                }] }
+    ];
+    /** @nocollapse */
+    InitStateComponent.ctorParameters = function () { return []; };
+    InitStateComponent.propDecorators = {
+        icon: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        text: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        fileDropped: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return InitStateComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var RenderPrintService = /** @class */ (function () {
+    function RenderPrintService() {
+        var _this = this;
+        this._render = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"]((/**
+         * @param {?} observer
+         * @return {?}
+         */
+        function (observer) {
+            return _this._observer = observer;
+        }));
+        this._renderBlob = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"]((/**
+         * @param {?} observer
+         * @return {?}
+         */
+        function (observer) {
+            return _this._observerBlob = observer;
+        }));
+    }
+    Object.defineProperty(RenderPrintService.prototype, "renderPrint", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._render;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} pages
+     * @return {?}
+     */
+    RenderPrintService.prototype.changePages = /**
+     * @param {?} pages
+     * @return {?}
+     */
+    function (pages) {
+        this._observer.next(pages);
+    };
+    Object.defineProperty(RenderPrintService.prototype, "renderPrintBlob", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._renderBlob;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} file
+     * @return {?}
+     */
+    RenderPrintService.prototype.changeBlob = /**
+     * @param {?} file
+     * @return {?}
+     */
+    function (file) {
+        this._observerBlob.next(file);
+    };
+    return RenderPrintService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var RenderPrintDirective = /** @class */ (function () {
+    function RenderPrintDirective(_renderService) {
+        var _this = this;
+        this._renderService = _renderService;
+        _renderService.renderPrint.subscribe((/**
+         * @param {?} pages
+         * @return {?}
+         */
+        function (pages) {
+            _this.renderPrint(pages);
+        }));
+        _renderService.renderPrintBlob.subscribe((/**
+         * @param {?} file
+         * @return {?}
+         */
+        function (file) {
+            _this.renderPrintBlob(file);
+        }));
+    }
+    /**
+     * @private
+     * @param {?} pages
+     * @return {?}
+     */
+    RenderPrintDirective.prototype.renderPrint = /**
+     * @private
+     * @param {?} pages
+     * @return {?}
+     */
+    function (pages) {
+        var e_1, _a;
+        /** @type {?} */
+        var pagesHtml = '';
+        try {
+            for (var pages_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_9__["__values"])(pages), pages_1_1 = pages_1.next(); !pages_1_1.done; pages_1_1 = pages_1.next()) {
+                var page = pages_1_1.value;
+                /** @type {?} */
+                var data = page.data.startsWith('data:image') ? page.data : 'data:image/png;base64,' + page.data;
+                pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
+                    '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="' + data + '" alt></image></div>' +
+                    '</div>';
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (pages_1_1 && !pages_1_1.done && (_a = pages_1.return)) _a.call(pages_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        this.openWindow(pagesHtml, pages[0].width, pages[0].height);
+    };
+    /**
+     * @private
+     * @param {?} pagesHtml
+     * @param {?} width
+     * @param {?} height
+     * @return {?}
+     */
+    RenderPrintDirective.prototype.openWindow = /**
+     * @private
+     * @param {?} pagesHtml
+     * @param {?} width
+     * @param {?} height
+     * @return {?}
+     */
+    function (pagesHtml, width, height) {
+        /** @type {?} */
+        var a4Height = 842;
+        /** @type {?} */
+        var a4Width = 595;
+        /** @type {?} */
+        var imageA4Adjusted = '';
+        if (width > a4Width && height > a4Height) {
+            /** @type {?} */
+            var zoom = Math.round(height / a4Height) / 100;
+            imageA4Adjusted = '.gd-page img { width: 100%; margin: 0; padding: 0;}';
+            if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                imageA4Adjusted = '.gd-page img { transform: scale(' + zoom + ');}';
+            }
+        }
+        /** @type {?} */
+        var cssPrint = '<style>' +
+            '.gd-page { display: block; page-break-after:always; page-break-inside: avoid; }' +
+            ' .gd-page:last-child {page-break-after: auto;}' + imageA4Adjusted;
+        cssPrint = cssPrint + '</style>';
+        /** @type {?} */
+        var windowObject = window.open('', "PrintWindow", "width=750,height=650,top=50,left=50,toolbars=yes,scrollbars=yes,status=yes,resizable=yes");
+        windowObject.focus();
+        windowObject.document.writeln(cssPrint);
+        windowObject.document.writeln(pagesHtml);
+        windowObject.document.close();
+        setTimeout((/**
+         * @return {?}
+         */
+        function () {
+            windowObject.focus();
+            windowObject.print();
+            windowObject.close();
+        }), 100);
+    };
+    /**
+     * @private
+     * @param {?} file
+     * @return {?}
+     */
+    RenderPrintDirective.prototype.renderPrintBlob = /**
+     * @private
+     * @param {?} file
+     * @return {?}
+     */
+    function (file) {
+        var _this = this;
+        /** @type {?} */
+        var iframeId = 'print-window';
+        /** @type {?} */
+        var objectUrl = window.URL.createObjectURL(file)
+        // Remove previous iframe if exists
+        ;
+        // Remove previous iframe if exists
+        /** @type {?} */
+        var iframe = document.getElementById(iframeId);
+        if (iframe) {
+            iframe.remove();
+        }
+        // Create new iframe
+        iframe = document.createElement('iframe');
+        iframe.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute; border: 0');
+        iframe.setAttribute('id', iframeId);
+        iframe.setAttribute('src', objectUrl);
+        // Append to the document
+        document.getElementsByTagName('body')[0].appendChild(iframe);
+        // Wait and print
+        /** @type {?} */
+        var iframeElement = (/** @type {?} */ (document.getElementById(iframeId)));
+        setTimeout((/**
+         * @return {?}
+         */
+        function () { return _this.doPrint(iframeElement); }), 1000);
+    };
+    /**
+     * @param {?} iframe
+     * @return {?}
+     */
+    RenderPrintDirective.prototype.doPrint = /**
+     * @param {?} iframe
+     * @return {?}
+     */
+    function (iframe) {
+        try {
+            iframe.focus();
+            iframe.contentWindow.document.execCommand('print', false);
+        }
+        catch (e) {
+            iframe.contentWindow.print();
+        }
+        finally {
+            // Hide iframe
+            iframe.style.visibility = 'hidden';
+            iframe.style.left = '-1px';
+        }
+    };
+    RenderPrintDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdRenderPrint]'
+                },] }
+    ];
+    /** @nocollapse */
+    RenderPrintDirective.ctorParameters = function () { return [
+        { type: RenderPrintService }
+    ]; };
+    RenderPrintDirective.propDecorators = {
+        htmlMode: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return RenderPrintDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ExceptionMessageService = /** @class */ (function () {
+    function ExceptionMessageService() {
+        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]('Server is not available');
+        this._messageChange = this._observer.asObservable();
+        this._observerHttpEvent = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
+        this._httpEventChange = this._observerHttpEvent.asObservable();
+    }
+    Object.defineProperty(ExceptionMessageService.prototype, "messageChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._messageChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ExceptionMessageService.prototype, "httpEventChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._httpEventChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} message
+     * @return {?}
+     */
+    ExceptionMessageService.prototype.changeMessage = /**
+     * @param {?} message
+     * @return {?}
+     */
+    function (message) {
+        this._observer.next(message);
+    };
+    /**
+     * @param {?} httpEvent
+     * @return {?}
+     */
+    ExceptionMessageService.prototype.changeHttpEvent = /**
+     * @param {?} httpEvent
+     * @return {?}
+     */
+    function (httpEvent) {
+        this._observerHttpEvent.next(httpEvent);
+    };
+    return ExceptionMessageService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ErrorModalComponent = /** @class */ (function () {
+    function ErrorModalComponent(messageService) {
+        var _this = this;
+        messageService.messageChange.subscribe((/**
+         * @param {?} message
+         * @return {?}
+         */
+        function (message) { return _this.message = message; }));
+    }
+    /**
+     * @return {?}
+     */
+    ErrorModalComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    ErrorModalComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-error-modal',
+                    template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\r\n  <section id=\"gd-error-section\">\r\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\r\n    <div class=\"gd-modal-error\">\r\n      <div class=\"gd-modal-error-title\">Something went wrong</div>\r\n      <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
+                    styles: [".gd-modal-error{display:-webkit-inline-box;display:inline-flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-flex:1;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0;word-break:break-word}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:-webkit-box;display:flex}#gd-error-section fa-icon{-webkit-box-flex:1;flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center;max-width:46px}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ErrorModalComponent.ctorParameters = function () { return [
+        { type: ExceptionMessageService }
+    ]; };
+    return ErrorModalComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var PasswordService = /** @class */ (function () {
+    function PasswordService() {
+        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._passChange = this._observer.asObservable();
+    }
+    Object.defineProperty(PasswordService.prototype, "passChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._passChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} pass
+     * @return {?}
+     */
+    PasswordService.prototype.setPassword = /**
+     * @param {?} pass
+     * @return {?}
+     */
+    function (pass) {
+        this._observer.next(pass);
+    };
+    return PasswordService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$5 = jquery__WEBPACK_IMPORTED_MODULE_10__;
+var PasswordRequiredComponent = /** @class */ (function () {
+    function PasswordRequiredComponent(messageService, _passwordService) {
+        var _this = this;
+        this._passwordService = _passwordService;
+        this.cancelEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        messageService.messageChange.subscribe((/**
+         * @param {?} message
+         * @return {?}
+         */
+        function (message) { return _this.message = message; }));
+    }
+    /**
+     * @return {?}
+     */
+    PasswordRequiredComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    PasswordRequiredComponent.prototype.setPassword = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        this._passwordService.setPassword(value);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    PasswordRequiredComponent.prototype.onCloseOpen = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        if ($event) {
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                /** @type {?} */
+                var element = $$5("#password");
+                if (element) {
+                    element.focus();
+                }
+            }), 100);
+        }
+        else {
+            $$5("#password").val("");
+        }
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    PasswordRequiredComponent.prototype.cancel = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $$5("#password").val("");
+        this.cancelEvent.emit(true);
+    };
+    PasswordRequiredComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-password-required',
+                    template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\r\n  <section id=\"gd-password-section\">\r\n    <div class=\"gd-password-wrap\">\r\n      <label for=\"password\">Password</label>\r\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\r\n             (keyup.enter)=\"setPassword(pass.value)\">\r\n      <span class=\"gd-password-error\">{{message}}</span>\r\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\r\n          Open\r\n      </gd-button>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
+                    styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;-webkit-box-pack:center;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    PasswordRequiredComponent.ctorParameters = function () { return [
+        { type: ExceptionMessageService },
+        { type: PasswordService }
+    ]; };
+    PasswordRequiredComponent.propDecorators = {
+        cancelEvent: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return PasswordRequiredComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ErrorInterceptorService = /** @class */ (function () {
+    function ErrorInterceptorService(_modalService, _messageService) {
+        this._modalService = _modalService;
+        this._messageService = _messageService;
+    }
+    /**
+     * @param {?} req
+     * @param {?} next
+     * @return {?}
+     */
+    ErrorInterceptorService.prototype.intercept = /**
+     * @param {?} req
+     * @param {?} next
+     * @return {?}
+     */
+    function (req, next) {
+        var _this = this;
+        /** @type {?} */
+        var logFormat = 'background: maroon; color: white';
+        return next.handle(req)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((/**
+         * @param {?} data
+         * @return {?}
+         */
+        function (data) {
+            return data;
+        })), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])((/**
+         * @param {?} exception
+         * @return {?}
+         */
+        function (exception) {
+            if (exception instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpErrorResponse"]) {
+                switch (exception.status) {
+                    case HttpError.BadRequest:
+                        console.error('%c Bad Request 400', logFormat);
+                        break;
+                    case HttpError.Unauthorized:
+                        console.error('%c Unauthorized 401', logFormat);
+                        break;
+                    case HttpError.NotFound:
+                        console.error('%c Not Found 404', logFormat);
+                        break;
+                    case HttpError.TimeOut:
+                        console.error('%c TimeOut 408', logFormat);
+                        break;
+                    case HttpError.InternalServerError:
+                        console.error('%c big bad 500', logFormat);
+                        _this._messageService.changeMessage(exception.error.message);
+                        _this._messageService.changeHttpEvent(exception);
+                        _this._modalService.open(ErrorInterceptorService.ErrorMessageWindowName);
+                        break;
+                    case HttpError.Forbidden:
+                        console.error('%c Forbidden 403', logFormat);
+                        _this._messageService.changeMessage(exception.error.message);
+                        _this._modalService.open(CommonModals.PasswordRequired);
+                        break;
+                }
+            }
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(exception);
+        })));
+    };
+    ErrorInterceptorService.ErrorMessageWindowName = CommonModals.ErrorMessage;
+    ErrorInterceptorService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    ErrorInterceptorService.ctorParameters = function () { return [
+        { type: ModalService },
+        { type: ExceptionMessageService }
+    ]; };
+    /** @nocollapse */ ErrorInterceptorService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function ErrorInterceptorService_Factory() { return new ErrorInterceptorService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(ModalService), Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(ExceptionMessageService)); }, token: ErrorInterceptorService, providedIn: "root" });
+    return ErrorInterceptorService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var SearchService = /** @class */ (function () {
+    function SearchService() {
+        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._textChange = this._observer.asObservable();
+        this._observerCurrent = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._currentChange = this._observerCurrent.asObservable();
+        this._observerTotal = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._totalChange = this._observerTotal.asObservable();
+    }
+    Object.defineProperty(SearchService.prototype, "textChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._textChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} text
+     * @return {?}
+     */
+    SearchService.prototype.setText = /**
+     * @param {?} text
+     * @return {?}
+     */
+    function (text) {
+        this._observer.next(text);
+    };
+    Object.defineProperty(SearchService.prototype, "currentChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._currentChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SearchService.prototype, "totalChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._totalChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} current
+     * @return {?}
+     */
+    SearchService.prototype.setCurrent = /**
+     * @param {?} current
+     * @return {?}
+     */
+    function (current) {
+        this._observerCurrent.next(current);
+    };
+    /**
+     * @param {?} total
+     * @return {?}
+     */
+    SearchService.prototype.setTotal = /**
+     * @param {?} total
+     * @return {?}
+     */
+    function (total) {
+        this._observerTotal.next(total);
+    };
+    return SearchService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var SearchComponent = /** @class */ (function () {
+    function SearchComponent(_searchService) {
+        var _this = this;
+        this._searchService = _searchService;
+        this.hidePanel = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"](false);
+        this.current = 0;
+        this.total = 0;
+        _searchService.totalChange.subscribe((/**
+         * @param {?} total
+         * @return {?}
+         */
+        function (total) {
+            _this.total = total;
+            if (total !== 0) {
+                _this.current = 1;
+            }
+            else {
+                _this.current = 0;
+            }
+            _this._searchService.setCurrent(_this.current);
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    SearchComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} text
+     * @return {?}
+     */
+    SearchComponent.prototype.setText = /**
+     * @param {?} text
+     * @return {?}
+     */
+    function (text) {
+        this._searchService.setText(text);
+    };
+    /**
+     * @return {?}
+     */
+    SearchComponent.prototype.hide = /**
+     * @return {?}
+     */
+    function () {
+        this.setText('');
+        this.hidePanel.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    SearchComponent.prototype.prev = /**
+     * @return {?}
+     */
+    function () {
+        if (this.current > 1) {
+            this.current--;
+            this._searchService.setCurrent(this.current);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    SearchComponent.prototype.next = /**
+     * @return {?}
+     */
+    function () {
+        if (this.current < this.total) {
+            this.current++;
+            this._searchService.setCurrent(this.current);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    SearchComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        this.textElement.nativeElement.focus();
+    };
+    SearchComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-search',
+                    template: "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" (keydown.enter)=\"next()\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\r\n  </gd-button>\r\n</div>\r\n",
+                    styles: [".gd-nav-search-btn{margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;-webkit-transform:translate(-50%,0);transform:translate(-50%,0);display:-webkit-box;display:flex}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}input[type=text]::-ms-clear{display:none}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:193px;top:15px}.gd-nav-search-container{width:100%}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    SearchComponent.ctorParameters = function () { return [
+        { type: SearchService }
+    ]; };
+    SearchComponent.propDecorators = {
+        hidePanel: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        textElement: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['text', {
+                        static: true
+                    },] }]
+    };
+    return SearchComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$6 = jquery__WEBPACK_IMPORTED_MODULE_10__;
+var SearchableDirective = /** @class */ (function () {
+    function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
+        var _this = this;
+        this._elementRef = _elementRef;
+        this._searchService = _searchService;
+        this._highlight = _highlight;
+        this._zoomService = _zoomService;
+        this.current = 0;
+        this.total = 0;
+        this.zoom = 100;
+        _searchService.currentChange.subscribe((/**
+         * @param {?} current
+         * @return {?}
+         */
+        function (current) {
+            _this.current = current;
+            if (_this.current !== 0) {
+                _this.moveToCurrent();
+            }
+        }));
+        _searchService.textChange.subscribe((/**
+         * @param {?} text
+         * @return {?}
+         */
+        function (text) {
+            _this.text = text;
+            _this.highlightSearch();
+        }));
+        this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            _this.zoom = val ? val : _this.zoom;
+        }));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    SearchableDirective.prototype.highlightSearch = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var el = this._elementRef ? this._elementRef.nativeElement : null;
+        if (el) {
+            this.cleanHighlight(el);
+            if (this.text) {
+                this.highlightEl(el);
+                /** @type {?} */
+                var count = el.querySelectorAll('.gd-highlight').length;
+                this.total = count;
+            }
+            else {
+                this.total = 0;
+            }
+            this._searchService.setTotal(this.total);
+        }
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    SearchableDirective.prototype.moveToCurrent = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        if (this.current === 0) {
+            return;
+        }
+        /** @type {?} */
+        var currentZoom = this.getZoom();
+        /** @type {?} */
+        var el = this._elementRef ? this._elementRef.nativeElement : null;
+        if (el) {
+            el.querySelectorAll('.gd-highlight-select').forEach((/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                $$6(value).removeClass('gd-highlight-select');
+            }));
+            /** @type {?} */
+            var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
+            $$6(currentEl).addClass('gd-highlight-select');
+            if (currentEl) {
+                /** @type {?} */
+                var options = {
+                    left: 0,
+                    top: ($$6(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+                };
+                // using polyfill
+                el.parentElement.parentElement.scroll(options);
+            }
+        }
+    };
+    /**
+     * @private
+     * @param {?} el
+     * @return {?}
+     */
+    SearchableDirective.prototype.highlightEl = /**
+     * @private
+     * @param {?} el
+     * @return {?}
+     */
+    function (el) {
+        /** @type {?} */
+        var textNodes = $$6(el).find('*').contents().filter((/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var nodeName = this.parentElement.nodeName.toLowerCase();
+            /** @type {?} */
+            var checkClass = ((/** @type {?} */ (this))).classList ? !((/** @type {?} */ (this))).classList.contains('gd-highlight') : true;
+            return this.nodeType === 3 &&
+                this.textContent.trim().length !== 0 &&
+                nodeName !== 'style' &&
+                nodeName !== 'title' &&
+                nodeName !== 'body' &&
+                nodeName !== 'script' &&
+                checkClass;
+        }));
+        /** @type {?} */
+        var text = this.text;
+        /** @type {?} */
+        var highlight = this._highlight;
+        textNodes.each((/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var $this = $$6(this);
+            /** @type {?} */
+            var content = $this.text();
+            content = highlight.transform(content, text);
+            $this.replaceWith(content);
+        }));
+        el.normalize();
+    };
+    /**
+     * @private
+     * @param {?} el
+     * @return {?}
+     */
+    SearchableDirective.prototype.cleanHighlight = /**
+     * @private
+     * @param {?} el
+     * @return {?}
+     */
+    function (el) {
+        /** @type {?} */
+        var nodeListOf = el.querySelectorAll('.gd-highlight');
+        for (var i = 0; i < nodeListOf.length; i++) {
+            /** @type {?} */
+            var element = nodeListOf.item(i);
+            element.replaceWith(((/** @type {?} */ (element))).innerText);
+        }
+        el.normalize();
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    SearchableDirective.prototype.getZoom = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        return this.zoom / 100;
+    };
+    SearchableDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdSearchable]'
+                },] }
+    ];
+    /** @nocollapse */
+    SearchableDirective.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+        { type: SearchService },
+        { type: HighlightSearchPipe },
+        { type: ZoomService }
+    ]; };
+    return SearchableDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TabbedToolbarsComponent = /** @class */ (function () {
+    function TabbedToolbarsComponent() {
+    }
+    /**
+     * @return {?}
+     */
+    TabbedToolbarsComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    TabbedToolbarsComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-tabbed-toolbars',
+                    template: "<div class=\"top-panel\">\r\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [".top-panel{background:#3e4e5a;display:-webkit-box;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:1037px){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TabbedToolbarsComponent.ctorParameters = function () { return []; };
+    TabbedToolbarsComponent.propDecorators = {
+        logo: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        icon: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return TabbedToolbarsComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TabActivatorService = /** @class */ (function () {
+    function TabActivatorService() {
+        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._activeTabChange = this._observer.asObservable();
+    }
+    Object.defineProperty(TabActivatorService.prototype, "activeTabChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._activeTabChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} tabId
+     * @return {?}
+     */
+    TabActivatorService.prototype.changeActiveTab = /**
+     * @param {?} tabId
+     * @return {?}
+     */
+    function (tabId) {
+        this._observer.next(tabId);
+    };
+    return TabActivatorService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TabComponent = /** @class */ (function () {
+    function TabComponent(_tabActivatorService) {
+        var _this = this;
+        this._tabActivatorService = _tabActivatorService;
+        this.disabled = false;
+        this.active = false;
+        this.content = true;
+        this._tabActivatorService.activeTabChange.subscribe((/**
+         * @param {?} tabId
+         * @return {?}
+         */
+        function (tabId) {
+            _this.activation(tabId);
+        }));
+    }
+    /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    TabComponent.prototype.activation = /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    function (tabId) {
+        if (this.id === tabId) {
+            this.active = true;
+        }
+        else {
+            this.active = false;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    TabComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    TabComponent.prototype.selectTab = /**
+     * @return {?}
+     */
+    function () {
+        if (this.disabled) {
+            return;
+        }
+        this._tabActivatorService.changeActiveTab(this.id);
+    };
+    TabComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-tab',
+                    template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"smp-tab-title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:-webkit-box;display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px}.gd-tab .smp-tab-title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px;width:60px}.gd-tab .smp-tab-title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TabComponent.ctorParameters = function () { return [
+        { type: TabActivatorService }
+    ]; };
+    TabComponent.propDecorators = {
+        id: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        tabTitle: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        icon: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        disabled: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        active: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        content: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return TabComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TabsComponent = /** @class */ (function () {
+    function TabsComponent() {
+    }
+    TabsComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-tabs',
+                    template: "<div class=\"gd-tabs\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [".gd-tabs{display:-webkit-box;display:flex}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TabsComponent.ctorParameters = function () { return []; };
+    return TabsComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var Formatting = /** @class */ (function () {
+    function Formatting(fontSize, color, bgColor, bold, italic, underline, font, strikeout, align, list) {
+        this.fontSize = fontSize;
+        this.color = color;
+        this.bgColor = bgColor;
+        this.bold = bold;
+        this.italic = italic;
+        this.underline = underline;
+        this.font = font;
+        this.strikeout = strikeout;
+        this.align = align;
+        this.list = list;
+    }
+    /**
+     * @return {?}
+     */
+    Formatting.default = /**
+     * @return {?}
+     */
+    function () {
+        return new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
+    };
+    return Formatting;
+}());
+if (false) {}
+var FormattingService = /** @class */ (function () {
+    function FormattingService() {
+        this._observerBold = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatBoldChange = this._observerBold.asObservable();
+        this._observerUnderline = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatUnderlineChange = this._observerUnderline.asObservable();
+        this._observerUndo = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._undo = this._observerUndo.asObservable();
+        this._observerRedo = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._redo = this._observerRedo.asObservable();
+        this._observerItalic = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatItalicChange = this._observerItalic.asObservable();
+        this._observerColor = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatColorChange = this._observerColor.asObservable();
+        this._observerBgColor = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatBgColorChange = this._observerBgColor.asObservable();
+        this._observerFontSize = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatFontSizeChange = this._observerFontSize.asObservable();
+        this._observerFont = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatFontChange = this._observerFont.asObservable();
+        this._observerStrikeout = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatStrikeoutChange = this._observerStrikeout.asObservable();
+        this._observerAlign = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatAlignChange = this._observerAlign.asObservable();
+        this._observerList = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._formatListChange = this._observerList.asObservable();
+    }
+    Object.defineProperty(FormattingService.prototype, "formatBoldChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatBoldChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "formatUnderlineChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatUnderlineChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "formatColorChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatColorChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "formatBgColorChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatBgColorChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "formatFontSizeChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatFontSizeChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "formatFontChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatFontChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "undo", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._undo;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "redo", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._redo;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "formatItalicChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatItalicChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "formatStrikeoutChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatStrikeoutChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "formatAlignChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatAlignChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FormattingService.prototype, "formatListChange", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._formatListChange;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    FormattingService.createFontSizeOption = /**
+     * @param {?} val
+     * @return {?}
+     */
+    function (val) {
+        return { value: val, name: val + 'px', separator: false };
+    };
+    /**
+     * @return {?}
+     */
+    FormattingService.getFontSizeOptions = /**
+     * @return {?}
+     */
+    function () {
+        return [
+            FormattingService.createFontSizeOption(8),
+            FormattingService.createFontSizeOption(10),
+            FormattingService.createFontSizeOption(12),
+            FormattingService.createFontSizeOption(14),
+            FormattingService.createFontSizeOption(16),
+            FormattingService.createFontSizeOption(18),
+            FormattingService.createFontSizeOption(20),
+            FormattingService.createFontSizeOption(22),
+            FormattingService.createFontSizeOption(24),
+        ];
+    };
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    FormattingService.createFontOption = /**
+     * @param {?} val
+     * @return {?}
+     */
+    function (val) {
+        return { value: val, name: val, separator: false };
+    };
+    /**
+     * @return {?}
+     */
+    FormattingService.getFontOptions = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        /** @type {?} */
+        var fonts = ["Arial", "Calibri", "Century Gothic", "Comic Sans", "Consolas", "Courier", "Dejavu Sans", "Dejavu Serif", "Georgia", "Gill Sans", "Helvetica", "Impact", "Lucida Sans",
+            "Myriad Pro", "Open Sans", "Palatino", "Tahoma", "Times New Roman", "Trebuchet"];
+        /** @type {?} */
+        var fontOptions = [];
+        fonts.forEach((/**
+         * @param {?} font
+         * @return {?}
+         */
+        function (font) {
+            fontOptions.push(_this.createFontOption(font));
+        }));
+        return fontOptions;
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatFontSize = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this._observerFontSize.next($event);
+    };
+    /**
+     * @param {?} bold
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatBold = /**
+     * @param {?} bold
+     * @return {?}
+     */
+    function (bold) {
+        this._observerBold.next(bold);
+    };
+    /**
+     * @param {?} underline
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatUnderline = /**
+     * @param {?} underline
+     * @return {?}
+     */
+    function (underline) {
+        this._observerUnderline.next(underline);
+    };
+    /**
+     * @return {?}
+     */
+    FormattingService.prototype.Undo = /**
+     * @return {?}
+     */
+    function () {
+        this._observerUndo.next();
+    };
+    /**
+     * @return {?}
+     */
+    FormattingService.prototype.Redo = /**
+     * @return {?}
+     */
+    function () {
+        this._observerRedo.next();
+    };
+    /**
+     * @param {?} italic
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatItalic = /**
+     * @param {?} italic
+     * @return {?}
+     */
+    function (italic) {
+        this._observerItalic.next(italic);
+    };
+    /**
+     * @param {?} color
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatColor = /**
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        this._observerColor.next(color);
+    };
+    /**
+     * @param {?} bgcolor
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatBgColor = /**
+     * @param {?} bgcolor
+     * @return {?}
+     */
+    function (bgcolor) {
+        this._observerBgColor.next(bgcolor);
+    };
+    /**
+     * @param {?} font
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatFont = /**
+     * @param {?} font
+     * @return {?}
+     */
+    function (font) {
+        this._observerFont.next(font);
+    };
+    /**
+     * @param {?} strikeout
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatStrikeout = /**
+     * @param {?} strikeout
+     * @return {?}
+     */
+    function (strikeout) {
+        this._observerStrikeout.next(strikeout);
+    };
+    /**
+     * @param {?} align
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatAlign = /**
+     * @param {?} align
+     * @return {?}
+     */
+    function (align) {
+        this._observerAlign.next(align);
+    };
+    /**
+     * @param {?} list
+     * @return {?}
+     */
+    FormattingService.prototype.changeFormatList = /**
+     * @param {?} list
+     * @return {?}
+     */
+    function (list) {
+        this._observerList.next(list);
+    };
+    return FormattingService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var DEFAULT_COLORS = [
+    '#000000', '#434343', '#666666', '#999999', '#B7B7B7', '#CCCCCC', '#D9D9D9', '#EFEFEF', '#F3F3F3', '#FFFFFF',
+    '#980000', '#FF0000', '#FF9900', '#FFFF00', '#00FF00', '#00FFFF', '#4986E8', '#0000FF', '#9900FF', '#FF00FF',
+    '#E6B8AF', '#F4CCCC', '#FDE5CD', '#FFF2CC', '#D9EAD3', '#D0E0E2', '#C9DAF8', '#CFE2F3', '#D9D2E9', '#EAD1DC',
+    '#DD7E6B', '#EA9899', '#F9CB9C', '#FFE59A', '#B7D7A8', '#A2C4C9', '#A4C2F4', '#9FC5E8', '#B4A7D7', '#D5A6BD',
+    '#CC4125', '#E06666', '#F6B26B', '#FFD966', '#92C47D', '#75A5AF', '#6D9EEB', '#6FA9DB', '#8E7CC3', '#C27BA0',
+    '#A61C00', '#CC0000', '#E69138', '#F2C131', '#6AA84F', '#45818E', '#3C78D8', '#3C85C6', '#674EA7', '#A64D79',
+    '#85200B', '#990000', '#B45F05', '#BF9000', '#37761D', '#144F5C', '#1254CC', '#0A5394', '#351C75', '#741B47',
+    '#5B0F00', '#660000', '#783F03', '#7F6000', '#284E13', '#0B343D', '#1B4586', '#063763', '#20124D', '#4C1030',
+];
+var ColorPickerComponent = /** @class */ (function () {
+    function ColorPickerComponent() {
+        this.isOpen = false;
+        this.selectedColor = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.closeOutside = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.colors = DEFAULT_COLORS;
+        this.white = '#FFFFFF';
+    }
+    /**
+     * @return {?}
+     */
+    ColorPickerComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} $event
+     * @param {?} color
+     * @return {?}
+     */
+    ColorPickerComponent.prototype.select = /**
+     * @param {?} $event
+     * @param {?} color
+     * @return {?}
+     */
+    function ($event, color) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        this.selectedColor.emit(color);
+    };
+    /**
+     * @return {?}
+     */
+    ColorPickerComponent.prototype.close = /**
+     * @return {?}
+     */
+    function () {
+        this.isOpen = false;
+        this.closeOutside.emit(true);
+    };
+    ColorPickerComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-color-picker',
+                    template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"bcPicker-palette\">\r\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\"\r\n      (click)=\"select($event, color)\" [style.border]=\"'1px solid ' + (color === white ? '#707070' : color)\"\r\n      (touchstart)=\"select($event, color)\"></div>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:250px;background-color:#fdfdfd;z-index:999;box-shadow:0 0 5px #efefef;display:-webkit-box;display:flex;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center}.bcPicker-palette>.bcPicker-color{width:18px;height:18px;margin:2px;cursor:pointer}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ColorPickerComponent.ctorParameters = function () { return []; };
+    ColorPickerComponent.propDecorators = {
+        isOpen: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        selectedColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        closeOutside: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return ColorPickerComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var BackFormattingService = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_9__["__extends"])(BackFormattingService, _super);
+    function BackFormattingService() {
+        return _super.call(this) || this;
+    }
+    BackFormattingService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    BackFormattingService.ctorParameters = function () { return []; };
+    /** @nocollapse */ BackFormattingService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function BackFormattingService_Factory() { return new BackFormattingService(); }, token: BackFormattingService, providedIn: "root" });
+    return BackFormattingService;
+}(FormattingService));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var SelectionService = /** @class */ (function () {
+    function SelectionService() {
+        this.isIE =  false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    }
+    /**
+     * @return {?}
+     */
+    SelectionService.prototype.restoreSelection = /**
+     * @return {?}
+     */
+    function () {
+        if (this.selection && !this.selection.collapsed || this.isIE) {
+            this.putSelection(this.selection);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    SelectionService.prototype.captureSelection = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            this.selection = selection.getRangeAt(0);
+        }
+    };
+    /**
+     * @private
+     * @param {?} selection
+     * @return {?}
+     */
+    SelectionService.prototype.putSelection = /**
+     * @private
+     * @param {?} selection
+     * @return {?}
+     */
+    function (selection) {
+        /** @type {?} */
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(selection.cloneRange());
+    };
+    /**
+     * @return {?}
+     */
+    SelectionService.prototype.refreshSelection = /**
+     * @return {?}
+     */
+    function () {
+        this.captureSelection();
+        this.restoreSelection();
+    };
+    SelectionService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */ SelectionService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function SelectionService_Factory() { return new SelectionService(); }, token: SelectionService, providedIn: "root" });
+    return SelectionService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$7 = jquery__WEBPACK_IMPORTED_MODULE_10__;
+var FormattingDirective = /** @class */ (function () {
+    function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
+        this._formattingService = _formattingService;
+        this._backFormattingService = _backFormattingService;
+        this._selectionService = _selectionService;
+        this.bold = false;
+        this.italic = false;
+        this.underline = false;
+        this.strikeout = false;
+        this.isIE = false;
+        this.isIE = /*@cc_on!@*/  false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    }
+    /**
+     * @return {?}
+     */
+    FormattingDirective.prototype.mouseup = /**
+     * @return {?}
+     */
+    function () {
+        this.bold = document.queryCommandState("bold");
+        this.strikeout = document.queryCommandState("strikeThrough");
+        this.italic = document.queryCommandState("italic");
+        this.bgColor = document.queryCommandValue("backColor");
+        this.underline = document.queryCommandState("underline");
+        this.align = this.checkJustify();
+        this.list = this.checkList();
+        //fix required by FireFox to get correct background color
+        if (this.bgColor === "transparent") {
+            this.bgColor = $$7(window.getSelection().focusNode.parentNode).css('background-color').toString();
+        }
+        this.font = document.queryCommandValue("FontName").replace(/"/g, '');
+        if (this.font.split(",").length > 1) {
+            this.font = this.font.split(",")[0];
+        }
+        this.color = document.queryCommandValue("foreColor");
+        this._backFormattingService.changeFormatBold(this.bold);
+        this._backFormattingService.changeFormatUnderline(this.underline);
+        this._backFormattingService.changeFormatItalic(this.italic);
+        this._backFormattingService.changeFormatColor(this.color);
+        this._backFormattingService.changeFormatBgColor(this.bgColor);
+        this._backFormattingService.changeFormatFontSize(this.reportFontSize());
+        this._backFormattingService.changeFormatFont(this.font);
+        this._backFormattingService.changeFormatStrikeout(this.strikeout);
+        this._backFormattingService.changeFormatAlign(this.align);
+        this._backFormattingService.changeFormatList(this.list);
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    FormattingDirective.prototype.checkJustify = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var align = "";
+        align = document.queryCommandState("justifyCenter") ? "center" : align;
+        align = document.queryCommandState("justifyFull") ? "full" : align;
+        align = document.queryCommandState("justifyLeft") ? "left" : align;
+        align = document.queryCommandState("justifyRight") ? "right" : align;
+        return align;
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    FormattingDirective.prototype.checkList = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var list = "";
+        list = document.queryCommandState("insertUnorderedList") ? "unordered" : list;
+        list = document.queryCommandState("insertOrderedList") ? "ordered" : list;
+        return list;
+    };
+    /**
+     * @return {?}
+     */
+    FormattingDirective.prototype.reportFontSize = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var containerEl;
+        /** @type {?} */
+        var sel;
+        if (window.getSelection) {
+            sel = window.getSelection();
+            if (sel.rangeCount) {
+                containerEl = sel.getRangeAt(0).commonAncestorContainer;
+                // Make sure we have an element rather than a text node
+                if (containerEl.nodeType === 3) {
+                    containerEl = containerEl.parentNode;
+                }
+            }
+        }
+        else if ((sel = document.getSelection()) && sel.type !== "Control") {
+            containerEl = sel.createRange().parentElement();
+        }
+        if (containerEl) {
+            return parseInt(this.getComputedStyleProperty(containerEl, "fontSize").replace("px", ""), 10);
+        }
+    };
+    /**
+     * @param {?} el
+     * @param {?} propName
+     * @return {?}
+     */
+    FormattingDirective.prototype.getComputedStyleProperty = /**
+     * @param {?} el
+     * @param {?} propName
+     * @return {?}
+     */
+    function (el, propName) {
+        if (window.getComputedStyle) {
+            return window.getComputedStyle(el, null)[propName];
+        }
+        else if (el.currentStyle) {
+            return el.currentStyle[propName];
+        }
+    };
+    /**
+     * @return {?}
+     */
+    FormattingDirective.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this._formattingService.undo.subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.toggleUndo();
+        }));
+        this._formattingService.redo.subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.toggleRedo();
+        }));
+        this._formattingService.formatBoldChange.subscribe((/**
+         * @param {?} bold
+         * @return {?}
+         */
+        function (bold) {
+            _this.bold = bold;
+            _this.toggleBold();
+        }));
+        this._formattingService.formatUnderlineChange.subscribe((/**
+         * @param {?} underline
+         * @return {?}
+         */
+        function (underline) {
+            _this.underline = underline;
+            _this.toggleUnderline();
+        }));
+        this._formattingService.formatItalicChange.subscribe((/**
+         * @param {?} italic
+         * @return {?}
+         */
+        function (italic) {
+            _this.italic = italic;
+            _this.toggleItalic();
+        }));
+        this._formattingService.formatColorChange.subscribe(((/**
+         * @param {?} color
+         * @return {?}
+         */
+        function (color) {
+            _this.color = color;
+            _this.setColor(color);
+        })));
+        this._formattingService.formatBgColorChange.subscribe(((/**
+         * @param {?} bgcolor
+         * @return {?}
+         */
+        function (bgcolor) {
+            _this.bgColor = bgcolor;
+            _this.setBgColor(bgcolor);
+        })));
+        this._formattingService.formatFontSizeChange.subscribe(((/**
+         * @param {?} fontSize
+         * @return {?}
+         */
+        function (fontSize) {
+            _this.setFontSize(fontSize);
+        })));
+        this._formattingService.formatFontChange.subscribe(((/**
+         * @param {?} font
+         * @return {?}
+         */
+        function (font) {
+            _this.font = font;
+            _this.setFont(font);
+        })));
+        this._formattingService.formatStrikeoutChange.subscribe((/**
+         * @param {?} strikeout
+         * @return {?}
+         */
+        function (strikeout) {
+            _this.strikeout = strikeout;
+            _this.toggleStrikeout();
+        }));
+        this._formattingService.formatAlignChange.subscribe((/**
+         * @param {?} align
+         * @return {?}
+         */
+        function (align) {
+            _this.align = align;
+            _this.toggleAlign(_this.align);
+        }));
+        this._formattingService.formatListChange.subscribe((/**
+         * @param {?} list
+         * @return {?}
+         */
+        function (list) {
+            /** @type {?} */
+            var remove = _this.list === list;
+            _this.list = list;
+            _this.toggleList(_this.list, remove);
+        }));
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    FormattingDirective.prototype.toggleBold = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        document.execCommand("bold");
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    FormattingDirective.prototype.toggleUnderline = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        document.execCommand("underline");
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    FormattingDirective.prototype.toggleItalic = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        document.execCommand("italic");
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @param {?} bgColor
+     * @return {?}
+     */
+    FormattingDirective.prototype.setBgColor = /**
+     * @private
+     * @param {?} bgColor
+     * @return {?}
+     */
+    function (bgColor) {
+        document.execCommand("backColor", false, bgColor);
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @param {?} color
+     * @return {?}
+     */
+    FormattingDirective.prototype.setColor = /**
+     * @private
+     * @param {?} color
+     * @return {?}
+     */
+    function (color) {
+        document.execCommand("foreColor", false, color);
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @param {?} fontSize
+     * @return {?}
+     */
+    FormattingDirective.prototype.setFontSize = /**
+     * @private
+     * @param {?} fontSize
+     * @return {?}
+     */
+    function (fontSize) {
+        if (document.getSelection().toString()) {
+            /** @type {?} */
+            var spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + "; font-family: " + this.font + "'>" +
+                document.getSelection() + "</span>";
+            if (this.bold) {
+                spanString = "<b>" + spanString + "</b>";
+            }
+            if (this.italic) {
+                spanString = "<i>" + spanString + "</i>";
+            }
+            if (this.underline) {
+                spanString = "<u>" + spanString + "</u>";
+            }
+            if (this.strikeout) {
+                spanString = "<strike>" + spanString + "</strike>";
+            }
+            document.execCommand('insertHTML', false, spanString);
+        }
+        else {
+            document.execCommand("fontsize", false, "7");
+        }
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    FormattingDirective.prototype.toggleUndo = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        document.execCommand("undo");
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    FormattingDirective.prototype.toggleRedo = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        document.execCommand("redo");
+    };
+    /**
+     * @private
+     * @param {?} font
+     * @return {?}
+     */
+    FormattingDirective.prototype.setFont = /**
+     * @private
+     * @param {?} font
+     * @return {?}
+     */
+    function (font) {
+        document.execCommand("fontName", false, font);
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    FormattingDirective.prototype.toggleStrikeout = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        document.execCommand("strikeThrough");
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @param {?} align
+     * @return {?}
+     */
+    FormattingDirective.prototype.toggleAlign = /**
+     * @private
+     * @param {?} align
+     * @return {?}
+     */
+    function (align) {
+        if (this.isIE) {
+            this.toggleAlignIE(align);
+            return;
+        }
+        document.execCommand("styleWithCSS", false, 'true');
+        switch (align) {
+            case 'center':
+                document.execCommand('justifyCenter');
+                break;
+            case 'full':
+                document.execCommand('justifyFull');
+                break;
+            case 'left':
+                document.execCommand('justifyLeft');
+                break;
+            case 'right':
+                document.execCommand('justifyRight');
+                break;
+        }
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @param {?} align
+     * @return {?}
+     */
+    FormattingDirective.prototype.toggleAlignIE = /**
+     * @private
+     * @param {?} align
+     * @return {?}
+     */
+    function (align) {
+        this._selectionService.restoreSelection();
+        this._selectionService.captureSelection();
+        /** @type {?} */
+        var selection = window.getSelection().focusNode.parentNode.parentNode;
+        if (align === "full") {
+            align = "justify";
+        }
+        $$7(selection).css("text-align", align);
+        this._selectionService.refreshSelection();
+    };
+    /**
+     * @private
+     * @param {?} list
+     * @param {?} remove
+     * @return {?}
+     */
+    FormattingDirective.prototype.toggleList = /**
+     * @private
+     * @param {?} list
+     * @param {?} remove
+     * @return {?}
+     */
+    function (list, remove) {
+        switch (list) {
+            case 'unordered':
+                document.execCommand('insertUnorderedList', remove);
+                break;
+            case 'ordered':
+                document.execCommand('insertOrderedList', remove);
+                break;
+        }
+        this._selectionService.refreshSelection();
+    };
+    FormattingDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdFormatting]'
+                },] }
+    ];
+    /** @nocollapse */
+    FormattingDirective.ctorParameters = function () { return [
+        { type: FormattingService },
+        { type: BackFormattingService },
+        { type: SelectionService }
+    ]; };
+    FormattingDirective.propDecorators = {
+        mouseup: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['mouseup',] }]
+    };
+    return FormattingDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var SuccessModalComponent = /** @class */ (function () {
+    function SuccessModalComponent() {
+    }
+    /**
+     * @return {?}
+     */
+    SuccessModalComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    SuccessModalComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-success-modal',
+                    template: "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\r\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\r\n    <div class=\"sa-icon sa-success animate\">\r\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\r\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\r\n        <div class=\"sa-placeholder\"></div>\r\n        <div class=\"sa-fix\"></div>\r\n      </div>\r\n  </div></div>\r\n  </gd-modal>\r\n",
+                    styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:-webkit-box;display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;-webkit-transform:scale(1.18);transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:60px 60px;transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:0 60px;transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1037px){#gd-modal-success{left:50%;top:50%;position:relative;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    SuccessModalComponent.ctorParameters = function () { return []; };
+    return SuccessModalComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var EditHtmlService = /** @class */ (function () {
+    function EditHtmlService() {
+        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._htmlContent = this._observer.asObservable();
+    }
+    Object.defineProperty(EditHtmlService.prototype, "observer", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._observer;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(EditHtmlService.prototype, "htmlContent", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._htmlContent;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    EditHtmlService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    EditHtmlService.ctorParameters = function () { return []; };
+    /** @nocollapse */ EditHtmlService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function EditHtmlService_Factory() { return new EditHtmlService(); }, token: EditHtmlService, providedIn: "root" });
+    return EditHtmlService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var EditorDirective = /** @class */ (function () {
+    function EditorDirective(_selectionService, _htmlService) {
+        this._selectionService = _selectionService;
+        this._htmlService = _htmlService;
+        this.isIE =  false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    EditorDirective.prototype.onInput = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.text = event.target;
+        if (this.isIE) {
+            if (this.text.innerHTML) {
+                /** @type {?} */
+                var html = this.text.innerHTML.toString();
+                this._htmlService.observer.next(html);
+            }
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    EditorDirective.prototype.onMouseleave = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this._selectionService.captureSelection();
+        // this code is required to fix IE11 issue - it doesn't trigger blur event, since that we need to save updated HTML here
+        if (this.isIE) {
+            this._htmlService.observer.next(event.target.innerHTML.toString());
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    EditorDirective.prototype.onBlur = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        this._selectionService.restoreSelection();
+        if (this.text.innerHTML) {
+            /** @type {?} */
+            var html = this.text.innerHTML.toString();
+            this._htmlService.observer.next(html);
+        }
+        else {
+            this._htmlService.observer.next(event.target.innerHTML.toString());
+        }
+    };
+    EditorDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdEditor]'
+                },] }
+    ];
+    /** @nocollapse */
+    EditorDirective.ctorParameters = function () { return [
+        { type: SelectionService },
+        { type: EditHtmlService }
+    ]; };
+    EditorDirective.propDecorators = {
+        text: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        onInput: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['keyup', ['$event'],] }],
+        onMouseleave: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['mouseleave', ['$event'],] }],
+        onBlur: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['blur', ['$event'],] }]
+    };
+    return EditorDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var LoadingMaskService = /** @class */ (function () {
+    function LoadingMaskService() {
+        this.onLoadingChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.stopList = [];
+        this.requests = [];
+        this.stopList.push(Api.SAVE_TEXT);
+        this.stopList.push(Api.SAVE_OPTICAL_CODE);
+        this.stopList.push(Api.LOAD_DOCUMENT_PAGE);
+        this.stopList.push(Api.LOAD_THUMBNAILS);
+        this.stopList.push(Api.GET_FILE_STATUS);
+        this.stopList.push(Api.LOAD_PRINT);
+    }
+    /**
+     * @param {?} req
+     * @return {?}
+     */
+    LoadingMaskService.prototype.onRequestStart = /**
+     * @param {?} req
+     * @return {?}
+     */
+    function (req) {
+        /** @type {?} */
+        var stop = this.stopList.find((/**
+         * @param {?} x
+         * @return {?}
+         */
+        function (x) { return req.url.includes(x); }));
+        if (!stop) {
+            this.requests.push(req);
+            this.notify();
+        }
+    };
+    /**
+     * @param {?} req
+     * @return {?}
+     */
+    LoadingMaskService.prototype.onRequestFinish = /**
+     * @param {?} req
+     * @return {?}
+     */
+    function (req) {
+        /** @type {?} */
+        var index = this.requests.indexOf(req);
+        if (index !== -1) {
+            this.requests.splice(index, 1);
+        }
+        this.notify();
+    };
+    /**
+     * @param {?} url
+     * @return {?}
+     */
+    LoadingMaskService.prototype.addStopUrl = /**
+     * @param {?} url
+     * @return {?}
+     */
+    function (url) {
+        this.stopList.push(url);
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    LoadingMaskService.prototype.notify = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        this.onLoadingChanged.emit(this.requests.length !== 0);
+    };
+    LoadingMaskService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] }
+    ];
+    /** @nocollapse */
+    LoadingMaskService.ctorParameters = function () { return []; };
+    return LoadingMaskService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var LoadingMaskComponent = /** @class */ (function () {
+    function LoadingMaskComponent(_loadingMaskService) {
+        this._loadingMaskService = _loadingMaskService;
+        this.loadingMask = false;
+    }
+    /**
+     * @return {?}
+     */
+    LoadingMaskComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    LoadingMaskComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this._loadingMaskService
+            .onLoadingChanged
+            .subscribe((/**
+         * @param {?} loading
+         * @return {?}
+         */
+        function (loading) { return _this.loadingMask = loading; }));
+    };
+    LoadingMaskComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-loading-mask',
+                    template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\r\n    <div class=\"loading-message\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;Loading... Please wait.\r\n    </div>\r\n</div>\r\n",
+                    styles: [".loading-wrapper{background:rgba(0,0,0,.5);width:100%;height:100%;font-size:14px;color:#fff;position:fixed;top:0;left:0;z-index:99999}.loading-message{position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
+                }] }
+    ];
+    /** @nocollapse */
+    LoadingMaskComponent.ctorParameters = function () { return [
+        { type: LoadingMaskService }
+    ]; };
+    LoadingMaskComponent.propDecorators = {
+        loadingMask: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return LoadingMaskComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var LoadingMaskInterceptorService = /** @class */ (function () {
+    function LoadingMaskInterceptorService(_loadingMaskService) {
+        this._loadingMaskService = _loadingMaskService;
+    }
+    /**
+     * @param {?} req
+     * @param {?} next
+     * @return {?}
+     */
+    LoadingMaskInterceptorService.prototype.intercept = /**
+     * @param {?} req
+     * @param {?} next
+     * @return {?}
+     */
+    function (req, next) {
+        var _this = this;
+        this._loadingMaskService.onRequestStart(req);
+        /** @type {?} */
+        var callback = (/**
+         * @return {?}
+         */
+        function () { return _this._loadingMaskService.onRequestFinish(req); });
+        return next.handle(req).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["finalize"])(callback));
+    };
+    LoadingMaskInterceptorService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    LoadingMaskInterceptorService.ctorParameters = function () { return [
+        { type: LoadingMaskService }
+    ]; };
+    /** @nocollapse */ LoadingMaskInterceptorService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function LoadingMaskInterceptorService_Factory() { return new LoadingMaskInterceptorService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(LoadingMaskService)); }, token: LoadingMaskInterceptorService, providedIn: "root" });
+    return LoadingMaskInterceptorService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var horizontalAlignment = {
+    center: {
+        right: 'auto'
+    },
+    left: {
+        right: '100%'
+    },
+    right: {
+        right: '-100%'
+    }
+};
+/** @type {?} */
+var verticalAlignment = {
+    center: {
+        top: '0px',
+    },
+    top: {
+        top: '-100%',
+        right: '100%'
+    },
+    bottom: {
+        top: 'autos'
+    }
+};
+/**
+ *  DropDownToggleComponent
+ */
+var DropDownToggleComponent = /** @class */ (function () {
+    function DropDownToggleComponent(dropdown) {
+        var _this = this;
+        this.dropdown = dropdown;
+        this.click = (/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return _this.dropdown.toggle(event); });
+    }
+    DropDownToggleComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-drop-down-toggle',
+                    template: '<ng-content></ng-content>',
+                    encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
+                    styles: [".drop-down{position:relative}.show .drop-down-items{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:justify;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                }] }
+    ];
+    /** @nocollapse */
+    DropDownToggleComponent.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])((/**
+                         * @return {?}
+                         */
+                        function () { return DropDownComponent; })),] }] }
+    ]; };
+    DropDownToggleComponent.propDecorators = {
+        click: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['click', ['$event'],] }]
+    };
+    return DropDownToggleComponent;
+}());
+if (false) {}
+/**
+ *  DropDownItemsComponent
+ */
+var DropDownItemsComponent = /** @class */ (function () {
+    function DropDownItemsComponent(dropdown) {
+        this.dropdown = dropdown;
+    }
+    Object.defineProperty(DropDownItemsComponent.prototype, "horizontalAlign", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return horizontalAlignment[this.dropdown.getPlacement().h].right;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DropDownItemsComponent.prototype, "verticalAlign", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return verticalAlignment[this.dropdown.getPlacement().v].top;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DropDownItemsComponent.prototype, "isOpen", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.dropdown.open;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    DropDownItemsComponent.prototype.onClickOutside = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this.dropdown.close();
+    };
+    DropDownItemsComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-drop-down-items',
+                    template: '<div class="drop-down-items" (clickOutside)="onClickOutside($event)" [clickOutsideEnabled]="isOpen" [style.right]="horizontalAlign" [style.top]="verticalAlign"><ng-content></ng-content></div>',
+                    encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
+                    styles: [".drop-down{position:relative}.show .drop-down-items{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:justify;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                }] }
+    ];
+    /** @nocollapse */
+    DropDownItemsComponent.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])((/**
+                         * @return {?}
+                         */
+                        function () { return DropDownComponent; })),] }] }
+    ]; };
+    return DropDownItemsComponent;
+}());
+if (false) {}
+/**
+ *  DropDownItemComponent
+ */
+var DropDownItemComponent = /** @class */ (function () {
+    function DropDownItemComponent(dropdown) {
+        var _this = this;
+        this.dropdown = dropdown;
+        this.class = 'drop-down-item';
+        this.selected = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.click = (/**
+         * @return {?}
+         */
+        function () { return _this.selectEntry(); });
+    }
+    /**
+     * @return {?}
+     */
+    DropDownItemComponent.prototype.selectEntry = /**
+     * @return {?}
+     */
+    function () {
+        this.selected.next();
+        this.dropdown.close();
+    };
+    DropDownItemComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-drop-down-item',
+                    template: '<div class="drop-down-item"><ng-content></ng-content></div>',
+                    styles: [".drop-down{position:relative}.show .drop-down-items{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:justify;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                }] }
+    ];
+    /** @nocollapse */
+    DropDownItemComponent.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])((/**
+                         * @return {?}
+                         */
+                        function () { return DropDownComponent; })),] }] }
+    ]; };
+    DropDownItemComponent.propDecorators = {
+        class: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['class',] }],
+        selected: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        click: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['click',] }]
+    };
+    return DropDownItemComponent;
+}());
+if (false) {}
+/**
+ *  DropDownComponent
+ */
+var DropDownComponent = /** @class */ (function () {
+    function DropDownComponent() {
+        this.placement = {
+            h: "center",
+            v: "bottom"
+        };
+        this.open = false;
+        this.class = 'drop-down';
+    }
+    /**
+     * @return {?}
+     */
+    DropDownComponent.prototype.close = /**
+     * @return {?}
+     */
+    function () {
+        this.open = false;
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    DropDownComponent.prototype.toggle = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.stopPropagation();
+        this.open = !this.open;
+        document.body.click();
+    };
+    /**
+     * @return {?}
+     */
+    DropDownComponent.prototype.getPlacement = /**
+     * @return {?}
+     */
+    function () {
+        return this.placement;
+    };
+    DropDownComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-drop-down',
+                    template: '<div class="drop-down"><ng-content></ng-content></div>',
+                    encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
+                    styles: [".drop-down{position:relative}.show .drop-down-items{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;position:absolute;z-index:1000;min-width:100%;max-height:300px;padding:0;background-color:#fff;box-shadow:0 6px 12px rgba(0,0,0,.175);background-clip:padding-box;overflow-y:auto;overflow-x:hidden}.show .drop-down-items .drop-down-item,.show .drop-down-items gd-drop-down-item{color:#959da5;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:justify;justify-content:space-between;cursor:pointer;font-size:10px;line-height:28px;min-height:28px;width:100%}.show .drop-down-items .drop-down-item fa-icon svg,.show .drop-down-items gd-drop-down-item fa-icon svg{margin:0 10px;color:#959da5}.show .drop-down-items .drop-down-item .text,.show .drop-down-items gd-drop-down-item .text{width:100%;margin-right:10px}.show .drop-down-items .drop-down-item:hover,.show .drop-down-items gd-drop-down-item:hover{background-color:#25c2d4}.show .drop-down-items .drop-down-item:hover *,.show .drop-down-items gd-drop-down-item:hover *{color:#fff}.drop-down-items{display:none}"]
+                }] }
+    ];
+    DropDownComponent.propDecorators = {
+        placement: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        open: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['class.show',] }],
+        class: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['class',] }]
+    };
+    return DropDownComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var LeftSideBarComponent = /** @class */ (function () {
+    function LeftSideBarComponent() {
+        this.showSpinner = false;
+    }
+    /**
+     * @return {?}
+     */
+    LeftSideBarComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    LeftSideBarComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-left-side-bar',
+                    template: "<div class=\"left-panel\">\r\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\r\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: [".left-panel{border-radius:0;float:left}.gd-left-bar-fade{margin:auto;overflow:hidden;-webkit-overflow-scrolling:touch;-webkit-transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;transition:transform .3s ease-out,-webkit-transform .3s ease-out;width:100%;height:100%;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;position:fixed;z-index:1000}@media (max-width:1037px){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    LeftSideBarComponent.ctorParameters = function () { return []; };
+    LeftSideBarComponent.propDecorators = {
+        showSpinner: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return LeftSideBarComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TooltipDirective = /** @class */ (function () {
+    function TooltipDirective() {
+        this.showToolTip = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    /**
+     * @return {?}
+     */
+    TooltipDirective.prototype.onHovering = /**
+     * @return {?}
+     */
+    function () {
+        this.showToolTip.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    TooltipDirective.prototype.onUnhovering = /**
+     * @return {?}
+     */
+    function () {
+        this.showToolTip.emit(false);
+    };
+    TooltipDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdTooltip]'
+                },] }
+    ];
+    /** @nocollapse */
+    TooltipDirective.ctorParameters = function () { return []; };
+    TooltipDirective.propDecorators = {
+        showToolTip: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        onHovering: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['mouseenter',] }],
+        onUnhovering: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"], args: ['mouseleave',] }]
+    };
+    return TooltipDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var AddDynamicComponentService = /** @class */ (function () {
+    function AddDynamicComponentService(_factoryResolver, _appRef) {
+        this._factoryResolver = _factoryResolver;
+        this._appRef = _appRef;
+    }
+    /**
+     * @param {?} viewContainerRef
+     * @param {?} component
+     * @return {?}
+     */
+    AddDynamicComponentService.prototype.addDynamicComponent = /**
+     * @param {?} viewContainerRef
+     * @param {?} component
+     * @return {?}
+     */
+    function (viewContainerRef, component) {
+        var _this = this;
+        /** @type {?} */
+        var factory = this._factoryResolver.resolveComponentFactory(component);
+        /** @type {?} */
+        var componentRef = viewContainerRef.createComponent(factory);
+        componentRef.onDestroy((/**
+         * @return {?}
+         */
+        function () {
+            _this._appRef.detachView(componentRef.hostView);
+        }));
+        return componentRef;
+    };
+    AddDynamicComponentService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    AddDynamicComponentService.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ApplicationRef"] }
+    ]; };
+    /** @nocollapse */ AddDynamicComponentService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function AddDynamicComponentService_Factory() { return new AddDynamicComponentService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"]), Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ApplicationRef"])); }, token: AddDynamicComponentService, providedIn: "root" });
+    return AddDynamicComponentService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var HostingDynamicComponentService = /** @class */ (function () {
+    function HostingDynamicComponentService() {
+        this.hosts = [];
+    }
+    /**
+     * @param {?} host
+     * @return {?}
+     */
+    HostingDynamicComponentService.prototype.add = /**
+     * @param {?} host
+     * @return {?}
+     */
+    function (host) {
+        this.hosts = this.hosts.filter((/**
+         * @param {?} h
+         * @return {?}
+         */
+        function (h) {
+            return h.ident !== host.ident;
+        }));
+        this.hosts.push(host);
+    };
+    /**
+     * @param {?} host
+     * @return {?}
+     */
+    HostingDynamicComponentService.prototype.remove = /**
+     * @param {?} host
+     * @return {?}
+     */
+    function (host) {
+        this.hosts = this.hosts.filter((/**
+         * @param {?} h
+         * @return {?}
+         */
+        function (h) {
+            return h.ident !== host.ident;
+        }));
+    };
+    /**
+     * @param {?} ident
+     * @return {?}
+     */
+    HostingDynamicComponentService.prototype.find = /**
+     * @param {?} ident
+     * @return {?}
+     */
+    function (ident) {
+        return this.hosts.find((/**
+         * @param {?} h
+         * @return {?}
+         */
+        function (h) {
+            return h.ident === ident;
+        }));
+    };
+    return HostingDynamicComponentService;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var HostDynamicDirective = /** @class */ (function () {
+    function HostDynamicDirective(viewContainerRef, _hostingService) {
+        this.viewContainerRef = viewContainerRef;
+        this._hostingService = _hostingService;
+    }
+    /**
+     * @return {?}
+     */
+    HostDynamicDirective.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        this._hostingService.add(this);
+    };
+    /**
+     * @return {?}
+     */
+    HostDynamicDirective.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._hostingService.remove(this);
+        this.viewContainerRef.clear();
+    };
+    HostDynamicDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdHostDynamic]'
+                },] }
+    ];
+    /** @nocollapse */
+    HostDynamicDirective.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"] },
+        { type: HostingDynamicComponentService }
+    ]; };
+    HostDynamicDirective.propDecorators = {
+        ident: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return HostDynamicDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$8 = jquery__WEBPACK_IMPORTED_MODULE_10__;
+var ResizingComponent = /** @class */ (function () {
+    function ResizingComponent() {
+        this.se = false;
+        this.ne = false;
+        this.sw = false;
+        this.nw = false;
+        this.SE = 'se';
+        this.NE = 'ne';
+        this.SW = 'sw';
+        this.NW = 'nw';
+        this.offsetX = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.offsetY = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.offsetTop = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.offsetLeft = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.release = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.grab = false;
+    }
+    /**
+     * @return {?}
+     */
+    ResizingComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        /** @type {?} */
+        var elSE = $$8(this.getElementId(this.SE));
+        /** @type {?} */
+        var elNW = $$8(this.getElementId(this.NW));
+        if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
+            /** @type {?} */
+            var width_1 = elSE.offset().left - elNW.offset().left;
+            /** @type {?} */
+            var height_1 = elSE.offset().top - elNW.offset().top;
+            while (width_1 >= this.pageWidth || height_1 >= this.pageHeight) {
+                width_1 = width_1 / 2;
+                height_1 = height_1 / 2;
+            }
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                _this.offsetX.emit(width_1);
+                _this.offsetY.emit(height_1);
+            }), 100);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    ResizingComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ResizingComponent.prototype.catchUp = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        // ff
+        $event.preventDefault();
+        if ($event.dataTransfer) { // ff
+            $event.dataTransfer.setData('text', 'foo');
+        }
+        this.grab = true;
+        this.oldPosition = Utils.getMousePosition($event);
+    };
+    /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    ResizingComponent.prototype.resize = /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    function ($event, el) {
+        if (!this.grab) {
+            return;
+        }
+        /** @type {?} */
+        var position = Utils.getMousePosition($event);
+        if (position.x === 0 && position.y === 0) {
+            return;
+        }
+        /** @type {?} */
+        var notSW = this.NE === el || this.NW === el;
+        /** @type {?} */
+        var notNE = this.SW === el || this.NW === el;
+        this.setOffsets(position, notNE, notSW);
+        if (notSW) {
+            this.offsetTop.emit(position.y - this.oldPosition.y);
+        }
+        if (notNE) {
+            this.offsetLeft.emit(position.x - this.oldPosition.x);
+        }
+        this.oldPosition = position;
+    };
+    /**
+     * @private
+     * @param {?} position
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    ResizingComponent.prototype.setOffsets = /**
+     * @private
+     * @param {?} position
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    function (position, x, y) {
+        /** @type {?} */
+        var offsetX = x ? this.oldPosition.x - position.x : position.x - this.oldPosition.x;
+        /** @type {?} */
+        var offsetY = y ? this.oldPosition.y - position.y : position.y - this.oldPosition.y;
+        this.offsetX.emit(offsetX);
+        this.offsetY.emit(offsetY);
+    };
+    /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    ResizingComponent.prototype.end = /**
+     * @param {?} $event
+     * @param {?} el
+     * @return {?}
+     */
+    function ($event, el) {
+        // ff
+        this.resize($event, el);
+        this.release.emit(true);
+        this.grab = false;
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ResizingComponent.prototype.start = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.drop($event);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ResizingComponent.prototype.drop = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+    };
+    /**
+     * @private
+     * @param {?} el
+     * @return {?}
+     */
+    ResizingComponent.prototype.getElementId = /**
+     * @private
+     * @param {?} el
+     * @return {?}
+     */
+    function (el) {
+        return "#" + el + "-" + this.id;
+    };
+    ResizingComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-resizing',
+                    template: "<div class=\"ui-resizable-handle se-resize\" id=\"se-{{id}}\" *ngIf=\"se\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, SE)\" (dragend)=\"end($event, SE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n      (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SE)\" (panend)=\"end($event, SE)\"></div>\r\n\r\n<div class=\"ui-resizable-handle ne-resize\" id=\"ne-{{id}}\" *ngIf=\"ne\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, NE)\" (dragend)=\"end($event, NE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NE)\" (panend)=\"end($event, NE)\"></div>\r\n\r\n<div class=\"ui-resizable-handle sw-resize\" id=\"sw-{{id}}\" *ngIf=\"sw\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, SW)\" (dragend)=\"end($event, SW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SW)\" (panend)=\"end($event, SW)\"></div>\r\n\r\n<div class=\"ui-resizable-handle nw-resize\" id=\"nw-{{id}}\" *ngIf=\"nw\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, NW)\" (dragend)=\"end($event, NW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NW)\" (panend)=\"end($event, NW)\"></div>\r\n",
+                    styles: [".ui-resizable-handle{background-color:#679ffa;width:8px;height:8px;border-radius:100%;position:absolute;font-size:.1px;display:block}.se-resize{bottom:-5px;right:-5px;cursor:se-resize}.ne-resize{top:-5px;right:-5px;cursor:ne-resize}.sw-resize{bottom:-5px;left:-5px;cursor:sw-resize}.nw-resize{top:-5px;left:-5px;cursor:nw-resize}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ResizingComponent.ctorParameters = function () { return []; };
+    ResizingComponent.propDecorators = {
+        init: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        id: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        se: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        ne: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        sw: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        nw: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        pageWidth: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        pageHeight: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        offsetX: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        offsetY: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        offsetTop: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        offsetLeft: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        release: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return ResizingComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TopTabActivatorService = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_9__["__extends"])(TopTabActivatorService, _super);
+    function TopTabActivatorService() {
+        return _super.call(this) || this;
+    }
+    return TopTabActivatorService;
+}(TabActivatorService));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TopTabComponent = /** @class */ (function () {
+    function TopTabComponent(_tabActivatorService, _modalService, _excMessageService) {
+        var _this = this;
+        this._tabActivatorService = _tabActivatorService;
+        this._modalService = _modalService;
+        this._excMessageService = _excMessageService;
+        this.disabled = false;
+        this.activeTab = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.elementPosition = 0;
+        this.active = false;
+        this.showToolTip = false;
+        this._tabActivatorService.activeTabChange.subscribe((/**
+         * @param {?} tabId
+         * @return {?}
+         */
+        function (tabId) {
+            _this.activation(tabId);
+            if (tabId === null) {
+                _this.activeTab.emit("");
+            }
+        }));
+    }
+    /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    TopTabComponent.prototype.activation = /**
+     * @private
+     * @param {?} tabId
+     * @return {?}
+     */
+    function (tabId) {
+        if (this.id === tabId) {
+            this.active = !this.active;
+            if (this.active) {
+                this.activeTab.emit(this.id);
+            }
+            else {
+                this.activeTab.emit("");
+            }
+        }
+        else {
+            this.active = false;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    TopTabComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    TopTabComponent.prototype.toggleTab = /**
+     * @return {?}
+     */
+    function () {
+        if (this.disabled) {
+            this._modalService.open(CommonModals.ErrorMessage);
+            this._excMessageService.changeMessage("Please open document first");
+            return;
+        }
+        this._tabActivatorService.changeActiveTab(this.id);
+    };
+    TopTabComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-top-tab',
+                    template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" class=\"gd-tab-tooltip\"\r\n              *ngIf=\"tooltip\" [position]=\"elementPosition\"></gd-tooltip>\r\n</div>\r\n",
+                    styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;align-content:center;-webkit-box-pack:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab .gd-tab-tooltip{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:0!important}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TopTabComponent.ctorParameters = function () { return [
+        { type: TopTabActivatorService },
+        { type: ModalService },
+        { type: ExceptionMessageService }
+    ]; };
+    TopTabComponent.propDecorators = {
+        id: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        icon: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        disabled: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        tooltip: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        activeTab: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        elementPosition: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return TopTabComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var $$9 = jquery__WEBPACK_IMPORTED_MODULE_10__;
+var TextMenuComponent = /** @class */ (function () {
+    function TextMenuComponent(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
+        var _this = this;
+        this._onCloseService = _onCloseService;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
+        this.decoration = true;
+        this.showTooltips = true;
+        this.outFontSize = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.outFont = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.outBold = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.outItalic = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.outUnderline = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.outColor = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.fontSizeOptions = FormattingService.getFontSizeOptions();
+        this.fontOptions = FormattingService.getFontOptions();
+        this.colorPickerShow = false;
+        _onCloseService.onClose.subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.colorPickerShow = false;
+        }));
+        this.isMobile = _windowService.isMobile();
+        _windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        function (w) {
+            _this.isMobile = _windowService.isMobile();
+        }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            if (_this.isMobile) {
+                _this.changePosition(val);
+            }
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    TextMenuComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    TextMenuComponent.prototype.changePosition = /**
+     * @param {?} val
+     * @return {?}
+     */
+    function (val) {
+        /** @type {?} */
+        var top = (window.innerHeight - 24 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
+        /** @type {?} */
+        var left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.selectFontSize = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $$9(".gd-wrapper").off("keyup");
+        this.outFontSize.emit($event.value);
+        $$9(".gd-wrapper").on("keyup", (/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var fontElements = document.getElementsByTagName("font");
+            for (var i = 0, len = fontElements.length; i < len; ++i) {
+                if (fontElements[i].getAttribute('size') === "7") {
+                    fontElements[i].removeAttribute("size");
+                    fontElements[i].style.fontSize = $event + "px";
+                }
+            }
+        }));
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.selectFont = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outFont.emit($event.value);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleColorPicker = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        this.colorPickerShow = !this.colorPickerShow;
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.selectColor = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.colorPickerShow = false;
+        this.outColor.emit($event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleBold = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outBold.emit(!this.bold);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleItalic = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outItalic.emit(!this.italic);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.toggleUnderline = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.outUnderline.emit(!this.underline);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    TextMenuComponent.prototype.closePicker = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.colorPickerShow = !$event;
+    };
+    TextMenuComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-text-menu',
+                    template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.gd-text-menu .format-select{height:37px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;left:0;right:0;width:inherit;height:60px;-webkit-box-align:center;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070;-webkit-transform-origin:top left;transform-origin:top left;z-index:1000}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-185px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu{left:0}.gd-text-menu ::ng-deep .button{margin:3px!important;font-size:16px}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    TextMenuComponent.ctorParameters = function () { return [
+        { type: OnCloseService },
+        { type: ZoomService },
+        { type: WindowService },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }
+    ]; };
+    TextMenuComponent.propDecorators = {
+        blur: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        fontSize: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        font: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        bold: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        italic: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        underline: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        color: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        decoration: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        showTooltips: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        outFontSize: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        outFont: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        outBold: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        outItalic: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        outUnderline: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        outColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return TextMenuComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var MenuType = /** @class */ (function () {
+    function MenuType() {
+    }
+    MenuType.FOR_SIGNATURE = "signature";
+    MenuType.FOR_ANNOTATION = "annotation";
+    return MenuType;
+}());
+if (false) {}
+var ContextMenuComponent = /** @class */ (function () {
+    function ContextMenuComponent(_windowService, _zoomService, _elementRef, renderer) {
+        var _this = this;
+        this._windowService = _windowService;
+        this._zoomService = _zoomService;
+        this._elementRef = _elementRef;
+        this.renderer = renderer;
+        this.formatting = Formatting.default();
+        this.lock = false;
+        this.translation = 0;
+        this.changeFormatting = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.removeItem = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.copySign = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.lockOut = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.comment = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.isMobile = _windowService.isMobile();
+        _windowService.onResize.subscribe((/**
+         * @param {?} w
+         * @return {?}
+         */
+        function (w) {
+            _this.isMobile = _windowService.isMobile();
+        }));
+        _zoomService.zoomChange.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            if (_this.isMobile) {
+                _this.changeScale(val);
+            }
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.changeScale = /**
+     * @param {?} val
+     * @return {?}
+     */
+    function (val) {
+        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1 / (val / 100) + ')');
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.saveChanges = /**
+     * @return {?}
+     */
+    function () {
+        this.changeFormatting.emit(this.formatting);
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.selectFontSize = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.fontSize = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.selectFont = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.font = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.selectColor = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.color = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleBold = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.bold = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleItalic = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.italic = $event;
+        this.saveChanges();
+    };
+    /**
+     * @param {?} $event
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleUnderline = /**
+     * @param {?} $event
+     * @return {?}
+     */
+    function ($event) {
+        this.formatting.underline = $event;
+        this.saveChanges();
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.deleteItem = /**
+     * @return {?}
+     */
+    function () {
+        this.removeItem.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.toggleLock = /**
+     * @return {?}
+     */
+    function () {
+        this.lock = !this.lock;
+        this.lockOut.emit(this.lock);
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.onCopySign = /**
+     * @return {?}
+     */
+    function () {
+        this.copySign.emit(true);
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.isSignature = /**
+     * @return {?}
+     */
+    function () {
+        return this.menuType === MenuType.FOR_SIGNATURE;
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.isAnnotation = /**
+     * @return {?}
+     */
+    function () {
+        return this.menuType === MenuType.FOR_ANNOTATION;
+    };
+    /**
+     * @return {?}
+     */
+    ContextMenuComponent.prototype.addComment = /**
+     * @return {?}
+     */
+    function () {
+        this.comment.emit(true);
+    };
+    ContextMenuComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                    selector: 'gd-context-menu',
+                    template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
+                    styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-42px;-webkit-transform-origin:bottom center;transform-origin:bottom center}}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ContextMenuComponent.ctorParameters = function () { return [
+        { type: WindowService },
+        { type: ZoomService },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }
+    ]; };
+    ContextMenuComponent.propDecorators = {
+        formatting: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        textMenu: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        topPosition: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        lock: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        translation: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        menuType: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        changeFormatting: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        removeItem: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        copySign: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        lockOut: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        comment: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+    };
+    return ContextMenuComponent;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var PageMarkerDirective = /** @class */ (function () {
+    function PageMarkerDirective(_zoomService, _windowService, el) {
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this.naming = {
+            sectionSelector: "section.section",
+            markerSelector: "span.page8marker",
+            headerSelector: "header.header",
+            contentSelector: "article.content",
+            footerSelector: "footer.footer"
+        };
+        // observing configurations.
+        this.config = {
+            attributes: true,
+            attributeOldValue: true,
+            childList: true,
+            subtree: true,
+            characterData: true,
+            characterDataOldValue: true,
+            attributeFilter: ["style", "class"]
+        };
+        this.el = el;
+    }
+    /**
+     * @return {?}
+     */
+    PageMarkerDirective.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var sections = document.querySelectorAll(this.naming.sectionSelector);
+        for (var index = 0; index < sections.length; index++) {
+            // get section
+            /** @type {?} */
+            var section = sections[index];
+            // process section. add markers to this one.
+            this.processSection(section);
+            // Create an observer instance linked to the callback function.
+            /** @type {?} */
+            var observer = new MutationObserver(this.callback.bind(this));
+            // Start observing the target sections for configured mutations.
+            observer.observe(section, this.config);
+        }
+    };
+    // Callback function to execute when mutations are observed.
+    // Callback function to execute when mutations are observed.
+    /**
+     * @param {?} mutationsList
+     * @param {?} observer
+     * @return {?}
+     */
+    PageMarkerDirective.prototype.callback = 
+    // Callback function to execute when mutations are observed.
+    /**
+     * @param {?} mutationsList
+     * @param {?} observer
+     * @return {?}
+     */
+    function (mutationsList, observer) {
+        // get first MutationRecord from list.
+        /** @type {?} */
+        var mutationFirst = mutationsList[0];
+        // get parent section.
+        /** @type {?} */
+        var parentNode = mutationFirst.target.parentNode;
+        if (parentNode) {
+            /** @type {?} */
+            var target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
+            if (target === null || target === "undefined") {
+                return;
+            }
+            // remove all markers in the current section.
+            target.querySelectorAll(this.naming.markerSelector).forEach((/**
+             * @param {?} element
+             * @return {?}
+             */
+            function (element) {
+                element.remove();
+            }));
+            // add marker to target sections.
+            this.processSection(target);
+            // a list of all matching DOM changes that have been detected but not yet processed by the observer's callback function, leaving the mutation queue empty.
+            // MAIN REASON - leaving the mutation queue empty. 
+            /** @type {?} */
+            var lest = observer.takeRecords();
+        }
+    };
+    ;
+    /**
+     * @param {?} section
+     * @return {?}
+     */
+    PageMarkerDirective.prototype.processSection = /**
+     * @param {?} section
+     * @return {?}
+     */
+    function (section) {
+        /** @type {?} */
+        var headerHeight = this.processHeader(section);
+        /** @type {?} */
+        var footerHeight = this.processFooter(section);
+        // get max page height - from css 'paginal.css'
+        /** @type {?} */
+        var styling = getComputedStyle(section, null);
+        /** @type {?} */
+        var minHeight = styling.getPropertyValue('min-height');
+        /** @type {?} */
+        var minHeightNumber = parseFloat(minHeight);
+        /** @type {?} */
+        var contentHeight = minHeightNumber - headerHeight - footerHeight;
+        /** @type {?} */
+        var realHeight = this.processContent(section);
+        /** @type {?} */
+        var endPageCoordinate = contentHeight;
+        while (endPageCoordinate < realHeight) {
+            /** @type {?} */
+            var marker = this.htmlToElements("<span class='page8marker' style='top:" + Math.ceil(endPageCoordinate) +
+                "px;'></span>");
+            marker.forEach((/**
+             * @param {?} item
+             * @return {?}
+             */
+            function (item) {
+                section.appendChild(item);
+            }));
+            endPageCoordinate += contentHeight;
+        }
+    };
+    // calculate header's height.
+    // calculate header's height.
+    /**
+     * @param {?} section
+     * @return {?}
+     */
+    PageMarkerDirective.prototype.processHeader = 
+    // calculate header's height.
+    /**
+     * @param {?} section
+     * @return {?}
+     */
+    function (section) {
+        /** @type {?} */
+        var header = section.querySelector(this.naming.headerSelector);
+        return header.getBoundingClientRect().height;
+    };
+    ;
+    // calculate real height of the content. without padding.
+    // calculate real height of the content. without padding.
+    /**
+     * @param {?} section
+     * @return {?}
+     */
+    PageMarkerDirective.prototype.processContent = 
+    // calculate real height of the content. without padding.
+    /**
+     * @param {?} section
+     * @return {?}
+     */
+    function (section) {
+        /** @type {?} */
+        var content = section.querySelector(this.naming.contentSelector);
+        /** @type {?} */
+        var height = content.getBoundingClientRect().height;
+        /** @type {?} */
+        var styling = getComputedStyle(content, null);
+        /** @type {?} */
+        var paddingBottom = styling.getPropertyValue('padding-bottom');
+        /** @type {?} */
+        var paddingTop = styling.getPropertyValue('padding-top');
+        return height - parseFloat(paddingBottom) - parseFloat(paddingTop);
+    };
+    ;
+    // calculate footer's height.
+    // calculate footer's height.
+    /**
+     * @param {?} section
+     * @return {?}
+     */
+    PageMarkerDirective.prototype.processFooter = 
+    // calculate footer's height.
+    /**
+     * @param {?} section
+     * @return {?}
+     */
+    function (section) {
+        /** @type {?} */
+        var footer = section.querySelector(this.naming.footerSelector);
+        return footer.getBoundingClientRect().height;
+    };
+    ;
+    // create dom element from string.
+    // create dom element from string.
+    /**
+     * @param {?} html
+     * @return {?}
+     */
+    PageMarkerDirective.prototype.htmlToElements = 
+    // create dom element from string.
+    /**
+     * @param {?} html
+     * @return {?}
+     */
+    function (html) {
+        /** @type {?} */
+        var template = document.createElement('template');
+        template.innerHTML = html;
+        return template.content.childNodes;
+    };
+    PageMarkerDirective.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: '[gdPageMarker]'
+                },] }
+    ];
+    /** @nocollapse */
+    PageMarkerDirective.ctorParameters = function () { return [
+        { type: ZoomService },
+        { type: WindowService },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+    ]; };
+    return PageMarkerDirective;
+}());
+if (false) {}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var providers = [ConfigService,
+    Api,
+    ModalService,
+    FileService,
+    FileModel,
+    FileUtil,
+    Utils,
+    SanitizeHtmlPipe,
+    SanitizeResourceHtmlPipe,
+    SanitizeStylePipe,
+    HighlightSearchPipe,
+    UploadFilesService,
+    RenderPrintService,
+    NavigateService,
+    PagePreloadService,
+    ZoomService,
+    ExceptionMessageService,
+    PasswordService,
+    ErrorInterceptorService,
+    SearchService,
+    WindowService,
+    ViewportService,
+    FormattingService,
+    BackFormattingService,
+    OnCloseService,
+    LoadingMaskInterceptorService,
+    LoadingMaskService,
+    TabActivatorService,
+    AddDynamicComponentService,
+    HostingDynamicComponentService,
+    TopTabActivatorService];
+var CommonComponentsModule = /** @class */ (function () {
+    function CommonComponentsModule() {
+        _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["fas"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_7__["far"]);
+    }
+    CommonComponentsModule.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+                    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeModule"], ng_click_outside__WEBPACK_IMPORTED_MODULE_13__["ClickOutsideModule"]],
+                    declarations: [
+                        TopToolbarComponent,
+                        SidePanelComponent,
+                        ButtonComponent,
+                        LogoComponent,
+                        TooltipComponent,
+                        ModalComponent,
+                        BrowseFilesModalComponent,
+                        DocumentComponent,
+                        PageComponent,
+                        SanitizeHtmlPipe,
+                        SanitizeResourceHtmlPipe,
+                        SanitizeStylePipe,
+                        HighlightSearchPipe,
+                        UploadFileZoneComponent,
+                        DndDirective,
+                        ScrollableDirective,
+                        MouseWheelDirective,
+                        ZoomDirective,
+                        SelectComponent,
+                        DisabledCursorDirective,
+                        RotationDirective,
+                        InitStateComponent,
+                        RenderPrintDirective,
+                        ErrorModalComponent,
+                        PasswordRequiredComponent,
+                        SearchComponent,
+                        SearchableDirective,
+                        TabbedToolbarsComponent,
+                        TabComponent,
+                        TabsComponent,
+                        ColorPickerComponent,
+                        FormattingDirective,
+                        SuccessModalComponent,
+                        EditorDirective,
+                        LoadingMaskComponent,
+                        DropDownComponent,
+                        DropDownItemComponent,
+                        DropDownItemsComponent,
+                        DropDownToggleComponent,
+                        LeftSideBarComponent,
+                        TooltipDirective,
+                        HostDynamicDirective,
+                        ResizingComponent,
+                        TopTabComponent,
+                        TextMenuComponent,
+                        ContextMenuComponent,
+                        PageMarkerDirective
+                    ],
+                    exports: [
+                        TopToolbarComponent,
+                        SidePanelComponent,
+                        ButtonComponent,
+                        LogoComponent,
+                        TooltipComponent,
+                        ModalComponent,
+                        BrowseFilesModalComponent,
+                        DocumentComponent,
+                        PageComponent,
+                        SanitizeResourceHtmlPipe,
+                        SanitizeStylePipe,
+                        HighlightSearchPipe,
+                        SanitizeHtmlPipe,
+                        UploadFileZoneComponent,
+                        ScrollableDirective,
+                        MouseWheelDirective,
+                        SelectComponent,
+                        RotationDirective,
+                        InitStateComponent,
+                        RenderPrintDirective,
+                        ErrorModalComponent,
+                        PasswordRequiredComponent,
+                        SearchComponent,
+                        SearchableDirective,
+                        TabbedToolbarsComponent,
+                        TabComponent,
+                        TabsComponent,
+                        ColorPickerComponent,
+                        FormattingDirective,
+                        SuccessModalComponent,
+                        LoadingMaskComponent,
+                        DndDirective,
+                        DropDownComponent,
+                        DropDownItemComponent,
+                        DropDownItemsComponent,
+                        DropDownToggleComponent,
+                        ZoomDirective,
+                        DropDownToggleComponent,
+                        LeftSideBarComponent,
+                        TooltipDirective,
+                        HostDynamicDirective,
+                        ResizingComponent,
+                        TopTabComponent,
+                        TextMenuComponent,
+                        ContextMenuComponent,
+                        PageMarkerDirective
+                    ],
+                    providers: providers
+                },] }
+    ];
+    /** @nocollapse */
+    CommonComponentsModule.ctorParameters = function () { return []; };
+    return CommonComponentsModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+
+//# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
+
+
+/***/ }),
+
 /***/ "../../libs/annotation/src/index.ts":
 /*!**********************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/annotation/src/index.ts ***!
@@ -103,7 +7384,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _annotation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./annotation.service */ "../../libs/annotation/src/lib/annotation.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _annotation_models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./annotation-models */ "../../libs/annotation/src/lib/annotation-models.ts");
 /* harmony import */ var _annotation_annotation_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./annotation/annotation.component */ "../../libs/annotation/src/lib/annotation/annotation.component.ts");
 /* harmony import */ var _active_annotation_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./active-annotation.service */ "../../libs/annotation/src/lib/active-annotation.service.ts");
@@ -907,7 +8188,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _annotation_config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./annotation-config */ "../../libs/annotation/src/lib/annotation-config.ts");
 
 
@@ -998,7 +8279,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Comment", function() { return Comment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RemoveAnnotation", function() { return RemoveAnnotation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 var AnnotationType = /** @class */ (function () {
@@ -1158,7 +8439,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _annotation_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./annotation-config.service */ "../../libs/annotation/src/lib/annotation-config.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
@@ -1272,7 +8553,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -1359,7 +8640,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _annotation_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../annotation-models */ "../../libs/annotation/src/lib/annotation-models.ts");
 /* harmony import */ var _active_annotation_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../active-annotation.service */ "../../libs/annotation/src/lib/active-annotation.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _remove_annotation_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../remove-annotation.service */ "../../libs/annotation/src/lib/remove-annotation.service.ts");
 /* harmony import */ var _comment_annotation_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../comment-annotation.service */ "../../libs/annotation/src/lib/comment-annotation.service.ts");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
@@ -2159,1060 +9440,6 @@ var RemoveAnnotationService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../libs/common-components/src/index.ts":
-/*!*****************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/index.ts ***!
-  \*****************************************************************************/
-/*! exports provided: CommonComponentsModule, Api, ConfigService, CommonModals, ModalService, PageModel, RotatedPage, FileCredentials, SaveFile, FileDescription, FileModel, HttpError, Utils, FileUtil, FileService, UploadFilesService, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, HighlightSearchPipe, NavigateService, PagePreloadService, ZoomService, RenderPrintService, ErrorInterceptorService, ExceptionMessageService, PasswordService, WindowService, ViewportService, BrowseFilesModalComponent, ButtonComponent, DisabledCursorDirective, DndDirective, DocumentComponent, ErrorModalComponent, InitStateComponent, LogoComponent, ModalComponent, PageComponent, PasswordRequiredComponent, RenderPrintDirective, RotationDirective, ScrollableDirective, MouseWheelDirective, SearchService, SearchComponent, SearchableDirective, SelectComponent, TooltipComponent, TopToolbarComponent, SidePanelComponent, UploadFileZoneComponent, ZoomDirective, SelectionService, OnCloseService, LoadingMaskService, LoadingMaskInterceptorService, FormattingDirective, Formatting, FormattingService, BackFormattingService, EditorDirective, EditHtmlService, ColorPickerComponent, LoadingMaskComponent, SuccessModalComponent, TabComponent, TabbedToolbarsComponent, TabActivatorService, DropDownToggleComponent, DropDownItemsComponent, DropDownItemComponent, DropDownComponent, LeftSideBarComponent, AddDynamicComponentService, HostDynamicDirective, HostingDynamicComponentService, TopTabActivatorService, MenuType, ContextMenuComponent, TextMenuComponent, PageMarkerDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lib_common_components_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/common-components.module */ "../../libs/common-components/src/lib/common-components.module.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CommonComponentsModule", function() { return _lib_common_components_module__WEBPACK_IMPORTED_MODULE_0__["CommonComponentsModule"]; });
-
-/* harmony import */ var _lib_config_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/config.service */ "../../libs/common-components/src/lib/config.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Api", function() { return _lib_config_service__WEBPACK_IMPORTED_MODULE_1__["Api"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ConfigService", function() { return _lib_config_service__WEBPACK_IMPORTED_MODULE_1__["ConfigService"]; });
-
-/* harmony import */ var _lib_modal_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/modal.service */ "../../libs/common-components/src/lib/modal.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CommonModals", function() { return _lib_modal_service__WEBPACK_IMPORTED_MODULE_2__["CommonModals"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalService", function() { return _lib_modal_service__WEBPACK_IMPORTED_MODULE_2__["ModalService"]; });
-
-/* harmony import */ var _lib_file_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/file.service */ "../../libs/common-components/src/lib/file.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PageModel", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["PageModel"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RotatedPage", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["RotatedPage"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FileCredentials", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["FileCredentials"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SaveFile", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["SaveFile"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FileDescription", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["FileDescription"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FileModel", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["FileModel"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HttpError", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["HttpError"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Utils", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["Utils"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FileUtil", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["FileUtil"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FileService", function() { return _lib_file_service__WEBPACK_IMPORTED_MODULE_3__["FileService"]; });
-
-/* harmony import */ var _lib_upload_files_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/upload-files.service */ "../../libs/common-components/src/lib/upload-files.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UploadFilesService", function() { return _lib_upload_files_service__WEBPACK_IMPORTED_MODULE_4__["UploadFilesService"]; });
-
-/* harmony import */ var _lib_pipes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/pipes */ "../../libs/common-components/src/lib/pipes.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SanitizeHtmlPipe", function() { return _lib_pipes__WEBPACK_IMPORTED_MODULE_5__["SanitizeHtmlPipe"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SanitizeResourceHtmlPipe", function() { return _lib_pipes__WEBPACK_IMPORTED_MODULE_5__["SanitizeResourceHtmlPipe"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SanitizeStylePipe", function() { return _lib_pipes__WEBPACK_IMPORTED_MODULE_5__["SanitizeStylePipe"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HighlightSearchPipe", function() { return _lib_pipes__WEBPACK_IMPORTED_MODULE_5__["HighlightSearchPipe"]; });
-
-/* harmony import */ var _lib_navigate_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lib/navigate.service */ "../../libs/common-components/src/lib/navigate.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NavigateService", function() { return _lib_navigate_service__WEBPACK_IMPORTED_MODULE_6__["NavigateService"]; });
-
-/* harmony import */ var _lib_page_preload_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./lib/page-preload.service */ "../../libs/common-components/src/lib/page-preload.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PagePreloadService", function() { return _lib_page_preload_service__WEBPACK_IMPORTED_MODULE_7__["PagePreloadService"]; });
-
-/* harmony import */ var _lib_zoom_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./lib/zoom.service */ "../../libs/common-components/src/lib/zoom.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ZoomService", function() { return _lib_zoom_service__WEBPACK_IMPORTED_MODULE_8__["ZoomService"]; });
-
-/* harmony import */ var _lib_render_print_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./lib/render-print.service */ "../../libs/common-components/src/lib/render-print.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RenderPrintService", function() { return _lib_render_print_service__WEBPACK_IMPORTED_MODULE_9__["RenderPrintService"]; });
-
-/* harmony import */ var _lib_error_interceptor_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./lib/error-interceptor.service */ "../../libs/common-components/src/lib/error-interceptor.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ErrorInterceptorService", function() { return _lib_error_interceptor_service__WEBPACK_IMPORTED_MODULE_10__["ErrorInterceptorService"]; });
-
-/* harmony import */ var _lib_exception_message_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./lib/exception-message.service */ "../../libs/common-components/src/lib/exception-message.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExceptionMessageService", function() { return _lib_exception_message_service__WEBPACK_IMPORTED_MODULE_11__["ExceptionMessageService"]; });
-
-/* harmony import */ var _lib_password_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./lib/password.service */ "../../libs/common-components/src/lib/password.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordService", function() { return _lib_password_service__WEBPACK_IMPORTED_MODULE_12__["PasswordService"]; });
-
-/* harmony import */ var _lib_window_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./lib/window.service */ "../../libs/common-components/src/lib/window.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WindowService", function() { return _lib_window_service__WEBPACK_IMPORTED_MODULE_13__["WindowService"]; });
-
-/* harmony import */ var _lib_viewport_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./lib/viewport.service */ "../../libs/common-components/src/lib/viewport.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewportService", function() { return _lib_viewport_service__WEBPACK_IMPORTED_MODULE_14__["ViewportService"]; });
-
-/* harmony import */ var _lib_browse_files_modal_browse_files_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./lib/browse-files-modal/browse-files-modal.component */ "../../libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BrowseFilesModalComponent", function() { return _lib_browse_files_modal_browse_files_modal_component__WEBPACK_IMPORTED_MODULE_15__["BrowseFilesModalComponent"]; });
-
-/* harmony import */ var _lib_button_button_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./lib/button/button.component */ "../../libs/common-components/src/lib/button/button.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return _lib_button_button_component__WEBPACK_IMPORTED_MODULE_16__["ButtonComponent"]; });
-
-/* harmony import */ var _lib_disabled_cursor_directive__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./lib/disabled-cursor.directive */ "../../libs/common-components/src/lib/disabled-cursor.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DisabledCursorDirective", function() { return _lib_disabled_cursor_directive__WEBPACK_IMPORTED_MODULE_17__["DisabledCursorDirective"]; });
-
-/* harmony import */ var _lib_dnd_directive__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./lib/dnd.directive */ "../../libs/common-components/src/lib/dnd.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DndDirective", function() { return _lib_dnd_directive__WEBPACK_IMPORTED_MODULE_18__["DndDirective"]; });
-
-/* harmony import */ var _lib_document_document_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./lib/document/document.component */ "../../libs/common-components/src/lib/document/document.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DocumentComponent", function() { return _lib_document_document_component__WEBPACK_IMPORTED_MODULE_19__["DocumentComponent"]; });
-
-/* harmony import */ var _lib_error_modal_error_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./lib/error-modal/error-modal.component */ "../../libs/common-components/src/lib/error-modal/error-modal.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ErrorModalComponent", function() { return _lib_error_modal_error_modal_component__WEBPACK_IMPORTED_MODULE_20__["ErrorModalComponent"]; });
-
-/* harmony import */ var _lib_init_state_init_state_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./lib/init-state/init-state.component */ "../../libs/common-components/src/lib/init-state/init-state.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitStateComponent", function() { return _lib_init_state_init_state_component__WEBPACK_IMPORTED_MODULE_21__["InitStateComponent"]; });
-
-/* harmony import */ var _lib_logo_logo_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./lib/logo/logo.component */ "../../libs/common-components/src/lib/logo/logo.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LogoComponent", function() { return _lib_logo_logo_component__WEBPACK_IMPORTED_MODULE_22__["LogoComponent"]; });
-
-/* harmony import */ var _lib_modal_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./lib/modal/modal.component */ "../../libs/common-components/src/lib/modal/modal.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ModalComponent", function() { return _lib_modal_modal_component__WEBPACK_IMPORTED_MODULE_23__["ModalComponent"]; });
-
-/* harmony import */ var _lib_page_page_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./lib/page/page.component */ "../../libs/common-components/src/lib/page/page.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PageComponent", function() { return _lib_page_page_component__WEBPACK_IMPORTED_MODULE_24__["PageComponent"]; });
-
-/* harmony import */ var _lib_password_required_password_required_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./lib/password-required/password-required.component */ "../../libs/common-components/src/lib/password-required/password-required.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PasswordRequiredComponent", function() { return _lib_password_required_password_required_component__WEBPACK_IMPORTED_MODULE_25__["PasswordRequiredComponent"]; });
-
-/* harmony import */ var _lib_render_print_directive__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./lib/render-print.directive */ "../../libs/common-components/src/lib/render-print.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RenderPrintDirective", function() { return _lib_render_print_directive__WEBPACK_IMPORTED_MODULE_26__["RenderPrintDirective"]; });
-
-/* harmony import */ var _lib_rotation_directive__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./lib/rotation.directive */ "../../libs/common-components/src/lib/rotation.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RotationDirective", function() { return _lib_rotation_directive__WEBPACK_IMPORTED_MODULE_27__["RotationDirective"]; });
-
-/* harmony import */ var _lib_scrollable_directive__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./lib/scrollable.directive */ "../../libs/common-components/src/lib/scrollable.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ScrollableDirective", function() { return _lib_scrollable_directive__WEBPACK_IMPORTED_MODULE_28__["ScrollableDirective"]; });
-
-/* harmony import */ var _lib_mousewheel_directive__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./lib/mousewheel.directive */ "../../libs/common-components/src/lib/mousewheel.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MouseWheelDirective", function() { return _lib_mousewheel_directive__WEBPACK_IMPORTED_MODULE_29__["MouseWheelDirective"]; });
-
-/* harmony import */ var _lib_search_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./lib/search.service */ "../../libs/common-components/src/lib/search.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SearchService", function() { return _lib_search_service__WEBPACK_IMPORTED_MODULE_30__["SearchService"]; });
-
-/* harmony import */ var _lib_search_search_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./lib/search/search.component */ "../../libs/common-components/src/lib/search/search.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SearchComponent", function() { return _lib_search_search_component__WEBPACK_IMPORTED_MODULE_31__["SearchComponent"]; });
-
-/* harmony import */ var _lib_searchable_directive__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./lib/searchable.directive */ "../../libs/common-components/src/lib/searchable.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SearchableDirective", function() { return _lib_searchable_directive__WEBPACK_IMPORTED_MODULE_32__["SearchableDirective"]; });
-
-/* harmony import */ var _lib_select_select_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./lib/select/select.component */ "../../libs/common-components/src/lib/select/select.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return _lib_select_select_component__WEBPACK_IMPORTED_MODULE_33__["SelectComponent"]; });
-
-/* harmony import */ var _lib_tooltip_tooltip_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./lib/tooltip/tooltip.component */ "../../libs/common-components/src/lib/tooltip/tooltip.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TooltipComponent", function() { return _lib_tooltip_tooltip_component__WEBPACK_IMPORTED_MODULE_34__["TooltipComponent"]; });
-
-/* harmony import */ var _lib_top_toolbar_top_toolbar_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./lib/top-toolbar/top-toolbar.component */ "../../libs/common-components/src/lib/top-toolbar/top-toolbar.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TopToolbarComponent", function() { return _lib_top_toolbar_top_toolbar_component__WEBPACK_IMPORTED_MODULE_35__["TopToolbarComponent"]; });
-
-/* harmony import */ var _lib_side_panel_side_panel_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./lib/side-panel/side-panel.component */ "../../libs/common-components/src/lib/side-panel/side-panel.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SidePanelComponent", function() { return _lib_side_panel_side_panel_component__WEBPACK_IMPORTED_MODULE_36__["SidePanelComponent"]; });
-
-/* harmony import */ var _lib_upload_file_zone_upload_file_zone_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./lib/upload-file-zone/upload-file-zone.component */ "../../libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UploadFileZoneComponent", function() { return _lib_upload_file_zone_upload_file_zone_component__WEBPACK_IMPORTED_MODULE_37__["UploadFileZoneComponent"]; });
-
-/* harmony import */ var _lib_zoom_directive__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./lib/zoom.directive */ "../../libs/common-components/src/lib/zoom.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ZoomDirective", function() { return _lib_zoom_directive__WEBPACK_IMPORTED_MODULE_38__["ZoomDirective"]; });
-
-/* harmony import */ var _lib_selection_service__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./lib/selection.service */ "../../libs/common-components/src/lib/selection.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SelectionService", function() { return _lib_selection_service__WEBPACK_IMPORTED_MODULE_39__["SelectionService"]; });
-
-/* harmony import */ var _lib_on_close_service__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./lib/on-close.service */ "../../libs/common-components/src/lib/on-close.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OnCloseService", function() { return _lib_on_close_service__WEBPACK_IMPORTED_MODULE_40__["OnCloseService"]; });
-
-/* harmony import */ var _lib_loading_mask_service__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./lib/loading-mask.service */ "../../libs/common-components/src/lib/loading-mask.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LoadingMaskService", function() { return _lib_loading_mask_service__WEBPACK_IMPORTED_MODULE_41__["LoadingMaskService"]; });
-
-/* harmony import */ var _lib_loading_mask_interceptor_service__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./lib/loading-mask-interceptor.service */ "../../libs/common-components/src/lib/loading-mask-interceptor.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LoadingMaskInterceptorService", function() { return _lib_loading_mask_interceptor_service__WEBPACK_IMPORTED_MODULE_42__["LoadingMaskInterceptorService"]; });
-
-/* harmony import */ var _lib_formatting_directive__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./lib/formatting.directive */ "../../libs/common-components/src/lib/formatting.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormattingDirective", function() { return _lib_formatting_directive__WEBPACK_IMPORTED_MODULE_43__["FormattingDirective"]; });
-
-/* harmony import */ var _lib_formatting_service__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./lib/formatting.service */ "../../libs/common-components/src/lib/formatting.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Formatting", function() { return _lib_formatting_service__WEBPACK_IMPORTED_MODULE_44__["Formatting"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormattingService", function() { return _lib_formatting_service__WEBPACK_IMPORTED_MODULE_44__["FormattingService"]; });
-
-/* harmony import */ var _lib_back_formatting_service__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./lib/back-formatting.service */ "../../libs/common-components/src/lib/back-formatting.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BackFormattingService", function() { return _lib_back_formatting_service__WEBPACK_IMPORTED_MODULE_45__["BackFormattingService"]; });
-
-/* harmony import */ var _lib_editor_directive__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./lib/editor.directive */ "../../libs/common-components/src/lib/editor.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EditorDirective", function() { return _lib_editor_directive__WEBPACK_IMPORTED_MODULE_46__["EditorDirective"]; });
-
-/* harmony import */ var _lib_edit_html_service__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./lib/edit-html.service */ "../../libs/common-components/src/lib/edit-html.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EditHtmlService", function() { return _lib_edit_html_service__WEBPACK_IMPORTED_MODULE_47__["EditHtmlService"]; });
-
-/* harmony import */ var _lib_color_picker_color_picker_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./lib/color-picker/color-picker.component */ "../../libs/common-components/src/lib/color-picker/color-picker.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ColorPickerComponent", function() { return _lib_color_picker_color_picker_component__WEBPACK_IMPORTED_MODULE_48__["ColorPickerComponent"]; });
-
-/* harmony import */ var _lib_loading_mask_loading_mask_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./lib/loading-mask/loading-mask.component */ "../../libs/common-components/src/lib/loading-mask/loading-mask.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LoadingMaskComponent", function() { return _lib_loading_mask_loading_mask_component__WEBPACK_IMPORTED_MODULE_49__["LoadingMaskComponent"]; });
-
-/* harmony import */ var _lib_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./lib/success-modal/success-modal.component */ "../../libs/common-components/src/lib/success-modal/success-modal.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SuccessModalComponent", function() { return _lib_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_50__["SuccessModalComponent"]; });
-
-/* harmony import */ var _lib_tab_tab_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./lib/tab/tab.component */ "../../libs/common-components/src/lib/tab/tab.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabComponent", function() { return _lib_tab_tab_component__WEBPACK_IMPORTED_MODULE_51__["TabComponent"]; });
-
-/* harmony import */ var _lib_tabbed_toolbars_tabbed_toolbars_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./lib/tabbed-toolbars/tabbed-toolbars.component */ "../../libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabbedToolbarsComponent", function() { return _lib_tabbed_toolbars_tabbed_toolbars_component__WEBPACK_IMPORTED_MODULE_52__["TabbedToolbarsComponent"]; });
-
-/* harmony import */ var _lib_tab_activator_service__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./lib/tab-activator.service */ "../../libs/common-components/src/lib/tab-activator.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TabActivatorService", function() { return _lib_tab_activator_service__WEBPACK_IMPORTED_MODULE_53__["TabActivatorService"]; });
-
-/* harmony import */ var _lib_drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./lib/drop-down/drop-down.component */ "../../libs/common-components/src/lib/drop-down/drop-down.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropDownToggleComponent", function() { return _lib_drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_54__["DropDownToggleComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropDownItemsComponent", function() { return _lib_drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_54__["DropDownItemsComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropDownItemComponent", function() { return _lib_drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_54__["DropDownItemComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DropDownComponent", function() { return _lib_drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_54__["DropDownComponent"]; });
-
-/* harmony import */ var _lib_left_side_bar_left_side_bar_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./lib/left-side-bar/left-side-bar.component */ "../../libs/common-components/src/lib/left-side-bar/left-side-bar.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LeftSideBarComponent", function() { return _lib_left_side_bar_left_side_bar_component__WEBPACK_IMPORTED_MODULE_55__["LeftSideBarComponent"]; });
-
-/* harmony import */ var _lib_add_dynamic_component_service__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./lib/add-dynamic-component.service */ "../../libs/common-components/src/lib/add-dynamic-component.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddDynamicComponentService", function() { return _lib_add_dynamic_component_service__WEBPACK_IMPORTED_MODULE_56__["AddDynamicComponentService"]; });
-
-/* harmony import */ var _lib_host_dynamic_directive__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./lib/host-dynamic.directive */ "../../libs/common-components/src/lib/host-dynamic.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HostDynamicDirective", function() { return _lib_host_dynamic_directive__WEBPACK_IMPORTED_MODULE_57__["HostDynamicDirective"]; });
-
-/* harmony import */ var _lib_hosting_dynamic_component_service__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./lib/hosting-dynamic-component.service */ "../../libs/common-components/src/lib/hosting-dynamic-component.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HostingDynamicComponentService", function() { return _lib_hosting_dynamic_component_service__WEBPACK_IMPORTED_MODULE_58__["HostingDynamicComponentService"]; });
-
-/* harmony import */ var _lib_top_tab_activator_service__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./lib/top-tab-activator.service */ "../../libs/common-components/src/lib/top-tab-activator.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TopTabActivatorService", function() { return _lib_top_tab_activator_service__WEBPACK_IMPORTED_MODULE_59__["TopTabActivatorService"]; });
-
-/* harmony import */ var _lib_context_menu_context_menu_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./lib/context-menu/context-menu.component */ "../../libs/common-components/src/lib/context-menu/context-menu.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MenuType", function() { return _lib_context_menu_context_menu_component__WEBPACK_IMPORTED_MODULE_60__["MenuType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ContextMenuComponent", function() { return _lib_context_menu_context_menu_component__WEBPACK_IMPORTED_MODULE_60__["ContextMenuComponent"]; });
-
-/* harmony import */ var _lib_text_menu_text_menu_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./lib/text-menu/text-menu.component */ "../../libs/common-components/src/lib/text-menu/text-menu.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TextMenuComponent", function() { return _lib_text_menu_text_menu_component__WEBPACK_IMPORTED_MODULE_61__["TextMenuComponent"]; });
-
-/* harmony import */ var _lib_page_marker_directive__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./lib/page-marker.directive */ "../../libs/common-components/src/lib/page-marker.directive.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PageMarkerDirective", function() { return _lib_page_marker_directive__WEBPACK_IMPORTED_MODULE_62__["PageMarkerDirective"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/add-dynamic-component.service.ts":
-/*!*********************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/add-dynamic-component.service.ts ***!
-  \*********************************************************************************************************/
-/*! exports provided: AddDynamicComponentService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddDynamicComponentService", function() { return AddDynamicComponentService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var AddDynamicComponentService = /** @class */ (function () {
-    function AddDynamicComponentService(_factoryResolver, _appRef) {
-        this._factoryResolver = _factoryResolver;
-        this._appRef = _appRef;
-    }
-    AddDynamicComponentService.prototype.addDynamicComponent = function (viewContainerRef, component) {
-        var _this = this;
-        var factory = this._factoryResolver.resolveComponentFactory(component);
-        var componentRef = viewContainerRef.createComponent(factory);
-        componentRef.onDestroy(function () {
-            _this._appRef.detachView(componentRef.hostView);
-        });
-        return componentRef;
-    };
-    AddDynamicComponentService.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ComponentFactoryResolver"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ApplicationRef"] }
-    ]; };
-    AddDynamicComponentService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ComponentFactoryResolver"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ApplicationRef"]])
-    ], AddDynamicComponentService);
-    return AddDynamicComponentService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/back-formatting.service.ts":
-/*!***************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/back-formatting.service.ts ***!
-  \***************************************************************************************************/
-/*! exports provided: BackFormattingService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BackFormattingService", function() { return BackFormattingService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _formatting_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./formatting.service */ "../../libs/common-components/src/lib/formatting.service.ts");
-
-
-
-var BackFormattingService = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](BackFormattingService, _super);
-    function BackFormattingService() {
-        return _super.call(this) || this;
-    }
-    BackFormattingService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], BackFormattingService);
-    return BackFormattingService;
-}(_formatting_service__WEBPACK_IMPORTED_MODULE_2__["FormattingService"]));
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.less":
-/*!*****************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.less ***!
-  \*****************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".gd-modal-table {\n  width: 100%;\n  text-align: left;\n}\n#gd-browse-section {\n  width: 1036px;\n  height: 561px;\n  overflow-y: auto;\n}\n.list-files-header {\n  height: 60px;\n  color: #6e6e6e;\n  font-size: 13px;\n  font-weight: bold;\n  background-color: #f4f4f4;\n  margin-top: 24px;\n}\n.list-files-header.upload-url {\n  margin-top: 20px;\n}\n.header-name {\n  padding-left: 24px;\n  width: 90%;\n  line-height: 60px;\n}\n.header-size {\n  padding-right: 27px;\n  line-height: 60px;\n}\n.header-size,\n.file-size {\n  width: 10%;\n  color: #777777;\n  text-align: right;\n}\n.file-description {\n  display: -webkit-box;\n  display: flex;\n  width: 90%;\n  padding: 18px 0px 18px 24px;\n  font-size: 14px;\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n.file-size {\n  font-size: 12px;\n  padding: 0px 27px 0px 0px;\n  width: 10%;\n  line-height: 79px;\n}\n.file-description {\n  cursor: pointer;\n  overflow: hidden;\n}\n.list-files-lines,\n.list-files-header {\n  display: -webkit-box;\n  display: flex;\n  width: 100%;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n}\n.gd-modal-spinner {\n  background-color: #ffffff;\n  width: 100%;\n  height: 20px;\n  text-align: center;\n  font-size: 16px;\n}\n.gd-cancel-button {\n  padding: 7px;\n  background: none;\n  width: 28px;\n  overflow: hidden;\n}\n.gd-cancel-button i {\n  font-size: 21px;\n}\n.gd-file-name {\n  white-space: nowrap;\n  overflow: hidden;\n  width: 100%;\n  text-overflow: ellipsis;\n}\n.go-up {\n  display: -webkit-box;\n  display: flex;\n  font-size: 26px;\n  cursor: pointer;\n  color: #4b566c;\n  height: 79px;\n}\n.go-up-dots {\n  margin-left: 20px;\n  margin-top: 22px;\n  font-size: 16px;\n}\n.go-up-icon {\n  display: block;\n  padding: 18px 0px 18px 24px;\n}\n.upload-panel {\n  display: -webkit-box;\n  display: flex;\n  position: relative;\n  width: 100%;\n}\n.upload-panel .context {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  width: 100%;\n  margin-left: 24px;\n  margin-top: 24px;\n  margin-right: 24px;\n}\n.upload-panel .context .context-actions {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  width: 100%;\n}\n.upload-panel .context .context-actions *:last-child {\n  margin-right: 0px;\n}\n.upload-panel .context .context-actions ::ng-deep .button {\n  height: 37px;\n  width: 96px;\n  padding: 0px;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text {\n  font-size: 10px;\n}\n.upload-panel .context .context-panel {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  width: 100%;\n  margin-top: 20px;\n}\n.upload-panel .context .context-panel .upload-url {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  width: 100%;\n}\n.upload-panel .context .context-panel .upload-url .url-input {\n  width: 100%;\n  height: 27px;\n  border: 1px solid #25c2d4;\n  font-size: 14px;\n  padding-left: 6px;\n}\n.upload-panel .context .context-panel .upload-url .url-check {\n  width: 31px;\n  height: 31px;\n  color: #FFFFFF;\n  font-size: 15px;\n  background-color: #25c2d4;\n}\n.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon {\n  display: block;\n  padding: 8px;\n}\n.upload-panel gd-drop-down {\n  margin-right: 10px;\n}\n.file-description .ng-fa-icon.fa-file-pdf {\n  color: #e04e4e;\n}\n.file-description .ng-fa-icon.fa-file-word {\n  color: #539CF0;\n}\n.file-description .ng-fa-icon.fa-file-powerpoint {\n  color: #e29e1e;\n}\n.file-description .ng-fa-icon.fa-file-excel {\n  color: #7cbc46;\n}\n.file-description .ng-fa-icon.fa-file-image {\n  color: #c375ed;\n}\n.file-description .ng-fa-icon.fa-file-text .fa-folder,\n.file-description .ng-fa-icon.fa-file,\n.file-description .ng-fa-icon.fa-file-alt {\n  color: #4b566c;\n}\n.file-description .ng-fa-icon {\n  font-size: 32px;\n}\n.file-name {\n  font-size: 16px;\n  color: #6e6e6e;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.file-name-format {\n  padding-left: 11px;\n  overflow: hidden;\n}\n.file-format {\n  font-size: 10px;\n  padding-top: 3px;\n  color: #acacac;\n}\n.list-files-lines,\n.go-up {\n  border-bottom: 1px solid #e7e7e7;\n}\n.list-files-lines:hover {\n  background-color: #E5E5E5;\n}\n.gd-dnd-wrap {\n  background-color: #FFF;\n  cursor: default;\n  position: absolute;\n  width: 100%;\n  height: calc(100% - 60px);\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.dnd-wrapper {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n  top: 259px;\n  position: absolute;\n}\n.dnd-wrapper .text {\n  color: #6e6e6e;\n  font-size: 14px;\n}\n.dnd-wrapper .icon {\n  display: -webkit-box;\n  display: flex;\n  width: 113px;\n  height: 90px;\n  font-size: 90px;\n  color: #3E4E5A;\n  margin-bottom: 30px;\n}\n@media (max-width: 1037px) {\n  .header-size,\n  .file-size {\n    width: 18%;\n  }\n  .gd-dnd-wrap {\n    width: 95%;\n  }\n  #gd-browse-section {\n    width: 100%;\n    height: calc(100% - 146px);\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9icm93c2UtZmlsZXMtbW9kYWwvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9icm93c2UtZmlsZXMtbW9kYWwvYnJvd3NlLWZpbGVzLW1vZGFsLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2Jyb3dzZS1maWxlcy1tb2RhbC9icm93c2UtZmlsZXMtbW9kYWwuY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0E7RUFDRSxXQUFBO0VBQ0EsZ0JBQUE7QUNBRjtBREdBO0VBQ0UsYUFBQTtFQUNBLGFBQUE7RUFDQSxnQkFBQTtBQ0RGO0FESUE7RUFDRSxZQUFBO0VBQ0EsY0FBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtFQUNBLHlCQUFBO0VBQ0EsZ0JBQUE7QUNGRjtBREdFO0VBQ0UsZ0JBQUE7QUNESjtBREtBO0VBQ0Usa0JBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7QUNIRjtBRE1BO0VBQ0UsbUJBQUE7RUFDQSxpQkFBQTtBQ0pGO0FEUUE7O0VBQ0UsVUFBQTtFQUNBLGNBQUE7RUFDQSxpQkFBQTtBQ0xGO0FEUUE7RUFDRSxvQkFBQTtFQUFBLGFBQUE7RUFDQSxVQUFBO0VBQ0EsMkJBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7VUFBQSxPQUFBO0FDTkY7QURTQTtFQUNFLGVBQUE7RUFDQSx5QkFBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtBQ1BGO0FEVUE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7QUNSRjtBRFdBOztFQUNFLG9CQUFBO0VBQUEsYUFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtVQUFBLDhCQUFBO0FDUkY7QURXQTtFQUNFLHlCQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7QUNURjtBRFlBO0VBQ0UsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsV0FBQTtFQUNBLGdCQUFBO0FDVkY7QURhQTtFQUNFLGVBQUE7QUNYRjtBRGNBO0VBQ0UsbUJBQUE7RUFDQSxnQkFBQTtFQUNBLFdBQUE7RUFDQSx1QkFBQTtBQ1pGO0FEZUE7RUFDRSxvQkFBQTtFQUFBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsZUFBQTtFQUNBLGNBQUE7RUFDQSxZQUFBO0FDYkY7QURnQkE7RUFDRSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtBQ2RGO0FEaUJBO0VBQ0UsY0FBQTtFQUNBLDJCQUFBO0FDZkY7QURrQkE7RUFDRSxvQkFBQTtFQUFBLGFBQUE7RUFDQSxrQkFBQTtFQUNBLFdBQUE7QUNoQkY7QURhQTtFQU1JLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDRCQUFBO0VBQUEsNkJBQUE7VUFBQSxzQkFBQTtFQUNBLFdBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUNoQko7QURLQTtFQWNNLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLFdBQUE7QUNoQk47QURBQTtFQW1CUSxpQkFBQTtBQ2hCUjtBREhBO0VBc0JRLFlBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7QUNoQlI7QURUQTtFQTJCVSxlQUFBO0FDZlY7QURaQTtFQWdDTSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7RUFDQSxXQUFBO0VBQ0EsZ0JBQUE7QUNqQk47QURsQkE7RUFxQ1Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EsOEJBQUE7RUFBQSw2QkFBQTtVQUFBLG1CQUFBO0VBQ0EsV0FBQTtBQ2hCUjtBRHZCQTtFQXlDVSxXQUFBO0VBQ0EsWUFBQTtFQUNBLHlCQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0FDZlY7QUQ5QkE7RUFnRFUsV0FBQTtFQUNBLFlBQUE7RUFDQSxjQUFBO0VBQ0EsZUFBQTtFQUNBLHlCQUFBO0FDZlY7QURyQ0E7RUF1RFUsY0FBQTtFQUNBLFlBQUE7QUNmVjtBRHpDQTtFQStESSxrQkFBQTtBQ25CSjtBRHVCQTtFQUNFLGNBQUE7QUNyQkY7QUR3QkE7RUFDRSxjQUFBO0FDdEJGO0FEeUJBO0VBQ0UsY0FBQTtBQ3ZCRjtBRDBCQTtFQUNFLGNBQUE7QUN4QkY7QUQyQkE7RUFDRSxjQUFBO0FDekJGO0FENEJBOzs7RUFHRSxjQUFBO0FDMUJGO0FENkJBO0VBQ0UsZUFBQTtBQzNCRjtBRDhCQTtFQUNFLGVBQUE7RUFDQSxjQUFBO0VBQ0EsZ0JBQUE7RUFDQSx1QkFBQTtBQzVCRjtBRCtCQTtFQUNFLGtCQUFBO0VBQ0EsZ0JBQUE7QUM3QkY7QURnQ0E7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxjQUFBO0FDOUJGO0FEaUNBOztFQUNFLGdDQUFBO0FDOUJGO0FEaUNBO0VBQ0UseUJBQUE7QUMvQkY7QURrQ0E7RUFDRSxzQkFBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtFQUNBLG9DQUFBO0VBQ0EsVUFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7RUFDQSx5QkFBQTtVQUFBLG1CQUFBO0FDaENGO0FEbUNBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsNEJBQUE7RUFBQSw2QkFBQTtVQUFBLHNCQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7RUFDQSxVQUFBO0VBQ0Esa0JBQUE7QUNqQ0Y7QUQyQkE7RUFRSSxjQUFBO0VBQ0EsZUFBQTtBQ2hDSjtBRHVCQTtFQVlJLG9CQUFBO0VBQUEsYUFBQTtFQUNBLFlBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLGNBQUE7RUFDQSxtQkFBQTtBQ2hDSjtBRG9DQTtFQUNFOztJQUNFLFVBQUE7RUNqQ0Y7RURtQ0E7SUFDRSxVQUFBO0VDakNGO0VEbUNBO0lBQ0UsV0FBQTtJQUNBLDBCQUFBO0VDakNGO0FBQ0YiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2Jyb3dzZS1maWxlcy1tb2RhbC9icm93c2UtZmlsZXMtbW9kYWwuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi8uLi8uLi9zdHlsZXMvdmFyaWFibGVzXCI7XG4uZ2QtbW9kYWwtdGFibGUge1xuICB3aWR0aDogMTAwJTtcbiAgdGV4dC1hbGlnbjogbGVmdDtcbn1cblxuI2dkLWJyb3dzZS1zZWN0aW9uIHtcbiAgd2lkdGg6IDEwMzZweDtcbiAgaGVpZ2h0OiA1NjFweDtcbiAgb3ZlcmZsb3cteTogYXV0bztcbn1cblxuLmxpc3QtZmlsZXMtaGVhZGVyIHtcbiAgaGVpZ2h0OiA2MHB4O1xuICBjb2xvcjogQGRvdmUtZ3JheTtcbiAgZm9udC1zaXplOiAxM3B4O1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgYmFja2dyb3VuZC1jb2xvcjogQHdpbGQtc2FuZDtcbiAgbWFyZ2luLXRvcDogMjRweDtcbiAgJi51cGxvYWQtdXJsIHtcbiAgICBtYXJnaW4tdG9wOiAyMHB4O1xuICB9XG59XG5cbi5oZWFkZXItbmFtZSB7XG4gIHBhZGRpbmctbGVmdDogMjRweDtcbiAgd2lkdGg6IDkwJTtcbiAgbGluZS1oZWlnaHQ6IDYwcHg7XG59XG5cbi5oZWFkZXItc2l6ZSB7XG4gIHBhZGRpbmctcmlnaHQ6IDI3cHg7XG4gIGxpbmUtaGVpZ2h0OiA2MHB4O1xuICAvLyBUT0RPOiBhZGQgb3ZlcmZsb3cteTogc2Nyb2xsIGlmIHNjcm9sbC1iYXIgaW4gZmlsZXMgYXBwZWFyc1xufVxuXG4uaGVhZGVyLXNpemUsIC5maWxlLXNpemUge1xuICB3aWR0aDogMTAlO1xuICBjb2xvcjogIzc3Nzc3NztcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XG59XG5cbi5maWxlLWRlc2NyaXB0aW9uIHtcbiAgZGlzcGxheTogZmxleDtcbiAgd2lkdGg6IDkwJTtcbiAgcGFkZGluZzogMThweCAwcHggMThweCAyNHB4O1xuICBmb250LXNpemU6IDE0cHg7XG4gIGZsZXg6IDE7XG59XG5cbi5maWxlLXNpemUge1xuICBmb250LXNpemU6IDEycHg7XG4gIHBhZGRpbmc6IDBweCAyN3B4IDBweCAwcHg7XG4gIHdpZHRoOiAxMCU7XG4gIGxpbmUtaGVpZ2h0OiA3OXB4O1xufVxuXG4uZmlsZS1kZXNjcmlwdGlvbiB7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuLmxpc3QtZmlsZXMtbGluZXMsIC5saXN0LWZpbGVzLWhlYWRlciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIHdpZHRoOiAxMDAlO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XG59XG5cbi5nZC1tb2RhbC1zcGlubmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZmZmZjtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMjBweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBmb250LXNpemU6IDE2cHg7XG59XG5cbi5nZC1jYW5jZWwtYnV0dG9uIHtcbiAgcGFkZGluZzogN3B4O1xuICBiYWNrZ3JvdW5kOiBub25lO1xuICB3aWR0aDogMjhweDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuLmdkLWNhbmNlbC1idXR0b24gaSB7XG4gIGZvbnQtc2l6ZTogMjFweDtcbn1cblxuLmdkLWZpbGUtbmFtZSB7XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIHdpZHRoOiAxMDAlO1xuICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcbn1cblxuLmdvLXVwIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZm9udC1zaXplOiAyNnB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGNvbG9yOiBAZm9sZGVyO1xuICBoZWlnaHQ6IDc5cHg7XG59XG5cbi5nby11cC1kb3RzIHtcbiAgbWFyZ2luLWxlZnQ6IDIwcHg7XG4gIG1hcmdpbi10b3A6IDIycHg7XG4gIGZvbnQtc2l6ZTogMTZweDtcbn1cblxuLmdvLXVwLWljb24ge1xuICBkaXNwbGF5OiBibG9jaztcbiAgcGFkZGluZzogMThweCAwcHggMThweCAyNHB4O1xufVxuXG4udXBsb2FkLXBhbmVsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB3aWR0aDogMTAwJTtcblxuICAuY29udGV4dHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLWxlZnQ6IDI0cHg7XG4gICAgbWFyZ2luLXRvcDogMjRweDtcbiAgICBtYXJnaW4tcmlnaHQ6IDI0cHg7XG5cbiAgICAuY29udGV4dC1hY3Rpb25ze1xuICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gICAgICB3aWR0aDogMTAwJTtcblxuICAgICAgKjpsYXN0LWNoaWxke1xuICAgICAgICBtYXJnaW4tcmlnaHQ6IDBweDtcbiAgICAgIH1cbiAgICAgIDo6bmctZGVlcCAuYnV0dG9uIHtcbiAgICAgICAgaGVpZ2h0OiAzN3B4O1xuICAgICAgICB3aWR0aDogOTZweDtcbiAgICAgICAgcGFkZGluZzogMHB4O1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgOjpuZy1kZWVwIC50ZXh0IHtcbiAgICAgICAgICBmb250LXNpemU6IDEwcHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gICAgLmNvbnRleHQtcGFuZWx7XG4gICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgbWFyZ2luLXRvcDogMjBweDtcbiAgICAgIC51cGxvYWQtdXJsIHtcbiAgICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgICAgICAgd2lkdGg6IDEwMCU7XG4gICAgICAgIC51cmwtaW5wdXQge1xuICAgICAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgICAgIGhlaWdodDogMjdweDtcbiAgICAgICAgICBib3JkZXI6IDFweCBzb2xpZCBAYnJhbmQ7XG4gICAgICAgICAgZm9udC1zaXplOiAxNHB4O1xuICAgICAgICAgIHBhZGRpbmctbGVmdDogNnB4O1xuICAgICAgICB9XG4gICAgICAgIC51cmwtY2hlY2sge1xuICAgICAgICAgIHdpZHRoOiAzMXB4O1xuICAgICAgICAgIGhlaWdodDogMzFweDtcbiAgICAgICAgICBjb2xvcjogI0ZGRkZGRjtcbiAgICAgICAgICBmb250LXNpemU6IDE1cHg7XG4gICAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogQGJyYW5kO1xuICAgICAgICB9XG4gICAgICAgIC51cmwtY2hlY2sgLm5nLWZhLWljb24ge1xuICAgICAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgICAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIGdkLWRyb3AtZG93bntcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG4gIH1cbn1cblxuLmZpbGUtZGVzY3JpcHRpb24gLm5nLWZhLWljb24uZmEtZmlsZS1wZGYge1xuICBjb2xvcjogQHBkZjtcbn1cblxuLmZpbGUtZGVzY3JpcHRpb24gLm5nLWZhLWljb24uZmEtZmlsZS13b3JkIHtcbiAgY29sb3I6IEB3b3JkO1xufVxuXG4uZmlsZS1kZXNjcmlwdGlvbiAubmctZmEtaWNvbi5mYS1maWxlLXBvd2VycG9pbnQge1xuICBjb2xvcjogQHBvd2VycG9pbnQ7XG59XG5cbi5maWxlLWRlc2NyaXB0aW9uIC5uZy1mYS1pY29uLmZhLWZpbGUtZXhjZWwge1xuICBjb2xvcjogQGV4Y2VsO1xufVxuXG4uZmlsZS1kZXNjcmlwdGlvbiAubmctZmEtaWNvbi5mYS1maWxlLWltYWdlIHtcbiAgY29sb3I6IEBpbWFnZTtcbn1cblxuLmZpbGUtZGVzY3JpcHRpb24gLm5nLWZhLWljb24uZmEtZmlsZS10ZXh0IC5mYS1mb2xkZXIsXG4uZmlsZS1kZXNjcmlwdGlvbiAubmctZmEtaWNvbi5mYS1maWxlLFxuLmZpbGUtZGVzY3JpcHRpb24gLm5nLWZhLWljb24uZmEtZmlsZS1hbHQge1xuICBjb2xvcjogQGZvbGRlcjtcbn1cblxuLmZpbGUtZGVzY3JpcHRpb24gIC5uZy1mYS1pY29uIHtcbiAgZm9udC1zaXplOiAzMnB4O1xufVxuXG4uZmlsZS1uYW1lIHtcbiAgZm9udC1zaXplOiAxNnB4O1xuICBjb2xvcjogQGRvdmUtZ3JheTtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XG59XG5cbi5maWxlLW5hbWUtZm9ybWF0IHtcbiAgcGFkZGluZy1sZWZ0OiAxMXB4O1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uZmlsZS1mb3JtYXQge1xuICBmb250LXNpemU6IDEwcHg7XG4gIHBhZGRpbmctdG9wOiAzcHg7XG4gIGNvbG9yOiBAc2lsdmVyLWNoYWxpY2U7XG59XG5cbi5saXN0LWZpbGVzLWxpbmVzLCAuZ28tdXAge1xuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgQG1lcmN1cnk7XG59XG5cbi5saXN0LWZpbGVzLWxpbmVzOmhvdmVye1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBAbmF2LWFjY2VudC1iYWNrZ3JvdW5kO1xufVxuXG4uZ2QtZG5kLXdyYXAge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRkZGO1xuICBjdXJzb3I6IGRlZmF1bHQ7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogY2FsYygxMDAlIC0gNjBweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMjU1LDI1NSwyNTUsMC43KTtcbiAgei1pbmRleDogMTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbi5kbmQtd3JhcHBlciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICB0b3A6IDI1OXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIC50ZXh0IHtcbiAgICBjb2xvcjogQGRvdmUtZ3JheTtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gIH1cbiAgLmljb24ge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgd2lkdGg6IDExM3B4O1xuICAgIGhlaWdodDogOTBweDtcbiAgICBmb250LXNpemU6IDkwcHg7XG4gICAgY29sb3I6IEBwcmltYXJ5O1xuICAgIG1hcmdpbi1ib3R0b206IDMwcHg7XG4gIH1cbn1cblxuQG1lZGlhIChtYXgtd2lkdGg6IDEwMzdweCkge1xuICAuaGVhZGVyLXNpemUsIC5maWxlLXNpemUge1xuICAgIHdpZHRoOiAxOCU7XG4gIH1cbiAgLmdkLWRuZC13cmFwIHtcbiAgICB3aWR0aDogOTUlO1xuICB9XG4gICNnZC1icm93c2Utc2VjdGlvbntcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IGNhbGMoMTAwJSAtIDE0NnB4KTtcbiAgfVxufVxuIiwiLmdkLW1vZGFsLXRhYmxlIHtcbiAgd2lkdGg6IDEwMCU7XG4gIHRleHQtYWxpZ246IGxlZnQ7XG59XG4jZ2QtYnJvd3NlLXNlY3Rpb24ge1xuICB3aWR0aDogMTAzNnB4O1xuICBoZWlnaHQ6IDU2MXB4O1xuICBvdmVyZmxvdy15OiBhdXRvO1xufVxuLmxpc3QtZmlsZXMtaGVhZGVyIHtcbiAgaGVpZ2h0OiA2MHB4O1xuICBjb2xvcjogIzZlNmU2ZTtcbiAgZm9udC1zaXplOiAxM3B4O1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y0ZjRmNDtcbiAgbWFyZ2luLXRvcDogMjRweDtcbn1cbi5saXN0LWZpbGVzLWhlYWRlci51cGxvYWQtdXJsIHtcbiAgbWFyZ2luLXRvcDogMjBweDtcbn1cbi5oZWFkZXItbmFtZSB7XG4gIHBhZGRpbmctbGVmdDogMjRweDtcbiAgd2lkdGg6IDkwJTtcbiAgbGluZS1oZWlnaHQ6IDYwcHg7XG59XG4uaGVhZGVyLXNpemUge1xuICBwYWRkaW5nLXJpZ2h0OiAyN3B4O1xuICBsaW5lLWhlaWdodDogNjBweDtcbn1cbi5oZWFkZXItc2l6ZSxcbi5maWxlLXNpemUge1xuICB3aWR0aDogMTAlO1xuICBjb2xvcjogIzc3Nzc3NztcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XG59XG4uZmlsZS1kZXNjcmlwdGlvbiB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIHdpZHRoOiA5MCU7XG4gIHBhZGRpbmc6IDE4cHggMHB4IDE4cHggMjRweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBmbGV4OiAxO1xufVxuLmZpbGUtc2l6ZSB7XG4gIGZvbnQtc2l6ZTogMTJweDtcbiAgcGFkZGluZzogMHB4IDI3cHggMHB4IDBweDtcbiAgd2lkdGg6IDEwJTtcbiAgbGluZS1oZWlnaHQ6IDc5cHg7XG59XG4uZmlsZS1kZXNjcmlwdGlvbiB7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cbi5saXN0LWZpbGVzLWxpbmVzLFxuLmxpc3QtZmlsZXMtaGVhZGVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgd2lkdGg6IDEwMCU7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2Vlbjtcbn1cbi5nZC1tb2RhbC1zcGlubmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZmZmZjtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMjBweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBmb250LXNpemU6IDE2cHg7XG59XG4uZ2QtY2FuY2VsLWJ1dHRvbiB7XG4gIHBhZGRpbmc6IDdweDtcbiAgYmFja2dyb3VuZDogbm9uZTtcbiAgd2lkdGg6IDI4cHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG4uZ2QtY2FuY2VsLWJ1dHRvbiBpIHtcbiAgZm9udC1zaXplOiAyMXB4O1xufVxuLmdkLWZpbGUtbmFtZSB7XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIHdpZHRoOiAxMDAlO1xuICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcbn1cbi5nby11cCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZvbnQtc2l6ZTogMjZweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBjb2xvcjogIzRiNTY2YztcbiAgaGVpZ2h0OiA3OXB4O1xufVxuLmdvLXVwLWRvdHMge1xuICBtYXJnaW4tbGVmdDogMjBweDtcbiAgbWFyZ2luLXRvcDogMjJweDtcbiAgZm9udC1zaXplOiAxNnB4O1xufVxuLmdvLXVwLWljb24ge1xuICBkaXNwbGF5OiBibG9jaztcbiAgcGFkZGluZzogMThweCAwcHggMThweCAyNHB4O1xufVxuLnVwbG9hZC1wYW5lbCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgd2lkdGg6IDEwMCU7XG59XG4udXBsb2FkLXBhbmVsIC5jb250ZXh0IHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi1sZWZ0OiAyNHB4O1xuICBtYXJnaW4tdG9wOiAyNHB4O1xuICBtYXJnaW4tcmlnaHQ6IDI0cHg7XG59XG4udXBsb2FkLXBhbmVsIC5jb250ZXh0IC5jb250ZXh0LWFjdGlvbnMge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICB3aWR0aDogMTAwJTtcbn1cbi51cGxvYWQtcGFuZWwgLmNvbnRleHQgLmNvbnRleHQtYWN0aW9ucyAqOmxhc3QtY2hpbGQge1xuICBtYXJnaW4tcmlnaHQ6IDBweDtcbn1cbi51cGxvYWQtcGFuZWwgLmNvbnRleHQgLmNvbnRleHQtYWN0aW9ucyA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gIGhlaWdodDogMzdweDtcbiAgd2lkdGg6IDk2cHg7XG4gIHBhZGRpbmc6IDBweDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG59XG4udXBsb2FkLXBhbmVsIC5jb250ZXh0IC5jb250ZXh0LWFjdGlvbnMgOjpuZy1kZWVwIC5idXR0b24gOjpuZy1kZWVwIC50ZXh0IHtcbiAgZm9udC1zaXplOiAxMHB4O1xufVxuLnVwbG9hZC1wYW5lbCAuY29udGV4dCAuY29udGV4dC1wYW5lbCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIHdpZHRoOiAxMDAlO1xuICBtYXJnaW4tdG9wOiAyMHB4O1xufVxuLnVwbG9hZC1wYW5lbCAuY29udGV4dCAuY29udGV4dC1wYW5lbCAudXBsb2FkLXVybCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIHdpZHRoOiAxMDAlO1xufVxuLnVwbG9hZC1wYW5lbCAuY29udGV4dCAuY29udGV4dC1wYW5lbCAudXBsb2FkLXVybCAudXJsLWlucHV0IHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMjdweDtcbiAgYm9yZGVyOiAxcHggc29saWQgIzI1YzJkNDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBwYWRkaW5nLWxlZnQ6IDZweDtcbn1cbi51cGxvYWQtcGFuZWwgLmNvbnRleHQgLmNvbnRleHQtcGFuZWwgLnVwbG9hZC11cmwgLnVybC1jaGVjayB7XG4gIHdpZHRoOiAzMXB4O1xuICBoZWlnaHQ6IDMxcHg7XG4gIGNvbG9yOiAjRkZGRkZGO1xuICBmb250LXNpemU6IDE1cHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICMyNWMyZDQ7XG59XG4udXBsb2FkLXBhbmVsIC5jb250ZXh0IC5jb250ZXh0LXBhbmVsIC51cGxvYWQtdXJsIC51cmwtY2hlY2sgLm5nLWZhLWljb24ge1xuICBkaXNwbGF5OiBibG9jaztcbiAgcGFkZGluZzogOHB4O1xufVxuLnVwbG9hZC1wYW5lbCBnZC1kcm9wLWRvd24ge1xuICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG59XG4uZmlsZS1kZXNjcmlwdGlvbiAubmctZmEtaWNvbi5mYS1maWxlLXBkZiB7XG4gIGNvbG9yOiAjZTA0ZTRlO1xufVxuLmZpbGUtZGVzY3JpcHRpb24gLm5nLWZhLWljb24uZmEtZmlsZS13b3JkIHtcbiAgY29sb3I6ICM1MzlDRjA7XG59XG4uZmlsZS1kZXNjcmlwdGlvbiAubmctZmEtaWNvbi5mYS1maWxlLXBvd2VycG9pbnQge1xuICBjb2xvcjogI2UyOWUxZTtcbn1cbi5maWxlLWRlc2NyaXB0aW9uIC5uZy1mYS1pY29uLmZhLWZpbGUtZXhjZWwge1xuICBjb2xvcjogIzdjYmM0Njtcbn1cbi5maWxlLWRlc2NyaXB0aW9uIC5uZy1mYS1pY29uLmZhLWZpbGUtaW1hZ2Uge1xuICBjb2xvcjogI2MzNzVlZDtcbn1cbi5maWxlLWRlc2NyaXB0aW9uIC5uZy1mYS1pY29uLmZhLWZpbGUtdGV4dCAuZmEtZm9sZGVyLFxuLmZpbGUtZGVzY3JpcHRpb24gLm5nLWZhLWljb24uZmEtZmlsZSxcbi5maWxlLWRlc2NyaXB0aW9uIC5uZy1mYS1pY29uLmZhLWZpbGUtYWx0IHtcbiAgY29sb3I6ICM0YjU2NmM7XG59XG4uZmlsZS1kZXNjcmlwdGlvbiAubmctZmEtaWNvbiB7XG4gIGZvbnQtc2l6ZTogMzJweDtcbn1cbi5maWxlLW5hbWUge1xuICBmb250LXNpemU6IDE2cHg7XG4gIGNvbG9yOiAjNmU2ZTZlO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcbn1cbi5maWxlLW5hbWUtZm9ybWF0IHtcbiAgcGFkZGluZy1sZWZ0OiAxMXB4O1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuLmZpbGUtZm9ybWF0IHtcbiAgZm9udC1zaXplOiAxMHB4O1xuICBwYWRkaW5nLXRvcDogM3B4O1xuICBjb2xvcjogI2FjYWNhYztcbn1cbi5saXN0LWZpbGVzLWxpbmVzLFxuLmdvLXVwIHtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNlN2U3ZTc7XG59XG4ubGlzdC1maWxlcy1saW5lczpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNFNUU1RTU7XG59XG4uZ2QtZG5kLXdyYXAge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRkZGO1xuICBjdXJzb3I6IGRlZmF1bHQ7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogY2FsYygxMDAlIC0gNjBweCk7XG4gIGJhY2tncm91bmQ6IHJnYmEoMjU1LCAyNTUsIDI1NSwgMC43KTtcbiAgei1pbmRleDogMTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG4uZG5kLXdyYXBwZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgdG9wOiAyNTlweDtcbiAgcG9zaXRpb246IGFic29sdXRlO1xufVxuLmRuZC13cmFwcGVyIC50ZXh0IHtcbiAgY29sb3I6ICM2ZTZlNmU7XG4gIGZvbnQtc2l6ZTogMTRweDtcbn1cbi5kbmQtd3JhcHBlciAuaWNvbiB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIHdpZHRoOiAxMTNweDtcbiAgaGVpZ2h0OiA5MHB4O1xuICBmb250LXNpemU6IDkwcHg7XG4gIGNvbG9yOiAjM0U0RTVBO1xuICBtYXJnaW4tYm90dG9tOiAzMHB4O1xufVxuQG1lZGlhIChtYXgtd2lkdGg6IDEwMzdweCkge1xuICAuaGVhZGVyLXNpemUsXG4gIC5maWxlLXNpemUge1xuICAgIHdpZHRoOiAxOCU7XG4gIH1cbiAgLmdkLWRuZC13cmFwIHtcbiAgICB3aWR0aDogOTUlO1xuICB9XG4gICNnZC1icm93c2Utc2VjdGlvbiB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiBjYWxjKDEwMCUgLSAxNDZweCk7XG4gIH1cbn1cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.ts":
-/*!***************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.ts ***!
-  \***************************************************************************************************************************/
-/*! exports provided: BrowseFilesModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BrowseFilesModalComponent", function() { return BrowseFilesModalComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _file_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../file.service */ "../../libs/common-components/src/lib/file.service.ts");
-/* harmony import */ var _upload_files_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../upload-files.service */ "../../libs/common-components/src/lib/upload-files.service.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
-
-
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_4__;
-var upload_disc = 'Disc';
-var upload_url = 'URL';
-var uploads_choices = [{ name: upload_disc, icon: 'hdd' }, { name: upload_url, icon: 'link' }];
-var BrowseFilesModalComponent = /** @class */ (function () {
-    function BrowseFilesModalComponent(_uploadService) {
-        this._uploadService = _uploadService;
-        this.uploads = uploads_choices;
-        this.selectedFileGuid = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.selectedDirectory = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.urlForUpload = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.closing = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.showUploadUrl = false;
-        this.showUploadFile = false;
-    }
-    BrowseFilesModalComponent.prototype.ngOnInit = function () {
-    };
-    BrowseFilesModalComponent.prototype.getSize = function (size) {
-        var mb = size / 1024 / 1024;
-        if (mb > 1) {
-            return (Math.round(mb * 100) / 100) + ' MB';
-        }
-        else {
-            var kb = size / 1024;
-            if (kb > 1) {
-                return (Math.round(kb * 100) / 100) + ' KB';
-            }
-        }
-        return size + ' Bytes';
-    };
-    BrowseFilesModalComponent.prototype.getFormatName = function (file) {
-        return _file_service__WEBPACK_IMPORTED_MODULE_2__["FileUtil"].find(file.name, file.directory).format;
-    };
-    BrowseFilesModalComponent.prototype.getFormatIcon = function (file) {
-        return _file_service__WEBPACK_IMPORTED_MODULE_2__["FileUtil"].find(file.name, file.directory).icon;
-    };
-    BrowseFilesModalComponent.prototype.choose = function (file) {
-        this.selectedFile = file;
-        if (file.directory || file.isDirectory) {
-            this.selectedDirectory.emit(file.name);
-        }
-        else {
-            this.selectedFileGuid.emit(file.guid);
-        }
-    };
-    BrowseFilesModalComponent.prototype.goUp = function () {
-        if (this.selectedFile) {
-            var guid = this.selectedFile.guid;
-            if (guid.length > 0 && guid.indexOf('/') === -1) {
-                guid = '';
-            }
-            else {
-                guid = guid.replace(/\/[^\/]+\/?$/, '');
-            }
-            this.selectedDirectory.emit(guid);
-        }
-    };
-    BrowseFilesModalComponent.prototype.selectUpload = function ($event) {
-        if (upload_url === $event) {
-            this.showUploadUrl = true;
-        }
-        else {
-            this.showUploadUrl = false;
-            $("#gd-upload-input").trigger('click');
-        }
-    };
-    BrowseFilesModalComponent.prototype.refresh = function ($event) {
-        if ($event) {
-            this.files = null;
-            this.selectedDirectory.emit('');
-            this.showUploadUrl = false;
-            this.selectedFile = null;
-        }
-        else {
-            this.closing.emit(true);
-        }
-    };
-    BrowseFilesModalComponent.prototype.showSpinner = function () {
-        return !this.files;
-    };
-    BrowseFilesModalComponent.prototype.uploadUrl = function (url) {
-        if (url) {
-            this.urlForUpload.emit(url);
-            this.cleanUpload();
-        }
-    };
-    BrowseFilesModalComponent.prototype.handleFileInput = function (files) {
-        this._uploadService.changeFilesList(files);
-    };
-    BrowseFilesModalComponent.prototype.cleanUpload = function () {
-        this.showUploadFile = false;
-        this.showUploadUrl = false;
-    };
-    BrowseFilesModalComponent.ctorParameters = function () { return [
-        { type: _upload_files_service__WEBPACK_IMPORTED_MODULE_3__["UploadFilesService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BrowseFilesModalComponent.prototype, "files", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BrowseFilesModalComponent.prototype, "uploadConfig", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BrowseFilesModalComponent.prototype, "selectedFileGuid", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BrowseFilesModalComponent.prototype, "selectedDirectory", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BrowseFilesModalComponent.prototype, "urlForUpload", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], BrowseFilesModalComponent.prototype, "closing", void 0);
-    BrowseFilesModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-browse-files-modal',
-            template: __webpack_require__(/*! raw-loader!./browse-files-modal.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.html"),
-            styles: [__webpack_require__(/*! ./browse-files-modal.component.less */ "../../libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_upload_files_service__WEBPACK_IMPORTED_MODULE_3__["UploadFilesService"]])
-    ], BrowseFilesModalComponent);
-    return BrowseFilesModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/button/button.component.less":
-/*!*****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/button/button.component.less ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".icon-button {\n  padding: 0px !important;\n  margin: 0px 7px;\n}\n.button {\n  padding: 0px 10px;\n  font-size: 14px;\n  color: #959da5;\n  cursor: pointer;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-align: center;\n          align-items: center;\n  align-content: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n  min-width: 37px;\n  height: 37px;\n  text-align: center;\n  position: relative;\n  white-space: nowrap;\n}\n.button.inactive {\n  cursor: not-allowed;\n  opacity: 0.4;\n}\n.button.active * {\n  color: #ccd0d4;\n}\n.button.primary {\n  background-color: #3E4E5A;\n  color: #FFF;\n}\n.button.primary.active {\n  color: #FFF;\n  background-color: #688296;\n}\n.button.brand {\n  background-color: #25c2d4;\n  color: #FFF;\n}\n.button.brand.active {\n  color: #FFF;\n  background-color: #688296;\n}\n.button .text {\n  font-size: 13px;\n  padding-left: 10px;\n}\n.button .button-tooltip {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n}\n@media (max-width: 1037px) {\n  .button {\n    font-size: 22px;\n  }\n  .arrow-button {\n    margin: 5px;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9idXR0b24vQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9idXR0b24vYnV0dG9uLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2J1dHRvbi9idXR0b24uY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0E7RUFDRSx1QkFBQTtFQUNBLGVBQUE7QUNGRjtBREtBO0VBQ0UsaUJBQUE7RUFDQSxlQUFBO0VBQ0EsY0FBQTtFQUNBLGVBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw0QkFBQTtFQUFBLDZCQUFBO1VBQUEsc0JBQUE7RUFDQSx5QkFBQTtVQUFBLG1CQUFBO0VBQ0EscUJBQUE7RUFDQSx3QkFBQTtVQUFBLHVCQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7RUFDQSxrQkFBQTtFQUNBLGtCQUFBO0VBQ0EsbUJBQUE7QUNIRjtBREtFO0VBQ0UsbUJBQUE7RUFDQSxZQUFBO0FDSEo7QURLRTtFQUNFLGNBQUE7QUNISjtBRE1FO0VBQ0UseUJBQUE7RUFDQSxXQUFBO0FDSko7QURLSTtFQUNFLFdBQUE7RUFDQSx5QkFBQTtBQ0hOO0FET0U7RUFDRSx5QkFBQTtFQUNBLFdBQUE7QUNMSjtBRE1JO0VBQ0UsV0FBQTtFQUNBLHlCQUFBO0FDSk47QURsQ0E7RUEyQ0ksZUFBQTtFQUNBLGtCQUFBO0FDTko7QUR0Q0E7RUFnREksb0JBQUE7RUFBQSxhQUFBO0VBQ0EsNEJBQUE7RUFBQSw2QkFBQTtVQUFBLHNCQUFBO0FDUEo7QURZQTtFQUNFO0lBQ0UsZUFBQTtFQ1ZGO0VEYUE7SUFDRSxXQUFBO0VDWEY7QUFDRiIsImZpbGUiOiJsaWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvYnV0dG9uL2J1dHRvbi5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuXG4uaWNvbi1idXR0b257XG4gIHBhZGRpbmc6IDBweCAhaW1wb3J0YW50O1xuICBtYXJnaW46IDBweCA3cHg7XG59XG5cbi5idXR0b24ge1xuICBwYWRkaW5nOiAwcHggMTBweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogQHJlZ2VudC1ncmF5O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIG1pbi13aWR0aDogMzdweDtcbiAgaGVpZ2h0OiAzN3B4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcblxuICAmLmluYWN0aXZle1xuICAgIGN1cnNvcjogbm90LWFsbG93ZWQ7XG4gICAgb3BhY2l0eTogLjQ7XG4gIH1cbiAgJi5hY3RpdmUgKntcbiAgICBjb2xvcjogbGlnaHRlbihyZ2IoMTQ5LDE1NywxNjUpLDIwJSk7XG4gIH1cblxuICAmLnByaW1hcnl7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogQHByaW1hcnk7XG4gICAgY29sb3I6ICNGRkY7XG4gICAgJi5hY3RpdmV7XG4gICAgICBjb2xvcjogI0ZGRjtcbiAgICAgIGJhY2tncm91bmQtY29sb3I6IGxpZ2h0ZW4oQHByaW1hcnksMjAlKTtcbiAgICB9XG4gIH1cblxuICAmLmJyYW5ke1xuICAgIGJhY2tncm91bmQtY29sb3I6IEBicmFuZDtcbiAgICBjb2xvcjogI0ZGRjtcbiAgICAmLmFjdGl2ZXtcbiAgICAgIGNvbG9yOiAjRkZGO1xuICAgICAgYmFja2dyb3VuZC1jb2xvcjogbGlnaHRlbihAcHJpbWFyeSwyMCUpO1xuICAgIH1cbiAgfVxuXG4gIC50ZXh0e1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbiAgICBwYWRkaW5nLWxlZnQ6IDEwcHg7XG4gIH1cblxuICAuYnV0dG9uLXRvb2x0aXAge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgfVxufVxuXG5cbkBtZWRpYSBAcGhvbmUtZG93biB7XG4gIC5idXR0b24ge1xuICAgIGZvbnQtc2l6ZTogMjJweDtcbiAgfVxuXG4gIC5hcnJvdy1idXR0b24ge1xuICAgIG1hcmdpbjogNXB4O1xuICB9XG59XG4iLCIuaWNvbi1idXR0b24ge1xuICBwYWRkaW5nOiAwcHggIWltcG9ydGFudDtcbiAgbWFyZ2luOiAwcHggN3B4O1xufVxuLmJ1dHRvbiB7XG4gIHBhZGRpbmc6IDBweCAxMHB4O1xuICBmb250LXNpemU6IDE0cHg7XG4gIGNvbG9yOiAjOTU5ZGE1O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIG1pbi13aWR0aDogMzdweDtcbiAgaGVpZ2h0OiAzN3B4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbn1cbi5idXR0b24uaW5hY3RpdmUge1xuICBjdXJzb3I6IG5vdC1hbGxvd2VkO1xuICBvcGFjaXR5OiAwLjQ7XG59XG4uYnV0dG9uLmFjdGl2ZSAqIHtcbiAgY29sb3I6ICNjY2QwZDQ7XG59XG4uYnV0dG9uLnByaW1hcnkge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjM0U0RTVBO1xuICBjb2xvcjogI0ZGRjtcbn1cbi5idXR0b24ucHJpbWFyeS5hY3RpdmUge1xuICBjb2xvcjogI0ZGRjtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzY4ODI5Njtcbn1cbi5idXR0b24uYnJhbmQge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMjVjMmQ0O1xuICBjb2xvcjogI0ZGRjtcbn1cbi5idXR0b24uYnJhbmQuYWN0aXZlIHtcbiAgY29sb3I6ICNGRkY7XG4gIGJhY2tncm91bmQtY29sb3I6ICM2ODgyOTY7XG59XG4uYnV0dG9uIC50ZXh0IHtcbiAgZm9udC1zaXplOiAxM3B4O1xuICBwYWRkaW5nLWxlZnQ6IDEwcHg7XG59XG4uYnV0dG9uIC5idXR0b24tdG9vbHRpcCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gIC5idXR0b24ge1xuICAgIGZvbnQtc2l6ZTogMjJweDtcbiAgfVxuICAuYXJyb3ctYnV0dG9uIHtcbiAgICBtYXJnaW46IDVweDtcbiAgfVxufVxuIl19 */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/button/button.component.ts":
-/*!***************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/button/button.component.ts ***!
-  \***************************************************************************************************/
-/*! exports provided: ButtonComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonComponent", function() { return ButtonComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _window_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../window.service */ "../../libs/common-components/src/lib/window.service.ts");
-
-
-
-var ButtonComponent = /** @class */ (function () {
-    function ButtonComponent(windowService) {
-        var _this = this;
-        this.iconOnly = true;
-        this.intent = 'default';
-        this.disabled = false;
-        this.toggle = false;
-        this.iconRegular = false;
-        this.elementPosition = 0;
-        this.showToolTip = false;
-        this.isDesktop = windowService.isDesktop();
-        windowService.onResize.subscribe(function (w) {
-            _this.isDesktop = windowService.isDesktop();
-        });
-    }
-    ButtonComponent.prototype.iconButtonClass = function () {
-        return this.iconOnly ? 'icon-button' : '';
-    };
-    ButtonComponent.prototype.onHovering = function () {
-        if (this.isDesktop && !this.disabled) {
-            this.className += ' active';
-        }
-    };
-    ButtonComponent.prototype.onUnhovering = function () {
-        if (this.isDesktop && !this.disabled) {
-            this.className = this.cleanAll(this.className, ' active');
-        }
-    };
-    ButtonComponent.prototype.cleanAll = function (str, val) {
-        while (str && str.indexOf(val) !== -1) {
-            str = str.replace(val, '');
-        }
-        return str;
-    };
-    ButtonComponent.ctorParameters = function () { return [
-        { type: _window_service__WEBPACK_IMPORTED_MODULE_2__["WindowService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonComponent.prototype, "iconOnly", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonComponent.prototype, "intent", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonComponent.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ButtonComponent.prototype, "icon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ButtonComponent.prototype, "iconClass", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ButtonComponent.prototype, "tooltip", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ButtonComponent.prototype, "className", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonComponent.prototype, "toggle", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ButtonComponent.prototype, "iconSize", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonComponent.prototype, "iconRegular", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ButtonComponent.prototype, "elementPosition", void 0);
-    ButtonComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-button',
-            template: __webpack_require__(/*! raw-loader!./button.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/button/button.component.html"),
-            styles: [__webpack_require__(/*! ./button.component.less */ "../../libs/common-components/src/lib/button/button.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_window_service__WEBPACK_IMPORTED_MODULE_2__["WindowService"]])
-    ], ButtonComponent);
-    return ButtonComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/color-picker/color-picker.component.less":
-/*!*****************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/color-picker/color-picker.component.less ***!
-  \*****************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".bcPicker-picker {\n  border: 1px;\n  border-radius: 100%;\n}\n.bcPicker-palette {\n  width: 250px;\n  background-color: #fdfdfd;\n  z-index: 999;\n  box-shadow: 0 0 5px #efefef;\n  display: -webkit-box;\n  display: flex;\n  flex-wrap: wrap;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.bcPicker-palette > .bcPicker-color {\n  width: 18px;\n  height: 18px;\n  margin: 2px;\n  cursor: pointer;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9jb2xvci1waWNrZXIvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9jb2xvci1waWNrZXIvY29sb3ItcGlja2VyLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2NvbG9yLXBpY2tlci9jb2xvci1waWNrZXIuY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFBO0VBQ0EsbUJBQUE7QUNDRjtBREVBO0VBQ0UsWUFBQTtFQUNBLHlCQUFBO0VBQ0EsWUFBQTtFQUNBLDJCQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7QUNBRjtBREdBO0VBQ0UsV0FBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsZUFBQTtBQ0RGIiwiZmlsZSI6ImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9jb2xvci1waWNrZXIvY29sb3ItcGlja2VyLmNvbXBvbmVudC5sZXNzIiwic291cmNlc0NvbnRlbnQiOlsiLmJjUGlja2VyLXBpY2tlcntcbiAgYm9yZGVyOiAxcHg7XG4gIGJvcmRlci1yYWRpdXM6IDEwMCU7XG59XG5cbi5iY1BpY2tlci1wYWxldHRle1xuICB3aWR0aDogMjUwcHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZGZkZmQ7XG4gIHotaW5kZXg6IDk5OTtcbiAgYm94LXNoYWRvdzogMCAwIDVweCAjZWZlZmVmO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG4uYmNQaWNrZXItcGFsZXR0ZSA+IC5iY1BpY2tlci1jb2xvcntcbiAgd2lkdGg6IDE4cHg7XG4gIGhlaWdodDogMThweDtcbiAgbWFyZ2luOiAycHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cbiIsIi5iY1BpY2tlci1waWNrZXIge1xuICBib3JkZXI6IDFweDtcbiAgYm9yZGVyLXJhZGl1czogMTAwJTtcbn1cbi5iY1BpY2tlci1wYWxldHRlIHtcbiAgd2lkdGg6IDI1MHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmRmZGZkO1xuICB6LWluZGV4OiA5OTk7XG4gIGJveC1zaGFkb3c6IDAgMCA1cHggI2VmZWZlZjtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbi5iY1BpY2tlci1wYWxldHRlID4gLmJjUGlja2VyLWNvbG9yIHtcbiAgd2lkdGg6IDE4cHg7XG4gIGhlaWdodDogMThweDtcbiAgbWFyZ2luOiAycHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/color-picker/color-picker.component.ts":
-/*!***************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/color-picker/color-picker.component.ts ***!
-  \***************************************************************************************************************/
-/*! exports provided: ColorPickerComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColorPickerComponent", function() { return ColorPickerComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var DEFAULT_COLORS = [
-    '#000000', '#434343', '#666666', '#999999', '#B7B7B7', '#CCCCCC', '#D9D9D9', '#EFEFEF', '#F3F3F3', '#FFFFFF',
-    '#980000', '#FF0000', '#FF9900', '#FFFF00', '#00FF00', '#00FFFF', '#4986E8', '#0000FF', '#9900FF', '#FF00FF',
-    '#E6B8AF', '#F4CCCC', '#FDE5CD', '#FFF2CC', '#D9EAD3', '#D0E0E2', '#C9DAF8', '#CFE2F3', '#D9D2E9', '#EAD1DC',
-    '#DD7E6B', '#EA9899', '#F9CB9C', '#FFE59A', '#B7D7A8', '#A2C4C9', '#A4C2F4', '#9FC5E8', '#B4A7D7', '#D5A6BD',
-    '#CC4125', '#E06666', '#F6B26B', '#FFD966', '#92C47D', '#75A5AF', '#6D9EEB', '#6FA9DB', '#8E7CC3', '#C27BA0',
-    '#A61C00', '#CC0000', '#E69138', '#F2C131', '#6AA84F', '#45818E', '#3C78D8', '#3C85C6', '#674EA7', '#A64D79',
-    '#85200B', '#990000', '#B45F05', '#BF9000', '#37761D', '#144F5C', '#1254CC', '#0A5394', '#351C75', '#741B47',
-    '#5B0F00', '#660000', '#783F03', '#7F6000', '#284E13', '#0B343D', '#1B4586', '#063763', '#20124D', '#4C1030',
-];
-var ColorPickerComponent = /** @class */ (function () {
-    function ColorPickerComponent() {
-        this.isOpen = false;
-        this.selectedColor = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.closeOutside = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.colors = DEFAULT_COLORS;
-        this.white = '#FFFFFF';
-    }
-    ColorPickerComponent.prototype.ngOnInit = function () {
-    };
-    ColorPickerComponent.prototype.select = function ($event, color) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        this.selectedColor.emit(color);
-    };
-    ColorPickerComponent.prototype.close = function () {
-        this.isOpen = false;
-        this.closeOutside.emit(true);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ColorPickerComponent.prototype, "isOpen", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ColorPickerComponent.prototype, "selectedColor", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ColorPickerComponent.prototype, "closeOutside", void 0);
-    ColorPickerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-color-picker',
-            template: __webpack_require__(/*! raw-loader!./color-picker.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/color-picker/color-picker.component.html"),
-            styles: [__webpack_require__(/*! ./color-picker.component.less */ "../../libs/common-components/src/lib/color-picker/color-picker.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], ColorPickerComponent);
-    return ColorPickerComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/common-components.module.ts":
-/*!****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/common-components.module.ts ***!
-  \****************************************************************************************************/
-/*! exports provided: CommonComponentsModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonComponentsModule", function() { return CommonComponentsModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _top_toolbar_top_toolbar_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./top-toolbar/top-toolbar.component */ "../../libs/common-components/src/lib/top-toolbar/top-toolbar.component.ts");
-/* harmony import */ var _side_panel_side_panel_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./side-panel/side-panel.component */ "../../libs/common-components/src/lib/side-panel/side-panel.component.ts");
-/* harmony import */ var _button_button_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./button/button.component */ "../../libs/common-components/src/lib/button/button.component.ts");
-/* harmony import */ var _logo_logo_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./logo/logo.component */ "../../libs/common-components/src/lib/logo/logo.component.ts");
-/* harmony import */ var _tooltip_tooltip_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tooltip/tooltip.component */ "../../libs/common-components/src/lib/tooltip/tooltip.component.ts");
-/* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
-/* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "../../node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "../../node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-/* harmony import */ var _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons */ "../../node_modules/@fortawesome/free-regular-svg-icons/index.es.js");
-/* harmony import */ var _config_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./config.service */ "../../libs/common-components/src/lib/config.service.ts");
-/* harmony import */ var _modal_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modal.service */ "../../libs/common-components/src/lib/modal.service.ts");
-/* harmony import */ var _modal_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modal/modal.component */ "../../libs/common-components/src/lib/modal/modal.component.ts");
-/* harmony import */ var _browse_files_modal_browse_files_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./browse-files-modal/browse-files-modal.component */ "../../libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.ts");
-/* harmony import */ var _file_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./file.service */ "../../libs/common-components/src/lib/file.service.ts");
-/* harmony import */ var _document_document_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./document/document.component */ "../../libs/common-components/src/lib/document/document.component.ts");
-/* harmony import */ var _page_page_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./page/page.component */ "../../libs/common-components/src/lib/page/page.component.ts");
-/* harmony import */ var _pipes__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pipes */ "../../libs/common-components/src/lib/pipes.ts");
-/* harmony import */ var _upload_file_zone_upload_file_zone_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./upload-file-zone/upload-file-zone.component */ "../../libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.ts");
-/* harmony import */ var _upload_files_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./upload-files.service */ "../../libs/common-components/src/lib/upload-files.service.ts");
-/* harmony import */ var _dnd_directive__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./dnd.directive */ "../../libs/common-components/src/lib/dnd.directive.ts");
-/* harmony import */ var _scrollable_directive__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./scrollable.directive */ "../../libs/common-components/src/lib/scrollable.directive.ts");
-/* harmony import */ var _mousewheel_directive__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./mousewheel.directive */ "../../libs/common-components/src/lib/mousewheel.directive.ts");
-/* harmony import */ var _navigate_service__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./navigate.service */ "../../libs/common-components/src/lib/navigate.service.ts");
-/* harmony import */ var _page_preload_service__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./page-preload.service */ "../../libs/common-components/src/lib/page-preload.service.ts");
-/* harmony import */ var _zoom_directive__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./zoom.directive */ "../../libs/common-components/src/lib/zoom.directive.ts");
-/* harmony import */ var _zoom_service__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./zoom.service */ "../../libs/common-components/src/lib/zoom.service.ts");
-/* harmony import */ var _select_select_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./select/select.component */ "../../libs/common-components/src/lib/select/select.component.ts");
-/* harmony import */ var _disabled_cursor_directive__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./disabled-cursor.directive */ "../../libs/common-components/src/lib/disabled-cursor.directive.ts");
-/* harmony import */ var _rotation_directive__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./rotation.directive */ "../../libs/common-components/src/lib/rotation.directive.ts");
-/* harmony import */ var _init_state_init_state_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./init-state/init-state.component */ "../../libs/common-components/src/lib/init-state/init-state.component.ts");
-/* harmony import */ var _render_print_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./render-print.service */ "../../libs/common-components/src/lib/render-print.service.ts");
-/* harmony import */ var _render_print_directive__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./render-print.directive */ "../../libs/common-components/src/lib/render-print.directive.ts");
-/* harmony import */ var _error_modal_error_modal_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./error-modal/error-modal.component */ "../../libs/common-components/src/lib/error-modal/error-modal.component.ts");
-/* harmony import */ var _password_required_password_required_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./password-required/password-required.component */ "../../libs/common-components/src/lib/password-required/password-required.component.ts");
-/* harmony import */ var _exception_message_service__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./exception-message.service */ "../../libs/common-components/src/lib/exception-message.service.ts");
-/* harmony import */ var _password_service__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./password.service */ "../../libs/common-components/src/lib/password.service.ts");
-/* harmony import */ var _error_interceptor_service__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./error-interceptor.service */ "../../libs/common-components/src/lib/error-interceptor.service.ts");
-/* harmony import */ var _search_search_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./search/search.component */ "../../libs/common-components/src/lib/search/search.component.ts");
-/* harmony import */ var _searchable_directive__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./searchable.directive */ "../../libs/common-components/src/lib/searchable.directive.ts");
-/* harmony import */ var _search_service__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./search.service */ "../../libs/common-components/src/lib/search.service.ts");
-/* harmony import */ var _window_service__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./window.service */ "../../libs/common-components/src/lib/window.service.ts");
-/* harmony import */ var _viewport_service__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./viewport.service */ "../../libs/common-components/src/lib/viewport.service.ts");
-/* harmony import */ var _tabbed_toolbars_tabbed_toolbars_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./tabbed-toolbars/tabbed-toolbars.component */ "../../libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.ts");
-/* harmony import */ var _tab_tab_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./tab/tab.component */ "../../libs/common-components/src/lib/tab/tab.component.ts");
-/* harmony import */ var _tabs_tabs_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./tabs/tabs.component */ "../../libs/common-components/src/lib/tabs/tabs.component.ts");
-/* harmony import */ var _formatting_service__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./formatting.service */ "../../libs/common-components/src/lib/formatting.service.ts");
-/* harmony import */ var _color_picker_color_picker_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./color-picker/color-picker.component */ "../../libs/common-components/src/lib/color-picker/color-picker.component.ts");
-/* harmony import */ var _formatting_directive__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./formatting.directive */ "../../libs/common-components/src/lib/formatting.directive.ts");
-/* harmony import */ var _back_formatting_service__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./back-formatting.service */ "../../libs/common-components/src/lib/back-formatting.service.ts");
-/* harmony import */ var _on_close_service__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./on-close.service */ "../../libs/common-components/src/lib/on-close.service.ts");
-/* harmony import */ var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./success-modal/success-modal.component */ "../../libs/common-components/src/lib/success-modal/success-modal.component.ts");
-/* harmony import */ var _editor_directive__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./editor.directive */ "../../libs/common-components/src/lib/editor.directive.ts");
-/* harmony import */ var _loading_mask_loading_mask_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./loading-mask/loading-mask.component */ "../../libs/common-components/src/lib/loading-mask/loading-mask.component.ts");
-/* harmony import */ var _loading_mask_service__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./loading-mask.service */ "../../libs/common-components/src/lib/loading-mask.service.ts");
-/* harmony import */ var _loading_mask_interceptor_service__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./loading-mask-interceptor.service */ "../../libs/common-components/src/lib/loading-mask-interceptor.service.ts");
-/* harmony import */ var _tab_activator_service__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./tab-activator.service */ "../../libs/common-components/src/lib/tab-activator.service.ts");
-/* harmony import */ var _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./drop-down/drop-down.component */ "../../libs/common-components/src/lib/drop-down/drop-down.component.ts");
-/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib_esmodule/index.js");
-/* harmony import */ var _left_side_bar_left_side_bar_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./left-side-bar/left-side-bar.component */ "../../libs/common-components/src/lib/left-side-bar/left-side-bar.component.ts");
-/* harmony import */ var _tooltip_directive__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./tooltip.directive */ "../../libs/common-components/src/lib/tooltip.directive.ts");
-/* harmony import */ var _add_dynamic_component_service__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./add-dynamic-component.service */ "../../libs/common-components/src/lib/add-dynamic-component.service.ts");
-/* harmony import */ var _host_dynamic_directive__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./host-dynamic.directive */ "../../libs/common-components/src/lib/host-dynamic.directive.ts");
-/* harmony import */ var _hosting_dynamic_component_service__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./hosting-dynamic-component.service */ "../../libs/common-components/src/lib/hosting-dynamic-component.service.ts");
-/* harmony import */ var _resizing_resizing_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./resizing/resizing.component */ "../../libs/common-components/src/lib/resizing/resizing.component.ts");
-/* harmony import */ var _top_tab_top_tab_component__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./top-tab/top-tab.component */ "../../libs/common-components/src/lib/top-tab/top-tab.component.ts");
-/* harmony import */ var _top_tab_activator_service__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./top-tab-activator.service */ "../../libs/common-components/src/lib/top-tab-activator.service.ts");
-/* harmony import */ var _text_menu_text_menu_component__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./text-menu/text-menu.component */ "../../libs/common-components/src/lib/text-menu/text-menu.component.ts");
-/* harmony import */ var _context_menu_context_menu_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./context-menu/context-menu.component */ "../../libs/common-components/src/lib/context-menu/context-menu.component.ts");
-/* harmony import */ var _page_marker_directive__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! ./page-marker.directive */ "../../libs/common-components/src/lib/page-marker.directive.ts");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var providers = [_config_service__WEBPACK_IMPORTED_MODULE_12__["ConfigService"],
-    _config_service__WEBPACK_IMPORTED_MODULE_12__["Api"],
-    _modal_service__WEBPACK_IMPORTED_MODULE_13__["ModalService"],
-    _file_service__WEBPACK_IMPORTED_MODULE_16__["FileService"],
-    _file_service__WEBPACK_IMPORTED_MODULE_16__["FileModel"],
-    _file_service__WEBPACK_IMPORTED_MODULE_16__["FileUtil"],
-    _file_service__WEBPACK_IMPORTED_MODULE_16__["Utils"],
-    _pipes__WEBPACK_IMPORTED_MODULE_19__["SanitizeHtmlPipe"],
-    _pipes__WEBPACK_IMPORTED_MODULE_19__["SanitizeResourceHtmlPipe"],
-    _pipes__WEBPACK_IMPORTED_MODULE_19__["SanitizeStylePipe"],
-    _pipes__WEBPACK_IMPORTED_MODULE_19__["HighlightSearchPipe"],
-    _upload_files_service__WEBPACK_IMPORTED_MODULE_21__["UploadFilesService"],
-    _render_print_service__WEBPACK_IMPORTED_MODULE_33__["RenderPrintService"],
-    _navigate_service__WEBPACK_IMPORTED_MODULE_25__["NavigateService"],
-    _page_preload_service__WEBPACK_IMPORTED_MODULE_26__["PagePreloadService"],
-    _zoom_service__WEBPACK_IMPORTED_MODULE_28__["ZoomService"],
-    _exception_message_service__WEBPACK_IMPORTED_MODULE_37__["ExceptionMessageService"],
-    _password_service__WEBPACK_IMPORTED_MODULE_38__["PasswordService"],
-    _error_interceptor_service__WEBPACK_IMPORTED_MODULE_39__["ErrorInterceptorService"],
-    _search_service__WEBPACK_IMPORTED_MODULE_42__["SearchService"],
-    _window_service__WEBPACK_IMPORTED_MODULE_43__["WindowService"],
-    _viewport_service__WEBPACK_IMPORTED_MODULE_44__["ViewportService"],
-    _formatting_service__WEBPACK_IMPORTED_MODULE_48__["FormattingService"],
-    _back_formatting_service__WEBPACK_IMPORTED_MODULE_51__["BackFormattingService"],
-    _on_close_service__WEBPACK_IMPORTED_MODULE_52__["OnCloseService"],
-    _loading_mask_interceptor_service__WEBPACK_IMPORTED_MODULE_57__["LoadingMaskInterceptorService"],
-    _loading_mask_service__WEBPACK_IMPORTED_MODULE_56__["LoadingMaskService"],
-    _tab_activator_service__WEBPACK_IMPORTED_MODULE_58__["TabActivatorService"],
-    _add_dynamic_component_service__WEBPACK_IMPORTED_MODULE_63__["AddDynamicComponentService"],
-    _hosting_dynamic_component_service__WEBPACK_IMPORTED_MODULE_65__["HostingDynamicComponentService"],
-    _top_tab_activator_service__WEBPACK_IMPORTED_MODULE_68__["TopTabActivatorService"]];
-var CommonComponentsModule = /** @class */ (function () {
-    function CommonComponentsModule() {
-        _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_9__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__["fas"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_11__["far"]);
-    }
-    CommonComponentsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_8__["FontAwesomeModule"], ng_click_outside__WEBPACK_IMPORTED_MODULE_60__["ClickOutsideModule"]],
-            declarations: [
-                _top_toolbar_top_toolbar_component__WEBPACK_IMPORTED_MODULE_3__["TopToolbarComponent"],
-                _side_panel_side_panel_component__WEBPACK_IMPORTED_MODULE_4__["SidePanelComponent"],
-                _button_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"],
-                _logo_logo_component__WEBPACK_IMPORTED_MODULE_6__["LogoComponent"],
-                _tooltip_tooltip_component__WEBPACK_IMPORTED_MODULE_7__["TooltipComponent"],
-                _modal_modal_component__WEBPACK_IMPORTED_MODULE_14__["ModalComponent"],
-                _browse_files_modal_browse_files_modal_component__WEBPACK_IMPORTED_MODULE_15__["BrowseFilesModalComponent"],
-                _document_document_component__WEBPACK_IMPORTED_MODULE_17__["DocumentComponent"],
-                _page_page_component__WEBPACK_IMPORTED_MODULE_18__["PageComponent"],
-                _pipes__WEBPACK_IMPORTED_MODULE_19__["SanitizeHtmlPipe"],
-                _pipes__WEBPACK_IMPORTED_MODULE_19__["SanitizeResourceHtmlPipe"],
-                _pipes__WEBPACK_IMPORTED_MODULE_19__["SanitizeStylePipe"],
-                _pipes__WEBPACK_IMPORTED_MODULE_19__["HighlightSearchPipe"],
-                _upload_file_zone_upload_file_zone_component__WEBPACK_IMPORTED_MODULE_20__["UploadFileZoneComponent"],
-                _dnd_directive__WEBPACK_IMPORTED_MODULE_22__["DndDirective"],
-                _scrollable_directive__WEBPACK_IMPORTED_MODULE_23__["ScrollableDirective"],
-                _mousewheel_directive__WEBPACK_IMPORTED_MODULE_24__["MouseWheelDirective"],
-                _zoom_directive__WEBPACK_IMPORTED_MODULE_27__["ZoomDirective"],
-                _select_select_component__WEBPACK_IMPORTED_MODULE_29__["SelectComponent"],
-                _disabled_cursor_directive__WEBPACK_IMPORTED_MODULE_30__["DisabledCursorDirective"],
-                _rotation_directive__WEBPACK_IMPORTED_MODULE_31__["RotationDirective"],
-                _init_state_init_state_component__WEBPACK_IMPORTED_MODULE_32__["InitStateComponent"],
-                _render_print_directive__WEBPACK_IMPORTED_MODULE_34__["RenderPrintDirective"],
-                _error_modal_error_modal_component__WEBPACK_IMPORTED_MODULE_35__["ErrorModalComponent"],
-                _password_required_password_required_component__WEBPACK_IMPORTED_MODULE_36__["PasswordRequiredComponent"],
-                _search_search_component__WEBPACK_IMPORTED_MODULE_40__["SearchComponent"],
-                _searchable_directive__WEBPACK_IMPORTED_MODULE_41__["SearchableDirective"],
-                _tabbed_toolbars_tabbed_toolbars_component__WEBPACK_IMPORTED_MODULE_45__["TabbedToolbarsComponent"],
-                _tab_tab_component__WEBPACK_IMPORTED_MODULE_46__["TabComponent"],
-                _tabs_tabs_component__WEBPACK_IMPORTED_MODULE_47__["TabsComponent"],
-                _color_picker_color_picker_component__WEBPACK_IMPORTED_MODULE_49__["ColorPickerComponent"],
-                _formatting_directive__WEBPACK_IMPORTED_MODULE_50__["FormattingDirective"],
-                _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_53__["SuccessModalComponent"],
-                _editor_directive__WEBPACK_IMPORTED_MODULE_54__["EditorDirective"],
-                _loading_mask_loading_mask_component__WEBPACK_IMPORTED_MODULE_55__["LoadingMaskComponent"],
-                _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__["DropDownComponent"],
-                _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__["DropDownItemComponent"],
-                _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__["DropDownItemsComponent"],
-                _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__["DropDownToggleComponent"],
-                _left_side_bar_left_side_bar_component__WEBPACK_IMPORTED_MODULE_61__["LeftSideBarComponent"],
-                _tooltip_directive__WEBPACK_IMPORTED_MODULE_62__["TooltipDirective"],
-                _host_dynamic_directive__WEBPACK_IMPORTED_MODULE_64__["HostDynamicDirective"],
-                _resizing_resizing_component__WEBPACK_IMPORTED_MODULE_66__["ResizingComponent"],
-                _top_tab_top_tab_component__WEBPACK_IMPORTED_MODULE_67__["TopTabComponent"],
-                _text_menu_text_menu_component__WEBPACK_IMPORTED_MODULE_69__["TextMenuComponent"],
-                _context_menu_context_menu_component__WEBPACK_IMPORTED_MODULE_70__["ContextMenuComponent"],
-                _page_marker_directive__WEBPACK_IMPORTED_MODULE_71__["PageMarkerDirective"]
-            ],
-            exports: [
-                _top_toolbar_top_toolbar_component__WEBPACK_IMPORTED_MODULE_3__["TopToolbarComponent"],
-                _side_panel_side_panel_component__WEBPACK_IMPORTED_MODULE_4__["SidePanelComponent"],
-                _button_button_component__WEBPACK_IMPORTED_MODULE_5__["ButtonComponent"],
-                _logo_logo_component__WEBPACK_IMPORTED_MODULE_6__["LogoComponent"],
-                _tooltip_tooltip_component__WEBPACK_IMPORTED_MODULE_7__["TooltipComponent"],
-                _modal_modal_component__WEBPACK_IMPORTED_MODULE_14__["ModalComponent"],
-                _browse_files_modal_browse_files_modal_component__WEBPACK_IMPORTED_MODULE_15__["BrowseFilesModalComponent"],
-                _document_document_component__WEBPACK_IMPORTED_MODULE_17__["DocumentComponent"],
-                _page_page_component__WEBPACK_IMPORTED_MODULE_18__["PageComponent"],
-                _pipes__WEBPACK_IMPORTED_MODULE_19__["SanitizeResourceHtmlPipe"],
-                _pipes__WEBPACK_IMPORTED_MODULE_19__["SanitizeStylePipe"],
-                _pipes__WEBPACK_IMPORTED_MODULE_19__["HighlightSearchPipe"],
-                _pipes__WEBPACK_IMPORTED_MODULE_19__["SanitizeHtmlPipe"],
-                _upload_file_zone_upload_file_zone_component__WEBPACK_IMPORTED_MODULE_20__["UploadFileZoneComponent"],
-                _scrollable_directive__WEBPACK_IMPORTED_MODULE_23__["ScrollableDirective"],
-                _mousewheel_directive__WEBPACK_IMPORTED_MODULE_24__["MouseWheelDirective"],
-                _select_select_component__WEBPACK_IMPORTED_MODULE_29__["SelectComponent"],
-                _rotation_directive__WEBPACK_IMPORTED_MODULE_31__["RotationDirective"],
-                _init_state_init_state_component__WEBPACK_IMPORTED_MODULE_32__["InitStateComponent"],
-                _render_print_directive__WEBPACK_IMPORTED_MODULE_34__["RenderPrintDirective"],
-                _error_modal_error_modal_component__WEBPACK_IMPORTED_MODULE_35__["ErrorModalComponent"],
-                _password_required_password_required_component__WEBPACK_IMPORTED_MODULE_36__["PasswordRequiredComponent"],
-                _search_search_component__WEBPACK_IMPORTED_MODULE_40__["SearchComponent"],
-                _searchable_directive__WEBPACK_IMPORTED_MODULE_41__["SearchableDirective"],
-                _tabbed_toolbars_tabbed_toolbars_component__WEBPACK_IMPORTED_MODULE_45__["TabbedToolbarsComponent"],
-                _tab_tab_component__WEBPACK_IMPORTED_MODULE_46__["TabComponent"],
-                _tabs_tabs_component__WEBPACK_IMPORTED_MODULE_47__["TabsComponent"],
-                _color_picker_color_picker_component__WEBPACK_IMPORTED_MODULE_49__["ColorPickerComponent"],
-                _formatting_directive__WEBPACK_IMPORTED_MODULE_50__["FormattingDirective"],
-                _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_53__["SuccessModalComponent"],
-                _loading_mask_loading_mask_component__WEBPACK_IMPORTED_MODULE_55__["LoadingMaskComponent"],
-                _dnd_directive__WEBPACK_IMPORTED_MODULE_22__["DndDirective"],
-                _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__["DropDownComponent"],
-                _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__["DropDownItemComponent"],
-                _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__["DropDownItemsComponent"],
-                _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__["DropDownToggleComponent"],
-                _zoom_directive__WEBPACK_IMPORTED_MODULE_27__["ZoomDirective"],
-                _drop_down_drop_down_component__WEBPACK_IMPORTED_MODULE_59__["DropDownToggleComponent"],
-                _left_side_bar_left_side_bar_component__WEBPACK_IMPORTED_MODULE_61__["LeftSideBarComponent"],
-                _tooltip_directive__WEBPACK_IMPORTED_MODULE_62__["TooltipDirective"],
-                _host_dynamic_directive__WEBPACK_IMPORTED_MODULE_64__["HostDynamicDirective"],
-                _resizing_resizing_component__WEBPACK_IMPORTED_MODULE_66__["ResizingComponent"],
-                _top_tab_top_tab_component__WEBPACK_IMPORTED_MODULE_67__["TopTabComponent"],
-                _text_menu_text_menu_component__WEBPACK_IMPORTED_MODULE_69__["TextMenuComponent"],
-                _context_menu_context_menu_component__WEBPACK_IMPORTED_MODULE_70__["ContextMenuComponent"],
-                _page_marker_directive__WEBPACK_IMPORTED_MODULE_71__["PageMarkerDirective"]
-            ],
-            providers: providers
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], CommonComponentsModule);
-    return CommonComponentsModule;
-}());
-
-
-
-/***/ }),
-
 /***/ "../../libs/common-components/src/lib/config.service.ts":
 /*!******************************************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/config.service.ts ***!
@@ -3342,1075 +9569,6 @@ var ConfigService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], ConfigService);
     return ConfigService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/context-menu/context-menu.component.less":
-/*!*****************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/context-menu/context-menu.component.less ***!
-  \*****************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".gd-context-menu-top {\n  top: -44px;\n}\n.gd-context-menu-bottom {\n  bottom: -40px;\n}\n.gd-context-menu {\n  box-shadow: rgba(0, 0, 0, 0.52) 0px 0px 5px;\n  background-color: #FFFFFF;\n  position: absolute;\n  left: 0;\n  right: 0;\n  margin: auto;\n  cursor: default;\n  width: max-content;\n  width: -moz-max-content;\n  width: -webkit-max-content;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  z-index: 999;\n}\n.gd-context-menu .arrows {\n  cursor: move;\n}\n.gd-context-menu ::ng-deep .active {\n  background-color: #e7e7e7;\n}\n.gd-context-menu ::ng-deep .icon-button {\n  margin: 0px !important;\n}\n@media (max-width: 1037px) {\n  .gd-context-menu-top {\n    top: -42px;\n    -webkit-transform-origin: bottom center;\n            transform-origin: bottom center;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9jb250ZXh0LW1lbnUvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9jb250ZXh0LW1lbnUvY29udGV4dC1tZW51LmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2NvbnRleHQtbWVudS9jb250ZXh0LW1lbnUuY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7RUFDRSxVQUFBO0FDREY7QURJQTtFQUNFLGFBQUE7QUNGRjtBREtBO0VBQ0UsMkNBQUE7RUFDQSx5QkFBQTtFQUNBLGtCQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0VBQ0EsdUJBQUE7RUFDQSwwQkFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLFlBQUE7QUNIRjtBRFZBO0VBZ0JJLFlBQUE7QUNISjtBRGJBO0VBb0JJLHlCQUFBO0FDSko7QURoQkE7RUF3Qkksc0JBQUE7QUNMSjtBRFNBO0VBRUU7SUFDRSxVQUFBO0lBQ0EsdUNBQUE7WUFBQSwrQkFBQTtFQ1JGO0FBQ0YiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2NvbnRleHQtbWVudS9jb250ZXh0LW1lbnUuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi4vLi4vLi4vLi4vY29tbW9uLWNvbXBvbmVudHMvc3JjL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuLmdkLWNvbnRleHQtbWVudS10b3Age1xuICB0b3A6IC00NHB4O1xufVxuXG4uZ2QtY29udGV4dC1tZW51LWJvdHRvbSB7XG4gIGJvdHRvbTogLTQwcHg7XG59XG5cbi5nZC1jb250ZXh0LW1lbnUge1xuICBib3gtc2hhZG93OiByZ2JhKDAsIDAsIDAsIDAuNTIpIDBweCAwcHggNXB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRkZGRkZGO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBtYXJnaW46IGF1dG87XG4gIGN1cnNvcjogZGVmYXVsdDtcbiAgd2lkdGg6IG1heC1jb250ZW50O1xuICB3aWR0aDogLW1vei1tYXgtY29udGVudDtcbiAgd2lkdGg6IC13ZWJraXQtbWF4LWNvbnRlbnQ7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIHotaW5kZXg6IDk5OTtcblxuICAuYXJyb3dzIHtcbiAgICBjdXJzb3I6IG1vdmU7XG4gIH1cblxuICA6Om5nLWRlZXAgLmFjdGl2ZSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2U3ZTdlNztcbiAgfVxuXG4gIDo6bmctZGVlcCAuaWNvbi1idXR0b24ge1xuICAgIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7XG4gIH1cbn1cblxuQG1lZGlhIEBwaG9uZS1kb3duIHtcblxuICAuZ2QtY29udGV4dC1tZW51LXRvcCB7XG4gICAgdG9wOiAtNDJweDtcbiAgICB0cmFuc2Zvcm0tb3JpZ2luOiBib3R0b20gY2VudGVyO1xuICB9XG59XG4iLCIuZ2QtY29udGV4dC1tZW51LXRvcCB7XG4gIHRvcDogLTQ0cHg7XG59XG4uZ2QtY29udGV4dC1tZW51LWJvdHRvbSB7XG4gIGJvdHRvbTogLTQwcHg7XG59XG4uZ2QtY29udGV4dC1tZW51IHtcbiAgYm94LXNoYWRvdzogcmdiYSgwLCAwLCAwLCAwLjUyKSAwcHggMHB4IDVweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI0ZGRkZGRjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgbWFyZ2luOiBhdXRvO1xuICBjdXJzb3I6IGRlZmF1bHQ7XG4gIHdpZHRoOiBtYXgtY29udGVudDtcbiAgd2lkdGg6IC1tb3otbWF4LWNvbnRlbnQ7XG4gIHdpZHRoOiAtd2Via2l0LW1heC1jb250ZW50O1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICB6LWluZGV4OiA5OTk7XG59XG4uZ2QtY29udGV4dC1tZW51IC5hcnJvd3Mge1xuICBjdXJzb3I6IG1vdmU7XG59XG4uZ2QtY29udGV4dC1tZW51IDo6bmctZGVlcCAuYWN0aXZlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2U3ZTdlNztcbn1cbi5nZC1jb250ZXh0LW1lbnUgOjpuZy1kZWVwIC5pY29uLWJ1dHRvbiB7XG4gIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gIC5nZC1jb250ZXh0LW1lbnUtdG9wIHtcbiAgICB0b3A6IC00MnB4O1xuICAgIHRyYW5zZm9ybS1vcmlnaW46IGJvdHRvbSBjZW50ZXI7XG4gIH1cbn1cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/context-menu/context-menu.component.ts":
-/*!***************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/context-menu/context-menu.component.ts ***!
-  \***************************************************************************************************************/
-/*! exports provided: MenuType, ContextMenuComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuType", function() { return MenuType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContextMenuComponent", function() { return ContextMenuComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _formatting_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../formatting.service */ "../../libs/common-components/src/lib/formatting.service.ts");
-/* harmony import */ var _window_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../window.service */ "../../libs/common-components/src/lib/window.service.ts");
-/* harmony import */ var _zoom_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../zoom.service */ "../../libs/common-components/src/lib/zoom.service.ts");
-
-
-
-
-
-var MenuType = /** @class */ (function () {
-    function MenuType() {
-    }
-    MenuType.FOR_SIGNATURE = "signature";
-    MenuType.FOR_ANNOTATION = "annotation";
-    return MenuType;
-}());
-
-var ContextMenuComponent = /** @class */ (function () {
-    function ContextMenuComponent(_windowService, _zoomService, _elementRef, renderer) {
-        var _this = this;
-        this._windowService = _windowService;
-        this._zoomService = _zoomService;
-        this._elementRef = _elementRef;
-        this.renderer = renderer;
-        this.formatting = _formatting_service__WEBPACK_IMPORTED_MODULE_2__["Formatting"].default();
-        this.lock = false;
-        this.translation = 0;
-        this.changeFormatting = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.removeItem = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.copySign = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.lockOut = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.comment = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.isMobile = _windowService.isMobile();
-        _windowService.onResize.subscribe(function (w) {
-            _this.isMobile = _windowService.isMobile();
-        });
-        _zoomService.zoomChange.subscribe(function (val) {
-            if (_this.isMobile) {
-                _this.changeScale(val);
-            }
-        });
-    }
-    ContextMenuComponent.prototype.ngOnInit = function () {
-    };
-    ContextMenuComponent.prototype.changeScale = function (val) {
-        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-context-menu'), 'transform', 'scale(' + 1 / (val / 100) + ')');
-    };
-    ContextMenuComponent.prototype.saveChanges = function () {
-        this.changeFormatting.emit(this.formatting);
-    };
-    ContextMenuComponent.prototype.selectFontSize = function ($event) {
-        this.formatting.fontSize = $event;
-        this.saveChanges();
-    };
-    ContextMenuComponent.prototype.selectFont = function ($event) {
-        this.formatting.font = $event;
-        this.saveChanges();
-    };
-    ContextMenuComponent.prototype.selectColor = function ($event) {
-        this.formatting.color = $event;
-        this.saveChanges();
-    };
-    ContextMenuComponent.prototype.toggleBold = function ($event) {
-        this.formatting.bold = $event;
-        this.saveChanges();
-    };
-    ContextMenuComponent.prototype.toggleItalic = function ($event) {
-        this.formatting.italic = $event;
-        this.saveChanges();
-    };
-    ContextMenuComponent.prototype.toggleUnderline = function ($event) {
-        this.formatting.underline = $event;
-        this.saveChanges();
-    };
-    ContextMenuComponent.prototype.deleteItem = function () {
-        this.removeItem.emit(true);
-    };
-    ContextMenuComponent.prototype.toggleLock = function () {
-        this.lock = !this.lock;
-        this.lockOut.emit(this.lock);
-    };
-    ContextMenuComponent.prototype.onCopySign = function () {
-        this.copySign.emit(true);
-    };
-    ContextMenuComponent.prototype.isSignature = function () {
-        return this.menuType === MenuType.FOR_SIGNATURE;
-    };
-    ContextMenuComponent.prototype.isAnnotation = function () {
-        return this.menuType === MenuType.FOR_ANNOTATION;
-    };
-    ContextMenuComponent.prototype.addComment = function () {
-        this.comment.emit(true);
-    };
-    ContextMenuComponent.ctorParameters = function () { return [
-        { type: _window_service__WEBPACK_IMPORTED_MODULE_3__["WindowService"] },
-        { type: _zoom_service__WEBPACK_IMPORTED_MODULE_4__["ZoomService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _formatting_service__WEBPACK_IMPORTED_MODULE_2__["Formatting"])
-    ], ContextMenuComponent.prototype, "formatting", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], ContextMenuComponent.prototype, "textMenu", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], ContextMenuComponent.prototype, "topPosition", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ContextMenuComponent.prototype, "lock", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ContextMenuComponent.prototype, "translation", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ContextMenuComponent.prototype, "menuType", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ContextMenuComponent.prototype, "changeFormatting", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ContextMenuComponent.prototype, "removeItem", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ContextMenuComponent.prototype, "copySign", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ContextMenuComponent.prototype, "lockOut", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ContextMenuComponent.prototype, "comment", void 0);
-    ContextMenuComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-context-menu',
-            template: __webpack_require__(/*! raw-loader!./context-menu.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/context-menu/context-menu.component.html"),
-            styles: [__webpack_require__(/*! ./context-menu.component.less */ "../../libs/common-components/src/lib/context-menu/context-menu.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_window_service__WEBPACK_IMPORTED_MODULE_3__["WindowService"],
-            _zoom_service__WEBPACK_IMPORTED_MODULE_4__["ZoomService"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"]])
-    ], ContextMenuComponent);
-    return ContextMenuComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/disabled-cursor.directive.ts":
-/*!*****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/disabled-cursor.directive.ts ***!
-  \*****************************************************************************************************/
-/*! exports provided: DisabledCursorDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DisabledCursorDirective", function() { return DisabledCursorDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var DisabledCursorDirective = /** @class */ (function () {
-    function DisabledCursorDirective() {
-    }
-    DisabledCursorDirective.prototype.updateCursor = function () {
-        this.cursor = this.dis ? true : false;
-    };
-    DisabledCursorDirective.prototype.ngOnInit = function () {
-        this.updateCursor();
-    };
-    DisabledCursorDirective.prototype.ngOnChanges = function (changes) {
-        this.updateCursor();
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], DisabledCursorDirective.prototype, "dis", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.inactive'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], DisabledCursorDirective.prototype, "cursor", void 0);
-    DisabledCursorDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdDisabledCursor]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], DisabledCursorDirective);
-    return DisabledCursorDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/dnd.directive.ts":
-/*!*****************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/dnd.directive.ts ***!
-  \*****************************************************************************************/
-/*! exports provided: DndDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DndDirective", function() { return DndDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _upload_files_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./upload-files.service */ "../../libs/common-components/src/lib/upload-files.service.ts");
-
-
-
-var DndDirective = /** @class */ (function () {
-    function DndDirective(_uploadFilesService) {
-        this._uploadFilesService = _uploadFilesService;
-        this.closing = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.opening = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.dropped = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.active = false;
-        this.dragCounter = 0;
-    }
-    DndDirective.prototype.onDragEnter = function (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        this.dragCounter++;
-        this.active = true;
-        this.opening.emit(true);
-    };
-    DndDirective.prototype.onDragOver = function (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        return false;
-    };
-    DndDirective.prototype.onDragLeave = function (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        this.dragCounter--;
-        if (this.dragCounter === 0) {
-            this.active = false;
-            this.closeArea();
-        }
-    };
-    DndDirective.prototype.onDrop = function (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        var files = evt.dataTransfer.files;
-        if (files.length > 0) {
-            this.active = false;
-            this.dropped.emit(true);
-            this._uploadFilesService.changeFilesList(files);
-            this.closeArea();
-        }
-    };
-    DndDirective.prototype.onClick = function (event) {
-        this.closeArea();
-    };
-    DndDirective.prototype.closeArea = function () {
-        this.closing.emit(true);
-        this.opening.emit(false);
-    };
-    DndDirective.ctorParameters = function () { return [
-        { type: _upload_files_service__WEBPACK_IMPORTED_MODULE_2__["UploadFilesService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DndDirective.prototype, "closing", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DndDirective.prototype, "opening", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DndDirective.prototype, "dropped", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.active'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DndDirective.prototype, "active", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('dragenter', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], DndDirective.prototype, "onDragEnter", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('dragover', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], DndDirective.prototype, "onDragOver", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('dragleave', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], DndDirective.prototype, "onDragLeave", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('drop', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], DndDirective.prototype, "onDrop", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], DndDirective.prototype, "onClick", null);
-    DndDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdDnd]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_upload_files_service__WEBPACK_IMPORTED_MODULE_2__["UploadFilesService"]])
-    ], DndDirective);
-    return DndDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/document/document.component.less":
-/*!*********************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/document/document.component.less ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ":host {\n  -webkit-box-flex: 1;\n          flex: 1;\n  -webkit-transition: all 0.4s;\n  transition: all 0.4s;\n  background-color: #e7e7e7;\n  height: 100%;\n  overflow: scroll;\n  touch-action: auto !important;\n}\n:host .document {\n  -webkit-user-select: text !important;\n     -moz-user-select: text !important;\n      -ms-user-select: text !important;\n          user-select: text !important;\n  touch-action: auto !important;\n}\n.page {\n  display: inline-block;\n  background-color: #ffffff;\n  margin: 20px;\n  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n}\n.page.excel {\n  overflow: auto;\n}\n.page.presentation {\n  margin: 0px;\n  -webkit-transition: unset;\n  transition: unset;\n}\n.page.presentation.active {\n  margin: 20px;\n}\n.wait {\n  position: absolute;\n  top: 55px;\n  left: Calc(30%);\n}\n.panzoom {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  flex-wrap: wrap;\n  -webkit-box-pack: center;\n          justify-content: center;\n  align-content: flex-start;\n}\n@media (max-width: 1037px) {\n  .page {\n    min-width: unset !important;\n    min-height: unset !important;\n    margin: 5px 0px;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9kb2N1bWVudC9DOi9HaXRIdWIvR3JvdXBEb2NzL1RvdGFsL0FuZ3VsYXIvbGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2RvY3VtZW50L2RvY3VtZW50LmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2RvY3VtZW50L2RvY3VtZW50LmNvbXBvbmVudC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0UsbUJBQUE7VUFBQSxPQUFBO0VBQ0EsNEJBQUE7RUFBQSxvQkFBQTtFQUNBLHlCQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsNkJBQUE7QUNERjtBRExBO0VBVUksb0NBQUE7S0FBQSxpQ0FBQTtNQUFBLGdDQUFBO1VBQUEsNEJBQUE7RUFDQSw2QkFBQTtBQ0ZKO0FETUE7RUFDRSxxQkFBQTtFQUNBLHlCQUFBO0VBQ0EsWUFBQTtFQUdBLDJDQUFBO0VBQ0EsNEJBQUE7RUFBQSxvQkFBQTtBQ0pGO0FETUU7RUFDRSxjQUFBO0FDSko7QURPRTtFQUNFLFdBQUE7RUFDQSx5QkFBQTtFQUFBLGlCQUFBO0FDTEo7QURNSTtFQUNFLFlBQUE7QUNKTjtBRFNBO0VBQ0Usa0JBQUE7RUFDQSxTQUFBO0VBQ0EsZUFBQTtBQ1BGO0FEVUE7RUFDRSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7RUFDQSxlQUFBO0VBQ0Esd0JBQUE7VUFBQSx1QkFBQTtFQUNBLHlCQUFBO0FDUkY7QURXQTtFQUNFO0lBQ0UsMkJBQUE7SUFDQSw0QkFBQTtJQUNBLGVBQUE7RUNURjtBQUNGIiwiZmlsZSI6ImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9kb2N1bWVudC9kb2N1bWVudC5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uLy4uLy4uL2NvbW1vbi1jb21wb25lbnRzL3NyYy9zdHlsZXMvdmFyaWFibGVzLmxlc3NcIjtcblxuOmhvc3Qge1xuICBmbGV4ICAgICAgICAgICAgOiAxO1xuICB0cmFuc2l0aW9uICAgICAgOiBhbGwgMC40cztcbiAgYmFja2dyb3VuZC1jb2xvcjogQG1lcmN1cnk7XG4gIGhlaWdodCAgICAgICAgICA6IDEwMCU7XG4gIG92ZXJmbG93ICAgICAgICA6IHNjcm9sbDtcbiAgdG91Y2gtYWN0aW9uICAgIDogYXV0byAhaW1wb3J0YW50O1xuXG4gIC5kb2N1bWVudCB7XG4gICAgLy8gbGluZXMgYmVsb3cgYWRkZWQgdG8gZ2V0IHJpZCBvZiBgdXNlci1zZWxlY3Q6IG5vbmVgIGFkZGVkIGJ5IGhhbW1lcmpzXG4gICAgdXNlci1zZWxlY3QgOiB0ZXh0ICFpbXBvcnRhbnQ7XG4gICAgdG91Y2gtYWN0aW9uOiBhdXRvICFpbXBvcnRhbnQ7XG4gIH1cbn1cblxuLnBhZ2Uge1xuICBkaXNwbGF5ICAgICAgICAgICA6IGlubGluZS1ibG9jaztcbiAgYmFja2dyb3VuZC1jb2xvciAgOiAjZmZmZmZmO1xuICBtYXJnaW4gICAgICAgICAgICA6IDIwcHg7XG4gIC13ZWJraXQtYm94LXNoYWRvdzogMHB4IDNweCA2cHggcmdiYSgwLCAwLCAwLCAwLjE2KTtcbiAgLW1vei1ib3gtc2hhZG93ICAgOiAwcHggM3B4IDZweCByZ2JhKDAsIDAsIDAsIDAuMTYpO1xuICBib3gtc2hhZG93ICAgICAgICA6IDBweCAzcHggNnB4IHJnYmEoMCwgMCwgMCwgMC4xNik7XG4gIHRyYW5zaXRpb24gICAgICAgIDogYWxsIDAuM3M7XG5cbiAgJi5leGNlbCB7XG4gICAgb3ZlcmZsb3c6IGF1dG87XG4gIH1cblxuICAmLnByZXNlbnRhdGlvbiB7XG4gICAgbWFyZ2luOiAwcHg7XG4gICAgdHJhbnNpdGlvbjogdW5zZXQ7XG4gICAgJi5hY3RpdmUge1xuICAgICAgbWFyZ2luOiAyMHB4O1xuICAgIH1cbiAgfVxufVxuXG4ud2FpdCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wICAgICA6IDU1cHg7XG4gIGxlZnQgICAgOiBDYWxjKDUwJSAtIDIwcHgpO1xufVxuXG4ucGFuem9vbSB7XG4gIGRpc3BsYXkgICAgICAgIDogZmxleDtcbiAgZmxleC1kaXJlY3Rpb24gOiByb3c7XG4gIGZsZXgtd3JhcCAgICAgIDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWNvbnRlbnQgIDogZmxleC1zdGFydDtcbn1cblxuQG1lZGlhIEBwaG9uZS1kb3duIHtcbiAgLnBhZ2Uge1xuICAgIG1pbi13aWR0aCA6IHVuc2V0ICFpbXBvcnRhbnQ7XG4gICAgbWluLWhlaWdodDogdW5zZXQgIWltcG9ydGFudDtcbiAgICBtYXJnaW4gICAgOiA1cHggMHB4O1xuICB9XG59IiwiOmhvc3Qge1xuICBmbGV4OiAxO1xuICB0cmFuc2l0aW9uOiBhbGwgMC40cztcbiAgYmFja2dyb3VuZC1jb2xvcjogI2U3ZTdlNztcbiAgaGVpZ2h0OiAxMDAlO1xuICBvdmVyZmxvdzogc2Nyb2xsO1xuICB0b3VjaC1hY3Rpb246IGF1dG8gIWltcG9ydGFudDtcbn1cbjpob3N0IC5kb2N1bWVudCB7XG4gIHVzZXItc2VsZWN0OiB0ZXh0ICFpbXBvcnRhbnQ7XG4gIHRvdWNoLWFjdGlvbjogYXV0byAhaW1wb3J0YW50O1xufVxuLnBhZ2Uge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZmZmZmY7XG4gIG1hcmdpbjogMjBweDtcbiAgLXdlYmtpdC1ib3gtc2hhZG93OiAwcHggM3B4IDZweCByZ2JhKDAsIDAsIDAsIDAuMTYpO1xuICAtbW96LWJveC1zaGFkb3c6IDBweCAzcHggNnB4IHJnYmEoMCwgMCwgMCwgMC4xNik7XG4gIGJveC1zaGFkb3c6IDBweCAzcHggNnB4IHJnYmEoMCwgMCwgMCwgMC4xNik7XG4gIHRyYW5zaXRpb246IGFsbCAwLjNzO1xufVxuLnBhZ2UuZXhjZWwge1xuICBvdmVyZmxvdzogYXV0bztcbn1cbi5wYWdlLnByZXNlbnRhdGlvbiB7XG4gIG1hcmdpbjogMHB4O1xuICB0cmFuc2l0aW9uOiB1bnNldDtcbn1cbi5wYWdlLnByZXNlbnRhdGlvbi5hY3RpdmUge1xuICBtYXJnaW46IDIwcHg7XG59XG4ud2FpdCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiA1NXB4O1xuICBsZWZ0OiBDYWxjKDMwJSk7XG59XG4ucGFuem9vbSB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWNvbnRlbnQ6IGZsZXgtc3RhcnQ7XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gIC5wYWdlIHtcbiAgICBtaW4td2lkdGg6IHVuc2V0ICFpbXBvcnRhbnQ7XG4gICAgbWluLWhlaWdodDogdW5zZXQgIWltcG9ydGFudDtcbiAgICBtYXJnaW46IDVweCAwcHg7XG4gIH1cbn1cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/document/document.component.ts":
-/*!*******************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/document/document.component.ts ***!
-  \*******************************************************************************************************/
-/*! exports provided: DocumentComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DocumentComponent", function() { return DocumentComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _file_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../file.service */ "../../libs/common-components/src/lib/file.service.ts");
-/* harmony import */ var _zoom_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../zoom.service */ "../../libs/common-components/src/lib/zoom.service.ts");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _window_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../window.service */ "../../libs/common-components/src/lib/window.service.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _navigate_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../navigate.service */ "../../libs/common-components/src/lib/navigate.service.ts");
-
-
-
-
-
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_6__;
-var DocumentComponent = /** @class */ (function () {
-    function DocumentComponent(_elementRef, _zoomService, _windowService, _navigateService) {
-        var _this = this;
-        this._elementRef = _elementRef;
-        this._zoomService = _zoomService;
-        this._windowService = _windowService;
-        this._navigateService = _navigateService;
-        this.wait = false;
-        this.docWidth = null;
-        this.docHeight = null;
-        this.viewportWidth = null;
-        this.viewportHeight = null;
-        this.scale = null;
-        this.lastScale = null;
-        this.container = null;
-        this.doc = null;
-        this.x = 0;
-        this.lastX = 0;
-        this.y = 0;
-        this.lastY = 0;
-        this.pinchCenter = null;
-        this.pinchCenterOffset = null;
-        this.curWidth = 0;
-        this.curHeight = 0;
-        _zoomService.zoomChange.subscribe(function (val) {
-            _this.zoom = val;
-        });
-        this.isDesktop = _windowService.isDesktop();
-        this._navigateService.navigate.subscribe(((function (value) {
-            _this.selectedPage = value;
-        })));
-    }
-    DocumentComponent.prototype.ngOnInit = function () {
-        if (this.ifPresentation()) {
-            this.selectedPage = this._navigateService.currentPage;
-        }
-    };
-    DocumentComponent.prototype.ngOnChanges = function () {
-    };
-    DocumentComponent.prototype.ngAfterViewInit = function () {
-        // For current iteration we take .panzoom as a document
-        this.doc = this._elementRef.nativeElement.children.item(0).children.item(0);
-        // For current iteration we take .gd-document as a container
-        this.container = this._elementRef.nativeElement;
-        this.docWidth = this.doc.clientWidth;
-        this.docHeight = this.doc.clientHeight;
-        this.viewportWidth = this.doc.offsetWidth;
-        // For cases where we already have zoom defined we should include it
-        this.scale = (this.viewportWidth / this.docWidth) * this._zoomService.zoom / 100;
-        this.lastScale = this.scale;
-        this.viewportHeight = this.container.offsetHeight;
-        this.curWidth = this.docWidth * this.scale;
-        this.curHeight = this.docHeight * this.scale;
-        var hammer = new hammerjs__WEBPACK_IMPORTED_MODULE_4__(this.container);
-    };
-    // TODO: this temporary crutch for Excel files should be documented
-    DocumentComponent.prototype.ifExcel = function () {
-        return _file_service__WEBPACK_IMPORTED_MODULE_2__["FileUtil"].find(this.file.guid, false).format === "Microsoft Excel";
-    };
-    DocumentComponent.prototype.ifPresentation = function () {
-        return _file_service__WEBPACK_IMPORTED_MODULE_2__["FileUtil"].find(this.file.guid, false).format === "Microsoft PowerPoint";
-    };
-    DocumentComponent.prototype.getDimensionWithUnit = function (value, pageNumber) {
-        return this.ifPresentation() && this.showActiveSlide && !this.isVisible(pageNumber) ? 0 : value + (this.mode ? _file_service__WEBPACK_IMPORTED_MODULE_2__["FileUtil"].find(this.file.guid, false).unit : 'px');
-    };
-    DocumentComponent.prototype.ifEdge = function () {
-        return navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-    };
-    DocumentComponent.prototype.ngAfterViewChecked = function () {
-        // for now we are not sure that need this action in current implementation
-        // const elementNodeListOf = this._elementRef.nativeElement.querySelectorAll('.gd-wrapper');
-        // const element = elementNodeListOf.item(0);
-        // if (element) {
-        //   $(element).trigger('focus');
-        // }
-    };
-    DocumentComponent.prototype.isVisible = function (pageNumber) {
-        if (this.ifPresentation()) {
-            return pageNumber === this.selectedPage ? true : false;
-        }
-        else {
-            return true;
-        }
-    };
-    DocumentComponent.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] },
-        { type: _zoom_service__WEBPACK_IMPORTED_MODULE_3__["ZoomService"] },
-        { type: _window_service__WEBPACK_IMPORTED_MODULE_5__["WindowService"] },
-        { type: _navigate_service__WEBPACK_IMPORTED_MODULE_7__["NavigateService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], DocumentComponent.prototype, "mode", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], DocumentComponent.prototype, "preloadPageCount", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _file_service__WEBPACK_IMPORTED_MODULE_2__["FileDescription"])
-    ], DocumentComponent.prototype, "file", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], DocumentComponent.prototype, "selectedPage", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], DocumentComponent.prototype, "showActiveSlide", void 0);
-    DocumentComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-document',
-            template: __webpack_require__(/*! raw-loader!./document.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/document/document.component.html"),
-            styles: [__webpack_require__(/*! ./document.component.less */ "../../libs/common-components/src/lib/document/document.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _zoom_service__WEBPACK_IMPORTED_MODULE_3__["ZoomService"],
-            _window_service__WEBPACK_IMPORTED_MODULE_5__["WindowService"],
-            _navigate_service__WEBPACK_IMPORTED_MODULE_7__["NavigateService"]])
-    ], DocumentComponent);
-    return DocumentComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/drop-down/drop-down.component.less":
-/*!***********************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/drop-down/drop-down.component.less ***!
-  \***********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".drop-down {\n  position: relative;\n}\n.show .drop-down-items {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  position: absolute;\n  z-index: 1000;\n  min-width: 100%;\n  max-height: 300px;\n  padding: 0px;\n  background-color: #ffffff;\n  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);\n  background-clip: padding-box;\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n.show .drop-down-items .drop-down-item,\n.show .drop-down-items gd-drop-down-item {\n  color: #959da5;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  cursor: pointer;\n  font-size: 10px;\n  line-height: 28px;\n  min-height: 28px;\n  width: 100%;\n}\n.show .drop-down-items .drop-down-item fa-icon svg,\n.show .drop-down-items gd-drop-down-item fa-icon svg {\n  margin: 0px 10px;\n  color: #959da5;\n}\n.show .drop-down-items .drop-down-item .text,\n.show .drop-down-items gd-drop-down-item .text {\n  width: 100%;\n  margin-right: 10px;\n}\n.show .drop-down-items .drop-down-item:hover,\n.show .drop-down-items gd-drop-down-item:hover {\n  background-color: #25c2d4;\n}\n.show .drop-down-items .drop-down-item:hover *,\n.show .drop-down-items gd-drop-down-item:hover * {\n  color: #FFF;\n}\n.drop-down-items {\n  display: none;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9kcm9wLWRvd24vQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9kcm9wLWRvd24vZHJvcC1kb3duLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2Ryb3AtZG93bi9kcm9wLWRvd24uY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7RUFDRSxrQkFBQTtBQ0RGO0FESUE7RUFDRSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw0QkFBQTtFQUFBLDZCQUFBO1VBQUEsc0JBQUE7RUFDQSxrQkFBQTtFQUNBLGFBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxZQUFBO0VBQ0EseUJBQUE7RUFDQSwyQ0FBQTtFQUNBLDRCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtBQ0ZGO0FEVkE7O0VBZUksY0FBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLHlCQUFBO1VBQUEsOEJBQUE7RUFDQSxlQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxXQUFBO0FDREo7QUR0QkE7O0VBMEJNLGdCQUFBO0VBQ0EsY0FBQTtBQ0FOO0FEM0JBOztFQStCTSxXQUFBO0VBQ0Esa0JBQUE7QUNBTjtBREdJOztFQUNFLHlCQUFBO0FDQU47QURESTs7RUFHSSxXQUFBO0FDRVI7QURJQTtFQUNFLGFBQUE7QUNGRiIsImZpbGUiOiJsaWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvZHJvcC1kb3duL2Ryb3AtZG93bi5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuLmRyb3AtZG93bntcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuXG4uc2hvdyAuZHJvcC1kb3duLWl0ZW1ze1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHotaW5kZXg6IDEwMDA7XG4gIG1pbi13aWR0aDogMTAwJTtcbiAgbWF4LWhlaWdodDogMzAwcHg7XG4gIHBhZGRpbmc6IDBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZmZmZjtcbiAgYm94LXNoYWRvdzogMCA2cHggMTJweCByZ2JhKDAsIDAsIDAsIDAuMTc1KTtcbiAgYmFja2dyb3VuZC1jbGlwOiBwYWRkaW5nLWJveDtcbiAgb3ZlcmZsb3cteTogYXV0bztcbiAgb3ZlcmZsb3cteDogaGlkZGVuO1xuXG4gIC5kcm9wLWRvd24taXRlbSwgZ2QtZHJvcC1kb3duLWl0ZW17XG4gICAgY29sb3I6IEByZWdlbnQtZ3JheTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBmb250LXNpemU6IDEwcHg7XG4gICAgbGluZS1oZWlnaHQ6IDI4cHg7XG4gICAgbWluLWhlaWdodDogMjhweDtcbiAgICB3aWR0aDogMTAwJTtcblxuICAgIGZhLWljb24gc3Zne1xuICAgICAgbWFyZ2luOiAwcHggMTBweDtcbiAgICAgIGNvbG9yOiBAcmVnZW50LWdyYXk7XG4gICAgfVxuXG4gICAgLnRleHR7XG4gICAgICB3aWR0aDogMTAwJTtcbiAgICAgIG1hcmdpbi1yaWdodDogMTBweDtcbiAgICB9XG5cbiAgICAmOmhvdmVye1xuICAgICAgYmFja2dyb3VuZC1jb2xvcjogQG5hdi1sb2dvLWJhY2tncm91bmQ7XG4gICAgICAqe1xuICAgICAgICBjb2xvcjogI0ZGRjtcbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cblxuLmRyb3AtZG93bi1pdGVtc3tcbiAgZGlzcGxheTogbm9uZTtcbn1cbiIsIi5kcm9wLWRvd24ge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG4uc2hvdyAuZHJvcC1kb3duLWl0ZW1zIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB6LWluZGV4OiAxMDAwO1xuICBtaW4td2lkdGg6IDEwMCU7XG4gIG1heC1oZWlnaHQ6IDMwMHB4O1xuICBwYWRkaW5nOiAwcHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZmZmZmY7XG4gIGJveC1zaGFkb3c6IDAgNnB4IDEycHggcmdiYSgwLCAwLCAwLCAwLjE3NSk7XG4gIGJhY2tncm91bmQtY2xpcDogcGFkZGluZy1ib3g7XG4gIG92ZXJmbG93LXk6IGF1dG87XG4gIG92ZXJmbG93LXg6IGhpZGRlbjtcbn1cbi5zaG93IC5kcm9wLWRvd24taXRlbXMgLmRyb3AtZG93bi1pdGVtLFxuLnNob3cgLmRyb3AtZG93bi1pdGVtcyBnZC1kcm9wLWRvd24taXRlbSB7XG4gIGNvbG9yOiAjOTU5ZGE1O1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgZm9udC1zaXplOiAxMHB4O1xuICBsaW5lLWhlaWdodDogMjhweDtcbiAgbWluLWhlaWdodDogMjhweDtcbiAgd2lkdGg6IDEwMCU7XG59XG4uc2hvdyAuZHJvcC1kb3duLWl0ZW1zIC5kcm9wLWRvd24taXRlbSBmYS1pY29uIHN2Zyxcbi5zaG93IC5kcm9wLWRvd24taXRlbXMgZ2QtZHJvcC1kb3duLWl0ZW0gZmEtaWNvbiBzdmcge1xuICBtYXJnaW46IDBweCAxMHB4O1xuICBjb2xvcjogIzk1OWRhNTtcbn1cbi5zaG93IC5kcm9wLWRvd24taXRlbXMgLmRyb3AtZG93bi1pdGVtIC50ZXh0LFxuLnNob3cgLmRyb3AtZG93bi1pdGVtcyBnZC1kcm9wLWRvd24taXRlbSAudGV4dCB7XG4gIHdpZHRoOiAxMDAlO1xuICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG59XG4uc2hvdyAuZHJvcC1kb3duLWl0ZW1zIC5kcm9wLWRvd24taXRlbTpob3Zlcixcbi5zaG93IC5kcm9wLWRvd24taXRlbXMgZ2QtZHJvcC1kb3duLWl0ZW06aG92ZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMjVjMmQ0O1xufVxuLnNob3cgLmRyb3AtZG93bi1pdGVtcyAuZHJvcC1kb3duLWl0ZW06aG92ZXIgKixcbi5zaG93IC5kcm9wLWRvd24taXRlbXMgZ2QtZHJvcC1kb3duLWl0ZW06aG92ZXIgKiB7XG4gIGNvbG9yOiAjRkZGO1xufVxuLmRyb3AtZG93bi1pdGVtcyB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/drop-down/drop-down.component.ts":
-/*!*********************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/drop-down/drop-down.component.ts ***!
-  \*********************************************************************************************************/
-/*! exports provided: DropDownToggleComponent, DropDownItemsComponent, DropDownItemComponent, DropDownComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropDownToggleComponent", function() { return DropDownToggleComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropDownItemsComponent", function() { return DropDownItemsComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropDownItemComponent", function() { return DropDownItemComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DropDownComponent", function() { return DropDownComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var horizontalAlignment = {
-    center: {
-        right: 'auto'
-    },
-    left: {
-        right: '100%'
-    },
-    right: {
-        right: '-100%'
-    }
-};
-var verticalAlignment = {
-    center: {
-        top: '0px',
-    },
-    top: {
-        top: '-100%',
-        right: '100%'
-    },
-    bottom: {
-        top: 'autos'
-    }
-};
-/**
- *  DropDownToggleComponent
- */
-var DropDownToggleComponent = /** @class */ (function () {
-    function DropDownToggleComponent(dropdown) {
-        var _this = this;
-        this.dropdown = dropdown;
-        this.click = function (event) { return _this.dropdown.toggle(event); };
-    }
-    DropDownToggleComponent.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return DropDownComponent; }),] }] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropDownToggleComponent.prototype, "click", void 0);
-    DropDownToggleComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-drop-down-toggle',
-            template: '<ng-content></ng-content>',
-            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
-            styles: [__webpack_require__(/*! ./drop-down.component.less */ "../../libs/common-components/src/lib/drop-down/drop-down.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return DropDownComponent; }))),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], DropDownToggleComponent);
-    return DropDownToggleComponent;
-}());
-
-/**
- *  DropDownItemsComponent
- */
-var DropDownItemsComponent = /** @class */ (function () {
-    function DropDownItemsComponent(dropdown) {
-        this.dropdown = dropdown;
-    }
-    Object.defineProperty(DropDownItemsComponent.prototype, "horizontalAlign", {
-        get: function () {
-            return horizontalAlignment[this.dropdown.getPlacement().h].right;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(DropDownItemsComponent.prototype, "verticalAlign", {
-        get: function () {
-            return verticalAlignment[this.dropdown.getPlacement().v].top;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(DropDownItemsComponent.prototype, "isOpen", {
-        get: function () {
-            return this.dropdown.open;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    DropDownItemsComponent.prototype.onClickOutside = function (event) {
-        this.dropdown.close();
-    };
-    DropDownItemsComponent.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return DropDownComponent; }),] }] }
-    ]; };
-    DropDownItemsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-drop-down-items',
-            template: '<div class="drop-down-items" (clickOutside)="onClickOutside($event)" [clickOutsideEnabled]="isOpen" [style.right]="horizontalAlign" [style.top]="verticalAlign"><ng-content></ng-content></div>',
-            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
-            styles: [__webpack_require__(/*! ./drop-down.component.less */ "../../libs/common-components/src/lib/drop-down/drop-down.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return DropDownComponent; }))),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], DropDownItemsComponent);
-    return DropDownItemsComponent;
-}());
-
-/**
- *  DropDownItemComponent
- */
-var DropDownItemComponent = /** @class */ (function () {
-    function DropDownItemComponent(dropdown) {
-        var _this = this;
-        this.dropdown = dropdown;
-        this.class = 'drop-down-item';
-        this.selected = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.click = function () { return _this.selectEntry(); };
-    }
-    DropDownItemComponent.prototype.selectEntry = function () {
-        this.selected.next();
-        this.dropdown.close();
-    };
-    DropDownItemComponent.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return DropDownComponent; }),] }] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropDownItemComponent.prototype, "class", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropDownItemComponent.prototype, "selected", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('click'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropDownItemComponent.prototype, "click", void 0);
-    DropDownItemComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-drop-down-item',
-            template: '<div class="drop-down-item"><ng-content></ng-content></div>',
-            styles: [__webpack_require__(/*! ./drop-down.component.less */ "../../libs/common-components/src/lib/drop-down/drop-down.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () { return DropDownComponent; }))),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object])
-    ], DropDownItemComponent);
-    return DropDownItemComponent;
-}());
-
-/**
- *  DropDownComponent
- */
-var DropDownComponent = /** @class */ (function () {
-    function DropDownComponent() {
-        this.placement = {
-            h: "center",
-            v: "bottom"
-        };
-        this.open = false;
-        this.class = 'drop-down';
-    }
-    DropDownComponent.prototype.close = function () {
-        this.open = false;
-    };
-    DropDownComponent.prototype.toggle = function (event) {
-        event.stopPropagation();
-        this.open = !this.open;
-        document.body.click();
-    };
-    DropDownComponent.prototype.getPlacement = function () {
-        return this.placement;
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropDownComponent.prototype, "placement", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class.show'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropDownComponent.prototype, "open", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('class'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], DropDownComponent.prototype, "class", void 0);
-    DropDownComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-drop-down',
-            template: '<div class="drop-down"><ng-content></ng-content></div>',
-            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
-            styles: [__webpack_require__(/*! ./drop-down.component.less */ "../../libs/common-components/src/lib/drop-down/drop-down.component.less")]
-        })
-    ], DropDownComponent);
-    return DropDownComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/edit-html.service.ts":
-/*!*********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/edit-html.service.ts ***!
-  \*********************************************************************************************/
-/*! exports provided: EditHtmlService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditHtmlService", function() { return EditHtmlService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-
-
-var EditHtmlService = /** @class */ (function () {
-    function EditHtmlService() {
-        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
-        this._htmlContent = this._observer.asObservable();
-    }
-    Object.defineProperty(EditHtmlService.prototype, "observer", {
-        get: function () {
-            return this._observer;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(EditHtmlService.prototype, "htmlContent", {
-        get: function () {
-            return this._htmlContent;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    EditHtmlService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], EditHtmlService);
-    return EditHtmlService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/editor.directive.ts":
-/*!********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/editor.directive.ts ***!
-  \********************************************************************************************/
-/*! exports provided: EditorDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditorDirective", function() { return EditorDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _selection_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./selection.service */ "../../libs/common-components/src/lib/selection.service.ts");
-/* harmony import */ var _edit_html_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit-html.service */ "../../libs/common-components/src/lib/edit-html.service.ts");
-
-
-
-
-var EditorDirective = /** @class */ (function () {
-    function EditorDirective(_selectionService, _htmlService) {
-        this._selectionService = _selectionService;
-        this._htmlService = _htmlService;
-        this.isIE =  false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
-    }
-    EditorDirective.prototype.onInput = function (event) {
-        this.text = event.target;
-        if (this.isIE) {
-            if (this.text.innerHTML) {
-                var html = this.text.innerHTML.toString();
-                this._htmlService.observer.next(html);
-            }
-        }
-    };
-    EditorDirective.prototype.onMouseleave = function (event) {
-        this._selectionService.captureSelection();
-        // this code is required to fix IE11 issue - it doesn't trigger blur event, since that we need to save updated HTML here
-        if (this.isIE) {
-            this._htmlService.observer.next(event.target.innerHTML.toString());
-        }
-    };
-    EditorDirective.prototype.onBlur = function (event) {
-        event.preventDefault();
-        this._selectionService.restoreSelection();
-        if (this.text.innerHTML) {
-            var html = this.text.innerHTML.toString();
-            this._htmlService.observer.next(html);
-        }
-        else {
-            this._htmlService.observer.next(event.target.innerHTML.toString());
-        }
-    };
-    EditorDirective.ctorParameters = function () { return [
-        { type: _selection_service__WEBPACK_IMPORTED_MODULE_2__["SelectionService"] },
-        { type: _edit_html_service__WEBPACK_IMPORTED_MODULE_3__["EditHtmlService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], EditorDirective.prototype, "text", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('keyup', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], EditorDirective.prototype, "onInput", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mouseleave', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], EditorDirective.prototype, "onMouseleave", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('blur', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], EditorDirective.prototype, "onBlur", null);
-    EditorDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdEditor]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_selection_service__WEBPACK_IMPORTED_MODULE_2__["SelectionService"], _edit_html_service__WEBPACK_IMPORTED_MODULE_3__["EditHtmlService"]])
-    ], EditorDirective);
-    return EditorDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/error-interceptor.service.ts":
-/*!*****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/error-interceptor.service.ts ***!
-  \*****************************************************************************************************/
-/*! exports provided: ErrorInterceptorService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorInterceptorService", function() { return ErrorInterceptorService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _exception_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./exception-message.service */ "../../libs/common-components/src/lib/exception-message.service.ts");
-/* harmony import */ var _file_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./file.service */ "../../libs/common-components/src/lib/file.service.ts");
-/* harmony import */ var _modal_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modal.service */ "../../libs/common-components/src/lib/modal.service.ts");
-
-
-
-
-
-
-
-
-var ErrorInterceptorService = /** @class */ (function () {
-    function ErrorInterceptorService(_modalService, _messageService) {
-        this._modalService = _modalService;
-        this._messageService = _messageService;
-    }
-    ErrorInterceptorService_1 = ErrorInterceptorService;
-    ErrorInterceptorService.prototype.intercept = function (req, next) {
-        var _this = this;
-        var logFormat = 'background: maroon; color: white';
-        return next.handle(req)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
-            return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (exception) {
-            if (exception instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpErrorResponse"]) {
-                switch (exception.status) {
-                    case _file_service__WEBPACK_IMPORTED_MODULE_6__["HttpError"].BadRequest:
-                        console.error('%c Bad Request 400', logFormat);
-                        break;
-                    case _file_service__WEBPACK_IMPORTED_MODULE_6__["HttpError"].Unauthorized:
-                        console.error('%c Unauthorized 401', logFormat);
-                        break;
-                    case _file_service__WEBPACK_IMPORTED_MODULE_6__["HttpError"].NotFound:
-                        console.error('%c Not Found 404', logFormat);
-                        break;
-                    case _file_service__WEBPACK_IMPORTED_MODULE_6__["HttpError"].TimeOut:
-                        console.error('%c TimeOut 408', logFormat);
-                        break;
-                    case _file_service__WEBPACK_IMPORTED_MODULE_6__["HttpError"].InternalServerError:
-                        console.error('%c big bad 500', logFormat);
-                        _this._messageService.changeMessage(exception.error.message);
-                        _this._messageService.changeHttpEvent(exception);
-                        _this._modalService.open(ErrorInterceptorService_1.ErrorMessageWindowName);
-                        break;
-                    case _file_service__WEBPACK_IMPORTED_MODULE_6__["HttpError"].Forbidden:
-                        console.error('%c Forbidden 403', logFormat);
-                        _this._messageService.changeMessage(exception.error.message);
-                        _this._modalService.open(_modal_service__WEBPACK_IMPORTED_MODULE_7__["CommonModals"].PasswordRequired);
-                        break;
-                }
-            }
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(exception);
-        }));
-    };
-    var ErrorInterceptorService_1;
-    ErrorInterceptorService.ErrorMessageWindowName = _modal_service__WEBPACK_IMPORTED_MODULE_7__["CommonModals"].ErrorMessage;
-    ErrorInterceptorService.ctorParameters = function () { return [
-        { type: _modal_service__WEBPACK_IMPORTED_MODULE_7__["ModalService"] },
-        { type: _exception_message_service__WEBPACK_IMPORTED_MODULE_5__["ExceptionMessageService"] }
-    ]; };
-    ErrorInterceptorService = ErrorInterceptorService_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_modal_service__WEBPACK_IMPORTED_MODULE_7__["ModalService"], _exception_message_service__WEBPACK_IMPORTED_MODULE_5__["ExceptionMessageService"]])
-    ], ErrorInterceptorService);
-    return ErrorInterceptorService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/error-modal/error-modal.component.less":
-/*!***************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/error-modal/error-modal.component.less ***!
-  \***************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".gd-modal-error {\n  display: -webkit-inline-box;\n  display: inline-flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-flex: 1;\n          flex: 1;\n}\n.gd-modal-error .gd-modal-error-message {\n  font-size: 12px;\n  margin: 0px 24px 24px 0px;\n  word-break: break-word;\n}\n.gd-modal-error .gd-modal-error-title {\n  font-size: 16px;\n  font-weight: bold;\n  margin: 14px 0px 10px 0px;\n}\n#gd-error-section {\n  max-width: 468px;\n  max-height: 204px;\n  display: -webkit-box;\n  display: flex;\n}\n#gd-error-section fa-icon {\n  -webkit-box-flex: 1;\n          flex: 1;\n  color: #e04e4e;\n  font-size: 40px;\n  margin: 13px 23px 90px 23px;\n  text-align: center;\n  max-width: 46px;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9lcnJvci1tb2RhbC9DOi9HaXRIdWIvR3JvdXBEb2NzL1RvdGFsL0FuZ3VsYXIvbGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2Vycm9yLW1vZGFsL2Vycm9yLW1vZGFsLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2Vycm9yLW1vZGFsL2Vycm9yLW1vZGFsLmNvbXBvbmVudC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0UsMkJBQUE7RUFBQSxvQkFBQTtFQUNBLDRCQUFBO0VBQUEsNkJBQUE7VUFBQSxzQkFBQTtFQUNBLG1CQUFBO1VBQUEsT0FBQTtBQ0RGO0FERkE7RUFLSSxlQUFBO0VBQ0EseUJBQUE7RUFDQSxzQkFBQTtBQ0FKO0FEUEE7RUFVSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSx5QkFBQTtBQ0FKO0FESUE7RUFDRSxnQkFBQTtFQUNBLGlCQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0FDRkY7QUREQTtFQUtJLG1CQUFBO1VBQUEsT0FBQTtFQUNBLGNBQUE7RUFDQSxlQUFBO0VBQ0EsMkJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7QUNESiIsImZpbGUiOiJsaWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvZXJyb3ItbW9kYWwvZXJyb3ItbW9kYWwuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi8uLi8uLi9zdHlsZXMvdmFyaWFibGVzXCI7XG5cbi5nZC1tb2RhbC1lcnJvciB7XG4gIGRpc3BsYXk6IGlubGluZS1mbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBmbGV4OiAxO1xuICAuZ2QtbW9kYWwtZXJyb3ItbWVzc2FnZSB7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIG1hcmdpbjogMHB4IDI0cHggMjRweCAwcHg7XG4gICAgd29yZC1icmVhazogYnJlYWstd29yZDtcbiAgfVxuICAuZ2QtbW9kYWwtZXJyb3ItdGl0bGUge1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBtYXJnaW46IDE0cHggMHB4IDEwcHggMHB4O1xuICB9XG59XG5cbiNnZC1lcnJvci1zZWN0aW9uIHtcbiAgbWF4LXdpZHRoOiA0NjhweDtcbiAgbWF4LWhlaWdodDogMjA0cHg7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZhLWljb24ge1xuICAgIGZsZXg6IDE7XG4gICAgY29sb3I6IEBwZGY7XG4gICAgZm9udC1zaXplOiA0MHB4O1xuICAgIG1hcmdpbjogMTNweCAyM3B4IDkwcHggMjNweDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWF4LXdpZHRoOiA0NnB4O1xuICB9XG59XG4iLCIuZ2QtbW9kYWwtZXJyb3Ige1xuICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgZmxleDogMTtcbn1cbi5nZC1tb2RhbC1lcnJvciAuZ2QtbW9kYWwtZXJyb3ItbWVzc2FnZSB7XG4gIGZvbnQtc2l6ZTogMTJweDtcbiAgbWFyZ2luOiAwcHggMjRweCAyNHB4IDBweDtcbiAgd29yZC1icmVhazogYnJlYWstd29yZDtcbn1cbi5nZC1tb2RhbC1lcnJvciAuZ2QtbW9kYWwtZXJyb3ItdGl0bGUge1xuICBmb250LXNpemU6IDE2cHg7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBtYXJnaW46IDE0cHggMHB4IDEwcHggMHB4O1xufVxuI2dkLWVycm9yLXNlY3Rpb24ge1xuICBtYXgtd2lkdGg6IDQ2OHB4O1xuICBtYXgtaGVpZ2h0OiAyMDRweDtcbiAgZGlzcGxheTogZmxleDtcbn1cbiNnZC1lcnJvci1zZWN0aW9uIGZhLWljb24ge1xuICBmbGV4OiAxO1xuICBjb2xvcjogI2UwNGU0ZTtcbiAgZm9udC1zaXplOiA0MHB4O1xuICBtYXJnaW46IDEzcHggMjNweCA5MHB4IDIzcHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWF4LXdpZHRoOiA0NnB4O1xufVxuIl19 */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/error-modal/error-modal.component.ts":
-/*!*************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/error-modal/error-modal.component.ts ***!
-  \*************************************************************************************************************/
-/*! exports provided: ErrorModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorModalComponent", function() { return ErrorModalComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _exception_message_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../exception-message.service */ "../../libs/common-components/src/lib/exception-message.service.ts");
-
-
-
-var ErrorModalComponent = /** @class */ (function () {
-    function ErrorModalComponent(messageService) {
-        var _this = this;
-        messageService.messageChange.subscribe(function (message) { return _this.message = message; });
-    }
-    ErrorModalComponent.prototype.ngOnInit = function () {
-    };
-    ErrorModalComponent.ctorParameters = function () { return [
-        { type: _exception_message_service__WEBPACK_IMPORTED_MODULE_2__["ExceptionMessageService"] }
-    ]; };
-    ErrorModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-error-modal',
-            template: __webpack_require__(/*! raw-loader!./error-modal.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/error-modal/error-modal.component.html"),
-            styles: [__webpack_require__(/*! ./error-modal.component.less */ "../../libs/common-components/src/lib/error-modal/error-modal.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_exception_message_service__WEBPACK_IMPORTED_MODULE_2__["ExceptionMessageService"]])
-    ], ErrorModalComponent);
-    return ErrorModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/exception-message.service.ts":
-/*!*****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/exception-message.service.ts ***!
-  \*****************************************************************************************************/
-/*! exports provided: ExceptionMessageService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExceptionMessageService", function() { return ExceptionMessageService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-var ExceptionMessageService = /** @class */ (function () {
-    function ExceptionMessageService() {
-        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"]('Server is not available');
-        this._messageChange = this._observer.asObservable();
-        this._observerHttpEvent = new rxjs__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](null);
-        this._httpEventChange = this._observerHttpEvent.asObservable();
-    }
-    Object.defineProperty(ExceptionMessageService.prototype, "messageChange", {
-        get: function () {
-            return this._messageChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ExceptionMessageService.prototype, "httpEventChange", {
-        get: function () {
-            return this._httpEventChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ExceptionMessageService.prototype.changeMessage = function (message) {
-        this._observer.next(message);
-    };
-    ExceptionMessageService.prototype.changeHttpEvent = function (httpEvent) {
-        this._observerHttpEvent.next(httpEvent);
-    };
-    return ExceptionMessageService;
 }());
 
 
@@ -4672,4234 +9830,6 @@ var FileService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../libs/common-components/src/lib/formatting.directive.ts":
-/*!************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/formatting.directive.ts ***!
-  \************************************************************************************************/
-/*! exports provided: FormattingDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormattingDirective", function() { return FormattingDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _formatting_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./formatting.service */ "../../libs/common-components/src/lib/formatting.service.ts");
-/* harmony import */ var _back_formatting_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./back-formatting.service */ "../../libs/common-components/src/lib/back-formatting.service.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _selection_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./selection.service */ "../../libs/common-components/src/lib/selection.service.ts");
-
-
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_4__;
-
-var FormattingDirective = /** @class */ (function () {
-    function FormattingDirective(_formattingService, _backFormattingService, _selectionService) {
-        this._formattingService = _formattingService;
-        this._backFormattingService = _backFormattingService;
-        this._selectionService = _selectionService;
-        this.bold = false;
-        this.italic = false;
-        this.underline = false;
-        this.strikeout = false;
-        this.isIE = false;
-        this.isIE = /*@cc_on!@*/  false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
-    }
-    FormattingDirective.prototype.mouseup = function () {
-        this.bold = document.queryCommandState("bold");
-        this.strikeout = document.queryCommandState("strikeThrough");
-        this.italic = document.queryCommandState("italic");
-        this.bgColor = document.queryCommandValue("backColor");
-        this.underline = document.queryCommandState("underline");
-        this.align = this.checkJustify();
-        this.list = this.checkList();
-        //fix required by FireFox to get correct background color
-        if (this.bgColor === "transparent") {
-            this.bgColor = $(window.getSelection().focusNode.parentNode).css('background-color').toString();
-        }
-        this.font = document.queryCommandValue("FontName").replace(/"/g, '');
-        if (this.font.split(",").length > 1) {
-            this.font = this.font.split(",")[0];
-        }
-        this.color = document.queryCommandValue("foreColor");
-        this._backFormattingService.changeFormatBold(this.bold);
-        this._backFormattingService.changeFormatUnderline(this.underline);
-        this._backFormattingService.changeFormatItalic(this.italic);
-        this._backFormattingService.changeFormatColor(this.color);
-        this._backFormattingService.changeFormatBgColor(this.bgColor);
-        this._backFormattingService.changeFormatFontSize(this.reportFontSize());
-        this._backFormattingService.changeFormatFont(this.font);
-        this._backFormattingService.changeFormatStrikeout(this.strikeout);
-        this._backFormattingService.changeFormatAlign(this.align);
-        this._backFormattingService.changeFormatList(this.list);
-    };
-    FormattingDirective.prototype.checkJustify = function () {
-        var align = "";
-        align = document.queryCommandState("justifyCenter") ? "center" : align;
-        align = document.queryCommandState("justifyFull") ? "full" : align;
-        align = document.queryCommandState("justifyLeft") ? "left" : align;
-        align = document.queryCommandState("justifyRight") ? "right" : align;
-        return align;
-    };
-    FormattingDirective.prototype.checkList = function () {
-        var list = "";
-        list = document.queryCommandState("insertUnorderedList") ? "unordered" : list;
-        list = document.queryCommandState("insertOrderedList") ? "ordered" : list;
-        return list;
-    };
-    FormattingDirective.prototype.reportFontSize = function () {
-        var containerEl, sel;
-        if (window.getSelection) {
-            sel = window.getSelection();
-            if (sel.rangeCount) {
-                containerEl = sel.getRangeAt(0).commonAncestorContainer;
-                // Make sure we have an element rather than a text node
-                if (containerEl.nodeType === 3) {
-                    containerEl = containerEl.parentNode;
-                }
-            }
-        }
-        else if ((sel = document.getSelection()) && sel.type !== "Control") {
-            containerEl = sel.createRange().parentElement();
-        }
-        if (containerEl) {
-            return parseInt(this.getComputedStyleProperty(containerEl, "fontSize").replace("px", ""), 10);
-        }
-    };
-    FormattingDirective.prototype.getComputedStyleProperty = function (el, propName) {
-        if (window.getComputedStyle) {
-            return window.getComputedStyle(el, null)[propName];
-        }
-        else if (el.currentStyle) {
-            return el.currentStyle[propName];
-        }
-    };
-    FormattingDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        this._formattingService.undo.subscribe(function () {
-            _this.toggleUndo();
-        });
-        this._formattingService.redo.subscribe(function () {
-            _this.toggleRedo();
-        });
-        this._formattingService.formatBoldChange.subscribe(function (bold) {
-            _this.bold = bold;
-            _this.toggleBold();
-        });
-        this._formattingService.formatUnderlineChange.subscribe(function (underline) {
-            _this.underline = underline;
-            _this.toggleUnderline();
-        });
-        this._formattingService.formatItalicChange.subscribe(function (italic) {
-            _this.italic = italic;
-            _this.toggleItalic();
-        });
-        this._formattingService.formatColorChange.subscribe((function (color) {
-            _this.color = color;
-            _this.setColor(color);
-        }));
-        this._formattingService.formatBgColorChange.subscribe((function (bgcolor) {
-            _this.bgColor = bgcolor;
-            _this.setBgColor(bgcolor);
-        }));
-        this._formattingService.formatFontSizeChange.subscribe((function (fontSize) {
-            _this.setFontSize(fontSize);
-        }));
-        this._formattingService.formatFontChange.subscribe((function (font) {
-            _this.font = font;
-            _this.setFont(font);
-        }));
-        this._formattingService.formatStrikeoutChange.subscribe(function (strikeout) {
-            _this.strikeout = strikeout;
-            _this.toggleStrikeout();
-        });
-        this._formattingService.formatAlignChange.subscribe(function (align) {
-            _this.align = align;
-            _this.toggleAlign(_this.align);
-        });
-        this._formattingService.formatListChange.subscribe(function (list) {
-            var remove = _this.list === list;
-            _this.list = list;
-            _this.toggleList(_this.list, remove);
-        });
-    };
-    FormattingDirective.prototype.toggleBold = function () {
-        document.execCommand("bold");
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.toggleUnderline = function () {
-        document.execCommand("underline");
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.toggleItalic = function () {
-        document.execCommand("italic");
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.setBgColor = function (bgColor) {
-        document.execCommand("backColor", false, bgColor);
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.setColor = function (color) {
-        document.execCommand("foreColor", false, color);
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.setFontSize = function (fontSize) {
-        if (document.getSelection().toString()) {
-            var spanString = "<span style='font-size: " + fontSize + "px; color: " + this.color + "; background-color: " + this.bgColor + "; font-family: " + this.font + "'>" +
-                document.getSelection() + "</span>";
-            if (this.bold) {
-                spanString = "<b>" + spanString + "</b>";
-            }
-            if (this.italic) {
-                spanString = "<i>" + spanString + "</i>";
-            }
-            if (this.underline) {
-                spanString = "<u>" + spanString + "</u>";
-            }
-            if (this.strikeout) {
-                spanString = "<strike>" + spanString + "</strike>";
-            }
-            document.execCommand('insertHTML', false, spanString);
-        }
-        else {
-            document.execCommand("fontsize", false, "7");
-        }
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.toggleUndo = function () {
-        document.execCommand("undo");
-    };
-    FormattingDirective.prototype.toggleRedo = function () {
-        document.execCommand("redo");
-    };
-    FormattingDirective.prototype.setFont = function (font) {
-        document.execCommand("fontName", false, font);
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.toggleStrikeout = function () {
-        document.execCommand("strikeThrough");
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.toggleAlign = function (align) {
-        if (this.isIE) {
-            this.toggleAlignIE(align);
-            return;
-        }
-        document.execCommand("styleWithCSS", false, 'true');
-        switch (align) {
-            case 'center':
-                document.execCommand('justifyCenter');
-                break;
-            case 'full':
-                document.execCommand('justifyFull');
-                break;
-            case 'left':
-                document.execCommand('justifyLeft');
-                break;
-            case 'right':
-                document.execCommand('justifyRight');
-                break;
-        }
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.toggleAlignIE = function (align) {
-        this._selectionService.restoreSelection();
-        this._selectionService.captureSelection();
-        var selection = window.getSelection().focusNode.parentNode.parentNode;
-        if (align === "full") {
-            align = "justify";
-        }
-        $(selection).css("text-align", align);
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.prototype.toggleList = function (list, remove) {
-        switch (list) {
-            case 'unordered':
-                document.execCommand('insertUnorderedList', remove);
-                break;
-            case 'ordered':
-                document.execCommand('insertOrderedList', remove);
-                break;
-        }
-        this._selectionService.refreshSelection();
-    };
-    FormattingDirective.ctorParameters = function () { return [
-        { type: _formatting_service__WEBPACK_IMPORTED_MODULE_2__["FormattingService"] },
-        { type: _back_formatting_service__WEBPACK_IMPORTED_MODULE_3__["BackFormattingService"] },
-        { type: _selection_service__WEBPACK_IMPORTED_MODULE_5__["SelectionService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mouseup'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], FormattingDirective.prototype, "mouseup", null);
-    FormattingDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdFormatting]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_formatting_service__WEBPACK_IMPORTED_MODULE_2__["FormattingService"],
-            _back_formatting_service__WEBPACK_IMPORTED_MODULE_3__["BackFormattingService"],
-            _selection_service__WEBPACK_IMPORTED_MODULE_5__["SelectionService"]])
-    ], FormattingDirective);
-    return FormattingDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/formatting.service.ts":
-/*!**********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/formatting.service.ts ***!
-  \**********************************************************************************************/
-/*! exports provided: Formatting, FormattingService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Formatting", function() { return Formatting; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormattingService", function() { return FormattingService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-var Formatting = /** @class */ (function () {
-    function Formatting(fontSize, color, bgColor, bold, italic, underline, font, strikeout, align, list) {
-        this.fontSize = fontSize;
-        this.color = color;
-        this.bgColor = bgColor;
-        this.bold = bold;
-        this.italic = italic;
-        this.underline = underline;
-        this.font = font;
-        this.strikeout = strikeout;
-        this.align = align;
-        this.list = list;
-    }
-    Formatting.default = function () {
-        return new Formatting(10, '#000000', '#FFFFFF', false, false, false, 'Arial', false, "", "");
-    };
-    Formatting.ctorParameters = function () { return [
-        { type: Number },
-        { type: String },
-        { type: String },
-        { type: Boolean },
-        { type: Boolean },
-        { type: Boolean },
-        { type: String },
-        { type: Boolean },
-        { type: String },
-        { type: String }
-    ]; };
-    return Formatting;
-}());
-
-var FormattingService = /** @class */ (function () {
-    function FormattingService() {
-        this._observerBold = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatBoldChange = this._observerBold.asObservable();
-        this._observerUnderline = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatUnderlineChange = this._observerUnderline.asObservable();
-        this._observerUndo = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._undo = this._observerUndo.asObservable();
-        this._observerRedo = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._redo = this._observerRedo.asObservable();
-        this._observerItalic = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatItalicChange = this._observerItalic.asObservable();
-        this._observerColor = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatColorChange = this._observerColor.asObservable();
-        this._observerBgColor = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatBgColorChange = this._observerBgColor.asObservable();
-        this._observerFontSize = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatFontSizeChange = this._observerFontSize.asObservable();
-        this._observerFont = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatFontChange = this._observerFont.asObservable();
-        this._observerStrikeout = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatStrikeoutChange = this._observerStrikeout.asObservable();
-        this._observerAlign = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatAlignChange = this._observerAlign.asObservable();
-        this._observerList = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._formatListChange = this._observerList.asObservable();
-    }
-    Object.defineProperty(FormattingService.prototype, "formatBoldChange", {
-        get: function () {
-            return this._formatBoldChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "formatUnderlineChange", {
-        get: function () {
-            return this._formatUnderlineChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "formatColorChange", {
-        get: function () {
-            return this._formatColorChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "formatBgColorChange", {
-        get: function () {
-            return this._formatBgColorChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "formatFontSizeChange", {
-        get: function () {
-            return this._formatFontSizeChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "formatFontChange", {
-        get: function () {
-            return this._formatFontChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "undo", {
-        get: function () {
-            return this._undo;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "redo", {
-        get: function () {
-            return this._redo;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "formatItalicChange", {
-        get: function () {
-            return this._formatItalicChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "formatStrikeoutChange", {
-        get: function () {
-            return this._formatStrikeoutChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "formatAlignChange", {
-        get: function () {
-            return this._formatAlignChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FormattingService.prototype, "formatListChange", {
-        get: function () {
-            return this._formatListChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    FormattingService.createFontSizeOption = function (val) {
-        return { value: val, name: val + 'px', separator: false };
-    };
-    FormattingService.getFontSizeOptions = function () {
-        return [
-            FormattingService.createFontSizeOption(8),
-            FormattingService.createFontSizeOption(10),
-            FormattingService.createFontSizeOption(12),
-            FormattingService.createFontSizeOption(14),
-            FormattingService.createFontSizeOption(16),
-            FormattingService.createFontSizeOption(18),
-            FormattingService.createFontSizeOption(20),
-            FormattingService.createFontSizeOption(22),
-            FormattingService.createFontSizeOption(24),
-        ];
-    };
-    FormattingService.createFontOption = function (val) {
-        return { value: val, name: val, separator: false };
-    };
-    FormattingService.getFontOptions = function () {
-        var _this = this;
-        var fonts = ["Arial", "Calibri", "Century Gothic", "Comic Sans", "Consolas", "Courier", "Dejavu Sans", "Dejavu Serif", "Georgia", "Gill Sans", "Helvetica", "Impact", "Lucida Sans",
-            "Myriad Pro", "Open Sans", "Palatino", "Tahoma", "Times New Roman", "Trebuchet"];
-        var fontOptions = [];
-        fonts.forEach(function (font) {
-            fontOptions.push(_this.createFontOption(font));
-        });
-        return fontOptions;
-    };
-    FormattingService.prototype.changeFormatFontSize = function ($event) {
-        this._observerFontSize.next($event);
-    };
-    FormattingService.prototype.changeFormatBold = function (bold) {
-        this._observerBold.next(bold);
-    };
-    FormattingService.prototype.changeFormatUnderline = function (underline) {
-        this._observerUnderline.next(underline);
-    };
-    FormattingService.prototype.Undo = function () {
-        this._observerUndo.next();
-    };
-    FormattingService.prototype.Redo = function () {
-        this._observerRedo.next();
-    };
-    FormattingService.prototype.changeFormatItalic = function (italic) {
-        this._observerItalic.next(italic);
-    };
-    FormattingService.prototype.changeFormatColor = function (color) {
-        this._observerColor.next(color);
-    };
-    FormattingService.prototype.changeFormatBgColor = function (bgcolor) {
-        this._observerBgColor.next(bgcolor);
-    };
-    FormattingService.prototype.changeFormatFont = function (font) {
-        this._observerFont.next(font);
-    };
-    FormattingService.prototype.changeFormatStrikeout = function (strikeout) {
-        this._observerStrikeout.next(strikeout);
-    };
-    FormattingService.prototype.changeFormatAlign = function (align) {
-        this._observerAlign.next(align);
-    };
-    FormattingService.prototype.changeFormatList = function (list) {
-        this._observerList.next(list);
-    };
-    return FormattingService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/host-dynamic.directive.ts":
-/*!**************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/host-dynamic.directive.ts ***!
-  \**************************************************************************************************/
-/*! exports provided: HostDynamicDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HostDynamicDirective", function() { return HostDynamicDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _hosting_dynamic_component_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./hosting-dynamic-component.service */ "../../libs/common-components/src/lib/hosting-dynamic-component.service.ts");
-
-
-
-var HostDynamicDirective = /** @class */ (function () {
-    function HostDynamicDirective(viewContainerRef, _hostingService) {
-        this.viewContainerRef = viewContainerRef;
-        this._hostingService = _hostingService;
-    }
-    HostDynamicDirective.prototype.ngAfterViewInit = function () {
-        this._hostingService.add(this);
-    };
-    HostDynamicDirective.prototype.ngOnDestroy = function () {
-        this._hostingService.remove(this);
-        this.viewContainerRef.clear();
-    };
-    HostDynamicDirective.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"] },
-        { type: _hosting_dynamic_component_service__WEBPACK_IMPORTED_MODULE_2__["HostingDynamicComponentService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], HostDynamicDirective.prototype, "ident", void 0);
-    HostDynamicDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdHostDynamic]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"],
-            _hosting_dynamic_component_service__WEBPACK_IMPORTED_MODULE_2__["HostingDynamicComponentService"]])
-    ], HostDynamicDirective);
-    return HostDynamicDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/hosting-dynamic-component.service.ts":
-/*!*************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/hosting-dynamic-component.service.ts ***!
-  \*************************************************************************************************************/
-/*! exports provided: HostingDynamicComponentService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HostingDynamicComponentService", function() { return HostingDynamicComponentService; });
-var HostingDynamicComponentService = /** @class */ (function () {
-    function HostingDynamicComponentService() {
-        this.hosts = [];
-    }
-    HostingDynamicComponentService.prototype.add = function (host) {
-        this.hosts = this.hosts.filter(function (h) {
-            return h.ident !== host.ident;
-        });
-        this.hosts.push(host);
-    };
-    HostingDynamicComponentService.prototype.remove = function (host) {
-        this.hosts = this.hosts.filter(function (h) {
-            return h.ident !== host.ident;
-        });
-    };
-    HostingDynamicComponentService.prototype.find = function (ident) {
-        return this.hosts.find(function (h) {
-            return h.ident === ident;
-        });
-    };
-    return HostingDynamicComponentService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/init-state/init-state.component.less":
-/*!*************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/init-state/init-state.component.less ***!
-  \*************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".wrapper {\n  color: #959da5;\n  background-color: #e7e7e7;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  width: 100%;\n  height: 100%;\n}\n.icon {\n  font-size: 65px;\n  margin-bottom: 43px;\n  display: -webkit-box;\n  display: flex;\n  color: #959da5;\n}\n.start {\n  font-size: 15px;\n  text-align: center;\n  color: #959da5;\n}\n.gd-drag-n-drop-wrap.active {\n  background-color: #fff;\n  position: fixed;\n  top: 0;\n  background: rgba(255, 255, 255, 0.8);\n}\n.gd-drag-n-drop-wrap.active .init-state-wrapper {\n  position: absolute;\n  opacity: 0.2;\n  top: unset;\n}\n.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper {\n  top: 0px;\n  z-index: 999;\n}\n.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon {\n  width: 113px;\n  height: 90px;\n  font-size: 90px;\n  color: #3E4E5A;\n  margin-bottom: 30px;\n}\n.gd-drag-n-drop-wrap.active .text {\n  color: #6e6e6e;\n  font-size: 14px;\n}\n.init-state-wrapper,\n.init-state-dnd-wrapper {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  width: 250px;\n  height: 250px;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.init-state-wrapper {\n  top: -60px;\n  position: relative;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9pbml0LXN0YXRlL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvaW5pdC1zdGF0ZS9pbml0LXN0YXRlLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2luaXQtc3RhdGUvaW5pdC1zdGF0ZS5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLGNBQUE7RUFDQSx5QkFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDRCQUFBO0VBQUEsNkJBQUE7VUFBQSxzQkFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7RUFDQSx5QkFBQTtVQUFBLG1CQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7QUNERjtBRElBO0VBQ0UsZUFBQTtFQUNBLG1CQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EsY0FBQTtBQ0ZGO0FES0E7RUFDRSxlQUFBO0VBQ0Esa0JBQUE7RUFDQSxjQUFBO0FDSEY7QURPRTtFQUNFLHNCQUFBO0VBQ0EsZUFBQTtFQUNBLE1BQUE7RUFDQSxvQ0FBQTtBQ0xKO0FEQ0U7RUFNSSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxVQUFBO0FDSk47QURKRTtFQVdJLFFBQUE7RUFDQSxZQUFBO0FDSk47QURSRTtFQWNNLFlBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLGNBQUE7RUFDQSxtQkFBQTtBQ0hSO0FEZkU7RUFzQkksY0FBQTtFQUNBLGVBQUE7QUNKTjtBRFNBOztFQUNFLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDRCQUFBO0VBQUEsNkJBQUE7VUFBQSxzQkFBQTtFQUNBLFlBQUE7RUFDQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7QUNORjtBRFNBO0VBQ0UsVUFBQTtFQUNBLGtCQUFBO0FDUEYiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2luaXQtc3RhdGUvaW5pdC1zdGF0ZS5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuLndyYXBwZXIge1xuICBjb2xvcjogQHJlZ2VudC1ncmF5O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBAbWVyY3VyeTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5pY29uIHtcbiAgZm9udC1zaXplOiA2NXB4O1xuICBtYXJnaW4tYm90dG9tOiA0M3B4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBjb2xvcjogQHJlZ2VudC1ncmF5O1xufVxuXG4uc3RhcnQge1xuICBmb250LXNpemU6IDE1cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgY29sb3I6IEByZWdlbnQtZ3JheTtcbn1cblxuLmdkLWRyYWctbi1kcm9wLXdyYXAge1xuICAmLmFjdGl2ZSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiAwO1xuICAgIGJhY2tncm91bmQ6IHJnYmEoMjU1LDI1NSwyNTUsMC44KTtcbiAgICAuaW5pdC1zdGF0ZS13cmFwcGVyIHtcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgIG9wYWNpdHk6IC4yO1xuICAgICAgdG9wOiB1bnNldDtcbiAgICB9XG4gICAgLmluaXQtc3RhdGUtZG5kLXdyYXBwZXIge1xuICAgICAgdG9wOiAwcHg7XG4gICAgICB6LWluZGV4OiA5OTk7XG4gICAgICAuaWNvbiB7XG4gICAgICAgIHdpZHRoOiAxMTNweDtcbiAgICAgICAgaGVpZ2h0OiA5MHB4O1xuICAgICAgICBmb250LXNpemU6IDkwcHg7XG4gICAgICAgIGNvbG9yOiBAcHJpbWFyeTtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMzBweDtcbiAgICAgIH1cbiAgICB9XG4gICAgLnRleHQge1xuICAgICAgY29sb3I6IEBkb3ZlLWdyYXk7XG4gICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgfVxuICB9XG59XG5cbi5pbml0LXN0YXRlLXdyYXBwZXIsIC5pbml0LXN0YXRlLWRuZC13cmFwcGVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgd2lkdGg6IDI1MHB4O1xuICBoZWlnaHQ6IDI1MHB4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cblxuLmluaXQtc3RhdGUtd3JhcHBlciB7XG4gIHRvcDogLTYwcHg7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn0iLCIud3JhcHBlciB7XG4gIGNvbG9yOiAjOTU5ZGE1O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZTdlN2U3O1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbn1cbi5pY29uIHtcbiAgZm9udC1zaXplOiA2NXB4O1xuICBtYXJnaW4tYm90dG9tOiA0M3B4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBjb2xvcjogIzk1OWRhNTtcbn1cbi5zdGFydCB7XG4gIGZvbnQtc2l6ZTogMTVweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBjb2xvcjogIzk1OWRhNTtcbn1cbi5nZC1kcmFnLW4tZHJvcC13cmFwLmFjdGl2ZSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZmY7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgdG9wOiAwO1xuICBiYWNrZ3JvdW5kOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuOCk7XG59XG4uZ2QtZHJhZy1uLWRyb3Atd3JhcC5hY3RpdmUgLmluaXQtc3RhdGUtd3JhcHBlciB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgb3BhY2l0eTogMC4yO1xuICB0b3A6IHVuc2V0O1xufVxuLmdkLWRyYWctbi1kcm9wLXdyYXAuYWN0aXZlIC5pbml0LXN0YXRlLWRuZC13cmFwcGVyIHtcbiAgdG9wOiAwcHg7XG4gIHotaW5kZXg6IDk5OTtcbn1cbi5nZC1kcmFnLW4tZHJvcC13cmFwLmFjdGl2ZSAuaW5pdC1zdGF0ZS1kbmQtd3JhcHBlciAuaWNvbiB7XG4gIHdpZHRoOiAxMTNweDtcbiAgaGVpZ2h0OiA5MHB4O1xuICBmb250LXNpemU6IDkwcHg7XG4gIGNvbG9yOiAjM0U0RTVBO1xuICBtYXJnaW4tYm90dG9tOiAzMHB4O1xufVxuLmdkLWRyYWctbi1kcm9wLXdyYXAuYWN0aXZlIC50ZXh0IHtcbiAgY29sb3I6ICM2ZTZlNmU7XG4gIGZvbnQtc2l6ZTogMTRweDtcbn1cbi5pbml0LXN0YXRlLXdyYXBwZXIsXG4uaW5pdC1zdGF0ZS1kbmQtd3JhcHBlciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIHdpZHRoOiAyNTBweDtcbiAgaGVpZ2h0OiAyNTBweDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG59XG4uaW5pdC1zdGF0ZS13cmFwcGVyIHtcbiAgdG9wOiAtNjBweDtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuIl19 */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/init-state/init-state.component.ts":
-/*!***********************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/init-state/init-state.component.ts ***!
-  \***********************************************************************************************************/
-/*! exports provided: InitStateComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitStateComponent", function() { return InitStateComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var InitStateComponent = /** @class */ (function () {
-    function InitStateComponent() {
-        this.fileDropped = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.showUploadFile = false;
-    }
-    InitStateComponent.prototype.ngOnInit = function () {
-    };
-    InitStateComponent.prototype.dropped = function ($event) {
-        if ($event) {
-            this.fileDropped.emit($event);
-            this.showUploadFile = false;
-        }
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], InitStateComponent.prototype, "icon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], InitStateComponent.prototype, "text", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], InitStateComponent.prototype, "fileDropped", void 0);
-    InitStateComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-init-state',
-            template: __webpack_require__(/*! raw-loader!./init-state.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/init-state/init-state.component.html"),
-            styles: [__webpack_require__(/*! ./init-state.component.less */ "../../libs/common-components/src/lib/init-state/init-state.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], InitStateComponent);
-    return InitStateComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/left-side-bar/left-side-bar.component.less":
-/*!*******************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/left-side-bar/left-side-bar.component.less ***!
-  \*******************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".left-panel {\n  border-radius: 0px;\n  float: left;\n}\n.gd-left-bar-fade {\n  margin: auto;\n  overflow: hidden;\n  -webkit-overflow-scrolling: touch;\n  -webkit-transition: -webkit-transform 0.3s ease-out;\n  transition: -webkit-transform 0.3s ease-out;\n  transition: transform 0.3s ease-out;\n  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  position: fixed;\n  z-index: 1000;\n}\n@media (max-width: 1037px) {\n  .gd-left-bar-fade {\n    top: 100px;\n    right: 0;\n  }\n  .gd-left-bar-spinner {\n    top: 20%;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9sZWZ0LXNpZGUtYmFyL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvbGVmdC1zaWRlLWJhci9sZWZ0LXNpZGUtYmFyLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2xlZnQtc2lkZS1iYXIvbGVmdC1zaWRlLWJhci5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUdFLGtCQUFBO0VBQ0EsV0FBQTtBQ0RGO0FESUE7RUFDRSxZQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQ0FBQTtFQUNBLG1EQUFBO0VBR0EsMkNBQUE7RUFBQSxtQ0FBQTtFQUFBLG9FQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSx3QkFBQTtVQUFBLHVCQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLGVBQUE7RUFDQSxhQUFBO0FDRkY7QURLQTtFQUNFO0lBQ0UsVUFBQTtJQUNBLFFBQUE7RUNIRjtFRE1BO0lBQ0UsUUFBQTtFQ0pGO0FBQ0YiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2xlZnQtc2lkZS1iYXIvbGVmdC1zaWRlLWJhci5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuLmxlZnQtcGFuZWwge1xuICAtd2Via2l0LWJvcmRlci1yYWRpdXM6IDBweDtcbiAgLW1vei1ib3JkZXItcmFkaXVzOiAwcHg7XG4gIGJvcmRlci1yYWRpdXM6IDBweDtcbiAgZmxvYXQ6IGxlZnQ7XG59XG5cbi5nZC1sZWZ0LWJhci1mYWRlIHtcbiAgbWFyZ2luOiBhdXRvO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICAtd2Via2l0LW92ZXJmbG93LXNjcm9sbGluZzogdG91Y2g7XG4gIC13ZWJraXQtdHJhbnNpdGlvbjogLXdlYmtpdC10cmFuc2Zvcm0gMC4zcyBlYXNlLW91dDtcbiAgLW1vei10cmFuc2l0aW9uOiAtbW96LXRyYW5zZm9ybSAwLjNzIGVhc2Utb3V0O1xuICAtby10cmFuc2l0aW9uOiAtby10cmFuc2Zvcm0gMC4zcyBlYXNlLW91dDtcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuM3MgZWFzZS1vdXQ7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHotaW5kZXg6IDEwMDA7XG59XG5cbkBtZWRpYSBAcGhvbmUtZG93biB7XG4gIC5nZC1sZWZ0LWJhci1mYWRlIHtcbiAgICB0b3A6IDEwMHB4O1xuICAgIHJpZ2h0OiAwO1xuICB9XG5cbiAgLmdkLWxlZnQtYmFyLXNwaW5uZXIge1xuICAgIHRvcDogMjAlO1xuICB9XG59XG4iLCIubGVmdC1wYW5lbCB7XG4gIC13ZWJraXQtYm9yZGVyLXJhZGl1czogMHB4O1xuICAtbW96LWJvcmRlci1yYWRpdXM6IDBweDtcbiAgYm9yZGVyLXJhZGl1czogMHB4O1xuICBmbG9hdDogbGVmdDtcbn1cbi5nZC1sZWZ0LWJhci1mYWRlIHtcbiAgbWFyZ2luOiBhdXRvO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICAtd2Via2l0LW92ZXJmbG93LXNjcm9sbGluZzogdG91Y2g7XG4gIC13ZWJraXQtdHJhbnNpdGlvbjogLXdlYmtpdC10cmFuc2Zvcm0gMC4zcyBlYXNlLW91dDtcbiAgLW1vei10cmFuc2l0aW9uOiAtbW96LXRyYW5zZm9ybSAwLjNzIGVhc2Utb3V0O1xuICAtby10cmFuc2l0aW9uOiAtby10cmFuc2Zvcm0gMC4zcyBlYXNlLW91dDtcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuM3MgZWFzZS1vdXQ7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHotaW5kZXg6IDEwMDA7XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gIC5nZC1sZWZ0LWJhci1mYWRlIHtcbiAgICB0b3A6IDEwMHB4O1xuICAgIHJpZ2h0OiAwO1xuICB9XG4gIC5nZC1sZWZ0LWJhci1zcGlubmVyIHtcbiAgICB0b3A6IDIwJTtcbiAgfVxufVxuIl19 */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/left-side-bar/left-side-bar.component.ts":
-/*!*****************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/left-side-bar/left-side-bar.component.ts ***!
-  \*****************************************************************************************************************/
-/*! exports provided: LeftSideBarComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LeftSideBarComponent", function() { return LeftSideBarComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var LeftSideBarComponent = /** @class */ (function () {
-    function LeftSideBarComponent() {
-        this.showSpinner = false;
-    }
-    LeftSideBarComponent.prototype.ngOnInit = function () {
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], LeftSideBarComponent.prototype, "showSpinner", void 0);
-    LeftSideBarComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-left-side-bar',
-            template: __webpack_require__(/*! raw-loader!./left-side-bar.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/left-side-bar/left-side-bar.component.html"),
-            styles: [__webpack_require__(/*! ./left-side-bar.component.less */ "../../libs/common-components/src/lib/left-side-bar/left-side-bar.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], LeftSideBarComponent);
-    return LeftSideBarComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/loading-mask-interceptor.service.ts":
-/*!************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/loading-mask-interceptor.service.ts ***!
-  \************************************************************************************************************/
-/*! exports provided: LoadingMaskInterceptorService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadingMaskInterceptorService", function() { return LoadingMaskInterceptorService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _loading_mask_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./loading-mask.service */ "../../libs/common-components/src/lib/loading-mask.service.ts");
-
-
-
-
-var LoadingMaskInterceptorService = /** @class */ (function () {
-    function LoadingMaskInterceptorService(_loadingMaskService) {
-        this._loadingMaskService = _loadingMaskService;
-    }
-    LoadingMaskInterceptorService.prototype.intercept = function (req, next) {
-        var _this = this;
-        this._loadingMaskService.onRequestStart(req);
-        var callback = function () { return _this._loadingMaskService.onRequestFinish(req); };
-        return next.handle(req).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["finalize"])(callback));
-    };
-    LoadingMaskInterceptorService.ctorParameters = function () { return [
-        { type: _loading_mask_service__WEBPACK_IMPORTED_MODULE_3__["LoadingMaskService"] }
-    ]; };
-    LoadingMaskInterceptorService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_loading_mask_service__WEBPACK_IMPORTED_MODULE_3__["LoadingMaskService"]])
-    ], LoadingMaskInterceptorService);
-    return LoadingMaskInterceptorService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/loading-mask.service.ts":
-/*!************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/loading-mask.service.ts ***!
-  \************************************************************************************************/
-/*! exports provided: LoadingMaskService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadingMaskService", function() { return LoadingMaskService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _config_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config.service */ "../../libs/common-components/src/lib/config.service.ts");
-
-
-
-var LoadingMaskService = /** @class */ (function () {
-    function LoadingMaskService() {
-        this.onLoadingChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.stopList = [];
-        this.requests = [];
-        this.stopList.push(_config_service__WEBPACK_IMPORTED_MODULE_2__["Api"].SAVE_TEXT);
-        this.stopList.push(_config_service__WEBPACK_IMPORTED_MODULE_2__["Api"].SAVE_OPTICAL_CODE);
-        this.stopList.push(_config_service__WEBPACK_IMPORTED_MODULE_2__["Api"].LOAD_DOCUMENT_PAGE);
-        this.stopList.push(_config_service__WEBPACK_IMPORTED_MODULE_2__["Api"].LOAD_THUMBNAILS);
-        this.stopList.push(_config_service__WEBPACK_IMPORTED_MODULE_2__["Api"].GET_FILE_STATUS);
-        this.stopList.push(_config_service__WEBPACK_IMPORTED_MODULE_2__["Api"].LOAD_PRINT);
-    }
-    LoadingMaskService.prototype.onRequestStart = function (req) {
-        var stop = this.stopList.find(function (x) { return req.url.includes(x); });
-        if (!stop) {
-            this.requests.push(req);
-            this.notify();
-        }
-    };
-    LoadingMaskService.prototype.onRequestFinish = function (req) {
-        var index = this.requests.indexOf(req);
-        if (index !== -1) {
-            this.requests.splice(index, 1);
-        }
-        this.notify();
-    };
-    LoadingMaskService.prototype.addStopUrl = function (url) {
-        this.stopList.push(url);
-    };
-    LoadingMaskService.prototype.notify = function () {
-        this.onLoadingChanged.emit(this.requests.length !== 0);
-    };
-    LoadingMaskService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], LoadingMaskService);
-    return LoadingMaskService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/loading-mask/loading-mask.component.less":
-/*!*****************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/loading-mask/loading-mask.component.less ***!
-  \*****************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".loading-wrapper {\n  background: rgba(0, 0, 0, 0.5);\n  width: 100%;\n  height: 100%;\n  font-size: 14px;\n  color: white;\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  z-index: 99999;\n}\n.loading-message {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9sb2FkaW5nLW1hc2svQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9sb2FkaW5nLW1hc2svbG9hZGluZy1tYXNrLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2xvYWRpbmctbWFzay9sb2FkaW5nLW1hc2suY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSw4QkFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7RUFDQSxlQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxjQUFBO0FDQ0o7QURFQTtFQUNJLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLFFBQUE7RUFDQSx3Q0FBQTtVQUFBLGdDQUFBO0FDQUoiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2xvYWRpbmctbWFzay9sb2FkaW5nLW1hc2suY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubG9hZGluZy13cmFwcGVyIHtcbiAgICBiYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuNSk7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogMHB4O1xuICAgIGxlZnQ6IDBweDtcbiAgICB6LWluZGV4OiA5OTk5OTtcbn1cblxuLmxvYWRpbmctbWVzc2FnZSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0b3A6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLC01MCUpO1xufSIsIi5sb2FkaW5nLXdyYXBwZXIge1xuICBiYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuNSk7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgY29sb3I6IHdoaXRlO1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHRvcDogMHB4O1xuICBsZWZ0OiAwcHg7XG4gIHotaW5kZXg6IDk5OTk5O1xufVxuLmxvYWRpbmctbWVzc2FnZSB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNTAlO1xuICB0b3A6IDUwJTtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/loading-mask/loading-mask.component.ts":
-/*!***************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/loading-mask/loading-mask.component.ts ***!
-  \***************************************************************************************************************/
-/*! exports provided: LoadingMaskComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoadingMaskComponent", function() { return LoadingMaskComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _loading_mask_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../loading-mask.service */ "../../libs/common-components/src/lib/loading-mask.service.ts");
-
-
-
-var LoadingMaskComponent = /** @class */ (function () {
-    function LoadingMaskComponent(_loadingMaskService) {
-        this._loadingMaskService = _loadingMaskService;
-        this.loadingMask = false;
-    }
-    LoadingMaskComponent.prototype.ngOnInit = function () {
-    };
-    LoadingMaskComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        this._loadingMaskService
-            .onLoadingChanged
-            .subscribe(function (loading) { return _this.loadingMask = loading; });
-    };
-    LoadingMaskComponent.ctorParameters = function () { return [
-        { type: _loading_mask_service__WEBPACK_IMPORTED_MODULE_2__["LoadingMaskService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], LoadingMaskComponent.prototype, "loadingMask", void 0);
-    LoadingMaskComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-loading-mask',
-            template: __webpack_require__(/*! raw-loader!./loading-mask.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/loading-mask/loading-mask.component.html"),
-            styles: [__webpack_require__(/*! ./loading-mask.component.less */ "../../libs/common-components/src/lib/loading-mask/loading-mask.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_loading_mask_service__WEBPACK_IMPORTED_MODULE_2__["LoadingMaskService"]])
-    ], LoadingMaskComponent);
-    return LoadingMaskComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/logo/logo.component.less":
-/*!*************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/logo/logo.component.less ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".logo {\n  background-color: #25c2d4;\n  height: 60px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.text {\n  color: #FFFFFF;\n  font-size: 15px;\n  text-transform: uppercase;\n  margin: 0px 14px;\n}\n.icon {\n  display: none;\n  font-size: 32px;\n  color: rgba(255, 255, 255, 0.5);\n  margin: 14px;\n}\n@media (max-width: 1037px) {\n  .logo {\n    width: 60px;\n    height: 60px;\n  }\n  .logo .text {\n    display: none;\n  }\n  .logo .icon {\n    display: block;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9sb2dvL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvbG9nby9sb2dvLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2xvZ28vbG9nby5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLHlCQUFBO0VBQ0EsWUFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHlCQUFBO1VBQUEsbUJBQUE7RUFDQSx3QkFBQTtVQUFBLHVCQUFBO0FDREY7QURJQTtFQUNFLGNBQUE7RUFDQSxlQUFBO0VBQ0EseUJBQUE7RUFDQSxnQkFBQTtBQ0ZGO0FESUE7RUFDRSxhQUFBO0VBQ0EsZUFBQTtFQUNBLCtCQUFBO0VBQ0EsWUFBQTtBQ0ZGO0FES0E7RUFDRTtJQUNFLFdBQUE7SUFDQSxZQUFBO0VDSEY7RURDQTtJQUlJLGFBQUE7RUNGSjtFREZBO0lBT0ksY0FBQTtFQ0ZKO0FBQ0YiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL2xvZ28vbG9nby5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuLmxvZ28ge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBAbmF2LWxvZ28tYmFja2dyb3VuZDtcbiAgaGVpZ2h0OiBAbmF2LXRhYnMtaGVpZ2h0LW07XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG4udGV4dCB7XG4gIGNvbG9yOiAjRkZGRkZGO1xuICBmb250LXNpemU6IDE1cHg7XG4gIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XG4gIG1hcmdpbjogMHB4IDE0cHg7XG59XG4uaWNvbntcbiAgZGlzcGxheTogbm9uZTtcbiAgZm9udC1zaXplOiAzMnB4O1xuICBjb2xvcjogcmdiYSgyNTUsMjU1LDI1NSwwLjUpO1xuICBtYXJnaW46IDE0cHg7XG59XG5cbkBtZWRpYSBAcGhvbmUtZG93biB7XG4gIC5sb2dvIHtcbiAgICB3aWR0aDogNjBweDtcbiAgICBoZWlnaHQ6IEBuYXYtdGFicy1oZWlnaHQtbTtcbiAgICAudGV4dCB7XG4gICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cbiAgICAuaWNvbiB7XG4gICAgICBkaXNwbGF5OiBibG9jaztcbiAgICB9XG4gIH1cbn1cbiIsIi5sb2dvIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzI1YzJkNDtcbiAgaGVpZ2h0OiA2MHB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbi50ZXh0IHtcbiAgY29sb3I6ICNGRkZGRkY7XG4gIGZvbnQtc2l6ZTogMTVweDtcbiAgdGV4dC10cmFuc2Zvcm06IHVwcGVyY2FzZTtcbiAgbWFyZ2luOiAwcHggMTRweDtcbn1cbi5pY29uIHtcbiAgZGlzcGxheTogbm9uZTtcbiAgZm9udC1zaXplOiAzMnB4O1xuICBjb2xvcjogcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjUpO1xuICBtYXJnaW46IDE0cHg7XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gIC5sb2dvIHtcbiAgICB3aWR0aDogNjBweDtcbiAgICBoZWlnaHQ6IDYwcHg7XG4gIH1cbiAgLmxvZ28gLnRleHQge1xuICAgIGRpc3BsYXk6IG5vbmU7XG4gIH1cbiAgLmxvZ28gLmljb24ge1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICB9XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/logo/logo.component.ts":
-/*!***********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/logo/logo.component.ts ***!
-  \***********************************************************************************************/
-/*! exports provided: LogoComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogoComponent", function() { return LogoComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var LogoComponent = /** @class */ (function () {
-    function LogoComponent() {
-    }
-    LogoComponent.prototype.ngOnInit = function () {
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], LogoComponent.prototype, "logo", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], LogoComponent.prototype, "icon", void 0);
-    LogoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-logo',
-            template: __webpack_require__(/*! raw-loader!./logo.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/logo/logo.component.html"),
-            styles: [__webpack_require__(/*! ./logo.component.less */ "../../libs/common-components/src/lib/logo/logo.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], LogoComponent);
-    return LogoComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/modal.service.ts":
-/*!*****************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/modal.service.ts ***!
-  \*****************************************************************************************/
-/*! exports provided: CommonModals, ModalService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonModals", function() { return CommonModals; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalService", function() { return ModalService; });
-var CommonModals = /** @class */ (function () {
-    function CommonModals() {
-    }
-    CommonModals.PasswordRequired = "gd-password-required";
-    CommonModals.ErrorMessage = "gd-error-message";
-    CommonModals.BrowseFiles = "gd-browse-files";
-    CommonModals.CreateDocument = "gd-create-document";
-    CommonModals.OperationSuccess = "gd-success-modal";
-    CommonModals.DrawHandSignature = "gd-draw-hand-signature";
-    CommonModals.DrawStampSignature = "gd-draw-stamp-signature";
-    CommonModals.InformationMessage = "gd-information-message";
-    return CommonModals;
-}());
-
-var ModalService = /** @class */ (function () {
-    function ModalService() {
-        this.modals = [];
-    }
-    ModalService.prototype.add = function (modal) {
-        this.modals.push(modal);
-    };
-    ModalService.prototype.remove = function (id) {
-        this.modals = this.modals.filter(function (x) { return x.id !== id; });
-    };
-    ModalService.prototype.open = function (id) {
-        var modal = this.modals.filter(function (x) { return x.id === id; })[0];
-        if (modal) {
-            modal.open();
-        }
-    };
-    ModalService.prototype.close = function (id) {
-        var modal = this.modals.filter(function (x) { return x.id === id; })[0];
-        if (modal) {
-            modal.close();
-        }
-    };
-    return ModalService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/modal/modal.component.less":
-/*!***************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/modal/modal.component.less ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');\n:host * {\n  font-family: 'Open Sans', Arial, Helvetica, sans-serif;\n}\n.gd-modal {\n  overflow: hidden;\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 1050;\n  -webkit-overflow-scrolling: touch;\n  outline: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n}\n.gd-modal-dialog {\n  box-shadow: #0005 0px 0px 10px;\n  position: fixed;\n  left: 50%;\n  top: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n  z-index: 1051;\n}\n.gd-modal-dialog ::ng-deep .button {\n  -webkit-box-orient: unset !important;\n  -webkit-box-direction: unset !important;\n          flex-direction: unset !important;\n}\n.gd-modal-content {\n  background-color: #ffffff;\n  height: 100%;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n}\n.gd-modal-header {\n  height: 60px;\n  padding: 0px 12px 0px 24px;\n  background-color: #3e4e5a;\n}\n.gd-modal-close {\n  position: absolute;\n  right: 12px;\n  top: 12px;\n  cursor: pointer;\n  color: #fff;\n  width: 37px;\n  height: 37px;\n  text-align: center;\n}\n.gd-modal-close span {\n  font-size: 18px;\n  font-weight: 900;\n  height: 19px;\n  width: 10px;\n  line-height: 36px;\n}\n.gd-modal-title {\n  font-size: 16px;\n  font-weight: 400;\n  padding-top: 17px;\n  padding-bottom: 22px;\n  margin: 0px;\n  color: #FFFFFF;\n}\n.gd-modal-body {\n  background-color: #ffffff;\n  overflow: hidden;\n  overflow-y: auto;\n  height: calc(100% - 75px);\n}\n.gd-modal-footer {\n  height: auto;\n}\n.gd-modal-footer > .btn {\n  float: right;\n  margin: 20px 15px;\n  padding: 10px 20px;\n  cursor: pointer;\n  font-size: 12px;\n}\n@media (max-width: 1037px) {\n  .gd-modal-dialog {\n    width: 100%;\n    height: 100%;\n  }\n  .gd-modal-body {\n    height: 100%;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9tb2RhbC9tb2RhbC5jb21wb25lbnQubGVzcyIsImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9tb2RhbC9DOi9HaXRIdWIvR3JvdXBEb2NzL1RvdGFsL0FuZ3VsYXIvbGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL21vZGFsL21vZGFsLmNvbXBvbmVudC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDhFQ0FrQjtBQUVsQjtFQUNFLHNEQUFBO0FEQUY7QUNFQTtFQUNFLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLE1BQUE7RUFDQSxRQUFBO0VBQ0EsU0FBQTtFQUNBLE9BQUE7RUFDQSxhQUFBO0VBQ0EsaUNBQUE7RUFDQSxVQUFBO0VBQ0Esb0NBQUE7QURBRjtBQ0VBO0VBQ0UsOEJBQUE7RUFDQSxlQUFBO0VBQ0EsU0FBQTtFQUNBLFFBQUE7RUFDQSx3Q0FBQTtVQUFBLGdDQUFBO0VBQ0EsYUFBQTtBREFGO0FDTkE7RUFRSSxvQ0FBQTtFQUFBLHVDQUFBO1VBQUEsZ0NBQUE7QURDSjtBQ0VBO0VBQ0UseUJBQUE7RUFDQSxZQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EsNEJBQUE7RUFBQSw2QkFBQTtVQUFBLHNCQUFBO0FEQUY7QUNFQTtFQUNFLFlBQUE7RUFDQSwwQkFBQTtFQUNBLHlCQUFBO0FEQUY7QUNFQTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLFNBQUE7RUFDQSxlQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7QURBRjtBQ1JBO0VBVUksZUFBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxpQkFBQTtBRENKO0FDRUE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLG9CQUFBO0VBQ0EsV0FBQTtFQUNBLGNBQUE7QURBRjtBQ0VBO0VBQ0UseUJBQUE7RUFDQSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0EseUJBQUE7QURBRjtBQ0VBO0VBQ0UsWUFBQTtBREFGO0FDRUE7RUFDRSxZQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7RUFDQSxlQUFBO0FEQUY7QUNHQTtFQUNFO0lBQ0UsV0FBQTtJQUNBLFlBQUE7RURERjtFQ0lBO0lBQ0UsWUFBQTtFREZGO0FBQ0YiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL21vZGFsL21vZGFsLmNvbXBvbmVudC5sZXNzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1Nb250c2VycmF0JmRpc3BsYXk9c3dhcCcpO1xuOmhvc3QgKiB7XG4gIGZvbnQtZmFtaWx5OiAnT3BlbiBTYW5zJywgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjtcbn1cbi5nZC1tb2RhbCB7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgdG9wOiAwO1xuICByaWdodDogMDtcbiAgYm90dG9tOiAwO1xuICBsZWZ0OiAwO1xuICB6LWluZGV4OiAxMDUwO1xuICAtd2Via2l0LW92ZXJmbG93LXNjcm9sbGluZzogdG91Y2g7XG4gIG91dGxpbmU6IDA7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41KTtcbn1cbi5nZC1tb2RhbC1kaWFsb2cge1xuICBib3gtc2hhZG93OiAjMDAwNSAwcHggMHB4IDEwcHg7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgbGVmdDogNTAlO1xuICB0b3A6IDUwJTtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG4gIHotaW5kZXg6IDEwNTE7XG59XG4uZ2QtbW9kYWwtZGlhbG9nIDo6bmctZGVlcCAuYnV0dG9uIHtcbiAgZmxleC1kaXJlY3Rpb246IHVuc2V0ICFpbXBvcnRhbnQ7XG59XG4uZ2QtbW9kYWwtY29udGVudCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZmZmZmY7XG4gIGhlaWdodDogMTAwJTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbn1cbi5nZC1tb2RhbC1oZWFkZXIge1xuICBoZWlnaHQ6IDYwcHg7XG4gIHBhZGRpbmc6IDBweCAxMnB4IDBweCAyNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjM2U0ZTVhO1xufVxuLmdkLW1vZGFsLWNsb3NlIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogMTJweDtcbiAgdG9wOiAxMnB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGNvbG9yOiAjZmZmO1xuICB3aWR0aDogMzdweDtcbiAgaGVpZ2h0OiAzN3B4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG4uZ2QtbW9kYWwtY2xvc2Ugc3BhbiB7XG4gIGZvbnQtc2l6ZTogMThweDtcbiAgZm9udC13ZWlnaHQ6IDkwMDtcbiAgaGVpZ2h0OiAxOXB4O1xuICB3aWR0aDogMTBweDtcbiAgbGluZS1oZWlnaHQ6IDM2cHg7XG59XG4uZ2QtbW9kYWwtdGl0bGUge1xuICBmb250LXNpemU6IDE2cHg7XG4gIGZvbnQtd2VpZ2h0OiA0MDA7XG4gIHBhZGRpbmctdG9wOiAxN3B4O1xuICBwYWRkaW5nLWJvdHRvbTogMjJweDtcbiAgbWFyZ2luOiAwcHg7XG4gIGNvbG9yOiAjRkZGRkZGO1xufVxuLmdkLW1vZGFsLWJvZHkge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICBoZWlnaHQ6IGNhbGMoMTAwJSAtIDc1cHgpO1xufVxuLmdkLW1vZGFsLWZvb3RlciB7XG4gIGhlaWdodDogYXV0bztcbn1cbi5nZC1tb2RhbC1mb290ZXIgPiAuYnRuIHtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBtYXJnaW46IDIwcHggMTVweDtcbiAgcGFkZGluZzogMTBweCAyMHB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGZvbnQtc2l6ZTogMTJweDtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiAxMDM3cHgpIHtcbiAgLmdkLW1vZGFsLWRpYWxvZyB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICB9XG4gIC5nZC1tb2RhbC1ib2R5IHtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gIH1cbn1cbiIsIkBpbXBvcnQgKGNzcykgdXJsKCdodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9TW9udHNlcnJhdCZkaXNwbGF5PXN3YXAnKTtcbkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcbjpob3N0ICoge1xuICBmb250LWZhbWlseTogJ09wZW4gU2FucycsIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7XG59XG4uZ2QtbW9kYWwge1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHRvcDogMDtcbiAgcmlnaHQ6IDA7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgei1pbmRleDogMTA1MDtcbiAgLXdlYmtpdC1vdmVyZmxvdy1zY3JvbGxpbmc6IHRvdWNoO1xuICBvdXRsaW5lOiAwO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDAsMCwwLDAuNSk7XG59XG4uZ2QtbW9kYWwtZGlhbG9nIHtcbiAgYm94LXNoYWRvdzogIzAwMDUgMHB4IDBweCAxMHB4O1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGxlZnQ6IDUwJTtcbiAgdG9wOiA1MCU7XG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsLTUwJSk7XG4gIHotaW5kZXg6IDEwNTE7XG4gIDo6bmctZGVlcCAuYnV0dG9uIHtcbiAgICBmbGV4LWRpcmVjdGlvbjogdW5zZXQgIWltcG9ydGFudDtcbiAgfVxufVxuLmdkLW1vZGFsLWNvbnRlbnQge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG59XG4uZ2QtbW9kYWwtaGVhZGVyIHtcbiAgaGVpZ2h0OiA2MHB4O1xuICBwYWRkaW5nOiAwcHggMTJweCAwcHggMjRweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogQG5hdi1tYWluLWJhY2tncm91bmQ7XG59XG4uZ2QtbW9kYWwtY2xvc2Uge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAxMnB4O1xuICB0b3A6IDEycHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgY29sb3I6ICNmZmY7XG4gIHdpZHRoOiAzN3B4O1xuICBoZWlnaHQ6IDM3cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgc3BhbiB7XG4gICAgZm9udC1zaXplOiAxOHB4O1xuICAgIGZvbnQtd2VpZ2h0OiA5MDA7XG4gICAgaGVpZ2h0OiAxOXB4O1xuICAgIHdpZHRoOiAxMHB4O1xuICAgIGxpbmUtaGVpZ2h0OiAzNnB4O1xuICB9XG59XG4uZ2QtbW9kYWwtdGl0bGUge1xuICBmb250LXNpemU6IDE2cHg7XG4gIGZvbnQtd2VpZ2h0OiA0MDA7XG4gIHBhZGRpbmctdG9wOiAxN3B4O1xuICBwYWRkaW5nLWJvdHRvbTogMjJweDtcbiAgbWFyZ2luOiAwcHg7XG4gIGNvbG9yOiAjRkZGRkZGO1xufVxuLmdkLW1vZGFsLWJvZHkge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICBoZWlnaHQ6IGNhbGMoMTAwJSAtIDc1cHgpO1xufVxuLmdkLW1vZGFsLWZvb3RlciB7XG4gIGhlaWdodDogYXV0bztcbn1cbi5nZC1tb2RhbC1mb290ZXIgPiAuYnRuIHtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBtYXJnaW46IDIwcHggMTVweDtcbiAgcGFkZGluZzogMTBweCAyMHB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGZvbnQtc2l6ZTogMTJweDtcbn1cblxuQG1lZGlhIEBwaG9uZS1kb3duIHtcbiAgLmdkLW1vZGFsLWRpYWxvZyB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICB9XG5cbiAgLmdkLW1vZGFsLWJvZHkge1xuICAgIGhlaWdodDogMTAwJTtcbiAgfVxufVxuIl19 */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/modal/modal.component.ts":
-/*!*************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/modal/modal.component.ts ***!
-  \*************************************************************************************************/
-/*! exports provided: ModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalComponent", function() { return ModalComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _modal_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modal.service */ "../../libs/common-components/src/lib/modal.service.ts");
-
-
-
-var ModalComponent = /** @class */ (function () {
-    function ModalComponent(modalService, el) {
-        this.modalService = modalService;
-        this.visible = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.cancel = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.visibility = false;
-        this.element = el.nativeElement;
-    }
-    ModalComponent.prototype.ngOnInit = function () {
-        if (!this.id) {
-            console.error('modal must have an id');
-            return;
-        }
-        document.body.appendChild(this.element);
-        this.modalService.add(this);
-    };
-    ModalComponent.prototype.ngOnDestroy = function () {
-        this.modalService.remove(this.id);
-        this.element.remove();
-    };
-    ModalComponent.prototype.open = function () {
-        this.visibility = true;
-        this.visible.emit(true);
-    };
-    ModalComponent.prototype.close = function () {
-        event.preventDefault();
-        event.stopPropagation();
-        this.visibility = false;
-        this.visible.emit(false);
-    };
-    ModalComponent.prototype.onClose = function ($event) {
-        $event.stopPropagation();
-        if ($event && $event.target && $event.target.id === 'modalDialog') {
-            this.close();
-        }
-    };
-    ModalComponent.prototype.cancelClose = function () {
-        this.cancel.emit(false);
-        this.close();
-    };
-    ModalComponent.ctorParameters = function () { return [
-        { type: _modal_service__WEBPACK_IMPORTED_MODULE_2__["ModalService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ModalComponent.prototype, "id", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ModalComponent.prototype, "title", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ModalComponent.prototype, "visible", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ModalComponent.prototype, "cancel", void 0);
-    ModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-modal',
-            template: __webpack_require__(/*! raw-loader!./modal.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/modal/modal.component.html"),
-            styles: [__webpack_require__(/*! ./modal.component.less */ "../../libs/common-components/src/lib/modal/modal.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_modal_service__WEBPACK_IMPORTED_MODULE_2__["ModalService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
-    ], ModalComponent);
-    return ModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/mousewheel.directive.ts":
-/*!************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/mousewheel.directive.ts ***!
-  \************************************************************************************************/
-/*! exports provided: MouseWheelDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MouseWheelDirective", function() { return MouseWheelDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_2__;
-var MouseWheelDirective = /** @class */ (function () {
-    function MouseWheelDirective() {
-        this.mouseWheelUp = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.mouseWheelDown = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-    }
-    MouseWheelDirective.prototype.onMouseWheelChrome = function (event) {
-        this.mouseWheelFunc(event);
-    };
-    MouseWheelDirective.prototype.onMouseWheelFirefox = function (event) {
-        this.mouseWheelFunc(event);
-    };
-    MouseWheelDirective.prototype.onMouseWheelIE = function (event) {
-        this.mouseWheelFunc(event);
-    };
-    MouseWheelDirective.prototype.mouseWheelFunc = function (event) {
-        event = window.event;
-        var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
-        if (delta > 0) {
-            this.mouseWheelUp.emit(event);
-        }
-        else if (delta < 0) {
-            this.mouseWheelDown.emit(event);
-        }
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], MouseWheelDirective.prototype, "mouseWheelUp", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], MouseWheelDirective.prototype, "mouseWheelDown", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mousewheel', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], MouseWheelDirective.prototype, "onMouseWheelChrome", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('DOMMouseScroll', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], MouseWheelDirective.prototype, "onMouseWheelFirefox", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('onmousewheel', ['$event']),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], MouseWheelDirective.prototype, "onMouseWheelIE", null);
-    MouseWheelDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdMouseWheel]'
-        })
-    ], MouseWheelDirective);
-    return MouseWheelDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/navigate.service.ts":
-/*!********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/navigate.service.ts ***!
-  \********************************************************************************************/
-/*! exports provided: NavigateService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavigateService", function() { return NavigateService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _page_preload_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./page-preload.service */ "../../libs/common-components/src/lib/page-preload.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-
-
-var NavigateService = /** @class */ (function () {
-    function NavigateService(_pagePreloadService) {
-        this._pagePreloadService = _pagePreloadService;
-        this._currentPage = 0;
-        this._countPages = 0;
-        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
-        this._navigate = this._observer;
-    }
-    Object.defineProperty(NavigateService.prototype, "navigate", {
-        get: function () {
-            return this._navigate;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NavigateService.prototype, "countPages", {
-        get: function () {
-            return this._countPages;
-        },
-        set: function (value) {
-            this._countPages = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(NavigateService.prototype, "currentPage", {
-        get: function () {
-            return this._currentPage;
-        },
-        set: function (value) {
-            this._currentPage = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    NavigateService.prototype.nextPage = function () {
-        if (this._currentPage < this._countPages) {
-            this._currentPage++;
-            this.navigateTo(this._currentPage);
-        }
-    };
-    NavigateService.prototype.prevPage = function () {
-        if (this._currentPage > 1) {
-            this._currentPage--;
-            this.navigateTo(this._currentPage);
-        }
-    };
-    NavigateService.prototype.toLastPage = function () {
-        this._currentPage = this._countPages;
-        this.navigateTo(this._currentPage);
-    };
-    NavigateService.prototype.toFirstPage = function () {
-        this._currentPage = 1;
-        this.navigateTo(this._currentPage);
-    };
-    NavigateService.prototype.navigateTo = function (page) {
-        this.currentPage = page;
-        this._pagePreloadService.changeLastPageInView(page);
-        this._observer.next(page);
-    };
-    NavigateService.ctorParameters = function () { return [
-        { type: _page_preload_service__WEBPACK_IMPORTED_MODULE_2__["PagePreloadService"] }
-    ]; };
-    NavigateService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_page_preload_service__WEBPACK_IMPORTED_MODULE_2__["PagePreloadService"]])
-    ], NavigateService);
-    return NavigateService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/on-close.service.ts":
-/*!********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/on-close.service.ts ***!
-  \********************************************************************************************/
-/*! exports provided: OnCloseService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OnCloseService", function() { return OnCloseService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-
-
-var OnCloseService = /** @class */ (function () {
-    function OnCloseService() {
-        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
-        this._onClose = this._observer.asObservable();
-    }
-    Object.defineProperty(OnCloseService.prototype, "onClose", {
-        get: function () {
-            return this._onClose;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    OnCloseService.prototype.close = function (close) {
-        this._observer.next(close);
-    };
-    OnCloseService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], OnCloseService);
-    return OnCloseService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/page-marker.directive.ts":
-/*!*************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/page-marker.directive.ts ***!
-  \*************************************************************************************************/
-/*! exports provided: PageMarkerDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageMarkerDirective", function() { return PageMarkerDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _zoom_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./zoom.service */ "../../libs/common-components/src/lib/zoom.service.ts");
-/* harmony import */ var _window_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./window.service */ "../../libs/common-components/src/lib/window.service.ts");
-
-
-
-
-var PageMarkerDirective = /** @class */ (function () {
-    function PageMarkerDirective(_zoomService, _windowService, el) {
-        this._zoomService = _zoomService;
-        this._windowService = _windowService;
-        this.naming = {
-            sectionSelector: "section.section",
-            markerSelector: "span.page8marker",
-            headerSelector: "header.header",
-            contentSelector: "article.content",
-            footerSelector: "footer.footer"
-        };
-        // observing configurations.
-        this.config = {
-            attributes: true,
-            attributeOldValue: true,
-            childList: true,
-            subtree: true,
-            characterData: true,
-            characterDataOldValue: true,
-            attributeFilter: ["style", "class"]
-        };
-        this.el = el;
-    }
-    PageMarkerDirective.prototype.ngAfterViewInit = function () {
-        var sections = document.querySelectorAll(this.naming.sectionSelector);
-        for (var index = 0; index < sections.length; index++) {
-            // get section
-            var section = sections[index];
-            // process section. add markers to this one.
-            this.processSection(section);
-            // Create an observer instance linked to the callback function.
-            var observer = new MutationObserver(this.callback.bind(this));
-            // Start observing the target sections for configured mutations.
-            observer.observe(section, this.config);
-        }
-    };
-    // Callback function to execute when mutations are observed.
-    PageMarkerDirective.prototype.callback = function (mutationsList, observer) {
-        // get first MutationRecord from list.
-        var mutationFirst = mutationsList[0];
-        // get parent section.
-        var parentNode = mutationFirst.target.parentNode;
-        if (parentNode) {
-            var target = mutationFirst.target.parentNode.closest(this.naming.sectionSelector);
-            if (target === null || target === "undefined") {
-                return;
-            }
-            // remove all markers in the current section.
-            target.querySelectorAll(this.naming.markerSelector).forEach(function (element) {
-                element.remove();
-            });
-            // add marker to target sections.
-            this.processSection(target);
-            // a list of all matching DOM changes that have been detected but not yet processed by the observer's callback function, leaving the mutation queue empty.
-            // MAIN REASON - leaving the mutation queue empty. 
-            var lest = observer.takeRecords();
-        }
-    };
-    ;
-    PageMarkerDirective.prototype.processSection = function (section) {
-        var headerHeight = this.processHeader(section);
-        var footerHeight = this.processFooter(section);
-        // get max page height - from css 'paginal.css'
-        var styling = getComputedStyle(section, null);
-        var minHeight = styling.getPropertyValue('min-height');
-        var minHeightNumber = parseFloat(minHeight);
-        var contentHeight = minHeightNumber - headerHeight - footerHeight;
-        var realHeight = this.processContent(section);
-        var endPageCoordinate = contentHeight;
-        while (endPageCoordinate < realHeight) {
-            var marker = this.htmlToElements("<span class='page8marker' style='top:" + Math.ceil(endPageCoordinate) +
-                "px;'></span>");
-            marker.forEach(function (item) {
-                section.appendChild(item);
-            });
-            endPageCoordinate += contentHeight;
-        }
-    };
-    // calculate header's height.
-    PageMarkerDirective.prototype.processHeader = function (section) {
-        var header = section.querySelector(this.naming.headerSelector);
-        return header.getBoundingClientRect().height;
-    };
-    ;
-    // calculate real height of the content. without padding.
-    PageMarkerDirective.prototype.processContent = function (section) {
-        var content = section.querySelector(this.naming.contentSelector);
-        var height = content.getBoundingClientRect().height;
-        var styling = getComputedStyle(content, null);
-        var paddingBottom = styling.getPropertyValue('padding-bottom');
-        var paddingTop = styling.getPropertyValue('padding-top');
-        return height - parseFloat(paddingBottom) - parseFloat(paddingTop);
-    };
-    ;
-    // calculate footer's height.
-    PageMarkerDirective.prototype.processFooter = function (section) {
-        var footer = section.querySelector(this.naming.footerSelector);
-        return footer.getBoundingClientRect().height;
-    };
-    ;
-    // create dom element from string.
-    PageMarkerDirective.prototype.htmlToElements = function (html) {
-        var template = document.createElement('template');
-        template.innerHTML = html;
-        return template.content.childNodes;
-    };
-    PageMarkerDirective.ctorParameters = function () { return [
-        { type: _zoom_service__WEBPACK_IMPORTED_MODULE_2__["ZoomService"] },
-        { type: _window_service__WEBPACK_IMPORTED_MODULE_3__["WindowService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }
-    ]; };
-    PageMarkerDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdPageMarker]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_zoom_service__WEBPACK_IMPORTED_MODULE_2__["ZoomService"], _window_service__WEBPACK_IMPORTED_MODULE_3__["WindowService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
-    ], PageMarkerDirective);
-    return PageMarkerDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/page-preload.service.ts":
-/*!************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/page-preload.service.ts ***!
-  \************************************************************************************************/
-/*! exports provided: PagePreloadService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PagePreloadService", function() { return PagePreloadService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-var PagePreloadService = /** @class */ (function () {
-    function PagePreloadService() {
-        var _this = this;
-        this._checkPreload = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"](function (observer) {
-            return _this._observer = observer;
-        });
-    }
-    Object.defineProperty(PagePreloadService.prototype, "checkPreload", {
-        get: function () {
-            return this._checkPreload;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    PagePreloadService.prototype.changeLastPageInView = function (page) {
-        if (this._observer) {
-            this._observer.next(page);
-        }
-    };
-    return PagePreloadService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/page/page.component.less":
-/*!*************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/page/page.component.less ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".gd-page-spinner {\n  margin-top: 150px;\n  text-align: center;\n}\n.gd-wrapper {\n  width: inherit;\n  height: inherit;\n}\n.gd-wrapper div {\n  width: 100%;\n}\n::ng-deep .gd-highlight {\n  background-color: yellow;\n}\n::ng-deep .gd-highlight-select {\n  background-color: #ff9b00;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9wYWdlL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvcGFnZS9wYWdlLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3BhZ2UvcGFnZS5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGlCQUFBO0VBQ0Esa0JBQUE7QUNDRjtBREVBO0VBQ0UsY0FBQTtFQUNBLGVBQUE7QUNBRjtBREdBO0VBQ0UsV0FBQTtBQ0RGO0FESUE7RUFDRSx3QkFBQTtBQ0ZGO0FES0E7RUFDRSx5QkFBQTtBQ0hGIiwiZmlsZSI6ImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9wYWdlL3BhZ2UuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZ2QtcGFnZS1zcGlubmVyIHtcbiAgbWFyZ2luLXRvcDogMTUwcHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmdkLXdyYXBwZXIge1xuICB3aWR0aCA6IGluaGVyaXQ7XG4gIGhlaWdodDogaW5oZXJpdDtcbn1cblxuLmdkLXdyYXBwZXIgZGl2IHtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbjo6bmctZGVlcCAuZ2QtaGlnaGxpZ2h0IHtcbiAgYmFja2dyb3VuZC1jb2xvcjogeWVsbG93O1xufVxuXG46Om5nLWRlZXAgLmdkLWhpZ2hsaWdodC1zZWxlY3Qge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmY5YjAwO1xufSIsIi5nZC1wYWdlLXNwaW5uZXIge1xuICBtYXJnaW4tdG9wOiAxNTBweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuLmdkLXdyYXBwZXIge1xuICB3aWR0aDogaW5oZXJpdDtcbiAgaGVpZ2h0OiBpbmhlcml0O1xufVxuLmdkLXdyYXBwZXIgZGl2IHtcbiAgd2lkdGg6IDEwMCU7XG59XG46Om5nLWRlZXAgLmdkLWhpZ2hsaWdodCB7XG4gIGJhY2tncm91bmQtY29sb3I6IHllbGxvdztcbn1cbjo6bmctZGVlcCAuZ2QtaGlnaGxpZ2h0LXNlbGVjdCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZjliMDA7XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/page/page.component.ts":
-/*!***********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/page/page.component.ts ***!
-  \***********************************************************************************************/
-/*! exports provided: PageComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageComponent", function() { return PageComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var PageComponent = /** @class */ (function () {
-    function PageComponent() {
-    }
-    PageComponent.prototype.ngOnInit = function () {
-        var isIE = /*@cc_on!@*/  false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
-        if (isIE && this.number === 0) {
-            this.editable = false;
-        }
-    };
-    PageComponent.prototype.ngOnChanges = function (changes) {
-        if (this.isHtml) {
-            // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
-            // which leads to undesired spaces on the top of the docs pages
-            this.data = this.data
-                ? this.data.replace(/>\s+</g, '><')
-                    .replace(/\uFEFF/g, "")
-                : null;
-        }
-        else {
-            if (this.data) {
-                this.imgData = this.data.startsWith('data:image') ? this.data : 'data:image/png;base64,' + this.data;
-            }
-        }
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], PageComponent.prototype, "angle", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], PageComponent.prototype, "width", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], PageComponent.prototype, "height", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], PageComponent.prototype, "number", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], PageComponent.prototype, "data", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], PageComponent.prototype, "isHtml", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], PageComponent.prototype, "editable", void 0);
-    PageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-page',
-            template: __webpack_require__(/*! raw-loader!./page.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/page/page.component.html"),
-            styles: [__webpack_require__(/*! ./page.component.less */ "../../libs/common-components/src/lib/page/page.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], PageComponent);
-    return PageComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/password-required/password-required.component.less":
-/*!***************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/password-required/password-required.component.less ***!
-  \***************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "#gd-password-section {\n  width: 375px;\n  height: 164px;\n}\n.gd-password-wrap {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  margin: 24px;\n}\n.gd-password-wrap label {\n  font-size: 14px;\n  color: #acacac;\n  padding-bottom: 12px;\n}\n.gd-password-wrap input {\n  height: 30px;\n  border: 1px solid #25c2d4;\n}\n.gd-password-wrap input.error {\n  border-color: #e04e4e;\n}\n.gd-password-wrap gd-button {\n  align-self: flex-end;\n}\n.gd-password-wrap ::ng-deep .button {\n  height: 37px;\n  width: 72px;\n  padding: 0px;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.gd-password-wrap ::ng-deep .button ::ng-deep .text {\n  font-size: 10px !important;\n}\n.gd-password-error {\n  color: #e04e4e;\n  padding: 10px 0px 12px 0px;\n  height: 12px;\n  line-height: 12px;\n  font-size: 12px;\n}\n@media (max-width: 1037px) {\n  #gd-password-section {\n    min-width: 375px;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9wYXNzd29yZC1yZXF1aXJlZC9DOi9HaXRIdWIvR3JvdXBEb2NzL1RvdGFsL0FuZ3VsYXIvbGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3Bhc3N3b3JkLXJlcXVpcmVkL3Bhc3N3b3JkLXJlcXVpcmVkLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3Bhc3N3b3JkLXJlcXVpcmVkL3Bhc3N3b3JkLXJlcXVpcmVkLmNvbXBvbmVudC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0UsWUFBQTtFQUNBLGFBQUE7QUNERjtBRElBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsNEJBQUE7RUFBQSw2QkFBQTtVQUFBLHNCQUFBO0VBQ0EsWUFBQTtBQ0ZGO0FEREE7RUFLSSxlQUFBO0VBQ0EsY0FBQTtFQUNBLG9CQUFBO0FDREo7QUROQTtFQVVJLFlBQUE7RUFDQSx5QkFBQTtBQ0RKO0FERUk7RUFDRSxxQkFBQTtBQ0FOO0FEYkE7RUFpQkksb0JBQUE7QUNESjtBRGhCQTtFQW9CSSxZQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSx3QkFBQTtVQUFBLHVCQUFBO0FDREo7QUR0QkE7RUF5Qk0sMEJBQUE7QUNBTjtBREtBO0VBQ0UsY0FBQTtFQUNBLDBCQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtBQ0hGO0FETUE7RUFDRTtJQUNFLGdCQUFBO0VDSkY7QUFDRiIsImZpbGUiOiJsaWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvcGFzc3dvcmQtcmVxdWlyZWQvcGFzc3dvcmQtcmVxdWlyZWQuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi8uLi8uLi9zdHlsZXMvdmFyaWFibGVzXCI7XG5cbiNnZC1wYXNzd29yZC1zZWN0aW9uIHtcbiAgd2lkdGg6IDM3NXB4O1xuICBoZWlnaHQ6IDE2NHB4O1xufVxuXG4uZ2QtcGFzc3dvcmQtd3JhcCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIG1hcmdpbjogMjRweDtcbiAgbGFiZWwge1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICBjb2xvcjogQHNpbHZlci1jaGFsaWNlO1xuICAgIHBhZGRpbmctYm90dG9tOiAxMnB4O1xuICB9XG4gIGlucHV0IHtcbiAgICBoZWlnaHQ6IDMwcHg7XG4gICAgYm9yZGVyOiAxcHggc29saWQgQGJyYW5kO1xuICAgICYuZXJyb3Ige1xuICAgICAgYm9yZGVyLWNvbG9yOiBAcGRmO1xuICAgIH1cbiAgfVxuICBnZC1idXR0b24ge1xuICAgIGFsaWduLXNlbGY6IGZsZXgtZW5kO1xuICB9XG4gIDo6bmctZGVlcCAuYnV0dG9uIHtcbiAgICBoZWlnaHQ6IDM3cHg7XG4gICAgd2lkdGg6IDcycHg7XG4gICAgcGFkZGluZzogMHB4O1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIDo6bmctZGVlcCAudGV4dCB7XG4gICAgICBmb250LXNpemU6IDEwcHggIWltcG9ydGFudDtcbiAgICB9XG4gIH1cbn1cblxuLmdkLXBhc3N3b3JkLWVycm9yIHtcbiAgY29sb3I6IEBwZGY7XG4gIHBhZGRpbmc6IDEwcHggMHB4IDEycHggMHB4O1xuICBoZWlnaHQ6IDEycHg7XG4gIGxpbmUtaGVpZ2h0OiAxMnB4O1xuICBmb250LXNpemU6IDEycHg7XG59XG5cbkBtZWRpYSBAcGhvbmUtZG93biB7XG4gICNnZC1wYXNzd29yZC1zZWN0aW9uIHtcbiAgICBtaW4td2lkdGg6IDM3NXB4O1xuICB9XG59XG4iLCIjZ2QtcGFzc3dvcmQtc2VjdGlvbiB7XG4gIHdpZHRoOiAzNzVweDtcbiAgaGVpZ2h0OiAxNjRweDtcbn1cbi5nZC1wYXNzd29yZC13cmFwIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgbWFyZ2luOiAyNHB4O1xufVxuLmdkLXBhc3N3b3JkLXdyYXAgbGFiZWwge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGNvbG9yOiAjYWNhY2FjO1xuICBwYWRkaW5nLWJvdHRvbTogMTJweDtcbn1cbi5nZC1wYXNzd29yZC13cmFwIGlucHV0IHtcbiAgaGVpZ2h0OiAzMHB4O1xuICBib3JkZXI6IDFweCBzb2xpZCAjMjVjMmQ0O1xufVxuLmdkLXBhc3N3b3JkLXdyYXAgaW5wdXQuZXJyb3Ige1xuICBib3JkZXItY29sb3I6ICNlMDRlNGU7XG59XG4uZ2QtcGFzc3dvcmQtd3JhcCBnZC1idXR0b24ge1xuICBhbGlnbi1zZWxmOiBmbGV4LWVuZDtcbn1cbi5nZC1wYXNzd29yZC13cmFwIDo6bmctZGVlcCAuYnV0dG9uIHtcbiAgaGVpZ2h0OiAzN3B4O1xuICB3aWR0aDogNzJweDtcbiAgcGFkZGluZzogMHB4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbi5nZC1wYXNzd29yZC13cmFwIDo6bmctZGVlcCAuYnV0dG9uIDo6bmctZGVlcCAudGV4dCB7XG4gIGZvbnQtc2l6ZTogMTBweCAhaW1wb3J0YW50O1xufVxuLmdkLXBhc3N3b3JkLWVycm9yIHtcbiAgY29sb3I6ICNlMDRlNGU7XG4gIHBhZGRpbmc6IDEwcHggMHB4IDEycHggMHB4O1xuICBoZWlnaHQ6IDEycHg7XG4gIGxpbmUtaGVpZ2h0OiAxMnB4O1xuICBmb250LXNpemU6IDEycHg7XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gICNnZC1wYXNzd29yZC1zZWN0aW9uIHtcbiAgICBtaW4td2lkdGg6IDM3NXB4O1xuICB9XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/password-required/password-required.component.ts":
-/*!*************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/password-required/password-required.component.ts ***!
-  \*************************************************************************************************************************/
-/*! exports provided: PasswordRequiredComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PasswordRequiredComponent", function() { return PasswordRequiredComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _exception_message_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../exception-message.service */ "../../libs/common-components/src/lib/exception-message.service.ts");
-/* harmony import */ var _password_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../password.service */ "../../libs/common-components/src/lib/password.service.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
-
-
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_4__;
-var PasswordRequiredComponent = /** @class */ (function () {
-    function PasswordRequiredComponent(messageService, _passwordService) {
-        var _this = this;
-        this._passwordService = _passwordService;
-        this.cancelEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        messageService.messageChange.subscribe(function (message) { return _this.message = message; });
-    }
-    PasswordRequiredComponent.prototype.ngOnInit = function () {
-    };
-    PasswordRequiredComponent.prototype.setPassword = function (value) {
-        this._passwordService.setPassword(value);
-    };
-    PasswordRequiredComponent.prototype.onCloseOpen = function ($event) {
-        if ($event) {
-            setTimeout(function () {
-                var element = $("#password");
-                if (element) {
-                    element.focus();
-                }
-            }, 100);
-        }
-        else {
-            $("#password").val("");
-        }
-    };
-    PasswordRequiredComponent.prototype.cancel = function ($event) {
-        $("#password").val("");
-        this.cancelEvent.emit(true);
-    };
-    PasswordRequiredComponent.ctorParameters = function () { return [
-        { type: _exception_message_service__WEBPACK_IMPORTED_MODULE_2__["ExceptionMessageService"] },
-        { type: _password_service__WEBPACK_IMPORTED_MODULE_3__["PasswordService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], PasswordRequiredComponent.prototype, "cancelEvent", void 0);
-    PasswordRequiredComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-password-required',
-            template: __webpack_require__(/*! raw-loader!./password-required.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/password-required/password-required.component.html"),
-            styles: [__webpack_require__(/*! ./password-required.component.less */ "../../libs/common-components/src/lib/password-required/password-required.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_exception_message_service__WEBPACK_IMPORTED_MODULE_2__["ExceptionMessageService"], _password_service__WEBPACK_IMPORTED_MODULE_3__["PasswordService"]])
-    ], PasswordRequiredComponent);
-    return PasswordRequiredComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/password.service.ts":
-/*!********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/password.service.ts ***!
-  \********************************************************************************************/
-/*! exports provided: PasswordService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PasswordService", function() { return PasswordService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-var PasswordService = /** @class */ (function () {
-    function PasswordService() {
-        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._passChange = this._observer.asObservable();
-    }
-    Object.defineProperty(PasswordService.prototype, "passChange", {
-        get: function () {
-            return this._passChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    PasswordService.prototype.setPassword = function (pass) {
-        this._observer.next(pass);
-    };
-    return PasswordService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/pipes.ts":
-/*!*********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/pipes.ts ***!
-  \*********************************************************************************/
-/*! exports provided: SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, HighlightSearchPipe */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SanitizeHtmlPipe", function() { return SanitizeHtmlPipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SanitizeResourceHtmlPipe", function() { return SanitizeResourceHtmlPipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SanitizeStylePipe", function() { return SanitizeStylePipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HighlightSearchPipe", function() { return HighlightSearchPipe; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-
-
-
-var SanitizeHtmlPipe = /** @class */ (function () {
-    function SanitizeHtmlPipe(sanitizer) {
-        this.sanitizer = sanitizer;
-    }
-    SanitizeHtmlPipe.prototype.transform = function (html) {
-        return this.sanitizer.bypassSecurityTrustHtml(html);
-    };
-    SanitizeHtmlPipe.ctorParameters = function () { return [
-        { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"] }
-    ]; };
-    SanitizeHtmlPipe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({ name: 'safeHtml' }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"]])
-    ], SanitizeHtmlPipe);
-    return SanitizeHtmlPipe;
-}());
-
-var SanitizeResourceHtmlPipe = /** @class */ (function () {
-    function SanitizeResourceHtmlPipe(sanitizer) {
-        this.sanitizer = sanitizer;
-    }
-    SanitizeResourceHtmlPipe.prototype.transform = function (html) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(html);
-    };
-    SanitizeResourceHtmlPipe.ctorParameters = function () { return [
-        { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"] }
-    ]; };
-    SanitizeResourceHtmlPipe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({ name: 'safeResourceHtml' }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"]])
-    ], SanitizeResourceHtmlPipe);
-    return SanitizeResourceHtmlPipe;
-}());
-
-var SanitizeStylePipe = /** @class */ (function () {
-    function SanitizeStylePipe(sanitizer) {
-        this.sanitizer = sanitizer;
-    }
-    SanitizeStylePipe.prototype.transform = function (html) {
-        return this.sanitizer.bypassSecurityTrustStyle(html);
-    };
-    SanitizeStylePipe.ctorParameters = function () { return [
-        { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"] }
-    ]; };
-    SanitizeStylePipe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({ name: 'safeStyle' }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"]])
-    ], SanitizeStylePipe);
-    return SanitizeStylePipe;
-}());
-
-var HighlightSearchPipe = /** @class */ (function () {
-    function HighlightSearchPipe() {
-    }
-    HighlightSearchPipe.prototype.transform = function (value, args) {
-        if (!args) {
-            return value;
-        }
-        var re = new RegExp(args, 'gi'); //'gi' for case insensitive and can use 'g' if you want the search to be case sensitive.
-        return value.replace(re, "<span class='gd-highlight'>$&</span>");
-    };
-    HighlightSearchPipe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({ name: 'highlight' })
-    ], HighlightSearchPipe);
-    return HighlightSearchPipe;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/render-print.directive.ts":
-/*!**************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/render-print.directive.ts ***!
-  \**************************************************************************************************/
-/*! exports provided: RenderPrintDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderPrintDirective", function() { return RenderPrintDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _render_print_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./render-print.service */ "../../libs/common-components/src/lib/render-print.service.ts");
-
-
-
-var RenderPrintDirective = /** @class */ (function () {
-    function RenderPrintDirective(_renderService) {
-        var _this = this;
-        this._renderService = _renderService;
-        _renderService.renderPrint.subscribe(function (pages) {
-            _this.renderPrint(pages);
-        });
-        _renderService.renderPrintBlob.subscribe(function (file) {
-            _this.renderPrintBlob(file);
-        });
-    }
-    RenderPrintDirective.prototype.renderPrint = function (pages) {
-        var e_1, _a;
-        var pagesHtml = '';
-        try {
-            for (var pages_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__values"](pages), pages_1_1 = pages_1.next(); !pages_1_1.done; pages_1_1 = pages_1.next()) {
-                var page = pages_1_1.value;
-                var data = page.data.startsWith('data:image') ? page.data : 'data:image/png;base64,' + page.data;
-                pagesHtml += '<div id="gd-page-' + page.number + '" class="gd-page">' +
-                    '<div class="gd-wrapper"><image style="width: inherit !important" class="gd-page-image" src="' + data + '" alt></image></div>' +
-                    '</div>';
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (pages_1_1 && !pages_1_1.done && (_a = pages_1.return)) _a.call(pages_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        this.openWindow(pagesHtml, pages[0].width, pages[0].height);
-    };
-    RenderPrintDirective.prototype.openWindow = function (pagesHtml, width, height) {
-        var a4Height = 842;
-        var a4Width = 595;
-        var imageA4Adjusted = '';
-        if (width > a4Width && height > a4Height) {
-            var zoom = Math.round(height / a4Height) / 100;
-            imageA4Adjusted = '.gd-page img { width: 100%; margin: 0; padding: 0;}';
-            if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-                imageA4Adjusted = '.gd-page img { transform: scale(' + zoom + ');}';
-            }
-        }
-        var cssPrint = '<style>' +
-            '.gd-page { display: block; page-break-after:always; page-break-inside: avoid; }' +
-            ' .gd-page:last-child {page-break-after: auto;}' + imageA4Adjusted;
-        cssPrint = cssPrint + '</style>';
-        var windowObject = window.open('', "PrintWindow", "width=750,height=650,top=50,left=50,toolbars=yes,scrollbars=yes,status=yes,resizable=yes");
-        windowObject.focus();
-        windowObject.document.writeln(cssPrint);
-        windowObject.document.writeln(pagesHtml);
-        windowObject.document.close();
-        setTimeout(function () {
-            windowObject.focus();
-            windowObject.print();
-            windowObject.close();
-        }, 100);
-    };
-    RenderPrintDirective.prototype.renderPrintBlob = function (file) {
-        var _this = this;
-        var iframeId = 'print-window';
-        var objectUrl = window.URL.createObjectURL(file);
-        // Remove previous iframe if exists
-        var iframe = document.getElementById(iframeId);
-        if (iframe) {
-            iframe.remove();
-        }
-        // Create new iframe
-        iframe = document.createElement('iframe');
-        iframe.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute; border: 0');
-        iframe.setAttribute('id', iframeId);
-        iframe.setAttribute('src', objectUrl);
-        // Append to the document
-        document.getElementsByTagName('body')[0].appendChild(iframe);
-        // Wait and print
-        var iframeElement = document.getElementById(iframeId);
-        setTimeout(function () { return _this.doPrint(iframeElement); }, 1000);
-    };
-    RenderPrintDirective.prototype.doPrint = function (iframe) {
-        try {
-            iframe.focus();
-            iframe.contentWindow.document.execCommand('print', false);
-        }
-        catch (e) {
-            iframe.contentWindow.print();
-        }
-        finally {
-            // Hide iframe
-            iframe.style.visibility = 'hidden';
-            iframe.style.left = '-1px';
-        }
-    };
-    RenderPrintDirective.ctorParameters = function () { return [
-        { type: _render_print_service__WEBPACK_IMPORTED_MODULE_2__["RenderPrintService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], RenderPrintDirective.prototype, "htmlMode", void 0);
-    RenderPrintDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdRenderPrint]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_render_print_service__WEBPACK_IMPORTED_MODULE_2__["RenderPrintService"]])
-    ], RenderPrintDirective);
-    return RenderPrintDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/render-print.service.ts":
-/*!************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/render-print.service.ts ***!
-  \************************************************************************************************/
-/*! exports provided: RenderPrintService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderPrintService", function() { return RenderPrintService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-var RenderPrintService = /** @class */ (function () {
-    function RenderPrintService() {
-        var _this = this;
-        this._render = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"](function (observer) {
-            return _this._observer = observer;
-        });
-        this._renderBlob = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"](function (observer) {
-            return _this._observerBlob = observer;
-        });
-    }
-    Object.defineProperty(RenderPrintService.prototype, "renderPrint", {
-        get: function () {
-            return this._render;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    RenderPrintService.prototype.changePages = function (pages) {
-        this._observer.next(pages);
-    };
-    Object.defineProperty(RenderPrintService.prototype, "renderPrintBlob", {
-        get: function () {
-            return this._renderBlob;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    RenderPrintService.prototype.changeBlob = function (file) {
-        this._observerBlob.next(file);
-    };
-    return RenderPrintService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/resizing/resizing.component.less":
-/*!*********************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/resizing/resizing.component.less ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".ui-resizable-handle {\n  background-color: #679FFA;\n  width: 8px;\n  height: 8px;\n  border-radius: 100%;\n  position: absolute;\n  font-size: 0.1px;\n  display: block;\n}\n.se-resize {\n  bottom: -5px;\n  right: -5px;\n  cursor: se-resize;\n}\n.ne-resize {\n  top: -5px;\n  right: -5px;\n  cursor: ne-resize;\n}\n.sw-resize {\n  bottom: -5px;\n  left: -5px;\n  cursor: sw-resize;\n}\n.nw-resize {\n  top: -5px;\n  left: -5px;\n  cursor: nw-resize;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9yZXNpemluZy9DOi9HaXRIdWIvR3JvdXBEb2NzL1RvdGFsL0FuZ3VsYXIvbGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3Jlc2l6aW5nL3Jlc2l6aW5nLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3Jlc2l6aW5nL3Jlc2l6aW5nLmNvbXBvbmVudC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0UseUJBQUE7RUFDQSxVQUFBO0VBQ0EsV0FBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7QUNBRjtBREdBO0VBQ0UsWUFBQTtFQUNBLFdBQUE7RUFDQSxpQkFBQTtBQ0RGO0FESUE7RUFDRSxTQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0FDRkY7QURLQTtFQUNFLFlBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7QUNIRjtBRE1BO0VBQ0UsU0FBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtBQ0pGIiwiZmlsZSI6ImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9yZXNpemluZy9yZXNpemluZy5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuLnVpLXJlc2l6YWJsZS1oYW5kbGUge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNjc5RkZBO1xuICB3aWR0aDogOHB4O1xuICBoZWlnaHQ6IDhweDtcbiAgYm9yZGVyLXJhZGl1czogMTAwJTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBmb250LXNpemU6IDAuMXB4O1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLnNlLXJlc2l6ZSB7XG4gIGJvdHRvbTogLTVweDtcbiAgcmlnaHQ6IC01cHg7XG4gIGN1cnNvcjogc2UtcmVzaXplO1xufVxuXG4ubmUtcmVzaXplIHtcbiAgdG9wOiAtNXB4O1xuICByaWdodDogLTVweDtcbiAgY3Vyc29yOiBuZS1yZXNpemU7XG59XG5cbi5zdy1yZXNpemUge1xuICBib3R0b206IC01cHg7XG4gIGxlZnQ6IC01cHg7XG4gIGN1cnNvcjogc3ctcmVzaXplO1xufVxuXG4ubnctcmVzaXplIHtcbiAgdG9wOiAtNXB4O1xuICBsZWZ0OiAtNXB4O1xuICBjdXJzb3I6IG53LXJlc2l6ZTtcbn1cbiIsIi51aS1yZXNpemFibGUtaGFuZGxlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzY3OUZGQTtcbiAgd2lkdGg6IDhweDtcbiAgaGVpZ2h0OiA4cHg7XG4gIGJvcmRlci1yYWRpdXM6IDEwMCU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZm9udC1zaXplOiAwLjFweDtcbiAgZGlzcGxheTogYmxvY2s7XG59XG4uc2UtcmVzaXplIHtcbiAgYm90dG9tOiAtNXB4O1xuICByaWdodDogLTVweDtcbiAgY3Vyc29yOiBzZS1yZXNpemU7XG59XG4ubmUtcmVzaXplIHtcbiAgdG9wOiAtNXB4O1xuICByaWdodDogLTVweDtcbiAgY3Vyc29yOiBuZS1yZXNpemU7XG59XG4uc3ctcmVzaXplIHtcbiAgYm90dG9tOiAtNXB4O1xuICBsZWZ0OiAtNXB4O1xuICBjdXJzb3I6IHN3LXJlc2l6ZTtcbn1cbi5udy1yZXNpemUge1xuICB0b3A6IC01cHg7XG4gIGxlZnQ6IC01cHg7XG4gIGN1cnNvcjogbnctcmVzaXplO1xufVxuIl19 */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/resizing/resizing.component.ts":
-/*!*******************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/resizing/resizing.component.ts ***!
-  \*******************************************************************************************************/
-/*! exports provided: ResizingComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResizingComponent", function() { return ResizingComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _file_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../file.service */ "../../libs/common-components/src/lib/file.service.ts");
-
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_2__;
-var ResizingComponent = /** @class */ (function () {
-    function ResizingComponent() {
-        this.se = false;
-        this.ne = false;
-        this.sw = false;
-        this.nw = false;
-        this.SE = 'se';
-        this.NE = 'ne';
-        this.SW = 'sw';
-        this.NW = 'nw';
-        this.offsetX = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.offsetY = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.offsetTop = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.offsetLeft = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.release = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.grab = false;
-    }
-    ResizingComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        var elSE = $(this.getElementId(this.SE));
-        var elNW = $(this.getElementId(this.NW));
-        if (this.init && elSE && elNW && elSE.offset() && elNW.offset()) {
-            var width_1 = elSE.offset().left - elNW.offset().left;
-            var height_1 = elSE.offset().top - elNW.offset().top;
-            while (width_1 >= this.pageWidth || height_1 >= this.pageHeight) {
-                width_1 = width_1 / 2;
-                height_1 = height_1 / 2;
-            }
-            setTimeout(function () {
-                _this.offsetX.emit(width_1);
-                _this.offsetY.emit(height_1);
-            }, 100);
-        }
-    };
-    ResizingComponent.prototype.ngOnInit = function () {
-    };
-    ResizingComponent.prototype.catchUp = function ($event) {
-        // ff
-        $event.preventDefault();
-        if ($event.dataTransfer) { // ff
-            $event.dataTransfer.setData('text', 'foo');
-        }
-        this.grab = true;
-        this.oldPosition = _file_service__WEBPACK_IMPORTED_MODULE_3__["Utils"].getMousePosition($event);
-    };
-    ResizingComponent.prototype.resize = function ($event, el) {
-        if (!this.grab) {
-            return;
-        }
-        var position = _file_service__WEBPACK_IMPORTED_MODULE_3__["Utils"].getMousePosition($event);
-        if (position.x === 0 && position.y === 0) {
-            return;
-        }
-        var notSW = this.NE === el || this.NW === el;
-        var notNE = this.SW === el || this.NW === el;
-        this.setOffsets(position, notNE, notSW);
-        if (notSW) {
-            this.offsetTop.emit(position.y - this.oldPosition.y);
-        }
-        if (notNE) {
-            this.offsetLeft.emit(position.x - this.oldPosition.x);
-        }
-        this.oldPosition = position;
-    };
-    ResizingComponent.prototype.setOffsets = function (position, x, y) {
-        var offsetX = x ? this.oldPosition.x - position.x : position.x - this.oldPosition.x;
-        var offsetY = y ? this.oldPosition.y - position.y : position.y - this.oldPosition.y;
-        this.offsetX.emit(offsetX);
-        this.offsetY.emit(offsetY);
-    };
-    ResizingComponent.prototype.end = function ($event, el) {
-        // ff
-        this.resize($event, el);
-        this.release.emit(true);
-        this.grab = false;
-    };
-    ResizingComponent.prototype.start = function ($event) {
-        this.drop($event);
-    };
-    ResizingComponent.prototype.drop = function ($event) {
-        $event.stopPropagation();
-        $event.preventDefault();
-    };
-    ResizingComponent.prototype.getElementId = function (el) {
-        return "#" + el + "-" + this.id;
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], ResizingComponent.prototype, "init", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], ResizingComponent.prototype, "id", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ResizingComponent.prototype, "se", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ResizingComponent.prototype, "ne", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ResizingComponent.prototype, "sw", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ResizingComponent.prototype, "nw", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], ResizingComponent.prototype, "pageWidth", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], ResizingComponent.prototype, "pageHeight", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ResizingComponent.prototype, "offsetX", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ResizingComponent.prototype, "offsetY", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ResizingComponent.prototype, "offsetTop", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ResizingComponent.prototype, "offsetLeft", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ResizingComponent.prototype, "release", void 0);
-    ResizingComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-resizing',
-            template: __webpack_require__(/*! raw-loader!./resizing.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/resizing/resizing.component.html"),
-            styles: [__webpack_require__(/*! ./resizing.component.less */ "../../libs/common-components/src/lib/resizing/resizing.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], ResizingComponent);
-    return ResizingComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/rotation.directive.ts":
-/*!**********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/rotation.directive.ts ***!
-  \**********************************************************************************************/
-/*! exports provided: RotationDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RotationDirective", function() { return RotationDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var RotationDirective = /** @class */ (function () {
-    function RotationDirective() {
-        this.withMargin = true;
-    }
-    RotationDirective.prototype.updateCursor = function () {
-        if (typeof this.angle === "string") {
-            this.angle = parseInt(this.angle, 10);
-        }
-        if (this.angle) {
-            this.animation = 'none';
-            this.transition = 'none';
-            this.transform = 'rotate(' + this.angle + 'deg)';
-        }
-        else if (this.angle === 0 && this.animation) {
-            this.animation = null;
-            this.transition = null;
-            this.transform = null;
-        }
-        if (this.withMargin) {
-            if (this.angle === 90 || this.angle === 270 || this.angle === -90 || this.angle === -270) {
-                if (this.isHtmlMode) {
-                    if (this.isLandscape()) {
-                        this.margin = '164px 254px';
-                    }
-                    else {
-                        this.margin = '-111px 254px';
-                    }
-                }
-                else {
-                    if (this.isLandscape()) {
-                        this.margin = '129px 100px -79px';
-                    }
-                    else {
-                        this.margin = '-72px 100px -79px';
-                    }
-                }
-            }
-            else if (this.angle === -180 || this.angle === 180) {
-                this.margin = '280px';
-            }
-            else {
-                this.margin = null;
-            }
-        }
-    };
-    RotationDirective.prototype.isLandscape = function () {
-        return this.width > this.height;
-    };
-    RotationDirective.prototype.ngOnInit = function () {
-        this.updateCursor();
-    };
-    RotationDirective.prototype.ngOnChanges = function (changes) {
-        this.updateCursor();
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], RotationDirective.prototype, "angle", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], RotationDirective.prototype, "isHtmlMode", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], RotationDirective.prototype, "width", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], RotationDirective.prototype, "height", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], RotationDirective.prototype, "withMargin", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.animation'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RotationDirective.prototype, "animation", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.transition-property'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RotationDirective.prototype, "transition", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.transform'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RotationDirective.prototype, "transform", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.margin'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RotationDirective.prototype, "margin", void 0);
-    RotationDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdRotation]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], RotationDirective);
-    return RotationDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/scrollable.directive.ts":
-/*!************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/scrollable.directive.ts ***!
-  \************************************************************************************************/
-/*! exports provided: ScrollableDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ScrollableDirective", function() { return ScrollableDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _navigate_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./navigate.service */ "../../libs/common-components/src/lib/navigate.service.ts");
-/* harmony import */ var _page_preload_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./page-preload.service */ "../../libs/common-components/src/lib/page-preload.service.ts");
-/* harmony import */ var _zoom_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./zoom.service */ "../../libs/common-components/src/lib/zoom.service.ts");
-/* harmony import */ var _window_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./window.service */ "../../libs/common-components/src/lib/window.service.ts");
-/* harmony import */ var _viewport_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./viewport.service */ "../../libs/common-components/src/lib/viewport.service.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_7__);
-
-
-
-
-
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_7__;
-var ScrollableDirective = /** @class */ (function () {
-    function ScrollableDirective(_elementRef, _navigateService, _pagePreloadService, _zoomService, _windowService, _viewportService) {
-        var _this = this;
-        this._elementRef = _elementRef;
-        this._navigateService = _navigateService;
-        this._pagePreloadService = _pagePreloadService;
-        this._zoomService = _zoomService;
-        this._windowService = _windowService;
-        this._viewportService = _viewportService;
-        this.zoom = 100;
-        this.loadedPagesSet = new Set();
-        this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
-        _zoomService.zoomChange.subscribe(function (val) {
-            _this.zoom = val ? val : _this.zoom;
-            _this.refresh();
-        });
-    }
-    ScrollableDirective.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        this.zoom = this._zoomService.zoom ? this._zoomService.zoom : this.zoom;
-        this._navigateService.navigate.subscribe((function (value) {
-            _this.currentPage = value;
-            _this.scrollToPage(value);
-        }));
-        this.refresh();
-    };
-    ScrollableDirective.prototype.scrolling = function () {
-        this.refresh();
-    };
-    ScrollableDirective.prototype.resizing = function () {
-        this.refresh();
-    };
-    ScrollableDirective.prototype.scrollToPage = function (pageNumber) {
-        var el = this._elementRef.nativeElement;
-        var page = this.getPage(pageNumber);
-        var prev = pageNumber > 0 ? this.getPage(pageNumber - 1) : null;
-        var isSameTop = (prev && $(prev).offset().top === $(page).offset().top);
-        if (this._viewportService.checkInViewport(page, this.zoom) && isSameTop) {
-            return;
-        }
-        var pagesHeight = this.calculateOffset(pageNumber);
-        var options = {
-            left: 0,
-            top: pagesHeight
-        };
-        if (el) {
-            // using polyfill
-            el.scroll(options);
-        }
-    };
-    ScrollableDirective.prototype.getChildren = function () {
-        var el = this._elementRef ? this._elementRef.nativeElement : null;
-        if (el) {
-            // here and in the similar line below we getting the document pages
-            return el.children.item(0).children.item(0).children;
-        }
-    };
-    ScrollableDirective.prototype.getPage = function (pageNumber) {
-        var el = this._elementRef ? this._elementRef.nativeElement : null;
-        if (el) {
-            return el.children.item(0).children.item(0).children.item(pageNumber - 1);
-        }
-    };
-    ScrollableDirective.prototype.calculateOffset = function (pageNumber) {
-        var count = this._windowService.isFirefox() ? 1 : this.countPagesOnWidth();
-        var margin = this._windowService.isDesktop() ? 40 : 10;
-        var pagesHeight = 0;
-        for (var i = 1; i < pageNumber / count; i++) {
-            var item = this.getPage(i);
-            var clientHeight = item ? item.clientHeight : 0;
-            pagesHeight += clientHeight > 0 ? clientHeight * this.getZoom() + margin : 0;
-        }
-        return pagesHeight;
-    };
-    ScrollableDirective.prototype.countPagesOnWidth = function () {
-        var pageEl = this.getPage(1);
-        var offset = 150;
-        if (pageEl) {
-            var count = Math.floor((this.getWidth() - offset) / (pageEl.getBoundingClientRect().width * this.getZoom()));
-            if (count !== 0) {
-                return count;
-            }
-        }
-        return 1;
-    };
-    ScrollableDirective.prototype.refresh = function () {
-        var page;
-        var currentPageSet = false;
-        var pageElem = this.getPage(this.currentPage);
-        var currentPageRect = this.currentPage && pageElem ? pageElem.getBoundingClientRect() : null;
-        for (page = 1; page < this.getChildren().length + 1; page++) {
-            var element = this.getPage(page);
-            if (this._viewportService.checkInViewport(element, this.zoom)) {
-                if (!currentPageSet) {
-                    if (!this.currentPage || !pageElem || (this.currentPage && currentPageRect && element.getBoundingClientRect().top !== currentPageRect.top)) {
-                        this.currentPage = page;
-                        if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
-                            this._navigateService.currentPage = page;
-                        }
-                    }
-                    currentPageSet = true;
-                }
-                if (!this.loadedPagesSet.has(page)) {
-                    this._pagePreloadService.changeLastPageInView(page);
-                    this.loadedPagesSet.add(page);
-                }
-            }
-        }
-    };
-    ScrollableDirective.prototype.ngOnChanges = function (changes) {
-        this.refresh();
-    };
-    ScrollableDirective.prototype.ngOnInit = function () {
-        this.zoom = this._zoomService.zoom ? this._zoomService.zoom : this.zoom;
-    };
-    ScrollableDirective.prototype.getWidth = function () {
-        return this._elementRef ? this._elementRef.nativeElement.offsetWidth : window.innerWidth;
-    };
-    ScrollableDirective.prototype.getZoom = function () {
-        return this.zoom / 100;
-    };
-    ScrollableDirective.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] },
-        { type: _navigate_service__WEBPACK_IMPORTED_MODULE_2__["NavigateService"] },
-        { type: _page_preload_service__WEBPACK_IMPORTED_MODULE_3__["PagePreloadService"] },
-        { type: _zoom_service__WEBPACK_IMPORTED_MODULE_4__["ZoomService"] },
-        { type: _window_service__WEBPACK_IMPORTED_MODULE_5__["WindowService"] },
-        { type: _viewport_service__WEBPACK_IMPORTED_MODULE_6__["ViewportService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], ScrollableDirective.prototype, "isPresentation", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('scroll'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], ScrollableDirective.prototype, "scrolling", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('window:resize'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], ScrollableDirective.prototype, "resizing", null);
-    ScrollableDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdScrollable]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _navigate_service__WEBPACK_IMPORTED_MODULE_2__["NavigateService"],
-            _page_preload_service__WEBPACK_IMPORTED_MODULE_3__["PagePreloadService"],
-            _zoom_service__WEBPACK_IMPORTED_MODULE_4__["ZoomService"],
-            _window_service__WEBPACK_IMPORTED_MODULE_5__["WindowService"],
-            _viewport_service__WEBPACK_IMPORTED_MODULE_6__["ViewportService"]])
-    ], ScrollableDirective);
-    return ScrollableDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/search.service.ts":
-/*!******************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/search.service.ts ***!
-  \******************************************************************************************/
-/*! exports provided: SearchService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchService", function() { return SearchService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-var SearchService = /** @class */ (function () {
-    function SearchService() {
-        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._textChange = this._observer.asObservable();
-        this._observerCurrent = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._currentChange = this._observerCurrent.asObservable();
-        this._observerTotal = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._totalChange = this._observerTotal.asObservable();
-    }
-    Object.defineProperty(SearchService.prototype, "textChange", {
-        get: function () {
-            return this._textChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SearchService.prototype.setText = function (text) {
-        this._observer.next(text);
-    };
-    Object.defineProperty(SearchService.prototype, "currentChange", {
-        get: function () {
-            return this._currentChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(SearchService.prototype, "totalChange", {
-        get: function () {
-            return this._totalChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SearchService.prototype.setCurrent = function (current) {
-        this._observerCurrent.next(current);
-    };
-    SearchService.prototype.setTotal = function (total) {
-        this._observerTotal.next(total);
-    };
-    return SearchService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/search/search.component.less":
-/*!*****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/search/search.component.less ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".gd-nav-search-btn {\n  margin: 3px 0px 4px 0px;\n}\n.gd-nav-search-cancel {\n  color: #fff;\n  font-size: 14px;\n  width: 37px;\n}\n.gd-search-count {\n  color: #959da5;\n  font-size: 12px;\n  position: absolute;\n  right: 148px;\n  top: 14px;\n}\n.gd-nav-search-container {\n  background-color: #3e4e5a;\n  width: 410px;\n  position: fixed;\n  left: 50%;\n  top: 60px;\n  z-index: 2;\n  -webkit-transform: translate(-50%, 0);\n          transform: translate(-50%, 0);\n  display: -webkit-box;\n  display: flex;\n}\n.gd-search-input {\n  float: left;\n  height: 30px;\n  width: 267px;\n  font-size: 14px;\n  color: #6e6e6e;\n  border: 1px solid #25c2d4;\n  margin: 7px 0px 7px 7px;\n  box-sizing: border-box;\n  padding: 6px 0px 5px 9px;\n}\ninput[type=text]::-ms-clear {\n  display: none;\n}\n@media (max-width: 1037px) {\n  .gd-search-input {\n    width: 231px;\n    height: 30px;\n    margin: 7px 0px 7px 5px;\n  }\n  .gd-search-count {\n    position: absolute;\n    left: 193px;\n    top: 15px;\n  }\n  .gd-nav-search-container {\n    width: 100%;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9zZWFyY2gvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9zZWFyY2gvc2VhcmNoLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3NlYXJjaC9zZWFyY2guY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0E7RUFDRSx1QkFBQTtBQ0FGO0FER0E7RUFDRSxXQUFBO0VBQ0EsZUFBQTtFQUNBLFdBQUE7QUNERjtBRElBO0VBQ0UsY0FBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxTQUFBO0FDRkY7QURLQTtFQUNFLHlCQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7RUFDQSxTQUFBO0VBQ0EsU0FBQTtFQUNBLFVBQUE7RUFDQSxxQ0FBQTtVQUFBLDZCQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0FDSEY7QURNQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0VBQ0EseUJBQUE7RUFDQSx1QkFBQTtFQUNBLHNCQUFBO0VBQ0Esd0JBQUE7QUNKRjtBRE9BO0VBQ0UsYUFBQTtBQ0xGO0FEUUE7RUFDRTtJQUNFLFlBQUE7SUFDQSxZQUFBO0lBQ0EsdUJBQUE7RUNORjtFRFNBO0lBQ0Usa0JBQUE7SUFDQSxXQUFBO0lBQ0EsU0FBQTtFQ1BGO0VEVUE7SUFDRSxXQUFBO0VDUkY7QUFDRiIsImZpbGUiOiJsaWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvc2VhcmNoL3NlYXJjaC5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcbi5nZC1uYXYtc2VhcmNoLWJ0biB7XG4gIG1hcmdpbjogM3B4IDBweCA0cHggMHB4O1xufVxuXG4uZ2QtbmF2LXNlYXJjaC1jYW5jZWwge1xuICBjb2xvcjogI2ZmZjtcbiAgZm9udC1zaXplOiAxNHB4O1xuICB3aWR0aDogMzdweDtcbn1cblxuLmdkLXNlYXJjaC1jb3VudCB7XG4gIGNvbG9yOiBAcmVnZW50LWdyYXk7XG4gIGZvbnQtc2l6ZTogMTJweDtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogMTQ4cHg7XG4gIHRvcDogMTRweDtcbn1cblxuLmdkLW5hdi1zZWFyY2gtY29udGFpbmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogQG5hdi1tYWluLWJhY2tncm91bmQ7XG4gIHdpZHRoOiA0MTBweDtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBsZWZ0OiA1MCU7XG4gIHRvcDogNjBweDtcbiAgei1pbmRleDogMjtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgMCk7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG5cbi5nZC1zZWFyY2gtaW5wdXQge1xuICBmbG9hdDogbGVmdDtcbiAgaGVpZ2h0OiAzMHB4O1xuICB3aWR0aDogMjY3cHg7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgY29sb3I6IEBkb3ZlLWdyYXk7XG4gIGJvcmRlcjogMXB4IHNvbGlkIEBicmFuZDtcbiAgbWFyZ2luOiA3cHggMHB4IDdweCA3cHg7XG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4gIHBhZGRpbmc6IDZweCAwcHggNXB4IDlweDtcbn1cblxuaW5wdXRbdHlwZT10ZXh0XTo6LW1zLWNsZWFye1xuICBkaXNwbGF5OiBub25lO1xufVxuXG5AbWVkaWEgQHBob25lLWRvd24ge1xuICAuZ2Qtc2VhcmNoLWlucHV0IHtcbiAgICB3aWR0aDogMjMxcHg7XG4gICAgaGVpZ2h0OiAzMHB4O1xuICAgIG1hcmdpbjogN3B4IDBweCA3cHggNXB4O1xuICB9XG5cbiAgLmdkLXNlYXJjaC1jb3VudCB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGxlZnQ6IDE5M3B4O1xuICAgIHRvcDogMTVweDtcbiAgfVxuXG4gIC5nZC1uYXYtc2VhcmNoLWNvbnRhaW5lciB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbn0iLCIuZ2QtbmF2LXNlYXJjaC1idG4ge1xuICBtYXJnaW46IDNweCAwcHggNHB4IDBweDtcbn1cbi5nZC1uYXYtc2VhcmNoLWNhbmNlbCB7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXNpemU6IDE0cHg7XG4gIHdpZHRoOiAzN3B4O1xufVxuLmdkLXNlYXJjaC1jb3VudCB7XG4gIGNvbG9yOiAjOTU5ZGE1O1xuICBmb250LXNpemU6IDEycHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IDE0OHB4O1xuICB0b3A6IDE0cHg7XG59XG4uZ2QtbmF2LXNlYXJjaC1jb250YWluZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjM2U0ZTVhO1xuICB3aWR0aDogNDEwcHg7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgbGVmdDogNTAlO1xuICB0b3A6IDYwcHg7XG4gIHotaW5kZXg6IDI7XG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIDApO1xuICBkaXNwbGF5OiBmbGV4O1xufVxuLmdkLXNlYXJjaC1pbnB1dCB7XG4gIGZsb2F0OiBsZWZ0O1xuICBoZWlnaHQ6IDMwcHg7XG4gIHdpZHRoOiAyNjdweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogIzZlNmU2ZTtcbiAgYm9yZGVyOiAxcHggc29saWQgIzI1YzJkNDtcbiAgbWFyZ2luOiA3cHggMHB4IDdweCA3cHg7XG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4gIHBhZGRpbmc6IDZweCAwcHggNXB4IDlweDtcbn1cbmlucHV0W3R5cGU9dGV4dF06Oi1tcy1jbGVhciB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gIC5nZC1zZWFyY2gtaW5wdXQge1xuICAgIHdpZHRoOiAyMzFweDtcbiAgICBoZWlnaHQ6IDMwcHg7XG4gICAgbWFyZ2luOiA3cHggMHB4IDdweCA1cHg7XG4gIH1cbiAgLmdkLXNlYXJjaC1jb3VudCB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGxlZnQ6IDE5M3B4O1xuICAgIHRvcDogMTVweDtcbiAgfVxuICAuZ2QtbmF2LXNlYXJjaC1jb250YWluZXIge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/search/search.component.ts":
-/*!***************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/search/search.component.ts ***!
-  \***************************************************************************************************/
-/*! exports provided: SearchComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchComponent", function() { return SearchComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _search_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../search.service */ "../../libs/common-components/src/lib/search.service.ts");
-
-
-
-var SearchComponent = /** @class */ (function () {
-    function SearchComponent(_searchService) {
-        var _this = this;
-        this._searchService = _searchService;
-        this.hidePanel = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"](false);
-        this.current = 0;
-        this.total = 0;
-        _searchService.totalChange.subscribe(function (total) {
-            _this.total = total;
-            if (total !== 0) {
-                _this.current = 1;
-            }
-            else {
-                _this.current = 0;
-            }
-            _this._searchService.setCurrent(_this.current);
-        });
-    }
-    SearchComponent.prototype.ngOnInit = function () {
-    };
-    SearchComponent.prototype.setText = function (text) {
-        this._searchService.setText(text);
-    };
-    SearchComponent.prototype.hide = function () {
-        this.setText('');
-        this.hidePanel.emit(true);
-    };
-    SearchComponent.prototype.prev = function () {
-        if (this.current > 1) {
-            this.current--;
-            this._searchService.setCurrent(this.current);
-        }
-    };
-    SearchComponent.prototype.next = function () {
-        if (this.current < this.total) {
-            this.current++;
-            this._searchService.setCurrent(this.current);
-        }
-    };
-    SearchComponent.prototype.ngAfterViewInit = function () {
-        this.textElement.nativeElement.focus();
-    };
-    SearchComponent.ctorParameters = function () { return [
-        { type: _search_service__WEBPACK_IMPORTED_MODULE_2__["SearchService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SearchComponent.prototype, "hidePanel", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('text', {
-            static: true
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
-    ], SearchComponent.prototype, "textElement", void 0);
-    SearchComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-search',
-            template: __webpack_require__(/*! raw-loader!./search.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/search/search.component.html"),
-            styles: [__webpack_require__(/*! ./search.component.less */ "../../libs/common-components/src/lib/search/search.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_search_service__WEBPACK_IMPORTED_MODULE_2__["SearchService"]])
-    ], SearchComponent);
-    return SearchComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/searchable.directive.ts":
-/*!************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/searchable.directive.ts ***!
-  \************************************************************************************************/
-/*! exports provided: SearchableDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchableDirective", function() { return SearchableDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _search_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./search.service */ "../../libs/common-components/src/lib/search.service.ts");
-/* harmony import */ var _pipes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pipes */ "../../libs/common-components/src/lib/pipes.ts");
-/* harmony import */ var _zoom_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./zoom.service */ "../../libs/common-components/src/lib/zoom.service.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_5__);
-
-
-
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_5__;
-var SearchableDirective = /** @class */ (function () {
-    function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
-        var _this = this;
-        this._elementRef = _elementRef;
-        this._searchService = _searchService;
-        this._highlight = _highlight;
-        this._zoomService = _zoomService;
-        this.current = 0;
-        this.total = 0;
-        this.zoom = 100;
-        _searchService.currentChange.subscribe(function (current) {
-            _this.current = current;
-            if (_this.current !== 0) {
-                _this.moveToCurrent();
-            }
-        });
-        _searchService.textChange.subscribe(function (text) {
-            _this.text = text;
-            _this.highlightSearch();
-        });
-        this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
-        _zoomService.zoomChange.subscribe(function (val) {
-            _this.zoom = val ? val : _this.zoom;
-        });
-    }
-    SearchableDirective.prototype.highlightSearch = function () {
-        var el = this._elementRef ? this._elementRef.nativeElement : null;
-        if (el) {
-            this.cleanHighlight(el);
-            if (this.text) {
-                this.highlightEl(el);
-                var count = el.querySelectorAll('.gd-highlight').length;
-                this.total = count;
-            }
-            else {
-                this.total = 0;
-            }
-            this._searchService.setTotal(this.total);
-        }
-    };
-    SearchableDirective.prototype.moveToCurrent = function () {
-        if (this.current === 0) {
-            return;
-        }
-        var currentZoom = this.getZoom();
-        var el = this._elementRef ? this._elementRef.nativeElement : null;
-        if (el) {
-            el.querySelectorAll('.gd-highlight-select').forEach(function (value) {
-                $(value).removeClass('gd-highlight-select');
-            });
-            var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-            $(currentEl).addClass('gd-highlight-select');
-            if (currentEl) {
-                var options = {
-                    left: 0,
-                    top: ($(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
-                };
-                // using polyfill
-                el.parentElement.parentElement.scroll(options);
-            }
-        }
-    };
-    SearchableDirective.prototype.highlightEl = function (el) {
-        var textNodes = $(el).find('*').contents().filter(function () {
-            var nodeName = this.parentElement.nodeName.toLowerCase();
-            var checkClass = this.classList ? !this.classList.contains('gd-highlight') : true;
-            return this.nodeType === 3 &&
-                this.textContent.trim().length !== 0 &&
-                nodeName !== 'style' &&
-                nodeName !== 'title' &&
-                nodeName !== 'body' &&
-                nodeName !== 'script' &&
-                checkClass;
-        });
-        var text = this.text;
-        var highlight = this._highlight;
-        textNodes.each(function () {
-            var $this = $(this);
-            var content = $this.text();
-            content = highlight.transform(content, text);
-            $this.replaceWith(content);
-        });
-        el.normalize();
-    };
-    SearchableDirective.prototype.cleanHighlight = function (el) {
-        var nodeListOf = el.querySelectorAll('.gd-highlight');
-        for (var i = 0; i < nodeListOf.length; i++) {
-            var element = nodeListOf.item(i);
-            element.replaceWith(element.innerText);
-        }
-        el.normalize();
-    };
-    SearchableDirective.prototype.getZoom = function () {
-        return this.zoom / 100;
-    };
-    SearchableDirective.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] },
-        { type: _search_service__WEBPACK_IMPORTED_MODULE_2__["SearchService"] },
-        { type: _pipes__WEBPACK_IMPORTED_MODULE_3__["HighlightSearchPipe"] },
-        { type: _zoom_service__WEBPACK_IMPORTED_MODULE_4__["ZoomService"] }
-    ]; };
-    SearchableDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdSearchable]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _search_service__WEBPACK_IMPORTED_MODULE_2__["SearchService"],
-            _pipes__WEBPACK_IMPORTED_MODULE_3__["HighlightSearchPipe"],
-            _zoom_service__WEBPACK_IMPORTED_MODULE_4__["ZoomService"]])
-    ], SearchableDirective);
-    return SearchableDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/select/select.component.less":
-/*!*****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/select/select.component.less ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".select {\n  min-width: 50px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  color: #959da5;\n}\n.selected-value {\n  font-size: 14px;\n  cursor: pointer;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: clip;\n  max-width: 70px;\n}\n.selected-value.inactive {\n  cursor: not-allowed;\n  color: #ccc;\n}\n.nav-caret {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-left: 2px;\n  vertical-align: middle;\n  border-top: 4px dashed;\n  border-top: 4px solid \\9;\n  border-right: 4px solid transparent;\n  border-left: 4px solid transparent;\n  cursor: pointer;\n}\n.nav-caret.inactive {\n  cursor: not-allowed;\n  color: #ccc;\n}\n.dropdown-menu {\n  position: absolute;\n  top: 49px;\n  z-index: 1000;\n  float: left;\n  min-width: 96px;\n  list-style: none;\n  font-size: 13px;\n  text-align: left;\n  background-color: #ffffff;\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);\n  background-clip: padding-box;\n}\n.dropdown-menu .option {\n  display: block;\n  padding: 7px 0px 7px 7px;\n  clear: both;\n  font-weight: normal;\n  line-height: 1.42857143;\n  white-space: nowrap;\n  cursor: pointer;\n  font-size: 10px;\n}\n.dropdown-menu .option:hover {\n  background-color: #25c2d4;\n  color: #FFF !important;\n}\n.dropdown-menu-separator {\n  height: 1px;\n  overflow: hidden;\n  background-color: #f4f4f4;\n  padding: 0 !important;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9zZWxlY3QvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9zZWxlY3Qvc2VsZWN0LmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3NlbGVjdC9zZWxlY3QuY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7RUFDRSxlQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EsOEJBQUE7RUFBQSw2QkFBQTtVQUFBLG1CQUFBO0VBQ0Esd0JBQUE7VUFBQSx1QkFBQTtFQUNBLHlCQUFBO1VBQUEsbUJBQUE7RUFDQSxjQUFBO0FDREY7QURJQTtFQUNFLGVBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxnQkFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtBQ0ZGO0FESUU7RUFDRSxtQkFBQTtFQUNBLFdBQUE7QUNGSjtBRE1BO0VBQ0UscUJBQUE7RUFDQSxRQUFBO0VBQ0EsU0FBQTtFQUNBLGdCQUFBO0VBQ0Esc0JBQUE7RUFDQSxzQkFBQTtFQUNBLHdCQUFBO0VBQ0EsbUNBQUE7RUFDQSxrQ0FBQTtFQUNBLGVBQUE7QUNKRjtBRE1FO0VBQ0UsbUJBQUE7RUFDQSxXQUFBO0FDSko7QURRQTtFQUNFLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLGFBQUE7RUFDQSxXQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EseUJBQUE7RUFFQSx3Q0FBQTtFQUNBLDRCQUFBO0FDTkY7QURTQTtFQUNFLGNBQUE7RUFDQSx3QkFBQTtFQUNBLFdBQUE7RUFDQSxtQkFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7RUFDQSxlQUFBO0VBQ0EsZUFBQTtBQ1BGO0FEVUE7RUFDRSx5QkFBQTtFQUNBLHNCQUFBO0FDUkY7QURXQTtFQUNFLFdBQUE7RUFDQSxnQkFBQTtFQUNBLHlCQUFBO0VBQ0EscUJBQUE7QUNURiIsImZpbGUiOiJsaWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvc2VsZWN0L3NlbGVjdC5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuLnNlbGVjdCB7XG4gIG1pbi13aWR0aDogNTBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGNvbG9yOiBAcmVnZW50LWdyYXk7XG59XG5cbi5zZWxlY3RlZC12YWx1ZSB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICB0ZXh0LW92ZXJmbG93OiBjbGlwO1xuICBtYXgtd2lkdGg6IDcwcHg7XG5cbiAgJi5pbmFjdGl2ZSB7XG4gICAgY3Vyc29yOiBub3QtYWxsb3dlZDtcbiAgICBjb2xvcjogI2NjYztcbiAgfVxufVxuXG4ubmF2LWNhcmV0IHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB3aWR0aDogMDtcbiAgaGVpZ2h0OiAwO1xuICBtYXJnaW4tbGVmdDogMnB4O1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICBib3JkZXItdG9wOiA0cHggZGFzaGVkO1xuICBib3JkZXItdG9wOiA0cHggc29saWQgXFw5O1xuICBib3JkZXItcmlnaHQ6IDRweCBzb2xpZCB0cmFuc3BhcmVudDtcbiAgYm9yZGVyLWxlZnQ6IDRweCBzb2xpZCB0cmFuc3BhcmVudDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuXG4gICYuaW5hY3RpdmUge1xuICAgIGN1cnNvcjogbm90LWFsbG93ZWQ7XG4gICAgY29sb3I6ICNjY2M7XG4gIH1cbn1cblxuLmRyb3Bkb3duLW1lbnUge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogNDlweDtcbiAgei1pbmRleDogMTAwMDtcbiAgZmxvYXQ6IGxlZnQ7XG4gIG1pbi13aWR0aDogOTZweDtcbiAgbGlzdC1zdHlsZTogbm9uZTtcbiAgZm9udC1zaXplOiAxM3B4O1xuICB0ZXh0LWFsaWduOiBsZWZ0O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmO1xuICAtd2Via2l0LWJveC1zaGFkb3c6IDAgM3B4IDZweCByZ2JhKDAsIDAsIDAsIC4zKTtcbiAgYm94LXNoYWRvdzogMCAzcHggNnB4IHJnYmEoMCwgMCwgMCwgLjMpO1xuICBiYWNrZ3JvdW5kLWNsaXA6IHBhZGRpbmctYm94O1xufVxuXG4uZHJvcGRvd24tbWVudSAub3B0aW9uIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIHBhZGRpbmc6IDdweCAwcHggN3B4IDdweDtcbiAgY2xlYXI6IGJvdGg7XG4gIGZvbnQtd2VpZ2h0OiBub3JtYWw7XG4gIGxpbmUtaGVpZ2h0OiAxLjQyODU3MTQzO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGZvbnQtc2l6ZTogMTBweDtcbn1cblxuLmRyb3Bkb3duLW1lbnUgLm9wdGlvbjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IEBuYXYtbG9nby1iYWNrZ3JvdW5kO1xuICBjb2xvcjogI0ZGRiAhaW1wb3J0YW50O1xufVxuXG4uZHJvcGRvd24tbWVudS1zZXBhcmF0b3Ige1xuICBoZWlnaHQ6IDFweDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgYmFja2dyb3VuZC1jb2xvcjogQHdpbGQtc2FuZDtcbiAgcGFkZGluZzogMCAhaW1wb3J0YW50O1xufVxuIiwiLnNlbGVjdCB7XG4gIG1pbi13aWR0aDogNTBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGNvbG9yOiAjOTU5ZGE1O1xufVxuLnNlbGVjdGVkLXZhbHVlIHtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIHRleHQtb3ZlcmZsb3c6IGNsaXA7XG4gIG1heC13aWR0aDogNzBweDtcbn1cbi5zZWxlY3RlZC12YWx1ZS5pbmFjdGl2ZSB7XG4gIGN1cnNvcjogbm90LWFsbG93ZWQ7XG4gIGNvbG9yOiAjY2NjO1xufVxuLm5hdi1jYXJldCB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgd2lkdGg6IDA7XG4gIGhlaWdodDogMDtcbiAgbWFyZ2luLWxlZnQ6IDJweDtcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbiAgYm9yZGVyLXRvcDogNHB4IGRhc2hlZDtcbiAgYm9yZGVyLXRvcDogNHB4IHNvbGlkIFxcOTtcbiAgYm9yZGVyLXJpZ2h0OiA0cHggc29saWQgdHJhbnNwYXJlbnQ7XG4gIGJvcmRlci1sZWZ0OiA0cHggc29saWQgdHJhbnNwYXJlbnQ7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cbi5uYXYtY2FyZXQuaW5hY3RpdmUge1xuICBjdXJzb3I6IG5vdC1hbGxvd2VkO1xuICBjb2xvcjogI2NjYztcbn1cbi5kcm9wZG93bi1tZW51IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDQ5cHg7XG4gIHotaW5kZXg6IDEwMDA7XG4gIGZsb2F0OiBsZWZ0O1xuICBtaW4td2lkdGg6IDk2cHg7XG4gIGxpc3Qtc3R5bGU6IG5vbmU7XG4gIGZvbnQtc2l6ZTogMTNweDtcbiAgdGV4dC1hbGlnbjogbGVmdDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZmZmZjtcbiAgLXdlYmtpdC1ib3gtc2hhZG93OiAwIDNweCA2cHggcmdiYSgwLCAwLCAwLCAwLjMpO1xuICBib3gtc2hhZG93OiAwIDNweCA2cHggcmdiYSgwLCAwLCAwLCAwLjMpO1xuICBiYWNrZ3JvdW5kLWNsaXA6IHBhZGRpbmctYm94O1xufVxuLmRyb3Bkb3duLW1lbnUgLm9wdGlvbiB7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICBwYWRkaW5nOiA3cHggMHB4IDdweCA3cHg7XG4gIGNsZWFyOiBib3RoO1xuICBmb250LXdlaWdodDogbm9ybWFsO1xuICBsaW5lLWhlaWdodDogMS40Mjg1NzE0MztcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBmb250LXNpemU6IDEwcHg7XG59XG4uZHJvcGRvd24tbWVudSAub3B0aW9uOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzI1YzJkNDtcbiAgY29sb3I6ICNGRkYgIWltcG9ydGFudDtcbn1cbi5kcm9wZG93bi1tZW51LXNlcGFyYXRvciB7XG4gIGhlaWdodDogMXB4O1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjRmNGY0O1xuICBwYWRkaW5nOiAwICFpbXBvcnRhbnQ7XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/select/select.component.ts":
-/*!***************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/select/select.component.ts ***!
-  \***************************************************************************************************/
-/*! exports provided: SelectComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return SelectComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _on_close_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../on-close.service */ "../../libs/common-components/src/lib/on-close.service.ts");
-
-
-
-var SelectComponent = /** @class */ (function () {
-    function SelectComponent(_onCloseService) {
-        var _this = this;
-        this._onCloseService = _onCloseService;
-        this.disabled = false;
-        this.selected = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.opened = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.isOpen = false;
-        _onCloseService.onClose.subscribe(function () {
-            _this.close();
-        });
-    }
-    SelectComponent.prototype.open = function () {
-        if (!this.disabled) {
-            this.isOpen = true;
-        }
-    };
-    SelectComponent.prototype.close = function () {
-        this.isOpen = false;
-    };
-    SelectComponent.prototype.onClickOutside = function (event) {
-        this.close();
-    };
-    SelectComponent.prototype.toggle = function ($event) {
-        // TODO: following lines were uncommented due to needness in signature app
-        $event.preventDefault();
-        $event.stopPropagation();
-        if (!this.disabled) {
-            this.isOpen = !this.isOpen;
-            if (this.isOpen)
-                this.opened.emit(true);
-        }
-    };
-    SelectComponent.prototype.select = function ($event, value) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        this.selected.emit(value);
-        this.close();
-    };
-    SelectComponent.ctorParameters = function () { return [
-        { type: _on_close_service__WEBPACK_IMPORTED_MODULE_2__["OnCloseService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Array)
-    ], SelectComponent.prototype, "options", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "showSelected", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
-    ], SelectComponent.prototype, "selected", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
-    ], SelectComponent.prototype, "opened", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SelectComponent.prototype, "isOpen", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SelectComponent.prototype, "icon", void 0);
-    SelectComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-select',
-            template: __webpack_require__(/*! raw-loader!./select.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/select/select.component.html"),
-            styles: [__webpack_require__(/*! ./select.component.less */ "../../libs/common-components/src/lib/select/select.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_on_close_service__WEBPACK_IMPORTED_MODULE_2__["OnCloseService"]])
-    ], SelectComponent);
-    return SelectComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/selection.service.ts":
-/*!*********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/selection.service.ts ***!
-  \*********************************************************************************************/
-/*! exports provided: SelectionService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectionService", function() { return SelectionService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var SelectionService = /** @class */ (function () {
-    function SelectionService() {
-        this.isIE =  false || !!/(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
-    }
-    SelectionService.prototype.restoreSelection = function () {
-        if (this.selection && !this.selection.collapsed || this.isIE) {
-            this.putSelection(this.selection);
-        }
-    };
-    SelectionService.prototype.captureSelection = function () {
-        var selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-            this.selection = selection.getRangeAt(0);
-        }
-    };
-    SelectionService.prototype.putSelection = function (selection) {
-        var sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(selection.cloneRange());
-    };
-    SelectionService.prototype.refreshSelection = function () {
-        this.captureSelection();
-        this.restoreSelection();
-    };
-    SelectionService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        })
-    ], SelectionService);
-    return SelectionService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/side-panel/side-panel.component.less":
-/*!*************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/side-panel/side-panel.component.less ***!
-  \*************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".gd-side-panel-wrapper {\n  margin-right: 0px;\n  width: 334px;\n  z-index: 999;\n  background-color: #FFF;\n  -webkit-transition: margin-right 0.2s;\n  transition: margin-right 0.2s;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-flow: column;\n  height: 100vh;\n}\n.gd-side-panel-wrapper .gd-side-panel-header {\n  height: 60px;\n  background-color: #222E35;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  flex-wrap: nowrap;\n}\n.gd-side-panel-wrapper .gd-side-panel-header .icon {\n  font-size: 24px;\n  color: #959da5;\n  margin: 18px;\n  line-height: 24px;\n}\n.gd-side-panel-wrapper .gd-side-panel-header .title {\n  font-size: 13px;\n  font-weight: bold;\n  color: #EDF0F2;\n  opacity: 0.57;\n  margin-top: 20px;\n  width: 100%;\n}\n.gd-side-panel-wrapper .gd-side-panel-header .close,\n.gd-side-panel-wrapper .gd-side-panel-header .save {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.gd-side-panel-wrapper .gd-side-panel-header ::ng-deep gd-button .text {\n  padding: 0px;\n}\n.gd-side-panel-wrapper .gd-side-panel-body {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-flow: column;\n  overflow: visible;\n  overflow-y: auto;\n  overflow-x: hidden;\n  height: 100%;\n}\n@media (max-width: 1037px) {\n  .gd-side-panel-wrapper {\n    width: 100%;\n    position: absolute;\n    left: 0px;\n    right: 0px;\n    top: 0px;\n    bottom: 0px;\n  }\n  .gd-side-panel-wrapper.only-title {\n    height: 60px !important;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9zaWRlLXBhbmVsL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvc2lkZS1wYW5lbC9zaWRlLXBhbmVsLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3NpZGUtcGFuZWwvc2lkZS1wYW5lbC5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLGlCQUFBO0VBQ0EsWUFBQTtFQUNBLFlBQUE7RUFDQSxzQkFBQTtFQUNBLHFDQUFBO0VBQUEsNkJBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw0QkFBQTtFQUFBLDZCQUFBO1VBQUEsaUJBQUE7RUFDQSxhQUFBO0FDREY7QURQQTtFQVdJLFlBQUE7RUFDQSx5QkFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLGlCQUFBO0FDREo7QURkQTtFQWtCTSxlQUFBO0VBQ0EsY0FBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtBQ0ROO0FEcEJBO0VBeUJNLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGNBQUE7RUFDQSxhQUFBO0VBQ0EsZ0JBQUE7RUFDQSxXQUFBO0FDRk47QUQ1QkE7O0VBbUNNLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHlCQUFBO1VBQUEsbUJBQUE7QUNITjtBRGpDQTtFQXlDUSxZQUFBO0FDTFI7QURwQ0E7RUErQ0ksb0JBQUE7RUFBQSxhQUFBO0VBQ0EsNEJBQUE7RUFBQSw2QkFBQTtVQUFBLGlCQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtBQ1JKO0FEWUE7RUFDRTtJQUNFLFdBQUE7SUFDQSxrQkFBQTtJQUNBLFNBQUE7SUFDQSxVQUFBO0lBQ0EsUUFBQTtJQUNBLFdBQUE7RUNWRjtFRFlFO0lBQ0UsdUJBQUE7RUNWSjtBQUNGIiwiZmlsZSI6ImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9zaWRlLXBhbmVsL3NpZGUtcGFuZWwuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi8uLi8uLi9zdHlsZXMvdmFyaWFibGVzXCI7XG5cbi5nZC1zaWRlLXBhbmVsLXdyYXBwZXIge1xuICBtYXJnaW4tcmlnaHQgICAgOiAwcHg7XG4gIHdpZHRoICAgICAgICAgICA6IDMzNHB4O1xuICB6LWluZGV4ICAgICAgICAgOiA5OTk7XG4gIGJhY2tncm91bmQtY29sb3I6ICNGRkY7XG4gIHRyYW5zaXRpb24gICAgICA6IG1hcmdpbi1yaWdodCAwLjJzO1xuICBkaXNwbGF5ICAgICAgICAgOiBmbGV4O1xuICBmbGV4LWZsb3cgICAgICAgOiBjb2x1bW47XG4gIGhlaWdodCAgICAgICAgICA6IDEwMHZoO1xuXG4gIC5nZC1zaWRlLXBhbmVsLWhlYWRlciB7XG4gICAgaGVpZ2h0ICAgICAgICAgIDogQG5hdi1oZWlnaHQ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzIyMkUzNTtcbiAgICBkaXNwbGF5ICAgICAgICAgOiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uICA6IHJvdztcbiAgICBmbGV4LXdyYXAgICAgICAgOiBub3dyYXA7XG5cbiAgICAuaWNvbiB7XG4gICAgICBmb250LXNpemUgIDogMjRweDtcbiAgICAgIGNvbG9yICAgICAgOiBAcmVnZW50LWdyYXk7XG4gICAgICBtYXJnaW4gICAgIDogMThweDtcbiAgICAgIGxpbmUtaGVpZ2h0OiAyNHB4O1xuICAgIH1cblxuICAgIC50aXRsZSB7XG4gICAgICBmb250LXNpemUgIDogMTNweDtcbiAgICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgICAgY29sb3IgICAgICA6IEBwb3JjZWxhaW47XG4gICAgICBvcGFjaXR5ICAgIDogMC41NztcbiAgICAgIG1hcmdpbi10b3AgOiAyMHB4O1xuICAgICAgd2lkdGggICAgICA6IDEwMCU7XG4gICAgfVxuXG4gICAgLmNsb3NlLFxuICAgIC5zYXZlIHtcbiAgICAgIGRpc3BsYXkgICAgOiBmbGV4O1xuICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB9XG5cbiAgICA6Om5nLWRlZXAgZ2QtYnV0dG9uIHtcbiAgICAgIC50ZXh0IHtcbiAgICAgICAgcGFkZGluZzogMHB4O1xuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIC5nZC1zaWRlLXBhbmVsLWJvZHkge1xuICAgIGRpc3BsYXkgICA6IGZsZXg7XG4gICAgZmxleC1mbG93IDogY29sdW1uO1xuICAgIG92ZXJmbG93ICA6IHZpc2libGU7XG4gICAgb3ZlcmZsb3cteTogYXV0bztcbiAgICBvdmVyZmxvdy14OiBoaWRkZW47XG4gICAgaGVpZ2h0ICAgIDogMTAwJTtcbiAgfVxufVxuXG5AbWVkaWEgQHBob25lLWRvd24ge1xuICAuZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIHtcbiAgICB3aWR0aCAgIDogMTAwJTtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgbGVmdCAgICA6IDBweDtcbiAgICByaWdodCAgIDogMHB4O1xuICAgIHRvcCAgICAgOiAwcHg7XG4gICAgYm90dG9tICA6IDBweDtcblxuICAgICYub25seS10aXRsZSB7XG4gICAgICBoZWlnaHQ6IDYwcHggIWltcG9ydGFudDtcbiAgICB9XG4gIH1cbn0iLCIuZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIHtcbiAgbWFyZ2luLXJpZ2h0OiAwcHg7XG4gIHdpZHRoOiAzMzRweDtcbiAgei1pbmRleDogOTk5O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRkZGO1xuICB0cmFuc2l0aW9uOiBtYXJnaW4tcmlnaHQgMC4ycztcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1mbG93OiBjb2x1bW47XG4gIGhlaWdodDogMTAwdmg7XG59XG4uZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIC5nZC1zaWRlLXBhbmVsLWhlYWRlciB7XG4gIGhlaWdodDogNjBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzIyMkUzNTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgZmxleC13cmFwOiBub3dyYXA7XG59XG4uZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIC5nZC1zaWRlLXBhbmVsLWhlYWRlciAuaWNvbiB7XG4gIGZvbnQtc2l6ZTogMjRweDtcbiAgY29sb3I6ICM5NTlkYTU7XG4gIG1hcmdpbjogMThweDtcbiAgbGluZS1oZWlnaHQ6IDI0cHg7XG59XG4uZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIC5nZC1zaWRlLXBhbmVsLWhlYWRlciAudGl0bGUge1xuICBmb250LXNpemU6IDEzcHg7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBjb2xvcjogI0VERjBGMjtcbiAgb3BhY2l0eTogMC41NztcbiAgbWFyZ2luLXRvcDogMjBweDtcbiAgd2lkdGg6IDEwMCU7XG59XG4uZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIC5nZC1zaWRlLXBhbmVsLWhlYWRlciAuY2xvc2UsXG4uZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIC5nZC1zaWRlLXBhbmVsLWhlYWRlciAuc2F2ZSB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG4uZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIC5nZC1zaWRlLXBhbmVsLWhlYWRlciA6Om5nLWRlZXAgZ2QtYnV0dG9uIC50ZXh0IHtcbiAgcGFkZGluZzogMHB4O1xufVxuLmdkLXNpZGUtcGFuZWwtd3JhcHBlciAuZ2Qtc2lkZS1wYW5lbC1ib2R5IHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1mbG93OiBjb2x1bW47XG4gIG92ZXJmbG93OiB2aXNpYmxlO1xuICBvdmVyZmxvdy15OiBhdXRvO1xuICBvdmVyZmxvdy14OiBoaWRkZW47XG4gIGhlaWdodDogMTAwJTtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiAxMDM3cHgpIHtcbiAgLmdkLXNpZGUtcGFuZWwtd3JhcHBlciB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGxlZnQ6IDBweDtcbiAgICByaWdodDogMHB4O1xuICAgIHRvcDogMHB4O1xuICAgIGJvdHRvbTogMHB4O1xuICB9XG4gIC5nZC1zaWRlLXBhbmVsLXdyYXBwZXIub25seS10aXRsZSB7XG4gICAgaGVpZ2h0OiA2MHB4ICFpbXBvcnRhbnQ7XG4gIH1cbn1cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/side-panel/side-panel.component.ts":
-/*!***********************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/side-panel/side-panel.component.ts ***!
-  \***********************************************************************************************************/
-/*! exports provided: SidePanelComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidePanelComponent", function() { return SidePanelComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var SidePanelComponent = /** @class */ (function () {
-    function SidePanelComponent() {
-        this.closable = true;
-        this.saveable = true;
-        this.hideSidePanel = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.saveInSidePanel = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.onlyTitle = false;
-    }
-    SidePanelComponent.prototype.closeSidePanel = function () {
-        this.hideSidePanel.emit(true);
-    };
-    SidePanelComponent.prototype.saveBySidePanel = function () {
-        this.saveInSidePanel.emit(true);
-    };
-    SidePanelComponent.prototype.toggleTitleMode = function () {
-        if (this.closable && !this.saveable) {
-            this.onlyTitle = !this.onlyTitle;
-        }
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SidePanelComponent.prototype, "title", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], SidePanelComponent.prototype, "icon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SidePanelComponent.prototype, "closable", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SidePanelComponent.prototype, "saveable", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SidePanelComponent.prototype, "hideSidePanel", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SidePanelComponent.prototype, "saveInSidePanel", void 0);
-    SidePanelComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-side-panel',
-            template: __webpack_require__(/*! raw-loader!./side-panel.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/side-panel/side-panel.component.html"),
-            styles: [__webpack_require__(/*! ./side-panel.component.less */ "../../libs/common-components/src/lib/side-panel/side-panel.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], SidePanelComponent);
-    return SidePanelComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/success-modal/success-modal.component.less":
-/*!*******************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/success-modal/success-modal.component.less ***!
-  \*******************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".check_mark {\n  margin: 47px auto;\n}\n.sa-icon {\n  width: 80px;\n  height: 80px;\n  border: 4px solid gray;\n  border-radius: 40px;\n  border-radius: 50%;\n  padding: 0;\n  position: relative;\n  box-sizing: content-box;\n}\n#gd-modal-success {\n  display: -webkit-box;\n  display: flex;\n  overflow: hidden;\n  width: 469px;\n  height: 183px;\n}\n.sa-icon.sa-success {\n  border-color: #4CAF50;\n  -webkit-transform: scale(1.18);\n          transform: scale(1.18);\n}\n.sa-icon.sa-success::before,\n.sa-icon.sa-success::after {\n  content: '';\n  border-radius: 40px;\n  border-radius: 50%;\n  position: absolute;\n  width: 60px;\n  height: 120px;\n  background: white;\n  -webkit-transform: rotate(45deg);\n  transform: rotate(45deg);\n}\n.sa-icon.sa-success::before {\n  border-radius: 120px 0 0 120px;\n  top: -7px;\n  left: -33px;\n  -webkit-transform: rotate(-45deg);\n  transform: rotate(-45deg);\n  -webkit-transform-origin: 60px 60px;\n  transform-origin: 60px 60px;\n}\n.sa-icon.sa-success::after {\n  border-radius: 0 120px 120px 0;\n  top: -11px;\n  left: 30px;\n  -webkit-transform: rotate(-45deg);\n  transform: rotate(-45deg);\n  -webkit-transform-origin: 0px 60px;\n  transform-origin: 0px 60px;\n}\n.sa-icon.sa-success .sa-placeholder {\n  width: 80px;\n  height: 80px;\n  border: 4px solid rgba(76, 175, 80, 0.5);\n  border-radius: 40px;\n  border-radius: 50%;\n  box-sizing: content-box;\n  position: absolute;\n  left: -4px;\n  top: -4px;\n  z-index: 2;\n}\n.sa-icon.sa-success .sa-fix {\n  width: 5px;\n  height: 90px;\n  background-color: white;\n  position: absolute;\n  left: 28px;\n  top: 8px;\n  z-index: 1;\n  -webkit-transform: rotate(-45deg);\n  transform: rotate(-45deg);\n}\n.sa-icon.sa-success.animate::after {\n  -webkit-animation: rotatePlaceholder 4.25s ease-in;\n  animation: rotatePlaceholder 4.25s ease-in;\n}\n.sa-icon.sa-success {\n  border-color: transparent\\9;\n}\n.sa-icon.sa-success .sa-line.sa-tip {\n  -ms-transform: rotate(45deg) \\9;\n}\n.sa-icon.sa-success .sa-line.sa-long {\n  -ms-transform: rotate(-45deg) \\9;\n}\n.animateSuccessTip {\n  -webkit-animation: animateSuccessTip 0.75s;\n  animation: animateSuccessTip 0.75s;\n}\n.animateSuccessLong {\n  -webkit-animation: animateSuccessLong 0.75s;\n  animation: animateSuccessLong 0.75s;\n}\n@-webkit-keyframes animateSuccessLong {\n  0% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n  }\n  65% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n  }\n  84% {\n    width: 55px;\n    right: 0px;\n    top: 35px;\n  }\n  100% {\n    width: 47px;\n    right: 8px;\n    top: 38px;\n  }\n}\n@-webkit-keyframes animateSuccessTip {\n  0% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n  }\n  54% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n  }\n  70% {\n    width: 50px;\n    left: -8px;\n    top: 37px;\n  }\n  84% {\n    width: 17px;\n    left: 21px;\n    top: 48px;\n  }\n  100% {\n    width: 25px;\n    left: 14px;\n    top: 45px;\n  }\n}\n@keyframes animateSuccessTip {\n  0% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n  }\n  54% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n  }\n  70% {\n    width: 50px;\n    left: -8px;\n    top: 37px;\n  }\n  84% {\n    width: 17px;\n    left: 21px;\n    top: 48px;\n  }\n  100% {\n    width: 25px;\n    left: 14px;\n    top: 45px;\n  }\n}\n@keyframes animateSuccessLong {\n  0% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n  }\n  65% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n  }\n  84% {\n    width: 55px;\n    right: 0px;\n    top: 35px;\n  }\n  100% {\n    width: 47px;\n    right: 8px;\n    top: 38px;\n  }\n}\n.sa-icon.sa-success .sa-line {\n  height: 5px;\n  background-color: #4CAF50;\n  display: block;\n  border-radius: 2px;\n  position: absolute;\n  z-index: 2;\n}\n.sa-icon.sa-success .sa-line.sa-tip {\n  width: 25px;\n  left: 14px;\n  top: 46px;\n  -webkit-transform: rotate(45deg);\n  transform: rotate(45deg);\n}\n.sa-icon.sa-success .sa-line.sa-long {\n  width: 47px;\n  right: 8px;\n  top: 38px;\n  -webkit-transform: rotate(-45deg);\n  transform: rotate(-45deg);\n}\n@-webkit-keyframes rotatePlaceholder {\n  0% {\n    transform: rotate(-45deg);\n    -webkit-transform: rotate(-45deg);\n  }\n  5% {\n    transform: rotate(-45deg);\n    -webkit-transform: rotate(-45deg);\n  }\n  12% {\n    transform: rotate(-405deg);\n    -webkit-transform: rotate(-405deg);\n  }\n  100% {\n    transform: rotate(-405deg);\n    -webkit-transform: rotate(-405deg);\n  }\n}\n@keyframes rotatePlaceholder {\n  0% {\n    transform: rotate(-45deg);\n    -webkit-transform: rotate(-45deg);\n  }\n  5% {\n    transform: rotate(-45deg);\n    -webkit-transform: rotate(-45deg);\n  }\n  12% {\n    transform: rotate(-405deg);\n    -webkit-transform: rotate(-405deg);\n  }\n  100% {\n    transform: rotate(-405deg);\n    -webkit-transform: rotate(-405deg);\n  }\n}\n@media (max-width: 1037px) {\n  #gd-modal-success {\n    left: 50%;\n    top: 50%;\n    position: relative;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%);\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi9zdWNjZXNzLW1vZGFsL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvc3VjY2Vzcy1tb2RhbC9zdWNjZXNzLW1vZGFsLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3N1Y2Nlc3MtbW9kYWwvc3VjY2Vzcy1tb2RhbC5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLGlCQUFBO0FDREY7QURHQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBQ0Esc0JBQUE7RUFFQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLGtCQUFBO0VBQ0EsdUJBQUE7QUNERjtBREdBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EsYUFBQTtBQ0RGO0FER0E7RUFDRSxxQkFBQTtFQUNBLDhCQUFBO1VBQUEsc0JBQUE7QUNERjtBRElBOztFQUNFLFdBQUE7RUFFQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxXQUFBO0VBQ0EsYUFBQTtFQUNBLGlCQUFBO0VBQ0EsZ0NBQUE7RUFDQSx3QkFBQTtBQ0RGO0FESUE7RUFFRSw4QkFBQTtFQUNBLFNBQUE7RUFDQSxXQUFBO0VBQ0EsaUNBQUE7RUFDQSx5QkFBQTtFQUNBLG1DQUFBO0VBQ0EsMkJBQUE7QUNGRjtBREtBO0VBRUUsOEJBQUE7RUFDQSxVQUFBO0VBQ0EsVUFBQTtFQUNBLGlDQUFBO0VBQ0EseUJBQUE7RUFDQSxrQ0FBQTtFQUNBLDBCQUFBO0FDSEY7QURNQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBQ0Esd0NBQUE7RUFFQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsdUJBQUE7RUFDQSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtBQ0pGO0FET0E7RUFDRSxVQUFBO0VBQ0EsWUFBQTtFQUNBLHVCQUFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxpQ0FBQTtFQUNBLHlCQUFBO0FDTEY7QURRQTtFQUNFLGtEQUFBO0VBQ0EsMENBQUE7QUNORjtBRFNBO0VBQ0UsMkJBQUE7QUNQRjtBRFNBO0VBQ0UsK0JBQUE7QUNQRjtBRFNBO0VBQ0UsZ0NBQUE7QUNQRjtBRFVBO0VBQ0UsMENBQUE7RUFDQSxrQ0FBQTtBQ1JGO0FEV0E7RUFDRSwyQ0FBQTtFQUNBLG1DQUFBO0FDVEY7QURZQTtFQUNFO0lBQ0UsUUFBQTtJQUNBLFdBQUE7SUFDQSxTQUFBO0VDVkY7RURZQTtJQUNFLFFBQUE7SUFDQSxXQUFBO0lBQ0EsU0FBQTtFQ1ZGO0VEWUE7SUFDRSxXQUFBO0lBQ0EsVUFBQTtJQUNBLFNBQUE7RUNWRjtFRFlBO0lBQ0UsV0FBQTtJQUNBLFVBQUE7SUFDQSxTQUFBO0VDVkY7QUFDRjtBRFlBO0VBQ0U7SUFDRSxRQUFBO0lBQ0EsU0FBQTtJQUNBLFNBQUE7RUNWRjtFRFlBO0lBQ0UsUUFBQTtJQUNBLFNBQUE7SUFDQSxTQUFBO0VDVkY7RURZQTtJQUNFLFdBQUE7SUFDQSxVQUFBO0lBQ0EsU0FBQTtFQ1ZGO0VEWUE7SUFDRSxXQUFBO0lBQ0EsVUFBQTtJQUNBLFNBQUE7RUNWRjtFRFlBO0lBQ0UsV0FBQTtJQUNBLFVBQUE7SUFDQSxTQUFBO0VDVkY7QUFDRjtBRFlBO0VBQ0U7SUFDRSxRQUFBO0lBQ0EsU0FBQTtJQUNBLFNBQUE7RUNWRjtFRFlBO0lBQ0UsUUFBQTtJQUNBLFNBQUE7SUFDQSxTQUFBO0VDVkY7RURZQTtJQUNFLFdBQUE7SUFDQSxVQUFBO0lBQ0EsU0FBQTtFQ1ZGO0VEWUE7SUFDRSxXQUFBO0lBQ0EsVUFBQTtJQUNBLFNBQUE7RUNWRjtFRFlBO0lBQ0UsV0FBQTtJQUNBLFVBQUE7SUFDQSxTQUFBO0VDVkY7QUFDRjtBRGFBO0VBQ0U7SUFDRSxRQUFBO0lBQ0EsV0FBQTtJQUNBLFNBQUE7RUNYRjtFRGFBO0lBQ0UsUUFBQTtJQUNBLFdBQUE7SUFDQSxTQUFBO0VDWEY7RURhQTtJQUNFLFdBQUE7SUFDQSxVQUFBO0lBQ0EsU0FBQTtFQ1hGO0VEYUE7SUFDRSxXQUFBO0lBQ0EsVUFBQTtJQUNBLFNBQUE7RUNYRjtBQUNGO0FEY0E7RUFDRSxXQUFBO0VBQ0EseUJBQUE7RUFDQSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQkFBQTtFQUNBLFVBQUE7QUNaRjtBRGVBO0VBQ0UsV0FBQTtFQUNBLFVBQUE7RUFDQSxTQUFBO0VBQ0EsZ0NBQUE7RUFDQSx3QkFBQTtBQ2JGO0FEZ0JBO0VBQ0UsV0FBQTtFQUNBLFVBQUE7RUFDQSxTQUFBO0VBQ0EsaUNBQUE7RUFDQSx5QkFBQTtBQ2RGO0FEaUJBO0VBQ0U7SUFDRSx5QkFBQTtJQUNBLGlDQUFBO0VDZkY7RURpQkE7SUFDRSx5QkFBQTtJQUNBLGlDQUFBO0VDZkY7RURpQkE7SUFDRSwwQkFBQTtJQUNBLGtDQUFBO0VDZkY7RURpQkE7SUFDRSwwQkFBQTtJQUNBLGtDQUFBO0VDZkY7QUFDRjtBRGlCQTtFQUNFO0lBQ0UseUJBQUE7SUFDQSxpQ0FBQTtFQ2ZGO0VEaUJBO0lBQ0UseUJBQUE7SUFDQSxpQ0FBQTtFQ2ZGO0VEaUJBO0lBQ0UsMEJBQUE7SUFDQSxrQ0FBQTtFQ2ZGO0VEaUJBO0lBQ0UsMEJBQUE7SUFDQSxrQ0FBQTtFQ2ZGO0FBQ0Y7QURrQkE7RUFDRTtJQUNFLFNBQUE7SUFDQSxRQUFBO0lBQ0Esa0JBQUE7SUFDQSx3Q0FBQTtZQUFBLGdDQUFBO0VDaEJGO0FBQ0YiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3N1Y2Nlc3MtbW9kYWwvc3VjY2Vzcy1tb2RhbC5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uLy4uLy4uL2NvbW1vbi1jb21wb25lbnRzL3NyYy9zdHlsZXMvdmFyaWFibGVzLmxlc3NcIjtcblxuLmNoZWNrX21hcmsge1xuICBtYXJnaW46IDQ3cHggYXV0bztcbn1cbi5zYS1pY29uIHtcbiAgd2lkdGg6IDgwcHg7XG4gIGhlaWdodDogODBweDtcbiAgYm9yZGVyOiA0cHggc29saWQgZ3JheTtcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiA0MHB4O1xuICBib3JkZXItcmFkaXVzOiA0MHB4O1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIHBhZGRpbmc6IDA7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgYm94LXNpemluZzogY29udGVudC1ib3g7XG59XG4jZ2QtbW9kYWwtc3VjY2VzcyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIHdpZHRoOiA0NjlweDtcbiAgaGVpZ2h0OiAxODNweDtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3Mge1xuICBib3JkZXItY29sb3I6ICM0Q0FGNTA7XG4gIHRyYW5zZm9ybTogc2NhbGUoMS4xOCk7XG59XG5cbi5zYS1pY29uLnNhLXN1Y2Nlc3M6OmJlZm9yZSwgLnNhLWljb24uc2Etc3VjY2Vzczo6YWZ0ZXIge1xuICBjb250ZW50OiAnJztcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiA0MHB4O1xuICBib3JkZXItcmFkaXVzOiA0MHB4O1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgd2lkdGg6IDYwcHg7XG4gIGhlaWdodDogMTIwcHg7XG4gIGJhY2tncm91bmQ6IHdoaXRlO1xuICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKDQ1ZGVnKTtcbiAgdHJhbnNmb3JtOiByb3RhdGUoNDVkZWcpO1xufVxuXG4uc2EtaWNvbi5zYS1zdWNjZXNzOjpiZWZvcmUge1xuICAtd2Via2l0LWJvcmRlci1yYWRpdXM6IDEyMHB4IDAgMCAxMjBweDtcbiAgYm9yZGVyLXJhZGl1czogMTIwcHggMCAwIDEyMHB4O1xuICB0b3A6IC03cHg7XG4gIGxlZnQ6IC0zM3B4O1xuICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG4gIHRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG4gIC13ZWJraXQtdHJhbnNmb3JtLW9yaWdpbjogNjBweCA2MHB4O1xuICB0cmFuc2Zvcm0tb3JpZ2luOiA2MHB4IDYwcHg7XG59XG5cbi5zYS1pY29uLnNhLXN1Y2Nlc3M6OmFmdGVyIHtcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiAwIDEyMHB4IDEyMHB4IDA7XG4gIGJvcmRlci1yYWRpdXM6IDAgMTIwcHggMTIwcHggMDtcbiAgdG9wOiAtMTFweDtcbiAgbGVmdDogMzBweDtcbiAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICAtd2Via2l0LXRyYW5zZm9ybS1vcmlnaW46IDBweCA2MHB4O1xuICB0cmFuc2Zvcm0tb3JpZ2luOiAwcHggNjBweDtcbn1cblxuLnNhLWljb24uc2Etc3VjY2VzcyAuc2EtcGxhY2Vob2xkZXIge1xuICB3aWR0aDogODBweDtcbiAgaGVpZ2h0OiA4MHB4O1xuICBib3JkZXI6IDRweCBzb2xpZCByZ2JhKDc2LCAxNzUsIDgwLCAuNSk7XG4gIC13ZWJraXQtYm9yZGVyLXJhZGl1czogNDBweDtcbiAgYm9yZGVyLXJhZGl1czogNDBweDtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBib3gtc2l6aW5nOiBjb250ZW50LWJveDtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBsZWZ0OiAtNHB4O1xuICB0b3A6IC00cHg7XG4gIHotaW5kZXg6IDI7XG59XG5cbi5zYS1pY29uLnNhLXN1Y2Nlc3MgLnNhLWZpeCB7XG4gIHdpZHRoOiA1cHg7XG4gIGhlaWdodDogOTBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogMjhweDtcbiAgdG9wOiA4cHg7XG4gIHotaW5kZXg6IDE7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbn1cblxuLnNhLWljb24uc2Etc3VjY2Vzcy5hbmltYXRlOjphZnRlciB7XG4gIC13ZWJraXQtYW5pbWF0aW9uOiByb3RhdGVQbGFjZWhvbGRlciA0LjI1cyBlYXNlLWluO1xuICBhbmltYXRpb246IHJvdGF0ZVBsYWNlaG9sZGVyIDQuMjVzIGVhc2UtaW47XG59XG5cbi5zYS1pY29uLnNhLXN1Y2Nlc3Mge1xuICBib3JkZXItY29sb3I6IHRyYW5zcGFyZW50XFw5O1xufVxuLnNhLWljb24uc2Etc3VjY2VzcyAuc2EtbGluZS5zYS10aXAge1xuICAtbXMtdHJhbnNmb3JtOiByb3RhdGUoNDVkZWcpIFxcOTtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3MgLnNhLWxpbmUuc2EtbG9uZyB7XG4gIC1tcy10cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpIFxcOTtcbn1cblxuLmFuaW1hdGVTdWNjZXNzVGlwIHtcbiAgLXdlYmtpdC1hbmltYXRpb246IGFuaW1hdGVTdWNjZXNzVGlwIDAuNzVzO1xuICBhbmltYXRpb246IGFuaW1hdGVTdWNjZXNzVGlwIDAuNzVzO1xufVxuXG4uYW5pbWF0ZVN1Y2Nlc3NMb25nIHtcbiAgLXdlYmtpdC1hbmltYXRpb246IGFuaW1hdGVTdWNjZXNzTG9uZyAwLjc1cztcbiAgYW5pbWF0aW9uOiBhbmltYXRlU3VjY2Vzc0xvbmcgMC43NXM7XG59XG5cbkAtd2Via2l0LWtleWZyYW1lcyBhbmltYXRlU3VjY2Vzc0xvbmcge1xuICAwJSB7XG4gICAgd2lkdGg6IDA7XG4gICAgcmlnaHQ6IDQ2cHg7XG4gICAgdG9wOiA1NHB4O1xuICB9XG4gIDY1JSB7XG4gICAgd2lkdGg6IDA7XG4gICAgcmlnaHQ6IDQ2cHg7XG4gICAgdG9wOiA1NHB4O1xuICB9XG4gIDg0JSB7XG4gICAgd2lkdGg6IDU1cHg7XG4gICAgcmlnaHQ6IDBweDtcbiAgICB0b3A6IDM1cHg7XG4gIH1cbiAgMTAwJSB7XG4gICAgd2lkdGg6IDQ3cHg7XG4gICAgcmlnaHQ6IDhweDtcbiAgICB0b3A6IDM4cHg7XG4gIH1cbn1cbkAtd2Via2l0LWtleWZyYW1lcyBhbmltYXRlU3VjY2Vzc1RpcCB7XG4gIDAlIHtcbiAgICB3aWR0aDogMDtcbiAgICBsZWZ0OiAxcHg7XG4gICAgdG9wOiAxOXB4O1xuICB9XG4gIDU0JSB7XG4gICAgd2lkdGg6IDA7XG4gICAgbGVmdDogMXB4O1xuICAgIHRvcDogMTlweDtcbiAgfVxuICA3MCUge1xuICAgIHdpZHRoOiA1MHB4O1xuICAgIGxlZnQ6IC04cHg7XG4gICAgdG9wOiAzN3B4O1xuICB9XG4gIDg0JSB7XG4gICAgd2lkdGg6IDE3cHg7XG4gICAgbGVmdDogMjFweDtcbiAgICB0b3A6IDQ4cHg7XG4gIH1cbiAgMTAwJSB7XG4gICAgd2lkdGg6IDI1cHg7XG4gICAgbGVmdDogMTRweDtcbiAgICB0b3A6IDQ1cHg7XG4gIH1cbn1cbkBrZXlmcmFtZXMgYW5pbWF0ZVN1Y2Nlc3NUaXAge1xuICAwJSB7XG4gICAgd2lkdGg6IDA7XG4gICAgbGVmdDogMXB4O1xuICAgIHRvcDogMTlweDtcbiAgfVxuICA1NCUge1xuICAgIHdpZHRoOiAwO1xuICAgIGxlZnQ6IDFweDtcbiAgICB0b3A6IDE5cHg7XG4gIH1cbiAgNzAlIHtcbiAgICB3aWR0aDogNTBweDtcbiAgICBsZWZ0OiAtOHB4O1xuICAgIHRvcDogMzdweDtcbiAgfVxuICA4NCUge1xuICAgIHdpZHRoOiAxN3B4O1xuICAgIGxlZnQ6IDIxcHg7XG4gICAgdG9wOiA0OHB4O1xuICB9XG4gIDEwMCUge1xuICAgIHdpZHRoOiAyNXB4O1xuICAgIGxlZnQ6IDE0cHg7XG4gICAgdG9wOiA0NXB4O1xuICB9XG59XG5cbkBrZXlmcmFtZXMgYW5pbWF0ZVN1Y2Nlc3NMb25nIHtcbiAgMCUge1xuICAgIHdpZHRoOiAwO1xuICAgIHJpZ2h0OiA0NnB4O1xuICAgIHRvcDogNTRweDtcbiAgfVxuICA2NSUge1xuICAgIHdpZHRoOiAwO1xuICAgIHJpZ2h0OiA0NnB4O1xuICAgIHRvcDogNTRweDtcbiAgfVxuICA4NCUge1xuICAgIHdpZHRoOiA1NXB4O1xuICAgIHJpZ2h0OiAwcHg7XG4gICAgdG9wOiAzNXB4O1xuICB9XG4gIDEwMCUge1xuICAgIHdpZHRoOiA0N3B4O1xuICAgIHJpZ2h0OiA4cHg7XG4gICAgdG9wOiAzOHB4O1xuICB9XG59XG5cbi5zYS1pY29uLnNhLXN1Y2Nlc3MgLnNhLWxpbmUge1xuICBoZWlnaHQ6IDVweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzRDQUY1MDtcbiAgZGlzcGxheTogYmxvY2s7XG4gIGJvcmRlci1yYWRpdXM6IDJweDtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB6LWluZGV4OiAyO1xufVxuXG4uc2EtaWNvbi5zYS1zdWNjZXNzIC5zYS1saW5lLnNhLXRpcCB7XG4gIHdpZHRoOiAyNXB4O1xuICBsZWZ0OiAxNHB4O1xuICB0b3A6IDQ2cHg7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoNDVkZWcpO1xuICB0cmFuc2Zvcm06IHJvdGF0ZSg0NWRlZyk7XG59XG5cbi5zYS1pY29uLnNhLXN1Y2Nlc3MgLnNhLWxpbmUuc2EtbG9uZyB7XG4gIHdpZHRoOiA0N3B4O1xuICByaWdodDogOHB4O1xuICB0b3A6IDM4cHg7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbn1cblxuQC13ZWJraXQta2V5ZnJhbWVzIHJvdGF0ZVBsYWNlaG9sZGVyIHtcbiAgMCUge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG4gICAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICB9XG4gIDUlIHtcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgfVxuICAxMiUge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKC00MDVkZWcpO1xuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQwNWRlZyk7XG4gIH1cbiAgMTAwJSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoLTQwNWRlZyk7XG4gICAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgtNDA1ZGVnKTtcbiAgfVxufVxuQGtleWZyYW1lcyByb3RhdGVQbGFjZWhvbGRlciB7XG4gIDAlIHtcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgfVxuICA1JSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG4gIH1cbiAgMTIlIHtcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDA1ZGVnKTtcbiAgICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKC00MDVkZWcpO1xuICB9XG4gIDEwMCUge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKC00MDVkZWcpO1xuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQwNWRlZyk7XG4gIH1cbn1cblxuQG1lZGlhIEBwaG9uZS1kb3duIHtcbiAgI2dkLW1vZGFsLXN1Y2Nlc3N7XG4gICAgbGVmdDogNTAlO1xuICAgIHRvcDogNTAlO1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLC01MCUpO1xuICB9XG59XG4iLCIuY2hlY2tfbWFyayB7XG4gIG1hcmdpbjogNDdweCBhdXRvO1xufVxuLnNhLWljb24ge1xuICB3aWR0aDogODBweDtcbiAgaGVpZ2h0OiA4MHB4O1xuICBib3JkZXI6IDRweCBzb2xpZCBncmF5O1xuICAtd2Via2l0LWJvcmRlci1yYWRpdXM6IDQwcHg7XG4gIGJvcmRlci1yYWRpdXM6IDQwcHg7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgcGFkZGluZzogMDtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBib3gtc2l6aW5nOiBjb250ZW50LWJveDtcbn1cbiNnZC1tb2RhbC1zdWNjZXNzIHtcbiAgZGlzcGxheTogZmxleDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgd2lkdGg6IDQ2OXB4O1xuICBoZWlnaHQ6IDE4M3B4O1xufVxuLnNhLWljb24uc2Etc3VjY2VzcyB7XG4gIGJvcmRlci1jb2xvcjogIzRDQUY1MDtcbiAgdHJhbnNmb3JtOiBzY2FsZSgxLjE4KTtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3M6OmJlZm9yZSxcbi5zYS1pY29uLnNhLXN1Y2Nlc3M6OmFmdGVyIHtcbiAgY29udGVudDogJyc7XG4gIC13ZWJraXQtYm9yZGVyLXJhZGl1czogNDBweDtcbiAgYm9yZGVyLXJhZGl1czogNDBweDtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHdpZHRoOiA2MHB4O1xuICBoZWlnaHQ6IDEyMHB4O1xuICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSg0NWRlZyk7XG4gIHRyYW5zZm9ybTogcm90YXRlKDQ1ZGVnKTtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3M6OmJlZm9yZSB7XG4gIC13ZWJraXQtYm9yZGVyLXJhZGl1czogMTIwcHggMCAwIDEyMHB4O1xuICBib3JkZXItcmFkaXVzOiAxMjBweCAwIDAgMTIwcHg7XG4gIHRvcDogLTdweDtcbiAgbGVmdDogLTMzcHg7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgLXdlYmtpdC10cmFuc2Zvcm0tb3JpZ2luOiA2MHB4IDYwcHg7XG4gIHRyYW5zZm9ybS1vcmlnaW46IDYwcHggNjBweDtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3M6OmFmdGVyIHtcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiAwIDEyMHB4IDEyMHB4IDA7XG4gIGJvcmRlci1yYWRpdXM6IDAgMTIwcHggMTIwcHggMDtcbiAgdG9wOiAtMTFweDtcbiAgbGVmdDogMzBweDtcbiAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICAtd2Via2l0LXRyYW5zZm9ybS1vcmlnaW46IDBweCA2MHB4O1xuICB0cmFuc2Zvcm0tb3JpZ2luOiAwcHggNjBweDtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3MgLnNhLXBsYWNlaG9sZGVyIHtcbiAgd2lkdGg6IDgwcHg7XG4gIGhlaWdodDogODBweDtcbiAgYm9yZGVyOiA0cHggc29saWQgcmdiYSg3NiwgMTc1LCA4MCwgMC41KTtcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiA0MHB4O1xuICBib3JkZXItcmFkaXVzOiA0MHB4O1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJveC1zaXppbmc6IGNvbnRlbnQtYm94O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGxlZnQ6IC00cHg7XG4gIHRvcDogLTRweDtcbiAgei1pbmRleDogMjtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3MgLnNhLWZpeCB7XG4gIHdpZHRoOiA1cHg7XG4gIGhlaWdodDogOTBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogMjhweDtcbiAgdG9wOiA4cHg7XG4gIHotaW5kZXg6IDE7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3MuYW5pbWF0ZTo6YWZ0ZXIge1xuICAtd2Via2l0LWFuaW1hdGlvbjogcm90YXRlUGxhY2Vob2xkZXIgNC4yNXMgZWFzZS1pbjtcbiAgYW5pbWF0aW9uOiByb3RhdGVQbGFjZWhvbGRlciA0LjI1cyBlYXNlLWluO1xufVxuLnNhLWljb24uc2Etc3VjY2VzcyB7XG4gIGJvcmRlci1jb2xvcjogdHJhbnNwYXJlbnRcXDk7XG59XG4uc2EtaWNvbi5zYS1zdWNjZXNzIC5zYS1saW5lLnNhLXRpcCB7XG4gIC1tcy10cmFuc2Zvcm06IHJvdGF0ZSg0NWRlZykgXFw5O1xufVxuLnNhLWljb24uc2Etc3VjY2VzcyAuc2EtbGluZS5zYS1sb25nIHtcbiAgLW1zLXRyYW5zZm9ybTogcm90YXRlKC00NWRlZykgXFw5O1xufVxuLmFuaW1hdGVTdWNjZXNzVGlwIHtcbiAgLXdlYmtpdC1hbmltYXRpb246IGFuaW1hdGVTdWNjZXNzVGlwIDAuNzVzO1xuICBhbmltYXRpb246IGFuaW1hdGVTdWNjZXNzVGlwIDAuNzVzO1xufVxuLmFuaW1hdGVTdWNjZXNzTG9uZyB7XG4gIC13ZWJraXQtYW5pbWF0aW9uOiBhbmltYXRlU3VjY2Vzc0xvbmcgMC43NXM7XG4gIGFuaW1hdGlvbjogYW5pbWF0ZVN1Y2Nlc3NMb25nIDAuNzVzO1xufVxuQC13ZWJraXQta2V5ZnJhbWVzIGFuaW1hdGVTdWNjZXNzTG9uZyB7XG4gIDAlIHtcbiAgICB3aWR0aDogMDtcbiAgICByaWdodDogNDZweDtcbiAgICB0b3A6IDU0cHg7XG4gIH1cbiAgNjUlIHtcbiAgICB3aWR0aDogMDtcbiAgICByaWdodDogNDZweDtcbiAgICB0b3A6IDU0cHg7XG4gIH1cbiAgODQlIHtcbiAgICB3aWR0aDogNTVweDtcbiAgICByaWdodDogMHB4O1xuICAgIHRvcDogMzVweDtcbiAgfVxuICAxMDAlIHtcbiAgICB3aWR0aDogNDdweDtcbiAgICByaWdodDogOHB4O1xuICAgIHRvcDogMzhweDtcbiAgfVxufVxuQC13ZWJraXQta2V5ZnJhbWVzIGFuaW1hdGVTdWNjZXNzVGlwIHtcbiAgMCUge1xuICAgIHdpZHRoOiAwO1xuICAgIGxlZnQ6IDFweDtcbiAgICB0b3A6IDE5cHg7XG4gIH1cbiAgNTQlIHtcbiAgICB3aWR0aDogMDtcbiAgICBsZWZ0OiAxcHg7XG4gICAgdG9wOiAxOXB4O1xuICB9XG4gIDcwJSB7XG4gICAgd2lkdGg6IDUwcHg7XG4gICAgbGVmdDogLThweDtcbiAgICB0b3A6IDM3cHg7XG4gIH1cbiAgODQlIHtcbiAgICB3aWR0aDogMTdweDtcbiAgICBsZWZ0OiAyMXB4O1xuICAgIHRvcDogNDhweDtcbiAgfVxuICAxMDAlIHtcbiAgICB3aWR0aDogMjVweDtcbiAgICBsZWZ0OiAxNHB4O1xuICAgIHRvcDogNDVweDtcbiAgfVxufVxuQGtleWZyYW1lcyBhbmltYXRlU3VjY2Vzc1RpcCB7XG4gIDAlIHtcbiAgICB3aWR0aDogMDtcbiAgICBsZWZ0OiAxcHg7XG4gICAgdG9wOiAxOXB4O1xuICB9XG4gIDU0JSB7XG4gICAgd2lkdGg6IDA7XG4gICAgbGVmdDogMXB4O1xuICAgIHRvcDogMTlweDtcbiAgfVxuICA3MCUge1xuICAgIHdpZHRoOiA1MHB4O1xuICAgIGxlZnQ6IC04cHg7XG4gICAgdG9wOiAzN3B4O1xuICB9XG4gIDg0JSB7XG4gICAgd2lkdGg6IDE3cHg7XG4gICAgbGVmdDogMjFweDtcbiAgICB0b3A6IDQ4cHg7XG4gIH1cbiAgMTAwJSB7XG4gICAgd2lkdGg6IDI1cHg7XG4gICAgbGVmdDogMTRweDtcbiAgICB0b3A6IDQ1cHg7XG4gIH1cbn1cbkBrZXlmcmFtZXMgYW5pbWF0ZVN1Y2Nlc3NMb25nIHtcbiAgMCUge1xuICAgIHdpZHRoOiAwO1xuICAgIHJpZ2h0OiA0NnB4O1xuICAgIHRvcDogNTRweDtcbiAgfVxuICA2NSUge1xuICAgIHdpZHRoOiAwO1xuICAgIHJpZ2h0OiA0NnB4O1xuICAgIHRvcDogNTRweDtcbiAgfVxuICA4NCUge1xuICAgIHdpZHRoOiA1NXB4O1xuICAgIHJpZ2h0OiAwcHg7XG4gICAgdG9wOiAzNXB4O1xuICB9XG4gIDEwMCUge1xuICAgIHdpZHRoOiA0N3B4O1xuICAgIHJpZ2h0OiA4cHg7XG4gICAgdG9wOiAzOHB4O1xuICB9XG59XG4uc2EtaWNvbi5zYS1zdWNjZXNzIC5zYS1saW5lIHtcbiAgaGVpZ2h0OiA1cHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICM0Q0FGNTA7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICBib3JkZXItcmFkaXVzOiAycHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgei1pbmRleDogMjtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3MgLnNhLWxpbmUuc2EtdGlwIHtcbiAgd2lkdGg6IDI1cHg7XG4gIGxlZnQ6IDE0cHg7XG4gIHRvcDogNDZweDtcbiAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSg0NWRlZyk7XG4gIHRyYW5zZm9ybTogcm90YXRlKDQ1ZGVnKTtcbn1cbi5zYS1pY29uLnNhLXN1Y2Nlc3MgLnNhLWxpbmUuc2EtbG9uZyB7XG4gIHdpZHRoOiA0N3B4O1xuICByaWdodDogOHB4O1xuICB0b3A6IDM4cHg7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbn1cbkAtd2Via2l0LWtleWZyYW1lcyByb3RhdGVQbGFjZWhvbGRlciB7XG4gIDAlIHtcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgfVxuICA1JSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG4gIH1cbiAgMTIlIHtcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDA1ZGVnKTtcbiAgICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKC00MDVkZWcpO1xuICB9XG4gIDEwMCUge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKC00MDVkZWcpO1xuICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoLTQwNWRlZyk7XG4gIH1cbn1cbkBrZXlmcmFtZXMgcm90YXRlUGxhY2Vob2xkZXIge1xuICAwJSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoLTQ1ZGVnKTtcbiAgICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG4gIH1cbiAgNSUge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG4gICAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICB9XG4gIDEyJSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoLTQwNWRlZyk7XG4gICAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgtNDA1ZGVnKTtcbiAgfVxuICAxMDAlIHtcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDA1ZGVnKTtcbiAgICAtd2Via2l0LXRyYW5zZm9ybTogcm90YXRlKC00MDVkZWcpO1xuICB9XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gICNnZC1tb2RhbC1zdWNjZXNzIHtcbiAgICBsZWZ0OiA1MCU7XG4gICAgdG9wOiA1MCU7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICB9XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/success-modal/success-modal.component.ts":
-/*!*****************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/success-modal/success-modal.component.ts ***!
-  \*****************************************************************************************************************/
-/*! exports provided: SuccessModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SuccessModalComponent", function() { return SuccessModalComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var SuccessModalComponent = /** @class */ (function () {
-    function SuccessModalComponent() {
-    }
-    SuccessModalComponent.prototype.ngOnInit = function () {
-    };
-    SuccessModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-success-modal',
-            template: __webpack_require__(/*! raw-loader!./success-modal.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/success-modal/success-modal.component.html"),
-            styles: [__webpack_require__(/*! ./success-modal.component.less */ "../../libs/common-components/src/lib/success-modal/success-modal.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], SuccessModalComponent);
-    return SuccessModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tab-activator.service.ts":
-/*!*************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tab-activator.service.ts ***!
-  \*************************************************************************************************/
-/*! exports provided: TabActivatorService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabActivatorService", function() { return TabActivatorService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-var TabActivatorService = /** @class */ (function () {
-    function TabActivatorService() {
-        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._activeTabChange = this._observer.asObservable();
-    }
-    Object.defineProperty(TabActivatorService.prototype, "activeTabChange", {
-        get: function () {
-            return this._activeTabChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TabActivatorService.prototype.changeActiveTab = function (tabId) {
-        this._observer.next(tabId);
-    };
-    return TabActivatorService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tab/tab.component.less":
-/*!***********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tab/tab.component.less ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".tab-content {\n  height: 60px;\n  position: absolute;\n  background-color: #FFFFFF;\n  width: 100%;\n  left: 0;\n  line-height: 60px;\n  display: none;\n  z-index: 9;\n}\n.tab-content ::ng-deep .toolbar-panel {\n  height: 60px;\n}\n.tab-content.active {\n  display: -webkit-box;\n  display: flex;\n}\n.gd-tab {\n  text-align: center;\n  font-size: 11px;\n  color: #E5E5E5;\n  height: 30px;\n  line-height: 30px;\n  cursor: pointer;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.gd-tab .icon {\n  display: none;\n  font-size: 14px;\n}\n.gd-tab .smp-tab-title {\n  margin: auto 23px;\n}\n.gd-tab.active {\n  background-color: #FFFFFF;\n  color: #3E4E5A;\n  font-weight: bold;\n}\n@media (max-width: 1037px) {\n  .gd-tab {\n    height: 60px;\n    line-height: 60px;\n    width: 60px;\n  }\n  .gd-tab .smp-tab-title {\n    display: none;\n  }\n  .gd-tab .icon {\n    display: block;\n    font-size: 22px;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90YWIvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90YWIvdGFiLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RhYi90YWIuY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7RUFLRSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSx5QkFBQTtFQUNBLFdBQUE7RUFDQSxPQUFBO0VBQ0EsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsVUFBQTtBQ0xGO0FEUEE7RUFFSSxZQUFBO0FDUUo7QURLQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtBQ0hGO0FETUE7RUFDRSxrQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHlCQUFBO1VBQUEsbUJBQUE7RUFDQSx3QkFBQTtVQUFBLHVCQUFBO0FDSkY7QURMQTtFQVlJLGFBQUE7RUFDQSxlQUFBO0FDSko7QURUQTtFQWlCSSxpQkFBQTtBQ0xKO0FEU0E7RUFDRSx5QkFBQTtFQUNBLGNBQUE7RUFDQSxpQkFBQTtBQ1BGO0FEVUE7RUFDRTtJQUNFLFlBQUE7SUFDQSxpQkFBQTtJQUNBLFdBQUE7RUNSRjtFRFdBO0lBRUksYUFBQTtFQ1ZKO0VEUUE7SUFNSSxjQUFBO0lBQ0EsZUFBQTtFQ1hKO0FBQ0YiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RhYi90YWIuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi8uLi8uLi9zdHlsZXMvdmFyaWFibGVzXCI7XG5cbi50YWItY29udGVudCB7XG4gIDo6bmctZGVlcCAudG9vbGJhci1wYW5lbCB7XG4gICAgaGVpZ2h0OiBAbmF2LXRhYnMtaGVpZ2h0LW07XG4gIH1cblxuICBoZWlnaHQ6IEBuYXYtdGFicy1oZWlnaHQtbTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRkZGRkZGO1xuICB3aWR0aDogMTAwJTtcbiAgbGVmdDogMDtcbiAgbGluZS1oZWlnaHQ6IEBuYXYtdGFicy1oZWlnaHQtbTtcbiAgZGlzcGxheTogbm9uZTtcbiAgei1pbmRleDogOTtcbn1cblxuLnRhYi1jb250ZW50LmFjdGl2ZSB7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG5cbi5nZC10YWIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGZvbnQtc2l6ZTogMTFweDtcbiAgY29sb3I6IEBuYXYtYWNjZW50LWJhY2tncm91bmQ7XG4gIGhlaWdodDogMzBweDtcbiAgbGluZS1oZWlnaHQ6IDMwcHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG5cbiAgLmljb24ge1xuICAgIGRpc3BsYXk6IG5vbmU7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICB9XG5cbiAgLnNtcC10YWItdGl0bGUge1xuICAgIG1hcmdpbjogYXV0byAyM3B4O1xuICB9XG59XG5cbi5nZC10YWIuYWN0aXZlIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI0ZGRkZGRjtcbiAgY29sb3I6ICMzRTRFNUE7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG5AbWVkaWEgQHBob25lLWRvd24ge1xuICAuZ2QtdGFiIHtcbiAgICBoZWlnaHQ6IEBuYXYtdGFicy1oZWlnaHQtbTtcbiAgICBsaW5lLWhlaWdodDogQG5hdi10YWJzLWhlaWdodC1tO1xuICAgIHdpZHRoOiBAbmF2LXRhYnMtaGVpZ2h0LW07XG4gIH1cblxuICAuZ2QtdGFiIHtcbiAgICAuc21wLXRhYi10aXRsZSB7XG4gICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cblxuICAgIC5pY29uIHtcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgICAgZm9udC1zaXplOiAyMnB4O1xuICAgIH1cbiAgfVxufVxuXG4iLCIudGFiLWNvbnRlbnQge1xuICBoZWlnaHQ6IDYwcHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI0ZGRkZGRjtcbiAgd2lkdGg6IDEwMCU7XG4gIGxlZnQ6IDA7XG4gIGxpbmUtaGVpZ2h0OiA2MHB4O1xuICBkaXNwbGF5OiBub25lO1xuICB6LWluZGV4OiA5O1xufVxuLnRhYi1jb250ZW50IDo6bmctZGVlcCAudG9vbGJhci1wYW5lbCB7XG4gIGhlaWdodDogNjBweDtcbn1cbi50YWItY29udGVudC5hY3RpdmUge1xuICBkaXNwbGF5OiBmbGV4O1xufVxuLmdkLXRhYiB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC1zaXplOiAxMXB4O1xuICBjb2xvcjogI0U1RTVFNTtcbiAgaGVpZ2h0OiAzMHB4O1xuICBsaW5lLWhlaWdodDogMzBweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbi5nZC10YWIgLmljb24ge1xuICBkaXNwbGF5OiBub25lO1xuICBmb250LXNpemU6IDE0cHg7XG59XG4uZ2QtdGFiIC5zbXAtdGFiLXRpdGxlIHtcbiAgbWFyZ2luOiBhdXRvIDIzcHg7XG59XG4uZ2QtdGFiLmFjdGl2ZSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNGRkZGRkY7XG4gIGNvbG9yOiAjM0U0RTVBO1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiAxMDM3cHgpIHtcbiAgLmdkLXRhYiB7XG4gICAgaGVpZ2h0OiA2MHB4O1xuICAgIGxpbmUtaGVpZ2h0OiA2MHB4O1xuICAgIHdpZHRoOiA2MHB4O1xuICB9XG4gIC5nZC10YWIgLnNtcC10YWItdGl0bGUge1xuICAgIGRpc3BsYXk6IG5vbmU7XG4gIH1cbiAgLmdkLXRhYiAuaWNvbiB7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgZm9udC1zaXplOiAyMnB4O1xuICB9XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tab/tab.component.ts":
-/*!*********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tab/tab.component.ts ***!
-  \*********************************************************************************************/
-/*! exports provided: TabComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabComponent", function() { return TabComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _tab_activator_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tab-activator.service */ "../../libs/common-components/src/lib/tab-activator.service.ts");
-
-
-
-var TabComponent = /** @class */ (function () {
-    function TabComponent(_tabActivatorService) {
-        var _this = this;
-        this._tabActivatorService = _tabActivatorService;
-        this.disabled = false;
-        this.active = false;
-        this.content = true;
-        this._tabActivatorService.activeTabChange.subscribe(function (tabId) {
-            _this.activation(tabId);
-        });
-    }
-    TabComponent.prototype.activation = function (tabId) {
-        if (this.id === tabId) {
-            this.active = true;
-        }
-        else {
-            this.active = false;
-        }
-    };
-    TabComponent.prototype.ngOnInit = function () {
-    };
-    TabComponent.prototype.selectTab = function () {
-        if (this.disabled) {
-            return;
-        }
-        this._tabActivatorService.changeActiveTab(this.id);
-    };
-    TabComponent.ctorParameters = function () { return [
-        { type: _tab_activator_service__WEBPACK_IMPORTED_MODULE_2__["TabActivatorService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TabComponent.prototype, "id", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TabComponent.prototype, "tabTitle", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TabComponent.prototype, "icon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TabComponent.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TabComponent.prototype, "active", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TabComponent.prototype, "content", void 0);
-    TabComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-tab',
-            template: __webpack_require__(/*! raw-loader!./tab.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/tab/tab.component.html"),
-            styles: [__webpack_require__(/*! ./tab.component.less */ "../../libs/common-components/src/lib/tab/tab.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_tab_activator_service__WEBPACK_IMPORTED_MODULE_2__["TabActivatorService"]])
-    ], TabComponent);
-    return TabComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.less":
-/*!***********************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.less ***!
-  \***********************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".top-panel {\n  background: #3e4e5a;\n  display: -webkit-box;\n  display: flex;\n  width: 100%;\n  height: 90px;\n}\n.top-panel ::ng-deep .logo {\n  height: 30px;\n  font-size: 16px;\n}\n@media (max-width: 1037px) {\n  .top-panel {\n    height: 60px;\n  }\n  .top-panel ::ng-deep .logo {\n    height: 60px;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90YWJiZWQtdG9vbGJhcnMvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90YWJiZWQtdG9vbGJhcnMvdGFiYmVkLXRvb2xiYXJzLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RhYmJlZC10b29sYmFycy90YWJiZWQtdG9vbGJhcnMuY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0E7RUFDRSxtQkFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDRkY7QURGQTtFQU9JLFlBQUE7RUFDQSxlQUFBO0FDRko7QURNQTtFQUNFO0lBQ0UsWUFBQTtFQ0pGO0VER0E7SUFHSSxZQUFBO0VDSEo7QUFDRiIsImZpbGUiOiJsaWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvdGFiYmVkLXRvb2xiYXJzL3RhYmJlZC10b29sYmFycy5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuXG4udG9wLXBhbmVsIHtcbiAgYmFja2dyb3VuZDogQG5hdi1tYWluLWJhY2tncm91bmQgO1xuICBkaXNwbGF5OiBmbGV4O1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiBAZWRpdG9yLW5hdi1oZWlnaHQ7XG5cbiAgOjpuZy1kZWVwIC5sb2dve1xuICAgIGhlaWdodDogQG5hdi10YWJzLWhlaWdodDtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gIH1cbn1cblxuQG1lZGlhIEBwaG9uZS1kb3due1xuICAudG9wLXBhbmVsIHtcbiAgICBoZWlnaHQ6IEBuYXYtdGFicy1oZWlnaHQtbTtcbiAgICA6Om5nLWRlZXAgLmxvZ297XG4gICAgICBoZWlnaHQ6IEBuYXYtdGFicy1oZWlnaHQtbTtcbiAgICB9XG4gIH1cbn1cbiIsIi50b3AtcGFuZWwge1xuICBiYWNrZ3JvdW5kOiAjM2U0ZTVhO1xuICBkaXNwbGF5OiBmbGV4O1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiA5MHB4O1xufVxuLnRvcC1wYW5lbCA6Om5nLWRlZXAgLmxvZ28ge1xuICBoZWlnaHQ6IDMwcHg7XG4gIGZvbnQtc2l6ZTogMTZweDtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiAxMDM3cHgpIHtcbiAgLnRvcC1wYW5lbCB7XG4gICAgaGVpZ2h0OiA2MHB4O1xuICB9XG4gIC50b3AtcGFuZWwgOjpuZy1kZWVwIC5sb2dvIHtcbiAgICBoZWlnaHQ6IDYwcHg7XG4gIH1cbn1cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.ts":
-/*!*********************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.ts ***!
-  \*********************************************************************************************************************/
-/*! exports provided: TabbedToolbarsComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabbedToolbarsComponent", function() { return TabbedToolbarsComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var TabbedToolbarsComponent = /** @class */ (function () {
-    function TabbedToolbarsComponent() {
-    }
-    TabbedToolbarsComponent.prototype.ngOnInit = function () {
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TabbedToolbarsComponent.prototype, "logo", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TabbedToolbarsComponent.prototype, "icon", void 0);
-    TabbedToolbarsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-tabbed-toolbars',
-            template: __webpack_require__(/*! raw-loader!./tabbed-toolbars.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.html"),
-            styles: [__webpack_require__(/*! ./tabbed-toolbars.component.less */ "../../libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], TabbedToolbarsComponent);
-    return TabbedToolbarsComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tabs/tabs.component.less":
-/*!*************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tabs/tabs.component.less ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".gd-tabs {\n  display: -webkit-box;\n  display: flex;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90YWJzL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvdGFicy90YWJzLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RhYnMvdGFicy5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtBQ0RGIiwiZmlsZSI6ImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90YWJzL3RhYnMuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi8uLi8uLi9zdHlsZXMvdmFyaWFibGVzXCI7XG5cbi5nZC10YWJzIHtcbiAgZGlzcGxheTogZmxleDtcbn1cblxuIiwiLmdkLXRhYnMge1xuICBkaXNwbGF5OiBmbGV4O1xufVxuIl19 */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tabs/tabs.component.ts":
-/*!***********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tabs/tabs.component.ts ***!
-  \***********************************************************************************************/
-/*! exports provided: TabsComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabsComponent", function() { return TabsComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var TabsComponent = /** @class */ (function () {
-    function TabsComponent() {
-    }
-    TabsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-tabs',
-            template: __webpack_require__(/*! raw-loader!./tabs.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/tabs/tabs.component.html"),
-            styles: [__webpack_require__(/*! ./tabs.component.less */ "../../libs/common-components/src/lib/tabs/tabs.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], TabsComponent);
-    return TabsComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/text-menu/text-menu.component.less":
-/*!***********************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/text-menu/text-menu.component.less ***!
-  \***********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "::ng-deep .active {\n  background-color: #e7e7e7;\n}\n.gd-text-menu {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n}\n.gd-text-menu .format-select {\n  height: 37px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  max-width: 80px;\n  margin: 0px 3px;\n}\n.gd-text-menu .first-component {\n  margin-left: 8px;\n}\n.gd-text-menu ::ng-deep .dropdown-menu {\n  top: 40px !important;\n  height: 120px;\n  overflow-y: auto;\n}\n.gd-text-menu ::ng-deep .icon-button {\n  margin: 0px !important;\n}\n.bg-color-pic {\n  border-radius: 100%;\n  border: 1px solid #CCC;\n  position: absolute;\n  height: 8px;\n  width: 8px;\n  right: 6px;\n  bottom: 6px;\n}\n.palette {\n  position: relative;\n  top: 40px;\n  left: -55px;\n  z-index: 100;\n}\n@media (max-width: 1037px) {\n  .gd-text-menu {\n    position: fixed;\n    left: 0;\n    right: 0;\n    width: inherit;\n    height: 60px;\n    -webkit-box-align: center;\n            align-items: center;\n    padding: 0px;\n    margin: 0px;\n    background-color: white;\n    border-top: 2px solid #707070;\n    -webkit-transform-origin: top left;\n            transform-origin: top left;\n    z-index: 1000;\n  }\n  .gd-text-menu ::ng-deep .selected-value {\n    white-space: normal !important;\n    word-wrap: break-word;\n  }\n  .gd-text-menu .icon {\n    color: white;\n    margin: 0 9px 0 9px;\n  }\n  .gd-text-menu ::ng-deep .bcPicker-palette {\n    left: -200px;\n    top: -185px;\n  }\n  .gd-text-menu .palette {\n    top: unset;\n    bottom: 40px;\n    left: unset;\n    right: 5px;\n  }\n  .gd-text-menu ::ng-deep .dropdown-menu {\n    bottom: 40px;\n    top: unset !important;\n  }\n  .gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu {\n    left: 0px;\n  }\n  .gd-text-menu ::ng-deep .button {\n    margin: 3px !important;\n    font-size: 16px;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90ZXh0LW1lbnUvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90ZXh0LW1lbnUvdGV4dC1tZW51LmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RleHQtbWVudS90ZXh0LW1lbnUuY29tcG9uZW50Lmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0E7RUFDRSx5QkFBQTtBQ0ZGO0FES0E7RUFDRSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7QUNIRjtBRENBO0VBS0ksWUFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7RUFDQSx5QkFBQTtVQUFBLG1CQUFBO0VBQ0EsZUFBQTtFQUNBLGVBQUE7QUNISjtBRFBBO0VBY0ksZ0JBQUE7QUNKSjtBRFZBO0VBa0JJLG9CQUFBO0VBQ0EsYUFBQTtFQUNBLGdCQUFBO0FDTEo7QURmQTtFQXdCSSxzQkFBQTtBQ05KO0FEVUE7RUFDRSxtQkFBQTtFQUNBLHNCQUFBO0VBQ0Esa0JBQUE7RUFDQSxXQUFBO0VBQ0EsVUFBQTtFQUNBLFVBQUE7RUFDQSxXQUFBO0FDUkY7QURXQTtFQUNFLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDVEY7QURhQTtFQUNFO0lBQ0UsZUFBQTtJQUNBLE9BQUE7SUFDQSxRQUFBO0lBQ0EsY0FBQTtJQUNBLFlBQUE7SUFDQSx5QkFBQTtZQUFBLG1CQUFBO0lBQ0EsWUFBQTtJQUNBLFdBQUE7SUFDQSx1QkFBQTtJQUNBLDZCQUFBO0lBQ0Esa0NBQUE7WUFBQSwwQkFBQTtJQUNBLGFBQUE7RUNYRjtFRERBO0lBZUksOEJBQUE7SUFDQSxxQkFBQTtFQ1hKO0VETEE7SUFvQkksWUFBQTtJQUNBLG1CQUFBO0VDWko7RURUQTtJQXlCSSxZQUFBO0lBQ0EsV0FBQTtFQ2JKO0VEYkE7SUE4QkksVUFBQTtJQUNBLFlBQUE7SUFDQSxXQUFBO0lBQ0EsVUFBQTtFQ2RKO0VEbkJBO0lBcUNJLFlBQUE7SUFDQSxxQkFBQTtFQ2ZKO0VEdkJBO0lBMkNNLFNBQUE7RUNqQk47RUQxQkE7SUFnREksc0JBQUE7SUFDQSxlQUFBO0VDbkJKO0FBQ0YiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RleHQtbWVudS90ZXh0LW1lbnUuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi4vLi4vLi4vLi4vY29tbW9uLWNvbXBvbmVudHMvc3JjL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuXG46Om5nLWRlZXAgLmFjdGl2ZSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNlN2U3ZTc7XG59XG5cbi5nZC10ZXh0LW1lbnUge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xuXG4gIC5mb3JtYXQtc2VsZWN0IHtcbiAgICBoZWlnaHQ6IDM3cHg7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIG1heC13aWR0aDogODBweDtcbiAgICBtYXJnaW46IDBweCAzcHg7XG4gIH1cblxuICAuZmlyc3QtY29tcG9uZW50IHtcbiAgICBtYXJnaW4tbGVmdDogOHB4O1xuICB9XG5cbiAgOjpuZy1kZWVwIC5kcm9wZG93bi1tZW51IHtcbiAgICB0b3A6IDQwcHggIWltcG9ydGFudDtcbiAgICBoZWlnaHQ6IDEyMHB4O1xuICAgIG92ZXJmbG93LXk6IGF1dG87XG4gIH1cblxuICA6Om5nLWRlZXAgLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDBweCAhaW1wb3J0YW50O1xuICB9XG59XG5cbi5iZy1jb2xvci1waWMge1xuICBib3JkZXItcmFkaXVzOiAxMDAlO1xuICBib3JkZXI6IDFweCBzb2xpZCAjQ0NDO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGhlaWdodDogOHB4O1xuICB3aWR0aDogOHB4O1xuICByaWdodDogNnB4O1xuICBib3R0b206IDZweDtcbn1cblxuLnBhbGV0dGUge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHRvcDogNDBweDtcbiAgbGVmdDogLTU1cHg7XG4gIHotaW5kZXg6IDEwMDtcbn1cblxuXG5AbWVkaWEgQHBob25lLWRvd24ge1xuICAuZ2QtdGV4dC1tZW51IHtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgbGVmdDogMDtcbiAgICByaWdodDogMDtcbiAgICB3aWR0aDogaW5oZXJpdDtcbiAgICBoZWlnaHQ6IDYwcHg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBwYWRkaW5nOiAwcHg7XG4gICAgbWFyZ2luOiAwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgYm9yZGVyLXRvcDogMnB4IHNvbGlkICM3MDcwNzA7XG4gICAgdHJhbnNmb3JtLW9yaWdpbjogdG9wIGxlZnQ7XG4gICAgei1pbmRleDogMTAwMDtcblxuICAgIDo6bmctZGVlcCAuc2VsZWN0ZWQtdmFsdWUge1xuICAgICAgd2hpdGUtc3BhY2U6IG5vcm1hbCAhaW1wb3J0YW50O1xuICAgICAgd29yZC13cmFwOiBicmVhay13b3JkO1xuICAgIH1cblxuICAgIC5pY29uIHtcbiAgICAgIGNvbG9yOiB3aGl0ZTtcbiAgICAgIG1hcmdpbjogMCA5cHggMCA5cHg7XG4gICAgfVxuXG4gICAgOjpuZy1kZWVwIC5iY1BpY2tlci1wYWxldHRlIHtcbiAgICAgIGxlZnQ6IC0yMDBweDtcbiAgICAgIHRvcDogLTE4NXB4O1xuICAgIH1cblxuICAgIC5wYWxldHRlIHtcbiAgICAgIHRvcDogdW5zZXQ7XG4gICAgICBib3R0b206IDQwcHg7XG4gICAgICBsZWZ0OiB1bnNldDtcbiAgICAgIHJpZ2h0OiA1cHg7XG4gICAgfVxuXG4gICAgOjpuZy1kZWVwIC5kcm9wZG93bi1tZW51IHtcbiAgICAgIGJvdHRvbTogNDBweDtcbiAgICAgIHRvcDogdW5zZXQgIWltcG9ydGFudDtcbiAgICB9XG5cbiAgICA6Om5nLWRlZXAgLmZpcnN0LWNvbXBvbmVudCB7XG4gICAgICA6Om5nLWRlZXAgLmRyb3Bkb3duLW1lbnUge1xuICAgICAgICBsZWZ0OiAwcHg7XG4gICAgICB9XG4gICAgfVxuXG4gICAgOjpuZy1kZWVwIC5idXR0b24ge1xuICAgICAgbWFyZ2luOiAzcHggIWltcG9ydGFudDtcbiAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICB9XG4gIH1cblxufVxuIiwiOjpuZy1kZWVwIC5hY3RpdmUge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZTdlN2U3O1xufVxuLmdkLXRleHQtbWVudSB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG59XG4uZ2QtdGV4dC1tZW51IC5mb3JtYXQtc2VsZWN0IHtcbiAgaGVpZ2h0OiAzN3B4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgbWF4LXdpZHRoOiA4MHB4O1xuICBtYXJnaW46IDBweCAzcHg7XG59XG4uZ2QtdGV4dC1tZW51IC5maXJzdC1jb21wb25lbnQge1xuICBtYXJnaW4tbGVmdDogOHB4O1xufVxuLmdkLXRleHQtbWVudSA6Om5nLWRlZXAgLmRyb3Bkb3duLW1lbnUge1xuICB0b3A6IDQwcHggIWltcG9ydGFudDtcbiAgaGVpZ2h0OiAxMjBweDtcbiAgb3ZlcmZsb3cteTogYXV0bztcbn1cbi5nZC10ZXh0LW1lbnUgOjpuZy1kZWVwIC5pY29uLWJ1dHRvbiB7XG4gIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7XG59XG4uYmctY29sb3ItcGljIHtcbiAgYm9yZGVyLXJhZGl1czogMTAwJTtcbiAgYm9yZGVyOiAxcHggc29saWQgI0NDQztcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBoZWlnaHQ6IDhweDtcbiAgd2lkdGg6IDhweDtcbiAgcmlnaHQ6IDZweDtcbiAgYm90dG9tOiA2cHg7XG59XG4ucGFsZXR0ZSB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgdG9wOiA0MHB4O1xuICBsZWZ0OiAtNTVweDtcbiAgei1pbmRleDogMTAwO1xufVxuQG1lZGlhIChtYXgtd2lkdGg6IDEwMzdweCkge1xuICAuZ2QtdGV4dC1tZW51IHtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgbGVmdDogMDtcbiAgICByaWdodDogMDtcbiAgICB3aWR0aDogaW5oZXJpdDtcbiAgICBoZWlnaHQ6IDYwcHg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBwYWRkaW5nOiAwcHg7XG4gICAgbWFyZ2luOiAwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgYm9yZGVyLXRvcDogMnB4IHNvbGlkICM3MDcwNzA7XG4gICAgdHJhbnNmb3JtLW9yaWdpbjogdG9wIGxlZnQ7XG4gICAgei1pbmRleDogMTAwMDtcbiAgfVxuICAuZ2QtdGV4dC1tZW51IDo6bmctZGVlcCAuc2VsZWN0ZWQtdmFsdWUge1xuICAgIHdoaXRlLXNwYWNlOiBub3JtYWwgIWltcG9ydGFudDtcbiAgICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XG4gIH1cbiAgLmdkLXRleHQtbWVudSAuaWNvbiB7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIG1hcmdpbjogMCA5cHggMCA5cHg7XG4gIH1cbiAgLmdkLXRleHQtbWVudSA6Om5nLWRlZXAgLmJjUGlja2VyLXBhbGV0dGUge1xuICAgIGxlZnQ6IC0yMDBweDtcbiAgICB0b3A6IC0xODVweDtcbiAgfVxuICAuZ2QtdGV4dC1tZW51IC5wYWxldHRlIHtcbiAgICB0b3A6IHVuc2V0O1xuICAgIGJvdHRvbTogNDBweDtcbiAgICBsZWZ0OiB1bnNldDtcbiAgICByaWdodDogNXB4O1xuICB9XG4gIC5nZC10ZXh0LW1lbnUgOjpuZy1kZWVwIC5kcm9wZG93bi1tZW51IHtcbiAgICBib3R0b206IDQwcHg7XG4gICAgdG9wOiB1bnNldCAhaW1wb3J0YW50O1xuICB9XG4gIC5nZC10ZXh0LW1lbnUgOjpuZy1kZWVwIC5maXJzdC1jb21wb25lbnQgOjpuZy1kZWVwIC5kcm9wZG93bi1tZW51IHtcbiAgICBsZWZ0OiAwcHg7XG4gIH1cbiAgLmdkLXRleHQtbWVudSA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gICAgbWFyZ2luOiAzcHggIWltcG9ydGFudDtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gIH1cbn1cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/text-menu/text-menu.component.ts":
-/*!*********************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/text-menu/text-menu.component.ts ***!
-  \*********************************************************************************************************/
-/*! exports provided: TextMenuComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TextMenuComponent", function() { return TextMenuComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _formatting_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../formatting.service */ "../../libs/common-components/src/lib/formatting.service.ts");
-/* harmony import */ var _on_close_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../on-close.service */ "../../libs/common-components/src/lib/on-close.service.ts");
-/* harmony import */ var _zoom_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../zoom.service */ "../../libs/common-components/src/lib/zoom.service.ts");
-/* harmony import */ var _window_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../window.service */ "../../libs/common-components/src/lib/window.service.ts");
-
-
-
-
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_2__;
-var TextMenuComponent = /** @class */ (function () {
-    function TextMenuComponent(_onCloseService, _zoomService, _windowService, _elementRef, renderer) {
-        var _this = this;
-        this._onCloseService = _onCloseService;
-        this._zoomService = _zoomService;
-        this._windowService = _windowService;
-        this._elementRef = _elementRef;
-        this.renderer = renderer;
-        this.decoration = true;
-        this.showTooltips = true;
-        this.outFontSize = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.outFont = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.outBold = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.outItalic = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.outUnderline = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.outColor = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.fontSizeOptions = _formatting_service__WEBPACK_IMPORTED_MODULE_3__["FormattingService"].getFontSizeOptions();
-        this.fontOptions = _formatting_service__WEBPACK_IMPORTED_MODULE_3__["FormattingService"].getFontOptions();
-        this.colorPickerShow = false;
-        _onCloseService.onClose.subscribe(function () {
-            _this.colorPickerShow = false;
-        });
-        this.isMobile = _windowService.isMobile();
-        _windowService.onResize.subscribe(function (w) {
-            _this.isMobile = _windowService.isMobile();
-        });
-        _zoomService.zoomChange.subscribe(function (val) {
-            if (_this.isMobile) {
-                _this.changePosition(val);
-            }
-        });
-    }
-    TextMenuComponent.prototype.ngOnInit = function () {
-    };
-    TextMenuComponent.prototype.changePosition = function (val) {
-        var top = (window.innerHeight - 24 - this._elementRef.nativeElement.parentElement.getBoundingClientRect().top - this._elementRef.nativeElement.parentElement.getBoundingClientRect().height);
-        var left = this._elementRef.nativeElement.parentElement.getBoundingClientRect().left;
-        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'width', window.innerWidth + 'px');
-        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'top', top + 'px');
-        this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.gd-text-menu'), 'left', -left + 'px');
-    };
-    TextMenuComponent.prototype.selectFontSize = function ($event) {
-        $(".gd-wrapper").off("keyup");
-        this.outFontSize.emit($event.value);
-        $(".gd-wrapper").on("keyup", function () {
-            var fontElements = document.getElementsByTagName("font");
-            for (var i = 0, len = fontElements.length; i < len; ++i) {
-                if (fontElements[i].getAttribute('size') === "7") {
-                    fontElements[i].removeAttribute("size");
-                    fontElements[i].style.fontSize = $event + "px";
-                }
-            }
-        });
-    };
-    TextMenuComponent.prototype.selectFont = function ($event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.outFont.emit($event.value);
-    };
-    TextMenuComponent.prototype.toggleColorPicker = function ($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        this.colorPickerShow = !this.colorPickerShow;
-    };
-    TextMenuComponent.prototype.selectColor = function ($event) {
-        this.colorPickerShow = false;
-        this.outColor.emit($event);
-    };
-    TextMenuComponent.prototype.toggleBold = function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.outBold.emit(!this.bold);
-    };
-    TextMenuComponent.prototype.toggleItalic = function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.outItalic.emit(!this.italic);
-    };
-    TextMenuComponent.prototype.toggleUnderline = function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.outUnderline.emit(!this.underline);
-    };
-    TextMenuComponent.prototype.closePicker = function ($event) {
-        this.colorPickerShow = !$event;
-    };
-    TextMenuComponent.ctorParameters = function () { return [
-        { type: _on_close_service__WEBPACK_IMPORTED_MODULE_4__["OnCloseService"] },
-        { type: _zoom_service__WEBPACK_IMPORTED_MODULE_5__["ZoomService"] },
-        { type: _window_service__WEBPACK_IMPORTED_MODULE_6__["WindowService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], TextMenuComponent.prototype, "blur", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], TextMenuComponent.prototype, "fontSize", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TextMenuComponent.prototype, "font", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], TextMenuComponent.prototype, "bold", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], TextMenuComponent.prototype, "italic", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
-    ], TextMenuComponent.prototype, "underline", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TextMenuComponent.prototype, "color", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TextMenuComponent.prototype, "decoration", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TextMenuComponent.prototype, "showTooltips", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TextMenuComponent.prototype, "outFontSize", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TextMenuComponent.prototype, "outFont", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TextMenuComponent.prototype, "outBold", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TextMenuComponent.prototype, "outItalic", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TextMenuComponent.prototype, "outUnderline", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TextMenuComponent.prototype, "outColor", void 0);
-    TextMenuComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-text-menu',
-            template: __webpack_require__(/*! raw-loader!./text-menu.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/text-menu/text-menu.component.html"),
-            styles: [__webpack_require__(/*! ./text-menu.component.less */ "../../libs/common-components/src/lib/text-menu/text-menu.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_on_close_service__WEBPACK_IMPORTED_MODULE_4__["OnCloseService"],
-            _zoom_service__WEBPACK_IMPORTED_MODULE_5__["ZoomService"],
-            _window_service__WEBPACK_IMPORTED_MODULE_6__["WindowService"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"]])
-    ], TextMenuComponent);
-    return TextMenuComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tooltip.directive.ts":
-/*!*********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tooltip.directive.ts ***!
-  \*********************************************************************************************/
-/*! exports provided: TooltipDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TooltipDirective", function() { return TooltipDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var TooltipDirective = /** @class */ (function () {
-    function TooltipDirective() {
-        this.showToolTip = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-    }
-    TooltipDirective.prototype.onHovering = function () {
-        this.showToolTip.emit(true);
-    };
-    TooltipDirective.prototype.onUnhovering = function () {
-        this.showToolTip.emit(false);
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TooltipDirective.prototype, "showToolTip", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mouseenter'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], TooltipDirective.prototype, "onHovering", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mouseleave'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", []),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
-    ], TooltipDirective.prototype, "onUnhovering", null);
-    TooltipDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdTooltip]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], TooltipDirective);
-    return TooltipDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tooltip/tooltip.component.less":
-/*!*******************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tooltip/tooltip.component.less ***!
-  \*******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".tooltip {\n  position: absolute;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  background-color: #000000;\n  color: #fff;\n  text-align: center;\n  border-radius: 0px;\n  padding: 5px;\n  z-index: 1;\n  font-size: 10px;\n  height: 11px;\n  line-height: 11px;\n  align-self: center;\n  margin: 8px !important;\n}\n.first-element {\n  margin-left: 10px !important;\n}\n.last-element {\n  margin-left: -10px !important;\n}\n.tooltip.hidden {\n  visibility: hidden;\n}\n.tooltip.shown {\n  visibility: visible;\n}\n.shown:after {\n  content: \" \";\n  position: absolute;\n  bottom: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border: 5px solid transparent;\n  border-bottom-color: black;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90b29sdGlwL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvdG9vbHRpcC90b29sdGlwLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3Rvb2x0aXAvdG9vbHRpcC5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0VBQ0EsMEJBQUE7RUFBQSx1QkFBQTtFQUFBLGtCQUFBO0VBQ0EseUJBQUE7RUFDQSxXQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxVQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0Esc0JBQUE7QUNDRjtBREVBO0VBQ0UsNEJBQUE7QUNBRjtBREdBO0VBQ0UsNkJBQUE7QUNERjtBRElBO0VBQ0Usa0JBQUE7QUNGRjtBREtBO0VBQ0UsbUJBQUE7QUNIRjtBRE1BO0VBQ0UsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLFNBQUE7RUFDQSxpQkFBQTtFQUNBLDZCQUFBO0VBQ0EsMEJBQUE7QUNKRiIsImZpbGUiOiJsaWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvdG9vbHRpcC90b29sdGlwLmNvbXBvbmVudC5sZXNzIiwic291cmNlc0NvbnRlbnQiOlsiLnRvb2x0aXAge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHdpZHRoOiBmaXQtY29udGVudDtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzAwMDAwMDtcbiAgY29sb3I6ICNmZmY7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgYm9yZGVyLXJhZGl1czogMHB4O1xuICBwYWRkaW5nOiA1cHg7XG4gIHotaW5kZXg6IDE7XG4gIGZvbnQtc2l6ZTogMTBweDtcbiAgaGVpZ2h0OiAxMXB4O1xuICBsaW5lLWhlaWdodDogMTFweDtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xuICBtYXJnaW46IDhweCAhaW1wb3J0YW50O1xufVxuXG4uZmlyc3QtZWxlbWVudCB7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5sYXN0LWVsZW1lbnQge1xuICBtYXJnaW4tbGVmdDogLTEwcHggIWltcG9ydGFudDtcbn1cblxuLnRvb2x0aXAuaGlkZGVuIHtcbiAgdmlzaWJpbGl0eTogaGlkZGVuO1xufVxuXG4udG9vbHRpcC5zaG93biB7XG4gIHZpc2liaWxpdHk6IHZpc2libGU7XG59XG5cbi5zaG93bjphZnRlciB7XG4gIGNvbnRlbnQ6IFwiIFwiO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvdHRvbTogMTAwJTtcbiAgbGVmdDogNTAlO1xuICBtYXJnaW4tbGVmdDogLTVweDtcbiAgYm9yZGVyOiA1cHggc29saWQgdHJhbnNwYXJlbnQ7XG4gIGJvcmRlci1ib3R0b20tY29sb3I6IGJsYWNrO1xufVxuIiwiLnRvb2x0aXAge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHdpZHRoOiBmaXQtY29udGVudDtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzAwMDAwMDtcbiAgY29sb3I6ICNmZmY7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgYm9yZGVyLXJhZGl1czogMHB4O1xuICBwYWRkaW5nOiA1cHg7XG4gIHotaW5kZXg6IDE7XG4gIGZvbnQtc2l6ZTogMTBweDtcbiAgaGVpZ2h0OiAxMXB4O1xuICBsaW5lLWhlaWdodDogMTFweDtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xuICBtYXJnaW46IDhweCAhaW1wb3J0YW50O1xufVxuLmZpcnN0LWVsZW1lbnQge1xuICBtYXJnaW4tbGVmdDogMTBweCAhaW1wb3J0YW50O1xufVxuLmxhc3QtZWxlbWVudCB7XG4gIG1hcmdpbi1sZWZ0OiAtMTBweCAhaW1wb3J0YW50O1xufVxuLnRvb2x0aXAuaGlkZGVuIHtcbiAgdmlzaWJpbGl0eTogaGlkZGVuO1xufVxuLnRvb2x0aXAuc2hvd24ge1xuICB2aXNpYmlsaXR5OiB2aXNpYmxlO1xufVxuLnNob3duOmFmdGVyIHtcbiAgY29udGVudDogXCIgXCI7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAxMDAlO1xuICBsZWZ0OiA1MCU7XG4gIG1hcmdpbi1sZWZ0OiAtNXB4O1xuICBib3JkZXI6IDVweCBzb2xpZCB0cmFuc3BhcmVudDtcbiAgYm9yZGVyLWJvdHRvbS1jb2xvcjogYmxhY2s7XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/tooltip/tooltip.component.ts":
-/*!*****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tooltip/tooltip.component.ts ***!
-  \*****************************************************************************************************/
-/*! exports provided: TooltipComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TooltipComponent", function() { return TooltipComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var TooltipComponent = /** @class */ (function () {
-    function TooltipComponent() {
-        this.position = 0;
-        this.visibility = 'hidden';
-    }
-    TooltipComponent.prototype.getClass = function () {
-        if (this.position === 0) {
-            return 'tooltip';
-        }
-        return 'tooltip ' + (this.position > 0 ? 'last-element' : 'first-element');
-    };
-    Object.defineProperty(TooltipComponent.prototype, "show", {
-        set: function (value) {
-            this.visibility = value ? 'shown' : 'hidden';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TooltipComponent.prototype.ngOnInit = function () {
-    };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TooltipComponent.prototype, "text", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TooltipComponent.prototype, "position", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Boolean])
-    ], TooltipComponent.prototype, "show", null);
-    TooltipComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-tooltip',
-            template: __webpack_require__(/*! raw-loader!./tooltip.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/tooltip/tooltip.component.html"),
-            styles: [__webpack_require__(/*! ./tooltip.component.less */ "../../libs/common-components/src/lib/tooltip/tooltip.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], TooltipComponent);
-    return TooltipComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/top-tab-activator.service.ts":
-/*!*****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/top-tab-activator.service.ts ***!
-  \*****************************************************************************************************/
-/*! exports provided: TopTabActivatorService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopTabActivatorService", function() { return TopTabActivatorService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _tab_activator_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tab-activator.service */ "../../libs/common-components/src/lib/tab-activator.service.ts");
-
-
-var TopTabActivatorService = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](TopTabActivatorService, _super);
-    function TopTabActivatorService() {
-        return _super.call(this) || this;
-    }
-    return TopTabActivatorService;
-}(_tab_activator_service__WEBPACK_IMPORTED_MODULE_1__["TabActivatorService"]));
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/top-tab/top-tab.component.less":
-/*!*******************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/top-tab/top-tab.component.less ***!
-  \*******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".gd-tab {\n  font-size: 14px;\n  color: #3E4E5A;\n  cursor: pointer;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-align: center;\n          align-items: center;\n  align-content: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n  min-width: 36px;\n  height: 36px;\n  text-align: center;\n  position: relative;\n  white-space: nowrap;\n  padding: 0 !important;\n  margin: 0 10px;\n}\n.gd-tab .gd-tab-tooltip {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  margin: 0px !important;\n}\n.gd-tab.active {\n  background-color: #ACACAC;\n  color: #FFFFFF !important;\n  font-weight: bold;\n}\n.gd-tab.disabled {\n  cursor: not-allowed;\n  opacity: 0.4;\n}\n.gd-tab ::ng-deep .tooltip {\n  font-size: 12px;\n  margin: 20px -57px;\n}\n.gd-tab .title {\n  margin: auto 23px;\n}\n@media (max-width: 1037px) {\n  .gd-tab {\n    font-size: 20px;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90b3AtdGFiL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvdG9wLXRhYi90b3AtdGFiLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RvcC10YWIvdG9wLXRhYi5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLGVBQUE7RUFDQSxjQUFBO0VBQ0EsZUFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDRCQUFBO0VBQUEsNkJBQUE7VUFBQSxzQkFBQTtFQUNBLHlCQUFBO1VBQUEsbUJBQUE7RUFDQSxxQkFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7RUFDQSxlQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLHFCQUFBO0VBQ0EsY0FBQTtBQ0RGO0FEZEE7RUFrQkksb0JBQUE7RUFBQSxhQUFBO0VBQ0EsNEJBQUE7RUFBQSw2QkFBQTtVQUFBLHNCQUFBO0VBQ0Esc0JBQUE7QUNESjtBRElFO0VBQ0UseUJBQUE7RUFDQSx5QkFBQTtFQUNBLGlCQUFBO0FDRko7QURLRTtFQUNFLG1CQUFBO0VBQ0EsWUFBQTtBQ0hKO0FENUJBO0VBbUNJLGVBQUE7RUFDQSxrQkFBQTtBQ0pKO0FEaENBO0VBd0NJLGlCQUFBO0FDTEo7QURTQTtFQUNFO0lBQ0UsZUFBQTtFQ1BGO0FBQ0YiLCJmaWxlIjoibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RvcC10YWIvdG9wLXRhYi5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLi8uLi8uLi8uLi9jb21tb24tY29tcG9uZW50cy9zcmMvc3R5bGVzL3ZhcmlhYmxlc1wiO1xuXG4uZ2QtdGFiIHtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogQHByaW1hcnk7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgbWluLXdpZHRoOiAzNnB4O1xuICBoZWlnaHQ6IDM2cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICBwYWRkaW5nOiAwICFpbXBvcnRhbnQ7XG4gIG1hcmdpbjogMCAxMHB4O1xuXG4gIC5nZC10YWItdG9vbHRpcCB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7XG4gIH1cblxuICAmLmFjdGl2ZSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI0FDQUNBQztcbiAgICBjb2xvcjogI0ZGRkZGRiAhaW1wb3J0YW50O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICB9XG5cbiAgJi5kaXNhYmxlZCB7XG4gICAgY3Vyc29yOiBub3QtYWxsb3dlZDtcbiAgICBvcGFjaXR5OiAuNDtcbiAgfVxuXG4gIDo6bmctZGVlcCAudG9vbHRpcCB7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIG1hcmdpbjogMjBweCAtNTdweDtcbiAgfVxuXG4gIC50aXRsZSB7XG4gICAgbWFyZ2luOiBhdXRvIDIzcHg7XG4gIH1cbn1cblxuQG1lZGlhIEBwaG9uZS1kb3duIHtcbiAgLmdkLXRhYiB7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICB9XG59XG4iLCIuZ2QtdGFiIHtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogIzNFNEU1QTtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBtaW4td2lkdGg6IDM2cHg7XG4gIGhlaWdodDogMzZweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gIHBhZGRpbmc6IDAgIWltcG9ydGFudDtcbiAgbWFyZ2luOiAwIDEwcHg7XG59XG4uZ2QtdGFiIC5nZC10YWItdG9vbHRpcCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIG1hcmdpbjogMHB4ICFpbXBvcnRhbnQ7XG59XG4uZ2QtdGFiLmFjdGl2ZSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNBQ0FDQUM7XG4gIGNvbG9yOiAjRkZGRkZGICFpbXBvcnRhbnQ7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuLmdkLXRhYi5kaXNhYmxlZCB7XG4gIGN1cnNvcjogbm90LWFsbG93ZWQ7XG4gIG9wYWNpdHk6IDAuNDtcbn1cbi5nZC10YWIgOjpuZy1kZWVwIC50b29sdGlwIHtcbiAgZm9udC1zaXplOiAxMnB4O1xuICBtYXJnaW46IDIwcHggLTU3cHg7XG59XG4uZ2QtdGFiIC50aXRsZSB7XG4gIG1hcmdpbjogYXV0byAyM3B4O1xufVxuQG1lZGlhIChtYXgtd2lkdGg6IDEwMzdweCkge1xuICAuZ2QtdGFiIHtcbiAgICBmb250LXNpemU6IDIwcHg7XG4gIH1cbn1cbiJdfQ== */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/top-tab/top-tab.component.ts":
-/*!*****************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/top-tab/top-tab.component.ts ***!
-  \*****************************************************************************************************/
-/*! exports provided: TopTabComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopTabComponent", function() { return TopTabComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _exception_message_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../exception-message.service */ "../../libs/common-components/src/lib/exception-message.service.ts");
-/* harmony import */ var _top_tab_activator_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../top-tab-activator.service */ "../../libs/common-components/src/lib/top-tab-activator.service.ts");
-/* harmony import */ var _modal_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modal.service */ "../../libs/common-components/src/lib/modal.service.ts");
-
-
-
-
-
-var TopTabComponent = /** @class */ (function () {
-    function TopTabComponent(_tabActivatorService, _modalService, _excMessageService) {
-        var _this = this;
-        this._tabActivatorService = _tabActivatorService;
-        this._modalService = _modalService;
-        this._excMessageService = _excMessageService;
-        this.disabled = false;
-        this.activeTab = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.elementPosition = 0;
-        this.active = false;
-        this.showToolTip = false;
-        this._tabActivatorService.activeTabChange.subscribe(function (tabId) {
-            _this.activation(tabId);
-            if (tabId === null) {
-                _this.activeTab.emit("");
-            }
-        });
-    }
-    TopTabComponent.prototype.activation = function (tabId) {
-        if (this.id === tabId) {
-            this.active = !this.active;
-            if (this.active) {
-                this.activeTab.emit(this.id);
-            }
-            else {
-                this.activeTab.emit("");
-            }
-        }
-        else {
-            this.active = false;
-        }
-    };
-    TopTabComponent.prototype.ngOnInit = function () {
-    };
-    TopTabComponent.prototype.toggleTab = function () {
-        if (this.disabled) {
-            this._modalService.open(_modal_service__WEBPACK_IMPORTED_MODULE_4__["CommonModals"].ErrorMessage);
-            this._excMessageService.changeMessage("Please open document first");
-            return;
-        }
-        this._tabActivatorService.changeActiveTab(this.id);
-    };
-    TopTabComponent.ctorParameters = function () { return [
-        { type: _top_tab_activator_service__WEBPACK_IMPORTED_MODULE_3__["TopTabActivatorService"] },
-        { type: _modal_service__WEBPACK_IMPORTED_MODULE_4__["ModalService"] },
-        { type: _exception_message_service__WEBPACK_IMPORTED_MODULE_2__["ExceptionMessageService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TopTabComponent.prototype, "id", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TopTabComponent.prototype, "icon", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TopTabComponent.prototype, "disabled", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], TopTabComponent.prototype, "tooltip", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TopTabComponent.prototype, "activeTab", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], TopTabComponent.prototype, "elementPosition", void 0);
-    TopTabComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-top-tab',
-            template: __webpack_require__(/*! raw-loader!./top-tab.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/top-tab/top-tab.component.html"),
-            styles: [__webpack_require__(/*! ./top-tab.component.less */ "../../libs/common-components/src/lib/top-tab/top-tab.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_top_tab_activator_service__WEBPACK_IMPORTED_MODULE_3__["TopTabActivatorService"],
-            _modal_service__WEBPACK_IMPORTED_MODULE_4__["ModalService"],
-            _exception_message_service__WEBPACK_IMPORTED_MODULE_2__["ExceptionMessageService"]])
-    ], TopTabComponent);
-    return TopTabComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/top-toolbar/top-toolbar.component.less":
-/*!***************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/top-toolbar/top-toolbar.component.less ***!
-  \***************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".top-toolbar {\n  width: 100%;\n  height: 60px;\n  z-index: 999;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.tools {\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n@media (max-width: 1037px) {\n  .top-toolbar {\n    height: 60px;\n  }\n  .tools {\n    height: 100%;\n    overflow-x: auto;\n    overflow-scrolling: touch;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-align: center;\n            align-items: center;\n    -webkit-transition: all 0.3s ease-in-out;\n    transition: all 0.3s ease-in-out;\n    scroll-behavior: smooth;\n    -webkit-overflow-scrolling: touch;\n  }\n  .tools::-webkit-scrollbar {\n    width: 0px;\n    height: 0px;\n    background-color: #3e4e5a;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90b3AtdG9vbGJhci9DOi9HaXRIdWIvR3JvdXBEb2NzL1RvdGFsL0FuZ3VsYXIvbGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RvcC10b29sYmFyL3RvcC10b29sYmFyLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3RvcC10b29sYmFyL3RvcC10b29sYmFyLmNvbXBvbmVudC5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0UsV0FBQTtFQUNBLFlBQUE7RUFDQSxZQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtBQ0RGO0FESUE7RUFDRSxXQUFBO0VBQ0EsWUFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHlCQUFBO1VBQUEsbUJBQUE7QUNGRjtBREtBO0VBQ0U7SUFDRSxZQUFBO0VDSEY7RURNQTtJQUNFLFlBQUE7SUFDQSxnQkFBQTtJQUNBLHlCQUFBO0lBQ0Esb0JBQUE7SUFBQSxhQUFBO0lBQ0EseUJBQUE7WUFBQSxtQkFBQTtJQUNBLHdDQUFBO0lBQUEsZ0NBQUE7SUFDQSx1QkFBQTtJQUNBLGlDQUFBO0VDSkY7RURPQTtJQUNFLFVBQUE7SUFDQSxXQUFBO0lBQ0EseUJBQUE7RUNMRjtBQUNGIiwiZmlsZSI6ImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi90b3AtdG9vbGJhci90b3AtdG9vbGJhci5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLy4uLy4uL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuLnRvcC10b29sYmFyIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogQG5hdi1oZWlnaHQ7XG4gIHotaW5kZXg6IDk5OTtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuLnRvb2xzIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuQG1lZGlhIEBwaG9uZS1kb3duIHtcbiAgLnRvcC10b29sYmFyIHtcbiAgICBoZWlnaHQ6IEBuYXYtaGVpZ2h0O1xuICB9XG5cbiAgLnRvb2xzIHtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgb3ZlcmZsb3cteDogYXV0bztcbiAgICBvdmVyZmxvdy1zY3JvbGxpbmc6IHRvdWNoO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0cmFuc2l0aW9uOiBhbGwgMC4zcyBlYXNlLWluLW91dDtcbiAgICBzY3JvbGwtYmVoYXZpb3I6IHNtb290aDtcbiAgICAtd2Via2l0LW92ZXJmbG93LXNjcm9sbGluZzogdG91Y2g7XG4gIH1cblxuICAudG9vbHM6Oi13ZWJraXQtc2Nyb2xsYmFyIHtcbiAgICB3aWR0aDogMHB4O1xuICAgIGhlaWdodDogMHB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMzZTRlNWE7XG4gIH1cbn1cbiIsIi50b3AtdG9vbGJhciB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDYwcHg7XG4gIHotaW5kZXg6IDk5OTtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cbi50b29scyB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gIC50b3AtdG9vbGJhciB7XG4gICAgaGVpZ2h0OiA2MHB4O1xuICB9XG4gIC50b29scyB7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIG92ZXJmbG93LXg6IGF1dG87XG4gICAgb3ZlcmZsb3ctc2Nyb2xsaW5nOiB0b3VjaDtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgdHJhbnNpdGlvbjogYWxsIDAuM3MgZWFzZS1pbi1vdXQ7XG4gICAgc2Nyb2xsLWJlaGF2aW9yOiBzbW9vdGg7XG4gICAgLXdlYmtpdC1vdmVyZmxvdy1zY3JvbGxpbmc6IHRvdWNoO1xuICB9XG4gIC50b29sczo6LXdlYmtpdC1zY3JvbGxiYXIge1xuICAgIHdpZHRoOiAwcHg7XG4gICAgaGVpZ2h0OiAwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzNlNGU1YTtcbiAgfVxufVxuIl19 */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/top-toolbar/top-toolbar.component.ts":
-/*!*************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/top-toolbar/top-toolbar.component.ts ***!
-  \*************************************************************************************************************/
-/*! exports provided: TopToolbarComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopToolbarComponent", function() { return TopToolbarComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-
-
-var TopToolbarComponent = /** @class */ (function () {
-    function TopToolbarComponent() {
-    }
-    TopToolbarComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-top-toolbar',
-            template: __webpack_require__(/*! raw-loader!./top-toolbar.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/top-toolbar/top-toolbar.component.html"),
-            styles: [__webpack_require__(/*! ./top-toolbar.component.less */ "../../libs/common-components/src/lib/top-toolbar/top-toolbar.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], TopToolbarComponent);
-    return TopToolbarComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.less":
-/*!*************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.less ***!
-  \*************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".gd-drag-n-drop-wrap {\n  border: 2px dashed #ccc;\n  background-color: #f8f8f8;\n  text-align: center;\n  cursor: default;\n  position: absolute;\n  width: -webkit-fill-available;\n  left: 1px;\n  display: -webkit-box;\n  display: flex;\n  align-content: center;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-pack: center;\n          justify-content: center;\n  opacity: 0.9;\n  z-index: 1;\n}\n.gd-drag-n-drop-wrap h2 {\n  color: #959da5;\n  margin: 5px 0;\n  font-size: 15px;\n  font-weight: 300;\n}\n.gd-drag-n-drop-wrap h4 {\n  color: #cacaca;\n  font-weight: 300;\n  font-size: 12px;\n  margin: 10px 0 15px;\n}\n.gd-drag-n-drop-icon .fa-cloud-download-alt {\n  color: #D1D1D1;\n  font-size: 110px;\n}\n.gd-drag-n-drop-buttons i {\n  margin-right: 5px;\n}\n.gd-drag-n-drop-buttons .btn {\n  width: 134px;\n  height: 35px;\n  margin: 0 10px;\n  font-size: 12px;\n  font-weight: 400;\n}\n.gd-drag-n-drop-wrap.hover {\n  background: #ddd;\n  border-color: #aaa;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvY29tbW9uLWNvbXBvbmVudHMvc3JjL2xpYi91cGxvYWQtZmlsZS16b25lL0M6L0dpdEh1Yi9Hcm91cERvY3MvVG90YWwvQW5ndWxhci9saWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvdXBsb2FkLWZpbGUtem9uZS91cGxvYWQtZmlsZS16b25lLmNvbXBvbmVudC5sZXNzIiwibGlicy9jb21tb24tY29tcG9uZW50cy9zcmMvbGliL3VwbG9hZC1maWxlLXpvbmUvdXBsb2FkLWZpbGUtem9uZS5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLHVCQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtFQUNBLDZCQUFBO0VBQ0EsU0FBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHFCQUFBO0VBQ0EsNEJBQUE7RUFBQSw2QkFBQTtVQUFBLHNCQUFBO0VBQ0Esd0JBQUE7VUFBQSx1QkFBQTtFQUNBLFlBQUE7RUFDQSxVQUFBO0FDREY7QURHQTtFQUNFLGNBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0FDREY7QURHQTtFQUNFLGNBQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxtQkFBQTtBQ0RGO0FES0E7RUFDRSxjQUFBO0VBQ0EsZ0JBQUE7QUNIRjtBREtBO0VBQ0UsaUJBQUE7QUNIRjtBREtBO0VBQ0UsWUFBQTtFQUNBLFlBQUE7RUFDQSxjQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0FDSEY7QURLQTtFQUNFLGdCQUFBO0VBQ0Esa0JBQUE7QUNIRiIsImZpbGUiOiJsaWJzL2NvbW1vbi1jb21wb25lbnRzL3NyYy9saWIvdXBsb2FkLWZpbGUtem9uZS91cGxvYWQtZmlsZS16b25lLmNvbXBvbmVudC5sZXNzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCBcIi4vLi4vLi4vc3R5bGVzL3ZhcmlhYmxlc1wiO1xuXG4uZ2QtZHJhZy1uLWRyb3Atd3JhcCB7XG4gIGJvcmRlcjogMnB4IGRhc2hlZCAjY2NjO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjhmOGY4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGN1cnNvcjogZGVmYXVsdDtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB3aWR0aDogLXdlYmtpdC1maWxsLWF2YWlsYWJsZTtcbiAgbGVmdDogMXB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBvcGFjaXR5OiAwLjk7XG4gIHotaW5kZXg6IDE7XG59XG4uZ2QtZHJhZy1uLWRyb3Atd3JhcCBoMiB7XG4gIGNvbG9yOiBAcmVnZW50LWdyYXk7XG4gIG1hcmdpbjogNXB4IDA7XG4gIGZvbnQtc2l6ZTogMTVweDtcbiAgZm9udC13ZWlnaHQ6IDMwMDtcbn1cbi5nZC1kcmFnLW4tZHJvcC13cmFwIGg0IHtcbiAgY29sb3I6ICNjYWNhY2E7XG4gIGZvbnQtd2VpZ2h0OiAzMDA7XG4gIGZvbnQtc2l6ZTogMTJweDtcbiAgbWFyZ2luOiAxMHB4IDAgMTVweDtcbn1cbi5nZC1kcmFnLW4tZHJvcC1pY29uIHtcbn1cbi5nZC1kcmFnLW4tZHJvcC1pY29uIC5mYS1jbG91ZC1kb3dubG9hZC1hbHQge1xuICBjb2xvcjogI0QxRDFEMTtcbiAgZm9udC1zaXplOiAxMTBweDtcbn1cbi5nZC1kcmFnLW4tZHJvcC1idXR0b25zIGkge1xuICBtYXJnaW4tcmlnaHQ6IDVweDtcbn1cbi5nZC1kcmFnLW4tZHJvcC1idXR0b25zIC5idG4ge1xuICB3aWR0aDogMTM0cHg7XG4gIGhlaWdodDogMzVweDtcbiAgbWFyZ2luOiAwIDEwcHg7XG4gIGZvbnQtc2l6ZTogMTJweDtcbiAgZm9udC13ZWlnaHQ6IDQwMDtcbn1cbi5nZC1kcmFnLW4tZHJvcC13cmFwLmhvdmVyIHtcbiAgYmFja2dyb3VuZDogI2RkZDtcbiAgYm9yZGVyLWNvbG9yOiAjYWFhO1xufVxuIiwiLmdkLWRyYWctbi1kcm9wLXdyYXAge1xuICBib3JkZXI6IDJweCBkYXNoZWQgI2NjYztcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y4ZjhmODtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBjdXJzb3I6IGRlZmF1bHQ7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgd2lkdGg6IC13ZWJraXQtZmlsbC1hdmFpbGFibGU7XG4gIGxlZnQ6IDFweDtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgb3BhY2l0eTogMC45O1xuICB6LWluZGV4OiAxO1xufVxuLmdkLWRyYWctbi1kcm9wLXdyYXAgaDIge1xuICBjb2xvcjogIzk1OWRhNTtcbiAgbWFyZ2luOiA1cHggMDtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBmb250LXdlaWdodDogMzAwO1xufVxuLmdkLWRyYWctbi1kcm9wLXdyYXAgaDQge1xuICBjb2xvcjogI2NhY2FjYTtcbiAgZm9udC13ZWlnaHQ6IDMwMDtcbiAgZm9udC1zaXplOiAxMnB4O1xuICBtYXJnaW46IDEwcHggMCAxNXB4O1xufVxuLmdkLWRyYWctbi1kcm9wLWljb24gLmZhLWNsb3VkLWRvd25sb2FkLWFsdCB7XG4gIGNvbG9yOiAjRDFEMUQxO1xuICBmb250LXNpemU6IDExMHB4O1xufVxuLmdkLWRyYWctbi1kcm9wLWJ1dHRvbnMgaSB7XG4gIG1hcmdpbi1yaWdodDogNXB4O1xufVxuLmdkLWRyYWctbi1kcm9wLWJ1dHRvbnMgLmJ0biB7XG4gIHdpZHRoOiAxMzRweDtcbiAgaGVpZ2h0OiAzNXB4O1xuICBtYXJnaW46IDAgMTBweDtcbiAgZm9udC1zaXplOiAxMnB4O1xuICBmb250LXdlaWdodDogNDAwO1xufVxuLmdkLWRyYWctbi1kcm9wLXdyYXAuaG92ZXIge1xuICBiYWNrZ3JvdW5kOiAjZGRkO1xuICBib3JkZXItY29sb3I6ICNhYWE7XG59XG4iXX0= */"
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.ts":
-/*!***********************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.ts ***!
-  \***********************************************************************************************************************/
-/*! exports provided: UploadFileZoneComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UploadFileZoneComponent", function() { return UploadFileZoneComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _upload_files_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../upload-files.service */ "../../libs/common-components/src/lib/upload-files.service.ts");
-
-
-
-var UploadFileZoneComponent = /** @class */ (function () {
-    function UploadFileZoneComponent(_uploadService) {
-        this._uploadService = _uploadService;
-        this.closeUpload = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-    }
-    UploadFileZoneComponent.prototype.ngOnInit = function () {
-    };
-    UploadFileZoneComponent.prototype.handleFileInput = function (files) {
-        this._uploadService.changeFilesList(files);
-        this.onCloseUpload();
-    };
-    UploadFileZoneComponent.prototype.onCloseUpload = function () {
-        this.closeUpload.emit(true);
-    };
-    UploadFileZoneComponent.prototype.close = function ($event) {
-        if ($event.target.id === 'gd-dropZone') {
-            this.onCloseUpload();
-        }
-    };
-    UploadFileZoneComponent.ctorParameters = function () { return [
-        { type: _upload_files_service__WEBPACK_IMPORTED_MODULE_2__["UploadFilesService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], UploadFileZoneComponent.prototype, "closeUpload", void 0);
-    UploadFileZoneComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'gd-upload-file-zone',
-            template: __webpack_require__(/*! raw-loader!./upload-file-zone.component.html */ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.html"),
-            styles: [__webpack_require__(/*! ./upload-file-zone.component.less */ "../../libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.less")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_upload_files_service__WEBPACK_IMPORTED_MODULE_2__["UploadFilesService"]])
-    ], UploadFileZoneComponent);
-    return UploadFileZoneComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/upload-files.service.ts":
-/*!************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/upload-files.service.ts ***!
-  \************************************************************************************************/
-/*! exports provided: UploadFilesService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UploadFilesService", function() { return UploadFilesService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-var UploadFilesService = /** @class */ (function () {
-    function UploadFilesService() {
-        var _this = this;
-        this._uploadsChange = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"](function (observer) {
-            return _this._observer = observer;
-        });
-    }
-    Object.defineProperty(UploadFilesService.prototype, "uploadsChange", {
-        get: function () {
-            return this._uploadsChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    UploadFilesService.prototype.changeFilesList = function (filesList) {
-        this._observer.next(filesList);
-    };
-    return UploadFilesService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/viewport.service.ts":
-/*!********************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/viewport.service.ts ***!
-  \********************************************************************************************/
-/*! exports provided: ViewportService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewportService", function() { return ViewportService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-var $ = jquery__WEBPACK_IMPORTED_MODULE_2__;
-var ViewportService = /** @class */ (function () {
-    function ViewportService() {
-    }
-    ViewportService.prototype.checkInViewport = function (el, zoom, leftOffset, deltaX) {
-        if (zoom === void 0) { zoom = 100; }
-        if (leftOffset === void 0) { leftOffset = 0; }
-        if (deltaX === void 0) { deltaX = 0.5; }
-        if (!el) {
-            return false;
-        }
-        var x = deltaX;
-        var y = 0.5;
-        var win = $(window);
-        var viewport = {
-            top: win.scrollTop(),
-            left: win.scrollLeft() + leftOffset,
-            right: win.scrollLeft() + win.width() - 10,
-            bottom: win.scrollTop() + win.height()
-        };
-        if (isNaN(zoom)) {
-            zoom = 100;
-        }
-        var zoomN = zoom / 100;
-        var height = $(el).outerHeight() * (zoomN);
-        var width = $(el).outerWidth() * (zoomN);
-        if (!width || !height) {
-            return false;
-        }
-        var bounds = $(el).offset();
-        var right = (bounds.left * (zoomN)) + width;
-        var bottom = (bounds.top * (zoomN)) + height;
-        var visible = (!(viewport.right < (bounds.left * (zoomN)) || viewport.left > right || viewport.bottom < (bounds.top * (zoomN)) || viewport.top > bottom));
-        if (!visible) {
-            return false;
-        }
-        var deltas = {
-            top: parseFloat(Math.min(1, (bottom - viewport.top) / height).toFixed(2)),
-            bottom: parseFloat(Math.min(1, (viewport.bottom - (bounds.top * (zoomN))) / height).toFixed(2)),
-            left: parseFloat(Math.min(1, (right - viewport.left) / width).toFixed(2)),
-            right: parseFloat(Math.min(1, (viewport.right - (bounds.left * (zoomN))) / width).toFixed(2))
-        };
-        return (deltas.left * deltas.right) >= x && (deltas.top * deltas.bottom) >= y;
-    };
-    ViewportService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], ViewportService);
-    return ViewportService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/window.service.ts":
-/*!******************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/window.service.ts ***!
-  \******************************************************************************************/
-/*! exports provided: WindowService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WindowService", function() { return WindowService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-
-
-var MOBILE_MAX_WIDTH = 425;
-var TABLET_MAX_WIDTH = 1024;
-var WindowService = /** @class */ (function () {
-    function WindowService() {
-        var _this = this;
-        this.resizeSubject = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-        this._resize$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["fromEvent"])(window, 'resize')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["debounceTime"])(200), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["distinctUntilChanged"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["startWith"])({ target: { innerWidth: window.innerWidth, innerHeight: window.innerHeight } }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["tap"])(function (event) {
-            _this.resizeSubject.next(event.target);
-            _this.width = event.target.innerWidth;
-            _this.height = event.target.innerHeight;
-        }));
-        this._resize$.subscribe();
-    }
-    Object.defineProperty(WindowService.prototype, "onResize", {
-        get: function () {
-            return this.resizeSubject.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    WindowService.prototype.isMobile = function () {
-        return this.width <= MOBILE_MAX_WIDTH;
-    };
-    WindowService.prototype.isTablet = function () {
-        return this.width <= TABLET_MAX_WIDTH;
-    };
-    WindowService.prototype.isDesktop = function () {
-        return !this.isMobile() && !this.isTablet();
-    };
-    WindowService.prototype.getWidth = function () {
-        return this.width;
-    };
-    WindowService.prototype.getHeight = function () {
-        return this.height;
-    };
-    WindowService.prototype.isEdge = function () {
-        return window.navigator.userAgent.toLowerCase().indexOf('edge') > -1;
-    };
-    WindowService.prototype.isFirefox = function () {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    };
-    return WindowService;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/zoom.directive.ts":
-/*!******************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/zoom.directive.ts ***!
-  \******************************************************************************************/
-/*! exports provided: ZoomDirective */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZoomDirective", function() { return ZoomDirective; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _zoom_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./zoom.service */ "../../libs/common-components/src/lib/zoom.service.ts");
-/* harmony import */ var _file_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./file.service */ "../../libs/common-components/src/lib/file.service.ts");
-/* harmony import */ var _window_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./window.service */ "../../libs/common-components/src/lib/window.service.ts");
-
-
-
-
-
-var ZoomDirective = /** @class */ (function () {
-    function ZoomDirective(_zoomService, _windowService, el) {
-        this._zoomService = _zoomService;
-        this._windowService = _windowService;
-        this.zoomActive = true;
-        this.el = el;
-    }
-    ZoomDirective.prototype.ngOnDestroy = function () {
-    };
-    ZoomDirective.prototype.ngOnChanges = function () {
-        this.setStyles(this._zoomService.zoom);
-        this.resizePages(this._zoomService.zoom);
-    };
-    ZoomDirective.prototype.ngOnInit = function () {
-        var _this = this;
-        if (!this.zoomActive) {
-            return;
-        }
-        this.setStyles(this._zoomService.zoom);
-        this._zoomService.zoomChange.subscribe(function (zoom) {
-            _this.setStyles(zoom);
-            _this.resizePages(zoom);
-        });
-    };
-    ZoomDirective.prototype.setStyles = function (zoom) {
-        if (!this.zoomActive) {
-            return;
-        }
-        var zoomInt = zoom === 100 ? 1 : zoom / 100;
-        if (this._windowService.isEdge()) {
-            this.zoomInt = zoomInt;
-        }
-        else {
-            this.zoomInt = null;
-        }
-        if (!this._windowService.isEdge()) {
-            this.transform = 'scale(' + zoomInt + ')';
-            this.transformOrigin = 'top left';
-        }
-        else {
-            this.transform = "";
-            this.transformOrigin = "";
-        }
-        var maxWidth = 0;
-        this.file.pages.forEach(function (page) {
-            {
-                if (page.width > maxWidth) {
-                    maxWidth = page.width;
-                }
-            }
-        });
-        // Images and Excel-related files receiving dimensions in px from server
-        this.minWidth = maxWidth + _file_service__WEBPACK_IMPORTED_MODULE_3__["FileUtil"].find(this.file.guid, false).unit;
-    };
-    ZoomDirective.prototype.getScrollWidth = function (elm) {
-        return elm.offsetWidth - elm.clientWidth;
-    };
-    ZoomDirective.prototype.getScrollHeight = function (elm) {
-        return elm.offsetHeight - elm.clientHeight;
-    };
-    ZoomDirective.prototype.resizePages = function (zoom) {
-        var zoomInt = zoom === 100 ? 1 : zoom / 100;
-        var viewPortWidth = this.el.nativeElement.parentElement.offsetWidth;
-        var viewPortHeight = this.el.nativeElement.parentElement.offsetHeight;
-        var scrollWidth = this.getScrollWidth(this.el.nativeElement.parentElement);
-        var scrollHeight = this.getScrollHeight(this.el.nativeElement.parentElement);
-        this.width = (viewPortWidth / zoomInt - scrollWidth / zoomInt) + 'px';
-        this.height = (viewPortHeight / zoomInt - scrollHeight / zoomInt) + 'px';
-    };
-    ZoomDirective.prototype.ngAfterViewInit = function () {
-        this.setStyles(this._zoomService.zoom);
-    };
-    ZoomDirective.ctorParameters = function () { return [
-        { type: _zoom_service__WEBPACK_IMPORTED_MODULE_2__["ZoomService"] },
-        { type: _window_service__WEBPACK_IMPORTED_MODULE_4__["WindowService"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ZoomDirective.prototype, "zoomActive", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ZoomDirective.prototype, "file", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.zoom'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
-    ], ZoomDirective.prototype, "zoomInt", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.transform'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ZoomDirective.prototype, "transform", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.transform-origin'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ZoomDirective.prototype, "transformOrigin", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.width'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ZoomDirective.prototype, "width", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.height'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ZoomDirective.prototype, "height", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.min-width'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ZoomDirective.prototype, "minWidth", void 0);
-    ZoomDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-            selector: '[gdZoom]'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_zoom_service__WEBPACK_IMPORTED_MODULE_2__["ZoomService"], _window_service__WEBPACK_IMPORTED_MODULE_4__["WindowService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
-    ], ZoomDirective);
-    return ZoomDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/zoom.service.ts":
-/*!****************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/zoom.service.ts ***!
-  \****************************************************************************************/
-/*! exports provided: ZoomService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZoomService", function() { return ZoomService; });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-
-var ZoomService = /** @class */ (function () {
-    function ZoomService() {
-        this._observer = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
-        this._zoomChange = this._observer.asObservable();
-    }
-    Object.defineProperty(ZoomService.prototype, "zoom", {
-        get: function () {
-            return this._zoom;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ZoomService.prototype, "zoomChange", {
-        get: function () {
-            return this._zoomChange;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ZoomService.prototype.changeZoom = function (zoom) {
-        this._zoom = zoom;
-        this._observer.next(zoom);
-    };
-    ZoomService.prototype.createZoomOption = function (val, name, sep) {
-        if (sep === void 0) { sep = false; }
-        return { value: val, name: name, separator: sep };
-    };
-    ZoomService.prototype.zoomOptions = function (width, height) {
-        return [this.createZoomOption(25, '25%'),
-            this.createZoomOption(50, '50%'),
-            this.createZoomOption(100, '100%'),
-            this.createZoomOption(150, '150%'),
-            this.createZoomOption(200, '200%'),
-            this.createZoomOption(300, '300%'),
-            this.createZoomOption(0, '', true),
-            this.createZoomOption(width, 'Fit Width'),
-            this.createZoomOption(height, 'Fit Height')];
-    };
-    return ZoomService;
-}());
-
-
-
-/***/ }),
-
 /***/ "../../libs/comparison/src/index.ts":
 /*!**********************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/comparison/src/index.ts ***!
@@ -8979,7 +9909,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddFilePanelComponent", function() { return AddFilePanelComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -9108,7 +10038,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _comparison_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./comparison-config.service */ "../../libs/comparison/src/lib/comparison-config.service.ts");
 /* harmony import */ var _comparison_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./comparison.service */ "../../libs/comparison/src/lib/comparison.service.ts");
 
@@ -9416,7 +10346,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _comparison_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./comparison-config */ "../../libs/comparison/src/lib/comparison-config.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 
@@ -9511,7 +10441,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "../../node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 /* harmony import */ var _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons */ "../../node_modules/@fortawesome/free-regular-svg-icons/index.es.js");
 /* harmony import */ var _comparison_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./comparison.service */ "../../libs/comparison/src/lib/comparison.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _comparison_config_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./comparison-config.service */ "../../libs/comparison/src/lib/comparison-config.service.ts");
 /* harmony import */ var _add_file_panel_add_file_panel_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./add-file-panel/add-file-panel.component */ "../../libs/comparison/src/lib/add-file-panel/add-file-panel.component.ts");
 /* harmony import */ var _upload_file_panel_upload_file_panel_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./upload-file-panel/upload-file-panel.component */ "../../libs/comparison/src/lib/upload-file-panel/upload-file-panel.component.ts");
@@ -9625,7 +10555,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -9882,7 +10812,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _differences_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../differences.service */ "../../libs/comparison/src/lib/differences.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -9938,7 +10868,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Rectangle", function() { return Rectangle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageInfo", function() { return PageInfo; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 var ComparedPageModel = /** @class */ (function (_super) {
@@ -10006,7 +10936,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResultDocumentComponent", function() { return ResultDocumentComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _differences_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../differences.service */ "../../libs/comparison/src/lib/differences.service.ts");
@@ -10080,7 +11010,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UploadFilePanelComponent", function() { return UploadFilePanelComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -10195,7 +11125,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _conversion_config_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./conversion-config.service */ "../../libs/conversion/src/lib/conversion-config.service.ts");
 /* harmony import */ var _conversion_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./conversion.service */ "../../libs/conversion/src/lib/conversion.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -10380,7 +11310,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConversionBrowseFilesModalComponent", function() { return ConversionBrowseFilesModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _conversion_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../conversion.service */ "../../libs/conversion/src/lib/conversion.service.ts");
 
 
@@ -10580,7 +11510,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _conversion_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./conversion-config */ "../../libs/conversion/src/lib/conversion-config.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 
@@ -10795,7 +11725,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _conversion_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./conversion.service */ "../../libs/conversion/src/lib/conversion.service.ts");
 /* harmony import */ var _conversion_config_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./conversion-config.service */ "../../libs/conversion/src/lib/conversion-config.service.ts");
@@ -10886,7 +11816,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./models */ "../../libs/conversion/src/lib/models.ts");
 
@@ -11126,7 +12056,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateDocumentModalComponent", function() { return CreateDocumentModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _editor_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../editor.service */ "../../libs/editor/src/lib/editor.service.ts");
 
 
@@ -11248,7 +12178,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _editor_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.service */ "../../libs/editor/src/lib/editor.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _editor_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor-config.service */ "../../libs/editor/src/lib/editor-config.service.ts");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_5__);
@@ -11904,7 +12834,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _editor_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor-config */ "../../libs/editor/src/lib/editor-config.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 
@@ -12000,7 +12930,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons */ "../../node_modules/@fortawesome/free-regular-svg-icons/index.es.js");
 /* harmony import */ var _create_document_modal_create_document_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./create.document-modal/create.document-modal.component */ "../../libs/editor/src/lib/create.document-modal/create.document-modal.component.ts");
 /* harmony import */ var _editor_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./editor.service */ "../../libs/editor/src/lib/editor.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _editor_config_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./editor-config.service */ "../../libs/editor/src/lib/editor-config.service.ts");
 
 
@@ -12096,7 +13026,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -12280,7 +13210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccordionGroupComponent", function() { return AccordionGroupComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _metadata_models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../metadata-models */ "../../libs/metadata/src/lib/metadata-models.ts");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
@@ -12542,7 +13472,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfirmModalComponent", function() { return ConfirmModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -12696,7 +13626,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _metadata_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metadata.service */ "../../libs/metadata/src/lib/metadata.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _metadata_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./metadata-config.service */ "../../libs/metadata/src/lib/metadata-config.service.ts");
 /* harmony import */ var _metadata_models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./metadata-models */ "../../libs/metadata/src/lib/metadata-models.ts");
 /* harmony import */ var _preview_status_preview_models__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./preview-status/preview-models */ "../../libs/metadata/src/lib/preview-status/preview-models.ts");
@@ -13041,7 +13971,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _metadata_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metadata-config */ "../../libs/metadata/src/lib/metadata-config.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 
@@ -13135,7 +14065,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PackageNameByMetadataType", function() { return PackageNameByMetadataType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PackageNameByOriginalName", function() { return PackageNameByOriginalName; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 var _a;
 
@@ -13310,7 +14240,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _metadata_app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./metadata-app.component */ "../../libs/metadata/src/lib/metadata-app.component.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _metadata_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./metadata.service */ "../../libs/metadata/src/lib/metadata.service.ts");
 /* harmony import */ var _metadata_config_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./metadata-config.service */ "../../libs/metadata/src/lib/metadata-config.service.ts");
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
@@ -13432,7 +14362,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -14119,7 +15049,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfirmationModalComponent", function() { return ConfirmationModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -14373,7 +15303,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FieldComponent", function() { return FieldComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _app_models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../app-models */ "../../libs/parser/src/lib/app-models.ts");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
@@ -14699,7 +15629,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParserAppComponent", function() { return ParserAppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _app_models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-models */ "../../libs/parser/src/lib/app-models.ts");
 /* harmony import */ var _parser_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parser.service */ "../../libs/parser/src/lib/parser.service.ts");
 /* harmony import */ var _template_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./template.service */ "../../libs/parser/src/lib/template.service.ts");
@@ -14832,7 +15762,7 @@ var ParserAppComponent = /** @class */ (function () {
     });
     Object.defineProperty(ParserAppComponent.prototype, "returnUrl", {
         get: function () {
-            return this._settingsService.returnUrl;
+            return localStorage.getItem("returnUrl");
         },
         enumerable: true,
         configurable: true
@@ -14845,6 +15775,8 @@ var ParserAppComponent = /** @class */ (function () {
     ParserAppComponent.prototype.loadDocumentDescription = function (sourceFile) {
         var _this = this;
         this.isApiAvaible = true;
+        this.documentError = null;
+        this._document = null;
         var operationState = this._placeholderService.startOperation("Loading document...");
         var observer = {
             next: function (response) {
@@ -14871,15 +15803,6 @@ var ParserAppComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    ParserAppComponent.prototype.navigateHome = function (showConfirmation) {
-        if (showConfirmation) {
-            this._modalService.open("ExitConfirmationModal");
-            return;
-        }
-        if (this.returnUrl) {
-            window.location.href = this.returnUrl;
-        }
-    };
     ParserAppComponent.prototype.refreshZoom = function () {
         this._zoomService.changeZoom(this.getFitToWidth());
     };
@@ -14954,7 +15877,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParserModule", function() { return ParserModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
 /* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "../../node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "../../node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
@@ -15050,7 +15973,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _common_components_src_lib_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../common-components/src/lib/config.service */ "../../libs/common-components/src/lib/config.service.ts");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
@@ -15339,7 +16262,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenameModalComponent", function() { return RenameModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -15549,7 +16472,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../app-models */ "../../libs/parser/src/lib/app-models.ts");
 /* harmony import */ var _rename_modal_rename_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../rename-modal/rename-modal.component */ "../../libs/parser/src/lib/rename-modal/rename-modal.component.ts");
 /* harmony import */ var _confirmation_modal_confirmation_modal_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../confirmation-modal/confirmation-modal.component */ "../../libs/parser/src/lib/confirmation-modal/confirmation-modal.component.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _parser_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../parser.service */ "../../libs/parser/src/lib/parser.service.ts");
 /* harmony import */ var _template_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../template.service */ "../../libs/parser/src/lib/template.service.ts");
 /* harmony import */ var _source_file_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../source-file.service */ "../../libs/parser/src/lib/source-file.service.ts");
@@ -15863,7 +16786,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SurfaceComponent", function() { return SurfaceComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _app_models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../app-models */ "../../libs/parser/src/lib/app-models.ts");
 /* harmony import */ var _field_field_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../field/field.component */ "../../libs/parser/src/lib/field/field.component.ts");
 /* harmony import */ var _rename_modal_rename_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../rename-modal/rename-modal.component */ "../../libs/parser/src/lib/rename-modal/rename-modal.component.ts");
@@ -16543,7 +17466,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _search_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../search.service */ "../../libs/search/src/lib/search.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _search_models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../search-models */ "../../libs/search/src/lib/search-models.ts");
 
 
@@ -16706,7 +17629,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _search_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./search.service */ "../../libs/search/src/lib/search.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _search_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./search-config.service */ "../../libs/search/src/lib/search-config.service.ts");
 /* harmony import */ var _search_models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./search-models */ "../../libs/search/src/lib/search-models.ts");
 
@@ -16936,7 +17859,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchBrowseFilesModalComponent", function() { return SearchBrowseFilesModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _search_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../search.service */ "../../libs/search/src/lib/search.service.ts");
 
 
@@ -17056,7 +17979,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _search_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./search-config */ "../../libs/search/src/lib/search-config.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 
@@ -17144,7 +18067,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExtendedFileModel", function() { return ExtendedFileModel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileIndexingStatus", function() { return FileIndexingStatus; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 var IndexedFileModel = /** @class */ (function (_super) {
@@ -17285,7 +18208,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _search_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../search-models */ "../../libs/search/src/lib/search-models.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -17427,7 +18350,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _search_app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./search-app.component */ "../../libs/search/src/lib/search-app.component.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _search_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./search.service */ "../../libs/search/src/lib/search.service.ts");
 /* harmony import */ var _search_config_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./search-config.service */ "../../libs/search/src/lib/search-config.service.ts");
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
@@ -17544,7 +18467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 
 
@@ -17767,7 +18690,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CanvasComponent", function() { return CanvasComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -17921,7 +18844,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DndSignatureDirective", function() { return DndSignatureDirective; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -18013,7 +18936,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _signature_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../signature.service */ "../../libs/signature/src/lib/signature.service.ts");
 /* harmony import */ var _signature_tab_activator_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../signature-tab-activator.service */ "../../libs/signature/src/lib/signature-tab-activator.service.ts");
 /* harmony import */ var _signature_models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../signature-models */ "../../libs/signature/src/lib/signature-models.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -18323,7 +19246,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _signature_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./signature.service */ "../../libs/signature/src/lib/signature.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _signature_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./signature-config.service */ "../../libs/signature/src/lib/signature-config.service.ts");
 /* harmony import */ var _signature_models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./signature-models */ "../../libs/signature/src/lib/signature-models.ts");
 /* harmony import */ var _select_signature_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./select-signature.service */ "../../libs/signature/src/lib/select-signature.service.ts");
@@ -19169,7 +20092,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _signature_config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./signature-config */ "../../libs/signature/src/lib/signature-config.ts");
 
 
@@ -19425,7 +20348,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _signature_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../signature-models */ "../../libs/signature/src/lib/signature-models.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _select_signature_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../select-signature.service */ "../../libs/signature/src/lib/select-signature.service.ts");
 /* harmony import */ var _drag_signature_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../drag-signature.service */ "../../libs/signature/src/lib/drag-signature.service.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
@@ -19594,7 +20517,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StampCanvasProps", function() { return StampCanvasProps; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Border", function() { return Border; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Downloads", function() { return Downloads; });
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 var Signature = /** @class */ (function () {
     function Signature() {
@@ -19813,7 +20736,7 @@ var Downloads = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignatureTabActivatorService", function() { return SignatureTabActivatorService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 var SignatureTabActivatorService = /** @class */ (function (_super) {
@@ -19843,7 +20766,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _signature_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./signature.service */ "../../libs/signature/src/lib/signature.service.ts");
 /* harmony import */ var _signature_config_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./signature-config.service */ "../../libs/signature/src/lib/signature-config.service.ts");
@@ -20014,7 +20937,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 
@@ -20213,7 +21136,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _signature_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../signature-models */ "../../libs/signature/src/lib/signature-models.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _signature_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../signature.service */ "../../libs/signature/src/lib/signature.service.ts");
 /* harmony import */ var _remove_signature_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../remove-signature.service */ "../../libs/signature/src/lib/remove-signature.service.ts");
 /* harmony import */ var _active_signature_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../active-signature.service */ "../../libs/signature/src/lib/active-signature.service.ts");
@@ -20608,7 +21531,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _signature_models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../signature-models */ "../../libs/signature/src/lib/signature-models.ts");
 /* harmony import */ var _active_canvas_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../active-canvas.service */ "../../libs/signature/src/lib/active-canvas.service.ts");
 /* harmony import */ var _remove_canvas_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../remove-canvas.service */ "../../libs/signature/src/lib/remove-canvas.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -20876,7 +21799,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _signature_tab_activator_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../signature-tab-activator.service */ "../../libs/signature/src/lib/signature-tab-activator.service.ts");
 /* harmony import */ var _remove_canvas_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../remove-canvas.service */ "../../libs/signature/src/lib/remove-canvas.service.ts");
 /* harmony import */ var _stamp_canvas_stamp_canvas_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../stamp-canvas/stamp-canvas.component */ "../../libs/signature/src/lib/stamp-canvas/stamp-canvas.component.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_9__);
 
@@ -21282,7 +22205,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExcelDocumentComponent", function() { return ExcelDocumentComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _excel_page_excel_page_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../excel-page/excel-page.component */ "../../libs/viewer/src/lib/excel-page/excel-page.component.ts");
 
 
@@ -21639,7 +22562,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RunPresentationComponent", function() { return RunPresentationComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "../../node_modules/jquery/dist/jquery.js");
@@ -21812,7 +22735,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThumbnailsComponent", function() { return ThumbnailsComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -21927,7 +22850,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _viewer_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./viewer.service */ "../../libs/viewer/src/lib/viewer.service.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _viewer_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./viewer-config.service */ "../../libs/viewer/src/lib/viewer-config.service.ts");
 /* harmony import */ var _viewer_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./viewer.constants */ "../../libs/viewer/src/lib/viewer.constants.ts");
 /* harmony import */ var _interval_timer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./interval-timer */ "../../libs/viewer/src/lib/interval-timer.ts");
@@ -22670,7 +23593,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _viewer_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./viewer-config */ "../../libs/viewer/src/lib/viewer-config.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 
@@ -22784,7 +23707,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _viewer_app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./viewer-app.component */ "../../libs/viewer/src/lib/viewer-app.component.ts");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _viewer_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./viewer.service */ "../../libs/viewer/src/lib/viewer.service.ts");
 /* harmony import */ var _viewer_config_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./viewer-config.service */ "../../libs/viewer/src/lib/viewer-config.service.ts");
 /* harmony import */ var _thumbnails_thumbnails_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./thumbnails/thumbnails.component */ "../../libs/viewer/src/lib/thumbnails/thumbnails.component.ts");
@@ -22893,7 +23816,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../libs/common-components/src/index.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm5/groupdocs.examples.angular-common-components.js");
 
 
 
@@ -23312,292 +24235,6 @@ module.exports = "<div class=\"gd-new-comment\">\r\n  <input type=\"text\" class
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.html":
-/*!***************************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/browse-files-modal/browse-files-modal.component.html ***!
-  \***************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\r\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\r\n    <div class=\"dnd-wrapper\">\r\n      <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n      <span class=\"text\">Drop file here to upload</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\r\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\r\n            (change)=\"handleFileInput($event.target.files)\">\r\n    <div class=\"context\">\r\n      <div class=\"context-actions\">\r\n        <gd-drop-down>\r\n          <gd-drop-down-toggle>\r\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\r\n              Upload file\r\n            </gd-button>\r\n          </gd-drop-down-toggle>\r\n          <gd-drop-down-items>\r\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\r\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\r\n              <div class=\"text\">{{item.name}}</div>\r\n            </gd-drop-down-item>\r\n          </gd-drop-down-items>\r\n        </gd-drop-down>\r\n      </div>\r\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\r\n        <div class=\"upload-url\">\r\n          <input class=\"url-input\" placeholder=\"https://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\r\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\r\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\r\n    <div class=\"header-name\">FILE</div>\r\n    <div class=\"header-size\">SIZE</div>\r\n  </div>\r\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\r\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\r\n      <div class=\"list-files-body\">\r\n        <div class=\"go-up\" (click)=\"goUp()\">\r\n            <div class=\"go-up-icon\">\r\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\r\n            </div>\r\n            <div class=\"go-up-dots\">..</div>\r\n        </div>\r\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\r\n          <div class=\"file-description\">\r\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\r\n            <div class=\"file-name-format\">\r\n              <div class=\"file-name\">{{file?.name}}</div>\r\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\r\n            </div>\r\n          </div>\r\n          <div class=\"file-size\">\r\n            {{getSize(file?.size)}}\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n      &nbsp;Loading... Please wait.\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/button/button.component.html":
-/*!***************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/button/button.component.html ***!
-  \***************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [position]=\"elementPosition\" class=\"button-tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/color-picker/color-picker.component.html":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/color-picker/color-picker.component.html ***!
-  \***************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"bcPicker-palette\">\r\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\"\r\n      (click)=\"select($event, color)\" [style.border]=\"'1px solid ' + (color === white ? '#707070' : color)\"\r\n      (touchstart)=\"select($event, color)\"></div>\r\n  </div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/context-menu/context-menu.component.html":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/context-menu/context-menu.component.html ***!
-  \***************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/document/document.component.html":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/document/document.component.html ***!
-  \*******************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"!showActiveSlide || isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\" gdPageMarker></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/error-modal/error-modal.component.html":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/error-modal/error-modal.component.html ***!
-  \*************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\r\n  <section id=\"gd-error-section\">\r\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\r\n    <div class=\"gd-modal-error\">\r\n      <div class=\"gd-modal-error-title\">Something went wrong</div>\r\n      <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/init-state/init-state.component.html":
-/*!***********************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/init-state/init-state.component.html ***!
-  \***********************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\r\n  <div class=\"init-state-wrapper\">\r\n    <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <span class=\"start\">\r\n      <ng-content></ng-content>\r\n    </span>\r\n  </div>\r\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\r\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n    <span class=\"text\">{{text}}</span>\r\n  </div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/left-side-bar/left-side-bar.component.html":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/left-side-bar/left-side-bar.component.html ***!
-  \*****************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"left-panel\">\r\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\r\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/loading-mask/loading-mask.component.html":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/loading-mask/loading-mask.component.html ***!
-  \***************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\r\n    <div class=\"loading-message\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;Loading... Please wait.\r\n    </div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/logo/logo.component.html":
-/*!***********************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/logo/logo.component.html ***!
-  \***********************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div id=\"gd-header-logo\" class=\"logo\">\r\n  <span class=\"text\" [innerHTML]=\"logo\"></span>\r\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/modal/modal.component.html":
-/*!*************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/modal/modal.component.html ***!
-  \*************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\r\n</div>\r\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\r\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\r\n\r\n    <div class=\"gd-modal-header\">\r\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\r\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-body\">\r\n      <ng-content></ng-content>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-footer\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/page/page.component.html":
-/*!***********************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/page/page.component.html ***!
-  \***********************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/password-required/password-required.component.html":
-/*!*************************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/password-required/password-required.component.html ***!
-  \*************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\r\n  <section id=\"gd-password-section\">\r\n    <div class=\"gd-password-wrap\">\r\n      <label for=\"password\">Password</label>\r\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\r\n             (keyup.enter)=\"setPassword(pass.value)\">\r\n      <span class=\"gd-password-error\">{{message}}</span>\r\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\r\n          Open\r\n      </gd-button>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/resizing/resizing.component.html":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/resizing/resizing.component.html ***!
-  \*******************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"ui-resizable-handle se-resize\" id=\"se-{{id}}\" *ngIf=\"se\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, SE)\" (dragend)=\"end($event, SE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n      (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SE)\" (panend)=\"end($event, SE)\"></div>\r\n\r\n<div class=\"ui-resizable-handle ne-resize\" id=\"ne-{{id}}\" *ngIf=\"ne\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, NE)\" (dragend)=\"end($event, NE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NE)\" (panend)=\"end($event, NE)\"></div>\r\n\r\n<div class=\"ui-resizable-handle sw-resize\" id=\"sw-{{id}}\" *ngIf=\"sw\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, SW)\" (dragend)=\"end($event, SW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SW)\" (panend)=\"end($event, SW)\"></div>\r\n\r\n<div class=\"ui-resizable-handle nw-resize\" id=\"nw-{{id}}\" *ngIf=\"nw\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, NW)\" (dragend)=\"end($event, NW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NW)\" (panend)=\"end($event, NW)\"></div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/search/search.component.html":
-/*!***************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/search/search.component.html ***!
-  \***************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" (keydown.enter)=\"next()\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\r\n  </gd-button>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/select/select.component.html":
-/*!***************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/select/select.component.html ***!
-  \***************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [attachOutsideOnClick]=\"true\">\r\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/side-panel/side-panel.component.html":
-/*!***********************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/side-panel/side-panel.component.html ***!
-  \***********************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"save\" *ngIf=\"saveable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\r\n    </div>\r\n    <div class=\"close\" *ngIf=\"closable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/success-modal/success-modal.component.html":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/success-modal/success-modal.component.html ***!
-  \*****************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\r\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\r\n    <div class=\"sa-icon sa-success animate\">\r\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\r\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\r\n        <div class=\"sa-placeholder\"></div>\r\n        <div class=\"sa-fix\"></div>\r\n      </div>\r\n  </div></div>\r\n  </gd-modal>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/tab/tab.component.html":
-/*!*********************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tab/tab.component.html ***!
-  \*********************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"smp-tab-title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.html":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tabbed-toolbars/tabbed-toolbars.component.html ***!
-  \*********************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"top-panel\">\r\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\r\n  <ng-content></ng-content>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/tabs/tabs.component.html":
-/*!***********************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tabs/tabs.component.html ***!
-  \***********************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"gd-tabs\">\r\n  <ng-content></ng-content>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/text-menu/text-menu.component.html":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/text-menu/text-menu.component.html ***!
-  \*********************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/tooltip/tooltip.component.html":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/tooltip/tooltip.component.html ***!
-  \*****************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/top-tab/top-tab.component.html":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/top-tab/top-tab.component.html ***!
-  \*****************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" class=\"gd-tab-tooltip\"\r\n              *ngIf=\"tooltip\" [position]=\"elementPosition\"></gd-tooltip>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/top-toolbar/top-toolbar.component.html":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/top-toolbar/top-toolbar.component.html ***!
-  \*************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"top-toolbar\">\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/index.js!../../libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.html":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/upload-file-zone/upload-file-zone.component.html ***!
-  \***********************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\r\n  <div class=\"gd-drag-n-drop-icon\">\r\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\r\n  </div>\r\n  <h2>Drag &amp; Drop your files here</h2>\r\n  <h4>OR</h4>\r\n  <div class=\"gd-drag-n-drop-buttons\">\r\n    <label class=\"btn btn-primary\"> \r\n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\r\n      SELECT FILE\r\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\r\n      </label>\r\n  </div>\r\n</div>\r\n"
-
-/***/ }),
-
 /***/ "../../node_modules/raw-loader/index.js!../../libs/comparison/src/lib/add-file-panel/add-file-panel.component.html":
 /*!************************************************************************************************************************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/node_modules/raw-loader!C:/GitHub/GroupDocs/Total/Angular/libs/comparison/src/lib/add-file-panel/add-file-panel.component.html ***!
@@ -23825,7 +24462,7 @@ module.exports = "<div class=\"field\" (clickOutside)=\"isActive = false\" (cont
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\">\r\n  <div class=\"row\">\r\n    <div class=\"column\" [ngClass]=\"{'document-loaded': isFileLoaded()}\">\r\n      <div class=\"top-panel\">\r\n        <a class=\"logo-link\" [href]=\"returnUrl\">\r\n          <gd-logo [logo]=\"'parser'\" icon=\"clipboard-list\"></gd-logo>\r\n        </a>\r\n        <gd-top-toolbar class=\"toolbar-panel\">\r\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal, false)\"\r\n            *ngIf=\"browseConfig\"></gd-button>\r\n\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\" (click)=\"zoomIn()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\" (click)=\"zoomOut()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'expand'\" [tooltip]=\"'Add text field'\" (click)=\"addFieldClick()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'table'\" [tooltip]=\"'Add table'\" (click)=\"addTableClick()\"></gd-button>\r\n          <!-- <gd-button [disabled]=\"!isFileLoaded()\" [icon]=\"'trash'\" [tooltip]=\"'Clean Metadata'\" (click)=\"openModal(confirmCleanModalId, true)\">\r\n                    </gd-button>\r\n          <gd-button [disabled]=\"!isFileLoaded()\" [icon]=\"'download'\" [tooltip]=\"'Download'\"\r\n                    (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\r\n          <gd-button [disabled]=\"!isFileLoaded()\" [icon]=\"'file-excel'\" [tooltip]=\"'Export Properties'\"\r\n                    (click)=\"exportProperties()\" ></gd-button> -->\r\n        </gd-top-toolbar>\r\n      </div>\r\n      <!-- <gd-init-state [icon]=\"'clipboard-list'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!isFileLoaded() && uploadConfig && !isPreviewLoaded()\" (fileDropped)=\"fileDropped($event)\">\r\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n        Or drop file here\r\n      </gd-init-state>\r\n      <gd-preview-status [status]=\"previewStatus\"></gd-preview-status>\r\n      <div class=\"doc-panel\" *ngIf=\"preview\" #docPanel>\r\n        <gd-document class=\"gd-document\" *ngIf=\"preview\" [file]=\"preview\" [mode]=\"false\" gdScrollable\r\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\r\n      </div> -->\r\n      <!--  -->\r\n      <div class=\"parser-wrapper\" *ngIf=\"!documentError && document\">\r\n        <app-surface [document]=\"document\"></app-surface>\r\n      </div>\r\n    </div>\r\n\r\n    <app-side-panel *ngIf=\"!documentError && document\"></app-side-panel>\r\n\r\n    <!-- <gd-side-panel *ngIf=\"isFileLoaded() && showSidePanel\"\r\n      (hideSidePanel)=\"hideSidePanel($event)\"\r\n      (saveInSidePanel)=\"save()\"\r\n      [closable]=\"isDesktop ? false : true\"\r\n      [saveable]=\"isDesktop ? false : true\"\r\n      [title]=\"'Metadata'\"\r\n      [icon]=\"'clipboard-list'\">\r\n      <gd-accordion>\r\n        <gd-accordion-group *ngFor=\"let package of packages\" [title]=\"getPackageName(package)\" [addDisabled]=\"false\" [addHidden]=\"false\" [properties]=\"package.properties\" [knownProperties]=\"package.knownProperties\" [packageId]=\"package.id\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\r\n      </gd-accordion>\r\n    </gd-side-panel> -->\r\n  </div>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n    (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\" [uploadConfig]=\"uploadConfig\">\r\n  </gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-success-modal></gd-success-modal>\r\n</div>"
+module.exports = "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\">\r\n  <div class=\"row\">\r\n    <div class=\"column\" [ngClass]=\"{'document-loaded': isFileLoaded()}\">\r\n      <div class=\"top-panel\">\r\n        <a class=\"logo-link\" [href]=\"returnUrl\">\r\n          <gd-logo [logo]=\"'parser'\" icon=\"glasses\"></gd-logo>\r\n        </a>\r\n        <gd-top-toolbar class=\"toolbar-panel\">\r\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal, false)\"\r\n            *ngIf=\"browseConfig\"></gd-button>\r\n\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\" (click)=\"zoomIn()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\" (click)=\"zoomOut()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'expand'\" [tooltip]=\"'Add text field'\" (click)=\"addFieldClick()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'table'\" [tooltip]=\"'Add table'\" (click)=\"addTableClick()\"></gd-button>\r\n        </gd-top-toolbar>\r\n      </div>\r\n       <gd-init-state [icon]=\"'glasses'\" [text]=\"'Drop file here to upload'\" *ngIf=\"documentError || !document\" (fileDropped)=\"fileDropped($event)\">\r\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n        Or drop file here\r\n      </gd-init-state>\r\n      <!-- <gd-preview-status [status]=\"previewStatus\"></gd-preview-status> -->\r\n     <!-- <div class=\"doc-panel\" *ngIf=\"preview\" #docPanel>\r\n        <gd-document class=\"gd-document\" *ngIf=\"preview\" [file]=\"preview\" [mode]=\"false\" gdScrollable\r\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\r\n      </div> -->\r\n      <!--  -->\r\n      <div class=\"parser-wrapper\" *ngIf=\"!documentError && document\">\r\n        <app-surface [document]=\"document\"></app-surface>\r\n      </div>\r\n    </div>\r\n\r\n    <app-side-panel *ngIf=\"!documentError && document\"></app-side-panel>\r\n\r\n    <!-- <gd-side-panel *ngIf=\"isFileLoaded() && showSidePanel\"\r\n      (hideSidePanel)=\"hideSidePanel($event)\"\r\n      (saveInSidePanel)=\"save()\"\r\n      [closable]=\"isDesktop ? false : true\"\r\n      [saveable]=\"isDesktop ? false : true\"\r\n      [title]=\"'Metadata'\"\r\n      [icon]=\"'clipboard-list'\">\r\n      <gd-accordion>\r\n        <gd-accordion-group *ngFor=\"let package of packages\" [title]=\"getPackageName(package)\" [addDisabled]=\"false\" [addHidden]=\"false\" [properties]=\"package.properties\" [knownProperties]=\"package.knownProperties\" [packageId]=\"package.id\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\r\n      </gd-accordion>\r\n    </gd-side-panel> -->\r\n  </div>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n    (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\" [uploadConfig]=\"uploadConfig\">\r\n  </gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-success-modal></gd-success-modal>\r\n</div>"
 
 /***/ }),
 
@@ -24144,7 +24781,7 @@ module.exports = "<div class=\"wrapper\">\r\n  <a class=\"back\" [routerLink]=\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\r\n  <ul>\r\n    <li>\r\n      <a [routerLink]=\"['/viewer']\"  >\r\n        <img src=\"assets/images/groupdocs-viewer.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Viewer</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/signature']\">\r\n        <img src=\"assets/images/groupdocs-signature.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Signature</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/annotation']\">\r\n        <img src=\"assets/images/groupdocs-annotation.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Annotation</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/comparison']\">\r\n        <img src=\"assets/images/groupdocs-comparison.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Comparison</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/conversion']\">\r\n        <img src=\"assets/images/groupdocs-conversion.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Conversion</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/metadata']\">\r\n        <img src=\"assets/images/groupdocs-metadata.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Metadata</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/search']\">\r\n        <img src=\"assets/images/groupdocs-search.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Search</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/parser']\">\r\n        <img src=\"assets/images/groupdocs-text.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Parser</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"\">\r\n        <img src=\"assets/images/groupdocs-watermark-d.png\"/>\r\n        <div class=\"coming-soon\">\r\n          <h5>GroupDocs</h5>\r\n          <h6>Watermark</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/editor']\" >\r\n        <img src=\"assets/images/groupdocs-editor.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Editor</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"\">\r\n        <img src=\"assets/images/groupdocs-assembly-d.png\"/>\r\n        <div class=\"coming-soon\">\r\n          <h5>GroupDocs</h5>\r\n          <h6>Assembly</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</div>\r\n"
+module.exports = "<div class=\"wrapper\">\r\n  <ul>\r\n    <li>\r\n      <a [routerLink]=\"['/viewer']\"  >\r\n        <img src=\"assets/images/groupdocs-viewer.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Viewer</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/signature']\">\r\n        <img src=\"assets/images/groupdocs-signature.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Signature</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/annotation']\">\r\n        <img src=\"assets/images/groupdocs-annotation.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Annotation</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/comparison']\">\r\n        <img src=\"assets/images/groupdocs-comparison.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Comparison</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/conversion']\">\r\n        <img src=\"assets/images/groupdocs-conversion.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Conversion</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/metadata']\">\r\n        <img src=\"assets/images/groupdocs-metadata.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Metadata</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/search']\">\r\n        <img src=\"assets/images/groupdocs-search.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Search</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/parser']\">\r\n        <img src=\"assets/images/groupdocs-parser.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Parser</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"\">\r\n        <img src=\"assets/images/groupdocs-watermark-d.png\"/>\r\n        <div class=\"coming-soon\">\r\n          <h5>GroupDocs</h5>\r\n          <h6>Watermark</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a [routerLink]=\"['/editor']\" >\r\n        <img src=\"assets/images/groupdocs-editor.png\"/>\r\n        <div>\r\n          <h5>GroupDocs</h5>\r\n          <h6>Editor</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n    <li>\r\n      <a href=\"\">\r\n        <img src=\"assets/images/groupdocs-assembly-d.png\"/>\r\n        <div class=\"coming-soon\">\r\n          <h5>GroupDocs</h5>\r\n          <h6>Assembly</h6>\r\n        </div>\r\n      </a>\r\n    </li>\r\n  </ul>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -24360,6 +24997,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var TotalNavComponent = /** @class */ (function () {
     function TotalNavComponent() {
+        localStorage.setItem("returnUrl", window.location.href);
     }
     TotalNavComponent.prototype.ngOnInit = function () {
     };

@@ -1,4 +1,4 @@
-<gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
+<gd-loading-mask></gd-loading-mask>
 <div class="wrapper">
   <div class="row">
     <div class="column" [ngClass]="{'document-loaded': isFileLoaded()}">
@@ -20,30 +20,13 @@
         Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
         Or drop file here
       </gd-init-state>
-      <!-- <gd-preview-status [status]="previewStatus"></gd-preview-status> -->
-     <!-- <div class="doc-panel" *ngIf="preview" #docPanel>
-        <gd-document class="gd-document" *ngIf="preview" [file]="preview" [mode]="false" gdScrollable
-                    [preloadPageCount]="metadataConfig?.preloadPageCount" gdRenderPrint [htmlMode]="false"></gd-document>
-      </div> -->
-      <!--  -->
+
       <div class="parser-wrapper" *ngIf="!documentError && document">
         <app-surface [document]="document"></app-surface>
       </div>
     </div>
 
     <app-side-panel *ngIf="!documentError && document"></app-side-panel>
-
-    <!-- <gd-side-panel *ngIf="isFileLoaded() && showSidePanel"
-      (hideSidePanel)="hideSidePanel($event)"
-      (saveInSidePanel)="save()"
-      [closable]="isDesktop ? false : true"
-      [saveable]="isDesktop ? false : true"
-      [title]="'Metadata'"
-      [icon]="'clipboard-list'">
-      <gd-accordion>
-        <gd-accordion-group *ngFor="let package of packages" [title]="getPackageName(package)" [addDisabled]="false" [addHidden]="false" [properties]="package.properties" [knownProperties]="package.knownProperties" [packageId]="package.id" (removeProperty)="removeProperty($event)"></gd-accordion-group>
-      </gd-accordion>
-    </gd-side-panel> -->
   </div>
 
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"

@@ -8,6 +8,7 @@ export declare class Api {
     static COMPARISON_APP: string;
     static CONVERSION_APP: string;
     static METADATA_APP: string;
+    static PARSER_APP: string;
     static DEFAULT_API_ENDPOINT: string;
     static LOAD_FILE_TREE: string;
     static LOAD_CONFIG: string;
@@ -41,6 +42,7 @@ export declare class Api {
     static LOAD_SIGNATURE_IMAGE: string;
     static ANNOTATE: string;
     static SEARCH: string;
+    static PARSE: string;
     static ADD_FILES_TO_INDEX: string;
     static CLEAN_METADATA: string;
     static EXPORT_METADATA: string;
@@ -65,4 +67,5 @@ export declare class ConfigService {
     getSignatureApiEndpoint(): string;
     getAnnotationApiEndpoint(): string;
     getSearchApiEndpoint(): string;
+    getParserApiEndpoint(): string;
 }

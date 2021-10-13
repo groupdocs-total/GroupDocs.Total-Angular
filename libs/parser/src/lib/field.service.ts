@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { Injectable, HostListener } from '@angular/core';
-import { Utils } from 'libs/common-components/src/lib/file.service';
+import { Utils } from '@groupdocs.examples.angular/common-components';
 import { fromEventPattern, Observable, Subject } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 import { Point } from './app-models';
