@@ -16,10 +16,11 @@ import {
 } from "@groupdocs.examples.angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
-import {WindowService} from "@groupdocs.examples.angular/common-components";
-import { Subscription } from 'rxjs';
-import { Constants } from './viewer.constants';
-import { IntervalTimer } from './interval-timer';
+import {WindowService, Option} from "@groupdocs.examples.angular/common-components";
+import {Subscription} from 'rxjs';
+import {Constants, Language} from './viewer.constants';
+import {IntervalTimer} from './interval-timer';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'gd-viewer',
@@ -61,6 +62,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   isFullScreen: boolean;
   startScrollTime: number;
   endScrollTime: number;
+  
+  supportedLanguages: Option[];
+  selectedLanguage: Option;
 
   docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
     mozRequestFullScreen(): Promise<void>;
@@ -94,7 +98,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
               passwordService: PasswordService,
               private _windowService: WindowService,
               private _loadingMaskService: LoadingMaskService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              public translate: TranslateService) {
 
     this.zoomService = zoomService;
     this.startScrollTime = Date.now();
@@ -139,12 +144,26 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if (this.viewerConfig.defaultDocument !== ""){
+    if (this.viewerConfig.defaultDocument !== "") {
       this.isLoading = true;
       this.selectFile(this.viewerConfig.defaultDocument, "", "");
       this.selectCurrentOrFirstPage();
       return;
     }
+
+    const defaultLanguage = this.defaultLanguageConfig;
+    const supportedLanguages = this.supportedLanguagesConfig
+      .map(language => { 
+        return { 
+          name: language.name, 
+          value: language.code, 
+          separator: false
+        };
+      });
+
+    this.supportedLanguages = supportedLanguages;
+    this.selectedLanguage = supportedLanguages.find(lang => lang.value === defaultLanguage.code);
+    this.translate.use(defaultLanguage.code);
 
     const queryString = window.location.search;
     if (queryString) {
@@ -231,6 +250,54 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this._navigateService.currentPage;
   }
 
+  get showLanguageMenu(): boolean {
+    if(this.viewerConfig !== undefined && this.viewerConfig.showLanguageMenu !== undefined) {
+      return this.viewerConfig.showLanguageMenu;
+    }
+    return Constants.defaultShowLanguageMenu;
+  }
+
+  get supportedLanguagesConfig(): Language[] {
+    if(this.viewerConfig && this.viewerConfig.supportedLanguages) {
+      const supportedLanguages = this.viewerConfig.supportedLanguages;
+      return Constants.defaultSupportedLanguages
+        .filter(lang => 
+          supportedLanguages.indexOf(lang.code) !== -1 || supportedLanguages.indexOf(lang.alternateCode) !== -1);
+    }
+
+    return Constants.defaultSupportedLanguages;
+  }
+
+  get defaultLanguageConfig(): Language {
+    if(this.viewerConfig && this.viewerConfig.defaultLanguage) {
+      return this.supportedLanguagesConfig
+        .find(lang => lang.is(this.viewerConfig.defaultLanguage))
+    }
+
+    const pathname = window.location.pathname;
+    if (pathname) {
+      const parts = pathname.split('/');
+      const langOrNothing = this.supportedLanguagesConfig
+        .filter(supported => parts.includes(supported.code) || parts.includes(supported.alternateCode))
+        .shift();
+        
+      if(langOrNothing)
+        return langOrNothing;
+    }
+
+    const queryString = window.location.search;
+    if (queryString) {
+      const urlParams = new URLSearchParams(queryString);
+      const candidate = urlParams.get('lang');
+      if(candidate) {
+        return this.supportedLanguagesConfig
+          .find(lang => lang.is(candidate))
+      }
+    }
+
+    return Constants.defaultLanguage;
+  }
+
   ifPresentation() {
     return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint" : false;
   }
@@ -282,7 +349,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       if(!thumb.data) {
         const emptyThumb = new PageModel();
         emptyThumb.number = thumb.number;
-        emptyThumb.data = `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">Click here to load page ${thumb.number}</div></div>`
+        emptyThumb.data = `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">${thumb.number}</div></div>`
         emptyThumb.width = 800;
         emptyThumb.height = 800;
         
@@ -761,4 +828,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.startCountDown(0);
     this.refreshZoom();
   }
+
+  selectLanguage(selectedLanguage: Option) {
+    this.selectedLanguage = selectedLanguage;
+    this.translate.use(selectedLanguage.value);
+  } 
 }

@@ -4,7 +4,7 @@
 /*!******************************************************************************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/dist/libs/common-components/fesm2015/groupdocs.examples.angular-common-components.js ***!
   \******************************************************************************************************************************/
-/*! exports provided: AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, ɵa, ɵb, ɵc, ɵd */
+/*! exports provided: AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, StaticTranslateLoader, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, ɵa, ɵb, ɵc, ɵd */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -76,6 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return SelectComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectionService", function() { return SelectionService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidePanelComponent", function() { return SidePanelComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StaticTranslateLoader", function() { return StaticTranslateLoader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SuccessModalComponent", function() { return SuccessModalComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabActivatorService", function() { return TabActivatorService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabComponent", function() { return TabComponent; });
@@ -109,7 +110,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
-/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib_esmodule/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(ng_click_outside__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -135,7 +139,7 @@ class TopToolbarComponent {
 TopToolbarComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-top-toolbar',
-                template: "<div class=\"top-toolbar\">\r\n  <div id=\"tools\" class=\"tools\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                template: "<div class=\"top-toolbar\">\n  <div id=\"tools\" class=\"tools\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
                 styles: [".top-toolbar{width:100%;height:60px;z-index:999;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.tools{width:100%;height:100%;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}@media (max-width:1037px){.top-toolbar{height:60px}.tools{height:100%;overflow-x:auto;overflow-scrolling:touch;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-transition:.3s ease-in-out;transition:.3s ease-in-out;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}.tools::-webkit-scrollbar{width:0;height:0;background-color:#3e4e5a}}"]
             }] }
 ];
@@ -178,7 +182,7 @@ class SidePanelComponent {
 SidePanelComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-side-panel',
-                template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\r\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\r\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <div class=\"title\">{{title}}</div>\r\n    <div class=\"save\" *ngIf=\"saveable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\r\n    </div>\r\n    <div class=\"close\" *ngIf=\"closable\">\r\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                template: "<div [ngClass]=\"{'only-title': onlyTitle}\" class=\"gd-side-panel-wrapper\">\n  <div class=\"gd-side-panel-header\" (click)=\"toggleTitleMode()\">\n    <fa-icon class=\"fas fa-info-circle icon\" [icon]=\"['fas',icon]\"></fa-icon>\n    <div class=\"title\">{{title}}</div>\n    <div class=\"save\" *ngIf=\"saveable\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'save'\" [tooltip]=\"'Save'\" (click)=\"saveBySidePanel()\"></gd-button>\n    </div>\n    <div class=\"close\" *ngIf=\"closable\">\n      <gd-button class=\"fas fa-times\" [icon]=\"'times'\" [tooltip]=\"'Close'\" (click)=\"closeSidePanel()\"></gd-button>\n    </div>\n  </div>\n  <div *ngIf=\"!onlyTitle\" class=\"gd-side-panel-body\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
                 styles: [".gd-side-panel-wrapper{margin-right:0;width:334px;z-index:999;background-color:#fff;-webkit-transition:margin-right .2s;transition:margin-right .2s;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;height:100vh}.gd-side-panel-wrapper .gd-side-panel-header{height:60px;background-color:#222e35;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:nowrap}.gd-side-panel-wrapper .gd-side-panel-header .icon{font-size:24px;color:#959da5;margin:18px;line-height:24px}.gd-side-panel-wrapper .gd-side-panel-header .title{font-size:13px;font-weight:700;color:#edf0f2;opacity:.57;margin-top:20px;width:100%}.gd-side-panel-wrapper .gd-side-panel-header .close,.gd-side-panel-wrapper .gd-side-panel-header .save{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.gd-side-panel-wrapper .gd-side-panel-header ::ng-deep gd-button .text{padding:0}.gd-side-panel-wrapper .gd-side-panel-body{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column;overflow:visible;overflow-y:auto;overflow-x:hidden;height:100%}@media (max-width:1037px){.gd-side-panel-wrapper{width:100%;position:absolute;left:0;right:0;top:0;bottom:0}.gd-side-panel-wrapper.only-title{height:60px!important}}"]
             }] }
 ];
@@ -333,7 +337,7 @@ class ButtonComponent {
 ButtonComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-button',
-                template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\r\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\r\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [position]=\"elementPosition\" class=\"button-tooltip\"></gd-tooltip>\r\n  <div class=\"text\">\r\n    <ng-content></ng-content>\r\n  </div>\r\n</div>\r\n",
+                template: "<div class=\"button {{intent}} {{iconButtonClass()}}\" [ngClass]=\"toggle ? className + ' gd-edit active' : className\"\n     gdTooltip (showToolTip)=\"showToolTip = $event\" (mouseenter)=\"onHovering()\"\n     (mouseleave)=\"onUnhovering()\" gdDisabledCursor [dis]=\"disabled\">\n  <fa-icon *ngIf=\"icon\" [icon]=\"[iconRegular ? 'far' : 'fas',icon]\" [size]=\"iconSize\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" *ngIf=\"tooltip\" [position]=\"elementPosition\" class=\"button-tooltip\"></gd-tooltip>\n  <div class=\"text\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
                 styles: [".icon-button{padding:0!important;margin:0 7px}.button{padding:0 10px;font-size:14px;color:#959da5;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;align-content:center;-webkit-box-pack:center;justify-content:center;min-width:37px;height:37px;text-align:center;position:relative;white-space:nowrap}.button.inactive{cursor:not-allowed;opacity:.4}.button.active *{color:#ccd0d4}.button.primary{background-color:#3e4e5a;color:#fff}.button.primary.active{color:#fff;background-color:#688296}.button.brand{background-color:#25c2d4;color:#fff}.button.brand.active{color:#fff;background-color:#688296}.button .text{font-size:13px;padding-left:10px}.button .button-tooltip{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}@media (max-width:1037px){.button{font-size:22px}.arrow-button{margin:5px}}"]
             }] }
 ];
@@ -371,7 +375,7 @@ class LogoComponent {
 LogoComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-logo',
-                template: "<div id=\"gd-header-logo\" class=\"logo\">\r\n  <span class=\"text\" [innerHTML]=\"logo\"></span>\r\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n\r\n",
+                template: "<div id=\"gd-header-logo\" class=\"logo\">\n  <span class=\"text\" [innerHTML]=\"logo\"></span>\n  <fa-icon [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n\n",
                 styles: [".logo{background-color:#25c2d4;height:60px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.text{color:#fff;font-size:15px;text-transform:uppercase;margin:0 14px}.icon{display:none;font-size:32px;color:rgba(255,255,255,.5);margin:14px}@media (max-width:1037px){.logo{width:60px;height:60px}.logo .text{display:none}.logo .icon{display:block}}"]
             }] }
 ];
@@ -417,7 +421,7 @@ class TooltipComponent {
 TooltipComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-tooltip',
-                template: "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\r\n",
+                template: "<span [class]=\"getClass()\" [ngClass]=\"visibility\" [innerHTML]=\"text\"></span>\n",
                 styles: [".tooltip{position:absolute;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background-color:#000;color:#fff;text-align:center;border-radius:0;padding:5px;z-index:1;font-size:10px;height:11px;line-height:11px;-ms-grid-row-align:center;align-self:center;margin:8px!important}.first-element{margin-left:10px!important}.last-element{margin-left:-10px!important}.tooltip.hidden{visibility:hidden}.tooltip.shown{visibility:visible}.shown:after{content:\" \";position:absolute;bottom:100%;left:50%;margin-left:-5px;border:5px solid transparent;border-bottom-color:#000}"]
             }] }
 ];
@@ -444,7 +448,6 @@ Api.EDITOR_APP = '/editor';
 Api.COMPARISON_APP = '/comparison';
 Api.CONVERSION_APP = '/conversion';
 Api.METADATA_APP = '/metadata';
-Api.PARSER_APP = '/parser';
 Api.DEFAULT_API_ENDPOINT = window.location.protocol + "//" + window.location.host + window.location.pathname;
 Api.LOAD_FILE_TREE = '/loadFileTree';
 Api.LOAD_CONFIG = '/loadConfig';
@@ -478,7 +481,6 @@ Api.DOWNLOAD_SIGNED = '/downloadSigned';
 Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
 Api.ANNOTATE = '/annotate';
 Api.SEARCH = '/search';
-Api.PARSE = '/parse';
 Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
 Api.CLEAN_METADATA = '/clean';
 Api.EXPORT_METADATA = '/export';
@@ -565,12 +567,6 @@ class ConfigService {
      */
     getSearchApiEndpoint() {
         return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
-    }
-    /**
-     * @return {?}
-     */
-    getParserApiEndpoint() {
-        return this._apiEndpoint.endsWith(Api.PARSER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.PARSER_APP;
     }
 }
 ConfigService.decorators = [
@@ -721,7 +717,7 @@ class ModalComponent {
 ModalComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-modal',
-                template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\r\n</div>\r\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\r\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\r\n\r\n    <div class=\"gd-modal-header\">\r\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\r\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-body\">\r\n      <ng-content></ng-content>\r\n    </div>\r\n\r\n    <div class=\"gd-modal-footer\">\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n",
+                template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\n\n    <div class=\"gd-modal-header\">\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\n    </div>\n\n    <div class=\"gd-modal-body\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"gd-modal-footer\">\n\n    </div>\n  </div>\n</div>\n\n\n",
                 styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:1051}.gd-modal-dialog ::ng-deep .button{-webkit-box-orient:unset!important;-webkit-box-direction:unset!important;flex-direction:unset!important}.gd-modal-content{background-color:#fff;height:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
             }] }
 ];
@@ -1054,19 +1050,45 @@ class BrowseFilesModalComponent {
      * @return {?}
      */
     getSize(size) {
+        return this.getSizeValue(size) + ' ' + this.getSizeUnits(size);
+    }
+    /**
+     * @param {?} size
+     * @return {?}
+     */
+    getSizeValue(size) {
         /** @type {?} */
         const mb = size / 1024 / 1024;
         if (mb > 1) {
-            return (Math.round(mb * 100) / 100) + ' MB';
+            return (Math.round(mb * 100) / 100);
         }
         else {
             /** @type {?} */
             const kb = size / 1024;
             if (kb > 1) {
-                return (Math.round(kb * 100) / 100) + ' KB';
+                return (Math.round(kb * 100) / 100);
             }
         }
-        return size + ' Bytes';
+        return size;
+    }
+    /**
+     * @param {?} size
+     * @return {?}
+     */
+    getSizeUnits(size) {
+        /** @type {?} */
+        const mb = size / 1024 / 1024;
+        if (mb > 1) {
+            return 'MB';
+        }
+        else {
+            /** @type {?} */
+            const kb = size / 1024;
+            if (kb > 1) {
+                return 'KB';
+            }
+        }
+        return 'Bytes';
     }
     /**
      * @param {?} file
@@ -1173,8 +1195,8 @@ class BrowseFilesModalComponent {
 BrowseFilesModalComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-browse-files-modal',
-                template: "<gd-modal id=\"gd-browse-files\" [title]=\"'Open document'\" (visible)=\"refresh($event)\">\r\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\r\n    <div class=\"dnd-wrapper\">\r\n      <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n      <span class=\"text\">Drop file here to upload</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\r\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\r\n            (change)=\"handleFileInput($event.target.files)\">\r\n    <div class=\"context\">\r\n      <div class=\"context-actions\">\r\n        <gd-drop-down>\r\n          <gd-drop-down-toggle>\r\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\r\n              Upload file\r\n            </gd-button>\r\n          </gd-drop-down-toggle>\r\n          <gd-drop-down-items>\r\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\r\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\r\n              <div class=\"text\">{{item.name}}</div>\r\n            </gd-drop-down-item>\r\n          </gd-drop-down-items>\r\n        </gd-drop-down>\r\n      </div>\r\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\r\n        <div class=\"upload-url\">\r\n          <input class=\"url-input\" placeholder=\"https://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\r\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\r\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\r\n    <div class=\"header-name\">FILE</div>\r\n    <div class=\"header-size\">SIZE</div>\r\n  </div>\r\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\r\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\r\n      <div class=\"list-files-body\">\r\n        <div class=\"go-up\" (click)=\"goUp()\">\r\n            <div class=\"go-up-icon\">\r\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\r\n            </div>\r\n            <div class=\"go-up-dots\">..</div>\r\n        </div>\r\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\r\n          <div class=\"file-description\">\r\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\r\n            <div class=\"file-name-format\">\r\n              <div class=\"file-name\">{{file?.name}}</div>\r\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\r\n            </div>\r\n          </div>\r\n          <div class=\"file-size\">\r\n            {{getSize(file?.size)}}\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n      &nbsp;Loading... Please wait.\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:-webkit-box;display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;-webkit-box-flex:1;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:-webkit-box;display:flex;width:100%;-webkit-box-pack:justify;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:-webkit-box;display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:-webkit-box;display:flex;position:relative;width:100%}.upload-panel .context{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;width:96px;padding:0;-webkit-box-pack:center;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:100%;height:calc(100% - 60px);background:rgba(255,255,255,.7);z-index:1;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.dnd-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;top:259px;position:absolute}.dnd-wrapper .text{color:#6e6e6e;font-size:14px}.dnd-wrapper .icon{display:-webkit-box;display:flex;width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
+                template: "<gd-modal id=\"gd-browse-files\" title=\"{{'Open document' | translate }}\" (visible)=\"refresh($event)\">\n  <div class=\"gd-dnd-wrap\" *ngIf=\"showUploadFile\" gdDnd (opening)=\"showUploadFile=$event\">\n    <div class=\"dnd-wrapper\">\n      <fa-icon class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n      <span class=\"text\">{{'Drop file here to upload' | translate}}</span>\n    </div>\n  </div>\n  <div class=\"upload-panel\" *ngIf=\"uploadConfig\">\n    <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\"\n            (change)=\"handleFileInput($event.target.files)\">\n    <div class=\"context\">\n      <div class=\"context-actions\">\n        <gd-drop-down>\n          <gd-drop-down-toggle>\n            <gd-button [icon]=\"'upload'\" [intent]=\"'brand'\" [iconOnly]=\"false\">\n              {{'Upload file' | translate}}\n            </gd-button>\n          </gd-drop-down-toggle>\n          <gd-drop-down-items>\n            <gd-drop-down-item (selected)=\"selectUpload(item.name)\" *ngFor=\"let item of uploads\">\n              <fa-icon [icon]=\"['fas', item.icon]\"></fa-icon>\n              <div class=\"text\">{{item.name | translate}}</div>\n            </gd-drop-down-item>\n          </gd-drop-down-items>\n        </gd-drop-down>\n      </div>\n      <div class=\"context-panel\" *ngIf=\"showUploadUrl\">\n        <div class=\"upload-url\">\n          <input class=\"url-input\" placeholder=\"https://\" #url (keyup.enter)=\"uploadUrl(url.value)\">\n          <div class=\"url-check\" (click)=\"uploadUrl(url.value)\">\n            <fa-icon [icon]=\"['fas','check']\"></fa-icon>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"list-files-header\" [ngClass]=\"{'upload-url': showUploadUrl}\">\n    <div class=\"header-name\">{{'FILE' | translate }}</div>\n    <div class=\"header-size\">{{'SIZE' | translate }}</div>\n  </div>\n  <section id=\"gd-browse-section\" (dragover)=\"showUploadFile = true;\">\n    <div id=\"gd-modal-filebrowser\" class=\"gd-modal-table\">\n      <div class=\"list-files-body\">\n        <div class=\"go-up\" (click)=\"goUp()\">\n            <div class=\"go-up-icon\">\n                <fa-icon [icon]=\"['fas','level-up-alt']\"></fa-icon>\n            </div>\n            <div class=\"go-up-dots\">..</div>\n        </div>\n        <div class=\"list-files-lines\" *ngFor=\"let file of files\" (click)=\"choose(file);\">\n          <div class=\"file-description\">\n            <fa-icon [icon]=\"['fas',getFormatIcon(file)]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon(file)\"></fa-icon>\n            <div class=\"file-name-format\">\n              <div class=\"file-name\">{{file?.name}}</div>\n              <div class=\"file-format\">{{getFormatName(file)}}</div>\n            </div>\n          </div>\n          <div class=\"file-size\">\n            {{getSizeValue(file?.size)}} {{getSizeUnits(file?.size) | translate}}\n          </div>\n        </div>\n      </div>\n    </div>\n    <div id=\"gd-modal-spinner\" class=\"gd-modal-spinner\" *ngIf=\"showSpinner()\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n      &nbsp;{{'Loading... Please wait.' | translate}}\n    </div>\n  </section>\n</gd-modal>\n",
+                styles: [".gd-modal-table{width:100%;text-align:left}#gd-browse-section{width:1036px;height:561px;overflow-y:auto}.list-files-header{height:60px;color:#6e6e6e;font-size:13px;font-weight:700;background-color:#f4f4f4;margin-top:24px}.list-files-header.upload-url{margin-top:20px}.header-name{padding-left:24px;width:90%;line-height:60px}.header-size{padding-right:27px;line-height:60px}.file-size,.header-size{width:10%;color:#777;text-align:right}.file-description{display:-webkit-box;display:flex;width:90%;padding:18px 0 18px 24px;font-size:14px;-webkit-box-flex:1;flex:1;cursor:pointer;overflow:hidden}.file-size{font-size:12px;padding:0 27px 0 0;width:10%;line-height:79px}.list-files-header,.list-files-lines{display:-webkit-box;display:flex;width:100%;-webkit-box-pack:justify;justify-content:space-between}.gd-modal-spinner{background-color:#fff;width:100%;height:20px;text-align:center;font-size:16px}.gd-cancel-button{padding:7px;background:0 0;width:28px;overflow:hidden}.gd-cancel-button i{font-size:21px}.gd-file-name{white-space:nowrap;overflow:hidden;width:100%;text-overflow:ellipsis}.go-up{display:-webkit-box;display:flex;font-size:26px;cursor:pointer;color:#4b566c;height:79px}.go-up-dots{margin-left:20px;margin-top:22px;font-size:16px}.go-up-icon{display:block;padding:18px 0 18px 24px}.upload-panel{display:-webkit-box;display:flex;position:relative;width:100%}.upload-panel .context{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:100%;margin-left:24px;margin-top:24px;margin-right:24px}.upload-panel .context .context-actions{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-actions :last-child{margin-right:0}.upload-panel .context .context-actions ::ng-deep .button{height:37px;padding:0 10px;-webkit-box-pack:center;justify-content:center}.upload-panel .context .context-actions ::ng-deep .button ::ng-deep .text{font-size:10px}.upload-panel .context .context-panel{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%;margin-top:20px}.upload-panel .context .context-panel .upload-url{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;width:100%}.upload-panel .context .context-panel .upload-url .url-input{width:100%;height:27px;border:1px solid #25c2d4;font-size:14px;padding-left:6px}.upload-panel .context .context-panel .upload-url .url-check{width:31px;height:31px;color:#fff;font-size:15px;background-color:#25c2d4}.upload-panel .context .context-panel .upload-url .url-check .ng-fa-icon{display:block;padding:8px}.upload-panel gd-drop-down{margin-right:10px}.file-description .ng-fa-icon.fa-file-pdf{color:#e04e4e}.file-description .ng-fa-icon.fa-file-word{color:#539cf0}.file-description .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.file-description .ng-fa-icon.fa-file-excel{color:#7cbc46}.file-description .ng-fa-icon.fa-file-image{color:#c375ed}.file-description .ng-fa-icon.fa-file,.file-description .ng-fa-icon.fa-file-alt,.file-description .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.file-description .ng-fa-icon{font-size:32px}.file-name{font-size:16px;color:#6e6e6e;overflow:hidden;text-overflow:ellipsis}.file-name-format{padding-left:11px;overflow:hidden}.file-format{font-size:10px;padding-top:3px;color:#acacac}.go-up,.list-files-lines{border-bottom:1px solid #e7e7e7}.list-files-lines:hover{background-color:#e5e5e5}.gd-dnd-wrap{background-color:#fff;cursor:default;position:absolute;width:100%;height:calc(100% - 60px);background:rgba(255,255,255,.7);z-index:1;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.dnd-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;top:259px;position:absolute}.dnd-wrapper .text{color:#6e6e6e;font-size:14px}.dnd-wrapper .icon{display:-webkit-box;display:flex;width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}@media (max-width:1037px){.file-size,.header-size{width:18%}.gd-dnd-wrap{width:95%}#gd-browse-section{width:100%;height:calc(100% - 146px)}}"]
             }] }
 ];
 /** @nocollapse */
@@ -1518,7 +1540,7 @@ class DocumentComponent {
 DocumentComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-document',
-                template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"!showActiveSlide || isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\" gdPageMarker></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<div class=\"wait\" *ngIf=\"wait\">{{'Please wait...' | translate}}</div>\n<div id=\"document\" class=\"document\">\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page *ngIf=\"!showActiveSlide || isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\n        [height]=\"page.height\" [editable]=\"page.editable\" gdPageMarker></gd-page>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
                 styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;-webkit-transition:unset;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
             }] }
 ];
@@ -1578,7 +1600,7 @@ class PageComponent {
 PageComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-page',
-                template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\r\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\r\n      gdEditor [text]=\"data\"></div>\r\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\r\n       alt=\"\"\r\n       *ngIf=\"data && !isHtml\">\r\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\r\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n    &nbsp;Loading... Please wait.\r\n  </div>\r\n</div>\r\n",
+                template: "<div id=\"page-{{number}}\" gdHostDynamic [ident]=\"number\">\n  <div class=\"gd-wrapper\" [innerHTML]=\"data | safeHtml\" *ngIf=\"data && isHtml\" [contentEditable]=\"(editable) ? true : false\"\n      gdEditor [text]=\"data\"></div>\n  <img class=\"gd-page-image\" [style.width.px]=\"width\" [style.height.px]=\"height\" [attr.src]=\"imgData | safeResourceHtml\"\n       alt=\"\"\n       *ngIf=\"data && !isHtml\">\n  <div class=\"gd-page-spinner\" *ngIf=\"!data\">\n    <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\n    &nbsp;{{'Loading... Please wait.' | translate}}\n  </div>\n</div>\n",
                 styles: [".gd-page-spinner{margin-top:150px;text-align:center}.gd-wrapper{width:inherit;height:inherit}.gd-wrapper div{width:100%}::ng-deep .gd-highlight{background-color:#ff0}::ng-deep .gd-highlight-select{background-color:#ff9b00}"]
             }] }
 ];
@@ -1731,7 +1753,7 @@ class UploadFileZoneComponent {
 UploadFileZoneComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-upload-file-zone',
-                template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\r\n  <div class=\"gd-drag-n-drop-icon\">\r\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\r\n  </div>\r\n  <h2>Drag &amp; Drop your files here</h2>\r\n  <h4>OR</h4>\r\n  <div class=\"gd-drag-n-drop-buttons\">\r\n    <label class=\"btn btn-primary\"> \r\n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\r\n      SELECT FILE\r\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\r\n      </label>\r\n  </div>\r\n</div>\r\n",
+                template: "<div class=\"gd-drag-n-drop-wrap\" id=\"gd-dropZone\" gdDnd (closing)=\"onCloseUpload()\" (click)=\"close($event)\">\n  <div class=\"gd-drag-n-drop-icon\">\n    <fa-icon [icon]=\"['fas','cloud-download-alt']\" size=\"5x\"></fa-icon>\n  </div>\n  <h2>Drag &amp; Drop your files here</h2>\n  <h4>OR</h4>\n  <div class=\"gd-drag-n-drop-buttons\">\n    <label class=\"btn btn-primary\"> \n      <fa-icon [icon]=\"['fas','file']\"></fa-icon>\n      SELECT FILE\n      <input id=\"gd-upload-input\" type=\"file\" multiple style=\"display: none;\" (change)=\"handleFileInput($event.target.files)\">\n      </label>\n  </div>\n</div>\n",
                 styles: [".gd-drag-n-drop-wrap{border:2px dashed #ccc;background-color:#f8f8f8;text-align:center;cursor:default;position:absolute;width:-webkit-fill-available;left:1px;display:-webkit-box;display:flex;align-content:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;opacity:.9;z-index:1}.gd-drag-n-drop-wrap h2{color:#959da5;margin:5px 0;font-size:15px;font-weight:300}.gd-drag-n-drop-wrap h4{color:#cacaca;font-weight:300;font-size:12px;margin:10px 0 15px}.gd-drag-n-drop-icon .fa-cloud-download-alt{color:#d1d1d1;font-size:110px}.gd-drag-n-drop-buttons i{margin-right:5px}.gd-drag-n-drop-buttons .btn{width:134px;height:35px;margin:0 10px;font-size:12px;font-weight:400}.gd-drag-n-drop-wrap.hover{background:#ddd;border-color:#aaa}"]
             }] }
 ];
@@ -2477,7 +2499,7 @@ class SelectComponent {
 SelectComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-select',
-                template: "<div class=\"select\"\r\n     (click)=\"toggle($event)\"\r\n     (touchstart)=\"toggle($event)\"\r\n     (clickOutside)=\"onClickOutside($event)\"\r\n     [attachOutsideOnClick]=\"true\">\r\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\r\n    {{showSelected?.name}}\r\n  </div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\r\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\r\n    <div *ngFor=\"let option of options\">\r\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\r\n           class=\"option\">{{option.name}}</div>\r\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                template: "<div class=\"select\"\n     (click)=\"toggle($event)\"\n     (touchstart)=\"toggle($event)\"\n     (clickOutside)=\"onClickOutside($event)\"\n     [attachOutsideOnClick]=\"true\">\n  <div *ngIf=\"!icon\" class=\"selected-value\" gdDisabledCursor [dis]=\"disabled\">\n    {{showSelected?.name | translate}}\n  </div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\n  <span class=\"nav-caret\" gdDisabledCursor [dis]=\"disabled\"></span>\n  <div class=\"dropdown-menu\" *ngIf=\"isOpen\">\n    <div *ngFor=\"let option of options\">\n      <div *ngIf=\"!option.separator\" (click)=\"select($event, option)\" (touchstart)=\"select($event, option)\"\n           class=\"option\">{{option.name | translate}}</div>\n      <div *ngIf=\"option.separator\" role=\"separator\" class=\"dropdown-menu-separator\"></div>\n    </div>\n  </div>\n</div>\n",
                 styles: [".select{min-width:50px;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;color:#959da5}.selected-value{font-size:14px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:clip;max-width:70px}.selected-value.inactive{cursor:not-allowed;color:#ccc}.nav-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px dashed;border-right:4px solid transparent;border-left:4px solid transparent;cursor:pointer}.nav-caret.inactive{cursor:not-allowed;color:#ccc}.dropdown-menu{position:absolute;top:49px;z-index:1000;float:left;min-width:96px;list-style:none;font-size:13px;text-align:left;background-color:#fff;box-shadow:0 3px 6px rgba(0,0,0,.3);background-clip:padding-box}.dropdown-menu .option{display:block;padding:7px 0 7px 7px;clear:both;font-weight:400;line-height:1.42857143;white-space:nowrap;cursor:pointer;font-size:10px}.dropdown-menu .option:hover{background-color:#25c2d4;color:#fff!important}.dropdown-menu-separator{height:1px;overflow:hidden;background-color:#f4f4f4;padding:0!important}"]
             }] }
 ];
@@ -2658,7 +2680,7 @@ class InitStateComponent {
 InitStateComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-init-state',
-                template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\r\n  <div class=\"init-state-wrapper\">\r\n    <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\r\n    <span class=\"start\">\r\n      <ng-content></ng-content>\r\n    </span>\r\n  </div>\r\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\r\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\r\n    <span class=\"text\">{{text}}</span>\r\n  </div>\r\n</div>\r\n",
+                template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\">\n  <div class=\"init-state-wrapper\">\n    <fa-icon class=\"icon\" [icon]=\"['fas',icon]\"></fa-icon>\n    <span class=\"start\">\n      <ng-content></ng-content>\n    </span>\n  </div>\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n    <span class=\"text\">{{text}}</span>\n  </div>\n</div>\n",
                 styles: [".wrapper{color:#959da5;background-color:#e7e7e7;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%;height:100%}.icon{font-size:65px;margin-bottom:43px;display:-webkit-box;display:flex;color:#959da5}.start{font-size:15px;text-align:center;color:#959da5}.gd-drag-n-drop-wrap.active{background-color:#fff;position:fixed;top:0;background:rgba(255,255,255,.8)}.gd-drag-n-drop-wrap.active .init-state-wrapper{position:absolute;opacity:.2;top:unset}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper{top:0;z-index:999}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon{width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}.gd-drag-n-drop-wrap.active .text{color:#6e6e6e;font-size:14px}.init-state-dnd-wrapper,.init-state-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:250px;height:250px;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.init-state-wrapper{top:-60px;position:relative}"]
             }] }
 ];
@@ -2931,7 +2953,7 @@ class ErrorModalComponent {
 ErrorModalComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-error-modal',
-                template: "<gd-modal id=\"gd-error-message\" [title]=\"'Error'\">\r\n  <section id=\"gd-error-section\">\r\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\r\n    <div class=\"gd-modal-error\">\r\n      <div class=\"gd-modal-error-title\">Something went wrong</div>\r\n      <div class=\"gd-modal-error-message\">{{message ? message : 'Server is not available'}}</div>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
+                template: "<gd-modal id=\"gd-error-message\" title=\"{{'Error' | translate}}\">\n  <section id=\"gd-error-section\">\n    <fa-icon [icon]=\"['fas', 'exclamation-triangle']\"></fa-icon>\n    <div class=\"gd-modal-error\">\n      <div class=\"gd-modal-error-title\">{{'Something went wrong' | translate}}</div>\n      <div class=\"gd-modal-error-message\">{{(message ? message : 'Server is not available') | translate}}</div>\n    </div>\n  </section>\n</gd-modal>\n",
                 styles: [".gd-modal-error{display:-webkit-inline-box;display:inline-flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-flex:1;flex:1}.gd-modal-error .gd-modal-error-message{font-size:12px;margin:0 24px 24px 0;word-break:break-word}.gd-modal-error .gd-modal-error-title{font-size:16px;font-weight:700;margin:14px 0 10px}#gd-error-section{max-width:468px;max-height:204px;display:-webkit-box;display:flex}#gd-error-section fa-icon{-webkit-box-flex:1;flex:1;color:#e04e4e;font-size:40px;margin:13px 23px 90px;text-align:center;max-width:46px}"]
             }] }
 ];
@@ -3031,8 +3053,8 @@ class PasswordRequiredComponent {
 PasswordRequiredComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-password-required',
-                template: "<gd-modal id=\"gd-password-required\" [title]=\"'Password protected document'\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\r\n  <section id=\"gd-password-section\">\r\n    <div class=\"gd-password-wrap\">\r\n      <label for=\"password\">Password</label>\r\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\r\n             (keyup.enter)=\"setPassword(pass.value)\">\r\n      <span class=\"gd-password-error\">{{message}}</span>\r\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\r\n          Open\r\n      </gd-button>\r\n    </div>\r\n  </section>\r\n</gd-modal>\r\n",
-                styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;width:72px;padding:0;-webkit-box-pack:center;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
+                template: "<gd-modal id=\"gd-password-required\" title=\"{{'Password protected document' | translate}}\" (cancel)=\"cancel($event)\" (visible)=\"onCloseOpen($event)\">\n  <section id=\"gd-password-section\">\n    <div class=\"gd-password-wrap\">\n      <label for=\"password\">{{'Password' | translate}}</label>\n      <input type=\"password\" class=\"form-control\" [ngClass]=\"{'error': message}\" id=\"password\" #pass\n             (keyup.enter)=\"setPassword(pass.value)\">\n      <span class=\"gd-password-error\">{{message | translate}}</span>\n      <gd-button [icon]=\"'key'\" [intent]=\"'brand'\" [iconOnly]=\"false\" (click)=\"setPassword(pass.value)\">\n        {{'Open' | translate}}\n      </gd-button>\n    </div>\n  </section>\n</gd-modal>\n",
+                styles: ["#gd-password-section{width:375px;height:164px}.gd-password-wrap{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:24px}.gd-password-wrap label{font-size:14px;color:#acacac;padding-bottom:12px}.gd-password-wrap input{height:30px;border:1px solid #25c2d4}.gd-password-wrap input.error{border-color:#e04e4e}.gd-password-wrap gd-button{align-self:flex-end}.gd-password-wrap ::ng-deep .button{height:37px;padding:0 10px;-webkit-box-pack:center;justify-content:center}.gd-password-wrap ::ng-deep .button ::ng-deep .text{font-size:10px!important}.gd-password-error{color:#e04e4e;padding:10px 0 12px;height:12px;line-height:12px;font-size:12px}@media (max-width:1037px){#gd-password-section{min-width:375px}}"]
             }] }
 ];
 /** @nocollapse */
@@ -3253,7 +3275,7 @@ class SearchComponent {
 SearchComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-search',
-                template: "<div class=\"gd-nav-search-container\">\r\n  <input type=\"text\" class=\"gd-search-input\" (keydown.enter)=\"next()\" #text (input)=\"setText(text.value)\"/>\r\n  <div class=\"gd-search-count\">{{current}} of {{total}}</div>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\r\n  </gd-button>\r\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\r\n  </gd-button>\r\n</div>\r\n",
+                template: "<div class=\"gd-nav-search-container\">\n  <input type=\"text\" class=\"gd-search-input\" (keydown.enter)=\"next()\" #text (input)=\"setText(text.value)\"/>\n  <div class=\"gd-search-count\">{{current}} {{'of' | translate}}  {{total}}</div>\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-left'\" [disabled]=\"total == 0 || current == 1\" (click)=\"prev()\">\n  </gd-button>\n  <gd-button class=\"gd-nav-search-btn\" [icon]=\"'chevron-right'\" [disabled]=\"total == 0 || current == total\" (click)=\"next()\">\n  </gd-button>\n  <gd-button class=\"gd-nav-search-btn gd-nav-search-cancel\" [icon]=\"'times'\" (click)=\"hide()\">\n  </gd-button>\n</div>\n",
                 styles: [".gd-nav-search-btn{margin:3px 0 4px}.gd-nav-search-cancel{color:#fff;font-size:14px;width:37px}.gd-search-count{color:#959da5;font-size:12px;position:absolute;right:148px;top:14px}.gd-nav-search-container{background-color:#3e4e5a;width:410px;position:fixed;left:50%;top:60px;z-index:2;-webkit-transform:translate(-50%,0);transform:translate(-50%,0);display:-webkit-box;display:flex}.gd-search-input{float:left;height:30px;width:267px;font-size:14px;color:#6e6e6e;border:1px solid #25c2d4;margin:7px 0 7px 7px;box-sizing:border-box;padding:6px 0 5px 9px}input[type=text]::-ms-clear{display:none}@media (max-width:1037px){.gd-search-input{width:231px;height:30px;margin:7px 0 7px 5px}.gd-search-count{position:absolute;left:193px;top:15px}.gd-nav-search-container{width:100%}}"]
             }] }
 ];
@@ -3465,7 +3487,7 @@ class TabbedToolbarsComponent {
 TabbedToolbarsComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-tabbed-toolbars',
-                template: "<div class=\"top-panel\">\r\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<div class=\"top-panel\">\n  <gd-logo [logo]=\"logo\" [icon]=\"icon\"></gd-logo>\n  <ng-content></ng-content>\n</div>\n",
                 styles: [".top-panel{background:#3e4e5a;display:-webkit-box;display:flex;width:100%;height:90px}.top-panel ::ng-deep .logo{height:30px;font-size:16px}@media (max-width:1037px){.top-panel{height:60px}.top-panel ::ng-deep .logo{height:60px}}"]
             }] }
 ];
@@ -3554,7 +3576,7 @@ class TabComponent {
 TabComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-tab',
-                template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\r\n  <div class=\"smp-tab-title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n</div>\r\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<div [ngClass]=\"(active) ? 'gd-tab active' : 'gd-tab'\" (mousedown)=\"selectTab()\">\n  <div class=\"smp-tab-title\" *ngIf=\"tabTitle\">{{tabTitle}}</div>\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n</div>\n<div *ngIf=\"content\" [ngClass]=\"(active) ? 'tab-content active' : 'tab-content'\">\n  <ng-content></ng-content>\n</div>\n",
                 styles: [".tab-content{height:60px;position:absolute;background-color:#fff;width:100%;left:0;line-height:60px;display:none;z-index:9}.tab-content ::ng-deep .toolbar-panel{height:60px}.tab-content.active{display:-webkit-box;display:flex}.gd-tab{text-align:center;font-size:11px;color:#e5e5e5;height:30px;line-height:30px;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.gd-tab .icon{display:none;font-size:14px}.gd-tab .smp-tab-title{margin:auto 23px}.gd-tab.active{background-color:#fff;color:#3e4e5a;font-weight:700}@media (max-width:1037px){.gd-tab{height:60px;line-height:60px;width:60px}.gd-tab .smp-tab-title{display:none}.gd-tab .icon{display:block;font-size:22px}}"]
             }] }
 ];
@@ -3583,7 +3605,7 @@ class TabsComponent {
 TabsComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-tabs',
-                template: "<div class=\"gd-tabs\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<div class=\"gd-tabs\">\n  <ng-content></ng-content>\n</div>\n",
                 styles: [".gd-tabs{display:-webkit-box;display:flex}"]
             }] }
 ];
@@ -3908,7 +3930,7 @@ class ColorPickerComponent {
 ColorPickerComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-color-picker',
-                template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\r\n  <div class=\"bcPicker-palette\">\r\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\"\r\n      (click)=\"select($event, color)\" [style.border]=\"'1px solid ' + (color === white ? '#707070' : color)\"\r\n      (touchstart)=\"select($event, color)\"></div>\r\n  </div>\r\n</div>\r\n",
+                template: "<div class=\"bcPicker-picker\" (clickOutside)=\"close()\" *ngIf=\"isOpen\" [clickOutsideEnabled]=\"isOpen\">\n  <div class=\"bcPicker-palette\">\n    <div class=\"bcPicker-color\" *ngFor=\"let color of colors\" [style.background-color]=\"color\"\n      (click)=\"select($event, color)\" [style.border]=\"'1px solid ' + (color === white ? '#707070' : color)\"\n      (touchstart)=\"select($event, color)\"></div>\n  </div>\n</div>\n",
                 styles: [".bcPicker-picker{border:1px;border-radius:100%}.bcPicker-palette{width:250px;background-color:#fdfdfd;z-index:999;box-shadow:0 0 5px #efefef;display:-webkit-box;display:flex;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center}.bcPicker-palette>.bcPicker-color{width:18px;height:18px;margin:2px;cursor:pointer}"]
             }] }
 ];
@@ -4400,7 +4422,7 @@ class SuccessModalComponent {
 SuccessModalComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-success-modal',
-                template: "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\r\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\r\n    <div class=\"sa-icon sa-success animate\">\r\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\r\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\r\n        <div class=\"sa-placeholder\"></div>\r\n        <div class=\"sa-fix\"></div>\r\n      </div>\r\n  </div></div>\r\n  </gd-modal>\r\n",
+                template: "<gd-modal id=\"gd-success-modal\" [title]=\"'Saved'\">\n<div id=\"gd-modal-success\"><div class=\"check_mark\">\n    <div class=\"sa-icon sa-success animate\">\n        <span class=\"sa-line sa-tip animateSuccessTip\"></span>\n        <span class=\"sa-line sa-long animateSuccessLong\"></span>\n        <div class=\"sa-placeholder\"></div>\n        <div class=\"sa-fix\"></div>\n      </div>\n  </div></div>\n  </gd-modal>\n",
                 styles: [".check_mark{margin:47px auto}.sa-icon{width:80px;height:80px;border:4px solid gray;border-radius:50%;padding:0;position:relative;box-sizing:content-box}#gd-modal-success{display:-webkit-box;display:flex;overflow:hidden;width:469px;height:183px}.sa-icon.sa-success{border-color:#4caf50;-webkit-transform:scale(1.18);transform:scale(1.18)}.sa-icon.sa-success::after,.sa-icon.sa-success::before{content:'';position:absolute;width:60px;height:120px;background:#fff}.sa-icon.sa-success::before{border-radius:120px 0 0 120px;top:-7px;left:-33px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:60px 60px;transform-origin:60px 60px}.sa-icon.sa-success::after{border-radius:0 120px 120px 0;top:-11px;left:30px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-transform-origin:0 60px;transform-origin:0 60px}.sa-icon.sa-success .sa-placeholder{width:80px;height:80px;border:4px solid rgba(76,175,80,.5);border-radius:50%;box-sizing:content-box;position:absolute;left:-4px;top:-4px;z-index:2}.sa-icon.sa-success .sa-fix{width:5px;height:90px;background-color:#fff;position:absolute;left:28px;top:8px;z-index:1;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.sa-icon.sa-success.animate::after{-webkit-animation:4.25s ease-in rotatePlaceholder;animation:4.25s ease-in rotatePlaceholder}.animateSuccessTip{-webkit-animation:.75s animateSuccessTip;animation:.75s animateSuccessTip}.animateSuccessLong{-webkit-animation:.75s animateSuccessLong;animation:.75s animateSuccessLong}@-webkit-keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}@-webkit-keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessTip{0%,54%{width:0;left:1px;top:19px}70%{width:50px;left:-8px;top:37px}84%{width:17px;left:21px;top:48px}100%{width:25px;left:14px;top:45px}}@keyframes animateSuccessLong{0%,65%{width:0;right:46px;top:54px}84%{width:55px;right:0;top:35px}100%{width:47px;right:8px;top:38px}}.sa-icon.sa-success .sa-line{height:5px;background-color:#4caf50;display:block;border-radius:2px;position:absolute;z-index:2}.sa-icon.sa-success .sa-line.sa-tip{width:25px;left:14px;top:46px;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.sa-icon.sa-success .sa-line.sa-long{width:47px;right:8px;top:38px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}@-webkit-keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@keyframes rotatePlaceholder{0%,5%{transform:rotate(-45deg);-webkit-transform:rotate(-45deg)}100%,12%{transform:rotate(-405deg);-webkit-transform:rotate(-405deg)}}@media (max-width:1037px){#gd-modal-success{left:50%;top:50%;position:relative;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}}"]
             }] }
 ];
@@ -4612,7 +4634,7 @@ class LoadingMaskComponent {
 LoadingMaskComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-loading-mask',
-                template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\r\n    <div class=\"loading-message\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;Loading... Please wait.\r\n    </div>\r\n</div>\r\n",
+                template: "<div class=\"loading-wrapper\" *ngIf=\"loadingMask\">\n    <div class=\"loading-message\">\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon> &nbsp;{{'Loading... Please wait.' | translate}}\n    </div>\n</div>\n",
                 styles: [".loading-wrapper{background:rgba(0,0,0,.5);width:100%;height:100%;font-size:14px;color:#fff;position:fixed;top:0;left:0;z-index:99999}.loading-message{position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
             }] }
 ];
@@ -4889,7 +4911,7 @@ class LeftSideBarComponent {
 LeftSideBarComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-left-side-bar',
-                template: "<div class=\"left-panel\">\r\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\r\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<div class=\"left-panel\">\n  <div class=\"gd-left-bar-fade\" *ngIf=\"showSpinner\">\n    <div class=\"gd-left-bar-spinner\"><i class=\"fa fa-circle-o-notch fa-spin\"></i> &nbsp;Loading...\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n",
                 styles: [".left-panel{border-radius:0;float:left}.gd-left-bar-fade{margin:auto;overflow:hidden;-webkit-overflow-scrolling:touch;-webkit-transition:-webkit-transform .3s ease-out;transition:transform .3s ease-out;transition:transform .3s ease-out,-webkit-transform .3s ease-out;width:100%;height:100%;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;position:fixed;z-index:1000}@media (max-width:1037px){.gd-left-bar-fade{top:100px;right:0}.gd-left-bar-spinner{top:20%}}"]
             }] }
 ];
@@ -5220,7 +5242,7 @@ class ResizingComponent {
 ResizingComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-resizing',
-                template: "<div class=\"ui-resizable-handle se-resize\" id=\"se-{{id}}\" *ngIf=\"se\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, SE)\" (dragend)=\"end($event, SE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n      (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SE)\" (panend)=\"end($event, SE)\"></div>\r\n\r\n<div class=\"ui-resizable-handle ne-resize\" id=\"ne-{{id}}\" *ngIf=\"ne\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, NE)\" (dragend)=\"end($event, NE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NE)\" (panend)=\"end($event, NE)\"></div>\r\n\r\n<div class=\"ui-resizable-handle sw-resize\" id=\"sw-{{id}}\" *ngIf=\"sw\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, SW)\" (dragend)=\"end($event, SW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SW)\" (panend)=\"end($event, SW)\"></div>\r\n\r\n<div class=\"ui-resizable-handle nw-resize\" id=\"nw-{{id}}\" *ngIf=\"nw\" [draggable]=\"true\" (dragover)=\"start($event)\"\r\n     (drag)=\"resize($event, NW)\" (dragend)=\"end($event, NW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\r\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NW)\" (panend)=\"end($event, NW)\"></div>\r\n",
+                template: "<div class=\"ui-resizable-handle se-resize\" id=\"se-{{id}}\" *ngIf=\"se\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SE)\" (dragend)=\"end($event, SE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n      (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SE)\" (panend)=\"end($event, SE)\"></div>\n\n<div class=\"ui-resizable-handle ne-resize\" id=\"ne-{{id}}\" *ngIf=\"ne\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NE)\" (dragend)=\"end($event, NE)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NE)\" (panend)=\"end($event, NE)\"></div>\n\n<div class=\"ui-resizable-handle sw-resize\" id=\"sw-{{id}}\" *ngIf=\"sw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, SW)\" (dragend)=\"end($event, SW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, SW)\" (panend)=\"end($event, SW)\"></div>\n\n<div class=\"ui-resizable-handle nw-resize\" id=\"nw-{{id}}\" *ngIf=\"nw\" [draggable]=\"true\" (dragover)=\"start($event)\"\n     (drag)=\"resize($event, NW)\" (dragend)=\"end($event, NW)\" (dragstart)=\"catchUp($event)\" (drop)=\"drop($event)\"\n     (panstart)=\"catchUp($event)\" (panmove)=\"resize($event, NW)\" (panend)=\"end($event, NW)\"></div>\n",
                 styles: [".ui-resizable-handle{background-color:#679ffa;width:8px;height:8px;border-radius:100%;position:absolute;font-size:.1px;display:block}.se-resize{bottom:-5px;right:-5px;cursor:se-resize}.ne-resize{top:-5px;right:-5px;cursor:ne-resize}.sw-resize{bottom:-5px;left:-5px;cursor:sw-resize}.nw-resize{top:-5px;left:-5px;cursor:nw-resize}"]
             }] }
 ];
@@ -5322,7 +5344,7 @@ class TopTabComponent {
 TopTabComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-top-tab',
-                template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\r\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\r\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\r\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" class=\"gd-tab-tooltip\"\r\n              *ngIf=\"tooltip\" [position]=\"elementPosition\"></gd-tooltip>\r\n</div>\r\n",
+                template: "<div class=\"gd-tab\" (mousedown)=\"toggleTab()\" gdTooltip (showToolTip)=\"showToolTip = $event\"\n     [ngClass]=\"(active) ? ((disabled) ? 'active disabled' : 'active') : ((disabled) ? 'disabled' : '')\">\n  <fa-icon *ngIf=\"icon\" [icon]=\"['fas',icon]\" [class]=\"'ng-fa-icon icon'\"></fa-icon>\n  <gd-tooltip [text]=\"tooltip\" [show]=\"showToolTip\" class=\"gd-tab-tooltip\"\n              *ngIf=\"tooltip\" [position]=\"elementPosition\"></gd-tooltip>\n</div>\n",
                 styles: [".gd-tab{font-size:14px;color:#3e4e5a;cursor:pointer;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;align-content:center;-webkit-box-pack:center;justify-content:center;min-width:36px;height:36px;text-align:center;position:relative;white-space:nowrap;padding:0!important;margin:0 10px}.gd-tab .gd-tab-tooltip{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:0!important}.gd-tab.active{background-color:#acacac;color:#fff!important;font-weight:700}.gd-tab.disabled{cursor:not-allowed;opacity:.4}.gd-tab ::ng-deep .tooltip{font-size:12px;margin:20px -57px}.gd-tab .title{margin:auto 23px}@media (max-width:1037px){.gd-tab{font-size:20px}}"]
             }] }
 ];
@@ -5500,7 +5522,7 @@ class TextMenuComponent {
 TextMenuComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-text-menu',
-                template: "<div class=\"gd-text-menu\">\r\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\r\n             (selected)=\"selectFont($event)\"\r\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\r\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\r\n             (selected)=\"selectFontSize($event)\"\r\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\r\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\r\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\r\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\r\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\r\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\r\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\r\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\r\n  </gd-button>\r\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\r\n                   [className]=\"'palette'\"\r\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<div class=\"gd-text-menu\">\n  <gd-select class=\"format-select first-component\" [options]=\"fontOptions\"\n             (selected)=\"selectFont($event)\"\n             [showSelected]=\"{name : font, value : font}\"></gd-select>\n  <gd-select class=\"format-select\" [options]=\"fontSizeOptions\"\n             (selected)=\"selectFontSize($event)\"\n             [showSelected]=\"{name : fontSize + 'px', value : fontSize}\"></gd-select>\n  <gd-button [icon]=\"'bold'\" [tooltip]=\"showTooltips ? 'Bold' : null\" *ngIf=\"decoration\"\n             (click)=\"toggleBold($event)\" (touchstart)=\"toggleBold($event)\" [toggle]=\"bold\"></gd-button>\n  <gd-button [icon]=\"'italic'\" [tooltip]=\"showTooltips ? 'Italic' : null\" *ngIf=\"decoration\"\n             (click)=\"toggleItalic($event)\" (touchstart)=\"toggleItalic($event)\" [toggle]=\"italic\"></gd-button>\n  <gd-button [icon]=\"'underline'\" [tooltip]=\"showTooltips ? 'Underline' : null\" *ngIf=\"decoration\"\n             (click)=\"toggleUnderline($event)\" (touchstart)=\"toggleUnderline($event)\" [toggle]=\"underline\"></gd-button>\n  <gd-button name=\"button\" class=\"color-for-text\" [icon]=\"'font'\" [tooltip]=\"showTooltips ? 'Color' : null\"\n             (click)=\"toggleColorPicker($event)\" (touchstart)=\"toggleColorPicker($event)\">\n    <div class=\"bg-color-pic\" [style.background-color]=\"color\"></div>\n  </gd-button>\n  <gd-color-picker [isOpen]=\"colorPickerShow\" (closeOutside)=\"closePicker($event)\"\n                   [className]=\"'palette'\"\n                   (selectedColor)=\"selectColor($event)\"></gd-color-picker>\n  <ng-content></ng-content>\n</div>\n",
                 styles: ["::ng-deep .active{background-color:#e7e7e7}.gd-text-menu{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.gd-text-menu .format-select{height:37px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;max-width:80px;margin:0 3px}.gd-text-menu .first-component{margin-left:8px}.gd-text-menu ::ng-deep .dropdown-menu{top:40px!important;height:120px;overflow-y:auto}.gd-text-menu ::ng-deep .icon-button{margin:0!important}.bg-color-pic{border-radius:100%;border:1px solid #ccc;position:absolute;height:8px;width:8px;right:6px;bottom:6px}.palette{position:relative;top:40px;left:-55px;z-index:100}@media (max-width:1037px){.gd-text-menu{position:fixed;left:0;right:0;width:inherit;height:60px;-webkit-box-align:center;align-items:center;padding:0;margin:0;background-color:#fff;border-top:2px solid #707070;-webkit-transform-origin:top left;transform-origin:top left;z-index:1000}.gd-text-menu ::ng-deep .selected-value{white-space:normal!important;word-wrap:break-word}.gd-text-menu .icon{color:#fff;margin:0 9px}.gd-text-menu ::ng-deep .bcPicker-palette{left:-200px;top:-185px}.gd-text-menu .palette{top:unset;bottom:40px;left:unset;right:5px}.gd-text-menu ::ng-deep .dropdown-menu{bottom:40px;top:unset!important}.gd-text-menu ::ng-deep .first-component ::ng-deep .dropdown-menu{left:0}.gd-text-menu ::ng-deep .button{margin:3px!important;font-size:16px}}"]
             }] }
 ];
@@ -5685,7 +5707,7 @@ class ContextMenuComponent {
 ContextMenuComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                 selector: 'gd-context-menu',
-                template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\r\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\r\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\r\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\r\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\r\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\r\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\r\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\r\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\r\n             (click)=\"toggleLock()\"></gd-button>\r\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\r\n             (touchstart)=\"onCopySign()\"></gd-button>\r\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\r\n             (touchstart)=\"deleteItem()\"></gd-button>\r\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\r\n             (touchstart)=\"addComment()\"></gd-button>\r\n</div>\r\n",
+                template: "<div class=\"gd-context-menu\" [ngStyle]=\"isMobile ? null : {transform: 'translateX(' + translation + 'px)'}\"\n     [ngClass]=\"topPosition > 10 ? 'gd-context-menu-top' : 'gd-context-menu-bottom'\">\n  <gd-button [icon]=\"'arrows-alt'\" [class]=\"'ng-fa-icon icon arrows'\" [iconSize]=\"'sm'\"></gd-button>\n  <gd-text-menu *ngIf=\"textMenu\" [blur]=\"isMobile && isSignature()\" [color]=\"formatting.color\" [bold]=\"formatting.bold\"\n                [font]=\"formatting.font\" [fontSize]=\"formatting.fontSize\" [italic]=\"formatting.italic\"\n                [underline]=\"formatting.underline\" (outBold)=\"toggleBold($event)\"\n                (outUnderline)=\"toggleUnderline($event)\" (outItalic)=\"toggleItalic($event)\"\n                (outColor)=\"selectColor($event)\" (outFont)=\"selectFont($event)\"\n                (outFontSize)=\"selectFontSize($event)\" [decoration]=\"isSignature()\"></gd-text-menu>\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"lock ? 'lock' : 'unlock'\" [class]=\"'ng-fa-icon icon'\"\n             (click)=\"toggleLock()\"></gd-button>\n  <gd-button *ngIf=\"isSignature()\" [icon]=\"'copy'\" [class]=\"'ng-fa-icon icon'\" (click)=\"onCopySign()\"\n             (touchstart)=\"onCopySign()\"></gd-button>\n  <gd-button [icon]=\"'trash'\" [class]=\"'ng-fa-icon icon'\" (click)=\"deleteItem()\"\n             (touchstart)=\"deleteItem()\"></gd-button>\n  <gd-button *ngIf=\"isAnnotation()\" [icon]=\"'comment'\" [class]=\"'ng-fa-icon icon'\" (click)=\"addComment()\"\n             (touchstart)=\"addComment()\"></gd-button>\n</div>\n",
                 styles: [".gd-context-menu-top{top:-44px}.gd-context-menu-bottom{bottom:-40px}.gd-context-menu{box-shadow:rgba(0,0,0,.52) 0 0 5px;background-color:#fff;position:absolute;left:0;right:0;margin:auto;cursor:default;width:max-content;width:-moz-max-content;width:-webkit-max-content;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;z-index:999}.gd-context-menu .arrows{cursor:move}.gd-context-menu ::ng-deep .active{background-color:#e7e7e7}.gd-context-menu ::ng-deep .icon-button{margin:0!important}@media (max-width:1037px){.gd-context-menu-top{top:-42px;-webkit-transform-origin:bottom center;transform-origin:bottom center}}"]
             }] }
 ];
@@ -5943,7 +5965,12 @@ class CommonComponentsModule {
 }
 CommonComponentsModule.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
-                imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeModule"], ng_click_outside__WEBPACK_IMPORTED_MODULE_12__["ClickOutsideModule"]],
+                imports: [
+                    _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                    _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeModule"],
+                    ng_click_outside__WEBPACK_IMPORTED_MODULE_12__["ClickOutsideModule"],
+                    _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateModule"]
+                ],
                 declarations: [
                     TopToolbarComponent,
                     SidePanelComponent,
@@ -6046,6 +6073,1002 @@ CommonComponentsModule.decorators = [
 ];
 /** @nocollapse */
 CommonComponentsModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const AR = {
+    "Open document": "افتح المستند",
+    "Upload file": "رفع ملف",
+    "Drop file here to upload": "قم بإسقاط الملف هنا للتحميل",
+    "Disc": "قرص",
+    "URL": "URL",
+    "FILE": "ملف",
+    "SIZE": "بحجم",
+    "MB": "ميغا بايت",
+    "KB": "كيلو بايت",
+    "Bytes": "بايت",
+    "Loading... Please wait.": "جاري التحميل انتظر من فضلك.",
+    "Fit Width": "العرض المناسب",
+    "Fit Height": "ارتفاع ملائم",
+    "Password protected document": "وثيقة محمية بكلمة مرور",
+    "Password": "كلمه السر",
+    "Open": "افتح",
+    "Password Required": "كلمة المرور مطلوبة",
+    "Incorrect password": "كلمة سر خاطئة",
+    "Error": "خطأ",
+    "Something went wrong": "هناك خطأ ما",
+    "Server is not available": "الخادم غير متاح",
+    "of": "من",
+    "Please wait...": "ارجوك انتظر..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const CA = {
+    "Open document": "Obre el document",
+    "Upload file": "Penja el document",
+    "Drop file here to upload": "Deixa anar el fitxer aquí per penjar-lo",
+    "Disc": "Disc",
+    "URL": "URL",
+    "FILE": "DOSSIER",
+    "SIZE": "TALLA",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Carregant, esperi, si us plau.",
+    "Fit Width": "Amplada d’ajust",
+    "Fit Height": "Ajust de l'alçada",
+    "Password protected document": "Document protegit amb contrasenya",
+    "Password": "Contrasenya",
+    "Open": "Obert",
+    "Password Required": "Es requereix una contrasenya",
+    "Incorrect password": "contrasenya incorrecta",
+    "Error": "Error",
+    "Something went wrong": "Alguna cosa ha anat malament",
+    "Server is not available": "El servidor no està disponible",
+    "of": "de",
+    "Please wait...": "Si us plau, espereu ..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const CS = {
+    "Open document": "Otevřít dokument",
+    "Upload file": "Nahrát soubor",
+    "Drop file here to upload": "Přetáhněte soubor sem a nahrajte jej",
+    "Disc": "Disk",
+    "URL": "URL",
+    "FILE": "SOUBOR",
+    "SIZE": "VELIKOST",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bajty",
+    "Loading... Please wait.": "Načítání prosím čekejte.",
+    "Fit Width": "Přizpůsobit šířce",
+    "Fit Height": "Přizpůsobit výšce",
+    "Password protected document": "Dokument chráněný heslem",
+    "Password": "Heslo",
+    "Open": "Otevřeno",
+    "Password Required": "Vyžadováno heslo",
+    "Incorrect password": "Nesprávné heslo",
+    "Error": "Chyba",
+    "Something went wrong": "Něco se pokazilo",
+    "Server is not available": "Server není k dispozici",
+    "of": "z",
+    "Please wait...": "Prosím, čekejte..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const DA = {
+    "Open document": "Åbn dokument",
+    "Upload file": "Upload fil",
+    "Drop file here to upload": "Drop filen her for at uploade",
+    "Disc": "Disk",
+    "URL": "URL",
+    "FILE": "FIL",
+    "SIZE": "STØRRELSE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Indlæser vent venligst.",
+    "Fit Width": "Tilpas bredde",
+    "Fit Height": "Tilpas højde",
+    "Password protected document": "Adgangskodebeskyttet dokument",
+    "Password": "Adgangskode",
+    "Open": "Åben",
+    "Password Required": "Adgangskode påkrævet",
+    "Incorrect password": "forkert kodeord",
+    "Error": "Fejl",
+    "Something went wrong": "Noget gik galt",
+    "Server is not available": "Serveren er ikke tilgængelig",
+    "of": "af",
+    "Please wait...": "Vent venligst..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const DE = {
+    "Open document": "Dokument öffnen",
+    "Upload file": "Datei hochladen",
+    "Drop file here to upload": "Datei zum Hochladen hier ablegen",
+    "Disc": "Rabatt",
+    "URL": "URL",
+    "FILE": "DATEI",
+    "SIZE": "GRÖSSE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Laden, bitte warten.",
+    "Fit Width": "Breite anpassen",
+    "Fit Height": "Passende Höhe",
+    "Password protected document": "Passwortgeschütztes Dokument",
+    "Password": "Passwort",
+    "Open": "Offen",
+    "Password Required": "Passwort erforderlich",
+    "Incorrect password": "Falsches Passwort",
+    "Error": "Fehler",
+    "Something went wrong": "Etwas ist schief gelaufen",
+    "Server is not available": "Server nicht verfügbar",
+    "of": "von",
+    "Please wait...": "Warten Sie mal..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const EL = {
+    "Open document": "Άνοιγμα εγγράφου",
+    "Upload file": "Ανέβασμα αρχείου",
+    "Drop file here to upload": "Αφήστε το αρχείο εδώ για μεταφόρτωση",
+    "Disc": "Δίσκος",
+    "URL": "URL",
+    "FILE": "ΑΡΧΕΙΟ",
+    "SIZE": "ΜΕΓΕΘΟΣ",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Φορτώνει παρακαλώ περιμένετε.",
+    "Fit Width": "Fit Width",
+    "Fit Height": "Fit Height",
+    "Password protected document": "Έγγραφο προστατευμένο με κωδικό πρόσβασης",
+    "Password": "Κωδικός πρόσβασης",
+    "Open": "Ανοιξε",
+    "Password Required": "Απαιτείται κωδικός πρόσβασης",
+    "Incorrect password": "Λάθος κωδικός",
+    "Error": "Λάθος",
+    "Something went wrong": "Κάτι πήγε στραβά",
+    "Server is not available": "Ο διακομιστής δεν είναι διαθέσιμος",
+    "of": "του",
+    "Please wait...": "Παρακαλώ περιμένετε..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const EN = {
+    "Open document": "Open document",
+    "Upload file": "Upload file",
+    "Drop file here to upload": "Drop file here to upload",
+    "Disc": "Disc",
+    "URL": "URL",
+    "FILE": "FILE",
+    "SIZE": "SIZE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Loading... Please wait.",
+    "Fit Width": "Fit Width",
+    "Fit Height": "Fit Height",
+    "Password protected document": "Password protected document",
+    "Password": "Password",
+    "Open": "Open",
+    "Password Required": "Password Required",
+    "Incorrect password": "Incorrect password",
+    "Error": "Error",
+    "Something went wrong": "Something went wrong",
+    "Server is not available": "Server is not available",
+    "of": "of",
+    "Please wait...": "Please wait..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ES = {
+    "Open document": "Abrir documento",
+    "Upload file": "Subir archivo",
+    "Drop file here to upload": "Suelta el archivo aquí para subirlo",
+    "Disc": "Desct",
+    "URL": "URL",
+    "FILE": "EXPEDIENTE",
+    "SIZE": "TALLA",
+    "MB": "MEGABYTE",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Cargando por favor espere.",
+    "Fit Width": "Ajuste ancho",
+    "Fit Height": "Altura de ajuste",
+    "Password protected document": "Documento protegido con contraseña",
+    "Password": "Contraseña",
+    "Open": "Abierto",
+    "Password Required": "Se requiere contraseña",
+    "Incorrect password": "Contraseña incorrecta",
+    "Error": "Error",
+    "Something went wrong": "Algo salió mal",
+    "Server is not available": "El servidor no esta disponible",
+    "of": "de",
+    "Please wait...": "Espere por favor..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const FIL = {
+    "Open document": "Buksan ang dokumento",
+    "Upload file": "Mag-upload ng file",
+    "Drop file here to upload": "I-drop ang file dito upang mai-upload",
+    "Disc": "Disc",
+    "URL": "URL",
+    "FILE": "FILE",
+    "SIZE": "SIZE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Mga byte",
+    "Loading... Please wait.": "Naglo-load ... Mangyaring maghintay.",
+    "Fit Width": "Pagkasyahin ang Lapad",
+    "Fit Height": "Pagkasyahin sa Taas",
+    "Password protected document": "Dokumentong protektado ng password",
+    "Password": "Password",
+    "Open": "Buksan",
+    "Password Required": "Kailangan ng password",
+    "Incorrect password": "Maling password",
+    "Error": "Error",
+    "Something went wrong": "May nangyaring mali",
+    "Server is not available": "Hindi magagamit ang server",
+    "of": "ng",
+    "Please wait...": "Mangyaring maghintay ..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const FR = {
+    "Open document": "Ouvrir le document",
+    "Upload file": "Téléverser un fichier",
+    "Drop file here to upload": "Déposez le fichier ici pour le télécharger",
+    "Disc": "Disque",
+    "URL": "URL",
+    "FILE": "DÉPOSER",
+    "SIZE": "TAILLE",
+    "MB": "Mo",
+    "KB": "Ko",
+    "Bytes": "Octets",
+    "Loading... Please wait.": "Chargement, veuillez patienter.",
+    "Fit Width": "Ajuster la largeur",
+    "Fit Height": "Hauteur d'ajustement",
+    "Password protected document": "Document protégé par mot de passe",
+    "Password": "Mot de passe",
+    "Open": "Ouvert",
+    "Password Required": "Mot de passe requis",
+    "Incorrect password": "Mot de passe incorrect",
+    "Error": "Erreur",
+    "Something went wrong": "Quelque chose s'est mal passé",
+    "Server is not available": "Le serveur n'est pas disponible",
+    "of": "de",
+    "Please wait...": "S'il vous plaît, attendez..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const HE = {
+    "Open document": "מסמך פתוח",
+    "Upload file": "העלה קובץ",
+    "Drop file here to upload": "זרוק את הקובץ כאן להעלאה",
+    "Disc": "דיסק",
+    "URL": "כתובת URL",
+    "FILE": "קוֹבֶץ",
+    "SIZE": "גודל",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "בתים",
+    "Loading... Please wait.": "טוען אנא המתן.",
+    "Fit Width": "רוחב התאמה",
+    "Fit Height": "התאמת גובה",
+    "Password protected document": "מסמך המוגן באמצעות סיסמה",
+    "Password": "סיסמה",
+    "Open": "לִפְתוֹחַ",
+    "Password Required": "נדרשת סיסמה",
+    "Incorrect password": "סיסמא לא נכונה",
+    "Error": "שְׁגִיאָה",
+    "Something went wrong": "משהו השתבש",
+    "Server is not available": "השרת אינו זמין",
+    "of": "שֶׁל",
+    "Please wait...": "המתן בבקשה..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const HI = {
+    "Open document": "दस्तावेज़ खोलें",
+    "Upload file": "फ़ाइल अपलोड करें",
+    "Drop file here to upload": "अपलोड करने के लिए फ़ाइल यहाँ छोड़ें",
+    "Disc": "डिस्क",
+    "URL": "यूआरएल",
+    "FILE": "फ़ाइल",
+    "SIZE": "आकार",
+    "MB": "एमबी",
+    "KB": "केबी",
+    "Bytes": "बाइट्स",
+    "Loading... Please wait.": "लोड हो रहा है कृपया प्रतीक्षा करें।",
+    "Fit Width": "चौड़ाई पर फ़िट",
+    "Fit Height": "ठीक ऊंचाई",
+    "Password protected document": "पासवर्ड से सुरक्षित दस्तावेज़",
+    "Password": "पासवर्ड",
+    "Open": "खोलना",
+    "Password Required": "पासवर्ड आवश्यक",
+    "Incorrect password": "गलत पासवर्ड",
+    "Error": "त्रुटि",
+    "Something went wrong": "कुछ गलत हो गया",
+    "Server is not available": "सर्वर उपलब्ध नहीं है",
+    "of": "का",
+    "Please wait...": "कृपया प्रतीक्षा करें..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ID = {
+    "Open document": "Buka dokumen",
+    "Upload file": "Unggah data",
+    "Drop file here to upload": "Jatuhkan file di sini untuk mengunggah",
+    "Disc": "Cakram",
+    "URL": "URL",
+    "FILE": "MENGAJUKAN",
+    "SIZE": "UKURAN",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Byte",
+    "Loading... Please wait.": "Sedang memuat... Harap tunggu.",
+    "Fit Width": "Cocok Lebar",
+    "Fit Height": "Cocok Tinggi",
+    "Password protected document": "Dokumen yang dilindungi kata sandi",
+    "Password": "Kata sandi",
+    "Open": "Membuka",
+    "Password Required": "Diperlukan Kata Sandi",
+    "Incorrect password": "kata kunci Salah",
+    "Error": "Kesalahan",
+    "Something went wrong": "Ada yang salah",
+    "Server is not available": "Server tidak tersedia",
+    "of": "dari",
+    "Please wait...": "Mohon tunggu..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const IT = {
+    "Open document": "Apri documento",
+    "Upload file": "Caricare un file",
+    "Drop file here to upload": "Trascina qui il file da caricare",
+    "Disc": "Disco",
+    "URL": "URL",
+    "FILE": "FILE",
+    "SIZE": "DIMENSIONE",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Byte",
+    "Loading... Please wait.": "Attendere il caricamento prego.",
+    "Fit Width": "Larghezza adatta",
+    "Fit Height": "Altezza giusta",
+    "Password protected document": "Documento protetto da password",
+    "Password": "Parola d'ordine",
+    "Open": "Aprire",
+    "Password Required": "Password richiesta",
+    "Incorrect password": "password errata",
+    "Error": "Errore",
+    "Something went wrong": "Qualcosa è andato storto",
+    "Server is not available": "Il server non è disponibile",
+    "of": "di",
+    "Please wait...": "Attendere prego..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const JA = {
+    "Open document": "ドキュメントを開く",
+    "Upload file": "ファイルをアップロードする",
+    "Drop file here to upload": "ここにファイルをドロップしてアップロードします",
+    "Disc": "ディスク",
+    "URL": "URL",
+    "FILE": "ファイル",
+    "SIZE": "サイズ",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "バイト",
+    "Loading... Please wait.": "読み込み中。。。待って下さい。",
+    "Fit Width": "フィット幅",
+    "Fit Height": "フィットの高さ",
+    "Password protected document": "パスワードで保護されたドキュメント",
+    "Password": "パスワード",
+    "Open": "開ける",
+    "Password Required": "パスワードが必要",
+    "Incorrect password": "パスワードが正しくありません",
+    "Error": "エラー",
+    "Something went wrong": "何かがうまくいかなかった",
+    "Server is not available": "サーバーは利用できません",
+    "of": "の",
+    "Please wait...": "お待ちください..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const KK = {
+    "Open document": "Құжатты ашу",
+    "Upload file": "Файлды жүктеу",
+    "Drop file here to upload": "Файлды жүктеу үшін осы жерге қойыңыз",
+    "Disc": "Диск",
+    "URL": "URL",
+    "FILE": "ФАЙЛ",
+    "SIZE": "SIZE",
+    "MB": "МБ",
+    "KB": "КБ",
+    "Bytes": "Байт",
+    "Loading... Please wait.": "Жүктелуде ... Күте тұрыңыз.",
+    "Fit Width": "Ені сәйкес",
+    "Fit Height": "Сәйкес биіктік",
+    "Password protected document": "Құпия сөзбен қорғалған құжат",
+    "Password": "Құпия сөз",
+    "Open": "Ашық",
+    "Password Required": "Құпия сөз қажет",
+    "Incorrect password": "Қате құпиясөз",
+    "Error": "Қате",
+    "Something went wrong": "Бірдеңе дұрыс болмады",
+    "Server is not available": "Сервер қол жетімді емес",
+    "of": "ның",
+    "Please wait...": "Өтінемін күте тұрыңыз..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const KO = {
+    "Open document": "문서 열기",
+    "Upload file": "파일 업로드",
+    "Drop file here to upload": "업로드하려면 여기에 파일을 드롭하세요.",
+    "Disc": "디스크",
+    "URL": "URL",
+    "FILE": "파일",
+    "SIZE": "크기",
+    "MB": "메가바이트",
+    "KB": "KB",
+    "Bytes": "바이트",
+    "Loading... Please wait.": "로딩 중 기다려주세요.",
+    "Fit Width": "너비 맞추기",
+    "Fit Height": "맞는 높이",
+    "Password protected document": "암호로 보호된 문서",
+    "Password": "비밀번호",
+    "Open": "열려있는",
+    "Password Required": "비밀번호가 필요합니다",
+    "Incorrect password": "잘못된 비밀번호",
+    "Error": "오류",
+    "Something went wrong": "문제가 발생했습니다.",
+    "Server is not available": "서버를 사용할 수 없습니다",
+    "of": "NS",
+    "Please wait...": "기다리세요..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const MS = {
+    "Open document": "Buka dokumen",
+    "Upload file": "Muat naik fail",
+    "Drop file here to upload": "Jatuhkan fail di sini untuk dimuat naik",
+    "Disc": "Cakera",
+    "URL": "URL",
+    "FILE": "FILE",
+    "SIZE": "SAIZ",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bait",
+    "Loading... Please wait.": "Muat turun sila tunggu.",
+    "Fit Width": "Lebar Fit",
+    "Fit Height": "Tinggi Ketepatan",
+    "Password protected document": "Dokumen dilindungi kata laluan",
+    "Password": "Kata Laluan",
+    "Open": "Buka",
+    "Password Required": "Kata laluan diperlukan",
+    "Incorrect password": "kata laluan salah",
+    "Error": "Ralat",
+    "Something went wrong": "Ada yang tidak kena",
+    "Server is not available": "Pelayan tidak tersedia",
+    "of": "daripada",
+    "Please wait...": "Sila tunggu..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const NL = {
+    "Open document": "Document openen",
+    "Upload file": "Upload bestand",
+    "Drop file here to upload": "Zet het bestand hier neer om te uploaden",
+    "Disc": "Schijf",
+    "URL": "URL",
+    "FILE": "HET DOSSIER",
+    "SIZE": "MAAT",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Laden even geduld aub.",
+    "Fit Width": "Fit Breedte",
+    "Fit Height": "Past de hoogte",
+    "Password protected document": "Met wachtwoord beveiligd document",
+    "Password": "Wachtwoord",
+    "Open": "Open",
+    "Password Required": "Wachtwoord benodigd",
+    "Incorrect password": "Incorrect wachtwoord",
+    "Error": "Fout",
+    "Something went wrong": "Er is iets fout gegaan",
+    "Server is not available": "Server is niet beschikbaar",
+    "of": "van",
+    "Please wait...": "Even geduld aub..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const PL = {
+    "Open document": "Otwórz dokument",
+    "Upload file": "Przesyłanie pliku",
+    "Drop file here to upload": "Upuść plik tutaj, aby go przesłać",
+    "Disc": "Dysk",
+    "URL": "URL",
+    "FILE": "PLIK",
+    "SIZE": "ROZMIAR",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bajty",
+    "Loading... Please wait.": "Ładowanie proszę czekać.",
+    "Fit Width": "Dopasuj szerokość",
+    "Fit Height": "Dopasuj wysokość",
+    "Password protected document": "Dokument chroniony hasłem",
+    "Password": "Hasło",
+    "Open": "otwarty",
+    "Password Required": "Wymagane hasło",
+    "Incorrect password": "niepoprawne hasło",
+    "Error": "Błąd",
+    "Something went wrong": "Coś poszło nie tak",
+    "Server is not available": "Serwer jest niedostępny",
+    "of": "z",
+    "Please wait...": "Proszę czekać..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const PT = {
+    "Open document": "Abrir documento",
+    "Upload file": "Subir arquivo",
+    "Drop file here to upload": "Solte o arquivo aqui para fazer o upload",
+    "Disc": "Disco",
+    "URL": "URL",
+    "FILE": "ARQUIVO",
+    "SIZE": "TAMANHO",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Carregando, por favor espere.",
+    "Fit Width": "Largura de ajuste",
+    "Fit Height": "Altura de ajuste",
+    "Password protected document": "Documento protegido por senha",
+    "Password": "Senha",
+    "Open": "Abrir",
+    "Password Required": "Senha requerida",
+    "Incorrect password": "Senha incorreta",
+    "Error": "Erro",
+    "Something went wrong": "Algo deu errado",
+    "Server is not available": "Servidor não disponível",
+    "of": "do",
+    "Please wait...": "Por favor, espere..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const RO = {
+    "Open document": "Deschideți documentul",
+    "Upload file": "Incarca fisier",
+    "Drop file here to upload": "Plasați fișierul aici pentru încărcare",
+    "Disc": "Disc",
+    "URL": "URL",
+    "FILE": "FIŞIER",
+    "SIZE": "MĂRIMEA",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Octet",
+    "Loading... Please wait.": "Încărcare va rugam asteptati.",
+    "Fit Width": "Lățime potrivită",
+    "Fit Height": "Înălțime potrivită",
+    "Password protected document": "Document protejat prin parolă",
+    "Password": "Parola",
+    "Open": "Deschis",
+    "Password Required": "Parolă obligatorie",
+    "Incorrect password": "Parola incorecta",
+    "Error": "Eroare",
+    "Something went wrong": "Ceva n-a mers bine",
+    "Server is not available": "Serverul nu este disponibil",
+    "of": "de",
+    "Please wait...": "Va rugam asteptati..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const RU = {
+    "Open document": "Открыть документ",
+    "Upload file": "Загрузить файл",
+    "Drop file here to upload": "Перетащите файл сюда, чтобы загрузить",
+    "Disc": "Диск",
+    "URL": "URL",
+    "FILE": "ФАЙЛ",
+    "SIZE": "РАЗМЕР",
+    "MB": "МБ",
+    "KB": "КБ",
+    "Bytes": "Байтов",
+    "Loading... Please wait.": "Загрузка, пожалуйста подождите.",
+    "Fit Width": "По ширине",
+    "Fit Height": "По высоте",
+    "Password protected document": "Документ, защищенный паролем",
+    "Password": "Пароль",
+    "Open": "Открытым",
+    "Password Required": "Требуется пароль",
+    "Incorrect password": "Неверный пароль",
+    "Error": "Ошибка",
+    "Something went wrong": "Что-то пошло не так",
+    "Server is not available": "Сервер недоступен",
+    "of": "из",
+    "Please wait...": "Подождите пожалуйста..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const SV = {
+    "Open document": "Öppna dokument",
+    "Upload file": "Ladda upp fil",
+    "Drop file here to upload": "Släpp filen här för att ladda upp",
+    "Disc": "Skiva",
+    "URL": "URL",
+    "FILE": "FIL",
+    "SIZE": "STORLEK",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Bytes",
+    "Loading... Please wait.": "Laddar ... Vänta.",
+    "Fit Width": "Passformsbredd",
+    "Fit Height": "Passformshöjd",
+    "Password protected document": "Lösenordsskyddat dokument",
+    "Password": "Lösenord",
+    "Open": "Öppen",
+    "Password Required": "Lösenord krävs",
+    "Incorrect password": "fel lösenord",
+    "Error": "Fel",
+    "Something went wrong": "Något gick fel",
+    "Server is not available": "Servern är inte tillgänglig",
+    "of": "av",
+    "Please wait...": "Vänta..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const TH = {
+    "Open document": "เปิดเอกสาร",
+    "Upload file": "อัพโหลดไฟล์",
+    "Drop file here to upload": "วางไฟล์ที่นี่เพื่ออัพโหลด",
+    "Disc": "ดิสก์",
+    "URL": "URL",
+    "FILE": "ไฟล์",
+    "SIZE": "ขนาด",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "ไบต์",
+    "Loading... Please wait.": "กำลังโหลด... กรุณารอสักครู่",
+    "Fit Width": "พอดีความกว้าง",
+    "Fit Height": "พอดีกับความสูง",
+    "Password protected document": "เอกสารป้องกันด้วยรหัสผ่าน",
+    "Password": "รหัสผ่าน",
+    "Open": "เปิด",
+    "Password Required": "ต้องใช้รหัสผ่าน",
+    "Incorrect password": "รหัสผ่านผิดพลาด",
+    "Error": "ข้อผิดพลาด",
+    "Something went wrong": "อะไรบางอย่างผิดปกติ",
+    "Server is not available": "เซิร์ฟเวอร์ไม่พร้อมใช้งาน",
+    "of": "ของ",
+    "Please wait...": "โปรดรอ..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const TR = {
+    "Open document": "Belgeyi aç",
+    "Upload file": "Dosya yükleme",
+    "Drop file here to upload": "Yüklemek için dosyayı buraya bırakın",
+    "Disc": "Disk",
+    "URL": "URL",
+    "FILE": "DOSYA",
+    "SIZE": "BOY",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "bayt",
+    "Loading... Please wait.": "Yükleniyor lütfen bekleyin.",
+    "Fit Width": "Sığdır Genişliği",
+    "Fit Height": "Uygun Yükseklik",
+    "Password protected document": "Parola korumalı belge",
+    "Password": "Parola",
+    "Open": "Açık",
+    "Password Required": "Şifre gerekli",
+    "Incorrect password": "yanlış parola",
+    "Error": "Hata",
+    "Something went wrong": "Bir şeyler yanlış gitti",
+    "Server is not available": "Sunucu kullanılamıyor",
+    "of": "ile ilgili",
+    "Please wait...": "Lütfen bekle..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const UK = {
+    "Open document": "Відкрити документ",
+    "Upload file": "Завантажити файл",
+    "Drop file here to upload": "Перетягніть файл у цю область для завантаження",
+    "Disc": "Пристрій",
+    "URL": "Посилання",
+    "FILE": "Файл",
+    "SIZE": "Розмір",
+    "MB": "МБ",
+    "KB": "КБ",
+    "Bytes": "Байт",
+    "Loading... Please wait.": "Завантаження... Зачекайте, будь ласка.",
+    "Fit Width": "По ширині",
+    "Fit Height": "По висоті",
+    "Password protected document": "Документ захищено паролем",
+    "Password": "Пароль",
+    "Open": "Відкрити",
+    "Password Required": "Необхідно ввести пароль",
+    "Incorrect password": "Неправильний пароль",
+    "Error": "Помилка",
+    "Something went wrong": "Щось пішло не так",
+    "Server is not available": "Сервер недоступний",
+    "of": "з",
+    "Please wait...": "Зачекайте, будь ласка..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const VI = {
+    "Open document": "Mở tài liệu",
+    "Upload file": "Cập nhật dử liệu",
+    "Drop file here to upload": "Thả tệp vào đây để tải lên",
+    "Disc": "Đĩa",
+    "URL": "URL",
+    "FILE": "TẬP TIN",
+    "SIZE": "KÍCH THƯỚC",
+    "MB": "MB",
+    "KB": "KB",
+    "Bytes": "Byte",
+    "Loading... Please wait.": "Tải vui lòng đợi.",
+    "Fit Width": "Vừa chiều rộng",
+    "Fit Height": "Chiều cao phù hợp",
+    "Password protected document": "Tài liệu được bảo vệ bằng mật khẩu",
+    "Password": "Mật khẩu",
+    "Open": "Mở ra",
+    "Password Required": "Mật khẩu được yêu câu",
+    "Incorrect password": "mật khẩu không đúng",
+    "Error": "Lỗi",
+    "Something went wrong": "Đã xảy ra sự cố",
+    "Server is not available": "Máy chủ không có sẵn",
+    "of": "của",
+    "Please wait...": "Vui lòng chờ..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ZHHANS = {
+    "Open document": "打开文档",
+    "Upload file": "上传文件",
+    "Drop file here to upload": "将文件拖放到此处以上传",
+    "Disc": "光盘",
+    "URL": "网址",
+    "FILE": "文件",
+    "SIZE": "尺寸",
+    "MB": "MB",
+    "KB": "知识库",
+    "Bytes": "字节",
+    "Loading... Please wait.": "加载请稍候。",
+    "Fit Width": "适合宽度",
+    "Fit Height": "适合高度",
+    "Password protected document": "受密码保护的文件",
+    "Password": "密码",
+    "Open": "打开",
+    "Password Required": "需要密码",
+    "Incorrect password": "密码错误",
+    "Error": "错误",
+    "Something went wrong": "出了些问题",
+    "Server is not available": "服务器不可用",
+    "of": "的",
+    "Please wait...": "请稍等..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const ZHHANT = {
+    "Open document": "打開文檔",
+    "Upload file": "上傳文件",
+    "Drop file here to upload": "將文件拖放到此處以上傳",
+    "Disc": "光盤",
+    "URL": "網址",
+    "FILE": "文件",
+    "SIZE": "尺寸",
+    "MB": "MB",
+    "KB": "知識庫",
+    "Bytes": "字節",
+    "Loading... Please wait.": "加載請稍候。",
+    "Fit Width": "適合寬度",
+    "Fit Height": "適合高度",
+    "Password protected document": "受密碼保護的文件",
+    "Password": "密碼",
+    "Open": "打開",
+    "Password Required": "需要密碼",
+    "Incorrect password": "密碼錯誤",
+    "Error": "錯誤",
+    "Something went wrong": "出了些問題",
+    "Server is not available": "服務器不可用",
+    "of": "的",
+    "Please wait...": "請稍等..."
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class StaticTranslateLoader {
+    /**
+     * @param {?} translations
+     */
+    constructor(translations) {
+        this.translations = {};
+        this.translations['ar'] = Object.assign({}, AR, translations['ar']);
+        this.translations['ca'] = Object.assign({}, CA, translations['ca']);
+        this.translations['cs'] = Object.assign({}, CS, translations['cs']);
+        this.translations['da'] = Object.assign({}, DA, translations['da']);
+        this.translations['de'] = Object.assign({}, DE, translations['de']);
+        this.translations['el'] = Object.assign({}, EL, translations['el']);
+        this.translations['en'] = Object.assign({}, EN, translations['en']);
+        this.translations['es'] = Object.assign({}, ES, translations['es']);
+        this.translations['fil'] = Object.assign({}, FIL, translations['fil']);
+        this.translations['fr'] = Object.assign({}, FR, translations['fr']);
+        this.translations['he'] = Object.assign({}, HE, translations['he']);
+        this.translations['hi'] = Object.assign({}, HI, translations['hi']);
+        this.translations['id'] = Object.assign({}, ID, translations['id']);
+        this.translations['it'] = Object.assign({}, IT, translations['it']);
+        this.translations['ja'] = Object.assign({}, JA, translations['ja']);
+        this.translations['kk'] = Object.assign({}, KK, translations['kk']);
+        this.translations['ko'] = Object.assign({}, KO, translations['ko']);
+        this.translations['ms'] = Object.assign({}, MS, translations['ms']);
+        this.translations['nl'] = Object.assign({}, NL, translations['nl']);
+        this.translations['pl'] = Object.assign({}, PL, translations['pl']);
+        this.translations['pt'] = Object.assign({}, PT, translations['pt']);
+        this.translations['ro'] = Object.assign({}, RO, translations['ro']);
+        this.translations['ru'] = Object.assign({}, RU, translations['ru']);
+        this.translations['sv'] = Object.assign({}, SV, translations['sv']);
+        this.translations['th'] = Object.assign({}, TH, translations['th']);
+        this.translations['tr'] = Object.assign({}, TR, translations['tr']);
+        this.translations['uk'] = Object.assign({}, UK, translations['uk']);
+        this.translations['vi'] = Object.assign({}, VI, translations['vi']);
+        this.translations['zh-hans'] = Object.assign({}, ZHHANS, translations['zh-hans']);
+        this.translations['zh-hant'] = Object.assign({}, ZHHANT, translations['zh-hant']);
+    }
+    /**
+     * @param {?} lang
+     * @return {?}
+     */
+    getTranslation(lang) {
+        /** @type {?} */
+        const translation = this.translations[lang]
+            ? this.translations[lang]
+            : this.translations[this.defaultLanguage];
+        return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"]((/**
+         * @param {?} subscriber
+         * @return {?}
+         */
+        subscriber => {
+            subscriber.next(translation);
+        }));
+    }
+}
+if (false) {}
 
 /**
  * @fileoverview added by tsickle
@@ -6982,7 +8005,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _annotation_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./annotation-config.service */ "../../libs/annotation/src/lib/annotation-config.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm2015/angular-fontawesome.js");
-/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib_esmodule/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(ng_click_outside__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _annotation_app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./annotation-app.component */ "../../libs/annotation/src/lib/annotation-app.component.ts");
 /* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "../../node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "../../node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
@@ -7920,351 +8944,6 @@ class RemoveAnnotationService {
 
 /***/ }),
 
-/***/ "../../libs/common-components/src/lib/config.service.ts":
-/*!******************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/config.service.ts ***!
-  \******************************************************************************************/
-/*! exports provided: Api, ConfigService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Api", function() { return Api; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigService", function() { return ConfigService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-
-
-
-class Api {
-}
-Api.VIEWER_APP = '/viewer';
-Api.SIGNATURE_APP = '/signature';
-Api.ANNOTATION_APP = '/annotation';
-Api.SEARCH_APP = '/search';
-Api.EDITOR_APP = '/editor';
-Api.COMPARISON_APP = '/comparison';
-Api.CONVERSION_APP = '/conversion';
-Api.METADATA_APP = '/metadata';
-Api.PARSER_APP = '/parser';
-Api.DEFAULT_API_ENDPOINT = window.location.protocol + "//" + window.location.host + window.location.pathname;
-Api.LOAD_FILE_TREE = '/loadFileTree';
-Api.LOAD_CONFIG = '/loadConfig';
-Api.LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
-Api.LOAD_DOCUMENT_PAGE = '/loadDocumentPage';
-Api.LOAD_DOCUMENT_PROPERTIES = '/loadProperties';
-Api.LOAD_DOCUMENT_PROPERTIES_NAMES = '/loadPropertiesNames';
-Api.SAVE_PROPERTY = '/saveProperty';
-Api.REMOVE_PROPERTY = '/removeProperty';
-Api.ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
-Api.UPLOAD_DOCUMENTS = '/uploadDocument';
-Api.DOWNLOAD_DOCUMENTS = '/downloadDocument';
-Api.DOWNLOAD_ANNOTATED = '/downloadAnnotated';
-Api.LOAD_PRINT = '/loadPrint';
-Api.LOAD_PRINT_PDF = '/printPdf';
-Api.LOAD_THUMBNAILS = '/loadThumbnails';
-Api.LOAD_FORMATS = '/loadFormats';
-Api.SAVE_FILE = '/saveFile';
-Api.CREATE_FILE = '/createFile';
-Api.COMPARE_FILES = '/compare';
-Api.CONVERT_FILE = '/convert';
-Api.DELETE_SIGNATURE_FILE = '/deleteSignatureFile';
-Api.REMOVE_FROM_INDEX = '/removeFromIndex';
-Api.GET_FILE_STATUS = '/getFileStatus';
-Api.SAVE_OPTICAL_CODE = '/saveOpticalCode';
-Api.SAVE_TEXT = '/saveText';
-Api.SAVE_IMAGE = '/saveImage';
-Api.SAVE_STAMP = '/saveStamp';
-Api.SIGN = '/sign';
-Api.DOWNLOAD_SIGNED = '/downloadSigned';
-Api.LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
-Api.ANNOTATE = '/annotate';
-Api.SEARCH = '/search';
-Api.PARSE = '/parse';
-Api.ADD_FILES_TO_INDEX = '/addFilesToIndex';
-Api.CLEAN_METADATA = '/clean';
-Api.EXPORT_METADATA = '/export';
-Api.httpOptionsJson = {
-    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-        'Content-Type': 'application/json',
-    })
-};
-Api.httpOptionsJsonResponseTypeBlob = {
-    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-        'Content-Type': 'application/json',
-    }),
-    responseType: 'blob'
-};
-let ConfigService = class ConfigService {
-    constructor() {
-        this.apiEndpoint = Api.DEFAULT_API_ENDPOINT;
-    }
-    set apiEndpoint(url) {
-        this._apiEndpoint = url && url.trim().endsWith('/') ? url.substring(0, url.length - 1) : url;
-    }
-    getConfigEndpoint(app) {
-        return (this.apiEndpoint.endsWith(app) ? this.apiEndpoint : this.apiEndpoint + app) + Api.LOAD_CONFIG;
-    }
-    getViewerApiEndpoint() {
-        return this._apiEndpoint.endsWith(Api.VIEWER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.VIEWER_APP;
-    }
-    getEditorApiEndpoint() {
-        return this._apiEndpoint.trim().endsWith(Api.EDITOR_APP) ? this._apiEndpoint : this._apiEndpoint + Api.EDITOR_APP;
-    }
-    getComparisonApiEndpoint() {
-        return this._apiEndpoint.trim().endsWith(Api.COMPARISON_APP) ? this._apiEndpoint : this._apiEndpoint + Api.COMPARISON_APP;
-    }
-    getConversionApiEndpoint() {
-        return this._apiEndpoint.trim().endsWith(Api.CONVERSION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.CONVERSION_APP;
-    }
-    getMetadataApiEndpoint() {
-        return this._apiEndpoint.trim().endsWith(Api.METADATA_APP) ? this._apiEndpoint : this._apiEndpoint + Api.METADATA_APP;
-    }
-    get apiEndpoint() {
-        return this._apiEndpoint;
-    }
-    getSignatureApiEndpoint() {
-        return this._apiEndpoint.endsWith(Api.SIGNATURE_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SIGNATURE_APP;
-    }
-    getAnnotationApiEndpoint() {
-        return this._apiEndpoint.endsWith(Api.ANNOTATION_APP) ? this._apiEndpoint : this._apiEndpoint + Api.ANNOTATION_APP;
-    }
-    getSearchApiEndpoint() {
-        return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
-    }
-    getParserApiEndpoint() {
-        return this._apiEndpoint.endsWith(Api.PARSER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.PARSER_APP;
-    }
-};
-ConfigService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-], ConfigService);
-
-
-
-/***/ }),
-
-/***/ "../../libs/common-components/src/lib/file.service.ts":
-/*!****************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/common-components/src/lib/file.service.ts ***!
-  \****************************************************************************************/
-/*! exports provided: PageModel, RotatedPage, FileCredentials, SaveFile, FileDescription, FileModel, HttpError, Utils, FileUtil, FileService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageModel", function() { return PageModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RotatedPage", function() { return RotatedPage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileCredentials", function() { return FileCredentials; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SaveFile", function() { return SaveFile; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileDescription", function() { return FileDescription; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileModel", function() { return FileModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpError", function() { return HttpError; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Utils", function() { return Utils; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileUtil", function() { return FileUtil; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileService", function() { return FileService; });
-class PageModel {
-}
-class RotatedPage {
-}
-class FileCredentials {
-    constructor(guid, password) {
-        this.guid = guid;
-        this.password = password;
-    }
-}
-FileCredentials.ctorParameters = () => [
-    { type: String },
-    { type: String }
-];
-class SaveFile extends FileCredentials {
-    constructor(guid, password, content) {
-        super(guid, password);
-        this.content = content;
-    }
-}
-SaveFile.ctorParameters = () => [
-    { type: String },
-    { type: String },
-    { type: String }
-];
-class FileDescription {
-    constructor() {
-        this.printAllowed = true;
-    }
-}
-class FileModel {
-}
-class HttpError {
-}
-HttpError.BadRequest = 400;
-HttpError.Unauthorized = 401;
-HttpError.Forbidden = 403;
-HttpError.NotFound = 404;
-HttpError.TimeOut = 408;
-HttpError.Conflict = 409;
-HttpError.InternalServerError = 500;
-class Utils {
-    static getMousePosition(event) {
-        const mouse = {
-            x: 0,
-            y: 0
-        };
-        const wEvent = window.event;
-        const ev = event || wEvent; //Moz || IE
-        if (ev.pageX || wEvent.pageX || wEvent.screenX || (ev.touches && ev.touches[0] && ev.touches[0].pageX)) { //Moz
-            const pageX = typeof ev.pageX !== "undefined" && ev.pageX !== 0 ? ev.pageX : wEvent.pageX;
-            const pageY = typeof ev.pageY !== "undefined" && ev.pageY !== 0 ? ev.pageY : wEvent.pageY;
-            const screenX = typeof wEvent.screenX !== "undefined" && wEvent.screenY !== 0;
-            const screenY = typeof wEvent.screenY !== "undefined" && wEvent.screenY !== 0;
-            mouse.x = pageX ? pageX : (screenX ? wEvent.screenX : ev.touches[0].pageX);
-            mouse.y = pageY ? pageY : (screenY ? wEvent.screenY : ev.touches[0].pageY);
-        }
-        else if (ev.clientX) { //IE
-            mouse.x = ev.clientX + document.body.scrollLeft;
-            mouse.y = ev.clientY + document.body.scrollTop;
-        }
-        return mouse;
-    }
-    static toRgb(color) {
-        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
-        if (result) {
-            const r = parseInt(result[1], 16);
-            const g = parseInt(result[2], 16);
-            const b = parseInt(result[3], 16);
-            return result ? 'rgb(' + r + ',' + g + ',' + b + ')' : '';
-        }
-        return color;
-    }
-    static toHex(color) {
-        // check if color is standard hex value
-        if (color.match(/[0-9A-F]{6}|[0-9A-F]{3}$/i)) {
-            return (color.charAt(0) === "#") ? color : ("#" + color);
-            // check if color is RGB value -> convert to hex
-        }
-        else if (color.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)) {
-            const c = ([parseInt(RegExp.$1, 10), parseInt(RegExp.$2, 10), parseInt(RegExp.$3, 10)]), pad = function (str) {
-                if (str.length < 2) {
-                    for (let i = 0, len = 2 - str.length; i < len; i++) {
-                        str = '0' + str;
-                    }
-                }
-                return str;
-            };
-            if (c.length === 3) {
-                const r = pad(c[0].toString(16)), g = pad(c[1].toString(16)), b = pad(c[2].toString(16));
-                return '#' + r + g + b;
-            }
-            // else do nothing
-        }
-        else {
-            return '';
-        }
-    }
-}
-class FileUtil {
-    static find(filename, isDirectory) {
-        if (filename && !isDirectory) {
-            const strings = filename.split('.');
-            const name = strings.pop().toLowerCase();
-            if (typeof FileUtil.map[name] === "undefined") {
-                return strings.length > 0 ? FileUtil.map['unknown'] : FileUtil.map['folder'];
-            }
-            else {
-                return FileUtil.map[name];
-            }
-        }
-        else {
-            return FileUtil.map['folder'];
-        }
-    }
-}
-FileUtil.map = {
-    'folder': { 'format': '', 'icon': 'folder' },
-    'pdf': { 'format': 'Portable Document Format', 'icon': 'file-pdf', 'unit': 'pt' },
-    'doc': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
-    'docx': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
-    'docm': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
-    'dot': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
-    'dotx': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
-    'dotm': { 'format': 'Microsoft Word', 'icon': 'file-word', 'unit': 'pt' },
-    'xls': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
-    'xlsx': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
-    'xlsm': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
-    'xlsb': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
-    'xls2003': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
-    'xltx': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
-    'xltm': { 'format': 'Microsoft Excel', 'icon': 'file-excel', 'unit': 'px' },
-    'ppt': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'pptx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'pps': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'ppsx': { 'format': 'Microsoft PowerPoint', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'vsd': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'vdx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'vss': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'vsx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'vst': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'vtx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'vsdx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'vdw': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'vstx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'vssx': { 'format': 'Microsoft Visio', 'icon': 'file-code', 'unit': 'px' },
-    'mpp': { 'format': 'Microsoft Project', 'icon': 'file-alt', 'unit': 'pt' },
-    'mpt': { 'format': 'Microsoft Project', 'icon': 'file-alt', 'unit': 'pt' },
-    'msg': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
-    'eml': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
-    'emlx': { 'format': 'Microsoft Outlook', 'icon': 'file-alt', 'unit': 'pt' },
-    'one': { 'format': 'Microsoft OneNote', 'icon': 'file-word', 'unit': 'pt' },
-    'odt': { 'format': 'Open Document Text', 'icon': 'file-word', 'unit': 'pt' },
-    'ott': { 'format': 'Open Document Text Template', 'icon': 'file-word', 'unit': 'pt' },
-    'ods': { 'format': 'Open Document Spreadsheet', 'icon': 'file-excel', 'unit': 'px' },
-    'odp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'otp': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'ots': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'potx': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'potm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'pptm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'ppsm': { 'format': 'Open Document Presentation', 'icon': 'file-powerpoint', 'unit': 'pt' },
-    'rtf': { 'format': 'Rich Text Format', 'icon': 'file-alt', 'unit': 'pt' },
-    'txt': { 'format': 'Plain Text File', 'icon': 'file-alt', 'unit': 'pt' },
-    'csv': { 'format': 'Comma-Separated Values', 'icon': 'file-excel', 'unit': 'px' },
-    'html': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
-    'mht': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
-    'mhtml': { 'format': 'HyperText Markup Language', 'icon': 'file-word', 'unit': 'pt' },
-    'xml': { 'format': 'Extensible Markup Language', 'icon': 'file-word', 'unit': 'pt' },
-    'xps': { 'format': 'XML Paper Specification', 'icon': 'file-word', 'unit': 'pt' },
-    'dxf': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image', 'unit': 'px' },
-    'dwg': { 'format': 'AutoCAD Drawing File Format', 'icon': 'file-image', 'unit': 'px' },
-    'bmp': { 'format': 'Bitmap Picture', 'icon': 'file-image', 'unit': 'px' },
-    'gif': { 'format': 'Graphics Interchange Format', 'icon': 'file-image', 'unit': 'px' },
-    'jpg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
-    'jpe': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
-    'jpeg': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
-    'jfif': { 'format': 'Joint Photographic Experts Group', 'icon': 'file-image', 'unit': 'px' },
-    'png': { 'format': 'Portable Network Graphics', 'icon': 'file-image', 'unit': 'px' },
-    'tiff': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
-    'tif': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
-    'psd': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
-    'svg': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
-    'jp2': { 'format': 'Tagged Image File Format', 'icon': 'file-image', 'unit': 'px' },
-    'epub': { 'format': 'Electronic Publication', 'icon': 'file-pdf', 'unit': 'pt' },
-    'ico': { 'format': 'Windows Icon', 'icon': 'file-image', 'unit': 'px' },
-    'webp': { 'format': 'Compressed Image', 'icon': 'file-image', 'unit': 'px' },
-    'mobi': { 'format': 'Mobipocket eBook', 'icon': 'file-pdf', 'unit': 'pt' },
-    'tex': { 'format': 'LaTeX Source Document', 'icon': 'file-pdf', 'unit': 'pt' },
-    'djvu': { 'format': 'Multi-Layer Raster Image', 'icon': 'file-alt', 'unit': 'pt' },
-    'unknown': { 'format': 'This format is not supported', 'icon': 'file' },
-};
-class FileService {
-    constructor() {
-    }
-}
-
-
-/***/ }),
-
 /***/ "../../libs/comparison/src/index.ts":
 /*!**********************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/comparison/src/index.ts ***!
@@ -8845,7 +9524,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _result_document_result_document_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./result-document/result-document.component */ "../../libs/comparison/src/lib/result-document/result-document.component.ts");
 /* harmony import */ var _differences_differences_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./differences/differences.component */ "../../libs/comparison/src/lib/differences/differences.component.ts");
 /* harmony import */ var _differences_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./differences.service */ "../../libs/comparison/src/lib/differences.service.ts");
-/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib_esmodule/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(ng_click_outside__WEBPACK_IMPORTED_MODULE_19__);
 
 var ComparisonModule_1;
 
@@ -13159,7 +13839,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FieldService", function() { return FieldService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var libs_common_components_src_lib_file_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! libs/common-components/src/lib/file.service */ "../../libs/common-components/src/lib/file.service.ts");
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm2015/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
 
@@ -13225,7 +13905,7 @@ let FieldService = class FieldService {
         this._activeChangedSubject.next(fieldName);
     }
     beginMove($event) {
-        let mousePosition = libs_common_components_src_lib_file_service__WEBPACK_IMPORTED_MODULE_2__["Utils"].getMousePosition($event);
+        let mousePosition = _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["Utils"].getMousePosition($event);
         this._isMoving = true;
         return mousePosition;
     }
@@ -13233,14 +13913,14 @@ let FieldService = class FieldService {
         if (!this.isMoving) {
             return;
         }
-        let mousePosition = libs_common_components_src_lib_file_service__WEBPACK_IMPORTED_MODULE_2__["Utils"].getMousePosition($event);
+        let mousePosition = _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["Utils"].getMousePosition($event);
         this._mouseMoveSubject.next(mousePosition);
     }
     onMouseUp($event) {
         if (!this.isMoving) {
             return;
         }
-        let mousePosition = libs_common_components_src_lib_file_service__WEBPACK_IMPORTED_MODULE_2__["Utils"].getMousePosition($event);
+        let mousePosition = _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["Utils"].getMousePosition($event);
         this._mouseUpSubject.next(mousePosition);
         this._isMoving = false;
     }
@@ -13570,9 +14250,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _template_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./template.service */ "../../libs/parser/src/lib/template.service.ts");
 /* harmony import */ var _source_file_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./source-file.service */ "../../libs/parser/src/lib/source-file.service.ts");
 /* harmony import */ var _placeholder_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./placeholder.service */ "../../libs/parser/src/lib/placeholder.service.ts");
-/* harmony import */ var _settings_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./settings.service */ "../../libs/parser/src/lib/settings.service.ts");
-/* harmony import */ var _document_page_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./document-page.service */ "../../libs/parser/src/lib/document-page.service.ts");
-
+/* harmony import */ var _document_page_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./document-page.service */ "../../libs/parser/src/lib/document-page.service.ts");
 
 
 
@@ -13583,7 +14261,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ParserAppComponent = class ParserAppComponent {
-    constructor(_modalService, _parserService, _sourceFileService, _templateService, _zoomService, _navigateService, _placeholderService, _settingsService, _documentPageService, _uploadFilesService, windowService) {
+    constructor(_modalService, _parserService, _sourceFileService, _templateService, _zoomService, _navigateService, _placeholderService, _documentPageService, _uploadFilesService, windowService) {
         this._modalService = _modalService;
         this._parserService = _parserService;
         this._sourceFileService = _sourceFileService;
@@ -13591,7 +14269,6 @@ let ParserAppComponent = class ParserAppComponent {
         this._zoomService = _zoomService;
         this._navigateService = _navigateService;
         this._placeholderService = _placeholderService;
-        this._settingsService = _settingsService;
         this._documentPageService = _documentPageService;
         this._uploadFilesService = _uploadFilesService;
         this.CREATE_FIELD_MODE = "createFieldMode";
@@ -13743,8 +14420,7 @@ ParserAppComponent.ctorParameters = () => [
     { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["ZoomService"] },
     { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["NavigateService"] },
     { type: _placeholder_service__WEBPACK_IMPORTED_MODULE_7__["PlaceholderService"] },
-    { type: _settings_service__WEBPACK_IMPORTED_MODULE_8__["SettingsService"] },
-    { type: _document_page_service__WEBPACK_IMPORTED_MODULE_9__["DocumentPageService"] },
+    { type: _document_page_service__WEBPACK_IMPORTED_MODULE_8__["DocumentPageService"] },
     { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["UploadFilesService"] },
     { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["WindowService"] }
 ];
@@ -13765,8 +14441,7 @@ ParserAppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["ZoomService"],
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["NavigateService"],
         _placeholder_service__WEBPACK_IMPORTED_MODULE_7__["PlaceholderService"],
-        _settings_service__WEBPACK_IMPORTED_MODULE_8__["SettingsService"],
-        _document_page_service__WEBPACK_IMPORTED_MODULE_9__["DocumentPageService"],
+        _document_page_service__WEBPACK_IMPORTED_MODULE_8__["DocumentPageService"],
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["UploadFilesService"],
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["WindowService"]])
 ], ParserAppComponent);
@@ -13793,19 +14468,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "../../node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
 /* harmony import */ var _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/free-regular-svg-icons */ "../../node_modules/@fortawesome/free-regular-svg-icons/index.es.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
-/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib_esmodule/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(ng_click_outside__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _parser_app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./parser-app.component */ "../../libs/parser/src/lib/parser-app.component.ts");
 /* harmony import */ var _surface_surface_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./surface/surface.component */ "../../libs/parser/src/lib/surface/surface.component.ts");
 /* harmony import */ var _field_field_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./field/field.component */ "../../libs/parser/src/lib/field/field.component.ts");
 /* harmony import */ var _confirmation_modal_confirmation_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./confirmation-modal/confirmation-modal.component */ "../../libs/parser/src/lib/confirmation-modal/confirmation-modal.component.ts");
-/* harmony import */ var _common_components_src_lib_config_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../common-components/src/lib/config.service */ "../../libs/common-components/src/lib/config.service.ts");
-/* harmony import */ var _side_panel_side_panel_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./side-panel/side-panel.component */ "../../libs/parser/src/lib/side-panel/side-panel.component.ts");
-/* harmony import */ var _rename_modal_rename_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./rename-modal/rename-modal.component */ "../../libs/parser/src/lib/rename-modal/rename-modal.component.ts");
-/* harmony import */ var _placeholder_placeholder_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./placeholder/placeholder.component */ "../../libs/parser/src/lib/placeholder/placeholder.component.ts");
-/* harmony import */ var _table_viewer_table_viewer_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./table-viewer/table-viewer.component */ "../../libs/parser/src/lib/table-viewer/table-viewer.component.ts");
+/* harmony import */ var _side_panel_side_panel_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./side-panel/side-panel.component */ "../../libs/parser/src/lib/side-panel/side-panel.component.ts");
+/* harmony import */ var _rename_modal_rename_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./rename-modal/rename-modal.component */ "../../libs/parser/src/lib/rename-modal/rename-modal.component.ts");
+/* harmony import */ var _placeholder_placeholder_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./placeholder/placeholder.component */ "../../libs/parser/src/lib/placeholder/placeholder.component.ts");
+/* harmony import */ var _table_viewer_table_viewer_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./table-viewer/table-viewer.component */ "../../libs/parser/src/lib/table-viewer/table-viewer.component.ts");
 
 var ParserModule_1;
-
 
 
 
@@ -13827,7 +14501,7 @@ let ParserModule = ParserModule_1 = class ParserModule {
         _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_4__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["fas"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["far"]);
     }
     static forRoot(apiEndpoint) {
-        _common_components_src_lib_config_service__WEBPACK_IMPORTED_MODULE_13__["Api"].DEFAULT_API_ENDPOINT = apiEndpoint;
+        _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["Api"].DEFAULT_API_ENDPOINT = apiEndpoint;
         return {
             ngModule: ParserModule_1
         };
@@ -13840,10 +14514,10 @@ ParserModule = ParserModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
             _surface_surface_component__WEBPACK_IMPORTED_MODULE_10__["SurfaceComponent"],
             _field_field_component__WEBPACK_IMPORTED_MODULE_11__["FieldComponent"],
             _confirmation_modal_confirmation_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmationModalComponent"],
-            _side_panel_side_panel_component__WEBPACK_IMPORTED_MODULE_14__["SidePanelComponent"],
-            _rename_modal_rename_modal_component__WEBPACK_IMPORTED_MODULE_15__["RenameModalComponent"],
-            _placeholder_placeholder_component__WEBPACK_IMPORTED_MODULE_16__["PlaceholderComponent"],
-            _table_viewer_table_viewer_component__WEBPACK_IMPORTED_MODULE_17__["TableViewerComponent"]
+            _side_panel_side_panel_component__WEBPACK_IMPORTED_MODULE_13__["SidePanelComponent"],
+            _rename_modal_rename_modal_component__WEBPACK_IMPORTED_MODULE_14__["RenameModalComponent"],
+            _placeholder_placeholder_component__WEBPACK_IMPORTED_MODULE_15__["PlaceholderComponent"],
+            _table_viewer_table_viewer_component__WEBPACK_IMPORTED_MODULE_16__["TableViewerComponent"]
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__["BrowserModule"],
@@ -13852,7 +14526,7 @@ ParserModule = ParserModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
             _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeModule"]
         ],
         providers: [
-            _common_components_src_lib_config_service__WEBPACK_IMPORTED_MODULE_13__["ConfigService"],
+            _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["ConfigService"],
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["ExceptionMessageService"]
         ],
         exports: [
@@ -13882,10 +14556,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm2015/groupdocs.examples.angular-common-components.js");
-/* harmony import */ var _common_components_src_lib_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../common-components/src/lib/config.service */ "../../libs/common-components/src/lib/config.service.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
-
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
 
 
 
@@ -13910,7 +14582,7 @@ let ParserService = class ParserService {
         return this._http.post(this._config.getParserApiEndpoint() + _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["Api"].UPLOAD_DOCUMENTS, formData);
     }
     loadDocumentDescription(sourceFile) {
-        let subject = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
+        let subject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         const observer = {
             next: (response) => subject.next(response),
             complete: () => subject.complete(),
@@ -13921,12 +14593,12 @@ let ParserService = class ParserService {
             }
         };
         this._http.post(this._config.getParserApiEndpoint() + _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["Api"].LOAD_DOCUMENT_DESCRIPTION, sourceFile, _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["Api"].httpOptionsJson)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["timeout"])(25000))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["timeout"])(25000))
             .subscribe(observer);
         return subject;
     }
     parseByTemplate(sourceFile, password, template) {
-        let subject = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
+        let subject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         const observer = {
             next: (response) => subject.next(response),
             complete: () => subject.complete(),
@@ -13941,7 +14613,7 @@ let ParserService = class ParserService {
             password: sourceFile.password,
             fields: template.fields
         }, _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["Api"].httpOptionsJson)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["timeout"])(25000))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["timeout"])(25000))
             .subscribe(observer);
         return subject;
     }
@@ -13995,13 +14667,13 @@ let ParserService = class ParserService {
 };
 ParserService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
-    { type: _common_components_src_lib_config_service__WEBPACK_IMPORTED_MODULE_4__["ConfigService"] }
+    { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["ConfigService"] }
 ];
 ParserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _common_components_src_lib_config_service__WEBPACK_IMPORTED_MODULE_4__["ConfigService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["ConfigService"]])
 ], ParserService);
 
 // class Api {
@@ -14275,51 +14947,6 @@ RenameModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
 ], RenameModalComponent);
-
-
-
-/***/ }),
-
-/***/ "../../libs/parser/src/lib/settings.service.ts":
-/*!*********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/parser/src/lib/settings.service.ts ***!
-  \*********************************************************************************/
-/*! exports provided: SettingsService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SettingsService", function() { return SettingsService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-
-
-let SettingsService = class SettingsService {
-    constructor() {
-        this.SHOW_HELP = "parser.show-help";
-        this.RETURN_URL = "parser.return-url";
-    }
-    get returnUrl() {
-        return localStorage.getItem(this.RETURN_URL);
-    }
-    get showHelpAtStart() {
-        return localStorage.getItem(this.SHOW_HELP) != false.toString();
-    }
-    set showHelpAtStart(value) {
-        if (!value) {
-            localStorage.setItem(this.SHOW_HELP, false.toString());
-        }
-        else {
-            localStorage.removeItem(this.SHOW_HELP);
-        }
-    }
-};
-SettingsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-], SettingsService);
 
 
 
@@ -18238,7 +18865,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hand_modal_hand_modal_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./hand-modal/hand-modal.component */ "../../libs/signature/src/lib/hand-modal/hand-modal.component.ts");
 /* harmony import */ var _stamp_modal_stamp_modal_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./stamp-modal/stamp-modal.component */ "../../libs/signature/src/lib/stamp-modal/stamp-modal.component.ts");
 /* harmony import */ var _copy_signature_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./copy-signature.service */ "../../libs/signature/src/lib/copy-signature.service.ts");
-/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib_esmodule/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(ng_click_outside__WEBPACK_IMPORTED_MODULE_31__);
 
 var SignatureModule_1;
 
@@ -19539,7 +20167,7 @@ UploadSignatureComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!******************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/index.ts ***!
   \******************************************************************/
-/*! exports provided: initializeApp, setupLoadingInterceptor, ViewerModule, ViewerAppComponent, ViewerService, ViewerConfigService */
+/*! exports provided: initializeApp, setupLoadingInterceptor, StaticTranslateLoaderFactory, ViewerModule, ViewerAppComponent, ViewerService, ViewerConfigService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19548,6 +20176,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "initializeApp", function() { return _lib_viewer_module__WEBPACK_IMPORTED_MODULE_0__["initializeApp"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setupLoadingInterceptor", function() { return _lib_viewer_module__WEBPACK_IMPORTED_MODULE_0__["setupLoadingInterceptor"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StaticTranslateLoaderFactory", function() { return _lib_viewer_module__WEBPACK_IMPORTED_MODULE_0__["StaticTranslateLoaderFactory"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewerModule", function() { return _lib_viewer_module__WEBPACK_IMPORTED_MODULE_0__["ViewerModule"]; });
 
@@ -20196,6 +20826,1429 @@ ThumbnailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "../../libs/viewer/src/lib/translations/ar.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ar.ts ***!
+  \********************************************************************************/
+/*! exports provided: AR */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AR", function() { return AR; });
+const AR = {
+    "Click": "انقر",
+    "to open file": "لفتح الملف",
+    "Or drop file here": "أو قم بإسقاط الملف هنا",
+    "Browse files": "تصفح ملفات",
+    "Zoom In": "تكبير",
+    "Zoom Out": "تصغير",
+    "First Page": "الصفحة الأولى",
+    "Previous Page": "الصفحة السابقة",
+    "Next Page": "الصفحة التالية",
+    "Last Page": "آخر صفحة",
+    "Rotate CCW": "تدوير CCW",
+    "Rotate CW": "تدوير CW",
+    "Download": "تحميل",
+    "Print": "مطبعة",
+    "Search": "بحث",
+    "Run presentation": "تشغيل العرض التقديمي",
+    "Present": "الحالي",
+    "Stop": "قف",
+    "Stop presenting": "توقف عن التقديم",
+    "Resume presenting": "استئناف التقديم",
+    "Pause presenting": "توقف مؤقتًا عن التقديم",
+    "None": "لا أحد",
+    "5 sec": "5 ثوانى",
+    "10 sec": "10 ثوانى",
+    "15 sec": "15 ثانية",
+    "30 sec": "30 ثانية",
+    "Thumbnails": "المصغرات"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/ca.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ca.ts ***!
+  \********************************************************************************/
+/*! exports provided: CA */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CA", function() { return CA; });
+const CA = {
+    "Click": "Feu clic a",
+    "to open file": "per obrir el fitxer",
+    "Or drop file here": "O deixeu anar el fitxer aquí",
+    "Browse files": "Cercar fitxers",
+    "Zoom In": "Apropar",
+    "Zoom Out": "Disminuir el zoom",
+    "First Page": "Primera pàgina",
+    "Previous Page": "Pàgina anterior",
+    "Next Page": "Pàgina següent",
+    "Last Page": "Darrera pàgina",
+    "Rotate CCW": "Gira CCW",
+    "Rotate CW": "Gira CW",
+    "Download": "descarregar",
+    "Print": "Imprimir",
+    "Search": "Cerca",
+    "Run presentation": "Executa la presentació",
+    "Present": "Present",
+    "Stop": "Atura",
+    "Stop presenting": "Deixa de presentar-te",
+    "Resume presenting": "Reprèn la presentació",
+    "Pause presenting": "Posa en pausa la presentació",
+    "None": "Cap",
+    "5 sec": "5 seg",
+    "10 sec": "10 seg",
+    "15 sec": "15 seg",
+    "30 sec": "30 seg",
+    "Thumbnails": "Miniatures"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/cs.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/cs.ts ***!
+  \********************************************************************************/
+/*! exports provided: CS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CS", function() { return CS; });
+const CS = {
+    "Click": "Klikněte",
+    "to open file": "k otevření souboru",
+    "Or drop file here": "Nebo sem přetáhněte soubor",
+    "Browse files": "Procházet soubory",
+    "Zoom In": "Přiblížit",
+    "Zoom Out": "Oddálit",
+    "First Page": "První strana",
+    "Previous Page": "Předchozí stránka",
+    "Next Page": "Další strana",
+    "Last Page": "Poslední strana",
+    "Rotate CCW": "Otočit CCW",
+    "Rotate CW": "Otočit CW",
+    "Download": "Stažení",
+    "Print": "Tisk",
+    "Search": "Vyhledávání",
+    "Run presentation": "Spustit prezentaci",
+    "Present": "Současnost, dárek",
+    "Stop": "Stop",
+    "Stop presenting": "Přestaňte prezentovat",
+    "Resume presenting": "Obnovte prezentaci",
+    "Pause presenting": "Pozastavit prezentaci",
+    "None": "Žádný",
+    "5 sec": "5 s",
+    "10 sec": "10 s",
+    "15 sec": "15 s",
+    "30 sec": "30 s",
+    "Thumbnails": "Miniatury"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/da.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/da.ts ***!
+  \********************************************************************************/
+/*! exports provided: DA */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DA", function() { return DA; });
+const DA = {
+    "Click": "Klik på",
+    "to open file": "for at åbne filen",
+    "Or drop file here": "Eller slip filen her",
+    "Browse files": "Gennemse filer",
+    "Zoom In": "Zoom ind",
+    "Zoom Out": "Zoome ud",
+    "First Page": "Første side",
+    "Previous Page": "Forrige side",
+    "Next Page": "Næste side",
+    "Last Page": "Sidste side",
+    "Rotate CCW": "Drej CCW",
+    "Rotate CW": "Drej CW",
+    "Download": "Hent",
+    "Print": "Print",
+    "Search": "Søg",
+    "Run presentation": "Kør præsentation",
+    "Present": "Til stede",
+    "Stop": "Hold op",
+    "Stop presenting": "Stop med at præsentere",
+    "Resume presenting": "Genoptag præsentationen",
+    "Pause presenting": "Hold pause med præsentationen",
+    "None": "Ingen",
+    "5 sec": "5 sek",
+    "10 sec": "10 sek",
+    "15 sec": "15 sek",
+    "30 sec": "30 sek",
+    "Thumbnails": "Miniaturebilleder"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/de.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/de.ts ***!
+  \********************************************************************************/
+/*! exports provided: DE */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DE", function() { return DE; });
+const DE = {
+    "Click": "Klicken",
+    "to open file": "Datei öffnen",
+    "Or drop file here": "Oder Datei hier ablegen",
+    "Browse files": "Dateien durchsuchen",
+    "Zoom In": "Hineinzoomen",
+    "Zoom Out": "Rauszoomen",
+    "First Page": "Erste Seite",
+    "Previous Page": "Vorherige Seite",
+    "Next Page": "Nächste Seite",
+    "Last Page": "Letzte Seite",
+    "Rotate CCW": "Gegen den Uhrzeigersinn drehen",
+    "Rotate CW": "Im Uhrzeigersinn drehen",
+    "Download": "Herunterladen",
+    "Print": "Drucken",
+    "Search": "Suche",
+    "Run presentation": "Präsentation ausführen",
+    "Present": "Gegenwärtig",
+    "Stop": "Halt",
+    "Stop presenting": "Hör auf zu präsentieren",
+    "Resume presenting": "Präsentation fortsetzen",
+    "Pause presenting": "Präsentation unterbrechen",
+    "None": "Keiner",
+    "5 sec": "5 Sek.",
+    "10 sec": "10 Sek.",
+    "15 sec": "15 Sek.",
+    "30 sec": "30 Sekunden",
+    "Thumbnails": "Miniaturansichten"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/el.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/el.ts ***!
+  \********************************************************************************/
+/*! exports provided: EL */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EL", function() { return EL; });
+const EL = {
+    "Click": "Κάντε κλικ",
+    "to open file": "για άνοιγμα αρχείου",
+    "Or drop file here": "Or ρίξτε το αρχείο εδώ",
+    "Browse files": "ΕΞΕΡΕΥΝΗΣΗ ΑΡΧΕΙΩΝ",
+    "Zoom In": "Μεγέθυνση",
+    "Zoom Out": "Σμίκρυνση",
+    "First Page": "Πρώτη σελίδα",
+    "Previous Page": "Προηγούμενη σελίδα",
+    "Next Page": "Επόμενη σελίδα",
+    "Last Page": "Τελευταία σελίδα",
+    "Rotate CCW": "Περιστροφή CCW",
+    "Rotate CW": "Περιστροφή CW",
+    "Download": "Κατεβάστε",
+    "Print": "Τυπώνω",
+    "Search": "Αναζήτηση",
+    "Run presentation": "Εκτέλεση παρουσίασης",
+    "Present": "Παρόν",
+    "Stop": "Να σταματήσει",
+    "Stop presenting": "Σταματήστε να παρουσιάζετε",
+    "Resume presenting": "Συνέχιση παρουσίασης",
+    "Pause presenting": "Παύση παρουσίασης",
+    "None": "Κανένας",
+    "5 sec": "5 δευτ",
+    "10 sec": "10 δευτ",
+    "15 sec": "15 δευτ",
+    "30 sec": "30 δευτ",
+    "Thumbnails": "Μικρογραφίες"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/en.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/en.ts ***!
+  \********************************************************************************/
+/*! exports provided: EN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EN", function() { return EN; });
+const EN = {
+    "Click": "Click",
+    "to open file": "to open file",
+    "Or drop file here": "Or drop file here",
+    "Browse files": "Browse files",
+    "Zoom In": "Zoom In",
+    "Zoom Out": "Zoom Out",
+    "First Page": "First Page",
+    "Previous Page": "Previous Page",
+    "Next Page": "Next Page",
+    "Last Page": "Last Page",
+    "Rotate CCW": "Rotate CCW",
+    "Rotate CW": "Rotate CW",
+    "Download": "Download",
+    "Print": "Print",
+    "Search": "Search",
+    "Run presentation": "Run presentation",
+    "Present": "Present",
+    "Stop": "Stop",
+    "Stop presenting": "Stop presenting",
+    "Resume presenting": "Resume presenting",
+    "Pause presenting": "Pause presenting",
+    "None": "None",
+    "5 sec": "5 sec",
+    "10 sec": "10 sec",
+    "15 sec": "15 sec",
+    "30 sec": "30 sec",
+    "Thumbnails": "Thumbnails"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/es.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/es.ts ***!
+  \********************************************************************************/
+/*! exports provided: ES */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ES", function() { return ES; });
+const ES = {
+    "Click": "Hacer clic",
+    "to open file": "abrir archivo",
+    "Or drop file here": "O suelte el archivo aquí",
+    "Browse files": "Búsqueda de archivos",
+    "Zoom In": "Acercarse",
+    "Zoom Out": "Disminuir el zoom",
+    "First Page": "Primera página",
+    "Previous Page": "Pagina anterior",
+    "Next Page": "Siguiente página",
+    "Last Page": "Última página",
+    "Rotate CCW": "Girar CCW",
+    "Rotate CW": "Girar CW",
+    "Download": "Descargar",
+    "Print": "Impresión",
+    "Search": "Buscar",
+    "Run presentation": "Ejecutar presentación",
+    "Present": "Regalo",
+    "Stop": "Parada",
+    "Stop presenting": "Deja de presentar",
+    "Resume presenting": "Reanudar la presentación",
+    "Pause presenting": "Pausar presentación",
+    "None": "Ninguno",
+    "5 sec": "5 segundos",
+    "10 sec": "10 segundos",
+    "15 sec": "15 segundos",
+    "30 sec": "30 segundos",
+    "Thumbnails": "Miniaturas"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/fil.ts":
+/*!*********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/fil.ts ***!
+  \*********************************************************************************/
+/*! exports provided: FIL */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FIL", function() { return FIL; });
+const FIL = {
+    "Click": "Mag-click",
+    "to open file": "upang buksan ang file",
+    "Or drop file here": "O ihulog ang file dito",
+    "Browse files": "Mag-browse ng Mga file",
+    "Zoom In": "Palakihin",
+    "Zoom Out": "Mag-zoom Out",
+    "First Page": "Unang pahina",
+    "Previous Page": "Nakaraang pahina",
+    "Next Page": "Susunod na pahina",
+    "Last Page": "Huling pahina",
+    "Rotate CCW": "Paikutin ang CCW",
+    "Rotate CW": "Paikutin ang CW",
+    "Download": "Mag-download",
+    "Print": "I-print",
+    "Search": "Maghanap",
+    "Run presentation": "Patakbuhin ang pagtatanghal",
+    "Present": "Kasalukuyan",
+    "Stop": "Tigilan mo na",
+    "Stop presenting": "Huwag nang iharap",
+    "Resume presenting": "Ipagpatuloy ang pagtatanghal",
+    "Pause presenting": "I-pause ang pagtatanghal",
+    "None": "Wala",
+    "5 sec": "5 sec",
+    "10 sec": "10 sec",
+    "15 sec": "15 sec",
+    "30 sec": "30 sec",
+    "Thumbnails": "Mga Thumbnail"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/fr.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/fr.ts ***!
+  \********************************************************************************/
+/*! exports provided: FR */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FR", function() { return FR; });
+const FR = {
+    "Click": "Cliquez sur",
+    "to open file": "ouvrir le fichier",
+    "Or drop file here": "Ou déposez le fichier ici",
+    "Browse files": "Parcourir les fichiers",
+    "Zoom In": "Agrandir",
+    "Zoom Out": "Dézoomer",
+    "First Page": "Première page",
+    "Previous Page": "Page précédente",
+    "Next Page": "Page suivante",
+    "Last Page": "Dernière page",
+    "Rotate CCW": "Rotation dans le sens antihoraire",
+    "Rotate CW": "Rotation CW",
+    "Download": "Télécharger",
+    "Print": "Imprimer",
+    "Search": "Chercher",
+    "Run presentation": "Exécuter la présentation",
+    "Present": "Présent",
+    "Stop": "Arrêter",
+    "Stop presenting": "Arrêter de présenter",
+    "Resume presenting": "Reprendre la présentation",
+    "Pause presenting": "Suspendre la présentation",
+    "None": "Rien",
+    "5 sec": "5 secondes",
+    "10 sec": "10 secondes",
+    "15 sec": "15 secondes",
+    "30 sec": "30 secondes",
+    "Thumbnails": "Vignettes"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/he.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/he.ts ***!
+  \********************************************************************************/
+/*! exports provided: HE */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HE", function() { return HE; });
+const HE = {
+    "Click": "נְקִישָׁה",
+    "to open file": "לפתיחת הקובץ",
+    "Or drop file here": "או שחרר קובץ כאן",
+    "Browse files": "עיון בקבצים",
+    "Zoom In": "לְהִתְמַקֵד",
+    "Zoom Out": "להקטין את התצוגה",
+    "First Page": "עמוד ראשון",
+    "Previous Page": "עמוד קודם",
+    "Next Page": "עמוד הבא",
+    "Last Page": "עמוד אחרון",
+    "Rotate CCW": "סובב CCW",
+    "Rotate CW": "סובב את CW",
+    "Download": "הורד",
+    "Print": "הדפס",
+    "Search": "לחפש",
+    "Run presentation": "הפעל מצגת",
+    "Present": "מתנה",
+    "Stop": "תפסיק",
+    "Stop presenting": "תפסיק להציג",
+    "Resume presenting": "המשך להציג",
+    "Pause presenting": "השהה את ההצגה",
+    "None": "אף אחד",
+    "5 sec": "5 שניות",
+    "10 sec": "10 שניות",
+    "15 sec": "15 שניות",
+    "30 sec": "30 שניות",
+    "Thumbnails": "תמונות ממוזערות"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/hi.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/hi.ts ***!
+  \********************************************************************************/
+/*! exports provided: HI */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HI", function() { return HI; });
+const HI = {
+    "Click": "क्लिक",
+    "to open file": "फ़ाइल खोलने के लिए",
+    "Or drop file here": "या फ़ाइल यहाँ छोड़ें",
+    "Browse files": "फाइलों में खोजें",
+    "Zoom In": "ज़ूम इन",
+    "Zoom Out": "ज़ूम आउट",
+    "First Page": "पहला पन्ना",
+    "Previous Page": "पिछला पृष्ठ",
+    "Next Page": "अगला पृष्ठ",
+    "Last Page": "अंतिम पृष्ठ",
+    "Rotate CCW": "सीसीडब्ल्यू घुमाएँ",
+    "Rotate CW": "सीडब्ल्यू घुमाएँ",
+    "Download": "डाउनलोड",
+    "Print": "छाप",
+    "Search": "खोज",
+    "Run presentation": "प्रस्तुति चलाएं",
+    "Present": "वर्तमान",
+    "Stop": "विराम",
+    "Stop presenting": "प्रस्तुत करना बंद करें",
+    "Resume presenting": "प्रस्तुत करना फिर से शुरू करें",
+    "Pause presenting": "प्रस्तुत करना रोकें",
+    "None": "कोई नहीं",
+    "5 sec": "5 सेकंड",
+    "10 sec": "10 सेकंड",
+    "15 sec": "१५ सेकंड",
+    "30 sec": "३० सेकंड",
+    "Thumbnails": "थंबनेल"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/id.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/id.ts ***!
+  \********************************************************************************/
+/*! exports provided: ID */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ID", function() { return ID; });
+const ID = {
+    "Click": "Klik",
+    "to open file": "untuk membuka file",
+    "Or drop file here": "Atau letakkan file di sini",
+    "Browse files": "Mencari berkas",
+    "Zoom In": "Perbesar",
+    "Zoom Out": "Perkecil",
+    "First Page": "Halaman pertama",
+    "Previous Page": "Halaman sebelumnya",
+    "Next Page": "Halaman selanjutnya",
+    "Last Page": "Halaman terakhir",
+    "Rotate CCW": "Putar CCW",
+    "Rotate CW": "Putar CW",
+    "Download": "Unduh",
+    "Print": "Mencetak",
+    "Search": "Mencari",
+    "Run presentation": "Jalankan presentasi",
+    "Present": "Hadiah",
+    "Stop": "Berhenti",
+    "Stop presenting": "Berhenti menyajikan",
+    "Resume presenting": "Lanjutkan presentasi",
+    "Pause presenting": "Jeda presentasi",
+    "None": "Tidak ada",
+    "5 sec": "5 detik",
+    "10 sec": "10 detik",
+    "15 sec": "15 detik",
+    "30 sec": "30 detik",
+    "Thumbnails": "Gambar kecil"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/index.ts":
+/*!***********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/index.ts ***!
+  \***********************************************************************************/
+/*! exports provided: AR, CA, CS, DA, DE, EL, EN, ES, FIL, FR, HE, HI, ID, IT, JA, KK, KO, MS, NL, PL, PT, RO, RU, SV, TH, TR, UK, VI, ZHHANS, ZHHANT */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ar */ "../../libs/viewer/src/lib/translations/ar.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AR", function() { return _ar__WEBPACK_IMPORTED_MODULE_0__["AR"]; });
+
+/* harmony import */ var _ca__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ca */ "../../libs/viewer/src/lib/translations/ca.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CA", function() { return _ca__WEBPACK_IMPORTED_MODULE_1__["CA"]; });
+
+/* harmony import */ var _cs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cs */ "../../libs/viewer/src/lib/translations/cs.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CS", function() { return _cs__WEBPACK_IMPORTED_MODULE_2__["CS"]; });
+
+/* harmony import */ var _da__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./da */ "../../libs/viewer/src/lib/translations/da.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DA", function() { return _da__WEBPACK_IMPORTED_MODULE_3__["DA"]; });
+
+/* harmony import */ var _de__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./de */ "../../libs/viewer/src/lib/translations/de.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DE", function() { return _de__WEBPACK_IMPORTED_MODULE_4__["DE"]; });
+
+/* harmony import */ var _el__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./el */ "../../libs/viewer/src/lib/translations/el.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EL", function() { return _el__WEBPACK_IMPORTED_MODULE_5__["EL"]; });
+
+/* harmony import */ var _en__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./en */ "../../libs/viewer/src/lib/translations/en.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EN", function() { return _en__WEBPACK_IMPORTED_MODULE_6__["EN"]; });
+
+/* harmony import */ var _es__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./es */ "../../libs/viewer/src/lib/translations/es.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ES", function() { return _es__WEBPACK_IMPORTED_MODULE_7__["ES"]; });
+
+/* harmony import */ var _fil__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./fil */ "../../libs/viewer/src/lib/translations/fil.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FIL", function() { return _fil__WEBPACK_IMPORTED_MODULE_8__["FIL"]; });
+
+/* harmony import */ var _fr__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./fr */ "../../libs/viewer/src/lib/translations/fr.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FR", function() { return _fr__WEBPACK_IMPORTED_MODULE_9__["FR"]; });
+
+/* harmony import */ var _he__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./he */ "../../libs/viewer/src/lib/translations/he.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HE", function() { return _he__WEBPACK_IMPORTED_MODULE_10__["HE"]; });
+
+/* harmony import */ var _hi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./hi */ "../../libs/viewer/src/lib/translations/hi.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HI", function() { return _hi__WEBPACK_IMPORTED_MODULE_11__["HI"]; });
+
+/* harmony import */ var _id__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./id */ "../../libs/viewer/src/lib/translations/id.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ID", function() { return _id__WEBPACK_IMPORTED_MODULE_12__["ID"]; });
+
+/* harmony import */ var _it__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./it */ "../../libs/viewer/src/lib/translations/it.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IT", function() { return _it__WEBPACK_IMPORTED_MODULE_13__["IT"]; });
+
+/* harmony import */ var _ja__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ja */ "../../libs/viewer/src/lib/translations/ja.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JA", function() { return _ja__WEBPACK_IMPORTED_MODULE_14__["JA"]; });
+
+/* harmony import */ var _kk__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./kk */ "../../libs/viewer/src/lib/translations/kk.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "KK", function() { return _kk__WEBPACK_IMPORTED_MODULE_15__["KK"]; });
+
+/* harmony import */ var _ko__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./ko */ "../../libs/viewer/src/lib/translations/ko.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "KO", function() { return _ko__WEBPACK_IMPORTED_MODULE_16__["KO"]; });
+
+/* harmony import */ var _ms__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./ms */ "../../libs/viewer/src/lib/translations/ms.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MS", function() { return _ms__WEBPACK_IMPORTED_MODULE_17__["MS"]; });
+
+/* harmony import */ var _nl__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./nl */ "../../libs/viewer/src/lib/translations/nl.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NL", function() { return _nl__WEBPACK_IMPORTED_MODULE_18__["NL"]; });
+
+/* harmony import */ var _pl__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pl */ "../../libs/viewer/src/lib/translations/pl.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PL", function() { return _pl__WEBPACK_IMPORTED_MODULE_19__["PL"]; });
+
+/* harmony import */ var _pt__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./pt */ "../../libs/viewer/src/lib/translations/pt.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PT", function() { return _pt__WEBPACK_IMPORTED_MODULE_20__["PT"]; });
+
+/* harmony import */ var _ro__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./ro */ "../../libs/viewer/src/lib/translations/ro.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RO", function() { return _ro__WEBPACK_IMPORTED_MODULE_21__["RO"]; });
+
+/* harmony import */ var _ru__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./ru */ "../../libs/viewer/src/lib/translations/ru.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RU", function() { return _ru__WEBPACK_IMPORTED_MODULE_22__["RU"]; });
+
+/* harmony import */ var _sv__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./sv */ "../../libs/viewer/src/lib/translations/sv.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SV", function() { return _sv__WEBPACK_IMPORTED_MODULE_23__["SV"]; });
+
+/* harmony import */ var _th__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./th */ "../../libs/viewer/src/lib/translations/th.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TH", function() { return _th__WEBPACK_IMPORTED_MODULE_24__["TH"]; });
+
+/* harmony import */ var _tr__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./tr */ "../../libs/viewer/src/lib/translations/tr.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TR", function() { return _tr__WEBPACK_IMPORTED_MODULE_25__["TR"]; });
+
+/* harmony import */ var _uk__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./uk */ "../../libs/viewer/src/lib/translations/uk.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UK", function() { return _uk__WEBPACK_IMPORTED_MODULE_26__["UK"]; });
+
+/* harmony import */ var _vi__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./vi */ "../../libs/viewer/src/lib/translations/vi.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VI", function() { return _vi__WEBPACK_IMPORTED_MODULE_27__["VI"]; });
+
+/* harmony import */ var _zh_hans__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./zh-hans */ "../../libs/viewer/src/lib/translations/zh-hans.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ZHHANS", function() { return _zh_hans__WEBPACK_IMPORTED_MODULE_28__["ZHHANS"]; });
+
+/* harmony import */ var _zh_hant__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./zh-hant */ "../../libs/viewer/src/lib/translations/zh-hant.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ZHHANT", function() { return _zh_hant__WEBPACK_IMPORTED_MODULE_29__["ZHHANT"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/it.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/it.ts ***!
+  \********************************************************************************/
+/*! exports provided: IT */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IT", function() { return IT; });
+const IT = {
+    "Click": "Clic",
+    "to open file": "per aprire il file",
+    "Or drop file here": "Oppure trascina il file qui",
+    "Browse files": "Sfoglia i file",
+    "Zoom In": "Ingrandire",
+    "Zoom Out": "Rimpicciolisci",
+    "First Page": "Prima pagina",
+    "Previous Page": "Pagina precedente",
+    "Next Page": "Pagina successiva",
+    "Last Page": "Ultima pagina",
+    "Rotate CCW": "Ruota in senso antiorario",
+    "Rotate CW": "Ruota in senso orario",
+    "Download": "Scarica",
+    "Print": "Stampa",
+    "Search": "Ricerca",
+    "Run presentation": "Esegui presentazione",
+    "Present": "Regalo",
+    "Stop": "Fermare",
+    "Stop presenting": "Smettila di presentare",
+    "Resume presenting": "Riprendi a presentare",
+    "Pause presenting": "Metti in pausa la presentazione",
+    "None": "Nessuno",
+    "5 sec": "5 secondi",
+    "10 sec": "10 secondi",
+    "15 sec": "15 secondi",
+    "30 sec": "30 secondi",
+    "Thumbnails": "Miniature"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/ja.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ja.ts ***!
+  \********************************************************************************/
+/*! exports provided: JA */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JA", function() { return JA; });
+const JA = {
+    "Click": "クリック",
+    "to open file": "ファイルを開く",
+    "Or drop file here": "または、ここにファイルをドロップします",
+    "Browse files": "ブラウズファイル",
+    "Zoom In": "ズームイン",
+    "Zoom Out": "ズームアウトする",
+    "First Page": "先頭ページ",
+    "Previous Page": "前のページ",
+    "Next Page": "次のページ",
+    "Last Page": "最後のページ",
+    "Rotate CCW": "CCWを回転させる",
+    "Rotate CW": "CWを回転させる",
+    "Download": "ダウンロード",
+    "Print": "印刷",
+    "Search": "検索",
+    "Run presentation": "プレゼンテーションを実行する",
+    "Present": "現在",
+    "Stop": "やめる",
+    "Stop presenting": "提示を停止します",
+    "Resume presenting": "発表を再開する",
+    "Pause presenting": "提示を一時停止",
+    "None": "なし",
+    "5 sec": "5秒",
+    "10 sec": "10秒",
+    "15 sec": "15秒",
+    "30 sec": "30秒",
+    "Thumbnails": "サムネイル"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/kk.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/kk.ts ***!
+  \********************************************************************************/
+/*! exports provided: KK */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KK", function() { return KK; });
+const KK = {
+    "Click": "Шертіңіз",
+    "to open file": "файлды ашу үшін",
+    "Or drop file here": "Немесе файлды осында тастаңыз",
+    "Browse files": "Файлдарды шолу",
+    "Zoom In": "Үлкейту",
+    "Zoom Out": "Кішірейту",
+    "First Page": "Бірінші бет",
+    "Previous Page": "Алдыңғы бет",
+    "Next Page": "Келесі бет",
+    "Last Page": "Соңғы бет",
+    "Rotate CCW": "CCW айналдыру",
+    "Rotate CW": "CW айналдыру",
+    "Download": "Жүктеу",
+    "Print": "Басып шығару",
+    "Search": "Іздеу",
+    "Run presentation": "Презентацияны іске қосыңыз",
+    "Present": "Ұсыну",
+    "Stop": "Тоқта",
+    "Stop presenting": "Көрсетуді тоқтатыңыз",
+    "Resume presenting": "Ұсынуды жалғастыру",
+    "Pause presenting": "Ұсынуды кідірту",
+    "None": "Ешқайсысы",
+    "5 sec": "5 сек",
+    "10 sec": "10 сек",
+    "15 sec": "15 сек",
+    "30 sec": "30 сек",
+    "Thumbnails": "Нобайлар"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/ko.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ko.ts ***!
+  \********************************************************************************/
+/*! exports provided: KO */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KO", function() { return KO; });
+const KO = {
+    "Click": "딸깍 하는 소리",
+    "to open file": "파일을 열다",
+    "Or drop file here": "또는 여기에 파일을 드롭",
+    "Browse files": "파일 찾아보기",
+    "Zoom In": "확대",
+    "Zoom Out": "축소",
+    "First Page": "첫 페이지",
+    "Previous Page": "이전 페이지",
+    "Next Page": "다음 페이지",
+    "Last Page": "마지막 페이지",
+    "Rotate CCW": "시계 반대 방향으로 회전",
+    "Rotate CW": "시계 방향으로 회전",
+    "Download": "다운로드",
+    "Print": "인쇄",
+    "Search": "찾다",
+    "Run presentation": "프레젠테이션 실행",
+    "Present": "현재의",
+    "Stop": "중지",
+    "Stop presenting": "발표 중지",
+    "Resume presenting": "프레젠테이션 재개",
+    "Pause presenting": "발표 일시중지",
+    "None": "없음",
+    "5 sec": "5초",
+    "10 sec": "10초",
+    "15 sec": "15초",
+    "30 sec": "30초",
+    "Thumbnails": "썸네일"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/ms.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ms.ts ***!
+  \********************************************************************************/
+/*! exports provided: MS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MS", function() { return MS; });
+const MS = {
+    "Click": "Klik",
+    "to open file": "untuk membuka fail",
+    "Or drop file here": "Atau jatuhkan fail di sini",
+    "Browse files": "Semak imbas fail",
+    "Zoom In": "Mengezum masuk",
+    "Zoom Out": "Zum keluar",
+    "First Page": "Muka surat pertama",
+    "Previous Page": "Halaman sebelumnya",
+    "Next Page": "Muka surat seterusnya",
+    "Last Page": "Muka surat terakhir",
+    "Rotate CCW": "Putar CCW",
+    "Rotate CW": "Putar CW",
+    "Download": "Muat turun",
+    "Print": "Cetak",
+    "Search": "Cari",
+    "Run presentation": "Jalankan persembahan",
+    "Present": "Hadir",
+    "Stop": "Berhenti",
+    "Stop presenting": "Berhenti membentangkan",
+    "Resume presenting": "Sambung semula pembentangan",
+    "Pause presenting": "Jeda pembentangan",
+    "None": "Tiada",
+    "5 sec": "5 saat",
+    "10 sec": "10 saat",
+    "15 sec": "15 saat",
+    "30 sec": "30 saat",
+    "Thumbnails": "Gambar kecil"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/nl.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/nl.ts ***!
+  \********************************************************************************/
+/*! exports provided: NL */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NL", function() { return NL; });
+const NL = {
+    "Click": "Klik",
+    "to open file": "bestand openen",
+    "Or drop file here": "Of zet het bestand hier neer",
+    "Browse files": "Bestanden doorbladeren",
+    "Zoom In": "In zoomen",
+    "Zoom Out": "Uitzoomen",
+    "First Page": "Eerste pagina",
+    "Previous Page": "Vorige pagina",
+    "Next Page": "Volgende bladzijde",
+    "Last Page": "Laatste pagina",
+    "Rotate CCW": "Linksom draaien",
+    "Rotate CW": "Draai CW",
+    "Download": "Downloaden",
+    "Print": "Afdrukken",
+    "Search": "Zoeken",
+    "Run presentation": "Presentatie uitvoeren",
+    "Present": "Cadeau",
+    "Stop": "Stop",
+    "Stop presenting": "Stop met presenteren",
+    "Resume presenting": "Presentatie hervatten",
+    "Pause presenting": "Presentatie pauzeren",
+    "None": "Geen",
+    "5 sec": "5 seconden",
+    "10 sec": "10 seconden",
+    "15 sec": "15 seconden",
+    "30 sec": "30 seconden",
+    "Thumbnails": "Miniaturen"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/pl.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/pl.ts ***!
+  \********************************************************************************/
+/*! exports provided: PL */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PL", function() { return PL; });
+const PL = {
+    "Click": "Kliknij",
+    "to open file": "otworzyć plik",
+    "Or drop file here": "Lub upuść plik tutaj",
+    "Browse files": "Przeglądaj pliki",
+    "Zoom In": "Zbliżenie",
+    "Zoom Out": "Pomniejsz",
+    "First Page": "Pierwsza strona",
+    "Previous Page": "Poprzednia strona",
+    "Next Page": "Następna strona",
+    "Last Page": "Ostatnia strona",
+    "Rotate CCW": "Obróć w lewo",
+    "Rotate CW": "Obróć w prawo",
+    "Download": "Pobierać",
+    "Print": "Wydrukować",
+    "Search": "Szukaj",
+    "Run presentation": "Uruchom prezentację",
+    "Present": "Obecny",
+    "Stop": "Zatrzymać",
+    "Stop presenting": "Zatrzymaj prezentację",
+    "Resume presenting": "Wznów prezentację",
+    "Pause presenting": "Wstrzymaj prezentację",
+    "None": "Nic",
+    "5 sec": "5 sekund",
+    "10 sec": "10 sekund",
+    "15 sec": "15 sekund",
+    "30 sec": "30 sekund",
+    "Thumbnails": "Miniatury"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/pt.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/pt.ts ***!
+  \********************************************************************************/
+/*! exports provided: PT */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PT", function() { return PT; });
+const PT = {
+    "Click": "Clique",
+    "to open file": "para abrir arquivo",
+    "Or drop file here": "Ou solte o arquivo aqui",
+    "Browse files": "Navegar nos arquivos",
+    "Zoom In": "Mais Zoom",
+    "Zoom Out": "Reduzir o zoom",
+    "First Page": "Primeira página",
+    "Previous Page": "Página anterior",
+    "Next Page": "Próxima página",
+    "Last Page": "Última página",
+    "Rotate CCW": "Girar no sentido anti-horário",
+    "Rotate CW": "Girar no sentido horário",
+    "Download": "Download",
+    "Print": "Imprimir",
+    "Search": "Procurar",
+    "Run presentation": "Executar apresentação",
+    "Present": "Presente",
+    "Stop": "Pare",
+    "Stop presenting": "Pare de apresentar",
+    "Resume presenting": "Retomar apresentação",
+    "Pause presenting": "Pausar apresentação",
+    "None": "Nenhum",
+    "5 sec": "5 s",
+    "10 sec": "10 s",
+    "15 sec": "15 s",
+    "30 sec": "30 s",
+    "Thumbnails": "Miniaturas"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/ro.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ro.ts ***!
+  \********************************************************************************/
+/*! exports provided: RO */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RO", function() { return RO; });
+const RO = {
+    "Click": "Clic",
+    "to open file": "pentru a deschide fișierul",
+    "Or drop file here": "Sau aruncați fișierul aici",
+    "Browse files": "Cauta fisiere",
+    "Zoom In": "Mareste",
+    "Zoom Out": "A micsora",
+    "First Page": "Prima pagina",
+    "Previous Page": "Pagina precedentă",
+    "Next Page": "Pagina următoare",
+    "Last Page": "Ultima pagina",
+    "Rotate CCW": "Rotiți CCW",
+    "Rotate CW": "Rotiți CW",
+    "Download": "Descarca",
+    "Print": "Imprimare",
+    "Search": "Căutare",
+    "Run presentation": "Rulați prezentarea",
+    "Present": "Prezent",
+    "Stop": "Stop",
+    "Stop presenting": "Nu mai prezenta",
+    "Resume presenting": "Reluați prezentarea",
+    "Pause presenting": "Pauză prezentare",
+    "None": "Nici unul",
+    "5 sec": "5 sec",
+    "10 sec": "10 sec",
+    "15 sec": "15 sec",
+    "30 sec": "30 sec",
+    "Thumbnails": "Miniaturi"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/ru.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ru.ts ***!
+  \********************************************************************************/
+/*! exports provided: RU */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RU", function() { return RU; });
+const RU = {
+    "Click": "Нажмите",
+    "to open file": "чтобы открыть файл",
+    "Or drop file here": "Или перетащите файл сюда",
+    "Browse files": "Просмотр файлов",
+    "Zoom In": "Увеличить",
+    "Zoom Out": "Уменьшить",
+    "First Page": "Первая страница",
+    "Previous Page": "Предыдущая страница",
+    "Next Page": "Следующая Страница",
+    "Last Page": "Последняя страница",
+    "Rotate CCW": "Повернуть против часовой стрелки",
+    "Rotate CW": "Повернуть по часовой стрелке",
+    "Download": "Скачать",
+    "Print": "Распечатать",
+    "Search": "Поиск",
+    "Run presentation": "Запустить презентацию",
+    "Present": "Запустить презентацию",
+    "Stop": "Стоп",
+    "Stop presenting": "Остановить презентацию",
+    "Resume presenting": "Возобновить презентацию",
+    "Pause presenting": "Приостановить презентацию",
+    "None": "-",
+    "5 sec": "5 сек.",
+    "10 sec": "10 сек.",
+    "15 sec": "15 сек.",
+    "30 sec": "30 сек.",
+    "Thumbnails": "Миниатюры"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/sv.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/sv.ts ***!
+  \********************************************************************************/
+/*! exports provided: SV */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SV", function() { return SV; });
+const SV = {
+    "Click": "Klick",
+    "to open file": "för att öppna filen",
+    "Or drop file here": "Eller släpp filen här",
+    "Browse files": "Bläddra bland filer",
+    "Zoom In": "Zooma in",
+    "Zoom Out": "Zooma ut",
+    "First Page": "Första sidan",
+    "Previous Page": "Föregående sida",
+    "Next Page": "Nästa sida",
+    "Last Page": "Sista sidan",
+    "Rotate CCW": "Vrid CCW",
+    "Rotate CW": "Rotera CW",
+    "Download": "Ladda ner",
+    "Print": "Skriva ut",
+    "Search": "Sök",
+    "Run presentation": "Kör presentationen",
+    "Present": "Närvarande",
+    "Stop": "Sluta",
+    "Stop presenting": "Sluta presentera",
+    "Resume presenting": "Återuppta presentationen",
+    "Pause presenting": "Pausa presentationen",
+    "None": "Ingen",
+    "5 sec": "5 sek",
+    "10 sec": "10 sek",
+    "15 sec": "15 sek",
+    "30 sec": "30 sek",
+    "Thumbnails": "Miniatyrer"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/th.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/th.ts ***!
+  \********************************************************************************/
+/*! exports provided: TH */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TH", function() { return TH; });
+const TH = {
+    "Click": "คลิก",
+    "to open file": "เพื่อเปิดไฟล์",
+    "Or drop file here": "หรือวางไฟล์ที่นี่",
+    "Browse files": "เรียกดูไฟล์",
+    "Zoom In": "ขยายเข้า",
+    "Zoom Out": "ซูมออก",
+    "First Page": "หน้าแรก",
+    "Previous Page": "หน้าก่อน",
+    "Next Page": "หน้าต่อไป",
+    "Last Page": "หน้าสุดท้าย",
+    "Rotate CCW": "หมุนทวนเข็มนาฬิกา",
+    "Rotate CW": "หมุน CW",
+    "Download": "ดาวน์โหลด",
+    "Print": "พิมพ์",
+    "Search": "ค้นหา",
+    "Run presentation": "เรียกใช้การนำเสนอ",
+    "Present": "ปัจจุบัน",
+    "Stop": "หยุด",
+    "Stop presenting": "หยุดนำเสนอ",
+    "Resume presenting": "นำเสนอต่อ",
+    "Pause presenting": "หยุดการนำเสนอชั่วคราว",
+    "None": "ไม่มี",
+    "5 sec": "5 วินาที",
+    "10 sec": "10 วินาที",
+    "15 sec": "15 วินาที",
+    "30 sec": "30 วินาที",
+    "Thumbnails": "รูปขนาดย่อ"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/tr.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/tr.ts ***!
+  \********************************************************************************/
+/*! exports provided: TR */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TR", function() { return TR; });
+const TR = {
+    "Click": "Tıklamak",
+    "to open file": "dosyayı açmak için",
+    "Or drop file here": "Veya dosyayı buraya bırakın",
+    "Browse files": "Dosyalara göz atın",
+    "Zoom In": "Yakınlaştır",
+    "Zoom Out": "Uzaklaştırmak",
+    "First Page": "İlk sayfa",
+    "Previous Page": "Önceki sayfa",
+    "Next Page": "Sonraki Sayfa",
+    "Last Page": "Son Sayfa",
+    "Rotate CCW": "CCW'yi döndür",
+    "Rotate CW": "CW'yi döndür",
+    "Download": "İndirmek",
+    "Print": "Yazdır",
+    "Search": "Arama",
+    "Run presentation": "Sunuyu çalıştır",
+    "Present": "Sunmak",
+    "Stop": "Durmak",
+    "Stop presenting": "Sunmayı durdur",
+    "Resume presenting": "Sunuma devam et",
+    "Pause presenting": "Sunumu duraklat",
+    "None": "Hiçbiri",
+    "5 sec": "5 saniye",
+    "10 sec": "10 saniye",
+    "15 sec": "15 saniye",
+    "30 sec": "30 saniye",
+    "Thumbnails": "küçük resimler"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/uk.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/uk.ts ***!
+  \********************************************************************************/
+/*! exports provided: UK */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UK", function() { return UK; });
+const UK = {
+    "Click": "Клікніть",
+    "to open file": "щоб відкрити файл",
+    "Or drop file here": "Або перетягніть файл у цю область",
+    "Browse files": "Переглянути файли",
+    "Zoom In": "Збільшити",
+    "Zoom Out": "Зменшити",
+    "First Page": "Перша сторінка",
+    "Previous Page": "Попередня сторінка",
+    "Next Page": "Наступна сторінка",
+    "Last Page": "Остання сторінка",
+    "Rotate CCW": "Повернути проти годинникової стрілки",
+    "Rotate CW": "Повернути за годинниковою стрілкою",
+    "Download": "Завантажити",
+    "Print": "Друк",
+    "Search": "Пошук",
+    "Run presentation": "Запустити презентацію",
+    "Present": "Запустити презентацію",
+    "Stop": "Зупинити",
+    "Stop presenting": "Зупинити презентацію",
+    "Resume presenting": "Продовжити презентацію",
+    "Pause presenting": "Призупинити презентацію",
+    "None": "-",
+    "5 sec": "5 секунд",
+    "10 sec": "10 секунд",
+    "15 sec": "15 секунд",
+    "30 sec": "30 секунд",
+    "Thumbnails": "Ескізи",
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/vi.ts":
+/*!********************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/vi.ts ***!
+  \********************************************************************************/
+/*! exports provided: VI */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VI", function() { return VI; });
+const VI = {
+    "Click": "Nhấp chuột",
+    "to open file": "để mở tệp",
+    "Or drop file here": "Hoặc thả tệp vào đây",
+    "Browse files": "Duyệt qua các tệp",
+    "Zoom In": "Phóng to",
+    "Zoom Out": "Thu nhỏ",
+    "First Page": "Trang đầu tiên",
+    "Previous Page": "Trang trước",
+    "Next Page": "Trang tiếp theo",
+    "Last Page": "Trang cuối",
+    "Rotate CCW": "Xoay CCW",
+    "Rotate CW": "Xoay CW",
+    "Download": "Tải xuống",
+    "Print": "In",
+    "Search": "Tìm kiếm",
+    "Run presentation": "Chạy bản trình bày",
+    "Present": "Món quà",
+    "Stop": "Ngừng lại",
+    "Stop presenting": "Dừng trình bày",
+    "Resume presenting": "Tiếp tục trình bày",
+    "Pause presenting": "Tạm dừng trình bày",
+    "None": "Không có",
+    "5 sec": "5 giây",
+    "10 sec": "10 giây",
+    "15 sec": "15 giây",
+    "30 sec": "30 giây",
+    "Thumbnails": "Hình thu nhỏ"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/zh-hans.ts":
+/*!*************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/zh-hans.ts ***!
+  \*************************************************************************************/
+/*! exports provided: ZHHANS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZHHANS", function() { return ZHHANS; });
+const ZHHANS = {
+    "Click": "点击",
+    "to open file": "打开文件",
+    "Or drop file here": "或将文件拖放到此处",
+    "Browse files": "浏览文件",
+    "Zoom In": "放大",
+    "Zoom Out": "缩小",
+    "First Page": "第一页",
+    "Previous Page": "上一页",
+    "Next Page": "下一页",
+    "Last Page": "最后一页",
+    "Rotate CCW": "逆时针旋转",
+    "Rotate CW": "顺时针旋转",
+    "Download": "下载",
+    "Print": "打印",
+    "Search": "搜索",
+    "Run presentation": "运行演示",
+    "Present": "展示",
+    "Stop": "停止",
+    "Stop presenting": "停止展示",
+    "Resume presenting": "简历展示",
+    "Pause presenting": "暂停演示",
+    "None": "没有任何",
+    "5 sec": "5 秒",
+    "10 sec": "10 秒",
+    "15 sec": "15 秒",
+    "30 sec": "30 秒",
+    "Thumbnails": "缩略图"
+};
+
+
+/***/ }),
+
+/***/ "../../libs/viewer/src/lib/translations/zh-hant.ts":
+/*!*************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/zh-hant.ts ***!
+  \*************************************************************************************/
+/*! exports provided: ZHHANT */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZHHANT", function() { return ZHHANT; });
+const ZHHANT = {
+    "Click": "點擊",
+    "to open file": "打開文件",
+    "Or drop file here": "或將文件拖放到此處",
+    "Browse files": "瀏覽文件",
+    "Zoom In": "放大",
+    "Zoom Out": "縮小",
+    "First Page": "第一頁",
+    "Previous Page": "上一頁",
+    "Next Page": "下一頁",
+    "Last Page": "最後一頁",
+    "Rotate CCW": "逆時針旋轉",
+    "Rotate CW": "順時針旋轉",
+    "Download": "下載",
+    "Print": "打印",
+    "Search": "搜索",
+    "Run presentation": "運行演示",
+    "Present": "展示",
+    "Stop": "停止",
+    "Stop presenting": "停止展示",
+    "Resume presenting": "簡歷展示",
+    "Pause presenting": "暫停演示",
+    "None": "沒有任何",
+    "5 sec": "5 秒",
+    "10 sec": "10 秒",
+    "15 sec": "15 秒",
+    "30 sec": "30 秒",
+    "Thumbnails": "縮略圖"
+};
+
+
+/***/ }),
+
 /***/ "../../libs/viewer/src/lib/viewer-app.component.less":
 /*!***************************************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/viewer-app.component.less ***!
@@ -20203,7 +22256,7 @@ ThumbnailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');\n:host * {\n  font-family: 'Open Sans', Arial, Helvetica, sans-serif;\n}\n.current-page-number {\n  margin-left: 7px;\n  font-size: 14px;\n  color: #959da5;\n  width: 37px;\n  height: 37px;\n  line-height: 37px;\n  text-align: center;\n}\n.current-page-number.active {\n  color: #fff;\n}\n.wrapper {\n  -webkit-box-align: stretch;\n          align-items: stretch;\n  height: 100%;\n  width: 100%;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.doc-panel {\n  display: -webkit-box;\n  display: flex;\n  height: calc(100vh - 60px);\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n}\n.thumbnails-button {\n  position: absolute;\n  right: 3px;\n}\n.top-panel {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  width: 100%;\n}\n.toolbar-panel {\n  background-color: #3e4e5a;\n  width: 100%;\n}\n.btn-right {\n  margin-right: 7px;\n}\n.smp-start-stop ::ng-deep .button {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  border: 1px solid;\n  border-radius: 5px;\n  padding: 0px 10px !important;\n}\n::ng-deep .tools .button,\n::ng-deep .tools .selected-value,\n::ng-deep .tools .nav-caret {\n  color: #fff !important;\n}\n::ng-deep .tools .button.inactive,\n::ng-deep .tools .selected-value.inactive,\n::ng-deep .tools .nav-caret.inactive {\n  color: #959da5 !important;\n}\n::ng-deep .tools .button {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-flow: column;\n}\n::ng-deep .tools .select-left .select {\n  position: relative;\n}\n::ng-deep .tools .select-left .dropdown-menu {\n  top: 40px;\n  left: 0px;\n}\n::ng-deep .tools .select-right .select {\n  position: relative;\n}\n::ng-deep .tools .select-right .dropdown-menu {\n  top: 40px;\n  right: 0px;\n}\n::ng-deep .tools .dropdown-menu .option {\n  color: #6e6e6e !important;\n}\n::ng-deep .tools .dropdown-menu .option:hover {\n  background-color: #4b566c !important;\n}\n::ng-deep .tools .icon-button {\n  margin: 0px 0px 0px 15px !important;\n}\n::ng-deep .tools .select {\n  width: 37px;\n  height: 37px;\n  margin-left: 7px;\n  line-height: 37px;\n  text-align: center;\n}\n::ng-deep .tools .slides-title {\n  color: white;\n  padding-left: 12px;\n  font-size: 18px;\n}\n::ng-deep .tools .slides-filename {\n  -webkit-box-flex: 1;\n          flex-grow: 1;\n  text-align: center;\n  color: white;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding-left: 20px;\n  overflow: hidden;\n}\n::ng-deep .tools .slides-buttons {\n  display: -webkit-box;\n  display: flex;\n}\n::ng-deep .tools .slides-buttons ::ng-deep .select {\n  color: white;\n  cursor: pointer;\n}\n::ng-deep .tools ::ng-deep .gd-nav-search-container .icon-button {\n  margin: 0 0 0 7px !important;\n}\n.slides-nav {\n  position: absolute;\n  right: 30px;\n  bottom: 30px;\n  display: -webkit-box;\n  display: flex;\n}\n.slides-nav ::ng-deep .button {\n  font-size: 37px;\n  background-color: #EDF0F2;\n  border-radius: 3px;\n}\n.slides-nav ::ng-deep .timer {\n  font-size: 42px;\n  line-height: 6px;\n  color: #959da5;\n  position: relative;\n}\n.slides-nav ::ng-deep .timer .seconds-remaining {\n  position: absolute;\n  margin-left: 5px;\n  font-size: 16px;\n  top: 18px;\n  left: 12px;\n}\n.slides-nav ::ng-deep .timer .seconds-remaining.two-digits {\n  left: 6px !important;\n}\n::ng-deep .page.presentation .gd-wrapper {\n  pointer-events: none;\n}\n@media (max-width: 1037px) {\n  .mobile-hide,\n  .current-page-number {\n    display: none;\n  }\n  ::ng-deep .tools gd-button:nth-child(1) > .icon-button {\n    margin: 0px 0px 0px 10px !important;\n  }\n  ::ng-deep .tools .icon-button {\n    height: 60px;\n    width: 60px;\n  }\n  ::ng-deep .tools .gd-nav-search-btn .icon-button {\n    height: 37px;\n    width: 37px;\n  }\n  ::ng-deep .tools .gd-nav-search-btn .button {\n    font-size: 14px;\n  }\n  ::ng-deep .tools .gd-nav-search-container {\n    top: 59px !important;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyIsImxpYnMvdmlld2VyL3NyYy9saWIvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSw2RUNBa0I7QUFHbEI7RUFDRSxzREFBQTtBRERGO0FDSUE7RUFDRSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0FERkY7QUNJRTtFQUNFLFdBQUE7QURGSjtBQ01BO0VBQ0UsMEJBQUE7VUFBQSxvQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsZUFBQTtFQUNBLE1BQUE7RUFDQSxTQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7QURKRjtBQ09BO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsMEJBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7QURMRjtBQ1FBO0VBQ0Usa0JBQUE7RUFDQSxVQUFBO0FETkY7QUNTQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHlCQUFBO1VBQUEsbUJBQUE7RUFDQSxXQUFBO0FEUEY7QUNVQTtFQUNFLHlCQUFBO0VBQ0EsV0FBQTtBRFJGO0FDV0E7RUFDRSxpQkFBQTtBRFRGO0FDWUE7RUFFSSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EsNEJBQUE7QURYSjtBQ2VBOzs7RUFLSSxzQkFBQTtBRGZKO0FDaUJJOzs7RUFDRSx5QkFBQTtBRGJOO0FDS0E7RUFhSSw0QkFBQTtFQUFBLDZCQUFBO1VBQUEsaUJBQUE7QURmSjtBQ0VBO0VBa0JNLGtCQUFBO0FEakJOO0FDREE7RUFzQk0sU0FBQTtFQUNBLFNBQUE7QURsQk47QUNMQTtFQTZCTSxrQkFBQTtBRHJCTjtBQ1JBO0VBaUNNLFNBQUE7RUFDQSxVQUFBO0FEdEJOO0FDWkE7RUF1Q0kseUJBQUE7QUR4Qko7QUNmQTtFQTJDSSxvQ0FBQTtBRHpCSjtBQ2xCQTtFQStDSSxtQ0FBQTtBRDFCSjtBQ3JCQTtFQW1ESSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBRDNCSjtBQzVCQTtFQTJESSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FENUJKO0FDakNBO0VBaUVJLG1CQUFBO1VBQUEsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0FEN0JKO0FDMUNBO0VBMkVJLG9CQUFBO0VBQUEsYUFBQTtBRDlCSjtBQzdDQTtFQTZFTSxZQUFBO0VBQ0EsZUFBQTtBRDdCTjtBQ2pEQTtFQW9GSSw0QkFBQTtBRGhDSjtBQ29DQTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7QURsQ0Y7QUM4QkE7RUFNSSxlQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtBRGpDSjtBQ3lCQTtFQVdJLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxrQkFBQTtBRGpDSjtBQ21CQTtFQWdCTSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLFNBQUE7RUFDQSxVQUFBO0FEaENOO0FDaUNNO0VBQ0Usb0JBQUE7QUQvQlI7QUNxQ0E7RUFDRSxvQkFBQTtBRG5DRjtBQ3NDQTtFQUVFOztJQUVFLGFBQUE7RURyQ0Y7RUN3Q0E7SUFFSSxtQ0FBQTtFRHZDSjtFQ3FDQTtJQU1JLFlBQUE7SUFDQSxXQUFBO0VEeENKO0VDaUNBO0lBWU0sWUFBQTtJQUNBLFdBQUE7RUQxQ047RUM2QkE7SUFpQk0sZUFBQTtFRDNDTjtFQzBCQTtJQXNCSSxvQkFBQTtFRDdDSjtBQUNGIiwiZmlsZSI6ImxpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgdXJsKCdodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9T3BlbitTYW5zJmRpc3BsYXk9c3dhcCcpO1xuOmhvc3QgKiB7XG4gIGZvbnQtZmFtaWx5OiAnT3BlbiBTYW5zJywgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjtcbn1cbi5jdXJyZW50LXBhZ2UtbnVtYmVyIHtcbiAgbWFyZ2luLWxlZnQ6IDdweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogIzk1OWRhNTtcbiAgd2lkdGg6IDM3cHg7XG4gIGhlaWdodDogMzdweDtcbiAgbGluZS1oZWlnaHQ6IDM3cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbi5jdXJyZW50LXBhZ2UtbnVtYmVyLmFjdGl2ZSB7XG4gIGNvbG9yOiAjZmZmO1xufVxuLndyYXBwZXIge1xuICBhbGlnbi1pdGVtczogc3RyZXRjaDtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDA7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG59XG4uZG9jLXBhbmVsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gNjBweCk7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG59XG4udGh1bWJuYWlscy1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAzcHg7XG59XG4udG9wLXBhbmVsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgd2lkdGg6IDEwMCU7XG59XG4udG9vbGJhci1wYW5lbCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMzZTRlNWE7XG4gIHdpZHRoOiAxMDAlO1xufVxuLmJ0bi1yaWdodCB7XG4gIG1hcmdpbi1yaWdodDogN3B4O1xufVxuLnNtcC1zdGFydC1zdG9wIDo6bmctZGVlcCAuYnV0dG9uIHtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgYm9yZGVyOiAxcHggc29saWQ7XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgcGFkZGluZzogMHB4IDEwcHggIWltcG9ydGFudDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmJ1dHRvbixcbjo6bmctZGVlcCAudG9vbHMgLnNlbGVjdGVkLXZhbHVlLFxuOjpuZy1kZWVwIC50b29scyAubmF2LWNhcmV0IHtcbiAgY29sb3I6ICNmZmYgIWltcG9ydGFudDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmJ1dHRvbi5pbmFjdGl2ZSxcbjo6bmctZGVlcCAudG9vbHMgLnNlbGVjdGVkLXZhbHVlLmluYWN0aXZlLFxuOjpuZy1kZWVwIC50b29scyAubmF2LWNhcmV0LmluYWN0aXZlIHtcbiAgY29sb3I6ICM5NTlkYTUgIWltcG9ydGFudDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmJ1dHRvbiB7XG4gIGZsZXgtZmxvdzogY29sdW1uO1xufVxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0LWxlZnQgLnNlbGVjdCB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNlbGVjdC1sZWZ0IC5kcm9wZG93bi1tZW51IHtcbiAgdG9wOiA0MHB4O1xuICBsZWZ0OiAwcHg7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zZWxlY3QtcmlnaHQgLnNlbGVjdCB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNlbGVjdC1yaWdodCAuZHJvcGRvd24tbWVudSB7XG4gIHRvcDogNDBweDtcbiAgcmlnaHQ6IDBweDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmRyb3Bkb3duLW1lbnUgLm9wdGlvbiB7XG4gIGNvbG9yOiAjNmU2ZTZlICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5kcm9wZG93bi1tZW51IC5vcHRpb246aG92ZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNGI1NjZjICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5pY29uLWJ1dHRvbiB7XG4gIG1hcmdpbjogMHB4IDBweCAwcHggMTVweCAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0IHtcbiAgd2lkdGg6IDM3cHg7XG4gIGhlaWdodDogMzdweDtcbiAgbWFyZ2luLWxlZnQ6IDdweDtcbiAgbGluZS1oZWlnaHQ6IDM3cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNsaWRlcy10aXRsZSB7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgcGFkZGluZy1sZWZ0OiAxMnB4O1xuICBmb250LXNpemU6IDE4cHg7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zbGlkZXMtZmlsZW5hbWUge1xuICBmbGV4LWdyb3c6IDE7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgY29sb3I6IHdoaXRlO1xuICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgcGFkZGluZy1sZWZ0OiAyMHB4O1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuOjpuZy1kZWVwIC50b29scyAuc2xpZGVzLWJ1dHRvbnMge1xuICBkaXNwbGF5OiBmbGV4O1xufVxuOjpuZy1kZWVwIC50b29scyAuc2xpZGVzLWJ1dHRvbnMgOjpuZy1kZWVwIC5zZWxlY3Qge1xuICBjb2xvcjogd2hpdGU7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cbjo6bmctZGVlcCAudG9vbHMgOjpuZy1kZWVwIC5nZC1uYXYtc2VhcmNoLWNvbnRhaW5lciAuaWNvbi1idXR0b24ge1xuICBtYXJnaW46IDAgMCAwIDdweCAhaW1wb3J0YW50O1xufVxuLnNsaWRlcy1uYXYge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAzMHB4O1xuICBib3R0b206IDMwcHg7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG4uc2xpZGVzLW5hdiA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gIGZvbnQtc2l6ZTogMzdweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI0VERjBGMjtcbiAgYm9yZGVyLXJhZGl1czogM3B4O1xufVxuLnNsaWRlcy1uYXYgOjpuZy1kZWVwIC50aW1lciB7XG4gIGZvbnQtc2l6ZTogNDJweDtcbiAgbGluZS1oZWlnaHQ6IDZweDtcbiAgY29sb3I6ICM5NTlkYTU7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cbi5zbGlkZXMtbmF2IDo6bmctZGVlcCAudGltZXIgLnNlY29uZHMtcmVtYWluaW5nIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBtYXJnaW4tbGVmdDogNXB4O1xuICBmb250LXNpemU6IDE2cHg7XG4gIHRvcDogMThweDtcbiAgbGVmdDogMTJweDtcbn1cbi5zbGlkZXMtbmF2IDo6bmctZGVlcCAudGltZXIgLnNlY29uZHMtcmVtYWluaW5nLnR3by1kaWdpdHMge1xuICBsZWZ0OiA2cHggIWltcG9ydGFudDtcbn1cbjo6bmctZGVlcCAucGFnZS5wcmVzZW50YXRpb24gLmdkLXdyYXBwZXIge1xuICBwb2ludGVyLWV2ZW50czogbm9uZTtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiAxMDM3cHgpIHtcbiAgLm1vYmlsZS1oaWRlLFxuICAuY3VycmVudC1wYWdlLW51bWJlciB7XG4gICAgZGlzcGxheTogbm9uZTtcbiAgfVxuICA6Om5nLWRlZXAgLnRvb2xzIGdkLWJ1dHRvbjpudGgtY2hpbGQoMSkgPiAuaWNvbi1idXR0b24ge1xuICAgIG1hcmdpbjogMHB4IDBweCAwcHggMTBweCAhaW1wb3J0YW50O1xuICB9XG4gIDo6bmctZGVlcCAudG9vbHMgLmljb24tYnV0dG9uIHtcbiAgICBoZWlnaHQ6IDYwcHg7XG4gICAgd2lkdGg6IDYwcHg7XG4gIH1cbiAgOjpuZy1kZWVwIC50b29scyAuZ2QtbmF2LXNlYXJjaC1idG4gLmljb24tYnV0dG9uIHtcbiAgICBoZWlnaHQ6IDM3cHg7XG4gICAgd2lkdGg6IDM3cHg7XG4gIH1cbiAgOjpuZy1kZWVwIC50b29scyAuZ2QtbmF2LXNlYXJjaC1idG4gLmJ1dHRvbiB7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICB9XG4gIDo6bmctZGVlcCAudG9vbHMgLmdkLW5hdi1zZWFyY2gtY29udGFpbmVyIHtcbiAgICB0b3A6IDU5cHggIWltcG9ydGFudDtcbiAgfVxufVxuIiwiQGltcG9ydCAoY3NzKSB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1PcGVuK1NhbnMmZGlzcGxheT1zd2FwJyk7XG5AaW1wb3J0IFwiLi4vLi4vLi4vY29tbW9uLWNvbXBvbmVudHMvc3JjL3N0eWxlcy92YXJpYWJsZXNcIjtcblxuOmhvc3QgKiB7XG4gIGZvbnQtZmFtaWx5OiAnT3BlbiBTYW5zJywgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjtcbn1cblxuLmN1cnJlbnQtcGFnZS1udW1iZXIge1xuICBtYXJnaW4tbGVmdDogN3B4O1xuICBmb250LXNpemUgIDogMTRweDtcbiAgY29sb3IgICAgICA6IEByZWdlbnQtZ3JheTtcbiAgd2lkdGggICAgICA6IDM3cHg7XG4gIGhlaWdodCAgICAgOiAzN3B4O1xuICBsaW5lLWhlaWdodDogMzdweDtcbiAgdGV4dC1hbGlnbiA6IGNlbnRlcjtcblxuICAmLmFjdGl2ZSB7XG4gICAgY29sb3I6ICNmZmY7XG4gIH1cbn1cblxuLndyYXBwZXIge1xuICBhbGlnbi1pdGVtczogc3RyZXRjaDtcbiAgaGVpZ2h0ICAgICA6IDEwMCU7XG4gIHdpZHRoICAgICAgOiAxMDAlO1xuICBwb3NpdGlvbiAgIDogZml4ZWQ7XG4gIHRvcCAgICAgICAgOiAwO1xuICBib3R0b20gICAgIDogMDtcbiAgbGVmdCAgICAgICA6IDA7XG4gIHJpZ2h0ICAgICAgOiAwO1xufVxuXG4uZG9jLXBhbmVsIHtcbiAgZGlzcGxheSAgICAgICA6IGZsZXg7XG4gIGhlaWdodCAgICAgICAgOiBjYWxjKDEwMHZoIC0gNjBweCk7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG59XG5cbi50aHVtYm5haWxzLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQgICA6IDNweDtcbn1cblxuLnRvcC1wYW5lbCB7XG4gIGRpc3BsYXkgICAgOiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICB3aWR0aCAgICAgIDogMTAwJTtcbn1cblxuLnRvb2xiYXItcGFuZWwge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBAbmF2LW1haW4tYmFja2dyb3VuZDtcbiAgd2lkdGggICAgICAgICAgIDogMTAwJTtcbn1cblxuLmJ0bi1yaWdodCB7XG4gIG1hcmdpbi1yaWdodDogN3B4O1xufVxuXG4uc21wLXN0YXJ0LXN0b3Age1xuICA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gICAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgICBib3JkZXI6IDFweCBzb2xpZDtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcGFkZGluZzogMHB4IDEwcHggIWltcG9ydGFudDtcbiAgfVxufVxuXG46Om5nLWRlZXAgLnRvb2xzIHtcblxuICAuYnV0dG9uLFxuICAuc2VsZWN0ZWQtdmFsdWUsXG4gIC5uYXYtY2FyZXQge1xuICAgIGNvbG9yOiAjZmZmICFpbXBvcnRhbnQ7XG5cbiAgICAmLmluYWN0aXZlIHtcbiAgICAgIGNvbG9yOiBAcmVnZW50LWdyYXkgICFpbXBvcnRhbnQ7XG4gICAgfVxuICB9XG5cbiAgLmJ1dHRvbiB7XG4gICAgZmxleC1mbG93OiBjb2x1bW47XG4gIH1cblxuICAuc2VsZWN0LWxlZnQge1xuICAgIC5zZWxlY3Qge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIH1cblxuICAgIC5kcm9wZG93bi1tZW51IHtcbiAgICAgIHRvcDogNDBweDtcbiAgICAgIGxlZnQ6IDBweDtcbiAgICB9XG4gIH1cblxuICAuc2VsZWN0LXJpZ2h0IHtcbiAgICAuc2VsZWN0IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICB9XG5cbiAgICAuZHJvcGRvd24tbWVudSB7XG4gICAgICB0b3A6IDQwcHg7XG4gICAgICByaWdodDogMHB4O1xuICAgIH1cbiAgfVxuXG4gIC5kcm9wZG93bi1tZW51IC5vcHRpb24ge1xuICAgIGNvbG9yOiBAZG92ZS1ncmF5ICAhaW1wb3J0YW50O1xuICB9XG5cbiAgLmRyb3Bkb3duLW1lbnUgLm9wdGlvbjpob3ZlciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogQGZvbGRlciAgIWltcG9ydGFudDtcbiAgfVxuXG4gIC5pY29uLWJ1dHRvbiB7XG4gICAgbWFyZ2luOiAwcHggMHB4IDBweCAxNXB4ICFpbXBvcnRhbnQ7XG4gIH1cblxuICAuc2VsZWN0IHtcbiAgICB3aWR0aCAgICAgIDogMzdweDtcbiAgICBoZWlnaHQgICAgIDogMzdweDtcbiAgICBtYXJnaW4tbGVmdDogN3B4O1xuICAgIGxpbmUtaGVpZ2h0OiAzN3B4O1xuICAgIHRleHQtYWxpZ24gOiBjZW50ZXI7XG4gIH1cblxuICAuc2xpZGVzLXRpdGxlIHtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgcGFkZGluZy1sZWZ0OiAxMnB4O1xuICAgIGZvbnQtc2l6ZTogMThweDtcbiAgfVxuXG4gIC5zbGlkZXMtZmlsZW5hbWUge1xuICAgIGZsZXgtZ3JvdzogMTtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIHRleHQtb3ZlcmZsb3c6IGVsbGlwc2lzO1xuICAgIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gICAgcGFkZGluZy1sZWZ0OiAyMHB4O1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gIH1cblxuICAuc2xpZGVzLWJ1dHRvbnMge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgOjpuZy1kZWVwIC5zZWxlY3Qge1xuICAgICAgY29sb3I6IHdoaXRlO1xuICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIH1cbiAgfVxuXG4gIDo6bmctZGVlcCAuZ2QtbmF2LXNlYXJjaC1jb250YWluZXIgXG4gIC5pY29uLWJ1dHRvbiB7XG4gICAgbWFyZ2luOiAwIDAgMCA3cHggIWltcG9ydGFudDtcbiAgfVxufVxuXG4uc2xpZGVzLW5hdiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IDMwcHg7XG4gIGJvdHRvbTogMzBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgOjpuZy1kZWVwIC5idXR0b24ge1xuICAgIGZvbnQtc2l6ZTogMzdweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBAcG9yY2VsYWluO1xuICAgIGJvcmRlci1yYWRpdXM6IDNweDtcbiAgfVxuICA6Om5nLWRlZXAgLnRpbWVyIHtcbiAgICBmb250LXNpemU6IDQycHg7XG4gICAgbGluZS1oZWlnaHQ6IDZweDtcbiAgICBjb2xvcjogQHJlZ2VudC1ncmF5O1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAuc2Vjb25kcy1yZW1haW5pbmcge1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgbWFyZ2luLWxlZnQ6IDVweDtcbiAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICAgIHRvcDogMThweDtcbiAgICAgIGxlZnQ6IDEycHg7XG4gICAgICAmLnR3by1kaWdpdHMge1xuICAgICAgICBsZWZ0OiA2cHggIWltcG9ydGFudDtcbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cblxuOjpuZy1kZWVwIC5wYWdlLnByZXNlbnRhdGlvbiAuZ2Qtd3JhcHBlciB7XG4gIHBvaW50ZXItZXZlbnRzOiBub25lO1xufVxuXG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG5cbiAgLm1vYmlsZS1oaWRlLFxuICAuY3VycmVudC1wYWdlLW51bWJlciB7XG4gICAgZGlzcGxheTogbm9uZTtcbiAgfVxuXG4gIDo6bmctZGVlcCAudG9vbHMge1xuICAgIGdkLWJ1dHRvbjpudGgtY2hpbGQoMSk+Lmljb24tYnV0dG9uIHtcbiAgICAgIG1hcmdpbjogMHB4IDBweCAwcHggMTBweCAhaW1wb3J0YW50O1xuICAgIH1cblxuICAgIC5pY29uLWJ1dHRvbiB7XG4gICAgICBoZWlnaHQ6IDYwcHg7XG4gICAgICB3aWR0aCA6IDYwcHg7XG4gICAgfVxuXG4gICAgLmdkLW5hdi1zZWFyY2gtYnRuIHtcbiAgICAgIC5pY29uLWJ1dHRvbiB7XG4gICAgICAgIGhlaWdodDogMzdweDtcbiAgICAgICAgd2lkdGggOiAzN3B4O1xuICAgICAgfVxuXG4gICAgICAuYnV0dG9uIHtcbiAgICAgICAgZm9udC1zaXplOiAxNHB4O1xuICAgICAgfVxuICAgIH1cblxuICAgIC5nZC1uYXYtc2VhcmNoLWNvbnRhaW5lciB7XG4gICAgICB0b3A6IDU5cHggIWltcG9ydGFudDtcbiAgICB9XG4gIH1cbn0iXX0= */"
+module.exports = "@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');\n:host * {\n  font-family: 'Open Sans', Arial, Helvetica, sans-serif;\n}\n.current-page-number {\n  margin-left: 7px;\n  font-size: 14px;\n  color: #959da5;\n  width: 37px;\n  height: 37px;\n  line-height: 37px;\n  text-align: center;\n}\n.current-page-number.active {\n  color: #fff;\n}\n.wrapper {\n  -webkit-box-align: stretch;\n          align-items: stretch;\n  height: 100%;\n  width: 100%;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.doc-panel {\n  display: -webkit-box;\n  display: flex;\n  height: calc(100vh - 60px);\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n}\n.top-panel {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  width: 100%;\n}\n.toolbar-panel {\n  background-color: #3e4e5a;\n  width: 100%;\n}\n.toolbar-panel-right {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-flex: 1;\n          flex: 1;\n  place-content: flex-end;\n}\n.btn-right {\n  margin-right: 7px;\n}\n.smp-start-stop ::ng-deep .button {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  border: 1px solid;\n  border-radius: 5px;\n  padding: 0px 10px !important;\n}\n.select-language-menu ::ng-deep .select {\n  width: 100%;\n}\n.select-language-menu ::ng-deep .selected-value {\n  max-width: 100%;\n}\n::ng-deep .tools .button,\n::ng-deep .tools .selected-value,\n::ng-deep .tools .nav-caret {\n  color: #fff !important;\n}\n::ng-deep .tools .button.inactive,\n::ng-deep .tools .selected-value.inactive,\n::ng-deep .tools .nav-caret.inactive {\n  color: #959da5 !important;\n}\n::ng-deep .tools .button {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-flow: column;\n}\n::ng-deep .tools .select-left .select {\n  position: relative;\n}\n::ng-deep .tools .select-left .dropdown-menu {\n  top: 40px;\n  left: 0px;\n}\n::ng-deep .tools .select-right .select {\n  position: relative;\n}\n::ng-deep .tools .select-right .dropdown-menu {\n  top: 40px;\n  right: 0px;\n}\n::ng-deep .tools .dropdown-menu .option {\n  color: #6e6e6e !important;\n}\n::ng-deep .tools .dropdown-menu .option:hover {\n  background-color: #4b566c !important;\n}\n::ng-deep .tools .icon-button {\n  margin: 0px 0px 0px 15px !important;\n}\n::ng-deep .tools .select {\n  width: 37px;\n  height: 37px;\n  margin-left: 7px;\n  line-height: 37px;\n  text-align: center;\n}\n::ng-deep .tools .slides-title {\n  color: white;\n  padding-left: 12px;\n  font-size: 18px;\n}\n::ng-deep .tools .slides-filename {\n  -webkit-box-flex: 1;\n          flex-grow: 1;\n  text-align: center;\n  color: white;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding-left: 20px;\n  overflow: hidden;\n}\n::ng-deep .tools .slides-buttons {\n  display: -webkit-box;\n  display: flex;\n}\n::ng-deep .tools .slides-buttons ::ng-deep .select {\n  color: white;\n  cursor: pointer;\n}\n::ng-deep .tools ::ng-deep .gd-nav-search-container .icon-button {\n  margin: 0 0 0 7px !important;\n}\n.slides-nav {\n  position: absolute;\n  right: 30px;\n  bottom: 30px;\n  display: -webkit-box;\n  display: flex;\n}\n.slides-nav ::ng-deep .button {\n  font-size: 37px;\n  background-color: #EDF0F2;\n  border-radius: 3px;\n}\n.slides-nav ::ng-deep .timer {\n  font-size: 42px;\n  line-height: 6px;\n  color: #959da5;\n  position: relative;\n}\n.slides-nav ::ng-deep .timer .seconds-remaining {\n  position: absolute;\n  margin-left: 5px;\n  font-size: 16px;\n  top: 18px;\n  left: 12px;\n}\n.slides-nav ::ng-deep .timer .seconds-remaining.two-digits {\n  left: 6px !important;\n}\n::ng-deep .page.presentation .gd-wrapper {\n  pointer-events: none;\n}\n@media (max-width: 1037px) {\n  .mobile-hide,\n  .current-page-number {\n    display: none;\n  }\n  ::ng-deep .tools gd-button:nth-child(1) > .icon-button {\n    margin: 0px 0px 0px 10px !important;\n  }\n  ::ng-deep .tools .icon-button {\n    height: 60px;\n    width: 60px;\n  }\n  ::ng-deep .tools .gd-nav-search-btn .icon-button {\n    height: 37px;\n    width: 37px;\n  }\n  ::ng-deep .tools .gd-nav-search-btn .button {\n    font-size: 14px;\n  }\n  ::ng-deep .tools .gd-nav-search-container {\n    top: 59px !important;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyIsImxpYnMvdmlld2VyL3NyYy9saWIvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSw2RUNBa0I7QUFHbEI7RUFDRSxzREFBQTtBRERGO0FDSUE7RUFDRSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0FERkY7QUNJRTtFQUNFLFdBQUE7QURGSjtBQ01BO0VBQ0UsMEJBQUE7VUFBQSxvQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsZUFBQTtFQUNBLE1BQUE7RUFDQSxTQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7QURKRjtBQ09BO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsMEJBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7QURMRjtBQ1FBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLFdBQUE7QURORjtBQ1NBO0VBQ0UseUJBQUE7RUFDQSxXQUFBO0FEUEY7QUNVQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtFQUNBLG1CQUFBO1VBQUEsT0FBQTtFQUNBLHVCQUFBO0FEUkY7QUNXQTtFQUNFLGlCQUFBO0FEVEY7QUNZQTtFQUVJLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSw0QkFBQTtBRFhKO0FDZUE7RUFFSSxXQUFBO0FEZEo7QUNZQTtFQUtJLGVBQUE7QURkSjtBQ2tCQTs7O0VBS0ksc0JBQUE7QURsQko7QUNvQkk7OztFQUNFLHlCQUFBO0FEaEJOO0FDUUE7RUFhSSw0QkFBQTtFQUFBLDZCQUFBO1VBQUEsaUJBQUE7QURsQko7QUNLQTtFQWtCTSxrQkFBQTtBRHBCTjtBQ0VBO0VBc0JNLFNBQUE7RUFDQSxTQUFBO0FEckJOO0FDRkE7RUE2Qk0sa0JBQUE7QUR4Qk47QUNMQTtFQWlDTSxTQUFBO0VBQ0EsVUFBQTtBRHpCTjtBQ1RBO0VBdUNJLHlCQUFBO0FEM0JKO0FDWkE7RUEyQ0ksb0NBQUE7QUQ1Qko7QUNmQTtFQStDSSxtQ0FBQTtBRDdCSjtBQ2xCQTtFQW1ESSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBRDlCSjtBQ3pCQTtFQTJESSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FEL0JKO0FDOUJBO0VBaUVJLG1CQUFBO1VBQUEsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0FEaENKO0FDdkNBO0VBMkVJLG9CQUFBO0VBQUEsYUFBQTtBRGpDSjtBQzFDQTtFQTZFTSxZQUFBO0VBQ0EsZUFBQTtBRGhDTjtBQzlDQTtFQW9GSSw0QkFBQTtBRG5DSjtBQ3VDQTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7QURyQ0Y7QUNpQ0E7RUFNSSxlQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtBRHBDSjtBQzRCQTtFQVdJLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxrQkFBQTtBRHBDSjtBQ3NCQTtFQWdCTSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLFNBQUE7RUFDQSxVQUFBO0FEbkNOO0FDb0NNO0VBQ0Usb0JBQUE7QURsQ1I7QUN3Q0E7RUFDRSxvQkFBQTtBRHRDRjtBQ3lDQTtFQUVFOztJQUVFLGFBQUE7RUR4Q0Y7RUMyQ0E7SUFFSSxtQ0FBQTtFRDFDSjtFQ3dDQTtJQU1JLFlBQUE7SUFDQSxXQUFBO0VEM0NKO0VDb0NBO0lBWU0sWUFBQTtJQUNBLFdBQUE7RUQ3Q047RUNnQ0E7SUFpQk0sZUFBQTtFRDlDTjtFQzZCQTtJQXNCSSxvQkFBQTtFRGhESjtBQUNGIiwiZmlsZSI6ImxpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgdXJsKCdodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9T3BlbitTYW5zJmRpc3BsYXk9c3dhcCcpO1xuOmhvc3QgKiB7XG4gIGZvbnQtZmFtaWx5OiAnT3BlbiBTYW5zJywgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjtcbn1cbi5jdXJyZW50LXBhZ2UtbnVtYmVyIHtcbiAgbWFyZ2luLWxlZnQ6IDdweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogIzk1OWRhNTtcbiAgd2lkdGg6IDM3cHg7XG4gIGhlaWdodDogMzdweDtcbiAgbGluZS1oZWlnaHQ6IDM3cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbi5jdXJyZW50LXBhZ2UtbnVtYmVyLmFjdGl2ZSB7XG4gIGNvbG9yOiAjZmZmO1xufVxuLndyYXBwZXIge1xuICBhbGlnbi1pdGVtczogc3RyZXRjaDtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDA7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG59XG4uZG9jLXBhbmVsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gNjBweCk7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG59XG4udG9wLXBhbmVsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgd2lkdGg6IDEwMCU7XG59XG4udG9vbGJhci1wYW5lbCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMzZTRlNWE7XG4gIHdpZHRoOiAxMDAlO1xufVxuLnRvb2xiYXItcGFuZWwtcmlnaHQge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4OiAxO1xuICBwbGFjZS1jb250ZW50OiBmbGV4LWVuZDtcbn1cbi5idG4tcmlnaHQge1xuICBtYXJnaW4tcmlnaHQ6IDdweDtcbn1cbi5zbXAtc3RhcnQtc3RvcCA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIHBhZGRpbmc6IDBweCAxMHB4ICFpbXBvcnRhbnQ7XG59XG4uc2VsZWN0LWxhbmd1YWdlLW1lbnUgOjpuZy1kZWVwIC5zZWxlY3Qge1xuICB3aWR0aDogMTAwJTtcbn1cbi5zZWxlY3QtbGFuZ3VhZ2UtbWVudSA6Om5nLWRlZXAgLnNlbGVjdGVkLXZhbHVlIHtcbiAgbWF4LXdpZHRoOiAxMDAlO1xufVxuOjpuZy1kZWVwIC50b29scyAuYnV0dG9uLFxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0ZWQtdmFsdWUsXG46Om5nLWRlZXAgLnRvb2xzIC5uYXYtY2FyZXQge1xuICBjb2xvcjogI2ZmZiAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC50b29scyAuYnV0dG9uLmluYWN0aXZlLFxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0ZWQtdmFsdWUuaW5hY3RpdmUsXG46Om5nLWRlZXAgLnRvb2xzIC5uYXYtY2FyZXQuaW5hY3RpdmUge1xuICBjb2xvcjogIzk1OWRhNSAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC50b29scyAuYnV0dG9uIHtcbiAgZmxleC1mbG93OiBjb2x1bW47XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zZWxlY3QtbGVmdCAuc2VsZWN0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0LWxlZnQgLmRyb3Bkb3duLW1lbnUge1xuICB0b3A6IDQwcHg7XG4gIGxlZnQ6IDBweDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNlbGVjdC1yaWdodCAuc2VsZWN0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0LXJpZ2h0IC5kcm9wZG93bi1tZW51IHtcbiAgdG9wOiA0MHB4O1xuICByaWdodDogMHB4O1xufVxuOjpuZy1kZWVwIC50b29scyAuZHJvcGRvd24tbWVudSAub3B0aW9uIHtcbiAgY29sb3I6ICM2ZTZlNmUgIWltcG9ydGFudDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmRyb3Bkb3duLW1lbnUgLm9wdGlvbjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICM0YjU2NmMgIWltcG9ydGFudDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmljb24tYnV0dG9uIHtcbiAgbWFyZ2luOiAwcHggMHB4IDBweCAxNXB4ICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zZWxlY3Qge1xuICB3aWR0aDogMzdweDtcbiAgaGVpZ2h0OiAzN3B4O1xuICBtYXJnaW4tbGVmdDogN3B4O1xuICBsaW5lLWhlaWdodDogMzdweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuOjpuZy1kZWVwIC50b29scyAuc2xpZGVzLXRpdGxlIHtcbiAgY29sb3I6IHdoaXRlO1xuICBwYWRkaW5nLWxlZnQ6IDEycHg7XG4gIGZvbnQtc2l6ZTogMThweDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNsaWRlcy1maWxlbmFtZSB7XG4gIGZsZXgtZ3JvdzogMTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBjb2xvcjogd2hpdGU7XG4gIHRleHQtb3ZlcmZsb3c6IGVsbGlwc2lzO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICBwYWRkaW5nLWxlZnQ6IDIwcHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zbGlkZXMtYnV0dG9ucyB7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zbGlkZXMtYnV0dG9ucyA6Om5nLWRlZXAgLnNlbGVjdCB7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuOjpuZy1kZWVwIC50b29scyA6Om5nLWRlZXAgLmdkLW5hdi1zZWFyY2gtY29udGFpbmVyIC5pY29uLWJ1dHRvbiB7XG4gIG1hcmdpbjogMCAwIDAgN3B4ICFpbXBvcnRhbnQ7XG59XG4uc2xpZGVzLW5hdiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IDMwcHg7XG4gIGJvdHRvbTogMzBweDtcbiAgZGlzcGxheTogZmxleDtcbn1cbi5zbGlkZXMtbmF2IDo6bmctZGVlcCAuYnV0dG9uIHtcbiAgZm9udC1zaXplOiAzN3B4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRURGMEYyO1xuICBib3JkZXItcmFkaXVzOiAzcHg7XG59XG4uc2xpZGVzLW5hdiA6Om5nLWRlZXAgLnRpbWVyIHtcbiAgZm9udC1zaXplOiA0MnB4O1xuICBsaW5lLWhlaWdodDogNnB4O1xuICBjb2xvcjogIzk1OWRhNTtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuLnNsaWRlcy1uYXYgOjpuZy1kZWVwIC50aW1lciAuc2Vjb25kcy1yZW1haW5pbmcge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIG1hcmdpbi1sZWZ0OiA1cHg7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgdG9wOiAxOHB4O1xuICBsZWZ0OiAxMnB4O1xufVxuLnNsaWRlcy1uYXYgOjpuZy1kZWVwIC50aW1lciAuc2Vjb25kcy1yZW1haW5pbmcudHdvLWRpZ2l0cyB7XG4gIGxlZnQ6IDZweCAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC5wYWdlLnByZXNlbnRhdGlvbiAuZ2Qtd3JhcHBlciB7XG4gIHBvaW50ZXItZXZlbnRzOiBub25lO1xufVxuQG1lZGlhIChtYXgtd2lkdGg6IDEwMzdweCkge1xuICAubW9iaWxlLWhpZGUsXG4gIC5jdXJyZW50LXBhZ2UtbnVtYmVyIHtcbiAgICBkaXNwbGF5OiBub25lO1xuICB9XG4gIDo6bmctZGVlcCAudG9vbHMgZ2QtYnV0dG9uOm50aC1jaGlsZCgxKSA+IC5pY29uLWJ1dHRvbiB7XG4gICAgbWFyZ2luOiAwcHggMHB4IDBweCAxMHB4ICFpbXBvcnRhbnQ7XG4gIH1cbiAgOjpuZy1kZWVwIC50b29scyAuaWNvbi1idXR0b24ge1xuICAgIGhlaWdodDogNjBweDtcbiAgICB3aWR0aDogNjBweDtcbiAgfVxuICA6Om5nLWRlZXAgLnRvb2xzIC5nZC1uYXYtc2VhcmNoLWJ0biAuaWNvbi1idXR0b24ge1xuICAgIGhlaWdodDogMzdweDtcbiAgICB3aWR0aDogMzdweDtcbiAgfVxuICA6Om5nLWRlZXAgLnRvb2xzIC5nZC1uYXYtc2VhcmNoLWJ0biAuYnV0dG9uIHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gIH1cbiAgOjpuZy1kZWVwIC50b29scyAuZ2QtbmF2LXNlYXJjaC1jb250YWluZXIge1xuICAgIHRvcDogNTlweCAhaW1wb3J0YW50O1xuICB9XG59XG4iLCJAaW1wb3J0IChjc3MpIHVybCgnaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3M/ZmFtaWx5PU9wZW4rU2FucyZkaXNwbGF5PXN3YXAnKTtcbkBpbXBvcnQgXCIuLi8uLi8uLi9jb21tb24tY29tcG9uZW50cy9zcmMvc3R5bGVzL3ZhcmlhYmxlc1wiO1xuXG46aG9zdCAqIHtcbiAgZm9udC1mYW1pbHk6ICdPcGVuIFNhbnMnLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmO1xufVxuXG4uY3VycmVudC1wYWdlLW51bWJlciB7XG4gIG1hcmdpbi1sZWZ0OiA3cHg7XG4gIGZvbnQtc2l6ZSAgOiAxNHB4O1xuICBjb2xvciAgICAgIDogQHJlZ2VudC1ncmF5O1xuICB3aWR0aCAgICAgIDogMzdweDtcbiAgaGVpZ2h0ICAgICA6IDM3cHg7XG4gIGxpbmUtaGVpZ2h0OiAzN3B4O1xuICB0ZXh0LWFsaWduIDogY2VudGVyO1xuXG4gICYuYWN0aXZlIHtcbiAgICBjb2xvcjogI2ZmZjtcbiAgfVxufVxuXG4ud3JhcHBlciB7XG4gIGFsaWduLWl0ZW1zOiBzdHJldGNoO1xuICBoZWlnaHQgICAgIDogMTAwJTtcbiAgd2lkdGggICAgICA6IDEwMCU7XG4gIHBvc2l0aW9uICAgOiBmaXhlZDtcbiAgdG9wICAgICAgICA6IDA7XG4gIGJvdHRvbSAgICAgOiAwO1xuICBsZWZ0ICAgICAgIDogMDtcbiAgcmlnaHQgICAgICA6IDA7XG59XG5cbi5kb2MtcGFuZWwge1xuICBkaXNwbGF5ICAgICAgIDogZmxleDtcbiAgaGVpZ2h0ICAgICAgICA6IGNhbGMoMTAwdmggLSA2MHB4KTtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbn1cblxuLnRvcC1wYW5lbCB7XG4gIGRpc3BsYXkgICAgOiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICB3aWR0aCAgICAgIDogMTAwJTtcbn1cblxuLnRvb2xiYXItcGFuZWwge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBAbmF2LW1haW4tYmFja2dyb3VuZDtcbiAgd2lkdGggICAgICAgICAgIDogMTAwJTtcbn1cblxuLnRvb2xiYXItcGFuZWwtcmlnaHQge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4OiAxO1xuICBwbGFjZS1jb250ZW50OiBmbGV4LWVuZDtcbn1cblxuLmJ0bi1yaWdodCB7XG4gIG1hcmdpbi1yaWdodDogN3B4O1xufVxuXG4uc21wLXN0YXJ0LXN0b3Age1xuICA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gICAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgICBib3JkZXI6IDFweCBzb2xpZDtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcGFkZGluZzogMHB4IDEwcHggIWltcG9ydGFudDtcbiAgfVxufVxuXG4uc2VsZWN0LWxhbmd1YWdlLW1lbnUge1xuICA6Om5nLWRlZXAgLnNlbGVjdCB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbiAgOjpuZy1kZWVwIC5zZWxlY3RlZC12YWx1ZSB7XG4gICAgbWF4LXdpZHRoOiAxMDAlO1xuICB9XG59XG5cbjo6bmctZGVlcCAudG9vbHMge1xuXG4gIC5idXR0b24sXG4gIC5zZWxlY3RlZC12YWx1ZSxcbiAgLm5hdi1jYXJldCB7XG4gICAgY29sb3I6ICNmZmYgIWltcG9ydGFudDtcblxuICAgICYuaW5hY3RpdmUge1xuICAgICAgY29sb3I6IEByZWdlbnQtZ3JheSAgIWltcG9ydGFudDtcbiAgICB9XG4gIH1cblxuICAuYnV0dG9uIHtcbiAgICBmbGV4LWZsb3c6IGNvbHVtbjtcbiAgfVxuXG4gIC5zZWxlY3QtbGVmdCB7XG4gICAgLnNlbGVjdCB7XG4gICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgfVxuXG4gICAgLmRyb3Bkb3duLW1lbnUge1xuICAgICAgdG9wOiA0MHB4O1xuICAgICAgbGVmdDogMHB4O1xuICAgIH1cbiAgfVxuXG4gIC5zZWxlY3QtcmlnaHQge1xuICAgIC5zZWxlY3Qge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIH1cblxuICAgIC5kcm9wZG93bi1tZW51IHtcbiAgICAgIHRvcDogNDBweDtcbiAgICAgIHJpZ2h0OiAwcHg7XG4gICAgfVxuICB9XG5cbiAgLmRyb3Bkb3duLW1lbnUgLm9wdGlvbiB7XG4gICAgY29sb3I6IEBkb3ZlLWdyYXkgICFpbXBvcnRhbnQ7XG4gIH1cblxuICAuZHJvcGRvd24tbWVudSAub3B0aW9uOmhvdmVyIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBAZm9sZGVyICAhaW1wb3J0YW50O1xuICB9XG5cbiAgLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDBweCAwcHggMHB4IDE1cHggIWltcG9ydGFudDtcbiAgfVxuXG4gIC5zZWxlY3Qge1xuICAgIHdpZHRoICAgICAgOiAzN3B4O1xuICAgIGhlaWdodCAgICAgOiAzN3B4O1xuICAgIG1hcmdpbi1sZWZ0OiA3cHg7XG4gICAgbGluZS1oZWlnaHQ6IDM3cHg7XG4gICAgdGV4dC1hbGlnbiA6IGNlbnRlcjtcbiAgfVxuXG4gIC5zbGlkZXMtdGl0bGUge1xuICAgIGNvbG9yOiB3aGl0ZTtcbiAgICBwYWRkaW5nLWxlZnQ6IDEycHg7XG4gICAgZm9udC1zaXplOiAxOHB4O1xuICB9XG5cbiAgLnNsaWRlcy1maWxlbmFtZSB7XG4gICAgZmxleC1ncm93OiAxO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XG4gICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgICBwYWRkaW5nLWxlZnQ6IDIwcHg7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgfVxuXG4gIC5zbGlkZXMtYnV0dG9ucyB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICA6Om5nLWRlZXAgLnNlbGVjdCB7XG4gICAgICBjb2xvcjogd2hpdGU7XG4gICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgfVxuICB9XG5cbiAgOjpuZy1kZWVwIC5nZC1uYXYtc2VhcmNoLWNvbnRhaW5lciBcbiAgLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDAgMCAwIDdweCAhaW1wb3J0YW50O1xuICB9XG59XG5cbi5zbGlkZXMtbmF2IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogMzBweDtcbiAgYm90dG9tOiAzMHB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gICAgZm9udC1zaXplOiAzN3B4O1xuICAgIGJhY2tncm91bmQtY29sb3I6IEBwb3JjZWxhaW47XG4gICAgYm9yZGVyLXJhZGl1czogM3B4O1xuICB9XG4gIDo6bmctZGVlcCAudGltZXIge1xuICAgIGZvbnQtc2l6ZTogNDJweDtcbiAgICBsaW5lLWhlaWdodDogNnB4O1xuICAgIGNvbG9yOiBAcmVnZW50LWdyYXk7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIC5zZWNvbmRzLXJlbWFpbmluZyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBtYXJnaW4tbGVmdDogNXB4O1xuICAgICAgZm9udC1zaXplOiAxNnB4O1xuICAgICAgdG9wOiAxOHB4O1xuICAgICAgbGVmdDogMTJweDtcbiAgICAgICYudHdvLWRpZ2l0cyB7XG4gICAgICAgIGxlZnQ6IDZweCAhaW1wb3J0YW50O1xuICAgICAgfVxuICAgIH1cbiAgfVxufVxuXG46Om5nLWRlZXAgLnBhZ2UucHJlc2VudGF0aW9uIC5nZC13cmFwcGVyIHtcbiAgcG9pbnRlci1ldmVudHM6IG5vbmU7XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiAxMDM3cHgpIHtcblxuICAubW9iaWxlLWhpZGUsXG4gIC5jdXJyZW50LXBhZ2UtbnVtYmVyIHtcbiAgICBkaXNwbGF5OiBub25lO1xuICB9XG5cbiAgOjpuZy1kZWVwIC50b29scyB7XG4gICAgZ2QtYnV0dG9uOm50aC1jaGlsZCgxKT4uaWNvbi1idXR0b24ge1xuICAgICAgbWFyZ2luOiAwcHggMHB4IDBweCAxMHB4ICFpbXBvcnRhbnQ7XG4gICAgfVxuXG4gICAgLmljb24tYnV0dG9uIHtcbiAgICAgIGhlaWdodDogNjBweDtcbiAgICAgIHdpZHRoIDogNjBweDtcbiAgICB9XG5cbiAgICAuZ2QtbmF2LXNlYXJjaC1idG4ge1xuICAgICAgLmljb24tYnV0dG9uIHtcbiAgICAgICAgaGVpZ2h0OiAzN3B4O1xuICAgICAgICB3aWR0aCA6IDM3cHg7XG4gICAgICB9XG5cbiAgICAgIC5idXR0b24ge1xuICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICB9XG4gICAgfVxuXG4gICAgLmdkLW5hdi1zZWFyY2gtY29udGFpbmVyIHtcbiAgICAgIHRvcDogNTlweCAhaW1wb3J0YW50O1xuICAgIH1cbiAgfVxufSJdfQ== */"
 
 /***/ }),
 
@@ -20224,6 +22277,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _viewer_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./viewer-config.service */ "../../libs/viewer/src/lib/viewer-config.service.ts");
 /* harmony import */ var _viewer_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./viewer.constants */ "../../libs/viewer/src/lib/viewer.constants.ts");
 /* harmony import */ var _interval_timer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./interval-timer */ "../../libs/viewer/src/lib/interval-timer.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -20233,7 +22288,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ViewerAppComponent = class ViewerAppComponent {
-    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr) {
+    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr, translate) {
         this._viewerService = _viewerService;
         this._modalService = _modalService;
         this._navigateService = _navigateService;
@@ -20241,6 +22296,7 @@ let ViewerAppComponent = class ViewerAppComponent {
         this._windowService = _windowService;
         this._loadingMaskService = _loadingMaskService;
         this.cdr = cdr;
+        this.translate = translate;
         this.title = 'viewer';
         this.files = [];
         this.countPages = 0;
@@ -20301,6 +22357,18 @@ let ViewerAppComponent = class ViewerAppComponent {
             this.selectCurrentOrFirstPage();
             return;
         }
+        const defaultLanguage = this.defaultLanguageConfig;
+        const supportedLanguages = this.supportedLanguagesConfig
+            .map(language => {
+            return {
+                name: language.name,
+                value: language.code,
+                separator: false
+            };
+        });
+        this.supportedLanguages = supportedLanguages;
+        this.selectedLanguage = supportedLanguages.find(lang => lang.value === defaultLanguage.code);
+        this.translate.use(defaultLanguage.code);
         const queryString = window.location.search;
         if (queryString) {
             const urlParams = new URLSearchParams(queryString);
@@ -20367,6 +22435,45 @@ let ViewerAppComponent = class ViewerAppComponent {
     get currentPage() {
         return this._navigateService.currentPage;
     }
+    get showLanguageMenu() {
+        if (this.viewerConfig !== undefined && this.viewerConfig.showLanguageMenu !== undefined) {
+            return this.viewerConfig.showLanguageMenu;
+        }
+        return _viewer_constants__WEBPACK_IMPORTED_MODULE_5__["Constants"].defaultShowLanguageMenu;
+    }
+    get supportedLanguagesConfig() {
+        if (this.viewerConfig && this.viewerConfig.supportedLanguages) {
+            const supportedLanguages = this.viewerConfig.supportedLanguages;
+            return _viewer_constants__WEBPACK_IMPORTED_MODULE_5__["Constants"].defaultSupportedLanguages
+                .filter(lang => supportedLanguages.indexOf(lang.code) !== -1 || supportedLanguages.indexOf(lang.alternateCode) !== -1);
+        }
+        return _viewer_constants__WEBPACK_IMPORTED_MODULE_5__["Constants"].defaultSupportedLanguages;
+    }
+    get defaultLanguageConfig() {
+        if (this.viewerConfig && this.viewerConfig.defaultLanguage) {
+            return this.supportedLanguagesConfig
+                .find(lang => lang.is(this.viewerConfig.defaultLanguage));
+        }
+        const pathname = window.location.pathname;
+        if (pathname) {
+            const parts = pathname.split('/');
+            const langOrNothing = this.supportedLanguagesConfig
+                .filter(supported => parts.includes(supported.code) || parts.includes(supported.alternateCode))
+                .shift();
+            if (langOrNothing)
+                return langOrNothing;
+        }
+        const queryString = window.location.search;
+        if (queryString) {
+            const urlParams = new URLSearchParams(queryString);
+            const candidate = urlParams.get('lang');
+            if (candidate) {
+                return this.supportedLanguagesConfig
+                    .find(lang => lang.is(candidate));
+            }
+        }
+        return _viewer_constants__WEBPACK_IMPORTED_MODULE_5__["Constants"].defaultLanguage;
+    }
     ifPresentation() {
         return this.file ? _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["FileUtil"].find(this.file.guid, false).format === "Microsoft PowerPoint" : false;
     }
@@ -20407,7 +22514,7 @@ let ViewerAppComponent = class ViewerAppComponent {
             if (!thumb.data) {
                 const emptyThumb = new _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["PageModel"]();
                 emptyThumb.number = thumb.number;
-                emptyThumb.data = `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">Click here to load page ${thumb.number}</div></div>`;
+                emptyThumb.data = `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">${thumb.number}</div></div>`;
                 emptyThumb.width = 800;
                 emptyThumb.height = 800;
                 thumbnails[thumbIndex] = emptyThumb;
@@ -20816,6 +22923,10 @@ let ViewerAppComponent = class ViewerAppComponent {
         this.startCountDown(0);
         this.refreshZoom();
     }
+    selectLanguage(selectedLanguage) {
+        this.selectedLanguage = selectedLanguage;
+        this.translate.use(selectedLanguage.value);
+    }
 };
 ViewerAppComponent.ctorParameters = () => [
     { type: _viewer_service__WEBPACK_IMPORTED_MODULE_2__["ViewerService"] },
@@ -20829,7 +22940,8 @@ ViewerAppComponent.ctorParameters = () => [
     { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["PasswordService"] },
     { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["WindowService"] },
     { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["LoadingMaskService"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])("document:fullscreenchange", []),
@@ -20854,7 +22966,8 @@ ViewerAppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["PasswordService"],
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["WindowService"],
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["LoadingMaskService"],
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateService"]])
 ], ViewerAppComponent);
 
 
@@ -20941,18 +23054,68 @@ class ViewerConfig {
 /*!*********************************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/viewer.constants.ts ***!
   \*********************************************************************************/
-/*! exports provided: Constants */
+/*! exports provided: Language, Constants */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return Language; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Constants", function() { return Constants; });
+class Language {
+    constructor(code, alternateCode, name) {
+        this.code = code;
+        this.alternateCode = alternateCode;
+        this.name = name;
+    }
+    is(code) {
+        return this.code === code || this.alternateCode === code;
+    }
+}
+Language.ctorParameters = () => [
+    { type: String },
+    { type: String },
+    { type: String }
+];
 class Constants {
 }
 Constants.thumbnailsWidth = 300;
 Constants.scrollWidth = 17;
 Constants.topbarWidth = 60;
 Constants.documentMargin = 20;
+Constants.defaultShowLanguageMenu = true;
+Constants.defaultLanguage = new Language("en", "en-us", "English");
+Constants.defaultSupportedLanguages = [
+    new Language("ar", "ar", "العربية"),
+    new Language("ca", "ca-ES", "Català"),
+    new Language("cs", "cs-CZ", "Čeština"),
+    new Language("da", "da-DK", "Dansk"),
+    new Language("de", "de-DE", "Deutsch"),
+    new Language("el", "el-GR", "Ελληνικά"),
+    new Language("en", "en-US", "English"),
+    new Language("es", "es-ES", "Español"),
+    new Language("fil", "fil-PH", "Filipino"),
+    new Language("fr", "fr-FR", "Français"),
+    new Language("he", "he-IL", "עברית"),
+    new Language("hi", "hi-IN", "हिन्दी"),
+    new Language("id", "id-ID", "Indonesia"),
+    new Language("it", "it-IT", "Italiano"),
+    new Language("ja", "ja-JP", "日本語"),
+    new Language("kk", "kk-KZ", "Қазақ Тілі"),
+    new Language("ko", "ko-KR", "한국어"),
+    new Language("ms", "ms-MY", "Melayu"),
+    new Language("nl", "nl-NL", "Nederlands"),
+    new Language("pl", "pl-PL", "Polski"),
+    new Language("pt", "pt-PT", "Português"),
+    new Language("ro", "ro-RO", "Română"),
+    new Language("ru", "ru-RU", "Русский"),
+    new Language("sv", "sv-SE", "Svenska"),
+    new Language("vi", "vi-VN", "Tiếng Việt"),
+    new Language("th", "th-TH", "ไทย"),
+    new Language("tr", "tr-TR", "Türkçe"),
+    new Language("uk", "uk-UA", "Українська"),
+    new Language("zh-hans", "zh-Hans", "中文"),
+    new Language("zh-hant", "zh-Hant", "中文"),
+];
 
 
 /***/ }),
@@ -20961,13 +23124,14 @@ Constants.documentMargin = 20;
 /*!******************************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/viewer.module.ts ***!
   \******************************************************************************/
-/*! exports provided: initializeApp, setupLoadingInterceptor, ViewerModule */
+/*! exports provided: initializeApp, setupLoadingInterceptor, StaticTranslateLoaderFactory, ViewerModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeApp", function() { return initializeApp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setupLoadingInterceptor", function() { return setupLoadingInterceptor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StaticTranslateLoaderFactory", function() { return StaticTranslateLoaderFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewerModule", function() { return ViewerModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
@@ -20982,8 +23146,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _excel_page_excel_page_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./excel-page/excel-page.component */ "../../libs/viewer/src/lib/excel-page/excel-page.component.ts");
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm2015/angular-fontawesome.js");
 /* harmony import */ var _run_presentation_run_presentation_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./run-presentation/run-presentation.component */ "../../libs/viewer/src/lib/run-presentation/run-presentation.component.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _translations__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./translations */ "../../libs/viewer/src/lib/translations/index.ts");
 
 var ViewerModule_1;
+
+
 
 
 
@@ -21006,6 +23174,41 @@ function initializeApp(viewerConfigService) {
 function setupLoadingInterceptor(service) {
     return new _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__["LoadingMaskInterceptorService"](service);
 }
+// AoT requires an exported function for factories
+function StaticTranslateLoaderFactory() {
+    const translations = {};
+    translations['ar'] = _translations__WEBPACK_IMPORTED_MODULE_14__["AR"];
+    translations['ca'] = _translations__WEBPACK_IMPORTED_MODULE_14__["CA"];
+    translations['cs'] = _translations__WEBPACK_IMPORTED_MODULE_14__["CS"];
+    translations['da'] = _translations__WEBPACK_IMPORTED_MODULE_14__["DA"];
+    translations['de'] = _translations__WEBPACK_IMPORTED_MODULE_14__["DE"];
+    translations['el'] = _translations__WEBPACK_IMPORTED_MODULE_14__["EL"];
+    translations['en'] = _translations__WEBPACK_IMPORTED_MODULE_14__["EN"];
+    translations['es'] = _translations__WEBPACK_IMPORTED_MODULE_14__["ES"];
+    translations['fil'] = _translations__WEBPACK_IMPORTED_MODULE_14__["FIL"];
+    translations['fr'] = _translations__WEBPACK_IMPORTED_MODULE_14__["FR"];
+    translations['he'] = _translations__WEBPACK_IMPORTED_MODULE_14__["HE"];
+    translations['hi'] = _translations__WEBPACK_IMPORTED_MODULE_14__["HI"];
+    translations['id'] = _translations__WEBPACK_IMPORTED_MODULE_14__["ID"];
+    translations['it'] = _translations__WEBPACK_IMPORTED_MODULE_14__["IT"];
+    translations['ja'] = _translations__WEBPACK_IMPORTED_MODULE_14__["JA"];
+    translations['kk'] = _translations__WEBPACK_IMPORTED_MODULE_14__["KK"];
+    translations['ko'] = _translations__WEBPACK_IMPORTED_MODULE_14__["KO"];
+    translations['ms'] = _translations__WEBPACK_IMPORTED_MODULE_14__["MS"];
+    translations['nl'] = _translations__WEBPACK_IMPORTED_MODULE_14__["NL"];
+    translations['pl'] = _translations__WEBPACK_IMPORTED_MODULE_14__["PL"];
+    translations['pt'] = _translations__WEBPACK_IMPORTED_MODULE_14__["PT"];
+    translations['ro'] = _translations__WEBPACK_IMPORTED_MODULE_14__["RO"];
+    translations['ru'] = _translations__WEBPACK_IMPORTED_MODULE_14__["RU"];
+    translations['sv'] = _translations__WEBPACK_IMPORTED_MODULE_14__["SV"];
+    translations['th'] = _translations__WEBPACK_IMPORTED_MODULE_14__["TH"];
+    translations['tr'] = _translations__WEBPACK_IMPORTED_MODULE_14__["TR"];
+    translations['uk'] = _translations__WEBPACK_IMPORTED_MODULE_14__["UK"];
+    translations['vi'] = _translations__WEBPACK_IMPORTED_MODULE_14__["VI"];
+    translations['zh-hans'] = _translations__WEBPACK_IMPORTED_MODULE_14__["ZHHANS"];
+    translations['zh-hant'] = _translations__WEBPACK_IMPORTED_MODULE_14__["ZHHANT"];
+    return new _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__["StaticTranslateLoader"](translations);
+}
 let ViewerModule = ViewerModule_1 = class ViewerModule {
     static forRoot(apiEndpoint) {
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__["Api"].DEFAULT_API_ENDPOINT = apiEndpoint;
@@ -21027,7 +23230,13 @@ ViewerModule = ViewerModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__["CommonComponentsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_11__["FontAwesomeModule"]
+            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_11__["FontAwesomeModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateModule"].forRoot({
+                loader: {
+                    provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateLoader"],
+                    useFactory: StaticTranslateLoaderFactory
+                }
+            })
         ],
         exports: [
             _viewer_app_component__WEBPACK_IMPORTED_MODULE_4__["ViewerAppComponent"],
@@ -21057,7 +23266,8 @@ ViewerModule = ViewerModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
                 useFactory: setupLoadingInterceptor,
                 multi: true,
                 deps: [_groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__["LoadingMaskService"]]
-            }
+            },
+            { provide: Window, useValue: window },
         ]
     })
 ], ViewerModule);
@@ -21724,7 +23934,7 @@ module.exports = "<div class=\"field\" (clickOutside)=\"isActive = false\" (cont
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\">\r\n  <div class=\"row\">\r\n    <div class=\"column\" [ngClass]=\"{'document-loaded': isFileLoaded()}\">\r\n      <div class=\"top-panel\">\r\n        <a class=\"logo-link\" [href]=\"returnUrl\">\r\n          <gd-logo [logo]=\"'parser'\" icon=\"glasses\"></gd-logo>\r\n        </a>\r\n        <gd-top-toolbar class=\"toolbar-panel\">\r\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal, false)\"\r\n            *ngIf=\"browseConfig\"></gd-button>\r\n\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\" (click)=\"zoomIn()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\" (click)=\"zoomOut()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'expand'\" [tooltip]=\"'Add text field'\" (click)=\"addFieldClick()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'table'\" [tooltip]=\"'Add table'\" (click)=\"addTableClick()\"></gd-button>\r\n        </gd-top-toolbar>\r\n      </div>\r\n       <gd-init-state [icon]=\"'glasses'\" [text]=\"'Drop file here to upload'\" *ngIf=\"documentError || !document\" (fileDropped)=\"fileDropped($event)\">\r\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n        Or drop file here\r\n      </gd-init-state>\r\n      <!-- <gd-preview-status [status]=\"previewStatus\"></gd-preview-status> -->\r\n     <!-- <div class=\"doc-panel\" *ngIf=\"preview\" #docPanel>\r\n        <gd-document class=\"gd-document\" *ngIf=\"preview\" [file]=\"preview\" [mode]=\"false\" gdScrollable\r\n                    [preloadPageCount]=\"metadataConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"false\"></gd-document>\r\n      </div> -->\r\n      <!--  -->\r\n      <div class=\"parser-wrapper\" *ngIf=\"!documentError && document\">\r\n        <app-surface [document]=\"document\"></app-surface>\r\n      </div>\r\n    </div>\r\n\r\n    <app-side-panel *ngIf=\"!documentError && document\"></app-side-panel>\r\n\r\n    <!-- <gd-side-panel *ngIf=\"isFileLoaded() && showSidePanel\"\r\n      (hideSidePanel)=\"hideSidePanel($event)\"\r\n      (saveInSidePanel)=\"save()\"\r\n      [closable]=\"isDesktop ? false : true\"\r\n      [saveable]=\"isDesktop ? false : true\"\r\n      [title]=\"'Metadata'\"\r\n      [icon]=\"'clipboard-list'\">\r\n      <gd-accordion>\r\n        <gd-accordion-group *ngFor=\"let package of packages\" [title]=\"getPackageName(package)\" [addDisabled]=\"false\" [addHidden]=\"false\" [properties]=\"package.properties\" [knownProperties]=\"package.knownProperties\" [packageId]=\"package.id\" (removeProperty)=\"removeProperty($event)\"></gd-accordion-group>\r\n      </gd-accordion>\r\n    </gd-side-panel> -->\r\n  </div>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n    (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\" [uploadConfig]=\"uploadConfig\">\r\n  </gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-success-modal></gd-success-modal>\r\n</div>"
+module.exports = "<gd-loading-mask></gd-loading-mask>\r\n<div class=\"wrapper\">\r\n  <div class=\"row\">\r\n    <div class=\"column\" [ngClass]=\"{'document-loaded': isFileLoaded()}\">\r\n      <div class=\"top-panel\">\r\n        <a class=\"logo-link\" [href]=\"returnUrl\">\r\n          <gd-logo [logo]=\"'parser'\" icon=\"glasses\"></gd-logo>\r\n        </a>\r\n        <gd-top-toolbar class=\"toolbar-panel\">\r\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal, false)\"\r\n            *ngIf=\"browseConfig\"></gd-button>\r\n\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\" (click)=\"zoomIn()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\" (click)=\"zoomOut()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'expand'\" [tooltip]=\"'Add text field'\" (click)=\"addFieldClick()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'table'\" [tooltip]=\"'Add table'\" (click)=\"addTableClick()\"></gd-button>\r\n        </gd-top-toolbar>\r\n      </div>\r\n       <gd-init-state [icon]=\"'glasses'\" [text]=\"'Drop file here to upload'\" *ngIf=\"documentError || !document\" (fileDropped)=\"fileDropped($event)\">\r\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n        Or drop file here\r\n      </gd-init-state>\r\n\r\n      <div class=\"parser-wrapper\" *ngIf=\"!documentError && document\">\r\n        <app-surface [document]=\"document\"></app-surface>\r\n      </div>\r\n    </div>\r\n\r\n    <app-side-panel *ngIf=\"!documentError && document\"></app-side-panel>\r\n  </div>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n    (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\" [uploadConfig]=\"uploadConfig\">\r\n  </gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-success-modal></gd-success-modal>\r\n</div>"
 
 /***/ }),
 
@@ -22021,7 +24231,7 @@ module.exports = "<div class=\"gd-thumbnails\">\r\n  <div class=\"gd-thumbnails-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\" (contextmenu)=\"onRightClick()\">\r\n  <div class=\"top-panel\" *ngIf=\"!runPresentation\">\r\n    <gd-logo [logo]=\"'viewer'\" icon=\"eye\"></gd-logo>\r\n    <gd-top-toolbar class=\"toolbar-panel\">\r\n      <gd-button [icon]=\"'folder-open'\" title=\"Browse files\" (click)=\"openModal(browseFilesModal)\"\r\n                 *ngIf=\"browseConfig\" ></gd-button>\r\n\r\n      <gd-select class=\"mobile-hide select-left\" [disabled]=\"formatDisabled\" [options]=\"options\" (selected)=\"selectZoom($event)\"\r\n                 [showSelected]=\"{ name: zoom+'%', value : zoom}\" *ngIf=\"zoomConfig\" ></gd-select>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" title=\"Zoom In\" (click)=\"zoomIn()\"\r\n                 *ngIf=\"zoomConfig\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" title=\"Zoom Out\"\r\n                 (click)=\"zoomOut()\" *ngIf=\"zoomConfig\" ></gd-button>\r\n\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-left'\" title=\"First Page\"\r\n                 (click)=\"toFirstPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" title=\"Previous Page\"\r\n                 (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <div class=\"current-page-number\" [ngClass]=\"{'active': !formatDisabled}\" *ngIf=\"formatIcon !== 'file-excel'\">{{currentPage}}/{{countPages}}</div>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" title=\"Next Page\"\r\n                 (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-right'\" title=\"Last Page\"\r\n                 (click)=\"toLastPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'undo'\" title=\"Rotate CCW\" (click)=\"rotate(-90)\"\r\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'redo'\" title=\"Rotate CW\" (click)=\"rotate(90)\"\r\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" title=\"Download\"\r\n                 (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'print'\" title=\"Print\" (click)=\"printFile()\"\r\n                 *ngIf=\"printConfig\" ></gd-button>\r\n\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'search'\" title=\"Search\" (click)=\"openSearch()\"\r\n                 *ngIf=\"searchConfig && !ifPresentation()\" ></gd-button>\r\n      <gd-search (hidePanel)=\"showSearch = !$event\" *ngIf=\"showSearch\" ></gd-search>\r\n\r\n      <gd-button class=\"thumbnails-button btn-right\" [disabled]=\"formatDisabled\" [icon]=\"'th-large'\" title=\"Thumbnails\"\r\n                 (click)=\"openThumbnails()\" *ngIf=\"thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && (!ifPresentation() ||\r\n                 ifPresentation() && runPresentation)\"></gd-button>\r\n      <gd-button class=\"thumbnails-button mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'play'\" title=\"Run presentation\"\r\n                 (click)=\"startPresentation()\" *ngIf=\"ifPresentation() && !runPresentation\">Present</gd-button>\r\n    </gd-top-toolbar>\r\n  </div>\r\n  <div class=\"top-panel\" *ngIf=\"runPresentation\">\r\n    <gd-top-toolbar class=\"toolbar-panel\">\r\n      <div class=\"slides-title\">Viewer</div>\r\n      <div class=\"slides-filename\">{{getFileName()}}</div>\r\n      <div class=\"slides-buttons\">\r\n        <gd-select class=\"mobile-hide select-right\" [disabled]=\"formatDisabled\" [options]=\"timerOptions\" (selected)=\"toggleTimer($event)\"\r\n        [icon]=\"'clock'\" *ngIf=\"zoomConfig\" ></gd-select>\r\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationRunning()\" [disabled]=\"formatDisabled\" [icon]=\"'pause'\" title=\"Pause presenting\"\r\n        (click)=\"pausePresenting()\"></gd-button>\r\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationPaused()\" [disabled]=\"formatDisabled\" [icon]=\"'step-forward'\" title=\"Resume presenting\"\r\n        (click)=\"resumePresenting()\"></gd-button>\r\n        <gd-button class=\"mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'stop'\" title=\"Stop presenting\"\r\n        (click)=\"closeFullScreen(true)\">Stop</gd-button>\r\n      </div>\r\n    </gd-top-toolbar>\r\n  </div>\r\n  <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\r\n    <gd-thumbnails *ngIf=\"showThumbnails && !ifPresentation() && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\r\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\"></gd-thumbnails>\r\n    <gd-thumbnails *ngIf=\"showThumbnails && ifPresentation() && !runPresentation && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\r\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\" gdScrollable [isPresentation]=\"ifPresentation()\"></gd-thumbnails>\r\n\r\n    <gd-document class=\"gd-document\" *ngIf=\"(file &&\r\n                                            (ifExcel() && !htmlModeConfig) ||\r\n                                            (ifPresentation() && isDesktop && !runPresentation) ||\r\n                                            (!ifExcel() && !ifPresentation()))\" [file]=\"file\" [mode]=\"htmlModeConfig\" [showActiveSlide]=\"true\" gdScrollable\r\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" [selectedPage]=\"selectedPageNumber\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" gdMouseWheel (mouseWheelUp)=\"onMouseWheelUp()\" (mouseWheelDown)=\"onMouseWheelDown()\"></gd-document>\r\n    <gd-excel-document class=\"gd-document\" *ngIf=\"file && ifExcel() && htmlModeConfig\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\r\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-excel-document>\r\n    <gd-run-presentation class=\"gd-document\" *ngIf=\"(file && ifPresentation() && runPresentation) ||\r\n                                                    (file && ifPresentation() && !isDesktop)\" [file]=\"file\" [currentPage]=\"currentPage\" [mode]=\"htmlModeConfig\"\r\n                                                    (selectedPage)=\"selectCurrentPage($event)\"\r\n                 [preloadPageCount]=\"0\"></gd-run-presentation>\r\n    <div class=\"slides-nav\" *ngIf=\"runPresentation\">\r\n      <div class=\"timer\" *ngIf=\"showCountDown()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon><span [ngClass]=\"secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'\">{{secondsLeft}}</span>\r\n      </div>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\"\r\n      (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\"\r\n      (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n    </div>\r\n  </div>\r\n\r\n  <gd-init-state [icon]=\"'eye'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\r\n    Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n    Or drop file here\r\n  </gd-init-state>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\r\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n</div>\r\n"
+module.exports = "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\" (contextmenu)=\"onRightClick()\">\r\n  <div class=\"top-panel\" *ngIf=\"!runPresentation\">\r\n    <gd-logo [logo]=\"'viewer'\" icon=\"eye\"></gd-logo>\r\n    <gd-top-toolbar class=\"toolbar-panel\">\r\n      <gd-button [icon]=\"'folder-open'\" title=\"{{'Browse files' | translate}}\" (click)=\"openModal(browseFilesModal)\"\r\n                 *ngIf=\"browseConfig\" ></gd-button>\r\n\r\n      <gd-select class=\"mobile-hide select-left\" [disabled]=\"formatDisabled\" [options]=\"options\" (selected)=\"selectZoom($event)\"\r\n                 [showSelected]=\"{ name: zoom+'%', value : zoom}\" *ngIf=\"zoomConfig\" ></gd-select>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" title=\"{{'Zoom In' | translate}}\" (click)=\"zoomIn()\"\r\n                 *ngIf=\"zoomConfig\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" title=\"{{'Zoom Out' | translate}}\"\r\n                 (click)=\"zoomOut()\" *ngIf=\"zoomConfig\" ></gd-button>\r\n\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-left'\" title=\"{{'First Page' | translate }}\"\r\n                 (click)=\"toFirstPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" title=\"{{'Previous Page' | translate}}\"\r\n                 (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <div class=\"current-page-number\" [ngClass]=\"{'active': !formatDisabled}\" *ngIf=\"formatIcon !== 'file-excel'\">{{currentPage}}/{{countPages}}</div>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" title=\"{{'Next Page' | translate }}\"\r\n                 (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-right'\" title=\"{{'Last Page' | translate }}\"\r\n                 (click)=\"toLastPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'undo'\" title=\"{{'Rotate CCW' | translate}}\" (click)=\"rotate(-90)\"\r\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'redo'\" title=\"{{'Rotate CW' | translate}}\"  (click)=\"rotate(90)\"\r\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" title=\"{{'Download' | translate}}\"\r\n                 (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'print'\" title=\"{{'Print' | translate}}\" (click)=\"printFile()\"\r\n                 *ngIf=\"printConfig\" ></gd-button>\r\n\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'search'\" title=\"{{'Search' | translate}}\" (click)=\"openSearch()\"\r\n                 *ngIf=\"searchConfig && !ifPresentation()\" ></gd-button>\r\n      <gd-search (hidePanel)=\"showSearch = !$event\" *ngIf=\"showSearch\" ></gd-search>\r\n\r\n      <div class=\"toolbar-panel-right\">\r\n        <div class=\"language-menu mobile-hide\" *ngIf=\"showLanguageMenu\">\r\n          <gd-select class=\"select-language-menu\" [disabled]=\"false\" [options]=\"supportedLanguages\"\r\n            (selected)=\"selectLanguage($event)\" [showSelected]=\"selectedLanguage\"></gd-select>\r\n        </div>\r\n\r\n        <gd-button class=\"thumbnails-button btn-right\" [disabled]=\"formatDisabled\" [icon]=\"'th-large'\" title=\"{{'Thumbnails' | translate}}\"\r\n                   (click)=\"openThumbnails()\" *ngIf=\"thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && (!ifPresentation() ||\r\n                   ifPresentation() && runPresentation)\"></gd-button>\r\n        <gd-button class=\"thumbnails-button mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'play'\" title=\"{{'Run presentation' | translate}}\"\r\n                   (click)=\"startPresentation()\" *ngIf=\"ifPresentation() && !runPresentation\">{{'Present' | translate}}</gd-button>\r\n      </div>\r\n    </gd-top-toolbar>\r\n  </div>\r\n  <div class=\"top-panel\" *ngIf=\"runPresentation\">\r\n    <gd-top-toolbar class=\"toolbar-panel\">\r\n      <div class=\"slides-title\">Viewer</div>\r\n      <div class=\"slides-filename\">{{getFileName()}}</div>\r\n      <div class=\"slides-buttons\">\r\n        <gd-select class=\"mobile-hide select-right\" [disabled]=\"formatDisabled\" [options]=\"timerOptions\" (selected)=\"toggleTimer($event)\"\r\n        [icon]=\"'clock'\" *ngIf=\"zoomConfig\" ></gd-select>\r\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationRunning()\" [disabled]=\"formatDisabled\" [icon]=\"'pause'\" title=\"{{'Pause presenting' | translate}}\"\r\n        (click)=\"pausePresenting()\"></gd-button>\r\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationPaused()\" [disabled]=\"formatDisabled\" [icon]=\"'step-forward'\" title=\"{{'Resume presenting' | translate}}\"\r\n        (click)=\"resumePresenting()\"></gd-button>\r\n        <gd-button class=\"mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'stop'\" title=\"{{'Stop presenting' | translate}}\"\r\n        (click)=\"closeFullScreen(true)\">{{'Stop' | translate}} </gd-button>\r\n      </div>\r\n    </gd-top-toolbar>\r\n  </div>\r\n  <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\r\n    <gd-thumbnails *ngIf=\"showThumbnails && !ifPresentation() && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\r\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\"></gd-thumbnails>\r\n    <gd-thumbnails *ngIf=\"showThumbnails && ifPresentation() && !runPresentation && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\r\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\" gdScrollable [isPresentation]=\"ifPresentation()\"></gd-thumbnails>\r\n\r\n    <gd-document class=\"gd-document\" *ngIf=\"(file &&\r\n                                            (ifExcel() && !htmlModeConfig) ||\r\n                                            (ifPresentation() && isDesktop && !runPresentation) ||\r\n                                            (!ifExcel() && !ifPresentation()))\" [file]=\"file\" [mode]=\"htmlModeConfig\" [showActiveSlide]=\"true\" gdScrollable\r\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" [selectedPage]=\"selectedPageNumber\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" gdMouseWheel (mouseWheelUp)=\"onMouseWheelUp()\" (mouseWheelDown)=\"onMouseWheelDown()\"></gd-document>\r\n    <gd-excel-document class=\"gd-document\" *ngIf=\"file && ifExcel() && htmlModeConfig\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\r\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-excel-document>\r\n    <gd-run-presentation class=\"gd-document\" *ngIf=\"(file && ifPresentation() && runPresentation) ||\r\n                                                    (file && ifPresentation() && !isDesktop)\" [file]=\"file\" [currentPage]=\"currentPage\" [mode]=\"htmlModeConfig\"\r\n                                                    (selectedPage)=\"selectCurrentPage($event)\"\r\n                 [preloadPageCount]=\"0\"></gd-run-presentation>\r\n    <div class=\"slides-nav\" *ngIf=\"runPresentation\">\r\n      <div class=\"timer\" *ngIf=\"showCountDown()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon><span [ngClass]=\"secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'\">{{secondsLeft}}</span>\r\n      </div>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\"\r\n      (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\"\r\n      (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n    </div>\r\n  </div>\r\n\r\n  <gd-init-state [icon]=\"'eye'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\r\n    {{'Click' | translate}} <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> {{'to open file' | translate}}<br>\r\n    {{'Or drop file here' | translate}}\r\n  </gd-init-state>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\r\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n</div>\r\n"
 
 /***/ }),
 

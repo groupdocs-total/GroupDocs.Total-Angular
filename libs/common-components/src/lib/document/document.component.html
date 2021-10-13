@@ -1,4 +1,4 @@
-<div class="wait" *ngIf="wait">Please wait...</div>
+<div class="wait" *ngIf="wait">{{'Please wait...' | translate}}</div>
 <div id="document" class="document">
   <div [ngClass]="isDesktop ? 'panzoom' : 'panzoom mobile'" gdZoom [zoomActive]="true" [file]="file" gdSearchable>
     <div [ngClass]="ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'" *ngFor="let page of file?.pages"
