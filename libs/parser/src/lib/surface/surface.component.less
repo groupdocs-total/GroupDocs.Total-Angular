@@ -1,0 +1,55 @@
+@import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import "../../../../common-components/src/styles/variables";
+@import "../variables";
+
+.red {
+  box-shadow: 10px 5px 5px red;
+}
+
+
+:host * {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  }
+  
+::ng-deep .page {
+  position: relative;
+}
+
+::ng-deep .gd-page-image {
+  width : unset;
+  height: unset;
+}
+
+::ng-deep .top-panel {
+  align-content: flex-start;
+}
+
+// .doc-panel {
+//   display: flex;
+//   flex-direction: row;
+//   width: 100%;
+//   height: 100%;
+// }
+
+.gd-document {
+  position: absolute;
+  height: calc(100vh - @top-panel-height);
+  width: calc(100vw - @side-panel-width);
+  left: 0;
+  top: @top-panel-height;
+  right: -@side-panel-width;
+  overflow: auto;
+}
+
+::ng-deep .panzoom {
+  justify-content: unset !important;
+}
+
+::ng-deep .page {
+  position: relative;
+}
+
+::ng-deep .gd-page-image {
+  width : unset;
+  height: unset;
+}

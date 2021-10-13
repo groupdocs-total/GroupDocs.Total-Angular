@@ -1,0 +1,65 @@
+<div class="field" (clickOutside)="isActive = false" (contextmenu)="rightClick($event)"
+    [clickOutsideEvents]="'mousedown'" [clickOutsideEnabled]="isActive" [style.left.px]="left" [style.top.px]="top"
+    [style.width.px]="width" [style.height.px]="height">
+
+    <div class="field-text" (dblclick)="renameFieldClick()" (mousedown)="mouseDown($event, 'Move')"
+        (panstart)="mouseDown($event, 'Move')">
+        <div *ngIf="!isActive">{{ field.name }}</div>
+    </div>
+    <div class="resizable-handle ne-resize" *ngIf="isActive" (mousedown)="mouseDown($event, 'NE')"
+        (panstart)="mouseDown($event, 'NE')"></div>
+    <div class="resizable-handle se-resize" *ngIf="isActive" (mousedown)="mouseDown($event, 'SE')"
+        (panstart)="mouseDown($event, 'SE')"></div>
+    <div class="resizable-handle sw-resize" *ngIf="isActive" (mousedown)="mouseDown($event, 'SW')"
+        (panstart)="mouseDown($event, 'SW')"></div>
+    <div class="resizable-handle nw-resize" *ngIf="isActive" (mousedown)="mouseDown($event, 'NW')"
+        (panstart)="mouseDown($event, 'NW')"></div>
+
+    <div class="resizable-v-edge w-resize" *ngIf="isActive" (mousedown)="mouseDown($event, 'W')"
+        (panstart)="mouseDown($event, 'W')"></div>
+    <div class="resizable-v-edge e-resize" *ngIf="isActive" (mousedown)="mouseDown($event, 'E')"
+        (panstart)="mouseDown($event, 'E')"></div>
+    <div class="resizable-h-edge n-resize" *ngIf="isActive" (mousedown)="mouseDown($event, 'N')"
+        (panstart)="mouseDown($event, 'N')"></div>        
+    <div class="resizable-h-edge s-resize" *ngIf="isActive" (mousedown)="mouseDown($event, 'S')"
+        (panstart)="mouseDown($event, 'S')"></div>
+
+    <div *ngIf="isTable && isActive">
+        <div *ngFor="let column of field.columns" class="tc-top resizable-handle" [style.left.px]="column.value"></div>
+        <div *ngFor="let column of field.columns" class="tc-bottom resizable-handle" [style.left.px]="column.value"></div>
+        <div *ngFor="let column of field.columns" class="tc" [style.left.px]="column.value"
+            (mousedown)="mouseDown($event, column.name)">
+            <div class="tc-background"></div>
+            <div class="tc-remove image-btn" title="Remove column separator" (click)="removeColumn(column)">
+                <fa-icon [icon]="'trash'"></fa-icon>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isTable && !isActive">
+        <div *ngFor="let column of field.columns" class="tc-deactived" [style.left.px]="column.value">
+        </div>
+    </div>
+
+    <div class="tc-add-left image-btn" *ngIf="isTable && isActive" title="Add new column separator" (click)="addColumnLeft()">
+        <fa-icon [icon]="'plus'"></fa-icon>
+    </div>
+
+    <div class="tc-add-right image-btn" *ngIf="isTable && isActive" title="Add new column separator" (click)="addColumnRight()">
+        <fa-icon [icon]="'plus'"></fa-icon>
+    </div>
+
+    <div class="context-menu" *ngIf="isActive">
+        <div class="image-btn" (click)="renameFieldClick()" title="Rename the field">
+            <fa-icon [icon]="'edit'"></fa-icon>
+        </div>
+        <div class="image-btn" (click)="deleteFieldClick()" title="Remove the field">
+            <fa-icon [icon]="'trash'"></fa-icon>
+        </div>
+    </div>
+
+    <div class="field-name" *ngIf="isActive">
+        {{ field.name }}
+    </div>
+
+</div>

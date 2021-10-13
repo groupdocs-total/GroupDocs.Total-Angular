@@ -1,0 +1,8 @@
+<div #surface class="doc-panel">
+  <gd-document class="gd-document" *ngIf="document" [mode]="false" [file]="document" gdScrollable gdRenderPrint
+    [htmlMode]="false" (click)="setActivePage($event)"></gd-document>
+
+  <app-rename-modal #fieldNameModal [id]="'FieldNameModal'" [title]="'Rename Field'"
+    [promptText]="'Enter a new field name:'" [acceptText]="'Save'" (acceptEvent)="fieldNameModalAccept($event)">
+  </app-rename-modal>
+</div>

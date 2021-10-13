@@ -1,0 +1,10 @@
+<gd-modal #modal [id]="id" [title]="title">
+  <div class="window">
+    <div class="prompt" [innerHTML]="promptText"></div>
+
+    <div class="buttons">      
+      <div class="btn" (click)="acceptClick()">{{ acceptText }}</div>
+      <div class="btn" (click)="cancelClick()">Cancel</div>
+    </div>
+  </div>
+  </gd-modal>

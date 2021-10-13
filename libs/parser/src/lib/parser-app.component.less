@@ -1,0 +1,117 @@
+@import (css) url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import "../../../common-components/src/styles/variables";
+@import "./variables";
+
+:host * {
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+.wrapper {
+  align-items: stretch;
+  height     : 100%;
+  width      : 100%;
+  position   : fixed;
+  top        : 0;
+  bottom     : 0;
+  left       : 0;
+  right      : 0;
+}
+
+.logo-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.doc-panel {
+  display       : flex;
+  height        : calc(100vh - @top-panel-height);
+  flex-direction: row;
+}
+
+.top-panel {
+  display    : flex;
+  align-items: center;
+  width      : 100%;
+}
+
+.toolbar-panel {
+  background-color: @nav-main-background;
+  width           : 100%;
+}
+
+.parser-wrapper {
+  z-index: 100; 
+  left:0;
+  top:0;
+  right:0;
+  bottom: 0;   
+}
+
+app-side-panel {
+  position: absolute;
+  right: 0;//@side-panel-width;
+  top: @top-panel-height;
+  width: @side-panel-width;
+  height: 100%;
+  background-color: white;
+}
+
+::ng-deep .tools {
+  .button {
+    color: #fff !important;
+
+    &.inactive {
+      color: @regent-gray  !important;
+    }
+  }
+
+  .button {
+    flex-flow: column;
+  }
+
+  .icon-button {
+    margin: 0px 0px 0px 7px !important;
+  }
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  width: 100%;
+  height: 100vh;
+  background-color: #e7e7e7;
+  overflow: hidden;
+}
+
+::ng-deep .gd-side-panel-body {
+  background-color: @wild-sand;
+}
+
+::ng-deep .gd-side-panel-wrapper {
+  width: 464px !important;
+}
+
+::ng-deep .page {
+  &.excel {
+    overflow: unset !important;
+  }
+}
+
+@media (max-width: 1037px) {
+  ::ng-deep .tools {
+    gd-button:nth-child(1)>.icon-button {
+      margin: 0px 0px 0px 10px !important;
+    }
+
+    .icon-button {
+      height: @top-panel-height;
+      width : @top-panel-height;
+    }
+  }
+
+  ::ng-deep .gd-side-panel-wrapper {
+    width: 375px !important;
+  }
+}
