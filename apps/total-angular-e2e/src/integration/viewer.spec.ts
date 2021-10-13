@@ -101,19 +101,19 @@ describe('Viewer', () => {
 
   it('for opened file when thumbnail button clicked should open thumbnail panel', () => {
     cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.get('#tools > div.toolbar-panel-right').get('gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('#tools > gd-button.thumbnails-button').click();
+    cy.get('#tools > div.toolbar-panel-right').get('gd-button.thumbnails-button').click();
     cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
   });
 
   it('should scroll last page into view when clicked on last thumbnail', () => {
     cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.get('#tools > div.toolbar-panel-right').get('gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('#tools > gd-button.thumbnails-button').click();
+    cy.get('#tools > div.toolbar-panel-right').get('gd-button.thumbnails-button').click();
     cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
     cy.get('#gd-thumbnails-page-3').should('be.visible').click();
     cy.get('#page-3').should('be.visible');

@@ -36,11 +36,6 @@
   flex-direction: row;
 }
 
-.thumbnails-button {
-  position: absolute;
-  right   : 3px;
-}
-
 .top-panel {
   display    : flex;
   align-items: center;
@@ -50,6 +45,12 @@
 .toolbar-panel {
   background-color: @nav-main-background;
   width           : 100%;
+}
+
+.toolbar-panel-right {
+  display: flex;
+  flex: 1;
+  place-content: flex-end;
 }
 
 .btn-right {
@@ -62,6 +63,15 @@
     border: 1px solid;
     border-radius: 5px;
     padding: 0px 10px !important;
+  }
+}
+
+.select-language-menu {
+  ::ng-deep .select {
+    width: 100%;
+  }
+  ::ng-deep .selected-value {
+    max-width: 100%;
   }
 }
 
