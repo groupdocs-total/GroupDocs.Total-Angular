@@ -17,7 +17,7 @@ export class FieldContextMenuClick {
 }
 
 @Component({
-  selector: 'app-field',
+  selector: 'gd-field',
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.less']
 })
@@ -32,6 +32,8 @@ export class FieldComponent implements OnInit, OnDestroy {
   private _field: TemplateField
   private _destroy = new Subject();
 
+  isActive: boolean;
+
   @Output() contextMenuClick = new EventEmitter<FieldContextMenuClick>()
 
   constructor(
@@ -39,7 +41,7 @@ export class FieldComponent implements OnInit, OnDestroy {
     private _zoomService: ZoomService) {
     _fieldService.activeChanged.pipe(takeUntil(this._destroy))
       .subscribe(name => {
-        this.isActive = this._field && this._field.name == name;
+        this.isActive = this._field && this._field.name === name;
       });
   }
 
@@ -50,8 +52,6 @@ export class FieldComponent implements OnInit, OnDestroy {
     this._destroy.next();
     this._destroy.complete();
   }
-
-  isActive: boolean;
 
   get isFixed() {
     return this.field.fieldType === TemplateFieldTypes.FIXED;

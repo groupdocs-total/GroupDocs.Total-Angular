@@ -30,7 +30,7 @@ export class ParserService {
   }
 
   loadDocumentDescription(sourceFile: SourceFile): Observable<DocumentDescription> {
-    let subject = new Subject<DocumentDescription>();
+    const subject = new Subject<DocumentDescription>();
 
     const observer = {
       next: (response: DocumentDescription) => subject.next(response),
@@ -53,7 +53,7 @@ export class ParserService {
   }
 
   parseByTemplate(sourceFile: SourceFile, password: string, template: Template): Observable<ParseByTemplateResponse> {
-    let subject = new Subject<ParseByTemplateResponse>();
+    const subject = new Subject<ParseByTemplateResponse>();
 
     const observer = {
       next: (response: ParseByTemplateResponse) => subject.next(response),
@@ -79,39 +79,16 @@ export class ParserService {
     return subject;
   }
 
-  // checkApiHealth(): Observable<boolean> {
-  //   let subject = new Subject<boolean>();
-
-  //   const observer = {
-  //     next: response => subject.next(response == "Healthy"),
-  //     complete: () => subject.complete(),
-  //     error: () => {
-  //       subject.next(false)
-  //       subject.complete();
-  //     }
-  //   };
-
-  //   let url = Api.apiEndPoint.endsWith("v1/")
-  //     ? Api.apiEndPoint.substring(0, Api.apiEndPoint.length - "v1/".length)
-  //     : Api.apiEndPoint;
-
-  //   this._http.get(url + Api.health, { responseType: 'text' })
-  //     .pipe(timeout(25000))
-  //     .subscribe(observer);
-
-  //   return subject;
-  // }
-
   getErrorMessage(err: any): string {
     let text: string;
 
-    if (err.status == 404) {
+    if (err.status === 404) {
       text = "The requested file was not found."
-    } else if (err.error && typeof err.error.title == "string") {
+    } else if (err.error && typeof err.error.title === "string") {
       text = err.error.title;
-    } else if (typeof err.error == "string") {
+    } else if (typeof err.error === "string") {
       text = err.error;
-    } else if (typeof err.title == "string") {
+    } else if (typeof err.title === "string") {
       text = err.title;
     } else {
       text = "The error occured while opening the file."

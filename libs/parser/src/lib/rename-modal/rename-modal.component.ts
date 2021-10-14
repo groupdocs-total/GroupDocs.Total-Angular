@@ -4,7 +4,7 @@ import {
 } from "@groupdocs.examples.angular/common-components";
 
 @Component({
-  selector: 'app-rename-modal',
+  selector: 'gd-rename-modal',
   templateUrl: './rename-modal.component.html',
   styleUrls: ['./rename-modal.component.less']
 })
@@ -72,7 +72,7 @@ export class RenameModalComponent implements OnInit {
 
   acceptClick() {
     // Check if value is not empty
-    if (this.value == null || this.value == "") {
+    if (this.value === null || this.value === "") {
       this._error = "A new value can't be empty";
     }
 

@@ -42,7 +42,7 @@ export class ParserAppComponent implements OnInit {
   filePassword: string;
 
   documentError: string = null;
-  isApiAvaible: boolean = true;
+  isApiAvaible = true;
 
   fileWasDropped = false;
   files: FileModel[] = [];

@@ -96,10 +96,10 @@
     </div>
 </div>
 
-<app-rename-modal #templateNameModal [id]="'TemplateNameModal'" [title]="'Rename Template'"
+<gd-rename-modal #templateNameModal [id]="'TemplateNameModal'" [title]="'Rename Template'"
     [promptText]="'Enter a new template name:'" [acceptText]="'Save'" (acceptEvent)="templateNameModalAccept($event)">
-</app-rename-modal>
-<app-confirmation-modal #templateRemoveModal [id]="'TemplateRemoveModal'" [title]="'Remove Template'"
+</gd-rename-modal>
+<gd-confirmation-modal #templateRemoveModal [id]="'TemplateRemoveModal'" [title]="'Remove Template'"
     [acceptText]="'Remove'" (acceptEvent)="templateRemoveModalAccept($event)">
-</app-confirmation-modal>
-<app-table-viewer #tableViewer></app-table-viewer>
+</gd-confirmation-modal>
+<gd-table-viewer #tableViewer></gd-table-viewer>

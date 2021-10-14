@@ -44,7 +44,7 @@ export class TemplateService {
   }
 
   createTemplate() {
-    let template = new Template();
+    const template = new Template();
     template.name = this.getNextTemplateName("Template");
 
     this.setCurrentTemplate(template);
@@ -56,15 +56,15 @@ export class TemplateService {
     }
 
     const exTemplate = this.getTemplateByName(templateId.name);
-    if (exTemplate && exTemplate.id != templateId.id) {
-      throw 'Template with the same name already exists';
+    if (exTemplate && exTemplate.id !== templateId.id) {
+      throw Error('Template with the same name already exists');
     }
 
-    if (templateId.id == this.currentTemplate.id) {
+    if (templateId.id === this.currentTemplate.id) {
       this.currentTemplate.name = templateId.name;
     }
     else {
-      var template = this.getTemplateById(templateId);
+      const template = this.getTemplateById(templateId);
       template.name = templateId.name;
 
       this.saveTemplate(template);
@@ -81,11 +81,11 @@ export class TemplateService {
 
     this.onTemplateRemoved(template);
 
-    if (template != this._currentTemplate) {
+    if (template !== this._currentTemplate) {
       return;
     }
 
-    if (this._templates.length == 0) {
+    if (this._templates.length === 0) {
       // Create an empty template if list is empty
       this.createTemplate();
     } else {
@@ -119,7 +119,7 @@ export class TemplateService {
       return;
     }
     try {
-      let template = this.loadTemplateFromJson(templateJson);
+      const template = this.loadTemplateFromJson(templateJson);
       template.id = Template.NotSaved;
 
       this.saveTemplate(template);
@@ -127,7 +127,7 @@ export class TemplateService {
       this.selectTemplate(template);
     }
     catch (error) {
-      throw 'Error while parsing template file';
+      throw Error('Error while parsing template file');
     }
   }
 
@@ -140,7 +140,7 @@ export class TemplateService {
 
     this._currentTemplateModifiedSubscription = this._currentTemplate.modified
       .pipe(throttle(v => interval(500)))
-      .subscribe(template => this.saveTemplate(template));
+      .subscribe(t => this.saveTemplate(t));
 
     this._currentTemplateChangedSubject.next(this._currentTemplate);
   }
@@ -157,7 +157,7 @@ export class TemplateService {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
 
-      if (key == this._templatePattern + template.id) {
+      if (key === this._templatePattern + template.id) {
         localStorage.removeItem(key);
         return;
       }
@@ -182,13 +182,13 @@ export class TemplateService {
 
     const templateName = this.getNextTemplateName(obj.name);
 
-    let template = new Template();
+    const template = new Template();
     template.id = obj.id ? obj.id : this.getNextTemplateId();
     template.name = templateName;
     for (let i = 0; i < obj.fields.length; i++) {
       const objField = obj.fields[i];
 
-      let field = new TemplateField(template);
+      const field = new TemplateField(template);
       if (objField.fieldType) {
         field.fieldType = objField.fieldType;
       }
@@ -245,7 +245,7 @@ export class TemplateService {
     }
 
     for (let i = 0; i < this._templates.length; i++) {
-      if (this._templates[i].id == templateId.id) {
+      if (this._templates[i].id === templateId.id) {
         return this._templates[i];
       }
     }
@@ -260,7 +260,7 @@ export class TemplateService {
 
     const name = templateName.toLocaleLowerCase();
     for (let i = 0; i < this._templates.length; i++) {
-      if (this._templates[i].name.toLocaleLowerCase() == name) {
+      if (this._templates[i].name.toLocaleLowerCase() === name) {
         return this._templates[i];
       }
     }
@@ -269,7 +269,7 @@ export class TemplateService {
   }
 
   private getNextTemplateId(): string {
-    let templateId = { id: "", name: "" };
+    const templateId = { id: "", name: "" };
 
     for (let i = 0; i < 1000; i++) {
       templateId.id = i.toString();
@@ -283,7 +283,7 @@ export class TemplateService {
 
   private getNextTemplateName(baseName: string): string {
     for (let i = 0; i < 1000; i++) {
-      const name = baseName + (i == 0 ? "" : " " + i.toString());
+      const name = baseName + (i === 0 ? "" : " " + i.toString());
       if (!this.getTemplateByName(name)) {
         return name;
       }

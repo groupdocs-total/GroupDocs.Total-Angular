@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { PlaceholderService } from '../placeholder.service';
 
 @Component({
-  selector: 'app-placeholder',
+  selector: 'gd-placeholder',
   templateUrl: './placeholder.component.html',
   styleUrls: ['./placeholder.component.less']
 })

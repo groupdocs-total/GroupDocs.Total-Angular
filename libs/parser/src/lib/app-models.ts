@@ -6,7 +6,7 @@ import { __values } from "tslib";
 export class TableValue {
   constructor(obj: any) {
     for (let i = 0; i < obj.length; i++) {
-      let row: string[] = [];
+      const row: string[] = [];
       if (obj[i]) {
         for (let j = 0; j < obj[i].length; j++) {
           row.push(obj[i][j]);
@@ -21,23 +21,23 @@ export class TableValue {
 }
 
 export class OperationState<T> {
-  private _state: number = 0;
+  private _state = 0;
   private _prompt: string;
   private _error: string;
   private _result: T;
 
-  enabled: boolean = true;
+  enabled = true;
 
   get isReadyToRun() {
-    return this._state == 0;
+    return this._state === 0;
   }
 
   get isFailed() {
-    return this._state == -1;
+    return this._state === -1;
   }
 
   get isCompleted() {
-    return this._state == 1;
+    return this._state === 1;
   }
 
   get isProcessing() {
@@ -146,7 +146,7 @@ export class Template implements TemplateId {
   static readonly NotSaved = "NotSaved";
 
   private _id: string = null;
-  private _name: string = "template name";
+  private _name = "template name";
   private _fields: TemplateField[] = [];
 
   private _addFieldSubject: Subject<TemplateField> = new Subject();
@@ -185,11 +185,11 @@ export class Template implements TemplateId {
   }
 
   get isStored() {
-    return this._id != Template.NotSaved;
+    return this._id !== Template.NotSaved;
   }
 
   get isEmpty() {
-    return this._fields.length == 0;
+    return this._fields.length === 0;
   }
 
   addField(field: TemplateField) {
@@ -204,7 +204,7 @@ export class Template implements TemplateId {
   }
 
   removeField(field: TemplateField) {
-    var index = this._fields.indexOf(field);
+    const index = this._fields.indexOf(field);
     if (index > -1) {
       this._fieldChangedSubscriptions.get(field).unsubscribe();
       this._fieldChangedSubscriptions.delete(field);
@@ -216,7 +216,7 @@ export class Template implements TemplateId {
   }
 
   removeFieldByName(fieldName: string) {
-    let field = this.getFieldByName(fieldName);
+    const field = this.getFieldByName(fieldName);
     if (field) {
       this.removeField(field);
     }
@@ -227,9 +227,9 @@ export class Template implements TemplateId {
       return null;
     }
 
-    let name = fieldName.toLocaleLowerCase();
-    for (var i = 0; i < this._fields.length; i++) {
-      if (this._fields[i].name.toLocaleLowerCase() == name) {
+    const name = fieldName.toLocaleLowerCase();
+    for (let i = 0; i < this._fields.length; i++) {
+      if (this._fields[i].name.toLocaleLowerCase() === name) {
         return this._fields[i];
       }
     }
@@ -238,7 +238,7 @@ export class Template implements TemplateId {
   }
 
   createField(baseName: string): TemplateField {
-    let field = new TemplateField(this);
+    const field = new TemplateField(this);
     field.name = this.getNextFieldName(baseName);
     field.size = new Size(60, 20);
     field.pageNumber = 1;
@@ -248,8 +248,8 @@ export class Template implements TemplateId {
   }
 
   private getNextFieldName(baseName: string): string {
-    for (var i = 0; i < 1000; i++) {
-      let name = baseName + i.toString();
+    for (let i = 0; i < 1000; i++) {
+      const name = baseName + i.toString();
       if (!this.getFieldByName(name)) {
         return name;
       }
@@ -299,7 +299,7 @@ export class TemplateField {
   }
 
   removeColumn(column: TemplateFieldTableSeparator) {
-    var index = this._columns.indexOf(column);
+    const index = this._columns.indexOf(column);
     if (index > -1) {
 
       this._columns.splice(index, 1);
@@ -312,9 +312,9 @@ export class TemplateField {
       return null;
     }
 
-    let name = columnName.toLocaleLowerCase();
-    for (var i = 0; i < this._columns.length; i++) {
-      if (this._columns[i].name.toLocaleLowerCase() == name) {
+    const name = columnName.toLocaleLowerCase();
+    for (let i = 0; i < this._columns.length; i++) {
+      if (this._columns[i].name.toLocaleLowerCase() === name) {
         return this._columns[i];
       }
     }
@@ -385,8 +385,8 @@ export class TemplateField {
   }
 
   private getNextColumnName(): string {
-    for (var i = 0; i < 1000; i++) {
-      let name = "TC:" + i.toString();
+    for (let i = 0; i < 1000; i++) {
+      const name = "TC:" + i.toString();
       if (!this.getColumnByName(name)) {
         return name;
       }

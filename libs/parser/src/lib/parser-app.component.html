@@ -22,11 +22,11 @@
       </gd-init-state>
 
       <div class="parser-wrapper" *ngIf="!documentError && document">
-        <app-surface [document]="document"></app-surface>
+        <gd-surface [document]="document"></gd-surface>
       </div>
     </div>
 
-    <app-side-panel *ngIf="!documentError && document"></app-side-panel>
+    <gd-parser-side-panel *ngIf="!documentError && document"></gd-parser-side-panel>
   </div>
 
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"

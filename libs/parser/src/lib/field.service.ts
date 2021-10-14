@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Renderer2 } from '@angular/core';
+import { ComponentFactoryResolver, OnDestroy, Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { Injectable, HostListener } from '@angular/core';
 import { Utils } from '@groupdocs.examples.angular/common-components';
@@ -9,7 +9,7 @@ import { Point } from './app-models';
 @Injectable({
   providedIn: 'root'
 })
-export class FieldService {
+export class FieldService implements OnDestroy {
 
   private _destroy = new Subject();
   private _isMoving = false;
@@ -17,6 +17,10 @@ export class FieldService {
   private _mouseMoveSubject = new Subject<Point>();
   private _mouseUpSubject = new Subject<Point>();
   private _activeChangedSubject = new Subject<string>();
+
+  readonly mouseMove = this._mouseMoveSubject.asObservable();
+  readonly mouseUp = this._mouseUpSubject.asObservable();
+  readonly activeChanged = this._activeChangedSubject.asObservable();
 
   constructor(private rendererFactory2: RendererFactory2) {
     const renderer = this.rendererFactory2.createRenderer(null, null);
@@ -71,10 +75,6 @@ export class FieldService {
     this._destroy.complete();
   }
 
-  readonly mouseMove = this._mouseMoveSubject.asObservable();
-  readonly mouseUp = this._mouseUpSubject.asObservable();
-  readonly activeChanged = this._activeChangedSubject.asObservable();
-
   get isMoving() {
     return this._isMoving;
   }
@@ -84,7 +84,7 @@ export class FieldService {
   }
 
   beginMove($event: MouseEvent): Point {
-    let mousePosition = Utils.getMousePosition($event);
+    const mousePosition = Utils.getMousePosition($event);
     this._isMoving = true;
 
     return mousePosition;
@@ -95,7 +95,7 @@ export class FieldService {
       return;
     }
 
-    let mousePosition = Utils.getMousePosition($event);
+    const mousePosition = Utils.getMousePosition($event);
     this._mouseMoveSubject.next(mousePosition);
   }
 
@@ -104,7 +104,7 @@ export class FieldService {
       return;
     }
 
-    let mousePosition = Utils.getMousePosition($event);
+    const mousePosition = Utils.getMousePosition($event);
     this._mouseUpSubject.next(mousePosition);
     this._isMoving = false;
   }

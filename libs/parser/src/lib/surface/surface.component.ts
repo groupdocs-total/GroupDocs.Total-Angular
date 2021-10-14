@@ -27,7 +27,7 @@ const $ = jquery;
 
 
 @Component({
-  selector: 'app-surface',
+  selector: 'gd-surface',
   templateUrl: './surface.component.html',
   styleUrls: ['./surface.component.less']
 })
@@ -66,7 +66,7 @@ export class SurfaceComponent implements OnInit, OnDestroy, AfterViewInit {
       const viewContainerRef = dynamicDirective.viewContainerRef;
       const fieldComponent = this.addDynamicComponentService.addDynamicComponent(viewContainerRef, FieldComponent);
 
-      var wrapper = new FieldWrapper(fieldComponent);
+      const wrapper = new FieldWrapper(fieldComponent);
       const pageModel = this.document.pages.find(function (p) {
         return p.number === field.pageNumber;
       });
@@ -79,7 +79,7 @@ export class SurfaceComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fieldContextMenuClick(event: FieldContextMenuClick) {
-    if (event.action == "rename") {
+    if (event.action === "rename") {
       this.fieldNameModal.operationId = event.fieldName;
       this.fieldNameModal.initialValue = event.fieldName;
       this._modalService.open("FieldNameModal");
@@ -87,7 +87,7 @@ export class SurfaceComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    if (event.action == "remove") {
+    if (event.action === "remove") {
       this._template.removeFieldByName(event.fieldName);
 
       return;
@@ -95,11 +95,11 @@ export class SurfaceComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fieldNameModalAccept(event) {
-    let oldFieldName = event.id;
-    let newFieldName = event.newValue;
+    const oldFieldName = event.id;
+    const newFieldName = event.newValue;
 
-    if (oldFieldName != newFieldName) {
-      let existFieldWithName = this._template.getFieldByName(newFieldName);
+    if (oldFieldName !== newFieldName) {
+      const existFieldWithName = this._template.getFieldByName(newFieldName);
       if (existFieldWithName) {
         this.fieldNameModal.error = "Field with the same name already exists";
         return;
@@ -107,7 +107,7 @@ export class SurfaceComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this._modalService.close("FieldNameModal");
-    let field = this._template.getFieldByName(oldFieldName);
+    const field = this._template.getFieldByName(oldFieldName);
     if (field) {
       field.name = newFieldName;
     }
@@ -196,7 +196,7 @@ export class SurfaceComponent implements OnInit, OnDestroy, AfterViewInit {
     const elements = document.elementsFromPoint(position.x, position.y);
     const currentPage = elements.find(x => x.id && x.id.startsWith("page-"));
     if (currentPage) {
-      this._documentPageService.setActivePage(parseInt(currentPage.id.substring("page-".length)));
+      this._documentPageService.setActivePage(parseInt(currentPage.id.substring("page-".length), 10));
     }
   }
 
@@ -205,8 +205,8 @@ export class SurfaceComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const elements = this.surface.nativeElement.querySelectorAll('gd-page');
     elements.forEach(element => {
-      let child = (element as HTMLElement).children[0];
-      if (child.id == activePage) {
+      const child = (element as HTMLElement).children[0];
+      if (child.id === activePage) {
         (child as HTMLElement).style.opacity = '1';
         (child as HTMLElement).parentElement.parentElement.style.background = '#FFFFFF';
       } else {

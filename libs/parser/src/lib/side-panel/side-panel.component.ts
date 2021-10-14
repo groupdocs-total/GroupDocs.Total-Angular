@@ -28,7 +28,7 @@ import { PlaceholderService } from '../placeholder.service';
 import { TableViewerComponent } from '../table-viewer/table-viewer.component';
 
 @Component({
-  selector: 'app-side-panel',
+  selector: 'gd-parser-side-panel',
   templateUrl: './side-panel.component.html',
   styleUrls: ['./side-panel.component.less']
 })
@@ -119,7 +119,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
   }
 
   isCurrentTemplate(templateId: TemplateId) {
-    return this.currentTemplate && this.currentTemplate.id == templateId.id;
+    return this.currentTemplate && this.currentTemplate.id === templateId.id;
   }
 
   selectTemplateClick(templateId: TemplateId) {
@@ -181,7 +181,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
     const fileUrl = window.URL.createObjectURL(f);
 
-    let fileLink = document.createElement('a');
+    const fileLink = document.createElement('a');
     fileLink.href = fileUrl;
     fileLink.download = f.name;
     fileLink.click();
@@ -193,7 +193,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     const file: File = event.target.files[0];
 
     if (file) {
-      let reader = new FileReader();
+      const reader = new FileReader();
 
       reader.readAsText(file);
       reader.onload = x => {
@@ -211,7 +211,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
   parse() {
     this.parseState.execute();
 
-    let state = this._placeholderService.startOperation("Parsing data...");
+    const state = this._placeholderService.startOperation("Parsing data...");
 
     const observer = {
       next: (response: ParseByTemplateResponse) => {
@@ -232,19 +232,19 @@ export class SidePanelComponent implements OnInit, OnDestroy {
   }
 
   downloadResultsAsCsv() {
-    if (!this.parseState.isCompleted || this.parseState.result.length == 0) {
+    if (!this.parseState.isCompleted || this.parseState.result.length === 0) {
       return;
     }
 
     const csv = this._utilsService.generateCsvForParseResults(this.parseState.result);
 
-    let f = new File([csv], this._sourceFileService.sourceFile.guid + "- data.csv", {
+    const f = new File([csv], this._sourceFileService.sourceFile.guid + "- data.csv", {
       type: "text/plain"
     });
 
     const fileUrl = window.URL.createObjectURL(f);
 
-    var fileLink = document.createElement('a');
+    const fileLink = document.createElement('a');
     fileLink.href = fileUrl;
     fileLink.download = f.name;
     fileLink.click();
@@ -264,8 +264,8 @@ export class SidePanelComponent implements OnInit, OnDestroy {
   }
 
   private removeTemplateId(templateId: TemplateId) {
-    for (var i = 0; i < this.templateIds.length; i++) {
-      if (this.templateIds[i].id == templateId.id) {
+    for (let i = 0; i < this.templateIds.length; i++) {
+      if (this.templateIds[i].id === templateId.id) {
         this.templateIds.splice(i, 1);
         return;
       }

@@ -4,7 +4,7 @@ import {
 } from "@groupdocs.examples.angular/common-components";
 
 @Component({
-  selector: 'app-confirmation-modal',
+  selector: 'gd-confirmation-modal',
   templateUrl: './confirmation-modal.component.html',
   styleUrls: ['./confirmation-modal.component.less']
 })

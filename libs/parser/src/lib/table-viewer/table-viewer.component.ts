@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TableValue } from '../app-models';
 
 @Component({
-  selector: 'app-table-viewer',
+  selector: 'gd-table-viewer',
   templateUrl: './table-viewer.component.html',
   styleUrls: ['./table-viewer.component.less']
 })
