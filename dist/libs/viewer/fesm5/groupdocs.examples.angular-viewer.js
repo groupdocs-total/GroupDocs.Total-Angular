@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { __values, __extends } from 'tslib';
-import { Api, ConfigService, CommonModals, FileUtil, PageModel, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, StaticTranslateLoader, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { __values, __extends, __assign } from 'tslib';
+import { Api, ConfigService, CommonModals, FileUtil, PageModel, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, CommonTranslateLoader, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -398,8 +398,8 @@ var Constants = /** @class */ (function () {
         new Language("th", "th-TH", "ไทย"),
         new Language("tr", "tr-TR", "Türkçe"),
         new Language("uk", "uk-UA", "Українська"),
-        new Language("zh-hans", "zh-Hans", "中文"),
-        new Language("zh-hant", "zh-Hant", "中文"),
+        new Language("zh-hans", "zh-Hans", "中文(简体)"),
+        new Language("zh-hant", "zh-Hant", "中文(繁體)"),
     ];
     return Constants;
 }());
@@ -3833,6 +3833,50 @@ var ZHHANT = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var ViewerTranslateLoader = /** @class */ (function (_super) {
+    __extends(ViewerTranslateLoader, _super);
+    function ViewerTranslateLoader(translations) {
+        if (translations === void 0) { translations = {}; }
+        return _super.call(this, {
+            'ar': __assign({}, AR, translations['ar']),
+            'ca': __assign({}, CA, translations['ca']),
+            'cs': __assign({}, CS, translations['cs']),
+            'da': __assign({}, DA, translations['da']),
+            'de': __assign({}, DE, translations['de']),
+            'el': __assign({}, EL, translations['el']),
+            'en': __assign({}, EN, translations['en']),
+            'es': __assign({}, ES, translations['es']),
+            'fil': __assign({}, FIL, translations['fil']),
+            'fr': __assign({}, FR, translations['fr']),
+            'he': __assign({}, HE, translations['he']),
+            'hi': __assign({}, HI, translations['hi']),
+            'id': __assign({}, ID, translations['id']),
+            'it': __assign({}, IT, translations['it']),
+            'ja': __assign({}, JA, translations['ja']),
+            'kk': __assign({}, KK, translations['kk']),
+            'ko': __assign({}, KO, translations['ko']),
+            'ms': __assign({}, MS, translations['ms']),
+            'nl': __assign({}, NL, translations['nl']),
+            'pl': __assign({}, PL, translations['pl']),
+            'pt': __assign({}, PT, translations['pt']),
+            'ro': __assign({}, RO, translations['ro']),
+            'ru': __assign({}, RU, translations['ru']),
+            'sv': __assign({}, SV, translations['sv']),
+            'th': __assign({}, TH, translations['th']),
+            'tr': __assign({}, TR, translations['tr']),
+            'uk': __assign({}, UK, translations['uk']),
+            'vi': __assign({}, VI, translations['vi']),
+            'zh-hans': __assign({}, ZHHANS, translations['zh-hans']),
+            'zh-hant': __assign({}, ZHHANT, translations['zh-hant']),
+        }) || this;
+    }
+    return ViewerTranslateLoader;
+}(CommonTranslateLoader));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} viewerConfigService
  * @return {?}
@@ -3858,40 +3902,14 @@ function setupLoadingInterceptor(service) {
 /**
  * @return {?}
  */
-function StaticTranslateLoaderFactory() {
+function translateLoaderFactory() {
     /** @type {?} */
-    var translations = {};
-    translations['ar'] = AR;
-    translations['ca'] = CA;
-    translations['cs'] = CS;
-    translations['da'] = DA;
-    translations['de'] = DE;
-    translations['el'] = EL;
-    translations['en'] = EN;
-    translations['es'] = ES;
-    translations['fil'] = FIL;
-    translations['fr'] = FR;
-    translations['he'] = HE;
-    translations['hi'] = HI;
-    translations['id'] = ID;
-    translations['it'] = IT;
-    translations['ja'] = JA;
-    translations['kk'] = KK;
-    translations['ko'] = KO;
-    translations['ms'] = MS;
-    translations['nl'] = NL;
-    translations['pl'] = PL;
-    translations['pt'] = PT;
-    translations['ro'] = RO;
-    translations['ru'] = RU;
-    translations['sv'] = SV;
-    translations['th'] = TH;
-    translations['tr'] = TR;
-    translations['uk'] = UK;
-    translations['vi'] = VI;
-    translations['zh-hans'] = ZHHANS;
-    translations['zh-hant'] = ZHHANT;
-    return new StaticTranslateLoader(translations);
+    var translations = {
+        'uk': {
+            'TEST': 'IT WORKS'
+        }
+    };
+    return new ViewerTranslateLoader(translations);
 }
 var ɵ0 = window;
 var ViewerModule = /** @class */ (function () {
@@ -3928,7 +3946,7 @@ var ViewerModule = /** @class */ (function () {
                         TranslateModule.forRoot({
                             loader: {
                                 provide: TranslateLoader,
-                                useFactory: StaticTranslateLoaderFactory
+                                useFactory: translateLoaderFactory
                             }
                         })
                     ],
@@ -3978,5 +3996,5 @@ var ViewerModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { StaticTranslateLoaderFactory, ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, ViewerTranslateLoader, initializeApp, setupLoadingInterceptor, translateLoaderFactory, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map

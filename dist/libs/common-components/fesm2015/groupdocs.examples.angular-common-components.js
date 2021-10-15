@@ -8309,42 +8309,48 @@ const ZHHANT = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class StaticTranslateLoader {
+class CommonTranslateLoader {
     /**
-     * @param {?} translations
+     * @param {?=} translations
      */
-    constructor(translations) {
-        this.translations = {};
-        this.translations['ar'] = Object.assign({}, AR, translations['ar']);
-        this.translations['ca'] = Object.assign({}, CA, translations['ca']);
-        this.translations['cs'] = Object.assign({}, CS, translations['cs']);
-        this.translations['da'] = Object.assign({}, DA, translations['da']);
-        this.translations['de'] = Object.assign({}, DE, translations['de']);
-        this.translations['el'] = Object.assign({}, EL, translations['el']);
-        this.translations['en'] = Object.assign({}, EN, translations['en']);
-        this.translations['es'] = Object.assign({}, ES, translations['es']);
-        this.translations['fil'] = Object.assign({}, FIL, translations['fil']);
-        this.translations['fr'] = Object.assign({}, FR, translations['fr']);
-        this.translations['he'] = Object.assign({}, HE, translations['he']);
-        this.translations['hi'] = Object.assign({}, HI, translations['hi']);
-        this.translations['id'] = Object.assign({}, ID, translations['id']);
-        this.translations['it'] = Object.assign({}, IT, translations['it']);
-        this.translations['ja'] = Object.assign({}, JA, translations['ja']);
-        this.translations['kk'] = Object.assign({}, KK, translations['kk']);
-        this.translations['ko'] = Object.assign({}, KO, translations['ko']);
-        this.translations['ms'] = Object.assign({}, MS, translations['ms']);
-        this.translations['nl'] = Object.assign({}, NL, translations['nl']);
-        this.translations['pl'] = Object.assign({}, PL, translations['pl']);
-        this.translations['pt'] = Object.assign({}, PT, translations['pt']);
-        this.translations['ro'] = Object.assign({}, RO, translations['ro']);
-        this.translations['ru'] = Object.assign({}, RU, translations['ru']);
-        this.translations['sv'] = Object.assign({}, SV, translations['sv']);
-        this.translations['th'] = Object.assign({}, TH, translations['th']);
-        this.translations['tr'] = Object.assign({}, TR, translations['tr']);
-        this.translations['uk'] = Object.assign({}, UK, translations['uk']);
-        this.translations['vi'] = Object.assign({}, VI, translations['vi']);
-        this.translations['zh-hans'] = Object.assign({}, ZHHANS, translations['zh-hans']);
-        this.translations['zh-hant'] = Object.assign({}, ZHHANT, translations['zh-hant']);
+    constructor(translations = {}) {
+        this.translations = {
+            'ar': AR,
+            'ca': CA,
+            'cs': CS,
+            'da': DA,
+            'de': DE,
+            'el': EL,
+            'en': EN,
+            'es': ES,
+            'fil': FIL,
+            'fr': FR,
+            'he': HE,
+            'hi': HI,
+            'id': ID,
+            'it': IT,
+            'ja': JA,
+            'kk': KK,
+            'ko': KO,
+            'ms': MS,
+            'nl': NL,
+            'pl': PL,
+            'pt': PT,
+            'ro': RO,
+            'ru': RU,
+            'sv': SV,
+            'th': TH,
+            'tr': TR,
+            'uk': UK,
+            'vi': VI,
+            'zh-hans': ZHHANS,
+            'zh-hant': ZHHANT,
+        };
+        for (let key in translations) {
+            if (this.translations[key]) {
+                this.translations[key] = Object.assign({}, this.translations[key], translations[key]);
+            }
+        }
     }
     /**
      * @param {?} lang
@@ -8366,9 +8372,9 @@ class StaticTranslateLoader {
 }
 if (false) {
     /** @type {?} */
-    StaticTranslateLoader.prototype.translations;
+    CommonTranslateLoader.prototype.translations;
     /** @type {?} */
-    StaticTranslateLoader.prototype.defaultLanguage;
+    CommonTranslateLoader.prototype.defaultLanguage;
 }
 
 /**
@@ -8381,5 +8387,5 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, StaticTranslateLoader, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, CommonTranslateLoader, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
