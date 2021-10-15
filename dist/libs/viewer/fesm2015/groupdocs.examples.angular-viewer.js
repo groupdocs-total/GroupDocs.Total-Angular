@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Api, ConfigService, CommonModals, FileUtil, PageModel, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, StaticTranslateLoader, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, FileUtil, PageModel, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, CommonTranslateLoader, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -350,8 +350,8 @@ Constants.defaultSupportedLanguages = [
     new Language("th", "th-TH", "ไทย"),
     new Language("tr", "tr-TR", "Türkçe"),
     new Language("uk", "uk-UA", "Українська"),
-    new Language("zh-hans", "zh-Hans", "中文"),
-    new Language("zh-hant", "zh-Hant", "中文"),
+    new Language("zh-hans", "zh-Hans", "中文(简体)"),
+    new Language("zh-hant", "zh-Hant", "中文(繁體)"),
 ];
 if (false) {
     /** @type {?} */
@@ -3380,6 +3380,50 @@ const ZHHANT = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class ViewerTranslateLoader extends CommonTranslateLoader {
+    /**
+     * @param {?=} translations
+     */
+    constructor(translations = {}) {
+        super({
+            'ar': Object.assign({}, AR, translations['ar']),
+            'ca': Object.assign({}, CA, translations['ca']),
+            'cs': Object.assign({}, CS, translations['cs']),
+            'da': Object.assign({}, DA, translations['da']),
+            'de': Object.assign({}, DE, translations['de']),
+            'el': Object.assign({}, EL, translations['el']),
+            'en': Object.assign({}, EN, translations['en']),
+            'es': Object.assign({}, ES, translations['es']),
+            'fil': Object.assign({}, FIL, translations['fil']),
+            'fr': Object.assign({}, FR, translations['fr']),
+            'he': Object.assign({}, HE, translations['he']),
+            'hi': Object.assign({}, HI, translations['hi']),
+            'id': Object.assign({}, ID, translations['id']),
+            'it': Object.assign({}, IT, translations['it']),
+            'ja': Object.assign({}, JA, translations['ja']),
+            'kk': Object.assign({}, KK, translations['kk']),
+            'ko': Object.assign({}, KO, translations['ko']),
+            'ms': Object.assign({}, MS, translations['ms']),
+            'nl': Object.assign({}, NL, translations['nl']),
+            'pl': Object.assign({}, PL, translations['pl']),
+            'pt': Object.assign({}, PT, translations['pt']),
+            'ro': Object.assign({}, RO, translations['ro']),
+            'ru': Object.assign({}, RU, translations['ru']),
+            'sv': Object.assign({}, SV, translations['sv']),
+            'th': Object.assign({}, TH, translations['th']),
+            'tr': Object.assign({}, TR, translations['tr']),
+            'uk': Object.assign({}, UK, translations['uk']),
+            'vi': Object.assign({}, VI, translations['vi']),
+            'zh-hans': Object.assign({}, ZHHANS, translations['zh-hans']),
+            'zh-hant': Object.assign({}, ZHHANT, translations['zh-hant']),
+        });
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} viewerConfigService
  * @return {?}
@@ -3405,40 +3449,14 @@ function setupLoadingInterceptor(service) {
 /**
  * @return {?}
  */
-function StaticTranslateLoaderFactory() {
+function translateLoaderFactory() {
     /** @type {?} */
-    const translations = {};
-    translations['ar'] = AR;
-    translations['ca'] = CA;
-    translations['cs'] = CS;
-    translations['da'] = DA;
-    translations['de'] = DE;
-    translations['el'] = EL;
-    translations['en'] = EN;
-    translations['es'] = ES;
-    translations['fil'] = FIL;
-    translations['fr'] = FR;
-    translations['he'] = HE;
-    translations['hi'] = HI;
-    translations['id'] = ID;
-    translations['it'] = IT;
-    translations['ja'] = JA;
-    translations['kk'] = KK;
-    translations['ko'] = KO;
-    translations['ms'] = MS;
-    translations['nl'] = NL;
-    translations['pl'] = PL;
-    translations['pt'] = PT;
-    translations['ro'] = RO;
-    translations['ru'] = RU;
-    translations['sv'] = SV;
-    translations['th'] = TH;
-    translations['tr'] = TR;
-    translations['uk'] = UK;
-    translations['vi'] = VI;
-    translations['zh-hans'] = ZHHANS;
-    translations['zh-hant'] = ZHHANT;
-    return new StaticTranslateLoader(translations);
+    const translations = {
+        'uk': {
+            'TEST': 'IT WORKS'
+        }
+    };
+    return new ViewerTranslateLoader(translations);
 }
 const ɵ0 = window;
 class ViewerModule {
@@ -3470,7 +3488,7 @@ ViewerModule.decorators = [
                     TranslateModule.forRoot({
                         loader: {
                             provide: TranslateLoader,
-                            useFactory: StaticTranslateLoaderFactory
+                            useFactory: translateLoaderFactory
                         }
                     })
                 ],
@@ -3518,5 +3536,5 @@ ViewerModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { StaticTranslateLoaderFactory, ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, ViewerTranslateLoader, initializeApp, setupLoadingInterceptor, translateLoaderFactory, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map
