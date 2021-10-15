@@ -38,7 +38,7 @@ export class CommonTranslateLoader implements TranslateLoader {
   defaultLanguage: "en";
 
   constructor(translations: { [id: string] : any; } = { }) {
-    for(let key in translations) {
+    for(const key in translations) {
       if(this.translations[key]) {
         this.translations[key] = {...this.translations[key], ...translations[key]};
       }
@@ -46,8 +46,8 @@ export class CommonTranslateLoader implements TranslateLoader {
   }
 
   getTranslation(lang: string): Observable<any> {
-    const translation = this.translations[lang] 
-        ? this.translations[lang] 
+    const translation = this.translations[lang]
+        ? this.translations[lang]
         : this.translations[this.defaultLanguage];
 
     return new Observable(subscriber => {
