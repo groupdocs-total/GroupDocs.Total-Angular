@@ -3903,13 +3903,7 @@ function setupLoadingInterceptor(service) {
  * @return {?}
  */
 function translateLoaderFactory() {
-    /** @type {?} */
-    var translations = {
-        'uk': {
-            'TEST': 'IT WORKS'
-        }
-    };
-    return new ViewerTranslateLoader(translations);
+    return new ViewerTranslateLoader();
 }
 var ɵ0 = window;
 var ViewerModule = /** @class */ (function () {

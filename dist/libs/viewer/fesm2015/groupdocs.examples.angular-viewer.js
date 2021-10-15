@@ -3450,13 +3450,7 @@ function setupLoadingInterceptor(service) {
  * @return {?}
  */
 function translateLoaderFactory() {
-    /** @type {?} */
-    const translations = {
-        'uk': {
-            'TEST': 'IT WORKS'
-        }
-    };
-    return new ViewerTranslateLoader(translations);
+    return new ViewerTranslateLoader();
 }
 const ɵ0 = window;
 class ViewerModule {
