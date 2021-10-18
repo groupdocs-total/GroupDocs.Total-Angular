@@ -4097,7 +4097,6 @@
     function translateLoaderFactory() {
         return new ViewerTranslateLoader();
     }
-    var ɵ0 = window;
     var ViewerModule = /** @class */ (function () {
         function ViewerModule() {
         }
@@ -4164,8 +4163,7 @@
                                 useFactory: setupLoadingInterceptor,
                                 multi: true,
                                 deps: [commonComponents.LoadingMaskService]
-                            },
-                            { provide: Window, useValue: ɵ0 },
+                            }
                         ]
                     },] }
         ];

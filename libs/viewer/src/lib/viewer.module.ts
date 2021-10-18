@@ -83,8 +83,7 @@ export function translateLoaderFactory() {
       useFactory: setupLoadingInterceptor,
       multi: true,
       deps: [LoadingMaskService]
-    },
-    { provide: Window, useValue: window },
+    }
   ]
 })
 export class ViewerModule {

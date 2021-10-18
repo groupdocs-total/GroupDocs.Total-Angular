@@ -3452,7 +3452,6 @@ function setupLoadingInterceptor(service) {
 function translateLoaderFactory() {
     return new ViewerTranslateLoader();
 }
-const ɵ0 = window;
 class ViewerModule {
     /**
      * @param {?} apiEndpoint
@@ -3514,8 +3513,7 @@ ViewerModule.decorators = [
                         useFactory: setupLoadingInterceptor,
                         multi: true,
                         deps: [LoadingMaskService]
-                    },
-                    { provide: Window, useValue: ɵ0 },
+                    }
                 ]
             },] }
 ];
