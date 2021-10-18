@@ -3905,7 +3905,6 @@ function setupLoadingInterceptor(service) {
 function translateLoaderFactory() {
     return new ViewerTranslateLoader();
 }
-var ɵ0 = window;
 var ViewerModule = /** @class */ (function () {
     function ViewerModule() {
     }
@@ -3972,8 +3971,7 @@ var ViewerModule = /** @class */ (function () {
                             useFactory: setupLoadingInterceptor,
                             multi: true,
                             deps: [LoadingMaskService]
-                        },
-                        { provide: Window, useValue: ɵ0 },
+                        }
                     ]
                 },] }
     ];
