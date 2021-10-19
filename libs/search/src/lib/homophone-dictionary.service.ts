@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HomophonesReadResponse, HomophonesUpdateRequest, WordState, WordWrapper } from './search-models';
+import { SearchConfigService } from './search-config.service';
+import { HomophonesReadResponse, HomophonesUpdateRequest, SearchBaseRequest, WordState, WordWrapper } from './search-models';
 import { SearchService } from './search.service';
 
 @Injectable()
 export class HomophoneDictionaryService {
   homophoneGroups: WordWrapper[][];
 
-  constructor(private _searchService: SearchService) {
+  constructor(
+    private _searchService: SearchService,
+    private _configService: SearchConfigService) {
   }
 
   init() {
-    this._searchService.getHomophoneDictionary().subscribe((response: HomophonesReadResponse) => {
-      this.homophoneGroups = new Array(response.HomophoneGroups.length);
-      for (let i = 0; i < response.HomophoneGroups.length; i++) {
-        const wordArray = response.HomophoneGroups[i];
+    const request = new SearchBaseRequest();
+    request.FolderName = this._configService.folderName;
+    this._searchService.getHomophoneDictionary(request).subscribe((response: HomophonesReadResponse) => {
+      this.homophoneGroups = new Array(response.homophoneGroups.length);
+      for (let i = 0; i < response.homophoneGroups.length; i++) {
+        const wordArray = response.homophoneGroups[i];
         const wrapperArray = new Array(wordArray.length);
         for (let j = 0; j < wrapperArray.length; j++) {
           wrapperArray[j] = new WordWrapper();
@@ -71,9 +76,10 @@ export class HomophoneDictionaryService {
     }
 
     const request = new HomophonesUpdateRequest();
-    request.HomophoneGroups = result;
+    request.FolderName = this._configService.folderName;
+    request.homophoneGroups = result;
     this._searchService.setHomophoneDictionary(request).subscribe(() => {
-      console.log("Homophone dictionary updated")
+      console.log("Homophone dictionary updated");
       this.init();
     });
   }

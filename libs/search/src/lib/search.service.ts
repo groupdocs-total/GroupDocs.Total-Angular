@@ -127,33 +127,33 @@ export class SearchService {
     return this._http.post(url, request, Api.httpOptionsJson);
   }
 
-  getInfo() {
-    return this._http.post(this._config.apiEndpoint + SearchApi.GET_INFO, null, Api.httpOptionsJson);
+  getInfo(request: SearchBaseRequest) {
+    return this._http.post(this._config.apiEndpoint + SearchApi.GET_INFO, request, Api.httpOptionsJson);
   }
 
-  getAlphabetDictionary() {
+  getAlphabetDictionary(request: SearchBaseRequest) {
     const url = this._config.apiEndpoint + SearchApi.GET_ALPHABET_DICTIONARY;
-    return this._http.post(url, Api.httpOptionsJson);
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
-  setAlphabetDictionary(data: AlphabetUpdateRequest) {
+  setAlphabetDictionary(request: AlphabetUpdateRequest) {
     const url = this._config.apiEndpoint + SearchApi.SET_ALPHABET_DICTIONARY;
-    return this._http.post(url, data, Api.httpOptionsJson);
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
-  getStopWordDictionary() {
+  getStopWordDictionary(request: SearchBaseRequest) {
     const url = this._config.apiEndpoint + SearchApi.GET_STOP_WORD_DICTIONARY;
-    return this._http.post(url, Api.httpOptionsJson);
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
-  setStopWordDictionary(data: StopWordsUpdateRequest) {
+  setStopWordDictionary(request: StopWordsUpdateRequest) {
     const url = this._config.apiEndpoint + SearchApi.SET_STOP_WORD_DICTIONARY;
-    return this._http.post(url, data, Api.httpOptionsJson);
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
-  getSynonymDictionary() {
+  getSynonymDictionary(request: SearchBaseRequest) {
     const url = this._config.apiEndpoint + SearchApi.GET_SYNONYM_DICTIONARY;
-    return this._http.post(url, Api.httpOptionsJson);
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
   setSynonymDictionary(data: SynonymsUpdateRequest) {
@@ -161,9 +161,9 @@ export class SearchService {
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 
-  getHomophoneDictionary() {
+  getHomophoneDictionary(request: SearchBaseRequest) {
     const url = this._config.apiEndpoint + SearchApi.GET_HOMOPHONE_DICTIONARY;
-    return this._http.post(url, Api.httpOptionsJson);
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
   setHomophoneDictionary(data: HomophonesUpdateRequest) {
@@ -171,9 +171,9 @@ export class SearchService {
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 
-  getSpellingCorrectorDictionary() {
+  getSpellingCorrectorDictionary(request: SearchBaseRequest) {
     const url = this._config.apiEndpoint + SearchApi.GET_SPELLING_CORRECTOR_DICTIONARY;
-    return this._http.post(url, Api.httpOptionsJson);
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
   setSpellingCorrectorDictionary(data: SpellingCorrectorUpdateRequest) {

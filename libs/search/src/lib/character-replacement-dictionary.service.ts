@@ -48,7 +48,7 @@ export class CharacterReplacementDictionaryService {
     }
 
     this._searchService.setCharacterReplacementDictionary(request).subscribe(() => {
-      console.log("Character replacement dictionary updated")
+      console.log("Character replacement dictionary updated");
     });
   }
 

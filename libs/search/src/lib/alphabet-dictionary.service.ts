@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AlphabetCharacter, AlphabetCharacterEx, AlphabetReadResponse, AlphabetUpdateRequest, CharacterType } from './search-models';
+import { AlphabetCharacter, AlphabetCharacterEx, AlphabetReadResponse, AlphabetUpdateRequest, CharacterType, SearchBaseRequest } from './search-models';
 import { SearchService } from './search.service';
+import {SearchConfigService} from "./search-config.service";
 
 @Injectable()
 export class AlphabetDictionaryService {
@@ -12,22 +13,26 @@ export class AlphabetDictionaryService {
   pageIndex = 0;
   page: AlphabetCharacterEx[];
 
-  constructor(private _searchService: SearchService) {
+  constructor(
+    private _searchService: SearchService,
+    private _configService: SearchConfigService) {
   }
 
   init() {
-    this._searchService.getAlphabetDictionary().subscribe((response: AlphabetReadResponse) => {
+    const request = new SearchBaseRequest();
+    request.FolderName = this._configService.folderName;
+    this._searchService.getAlphabetDictionary(request).subscribe((response: AlphabetReadResponse) => {
 
       this.alphabet = new Array(this.totalCount);
-      for (let i = 0; i < response.Characters.length; i++) {
-        const ac = response.Characters[i];
-        this.create(ac.Character, ac.Type, this.alphabet);
+      for (let i = 0; i < response.characters.length; i++) {
+        const ac = response.characters[i];
+        this.create(ac.character, ac.type, this.alphabet);
       }
 
       let start = -1;
-      for (let i = 0; i < response.Characters.length; i++) {
-        const ac = response.Characters[i];
-        const end = ac.Character;
+      for (let i = 0; i < response.characters.length; i++) {
+        const ac = response.characters[i];
+        const end = ac.character;
         for (let j = start + 1; j < end; j++) {
           this.create(j, CharacterType.Separator, this.alphabet);
         }
@@ -51,26 +56,27 @@ export class AlphabetDictionaryService {
   save() {
     let count = 0;
     for (let i = 0; i < this.alphabet.length; i++) {
-      if (this.alphabet[i].Type !== "Separator") {
+      if (this.alphabet[i].type !== "Separator") {
         count++;
       }
     }
     const request = new AlphabetUpdateRequest();
-    request.Characters = new Array(count);
+    request.FolderName = this._configService.folderName;
+    request.characters = new Array(count);
     let index = 0;
     for (let i = 0; i < this.alphabet.length; i++) {
       const ace = this.alphabet[i];
-      if (ace.Type !== "Separator") {
+      if (ace.type !== "Separator") {
         const ac = new AlphabetCharacter();
-        ac.Character = ace.Id;
-        ac.Type = CharacterType[ace.Type];
-        request.Characters[index] = ac;
+        ac.character = ace.id;
+        ac.type = CharacterType[ace.type];
+        request.characters[index] = ac;
         index++;
       }
     }
 
     this._searchService.setAlphabetDictionary(request).subscribe(() => {
-      console.log("Alphabet dictionary updated")
+      console.log("Alphabet dictionary updated");
     });
   }
 
@@ -118,9 +124,9 @@ export class AlphabetDictionaryService {
 
   changeType(code: number) {
     const ace = this.alphabet[code];
-    const oldType = CharacterType[ace.Type];
+    const oldType = CharacterType[ace.type];
     const newType = this.getNextType(oldType);
-    this.alphabet[code].Type = CharacterType[newType];
+    this.alphabet[code].type = CharacterType[newType];
     this.populatePage();
   }
 
@@ -140,10 +146,10 @@ export class AlphabetDictionaryService {
 
   private create(code: number, type: CharacterType, alphabet: AlphabetCharacterEx[]) {
     const ace = new AlphabetCharacterEx();
-    ace.Id = code;
-    ace.Character = String.fromCharCode(code);
-    ace.Code = code.toString(16).toUpperCase().padStart(4, "0");
-    ace.Type = CharacterType[type];
+    ace.id = code;
+    ace.character = String.fromCharCode(code);
+    ace.code = code.toString(16).toUpperCase().padStart(4, "0");
+    ace.type = CharacterType[type];
     alphabet[code] = ace;
   }
 }

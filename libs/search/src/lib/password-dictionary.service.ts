@@ -31,7 +31,7 @@ export class PasswordDictionaryService {
     request.Passwords = this.passwords;
 
     this._searchService.setDocumentPasswordDictionary(request).subscribe(() => {
-      console.log("Document password dictionary updated")
+      console.log("Document password dictionary updated");
     });
   }
 }

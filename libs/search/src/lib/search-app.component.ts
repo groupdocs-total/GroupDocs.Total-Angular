@@ -270,7 +270,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   canGetReport() {
-    return this.configService.folderName.endsWith("5b4e8099");
+    return this.configService.isAdmin === true;
   }
 
   getReport() {
@@ -290,7 +290,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   canRequestReindex() {
-    return this.configService.folderName.endsWith("5b4e8099");
+    return this.configService.isAdmin === true;
   }
 
   requestReindex() {
@@ -302,7 +302,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   canOpenStateMonitor() {
-    return this.configService.folderName.endsWith("5b4e8099") && this.appState == AppState.Default;
+    return this.configService.isAdmin === true && this.appState == AppState.Default;
   }
 
   openStateMonitor() {

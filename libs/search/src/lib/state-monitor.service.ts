@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoadingMaskService } from '@groupdocs.examples.angular/common-components';
-import { SearchApi, SearchAppInfo } from './search-models';
+import { SearchConfigService } from './search-config.service';
+import { SearchApi, SearchAppInfo, SearchBaseRequest } from './search-models';
 import { SearchService } from './search.service';
 
 @Injectable()
@@ -8,8 +9,10 @@ export class StateMonitorService {
   private _enabled: boolean;
   response: SearchAppInfo;
 
-  constructor(private _searchService: SearchService,
-              _loadingMaskService: LoadingMaskService) {
+  constructor(
+    private _searchService: SearchService,
+    private _configService: SearchConfigService,
+    _loadingMaskService: LoadingMaskService) {
     _loadingMaskService['stopList'].push(SearchApi.GET_INFO);
   }
 
@@ -23,7 +26,9 @@ export class StateMonitorService {
   }
 
   private update() {
-    this._searchService.getInfo().subscribe((response: SearchAppInfo) => {
+    const request = new SearchBaseRequest();
+    request.FolderName = this._configService.folderName;
+    this._searchService.getInfo(request).subscribe((response: SearchAppInfo) => {
       this.response = response;
 
       if (this._enabled) {

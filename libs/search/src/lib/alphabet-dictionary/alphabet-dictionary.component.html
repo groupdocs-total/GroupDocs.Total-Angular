@@ -2,14 +2,14 @@
 
 <div class="character-list">
   <div class="character-descriptor"
-    [ngClass]="{'separator' : pair.Type=='Separator', 'letter': pair.Type=='Letter', 'blended': pair.Type=='Blended', 'separate-word': pair.Type=='SeparateWord'}"
+    [ngClass]="{'separator' : pair.type=='Separator', 'letter': pair.type=='Letter', 'blended': pair.type=='Blended', 'separate-word': pair.type=='SeparateWord'}"
     *ngFor="let pair of alphabet.page">
-    <span class="descriptor-code">{{pair.Code}}</span>
-    <span class="descriptor-symbol">{{pair.Character}}</span>
+    <span class="descriptor-code">{{pair.code}}</span>
+    <span class="descriptor-symbol">{{pair.character}}</span>
     <button class='descriptor-type'
       tabindex="-1"
-      (click)="changeType(pair.Id)">
-      {{pair.Type}}
+      (click)="changeType(pair.id)">
+      {{pair.type}}
     </button>
   </div>
 </div>

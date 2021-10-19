@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { SearchService } from './search.service';
-import { SynonymsReadResponse, SynonymsUpdateRequest, WordState, WordWrapper } from './search-models';
+import { SearchBaseRequest, SynonymsReadResponse, SynonymsUpdateRequest, WordState, WordWrapper } from './search-models';
+import { SearchConfigService } from './search-config.service';
 
 @Injectable()
 export class SynonymDictionaryService {
   synonymGroups: WordWrapper[][];
 
-  constructor(private _searchService: SearchService) {
+  constructor(
+    private _searchService: SearchService,
+    private _configService: SearchConfigService) {
   }
 
   init() {
-    this._searchService.getSynonymDictionary().subscribe((response: SynonymsReadResponse) => {
-      this.synonymGroups = new Array(response.SynonymGroups.length);
-      for (let i = 0; i < response.SynonymGroups.length; i++) {
-        const wordArray = response.SynonymGroups[i];
+    const request = new SearchBaseRequest();
+    request.FolderName = this._configService.folderName;
+    this._searchService.getSynonymDictionary(request).subscribe((response: SynonymsReadResponse) => {
+      this.synonymGroups = new Array(response.synonymGroups.length);
+      for (let i = 0; i < response.synonymGroups.length; i++) {
+        const wordArray = response.synonymGroups[i];
         const wrapperArray = new Array(wordArray.length);
         for (let j = 0; j < wrapperArray.length; j++) {
           wrapperArray[j] = new WordWrapper();
@@ -71,9 +76,10 @@ export class SynonymDictionaryService {
     }
 
     const request = new SynonymsUpdateRequest();
-    request.SynonymGroups = result;
+    request.FolderName = this._configService.folderName;
+    request.synonymGroups = result;
     this._searchService.setSynonymDictionary(request).subscribe(() => {
-      console.log("Synonym dictionary updated")
+      console.log("Synonym dictionary updated");
       this.init();
     });
   }

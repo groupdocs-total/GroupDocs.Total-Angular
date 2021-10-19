@@ -56,15 +56,15 @@ export class IndexPropertiesResponse {
 }
 
 export class AlphabetCharacter {
-  Character: number;
-  Type: number;
+  character: number;
+  type: number;
 }
 
 export class AlphabetCharacterEx {
-  Id: number;
-  Character: string;
-  Code: string;
-  Type: string;
+  id: number;
+  character: string;
+  code: string;
+  type: string;
 }
 
 export class CharacterReplacement {
@@ -81,44 +81,48 @@ export class KeyPasswordPair {
   Password: string;
 }
 
-export class AlphabetReadResponse {
-  Characters: AlphabetCharacter[];
+export class SearchBaseRequest {
+  FolderName: string;
 }
 
-export class AlphabetUpdateRequest {
-  Characters: AlphabetCharacter[];
+export class AlphabetReadResponse {
+  characters: AlphabetCharacter[];
+}
+
+export class AlphabetUpdateRequest extends SearchBaseRequest {
+  characters: AlphabetCharacter[];
 }
 
 export class StopWordsReadResponse {
-  StopWords: string[];
+  stopWords: string[];
 }
 
-export class StopWordsUpdateRequest {
-  StopWords: string[];
+export class StopWordsUpdateRequest extends SearchBaseRequest {
+  stopWords: string[];
 }
 
 export class SynonymsReadResponse {
-  SynonymGroups: string[][];
+  synonymGroups: string[][];
 }
 
-export class SynonymsUpdateRequest {
-  SynonymGroups: string[][];
+export class SynonymsUpdateRequest extends SearchBaseRequest {
+  synonymGroups: string[][];
 }
 
 export class HomophonesReadResponse {
-  HomophoneGroups: string[][];
+  homophoneGroups: string[][];
 }
 
-export class HomophonesUpdateRequest {
-  HomophoneGroups: string[][];
+export class HomophonesUpdateRequest extends SearchBaseRequest {
+  homophoneGroups: string[][];
 }
 
 export class SpellingCorrectorReadResponse {
-  Words: string[];
+  words: string[];
 }
 
-export class SpellingCorrectorUpdateRequest {
-  Words: string[];
+export class SpellingCorrectorUpdateRequest extends SearchBaseRequest {
+  words: string[];
 }
 
 export class CharacterReplacementsReadResponse {
@@ -135,10 +139,6 @@ export class DocumentPasswordsReadResponse {
 
 export class DocumentPasswordsUpdateRequest {
   Passwords: KeyPasswordPair[];
-}
-
-export class SearchBaseRequest {
-  FolderName: string;
 }
 
 export class SearchAppInfo {
@@ -278,10 +278,10 @@ export enum FileIndexingStatus {
 }
 
 export enum CharacterType {
-  Separator = 1,
-  Letter = 2,
-  Blended = 3,
-  SeparateWord = 4,
+  Separator = 0,
+  Letter = 1,
+  Blended = 2,
+  SeparateWord = 3,
 }
 
 export enum AppState {
