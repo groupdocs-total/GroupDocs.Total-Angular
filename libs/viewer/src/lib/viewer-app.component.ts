@@ -277,12 +277,17 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     const pathname = window.location.pathname;
     if (pathname) {
       const parts = pathname.split('/');
-      const langOrNothing = this.supportedLanguagesConfig
-        .filter(supported => parts.includes(supported.code) || parts.includes(supported.alternateCode))
-        .shift();
-        
-      if(langOrNothing)
-        return langOrNothing;
+      for (const part of parts) {
+        if(part === "")
+          continue;
+
+        const langOrNothing = this.supportedLanguagesConfig
+          .filter(supported => supported.is(part))
+          .shift();
+
+        if(langOrNothing)
+          return langOrNothing;
+      }
     }
 
     const queryString = window.location.search;
