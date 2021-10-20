@@ -540,7 +540,10 @@
          * @return {?}
          */
         function (code) {
-            return this.code === code || this.alternateCode === code;
+            /** @type {?} */
+            var codeUpperCase = code.toUpperCase();
+            return this.code.toUpperCase() === codeUpperCase
+                || this.alternateCode.toUpperCase() === codeUpperCase;
         };
         return Language;
     }());
@@ -563,35 +566,35 @@
         Constants.defaultLanguage = new Language("en", "en-us", "English");
         Constants.defaultSupportedLanguages = [
             new Language("ar", "ar", "العربية"),
-            new Language("ca", "ca-ES", "Català"),
-            new Language("cs", "cs-CZ", "Čeština"),
-            new Language("da", "da-DK", "Dansk"),
-            new Language("de", "de-DE", "Deutsch"),
-            new Language("el", "el-GR", "Ελληνικά"),
-            new Language("en", "en-US", "English"),
-            new Language("es", "es-ES", "Español"),
-            new Language("fil", "fil-PH", "Filipino"),
-            new Language("fr", "fr-FR", "Français"),
-            new Language("he", "he-IL", "עברית"),
-            new Language("hi", "hi-IN", "हिन्दी"),
-            new Language("id", "id-ID", "Indonesia"),
-            new Language("it", "it-IT", "Italiano"),
-            new Language("ja", "ja-JP", "日本語"),
-            new Language("kk", "kk-KZ", "Қазақ Тілі"),
-            new Language("ko", "ko-KR", "한국어"),
-            new Language("ms", "ms-MY", "Melayu"),
-            new Language("nl", "nl-NL", "Nederlands"),
-            new Language("pl", "pl-PL", "Polski"),
-            new Language("pt", "pt-PT", "Português"),
-            new Language("ro", "ro-RO", "Română"),
-            new Language("ru", "ru-RU", "Русский"),
-            new Language("sv", "sv-SE", "Svenska"),
-            new Language("vi", "vi-VN", "Tiếng Việt"),
-            new Language("th", "th-TH", "ไทย"),
-            new Language("tr", "tr-TR", "Türkçe"),
-            new Language("uk", "uk-UA", "Українська"),
-            new Language("zh-hans", "zh-Hans", "中文(简体)"),
-            new Language("zh-hant", "zh-Hant", "中文(繁體)"),
+            new Language("ca", "ca-es", "Català"),
+            new Language("cs", "cs-cz", "Čeština"),
+            new Language("da", "da-dk", "Dansk"),
+            new Language("de", "de-de", "Deutsch"),
+            new Language("el", "el-gr", "Ελληνικά"),
+            new Language("en", "en-us", "English"),
+            new Language("es", "es-es", "Español"),
+            new Language("fil", "fil-ph", "Filipino"),
+            new Language("fr", "fr-fr", "Français"),
+            new Language("he", "he-il", "עברית"),
+            new Language("hi", "hi-in", "हिन्दी"),
+            new Language("id", "id-id", "Indonesia"),
+            new Language("it", "it-it", "Italiano"),
+            new Language("ja", "ja-jp", "日本語"),
+            new Language("kk", "kk-kz", "Қазақ Тілі"),
+            new Language("ko", "ko-kr", "한국어"),
+            new Language("ms", "ms-my", "Melayu"),
+            new Language("nl", "nl-nl", "Nederlands"),
+            new Language("pl", "pl-pl", "Polski"),
+            new Language("pt", "pt-pt", "Português"),
+            new Language("ro", "ro-ro", "Română"),
+            new Language("ru", "ru-ru", "Русский"),
+            new Language("sv", "sv-se", "Svenska"),
+            new Language("vi", "vi-vn", "Tiếng Việt"),
+            new Language("th", "th-th", "ไทย"),
+            new Language("tr", "tr-tr", "Türkçe"),
+            new Language("uk", "uk-ua", "Українська"),
+            new Language("zh-hans", "zh-hans", "中文(简体)"),
+            new Language("zh-hant", "zh-hant", "中文(繁體)"),
         ];
         return Constants;
     }());
@@ -1062,6 +1065,7 @@
              */
             function () {
                 var _this = this;
+                var e_1, _a;
                 if (this.viewerConfig && this.viewerConfig.defaultLanguage) {
                     return this.supportedLanguagesConfig
                         .find((/**
@@ -1074,17 +1078,37 @@
                 var pathname = window.location.pathname;
                 if (pathname) {
                     /** @type {?} */
-                    var parts_1 = pathname.split('/');
-                    /** @type {?} */
-                    var langOrNothing = this.supportedLanguagesConfig
-                        .filter((/**
-                     * @param {?} supported
-                     * @return {?}
-                     */
-                    function (supported) { return parts_1.includes(supported.code) || parts_1.includes(supported.alternateCode); }))
-                        .shift();
-                    if (langOrNothing)
-                        return langOrNothing;
+                    var parts = pathname.split('/');
+                    var _loop_1 = function (part) {
+                        if (part === "")
+                            return "continue";
+                        /** @type {?} */
+                        var langOrNothing = this_1.supportedLanguagesConfig
+                            .filter((/**
+                         * @param {?} supported
+                         * @return {?}
+                         */
+                        function (supported) { return supported.is(part); }))
+                            .shift();
+                        if (langOrNothing)
+                            return { value: langOrNothing };
+                    };
+                    var this_1 = this;
+                    try {
+                        for (var parts_1 = __values(parts), parts_1_1 = parts_1.next(); !parts_1_1.done; parts_1_1 = parts_1.next()) {
+                            var part = parts_1_1.value;
+                            var state_1 = _loop_1(part);
+                            if (typeof state_1 === "object")
+                                return state_1.value;
+                        }
+                    }
+                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                    finally {
+                        try {
+                            if (parts_1_1 && !parts_1_1.done && (_a = parts_1.return)) _a.call(parts_1);
+                        }
+                        finally { if (e_1) throw e_1.error; }
+                    }
                 }
                 /** @type {?} */
                 var queryString = window.location.search;
@@ -1300,12 +1324,12 @@
          */
         function (start, end) {
             var _this = this;
-            var _loop_1 = function (pageNumber) {
-                if (this_1.pagesToPreload.indexOf(pageNumber) !== -1) {
+            var _loop_2 = function (pageNumber) {
+                if (this_2.pagesToPreload.indexOf(pageNumber) !== -1) {
                     return "continue";
                 }
-                this_1.pagesToPreload.push(pageNumber);
-                this_1._viewerService.loadPage(this_1.credentials, pageNumber).subscribe((/**
+                this_2.pagesToPreload.push(pageNumber);
+                this_2._viewerService.loadPage(this_2.credentials, pageNumber).subscribe((/**
                  * @param {?} page
                  * @return {?}
                  */
@@ -1319,9 +1343,9 @@
                     }
                 }));
             };
-            var this_1 = this;
+            var this_2 = this;
             for (var pageNumber = start; pageNumber <= end; pageNumber++) {
-                _loop_1(pageNumber);
+                _loop_2(pageNumber);
             }
         };
         /**
@@ -1666,7 +1690,7 @@
          * @return {?}
          */
         function () {
-            var e_1, _a;
+            var e_2, _a;
             if (!this.file || !this.file.pages) {
                 return;
             }
@@ -1676,12 +1700,12 @@
                     page.data = null;
                 }
             }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
             finally {
                 try {
                     if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
                 }
-                finally { if (e_1) throw e_1.error; }
+                finally { if (e_2) throw e_2.error; }
             }
         };
         /**

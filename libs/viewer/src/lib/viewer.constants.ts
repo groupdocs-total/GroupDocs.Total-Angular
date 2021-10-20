@@ -10,7 +10,9 @@ export class Language {
     }
 
     is(code) {
-        return this.code === code || this.alternateCode === code;
+        const codeUpperCase = code.toUpperCase();
+        return this.code.toUpperCase() === codeUpperCase 
+            || this.alternateCode.toUpperCase() === codeUpperCase;
     }
 }
 
@@ -23,34 +25,34 @@ export class Constants {
     static readonly defaultLanguage = new Language("en", "en-us", "English");
     static readonly defaultSupportedLanguages = [
         new Language("ar", "ar", "العربية"),
-        new Language("ca", "ca-ES", "Català"),
-        new Language("cs", "cs-CZ", "Čeština"),
-        new Language("da", "da-DK", "Dansk"),
-        new Language("de", "de-DE", "Deutsch"),
-        new Language("el", "el-GR", "Ελληνικά"),
-        new Language("en", "en-US", "English"),
-        new Language("es", "es-ES", "Español"),
-        new Language("fil", "fil-PH", "Filipino"),
-        new Language("fr", "fr-FR", "Français"),
-        new Language("he", "he-IL", "עברית"),
-        new Language("hi", "hi-IN", "हिन्दी"),
-        new Language("id", "id-ID", "Indonesia"),
-        new Language("it", "it-IT", "Italiano"),
-        new Language("ja", "ja-JP", "日本語"),
-        new Language("kk", "kk-KZ", "Қазақ Тілі"),
-        new Language("ko", "ko-KR", "한국어"),
-        new Language("ms", "ms-MY", "Melayu"),
-        new Language("nl", "nl-NL", "Nederlands"),
-        new Language("pl", "pl-PL", "Polski"),
-        new Language("pt", "pt-PT", "Português"),
-        new Language("ro", "ro-RO", "Română"),
-        new Language("ru", "ru-RU", "Русский"),
-        new Language("sv", "sv-SE", "Svenska"),
-        new Language("vi", "vi-VN", "Tiếng Việt"),
-        new Language("th", "th-TH", "ไทย"),
-        new Language("tr", "tr-TR", "Türkçe"),
-        new Language("uk", "uk-UA", "Українська"),
-        new Language("zh-hans", "zh-Hans", "中文(简体)"),
-        new Language("zh-hant", "zh-Hant", "中文(繁體)"),
+        new Language("ca", "ca-es", "Català"),
+        new Language("cs", "cs-cz", "Čeština"),
+        new Language("da", "da-dk", "Dansk"),
+        new Language("de", "de-de", "Deutsch"),
+        new Language("el", "el-gr", "Ελληνικά"),
+        new Language("en", "en-us", "English"),
+        new Language("es", "es-es", "Español"),
+        new Language("fil", "fil-ph", "Filipino"),
+        new Language("fr", "fr-fr", "Français"),
+        new Language("he", "he-il", "עברית"),
+        new Language("hi", "hi-in", "हिन्दी"),
+        new Language("id", "id-id", "Indonesia"),
+        new Language("it", "it-it", "Italiano"),
+        new Language("ja", "ja-jp", "日本語"),
+        new Language("kk", "kk-kz", "Қазақ Тілі"),
+        new Language("ko", "ko-kr", "한국어"),
+        new Language("ms", "ms-my", "Melayu"),
+        new Language("nl", "nl-nl", "Nederlands"),
+        new Language("pl", "pl-pl", "Polski"),
+        new Language("pt", "pt-pt", "Português"),
+        new Language("ro", "ro-ro", "Română"),
+        new Language("ru", "ru-ru", "Русский"),
+        new Language("sv", "sv-se", "Svenska"),
+        new Language("vi", "vi-vn", "Tiếng Việt"),
+        new Language("th", "th-th", "ไทย"),
+        new Language("tr", "tr-tr", "Türkçe"),
+        new Language("uk", "uk-ua", "Українська"),
+        new Language("zh-hans", "zh-hans", "中文(简体)"),
+        new Language("zh-hant", "zh-hant", "中文(繁體)"),
     ];
 }
