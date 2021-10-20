@@ -18,6 +18,7 @@ import {SearchResultItemComponent} from './search-result-item/search-result-item
 import {IndexedFilesListComponent} from './indexed-files-list/indexed-files-list.component';
 import {IndexedFileComponent} from './indexed-file/indexed-file.component';
 import {SearchBrowseFilesModalComponent} from './search-browse-files-modal/search-browse-files-modal.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 export function initializeApp(searchConfigService: SearchConfigService) {
   const result = () => searchConfigService.load();
@@ -44,7 +45,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    TranslateModule.forRoot()
   ],
   exports: [
     SearchAppComponent,

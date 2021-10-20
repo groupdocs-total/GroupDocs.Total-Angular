@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@angular/common/http'), require('@fortawesome/angular-fontawesome'), require('ng-click-outside'), require('jquery'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/annotation', ['exports', '@angular/core', '@angular/common', '@groupdocs.examples.angular/common-components', 'rxjs', '@angular/common/http', '@fortawesome/angular-fontawesome', 'ng-click-outside', 'jquery', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.annotation = {}), global.ng.core, global.ng.common, global.commonComponents, global.rxjs, global.ng.common.http, global.angularFontawesome, global.ngClickOutside, global.jquery, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons));
-}(this, (function (exports, core, common, commonComponents, rxjs, http, angularFontawesome, ngClickOutside, jquery, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@angular/common/http'), require('@fortawesome/angular-fontawesome'), require('ng-click-outside'), require('jquery'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@ngx-translate/core')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/annotation', ['exports', '@angular/core', '@angular/common', '@groupdocs.examples.angular/common-components', 'rxjs', '@angular/common/http', '@fortawesome/angular-fontawesome', 'ng-click-outside', 'jquery', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@ngx-translate/core'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.annotation = {}), global.ng.core, global.ng.common, global.commonComponents, global.rxjs, global.ng.common.http, global.angularFontawesome, global.ngClickOutside, global.jquery, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.core$1));
+}(this, (function (exports, core, common, commonComponents, rxjs, http, angularFontawesome, ngClickOutside, jquery, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, core$1) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -3512,7 +3512,9 @@
                             commonComponents.CommonComponentsModule,
                             http.HttpClientModule,
                             angularFontawesome.FontAwesomeModule,
-                            ngClickOutside.ClickOutsideModule],
+                            ngClickOutside.ClickOutsideModule,
+                            core$1.TranslateModule.forRoot()
+                        ],
                         providers: [
                             commonComponents.ConfigService,
                             AnnotationConfigService,

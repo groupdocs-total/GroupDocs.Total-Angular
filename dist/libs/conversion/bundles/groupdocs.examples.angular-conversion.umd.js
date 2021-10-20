@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@groupdocs.examples.angular/common-components'), require('@angular/common/http'), require('rxjs'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@fortawesome/angular-fontawesome')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/conversion', ['exports', '@angular/core', '@angular/common', '@groupdocs.examples.angular/common-components', '@angular/common/http', 'rxjs', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@fortawesome/angular-fontawesome'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.conversion = {}), global.ng.core, global.ng.common, global.commonComponents, global.ng.common.http, global.rxjs, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.angularFontawesome));
-}(this, (function (exports, core, common, commonComponents, http, rxjs, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, angularFontawesome) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@groupdocs.examples.angular/common-components'), require('@angular/common/http'), require('rxjs'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('@fortawesome/angular-fontawesome'), require('@ngx-translate/core')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/conversion', ['exports', '@angular/core', '@angular/common', '@groupdocs.examples.angular/common-components', '@angular/common/http', 'rxjs', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', '@fortawesome/angular-fontawesome', '@ngx-translate/core'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.conversion = {}), global.ng.core, global.ng.common, global.commonComponents, global.ng.common.http, global.rxjs, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.angularFontawesome, global.core$1));
+}(this, (function (exports, core, common, commonComponents, http, rxjs, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, angularFontawesome, core$1) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1508,7 +1508,9 @@
                         imports: [common.CommonModule,
                             commonComponents.CommonComponentsModule,
                             http.HttpClientModule,
-                            angularFontawesome.FontAwesomeModule],
+                            angularFontawesome.FontAwesomeModule,
+                            core$1.TranslateModule.forRoot()
+                        ],
                         providers: [
                             ConversionService,
                             commonComponents.ConfigService,

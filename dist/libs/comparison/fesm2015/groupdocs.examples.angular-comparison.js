@@ -9,6 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -1342,7 +1343,8 @@ ComparisonModule.decorators = [
                     CommonComponentsModule,
                     HttpClientModule,
                     FontAwesomeModule,
-                    ClickOutsideModule
+                    ClickOutsideModule,
+                    TranslateModule.forRoot()
                 ],
                 exports: [
                     ComparisonAppComponent,

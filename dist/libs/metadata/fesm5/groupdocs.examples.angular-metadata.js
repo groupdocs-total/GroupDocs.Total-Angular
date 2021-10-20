@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import * as moment_ from 'moment';
 import { NgModel, FormsModule } from '@angular/forms';
 import { DpDatePickerModule } from 'ng2-date-picker';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -2012,7 +2013,8 @@ var MetadataModule = /** @class */ (function () {
                         HttpClientModule,
                         FontAwesomeModule,
                         FormsModule,
-                        DpDatePickerModule
+                        DpDatePickerModule,
+                        TranslateModule.forRoot()
                     ],
                     exports: [
                         MetadataAppComponent,
