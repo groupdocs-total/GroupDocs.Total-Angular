@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommandsService } from '../commands.service';
 import { PasswordDictionaryService } from '../password-dictionary.service';
+import { AppState } from '../search-models';
 
 @Component({
   selector: 'gd-password-dictionary',
@@ -16,8 +17,8 @@ export class PasswordDictionaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this._commandsService.getEventEmitter()
-      .subscribe((name: string) => {
-        if (name === "save") {
+      .subscribe(({name, state}) => {
+        if (name === "save" && state === AppState.PasswordDictionary) {
           this.dictionary.save();
         }
       });

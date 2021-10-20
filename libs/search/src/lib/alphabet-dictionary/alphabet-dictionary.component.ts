@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlphabetDictionaryService } from '../alphabet-dictionary.service';
 import { CommandsService } from '../commands.service';
+import { AppState } from '../search-models';
 
 @Component({
   selector: 'gd-alphabet-dictionary',
@@ -16,8 +17,8 @@ export class AlphabetDictionaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this._commandsService.getEventEmitter()
-      .subscribe((name: string) => {
-        if (name === "save") {
+      .subscribe(({name, state}) => {
+        if (name === "save" && state === AppState.AlphabetDictionary) {
           this.alphabet.save();
         }
       });

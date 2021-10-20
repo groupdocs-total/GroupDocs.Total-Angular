@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommandsService } from '../commands.service';
-import { WordState, WordWrapper } from '../search-models';
+import { AppState, WordState, WordWrapper } from '../search-models';
 import { StopWordDictionaryService } from '../stop-word-dictionary.service';
 
 @Component({
@@ -14,8 +14,8 @@ export class StopWordDictionaryComponent implements OnInit, OnDestroy {
   constructor(public dictionary: StopWordDictionaryService,
               private _commandsService: CommandsService) {
     this.subscription = this._commandsService.getEventEmitter()
-      .subscribe((name: string) => {
-        if (name === "save") {
+      .subscribe(({name, state}) => {
+        if (name === "save" && state === AppState.StopWordDictionary) {
           this.dictionary.save();
         }
       });

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CharacterReplacementDictionaryService } from '../character-replacement-dictionary.service';
 import { CommandsService } from '../commands.service';
+import { AppState } from '../search-models';
 
 @Component({
   selector: 'gd-character-replacement-dictionary',
@@ -16,8 +17,8 @@ export class CharacterReplacementDictionaryComponent implements OnInit, OnDestro
 
   ngOnInit() {
     this.subscription = this._commandsService.getEventEmitter()
-      .subscribe((name: string) => {
-        if (name === "save") {
+      .subscribe(({name, state}) => {
+        if (name === "save" && state === AppState.CharacterReplacementDictionary) {
           this.dictionary.save();
         }
       });

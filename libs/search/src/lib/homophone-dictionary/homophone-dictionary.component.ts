@@ -1,6 +1,6 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommandsService } from '../commands.service';
-import { WordState, WordWrapper } from '../search-models';
+import { AppState, WordState, WordWrapper } from '../search-models';
 import { HomophoneDictionaryService } from '../homophone-dictionary.service';
 
 @Component({
@@ -18,8 +18,8 @@ export class HomophoneDictionaryComponent implements OnInit, AfterViewChecked {
   constructor(public dictionary: HomophoneDictionaryService,
               private _commandsService: CommandsService) {
     this.subscription = this._commandsService.getEventEmitter()
-      .subscribe((name: string) => {
-        if (name === "save") {
+      .subscribe(({name, state}) => {
+        if (name === "save" && state === AppState.HomophoneDictionary) {
           this.dictionary.save();
         }
       });

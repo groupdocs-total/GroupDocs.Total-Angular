@@ -203,7 +203,7 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   pushCommand(name: string) {
-    this._commandsService.pushCommand(name);
+    this._commandsService.pushCommand(name, this.appState);
   }
 
   clearSearchResult() {
