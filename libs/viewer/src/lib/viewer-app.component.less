@@ -66,12 +66,26 @@
   }
 }
 
+.language-menu {
+  margin-right: 15px;
+}
+
 .select-language-menu {
   ::ng-deep .select {
     width: 100%;
+    ::ng-deep .dropdown-menu {
+      overflow-y: scroll;
+      height: 90%;
+    }
   }
   ::ng-deep .selected-value {
     max-width: 100%;
+  }
+}
+
+.thumbnails-button {
+  ::ng-deep .button {
+    margin-left: 0 !important;
   }
 }
 
@@ -157,7 +171,7 @@
     }
   }
 
-  ::ng-deep .gd-nav-search-container 
+  ::ng-deep .gd-nav-search-container
   .icon-button {
     margin: 0 0 0 7px !important;
   }
