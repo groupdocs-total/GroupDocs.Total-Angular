@@ -10,6 +10,7 @@ import * as jquery from 'jquery';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -3322,7 +3323,9 @@ var AnnotationModule = /** @class */ (function () {
                         CommonComponentsModule,
                         HttpClientModule,
                         FontAwesomeModule,
-                        ClickOutsideModule],
+                        ClickOutsideModule,
+                        TranslateModule.forRoot()
+                    ],
                     providers: [
                         ConfigService,
                         AnnotationConfigService,

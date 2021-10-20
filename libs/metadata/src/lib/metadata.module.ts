@@ -21,6 +21,7 @@ import { GdIntegerDirective } from "./directives/gd-integer.directive";
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
 import { PreviewStatusComponent } from "./preview-status/preview-status.component";
+import { TranslateModule } from '@ngx-translate/core';
 
 export function initializeApp(metadataConfigService: MetadataConfigService) {
   const result =  () => metadataConfigService.load();
@@ -48,7 +49,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     HttpClientModule,
     FontAwesomeModule,
     FormsModule,
-    DpDatePickerModule
+    DpDatePickerModule,
+    TranslateModule.forRoot()
   ],
   exports : [
     MetadataAppComponent,
