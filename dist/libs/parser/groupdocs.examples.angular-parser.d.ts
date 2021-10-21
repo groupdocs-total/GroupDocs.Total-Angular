@@ -6,6 +6,7 @@ export { ConfirmationModalComponent as ɵi } from './lib/confirmation-modal/conf
 export { DocumentPageService as ɵe } from './lib/document-page.service';
 export { FieldService as ɵh } from './lib/field.service';
 export { FieldComponent as ɵg } from './lib/field/field.component';
+export { ParserConfigService as ɵo } from './lib/parser-config.service';
 export { ParserService as ɵa } from './lib/parser.service';
 export { PlaceholderService as ɵd } from './lib/placeholder.service';
 export { PlaceholderComponent as ɵm } from './lib/placeholder/placeholder.component';

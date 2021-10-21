@@ -18,11 +18,11 @@ export declare class FieldComponent implements OnInit, OnDestroy {
     private _bottom;
     private _field;
     private _destroy;
+    isActive: boolean;
     contextMenuClick: EventEmitter<FieldContextMenuClick>;
     constructor(_fieldService: FieldService, _zoomService: ZoomService);
     ngOnInit(): void;
     ngOnDestroy(): void;
-    isActive: boolean;
     readonly isFixed: boolean;
     readonly isTable: boolean;
     left: number;

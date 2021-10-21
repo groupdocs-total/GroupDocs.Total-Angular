@@ -58,6 +58,7 @@ export class ParserAppComponent implements OnInit {
     private _placeholderService: PlaceholderService,
     private _documentPageService: DocumentPageService,
     private _uploadFilesService: UploadFilesService,
+    private _passwordService: PasswordService,
     windowService: WindowService) {
 
     windowService.onResize.subscribe((w) => {
@@ -72,6 +73,10 @@ export class ParserAppComponent implements OnInit {
           this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
         });
       }
+    });
+
+    this._passwordService.passChange.subscribe((pass: string) => {
+      this.selectFile(this._sourceFileService.sourceFile.guid, pass, CommonModals.PasswordRequired);
     });
   }
 

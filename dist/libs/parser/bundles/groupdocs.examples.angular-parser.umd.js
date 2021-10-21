@@ -5,18 +5,18 @@
 }(this, (function (exports, core, commonComponents, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, platformBrowser, ngClickOutside, rxjs, http, operators, jquery) { 'use strict';
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation.
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
 
-    Permission to use, copy, modify, and/or distribute this software for any
-    purpose with or without fee is hereby granted.
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
 
-    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-    PERFORMANCE OF THIS SOFTWARE.
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -72,11 +72,10 @@
     }
 
     function __awaiter(thisArg, _arguments, P, generator) {
-        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
             function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
             function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
@@ -109,25 +108,19 @@
         }
     }
 
-    function __createBinding(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
-        o[k2] = m[k];
-    }
-
     function __exportStar(m, exports) {
-        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 
     function __values(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
         if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
+        return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
 
     function __read(o, n) {
@@ -208,21 +201,6 @@
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
 
-    function __classPrivateFieldGet(receiver, privateMap) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to get private field on non-instance");
-        }
-        return privateMap.get(receiver);
-    }
-
-    function __classPrivateFieldSet(receiver, privateMap, value) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to set private field on non-instance");
-        }
-        privateMap.set(receiver, value);
-        return value;
-    }
-
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
@@ -263,7 +241,7 @@
              * @return {?}
              */
             function () {
-                return this._state == 0;
+                return this._state === 0;
             },
             enumerable: true,
             configurable: true
@@ -273,7 +251,7 @@
              * @return {?}
              */
             function () {
-                return this._state == -1;
+                return this._state === -1;
             },
             enumerable: true,
             configurable: true
@@ -283,7 +261,7 @@
              * @return {?}
              */
             function () {
-                return this._state == 1;
+                return this._state === 1;
             },
             enumerable: true,
             configurable: true
@@ -574,7 +552,7 @@
              * @return {?}
              */
             function () {
-                return this._id != Template.NotSaved;
+                return this._id !== Template.NotSaved;
             },
             enumerable: true,
             configurable: true
@@ -584,7 +562,7 @@
              * @return {?}
              */
             function () {
-                return this._fields.length == 0;
+                return this._fields.length === 0;
             },
             enumerable: true,
             configurable: true
@@ -657,7 +635,7 @@
             /** @type {?} */
             var name = fieldName.toLocaleLowerCase();
             for (var i = 0; i < this._fields.length; i++) {
-                if (this._fields[i].name.toLocaleLowerCase() == name) {
+                if (this._fields[i].name.toLocaleLowerCase() === name) {
                     return this._fields[i];
                 }
             }
@@ -837,7 +815,7 @@
             /** @type {?} */
             var name = columnName.toLocaleLowerCase();
             for (var i = 0; i < this._columns.length; i++) {
-                if (this._columns[i].name.toLocaleLowerCase() == name) {
+                if (this._columns[i].name.toLocaleLowerCase() === name) {
                     return this._columns[i];
                 }
             }
@@ -1217,82 +1195,27 @@
                 .subscribe(observer);
             return subject;
         };
-        // checkApiHealth(): Observable<boolean> {
-        //   let subject = new Subject<boolean>();
-        //   const observer = {
-        //     next: response => subject.next(response == "Healthy"),
-        //     complete: () => subject.complete(),
-        //     error: () => {
-        //       subject.next(false)
-        //       subject.complete();
-        //     }
-        //   };
-        //   let url = Api.apiEndPoint.endsWith("v1/")
-        //     ? Api.apiEndPoint.substring(0, Api.apiEndPoint.length - "v1/".length)
-        //     : Api.apiEndPoint;
-        //   this._http.get(url + Api.health, { responseType: 'text' })
-        //     .pipe(timeout(25000))
-        //     .subscribe(observer);
-        //   return subject;
-        // }
-        // checkApiHealth(): Observable<boolean> {
-        //   let subject = new Subject<boolean>();
-        //   const observer = {
-        //     next: response => subject.next(response == "Healthy"),
-        //     complete: () => subject.complete(),
-        //     error: () => {
-        //       subject.next(false)
-        //       subject.complete();
-        //     }
-        //   };
-        //   let url = Api.apiEndPoint.endsWith("v1/")
-        //     ? Api.apiEndPoint.substring(0, Api.apiEndPoint.length - "v1/".length)
-        //     : Api.apiEndPoint;
-        //   this._http.get(url + Api.health, { responseType: 'text' })
-        //     .pipe(timeout(25000))
-        //     .subscribe(observer);
-        //   return subject;
-        // }
         /**
          * @param {?} err
          * @return {?}
          */
-        ParserService.prototype.getErrorMessage = 
-        // checkApiHealth(): Observable<boolean> {
-        //   let subject = new Subject<boolean>();
-        //   const observer = {
-        //     next: response => subject.next(response == "Healthy"),
-        //     complete: () => subject.complete(),
-        //     error: () => {
-        //       subject.next(false)
-        //       subject.complete();
-        //     }
-        //   };
-        //   let url = Api.apiEndPoint.endsWith("v1/")
-        //     ? Api.apiEndPoint.substring(0, Api.apiEndPoint.length - "v1/".length)
-        //     : Api.apiEndPoint;
-        //   this._http.get(url + Api.health, { responseType: 'text' })
-        //     .pipe(timeout(25000))
-        //     .subscribe(observer);
-        //   return subject;
-        // }
-        /**
+        ParserService.prototype.getErrorMessage = /**
          * @param {?} err
          * @return {?}
          */
         function (err) {
             /** @type {?} */
             var text;
-            if (err.status == 404) {
+            if (err.status === 404) {
                 text = "The requested file was not found.";
             }
-            else if (err.error && typeof err.error.title == "string") {
+            else if (err.error && typeof err.error.title === "string") {
                 text = err.error.title;
             }
-            else if (typeof err.error == "string") {
+            else if (typeof err.error === "string") {
                 text = err.error;
             }
-            else if (typeof err.title == "string") {
+            else if (typeof err.title === "string") {
                 text = err.title;
             }
             else {
@@ -1432,10 +1355,10 @@
             }
             /** @type {?} */
             var exTemplate = this.getTemplateByName(templateId.name);
-            if (exTemplate && exTemplate.id != templateId.id) {
-                throw 'Template with the same name already exists';
+            if (exTemplate && exTemplate.id !== templateId.id) {
+                throw Error('Template with the same name already exists');
             }
-            if (templateId.id == this.currentTemplate.id) {
+            if (templateId.id === this.currentTemplate.id) {
                 this.currentTemplate.name = templateId.name;
             }
             else {
@@ -1462,10 +1385,10 @@
                 this._templates.splice(index, 1);
             }
             this.onTemplateRemoved(template);
-            if (template != this._currentTemplate) {
+            if (template !== this._currentTemplate) {
                 return;
             }
-            if (this._templates.length == 0) {
+            if (this._templates.length === 0) {
                 // Create an empty template if list is empty
                 this.createTemplate();
             }
@@ -1519,7 +1442,7 @@
                 this.selectTemplate(template);
             }
             catch (error) {
-                throw 'Error while parsing template file';
+                throw Error('Error while parsing template file');
             }
         };
         /**
@@ -1545,10 +1468,10 @@
              */
             function (v) { return rxjs.interval(500); })))
                 .subscribe((/**
-             * @param {?} template
+             * @param {?} t
              * @return {?}
              */
-            function (template) { return _this.saveTemplate(template); }));
+            function (t) { return _this.saveTemplate(t); }));
             this._currentTemplateChangedSubject.next(this._currentTemplate);
         };
         /**
@@ -1580,7 +1503,7 @@
             for (var i = 0; i < localStorage.length; i++) {
                 /** @type {?} */
                 var key = localStorage.key(i);
-                if (key == this._templatePattern + template.id) {
+                if (key === this._templatePattern + template.id) {
                     localStorage.removeItem(key);
                     return;
                 }
@@ -1705,7 +1628,7 @@
                 return null;
             }
             for (var i = 0; i < this._templates.length; i++) {
-                if (this._templates[i].id == templateId.id) {
+                if (this._templates[i].id === templateId.id) {
                     return this._templates[i];
                 }
             }
@@ -1728,7 +1651,7 @@
             /** @type {?} */
             var name = templateName.toLocaleLowerCase();
             for (var i = 0; i < this._templates.length; i++) {
-                if (this._templates[i].name.toLocaleLowerCase() == name) {
+                if (this._templates[i].name.toLocaleLowerCase() === name) {
                     return this._templates[i];
                 }
             }
@@ -1766,7 +1689,7 @@
         function (baseName) {
             for (var i = 0; i < 1000; i++) {
                 /** @type {?} */
-                var name_1 = baseName + (i == 0 ? "" : " " + i.toString());
+                var name_1 = baseName + (i === 0 ? "" : " " + i.toString());
                 if (!this.getTemplateByName(name_1)) {
                     return name_1;
                 }
@@ -2362,8 +2285,8 @@
         ParserAppComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-app-parser',
-                        template: "<gd-loading-mask></gd-loading-mask>\r\n<div class=\"wrapper\">\r\n  <div class=\"row\">\r\n    <div class=\"column\" [ngClass]=\"{'document-loaded': isFileLoaded()}\">\r\n      <div class=\"top-panel\">\r\n        <a class=\"logo-link\" [href]=\"returnUrl\">\r\n          <gd-logo [logo]=\"'parser'\" icon=\"glasses\"></gd-logo>\r\n        </a>\r\n        <gd-top-toolbar class=\"toolbar-panel\">\r\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal, false)\"\r\n            *ngIf=\"browseConfig\"></gd-button>\r\n\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\" (click)=\"zoomIn()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\" (click)=\"zoomOut()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'expand'\" [tooltip]=\"'Add text field'\" (click)=\"addFieldClick()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'table'\" [tooltip]=\"'Add table'\" (click)=\"addTableClick()\"></gd-button>\r\n        </gd-top-toolbar>\r\n      </div>\r\n       <gd-init-state [icon]=\"'glasses'\" [text]=\"'Drop file here to upload'\" *ngIf=\"documentError || !document\" (fileDropped)=\"fileDropped($event)\">\r\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n        Or drop file here\r\n      </gd-init-state>\r\n\r\n      <div class=\"parser-wrapper\" *ngIf=\"!documentError && document\">\r\n        <app-surface [document]=\"document\"></app-surface>\r\n      </div>\r\n    </div>\r\n\r\n    <app-side-panel *ngIf=\"!documentError && document\"></app-side-panel>\r\n  </div>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n    (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\" [uploadConfig]=\"uploadConfig\">\r\n  </gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-success-modal></gd-success-modal>\r\n</div>",
-                        styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.logo-link{color:inherit;text-decoration:inherit}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}.parser-wrapper{z-index:100;left:0;top:0;right:0;bottom:0}app-side-panel{position:absolute;right:0;top:60px;width:300px;height:100%;background-color:#fff}::ng-deep .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .button.inactive{color:#959da5!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}.row{display:-webkit-box;display:flex}.column{width:100%;height:100vh;background-color:#e7e7e7;overflow:hidden}::ng-deep .gd-side-panel-body{background-color:#f4f4f4}::ng-deep .gd-side-panel-wrapper{width:464px!important}::ng-deep .page.excel{overflow:unset!important}@media (max-width:1037px){::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .gd-side-panel-wrapper{width:375px!important}}"]
+                        template: "<gd-loading-mask></gd-loading-mask>\r\n<div class=\"wrapper\">\r\n  <div class=\"row\">\r\n    <div class=\"column\" [ngClass]=\"{'document-loaded': isFileLoaded()}\">\r\n      <div class=\"top-panel\">\r\n        <a class=\"logo-link\" [href]=\"returnUrl\">\r\n          <gd-logo [logo]=\"'parser'\" icon=\"glasses\"></gd-logo>\r\n        </a>\r\n        <gd-top-toolbar class=\"toolbar-panel\">\r\n          <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Browse files'\" (click)=\"openModal(browseFilesModal, false)\"\r\n            *ngIf=\"browseConfig\"></gd-button>\r\n\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-plus'\" [tooltip]=\"'Zoom In'\" (click)=\"zoomIn()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'search-minus'\" [tooltip]=\"'Zoom Out'\" (click)=\"zoomOut()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'expand'\" [tooltip]=\"'Add text field'\" (click)=\"addFieldClick()\"></gd-button>\r\n          <gd-button *ngIf=\"!documentError && document\" [icon]=\"'table'\" [tooltip]=\"'Add table'\" (click)=\"addTableClick()\"></gd-button>\r\n        </gd-top-toolbar>\r\n      </div>\r\n       <gd-init-state [icon]=\"'glasses'\" [text]=\"'Drop file here to upload'\" *ngIf=\"documentError || !document\" (fileDropped)=\"fileDropped($event)\">\r\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\r\n        Or drop file here\r\n      </gd-init-state>\r\n\r\n      <div class=\"parser-wrapper\" *ngIf=\"!documentError && document\">\r\n        <gd-surface [document]=\"document\"></gd-surface>\r\n      </div>\r\n    </div>\r\n\r\n    <gd-parser-side-panel *ngIf=\"!documentError && document\"></gd-parser-side-panel>\r\n  </div>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n    (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\" [uploadConfig]=\"uploadConfig\">\r\n  </gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n  <gd-success-modal></gd-success-modal>\r\n</div>",
+                        styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.logo-link{color:inherit;text-decoration:inherit}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}.parser-wrapper{z-index:100;left:0;top:0;right:0;bottom:0}gd-parser-side-panel{position:absolute;right:0;top:60px;width:300px;height:100%;background-color:#fff}::ng-deep .tools .button{color:#fff!important;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .button.inactive{color:#959da5!important}::ng-deep .tools .icon-button{margin:0 0 0 7px!important}.row{display:-webkit-box;display:flex}.column{width:100%;height:100vh;background-color:#e7e7e7;overflow:hidden}::ng-deep .gd-side-panel-body{background-color:#f4f4f4}::ng-deep .gd-side-panel-wrapper{width:464px!important}::ng-deep .page.excel{overflow:unset!important}@media (max-width:1037px){::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .gd-side-panel-wrapper{width:375px!important}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -2740,7 +2663,7 @@
              * @return {?}
              */
             function (name) {
-                _this.isActive = _this._field && _this._field.name == name;
+                _this.isActive = _this._field && _this._field.name === name;
             }));
         }
         /**
@@ -3119,7 +3042,7 @@
         };
         FieldComponent.decorators = [
             { type: core.Component, args: [{
-                        selector: 'app-field',
+                        selector: 'gd-field',
                         template: "<div class=\"field\" (clickOutside)=\"isActive = false\" (contextmenu)=\"rightClick($event)\"\r\n    [clickOutsideEvents]=\"'mousedown'\" [clickOutsideEnabled]=\"isActive\" [style.left.px]=\"left\" [style.top.px]=\"top\"\r\n    [style.width.px]=\"width\" [style.height.px]=\"height\">\r\n\r\n    <div class=\"field-text\" (dblclick)=\"renameFieldClick()\" (mousedown)=\"mouseDown($event, 'Move')\"\r\n        (panstart)=\"mouseDown($event, 'Move')\">\r\n        <div *ngIf=\"!isActive\">{{ field.name }}</div>\r\n    </div>\r\n    <div class=\"resizable-handle ne-resize\" *ngIf=\"isActive\" (mousedown)=\"mouseDown($event, 'NE')\"\r\n        (panstart)=\"mouseDown($event, 'NE')\"></div>\r\n    <div class=\"resizable-handle se-resize\" *ngIf=\"isActive\" (mousedown)=\"mouseDown($event, 'SE')\"\r\n        (panstart)=\"mouseDown($event, 'SE')\"></div>\r\n    <div class=\"resizable-handle sw-resize\" *ngIf=\"isActive\" (mousedown)=\"mouseDown($event, 'SW')\"\r\n        (panstart)=\"mouseDown($event, 'SW')\"></div>\r\n    <div class=\"resizable-handle nw-resize\" *ngIf=\"isActive\" (mousedown)=\"mouseDown($event, 'NW')\"\r\n        (panstart)=\"mouseDown($event, 'NW')\"></div>\r\n\r\n    <div class=\"resizable-v-edge w-resize\" *ngIf=\"isActive\" (mousedown)=\"mouseDown($event, 'W')\"\r\n        (panstart)=\"mouseDown($event, 'W')\"></div>\r\n    <div class=\"resizable-v-edge e-resize\" *ngIf=\"isActive\" (mousedown)=\"mouseDown($event, 'E')\"\r\n        (panstart)=\"mouseDown($event, 'E')\"></div>\r\n    <div class=\"resizable-h-edge n-resize\" *ngIf=\"isActive\" (mousedown)=\"mouseDown($event, 'N')\"\r\n        (panstart)=\"mouseDown($event, 'N')\"></div>        \r\n    <div class=\"resizable-h-edge s-resize\" *ngIf=\"isActive\" (mousedown)=\"mouseDown($event, 'S')\"\r\n        (panstart)=\"mouseDown($event, 'S')\"></div>\r\n\r\n    <div *ngIf=\"isTable && isActive\">\r\n        <div *ngFor=\"let column of field.columns\" class=\"tc-top resizable-handle\" [style.left.px]=\"column.value\"></div>\r\n        <div *ngFor=\"let column of field.columns\" class=\"tc-bottom resizable-handle\" [style.left.px]=\"column.value\"></div>\r\n        <div *ngFor=\"let column of field.columns\" class=\"tc\" [style.left.px]=\"column.value\"\r\n            (mousedown)=\"mouseDown($event, column.name)\">\r\n            <div class=\"tc-background\"></div>\r\n            <div class=\"tc-remove image-btn\" title=\"Remove column separator\" (click)=\"removeColumn(column)\">\r\n                <fa-icon [icon]=\"'trash'\"></fa-icon>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div *ngIf=\"isTable && !isActive\">\r\n        <div *ngFor=\"let column of field.columns\" class=\"tc-deactived\" [style.left.px]=\"column.value\">\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"tc-add-left image-btn\" *ngIf=\"isTable && isActive\" title=\"Add new column separator\" (click)=\"addColumnLeft()\">\r\n        <fa-icon [icon]=\"'plus'\"></fa-icon>\r\n    </div>\r\n\r\n    <div class=\"tc-add-right image-btn\" *ngIf=\"isTable && isActive\" title=\"Add new column separator\" (click)=\"addColumnRight()\">\r\n        <fa-icon [icon]=\"'plus'\"></fa-icon>\r\n    </div>\r\n\r\n    <div class=\"context-menu\" *ngIf=\"isActive\">\r\n        <div class=\"image-btn\" (click)=\"renameFieldClick()\" title=\"Rename the field\">\r\n            <fa-icon [icon]=\"'edit'\"></fa-icon>\r\n        </div>\r\n        <div class=\"image-btn\" (click)=\"deleteFieldClick()\" title=\"Remove the field\">\r\n            <fa-icon [icon]=\"'trash'\"></fa-icon>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"field-name\" *ngIf=\"isActive\">\r\n        {{ field.name }}\r\n    </div>\r\n\r\n</div>",
                         styles: [".btn{padding:5px 20px;background-color:#25c2d4;cursor:pointer;color:#fff!important}.btn:hover{background-color:#688296;color:#ccd0d4!important}.image-btn{text-align:center;cursor:pointer;margin:1px;color:#c4c4c4}.image-btn:hover{color:#688296!important}.image-btn>fa-icon{padding:5px;font-size:16px}.list-item:nth-of-type(even){background-color:#f4f4f4}.list-item:hover{background-color:#e5e5e5}.tc{position:absolute;display:block;border-left:4px solid #679ffa;width:4px;top:-5px;bottom:-5px;cursor:col-resize;z-index:1000}.tc-deactived{position:absolute;display:block;border-left:4px solid #738a9cc9;width:4px;top:0;bottom:0;cursor:col-resize;z-index:1000}.tc-background{-webkit-transform:translatex(-9px);transform:translatex(-9px);background-color:#fffFFF01;width:15px;height:100%}.tc-top{top:-5px;-webkit-transform:translatex(-3px);transform:translatex(-3px);cursor:col-resize}.tc-bottom{bottom:-5px;-webkit-transform:translatex(-3px);transform:translatex(-3px);cursor:col-resize}.tc-remove{background:#fff;display:none;position:absolute;top:15px}.tc:hover>.tc-remove{display:block}.tc-add-left{position:absolute;left:-5px;top:50%;-webkit-transform:translate(-100%,-50%);transform:translate(-100%,-50%)}.tc-add-right{position:absolute;right:-5px;top:50%;-webkit-transform:translate(100%,-50%);transform:translate(100%,-50%)}.resizable-v-edge{background-color:#fffFFF01;position:absolute;font-size:.1px;display:block;width:10px;top:5px;bottom:5px}.resizable-h-edge{background-color:#fffFFF01;position:absolute;font-size:.1px;display:block;height:10px;left:5px;right:5px}.w-resize{cursor:w-resize;left:-5px}.e-resize{cursor:e-resize;right:-5px}.n-resize{cursor:n-resize;top:-5px}.s-resize{cursor:s-resize;bottom:-5px}.resizable-handle{background-color:#679ffa;width:10px;height:10px;position:absolute;font-size:.1px;display:block}.se-resize{bottom:-5px;right:-5px;cursor:se-resize}.ne-resize{top:-5px;right:-5px;cursor:ne-resize}.sw-resize{bottom:-5px;left:-5px;cursor:sw-resize}.nw-resize{top:-5px;left:-5px;cursor:nw-resize}.field{position:absolute}.field-text{background-color:#99b1c440;cursor:move;color:#000;width:inherit;height:inherit}.field-text>div{background-color:#99b1c4DD;box-sizing:border-box;width:100%;height:100%;padding:1px 5px;font-size:10px;overflow:hidden;text-overflow:ellipsis;pointer-events:none}.field-name{position:absolute;width:auto;left:50%;top:0;-webkit-transform:translate(-50%,calc(-100% - 5px));transform:translate(-50%,calc(-100% - 5px));padding:2px 5px;background-color:#fff;border:#688296;box-shadow:rgba(0,0,0,.52) 0 0 5px;font-size:8px;color:#688296;cursor:context-menu}.context-menu{position:absolute;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-align:center;align-items:center;width:auto;left:50%;-webkit-transform:translate(-50%,0);transform:translate(-50%,0);margin-top:5px;background-color:#fff;border:#688296;box-shadow:rgba(0,0,0,.52) 0 0 5px}"]
                     }] }
@@ -3168,9 +3091,9 @@
          */
         FieldComponent.prototype._destroy;
         /** @type {?} */
-        FieldComponent.prototype.contextMenuClick;
-        /** @type {?} */
         FieldComponent.prototype.isActive;
+        /** @type {?} */
+        FieldComponent.prototype.contextMenuClick;
         /**
          * @type {?}
          * @private
@@ -3281,7 +3204,7 @@
          */
         function () {
             // Check if value is not empty
-            if (this.value == null || this.value == "") {
+            if (this.value === null || this.value === "") {
                 this._error = "A new value can't be empty";
             }
             if (!this.hasError) {
@@ -3301,7 +3224,7 @@
         };
         RenameModalComponent.decorators = [
             { type: core.Component, args: [{
-                        selector: 'app-rename-modal',
+                        selector: 'gd-rename-modal',
                         template: "<gd-modal #modal [id]=\"id\" [title]=\"title\" (visible)=\"refresh($event)\">\r\n  <div class=\"window\">\r\n    <div class=\"prompt\">{{ promptText }}</div>\r\n    <input #inputBox type=\"text\" [value]=\"value\" (input)=\"value=$event.target.value\" (keyup.enter)=\"acceptClick()\" (keyup.esc)=\"cancelClick()\"/>\r\n\r\n    <div class=\"error\" *ngIf=\"error\">{{ error }}</div>\r\n\r\n    <div class=\"buttons\">      \r\n      <div class=\"btn\" (click)=\"acceptClick()\">{{ acceptText }}</div>\r\n      <div class=\"btn\" (click)=\"cancelClick()\">Cancel</div>\r\n    </div>\r\n  </div>\r\n</gd-modal>",
                         styles: [".btn{padding:5px 20px;background-color:#25c2d4;cursor:pointer;color:#fff!important}.btn:hover{background-color:#688296;color:#ccd0d4!important}.image-btn{text-align:center;color:#fff;cursor:pointer;margin:1px}.image-btn:hover{color:#688296!important}.image-btn>fa-icon{padding:5px;font-size:16px}.list-item:nth-of-type(even){background-color:#f4f4f4}.list-item:hover{background-color:#e5e5e5}input{margin-top:20px;margin-bottom:20px;padding:5px}.window{min-width:400px;min-height:auto;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;padding:24px}.buttons{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between;margin-left:auto;margin-top:auto}.buttons>div{margin-left:10px}.error{color:red;padding-top:1px;padding-bottom:20px}"]
                     }] }
@@ -3467,13 +3390,13 @@
          * @return {?}
          */
         function (event) {
-            if (event.action == "rename") {
+            if (event.action === "rename") {
                 this.fieldNameModal.operationId = event.fieldName;
                 this.fieldNameModal.initialValue = event.fieldName;
                 this._modalService.open("FieldNameModal");
                 return;
             }
-            if (event.action == "remove") {
+            if (event.action === "remove") {
                 this._template.removeFieldByName(event.fieldName);
                 return;
             }
@@ -3491,7 +3414,7 @@
             var oldFieldName = event.id;
             /** @type {?} */
             var newFieldName = event.newValue;
-            if (oldFieldName != newFieldName) {
+            if (oldFieldName !== newFieldName) {
                 /** @type {?} */
                 var existFieldWithName = this._template.getFieldByName(newFieldName);
                 if (existFieldWithName) {
@@ -3639,7 +3562,7 @@
              */
             function (x) { return x.id && x.id.startsWith("page-"); }));
             if (currentPage) {
-                this._documentPageService.setActivePage(parseInt(currentPage.id.substring("page-".length)));
+                this._documentPageService.setActivePage(parseInt(currentPage.id.substring("page-".length), 10));
             }
         };
         /**
@@ -3662,7 +3585,7 @@
             function (element) {
                 /** @type {?} */
                 var child = ((/** @type {?} */ (element))).children[0];
-                if (child.id == activePage) {
+                if (child.id === activePage) {
                     ((/** @type {?} */ (child))).style.opacity = '1';
                     ((/** @type {?} */ (child))).parentElement.parentElement.style.background = '#FFFFFF';
                 }
@@ -3716,8 +3639,8 @@
         };
         SurfaceComponent.decorators = [
             { type: core.Component, args: [{
-                        selector: 'app-surface',
-                        template: "<div #surface class=\"doc-panel\">\r\n  <gd-document class=\"gd-document\" *ngIf=\"document\" [mode]=\"false\" [file]=\"document\" gdScrollable gdRenderPrint\r\n    [htmlMode]=\"false\" (click)=\"setActivePage($event)\"></gd-document>\r\n\r\n  <app-rename-modal #fieldNameModal [id]=\"'FieldNameModal'\" [title]=\"'Rename Field'\"\r\n    [promptText]=\"'Enter a new field name:'\" [acceptText]=\"'Save'\" (acceptEvent)=\"fieldNameModalAccept($event)\">\r\n  </app-rename-modal>\r\n</div>",
+                        selector: 'gd-surface',
+                        template: "<div #surface class=\"doc-panel\">\r\n  <gd-document class=\"gd-document\" *ngIf=\"document\" [mode]=\"false\" [file]=\"document\" gdScrollable gdRenderPrint\r\n    [htmlMode]=\"false\" (click)=\"setActivePage($event)\"></gd-document>\r\n\r\n  <gd-rename-modal #fieldNameModal [id]=\"'FieldNameModal'\" [title]=\"'Rename Field'\"\r\n    [promptText]=\"'Enter a new field name:'\" [acceptText]=\"'Save'\" (acceptEvent)=\"fieldNameModalAccept($event)\">\r\n  </gd-rename-modal>\r\n</div>",
                         styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);.red{box-shadow:10px 5px 5px red}:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}::ng-deep .top-panel{align-content:flex-start}.gd-document{position:absolute;height:calc(100vh - 60px);width:calc(100vw - 300px);left:0;top:60px;right:-300px;overflow:auto}::ng-deep .panzoom{-webkit-box-pack:unset!important;justify-content:unset!important}::ng-deep .page{position:relative}::ng-deep .gd-page-image{width:unset;height:unset}"]
                     }] }
         ];
@@ -3877,8 +3800,8 @@
         };
         ConfirmationModalComponent.decorators = [
             { type: core.Component, args: [{
-                        selector: 'app-confirmation-modal',
-                        template: "<gd-modal #modal [id]=\"id\" [title]=\"title\">\r\n  <div class=\"window\">\r\n    <div class=\"prompt\" [innerHTML]=\"promptText\"></div>\r\n\r\n    <div class=\"buttons\">      \r\n      <div class=\"btn\" (click)=\"acceptClick()\">{{ acceptText }}</div>\r\n      <div class=\"btn\" (click)=\"cancelClick()\">Cancel</div>\r\n    </div>\r\n  </div>\r\n  </gd-modal>\r\n",
+                        selector: 'gd-confirmation-modal',
+                        template: "<gd-modal #modal [id]=\"id\" [title]=\"title\">\r\n  <div class=\"window\">\r\n    <div class=\"prompt\" [innerHTML]=\"promptText\"></div>\r\n\r\n    <div class=\"buttons\">      \r\n      <div class=\"btn\" (click)=\"acceptClick()\">{{ acceptText }}</div>\r\n      <div class=\"btn\" (click)=\"cancelClick()\">Cancel</div>\r\n    </div>\r\n  </div>\r\n</gd-modal>\r\n",
                         styles: [".btn{padding:5px 20px;background-color:#25c2d4;cursor:pointer;color:#fff!important}.btn:hover{background-color:#688296;color:#ccd0d4!important}.image-btn{text-align:center;color:#fff;cursor:pointer;margin:1px}.image-btn:hover{color:#688296!important}.image-btn>fa-icon{padding:5px;font-size:16px}.list-item:nth-of-type(even){background-color:#f4f4f4}.list-item:hover{background-color:#e5e5e5}.window{min-width:400px;min-height:auto;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;padding:24px}.buttons{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between;margin-left:auto;margin-top:20px}.buttons>div{margin-left:10px}"]
                     }] }
         ];
@@ -4009,7 +3932,7 @@
         };
         TableViewerComponent.decorators = [
             { type: core.Component, args: [{
-                        selector: 'app-table-viewer',
+                        selector: 'gd-table-viewer',
                         template: "<gd-modal #modal [id]=\"'TableViewer'\" [title]=\"'Table Viewer'\">\r\n    <div class=\"window\" *ngIf=\"table\">\r\n        <table>\r\n            <tr *ngFor=\"let r of table.rows\">\r\n                <td *ngFor=\"let c of r\">{{c}}</td>\r\n            </tr>\r\n        </table>\r\n\r\n    </div>\r\n</gd-modal>",
                         styles: [".window{min-width:400px;min-height:auto;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;padding:24px}table{border-collapse:collapse;border:1px solid #e5e5e5}td{border:1px solid #e5e5e5;padding:5px}tr:nth-of-type(odd){background-color:#f4f4f4}tr:hover{background-color:#e5e5e5}"]
                     }] }
@@ -4149,7 +4072,7 @@
          * @return {?}
          */
         function (templateId) {
-            return this.currentTemplate && this.currentTemplate.id == templateId.id;
+            return this.currentTemplate && this.currentTemplate.id === templateId.id;
         };
         /**
          * @param {?} templateId
@@ -4341,7 +4264,7 @@
          * @return {?}
          */
         function () {
-            if (!this.parseState.isCompleted || this.parseState.result.length == 0) {
+            if (!this.parseState.isCompleted || this.parseState.result.length === 0) {
                 return;
             }
             /** @type {?} */
@@ -4396,7 +4319,7 @@
          */
         function (templateId) {
             for (var i = 0; i < this.templateIds.length; i++) {
-                if (this.templateIds[i].id == templateId.id) {
+                if (this.templateIds[i].id === templateId.id) {
                     this.templateIds.splice(i, 1);
                     return;
                 }
@@ -4404,8 +4327,8 @@
         };
         SidePanelComponent.decorators = [
             { type: core.Component, args: [{
-                        selector: 'app-side-panel',
-                        template: "<div class=\"side-panel\">\r\n    <input type=\"file\" #uploadTemplate (change)=\"onFileSelected($event)\" />\r\n\r\n    <div *ngIf=\"isDataMode\">\r\n        <div class=\"side-panel-title\">\r\n            <div>{{ currentTemplate?.name }}</div>\r\n            <div class=\"image-btn\" (click)=\"manageTemplates()\">\r\n                <fa-icon [icon]=\"'bars'\"></fa-icon>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-toolbar\">\r\n            <div class=\"image-btn\" (click)=\"createTemplateClick()\" title=\"Create a new template\">\r\n                <fa-icon [icon]=\"'file'\"></fa-icon>\r\n            </div>\r\n            <div class=\"image-btn\" (click)=\"uploadTemplate.click()\" title=\"Upload the existing template\">\r\n                <fa-icon [icon]=\"'upload'\"></fa-icon>\r\n            </div>\r\n\r\n            <div class=\"side-panel-toolbar-space\"></div>\r\n\r\n            <div class=\"image-btn\" (click)=\"renameTemplateClick(currentTemplate)\" title=\"Rename the current template\">\r\n                <fa-icon [icon]=\"'edit'\"></fa-icon>\r\n            </div>\r\n            <div class=\"image-btn\" *ngIf=\"currentTemplate?.isStored\" (click)=\"removeTemplateClick(currentTemplate)\"\r\n                title=\"Remove the current template\">\r\n                <fa-icon [icon]=\"'trash'\"></fa-icon>\r\n            </div>\r\n            <div class=\"image-btn\" *ngIf=\"currentTemplate?.isStored\" (click)=\"downloadTemplateClick(currentTemplate)\"\r\n                title=\"Download the current template\">\r\n                <fa-icon [icon]=\"'file-download'\"></fa-icon>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-content\" *ngIf=\"parseState.isProcessing\">\r\n            <div>Parsing data...</div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-content\" *ngIf=\"parseState.isFailed\">\r\n            <div class=\"side-panel-content-text error-text\">Error occurs while parsing data.</div>\r\n            <div class=\"btn\" (click)=\"parse()\">Parse again</div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-content\" *ngIf=\"parseState.isReadyToRun\">\r\n            <div class=\"side-panel-content-text\" [innerHTML]=\"parseState.prompt\"></div>\r\n            <div class=\"btn\" (click)=\"parse()\">Parse</div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-content\" *ngIf=\"parseState.isCompleted && !(parseState.result?.length > 0)\">\r\n            <div class=\"side-panel-content-text\">\r\n                No data is extracted. Try to change the template.\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"data-panel\" *ngIf=\"parseState.result?.length > 0\">\r\n            <div class=\"side-panel-toolbar\">\r\n                <div class=\"btn\" (click)=\"downloadResultsAsCsv()\">Download as CSV</div>\r\n            </div>\r\n            <div class=\"data-item list-item\" *ngFor=\"let r of parseState.result\">\r\n                <div class=\"data-item-field\">{{ r.name }}</div>\r\n                <div class=\"data-item-value\" *ngIf=\"r.value && !isArray(r.value)\">{{ r.value }}</div>\r\n                <div class=\"data-item-value\" *ngIf=\"r.value && isArray(r.value)\">\r\n                    <div class=\"btn\" (click)=\"showTableValue(r.value)\">Show Table</div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div *ngIf=\"isTemplateMode\">\r\n        <div class=\"side-panel-title\">\r\n            <div>Manage Templates</div>\r\n            <div class=\"image-btn\" (click)=\"showData()\">\r\n                <fa-icon [icon]=\"'times'\"></fa-icon>\r\n            </div>\r\n        </div>\r\n        <div class=\"no-data-panel\" *ngIf=\"templateIds.length == 0\">\r\n            <div class=\"side-panel-content-text\">There are no templates. Try to create a new one or upload the existing\r\n                one.</div>\r\n        </div>\r\n\r\n        <div class=\"template-list\">\r\n            <div class=\"template-item list-item\" *ngFor=\"let t of templateIds\" (dblclick)=\"selectTemplateClick(t)\">\r\n                <div class=\"template-item-text\" [ngClass]=\"{'template-item-current': isCurrentTemplate(t)}\">{{ t?.name\r\n                    }} </div>\r\n                <div class=\"image-btn\" (click)=\"renameTemplateClick(t)\" title=\"Rename a template\">\r\n                    <fa-icon [icon]=\"'edit'\"></fa-icon>\r\n                </div>\r\n                <div class=\"image-btn\" (click)=\"downloadTemplateClick(t)\" title=\"Download a template\">\r\n                    <fa-icon [icon]=\"'file-download'\"></fa-icon>\r\n                </div>\r\n                <div class=\"image-btn\" (click)=\"removeTemplateClick(t)\" title=\"Remove a template\">\r\n                    <fa-icon [icon]=\"'trash'\"></fa-icon>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<app-rename-modal #templateNameModal [id]=\"'TemplateNameModal'\" [title]=\"'Rename Template'\"\r\n    [promptText]=\"'Enter a new template name:'\" [acceptText]=\"'Save'\" (acceptEvent)=\"templateNameModalAccept($event)\">\r\n</app-rename-modal>\r\n<app-confirmation-modal #templateRemoveModal [id]=\"'TemplateRemoveModal'\" [title]=\"'Remove Template'\"\r\n    [acceptText]=\"'Remove'\" (acceptEvent)=\"templateRemoveModalAccept($event)\">\r\n</app-confirmation-modal>\r\n<app-table-viewer #tableViewer></app-table-viewer>",
+                        selector: 'gd-parser-side-panel',
+                        template: "<div class=\"side-panel\">\r\n    <input type=\"file\" #uploadTemplate (change)=\"onFileSelected($event)\" />\r\n\r\n    <div *ngIf=\"isDataMode\">\r\n        <div class=\"side-panel-title\">\r\n            <div>{{ currentTemplate?.name }}</div>\r\n            <div class=\"image-btn\" (click)=\"manageTemplates()\">\r\n                <fa-icon [icon]=\"'bars'\"></fa-icon>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-toolbar\">\r\n            <div class=\"image-btn\" (click)=\"createTemplateClick()\" title=\"Create a new template\">\r\n                <fa-icon [icon]=\"'file'\"></fa-icon>\r\n            </div>\r\n            <div class=\"image-btn\" (click)=\"uploadTemplate.click()\" title=\"Upload the existing template\">\r\n                <fa-icon [icon]=\"'upload'\"></fa-icon>\r\n            </div>\r\n\r\n            <div class=\"side-panel-toolbar-space\"></div>\r\n\r\n            <div class=\"image-btn\" (click)=\"renameTemplateClick(currentTemplate)\" title=\"Rename the current template\">\r\n                <fa-icon [icon]=\"'edit'\"></fa-icon>\r\n            </div>\r\n            <div class=\"image-btn\" *ngIf=\"currentTemplate?.isStored\" (click)=\"removeTemplateClick(currentTemplate)\"\r\n                title=\"Remove the current template\">\r\n                <fa-icon [icon]=\"'trash'\"></fa-icon>\r\n            </div>\r\n            <div class=\"image-btn\" *ngIf=\"currentTemplate?.isStored\" (click)=\"downloadTemplateClick(currentTemplate)\"\r\n                title=\"Download the current template\">\r\n                <fa-icon [icon]=\"'file-download'\"></fa-icon>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-content\" *ngIf=\"parseState.isProcessing\">\r\n            <div>Parsing data...</div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-content\" *ngIf=\"parseState.isFailed\">\r\n            <div class=\"side-panel-content-text error-text\">Error occurs while parsing data.</div>\r\n            <div class=\"btn\" (click)=\"parse()\">Parse again</div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-content\" *ngIf=\"parseState.isReadyToRun\">\r\n            <div class=\"side-panel-content-text\" [innerHTML]=\"parseState.prompt\"></div>\r\n            <div class=\"btn\" (click)=\"parse()\">Parse</div>\r\n        </div>\r\n\r\n        <div class=\"side-panel-content\" *ngIf=\"parseState.isCompleted && !(parseState.result?.length > 0)\">\r\n            <div class=\"side-panel-content-text\">\r\n                No data is extracted. Try to change the template.\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"data-panel\" *ngIf=\"parseState.result?.length > 0\">\r\n            <div class=\"side-panel-toolbar\">\r\n                <div class=\"btn\" (click)=\"downloadResultsAsCsv()\">Download as CSV</div>\r\n            </div>\r\n            <div class=\"data-item list-item\" *ngFor=\"let r of parseState.result\">\r\n                <div class=\"data-item-field\">{{ r.name }}</div>\r\n                <div class=\"data-item-value\" *ngIf=\"r.value && !isArray(r.value)\">{{ r.value }}</div>\r\n                <div class=\"data-item-value\" *ngIf=\"r.value && isArray(r.value)\">\r\n                    <div class=\"btn\" (click)=\"showTableValue(r.value)\">Show Table</div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div *ngIf=\"isTemplateMode\">\r\n        <div class=\"side-panel-title\">\r\n            <div>Manage Templates</div>\r\n            <div class=\"image-btn\" (click)=\"showData()\">\r\n                <fa-icon [icon]=\"'times'\"></fa-icon>\r\n            </div>\r\n        </div>\r\n        <div class=\"no-data-panel\" *ngIf=\"templateIds.length == 0\">\r\n            <div class=\"side-panel-content-text\">There are no templates. Try to create a new one or upload the existing\r\n                one.</div>\r\n        </div>\r\n\r\n        <div class=\"template-list\">\r\n            <div class=\"template-item list-item\" *ngFor=\"let t of templateIds\" (dblclick)=\"selectTemplateClick(t)\">\r\n                <div class=\"template-item-text\" [ngClass]=\"{'template-item-current': isCurrentTemplate(t)}\">{{ t?.name\r\n                    }} </div>\r\n                <div class=\"image-btn\" (click)=\"renameTemplateClick(t)\" title=\"Rename a template\">\r\n                    <fa-icon [icon]=\"'edit'\"></fa-icon>\r\n                </div>\r\n                <div class=\"image-btn\" (click)=\"downloadTemplateClick(t)\" title=\"Download a template\">\r\n                    <fa-icon [icon]=\"'file-download'\"></fa-icon>\r\n                </div>\r\n                <div class=\"image-btn\" (click)=\"removeTemplateClick(t)\" title=\"Remove a template\">\r\n                    <fa-icon [icon]=\"'trash'\"></fa-icon>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<gd-rename-modal #templateNameModal [id]=\"'TemplateNameModal'\" [title]=\"'Rename Template'\"\r\n    [promptText]=\"'Enter a new template name:'\" [acceptText]=\"'Save'\" (acceptEvent)=\"templateNameModalAccept($event)\">\r\n</gd-rename-modal>\r\n<gd-confirmation-modal #templateRemoveModal [id]=\"'TemplateRemoveModal'\" [title]=\"'Remove Template'\"\r\n    [acceptText]=\"'Remove'\" (acceptEvent)=\"templateRemoveModalAccept($event)\">\r\n</gd-confirmation-modal>\r\n<gd-table-viewer #tableViewer></gd-table-viewer>",
                         styles: [".btn{padding:5px 20px;background-color:#25c2d4;cursor:pointer;color:#fff!important}.btn:hover{background-color:#688296;color:#ccd0d4!important}.image-btn{text-align:center;color:#fff;cursor:pointer;margin:1px}.image-btn:hover{color:#688296!important}.image-btn>fa-icon{padding:5px;font-size:16px}.list-item:nth-of-type(even){background-color:#f4f4f4}.list-item:hover{background-color:#e5e5e5}.list-item .image-btn,input{display:none}.list-item:hover .image-btn{display:block;color:#c4c4c4}.error-text{color:red}.side-panel{width:100%;height:100%}.side-panel>div{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;height:100%}.side-panel-title{background-color:#25c2d4;color:#fff;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between;padding:10px}.side-panel-title>div{padding-left:5px}.side-panel-toolbar{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;padding:10px}.side-panel-toolbar>div{color:#acacac}.side-panel-toolbar-space{margin-left:10px}.side-panel-content-text{padding:20px;text-align:center}.side-panel-content{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;height:100%;width:100%}.data-panel{overflow-x:hidden;overflow-y:auto;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:stretch;justify-content:stretch;height:100%;width:100%}.data-item{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-align:center;align-items:center;-webkit-box-pack:stretch;justify-content:stretch;width:100%}.data-item>div{padding:10px}.data-item-field,.data-item-value{-webkit-box-flex:1;flex:1}.template-list{position:relative;overflow-x:hidden;overflow-y:auto}.template-item{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;padding:5px;height:2em;cursor:pointer}.template-item-text{-webkit-box-flex:1;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:5px 15px}.template-item-current{font-weight:700}.template-item-btn>fa-icon{padding:5px;font-size:16px}"]
                     }] }
         ];
@@ -4575,7 +4498,7 @@
         };
         PlaceholderComponent.decorators = [
             { type: core.Component, args: [{
-                        selector: 'app-placeholder',
+                        selector: 'gd-placeholder',
                         template: "<div class=\"loading-wrapper\" *ngIf=\"isVisible\">\r\n    <div class=\"loading-message\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon>\r\n        <div>{{ description }}</div>\r\n    </div>\r\n</div>",
                         styles: [".loading-wrapper{background:rgba(0,0,0,.5);width:100%;height:100%;font-size:14px;color:#fff;position:fixed;top:0;left:0;z-index:99999}.loading-message{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.loading-message>fa-icon{margin-bottom:10px;font-size:25px;text-align:center}"]
                     }] }
@@ -4604,6 +4527,136 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var ParserConfig = /** @class */ (function () {
+        function ParserConfig() {
+        }
+        return ParserConfig;
+    }());
+    if (false) {
+        /** @type {?} */
+        ParserConfig.prototype.upload;
+        /** @type {?} */
+        ParserConfig.prototype.browse;
+        /** @type {?} */
+        ParserConfig.prototype.rewrite;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ParserConfigService = /** @class */ (function () {
+        function ParserConfigService(_http, _config) {
+            this._http = _http;
+            this._config = _config;
+            this._parserConfig = new rxjs.BehaviorSubject(new ParserConfig());
+            this._updatedConfig = this._parserConfig.asObservable();
+        }
+        Object.defineProperty(ParserConfigService.prototype, "updatedConfig", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._updatedConfig;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        ParserConfigService.prototype.load = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            return new Promise((/**
+             * @param {?} resolve
+             * @param {?} reject
+             * @return {?}
+             */
+            function (resolve, reject) {
+                /** @type {?} */
+                var configEndpoint = _this._config.getConfigEndpoint(commonComponents.Api.PARSER_APP);
+                _this._http.get(configEndpoint, commonComponents.Api.httpOptionsJson).toPromise().then((/**
+                 * @param {?} response
+                 * @return {?}
+                 */
+                function (response) {
+                    /** @type {?} */
+                    var parserConfig = (/** @type {?} */ (response));
+                    _this._parserConfig.next(parserConfig);
+                    resolve();
+                })).catch((/**
+                 * @param {?} response
+                 * @return {?}
+                 */
+                function (response) {
+                    reject("Could not load parser config: " + JSON.stringify(response));
+                }));
+            }));
+        };
+        ParserConfigService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        ParserConfigService.ctorParameters = function () { return [
+            { type: http.HttpClient },
+            { type: commonComponents.ConfigService }
+        ]; };
+        /** @nocollapse */ ParserConfigService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ParserConfigService_Factory() { return new ParserConfigService(core.ɵɵinject(http.HttpClient), core.ɵɵinject(commonComponents.ConfigService)); }, token: ParserConfigService, providedIn: "root" });
+        return ParserConfigService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ParserConfigService.prototype._parserConfig;
+        /**
+         * @type {?}
+         * @private
+         */
+        ParserConfigService.prototype._updatedConfig;
+        /**
+         * @type {?}
+         * @private
+         */
+        ParserConfigService.prototype._http;
+        /**
+         * @type {?}
+         * @private
+         */
+        ParserConfigService.prototype._config;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} parserConfigService
+     * @return {?}
+     */
+    function initializeApp(parserConfigService) {
+        /** @type {?} */
+        var result = (/**
+         * @return {?}
+         */
+        function () { return parserConfigService.load(); });
+        return result;
+    }
+    // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
+    // @dynamic
+    /**
+     * @param {?} service
+     * @return {?}
+     */
+    function setupLoadingInterceptor(service) {
+        return new commonComponents.LoadingMaskInterceptorService(service);
+    }
     var ParserModule = /** @class */ (function () {
         function ParserModule() {
             fontawesomeSvgCore.library.add(freeSolidSvgIcons.fas, freeRegularSvgIcons.far);
@@ -4637,16 +4690,36 @@
                         imports: [
                             platformBrowser.BrowserModule,
                             commonComponents.CommonComponentsModule,
+                            http.HttpClientModule,
                             ngClickOutside.ClickOutsideModule,
                             angularFontawesome.FontAwesomeModule
-                        ],
-                        providers: [
-                            commonComponents.ConfigService,
-                            commonComponents.ExceptionMessageService
                         ],
                         exports: [
                             ParserAppComponent,
                             FieldComponent
+                        ],
+                        providers: [
+                            ParserService,
+                            commonComponents.ConfigService,
+                            commonComponents.ExceptionMessageService,
+                            ParserConfigService,
+                            {
+                                provide: http.HTTP_INTERCEPTORS,
+                                useClass: commonComponents.ErrorInterceptorService,
+                                multi: true
+                            },
+                            {
+                                provide: core.APP_INITIALIZER,
+                                useFactory: initializeApp,
+                                deps: [ParserConfigService], multi: true
+                            },
+                            commonComponents.LoadingMaskService,
+                            {
+                                provide: http.HTTP_INTERCEPTORS,
+                                useFactory: setupLoadingInterceptor,
+                                multi: true,
+                                deps: [commonComponents.LoadingMaskService]
+                            }
                         ],
                         entryComponents: [FieldComponent],
                     },] }
@@ -4658,6 +4731,8 @@
 
     exports.ParserAppComponent = ParserAppComponent;
     exports.ParserModule = ParserModule;
+    exports.initializeApp = initializeApp;
+    exports.setupLoadingInterceptor = setupLoadingInterceptor;
     exports.ɵa = ParserService;
     exports.ɵb = SourceFileService;
     exports.ɵc = TemplateService;
@@ -4672,6 +4747,7 @@
     exports.ɵl = RenameModalComponent;
     exports.ɵm = PlaceholderComponent;
     exports.ɵn = TableViewerComponent;
+    exports.ɵo = ParserConfigService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
