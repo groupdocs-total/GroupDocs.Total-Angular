@@ -4,7 +4,7 @@
 /*!******************************************************************************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/dist/libs/common-components/fesm2015/groupdocs.examples.angular-common-components.js ***!
   \******************************************************************************************************************************/
-/*! exports provided: AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, StaticTranslateLoader, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, ɵa, ɵb, ɵc, ɵd */
+/*! exports provided: AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, CommonTranslateLoader, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, ɵa, ɵb, ɵc, ɵd */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17,6 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColorPickerComponent", function() { return ColorPickerComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonComponentsModule", function() { return CommonComponentsModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonModals", function() { return CommonModals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonTranslateLoader", function() { return CommonTranslateLoader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigService", function() { return ConfigService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContextMenuComponent", function() { return ContextMenuComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DisabledCursorDirective", function() { return DisabledCursorDirective; });
@@ -76,7 +77,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectComponent", function() { return SelectComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectionService", function() { return SelectionService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidePanelComponent", function() { return SidePanelComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StaticTranslateLoader", function() { return StaticTranslateLoader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SuccessModalComponent", function() { return SuccessModalComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabActivatorService", function() { return TabActivatorService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabComponent", function() { return TabComponent; });
@@ -7021,42 +7021,48 @@ const ZHHANT = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class StaticTranslateLoader {
+class CommonTranslateLoader {
     /**
-     * @param {?} translations
+     * @param {?=} translations
      */
-    constructor(translations) {
-        this.translations = {};
-        this.translations['ar'] = Object.assign({}, AR, translations['ar']);
-        this.translations['ca'] = Object.assign({}, CA, translations['ca']);
-        this.translations['cs'] = Object.assign({}, CS, translations['cs']);
-        this.translations['da'] = Object.assign({}, DA, translations['da']);
-        this.translations['de'] = Object.assign({}, DE, translations['de']);
-        this.translations['el'] = Object.assign({}, EL, translations['el']);
-        this.translations['en'] = Object.assign({}, EN, translations['en']);
-        this.translations['es'] = Object.assign({}, ES, translations['es']);
-        this.translations['fil'] = Object.assign({}, FIL, translations['fil']);
-        this.translations['fr'] = Object.assign({}, FR, translations['fr']);
-        this.translations['he'] = Object.assign({}, HE, translations['he']);
-        this.translations['hi'] = Object.assign({}, HI, translations['hi']);
-        this.translations['id'] = Object.assign({}, ID, translations['id']);
-        this.translations['it'] = Object.assign({}, IT, translations['it']);
-        this.translations['ja'] = Object.assign({}, JA, translations['ja']);
-        this.translations['kk'] = Object.assign({}, KK, translations['kk']);
-        this.translations['ko'] = Object.assign({}, KO, translations['ko']);
-        this.translations['ms'] = Object.assign({}, MS, translations['ms']);
-        this.translations['nl'] = Object.assign({}, NL, translations['nl']);
-        this.translations['pl'] = Object.assign({}, PL, translations['pl']);
-        this.translations['pt'] = Object.assign({}, PT, translations['pt']);
-        this.translations['ro'] = Object.assign({}, RO, translations['ro']);
-        this.translations['ru'] = Object.assign({}, RU, translations['ru']);
-        this.translations['sv'] = Object.assign({}, SV, translations['sv']);
-        this.translations['th'] = Object.assign({}, TH, translations['th']);
-        this.translations['tr'] = Object.assign({}, TR, translations['tr']);
-        this.translations['uk'] = Object.assign({}, UK, translations['uk']);
-        this.translations['vi'] = Object.assign({}, VI, translations['vi']);
-        this.translations['zh-hans'] = Object.assign({}, ZHHANS, translations['zh-hans']);
-        this.translations['zh-hant'] = Object.assign({}, ZHHANT, translations['zh-hant']);
+    constructor(translations = {}) {
+        this.translations = {
+            'ar': AR,
+            'ca': CA,
+            'cs': CS,
+            'da': DA,
+            'de': DE,
+            'el': EL,
+            'en': EN,
+            'es': ES,
+            'fil': FIL,
+            'fr': FR,
+            'he': HE,
+            'hi': HI,
+            'id': ID,
+            'it': IT,
+            'ja': JA,
+            'kk': KK,
+            'ko': KO,
+            'ms': MS,
+            'nl': NL,
+            'pl': PL,
+            'pt': PT,
+            'ro': RO,
+            'ru': RU,
+            'sv': SV,
+            'th': TH,
+            'tr': TR,
+            'uk': UK,
+            'vi': VI,
+            'zh-hans': ZHHANS,
+            'zh-hant': ZHHANT,
+        };
+        for (const key in translations) {
+            if (this.translations[key]) {
+                this.translations[key] = Object.assign({}, this.translations[key], translations[key]);
+            }
+        }
     }
     /**
      * @param {?} lang
@@ -8026,8 +8032,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _comment_panel_comment_panel_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./comment-panel/comment-panel.component */ "../../libs/annotation/src/lib/comment-panel/comment-panel.component.ts");
 /* harmony import */ var _comment_comment_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./comment/comment.component */ "../../libs/annotation/src/lib/comment/comment.component.ts");
 /* harmony import */ var _create_comment_create_comment_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./create-comment/create-comment.component */ "../../libs/annotation/src/lib/create-comment/create-comment.component.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 var AnnotationModule_1;
+
 
 
 
@@ -8075,7 +8083,9 @@ AnnotationModule = AnnotationModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__de
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["CommonComponentsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
             _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeModule"],
-            ng_click_outside__WEBPACK_IMPORTED_MODULE_7__["ClickOutsideModule"]],
+            ng_click_outside__WEBPACK_IMPORTED_MODULE_7__["ClickOutsideModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_19__["TranslateModule"].forRoot()
+        ],
         providers: [
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["ConfigService"],
             _annotation_config_service__WEBPACK_IMPORTED_MODULE_4__["AnnotationConfigService"],
@@ -9534,8 +9544,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _differences_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./differences.service */ "../../libs/comparison/src/lib/differences.service.ts");
 /* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib/index.js");
 /* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(ng_click_outside__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 var ComparisonModule_1;
+
 
 
 
@@ -9583,7 +9595,8 @@ ComparisonModule = ComparisonModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__de
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_10__["CommonComponentsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
             _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_5__["FontAwesomeModule"],
-            ng_click_outside__WEBPACK_IMPORTED_MODULE_19__["ClickOutsideModule"]
+            ng_click_outside__WEBPACK_IMPORTED_MODULE_19__["ClickOutsideModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_20__["TranslateModule"].forRoot()
         ],
         exports: [
             _comparison_app_component__WEBPACK_IMPORTED_MODULE_4__["ComparisonAppComponent"],
@@ -10742,8 +10755,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm2015/angular-fontawesome.js");
 /* harmony import */ var _conversion_queue_conversion_queue_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./conversion-queue/conversion-queue.component */ "../../libs/conversion/src/lib/conversion-queue/conversion-queue.component.ts");
 /* harmony import */ var _conversion_item_conversion_item_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./conversion-item/conversion-item.component */ "../../libs/conversion/src/lib/conversion-item/conversion-item.component.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 var ConversionModule_1;
+
 
 
 
@@ -10781,7 +10796,9 @@ ConversionModule = ConversionModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__de
         imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["CommonComponentsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_13__["FontAwesomeModule"]],
+            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_13__["FontAwesomeModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__["TranslateModule"].forRoot()
+        ],
         providers: [
             _conversion_service__WEBPACK_IMPORTED_MODULE_5__["ConversionService"],
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["ConfigService"],
@@ -11843,8 +11860,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _editor_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./editor.service */ "../../libs/editor/src/lib/editor.service.ts");
 /* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm2015/groupdocs.examples.angular-common-components.js");
 /* harmony import */ var _editor_config_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./editor-config.service */ "../../libs/editor/src/lib/editor-config.service.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 var EditorModule_1;
+
 
 
 
@@ -11884,7 +11903,8 @@ EditorModule = EditorModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_11__["CommonComponentsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_5__["FontAwesomeModule"]
+            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_5__["FontAwesomeModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateModule"].forRoot(),
         ],
         exports: [
             _create_document_modal_create_document_modal_component__WEBPACK_IMPORTED_MODULE_9__["CreateDocumentModalComponent"],
@@ -13075,8 +13095,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng2_date_picker__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ng2-date-picker */ "../../node_modules/ng2-date-picker/fesm2015/ng2-date-picker.js");
 /* harmony import */ var _confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./confirm-modal/confirm-modal.component */ "../../libs/metadata/src/lib/confirm-modal/confirm-modal.component.ts");
 /* harmony import */ var _preview_status_preview_status_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./preview-status/preview-status.component */ "../../libs/metadata/src/lib/preview-status/preview-status.component.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 var MetadataModule_1;
+
 
 
 
@@ -13128,7 +13150,8 @@ MetadataModule = MetadataModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decora
             _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
             _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_9__["FontAwesomeModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],
-            ng2_date_picker__WEBPACK_IMPORTED_MODULE_15__["DpDatePickerModule"]
+            ng2_date_picker__WEBPACK_IMPORTED_MODULE_15__["DpDatePickerModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_18__["TranslateModule"].forRoot()
         ],
         exports: [
             _metadata_app_component__WEBPACK_IMPORTED_MODULE_5__["MetadataAppComponent"],
@@ -14240,7 +14263,7 @@ FieldComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');\n:host * {\n  font-family: 'Open Sans', Arial, Helvetica, sans-serif;\n}\n.wrapper {\n  -webkit-box-align: stretch;\n          align-items: stretch;\n  height: 100%;\n  width: 100%;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.logo-link {\n  color: inherit;\n  text-decoration: inherit;\n}\n.doc-panel {\n  display: -webkit-box;\n  display: flex;\n  height: calc(100vh - 60px);\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n}\n.top-panel {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  width: 100%;\n}\n.toolbar-panel {\n  background-color: #3e4e5a;\n  width: 100%;\n}\n.parser-wrapper {\n  z-index: 100;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\ngd-parser-side-panel {\n  position: absolute;\n  right: 0;\n  top: 60px;\n  width: 300px;\n  height: 100%;\n  background-color: white;\n}\n::ng-deep .tools .button {\n  color: #fff !important;\n}\n::ng-deep .tools .button.inactive {\n  color: #959da5 !important;\n}\n::ng-deep .tools .button {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-flow: column;\n}\n::ng-deep .tools .icon-button {\n  margin: 0px 0px 0px 7px !important;\n}\n.row {\n  display: -webkit-box;\n  display: flex;\n}\n.column {\n  width: 100%;\n  height: 100vh;\n  background-color: #e7e7e7;\n  overflow: hidden;\n}\n::ng-deep .gd-side-panel-body {\n  background-color: #f4f4f4;\n}\n::ng-deep .gd-side-panel-wrapper {\n  width: 464px !important;\n}\n::ng-deep .page.excel {\n  overflow: unset !important;\n}\n@media (max-width: 1037px) {\n  ::ng-deep .tools gd-button:nth-child(1) > .icon-button {\n    margin: 0px 0px 0px 10px !important;\n  }\n  ::ng-deep .tools .icon-button {\n    height: 60px;\n    width: 60px;\n  }\n  ::ng-deep .gd-side-panel-wrapper {\n    width: 375px !important;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvcGFyc2VyL3NyYy9saWIvcGFyc2VyLWFwcC5jb21wb25lbnQubGVzcyIsImxpYnMvcGFyc2VyL3NyYy9saWIvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvcGFyc2VyL3NyYy9saWIvcGFyc2VyLWFwcC5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSw2RUNBa0I7QUFJbEI7RUFDRSxzREFBQTtBREZGO0FDS0E7RUFDRSwwQkFBQTtVQUFBLG9CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxlQUFBO0VBQ0EsTUFBQTtFQUNBLFNBQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtBREhGO0FDTUE7RUFDRSxjQUFBO0VBQ0Esd0JBQUE7QURKRjtBQ09BO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsMEJBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7QURMRjtBQ1FBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLFdBQUE7QURORjtBQ1NBO0VBQ0UseUJBQUE7RUFDQSxXQUFBO0FEUEY7QUNVQTtFQUNFLFlBQUE7RUFDQSxPQUFBO0VBQ0EsTUFBQTtFQUNBLFFBQUE7RUFDQSxTQUFBO0FEUkY7QUNXQTtFQUNFLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxZQUFBO0VBQ0EsWUFBQTtFQUNBLHVCQUFBO0FEVEY7QUNZQTtFQUVJLHNCQUFBO0FEWEo7QUNhSTtFQUNFLHlCQUFBO0FEWE47QUNNQTtFQVVJLDRCQUFBO0VBQUEsNkJBQUE7VUFBQSxpQkFBQTtBRGJKO0FDR0E7RUFjSSxrQ0FBQTtBRGRKO0FDa0JBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0FEaEJGO0FDbUJBO0VBQ0UsV0FBQTtFQUNBLGFBQUE7RUFDQSx5QkFBQTtFQUNBLGdCQUFBO0FEakJGO0FDb0JBO0VBQ0UseUJBQUE7QURsQkY7QUNxQkE7RUFDRSx1QkFBQTtBRG5CRjtBQ3VCRTtFQUNFLDBCQUFBO0FEckJKO0FDeUJBO0VBQ0U7SUFFSSxtQ0FBQTtFRHhCSjtFQ3NCQTtJQU1JLFlBQUE7SUFDQSxXQUFBO0VEekJKO0VDNkJBO0lBQ0UsdUJBQUE7RUQzQkY7QUFDRiIsImZpbGUiOiJsaWJzL3BhcnNlci9zcmMvbGliL3BhcnNlci1hcHAuY29tcG9uZW50Lmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IHVybCgnaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3M/ZmFtaWx5PU9wZW4rU2FucyZkaXNwbGF5PXN3YXAnKTtcbjpob3N0ICoge1xuICBmb250LWZhbWlseTogJ09wZW4gU2FucycsIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7XG59XG4ud3JhcHBlciB7XG4gIGFsaWduLWl0ZW1zOiBzdHJldGNoO1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHRvcDogMDtcbiAgYm90dG9tOiAwO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbn1cbi5sb2dvLWxpbmsge1xuICBjb2xvcjogaW5oZXJpdDtcbiAgdGV4dC1kZWNvcmF0aW9uOiBpbmhlcml0O1xufVxuLmRvYy1wYW5lbCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGhlaWdodDogY2FsYygxMDB2aCAtIDYwcHgpO1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xufVxuLnRvcC1wYW5lbCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHdpZHRoOiAxMDAlO1xufVxuLnRvb2xiYXItcGFuZWwge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjM2U0ZTVhO1xuICB3aWR0aDogMTAwJTtcbn1cbi5wYXJzZXItd3JhcHBlciB7XG4gIHotaW5kZXg6IDEwMDtcbiAgbGVmdDogMDtcbiAgdG9wOiAwO1xuICByaWdodDogMDtcbiAgYm90dG9tOiAwO1xufVxuZ2QtcGFyc2VyLXNpZGUtcGFuZWwge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAwO1xuICB0b3A6IDYwcHg7XG4gIHdpZHRoOiAzMDBweDtcbiAgaGVpZ2h0OiAxMDAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmJ1dHRvbiB7XG4gIGNvbG9yOiAjZmZmICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5idXR0b24uaW5hY3RpdmUge1xuICBjb2xvcjogIzk1OWRhNSAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC50b29scyAuYnV0dG9uIHtcbiAgZmxleC1mbG93OiBjb2x1bW47XG59XG46Om5nLWRlZXAgLnRvb2xzIC5pY29uLWJ1dHRvbiB7XG4gIG1hcmdpbjogMHB4IDBweCAwcHggN3B4ICFpbXBvcnRhbnQ7XG59XG4ucm93IHtcbiAgZGlzcGxheTogZmxleDtcbn1cbi5jb2x1bW4ge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2U3ZTdlNztcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cbjo6bmctZGVlcCAuZ2Qtc2lkZS1wYW5lbC1ib2R5IHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y0ZjRmNDtcbn1cbjo6bmctZGVlcCAuZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIHtcbiAgd2lkdGg6IDQ2NHB4ICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnBhZ2UuZXhjZWwge1xuICBvdmVyZmxvdzogdW5zZXQgIWltcG9ydGFudDtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiAxMDM3cHgpIHtcbiAgOjpuZy1kZWVwIC50b29scyBnZC1idXR0b246bnRoLWNoaWxkKDEpID4gLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDBweCAwcHggMHB4IDEwcHggIWltcG9ydGFudDtcbiAgfVxuICA6Om5nLWRlZXAgLnRvb2xzIC5pY29uLWJ1dHRvbiB7XG4gICAgaGVpZ2h0OiA2MHB4O1xuICAgIHdpZHRoOiA2MHB4O1xuICB9XG4gIDo6bmctZGVlcCAuZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIHtcbiAgICB3aWR0aDogMzc1cHggIWltcG9ydGFudDtcbiAgfVxufVxuIiwiQGltcG9ydCAoY3NzKSB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1PcGVuK1NhbnMmZGlzcGxheT1zd2FwJyk7XG5AaW1wb3J0IFwiLi4vLi4vLi4vY29tbW9uLWNvbXBvbmVudHMvc3JjL3N0eWxlcy92YXJpYWJsZXNcIjtcbkBpbXBvcnQgXCIuL3ZhcmlhYmxlc1wiO1xuXG46aG9zdCAqIHtcbiAgZm9udC1mYW1pbHk6ICdPcGVuIFNhbnMnLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmO1xufVxuXG4ud3JhcHBlciB7XG4gIGFsaWduLWl0ZW1zOiBzdHJldGNoO1xuICBoZWlnaHQgICAgIDogMTAwJTtcbiAgd2lkdGggICAgICA6IDEwMCU7XG4gIHBvc2l0aW9uICAgOiBmaXhlZDtcbiAgdG9wICAgICAgICA6IDA7XG4gIGJvdHRvbSAgICAgOiAwO1xuICBsZWZ0ICAgICAgIDogMDtcbiAgcmlnaHQgICAgICA6IDA7XG59XG5cbi5sb2dvLWxpbmsge1xuICBjb2xvcjogaW5oZXJpdDtcbiAgdGV4dC1kZWNvcmF0aW9uOiBpbmhlcml0O1xufVxuXG4uZG9jLXBhbmVsIHtcbiAgZGlzcGxheSAgICAgICA6IGZsZXg7XG4gIGhlaWdodCAgICAgICAgOiBjYWxjKDEwMHZoIC0gQHRvcC1wYW5lbC1oZWlnaHQpO1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xufVxuXG4udG9wLXBhbmVsIHtcbiAgZGlzcGxheSAgICA6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHdpZHRoICAgICAgOiAxMDAlO1xufVxuXG4udG9vbGJhci1wYW5lbCB7XG4gIGJhY2tncm91bmQtY29sb3I6IEBuYXYtbWFpbi1iYWNrZ3JvdW5kO1xuICB3aWR0aCAgICAgICAgICAgOiAxMDAlO1xufVxuXG4ucGFyc2VyLXdyYXBwZXIge1xuICB6LWluZGV4OiAxMDA7IFxuICBsZWZ0OjA7XG4gIHRvcDowO1xuICByaWdodDowO1xuICBib3R0b206IDA7ICAgXG59XG5cbmdkLXBhcnNlci1zaWRlLXBhbmVsIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogMDsvL0BzaWRlLXBhbmVsLXdpZHRoO1xuICB0b3A6IEB0b3AtcGFuZWwtaGVpZ2h0O1xuICB3aWR0aDogQHNpZGUtcGFuZWwtd2lkdGg7XG4gIGhlaWdodDogMTAwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cbjo6bmctZGVlcCAudG9vbHMge1xuICAuYnV0dG9uIHtcbiAgICBjb2xvcjogI2ZmZiAhaW1wb3J0YW50O1xuXG4gICAgJi5pbmFjdGl2ZSB7XG4gICAgICBjb2xvcjogQHJlZ2VudC1ncmF5ICAhaW1wb3J0YW50O1xuICAgIH1cbiAgfVxuXG4gIC5idXR0b24ge1xuICAgIGZsZXgtZmxvdzogY29sdW1uO1xuICB9XG5cbiAgLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDBweCAwcHggMHB4IDdweCAhaW1wb3J0YW50O1xuICB9XG59XG5cbi5yb3cge1xuICBkaXNwbGF5OiBmbGV4O1xufVxuXG4uY29sdW1uIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwdmg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNlN2U3ZTc7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG5cbjo6bmctZGVlcCAuZ2Qtc2lkZS1wYW5lbC1ib2R5IHtcbiAgYmFja2dyb3VuZC1jb2xvcjogQHdpbGQtc2FuZDtcbn1cblxuOjpuZy1kZWVwIC5nZC1zaWRlLXBhbmVsLXdyYXBwZXIge1xuICB3aWR0aDogNDY0cHggIWltcG9ydGFudDtcbn1cblxuOjpuZy1kZWVwIC5wYWdlIHtcbiAgJi5leGNlbCB7XG4gICAgb3ZlcmZsb3c6IHVuc2V0ICFpbXBvcnRhbnQ7XG4gIH1cbn1cblxuQG1lZGlhIChtYXgtd2lkdGg6IDEwMzdweCkge1xuICA6Om5nLWRlZXAgLnRvb2xzIHtcbiAgICBnZC1idXR0b246bnRoLWNoaWxkKDEpPi5pY29uLWJ1dHRvbiB7XG4gICAgICBtYXJnaW46IDBweCAwcHggMHB4IDEwcHggIWltcG9ydGFudDtcbiAgICB9XG5cbiAgICAuaWNvbi1idXR0b24ge1xuICAgICAgaGVpZ2h0OiBAdG9wLXBhbmVsLWhlaWdodDtcbiAgICAgIHdpZHRoIDogQHRvcC1wYW5lbC1oZWlnaHQ7XG4gICAgfVxuICB9XG5cbiAgOjpuZy1kZWVwIC5nZC1zaWRlLXBhbmVsLXdyYXBwZXIge1xuICAgIHdpZHRoOiAzNzVweCAhaW1wb3J0YW50O1xuICB9XG59Il19 */"
+module.exports = "@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');\n:host * {\n  font-family: 'Open Sans', Arial, Helvetica, sans-serif;\n}\n.wrapper {\n  -webkit-box-align: stretch;\n          align-items: stretch;\n  height: 100%;\n  width: 100%;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.logo-link {\n  color: inherit;\n  text-decoration: inherit;\n}\n.doc-panel {\n  display: -webkit-box;\n  display: flex;\n  height: calc(100vh - 60px);\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n}\n.top-panel {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  width: 100%;\n}\n.toolbar-panel {\n  background-color: #3e4e5a;\n  width: 100%;\n}\n.parser-wrapper {\n  z-index: 100;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n}\ngd-parser-side-panel {\n  position: absolute;\n  right: 0;\n  top: 60px;\n  width: 300px;\n  height: calc(100vh - 60px);\n  background-color: white;\n}\n::ng-deep .tools .button {\n  color: #fff !important;\n}\n::ng-deep .tools .button.inactive {\n  color: #959da5 !important;\n}\n::ng-deep .tools .button {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-flow: column;\n}\n::ng-deep .tools .icon-button {\n  margin: 0px 0px 0px 7px !important;\n}\n.row {\n  display: -webkit-box;\n  display: flex;\n}\n.column {\n  width: 100%;\n  height: 100vh;\n  background-color: #e7e7e7;\n  overflow: hidden;\n}\n::ng-deep .gd-side-panel-body {\n  background-color: #f4f4f4;\n}\n::ng-deep .gd-side-panel-wrapper {\n  width: 464px !important;\n}\n::ng-deep .page.excel {\n  overflow: unset !important;\n}\n@media (max-width: 1037px) {\n  ::ng-deep .tools gd-button:nth-child(1) > .icon-button {\n    margin: 0px 0px 0px 10px !important;\n  }\n  ::ng-deep .tools .icon-button {\n    height: 60px;\n    width: 60px;\n  }\n  ::ng-deep .gd-side-panel-wrapper {\n    width: 375px !important;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvcGFyc2VyL3NyYy9saWIvcGFyc2VyLWFwcC5jb21wb25lbnQubGVzcyIsImxpYnMvcGFyc2VyL3NyYy9saWIvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvcGFyc2VyL3NyYy9saWIvcGFyc2VyLWFwcC5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSw2RUNBa0I7QUFJbEI7RUFDRSxzREFBQTtBREZGO0FDS0E7RUFDRSwwQkFBQTtVQUFBLG9CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxlQUFBO0VBQ0EsTUFBQTtFQUNBLFNBQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtBREhGO0FDTUE7RUFDRSxjQUFBO0VBQ0Esd0JBQUE7QURKRjtBQ09BO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsMEJBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7QURMRjtBQ1FBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLFdBQUE7QURORjtBQ1NBO0VBQ0UseUJBQUE7RUFDQSxXQUFBO0FEUEY7QUNVQTtFQUNFLFlBQUE7RUFDQSxPQUFBO0VBQ0EsTUFBQTtFQUNBLFFBQUE7RUFDQSxTQUFBO0FEUkY7QUNXQTtFQUNFLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxZQUFBO0VBQ0EsMEJBQUE7RUFDQSx1QkFBQTtBRFRGO0FDWUE7RUFFSSxzQkFBQTtBRFhKO0FDYUk7RUFDRSx5QkFBQTtBRFhOO0FDTUE7RUFVSSw0QkFBQTtFQUFBLDZCQUFBO1VBQUEsaUJBQUE7QURiSjtBQ0dBO0VBY0ksa0NBQUE7QURkSjtBQ2tCQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtBRGhCRjtBQ21CQTtFQUNFLFdBQUE7RUFDQSxhQUFBO0VBQ0EseUJBQUE7RUFDQSxnQkFBQTtBRGpCRjtBQ29CQTtFQUNFLHlCQUFBO0FEbEJGO0FDcUJBO0VBQ0UsdUJBQUE7QURuQkY7QUN1QkU7RUFDRSwwQkFBQTtBRHJCSjtBQ3lCQTtFQUNFO0lBRUksbUNBQUE7RUR4Qko7RUNzQkE7SUFNSSxZQUFBO0lBQ0EsV0FBQTtFRHpCSjtFQzZCQTtJQUNFLHVCQUFBO0VEM0JGO0FBQ0YiLCJmaWxlIjoibGlicy9wYXJzZXIvc3JjL2xpYi9wYXJzZXItYXBwLmNvbXBvbmVudC5sZXNzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1PcGVuK1NhbnMmZGlzcGxheT1zd2FwJyk7XG46aG9zdCAqIHtcbiAgZm9udC1mYW1pbHk6ICdPcGVuIFNhbnMnLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmO1xufVxuLndyYXBwZXIge1xuICBhbGlnbi1pdGVtczogc3RyZXRjaDtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDA7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG59XG4ubG9nby1saW5rIHtcbiAgY29sb3I6IGluaGVyaXQ7XG4gIHRleHQtZGVjb3JhdGlvbjogaW5oZXJpdDtcbn1cbi5kb2MtcGFuZWwge1xuICBkaXNwbGF5OiBmbGV4O1xuICBoZWlnaHQ6IGNhbGMoMTAwdmggLSA2MHB4KTtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbn1cbi50b3AtcGFuZWwge1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICB3aWR0aDogMTAwJTtcbn1cbi50b29sYmFyLXBhbmVsIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzNlNGU1YTtcbiAgd2lkdGg6IDEwMCU7XG59XG4ucGFyc2VyLXdyYXBwZXIge1xuICB6LWluZGV4OiAxMDA7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgcmlnaHQ6IDA7XG4gIGJvdHRvbTogMDtcbn1cbmdkLXBhcnNlci1zaWRlLXBhbmVsIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogMDtcbiAgdG9wOiA2MHB4O1xuICB3aWR0aDogMzAwcHg7XG4gIGhlaWdodDogY2FsYygxMDB2aCAtIDYwcHgpO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmJ1dHRvbiB7XG4gIGNvbG9yOiAjZmZmICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5idXR0b24uaW5hY3RpdmUge1xuICBjb2xvcjogIzk1OWRhNSAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC50b29scyAuYnV0dG9uIHtcbiAgZmxleC1mbG93OiBjb2x1bW47XG59XG46Om5nLWRlZXAgLnRvb2xzIC5pY29uLWJ1dHRvbiB7XG4gIG1hcmdpbjogMHB4IDBweCAwcHggN3B4ICFpbXBvcnRhbnQ7XG59XG4ucm93IHtcbiAgZGlzcGxheTogZmxleDtcbn1cbi5jb2x1bW4ge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDB2aDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2U3ZTdlNztcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cbjo6bmctZGVlcCAuZ2Qtc2lkZS1wYW5lbC1ib2R5IHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y0ZjRmNDtcbn1cbjo6bmctZGVlcCAuZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIHtcbiAgd2lkdGg6IDQ2NHB4ICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnBhZ2UuZXhjZWwge1xuICBvdmVyZmxvdzogdW5zZXQgIWltcG9ydGFudDtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiAxMDM3cHgpIHtcbiAgOjpuZy1kZWVwIC50b29scyBnZC1idXR0b246bnRoLWNoaWxkKDEpID4gLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDBweCAwcHggMHB4IDEwcHggIWltcG9ydGFudDtcbiAgfVxuICA6Om5nLWRlZXAgLnRvb2xzIC5pY29uLWJ1dHRvbiB7XG4gICAgaGVpZ2h0OiA2MHB4O1xuICAgIHdpZHRoOiA2MHB4O1xuICB9XG4gIDo6bmctZGVlcCAuZ2Qtc2lkZS1wYW5lbC13cmFwcGVyIHtcbiAgICB3aWR0aDogMzc1cHggIWltcG9ydGFudDtcbiAgfVxufVxuIiwiQGltcG9ydCAoY3NzKSB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1PcGVuK1NhbnMmZGlzcGxheT1zd2FwJyk7XG5AaW1wb3J0IFwiLi4vLi4vLi4vY29tbW9uLWNvbXBvbmVudHMvc3JjL3N0eWxlcy92YXJpYWJsZXNcIjtcbkBpbXBvcnQgXCIuL3ZhcmlhYmxlc1wiO1xuXG46aG9zdCAqIHtcbiAgZm9udC1mYW1pbHk6ICdPcGVuIFNhbnMnLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmO1xufVxuXG4ud3JhcHBlciB7XG4gIGFsaWduLWl0ZW1zOiBzdHJldGNoO1xuICBoZWlnaHQgICAgIDogMTAwJTtcbiAgd2lkdGggICAgICA6IDEwMCU7XG4gIHBvc2l0aW9uICAgOiBmaXhlZDtcbiAgdG9wICAgICAgICA6IDA7XG4gIGJvdHRvbSAgICAgOiAwO1xuICBsZWZ0ICAgICAgIDogMDtcbiAgcmlnaHQgICAgICA6IDA7XG59XG5cbi5sb2dvLWxpbmsge1xuICBjb2xvcjogaW5oZXJpdDtcbiAgdGV4dC1kZWNvcmF0aW9uOiBpbmhlcml0O1xufVxuXG4uZG9jLXBhbmVsIHtcbiAgZGlzcGxheSAgICAgICA6IGZsZXg7XG4gIGhlaWdodCAgICAgICAgOiBjYWxjKDEwMHZoIC0gQHRvcC1wYW5lbC1oZWlnaHQpO1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xufVxuXG4udG9wLXBhbmVsIHtcbiAgZGlzcGxheSAgICA6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHdpZHRoICAgICAgOiAxMDAlO1xufVxuXG4udG9vbGJhci1wYW5lbCB7XG4gIGJhY2tncm91bmQtY29sb3I6IEBuYXYtbWFpbi1iYWNrZ3JvdW5kO1xuICB3aWR0aCAgICAgICAgICAgOiAxMDAlO1xufVxuXG4ucGFyc2VyLXdyYXBwZXIge1xuICB6LWluZGV4OiAxMDA7IFxuICBsZWZ0OjA7XG4gIHRvcDowO1xuICByaWdodDowO1xuICBib3R0b206IDA7ICAgXG59XG5cbmdkLXBhcnNlci1zaWRlLXBhbmVsIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogMDsvL0BzaWRlLXBhbmVsLXdpZHRoO1xuICB0b3A6IEB0b3AtcGFuZWwtaGVpZ2h0O1xuICB3aWR0aDogQHNpZGUtcGFuZWwtd2lkdGg7XG4gIGhlaWdodDogY2FsYygxMDB2aCAtIEB0b3AtcGFuZWwtaGVpZ2h0KTtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cbjo6bmctZGVlcCAudG9vbHMge1xuICAuYnV0dG9uIHtcbiAgICBjb2xvcjogI2ZmZiAhaW1wb3J0YW50O1xuXG4gICAgJi5pbmFjdGl2ZSB7XG4gICAgICBjb2xvcjogQHJlZ2VudC1ncmF5ICAhaW1wb3J0YW50O1xuICAgIH1cbiAgfVxuXG4gIC5idXR0b24ge1xuICAgIGZsZXgtZmxvdzogY29sdW1uO1xuICB9XG5cbiAgLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDBweCAwcHggMHB4IDdweCAhaW1wb3J0YW50O1xuICB9XG59XG5cbi5yb3cge1xuICBkaXNwbGF5OiBmbGV4O1xufVxuXG4uY29sdW1uIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwdmg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNlN2U3ZTc7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG5cbjo6bmctZGVlcCAuZ2Qtc2lkZS1wYW5lbC1ib2R5IHtcbiAgYmFja2dyb3VuZC1jb2xvcjogQHdpbGQtc2FuZDtcbn1cblxuOjpuZy1kZWVwIC5nZC1zaWRlLXBhbmVsLXdyYXBwZXIge1xuICB3aWR0aDogNDY0cHggIWltcG9ydGFudDtcbn1cblxuOjpuZy1kZWVwIC5wYWdlIHtcbiAgJi5leGNlbCB7XG4gICAgb3ZlcmZsb3c6IHVuc2V0ICFpbXBvcnRhbnQ7XG4gIH1cbn1cblxuQG1lZGlhIChtYXgtd2lkdGg6IDEwMzdweCkge1xuICA6Om5nLWRlZXAgLnRvb2xzIHtcbiAgICBnZC1idXR0b246bnRoLWNoaWxkKDEpPi5pY29uLWJ1dHRvbiB7XG4gICAgICBtYXJnaW46IDBweCAwcHggMHB4IDEwcHggIWltcG9ydGFudDtcbiAgICB9XG5cbiAgICAuaWNvbi1idXR0b24ge1xuICAgICAgaGVpZ2h0OiBAdG9wLXBhbmVsLWhlaWdodDtcbiAgICAgIHdpZHRoIDogQHRvcC1wYW5lbC1oZWlnaHQ7XG4gICAgfVxuICB9XG5cbiAgOjpuZy1kZWVwIC5nZC1zaWRlLXBhbmVsLXdyYXBwZXIge1xuICAgIHdpZHRoOiAzNzVweCAhaW1wb3J0YW50O1xuICB9XG59Il19 */"
 
 /***/ }),
 
@@ -14273,7 +14296,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ParserAppComponent = class ParserAppComponent {
-    constructor(_modalService, _parserService, _sourceFileService, _templateService, _zoomService, _navigateService, _placeholderService, _documentPageService, _uploadFilesService, windowService) {
+    constructor(_modalService, _parserService, _sourceFileService, _templateService, _zoomService, _navigateService, _placeholderService, _documentPageService, _uploadFilesService, _passwordService, windowService) {
         this._modalService = _modalService;
         this._parserService = _parserService;
         this._sourceFileService = _sourceFileService;
@@ -14283,6 +14306,7 @@ let ParserAppComponent = class ParserAppComponent {
         this._placeholderService = _placeholderService;
         this._documentPageService = _documentPageService;
         this._uploadFilesService = _uploadFilesService;
+        this._passwordService = _passwordService;
         this.CREATE_FIELD_MODE = "createFieldMode";
         this.browseFilesModal = _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["CommonModals"].BrowseFiles;
         this.documentError = null;
@@ -14299,6 +14323,9 @@ let ParserAppComponent = class ParserAppComponent {
                     this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
                 });
             }
+        });
+        this._passwordService.passChange.subscribe((pass) => {
+            this.selectFile(this._sourceFileService.sourceFile.guid, pass, _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["CommonModals"].PasswordRequired);
         });
     }
     // Menu
@@ -14434,6 +14461,7 @@ ParserAppComponent.ctorParameters = () => [
     { type: _placeholder_service__WEBPACK_IMPORTED_MODULE_7__["PlaceholderService"] },
     { type: _document_page_service__WEBPACK_IMPORTED_MODULE_8__["DocumentPageService"] },
     { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["UploadFilesService"] },
+    { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["PasswordService"] },
     { type: _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["WindowService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -14455,6 +14483,7 @@ ParserAppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _placeholder_service__WEBPACK_IMPORTED_MODULE_7__["PlaceholderService"],
         _document_page_service__WEBPACK_IMPORTED_MODULE_8__["DocumentPageService"],
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["UploadFilesService"],
+        _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["PasswordService"],
         _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_2__["WindowService"]])
 ], ParserAppComponent);
 
@@ -14702,7 +14731,7 @@ let ParserService = class ParserService {
         formData.append("file", file);
         formData.append('rewrite', String(rewrite));
         if (url) {
-            // formData.append("url", url);
+            formData.append("url", url);
         }
         return this._http.post(this._config.getParserApiEndpoint() + _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["Api"].UPLOAD_DOCUMENTS, formData);
     }
@@ -16867,8 +16896,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _indexed_files_list_indexed_files_list_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./indexed-files-list/indexed-files-list.component */ "../../libs/search/src/lib/indexed-files-list/indexed-files-list.component.ts");
 /* harmony import */ var _indexed_file_indexed_file_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./indexed-file/indexed-file.component */ "../../libs/search/src/lib/indexed-file/indexed-file.component.ts");
 /* harmony import */ var _search_browse_files_modal_search_browse_files_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./search-browse-files-modal/search-browse-files-modal.component */ "../../libs/search/src/lib/search-browse-files-modal/search-browse-files-modal.component.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 var SearchModule_1;
+
 
 
 
@@ -16916,7 +16947,8 @@ SearchModule = SearchModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__["CommonComponentsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_8__["FontAwesomeModule"]
+            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_8__["FontAwesomeModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__["TranslateModule"].forRoot()
         ],
         exports: [
             _search_app_component__WEBPACK_IMPORTED_MODULE_4__["SearchAppComponent"],
@@ -18974,8 +19006,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _copy_signature_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./copy-signature.service */ "../../libs/signature/src/lib/copy-signature.service.ts");
 /* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ng-click-outside */ "../../node_modules/ng-click-outside/lib/index.js");
 /* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(ng_click_outside__WEBPACK_IMPORTED_MODULE_31__);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 var SignatureModule_1;
+
 
 
 
@@ -19039,7 +19073,8 @@ SignatureModule = SignatureModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__deco
             _stamp_canvas_stamp_canvas_component__WEBPACK_IMPORTED_MODULE_22__["StampCanvasComponent"],
             _signature_left_panel_signature_left_panel_component__WEBPACK_IMPORTED_MODULE_27__["SignatureLeftPanelComponent"],
             _hand_modal_hand_modal_component__WEBPACK_IMPORTED_MODULE_28__["HandModalComponent"],
-            _stamp_modal_stamp_modal_component__WEBPACK_IMPORTED_MODULE_29__["StampModalComponent"]],
+            _stamp_modal_stamp_modal_component__WEBPACK_IMPORTED_MODULE_29__["StampModalComponent"]
+        ],
         exports: [_signature_app_component__WEBPACK_IMPORTED_MODULE_7__["SignatureAppComponent"],
             _signature_list_panel_signature_list_panel_component__WEBPACK_IMPORTED_MODULE_8__["SignatureListPanelComponent"],
             _new_bar_qr_code_new_bar_qr_code_component__WEBPACK_IMPORTED_MODULE_13__["NewBarQrCodeComponent"],
@@ -19051,12 +19086,15 @@ SignatureModule = SignatureModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__deco
             _signature_left_panel_signature_left_panel_component__WEBPACK_IMPORTED_MODULE_27__["SignatureLeftPanelComponent"],
             _hand_modal_hand_modal_component__WEBPACK_IMPORTED_MODULE_28__["HandModalComponent"],
             _stamp_modal_stamp_modal_component__WEBPACK_IMPORTED_MODULE_29__["StampModalComponent"],
-            _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["CommonComponentsModule"]],
+            _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["CommonComponentsModule"]
+        ],
         imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["CommonComponentsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
             _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_9__["FontAwesomeModule"],
-            ng_click_outside__WEBPACK_IMPORTED_MODULE_31__["ClickOutsideModule"]],
+            ng_click_outside__WEBPACK_IMPORTED_MODULE_31__["ClickOutsideModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_32__["TranslateModule"].forRoot()
+        ],
         providers: [
             _signature_service__WEBPACK_IMPORTED_MODULE_5__["SignatureService"],
             _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_3__["ConfigService"],
@@ -20274,7 +20312,7 @@ UploadSignatureComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!******************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/index.ts ***!
   \******************************************************************/
-/*! exports provided: initializeApp, setupLoadingInterceptor, StaticTranslateLoaderFactory, ViewerModule, ViewerAppComponent, ViewerService, ViewerConfigService */
+/*! exports provided: initializeApp, setupLoadingInterceptor, translateLoaderFactory, ViewerModule, ViewerAppComponent, ViewerService, ViewerConfigService, ViewerTranslateLoader */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20284,7 +20322,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setupLoadingInterceptor", function() { return _lib_viewer_module__WEBPACK_IMPORTED_MODULE_0__["setupLoadingInterceptor"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StaticTranslateLoaderFactory", function() { return _lib_viewer_module__WEBPACK_IMPORTED_MODULE_0__["StaticTranslateLoaderFactory"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "translateLoaderFactory", function() { return _lib_viewer_module__WEBPACK_IMPORTED_MODULE_0__["translateLoaderFactory"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewerModule", function() { return _lib_viewer_module__WEBPACK_IMPORTED_MODULE_0__["ViewerModule"]; });
 
@@ -20296,6 +20334,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _lib_viewer_config_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/viewer-config.service */ "../../libs/viewer/src/lib/viewer-config.service.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewerConfigService", function() { return _lib_viewer_config_service__WEBPACK_IMPORTED_MODULE_3__["ViewerConfigService"]; });
+
+/* harmony import */ var _lib_translation_viewer_translate_loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/translation/viewer-translate.loader */ "../../libs/viewer/src/lib/translation/viewer-translate.loader.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewerTranslateLoader", function() { return _lib_translation_viewer_translate_loader__WEBPACK_IMPORTED_MODULE_4__["ViewerTranslateLoader"]; });
+
 
 
 
@@ -20933,10 +20975,10 @@ ThumbnailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/ar.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ar.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/ar.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/ar.ts ***!
+  \********************************************************************************************/
 /*! exports provided: AR */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -20976,10 +21018,10 @@ const AR = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/ca.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ca.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/ca.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/ca.ts ***!
+  \********************************************************************************************/
 /*! exports provided: CA */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21019,10 +21061,10 @@ const CA = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/cs.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/cs.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/cs.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/cs.ts ***!
+  \********************************************************************************************/
 /*! exports provided: CS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21062,10 +21104,10 @@ const CS = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/da.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/da.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/da.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/da.ts ***!
+  \********************************************************************************************/
 /*! exports provided: DA */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21105,10 +21147,10 @@ const DA = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/de.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/de.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/de.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/de.ts ***!
+  \********************************************************************************************/
 /*! exports provided: DE */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21148,10 +21190,10 @@ const DE = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/el.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/el.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/el.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/el.ts ***!
+  \********************************************************************************************/
 /*! exports provided: EL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21191,10 +21233,10 @@ const EL = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/en.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/en.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/en.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/en.ts ***!
+  \********************************************************************************************/
 /*! exports provided: EN */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21234,10 +21276,10 @@ const EN = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/es.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/es.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/es.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/es.ts ***!
+  \********************************************************************************************/
 /*! exports provided: ES */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21277,10 +21319,10 @@ const ES = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/fil.ts":
-/*!*********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/fil.ts ***!
-  \*********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/fil.ts":
+/*!*********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/fil.ts ***!
+  \*********************************************************************************************/
 /*! exports provided: FIL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21320,10 +21362,10 @@ const FIL = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/fr.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/fr.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/fr.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/fr.ts ***!
+  \********************************************************************************************/
 /*! exports provided: FR */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21363,10 +21405,10 @@ const FR = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/he.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/he.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/he.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/he.ts ***!
+  \********************************************************************************************/
 /*! exports provided: HE */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21406,10 +21448,10 @@ const HE = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/hi.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/hi.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/hi.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/hi.ts ***!
+  \********************************************************************************************/
 /*! exports provided: HI */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21449,10 +21491,10 @@ const HI = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/id.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/id.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/id.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/id.ts ***!
+  \********************************************************************************************/
 /*! exports provided: ID */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21492,103 +21534,103 @@ const ID = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/index.ts":
-/*!***********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/index.ts ***!
-  \***********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/index.ts":
+/*!***********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/index.ts ***!
+  \***********************************************************************************************/
 /*! exports provided: AR, CA, CS, DA, DE, EL, EN, ES, FIL, FR, HE, HI, ID, IT, JA, KK, KO, MS, NL, PL, PT, RO, RU, SV, TH, TR, UK, VI, ZHHANS, ZHHANT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ar */ "../../libs/viewer/src/lib/translations/ar.ts");
+/* harmony import */ var _ar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ar */ "../../libs/viewer/src/lib/translation/translations/ar.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AR", function() { return _ar__WEBPACK_IMPORTED_MODULE_0__["AR"]; });
 
-/* harmony import */ var _ca__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ca */ "../../libs/viewer/src/lib/translations/ca.ts");
+/* harmony import */ var _ca__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ca */ "../../libs/viewer/src/lib/translation/translations/ca.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CA", function() { return _ca__WEBPACK_IMPORTED_MODULE_1__["CA"]; });
 
-/* harmony import */ var _cs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cs */ "../../libs/viewer/src/lib/translations/cs.ts");
+/* harmony import */ var _cs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cs */ "../../libs/viewer/src/lib/translation/translations/cs.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CS", function() { return _cs__WEBPACK_IMPORTED_MODULE_2__["CS"]; });
 
-/* harmony import */ var _da__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./da */ "../../libs/viewer/src/lib/translations/da.ts");
+/* harmony import */ var _da__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./da */ "../../libs/viewer/src/lib/translation/translations/da.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DA", function() { return _da__WEBPACK_IMPORTED_MODULE_3__["DA"]; });
 
-/* harmony import */ var _de__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./de */ "../../libs/viewer/src/lib/translations/de.ts");
+/* harmony import */ var _de__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./de */ "../../libs/viewer/src/lib/translation/translations/de.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DE", function() { return _de__WEBPACK_IMPORTED_MODULE_4__["DE"]; });
 
-/* harmony import */ var _el__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./el */ "../../libs/viewer/src/lib/translations/el.ts");
+/* harmony import */ var _el__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./el */ "../../libs/viewer/src/lib/translation/translations/el.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EL", function() { return _el__WEBPACK_IMPORTED_MODULE_5__["EL"]; });
 
-/* harmony import */ var _en__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./en */ "../../libs/viewer/src/lib/translations/en.ts");
+/* harmony import */ var _en__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./en */ "../../libs/viewer/src/lib/translation/translations/en.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EN", function() { return _en__WEBPACK_IMPORTED_MODULE_6__["EN"]; });
 
-/* harmony import */ var _es__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./es */ "../../libs/viewer/src/lib/translations/es.ts");
+/* harmony import */ var _es__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./es */ "../../libs/viewer/src/lib/translation/translations/es.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ES", function() { return _es__WEBPACK_IMPORTED_MODULE_7__["ES"]; });
 
-/* harmony import */ var _fil__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./fil */ "../../libs/viewer/src/lib/translations/fil.ts");
+/* harmony import */ var _fil__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./fil */ "../../libs/viewer/src/lib/translation/translations/fil.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FIL", function() { return _fil__WEBPACK_IMPORTED_MODULE_8__["FIL"]; });
 
-/* harmony import */ var _fr__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./fr */ "../../libs/viewer/src/lib/translations/fr.ts");
+/* harmony import */ var _fr__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./fr */ "../../libs/viewer/src/lib/translation/translations/fr.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FR", function() { return _fr__WEBPACK_IMPORTED_MODULE_9__["FR"]; });
 
-/* harmony import */ var _he__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./he */ "../../libs/viewer/src/lib/translations/he.ts");
+/* harmony import */ var _he__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./he */ "../../libs/viewer/src/lib/translation/translations/he.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HE", function() { return _he__WEBPACK_IMPORTED_MODULE_10__["HE"]; });
 
-/* harmony import */ var _hi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./hi */ "../../libs/viewer/src/lib/translations/hi.ts");
+/* harmony import */ var _hi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./hi */ "../../libs/viewer/src/lib/translation/translations/hi.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HI", function() { return _hi__WEBPACK_IMPORTED_MODULE_11__["HI"]; });
 
-/* harmony import */ var _id__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./id */ "../../libs/viewer/src/lib/translations/id.ts");
+/* harmony import */ var _id__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./id */ "../../libs/viewer/src/lib/translation/translations/id.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ID", function() { return _id__WEBPACK_IMPORTED_MODULE_12__["ID"]; });
 
-/* harmony import */ var _it__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./it */ "../../libs/viewer/src/lib/translations/it.ts");
+/* harmony import */ var _it__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./it */ "../../libs/viewer/src/lib/translation/translations/it.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IT", function() { return _it__WEBPACK_IMPORTED_MODULE_13__["IT"]; });
 
-/* harmony import */ var _ja__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ja */ "../../libs/viewer/src/lib/translations/ja.ts");
+/* harmony import */ var _ja__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ja */ "../../libs/viewer/src/lib/translation/translations/ja.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JA", function() { return _ja__WEBPACK_IMPORTED_MODULE_14__["JA"]; });
 
-/* harmony import */ var _kk__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./kk */ "../../libs/viewer/src/lib/translations/kk.ts");
+/* harmony import */ var _kk__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./kk */ "../../libs/viewer/src/lib/translation/translations/kk.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "KK", function() { return _kk__WEBPACK_IMPORTED_MODULE_15__["KK"]; });
 
-/* harmony import */ var _ko__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./ko */ "../../libs/viewer/src/lib/translations/ko.ts");
+/* harmony import */ var _ko__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./ko */ "../../libs/viewer/src/lib/translation/translations/ko.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "KO", function() { return _ko__WEBPACK_IMPORTED_MODULE_16__["KO"]; });
 
-/* harmony import */ var _ms__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./ms */ "../../libs/viewer/src/lib/translations/ms.ts");
+/* harmony import */ var _ms__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./ms */ "../../libs/viewer/src/lib/translation/translations/ms.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MS", function() { return _ms__WEBPACK_IMPORTED_MODULE_17__["MS"]; });
 
-/* harmony import */ var _nl__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./nl */ "../../libs/viewer/src/lib/translations/nl.ts");
+/* harmony import */ var _nl__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./nl */ "../../libs/viewer/src/lib/translation/translations/nl.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NL", function() { return _nl__WEBPACK_IMPORTED_MODULE_18__["NL"]; });
 
-/* harmony import */ var _pl__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pl */ "../../libs/viewer/src/lib/translations/pl.ts");
+/* harmony import */ var _pl__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pl */ "../../libs/viewer/src/lib/translation/translations/pl.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PL", function() { return _pl__WEBPACK_IMPORTED_MODULE_19__["PL"]; });
 
-/* harmony import */ var _pt__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./pt */ "../../libs/viewer/src/lib/translations/pt.ts");
+/* harmony import */ var _pt__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./pt */ "../../libs/viewer/src/lib/translation/translations/pt.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PT", function() { return _pt__WEBPACK_IMPORTED_MODULE_20__["PT"]; });
 
-/* harmony import */ var _ro__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./ro */ "../../libs/viewer/src/lib/translations/ro.ts");
+/* harmony import */ var _ro__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./ro */ "../../libs/viewer/src/lib/translation/translations/ro.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RO", function() { return _ro__WEBPACK_IMPORTED_MODULE_21__["RO"]; });
 
-/* harmony import */ var _ru__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./ru */ "../../libs/viewer/src/lib/translations/ru.ts");
+/* harmony import */ var _ru__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./ru */ "../../libs/viewer/src/lib/translation/translations/ru.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RU", function() { return _ru__WEBPACK_IMPORTED_MODULE_22__["RU"]; });
 
-/* harmony import */ var _sv__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./sv */ "../../libs/viewer/src/lib/translations/sv.ts");
+/* harmony import */ var _sv__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./sv */ "../../libs/viewer/src/lib/translation/translations/sv.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SV", function() { return _sv__WEBPACK_IMPORTED_MODULE_23__["SV"]; });
 
-/* harmony import */ var _th__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./th */ "../../libs/viewer/src/lib/translations/th.ts");
+/* harmony import */ var _th__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./th */ "../../libs/viewer/src/lib/translation/translations/th.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TH", function() { return _th__WEBPACK_IMPORTED_MODULE_24__["TH"]; });
 
-/* harmony import */ var _tr__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./tr */ "../../libs/viewer/src/lib/translations/tr.ts");
+/* harmony import */ var _tr__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./tr */ "../../libs/viewer/src/lib/translation/translations/tr.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TR", function() { return _tr__WEBPACK_IMPORTED_MODULE_25__["TR"]; });
 
-/* harmony import */ var _uk__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./uk */ "../../libs/viewer/src/lib/translations/uk.ts");
+/* harmony import */ var _uk__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./uk */ "../../libs/viewer/src/lib/translation/translations/uk.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UK", function() { return _uk__WEBPACK_IMPORTED_MODULE_26__["UK"]; });
 
-/* harmony import */ var _vi__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./vi */ "../../libs/viewer/src/lib/translations/vi.ts");
+/* harmony import */ var _vi__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./vi */ "../../libs/viewer/src/lib/translation/translations/vi.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VI", function() { return _vi__WEBPACK_IMPORTED_MODULE_27__["VI"]; });
 
-/* harmony import */ var _zh_hans__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./zh-hans */ "../../libs/viewer/src/lib/translations/zh-hans.ts");
+/* harmony import */ var _zh_hans__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./zh-hans */ "../../libs/viewer/src/lib/translation/translations/zh-hans.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ZHHANS", function() { return _zh_hans__WEBPACK_IMPORTED_MODULE_28__["ZHHANS"]; });
 
-/* harmony import */ var _zh_hant__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./zh-hant */ "../../libs/viewer/src/lib/translations/zh-hant.ts");
+/* harmony import */ var _zh_hant__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./zh-hant */ "../../libs/viewer/src/lib/translation/translations/zh-hant.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ZHHANT", function() { return _zh_hant__WEBPACK_IMPORTED_MODULE_29__["ZHHANT"]; });
 
 
@@ -21625,10 +21667,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/it.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/it.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/it.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/it.ts ***!
+  \********************************************************************************************/
 /*! exports provided: IT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21668,10 +21710,10 @@ const IT = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/ja.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ja.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/ja.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/ja.ts ***!
+  \********************************************************************************************/
 /*! exports provided: JA */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21711,10 +21753,10 @@ const JA = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/kk.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/kk.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/kk.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/kk.ts ***!
+  \********************************************************************************************/
 /*! exports provided: KK */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21754,10 +21796,10 @@ const KK = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/ko.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ko.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/ko.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/ko.ts ***!
+  \********************************************************************************************/
 /*! exports provided: KO */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21797,10 +21839,10 @@ const KO = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/ms.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ms.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/ms.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/ms.ts ***!
+  \********************************************************************************************/
 /*! exports provided: MS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21840,10 +21882,10 @@ const MS = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/nl.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/nl.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/nl.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/nl.ts ***!
+  \********************************************************************************************/
 /*! exports provided: NL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21883,10 +21925,10 @@ const NL = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/pl.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/pl.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/pl.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/pl.ts ***!
+  \********************************************************************************************/
 /*! exports provided: PL */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21926,10 +21968,10 @@ const PL = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/pt.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/pt.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/pt.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/pt.ts ***!
+  \********************************************************************************************/
 /*! exports provided: PT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21969,10 +22011,10 @@ const PT = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/ro.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ro.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/ro.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/ro.ts ***!
+  \********************************************************************************************/
 /*! exports provided: RO */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22012,10 +22054,10 @@ const RO = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/ru.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/ru.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/ru.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/ru.ts ***!
+  \********************************************************************************************/
 /*! exports provided: RU */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22055,10 +22097,10 @@ const RU = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/sv.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/sv.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/sv.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/sv.ts ***!
+  \********************************************************************************************/
 /*! exports provided: SV */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22098,10 +22140,10 @@ const SV = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/th.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/th.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/th.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/th.ts ***!
+  \********************************************************************************************/
 /*! exports provided: TH */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22141,10 +22183,10 @@ const TH = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/tr.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/tr.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/tr.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/tr.ts ***!
+  \********************************************************************************************/
 /*! exports provided: TR */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22184,10 +22226,10 @@ const TR = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/uk.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/uk.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/uk.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/uk.ts ***!
+  \********************************************************************************************/
 /*! exports provided: UK */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22227,10 +22269,10 @@ const UK = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/vi.ts":
-/*!********************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/vi.ts ***!
-  \********************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/vi.ts":
+/*!********************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/vi.ts ***!
+  \********************************************************************************************/
 /*! exports provided: VI */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22270,10 +22312,10 @@ const VI = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/zh-hans.ts":
-/*!*************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/zh-hans.ts ***!
-  \*************************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/zh-hans.ts":
+/*!*************************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/zh-hans.ts ***!
+  \*************************************************************************************************/
 /*! exports provided: ZHHANS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22313,10 +22355,10 @@ const ZHHANS = {
 
 /***/ }),
 
-/***/ "../../libs/viewer/src/lib/translations/zh-hant.ts":
-/*!*************************************************************************************!*\
-  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translations/zh-hant.ts ***!
-  \*************************************************************************************/
+/***/ "../../libs/viewer/src/lib/translation/translations/zh-hant.ts":
+/*!*************************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/translations/zh-hant.ts ***!
+  \*************************************************************************************************/
 /*! exports provided: ZHHANT */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22356,6 +22398,63 @@ const ZHHANT = {
 
 /***/ }),
 
+/***/ "../../libs/viewer/src/lib/translation/viewer-translate.loader.ts":
+/*!****************************************************************************************************!*\
+  !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/translation/viewer-translate.loader.ts ***!
+  \****************************************************************************************************/
+/*! exports provided: ViewerTranslateLoader */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewerTranslateLoader", function() { return ViewerTranslateLoader; });
+/* harmony import */ var _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @groupdocs.examples.angular/common-components */ "../../dist/libs/common-components/fesm2015/groupdocs.examples.angular-common-components.js");
+/* harmony import */ var _translations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./translations */ "../../libs/viewer/src/lib/translation/translations/index.ts");
+
+
+class ViewerTranslateLoader extends _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_0__["CommonTranslateLoader"] {
+    constructor(translations = {}) {
+        super({
+            'ar': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["AR"], translations['ar']),
+            'ca': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["CA"], translations['ca']),
+            'cs': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["CS"], translations['cs']),
+            'da': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["DA"], translations['da']),
+            'de': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["DE"], translations['de']),
+            'el': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["EL"], translations['el']),
+            'en': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["EN"], translations['en']),
+            'es': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["ES"], translations['es']),
+            'fil': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["FIL"], translations['fil']),
+            'fr': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["FR"], translations['fr']),
+            'he': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["HE"], translations['he']),
+            'hi': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["HI"], translations['hi']),
+            'id': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["ID"], translations['id']),
+            'it': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["IT"], translations['it']),
+            'ja': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["JA"], translations['ja']),
+            'kk': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["KK"], translations['kk']),
+            'ko': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["KO"], translations['ko']),
+            'ms': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["MS"], translations['ms']),
+            'nl': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["NL"], translations['nl']),
+            'pl': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["PL"], translations['pl']),
+            'pt': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["PT"], translations['pt']),
+            'ro': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["RO"], translations['ro']),
+            'ru': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["RU"], translations['ru']),
+            'sv': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["SV"], translations['sv']),
+            'th': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["TH"], translations['th']),
+            'tr': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["TR"], translations['tr']),
+            'uk': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["UK"], translations['uk']),
+            'vi': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["VI"], translations['vi']),
+            'zh-hans': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["ZHHANS"], translations['zh-hans']),
+            'zh-hant': Object.assign({}, _translations__WEBPACK_IMPORTED_MODULE_1__["ZHHANT"], translations['zh-hant']),
+        });
+    }
+}
+ViewerTranslateLoader.ctorParameters = () => [
+    { type: undefined }
+];
+
+
+/***/ }),
+
 /***/ "../../libs/viewer/src/lib/viewer-app.component.less":
 /*!***************************************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/viewer-app.component.less ***!
@@ -22363,7 +22462,7 @@ const ZHHANT = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');\n:host * {\n  font-family: 'Open Sans', Arial, Helvetica, sans-serif;\n}\n.current-page-number {\n  margin-left: 7px;\n  font-size: 14px;\n  color: #959da5;\n  width: 37px;\n  height: 37px;\n  line-height: 37px;\n  text-align: center;\n}\n.current-page-number.active {\n  color: #fff;\n}\n.wrapper {\n  -webkit-box-align: stretch;\n          align-items: stretch;\n  height: 100%;\n  width: 100%;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.doc-panel {\n  display: -webkit-box;\n  display: flex;\n  height: calc(100vh - 60px);\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n}\n.top-panel {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  width: 100%;\n}\n.toolbar-panel {\n  background-color: #3e4e5a;\n  width: 100%;\n}\n.toolbar-panel-right {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-flex: 1;\n          flex: 1;\n  place-content: flex-end;\n}\n.btn-right {\n  margin-right: 7px;\n}\n.smp-start-stop ::ng-deep .button {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  border: 1px solid;\n  border-radius: 5px;\n  padding: 0px 10px !important;\n}\n.select-language-menu ::ng-deep .select {\n  width: 100%;\n}\n.select-language-menu ::ng-deep .selected-value {\n  max-width: 100%;\n}\n::ng-deep .tools .button,\n::ng-deep .tools .selected-value,\n::ng-deep .tools .nav-caret {\n  color: #fff !important;\n}\n::ng-deep .tools .button.inactive,\n::ng-deep .tools .selected-value.inactive,\n::ng-deep .tools .nav-caret.inactive {\n  color: #959da5 !important;\n}\n::ng-deep .tools .button {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-flow: column;\n}\n::ng-deep .tools .select-left .select {\n  position: relative;\n}\n::ng-deep .tools .select-left .dropdown-menu {\n  top: 40px;\n  left: 0px;\n}\n::ng-deep .tools .select-right .select {\n  position: relative;\n}\n::ng-deep .tools .select-right .dropdown-menu {\n  top: 40px;\n  right: 0px;\n}\n::ng-deep .tools .dropdown-menu .option {\n  color: #6e6e6e !important;\n}\n::ng-deep .tools .dropdown-menu .option:hover {\n  background-color: #4b566c !important;\n}\n::ng-deep .tools .icon-button {\n  margin: 0px 0px 0px 15px !important;\n}\n::ng-deep .tools .select {\n  width: 37px;\n  height: 37px;\n  margin-left: 7px;\n  line-height: 37px;\n  text-align: center;\n}\n::ng-deep .tools .slides-title {\n  color: white;\n  padding-left: 12px;\n  font-size: 18px;\n}\n::ng-deep .tools .slides-filename {\n  -webkit-box-flex: 1;\n          flex-grow: 1;\n  text-align: center;\n  color: white;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding-left: 20px;\n  overflow: hidden;\n}\n::ng-deep .tools .slides-buttons {\n  display: -webkit-box;\n  display: flex;\n}\n::ng-deep .tools .slides-buttons ::ng-deep .select {\n  color: white;\n  cursor: pointer;\n}\n::ng-deep .tools ::ng-deep .gd-nav-search-container .icon-button {\n  margin: 0 0 0 7px !important;\n}\n.slides-nav {\n  position: absolute;\n  right: 30px;\n  bottom: 30px;\n  display: -webkit-box;\n  display: flex;\n}\n.slides-nav ::ng-deep .button {\n  font-size: 37px;\n  background-color: #EDF0F2;\n  border-radius: 3px;\n}\n.slides-nav ::ng-deep .timer {\n  font-size: 42px;\n  line-height: 6px;\n  color: #959da5;\n  position: relative;\n}\n.slides-nav ::ng-deep .timer .seconds-remaining {\n  position: absolute;\n  margin-left: 5px;\n  font-size: 16px;\n  top: 18px;\n  left: 12px;\n}\n.slides-nav ::ng-deep .timer .seconds-remaining.two-digits {\n  left: 6px !important;\n}\n::ng-deep .page.presentation .gd-wrapper {\n  pointer-events: none;\n}\n@media (max-width: 1037px) {\n  .mobile-hide,\n  .current-page-number {\n    display: none;\n  }\n  ::ng-deep .tools gd-button:nth-child(1) > .icon-button {\n    margin: 0px 0px 0px 10px !important;\n  }\n  ::ng-deep .tools .icon-button {\n    height: 60px;\n    width: 60px;\n  }\n  ::ng-deep .tools .gd-nav-search-btn .icon-button {\n    height: 37px;\n    width: 37px;\n  }\n  ::ng-deep .tools .gd-nav-search-btn .button {\n    font-size: 14px;\n  }\n  ::ng-deep .tools .gd-nav-search-container {\n    top: 59px !important;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyIsImxpYnMvdmlld2VyL3NyYy9saWIvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSw2RUNBa0I7QUFHbEI7RUFDRSxzREFBQTtBRERGO0FDSUE7RUFDRSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0FERkY7QUNJRTtFQUNFLFdBQUE7QURGSjtBQ01BO0VBQ0UsMEJBQUE7VUFBQSxvQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsZUFBQTtFQUNBLE1BQUE7RUFDQSxTQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7QURKRjtBQ09BO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsMEJBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7QURMRjtBQ1FBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLFdBQUE7QURORjtBQ1NBO0VBQ0UseUJBQUE7RUFDQSxXQUFBO0FEUEY7QUNVQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtFQUNBLG1CQUFBO1VBQUEsT0FBQTtFQUNBLHVCQUFBO0FEUkY7QUNXQTtFQUNFLGlCQUFBO0FEVEY7QUNZQTtFQUVJLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSw0QkFBQTtBRFhKO0FDZUE7RUFFSSxXQUFBO0FEZEo7QUNZQTtFQUtJLGVBQUE7QURkSjtBQ2tCQTs7O0VBS0ksc0JBQUE7QURsQko7QUNvQkk7OztFQUNFLHlCQUFBO0FEaEJOO0FDUUE7RUFhSSw0QkFBQTtFQUFBLDZCQUFBO1VBQUEsaUJBQUE7QURsQko7QUNLQTtFQWtCTSxrQkFBQTtBRHBCTjtBQ0VBO0VBc0JNLFNBQUE7RUFDQSxTQUFBO0FEckJOO0FDRkE7RUE2Qk0sa0JBQUE7QUR4Qk47QUNMQTtFQWlDTSxTQUFBO0VBQ0EsVUFBQTtBRHpCTjtBQ1RBO0VBdUNJLHlCQUFBO0FEM0JKO0FDWkE7RUEyQ0ksb0NBQUE7QUQ1Qko7QUNmQTtFQStDSSxtQ0FBQTtBRDdCSjtBQ2xCQTtFQW1ESSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBRDlCSjtBQ3pCQTtFQTJESSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FEL0JKO0FDOUJBO0VBaUVJLG1CQUFBO1VBQUEsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0FEaENKO0FDdkNBO0VBMkVJLG9CQUFBO0VBQUEsYUFBQTtBRGpDSjtBQzFDQTtFQTZFTSxZQUFBO0VBQ0EsZUFBQTtBRGhDTjtBQzlDQTtFQW9GSSw0QkFBQTtBRG5DSjtBQ3VDQTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7QURyQ0Y7QUNpQ0E7RUFNSSxlQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtBRHBDSjtBQzRCQTtFQVdJLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxrQkFBQTtBRHBDSjtBQ3NCQTtFQWdCTSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLFNBQUE7RUFDQSxVQUFBO0FEbkNOO0FDb0NNO0VBQ0Usb0JBQUE7QURsQ1I7QUN3Q0E7RUFDRSxvQkFBQTtBRHRDRjtBQ3lDQTtFQUVFOztJQUVFLGFBQUE7RUR4Q0Y7RUMyQ0E7SUFFSSxtQ0FBQTtFRDFDSjtFQ3dDQTtJQU1JLFlBQUE7SUFDQSxXQUFBO0VEM0NKO0VDb0NBO0lBWU0sWUFBQTtJQUNBLFdBQUE7RUQ3Q047RUNnQ0E7SUFpQk0sZUFBQTtFRDlDTjtFQzZCQTtJQXNCSSxvQkFBQTtFRGhESjtBQUNGIiwiZmlsZSI6ImxpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgdXJsKCdodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9T3BlbitTYW5zJmRpc3BsYXk9c3dhcCcpO1xuOmhvc3QgKiB7XG4gIGZvbnQtZmFtaWx5OiAnT3BlbiBTYW5zJywgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjtcbn1cbi5jdXJyZW50LXBhZ2UtbnVtYmVyIHtcbiAgbWFyZ2luLWxlZnQ6IDdweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogIzk1OWRhNTtcbiAgd2lkdGg6IDM3cHg7XG4gIGhlaWdodDogMzdweDtcbiAgbGluZS1oZWlnaHQ6IDM3cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbi5jdXJyZW50LXBhZ2UtbnVtYmVyLmFjdGl2ZSB7XG4gIGNvbG9yOiAjZmZmO1xufVxuLndyYXBwZXIge1xuICBhbGlnbi1pdGVtczogc3RyZXRjaDtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDA7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG59XG4uZG9jLXBhbmVsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gNjBweCk7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG59XG4udG9wLXBhbmVsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgd2lkdGg6IDEwMCU7XG59XG4udG9vbGJhci1wYW5lbCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMzZTRlNWE7XG4gIHdpZHRoOiAxMDAlO1xufVxuLnRvb2xiYXItcGFuZWwtcmlnaHQge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4OiAxO1xuICBwbGFjZS1jb250ZW50OiBmbGV4LWVuZDtcbn1cbi5idG4tcmlnaHQge1xuICBtYXJnaW4tcmlnaHQ6IDdweDtcbn1cbi5zbXAtc3RhcnQtc3RvcCA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIHBhZGRpbmc6IDBweCAxMHB4ICFpbXBvcnRhbnQ7XG59XG4uc2VsZWN0LWxhbmd1YWdlLW1lbnUgOjpuZy1kZWVwIC5zZWxlY3Qge1xuICB3aWR0aDogMTAwJTtcbn1cbi5zZWxlY3QtbGFuZ3VhZ2UtbWVudSA6Om5nLWRlZXAgLnNlbGVjdGVkLXZhbHVlIHtcbiAgbWF4LXdpZHRoOiAxMDAlO1xufVxuOjpuZy1kZWVwIC50b29scyAuYnV0dG9uLFxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0ZWQtdmFsdWUsXG46Om5nLWRlZXAgLnRvb2xzIC5uYXYtY2FyZXQge1xuICBjb2xvcjogI2ZmZiAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC50b29scyAuYnV0dG9uLmluYWN0aXZlLFxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0ZWQtdmFsdWUuaW5hY3RpdmUsXG46Om5nLWRlZXAgLnRvb2xzIC5uYXYtY2FyZXQuaW5hY3RpdmUge1xuICBjb2xvcjogIzk1OWRhNSAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC50b29scyAuYnV0dG9uIHtcbiAgZmxleC1mbG93OiBjb2x1bW47XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zZWxlY3QtbGVmdCAuc2VsZWN0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0LWxlZnQgLmRyb3Bkb3duLW1lbnUge1xuICB0b3A6IDQwcHg7XG4gIGxlZnQ6IDBweDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNlbGVjdC1yaWdodCAuc2VsZWN0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0LXJpZ2h0IC5kcm9wZG93bi1tZW51IHtcbiAgdG9wOiA0MHB4O1xuICByaWdodDogMHB4O1xufVxuOjpuZy1kZWVwIC50b29scyAuZHJvcGRvd24tbWVudSAub3B0aW9uIHtcbiAgY29sb3I6ICM2ZTZlNmUgIWltcG9ydGFudDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmRyb3Bkb3duLW1lbnUgLm9wdGlvbjpob3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICM0YjU2NmMgIWltcG9ydGFudDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLmljb24tYnV0dG9uIHtcbiAgbWFyZ2luOiAwcHggMHB4IDBweCAxNXB4ICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zZWxlY3Qge1xuICB3aWR0aDogMzdweDtcbiAgaGVpZ2h0OiAzN3B4O1xuICBtYXJnaW4tbGVmdDogN3B4O1xuICBsaW5lLWhlaWdodDogMzdweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuOjpuZy1kZWVwIC50b29scyAuc2xpZGVzLXRpdGxlIHtcbiAgY29sb3I6IHdoaXRlO1xuICBwYWRkaW5nLWxlZnQ6IDEycHg7XG4gIGZvbnQtc2l6ZTogMThweDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNsaWRlcy1maWxlbmFtZSB7XG4gIGZsZXgtZ3JvdzogMTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBjb2xvcjogd2hpdGU7XG4gIHRleHQtb3ZlcmZsb3c6IGVsbGlwc2lzO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICBwYWRkaW5nLWxlZnQ6IDIwcHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zbGlkZXMtYnV0dG9ucyB7XG4gIGRpc3BsYXk6IGZsZXg7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zbGlkZXMtYnV0dG9ucyA6Om5nLWRlZXAgLnNlbGVjdCB7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuOjpuZy1kZWVwIC50b29scyA6Om5nLWRlZXAgLmdkLW5hdi1zZWFyY2gtY29udGFpbmVyIC5pY29uLWJ1dHRvbiB7XG4gIG1hcmdpbjogMCAwIDAgN3B4ICFpbXBvcnRhbnQ7XG59XG4uc2xpZGVzLW5hdiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IDMwcHg7XG4gIGJvdHRvbTogMzBweDtcbiAgZGlzcGxheTogZmxleDtcbn1cbi5zbGlkZXMtbmF2IDo6bmctZGVlcCAuYnV0dG9uIHtcbiAgZm9udC1zaXplOiAzN3B4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRURGMEYyO1xuICBib3JkZXItcmFkaXVzOiAzcHg7XG59XG4uc2xpZGVzLW5hdiA6Om5nLWRlZXAgLnRpbWVyIHtcbiAgZm9udC1zaXplOiA0MnB4O1xuICBsaW5lLWhlaWdodDogNnB4O1xuICBjb2xvcjogIzk1OWRhNTtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuLnNsaWRlcy1uYXYgOjpuZy1kZWVwIC50aW1lciAuc2Vjb25kcy1yZW1haW5pbmcge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIG1hcmdpbi1sZWZ0OiA1cHg7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgdG9wOiAxOHB4O1xuICBsZWZ0OiAxMnB4O1xufVxuLnNsaWRlcy1uYXYgOjpuZy1kZWVwIC50aW1lciAuc2Vjb25kcy1yZW1haW5pbmcudHdvLWRpZ2l0cyB7XG4gIGxlZnQ6IDZweCAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC5wYWdlLnByZXNlbnRhdGlvbiAuZ2Qtd3JhcHBlciB7XG4gIHBvaW50ZXItZXZlbnRzOiBub25lO1xufVxuQG1lZGlhIChtYXgtd2lkdGg6IDEwMzdweCkge1xuICAubW9iaWxlLWhpZGUsXG4gIC5jdXJyZW50LXBhZ2UtbnVtYmVyIHtcbiAgICBkaXNwbGF5OiBub25lO1xuICB9XG4gIDo6bmctZGVlcCAudG9vbHMgZ2QtYnV0dG9uOm50aC1jaGlsZCgxKSA+IC5pY29uLWJ1dHRvbiB7XG4gICAgbWFyZ2luOiAwcHggMHB4IDBweCAxMHB4ICFpbXBvcnRhbnQ7XG4gIH1cbiAgOjpuZy1kZWVwIC50b29scyAuaWNvbi1idXR0b24ge1xuICAgIGhlaWdodDogNjBweDtcbiAgICB3aWR0aDogNjBweDtcbiAgfVxuICA6Om5nLWRlZXAgLnRvb2xzIC5nZC1uYXYtc2VhcmNoLWJ0biAuaWNvbi1idXR0b24ge1xuICAgIGhlaWdodDogMzdweDtcbiAgICB3aWR0aDogMzdweDtcbiAgfVxuICA6Om5nLWRlZXAgLnRvb2xzIC5nZC1uYXYtc2VhcmNoLWJ0biAuYnV0dG9uIHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gIH1cbiAgOjpuZy1kZWVwIC50b29scyAuZ2QtbmF2LXNlYXJjaC1jb250YWluZXIge1xuICAgIHRvcDogNTlweCAhaW1wb3J0YW50O1xuICB9XG59XG4iLCJAaW1wb3J0IChjc3MpIHVybCgnaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3M/ZmFtaWx5PU9wZW4rU2FucyZkaXNwbGF5PXN3YXAnKTtcbkBpbXBvcnQgXCIuLi8uLi8uLi9jb21tb24tY29tcG9uZW50cy9zcmMvc3R5bGVzL3ZhcmlhYmxlc1wiO1xuXG46aG9zdCAqIHtcbiAgZm9udC1mYW1pbHk6ICdPcGVuIFNhbnMnLCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmO1xufVxuXG4uY3VycmVudC1wYWdlLW51bWJlciB7XG4gIG1hcmdpbi1sZWZ0OiA3cHg7XG4gIGZvbnQtc2l6ZSAgOiAxNHB4O1xuICBjb2xvciAgICAgIDogQHJlZ2VudC1ncmF5O1xuICB3aWR0aCAgICAgIDogMzdweDtcbiAgaGVpZ2h0ICAgICA6IDM3cHg7XG4gIGxpbmUtaGVpZ2h0OiAzN3B4O1xuICB0ZXh0LWFsaWduIDogY2VudGVyO1xuXG4gICYuYWN0aXZlIHtcbiAgICBjb2xvcjogI2ZmZjtcbiAgfVxufVxuXG4ud3JhcHBlciB7XG4gIGFsaWduLWl0ZW1zOiBzdHJldGNoO1xuICBoZWlnaHQgICAgIDogMTAwJTtcbiAgd2lkdGggICAgICA6IDEwMCU7XG4gIHBvc2l0aW9uICAgOiBmaXhlZDtcbiAgdG9wICAgICAgICA6IDA7XG4gIGJvdHRvbSAgICAgOiAwO1xuICBsZWZ0ICAgICAgIDogMDtcbiAgcmlnaHQgICAgICA6IDA7XG59XG5cbi5kb2MtcGFuZWwge1xuICBkaXNwbGF5ICAgICAgIDogZmxleDtcbiAgaGVpZ2h0ICAgICAgICA6IGNhbGMoMTAwdmggLSA2MHB4KTtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbn1cblxuLnRvcC1wYW5lbCB7XG4gIGRpc3BsYXkgICAgOiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICB3aWR0aCAgICAgIDogMTAwJTtcbn1cblxuLnRvb2xiYXItcGFuZWwge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBAbmF2LW1haW4tYmFja2dyb3VuZDtcbiAgd2lkdGggICAgICAgICAgIDogMTAwJTtcbn1cblxuLnRvb2xiYXItcGFuZWwtcmlnaHQge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4OiAxO1xuICBwbGFjZS1jb250ZW50OiBmbGV4LWVuZDtcbn1cblxuLmJ0bi1yaWdodCB7XG4gIG1hcmdpbi1yaWdodDogN3B4O1xufVxuXG4uc21wLXN0YXJ0LXN0b3Age1xuICA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gICAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgICBib3JkZXI6IDFweCBzb2xpZDtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7XG4gICAgcGFkZGluZzogMHB4IDEwcHggIWltcG9ydGFudDtcbiAgfVxufVxuXG4uc2VsZWN0LWxhbmd1YWdlLW1lbnUge1xuICA6Om5nLWRlZXAgLnNlbGVjdCB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbiAgOjpuZy1kZWVwIC5zZWxlY3RlZC12YWx1ZSB7XG4gICAgbWF4LXdpZHRoOiAxMDAlO1xuICB9XG59XG5cbjo6bmctZGVlcCAudG9vbHMge1xuXG4gIC5idXR0b24sXG4gIC5zZWxlY3RlZC12YWx1ZSxcbiAgLm5hdi1jYXJldCB7XG4gICAgY29sb3I6ICNmZmYgIWltcG9ydGFudDtcblxuICAgICYuaW5hY3RpdmUge1xuICAgICAgY29sb3I6IEByZWdlbnQtZ3JheSAgIWltcG9ydGFudDtcbiAgICB9XG4gIH1cblxuICAuYnV0dG9uIHtcbiAgICBmbGV4LWZsb3c6IGNvbHVtbjtcbiAgfVxuXG4gIC5zZWxlY3QtbGVmdCB7XG4gICAgLnNlbGVjdCB7XG4gICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgfVxuXG4gICAgLmRyb3Bkb3duLW1lbnUge1xuICAgICAgdG9wOiA0MHB4O1xuICAgICAgbGVmdDogMHB4O1xuICAgIH1cbiAgfVxuXG4gIC5zZWxlY3QtcmlnaHQge1xuICAgIC5zZWxlY3Qge1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIH1cblxuICAgIC5kcm9wZG93bi1tZW51IHtcbiAgICAgIHRvcDogNDBweDtcbiAgICAgIHJpZ2h0OiAwcHg7XG4gICAgfVxuICB9XG5cbiAgLmRyb3Bkb3duLW1lbnUgLm9wdGlvbiB7XG4gICAgY29sb3I6IEBkb3ZlLWdyYXkgICFpbXBvcnRhbnQ7XG4gIH1cblxuICAuZHJvcGRvd24tbWVudSAub3B0aW9uOmhvdmVyIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBAZm9sZGVyICAhaW1wb3J0YW50O1xuICB9XG5cbiAgLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDBweCAwcHggMHB4IDE1cHggIWltcG9ydGFudDtcbiAgfVxuXG4gIC5zZWxlY3Qge1xuICAgIHdpZHRoICAgICAgOiAzN3B4O1xuICAgIGhlaWdodCAgICAgOiAzN3B4O1xuICAgIG1hcmdpbi1sZWZ0OiA3cHg7XG4gICAgbGluZS1oZWlnaHQ6IDM3cHg7XG4gICAgdGV4dC1hbGlnbiA6IGNlbnRlcjtcbiAgfVxuXG4gIC5zbGlkZXMtdGl0bGUge1xuICAgIGNvbG9yOiB3aGl0ZTtcbiAgICBwYWRkaW5nLWxlZnQ6IDEycHg7XG4gICAgZm9udC1zaXplOiAxOHB4O1xuICB9XG5cbiAgLnNsaWRlcy1maWxlbmFtZSB7XG4gICAgZmxleC1ncm93OiAxO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XG4gICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcbiAgICBwYWRkaW5nLWxlZnQ6IDIwcHg7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgfVxuXG4gIC5zbGlkZXMtYnV0dG9ucyB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICA6Om5nLWRlZXAgLnNlbGVjdCB7XG4gICAgICBjb2xvcjogd2hpdGU7XG4gICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgfVxuICB9XG5cbiAgOjpuZy1kZWVwIC5nZC1uYXYtc2VhcmNoLWNvbnRhaW5lciBcbiAgLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDAgMCAwIDdweCAhaW1wb3J0YW50O1xuICB9XG59XG5cbi5zbGlkZXMtbmF2IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogMzBweDtcbiAgYm90dG9tOiAzMHB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gICAgZm9udC1zaXplOiAzN3B4O1xuICAgIGJhY2tncm91bmQtY29sb3I6IEBwb3JjZWxhaW47XG4gICAgYm9yZGVyLXJhZGl1czogM3B4O1xuICB9XG4gIDo6bmctZGVlcCAudGltZXIge1xuICAgIGZvbnQtc2l6ZTogNDJweDtcbiAgICBsaW5lLWhlaWdodDogNnB4O1xuICAgIGNvbG9yOiBAcmVnZW50LWdyYXk7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIC5zZWNvbmRzLXJlbWFpbmluZyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBtYXJnaW4tbGVmdDogNXB4O1xuICAgICAgZm9udC1zaXplOiAxNnB4O1xuICAgICAgdG9wOiAxOHB4O1xuICAgICAgbGVmdDogMTJweDtcbiAgICAgICYudHdvLWRpZ2l0cyB7XG4gICAgICAgIGxlZnQ6IDZweCAhaW1wb3J0YW50O1xuICAgICAgfVxuICAgIH1cbiAgfVxufVxuXG46Om5nLWRlZXAgLnBhZ2UucHJlc2VudGF0aW9uIC5nZC13cmFwcGVyIHtcbiAgcG9pbnRlci1ldmVudHM6IG5vbmU7XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiAxMDM3cHgpIHtcblxuICAubW9iaWxlLWhpZGUsXG4gIC5jdXJyZW50LXBhZ2UtbnVtYmVyIHtcbiAgICBkaXNwbGF5OiBub25lO1xuICB9XG5cbiAgOjpuZy1kZWVwIC50b29scyB7XG4gICAgZ2QtYnV0dG9uOm50aC1jaGlsZCgxKT4uaWNvbi1idXR0b24ge1xuICAgICAgbWFyZ2luOiAwcHggMHB4IDBweCAxMHB4ICFpbXBvcnRhbnQ7XG4gICAgfVxuXG4gICAgLmljb24tYnV0dG9uIHtcbiAgICAgIGhlaWdodDogNjBweDtcbiAgICAgIHdpZHRoIDogNjBweDtcbiAgICB9XG5cbiAgICAuZ2QtbmF2LXNlYXJjaC1idG4ge1xuICAgICAgLmljb24tYnV0dG9uIHtcbiAgICAgICAgaGVpZ2h0OiAzN3B4O1xuICAgICAgICB3aWR0aCA6IDM3cHg7XG4gICAgICB9XG5cbiAgICAgIC5idXR0b24ge1xuICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICB9XG4gICAgfVxuXG4gICAgLmdkLW5hdi1zZWFyY2gtY29udGFpbmVyIHtcbiAgICAgIHRvcDogNTlweCAhaW1wb3J0YW50O1xuICAgIH1cbiAgfVxufSJdfQ== */"
+module.exports = "@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');\n:host * {\n  font-family: 'Open Sans', Arial, Helvetica, sans-serif;\n}\n.current-page-number {\n  margin-left: 7px;\n  font-size: 14px;\n  color: #959da5;\n  width: 37px;\n  height: 37px;\n  line-height: 37px;\n  text-align: center;\n}\n.current-page-number.active {\n  color: #fff;\n}\n.wrapper {\n  -webkit-box-align: stretch;\n          align-items: stretch;\n  height: 100%;\n  width: 100%;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.doc-panel {\n  display: -webkit-box;\n  display: flex;\n  height: calc(100vh - 60px);\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n}\n.top-panel {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  width: 100%;\n}\n.toolbar-panel {\n  background-color: #3e4e5a;\n  width: 100%;\n}\n.toolbar-panel-right {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-flex: 1;\n          flex: 1;\n  place-content: flex-end;\n}\n.btn-right {\n  margin-right: 7px;\n}\n.smp-start-stop ::ng-deep .button {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  border: 1px solid;\n  border-radius: 5px;\n  padding: 0px 10px !important;\n}\n.language-menu {\n  margin-right: 15px;\n}\n.select-language-menu ::ng-deep .select {\n  width: 100%;\n}\n.select-language-menu ::ng-deep .select ::ng-deep .dropdown-menu {\n  overflow-y: scroll;\n  height: 90%;\n}\n.select-language-menu ::ng-deep .selected-value {\n  max-width: 100%;\n}\n.thumbnails-button ::ng-deep .button {\n  margin-left: 0 !important;\n}\n::ng-deep .tools .button,\n::ng-deep .tools .selected-value,\n::ng-deep .tools .nav-caret {\n  color: #fff !important;\n}\n::ng-deep .tools .button.inactive,\n::ng-deep .tools .selected-value.inactive,\n::ng-deep .tools .nav-caret.inactive {\n  color: #959da5 !important;\n}\n::ng-deep .tools .button {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-flow: column;\n}\n::ng-deep .tools .select-left .select {\n  position: relative;\n}\n::ng-deep .tools .select-left .dropdown-menu {\n  top: 40px;\n  left: 0px;\n}\n::ng-deep .tools .select-right .select {\n  position: relative;\n}\n::ng-deep .tools .select-right .dropdown-menu {\n  top: 40px;\n  right: 0px;\n}\n::ng-deep .tools .dropdown-menu .option {\n  color: #6e6e6e !important;\n}\n::ng-deep .tools .dropdown-menu .option:hover {\n  background-color: #4b566c !important;\n}\n::ng-deep .tools .icon-button {\n  margin: 0px 0px 0px 15px !important;\n}\n::ng-deep .tools .select {\n  width: 37px;\n  height: 37px;\n  margin-left: 7px;\n  line-height: 37px;\n  text-align: center;\n}\n::ng-deep .tools .slides-title {\n  color: white;\n  padding-left: 12px;\n  font-size: 18px;\n}\n::ng-deep .tools .slides-filename {\n  -webkit-box-flex: 1;\n          flex-grow: 1;\n  text-align: center;\n  color: white;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding-left: 20px;\n  overflow: hidden;\n}\n::ng-deep .tools .slides-buttons {\n  display: -webkit-box;\n  display: flex;\n}\n::ng-deep .tools .slides-buttons ::ng-deep .select {\n  color: white;\n  cursor: pointer;\n}\n::ng-deep .tools ::ng-deep .gd-nav-search-container .icon-button {\n  margin: 0 0 0 7px !important;\n}\n.slides-nav {\n  position: absolute;\n  right: 30px;\n  bottom: 30px;\n  display: -webkit-box;\n  display: flex;\n}\n.slides-nav ::ng-deep .button {\n  font-size: 37px;\n  background-color: #EDF0F2;\n  border-radius: 3px;\n}\n.slides-nav ::ng-deep .timer {\n  font-size: 42px;\n  line-height: 6px;\n  color: #959da5;\n  position: relative;\n}\n.slides-nav ::ng-deep .timer .seconds-remaining {\n  position: absolute;\n  margin-left: 5px;\n  font-size: 16px;\n  top: 18px;\n  left: 12px;\n}\n.slides-nav ::ng-deep .timer .seconds-remaining.two-digits {\n  left: 6px !important;\n}\n::ng-deep .page.presentation .gd-wrapper {\n  pointer-events: none;\n}\n@media (max-width: 1037px) {\n  .mobile-hide,\n  .current-page-number {\n    display: none;\n  }\n  ::ng-deep .tools gd-button:nth-child(1) > .icon-button {\n    margin: 0px 0px 0px 10px !important;\n  }\n  ::ng-deep .tools .icon-button {\n    height: 60px;\n    width: 60px;\n  }\n  ::ng-deep .tools .gd-nav-search-btn .icon-button {\n    height: 37px;\n    width: 37px;\n  }\n  ::ng-deep .tools .gd-nav-search-btn .button {\n    font-size: 14px;\n  }\n  ::ng-deep .tools .gd-nav-search-container {\n    top: 59px !important;\n  }\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyIsImxpYnMvdmlld2VyL3NyYy9saWIvQzovR2l0SHViL0dyb3VwRG9jcy9Ub3RhbC9Bbmd1bGFyL2xpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSw2RUNBa0I7QUFHbEI7RUFDRSxzREFBQTtBRERGO0FDSUE7RUFDRSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0FERkY7QUNJRTtFQUNFLFdBQUE7QURGSjtBQ01BO0VBQ0UsMEJBQUE7VUFBQSxvQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsZUFBQTtFQUNBLE1BQUE7RUFDQSxTQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7QURKRjtBQ09BO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsMEJBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7QURMRjtBQ1FBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLFdBQUE7QURORjtBQ1NBO0VBQ0UseUJBQUE7RUFDQSxXQUFBO0FEUEY7QUNVQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtFQUNBLG1CQUFBO1VBQUEsT0FBQTtFQUNBLHVCQUFBO0FEUkY7QUNXQTtFQUNFLGlCQUFBO0FEVEY7QUNZQTtFQUVJLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSw0QkFBQTtBRFhKO0FDZUE7RUFDRSxrQkFBQTtBRGJGO0FDZ0JBO0VBRUksV0FBQTtBRGZKO0FDYUE7RUFJTSxrQkFBQTtFQUNBLFdBQUE7QURkTjtBQ1NBO0VBU0ksZUFBQTtBRGZKO0FDbUJBO0VBRUkseUJBQUE7QURsQko7QUNzQkE7OztFQUtJLHNCQUFBO0FEdEJKO0FDd0JJOzs7RUFDRSx5QkFBQTtBRHBCTjtBQ1lBO0VBYUksNEJBQUE7RUFBQSw2QkFBQTtVQUFBLGlCQUFBO0FEdEJKO0FDU0E7RUFrQk0sa0JBQUE7QUR4Qk47QUNNQTtFQXNCTSxTQUFBO0VBQ0EsU0FBQTtBRHpCTjtBQ0VBO0VBNkJNLGtCQUFBO0FENUJOO0FDREE7RUFpQ00sU0FBQTtFQUNBLFVBQUE7QUQ3Qk47QUNMQTtFQXVDSSx5QkFBQTtBRC9CSjtBQ1JBO0VBMkNJLG9DQUFBO0FEaENKO0FDWEE7RUErQ0ksbUNBQUE7QURqQ0o7QUNkQTtFQW1ESSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBRGxDSjtBQ3JCQTtFQTJESSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0FEbkNKO0FDMUJBO0VBaUVJLG1CQUFBO1VBQUEsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0FEcENKO0FDbkNBO0VBMkVJLG9CQUFBO0VBQUEsYUFBQTtBRHJDSjtBQ3RDQTtFQTZFTSxZQUFBO0VBQ0EsZUFBQTtBRHBDTjtBQzFDQTtFQW9GSSw0QkFBQTtBRHZDSjtBQzJDQTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7QUR6Q0Y7QUNxQ0E7RUFNSSxlQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtBRHhDSjtBQ2dDQTtFQVdJLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxrQkFBQTtBRHhDSjtBQzBCQTtFQWdCTSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLFNBQUE7RUFDQSxVQUFBO0FEdkNOO0FDd0NNO0VBQ0Usb0JBQUE7QUR0Q1I7QUM0Q0E7RUFDRSxvQkFBQTtBRDFDRjtBQzZDQTtFQUVFOztJQUVFLGFBQUE7RUQ1Q0Y7RUMrQ0E7SUFFSSxtQ0FBQTtFRDlDSjtFQzRDQTtJQU1JLFlBQUE7SUFDQSxXQUFBO0VEL0NKO0VDd0NBO0lBWU0sWUFBQTtJQUNBLFdBQUE7RURqRE47RUNvQ0E7SUFpQk0sZUFBQTtFRGxETjtFQ2lDQTtJQXNCSSxvQkFBQTtFRHBESjtBQUNGIiwiZmlsZSI6ImxpYnMvdmlld2VyL3NyYy9saWIvdmlld2VyLWFwcC5jb21wb25lbnQubGVzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgdXJsKCdodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9T3BlbitTYW5zJmRpc3BsYXk9c3dhcCcpO1xuOmhvc3QgKiB7XG4gIGZvbnQtZmFtaWx5OiAnT3BlbiBTYW5zJywgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjtcbn1cbi5jdXJyZW50LXBhZ2UtbnVtYmVyIHtcbiAgbWFyZ2luLWxlZnQ6IDdweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBjb2xvcjogIzk1OWRhNTtcbiAgd2lkdGg6IDM3cHg7XG4gIGhlaWdodDogMzdweDtcbiAgbGluZS1oZWlnaHQ6IDM3cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbi5jdXJyZW50LXBhZ2UtbnVtYmVyLmFjdGl2ZSB7XG4gIGNvbG9yOiAjZmZmO1xufVxuLndyYXBwZXIge1xuICBhbGlnbi1pdGVtczogc3RyZXRjaDtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDA7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG59XG4uZG9jLXBhbmVsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gNjBweCk7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG59XG4udG9wLXBhbmVsIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgd2lkdGg6IDEwMCU7XG59XG4udG9vbGJhci1wYW5lbCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMzZTRlNWE7XG4gIHdpZHRoOiAxMDAlO1xufVxuLnRvb2xiYXItcGFuZWwtcmlnaHQge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4OiAxO1xuICBwbGFjZS1jb250ZW50OiBmbGV4LWVuZDtcbn1cbi5idG4tcmlnaHQge1xuICBtYXJnaW4tcmlnaHQ6IDdweDtcbn1cbi5zbXAtc3RhcnQtc3RvcCA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIHBhZGRpbmc6IDBweCAxMHB4ICFpbXBvcnRhbnQ7XG59XG4ubGFuZ3VhZ2UtbWVudSB7XG4gIG1hcmdpbi1yaWdodDogMTVweDtcbn1cbi5zZWxlY3QtbGFuZ3VhZ2UtbWVudSA6Om5nLWRlZXAgLnNlbGVjdCB7XG4gIHdpZHRoOiAxMDAlO1xufVxuLnNlbGVjdC1sYW5ndWFnZS1tZW51IDo6bmctZGVlcCAuc2VsZWN0IDo6bmctZGVlcCAuZHJvcGRvd24tbWVudSB7XG4gIG92ZXJmbG93LXk6IHNjcm9sbDtcbiAgaGVpZ2h0OiA5MCU7XG59XG4uc2VsZWN0LWxhbmd1YWdlLW1lbnUgOjpuZy1kZWVwIC5zZWxlY3RlZC12YWx1ZSB7XG4gIG1heC13aWR0aDogMTAwJTtcbn1cbi50aHVtYm5haWxzLWJ1dHRvbiA6Om5nLWRlZXAgLmJ1dHRvbiB7XG4gIG1hcmdpbi1sZWZ0OiAwICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5idXR0b24sXG46Om5nLWRlZXAgLnRvb2xzIC5zZWxlY3RlZC12YWx1ZSxcbjo6bmctZGVlcCAudG9vbHMgLm5hdi1jYXJldCB7XG4gIGNvbG9yOiAjZmZmICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5idXR0b24uaW5hY3RpdmUsXG46Om5nLWRlZXAgLnRvb2xzIC5zZWxlY3RlZC12YWx1ZS5pbmFjdGl2ZSxcbjo6bmctZGVlcCAudG9vbHMgLm5hdi1jYXJldC5pbmFjdGl2ZSB7XG4gIGNvbG9yOiAjOTU5ZGE1ICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5idXR0b24ge1xuICBmbGV4LWZsb3c6IGNvbHVtbjtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNlbGVjdC1sZWZ0IC5zZWxlY3Qge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zZWxlY3QtbGVmdCAuZHJvcGRvd24tbWVudSB7XG4gIHRvcDogNDBweDtcbiAgbGVmdDogMHB4O1xufVxuOjpuZy1kZWVwIC50b29scyAuc2VsZWN0LXJpZ2h0IC5zZWxlY3Qge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zZWxlY3QtcmlnaHQgLmRyb3Bkb3duLW1lbnUge1xuICB0b3A6IDQwcHg7XG4gIHJpZ2h0OiAwcHg7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5kcm9wZG93bi1tZW51IC5vcHRpb24ge1xuICBjb2xvcjogIzZlNmU2ZSAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC50b29scyAuZHJvcGRvd24tbWVudSAub3B0aW9uOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzRiNTY2YyAhaW1wb3J0YW50O1xufVxuOjpuZy1kZWVwIC50b29scyAuaWNvbi1idXR0b24ge1xuICBtYXJnaW46IDBweCAwcHggMHB4IDE1cHggIWltcG9ydGFudDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNlbGVjdCB7XG4gIHdpZHRoOiAzN3B4O1xuICBoZWlnaHQ6IDM3cHg7XG4gIG1hcmdpbi1sZWZ0OiA3cHg7XG4gIGxpbmUtaGVpZ2h0OiAzN3B4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG46Om5nLWRlZXAgLnRvb2xzIC5zbGlkZXMtdGl0bGUge1xuICBjb2xvcjogd2hpdGU7XG4gIHBhZGRpbmctbGVmdDogMTJweDtcbiAgZm9udC1zaXplOiAxOHB4O1xufVxuOjpuZy1kZWVwIC50b29scyAuc2xpZGVzLWZpbGVuYW1lIHtcbiAgZmxleC1ncm93OiAxO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gIHBhZGRpbmctbGVmdDogMjBweDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNsaWRlcy1idXR0b25zIHtcbiAgZGlzcGxheTogZmxleDtcbn1cbjo6bmctZGVlcCAudG9vbHMgLnNsaWRlcy1idXR0b25zIDo6bmctZGVlcCAuc2VsZWN0IHtcbiAgY29sb3I6IHdoaXRlO1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG46Om5nLWRlZXAgLnRvb2xzIDo6bmctZGVlcCAuZ2QtbmF2LXNlYXJjaC1jb250YWluZXIgLmljb24tYnV0dG9uIHtcbiAgbWFyZ2luOiAwIDAgMCA3cHggIWltcG9ydGFudDtcbn1cbi5zbGlkZXMtbmF2IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICByaWdodDogMzBweDtcbiAgYm90dG9tOiAzMHB4O1xuICBkaXNwbGF5OiBmbGV4O1xufVxuLnNsaWRlcy1uYXYgOjpuZy1kZWVwIC5idXR0b24ge1xuICBmb250LXNpemU6IDM3cHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNFREYwRjI7XG4gIGJvcmRlci1yYWRpdXM6IDNweDtcbn1cbi5zbGlkZXMtbmF2IDo6bmctZGVlcCAudGltZXIge1xuICBmb250LXNpemU6IDQycHg7XG4gIGxpbmUtaGVpZ2h0OiA2cHg7XG4gIGNvbG9yOiAjOTU5ZGE1O1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG4uc2xpZGVzLW5hdiA6Om5nLWRlZXAgLnRpbWVyIC5zZWNvbmRzLXJlbWFpbmluZyB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbWFyZ2luLWxlZnQ6IDVweDtcbiAgZm9udC1zaXplOiAxNnB4O1xuICB0b3A6IDE4cHg7XG4gIGxlZnQ6IDEycHg7XG59XG4uc2xpZGVzLW5hdiA6Om5nLWRlZXAgLnRpbWVyIC5zZWNvbmRzLXJlbWFpbmluZy50d28tZGlnaXRzIHtcbiAgbGVmdDogNnB4ICFpbXBvcnRhbnQ7XG59XG46Om5nLWRlZXAgLnBhZ2UucHJlc2VudGF0aW9uIC5nZC13cmFwcGVyIHtcbiAgcG9pbnRlci1ldmVudHM6IG5vbmU7XG59XG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG4gIC5tb2JpbGUtaGlkZSxcbiAgLmN1cnJlbnQtcGFnZS1udW1iZXIge1xuICAgIGRpc3BsYXk6IG5vbmU7XG4gIH1cbiAgOjpuZy1kZWVwIC50b29scyBnZC1idXR0b246bnRoLWNoaWxkKDEpID4gLmljb24tYnV0dG9uIHtcbiAgICBtYXJnaW46IDBweCAwcHggMHB4IDEwcHggIWltcG9ydGFudDtcbiAgfVxuICA6Om5nLWRlZXAgLnRvb2xzIC5pY29uLWJ1dHRvbiB7XG4gICAgaGVpZ2h0OiA2MHB4O1xuICAgIHdpZHRoOiA2MHB4O1xuICB9XG4gIDo6bmctZGVlcCAudG9vbHMgLmdkLW5hdi1zZWFyY2gtYnRuIC5pY29uLWJ1dHRvbiB7XG4gICAgaGVpZ2h0OiAzN3B4O1xuICAgIHdpZHRoOiAzN3B4O1xuICB9XG4gIDo6bmctZGVlcCAudG9vbHMgLmdkLW5hdi1zZWFyY2gtYnRuIC5idXR0b24ge1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgfVxuICA6Om5nLWRlZXAgLnRvb2xzIC5nZC1uYXYtc2VhcmNoLWNvbnRhaW5lciB7XG4gICAgdG9wOiA1OXB4ICFpbXBvcnRhbnQ7XG4gIH1cbn1cbiIsIkBpbXBvcnQgKGNzcykgdXJsKCdodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9T3BlbitTYW5zJmRpc3BsYXk9c3dhcCcpO1xuQGltcG9ydCBcIi4uLy4uLy4uL2NvbW1vbi1jb21wb25lbnRzL3NyYy9zdHlsZXMvdmFyaWFibGVzXCI7XG5cbjpob3N0ICoge1xuICBmb250LWZhbWlseTogJ09wZW4gU2FucycsIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7XG59XG5cbi5jdXJyZW50LXBhZ2UtbnVtYmVyIHtcbiAgbWFyZ2luLWxlZnQ6IDdweDtcbiAgZm9udC1zaXplICA6IDE0cHg7XG4gIGNvbG9yICAgICAgOiBAcmVnZW50LWdyYXk7XG4gIHdpZHRoICAgICAgOiAzN3B4O1xuICBoZWlnaHQgICAgIDogMzdweDtcbiAgbGluZS1oZWlnaHQ6IDM3cHg7XG4gIHRleHQtYWxpZ24gOiBjZW50ZXI7XG5cbiAgJi5hY3RpdmUge1xuICAgIGNvbG9yOiAjZmZmO1xuICB9XG59XG5cbi53cmFwcGVyIHtcbiAgYWxpZ24taXRlbXM6IHN0cmV0Y2g7XG4gIGhlaWdodCAgICAgOiAxMDAlO1xuICB3aWR0aCAgICAgIDogMTAwJTtcbiAgcG9zaXRpb24gICA6IGZpeGVkO1xuICB0b3AgICAgICAgIDogMDtcbiAgYm90dG9tICAgICA6IDA7XG4gIGxlZnQgICAgICAgOiAwO1xuICByaWdodCAgICAgIDogMDtcbn1cblxuLmRvYy1wYW5lbCB7XG4gIGRpc3BsYXkgICAgICAgOiBmbGV4O1xuICBoZWlnaHQgICAgICAgIDogY2FsYygxMDB2aCAtIDYwcHgpO1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xufVxuXG4udG9wLXBhbmVsIHtcbiAgZGlzcGxheSAgICA6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHdpZHRoICAgICAgOiAxMDAlO1xufVxuXG4udG9vbGJhci1wYW5lbCB7XG4gIGJhY2tncm91bmQtY29sb3I6IEBuYXYtbWFpbi1iYWNrZ3JvdW5kO1xuICB3aWR0aCAgICAgICAgICAgOiAxMDAlO1xufVxuXG4udG9vbGJhci1wYW5lbC1yaWdodCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXg6IDE7XG4gIHBsYWNlLWNvbnRlbnQ6IGZsZXgtZW5kO1xufVxuXG4uYnRuLXJpZ2h0IHtcbiAgbWFyZ2luLXJpZ2h0OiA3cHg7XG59XG5cbi5zbXAtc3RhcnQtc3RvcCB7XG4gIDo6bmctZGVlcCAuYnV0dG9uIHtcbiAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICAgIGJvcmRlcjogMXB4IHNvbGlkO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwYWRkaW5nOiAwcHggMTBweCAhaW1wb3J0YW50O1xuICB9XG59XG5cbi5sYW5ndWFnZS1tZW51IHtcbiAgbWFyZ2luLXJpZ2h0OiAxNXB4O1xufVxuXG4uc2VsZWN0LWxhbmd1YWdlLW1lbnUge1xuICA6Om5nLWRlZXAgLnNlbGVjdCB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgOjpuZy1kZWVwIC5kcm9wZG93bi1tZW51IHtcbiAgICAgIG92ZXJmbG93LXk6IHNjcm9sbDtcbiAgICAgIGhlaWdodDogOTAlO1xuICAgIH1cbiAgfVxuICA6Om5nLWRlZXAgLnNlbGVjdGVkLXZhbHVlIHtcbiAgICBtYXgtd2lkdGg6IDEwMCU7XG4gIH1cbn1cblxuLnRodW1ibmFpbHMtYnV0dG9uIHtcbiAgOjpuZy1kZWVwIC5idXR0b24ge1xuICAgIG1hcmdpbi1sZWZ0OiAwICFpbXBvcnRhbnQ7XG4gIH1cbn1cblxuOjpuZy1kZWVwIC50b29scyB7XG5cbiAgLmJ1dHRvbixcbiAgLnNlbGVjdGVkLXZhbHVlLFxuICAubmF2LWNhcmV0IHtcbiAgICBjb2xvcjogI2ZmZiAhaW1wb3J0YW50O1xuXG4gICAgJi5pbmFjdGl2ZSB7XG4gICAgICBjb2xvcjogQHJlZ2VudC1ncmF5ICAhaW1wb3J0YW50O1xuICAgIH1cbiAgfVxuXG4gIC5idXR0b24ge1xuICAgIGZsZXgtZmxvdzogY29sdW1uO1xuICB9XG5cbiAgLnNlbGVjdC1sZWZ0IHtcbiAgICAuc2VsZWN0IHtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICB9XG5cbiAgICAuZHJvcGRvd24tbWVudSB7XG4gICAgICB0b3A6IDQwcHg7XG4gICAgICBsZWZ0OiAwcHg7XG4gICAgfVxuICB9XG5cbiAgLnNlbGVjdC1yaWdodCB7XG4gICAgLnNlbGVjdCB7XG4gICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgfVxuXG4gICAgLmRyb3Bkb3duLW1lbnUge1xuICAgICAgdG9wOiA0MHB4O1xuICAgICAgcmlnaHQ6IDBweDtcbiAgICB9XG4gIH1cblxuICAuZHJvcGRvd24tbWVudSAub3B0aW9uIHtcbiAgICBjb2xvcjogQGRvdmUtZ3JheSAgIWltcG9ydGFudDtcbiAgfVxuXG4gIC5kcm9wZG93bi1tZW51IC5vcHRpb246aG92ZXIge1xuICAgIGJhY2tncm91bmQtY29sb3I6IEBmb2xkZXIgICFpbXBvcnRhbnQ7XG4gIH1cblxuICAuaWNvbi1idXR0b24ge1xuICAgIG1hcmdpbjogMHB4IDBweCAwcHggMTVweCAhaW1wb3J0YW50O1xuICB9XG5cbiAgLnNlbGVjdCB7XG4gICAgd2lkdGggICAgICA6IDM3cHg7XG4gICAgaGVpZ2h0ICAgICA6IDM3cHg7XG4gICAgbWFyZ2luLWxlZnQ6IDdweDtcbiAgICBsaW5lLWhlaWdodDogMzdweDtcbiAgICB0ZXh0LWFsaWduIDogY2VudGVyO1xuICB9XG5cbiAgLnNsaWRlcy10aXRsZSB7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIHBhZGRpbmctbGVmdDogMTJweDtcbiAgICBmb250LXNpemU6IDE4cHg7XG4gIH1cblxuICAuc2xpZGVzLWZpbGVuYW1lIHtcbiAgICBmbGV4LWdyb3c6IDE7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIGNvbG9yOiB3aGl0ZTtcbiAgICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcbiAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICAgIHBhZGRpbmctbGVmdDogMjBweDtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICB9XG5cbiAgLnNsaWRlcy1idXR0b25zIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIDo6bmctZGVlcCAuc2VsZWN0IHtcbiAgICAgIGNvbG9yOiB3aGl0ZTtcbiAgICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICB9XG4gIH1cblxuICA6Om5nLWRlZXAgLmdkLW5hdi1zZWFyY2gtY29udGFpbmVyXG4gIC5pY29uLWJ1dHRvbiB7XG4gICAgbWFyZ2luOiAwIDAgMCA3cHggIWltcG9ydGFudDtcbiAgfVxufVxuXG4uc2xpZGVzLW5hdiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IDMwcHg7XG4gIGJvdHRvbTogMzBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgOjpuZy1kZWVwIC5idXR0b24ge1xuICAgIGZvbnQtc2l6ZTogMzdweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBAcG9yY2VsYWluO1xuICAgIGJvcmRlci1yYWRpdXM6IDNweDtcbiAgfVxuICA6Om5nLWRlZXAgLnRpbWVyIHtcbiAgICBmb250LXNpemU6IDQycHg7XG4gICAgbGluZS1oZWlnaHQ6IDZweDtcbiAgICBjb2xvcjogQHJlZ2VudC1ncmF5O1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAuc2Vjb25kcy1yZW1haW5pbmcge1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgbWFyZ2luLWxlZnQ6IDVweDtcbiAgICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICAgIHRvcDogMThweDtcbiAgICAgIGxlZnQ6IDEycHg7XG4gICAgICAmLnR3by1kaWdpdHMge1xuICAgICAgICBsZWZ0OiA2cHggIWltcG9ydGFudDtcbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cblxuOjpuZy1kZWVwIC5wYWdlLnByZXNlbnRhdGlvbiAuZ2Qtd3JhcHBlciB7XG4gIHBvaW50ZXItZXZlbnRzOiBub25lO1xufVxuXG5AbWVkaWEgKG1heC13aWR0aDogMTAzN3B4KSB7XG5cbiAgLm1vYmlsZS1oaWRlLFxuICAuY3VycmVudC1wYWdlLW51bWJlciB7XG4gICAgZGlzcGxheTogbm9uZTtcbiAgfVxuXG4gIDo6bmctZGVlcCAudG9vbHMge1xuICAgIGdkLWJ1dHRvbjpudGgtY2hpbGQoMSk+Lmljb24tYnV0dG9uIHtcbiAgICAgIG1hcmdpbjogMHB4IDBweCAwcHggMTBweCAhaW1wb3J0YW50O1xuICAgIH1cblxuICAgIC5pY29uLWJ1dHRvbiB7XG4gICAgICBoZWlnaHQ6IDYwcHg7XG4gICAgICB3aWR0aCA6IDYwcHg7XG4gICAgfVxuXG4gICAgLmdkLW5hdi1zZWFyY2gtYnRuIHtcbiAgICAgIC5pY29uLWJ1dHRvbiB7XG4gICAgICAgIGhlaWdodDogMzdweDtcbiAgICAgICAgd2lkdGggOiAzN3B4O1xuICAgICAgfVxuXG4gICAgICAuYnV0dG9uIHtcbiAgICAgICAgZm9udC1zaXplOiAxNHB4O1xuICAgICAgfVxuICAgIH1cblxuICAgIC5nZC1uYXYtc2VhcmNoLWNvbnRhaW5lciB7XG4gICAgICB0b3A6IDU5cHggIWltcG9ydGFudDtcbiAgICB9XG4gIH1cbn1cbiJdfQ== */"
 
 /***/ }),
 
@@ -22564,11 +22663,15 @@ let ViewerAppComponent = class ViewerAppComponent {
         const pathname = window.location.pathname;
         if (pathname) {
             const parts = pathname.split('/');
-            const langOrNothing = this.supportedLanguagesConfig
-                .filter(supported => parts.includes(supported.code) || parts.includes(supported.alternateCode))
-                .shift();
-            if (langOrNothing)
-                return langOrNothing;
+            for (const part of parts) {
+                if (part === "")
+                    continue;
+                const langOrNothing = this.supportedLanguagesConfig
+                    .filter(supported => supported.is(part))
+                    .shift();
+                if (langOrNothing)
+                    return langOrNothing;
+            }
         }
         const queryString = window.location.search;
         if (queryString) {
@@ -23175,7 +23278,9 @@ class Language {
         this.name = name;
     }
     is(code) {
-        return this.code === code || this.alternateCode === code;
+        const codeUpperCase = code.toUpperCase();
+        return this.code.toUpperCase() === codeUpperCase
+            || this.alternateCode.toUpperCase() === codeUpperCase;
     }
 }
 Language.ctorParameters = () => [
@@ -23193,35 +23298,35 @@ Constants.defaultShowLanguageMenu = true;
 Constants.defaultLanguage = new Language("en", "en-us", "English");
 Constants.defaultSupportedLanguages = [
     new Language("ar", "ar", "العربية"),
-    new Language("ca", "ca-ES", "Català"),
-    new Language("cs", "cs-CZ", "Čeština"),
-    new Language("da", "da-DK", "Dansk"),
-    new Language("de", "de-DE", "Deutsch"),
-    new Language("el", "el-GR", "Ελληνικά"),
-    new Language("en", "en-US", "English"),
-    new Language("es", "es-ES", "Español"),
-    new Language("fil", "fil-PH", "Filipino"),
-    new Language("fr", "fr-FR", "Français"),
-    new Language("he", "he-IL", "עברית"),
-    new Language("hi", "hi-IN", "हिन्दी"),
-    new Language("id", "id-ID", "Indonesia"),
-    new Language("it", "it-IT", "Italiano"),
-    new Language("ja", "ja-JP", "日本語"),
-    new Language("kk", "kk-KZ", "Қазақ Тілі"),
-    new Language("ko", "ko-KR", "한국어"),
-    new Language("ms", "ms-MY", "Melayu"),
-    new Language("nl", "nl-NL", "Nederlands"),
-    new Language("pl", "pl-PL", "Polski"),
-    new Language("pt", "pt-PT", "Português"),
-    new Language("ro", "ro-RO", "Română"),
-    new Language("ru", "ru-RU", "Русский"),
-    new Language("sv", "sv-SE", "Svenska"),
-    new Language("vi", "vi-VN", "Tiếng Việt"),
-    new Language("th", "th-TH", "ไทย"),
-    new Language("tr", "tr-TR", "Türkçe"),
-    new Language("uk", "uk-UA", "Українська"),
-    new Language("zh-hans", "zh-Hans", "中文"),
-    new Language("zh-hant", "zh-Hant", "中文"),
+    new Language("ca", "ca-es", "Català"),
+    new Language("cs", "cs-cz", "Čeština"),
+    new Language("da", "da-dk", "Dansk"),
+    new Language("de", "de-de", "Deutsch"),
+    new Language("el", "el-gr", "Ελληνικά"),
+    new Language("en", "en-us", "English"),
+    new Language("es", "es-es", "Español"),
+    new Language("fil", "fil-ph", "Filipino"),
+    new Language("fr", "fr-fr", "Français"),
+    new Language("he", "he-il", "עברית"),
+    new Language("hi", "hi-in", "हिन्दी"),
+    new Language("id", "id-id", "Indonesia"),
+    new Language("it", "it-it", "Italiano"),
+    new Language("ja", "ja-jp", "日本語"),
+    new Language("kk", "kk-kz", "Қазақ Тілі"),
+    new Language("ko", "ko-kr", "한국어"),
+    new Language("ms", "ms-my", "Melayu"),
+    new Language("nl", "nl-nl", "Nederlands"),
+    new Language("pl", "pl-pl", "Polski"),
+    new Language("pt", "pt-pt", "Português"),
+    new Language("ro", "ro-ro", "Română"),
+    new Language("ru", "ru-ru", "Русский"),
+    new Language("sv", "sv-se", "Svenska"),
+    new Language("vi", "vi-vn", "Tiếng Việt"),
+    new Language("th", "th-th", "ไทย"),
+    new Language("tr", "tr-tr", "Türkçe"),
+    new Language("uk", "uk-ua", "Українська"),
+    new Language("zh-hans", "zh-hans", "中文(简体)"),
+    new Language("zh-hant", "zh-hant", "中文(繁體)"),
 ];
 
 
@@ -23231,14 +23336,14 @@ Constants.defaultSupportedLanguages = [
 /*!******************************************************************************!*\
   !*** C:/GitHub/GroupDocs/Total/Angular/libs/viewer/src/lib/viewer.module.ts ***!
   \******************************************************************************/
-/*! exports provided: initializeApp, setupLoadingInterceptor, StaticTranslateLoaderFactory, ViewerModule */
+/*! exports provided: initializeApp, setupLoadingInterceptor, translateLoaderFactory, ViewerModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeApp", function() { return initializeApp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setupLoadingInterceptor", function() { return setupLoadingInterceptor; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StaticTranslateLoaderFactory", function() { return StaticTranslateLoaderFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "translateLoaderFactory", function() { return translateLoaderFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewerModule", function() { return ViewerModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
@@ -23254,7 +23359,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "../../node_modules/@fortawesome/angular-fontawesome/fesm2015/angular-fontawesome.js");
 /* harmony import */ var _run_presentation_run_presentation_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./run-presentation/run-presentation.component */ "../../libs/viewer/src/lib/run-presentation/run-presentation.component.ts");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _translations__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./translations */ "../../libs/viewer/src/lib/translations/index.ts");
+/* harmony import */ var _translation_viewer_translate_loader__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./translation/viewer-translate.loader */ "../../libs/viewer/src/lib/translation/viewer-translate.loader.ts");
 
 var ViewerModule_1;
 
@@ -23282,39 +23387,8 @@ function setupLoadingInterceptor(service) {
     return new _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__["LoadingMaskInterceptorService"](service);
 }
 // AoT requires an exported function for factories
-function StaticTranslateLoaderFactory() {
-    const translations = {};
-    translations['ar'] = _translations__WEBPACK_IMPORTED_MODULE_14__["AR"];
-    translations['ca'] = _translations__WEBPACK_IMPORTED_MODULE_14__["CA"];
-    translations['cs'] = _translations__WEBPACK_IMPORTED_MODULE_14__["CS"];
-    translations['da'] = _translations__WEBPACK_IMPORTED_MODULE_14__["DA"];
-    translations['de'] = _translations__WEBPACK_IMPORTED_MODULE_14__["DE"];
-    translations['el'] = _translations__WEBPACK_IMPORTED_MODULE_14__["EL"];
-    translations['en'] = _translations__WEBPACK_IMPORTED_MODULE_14__["EN"];
-    translations['es'] = _translations__WEBPACK_IMPORTED_MODULE_14__["ES"];
-    translations['fil'] = _translations__WEBPACK_IMPORTED_MODULE_14__["FIL"];
-    translations['fr'] = _translations__WEBPACK_IMPORTED_MODULE_14__["FR"];
-    translations['he'] = _translations__WEBPACK_IMPORTED_MODULE_14__["HE"];
-    translations['hi'] = _translations__WEBPACK_IMPORTED_MODULE_14__["HI"];
-    translations['id'] = _translations__WEBPACK_IMPORTED_MODULE_14__["ID"];
-    translations['it'] = _translations__WEBPACK_IMPORTED_MODULE_14__["IT"];
-    translations['ja'] = _translations__WEBPACK_IMPORTED_MODULE_14__["JA"];
-    translations['kk'] = _translations__WEBPACK_IMPORTED_MODULE_14__["KK"];
-    translations['ko'] = _translations__WEBPACK_IMPORTED_MODULE_14__["KO"];
-    translations['ms'] = _translations__WEBPACK_IMPORTED_MODULE_14__["MS"];
-    translations['nl'] = _translations__WEBPACK_IMPORTED_MODULE_14__["NL"];
-    translations['pl'] = _translations__WEBPACK_IMPORTED_MODULE_14__["PL"];
-    translations['pt'] = _translations__WEBPACK_IMPORTED_MODULE_14__["PT"];
-    translations['ro'] = _translations__WEBPACK_IMPORTED_MODULE_14__["RO"];
-    translations['ru'] = _translations__WEBPACK_IMPORTED_MODULE_14__["RU"];
-    translations['sv'] = _translations__WEBPACK_IMPORTED_MODULE_14__["SV"];
-    translations['th'] = _translations__WEBPACK_IMPORTED_MODULE_14__["TH"];
-    translations['tr'] = _translations__WEBPACK_IMPORTED_MODULE_14__["TR"];
-    translations['uk'] = _translations__WEBPACK_IMPORTED_MODULE_14__["UK"];
-    translations['vi'] = _translations__WEBPACK_IMPORTED_MODULE_14__["VI"];
-    translations['zh-hans'] = _translations__WEBPACK_IMPORTED_MODULE_14__["ZHHANS"];
-    translations['zh-hant'] = _translations__WEBPACK_IMPORTED_MODULE_14__["ZHHANT"];
-    return new _groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__["StaticTranslateLoader"](translations);
+function translateLoaderFactory() {
+    return new _translation_viewer_translate_loader__WEBPACK_IMPORTED_MODULE_14__["ViewerTranslateLoader"]();
 }
 let ViewerModule = ViewerModule_1 = class ViewerModule {
     static forRoot(apiEndpoint) {
@@ -23341,7 +23415,7 @@ ViewerModule = ViewerModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateModule"].forRoot({
                 loader: {
                     provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateLoader"],
-                    useFactory: StaticTranslateLoaderFactory
+                    useFactory: translateLoaderFactory
                 }
             })
         ],
@@ -23373,8 +23447,7 @@ ViewerModule = ViewerModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
                 useFactory: setupLoadingInterceptor,
                 multi: true,
                 deps: [_groupdocs_examples_angular_common_components__WEBPACK_IMPORTED_MODULE_5__["LoadingMaskService"]]
-            },
-            { provide: Window, useValue: window },
+            }
         ]
     })
 ], ViewerModule);
