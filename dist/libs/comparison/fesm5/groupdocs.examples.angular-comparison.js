@@ -10,6 +10,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { __extends } from 'tslib';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -1556,7 +1557,8 @@ var ComparisonModule = /** @class */ (function () {
                         CommonComponentsModule,
                         HttpClientModule,
                         FontAwesomeModule,
-                        ClickOutsideModule
+                        ClickOutsideModule,
+                        TranslateModule.forRoot()
                     ],
                     exports: [
                         ComparisonAppComponent,

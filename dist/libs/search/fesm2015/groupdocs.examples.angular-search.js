@@ -4,6 +4,7 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { Api, ConfigService, FileModel, CommonModals, ModalService, UploadFilesService, PasswordService, WindowService, LoadingMaskService, FileUtil, BrowseFilesModalComponent, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -1292,7 +1293,8 @@ SearchModule.decorators = [
                     BrowserModule,
                     CommonComponentsModule,
                     HttpClientModule,
-                    FontAwesomeModule
+                    FontAwesomeModule,
+                    TranslateModule.forRoot()
                 ],
                 exports: [
                     SearchAppComponent,

@@ -2,5 +2,5 @@
   "packages": [
     "dist/libs/*"
   ],
-  "version": "0.8.64"
+  "version": "0.8.69"
 }
