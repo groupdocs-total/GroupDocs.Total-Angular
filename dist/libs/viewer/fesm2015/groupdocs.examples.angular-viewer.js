@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Api, ConfigService, CommonModals, FileUtil, PageModel, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, LoadingMaskInterceptorService, StaticTranslateLoader, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, FileUtil, PageModel, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, CommonTranslateLoader, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -302,7 +302,10 @@ class Language {
      * @return {?}
      */
     is(code) {
-        return this.code === code || this.alternateCode === code;
+        /** @type {?} */
+        const codeUpperCase = code.toUpperCase();
+        return this.code.toUpperCase() === codeUpperCase
+            || this.alternateCode.toUpperCase() === codeUpperCase;
     }
 }
 if (false) {
@@ -323,35 +326,35 @@ Constants.defaultShowLanguageMenu = true;
 Constants.defaultLanguage = new Language("en", "en-us", "English");
 Constants.defaultSupportedLanguages = [
     new Language("ar", "ar", "العربية"),
-    new Language("ca", "ca-ES", "Català"),
-    new Language("cs", "cs-CZ", "Čeština"),
-    new Language("da", "da-DK", "Dansk"),
-    new Language("de", "de-DE", "Deutsch"),
-    new Language("el", "el-GR", "Ελληνικά"),
-    new Language("en", "en-US", "English"),
-    new Language("es", "es-ES", "Español"),
-    new Language("fil", "fil-PH", "Filipino"),
-    new Language("fr", "fr-FR", "Français"),
-    new Language("he", "he-IL", "עברית"),
-    new Language("hi", "hi-IN", "हिन्दी"),
-    new Language("id", "id-ID", "Indonesia"),
-    new Language("it", "it-IT", "Italiano"),
-    new Language("ja", "ja-JP", "日本語"),
-    new Language("kk", "kk-KZ", "Қазақ Тілі"),
-    new Language("ko", "ko-KR", "한국어"),
-    new Language("ms", "ms-MY", "Melayu"),
-    new Language("nl", "nl-NL", "Nederlands"),
-    new Language("pl", "pl-PL", "Polski"),
-    new Language("pt", "pt-PT", "Português"),
-    new Language("ro", "ro-RO", "Română"),
-    new Language("ru", "ru-RU", "Русский"),
-    new Language("sv", "sv-SE", "Svenska"),
-    new Language("vi", "vi-VN", "Tiếng Việt"),
-    new Language("th", "th-TH", "ไทย"),
-    new Language("tr", "tr-TR", "Türkçe"),
-    new Language("uk", "uk-UA", "Українська"),
-    new Language("zh-hans", "zh-Hans", "中文"),
-    new Language("zh-hant", "zh-Hant", "中文"),
+    new Language("ca", "ca-es", "Català"),
+    new Language("cs", "cs-cz", "Čeština"),
+    new Language("da", "da-dk", "Dansk"),
+    new Language("de", "de-de", "Deutsch"),
+    new Language("el", "el-gr", "Ελληνικά"),
+    new Language("en", "en-us", "English"),
+    new Language("es", "es-es", "Español"),
+    new Language("fil", "fil-ph", "Filipino"),
+    new Language("fr", "fr-fr", "Français"),
+    new Language("he", "he-il", "עברית"),
+    new Language("hi", "hi-in", "हिन्दी"),
+    new Language("id", "id-id", "Indonesia"),
+    new Language("it", "it-it", "Italiano"),
+    new Language("ja", "ja-jp", "日本語"),
+    new Language("kk", "kk-kz", "Қазақ Тілі"),
+    new Language("ko", "ko-kr", "한국어"),
+    new Language("ms", "ms-my", "Melayu"),
+    new Language("nl", "nl-nl", "Nederlands"),
+    new Language("pl", "pl-pl", "Polski"),
+    new Language("pt", "pt-pt", "Português"),
+    new Language("ro", "ro-ro", "Română"),
+    new Language("ru", "ru-ru", "Русский"),
+    new Language("sv", "sv-se", "Svenska"),
+    new Language("vi", "vi-vn", "Tiếng Việt"),
+    new Language("th", "th-th", "ไทย"),
+    new Language("tr", "tr-tr", "Türkçe"),
+    new Language("uk", "uk-ua", "Українська"),
+    new Language("zh-hans", "zh-hans", "中文(简体)"),
+    new Language("zh-hant", "zh-hant", "中文(繁體)"),
 ];
 if (false) {
     /** @type {?} */
@@ -759,16 +762,20 @@ class ViewerAppComponent {
         if (pathname) {
             /** @type {?} */
             const parts = pathname.split('/');
-            /** @type {?} */
-            const langOrNothing = this.supportedLanguagesConfig
-                .filter((/**
-             * @param {?} supported
-             * @return {?}
-             */
-            supported => parts.includes(supported.code) || parts.includes(supported.alternateCode)))
-                .shift();
-            if (langOrNothing)
-                return langOrNothing;
+            for (const part of parts) {
+                if (part === "")
+                    continue;
+                /** @type {?} */
+                const langOrNothing = this.supportedLanguagesConfig
+                    .filter((/**
+                 * @param {?} supported
+                 * @return {?}
+                 */
+                supported => supported.is(part)))
+                    .shift();
+                if (langOrNothing)
+                    return langOrNothing;
+            }
         }
         /** @type {?} */
         const queryString = window.location.search;
@@ -1503,7 +1510,7 @@ ViewerAppComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-viewer',
                 template: "<gd-loading-mask [loadingMask]=\"isLoading\"></gd-loading-mask>\r\n<div class=\"wrapper\" (contextmenu)=\"onRightClick()\">\r\n  <div class=\"top-panel\" *ngIf=\"!runPresentation\">\r\n    <gd-logo [logo]=\"'viewer'\" icon=\"eye\"></gd-logo>\r\n    <gd-top-toolbar class=\"toolbar-panel\">\r\n      <gd-button [icon]=\"'folder-open'\" title=\"{{'Browse files' | translate}}\" (click)=\"openModal(browseFilesModal)\"\r\n                 *ngIf=\"browseConfig\" ></gd-button>\r\n\r\n      <gd-select class=\"mobile-hide select-left\" [disabled]=\"formatDisabled\" [options]=\"options\" (selected)=\"selectZoom($event)\"\r\n                 [showSelected]=\"{ name: zoom+'%', value : zoom}\" *ngIf=\"zoomConfig\" ></gd-select>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-plus'\" title=\"{{'Zoom In' | translate}}\" (click)=\"zoomIn()\"\r\n                 *ngIf=\"zoomConfig\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'search-minus'\" title=\"{{'Zoom Out' | translate}}\"\r\n                 (click)=\"zoomOut()\" *ngIf=\"zoomConfig\" ></gd-button>\r\n\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-left'\" title=\"{{'First Page' | translate }}\"\r\n                 (click)=\"toFirstPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\" title=\"{{'Previous Page' | translate}}\"\r\n                 (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <div class=\"current-page-number\" [ngClass]=\"{'active': !formatDisabled}\" *ngIf=\"formatIcon !== 'file-excel'\">{{currentPage}}/{{countPages}}</div>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\" title=\"{{'Next Page' | translate }}\"\r\n                 (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-double-right'\" title=\"{{'Last Page' | translate }}\"\r\n                 (click)=\"toLastPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'undo'\" title=\"{{'Rotate CCW' | translate}}\" (click)=\"rotate(-90)\"\r\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'redo'\" title=\"{{'Rotate CW' | translate}}\"  (click)=\"rotate(90)\"\r\n                 *ngIf=\"rotateConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'download'\" title=\"{{'Download' | translate}}\"\r\n                 (click)=\"downloadFile()\" *ngIf=\"downloadConfig\" ></gd-button>\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'print'\" title=\"{{'Print' | translate}}\" (click)=\"printFile()\"\r\n                 *ngIf=\"printConfig\" ></gd-button>\r\n\r\n      <gd-button [disabled]=\"formatDisabled\" [icon]=\"'search'\" title=\"{{'Search' | translate}}\" (click)=\"openSearch()\"\r\n                 *ngIf=\"searchConfig && !ifPresentation()\" ></gd-button>\r\n      <gd-search (hidePanel)=\"showSearch = !$event\" *ngIf=\"showSearch\" ></gd-search>\r\n\r\n      <div class=\"toolbar-panel-right\">\r\n        <div class=\"language-menu mobile-hide\" *ngIf=\"showLanguageMenu\">\r\n          <gd-select class=\"select-language-menu\" [disabled]=\"false\" [options]=\"supportedLanguages\"\r\n            (selected)=\"selectLanguage($event)\" [showSelected]=\"selectedLanguage\"></gd-select>\r\n        </div>\r\n\r\n        <gd-button class=\"thumbnails-button btn-right\" [disabled]=\"formatDisabled\" [icon]=\"'th-large'\" title=\"{{'Thumbnails' | translate}}\"\r\n                   (click)=\"openThumbnails()\" *ngIf=\"thumbnailsConfig && isDesktop && formatIcon !== 'file-excel' && (!ifPresentation() ||\r\n                   ifPresentation() && runPresentation)\"></gd-button>\r\n        <gd-button class=\"thumbnails-button mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'play'\" title=\"{{'Run presentation' | translate}}\"\r\n                   (click)=\"startPresentation()\" *ngIf=\"ifPresentation() && !runPresentation\">{{'Present' | translate}}</gd-button>\r\n      </div>\r\n    </gd-top-toolbar>\r\n  </div>\r\n  <div class=\"top-panel\" *ngIf=\"runPresentation\">\r\n    <gd-top-toolbar class=\"toolbar-panel\">\r\n      <div class=\"slides-title\">Viewer</div>\r\n      <div class=\"slides-filename\">{{getFileName()}}</div>\r\n      <div class=\"slides-buttons\">\r\n        <gd-select class=\"mobile-hide select-right\" [disabled]=\"formatDisabled\" [options]=\"timerOptions\" (selected)=\"toggleTimer($event)\"\r\n        [icon]=\"'clock'\" *ngIf=\"zoomConfig\" ></gd-select>\r\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationRunning()\" [disabled]=\"formatDisabled\" [icon]=\"'pause'\" title=\"{{'Pause presenting' | translate}}\"\r\n        (click)=\"pausePresenting()\"></gd-button>\r\n        <gd-button class=\"mobile-hide\" *ngIf=\"presentationPaused()\" [disabled]=\"formatDisabled\" [icon]=\"'step-forward'\" title=\"{{'Resume presenting' | translate}}\"\r\n        (click)=\"resumePresenting()\"></gd-button>\r\n        <gd-button class=\"mobile-hide btn-right smp-start-stop\" [disabled]=\"formatDisabled\" [icon]=\"'stop'\" title=\"{{'Stop presenting' | translate}}\"\r\n        (click)=\"closeFullScreen(true)\">{{'Stop' | translate}} </gd-button>\r\n      </div>\r\n    </gd-top-toolbar>\r\n  </div>\r\n  <div class=\"doc-panel\" *ngIf=\"file\" #docPanel>\r\n    <gd-thumbnails *ngIf=\"showThumbnails && !ifPresentation() && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\r\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\"></gd-thumbnails>\r\n    <gd-thumbnails *ngIf=\"showThumbnails && ifPresentation() && !runPresentation && isDesktop\" [pages]=\"viewerConfig?.preloadPageCount == 0 ? file.pages : file.thumbnails\" [isHtmlMode]=\"htmlModeConfig\"\r\n                   [guid]=\"file.guid\" [mode]=\"htmlModeConfig\" (selectedPage)=\"selectCurrentPage($event)\" gdScrollable [isPresentation]=\"ifPresentation()\"></gd-thumbnails>\r\n\r\n    <gd-document class=\"gd-document\" *ngIf=\"(file &&\r\n                                            (ifExcel() && !htmlModeConfig) ||\r\n                                            (ifPresentation() && isDesktop && !runPresentation) ||\r\n                                            (!ifExcel() && !ifPresentation()))\" [file]=\"file\" [mode]=\"htmlModeConfig\" [showActiveSlide]=\"true\" gdScrollable\r\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" [selectedPage]=\"selectedPageNumber\" gdRenderPrint [htmlMode]=\"htmlModeConfig\" gdMouseWheel (mouseWheelUp)=\"onMouseWheelUp()\" (mouseWheelDown)=\"onMouseWheelDown()\"></gd-document>\r\n    <gd-excel-document class=\"gd-document\" *ngIf=\"file && ifExcel() && htmlModeConfig\" [file]=\"file\" [mode]=\"htmlModeConfig\" gdScrollable\r\n                 [preloadPageCount]=\"viewerConfig?.preloadPageCount\" gdRenderPrint [htmlMode]=\"htmlModeConfig\"></gd-excel-document>\r\n    <gd-run-presentation class=\"gd-document\" *ngIf=\"(file && ifPresentation() && runPresentation) ||\r\n                                                    (file && ifPresentation() && !isDesktop)\" [file]=\"file\" [currentPage]=\"currentPage\" [mode]=\"htmlModeConfig\"\r\n                                                    (selectedPage)=\"selectCurrentPage($event)\"\r\n                 [preloadPageCount]=\"0\"></gd-run-presentation>\r\n    <div class=\"slides-nav\" *ngIf=\"runPresentation\">\r\n      <div class=\"timer\" *ngIf=\"showCountDown()\">\r\n        <fa-icon [icon]=\"['fas','circle-notch']\" [spin]=\"true\"></fa-icon><span [ngClass]=\"secondsLeft >= 10 ? 'seconds-remaining two-digits' : 'seconds-remaining'\">{{secondsLeft}}</span>\r\n      </div>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-left'\"\r\n      (click)=\"prevPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n      <gd-button class=\"mobile-hide\" [disabled]=\"formatDisabled\" [icon]=\"'angle-right'\"\r\n      (click)=\"nextPage()\" *ngIf=\"pageSelectorConfig && formatIcon !== 'file-excel'\" ></gd-button>\r\n    </div>\r\n  </div>\r\n\r\n  <gd-init-state [icon]=\"'eye'\" [text]=\"'Drop file here to upload'\" *ngIf=\"!file\" (fileDropped)=\"fileDropped($event)\">\r\n    {{'Click' | translate}} <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> {{'to open file' | translate}}<br>\r\n    {{'Or drop file here' | translate}}\r\n  </gd-init-state>\r\n\r\n  <gd-browse-files-modal (urlForUpload)=\"upload($event)\" [files]=\"files\" (selectedDirectory)=\"selectDir($event)\"\r\n                         (selectedFileGuid)=\"selectFile($event, null, browseFilesModal)\"\r\n                         [uploadConfig]=\"uploadConfig\"></gd-browse-files-modal>\r\n\r\n  <gd-error-modal></gd-error-modal>\r\n  <gd-password-required></gd-password-required>\r\n</div>\r\n",
-                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.current-page-number{margin-left:7px;font-size:14px;color:#959da5;width:37px;height:37px;line-height:37px;text-align:center}.current-page-number.active{color:#fff}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}.toolbar-panel-right{display:-webkit-box;display:flex;-webkit-box-flex:1;flex:1;place-content:flex-end}.btn-right{margin-right:7px}.smp-start-stop ::ng-deep .button{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;border:1px solid;border-radius:5px;padding:0 10px!important}.select-language-menu ::ng-deep .select{width:100%}.select-language-menu ::ng-deep .selected-value{max-width:100%}::ng-deep .tools .button,::ng-deep .tools .nav-caret,::ng-deep .tools .selected-value{color:#fff!important}::ng-deep .tools .button.inactive,::ng-deep .tools .nav-caret.inactive,::ng-deep .tools .selected-value.inactive{color:#959da5!important}::ng-deep .tools .button{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .select-left .select{position:relative}::ng-deep .tools .select-left .dropdown-menu{top:40px;left:0}::ng-deep .tools .select-right .select{position:relative}::ng-deep .tools .select-right .dropdown-menu{top:40px;right:0}::ng-deep .tools .dropdown-menu .option{color:#6e6e6e!important}::ng-deep .tools .dropdown-menu .option:hover{background-color:#4b566c!important}::ng-deep .tools .icon-button{margin:0 0 0 15px!important}::ng-deep .tools .select{width:37px;height:37px;margin-left:7px;line-height:37px;text-align:center}::ng-deep .tools .slides-title{color:#fff;padding-left:12px;font-size:18px}::ng-deep .tools .slides-filename{-webkit-box-flex:1;flex-grow:1;text-align:center;color:#fff;text-overflow:ellipsis;white-space:nowrap;padding-left:20px;overflow:hidden}::ng-deep .tools .slides-buttons{display:-webkit-box;display:flex}::ng-deep .tools .slides-buttons ::ng-deep .select{color:#fff;cursor:pointer}::ng-deep .tools ::ng-deep .gd-nav-search-container .icon-button{margin:0 0 0 7px!important}.slides-nav{position:absolute;right:30px;bottom:30px;display:-webkit-box;display:flex}.slides-nav ::ng-deep .button{font-size:37px;background-color:#edf0f2;border-radius:3px}.slides-nav ::ng-deep .timer{font-size:42px;line-height:6px;color:#959da5;position:relative}.slides-nav ::ng-deep .timer .seconds-remaining{position:absolute;margin-left:5px;font-size:16px;top:18px;left:12px}.slides-nav ::ng-deep .timer .seconds-remaining.two-digits{left:6px!important}::ng-deep .page.presentation .gd-wrapper{pointer-events:none}@media (max-width:1037px){.current-page-number,.mobile-hide{display:none}::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .tools .gd-nav-search-btn .icon-button{height:37px;width:37px}::ng-deep .tools .gd-nav-search-btn .button{font-size:14px}::ng-deep .tools .gd-nav-search-container{top:59px!important}}"]
+                styles: ["@import url(https://fonts.googleapis.com/css?family=Open+Sans&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.current-page-number{margin-left:7px;font-size:14px;color:#959da5;width:37px;height:37px;line-height:37px;text-align:center}.current-page-number.active{color:#fff}.wrapper{-webkit-box-align:stretch;align-items:stretch;height:100%;width:100%;position:fixed;top:0;bottom:0;left:0;right:0}.doc-panel{display:-webkit-box;display:flex;height:calc(100vh - 60px);-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row}.top-panel{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;width:100%}.toolbar-panel{background-color:#3e4e5a;width:100%}.toolbar-panel-right{display:-webkit-box;display:flex;-webkit-box-flex:1;flex:1;place-content:flex-end}.btn-right{margin-right:7px}.smp-start-stop ::ng-deep .button{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;border:1px solid;border-radius:5px;padding:0 10px!important}.language-menu{margin-right:15px}.select-language-menu ::ng-deep .select{width:100%}.select-language-menu ::ng-deep .select ::ng-deep .dropdown-menu{overflow-y:scroll;height:90%}.select-language-menu ::ng-deep .selected-value{max-width:100%}.thumbnails-button ::ng-deep .button{margin-left:0!important}::ng-deep .tools .button,::ng-deep .tools .nav-caret,::ng-deep .tools .selected-value{color:#fff!important}::ng-deep .tools .button.inactive,::ng-deep .tools .nav-caret.inactive,::ng-deep .tools .selected-value.inactive{color:#959da5!important}::ng-deep .tools .button{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-flow:column}::ng-deep .tools .select-left .select{position:relative}::ng-deep .tools .select-left .dropdown-menu{top:40px;left:0}::ng-deep .tools .select-right .select{position:relative}::ng-deep .tools .select-right .dropdown-menu{top:40px;right:0}::ng-deep .tools .dropdown-menu .option{color:#6e6e6e!important}::ng-deep .tools .dropdown-menu .option:hover{background-color:#4b566c!important}::ng-deep .tools .icon-button{margin:0 0 0 15px!important}::ng-deep .tools .select{width:37px;height:37px;margin-left:7px;line-height:37px;text-align:center}::ng-deep .tools .slides-title{color:#fff;padding-left:12px;font-size:18px}::ng-deep .tools .slides-filename{-webkit-box-flex:1;flex-grow:1;text-align:center;color:#fff;text-overflow:ellipsis;white-space:nowrap;padding-left:20px;overflow:hidden}::ng-deep .tools .slides-buttons{display:-webkit-box;display:flex}::ng-deep .tools .slides-buttons ::ng-deep .select{color:#fff;cursor:pointer}::ng-deep .tools ::ng-deep .gd-nav-search-container .icon-button{margin:0 0 0 7px!important}.slides-nav{position:absolute;right:30px;bottom:30px;display:-webkit-box;display:flex}.slides-nav ::ng-deep .button{font-size:37px;background-color:#edf0f2;border-radius:3px}.slides-nav ::ng-deep .timer{font-size:42px;line-height:6px;color:#959da5;position:relative}.slides-nav ::ng-deep .timer .seconds-remaining{position:absolute;margin-left:5px;font-size:16px;top:18px;left:12px}.slides-nav ::ng-deep .timer .seconds-remaining.two-digits{left:6px!important}::ng-deep .page.presentation .gd-wrapper{pointer-events:none}@media (max-width:1037px){.current-page-number,.mobile-hide{display:none}::ng-deep .tools gd-button:nth-child(1)>.icon-button{margin:0 0 0 10px!important}::ng-deep .tools .icon-button{height:60px;width:60px}::ng-deep .tools .gd-nav-search-btn .icon-button{height:37px;width:37px}::ng-deep .tools .gd-nav-search-btn .button{font-size:14px}::ng-deep .tools .gd-nav-search-container{top:59px!important}}"]
             }] }
 ];
 /** @nocollapse */
@@ -3380,6 +3387,50 @@ const ZHHANT = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class ViewerTranslateLoader extends CommonTranslateLoader {
+    /**
+     * @param {?=} translations
+     */
+    constructor(translations = {}) {
+        super({
+            'ar': Object.assign({}, AR, translations['ar']),
+            'ca': Object.assign({}, CA, translations['ca']),
+            'cs': Object.assign({}, CS, translations['cs']),
+            'da': Object.assign({}, DA, translations['da']),
+            'de': Object.assign({}, DE, translations['de']),
+            'el': Object.assign({}, EL, translations['el']),
+            'en': Object.assign({}, EN, translations['en']),
+            'es': Object.assign({}, ES, translations['es']),
+            'fil': Object.assign({}, FIL, translations['fil']),
+            'fr': Object.assign({}, FR, translations['fr']),
+            'he': Object.assign({}, HE, translations['he']),
+            'hi': Object.assign({}, HI, translations['hi']),
+            'id': Object.assign({}, ID, translations['id']),
+            'it': Object.assign({}, IT, translations['it']),
+            'ja': Object.assign({}, JA, translations['ja']),
+            'kk': Object.assign({}, KK, translations['kk']),
+            'ko': Object.assign({}, KO, translations['ko']),
+            'ms': Object.assign({}, MS, translations['ms']),
+            'nl': Object.assign({}, NL, translations['nl']),
+            'pl': Object.assign({}, PL, translations['pl']),
+            'pt': Object.assign({}, PT, translations['pt']),
+            'ro': Object.assign({}, RO, translations['ro']),
+            'ru': Object.assign({}, RU, translations['ru']),
+            'sv': Object.assign({}, SV, translations['sv']),
+            'th': Object.assign({}, TH, translations['th']),
+            'tr': Object.assign({}, TR, translations['tr']),
+            'uk': Object.assign({}, UK, translations['uk']),
+            'vi': Object.assign({}, VI, translations['vi']),
+            'zh-hans': Object.assign({}, ZHHANS, translations['zh-hans']),
+            'zh-hant': Object.assign({}, ZHHANT, translations['zh-hant']),
+        });
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} viewerConfigService
  * @return {?}
@@ -3405,42 +3456,9 @@ function setupLoadingInterceptor(service) {
 /**
  * @return {?}
  */
-function StaticTranslateLoaderFactory() {
-    /** @type {?} */
-    const translations = {};
-    translations['ar'] = AR;
-    translations['ca'] = CA;
-    translations['cs'] = CS;
-    translations['da'] = DA;
-    translations['de'] = DE;
-    translations['el'] = EL;
-    translations['en'] = EN;
-    translations['es'] = ES;
-    translations['fil'] = FIL;
-    translations['fr'] = FR;
-    translations['he'] = HE;
-    translations['hi'] = HI;
-    translations['id'] = ID;
-    translations['it'] = IT;
-    translations['ja'] = JA;
-    translations['kk'] = KK;
-    translations['ko'] = KO;
-    translations['ms'] = MS;
-    translations['nl'] = NL;
-    translations['pl'] = PL;
-    translations['pt'] = PT;
-    translations['ro'] = RO;
-    translations['ru'] = RU;
-    translations['sv'] = SV;
-    translations['th'] = TH;
-    translations['tr'] = TR;
-    translations['uk'] = UK;
-    translations['vi'] = VI;
-    translations['zh-hans'] = ZHHANS;
-    translations['zh-hant'] = ZHHANT;
-    return new StaticTranslateLoader(translations);
+function translateLoaderFactory() {
+    return new ViewerTranslateLoader();
 }
-const ɵ0 = window;
 class ViewerModule {
     /**
      * @param {?} apiEndpoint
@@ -3470,7 +3488,7 @@ ViewerModule.decorators = [
                     TranslateModule.forRoot({
                         loader: {
                             provide: TranslateLoader,
-                            useFactory: StaticTranslateLoaderFactory
+                            useFactory: translateLoaderFactory
                         }
                     })
                 ],
@@ -3502,8 +3520,7 @@ ViewerModule.decorators = [
                         useFactory: setupLoadingInterceptor,
                         multi: true,
                         deps: [LoadingMaskService]
-                    },
-                    { provide: Window, useValue: ɵ0 },
+                    }
                 ]
             },] }
 ];
@@ -3518,5 +3535,5 @@ ViewerModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { StaticTranslateLoaderFactory, ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, initializeApp, setupLoadingInterceptor, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, ViewerTranslateLoader, initializeApp, setupLoadingInterceptor, translateLoaderFactory, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome'), require('moment'), require('@angular/forms'), require('ng2-date-picker')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/metadata', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome', 'moment', '@angular/forms', 'ng2-date-picker'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.metadata = {}), global.ng.platformBrowser, global.ng.core, global.ng.common, global.ng.common.http, global.commonComponents, global.rxjs, global.angularFontawesome, global.moment_, global.ng.forms, global.ng2DatePicker));
-}(this, (function (exports, platformBrowser, core, common, http, commonComponents, rxjs, angularFontawesome, moment_, forms, ng2DatePicker) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome'), require('moment'), require('@angular/forms'), require('ng2-date-picker'), require('@ngx-translate/core')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/metadata', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common', '@angular/common/http', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome', 'moment', '@angular/forms', 'ng2-date-picker', '@ngx-translate/core'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.metadata = {}), global.ng.platformBrowser, global.ng.core, global.ng.common, global.ng.common.http, global.commonComponents, global.rxjs, global.angularFontawesome, global.moment_, global.ng.forms, global.ng2DatePicker, global.core$1));
+}(this, (function (exports, platformBrowser, core, common, http, commonComponents, rxjs, angularFontawesome, moment_, forms, ng2DatePicker, core$1) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -2203,7 +2203,8 @@
                             http.HttpClientModule,
                             angularFontawesome.FontAwesomeModule,
                             forms.FormsModule,
-                            ng2DatePicker.DpDatePickerModule
+                            ng2DatePicker.DpDatePickerModule,
+                            core$1.TranslateModule.forRoot()
                         ],
                         exports: [
                             MetadataAppComponent,

@@ -1,5 +1,5 @@
 import { OnInit } from '@angular/core';
-import { FileModel, ModalService, NavigateService, UploadFilesService, WindowService, ZoomService } from "@groupdocs.examples.angular/common-components";
+import { FileModel, ModalService, NavigateService, PasswordService, UploadFilesService, WindowService, ZoomService } from "@groupdocs.examples.angular/common-components";
 import { DocumentDescription, Template } from './app-models';
 import { ParserService } from './parser.service';
 import { ParserConfig } from './parser-config';
@@ -17,6 +17,7 @@ export declare class ParserAppComponent implements OnInit {
     private _placeholderService;
     private _documentPageService;
     private _uploadFilesService;
+    private _passwordService;
     sourceFile: string;
     private readonly CREATE_FIELD_MODE;
     readonly browseFilesModal: string;
@@ -28,7 +29,7 @@ export declare class ParserAppComponent implements OnInit {
     isApiAvaible: boolean;
     fileWasDropped: boolean;
     files: FileModel[];
-    constructor(_modalService: ModalService, _parserService: ParserService, _sourceFileService: SourceFileService, _templateService: TemplateService, _zoomService: ZoomService, _navigateService: NavigateService, _placeholderService: PlaceholderService, _documentPageService: DocumentPageService, _uploadFilesService: UploadFilesService, windowService: WindowService);
+    constructor(_modalService: ModalService, _parserService: ParserService, _sourceFileService: SourceFileService, _templateService: TemplateService, _zoomService: ZoomService, _navigateService: NavigateService, _placeholderService: PlaceholderService, _documentPageService: DocumentPageService, _uploadFilesService: UploadFilesService, _passwordService: PasswordService, windowService: WindowService);
     zoomIn(): void;
     zoomOut(): void;
     addFieldClick(): void;

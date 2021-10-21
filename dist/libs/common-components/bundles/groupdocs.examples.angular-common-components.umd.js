@@ -9733,45 +9733,52 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var StaticTranslateLoader = /** @class */ (function () {
-        function StaticTranslateLoader(translations) {
-            this.translations = {};
-            this.translations['ar'] = __assign({}, AR, translations['ar']);
-            this.translations['ca'] = __assign({}, CA, translations['ca']);
-            this.translations['cs'] = __assign({}, CS, translations['cs']);
-            this.translations['da'] = __assign({}, DA, translations['da']);
-            this.translations['de'] = __assign({}, DE, translations['de']);
-            this.translations['el'] = __assign({}, EL, translations['el']);
-            this.translations['en'] = __assign({}, EN, translations['en']);
-            this.translations['es'] = __assign({}, ES, translations['es']);
-            this.translations['fil'] = __assign({}, FIL, translations['fil']);
-            this.translations['fr'] = __assign({}, FR, translations['fr']);
-            this.translations['he'] = __assign({}, HE, translations['he']);
-            this.translations['hi'] = __assign({}, HI, translations['hi']);
-            this.translations['id'] = __assign({}, ID, translations['id']);
-            this.translations['it'] = __assign({}, IT, translations['it']);
-            this.translations['ja'] = __assign({}, JA, translations['ja']);
-            this.translations['kk'] = __assign({}, KK, translations['kk']);
-            this.translations['ko'] = __assign({}, KO, translations['ko']);
-            this.translations['ms'] = __assign({}, MS, translations['ms']);
-            this.translations['nl'] = __assign({}, NL, translations['nl']);
-            this.translations['pl'] = __assign({}, PL, translations['pl']);
-            this.translations['pt'] = __assign({}, PT, translations['pt']);
-            this.translations['ro'] = __assign({}, RO, translations['ro']);
-            this.translations['ru'] = __assign({}, RU, translations['ru']);
-            this.translations['sv'] = __assign({}, SV, translations['sv']);
-            this.translations['th'] = __assign({}, TH, translations['th']);
-            this.translations['tr'] = __assign({}, TR, translations['tr']);
-            this.translations['uk'] = __assign({}, UK, translations['uk']);
-            this.translations['vi'] = __assign({}, VI, translations['vi']);
-            this.translations['zh-hans'] = __assign({}, ZHHANS, translations['zh-hans']);
-            this.translations['zh-hant'] = __assign({}, ZHHANT, translations['zh-hant']);
+    var CommonTranslateLoader = /** @class */ (function () {
+        function CommonTranslateLoader(translations) {
+            if (translations === void 0) { translations = {}; }
+            this.translations = {
+                'ar': AR,
+                'ca': CA,
+                'cs': CS,
+                'da': DA,
+                'de': DE,
+                'el': EL,
+                'en': EN,
+                'es': ES,
+                'fil': FIL,
+                'fr': FR,
+                'he': HE,
+                'hi': HI,
+                'id': ID,
+                'it': IT,
+                'ja': JA,
+                'kk': KK,
+                'ko': KO,
+                'ms': MS,
+                'nl': NL,
+                'pl': PL,
+                'pt': PT,
+                'ro': RO,
+                'ru': RU,
+                'sv': SV,
+                'th': TH,
+                'tr': TR,
+                'uk': UK,
+                'vi': VI,
+                'zh-hans': ZHHANS,
+                'zh-hant': ZHHANT,
+            };
+            for (var key in translations) {
+                if (this.translations[key]) {
+                    this.translations[key] = __assign({}, this.translations[key], translations[key]);
+                }
+            }
         }
         /**
          * @param {?} lang
          * @return {?}
          */
-        StaticTranslateLoader.prototype.getTranslation = /**
+        CommonTranslateLoader.prototype.getTranslation = /**
          * @param {?} lang
          * @return {?}
          */
@@ -9788,13 +9795,13 @@
                 subscriber.next(translation);
             }));
         };
-        return StaticTranslateLoader;
+        return CommonTranslateLoader;
     }());
     if (false) {
         /** @type {?} */
-        StaticTranslateLoader.prototype.translations;
+        CommonTranslateLoader.prototype.translations;
         /** @type {?} */
-        StaticTranslateLoader.prototype.defaultLanguage;
+        CommonTranslateLoader.prototype.defaultLanguage;
     }
 
     exports.AddDynamicComponentService = AddDynamicComponentService;
@@ -9805,6 +9812,7 @@
     exports.ColorPickerComponent = ColorPickerComponent;
     exports.CommonComponentsModule = CommonComponentsModule;
     exports.CommonModals = CommonModals;
+    exports.CommonTranslateLoader = CommonTranslateLoader;
     exports.ConfigService = ConfigService;
     exports.ContextMenuComponent = ContextMenuComponent;
     exports.DisabledCursorDirective = DisabledCursorDirective;
@@ -9864,7 +9872,6 @@
     exports.SelectComponent = SelectComponent;
     exports.SelectionService = SelectionService;
     exports.SidePanelComponent = SidePanelComponent;
-    exports.StaticTranslateLoader = StaticTranslateLoader;
     exports.SuccessModalComponent = SuccessModalComponent;
     exports.TabActivatorService = TabActivatorService;
     exports.TabComponent = TabComponent;
