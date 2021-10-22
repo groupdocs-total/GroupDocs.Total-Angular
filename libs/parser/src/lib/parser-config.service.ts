@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import {ParserConfig} from "./parser-config";
-import {Api, ConfigService} from "@groupdocs.examples.angular/common-components";
-import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { ParserConfig } from "./parser-config";
+import { Api, ConfigService } from "@groupdocs.examples.angular/common-components";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable } from "rxjs";
+import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,10 @@ export class ParserConfigService {
         this._parserConfig.next(parserConfig);
         resolve();
       }).catch((response: any) => {
-        reject(`Could not load parser config: ${JSON.stringify(response)}`);
+        //reject(`Could not load parser config: ${JSON.stringify(response)}`);
+
+        this._parserConfig.next(new ParserConfig());
+        resolve(); 
       });
     });
   }
