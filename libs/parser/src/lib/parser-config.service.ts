@@ -27,10 +27,7 @@ export class ParserConfigService {
         this._parserConfig.next(parserConfig);
         resolve();
       }).catch((response: any) => {
-        //reject(`Could not load parser config: ${JSON.stringify(response)}`);
-
-        this._parserConfig.next(new ParserConfig());
-        resolve(); 
+        reject(`Could not load parser config: ${JSON.stringify(response)}`);
       });
     });
   }
