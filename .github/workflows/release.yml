@@ -1,0 +1,62 @@
+# This workflow will release fix or minor version to NPM registry
+
+name: release
+
+on:
+  workflow_run:
+    workflows: ["build"]
+    branches: [master]
+    types:
+      - completed
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Preparing to commit changes
+        run: |
+          git reset --hard ${{ env.GITHUB_SHA }}
+          git config --local user.email "actions@github.com" && git config --local user.name "GitHub Actions"
+          git remote remove origin
+          git remote add origin https://${{ secrets.GITHUB_TOKEN }}@github.com/groupdocs-total/GroupDocs.Total-Angular.git > /dev/null 2>&1
+          git fetch
+          git branch --set-upstream-to=origin/master master
+      - name: Building packages
+        run: |
+          npm install
+          npm run build:packages
+      - name: Commit changes
+        run: |
+          git add dist
+          git commit -am "Build new version" || true
+          git status
+      - name: Creating .npmrc file
+        run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Release Fix
+        if: "!contains(github.event.workflow_run.head_commit.message, '@RELEASE_MINOR')"
+        run: npx lerna publish patch --yes
+      - name: Release Minor
+        if: "contains(github.event.workflow_run.head_commit.message, '@RELEASE_MINOR')"
+        run: npx lerna publish minor --yes
+        
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Failed
+        run: echo Release canceled!

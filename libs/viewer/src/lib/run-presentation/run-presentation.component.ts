@@ -52,8 +52,6 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
         {
             this.scrollTo(this.currentPage, true, false);
         }
-
-        this.alignVert();
       }
     });
 
@@ -79,13 +77,6 @@ export class RunPresentationComponent implements OnInit, AfterViewChecked, After
     // For current iteration we take .gd-document as a container
     this.container = this._elementRef.nativeElement;
     const hammer = new Hammer(this.container);
-  }
-
-  alignVert(): void {
-    const presentationElements = this._elementRef.nativeElement.querySelectorAll('.presentation');
-    const zoom = this._zoomService.zoom/100;
-    presentationElements.forEach(element => (element as HTMLElement).style.marginTop = 
-      ((window.innerHeight - (element.clientHeight ? element.clientHeight : element.scrollHeight)*zoom - Constants.topbarWidth)/2)/zoom + "px");
   }
 
   ngAfterViewChecked(): void {

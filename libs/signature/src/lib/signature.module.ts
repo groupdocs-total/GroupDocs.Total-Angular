@@ -36,6 +36,7 @@ import {HandModalComponent} from './hand-modal/hand-modal.component';
 import {StampModalComponent} from './stamp-modal/stamp-modal.component';
 import {CopySignatureService} from "./copy-signature.service";
 import {ClickOutsideModule} from 'ng-click-outside';
+import {TranslateModule} from '@ngx-translate/core';
 
 export function initializeApp(signatureConfigService: SignatureConfigService) {
   const result = () => signatureConfigService.load();
@@ -59,7 +60,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     StampCanvasComponent,
     SignatureLeftPanelComponent,
     HandModalComponent,
-    StampModalComponent],
+    StampModalComponent
+  ],
   exports: [SignatureAppComponent,
     SignatureListPanelComponent,
     NewBarQrCodeComponent,
@@ -71,12 +73,15 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SignatureLeftPanelComponent,
     HandModalComponent,
     StampModalComponent,
-    CommonComponentsModule],
+    CommonComponentsModule
+  ],
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,
     FontAwesomeModule,
-    ClickOutsideModule],
+    ClickOutsideModule,
+    TranslateModule.forRoot()
+  ],
   providers: [
     SignatureService,
     ConfigService,

@@ -29,7 +29,7 @@ export class TopTabComponent implements OnInit {
     });
   }
 
-  private activation(tabId: string) {
+  private activation(tabId: string) {  
     if (this.id === tabId) {
       this.active = !this.active;
       if (this.active) {
