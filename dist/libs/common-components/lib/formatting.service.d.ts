@@ -1,0 +1,82 @@
+import { Observable } from "rxjs";
+export declare class Formatting {
+    constructor(fontSize: number, color: string, bgColor: string, bold: boolean, italic: boolean, underline: boolean, font: string, strikeout: boolean, align: string, list: string);
+    bold: boolean;
+    italic: boolean;
+    underline: boolean;
+    fontSize: number;
+    color: string;
+    bgColor: string;
+    font: string;
+    strikeout: boolean;
+    align: string;
+    list: string;
+    static default(): Formatting;
+}
+export declare class FormattingService {
+    private _observerBold;
+    private readonly _formatBoldChange;
+    private _observerUnderline;
+    private readonly _formatUnderlineChange;
+    private _observerUndo;
+    private readonly _undo;
+    private _observerRedo;
+    private readonly _redo;
+    private _observerItalic;
+    private readonly _formatItalicChange;
+    private _observerColor;
+    private readonly _formatColorChange;
+    private _observerBgColor;
+    private readonly _formatBgColorChange;
+    private _observerFontSize;
+    private readonly _formatFontSizeChange;
+    private _observerFont;
+    private readonly _formatFontChange;
+    private _observerStrikeout;
+    private readonly _formatStrikeoutChange;
+    private _observerAlign;
+    private readonly _formatAlignChange;
+    private _observerList;
+    private readonly _formatListChange;
+    constructor();
+    readonly formatBoldChange: Observable<boolean>;
+    readonly formatUnderlineChange: Observable<boolean>;
+    readonly formatColorChange: Observable<string>;
+    readonly formatBgColorChange: Observable<string>;
+    readonly formatFontSizeChange: Observable<number>;
+    readonly formatFontChange: Observable<string>;
+    readonly undo: Observable<boolean>;
+    readonly redo: Observable<boolean>;
+    readonly formatItalicChange: Observable<boolean>;
+    readonly formatStrikeoutChange: Observable<boolean>;
+    readonly formatAlignChange: Observable<string>;
+    readonly formatListChange: Observable<string>;
+    static createFontSizeOption(val: number): {
+        value: number;
+        name: string;
+        separator: boolean;
+    };
+    static getFontSizeOptions(): {
+        value: number;
+        name: string;
+        separator: boolean;
+    }[];
+    static createFontOption(val: string): {
+        value: string;
+        name: string;
+        separator: boolean;
+    };
+    static getFontOptions(): any[];
+    changeFormatFontSize($event: number): void;
+    changeFormatBold(bold: boolean): void;
+    changeFormatUnderline(underline: boolean): void;
+    Undo(): void;
+    Redo(): void;
+    changeFormatItalic(italic: boolean): void;
+    changeFormatColor(color: string): void;
+    changeFormatBgColor(bgcolor: string): void;
+    changeFormatFont(font: string): void;
+    changeFormatStrikeout(strikeout: boolean): void;
+    changeFormatAlign(align: string): void;
+    changeFormatList(list: string): void;
+}
