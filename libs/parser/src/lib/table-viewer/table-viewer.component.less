@@ -1,0 +1,32 @@
+@import "../../../../common-components/src/styles/variables";
+
+.window {
+    min-width: 400px;
+    min-height: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 24px;    
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid @nav-accent-background;
+}
+
+td {
+    border: 1px solid @nav-accent-background;
+}
+
+td {
+    padding: 5px;
+}
+
+tr:nth-of-type(odd) {
+    background-color: @wild-sand;
+}
+
+tr:hover {
+    background-color: @nav-accent-background;
+}

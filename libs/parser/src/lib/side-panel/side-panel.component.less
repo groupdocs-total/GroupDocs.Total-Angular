@@ -1,0 +1,141 @@
+@import "../../../../common-components/src/styles/variables";
+@import "../variables";
+@import "../shared";
+
+input {
+    display: none;
+}
+
+.list-item .image-btn {
+    display: none;
+}
+
+.list-item:hover .image-btn {
+    display: block;
+    color: @silver;
+}
+
+.error-text {
+    color: red;
+}
+
+.side-panel {
+    width: 100%;
+    height: 100%;
+}
+
+.side-panel > div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.side-panel-title {
+    background-color: @nav-logo-background;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.side-panel-title > div {
+    padding-left: 5px;
+} 
+
+.side-panel-toolbar {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.side-panel-toolbar > div {
+    color: @silver-chalice;
+}
+
+.side-panel-toolbar-space {
+    margin-left: 10px;
+}
+
+.side-panel-content-text {
+    padding: 20px;
+    text-align: center;
+}
+
+.side-panel-content {
+    display: flex;
+    flex-direction: column;
+
+    align-items:center;
+    justify-content:center;
+
+    height: 100%;
+    width: 100%;
+}
+
+.data-panel {
+    // position: relative; 
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: stretch;
+
+    height: 100%;
+    width: 100%;
+}
+
+.data-item {
+    display: flex; 
+    flex-direction: row;
+    align-items:center;
+    justify-content: stretch;  
+    width: 100%;
+}
+
+.data-item > div {
+    padding: 10px;
+}
+
+.data-item-field {
+    flex: 1;
+}
+
+.data-item-value {
+    flex: 1;
+}
+
+.template-list {  
+    position: relative; 
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.template-item {
+    display: flex;
+    align-items:center;
+   // justify-content:center;
+   height: auto;
+   padding: 5px;
+   height: 2em;
+   cursor: pointer;
+}
+
+.template-item-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px 15px;
+}
+
+.template-item-current { 
+    font-weight: bold;
+}
+
+.template-item-btn > fa-icon {
+    padding: 5px;
+    font-size: 16px;
+}

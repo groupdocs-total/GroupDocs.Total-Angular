@@ -1,0 +1,105 @@
+<div class="side-panel">
+    <input type="file" #uploadTemplate (change)="onFileSelected($event)" />
+
+    <div *ngIf="isDataMode">
+        <div class="side-panel-title">
+            <div>{{ currentTemplate?.name }}</div>
+            <div class="image-btn" (click)="manageTemplates()">
+                <fa-icon [icon]="'bars'"></fa-icon>
+            </div>
+        </div>
+
+        <div class="side-panel-toolbar">
+            <div class="image-btn" (click)="createTemplateClick()" title="Create a new template">
+                <fa-icon [icon]="'file'"></fa-icon>
+            </div>
+            <div class="image-btn" (click)="uploadTemplate.click()" title="Upload the existing template">
+                <fa-icon [icon]="'upload'"></fa-icon>
+            </div>
+
+            <div class="side-panel-toolbar-space"></div>
+
+            <div class="image-btn" (click)="renameTemplateClick(currentTemplate)" title="Rename the current template">
+                <fa-icon [icon]="'edit'"></fa-icon>
+            </div>
+            <div class="image-btn" *ngIf="currentTemplate?.isStored" (click)="removeTemplateClick(currentTemplate)"
+                title="Remove the current template">
+                <fa-icon [icon]="'trash'"></fa-icon>
+            </div>
+            <div class="image-btn" *ngIf="currentTemplate?.isStored" (click)="downloadTemplateClick(currentTemplate)"
+                title="Download the current template">
+                <fa-icon [icon]="'file-download'"></fa-icon>
+            </div>
+        </div>
+
+        <div class="side-panel-content" *ngIf="parseState.isProcessing">
+            <div>Parsing data...</div>
+        </div>
+
+        <div class="side-panel-content" *ngIf="parseState.isFailed">
+            <div class="side-panel-content-text error-text">Error occurs while parsing data.</div>
+            <div class="btn" (click)="parse()">Parse again</div>
+        </div>
+
+        <div class="side-panel-content" *ngIf="parseState.isReadyToRun">
+            <div class="side-panel-content-text" [innerHTML]="parseState.prompt"></div>
+            <div class="btn" (click)="parse()">Parse</div>
+        </div>
+
+        <div class="side-panel-content" *ngIf="parseState.isCompleted && !(parseState.result?.length > 0)">
+            <div class="side-panel-content-text">
+                No data is extracted. Try to change the template.
+            </div>
+        </div>
+
+        <div class="data-panel" *ngIf="parseState.result?.length > 0">
+            <div class="side-panel-toolbar">
+                <div class="btn" (click)="downloadResultsAsCsv()">Download as CSV</div>
+            </div>
+            <div class="data-item list-item" *ngFor="let r of parseState.result">
+                <div class="data-item-field">{{ r.name }}</div>
+                <div class="data-item-value" *ngIf="r.value && !isArray(r.value)">{{ r.value }}</div>
+                <div class="data-item-value" *ngIf="r.value && isArray(r.value)">
+                    <div class="btn" (click)="showTableValue(r.value)">Show Table</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isTemplateMode">
+        <div class="side-panel-title">
+            <div>Manage Templates</div>
+            <div class="image-btn" (click)="showData()">
+                <fa-icon [icon]="'times'"></fa-icon>
+            </div>
+        </div>
+        <div class="no-data-panel" *ngIf="templateIds.length == 0">
+            <div class="side-panel-content-text">There are no templates. Try to create a new one or upload the existing
+                one.</div>
+        </div>
+
+        <div class="template-list">
+            <div class="template-item list-item" *ngFor="let t of templateIds" (dblclick)="selectTemplateClick(t)">
+                <div class="template-item-text" [ngClass]="{'template-item-current': isCurrentTemplate(t)}">{{ t?.name
+                    }} </div>
+                <div class="image-btn" (click)="renameTemplateClick(t)" title="Rename a template">
+                    <fa-icon [icon]="'edit'"></fa-icon>
+                </div>
+                <div class="image-btn" (click)="downloadTemplateClick(t)" title="Download a template">
+                    <fa-icon [icon]="'file-download'"></fa-icon>
+                </div>
+                <div class="image-btn" (click)="removeTemplateClick(t)" title="Remove a template">
+                    <fa-icon [icon]="'trash'"></fa-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<gd-rename-modal #templateNameModal [id]="'TemplateNameModal'" [title]="'Rename Template'"
+    [promptText]="'Enter a new template name:'" [acceptText]="'Save'" (acceptEvent)="templateNameModalAccept($event)">
+</gd-rename-modal>
+<gd-confirmation-modal #templateRemoveModal [id]="'TemplateRemoveModal'" [title]="'Remove Template'"
+    [acceptText]="'Remove'" (acceptEvent)="templateRemoveModalAccept($event)">
+</gd-confirmation-modal>
+<gd-table-viewer #tableViewer></gd-table-viewer>

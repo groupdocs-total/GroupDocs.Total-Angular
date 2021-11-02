@@ -7,7 +7,9 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TotalNavComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    localStorage.setItem("returnUrl", window.location.href);
+  }
 
   ngOnInit() {
   }

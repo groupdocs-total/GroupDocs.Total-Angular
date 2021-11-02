@@ -11,6 +11,7 @@ describe('Conversion', () => {
     cy.fixture("annotationLoadConfigDefault").as('annotationLoadConfigDefault');
     cy.fixture("metadataLoadConfigDefault").as('metadataLoadConfigDefault');
     cy.fixture("searchLoadConfigDefault").as('searchLoadConfigDefault');
+    cy.fixture("parserLoadConfigDefault").as('parserLoadConfigDefault');
     cy.fixture("loadFileTreeDefault").as('loadFileTreeDefault');
     cy.fixture("loadFileTreeSubFolder").as('loadFileTreeSubFolder');
     cy.fixture("convertDefault").as('convertDefault');
@@ -24,6 +25,7 @@ describe('Conversion', () => {
     cy.route('http://localhost:8080/annotation/loadConfig', "@annotationLoadConfigDefault");
     cy.route('http://localhost:8080/metadata/loadConfig', "@metadataLoadConfigDefault");
     cy.route('http://localhost:8080/search/loadConfig', "@searchLoadConfigDefault");
+    cy.route('http://localhost:8080/parser/loadConfig', "@parserLoadConfigDefault");
 
     cy.route('POST','http://localhost:8080/conversion/loadFileTree', "@loadFileTreeDefault");
     cy.route('POST','http://localhost:8080/conversion/convert', "@convertDefault");
