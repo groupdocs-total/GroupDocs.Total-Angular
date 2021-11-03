@@ -46,37 +46,48 @@ export class ParserAppComponent implements OnInit {
 
   fileWasDropped = false;
   files: FileModel[] = [];
-
+  parserService: ParserService;
+  sourceFileService: SourceFileService;
+  templateService: TemplateService;
+  placeholderService: PlaceholderService;
+  documentPageService: DocumentPageService;
+  public credentials: FileCredentials;
 
   constructor(
     private _modalService: ModalService,
-    private _parserService: ParserService,
-    private _sourceFileService: SourceFileService,
-    private _templateService: TemplateService,
+    parserService: ParserService,
+    sourceFileService: SourceFileService,
+    templateService: TemplateService,
     private _zoomService: ZoomService,
     private _navigateService: NavigateService,
-    private _placeholderService: PlaceholderService,
-    private _documentPageService: DocumentPageService,
+    placeholderService: PlaceholderService,
+    documentPageService: DocumentPageService,
     private _uploadFilesService: UploadFilesService,
     private _passwordService: PasswordService,
     windowService: WindowService) {
+
+    this.parserService = parserService;
+    this.sourceFileService = sourceFileService;
+    this.templateService = templateService;
+    this.placeholderService = placeholderService;
+    this.documentPageService = documentPageService;
 
     windowService.onResize.subscribe((w) => {
       this.refreshZoom();
     });
 
-    this._sourceFileService.sourceFileChanged.subscribe(sourceFile => this.loadDocumentDescription(sourceFile))
+    this.sourceFileService.sourceFileChanged.subscribe(sourceFile => this.loadDocumentDescription(sourceFile))
 
     this._uploadFilesService.uploadsChange.subscribe((uploads) => {
       if (uploads && uploads.length > 0) {
-        this._parserService.upload(uploads.item(0), '', this.rewriteConfig).subscribe((obj: FileCredentials) => {
+        this.parserService.upload(uploads.item(0), '', this.rewriteConfig).subscribe((obj: FileCredentials) => {
           this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
         });
       }
     });
 
     this._passwordService.passChange.subscribe((pass: string) => {
-      this.selectFile(this._sourceFileService.sourceFile.guid, pass, CommonModals.PasswordRequired);
+      this.selectFile(this.sourceFileService.sourceFile.guid, pass, CommonModals.PasswordRequired);
     });
   }
 
@@ -98,26 +109,26 @@ export class ParserAppComponent implements OnInit {
   }
 
   addFieldClick() {
-    const template = this._templateService.currentTemplate;
+    const template = this.templateService.currentTemplate;
     if (!template) {
       return;
     }
 
     const field = template.createField("Field");
     field.fieldType = TemplateFieldTypes.FIXED;
-    field.pageNumber = this._documentPageService.activePage;
+    field.pageNumber = this.documentPageService.activePage;
     template.addField(field);
   }
 
   addTableClick() {
-    const template = this._templateService.currentTemplate;
+    const template = this.templateService.currentTemplate;
     if (!template) {
       return;
     }
 
     const field = template.createField("Table");
     field.fieldType = TemplateFieldTypes.TABLE;
-    field.pageNumber = this._documentPageService.activePage;
+    field.pageNumber = this.documentPageService.activePage;
     template.addField(field);
   }
 
@@ -133,11 +144,11 @@ export class ParserAppComponent implements OnInit {
   }
 
   selectDir($event: string) {
-    this._parserService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
+    this.parserService.loadFiles($event).subscribe((files: FileModel[]) => this.files = files || []);
   }
 
   upload($event: string) {
-    this._parserService.upload(null, $event, this.rewriteConfig).subscribe(() => {
+    this.parserService.upload(null, $event, this.rewriteConfig).subscribe(() => {
       this.selectDir('');
     });
   }
@@ -147,7 +158,8 @@ export class ParserAppComponent implements OnInit {
   }
 
   selectFile($event: string, password: string, modalId: string) {
-    this._sourceFileService.sourceFile = new SourceFile($event, password);
+    this.credentials = new FileCredentials($event, password);
+    this.sourceFileService.sourceFile = new SourceFile($event, password);
 
     if (modalId) {
       this._modalService.close(modalId);
@@ -182,29 +194,29 @@ export class ParserAppComponent implements OnInit {
     this.documentError = null;
     this._document = null;
 
-    const operationState = this._placeholderService.startOperation("Loading document...");
+    const operationState = this.placeholderService.startOperation("Loading document...");
 
     const observer = {
       next: (response: DocumentDescription) => {
-        this._documentPageService.setActivePage(1);
+        this.documentPageService.setActivePage(1);
         this._document = response;
 
         operationState.complete();
 
-        this._templateService.createTemplate();
+        this.templateService.createTemplate();
         this.refreshZoom();
 
         this._navigateService.countPages = this.document.pages ? this.document.pages.length : 0;
         this._navigateService.currentPage = 1;
       },
       error: (err: any) => {
-        this.documentError = this._parserService.getErrorMessage(err);
+        this.documentError = this.parserService.getErrorMessage(err);
         operationState.error(err);
       },
       complete: () => operationState.complete()
     };
 
-    this._parserService.loadDocumentDescription(sourceFile).subscribe(observer);
+    this.parserService.loadDocumentDescription(sourceFile).subscribe(observer);
   }
 
   get document() {
