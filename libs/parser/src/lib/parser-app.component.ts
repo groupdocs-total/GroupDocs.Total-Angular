@@ -1,27 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  AddDynamicComponentService,
   CommonModals,
   FileCredentials,
-  FileModel, Formatting,
-  HostingDynamicComponentService,
-  ModalService,
-  NavigateService, PagePreloadService, PasswordService,
-  TopTabActivatorService, UploadFilesService,
-  Utils,
+  FileModel, ModalService,
+  NavigateService, PasswordService,
+  UploadFilesService,
   WindowService,
-  ZoomService,
-  ExceptionMessageService,
-  LoadingMaskService
-} from "@groupdocs.examples.angular/common-components";
-import { DocumentDescription, DocumentDescriptionResponse, ParseResult, SourceFile, Template, TemplateField, TemplateFieldTypes, TemplateId } from './app-models';
+  ZoomService} from "@groupdocs.examples.angular/common-components";
+import { DocumentDescription, SourceFile, Template, TemplateFieldTypes } from './app-models';
 import { ParserService } from './parser.service';
 import { ParserConfig } from './parser-config';
 import { TemplateService } from './template.service';
 import { SourceFileService } from './source-file.service';
-import { Subject } from 'rxjs';
 import { PlaceholderService } from './placeholder.service';
-import { stringify } from '@angular/compiler/src/util';
 import { DocumentPageService } from './document-page.service';
 
 @Component({
