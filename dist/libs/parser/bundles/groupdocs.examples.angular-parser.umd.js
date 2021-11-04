@@ -4699,7 +4699,9 @@
                         exports: [
                             ParserAppComponent,
                             FieldComponent,
-                            commonComponents.CommonComponentsModule
+                            commonComponents.CommonComponentsModule,
+                            SurfaceComponent,
+                            SidePanelComponent
                         ],
                         providers: [
                             ParserService,

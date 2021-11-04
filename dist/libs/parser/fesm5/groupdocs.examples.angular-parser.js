@@ -4510,7 +4510,9 @@ var ParserModule = /** @class */ (function () {
                     exports: [
                         ParserAppComponent,
                         FieldComponent,
-                        CommonComponentsModule
+                        CommonComponentsModule,
+                        SurfaceComponent,
+                        SidePanelComponent
                     ],
                     providers: [
                         ParserService,
