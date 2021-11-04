@@ -1,5 +1,5 @@
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, Input, RendererFactory2, EventEmitter, Output, ViewChild, NgModule, APP_INITIALIZER } from '@angular/core';
-import { Api, ConfigService, CommonModals, ModalService, ZoomService, NavigateService, UploadFilesService, PasswordService, WindowService, Utils, HostingDynamicComponentService, AddDynamicComponentService, LoadingMaskInterceptorService, CommonComponentsModule, ExceptionMessageService, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
+import { Api, ConfigService, CommonModals, FileCredentials, ModalService, ZoomService, NavigateService, UploadFilesService, PasswordService, WindowService, Utils, HostingDynamicComponentService, AddDynamicComponentService, LoadingMaskInterceptorService, CommonComponentsModule, ExceptionMessageService, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -1728,16 +1728,11 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ParserAppComponent = /** @class */ (function () {
-    function ParserAppComponent(_modalService, _parserService, _sourceFileService, _templateService, _zoomService, _navigateService, _placeholderService, _documentPageService, _uploadFilesService, _passwordService, windowService) {
+    function ParserAppComponent(_modalService, parserService, sourceFileService, templateService, _zoomService, _navigateService, placeholderService, documentPageService, _uploadFilesService, _passwordService, windowService) {
         var _this = this;
         this._modalService = _modalService;
-        this._parserService = _parserService;
-        this._sourceFileService = _sourceFileService;
-        this._templateService = _templateService;
         this._zoomService = _zoomService;
         this._navigateService = _navigateService;
-        this._placeholderService = _placeholderService;
-        this._documentPageService = _documentPageService;
         this._uploadFilesService = _uploadFilesService;
         this._passwordService = _passwordService;
         this.CREATE_FIELD_MODE = "createFieldMode";
@@ -1746,6 +1741,11 @@ var ParserAppComponent = /** @class */ (function () {
         this.isApiAvaible = true;
         this.fileWasDropped = false;
         this.files = [];
+        this.parserService = parserService;
+        this.sourceFileService = sourceFileService;
+        this.templateService = templateService;
+        this.placeholderService = placeholderService;
+        this.documentPageService = documentPageService;
         windowService.onResize.subscribe((/**
          * @param {?} w
          * @return {?}
@@ -1753,7 +1753,7 @@ var ParserAppComponent = /** @class */ (function () {
         function (w) {
             _this.refreshZoom();
         }));
-        this._sourceFileService.sourceFileChanged.subscribe((/**
+        this.sourceFileService.sourceFileChanged.subscribe((/**
          * @param {?} sourceFile
          * @return {?}
          */
@@ -1764,7 +1764,7 @@ var ParserAppComponent = /** @class */ (function () {
          */
         function (uploads) {
             if (uploads && uploads.length > 0) {
-                _this._parserService.upload(uploads.item(0), '', _this.rewriteConfig).subscribe((/**
+                _this.parserService.upload(uploads.item(0), '', _this.rewriteConfig).subscribe((/**
                  * @param {?} obj
                  * @return {?}
                  */
@@ -1778,7 +1778,7 @@ var ParserAppComponent = /** @class */ (function () {
          * @return {?}
          */
         function (pass) {
-            _this.selectFile(_this._sourceFileService.sourceFile.guid, pass, CommonModals.PasswordRequired);
+            _this.selectFile(_this.sourceFileService.sourceFile.guid, pass, CommonModals.PasswordRequired);
         }));
     }
     // Menu
@@ -1819,14 +1819,14 @@ var ParserAppComponent = /** @class */ (function () {
      */
     function () {
         /** @type {?} */
-        var template = this._templateService.currentTemplate;
+        var template = this.templateService.currentTemplate;
         if (!template) {
             return;
         }
         /** @type {?} */
         var field = template.createField("Field");
         field.fieldType = TemplateFieldTypes.FIXED;
-        field.pageNumber = this._documentPageService.activePage;
+        field.pageNumber = this.documentPageService.activePage;
         template.addField(field);
     };
     /**
@@ -1837,14 +1837,14 @@ var ParserAppComponent = /** @class */ (function () {
      */
     function () {
         /** @type {?} */
-        var template = this._templateService.currentTemplate;
+        var template = this.templateService.currentTemplate;
         if (!template) {
             return;
         }
         /** @type {?} */
         var field = template.createField("Table");
         field.fieldType = TemplateFieldTypes.TABLE;
-        field.pageNumber = this._documentPageService.activePage;
+        field.pageNumber = this.documentPageService.activePage;
         template.addField(field);
     };
     // end of Menu
@@ -1885,7 +1885,7 @@ var ParserAppComponent = /** @class */ (function () {
      */
     function ($event) {
         var _this = this;
-        this._parserService.loadFiles($event).subscribe((/**
+        this.parserService.loadFiles($event).subscribe((/**
          * @param {?} files
          * @return {?}
          */
@@ -1901,7 +1901,7 @@ var ParserAppComponent = /** @class */ (function () {
      */
     function ($event) {
         var _this = this;
-        this._parserService.upload(null, $event, this.rewriteConfig).subscribe((/**
+        this.parserService.upload(null, $event, this.rewriteConfig).subscribe((/**
          * @return {?}
          */
         function () {
@@ -1932,7 +1932,8 @@ var ParserAppComponent = /** @class */ (function () {
      * @return {?}
      */
     function ($event, password, modalId) {
-        this._sourceFileService.sourceFile = new SourceFile($event, password);
+        this.credentials = new FileCredentials($event, password);
+        this.sourceFileService.sourceFile = new SourceFile($event, password);
         if (modalId) {
             this._modalService.close(modalId);
         }
@@ -2010,7 +2011,7 @@ var ParserAppComponent = /** @class */ (function () {
         this.documentError = null;
         this._document = null;
         /** @type {?} */
-        var operationState = this._placeholderService.startOperation("Loading document...");
+        var operationState = this.placeholderService.startOperation("Loading document...");
         /** @type {?} */
         var observer = {
             next: (/**
@@ -2018,10 +2019,10 @@ var ParserAppComponent = /** @class */ (function () {
              * @return {?}
              */
             function (response) {
-                _this._documentPageService.setActivePage(1);
+                _this.documentPageService.setActivePage(1);
                 _this._document = response;
                 operationState.complete();
-                _this._templateService.createTemplate();
+                _this.templateService.createTemplate();
                 _this.refreshZoom();
                 _this._navigateService.countPages = _this.document.pages ? _this.document.pages.length : 0;
                 _this._navigateService.currentPage = 1;
@@ -2031,7 +2032,7 @@ var ParserAppComponent = /** @class */ (function () {
              * @return {?}
              */
             function (err) {
-                _this.documentError = _this._parserService.getErrorMessage(err);
+                _this.documentError = _this.parserService.getErrorMessage(err);
                 operationState.error(err);
             }),
             complete: (/**
@@ -2039,7 +2040,7 @@ var ParserAppComponent = /** @class */ (function () {
              */
             function () { return operationState.complete(); })
         };
-        this._parserService.loadDocumentDescription(sourceFile).subscribe(observer);
+        this.parserService.loadDocumentDescription(sourceFile).subscribe(observer);
     };
     Object.defineProperty(ParserAppComponent.prototype, "document", {
         get: /**
@@ -2156,26 +2157,23 @@ if (false) {
     ParserAppComponent.prototype.fileWasDropped;
     /** @type {?} */
     ParserAppComponent.prototype.files;
+    /** @type {?} */
+    ParserAppComponent.prototype.parserService;
+    /** @type {?} */
+    ParserAppComponent.prototype.sourceFileService;
+    /** @type {?} */
+    ParserAppComponent.prototype.templateService;
+    /** @type {?} */
+    ParserAppComponent.prototype.placeholderService;
+    /** @type {?} */
+    ParserAppComponent.prototype.documentPageService;
+    /** @type {?} */
+    ParserAppComponent.prototype.credentials;
     /**
      * @type {?}
      * @private
      */
     ParserAppComponent.prototype._modalService;
-    /**
-     * @type {?}
-     * @private
-     */
-    ParserAppComponent.prototype._parserService;
-    /**
-     * @type {?}
-     * @private
-     */
-    ParserAppComponent.prototype._sourceFileService;
-    /**
-     * @type {?}
-     * @private
-     */
-    ParserAppComponent.prototype._templateService;
     /**
      * @type {?}
      * @private
@@ -2186,16 +2184,6 @@ if (false) {
      * @private
      */
     ParserAppComponent.prototype._navigateService;
-    /**
-     * @type {?}
-     * @private
-     */
-    ParserAppComponent.prototype._placeholderService;
-    /**
-     * @type {?}
-     * @private
-     */
-    ParserAppComponent.prototype._documentPageService;
     /**
      * @type {?}
      * @private
@@ -4564,5 +4552,5 @@ var ParserModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ParserAppComponent, ParserModule, initializeApp, setupLoadingInterceptor, ParserService as ɵa, SourceFileService as ɵb, TemplateService as ɵc, PlaceholderService as ɵd, DocumentPageService as ɵe, SurfaceComponent as ɵf, FieldComponent as ɵg, FieldService as ɵh, ConfirmationModalComponent as ɵi, SidePanelComponent as ɵj, UtilsService as ɵk, RenameModalComponent as ɵl, PlaceholderComponent as ɵm, TableViewerComponent as ɵn, ParserConfigService as ɵo };
+export { DocumentPageService, ParserAppComponent, ParserModule, ParserService, PlaceholderService, SourceFileService, TemplateService, initializeApp, setupLoadingInterceptor, SurfaceComponent as ɵa, FieldComponent as ɵb, FieldService as ɵc, ConfirmationModalComponent as ɵd, SidePanelComponent as ɵe, UtilsService as ɵf, RenameModalComponent as ɵg, PlaceholderComponent as ɵh, TableViewerComponent as ɵi, ParserConfigService as ɵj };
 //# sourceMappingURL=groupdocs.examples.angular-parser.js.map
