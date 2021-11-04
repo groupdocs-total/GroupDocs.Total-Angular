@@ -56,7 +56,9 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   exports: [ 
     ParserAppComponent,
     FieldComponent,
-    CommonComponentsModule
+    CommonComponentsModule,
+    SurfaceComponent,
+    SidePanelComponent
   ],
   providers: [ 
     ParserService,
