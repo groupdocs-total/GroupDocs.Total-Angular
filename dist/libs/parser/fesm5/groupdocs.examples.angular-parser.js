@@ -4509,7 +4509,8 @@ var ParserModule = /** @class */ (function () {
                     ],
                     exports: [
                         ParserAppComponent,
-                        FieldComponent
+                        FieldComponent,
+                        CommonComponentsModule
                     ],
                     providers: [
                         ParserService,

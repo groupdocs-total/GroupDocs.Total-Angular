@@ -3842,7 +3842,8 @@ ParserModule.decorators = [
                 ],
                 exports: [
                     ParserAppComponent,
-                    FieldComponent
+                    FieldComponent,
+                    CommonComponentsModule
                 ],
                 providers: [
                     ParserService,

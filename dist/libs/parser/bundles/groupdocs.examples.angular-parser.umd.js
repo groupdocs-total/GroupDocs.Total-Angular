@@ -4698,7 +4698,8 @@
                         ],
                         exports: [
                             ParserAppComponent,
-                            FieldComponent
+                            FieldComponent,
+                            commonComponents.CommonComponentsModule
                         ],
                         providers: [
                             ParserService,
