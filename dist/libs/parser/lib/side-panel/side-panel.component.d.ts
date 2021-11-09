@@ -16,6 +16,7 @@ export declare class SidePanelComponent implements OnInit, OnDestroy {
     private _templateService;
     private _utilsService;
     private _placeholderService;
+    fileNameForCsv: string;
     private _currentTemplateChangedSubscription;
     private _templateAddedSubscription;
     private _templateRemovedSubscription;

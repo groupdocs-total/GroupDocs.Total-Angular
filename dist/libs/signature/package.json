@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/signature",
-  "version": "0.8.74",
+  "version": "0.8.75",
   "description": "Angular application that allows to sign documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {
@@ -15,7 +15,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-regular-svg-icons": "^5.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "@groupdocs.examples.angular/common-components": "^0.8.74",
+    "@groupdocs.examples.angular/common-components": "^0.8.75",
     "@ngx-translate/core": "^12.1.2",
     "hammerjs": "^2.0.8",
     "jquery": "^3.4.1",
