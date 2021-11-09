@@ -3446,7 +3446,7 @@ class SidePanelComponent {
         /** @type {?} */
         const csv = this._utilsService.generateCsvForParseResults(this.parseState.result);
         /** @type {?} */
-        const f = new File([csv], this.fileNameForCsv ? this.fileNameForCsv : this._sourceFileService.sourceFile.guid + "- data.csv", {
+        const f = new File([csv], this.fileNameForCsv ? this.fileNameForCsv + " - data.csv" : this._sourceFileService.sourceFile.guid + " - data.csv", {
             type: "text/plain"
         });
         /** @type {?} */
