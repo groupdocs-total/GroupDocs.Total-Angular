@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OperationState, ParseByTemplateResponse, ParseResult, TableValue, Template, TemplateField, TemplateId } from '../app-models';
 import { RenameModalComponent } from '../rename-modal/rename-modal.component';
@@ -33,7 +33,8 @@ import { TableViewerComponent } from '../table-viewer/table-viewer.component';
   styleUrls: ['./side-panel.component.less']
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
-
+  @Input() fileNameForCsv: string;
+  
   private _currentTemplateChangedSubscription: Subscription;
   private _templateAddedSubscription: Subscription;
   private _templateRemovedSubscription: Subscription;
@@ -238,7 +239,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
 
     const csv = this._utilsService.generateCsvForParseResults(this.parseState.result);
 
-    const f = new File([csv], this._sourceFileService.sourceFile.guid + "- data.csv", {
+    const f = new File([csv], this.fileNameForCsv ? this.fileNameForCsv : this._sourceFileService.sourceFile.guid + "- data.csv", {
       type: "text/plain"
     });
 

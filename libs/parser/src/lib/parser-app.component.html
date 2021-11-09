@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <gd-parser-side-panel *ngIf="!documentError && document"></gd-parser-side-panel>
+    <gd-parser-side-panel [fileNameForCsv]="" *ngIf="!documentError && document"></gd-parser-side-panel>
   </div>
 
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
