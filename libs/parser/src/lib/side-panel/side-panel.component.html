@@ -79,16 +79,16 @@
         </div>
 
         <div class="template-list">
-            <div class="template-item list-item" *ngFor="let t of templateIds" (dblclick)="selectTemplateClick(t)">
+            <div class="template-item list-item" *ngFor="let t of templateIds" (click)="selectTemplateClick(t)">
                 <div class="template-item-text" [ngClass]="{'template-item-current': isCurrentTemplate(t)}">{{ t?.name
                     }} </div>
-                <div class="image-btn" (click)="renameTemplateClick(t)" title="Rename a template">
+                <div class="image-btn" (click)="renameTemplateClick(t, $event)" title="Rename a template">
                     <fa-icon [icon]="'edit'"></fa-icon>
                 </div>
-                <div class="image-btn" (click)="downloadTemplateClick(t)" title="Download a template">
+                <div class="image-btn" (click)="downloadTemplateClick(t, $event)" title="Download a template">
                     <fa-icon [icon]="'file-download'"></fa-icon>
                 </div>
-                <div class="image-btn" (click)="removeTemplateClick(t)" title="Remove a template">
+                <div class="image-btn" (click)="removeTemplateClick(t, $event)" title="Remove a template">
                     <fa-icon [icon]="'trash'"></fa-icon>
                 </div>
             </div>

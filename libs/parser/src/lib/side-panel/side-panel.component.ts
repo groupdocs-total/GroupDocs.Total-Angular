@@ -136,7 +136,9 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     this._templateService.createTemplate();
   }
 
-  renameTemplateClick(templateId: TemplateId) {
+  renameTemplateClick(templateId: TemplateId, $event) {
+    $event.stopPropagation();
+    $event.preventDefault();
     if (templateId && this.templateNameModal) {
       this.templateNameModal.operationId = templateId.id;
       this.templateNameModal.initialValue = templateId.name;
@@ -159,7 +161,9 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     this._modalService.close("TemplateNameModal");
   }
 
-  removeTemplateClick(templateId: TemplateId) {
+  removeTemplateClick(templateId: TemplateId, $event) {
+    $event.stopPropagation();
+    $event.preventDefault();
     if (this.templateRemoveModal) {
       this.templateRemoveModal.operationId = templateId.id;
       this.templateRemoveModal.promptText = "Remove template <b>" + templateId.name + "</b>?";
@@ -173,7 +177,9 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     this._templateService.removeTemplate({ id: operationId, name: "" });
   }
 
-  downloadTemplateClick(templateId: TemplateId) {
+  downloadTemplateClick(templateId: TemplateId, $event) {
+    $event.stopPropagation();
+    $event.preventDefault();
     const templateJson = this._templateService.serialize(templateId);
 
     const f = new File([templateJson], templateId.name + ".json", {
