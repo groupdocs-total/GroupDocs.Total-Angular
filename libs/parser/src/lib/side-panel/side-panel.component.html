@@ -19,14 +19,14 @@
 
             <div class="side-panel-toolbar-space"></div>
 
-            <div class="image-btn" (click)="renameTemplateClick(currentTemplate)" title="Rename the current template">
+            <div class="image-btn" (click)="renameTemplateClick(currentTemplate, $event)" title="Rename the current template">
                 <fa-icon [icon]="'edit'"></fa-icon>
             </div>
-            <div class="image-btn" *ngIf="currentTemplate?.isStored" (click)="removeTemplateClick(currentTemplate)"
+            <div class="image-btn" *ngIf="currentTemplate?.isStored" (click)="removeTemplateClick(currentTemplate, $event)"
                 title="Remove the current template">
                 <fa-icon [icon]="'trash'"></fa-icon>
             </div>
-            <div class="image-btn" *ngIf="currentTemplate?.isStored" (click)="downloadTemplateClick(currentTemplate)"
+            <div class="image-btn" *ngIf="currentTemplate?.isStored" (click)="downloadTemplateClick(currentTemplate, $event)"
                 title="Download the current template">
                 <fa-icon [icon]="'file-download'"></fa-icon>
             </div>
