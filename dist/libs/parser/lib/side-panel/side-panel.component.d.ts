@@ -39,11 +39,11 @@ export declare class SidePanelComponent implements OnInit, OnDestroy {
     isCurrentTemplate(templateId: TemplateId): boolean;
     selectTemplateClick(templateId: TemplateId): void;
     createTemplateClick(): void;
-    renameTemplateClick(templateId: TemplateId): void;
+    renameTemplateClick(templateId: TemplateId, $event: any): void;
     templateNameModalAccept(event: any): void;
-    removeTemplateClick(templateId: TemplateId): void;
+    removeTemplateClick(templateId: TemplateId, $event: any): void;
     templateRemoveModalAccept(operationId: string): void;
-    downloadTemplateClick(templateId: TemplateId): void;
+    downloadTemplateClick(templateId: TemplateId, $event: any): void;
     onFileSelected(event: any): void;
     showData(): void;
     parse(): void;
