@@ -234,8 +234,7 @@ export class SidePanelComponent implements OnInit, OnDestroy {
     this._parserService.parseByTemplate(
       this._sourceFileService.sourceFile,
       null,
-      this._templateService.currentTemplate,
-      this.guestName
+      this._templateService.currentTemplate
     ).subscribe(observer);
   }
 
