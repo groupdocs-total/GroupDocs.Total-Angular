@@ -1,14 +1,27 @@
 import { Component, OnDestroy, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { OperationState, ParseByTemplateResponse, ParseResult, TableValue, Template, TemplateId } from '../app-models';
+import { DomSanitizer } from '@angular/platform-browser';
+import { OperationState, ParseByTemplateResponse, ParseResult, TableValue, Template, TemplateField, TemplateId } from '../app-models';
 import { RenameModalComponent } from '../rename-modal/rename-modal.component';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
 import {
-  ModalService} from "@groupdocs.examples.angular/common-components";
+  AddDynamicComponentService,
+  CommonModals,
+  FileCredentials,
+  FileModel, Formatting,
+  HostingDynamicComponentService,
+  ModalService,
+  NavigateService, PagePreloadService, PasswordService,
+  TopTabActivatorService, UploadFilesService,
+  Utils,
+  WindowService,
+  ZoomService,
+  ExceptionMessageService
+} from "@groupdocs.examples.angular/common-components";
 
 import { ParserService } from '../parser.service';
 import { TemplateService } from '../template.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { SourceFileService } from '../source-file.service';
 import { UtilsService } from '../utils.service';
 import { PlaceholderService } from '../placeholder.service';
@@ -21,7 +34,6 @@ import { TableViewerComponent } from '../table-viewer/table-viewer.component';
 })
 export class SidePanelComponent implements OnInit, OnDestroy {
   @Input() fileNameForCsv: string;
-  @Input() guestName: string;
   
   private _currentTemplateChangedSubscription: Subscription;
   private _templateAddedSubscription: Subscription;

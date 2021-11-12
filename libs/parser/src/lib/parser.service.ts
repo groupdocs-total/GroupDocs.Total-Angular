@@ -52,7 +52,7 @@ export class ParserService {
     return subject;
   }
 
-  parseByTemplate(sourceFile: SourceFile, password: string, template: Template, guestName: string): Observable<ParseByTemplateResponse> {
+  parseByTemplate(sourceFile: SourceFile, password: string, template: Template): Observable<ParseByTemplateResponse> {
     const subject = new Subject<ParseByTemplateResponse>();
 
     const observer = {
@@ -70,8 +70,7 @@ export class ParserService {
       {
         guid: sourceFile.guid,
         password: sourceFile.password,
-        fields: template.fields,
-        guestName: guestName
+        fields: template.fields
       },
       Api.httpOptionsJson)
       .pipe(timeout(25000))
