@@ -15,6 +15,7 @@
               (click)="zoomIn()" *ngIf="zoomConfig"></gd-button>
             <gd-button class="desktop-hide" [disabled]="formatDisabled" [icon]="'search-minus'" [tooltip]="'Zoom Out'"
               (click)="zoomOut()" *ngIf="zoomConfig"></gd-button>
+            <gd-button [disabled]="formatDisabled" [icon]="annotationsHidden ? 'toggle-off' : 'toggle-on'" [tooltip]="'Hide annotations'" (click)="hideAnnotations()"></gd-button>
           </div>
         </gd-tab>
         <gd-tab [tabTitle]="'Annotations'" [icon]="'highlighter'" [id]="'2'"
@@ -52,9 +53,9 @@
     </gd-tabbed-toolbars>
     <div class="doc-panel" *ngIf="file" (mousedown)="createAnnotation($event)"
          (mousemove)="resizingCreatingAnnotation($event)" (mouseup)="finishCreatingAnnotation($event)"
-         (touchstart)="createAnnotation($event)" (touchmove)="resizingCreatingAnnotation($event)"
+         (touchstart)="!isDesktop ? createAnnotation($event) : ''" (touchmove)="resizingCreatingAnnotation($event)"
          (touchend)="finishCreatingAnnotation($event)"
-         (panstart)="createAnnotation($event)" (panmove)="resizingCreatingAnnotation($event)"
+         (panstart)="!isDesktop ? createAnnotation($event) : ''" (panmove)="resizingCreatingAnnotation($event)"
          (panend)="finishCreatingAnnotation($event)">
       <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig" gdScrollable
                    [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig" (onpan)="onPan($event)"></gd-document>

@@ -1,9 +1,9 @@
-<gd-modal id="gd-error-message" [title]="'Error'">
+<gd-modal id="gd-error-message" title="{{'Error' | translate}}">
   <section id="gd-error-section">
     <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
     <div class="gd-modal-error">
-      <div class="gd-modal-error-title">Something went wrong</div>
-      <div class="gd-modal-error-message">{{message ? message : 'Server is not available'}}</div>
+      <div class="gd-modal-error-title">{{'Something went wrong' | translate}}</div>
+      <div class="gd-modal-error-message">{{(message ? message : 'Server is not available') | translate}}</div>
     </div>
   </section>
 </gd-modal>

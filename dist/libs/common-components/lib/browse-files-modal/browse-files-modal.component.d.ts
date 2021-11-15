@@ -19,6 +19,8 @@ export declare class BrowseFilesModalComponent implements OnInit {
     constructor(_uploadService: UploadFilesService);
     ngOnInit(): void;
     getSize(size: number): string;
+    getSizeValue(size: number): number;
+    getSizeUnits(size: number): "MB" | "KB" | "Bytes";
     getFormatName(file: FileModel): any;
     getFormatIcon(file: FileModel): any;
     choose(file: FileModel): void;

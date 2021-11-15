@@ -18,6 +18,7 @@ import {far} from '@fortawesome/free-regular-svg-icons';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ConversionQueueComponent} from './conversion-queue/conversion-queue.component';
 import {ConversionItemComponent} from './conversion-item/conversion-item.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 export function initializeApp(conversionConfigService: ConversionConfigService) {
   const result = () => conversionConfigService.load();
@@ -30,7 +31,9 @@ export function initializeApp(conversionConfigService: ConversionConfigService) 
   imports: [CommonModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule],
+    FontAwesomeModule,
+    TranslateModule.forRoot()
+  ],
   providers: [
     ConversionService,
     ConfigService,

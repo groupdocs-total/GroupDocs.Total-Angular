@@ -11,6 +11,7 @@ export declare class ScrollableDirective implements AfterViewInit, OnChanges, On
     private _zoomService;
     private _windowService;
     private _viewportService;
+    isPresentation: boolean;
     private currentPage;
     private zoom;
     private loadedPagesSet;

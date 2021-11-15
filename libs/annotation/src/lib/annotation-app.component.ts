@@ -1,6 +1,6 @@
-import {Component, ComponentRef, OnInit} from '@angular/core';
-import {AnnotationConfig} from "./annotation-config";
-import {AnnotationService} from "./annotation.service";
+import { Component, ComponentRef, OnInit } from '@angular/core';
+import { AnnotationConfig } from "./annotation-config";
+import { AnnotationService } from "./annotation.service";
 import {
   AddDynamicComponentService,
   CommonModals,
@@ -22,11 +22,11 @@ import {
   Comment,
   FileAnnotationDescription, PageAnnotationModel, AnnotationData, Dimension
 } from "./annotation-models";
-import {AnnotationComponent} from "./annotation/annotation.component";
-import {ActiveAnnotationService} from "./active-annotation.service";
+import { AnnotationComponent } from "./annotation/annotation.component";
+import { ActiveAnnotationService } from "./active-annotation.service";
 import * as jquery from 'jquery';
-import {RemoveAnnotationService} from "./remove-annotation.service";
-import {CommentAnnotationService} from "./comment-annotation.service";
+import { RemoveAnnotationService } from "./remove-annotation.service";
+import { CommentAnnotationService } from "./comment-annotation.service";
 import { AnnotationConfigService } from "./annotation-config.service";
 
 const $ = jquery;
@@ -44,7 +44,7 @@ export class AnnotationAppComponent implements OnInit {
   annotationConfig: AnnotationConfig;
   browseFilesModal = CommonModals.BrowseFiles;
   formatDisabled = !this.file;
-   public credentials: FileCredentials;
+  public credentials: FileCredentials;
   annotationTypes = [
     AnnotationType.TEXT,
     AnnotationType.TEXT_STRIKEOUT,
@@ -90,22 +90,23 @@ export class AnnotationAppComponent implements OnInit {
   public annotations = new Map<number, ComponentRef<any>>();
   private creatingAnnotationId: number;
   private activeAnnotationId: number;
+  annotationsHidden: boolean;
 
   constructor(private _annotationService: AnnotationService,
-              private _modalService: ModalService,
-              private _navigateService: NavigateService,
-              private _tabActivatorService: TopTabActivatorService,
-              private _hostingComponentsService: HostingDynamicComponentService,
-              private _addDynamicComponentService: AddDynamicComponentService,
-              private _activeAnnotationService: ActiveAnnotationService,
-              private _removeAnnotationService: RemoveAnnotationService,
-              public _commentAnnotationService: CommentAnnotationService,
-              uploadFilesService: UploadFilesService,
-              pagePreloadService: PagePreloadService,
-              passwordService: PasswordService,
-              private _windowService: WindowService,
-              private _zoomService: ZoomService,
-              configService: AnnotationConfigService) {
+    private _modalService: ModalService,
+    private _navigateService: NavigateService,
+    private _tabActivatorService: TopTabActivatorService,
+    private _hostingComponentsService: HostingDynamicComponentService,
+    private _addDynamicComponentService: AddDynamicComponentService,
+    private _activeAnnotationService: ActiveAnnotationService,
+    private _removeAnnotationService: RemoveAnnotationService,
+    public _commentAnnotationService: CommentAnnotationService,
+    uploadFilesService: UploadFilesService,
+    pagePreloadService: PagePreloadService,
+    passwordService: PasswordService,
+    private _windowService: WindowService,
+    private _zoomService: ZoomService,
+    configService: AnnotationConfigService) {
 
     configService.updatedConfig.subscribe((annotationConfig) => {
       this.annotationConfig = annotationConfig;
@@ -285,7 +286,7 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.annotationConfig.defaultDocument !== ""){
+    if (this.annotationConfig.defaultDocument !== "") {
       this.isLoading = true;
       this.selectFile(this.annotationConfig.defaultDocument, "", "");
     }
@@ -351,31 +352,31 @@ export class AnnotationAppComponent implements OnInit {
     this.file = null;
     this.commentOpenedId = null;
     this._annotationService.loadFile(this.credentials).subscribe((file: FileAnnotationDescription) => {
-        this.cleanAnnotations();
-        this.file = file;
-        this.formatDisabled = !this.file;
-        if (file) {
-          if (!this.isDesktop && file.pages && file.pages[0]) {
-            this._pageHeight = file.pages[0].height;
-            this._pageWidth = file.pages[0].width;
-            this.refreshZoom();
-          }
-          const preloadPageCount = this.preloadPageCountConfig;
-          const countPages = file.pages ? file.pages.length : 0;
-          if (preloadPageCount > 0) {
-            this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
-          } else {
-            setTimeout(() => {
-              for (const page of this.file.pages) {
-                this.importAnnotations(page.annotations ? page.annotations : []);
-              }
-            }, 100);
-          }
-          this._navigateService.countPages = countPages;
-          this._navigateService.currentPage = 1;
-          this.countPages = countPages;
+      this.cleanAnnotations();
+      this.file = file;
+      this.formatDisabled = !this.file;
+      if (file) {
+        if (!this.isDesktop && file.pages && file.pages[0]) {
+          this._pageHeight = file.pages[0].height;
+          this._pageWidth = file.pages[0].width;
+          this.refreshZoom();
         }
+        const preloadPageCount = this.preloadPageCountConfig;
+        const countPages = file.pages ? file.pages.length : 0;
+        if (preloadPageCount > 0) {
+          this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
+        } else {
+          setTimeout(() => {
+            for (const page of this.file.pages) {
+              this.importAnnotations(page.annotations ? page.annotations : []);
+            }
+          }, 100);
+        }
+        this._navigateService.countPages = countPages;
+        this._navigateService.currentPage = 1;
+        this.countPages = countPages;
       }
+    }
     );
     if (modalId) {
       this._modalService.close(modalId);
@@ -428,7 +429,7 @@ export class AnnotationAppComponent implements OnInit {
     });
   }
 
-  public prepareAnnotationsData(){
+  public prepareAnnotationsData() {
     const annotationsData = [];
     for (const annotation of this.annotations.values()) {
       const annotationData = (<AnnotationComponent>annotation.instance).getAnnotationData();
@@ -441,13 +442,17 @@ export class AnnotationAppComponent implements OnInit {
   isVisible(id: string) {
     const supported = !this.file || (this.file && this.file.supportedAnnotations &&
       this.file.supportedAnnotations.find(function (value: string) {
-      return id === value;
-    }));
+        return id === value;
+      }));
     return this.getAnnotationTypeConfig(id) && supported;
   }
 
   activeTab($event) {
-    this.activeAnnotationTab = $event;
+    if (this.activeAnnotationTab && $event === this.activeAnnotationTab) {
+      this.activeAnnotationTab = null;
+    } else {
+      this.activeAnnotationTab = $event;
+    }
   }
 
   codesConfigFirst() {
@@ -512,6 +517,12 @@ export class AnnotationAppComponent implements OnInit {
     this.comments = new Map<number, Comment[]>();
   }
 
+  hideAnnotations() {
+    for (const annotationCompRef of this.annotations.values()) {
+      this.annotationsHidden = (<AnnotationComponent>annotationCompRef.instance).hidden = !(<AnnotationComponent>annotationCompRef.instance).hidden;
+    }
+  }
+
   private clearData() {
     if (!this.file || !this.file.pages) {
       return;
@@ -521,30 +532,31 @@ export class AnnotationAppComponent implements OnInit {
     }
   }
 
-  createAnnotation($event: MouseEvent) {
-    if (this.activeAnnotationTab)
-    {
+  createAnnotation($event: any) {
+    if ($event.target.classList[0] === 'svg' || $event.target.classList[0] === 'gd-page-image') {
+      if (this.activeAnnotationTab) {
         $event.preventDefault();
-    } 
+      }
 
-    if (this.activeAnnotationTab) {
-      const position = Utils.getMousePosition($event);
+      if (this.activeAnnotationTab) {
+        const position = Utils.getMousePosition($event);
 
-      const elements = document.elementsFromPoint(position.x, position.y);
-      const currentPage = elements.find(x => x.id && x.id.startsWith("page-"));
-      if (currentPage) {
-        const documentPage = $(currentPage).parent().parent()[0];
-        const currentPosition = this.getCurrentPosition(position, $(documentPage));
-        const pageId = currentPage.id;
-        let pageNumber = 1;
-        if (pageId) {
-          const split = pageId.split('-');
-          pageNumber = split.length === 2 ? parseInt(split[1], 10) : pageNumber;
+        const elements = document.elementsFromPoint(position.x, position.y);
+        const currentPage = elements.find(x => x.id && x.id.startsWith("page-"));
+        if (currentPage) {
+          const documentPage = $(currentPage).parent().parent()[0];
+          const currentPosition = this.getCurrentPosition(position, $(documentPage));
+          const pageId = currentPage.id;
+          let pageNumber = 1;
+          if (pageId) {
+            const split = pageId.split('-');
+            pageNumber = split.length === 2 ? parseInt(split[1], 10) : pageNumber;
+          }
+          const id = this.addAnnotationComponent(pageNumber, currentPosition, null);
+          this._activeAnnotationService.changeActive(id);
+          this.creatingAnnotationId = id;
+          // this._tabActivatorService.changeActiveTab(null);
         }
-        const id = this.addAnnotationComponent(pageNumber, currentPosition, null);
-        this._activeAnnotationService.changeActive(id);
-        this.creatingAnnotationId = id;
-        this._tabActivatorService.changeActiveTab(null);
       }
     }
   }
@@ -582,6 +594,7 @@ export class AnnotationAppComponent implements OnInit {
       });
       (<AnnotationComponent>annotationComponent.instance).pageWidth = pageModel.width;
       (<AnnotationComponent>annotationComponent.instance).pageHeight = pageModel.height;
+      (<AnnotationComponent>annotationComponent.instance).hidden = this.annotationsHidden;
       this.annotations.set(id, annotationComponent);
       return id;
     }
@@ -589,10 +602,9 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   resizingCreatingAnnotation($event: MouseEvent) {
-    if (this.activeAnnotationTab)
-    {
-        $event.preventDefault();
-    } 
+    if (this.activeAnnotationTab) {
+      $event.preventDefault();
+    }
 
     if (this.creatingAnnotationId) {
       const position = Utils.getMousePosition($event);
@@ -609,16 +621,15 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   private getCurrentPosition(position, page) {
-    const left = (position.x - page.offset().left)/(this.zoom/100);
-    const top = (position.y - page.offset().top)/(this.zoom/100);
+    const left = (position.x - page.offset().left) / (this.zoom / 100);
+    const top = (position.y - page.offset().top) / (this.zoom / 100);
     return new Position(left, top);
   }
 
   finishCreatingAnnotation($event: MouseEvent) {
-    if (this.activeAnnotationTab)
-    {
-        $event.preventDefault();
-    } 
+    if (this.activeAnnotationTab) {
+      $event.preventDefault();
+    }
 
     if (this.creatingAnnotationId) {
       this._activeAnnotationService.changeActive(this.creatingAnnotationId);
@@ -630,15 +641,14 @@ export class AnnotationAppComponent implements OnInit {
     this.commentOpenedId = null;
   }
 
-  onPan($event)
-  {
+  onPan($event) {
     this._zoomService.changeZoom(this._zoom);
   }
 
   private getNextId() {
     let maxId = 0;
     for (const annId of this.annotations.keys()) {
-      if (annId > maxId){
+      if (annId > maxId) {
         maxId = annId;
       }
     }

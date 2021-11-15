@@ -2,16 +2,16 @@
      (click)="toggle($event)"
      (touchstart)="toggle($event)"
      (clickOutside)="onClickOutside($event)"
-     [clickOutsideEnabled]="isOpen">
+     [attachOutsideOnClick]="true">
   <div *ngIf="!icon" class="selected-value" gdDisabledCursor [dis]="disabled">
-    {{showSelected?.name}}
+    {{showSelected?.name | translate}}
   </div>
   <fa-icon *ngIf="icon" [icon]="['fas',icon]"></fa-icon>
   <span class="nav-caret" gdDisabledCursor [dis]="disabled"></span>
   <div class="dropdown-menu" *ngIf="isOpen">
     <div *ngFor="let option of options">
       <div *ngIf="!option.separator" (click)="select($event, option)" (touchstart)="select($event, option)"
-           class="option">{{option.name}}</div>
+           class="option">{{option.name | translate}}</div>
       <div *ngIf="option.separator" role="separator" class="dropdown-menu-separator"></div>
     </div>
   </div>

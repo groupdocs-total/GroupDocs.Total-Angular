@@ -11,6 +11,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -4541,7 +4542,8 @@ SignatureModule.decorators = [
                     StampCanvasComponent,
                     SignatureLeftPanelComponent,
                     HandModalComponent,
-                    StampModalComponent],
+                    StampModalComponent
+                ],
                 exports: [SignatureAppComponent,
                     SignatureListPanelComponent,
                     NewBarQrCodeComponent,
@@ -4553,12 +4555,15 @@ SignatureModule.decorators = [
                     SignatureLeftPanelComponent,
                     HandModalComponent,
                     StampModalComponent,
-                    CommonComponentsModule],
+                    CommonComponentsModule
+                ],
                 imports: [CommonModule,
                     CommonComponentsModule,
                     HttpClientModule,
                     FontAwesomeModule,
-                    ClickOutsideModule],
+                    ClickOutsideModule,
+                    TranslateModule.forRoot()
+                ],
                 providers: [
                     SignatureService,
                     ConfigService,

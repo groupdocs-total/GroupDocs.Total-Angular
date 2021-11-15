@@ -1,0 +1,10 @@
+<gd-modal #modal [id]="'TableViewer'" [title]="'Table Viewer'">
+    <div class="window" *ngIf="table">
+        <table>
+            <tr *ngFor="let r of table.rows">
+                <td *ngFor="let c of r">{{c}}</td>
+            </tr>
+        </table>
+
+    </div>
+</gd-modal>

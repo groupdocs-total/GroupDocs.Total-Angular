@@ -267,6 +267,15 @@ gd-tab {
   }
 }
 
+::ng-deep  .documentMainContent {
+    .page8marker {
+      width: 100%;
+      border-bottom: 2px dotted rgba(54, 95, 145, 0.7);
+      position: absolute;
+      right: 0;
+  }
+}
+
 @media @phone-down {
   ::ng-deep .panzoom {
     zoom      : 0.45;
@@ -302,15 +311,7 @@ gd-tab {
     .icon-button {
       height: 60px !important;
       width : 60px;
-    }
-  }
-
-  ::ng-deep #formatting-tab,
-  ::ng-deep #paragraph-tab {
-    ::ng-deep .tools {
-      .icon-button {
-        margin: 0px !important;
-      }
+      margin: 0px !important;
     }
   }
 
@@ -365,5 +366,9 @@ gd-tab {
 
   ::ng-deep .init-state-wrapper {
     position: unset !important;
+  }
+
+  ::ng-deep .gd-document {
+    height: ~"calc(100% - @{nav-height})" !important;
   }
 }

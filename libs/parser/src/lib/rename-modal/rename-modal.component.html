@@ -1,0 +1,13 @@
+<gd-modal #modal [id]="id" [title]="title" (visible)="refresh($event)">
+  <div class="window">
+    <div class="prompt">{{ promptText }}</div>
+    <input #inputBox type="text" [value]="value" (input)="value=$event.target.value" (keyup.enter)="acceptClick()" (keyup.esc)="cancelClick()"/>
+
+    <div class="error" *ngIf="error">{{ error }}</div>
+
+    <div class="buttons">      
+      <div class="btn" (click)="acceptClick()">{{ acceptText }}</div>
+      <div class="btn" (click)="cancelClick()">Cancel</div>
+    </div>
+  </div>
+</gd-modal>

@@ -1,30 +1,35 @@
 <gd-loading-mask [loadingMask]="isLoading"></gd-loading-mask>
 <div class="wrapper">
   <div class="row">
-    <div class="column" [ngClass]="{'document-loaded': !formatDisabled}">
+    <div class="column" [ngClass]="{'document-loaded': isFileLoaded()}">
       <div class="top-panel">
         <a class="logo-link" [href]="returnUrl"><gd-logo [logo]="'metadata'" icon="clipboard-list"></gd-logo></a>
         <gd-top-toolbar class="toolbar-panel">
           <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal, false)"
                     *ngIf="browseConfig" ></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'trash'" [tooltip]="'Clean Metadata'" (click)="openModal(confirmCleanModalId, true)">
+          <gd-button [disabled]="!isFileLoaded()" [icon]="'trash'" [tooltip]="'Clean Metadata'" (click)="openModal(confirmCleanModalId, true)">
                     </gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'save'" [tooltip]="'Save'" (click)="openModal(confirmSaveModalId, true)">
+          <gd-button [disabled]="!isFileLoaded()" [icon]="'save'" [tooltip]="'Save'" (click)="openModal(confirmSaveModalId, true)">
                     </gd-button>
-          <gd-button [hidden] ="isDesktop" [disabled]="formatDisabled" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties()">
+          <gd-button [hidden] ="isDesktop" [disabled]="!isFileLoaded()" [icon]="'file-export'" [tooltip]="'Attributes'" (click)="loadProperties()">
                     </gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'download'" [tooltip]="'Download'"
+          <gd-button [disabled]="!isFileLoaded()" [icon]="'download'" [tooltip]="'Download'"
                     (click)="downloadFile()" *ngIf="downloadConfig" ></gd-button>
-          <gd-button [disabled]="formatDisabled" [icon]="'file-excel'" [tooltip]="'Export Properties'"
+          <gd-button [disabled]="!isFileLoaded()" [icon]="'file-excel'" [tooltip]="'Export Properties'"
                     (click)="exportProperties()" ></gd-button>
         </gd-top-toolbar>
       </div>
-      <div class="doc-panel" *ngIf="file" #docPanel>
-        <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="false" gdScrollable
+      <gd-init-state [icon]="'clipboard-list'" [text]="'Drop file here to upload'" *ngIf="!isFileLoaded() && uploadConfig && !isPreviewLoaded()" (fileDropped)="fileDropped($event)">
+        Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
+        Or drop file here
+      </gd-init-state>
+      <gd-preview-status [status]="previewStatus"></gd-preview-status>
+      <div class="doc-panel" *ngIf="preview" #docPanel>
+        <gd-document class="gd-document" *ngIf="preview" [file]="preview" [mode]="false" gdScrollable
                     [preloadPageCount]="metadataConfig?.preloadPageCount" gdRenderPrint [htmlMode]="false"></gd-document>
       </div>
     </div>
-    <gd-side-panel *ngIf="file && showSidePanel"
+    <gd-side-panel *ngIf="isFileLoaded() && showSidePanel"
       (hideSidePanel)="hideSidePanel($event)"
       (saveInSidePanel)="save()"
       [closable]="isDesktop ? false : true"
@@ -36,10 +41,7 @@
       </gd-accordion>
     </gd-side-panel>
   </div>
-  <gd-init-state [icon]="'clipboard-list'" [text]="'Drop file here to upload'" *ngIf="!file && uploadConfig" (fileDropped)="fileDropped($event)">
-    Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
-    Or drop file here
-  </gd-init-state>
+
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
                          (selectedFileGuid)="selectFile($event, null, browseFilesModal)"
                          [uploadConfig]="uploadConfig"></gd-browse-files-modal>

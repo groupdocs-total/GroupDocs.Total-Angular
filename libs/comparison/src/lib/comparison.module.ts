@@ -24,6 +24,7 @@ import {ResultDocumentComponent} from './result-document/result-document.compone
 import {DifferencesComponent} from './differences/differences.component';
 import {DifferencesService} from './differences.service';
 import {ClickOutsideModule} from 'ng-click-outside';
+import {TranslateModule} from '@ngx-translate/core';
 
 export function initializeApp(comparisonConfigService: ComparisonConfigService) {
   const result = () => comparisonConfigService.load();
@@ -43,7 +44,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     CommonComponentsModule,
     HttpClientModule,
     FontAwesomeModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    TranslateModule.forRoot()
   ],
   exports: [
     ComparisonAppComponent,

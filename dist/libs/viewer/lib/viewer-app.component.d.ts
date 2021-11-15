@@ -1,11 +1,13 @@
-import { AfterViewInit, OnInit } from '@angular/core';
+import { AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ViewerService } from "./viewer.service";
-import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
+import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, PageModel, ZoomService, RenderPrintService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
 import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
-import { WindowService } from "@groupdocs.examples.angular/common-components";
+import { WindowService, Option } from "@groupdocs.examples.angular/common-components";
 import { Subscription } from 'rxjs';
+import { Language } from './viewer.constants';
 import { IntervalTimer } from './interval-timer';
+import { TranslateService } from '@ngx-translate/core';
 export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _viewerService;
     private _modalService;
@@ -13,6 +15,8 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _renderPrintService;
     private _windowService;
     private _loadingMaskService;
+    private cdr;
+    translate: TranslateService;
     title: string;
     files: FileModel[];
     file: FileDescription;
@@ -25,6 +29,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     showSearch: boolean;
     isDesktop: boolean;
     isLoading: boolean;
+    pagesToPreload: number[];
     _zoom: number;
     _pageWidth: number;
     _pageHeight: number;
@@ -37,12 +42,15 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     fileWasDropped: boolean;
     formatIcon: string;
     fileParam: string;
+    urlParam: string;
     querySubscription: Subscription;
     selectedPageNumber: number;
     runPresentation: boolean;
     isFullScreen: boolean;
     startScrollTime: number;
     endScrollTime: number;
+    supportedLanguages: Option[];
+    selectedLanguage: Option;
     docElmWithBrowsersFullScreenFunctions: HTMLElement & {
         mozRequestFullScreen(): Promise<void>;
         webkitRequestFullscreen(): Promise<void>;
@@ -55,7 +63,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     };
     zoomService: ZoomService;
     fullScreen(): void;
-    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService);
+    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService, cdr: ChangeDetectorRef, translate: TranslateService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
@@ -72,14 +80,19 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     readonly saveRotateStateConfig: boolean;
     readonly enableRightClickConfig: boolean;
     readonly currentPage: number;
+    readonly showLanguageMenu: boolean;
+    readonly supportedLanguagesConfig: Language[];
+    readonly defaultLanguageConfig: Language;
     ifPresentation(): boolean;
     ifExcel(): boolean;
     ifImage(): boolean;
-    validURL(str: any): boolean;
     getFileName(): string;
     openModal(id: string): void;
     closeModal(id: string): void;
     selectDir($event: string): void;
+    selectCurrentOrFirstPage(): void;
+    getPreloadPageCount(): 0 | 3;
+    copyThumbnails(pages: PageModel[]): PageModel[];
     selectFile($event: string, password: string, modalId: string): void;
     preloadPages(start: number, end: number): void;
     upload($event: string): void;
@@ -118,7 +131,6 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     onMouseWheelUp(): void;
     onMouseWheelDown(): void;
     vertScrollEnded(onTop: boolean): boolean;
-    private TryOpenFileByUrl;
     toggleTimer($event: any): void;
     showCountDown(): boolean;
     startCountDown(seconds: number, reset?: boolean): void;
@@ -132,4 +144,5 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     startPresentation(): void;
     openFullScreen(): void;
     closeFullScreen(byButton?: boolean): void;
+    selectLanguage(selectedLanguage: Option): void;
 }

@@ -24,10 +24,6 @@ export class MetadataService {
     return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_DOCUMENT_PROPERTIES, credentials, Api.httpOptionsJson);
   }
 
-  loadPropertiesNames(credentials: FileCredentials) {
-    return this._http.post(this._config.getMetadataApiEndpoint() + Api.LOAD_DOCUMENT_PROPERTIES_NAMES, credentials, Api.httpOptionsJson);
-  }
-
   saveProperty(metadataFile: MetadataFileDescription) {
     return this._http.post(this._config.getMetadataApiEndpoint() + Api.SAVE_PROPERTY, metadataFile, Api.httpOptionsJson);
   }

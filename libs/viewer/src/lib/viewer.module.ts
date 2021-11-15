@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ViewerAppComponent} from './viewer-app.component';
 import {
@@ -14,24 +14,25 @@ import {ViewerService} from "./viewer.service";
 import {ViewerConfigService} from "./viewer-config.service";
 import {ExcelDocumentComponent} from './excel-document/excel-document.component';
 import {ExcelPageComponent} from './excel-page/excel-page.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {RunPresentationComponent} from './run-presentation/run-presentation.component';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {ViewerTranslateLoader} from './translation/viewer-translate.loader';
 
 export function initializeApp(viewerConfigService: ViewerConfigService) {
-  const result =  () => viewerConfigService.load();
+  const result = () => viewerConfigService.load();
   return result;
-}
-
-export function endPoint() {
-  const config = new ConfigService();
-  config.apiEndpoint = "http://localhost:8080";
-  return config;
 }
 
 // NOTE: this is required during library compilation see https://github.com/angular/angular/issues/23629#issuecomment-440942981
 // @dynamic
 export function setupLoadingInterceptor(service: LoadingMaskService) {
   return new LoadingMaskInterceptorService(service);
+}
+
+// AoT requires an exported function for factories
+export function translateLoaderFactory() {
+  return new ViewerTranslateLoader();
 }
 
 @NgModule({
@@ -44,7 +45,13 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: translateLoaderFactory
+      }
+    })
   ],
   exports : [
     ViewerAppComponent,
@@ -55,10 +62,7 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
   ],
   providers: [
     ViewerService,
-    {
-      provide: ConfigService,
-      useFactory: endPoint
-    },
+    ConfigService,
     ViewerConfigService,
     {
       provide: HTTP_INTERCEPTORS,
