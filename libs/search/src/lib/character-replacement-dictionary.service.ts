@@ -1,55 +1,71 @@
-import { Injectable } from '@angular/core';
-import { CharacterReplacement, CharacterReplacementsReadResponse, CharacterReplacementsUpdateRequest } from './search-models';
+import { Injectable, OnDestroy, SystemJsNgModuleLoader } from '@angular/core';
+import { CharacterSelectorService } from './character-selector.service';
+import { SearchConfigService } from './search-config.service';
+import { CharacterReplacement, CharacterReplacementsReadResponse, CharacterReplacementsUpdateRequest, SearchBaseRequest } from './search-models';
 import { SearchService } from './search.service';
 
 @Injectable()
 export class CharacterReplacementDictionaryService {
-  totalCount = 65536;
-  longStep = 16;
+  readonly totalCount = 65536;
+  readonly longStep = 16;
   replacements: CharacterReplacement[];
-  pageCapacity = 256;
-  pageCount = 256;
+  readonly pageCapacity = 256;
+  readonly pageCount = 256;
   pageIndex = 0;
   page: CharacterReplacement[];
 
-  constructor(private _searchService: SearchService) {
+  constructor(
+    private _searchService: SearchService,
+    private _configService: SearchConfigService,
+    private _characterSelector: CharacterSelectorService) {
   }
 
   init() {
-    this._searchService.getCharacterReplacementDictionary().subscribe((response: CharacterReplacementsReadResponse) => {
-      this.replacements = new Array(this.totalCount);
-      for (let cId = 0; cId < response.Replacements.length; cId++) {
-        const rId = response.Replacements[cId];
-        const cr = new CharacterReplacement();
-        cr.CharacterId = cId;
-        cr.Character = String.fromCharCode(cId);
-        cr.CharacterCode = cId.toString(16).toUpperCase().padStart(4, "0");
-        cr.ReplacementId = rId;
-        cr.Replacement = String.fromCharCode(rId);
-        cr.ReplacementCode = rId.toString(16).toUpperCase().padStart(4, "0");
-        this.replacements[cId] = cr;
-      }
+    const request = new SearchBaseRequest();
+    request.FolderName = this._configService.folderName;
+    this.replacements = null;
+    this.page = null;
 
+    this._searchService.getCharacterReplacementDictionary(request).subscribe((response: CharacterReplacementsReadResponse) => {
+      const replacements = new Array(this.totalCount);
+      for (let cId = 0; cId < response.replacements.length; cId++) {
+        const rId = response.replacements[cId];
+        const cr = CharacterReplacement.create(cId, rId);
+        replacements[cId] = cr;
+      }
+      this.replacements = replacements;
+  
       this.pageIndex = 0;
 
-      // Fill the first page
-      if (!this.page) {
-        this.page = new Array(this.pageCapacity);
-      }
       this.populatePage();
     });
   }
 
   save() {
     const request = new CharacterReplacementsUpdateRequest();
-    request.Replacements = new Array(this.totalCount);
+    request.FolderName = this._configService.folderName;
+
+    request.replacements = new Array(this.totalCount);
     for (let i = 0; i < this.replacements.length; i++) {
-      request.Replacements[i] = this.replacements[i].ReplacementId;
+      request.replacements[i] = this.replacements[i].ReplacementId;
     }
 
     this._searchService.setCharacterReplacementDictionary(request).subscribe(() => {
       console.log("Character replacement dictionary updated");
     });
+  }
+
+  selectReplacement(replacement: CharacterReplacement) {
+    this._characterSelector.characterReplacementUpdated.subscribe((replacement) => {
+      for (let i = 0; i < this.replacements.length; i++) {
+        if (this.replacements[i].CharacterId === replacement.CharacterId) {
+          this.replacements[i] = replacement;
+          break;
+        }
+      }
+      this.populatePage();
+    });
+    this._characterSelector.open(replacement);
   }
 
   firstPage() {
@@ -95,9 +111,11 @@ export class CharacterReplacementDictionaryService {
   }
 
   private populatePage() {
+    const page = new Array(this.pageCapacity)
     const baseIndex = this.pageIndex * this.pageCapacity;
-    for (let i = 0; i < this.page.length; i++) {
-      this.page[i] = this.replacements[i + baseIndex];
+    for (let i = 0; i < page.length; i++) {
+      page[i] = this.replacements[i + baseIndex];
     }
+    this.page = page;
   }
 }

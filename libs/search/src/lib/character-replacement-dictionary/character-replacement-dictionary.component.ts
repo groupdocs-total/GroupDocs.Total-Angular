@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CharacterReplacementDictionaryService } from '../character-replacement-dictionary.service';
 import { CommandsService } from '../commands.service';
-import { AppState } from '../search-models';
+import { AppState, CharacterReplacement } from '../search-models';
 
 @Component({
   selector: 'gd-character-replacement-dictionary',
@@ -11,8 +11,9 @@ import { AppState } from '../search-models';
 export class CharacterReplacementDictionaryComponent implements OnInit, OnDestroy {
   subscription: any;
 
-  constructor(public dictionary: CharacterReplacementDictionaryService,
-              private _commandsService: CommandsService) {
+  constructor(
+    public dictionary: CharacterReplacementDictionaryService,
+    private _commandsService: CommandsService) {
   }
 
   ngOnInit() {
@@ -26,6 +27,10 @@ export class CharacterReplacementDictionaryComponent implements OnInit, OnDestro
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  selectReplacement(replacement: CharacterReplacement) {
+    this.dictionary.selectReplacement(replacement);
   }
 
   firstPage() {

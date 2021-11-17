@@ -32,6 +32,7 @@ import { DocumentViewService } from './document-view.service';
 import { CurrentDocumentService } from './current-document.service';
 import { IndexingOptionsService } from './indexing-options.service';
 import { StateMonitorService } from './state-monitor.service';
+import { CharacterSelectorService } from './character-selector.service';
 
 @Component({
   selector: 'gd-search-app',
@@ -69,7 +70,8 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
               public documentViewService: DocumentViewService,
               public currentDocumentService: CurrentDocumentService,
               public termNavigation: FoundTermNavigationService,
-              private _stateMonitor: StateMonitorService) {
+              private _stateMonitor: StateMonitorService,
+              public characterSelector: CharacterSelectorService) {
 
     this.returnUrl = localStorage.getItem('searchReturnUrl');
     if (this.returnUrl == null) {
@@ -212,6 +214,11 @@ export class SearchAppComponent implements OnInit, AfterViewInit {
   }
 
   goBack() {
+    if (this.characterSelector.visible == true) {
+      this.characterSelector.cancel();
+      return;
+    }
+
     switch(this.appState) {
       case AppState.SearchResult: {
         if (this.highlightDocumentService.visible) {

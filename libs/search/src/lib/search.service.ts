@@ -181,9 +181,9 @@ export class SearchService {
     return this._http.post(url, data, Api.httpOptionsJson);
   }
 
-  getCharacterReplacementDictionary() {
+  getCharacterReplacementDictionary(request: SearchBaseRequest) {
     const url = this._config.apiEndpoint + SearchApi.GET_CHARACTER_REPLACEMENT_DICTIONARY;
-    return this._http.post(url, Api.httpOptionsJson);
+    return this._http.post(url, request, Api.httpOptionsJson);
   }
 
   setCharacterReplacementDictionary(data: CharacterReplacementsUpdateRequest) {

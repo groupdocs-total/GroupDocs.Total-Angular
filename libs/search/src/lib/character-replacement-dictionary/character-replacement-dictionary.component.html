@@ -8,7 +8,8 @@
       <span class="character-code">{{pair.CharacterCode}}</span>
       <span class="character-symbol">{{pair.Character}}</span>
     </div>
-    <div class="replacement-line">
+    <div class="replacement-line"
+         (click)="selectReplacement(pair)">
       <span class="replacement-code">{{pair.ReplacementCode}}</span>
       <span class="replacement-symbol">{{pair.Replacement}}</span>
     </div>

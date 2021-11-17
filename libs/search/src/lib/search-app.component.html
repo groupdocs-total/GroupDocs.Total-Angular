@@ -117,7 +117,9 @@
 
   <gd-spelling-corrector-dictionary *ngIf="appState == 'SpellingCorrectorDictionary'"></gd-spelling-corrector-dictionary>
 
-  <gd-character-replacement-dictionary *ngIf="appState == 'CharacterReplacementDictionary'"></gd-character-replacement-dictionary>
+  <gd-character-replacement-dictionary *ngIf="appState == 'CharacterReplacementDictionary' && characterSelector.visible == false"></gd-character-replacement-dictionary>
+
+  <gd-character-selector *ngIf="characterSelector.visible == true"></gd-character-selector>
 
   <gd-password-dictionary *ngIf="appState == 'PasswordDictionary'"></gd-password-dictionary>
 

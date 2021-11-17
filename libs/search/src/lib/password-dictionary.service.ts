@@ -11,13 +11,13 @@ export class PasswordDictionaryService {
 
   init() {
     this._searchService.getDocumentPasswordDictionary().subscribe((response: DocumentPasswordsReadResponse) => {
-      this.passwords = response.Passwords;
+      this.passwords = response.passwords;
       this.sort();
     });
   }
 
   sort() {
-    this.passwords.sort((a, b) => this.compare(a.Key, b.Key));
+    this.passwords.sort((a, b) => this.compare(a.key, b.key));
   }
 
   private compare(a: string, b:string) {
@@ -28,7 +28,7 @@ export class PasswordDictionaryService {
 
   save() {
     const request = new DocumentPasswordsUpdateRequest();
-    request.Passwords = this.passwords;
+    request.passwords = this.passwords;
 
     this._searchService.setDocumentPasswordDictionary(request).subscribe(() => {
       console.log("Document password dictionary updated");

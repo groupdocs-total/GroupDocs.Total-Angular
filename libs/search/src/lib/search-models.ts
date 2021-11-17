@@ -74,11 +74,36 @@ export class CharacterReplacement {
   ReplacementId: number;
   Replacement: string;
   ReplacementCode: string;
+
+  static create(characterId: number, replacementId: number): CharacterReplacement {
+    const cr = new CharacterReplacement();
+    cr.CharacterId = characterId;
+    cr.Character = String.fromCharCode(characterId);
+    cr.CharacterCode = characterId.toString(16).toUpperCase().padStart(4, "0");
+    cr.ReplacementId = replacementId;
+    cr.Replacement = String.fromCharCode(replacementId);
+    cr.ReplacementCode = replacementId.toString(16).toUpperCase().padStart(4, "0");
+    return cr;
+  }
+}
+
+export class CharacterDescriptor {
+  CharacterId: number;
+  Character: string;
+  CharacterCode: string;
+
+  static create(characterId: number): CharacterDescriptor {    
+    const cd = new CharacterDescriptor();
+    cd.CharacterId = characterId;
+    cd.Character = String.fromCharCode(characterId);
+    cd.CharacterCode = characterId.toString(16).toUpperCase().padStart(4, "0");
+    return cd;
+  }
 }
 
 export class KeyPasswordPair {
-  Key: string;
-  Password: string;
+  key: string;
+  password: string;
 }
 
 export class SearchBaseRequest {
@@ -126,19 +151,19 @@ export class SpellingCorrectorUpdateRequest extends SearchBaseRequest {
 }
 
 export class CharacterReplacementsReadResponse {
-  Replacements: number[];
+  replacements: number[];
 }
 
-export class CharacterReplacementsUpdateRequest {
-  Replacements: number[];
+export class CharacterReplacementsUpdateRequest extends SearchBaseRequest {
+  replacements: number[];
 }
 
 export class DocumentPasswordsReadResponse {
-  Passwords: KeyPasswordPair[];
+  passwords: KeyPasswordPair[];
 }
 
 export class DocumentPasswordsUpdateRequest {
-  Passwords: KeyPasswordPair[];
+  passwords: KeyPasswordPair[];
 }
 
 export class SearchAppInfo {
@@ -234,10 +259,9 @@ export class GetStatusResponse {
 }
 
 export class SearchApi {
+  // Search API
   public static GET_REPORT = '/getReport';
   public static REQUEST_REINDEX = '/requestReindex';
-  public static PREPARE_DOCUMENT = '/prepareDocument';
-  public static GET_DOCUMENT_PAGE = '/getDocumentPage';
   public static HIGHLIGHT = '/highlight';
   public static DOWNLOAD_SOURCE_FILE = '/downloadSourceFile';
   public static DOWNLOAD_EXTRACTED_TEXT = '/downloadExtractedText';
@@ -262,6 +286,10 @@ export class SearchApi {
   public static SET_DOCUMENT_PASSWORD_DICTIONARY = '/setDocumentPasswordDictionary';
   public static GET_STATUS = '/getStatus';
   public static GET_INFO = '/getInfo';
+
+  // Highlight API
+  public static PREPARE_DOCUMENT = '/prepareDocument';
+  public static GET_DOCUMENT_PAGE = '/getDocumentPage';
 }
 
 export enum FileIndexingStatus {

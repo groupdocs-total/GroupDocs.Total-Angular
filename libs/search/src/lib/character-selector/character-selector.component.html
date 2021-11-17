@@ -1,0 +1,28 @@
+<gd-view-header [title]="'Select replacement for character ' + selector.characterReplacement.CharacterCode"></gd-view-header>
+
+<div class="character-list">
+  <div class="character-descriptor"
+    *ngFor="let descriptor of selector.page"
+    (click)="select(descriptor)">
+    <div class="character-line">
+      <span class="character-code">{{descriptor.CharacterCode}}</span>
+      <span class="character-symbol">{{descriptor.Character}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="extra-toolbar">
+  <gd-button [icon]="'angle-double-left'"
+    [tooltip]="'Navigate backward'"
+    (click)="backward()"></gd-button>
+  <gd-button [icon]="'angle-left'"
+    [tooltip]="'Navigate previous'"
+    (click)="previousPage()"></gd-button>
+  <div class="page-index-label">{{selector.pageIndex + 1}}/256</div>
+  <gd-button [icon]="'angle-right'"
+    [tooltip]="'Navigate next'"
+    (click)="nextPage()"></gd-button>
+  <gd-button [icon]="'angle-double-right'"
+    [tooltip]="'Navigate forward'"
+    (click)="forward()"></gd-button>
+</div>

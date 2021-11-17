@@ -36,7 +36,7 @@ export class SelectDictionaryModalComponent implements OnInit {
       { appState: AppState.SpellingCorrectorDictionary, name: "Spelling corrector", disabled: false, link: "https://docs.groupdocs.com/search/net/spell-checking/" },
       { appState: AppState.HomophoneDictionary, name: "Homophone", disabled: false, link: "https://docs.groupdocs.com/search/net/homophone-search/" },
       { appState: AppState.AlphabetDictionary, name: "Alphabet", disabled: false, link: "https://docs.groupdocs.com/search/net/character-types/" },
-      //{ appState: AppState.CharacterReplacementDictionary, name: "Character replacement", disabled: false, link: "https://docs.groupdocs.com/search/net/character-replacement-during-indexing/" },
+      { appState: AppState.CharacterReplacementDictionary, name: "Character replacement", disabled: false, link: "https://docs.groupdocs.com/search/net/character-replacement-during-indexing/" },
     ];
   }
 
