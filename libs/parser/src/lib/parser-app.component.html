@@ -14,6 +14,7 @@
           <gd-button *ngIf="!documentError && document" [icon]="'search-minus'" [tooltip]="'Zoom Out'" (click)="zoomOut()"></gd-button>
           <gd-button *ngIf="!documentError && document" [icon]="'expand'" [tooltip]="'Add text field'" (click)="addFieldClick()"></gd-button>
           <gd-button *ngIf="!documentError && document" [icon]="'table'" [tooltip]="'Add table'" (click)="addTableClick()"></gd-button>
+          <gd-button [icon]="'question'" [tooltip]="'Show Help'" (click)="helpClick()"></gd-button>
         </gd-top-toolbar>
       </div>
        <gd-init-state [icon]="'glasses'" [text]="'Drop file here to upload'" *ngIf="documentError || !document" (fileDropped)="fileDropped($event)">
@@ -32,6 +33,8 @@
   <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
     (selectedFileGuid)="selectFile($event, null, browseFilesModal)" [uploadConfig]="uploadConfig">
   </gd-browse-files-modal>
+
+  <gd-parser-help-topics></gd-parser-help-topics>
 
   <gd-error-modal></gd-error-modal>
   <gd-password-required></gd-password-required>

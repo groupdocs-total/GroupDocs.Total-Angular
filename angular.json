@@ -24,7 +24,12 @@
             "tsConfig": "apps/total-angular/tsconfig.app.json",
             "assets": [
               "apps/total-angular/src/favicon.ico",
-              "apps/total-angular/src/assets"
+              "apps/total-angular/src/assets",
+			  {
+					"glob": "**/*",
+					"input": "./libs/parser/src/assets",
+					"output": "./assets"
+			  }
             ],
             "styles": [
               "apps/total-angular/src/styles.less"

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   CommonModals,
   FileCredentials,
@@ -14,13 +14,14 @@ import { TemplateService } from './template.service';
 import { SourceFileService } from './source-file.service';
 import { PlaceholderService } from './placeholder.service';
 import { DocumentPageService } from './document-page.service';
+import { ParserConfigService } from './parser-config.service';
 
 @Component({
   selector: 'gd-app-parser',
   templateUrl: './parser-app.component.html',
   styleUrls: ['./parser-app.component.less']
 })
-export class ParserAppComponent implements OnInit {
+export class ParserAppComponent {
   @Input() sourceFile: string;
 
   private readonly CREATE_FIELD_MODE = "createFieldMode";
@@ -55,6 +56,7 @@ export class ParserAppComponent implements OnInit {
     documentPageService: DocumentPageService,
     private _uploadFilesService: UploadFilesService,
     private _passwordService: PasswordService,
+    private _parserConfigService : ParserConfigService,
     windowService: WindowService) {
 
     this.parserService = parserService;
@@ -123,6 +125,10 @@ export class ParserAppComponent implements OnInit {
     template.addField(field);
   }
 
+  helpClick() {
+    this._modalService.open("gd-help-topics");
+  }
+
   // end of Menu
 
   isFileLoaded() {
@@ -173,9 +179,6 @@ export class ParserAppComponent implements OnInit {
     return localStorage.getItem("returnUrl");
   }
 
-  ngOnInit(): void {
-  }
-
   reloadCurrentPage() {
     window.location.reload();
   }
@@ -199,6 +202,10 @@ export class ParserAppComponent implements OnInit {
 
         this._navigateService.countPages = this.document.pages ? this.document.pages.length : 0;
         this._navigateService.currentPage = 1;
+ 
+        if(this._parserConfigService.showHelpAtStart) {
+          this.helpClick();
+        }
       },
       error: (err: any) => {
         this.documentError = this.parserService.getErrorMessage(err);
