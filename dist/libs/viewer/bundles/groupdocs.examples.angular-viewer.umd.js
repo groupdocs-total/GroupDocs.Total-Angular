@@ -1232,32 +1232,6 @@
             return preloadPageCount;
         };
         /**
-         * @param {?} pages
-         * @return {?}
-         */
-        ViewerAppComponent.prototype.copyThumbnails = /**
-         * @param {?} pages
-         * @return {?}
-         */
-        function (pages) {
-            /** @type {?} */
-            var thumbnails = pages.slice();
-            for (var thumbIndex = 0; thumbIndex < thumbnails.length; thumbIndex++) {
-                /** @type {?} */
-                var thumb = thumbnails[thumbIndex];
-                if (!thumb.data) {
-                    /** @type {?} */
-                    var emptyThumb = new commonComponents.PageModel();
-                    emptyThumb.number = thumb.number;
-                    emptyThumb.data = "<div style=\"height:100%;display:grid;color:#bfbfbf\"><div style=\"font-size:10vw;margin:auto;text-align:center;\">" + thumb.number + "</div></div>";
-                    emptyThumb.width = 800;
-                    emptyThumb.height = 800;
-                    thumbnails[thumbIndex] = emptyThumb;
-                }
-            }
-            return thumbnails;
-        };
-        /**
          * @param {?} $event
          * @param {?} password
          * @param {?} modalId
@@ -1295,7 +1269,7 @@
                     /** @type {?} */
                     var countPages = file.pages ? file.pages.length : 0;
                     if (preloadPageCount > 0) {
-                        _this.file.thumbnails = _this.copyThumbnails(file.pages);
+                        _this.file.thumbnails = file.pages.slice();
                         _this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
                     }
                     _this.selectedPageNumber = 1;
@@ -1337,9 +1311,9 @@
                     if (page.data) {
                         page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
                     }
-                    _this.file.pages[pageNumber - 1] = page;
+                    _this.file.pages[pageNumber - 1].data = page.data;
                     if (_this.file.thumbnails) {
-                        _this.file.thumbnails[pageNumber - 1] = page;
+                        _this.file.thumbnails[pageNumber - 1].data = page.data;
                     }
                 }));
             };
@@ -2323,10 +2297,21 @@
         function (value) {
             return value + commonComponents.FileUtil.find(this.guid, false).unit;
         };
+        /**
+         * @param {?} pageNumber
+         * @return {?}
+         */
+        ThumbnailsComponent.prototype.emptyThumbData = /**
+         * @param {?} pageNumber
+         * @return {?}
+         */
+        function (pageNumber) {
+            return "<div style=\"height:100%;display:grid;color:#bfbfbf\"><div style=\"font-size:10vw;margin:auto;text-align:center;\">" + pageNumber + "</div></div>";
+        };
         ThumbnailsComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-thumbnails',
-                        template: "<div class=\"gd-thumbnails\">\n  <div class=\"gd-thumbnails-panzoom\">\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && isHtmlMode\"\n           [innerHTML]=\"page.data | safeHtml\"></div>\n      <div class=\"gd-wrapper\" \n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && !isHtmlMode\">\n           <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\n             alt/>\n      </div>\n    </div>\n  </div>\n</div>\n",
+                        template: "<div class=\"gd-thumbnails\">\n  <div class=\"gd-thumbnails-panzoom\">\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && isHtmlMode\"\n           [innerHTML]=\"page.data | safeHtml\"></div>\n      <div class=\"gd-wrapper\" \n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && !isHtmlMode\">\n           <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\n             alt/>\n      </div>\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(800)\"\n           [style.width]=\"getDimensionWithUnit(800)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(800, 800)+')'}\"\n           *ngIf=\"!page.data\"\n           [innerHTML]=\"emptyThumbData(page.number) | safeHtml\">\n      </div>\n    </div>\n  </div>\n</div>\n",
                         styles: [":host{-webkit-box-flex:0;flex:0 0 300px;background:#f5f5f5;color:#fff;overflow-y:auto;display:block;-webkit-transition:margin-left .2s;transition:margin-left .2s;height:100%}.gd-page{width:272px;height:272px;-webkit-transition:.3s;transition:.3s;background-color:#e7e7e7;cursor:pointer;margin:14px 14px 0}.gd-page:hover{background-color:silver}.gd-wrapper{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);left:50%;top:50%;position:relative;background-color:#fff;box-shadow:0 4px 12px -4px rgba(0,0,0,.38);pointer-events:none}.gd-wrapper ::ng-deep img{width:inherit}.gd-thumbnails::-webkit-scrollbar{width:0;background-color:#f5f5f5}.gd-thumbnails-panzoom>.gd-thumbnails-landscape{margin:-134px 0 -1px 12px}.gd-thumbnails .gd-page-image{height:inherit}.gd-thumbnails-landscape-image{margin:-90px 0 -23px!important}.gd-thumbnails-landscape-image-rotated{margin:126px 0 -3px -104px!important}"]
                     }] }
         ];

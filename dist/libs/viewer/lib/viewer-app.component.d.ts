@@ -1,6 +1,6 @@
 import { AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ViewerService } from "./viewer.service";
-import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, PageModel, ZoomService, RenderPrintService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
+import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
 import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
 import { WindowService, Option } from "@groupdocs.examples.angular/common-components";
@@ -92,7 +92,6 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     selectDir($event: string): void;
     selectCurrentOrFirstPage(): void;
     getPreloadPageCount(): 0 | 3;
-    copyThumbnails(pages: PageModel[]): PageModel[];
     selectFile($event: string, password: string, modalId: string): void;
     preloadPages(start: number, end: number): void;
     upload($event: string): void;
