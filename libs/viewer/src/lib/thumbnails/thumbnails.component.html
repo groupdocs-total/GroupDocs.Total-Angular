@@ -17,6 +17,13 @@
            <img style="width: inherit !important" class="gd-page-image" [attr.src]="imgData(page.data) | safeResourceHtml"
              alt/>
       </div>
+      <div class="gd-wrapper"
+           [style.height]="getDimensionWithUnit(800)"
+           [style.width]="getDimensionWithUnit(800)"
+           [ngStyle]="{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(800, 800)+')'}"
+           *ngIf="!page.data"
+           [innerHTML]="emptyThumbData(page.number) | safeHtml">
+      </div>
     </div>
   </div>
 </div>

@@ -65,4 +65,8 @@ export class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, On
   getDimensionWithUnit(value: number) {
     return value + FileUtil.find(this.guid, false).unit;
   }
+
+  emptyThumbData(pageNumber: number) {
+    return `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">${pageNumber}</div></div>`
+  }
 }

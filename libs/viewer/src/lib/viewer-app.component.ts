@@ -346,25 +346,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return preloadPageCount;
   }
 
-  copyThumbnails(pages: PageModel[]) {
-    const thumbnails = pages.slice();
-
-    for (let thumbIndex = 0; thumbIndex < thumbnails.length; thumbIndex++) {
-      const thumb = thumbnails[thumbIndex];
-      if(!thumb.data) {
-        const emptyThumb = new PageModel();
-        emptyThumb.number = thumb.number;
-        emptyThumb.data = `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">${thumb.number}</div></div>`
-        emptyThumb.width = 800;
-        emptyThumb.height = 800;
-        
-        thumbnails[thumbIndex] = emptyThumb;
-      }
-    }
-
-    return thumbnails;
-  }
-
   selectFile($event: string, password: string, modalId: string) {
     this.credentials = {guid: $event, password: password};
     this.file = null;
@@ -386,7 +367,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           const countPages = file.pages ? file.pages.length : 0;
 
           if (preloadPageCount > 0) {
-            this.file.thumbnails = this.copyThumbnails(file.pages);
+            this.file.thumbnails = file.pages.slice();
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
           }
 
@@ -419,9 +400,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
         }
 
-        this.file.pages[pageNumber - 1] = page;
+        this.file.pages[pageNumber - 1].data = page.data;
+        
         if (this.file.thumbnails) {
-          this.file.thumbnails[pageNumber - 1] = page;
+          this.file.thumbnails[pageNumber - 1].data = page.data;
         }
       });
     }
