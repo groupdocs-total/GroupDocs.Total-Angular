@@ -593,7 +593,7 @@
             new Language("th", "th-th", "ไทย"),
             new Language("tr", "tr-tr", "Türkçe"),
             new Language("uk", "uk-ua", "Українська"),
-            new Language("zh-hans", "zh-hans", "中文(简体)"),
+            new Language("zh-hans", "zh", "中文(简体)"),
             new Language("zh-hant", "zh-hant", "中文(繁體)"),
         ];
         return Constants;
