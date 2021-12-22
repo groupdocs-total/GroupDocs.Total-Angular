@@ -775,10 +775,12 @@
              * @return {?}
              */
             function (page) {
-                if (_this.viewerConfig.preloadPageCount !== 0) {
-                    for (var i = page; i < page + 2; i++) {
-                        if (i > 0 && i <= _this.countPages && !_this.file.pages[i - 1].data) {
-                            _this.preloadPages(i, i);
+                if (_this.file) {
+                    if (_this.viewerConfig.preloadPageCount !== 0) {
+                        for (var i = page; i < page + 2; i++) {
+                            if (i > 0 && i <= _this.file.pages.length && !_this.file.pages[i - 1].data) {
+                                _this.preloadPages(i, i);
+                            }
                         }
                     }
                 }
