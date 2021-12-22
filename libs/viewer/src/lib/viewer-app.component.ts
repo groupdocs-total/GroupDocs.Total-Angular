@@ -121,10 +121,12 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     });
 
     pagePreloadService.checkPreload.subscribe((page: number) => {
-      if (this.viewerConfig.preloadPageCount !== 0) {
-        for (let i = page; i < page + 2; i++) {
-          if (i > 0 && i <= this.countPages && !this.file.pages[i - 1].data) {
-            this.preloadPages(i, i);
+      if(this.file) {
+        if (this.viewerConfig.preloadPageCount !== 0) {
+          for (let i = page; i < page + 2; i++) {
+            if (i > 0 && i <= this.file.pages.length && !this.file.pages[i - 1].data) {
+              this.preloadPages(i, i);
+            }
           }
         }
       }
