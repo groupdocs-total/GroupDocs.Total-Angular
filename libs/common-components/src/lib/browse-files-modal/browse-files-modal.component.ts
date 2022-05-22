@@ -89,6 +89,14 @@ export class BrowseFilesModalComponent implements OnInit {
       } else {
         guid = guid.replace(/\/[^\/]+\/?$/, '');
       }
+
+      const prevDir = new FileModel();
+      prevDir.name = guid;
+      prevDir.guid = guid;
+      prevDir.directory = true;
+      prevDir.isDirectory = true;
+      
+      this.selectedFile = prevDir;
       this.selectedDirectory.emit(guid);
     }
   }
