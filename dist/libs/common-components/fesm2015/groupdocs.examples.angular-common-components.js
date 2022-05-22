@@ -1325,6 +1325,13 @@ class BrowseFilesModalComponent {
             else {
                 guid = guid.replace(/\/[^\/]+\/?$/, '');
             }
+            /** @type {?} */
+            const prevDir = new FileModel();
+            prevDir.name = guid;
+            prevDir.guid = guid;
+            prevDir.directory = true;
+            prevDir.isDirectory = true;
+            this.selectedFile = prevDir;
             this.selectedDirectory.emit(guid);
         }
     }
