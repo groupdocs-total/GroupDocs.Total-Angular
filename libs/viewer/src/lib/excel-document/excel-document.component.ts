@@ -9,8 +9,8 @@ import { ExcelPageComponent } from '../excel-page/excel-page.component';
   styleUrls: ['./excel-document.component.less'],
 })
 export class ExcelDocumentComponent extends DocumentComponent implements OnInit, AfterViewInit  {
-  @ViewChildren(ExcelPageComponent) pages: QueryList<ExcelPageComponent>; 
-  
+  @ViewChildren(ExcelPageComponent) pages: QueryList<ExcelPageComponent>;
+
   currentPageNo: number;
   panzoom = null;
   navigateService: NavigateService;
@@ -29,11 +29,6 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
   }
 
   ngAfterViewInit() {
-    this.refreshExcelDocHeight();
-    this.pages.changes.subscribe(()=>{
-        this.refreshExcelDocHeight();
-    });
-
     this.navigateService.navigate.subscribe(((
      value => {
        if (value) {
@@ -53,14 +48,6 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
     const documentBox = document.querySelector('.gd-document') as HTMLElement;
     const scrollbarWidth = documentBox.offsetWidth - documentBox.clientWidth;
     return scrollbarWidth;
-  }
-
-  refreshExcelDocHeight() {
-    // For current iteration we'll change actual height of .document
-    this.doc = this._elementRef.nativeElement.children.item(0);
-    this.panzoom = this._elementRef.nativeElement.children.item(0).children.item(0);
-    // magic number 37 is the height of the bottom-bar with navigation between pages
-    this.doc.style.height = this.panzoom.scrollHeight + 37 + "px";
   }
 
   selectSheet(number){
