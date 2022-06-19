@@ -1,4 +1,4 @@
-import {Component, ElementRef} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import * as jquery from 'jquery';
 import {
   CommonModals,
@@ -29,7 +29,7 @@ export class Highlight {
   templateUrl: './comparison-app.component.html',
   styleUrls: ['./comparison-app.component.less']
 })
-export class ComparisonAppComponent {
+export class ComparisonAppComponent implements OnInit {
   files: FileModel[] = [];
   browseFilesModal = CommonModals.BrowseFiles;
   credentials: Map<string, FileCredentials> = new Map<string, FileCredentials>();
@@ -97,6 +97,22 @@ export class ComparisonAppComponent {
     });
   }
 
+  ngOnInit() {
+    const queryString = window.location.search;
+    if (queryString) {
+      const urlParams = new URLSearchParams(queryString);
+
+      const firstFile = urlParams.get(Files.FIRST);
+      const secondFile = urlParams.get(Files.SECOND);
+      if(firstFile && secondFile) {
+        this.selectFile(firstFile, '', '', Files.FIRST);
+        this.selectFile(secondFile, '', '', Files.SECOND);
+        this.compare();
+        return;
+      }
+    }
+  }
+
   get uploadConfig(): boolean {
     return this.comparisonConfig ? this.comparisonConfig.upload : true;
   }
@@ -140,6 +156,7 @@ export class ComparisonAppComponent {
   }
 
   private getFile($event: string, password: string, param: string) {
+    debugger;
     const credentials = {guid: $event, password: password};
     this.credentials.set(param, credentials);
     this._comparisonService.loadFile(credentials).subscribe((file: FileDescription) => {
@@ -220,6 +237,7 @@ export class ComparisonAppComponent {
   }
 
   compare() {
+    debugger;
     if (this.credentials.size !== 2) {
       return;
     }
