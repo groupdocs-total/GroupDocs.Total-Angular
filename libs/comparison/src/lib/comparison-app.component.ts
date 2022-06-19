@@ -156,7 +156,6 @@ export class ComparisonAppComponent implements OnInit {
   }
 
   private getFile($event: string, password: string, param: string) {
-    debugger;
     const credentials = {guid: $event, password: password};
     this.credentials.set(param, credentials);
     this._comparisonService.loadFile(credentials).subscribe((file: FileDescription) => {
@@ -237,7 +236,6 @@ export class ComparisonAppComponent implements OnInit {
   }
 
   compare() {
-    debugger;
     if (this.credentials.size !== 2) {
       return;
     }
