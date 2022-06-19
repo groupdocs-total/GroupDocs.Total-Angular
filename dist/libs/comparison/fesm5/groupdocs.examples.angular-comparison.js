@@ -392,6 +392,30 @@ var ComparisonAppComponent = /** @class */ (function () {
             _this.selectFile(activePanelFileGuid, pass, CommonModals.PasswordRequired, _this.activePanel);
         }));
     }
+    /**
+     * @return {?}
+     */
+    ComparisonAppComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var queryString = window.location.search;
+        if (queryString) {
+            /** @type {?} */
+            var urlParams = new URLSearchParams(queryString);
+            /** @type {?} */
+            var firstFile = urlParams.get(Files.FIRST);
+            /** @type {?} */
+            var secondFile = urlParams.get(Files.SECOND);
+            if (firstFile && secondFile) {
+                this.selectFile(firstFile, '', '', Files.FIRST);
+                this.selectFile(secondFile, '', '', Files.SECOND);
+                this.compare();
+                return;
+            }
+        }
+    };
     Object.defineProperty(ComparisonAppComponent.prototype, "uploadConfig", {
         get: /**
          * @return {?}

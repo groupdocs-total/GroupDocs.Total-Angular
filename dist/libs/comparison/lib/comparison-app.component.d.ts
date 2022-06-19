@@ -1,4 +1,4 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, OnInit } from '@angular/core';
 import { FileCredentials, FileDescription, FileModel, ModalService, PagePreloadService, TabActivatorService, UploadFilesService, PasswordService } from "@groupdocs.examples.angular/common-components";
 import { ComparisonConfigService } from "./comparison-config.service";
 import { ComparisonService } from "./comparison.service";
@@ -12,7 +12,7 @@ export declare class Highlight {
     id: string;
     active: boolean;
 }
-export declare class ComparisonAppComponent {
+export declare class ComparisonAppComponent implements OnInit {
     private _comparisonService;
     private configService;
     private _modalService;
@@ -37,6 +37,7 @@ export declare class ComparisonAppComponent {
     activeTab: string;
     resultTabDisabled: boolean;
     constructor(_comparisonService: ComparisonService, configService: ComparisonConfigService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, _modalService: ModalService, _tabActivatorService: TabActivatorService, _elementRef: ElementRef<HTMLElement>, passwordService: PasswordService);
+    ngOnInit(): void;
     readonly uploadConfig: boolean;
     private setLoading;
     readonly rewriteConfig: boolean;

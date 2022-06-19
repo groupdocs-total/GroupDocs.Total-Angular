@@ -360,6 +360,27 @@ class ComparisonAppComponent {
     /**
      * @return {?}
      */
+    ngOnInit() {
+        /** @type {?} */
+        const queryString = window.location.search;
+        if (queryString) {
+            /** @type {?} */
+            const urlParams = new URLSearchParams(queryString);
+            /** @type {?} */
+            const firstFile = urlParams.get(Files.FIRST);
+            /** @type {?} */
+            const secondFile = urlParams.get(Files.SECOND);
+            if (firstFile && secondFile) {
+                this.selectFile(firstFile, '', '', Files.FIRST);
+                this.selectFile(secondFile, '', '', Files.SECOND);
+                this.compare();
+                return;
+            }
+        }
+    }
+    /**
+     * @return {?}
+     */
     get uploadConfig() {
         return this.comparisonConfig ? this.comparisonConfig.upload : true;
     }
