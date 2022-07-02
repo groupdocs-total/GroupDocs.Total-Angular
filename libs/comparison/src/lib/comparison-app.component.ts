@@ -11,6 +11,7 @@ import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
 import {ComparisonConfig} from "./comparison-config";
 import {CompareResult} from "./models";
+import { forkJoin } from 'rxjs';
 
 const $ = jquery;
 
@@ -105,10 +106,12 @@ export class ComparisonAppComponent implements OnInit {
       const firstFile = urlParams.get(Files.FIRST);
       const secondFile = urlParams.get(Files.SECOND);
       if(firstFile && secondFile) {
-        this.selectFile(firstFile, '', '', Files.FIRST);
-        this.selectFile(secondFile, '', '', Files.SECOND);
-        this.compare();
-        return;
+        const first = this.selectFirstDefaultFile(firstFile, '');
+        const second = this.selectSecondDefaultFile(secondFile, '');
+
+        forkJoin([first, second]).subscribe(() => {
+          this.compare();
+        })
       }
     }
   }
@@ -147,6 +150,16 @@ export class ComparisonAppComponent implements OnInit {
     });
   }
 
+  selectFirstDefaultFile($event: string, password: string) {
+    this.setLoading(Files.FIRST, true);
+    return this.getFile($event, password, Files.FIRST);
+  }
+
+  selectSecondDefaultFile($event: string, password: string) {
+    this.setLoading(Files.SECOND, true);
+    return this.getFile($event, password, Files.SECOND);
+  }
+
   selectFile($event: string, password: string, modalId: string, param: string) {
     this.setLoading(param, true);
     this.getFile($event, password, param);
@@ -158,7 +171,8 @@ export class ComparisonAppComponent implements OnInit {
   private getFile($event: string, password: string, param: string) {
     const credentials = {guid: $event, password: password};
     this.credentials.set(param, credentials);
-    this._comparisonService.loadFile(credentials).subscribe((file: FileDescription) => {
+    const observable = this._comparisonService.loadFile(credentials);
+    observable.subscribe((file: FileDescription) => {
         this.file.set(param, file);
         if (file) {
           const preloadResultPageCount = this.comparisonConfig.preloadResultPageCount;
@@ -171,6 +185,7 @@ export class ComparisonAppComponent implements OnInit {
         this.setLoading(param, false);
       }
     );
+    return observable;
   }
 
   clearFile(param: string) {
