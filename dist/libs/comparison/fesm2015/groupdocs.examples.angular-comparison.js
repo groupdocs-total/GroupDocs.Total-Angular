@@ -3,7 +3,7 @@ import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ElementRef, Ev
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import * as jquery from 'jquery';
 import { Api, ConfigService, CommonModals, UploadFilesService, PagePreloadService, ModalService, TabActivatorService, PasswordService, FileUtil, ExceptionMessageService, PageModel, DocumentComponent, ZoomService, ZoomDirective, WindowService, NavigateService, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -371,10 +371,16 @@ class ComparisonAppComponent {
             /** @type {?} */
             const secondFile = urlParams.get(Files.SECOND);
             if (firstFile && secondFile) {
-                this.selectFile(firstFile, '', '', Files.FIRST);
-                this.selectFile(secondFile, '', '', Files.SECOND);
-                this.compare();
-                return;
+                /** @type {?} */
+                const first = this.selectFirstDefaultFile(firstFile, '');
+                /** @type {?} */
+                const second = this.selectSecondDefaultFile(secondFile, '');
+                forkJoin([first, second]).subscribe((/**
+                 * @return {?}
+                 */
+                () => {
+                    this.compare();
+                }));
             }
         }
     }
@@ -437,6 +443,24 @@ class ComparisonAppComponent {
     /**
      * @param {?} $event
      * @param {?} password
+     * @return {?}
+     */
+    selectFirstDefaultFile($event, password) {
+        this.setLoading(Files.FIRST, true);
+        return this.getFile($event, password, Files.FIRST);
+    }
+    /**
+     * @param {?} $event
+     * @param {?} password
+     * @return {?}
+     */
+    selectSecondDefaultFile($event, password) {
+        this.setLoading(Files.SECOND, true);
+        return this.getFile($event, password, Files.SECOND);
+    }
+    /**
+     * @param {?} $event
+     * @param {?} password
      * @param {?} modalId
      * @param {?} param
      * @return {?}
@@ -459,7 +483,9 @@ class ComparisonAppComponent {
         /** @type {?} */
         const credentials = { guid: $event, password: password };
         this.credentials.set(param, credentials);
-        this._comparisonService.loadFile(credentials).subscribe((/**
+        /** @type {?} */
+        const observable = this._comparisonService.loadFile(credentials);
+        observable.subscribe((/**
          * @param {?} file
          * @return {?}
          */
@@ -476,6 +502,7 @@ class ComparisonAppComponent {
             this.updateFileNames();
             this.setLoading(param, false);
         }));
+        return observable;
     }
     /**
      * @param {?} param

@@ -42,6 +42,8 @@ export declare class ComparisonAppComponent implements OnInit {
     private setLoading;
     readonly rewriteConfig: boolean;
     selectDir($event: string): void;
+    selectFirstDefaultFile($event: string, password: string): import("rxjs").Observable<Object>;
+    selectSecondDefaultFile($event: string, password: string): import("rxjs").Observable<Object>;
     selectFile($event: string, password: string, modalId: string, param: string): void;
     private getFile;
     clearFile(param: string): void;

@@ -588,6 +588,7 @@
          * @return {?}
          */
         function () {
+            var _this = this;
             /** @type {?} */
             var queryString = window.location.search;
             if (queryString) {
@@ -598,10 +599,16 @@
                 /** @type {?} */
                 var secondFile = urlParams.get(Files.SECOND);
                 if (firstFile && secondFile) {
-                    this.selectFile(firstFile, '', '', Files.FIRST);
-                    this.selectFile(secondFile, '', '', Files.SECOND);
-                    this.compare();
-                    return;
+                    /** @type {?} */
+                    var first = this.selectFirstDefaultFile(firstFile, '');
+                    /** @type {?} */
+                    var second = this.selectSecondDefaultFile(secondFile, '');
+                    rxjs.forkJoin([first, second]).subscribe((/**
+                     * @return {?}
+                     */
+                    function () {
+                        _this.compare();
+                    }));
                 }
             }
         };
@@ -683,6 +690,34 @@
         /**
          * @param {?} $event
          * @param {?} password
+         * @return {?}
+         */
+        ComparisonAppComponent.prototype.selectFirstDefaultFile = /**
+         * @param {?} $event
+         * @param {?} password
+         * @return {?}
+         */
+        function ($event, password) {
+            this.setLoading(Files.FIRST, true);
+            return this.getFile($event, password, Files.FIRST);
+        };
+        /**
+         * @param {?} $event
+         * @param {?} password
+         * @return {?}
+         */
+        ComparisonAppComponent.prototype.selectSecondDefaultFile = /**
+         * @param {?} $event
+         * @param {?} password
+         * @return {?}
+         */
+        function ($event, password) {
+            this.setLoading(Files.SECOND, true);
+            return this.getFile($event, password, Files.SECOND);
+        };
+        /**
+         * @param {?} $event
+         * @param {?} password
          * @param {?} modalId
          * @param {?} param
          * @return {?}
@@ -720,7 +755,9 @@
             /** @type {?} */
             var credentials = { guid: $event, password: password };
             this.credentials.set(param, credentials);
-            this._comparisonService.loadFile(credentials).subscribe((/**
+            /** @type {?} */
+            var observable = this._comparisonService.loadFile(credentials);
+            observable.subscribe((/**
              * @param {?} file
              * @return {?}
              */
@@ -737,6 +774,7 @@
                 _this.updateFileNames();
                 _this.setLoading(param, false);
             }));
+            return observable;
         };
         /**
          * @param {?} param
