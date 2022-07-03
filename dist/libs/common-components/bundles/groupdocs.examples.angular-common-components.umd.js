@@ -1230,6 +1230,22 @@
         /** @type {?} */
         FileCredentials.prototype.password;
     }
+    var TypedFileCredentials = /** @class */ (function () {
+        function TypedFileCredentials(guid, fileType, password) {
+            this.guid = guid;
+            this.fileType = fileType;
+            this.password = password;
+        }
+        return TypedFileCredentials;
+    }());
+    if (false) {
+        /** @type {?} */
+        TypedFileCredentials.prototype.guid;
+        /** @type {?} */
+        TypedFileCredentials.prototype.password;
+        /** @type {?} */
+        TypedFileCredentials.prototype.fileType;
+    }
     var SaveFile = /** @class */ (function (_super) {
         __extends(SaveFile, _super);
         function SaveFile(guid, password, content) {
@@ -1252,6 +1268,8 @@
     if (false) {
         /** @type {?} */
         FileDescription.prototype.guid;
+        /** @type {?} */
+        FileDescription.prototype.fileType;
         /** @type {?} */
         FileDescription.prototype.pages;
         /** @type {?} */
@@ -9887,6 +9905,7 @@
     exports.TooltipComponent = TooltipComponent;
     exports.TopTabActivatorService = TopTabActivatorService;
     exports.TopToolbarComponent = TopToolbarComponent;
+    exports.TypedFileCredentials = TypedFileCredentials;
     exports.UploadFileZoneComponent = UploadFileZoneComponent;
     exports.UploadFilesService = UploadFilesService;
     exports.Utils = Utils;

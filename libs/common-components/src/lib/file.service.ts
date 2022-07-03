@@ -22,6 +22,19 @@ export class FileCredentials {
   }
 }
 
+export class TypedFileCredentials {
+  guid: string;
+  password: string;
+  fileType: string;
+
+  constructor(guid: string, fileType: string, password: string) {
+    this.guid = guid;
+    this.fileType = fileType;
+    this.password = password;
+  }
+}
+
+
 export class SaveFile extends FileCredentials {
   content: string;
 
@@ -33,6 +46,7 @@ export class SaveFile extends FileCredentials {
 
 export class FileDescription {
   guid: string;
+  fileType: string;
   pages: PageModel[];
   printAllowed = true;
   showGridLines: boolean;
