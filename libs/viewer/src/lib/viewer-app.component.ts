@@ -12,7 +12,10 @@ import {
   RenderPrintService,
   FileUtil,
   PasswordService,
-  FileCredentials, CommonModals, LoadingMaskService
+  FileCredentials,
+  TypedFileCredentials,
+  CommonModals,
+  LoadingMaskService
 } from "@groupdocs.examples.angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -35,7 +38,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   countPages = 0;
   formatDisabled = true;
   showThumbnails = false;
-  credentials: FileCredentials;
+  credentials: TypedFileCredentials;
   browseFilesModal = CommonModals.BrowseFiles;
   showSearch = false;
   isDesktop: boolean;
@@ -55,6 +58,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   formatIcon: string;
 
   fileParam: string;
+  fileTypeParam: string;
   urlParam: string;
   querySubscription: Subscription;
   selectedPageNumber: number;
@@ -62,7 +66,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   isFullScreen: boolean;
   startScrollTime: number;
   endScrollTime: number;
-  
+
   supportedLanguages: Option[];
   selectedLanguage: Option;
 
@@ -71,7 +75,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     webkitRequestFullscreen(): Promise<void>;
     msRequestFullscreen(): Promise<void>;
   };
-  
+
   docWithBrowsersExitFunctions = document as Document & {
     mozCancelFullScreen(): Promise<void>;
     webkitExitFullscreen(): Promise<void>;
@@ -114,7 +118,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         let i: number;
         for (i = 0; i < uploads.length; i++) {
           this._viewerService.upload(uploads.item(i), '', this.viewerConfig.rewrite).subscribe((obj: FileCredentials) => {
-            this.fileWasDropped ? this.selectFile(obj.guid, '', '') : this.selectDir('');
+            this.fileWasDropped ? this.selectFile(obj.guid, '', '', '') : this.selectDir('');
           });
         }
       }
@@ -133,7 +137,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     });
 
     passwordService.passChange.subscribe((pass: string) => {
-      this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired);
+      this.selectFile(this.credentials.guid, pass, CommonModals.PasswordRequired, this.credentials.fileType);
     });
 
     this.isDesktop = _windowService.isDesktop();
@@ -146,19 +150,19 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if (this.viewerConfig.defaultDocument !== "") {
+    if (this.viewerConfig.defaultDocument !== '' && this.viewerConfig.defaultDocument !== null) {
       this.isLoading = true;
-      this.selectFile(this.viewerConfig.defaultDocument, "", "");
+      this.selectFile(this.viewerConfig.defaultDocument, '', '', '');
       this.selectCurrentOrFirstPage();
       return;
     }
 
     const defaultLanguage = this.defaultLanguageConfig;
     const supportedLanguages = this.supportedLanguagesConfig
-      .map(language => { 
-        return { 
-          name: language.name, 
-          value: language.code, 
+      .map(language => {
+        return {
+          name: language.name,
+          value: language.code,
           separator: false
         };
       });
@@ -172,9 +176,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       const urlParams = new URLSearchParams(queryString);
 
       this.fileParam = urlParams.get('file');
+      this.fileTypeParam = urlParams.get('fileType');
       if(this.fileParam) {
         this.isLoading = true;
-        this.selectFile(this.fileParam, '', '');
+        this.selectFile(this.fileParam, '', '', this.fileTypeParam);
         this.selectCurrentOrFirstPage();
         return;
       }
@@ -263,7 +268,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if(this.viewerConfig && this.viewerConfig.supportedLanguages) {
       const supportedLanguages = this.viewerConfig.supportedLanguages;
       return Constants.defaultSupportedLanguages
-        .filter(lang => 
+        .filter(lang =>
           supportedLanguages.indexOf(lang.code) !== -1 || supportedLanguages.indexOf(lang.alternateCode) !== -1);
     }
 
@@ -316,7 +321,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   ifImage() {
     return this.file ? this.formatIcon === "file-image" : false;
   }
-  
+
   getFileName() {
     return this.file.guid.replace(/^.*[\\\/]/, '');
   }
@@ -339,23 +344,24 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   getPreloadPageCount() {
     const minPresentationPagesToPreload = 3;
-    const preloadPageCount = !this.ifPresentation() 
-      ? this.viewerConfig.preloadPageCount 
-      : this.viewerConfig.preloadPageCount !== 0 && this.viewerConfig.preloadPageCount < minPresentationPagesToPreload 
+    const preloadPageCount = !this.ifPresentation()
+      ? this.viewerConfig.preloadPageCount
+      : this.viewerConfig.preloadPageCount !== 0 && this.viewerConfig.preloadPageCount < minPresentationPagesToPreload
         ? minPresentationPagesToPreload
         : this.viewerConfig.preloadPageCount;
 
     return preloadPageCount;
   }
 
-  selectFile($event: string, password: string, modalId: string) {
-    this.credentials = {guid: $event, password: password};
+  selectFile($event: string, password: string, modalId: string, fileType: string) {
+    this.credentials = {guid: $event, fileType: fileType, password: password};
     this.file = null;
     this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
         this.pagesToPreload = [];
         if (file) {
+          this.credentials.fileType = file.fileType;
           this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
           if (file.pages && file.pages[0]) {
             this._pageHeight = file.pages[0].height;
@@ -403,7 +409,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         }
 
         this.file.pages[pageNumber - 1].data = page.data;
-        
+
         if (this.file.thumbnails) {
           this.file.thumbnails[pageNumber - 1].data = page.data;
         }
@@ -414,8 +420,9 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   upload($event: string) {
     this._viewerService.upload(null, $event, this.rewriteConfig).subscribe((uploadedDocument: any) => {
       if (this.fileParam !== '') {
-        this.selectFile(uploadedDocument.guid, '', '');
+        this.selectFile(uploadedDocument.guid, '', '', '');
         this.fileParam = '';
+        this.fileTypeParam = '';
       }
       else {
         this.selectDir('');
@@ -500,7 +507,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     const pageHeight = this.formatIcon && (this.ifExcel() || this.ifImage()) ? this._pageHeight : this.ptToPx(this._pageHeight);
     const windowHeight = (pageHeight > pageWidth) ? window.innerHeight - 100 : window.innerHeight + 100;
     const offsetHeight = pageHeight ? pageHeight : windowHeight;
-    
+
     if (!this.ifPresentation() && !(this.ifImage())) {
       return (pageHeight > pageWidth) ? Math.round(windowHeight * 100 / offsetHeight) : Math.round(offsetHeight * 100 / windowHeight);
     }
@@ -762,7 +769,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
     const intervalId = setInterval(() => {
       if (screen.height === window.innerHeight && screen.width === window.innerWidth) {
-      this.zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 && this._pageWidth / this._pageHeight > 1.7 
+      this.zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 && this._pageWidth / this._pageHeight > 1.7
         ? this.getFitToWidth() : this.getFitToHeight());
         clearInterval(intervalId);
       }
@@ -775,7 +782,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       webkitRequestFullscreen(): Promise<void>;
       msRequestFullscreen(): Promise<void>;
     };
-  
+
     if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
       docElmWithBrowsersFullScreenFunctions.requestFullscreen();
     } else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) { /* Firefox */
@@ -787,7 +794,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
     this.isFullScreen = true;
   }
-  
+
   closeFullScreen(byButton: boolean = false){
     if (byButton) {
       const docWithBrowsersExitFunctions = document as Document & {
@@ -821,5 +828,5 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   selectLanguage(selectedLanguage: Option) {
     this.selectedLanguage = selectedLanguage;
     this.translate.use(selectedLanguage.value);
-  } 
+  }
 }
