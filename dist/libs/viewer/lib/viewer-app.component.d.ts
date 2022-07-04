@@ -1,6 +1,6 @@
 import { AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ViewerService } from "./viewer.service";
-import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, FileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
+import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, TypedFileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
 import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
 import { WindowService, Option } from "@groupdocs.examples.angular/common-components";
@@ -24,7 +24,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     countPages: number;
     formatDisabled: boolean;
     showThumbnails: boolean;
-    credentials: FileCredentials;
+    credentials: TypedFileCredentials;
     browseFilesModal: string;
     showSearch: boolean;
     isDesktop: boolean;
@@ -42,6 +42,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     fileWasDropped: boolean;
     formatIcon: string;
     fileParam: string;
+    fileTypeParam: string;
     urlParam: string;
     querySubscription: Subscription;
     selectedPageNumber: number;
@@ -92,7 +93,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     selectDir($event: string): void;
     selectCurrentOrFirstPage(): void;
     getPreloadPageCount(): 0 | 3;
-    selectFile($event: string, password: string, modalId: string): void;
+    selectFile($event: string, password: string, modalId: string, fileType: string): void;
     preloadPages(start: number, end: number): void;
     upload($event: string): void;
     nextPage(): void;
