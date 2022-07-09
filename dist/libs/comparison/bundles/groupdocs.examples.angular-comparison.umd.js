@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/common/http'), require('jquery'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('ng-click-outside'), require('@ngx-translate/core')) :
-    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/comparison', ['exports', '@angular/platform-browser', '@angular/core', '@angular/common/http', 'jquery', '@groupdocs.examples.angular/common-components', 'rxjs', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', 'ng-click-outside', '@ngx-translate/core'], factory) :
-    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.comparison = {}), global.ng.platformBrowser, global.ng.core, global.ng.common.http, global.jquery, global.commonComponents, global.rxjs, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ngClickOutside, global.core$1));
-}(this, (function (exports, platformBrowser, core, http, jquery, commonComponents, rxjs, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, ngClickOutside, core$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@groupdocs.examples.angular/common-components'), require('rxjs'), require('jquery'), require('@angular/platform-browser'), require('@angular/common/http'), require('@fortawesome/angular-fontawesome'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/free-solid-svg-icons'), require('@fortawesome/free-regular-svg-icons'), require('ng-click-outside'), require('@ngx-translate/core')) :
+    typeof define === 'function' && define.amd ? define('@groupdocs.examples.angular/comparison', ['exports', '@angular/core', '@groupdocs.examples.angular/common-components', 'rxjs', 'jquery', '@angular/platform-browser', '@angular/common/http', '@fortawesome/angular-fontawesome', '@fortawesome/fontawesome-svg-core', '@fortawesome/free-solid-svg-icons', '@fortawesome/free-regular-svg-icons', 'ng-click-outside', '@ngx-translate/core'], factory) :
+    (global = global || self, factory((global.groupdocs = global.groupdocs || {}, global.groupdocs.examples = global.groupdocs.examples || {}, global.groupdocs.examples.angular = global.groupdocs.examples.angular || {}, global.groupdocs.examples.angular.comparison = {}), global.ng.core, global.commonComponents, global.rxjs, global.jquery, global.ng.platformBrowser, global.ng.common.http, global.angularFontawesome, global.fontawesomeSvgCore, global.freeSolidSvgIcons, global.freeRegularSvgIcons, global.ngClickOutside, global.core$1));
+}(this, (function (exports, core, commonComponents, rxjs, jquery, platformBrowser, http, angularFontawesome, fontawesomeSvgCore, freeSolidSvgIcons, freeRegularSvgIcons, ngClickOutside, core$1) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -199,6 +199,650 @@
 
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var States = /** @class */ (function () {
+        function States() {
+        }
+        States.Empty = 'empty';
+        States.Opened = 'opened';
+        return States;
+    }());
+    if (false) {
+        /** @type {?} */
+        States.Empty;
+        /** @type {?} */
+        States.Opened;
+    }
+    var AddFilePanelComponent = /** @class */ (function () {
+        function AddFilePanelComponent(_modalService, _excMessageService) {
+            this._modalService = _modalService;
+            this._excMessageService = _excMessageService;
+            this.active = new core.EventEmitter();
+            this.urlForUpload = new core.EventEmitter();
+            this.cleanPanel = new core.EventEmitter();
+            this.state = States.Empty;
+            this.uploadDisabled = true;
+        }
+        /**
+         * @return {?}
+         */
+        AddFilePanelComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        /**
+         * @return {?}
+         */
+        AddFilePanelComponent.prototype.getFormatIcon = /**
+         * @return {?}
+         */
+        function () {
+            return commonComponents.FileUtil.find(this.fileName, false).icon;
+        };
+        /**
+         * @return {?}
+         */
+        AddFilePanelComponent.prototype.openModal = /**
+         * @return {?}
+         */
+        function () {
+            this.active.emit(this.panel);
+            this._modalService.open(commonComponents.CommonModals.BrowseFiles);
+        };
+        /**
+         * @return {?}
+         */
+        AddFilePanelComponent.prototype.isEmpty = /**
+         * @return {?}
+         */
+        function () {
+            return this.state === States.Empty;
+        };
+        /**
+         * @return {?}
+         */
+        AddFilePanelComponent.prototype.cleanFile = /**
+         * @return {?}
+         */
+        function () {
+            this.active.emit(this.panel);
+            this.cleanPanel.emit(true);
+        };
+        /**
+         * @param {?} url
+         * @return {?}
+         */
+        AddFilePanelComponent.prototype.uploadUrl = /**
+         * @param {?} url
+         * @return {?}
+         */
+        function (url) {
+            if (this.uploadDisabled) {
+                return;
+            }
+            if (url && (url.startsWith('http') || url.startsWith('file') || url.startsWith('ftp'))) {
+                this.active.emit(this.panel);
+                this.urlForUpload.emit(url);
+            }
+            else {
+                this._modalService.open(commonComponents.CommonModals.ErrorMessage);
+                this._excMessageService.changeMessage("Wrong url");
+            }
+        };
+        /**
+         * @param {?} url
+         * @return {?}
+         */
+        AddFilePanelComponent.prototype.checkDisabled = /**
+         * @param {?} url
+         * @return {?}
+         */
+        function (url) {
+            this.uploadDisabled = url ? url.length === 0 : true;
+        };
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+        AddFilePanelComponent.prototype.ngOnChanges = /**
+         * @param {?} changes
+         * @return {?}
+         */
+        function (changes) {
+            if (this.fileName) {
+                this.state = States.Opened;
+            }
+            else {
+                this.state = States.Empty;
+            }
+        };
+        AddFilePanelComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-add-file-panel',
+                        template: "<div class=\"wrapper\">\n  <div class=\"upload-wrapper\" *ngIf=\"isEmpty()\">\n    <gd-button [icon]=\"'arrow-right'\" [tooltip]=\"'Upload file'\" (click)=\"uploadUrl(url.value)\" [disabled]=\"uploadDisabled\" ></gd-button>\n    <input class=\"url-input\" #url (keyup)=\"checkDisabled(url.value)\" (keyup.enter)=\"uploadUrl(url.value)\" placeholder=\"https://\">\n  </div>\n  <fa-icon *ngIf=\"!isEmpty()\" [icon]=\"['fas',getFormatIcon()]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon()\"></fa-icon>\n  <span *ngIf=\"!isEmpty()\" class=\"compare-file-name\">{{fileName}}</span>\n  <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Open file'\" (click)=\"openModal()\" *ngIf=\"isEmpty()\"></gd-button>\n  <gd-button [icon]=\"'times'\" [tooltip]=\"'Close file'\" (click)=\"cleanFile()\" *ngIf=\"!isEmpty()\"></gd-button>\n</div>\n",
+                        styles: [":host{border-bottom:1px solid #ccc}:host ::ng-deep gd-button .button{font-size:14px!important}.wrapper{height:37px;background-color:#fff;display:-webkit-box;display:flex}.upload-wrapper{display:-webkit-box;display:flex;width:100%}.url-input{border:0;height:37px;width:100%;padding-left:5px;margin:0;padding-top:0;padding-bottom:0;outline:0;color:#959da5;opacity:.5;font-style:italic}.compare-file-name{color:#6e6e6e;margin:8px 8px 8px 0;width:100%;text-align:left;font-size:13px;opacity:.5}.ng-fa-icon{color:#959da5;margin:9px 15px 0 13px;font-size:14px}.compare-file{width:100%;border-right:2px solid #ddd}.wrapper .ng-fa-icon.fa-file-pdf{color:#e04e4e}.wrapper .ng-fa-icon.fa-file-word{color:#539cf0}.wrapper .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.wrapper .ng-fa-icon.fa-file-excel{color:#7cbc46}.wrapper .ng-fa-icon.fa-file-image{color:#c375ed}.wrapper .ng-fa-icon.fa-file,.wrapper .ng-fa-icon.fa-file-alt,.wrapper .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.wrapper ::ng-deep gd-button .button fa-icon{color:#6e6e6e}::ng-deep gd-tab .gd-tab .title{font-size:13px;font-weight:700;color:#959da5;opacity:.4}::ng-deep gd-tab .gd-tab.active .title{color:#3e4e5a!important;opacity:1}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        AddFilePanelComponent.ctorParameters = function () { return [
+            { type: commonComponents.ModalService },
+            { type: commonComponents.ExceptionMessageService }
+        ]; };
+        AddFilePanelComponent.propDecorators = {
+            panel: [{ type: core.Input }],
+            active: [{ type: core.Output }],
+            urlForUpload: [{ type: core.Output }],
+            cleanPanel: [{ type: core.Output }],
+            fileName: [{ type: core.Input }]
+        };
+        return AddFilePanelComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        AddFilePanelComponent.prototype.panel;
+        /** @type {?} */
+        AddFilePanelComponent.prototype.active;
+        /** @type {?} */
+        AddFilePanelComponent.prototype.urlForUpload;
+        /** @type {?} */
+        AddFilePanelComponent.prototype.cleanPanel;
+        /** @type {?} */
+        AddFilePanelComponent.prototype.state;
+        /** @type {?} */
+        AddFilePanelComponent.prototype.fileName;
+        /** @type {?} */
+        AddFilePanelComponent.prototype.uploadDisabled;
+        /**
+         * @type {?}
+         * @private
+         */
+        AddFilePanelComponent.prototype._modalService;
+        /**
+         * @type {?}
+         * @private
+         */
+        AddFilePanelComponent.prototype._excMessageService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ComparedPageModel = /** @class */ (function (_super) {
+        __extends(ComparedPageModel, _super);
+        function ComparedPageModel() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return ComparedPageModel;
+    }(commonComponents.PageModel));
+    if (false) {
+        /** @type {?} */
+        ComparedPageModel.prototype.changes;
+    }
+    var CompareResult = /** @class */ (function () {
+        function CompareResult() {
+        }
+        return CompareResult;
+    }());
+    if (false) {
+        /** @type {?} */
+        CompareResult.prototype.changes;
+        /** @type {?} */
+        CompareResult.prototype.pages;
+        /** @type {?} */
+        CompareResult.prototype.guid;
+    }
+    var ChangeInfo = /** @class */ (function () {
+        function ChangeInfo() {
+        }
+        return ChangeInfo;
+    }());
+    if (false) {
+        /** @type {?} */
+        ChangeInfo.prototype.pageInfo;
+        /** @type {?} */
+        ChangeInfo.prototype.text;
+        /** @type {?} */
+        ChangeInfo.prototype.type;
+        /** @type {?} */
+        ChangeInfo.prototype.box;
+        /** @type {?} */
+        ChangeInfo.prototype.id;
+        /** @type {?} */
+        ChangeInfo.prototype.styleChanges;
+        /** @type {?} */
+        ChangeInfo.prototype.normalized;
+        /** @type {?} */
+        ChangeInfo.prototype.active;
+    }
+    var StyleChange = /** @class */ (function () {
+        function StyleChange() {
+        }
+        return StyleChange;
+    }());
+    if (false) {
+        /** @type {?} */
+        StyleChange.prototype.changedProperty;
+        /** @type {?} */
+        StyleChange.prototype.newValue;
+        /** @type {?} */
+        StyleChange.prototype.oldValue;
+    }
+    var Rectangle = /** @class */ (function () {
+        function Rectangle() {
+        }
+        return Rectangle;
+    }());
+    if (false) {
+        /** @type {?} */
+        Rectangle.prototype.x;
+        /** @type {?} */
+        Rectangle.prototype.y;
+        /** @type {?} */
+        Rectangle.prototype.width;
+        /** @type {?} */
+        Rectangle.prototype.height;
+    }
+    var PageInfo = /** @class */ (function () {
+        function PageInfo() {
+        }
+        return PageInfo;
+    }());
+    if (false) {
+        /** @type {?} */
+        PageInfo.prototype.width;
+        /** @type {?} */
+        PageInfo.prototype.height;
+        /** @type {?} */
+        PageInfo.prototype.changes;
+        /** @type {?} */
+        PageInfo.prototype.pageNumber;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var DifferencesService = /** @class */ (function () {
+        function DifferencesService() {
+            this._activeChange = new rxjs.BehaviorSubject(null);
+            this.activeChange = this._activeChange.asObservable();
+        }
+        /**
+         * @param {?} id
+         * @return {?}
+         */
+        DifferencesService.prototype.setActiveChange = /**
+         * @param {?} id
+         * @return {?}
+         */
+        function (id) {
+            this._activeChange.next(id);
+        };
+        DifferencesService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        DifferencesService.ctorParameters = function () { return []; };
+        /** @nocollapse */ DifferencesService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function DifferencesService_Factory() { return new DifferencesService(); }, token: DifferencesService, providedIn: "root" });
+        return DifferencesService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        DifferencesService.prototype._activeChange;
+        /** @type {?} */
+        DifferencesService.prototype.activeChange;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var DifferenceComponent = /** @class */ (function () {
+        function DifferenceComponent(changeService) {
+            this.changesService = changeService;
+        }
+        /**
+         * @return {?}
+         */
+        DifferenceComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            this.changesService.activeChange.subscribe((/**
+             * @param {?} activeID
+             * @return {?}
+             */
+            function (activeID) { return _this.active = _this.change.id === activeID; }));
+        };
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        DifferenceComponent.prototype.getRgbaColor = /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            return "rgba(" + value.red + "," + value.green + "," + value.blue + "," + value.alpha + ")";
+        };
+        DifferenceComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-comparison-difference',
+                        template: "<div  class=\"gd-difference\" [ngClass]=\"{'active': active}\">\n  <div [ngSwitch]=\"change.type\" class=\"gd-difference-title-wrapper\">\n    <ng-container *ngSwitchCase='1'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text edited</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='2'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='3'>\n      <fa-icon class=\"fas fa-times\" [icon]=\"['fas','trash']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text deleted</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='4'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='6'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Style changed</div>\n        <div class=\"gd-differentce-comment\">\n          <ng-container *ngFor=\"let style of change.styleChanges\" [ngSwitch]=\"style.changedProperty\">\n            <div *ngSwitchCase=\"'HighlightColor'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Highlight Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Color'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Size'\">\n              {{style.oldValue}} &rarr; {{style.newValue}}\n              <span class=\"property\">Font size</span>\n            </div>\n            <div *ngSwitchCase=\"'Bold'\">\n              <span [style.fontWeight]=\"style.oldValue ? 'bold' : ''\">{{change.text}}</span> &rarr; <span [style.fontWeight]=\"style.newValue ? 'bold' : ''\">{{change.text}}</span>\n              <span class=\"property\">Bold</span>\n            </div>\n            <div *ngSwitchCase=\"'Italic'\">\n              <span [style.fontStyle]=\"style.oldValue ? 'italic' : ''\">{{change.text}}</span> &rarr; <span [style.fontStyle]=\"style.newValue ? 'italic' : ''\">{{change.text}}</span>\n              <span class=\"property\">Italic</span>\n            </div>\n            <div *ngSwitchCase=\"'cS'\">\n              <span [style.textDecoration]=\"style.oldValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span> &rarr; <span [style.textDecoration]=\"style.newValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span>\n              <span class=\"property\">Underline</span>\n            </div>\n          </ng-container>\n        </div>\n      </div>\n    </ng-container>\n    <div class=\"gd-difference-page\">Page {{change.pageInfo.pageNumber + 1}}</div>\n  </div>\n</div>\n",
+                        styles: [".gd-difference{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-flow:row wrap;border-bottom:1px solid #eee;cursor:pointer}.gd-difference.active{background-color:#f2f2f2}.gd-difference:hover{background-color:#e5e5e5}.gd-difference .gd-difference-title-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;align-content:stretch;padding:14px 21px 17px 24px}.gd-difference .gd-difference-title-wrapper fa-icon{font-size:14px}.gd-difference .gd-difference-title-wrapper .fa-arrow-right{color:#16b901}.gd-difference .gd-difference-title-wrapper .fa-pencil-alt{color:#ced600}.gd-difference .gd-difference-title-wrapper .fa-times{color:#b96401}.gd-difference .gd-difference-title-wrapper .gd-difference-body{width:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;padding-left:24.6px}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-difference-title{color:#222e35;font-size:13px;font-weight:700}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment{color:#959da5;font-size:13px;padding-top:10px;overflow:hidden;text-overflow:ellipsis}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .color{vertical-align:text-bottom;width:14px;height:14px;display:inline-block;border:1px solid #ccc;border-radius:100%}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .property{padding-left:1em}.gd-difference .gd-difference-title-wrapper .gd-difference-page{color:rgba(149,157,165,.48);font-size:11px;white-space:nowrap}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        DifferenceComponent.ctorParameters = function () { return [
+            { type: DifferencesService }
+        ]; };
+        DifferenceComponent.propDecorators = {
+            change: [{ type: core.Input }]
+        };
+        return DifferenceComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        DifferenceComponent.prototype.change;
+        /** @type {?} */
+        DifferenceComponent.prototype.active;
+        /**
+         * @type {?}
+         * @private
+         */
+        DifferenceComponent.prototype.changesService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var $ = jquery;
+    var DifferenceHighlightComponent = /** @class */ (function () {
+        function DifferenceHighlightComponent(changeService) {
+            this.changesService = changeService;
+        }
+        /**
+         * @return {?}
+         */
+        DifferenceHighlightComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            this.changesService.activeChange.subscribe((/**
+             * @param {?} activeID
+             * @return {?}
+             */
+            function (activeID) { return _this.active = _this.change.id === activeID; }));
+        };
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        DifferenceHighlightComponent.prototype.close = /**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            this.changesService.setActiveChange(null);
+        };
+        /**
+         * @param {?} id
+         * @return {?}
+         */
+        DifferenceHighlightComponent.prototype.highlight = /**
+         * @param {?} id
+         * @return {?}
+         */
+        function (id) {
+            this.changesService.setActiveChange(id);
+        };
+        DifferenceHighlightComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-difference-highlight',
+                        template: "<div\n  class=\"gd-difference-{{change.type}} highlight-difference\"\n  (clickOutside)=\"close($event)\"\n  [clickOutsideEnabled]=\"active\"\n  (click)=\"highlight(change.id)\"\n  [ngClass]=\"{'active': active}\"\n  [ngStyle]=\"{\n    width: change.normalized.width + '%',\n    height: change.normalized.height + '%',\n    left: change.normalized.x + '%',\n    top: change.normalized.y + '%'\n  }\"\n  data-id=\"{{change.id}}\">\n\n</div>\n\n",
+                        styles: [".highlight-difference{position:absolute;cursor:pointer;z-index:1}.gd-difference.active,.highlight-difference.active{box-shadow:0 0 0 9999px rgba(0,0,0,.5);z-index:999}.gd-difference-1{background-color:rgba(0,122,255,.4)}.gd-difference-2,.gd-difference-4{background-color:rgba(46,237,0,.4)}.gd-difference-3{background-color:rgba(237,0,0,.4)}.gd-difference-6{background-color:rgba(215,224,0,.4)}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        DifferenceHighlightComponent.ctorParameters = function () { return [
+            { type: DifferencesService }
+        ]; };
+        DifferenceHighlightComponent.propDecorators = {
+            change: [{ type: core.Input }],
+            active: [{ type: core.Input }]
+        };
+        return DifferenceHighlightComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        DifferenceHighlightComponent.prototype.change;
+        /** @type {?} */
+        DifferenceHighlightComponent.prototype.active;
+        /**
+         * @type {?}
+         * @private
+         */
+        DifferenceHighlightComponent.prototype.changesService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var DifferencesComponent = /** @class */ (function () {
+        function DifferencesComponent(changeService, navigateService) {
+            this.changes = [];
+            this.changesService = changeService;
+            this.navigateService = navigateService;
+        }
+        /**
+         * @return {?}
+         */
+        DifferencesComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () { };
+        /**
+         * @param {?} id
+         * @param {?} page
+         * @param {?} event
+         * @return {?}
+         */
+        DifferencesComponent.prototype.highlightDifference = /**
+         * @param {?} id
+         * @param {?} page
+         * @param {?} event
+         * @return {?}
+         */
+        function (id, page, event) {
+            event.stopPropagation();
+            this.changesService.setActiveChange(id);
+            this.navigateService.navigateTo(page + 1);
+        };
+        DifferencesComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-differences',
+                        template: "<div *ngFor=\"let change of changes; let i = index\" data-id=\"{{i}}\" (click)=\"highlightDifference(change.id,change.pageInfo.pageNumber,$event)\">\n  <gd-comparison-difference [change]=\"change\"></gd-comparison-difference>\n</div>\n",
+                        styles: [""]
+                    }] }
+        ];
+        /** @nocollapse */
+        DifferencesComponent.ctorParameters = function () { return [
+            { type: DifferencesService },
+            { type: commonComponents.NavigateService }
+        ]; };
+        DifferencesComponent.propDecorators = {
+            changes: [{ type: core.Input }]
+        };
+        return DifferencesComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        DifferencesComponent.prototype.changes;
+        /**
+         * @type {?}
+         * @private
+         */
+        DifferencesComponent.prototype.changesService;
+        /**
+         * @type {?}
+         * @private
+         */
+        DifferencesComponent.prototype.navigateService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var $$1 = jquery;
+    var ResultDocumentComponent = /** @class */ (function (_super) {
+        __extends(ResultDocumentComponent, _super);
+        function ResultDocumentComponent(_elementRef, zoomService, changeService, windowService, navigateService) {
+            var _this = _super.call(this, _elementRef, zoomService, windowService, navigateService) || this;
+            _this.changesService = changeService;
+            return _this;
+        }
+        /**
+         * @return {?}
+         */
+        ResultDocumentComponent.prototype.close = /**
+         * @return {?}
+         */
+        function () {
+            this.changesService.setActiveChange(null);
+        };
+        /**
+         * @return {?}
+         */
+        ResultDocumentComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        ResultDocumentComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-result-document',
+                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div class=\"panzoom\">\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height, page.number)\"\n         [style.width]=\"getDimensionWithUnit(page.width, page.number)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n      <div class=\"highlights\">\n        <gd-difference-highlight\n          *ngFor=\"let change of page?.changes\"\n          [change]=\"change\">\n        </gd-difference-highlight>\n      </div>\n    </div>\n  </div>\n</div>\n",
+                        // @TODO: this is replicated from base component until styles inheritance supported added to angular
+                        providers: [commonComponents.ZoomService],
+                        viewProviders: [commonComponents.ZoomDirective],
+                        styles: [":host{overflow:scroll}.document{background-color:#e7e7e7;width:100%;height:100%;-webkit-transition:.4s;transition:.4s;padding:0;margin:0;position:relative}.page{position:relative;display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{-webkit-transform:none;transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform-origin:50% 50% 0;transform-origin:50% 50% 0;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}.highlights{position:absolute;top:0;left:0;bottom:0;right:0}@media (max-width:1037px){.panzoom{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        ResultDocumentComponent.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: commonComponents.ZoomService },
+            { type: DifferencesService },
+            { type: commonComponents.WindowService },
+            { type: commonComponents.NavigateService }
+        ]; };
+        return ResultDocumentComponent;
+    }(commonComponents.DocumentComponent));
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ResultDocumentComponent.prototype.changesService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var UploadFilePanelComponent = /** @class */ (function () {
+        function UploadFilePanelComponent(_uploadService, _modalService) {
+            this._uploadService = _uploadService;
+            this._modalService = _modalService;
+            this.active = new core.EventEmitter();
+            this.showUploadFile = false;
+        }
+        /**
+         * @return {?}
+         */
+        UploadFilePanelComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+        };
+        /**
+         * @return {?}
+         */
+        UploadFilePanelComponent.prototype.openModal = /**
+         * @return {?}
+         */
+        function () {
+            this.active.emit(this.panel);
+            this._modalService.open(commonComponents.CommonModals.BrowseFiles);
+        };
+        /**
+         * @param {?} $event
+         * @return {?}
+         */
+        UploadFilePanelComponent.prototype.dropped = /**
+         * @param {?} $event
+         * @return {?}
+         */
+        function ($event) {
+            if ($event) {
+                this.active.emit(this.panel);
+                this.showUploadFile = false;
+            }
+        };
+        UploadFilePanelComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'gd-upload-file-panel',
+                        template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\" (click)=\"openModal()\">\n  <div class=\"init-state-wrapper\">\n    <fa-icon class=\"icon\" [icon]=\"['fas', 'folder-open']\"></fa-icon>\n    <span class=\"start\">\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n        Or drop file here\n    </span>\n  </div>\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n    <span class=\"text\">Drop file here to upload</span>\n  </div>\n</div>\n",
+                        styles: [":host{display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;align-content:center;height:100%;border-bottom:1px solid #ccc}.wrapper{color:#959da5;background-color:#e7e7e7;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%;height:100%}.icon{font-size:65px;margin-bottom:43px;display:-webkit-box;display:flex;color:#959da5}.start{font-size:15px;text-align:center;color:#959da5}.gd-drag-n-drop-wrap.active{background-color:#fff;position:fixed;top:60px;width:50%;background:rgba(255,255,255,.8)}.gd-drag-n-drop-wrap.active .init-state-wrapper{position:absolute;opacity:.2;top:unset;margin-top:-11px}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper{top:0;z-index:999;margin-top:-11px}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon{width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}.gd-drag-n-drop-wrap.active .text{color:#6e6e6e;font-size:14px}.init-state-dnd-wrapper,.init-state-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:250px;height:250px;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.init-state-wrapper{top:-30px;position:relative}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        UploadFilePanelComponent.ctorParameters = function () { return [
+            { type: commonComponents.UploadFilesService },
+            { type: commonComponents.ModalService }
+        ]; };
+        UploadFilePanelComponent.propDecorators = {
+            panel: [{ type: core.Input }],
+            active: [{ type: core.Output }]
+        };
+        return UploadFilePanelComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        UploadFilePanelComponent.prototype.panel;
+        /** @type {?} */
+        UploadFilePanelComponent.prototype.active;
+        /** @type {?} */
+        UploadFilePanelComponent.prototype.showUploadFile;
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFilePanelComponent.prototype._uploadService;
+        /**
+         * @type {?}
+         * @private
+         */
+        UploadFilePanelComponent.prototype._modalService;
     }
 
     /**
@@ -469,7 +1113,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var $ = jquery;
+    var $$2 = jquery;
     var Files = /** @class */ (function () {
         function Files() {
         }
@@ -507,6 +1151,8 @@
             this.browseFilesModal = commonComponents.CommonModals.BrowseFiles;
             this.credentials = new Map();
             this.file = new Map();
+            this.firstFile = undefined;
+            this.secondFile = undefined;
             this.first = Files.FIRST;
             this.second = Files.SECOND;
             this.firstFileName = undefined;
@@ -588,29 +1234,38 @@
          * @return {?}
          */
         function () {
-            var _this = this;
-            /** @type {?} */
-            var queryString = window.location.search;
-            if (queryString) {
+            if (this.firstFile && this.secondFile) {
+                this.compareFiles();
+                return;
+            }
+            if (window.location.search) {
                 /** @type {?} */
-                var urlParams = new URLSearchParams(queryString);
-                /** @type {?} */
-                var firstFile = urlParams.get(Files.FIRST);
-                /** @type {?} */
-                var secondFile = urlParams.get(Files.SECOND);
-                if (firstFile && secondFile) {
-                    /** @type {?} */
-                    var first = this.selectFirstDefaultFile(firstFile, '');
-                    /** @type {?} */
-                    var second = this.selectSecondDefaultFile(secondFile, '');
-                    rxjs.forkJoin([first, second]).subscribe((/**
-                     * @return {?}
-                     */
-                    function () {
-                        _this.compare();
-                    }));
+                var urlParams = new URLSearchParams(window.location.search);
+                this.firstFile = urlParams.get(Files.FIRST);
+                this.secondFile = urlParams.get(Files.SECOND);
+                if (this.firstFile && this.secondFile) {
+                    this.compareFiles();
                 }
             }
+        };
+        /**
+         * @return {?}
+         */
+        ComparisonAppComponent.prototype.compareFiles = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            /** @type {?} */
+            var first = this.selectFirstDefaultFile(this.firstFile, '');
+            /** @type {?} */
+            var second = this.selectSecondDefaultFile(this.secondFile, '');
+            rxjs.forkJoin([first, second]).subscribe((/**
+             * @return {?}
+             */
+            function () {
+                _this.compare();
+            }));
         };
         Object.defineProperty(ComparisonAppComponent.prototype, "uploadConfig", {
             get: /**
@@ -1063,6 +1718,10 @@
         /** @type {?} */
         ComparisonAppComponent.prototype.activePanel;
         /** @type {?} */
+        ComparisonAppComponent.prototype.firstFile;
+        /** @type {?} */
+        ComparisonAppComponent.prototype.secondFile;
+        /** @type {?} */
         ComparisonAppComponent.prototype.first;
         /** @type {?} */
         ComparisonAppComponent.prototype.second;
@@ -1111,650 +1770,6 @@
          * @private
          */
         ComparisonAppComponent.prototype._elementRef;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var States = /** @class */ (function () {
-        function States() {
-        }
-        States.Empty = 'empty';
-        States.Opened = 'opened';
-        return States;
-    }());
-    if (false) {
-        /** @type {?} */
-        States.Empty;
-        /** @type {?} */
-        States.Opened;
-    }
-    var AddFilePanelComponent = /** @class */ (function () {
-        function AddFilePanelComponent(_modalService, _excMessageService) {
-            this._modalService = _modalService;
-            this._excMessageService = _excMessageService;
-            this.active = new core.EventEmitter();
-            this.urlForUpload = new core.EventEmitter();
-            this.cleanPanel = new core.EventEmitter();
-            this.state = States.Empty;
-            this.uploadDisabled = true;
-        }
-        /**
-         * @return {?}
-         */
-        AddFilePanelComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @return {?}
-         */
-        AddFilePanelComponent.prototype.getFormatIcon = /**
-         * @return {?}
-         */
-        function () {
-            return commonComponents.FileUtil.find(this.fileName, false).icon;
-        };
-        /**
-         * @return {?}
-         */
-        AddFilePanelComponent.prototype.openModal = /**
-         * @return {?}
-         */
-        function () {
-            this.active.emit(this.panel);
-            this._modalService.open(commonComponents.CommonModals.BrowseFiles);
-        };
-        /**
-         * @return {?}
-         */
-        AddFilePanelComponent.prototype.isEmpty = /**
-         * @return {?}
-         */
-        function () {
-            return this.state === States.Empty;
-        };
-        /**
-         * @return {?}
-         */
-        AddFilePanelComponent.prototype.cleanFile = /**
-         * @return {?}
-         */
-        function () {
-            this.active.emit(this.panel);
-            this.cleanPanel.emit(true);
-        };
-        /**
-         * @param {?} url
-         * @return {?}
-         */
-        AddFilePanelComponent.prototype.uploadUrl = /**
-         * @param {?} url
-         * @return {?}
-         */
-        function (url) {
-            if (this.uploadDisabled) {
-                return;
-            }
-            if (url && (url.startsWith('http') || url.startsWith('file') || url.startsWith('ftp'))) {
-                this.active.emit(this.panel);
-                this.urlForUpload.emit(url);
-            }
-            else {
-                this._modalService.open(commonComponents.CommonModals.ErrorMessage);
-                this._excMessageService.changeMessage("Wrong url");
-            }
-        };
-        /**
-         * @param {?} url
-         * @return {?}
-         */
-        AddFilePanelComponent.prototype.checkDisabled = /**
-         * @param {?} url
-         * @return {?}
-         */
-        function (url) {
-            this.uploadDisabled = url ? url.length === 0 : true;
-        };
-        /**
-         * @param {?} changes
-         * @return {?}
-         */
-        AddFilePanelComponent.prototype.ngOnChanges = /**
-         * @param {?} changes
-         * @return {?}
-         */
-        function (changes) {
-            if (this.fileName) {
-                this.state = States.Opened;
-            }
-            else {
-                this.state = States.Empty;
-            }
-        };
-        AddFilePanelComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-add-file-panel',
-                        template: "<div class=\"wrapper\">\n  <div class=\"upload-wrapper\" *ngIf=\"isEmpty()\">\n    <gd-button [icon]=\"'arrow-right'\" [tooltip]=\"'Upload file'\" (click)=\"uploadUrl(url.value)\" [disabled]=\"uploadDisabled\" ></gd-button>\n    <input class=\"url-input\" #url (keyup)=\"checkDisabled(url.value)\" (keyup.enter)=\"uploadUrl(url.value)\" placeholder=\"https://\">\n  </div>\n  <fa-icon *ngIf=\"!isEmpty()\" [icon]=\"['fas',getFormatIcon()]\" [class]=\"'ng-fa-icon fa-' + getFormatIcon()\"></fa-icon>\n  <span *ngIf=\"!isEmpty()\" class=\"compare-file-name\">{{fileName}}</span>\n  <gd-button [icon]=\"'folder-open'\" [tooltip]=\"'Open file'\" (click)=\"openModal()\" *ngIf=\"isEmpty()\"></gd-button>\n  <gd-button [icon]=\"'times'\" [tooltip]=\"'Close file'\" (click)=\"cleanFile()\" *ngIf=\"!isEmpty()\"></gd-button>\n</div>\n",
-                        styles: [":host{border-bottom:1px solid #ccc}:host ::ng-deep gd-button .button{font-size:14px!important}.wrapper{height:37px;background-color:#fff;display:-webkit-box;display:flex}.upload-wrapper{display:-webkit-box;display:flex;width:100%}.url-input{border:0;height:37px;width:100%;padding-left:5px;margin:0;padding-top:0;padding-bottom:0;outline:0;color:#959da5;opacity:.5;font-style:italic}.compare-file-name{color:#6e6e6e;margin:8px 8px 8px 0;width:100%;text-align:left;font-size:13px;opacity:.5}.ng-fa-icon{color:#959da5;margin:9px 15px 0 13px;font-size:14px}.compare-file{width:100%;border-right:2px solid #ddd}.wrapper .ng-fa-icon.fa-file-pdf{color:#e04e4e}.wrapper .ng-fa-icon.fa-file-word{color:#539cf0}.wrapper .ng-fa-icon.fa-file-powerpoint{color:#e29e1e}.wrapper .ng-fa-icon.fa-file-excel{color:#7cbc46}.wrapper .ng-fa-icon.fa-file-image{color:#c375ed}.wrapper .ng-fa-icon.fa-file,.wrapper .ng-fa-icon.fa-file-alt,.wrapper .ng-fa-icon.fa-file-text .fa-folder{color:#4b566c}.wrapper ::ng-deep gd-button .button fa-icon{color:#6e6e6e}::ng-deep gd-tab .gd-tab .title{font-size:13px;font-weight:700;color:#959da5;opacity:.4}::ng-deep gd-tab .gd-tab.active .title{color:#3e4e5a!important;opacity:1}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        AddFilePanelComponent.ctorParameters = function () { return [
-            { type: commonComponents.ModalService },
-            { type: commonComponents.ExceptionMessageService }
-        ]; };
-        AddFilePanelComponent.propDecorators = {
-            panel: [{ type: core.Input }],
-            active: [{ type: core.Output }],
-            urlForUpload: [{ type: core.Output }],
-            cleanPanel: [{ type: core.Output }],
-            fileName: [{ type: core.Input }]
-        };
-        return AddFilePanelComponent;
-    }());
-    if (false) {
-        /** @type {?} */
-        AddFilePanelComponent.prototype.panel;
-        /** @type {?} */
-        AddFilePanelComponent.prototype.active;
-        /** @type {?} */
-        AddFilePanelComponent.prototype.urlForUpload;
-        /** @type {?} */
-        AddFilePanelComponent.prototype.cleanPanel;
-        /** @type {?} */
-        AddFilePanelComponent.prototype.state;
-        /** @type {?} */
-        AddFilePanelComponent.prototype.fileName;
-        /** @type {?} */
-        AddFilePanelComponent.prototype.uploadDisabled;
-        /**
-         * @type {?}
-         * @private
-         */
-        AddFilePanelComponent.prototype._modalService;
-        /**
-         * @type {?}
-         * @private
-         */
-        AddFilePanelComponent.prototype._excMessageService;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var UploadFilePanelComponent = /** @class */ (function () {
-        function UploadFilePanelComponent(_uploadService, _modalService) {
-            this._uploadService = _uploadService;
-            this._modalService = _modalService;
-            this.active = new core.EventEmitter();
-            this.showUploadFile = false;
-        }
-        /**
-         * @return {?}
-         */
-        UploadFilePanelComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @return {?}
-         */
-        UploadFilePanelComponent.prototype.openModal = /**
-         * @return {?}
-         */
-        function () {
-            this.active.emit(this.panel);
-            this._modalService.open(commonComponents.CommonModals.BrowseFiles);
-        };
-        /**
-         * @param {?} $event
-         * @return {?}
-         */
-        UploadFilePanelComponent.prototype.dropped = /**
-         * @param {?} $event
-         * @return {?}
-         */
-        function ($event) {
-            if ($event) {
-                this.active.emit(this.panel);
-                this.showUploadFile = false;
-            }
-        };
-        UploadFilePanelComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-upload-file-panel',
-                        template: "<div class=\"wrapper gd-drag-n-drop-wrap\" gdDnd (dropped)=\"dropped($event)\" (opening)=\"showUploadFile=$event\" (click)=\"openModal()\">\n  <div class=\"init-state-wrapper\">\n    <fa-icon class=\"icon\" [icon]=\"['fas', 'folder-open']\"></fa-icon>\n    <span class=\"start\">\n        Click <fa-icon [icon]=\"['fas','folder-open']\"></fa-icon> to open file<br>\n        Or drop file here\n    </span>\n  </div>\n  <div *ngIf=\"showUploadFile\" class=\"init-state-dnd-wrapper\">\n    <fa-icon  class=\"icon\" [icon]=\"['fas','cloud-download-alt']\" aria-hidden=\"true\"></fa-icon>\n    <span class=\"text\">Drop file here to upload</span>\n  </div>\n</div>\n",
-                        styles: [":host{display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;align-content:center;height:100%;border-bottom:1px solid #ccc}.wrapper{color:#959da5;background-color:#e7e7e7;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%;height:100%}.icon{font-size:65px;margin-bottom:43px;display:-webkit-box;display:flex;color:#959da5}.start{font-size:15px;text-align:center;color:#959da5}.gd-drag-n-drop-wrap.active{background-color:#fff;position:fixed;top:60px;width:50%;background:rgba(255,255,255,.8)}.gd-drag-n-drop-wrap.active .init-state-wrapper{position:absolute;opacity:.2;top:unset;margin-top:-11px}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper{top:0;z-index:999;margin-top:-11px}.gd-drag-n-drop-wrap.active .init-state-dnd-wrapper .icon{width:113px;height:90px;font-size:90px;color:#3e4e5a;margin-bottom:30px}.gd-drag-n-drop-wrap.active .text{color:#6e6e6e;font-size:14px}.init-state-dnd-wrapper,.init-state-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;width:250px;height:250px;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.init-state-wrapper{top:-30px;position:relative}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        UploadFilePanelComponent.ctorParameters = function () { return [
-            { type: commonComponents.UploadFilesService },
-            { type: commonComponents.ModalService }
-        ]; };
-        UploadFilePanelComponent.propDecorators = {
-            panel: [{ type: core.Input }],
-            active: [{ type: core.Output }]
-        };
-        return UploadFilePanelComponent;
-    }());
-    if (false) {
-        /** @type {?} */
-        UploadFilePanelComponent.prototype.panel;
-        /** @type {?} */
-        UploadFilePanelComponent.prototype.active;
-        /** @type {?} */
-        UploadFilePanelComponent.prototype.showUploadFile;
-        /**
-         * @type {?}
-         * @private
-         */
-        UploadFilePanelComponent.prototype._uploadService;
-        /**
-         * @type {?}
-         * @private
-         */
-        UploadFilePanelComponent.prototype._modalService;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var ComparedPageModel = /** @class */ (function (_super) {
-        __extends(ComparedPageModel, _super);
-        function ComparedPageModel() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        return ComparedPageModel;
-    }(commonComponents.PageModel));
-    if (false) {
-        /** @type {?} */
-        ComparedPageModel.prototype.changes;
-    }
-    var CompareResult = /** @class */ (function () {
-        function CompareResult() {
-        }
-        return CompareResult;
-    }());
-    if (false) {
-        /** @type {?} */
-        CompareResult.prototype.changes;
-        /** @type {?} */
-        CompareResult.prototype.pages;
-        /** @type {?} */
-        CompareResult.prototype.guid;
-    }
-    var ChangeInfo = /** @class */ (function () {
-        function ChangeInfo() {
-        }
-        return ChangeInfo;
-    }());
-    if (false) {
-        /** @type {?} */
-        ChangeInfo.prototype.pageInfo;
-        /** @type {?} */
-        ChangeInfo.prototype.text;
-        /** @type {?} */
-        ChangeInfo.prototype.type;
-        /** @type {?} */
-        ChangeInfo.prototype.box;
-        /** @type {?} */
-        ChangeInfo.prototype.id;
-        /** @type {?} */
-        ChangeInfo.prototype.styleChanges;
-        /** @type {?} */
-        ChangeInfo.prototype.normalized;
-        /** @type {?} */
-        ChangeInfo.prototype.active;
-    }
-    var StyleChange = /** @class */ (function () {
-        function StyleChange() {
-        }
-        return StyleChange;
-    }());
-    if (false) {
-        /** @type {?} */
-        StyleChange.prototype.changedProperty;
-        /** @type {?} */
-        StyleChange.prototype.newValue;
-        /** @type {?} */
-        StyleChange.prototype.oldValue;
-    }
-    var Rectangle = /** @class */ (function () {
-        function Rectangle() {
-        }
-        return Rectangle;
-    }());
-    if (false) {
-        /** @type {?} */
-        Rectangle.prototype.x;
-        /** @type {?} */
-        Rectangle.prototype.y;
-        /** @type {?} */
-        Rectangle.prototype.width;
-        /** @type {?} */
-        Rectangle.prototype.height;
-    }
-    var PageInfo = /** @class */ (function () {
-        function PageInfo() {
-        }
-        return PageInfo;
-    }());
-    if (false) {
-        /** @type {?} */
-        PageInfo.prototype.width;
-        /** @type {?} */
-        PageInfo.prototype.height;
-        /** @type {?} */
-        PageInfo.prototype.changes;
-        /** @type {?} */
-        PageInfo.prototype.pageNumber;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var DifferencesService = /** @class */ (function () {
-        function DifferencesService() {
-            this._activeChange = new rxjs.BehaviorSubject(null);
-            this.activeChange = this._activeChange.asObservable();
-        }
-        /**
-         * @param {?} id
-         * @return {?}
-         */
-        DifferencesService.prototype.setActiveChange = /**
-         * @param {?} id
-         * @return {?}
-         */
-        function (id) {
-            this._activeChange.next(id);
-        };
-        DifferencesService.decorators = [
-            { type: core.Injectable, args: [{
-                        providedIn: 'root'
-                    },] }
-        ];
-        /** @nocollapse */
-        DifferencesService.ctorParameters = function () { return []; };
-        /** @nocollapse */ DifferencesService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function DifferencesService_Factory() { return new DifferencesService(); }, token: DifferencesService, providedIn: "root" });
-        return DifferencesService;
-    }());
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        DifferencesService.prototype._activeChange;
-        /** @type {?} */
-        DifferencesService.prototype.activeChange;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var DifferenceComponent = /** @class */ (function () {
-        function DifferenceComponent(changeService) {
-            this.changesService = changeService;
-        }
-        /**
-         * @return {?}
-         */
-        DifferenceComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            this.changesService.activeChange.subscribe((/**
-             * @param {?} activeID
-             * @return {?}
-             */
-            function (activeID) { return _this.active = _this.change.id === activeID; }));
-        };
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        DifferenceComponent.prototype.getRgbaColor = /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            return "rgba(" + value.red + "," + value.green + "," + value.blue + "," + value.alpha + ")";
-        };
-        DifferenceComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-comparison-difference',
-                        template: "<div  class=\"gd-difference\" [ngClass]=\"{'active': active}\">\n  <div [ngSwitch]=\"change.type\" class=\"gd-difference-title-wrapper\">\n    <ng-container *ngSwitchCase='1'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text edited</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='2'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='3'>\n      <fa-icon class=\"fas fa-times\" [icon]=\"['fas','trash']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text deleted</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='4'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='6'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Style changed</div>\n        <div class=\"gd-differentce-comment\">\n          <ng-container *ngFor=\"let style of change.styleChanges\" [ngSwitch]=\"style.changedProperty\">\n            <div *ngSwitchCase=\"'HighlightColor'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Highlight Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Color'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Size'\">\n              {{style.oldValue}} &rarr; {{style.newValue}}\n              <span class=\"property\">Font size</span>\n            </div>\n            <div *ngSwitchCase=\"'Bold'\">\n              <span [style.fontWeight]=\"style.oldValue ? 'bold' : ''\">{{change.text}}</span> &rarr; <span [style.fontWeight]=\"style.newValue ? 'bold' : ''\">{{change.text}}</span>\n              <span class=\"property\">Bold</span>\n            </div>\n            <div *ngSwitchCase=\"'Italic'\">\n              <span [style.fontStyle]=\"style.oldValue ? 'italic' : ''\">{{change.text}}</span> &rarr; <span [style.fontStyle]=\"style.newValue ? 'italic' : ''\">{{change.text}}</span>\n              <span class=\"property\">Italic</span>\n            </div>\n            <div *ngSwitchCase=\"'cS'\">\n              <span [style.textDecoration]=\"style.oldValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span> &rarr; <span [style.textDecoration]=\"style.newValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span>\n              <span class=\"property\">Underline</span>\n            </div>\n          </ng-container>\n        </div>\n      </div>\n    </ng-container>\n    <div class=\"gd-difference-page\">Page {{change.pageInfo.pageNumber + 1}}</div>\n  </div>\n</div>\n",
-                        styles: [".gd-difference{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-flow:row wrap;border-bottom:1px solid #eee;cursor:pointer}.gd-difference.active{background-color:#f2f2f2}.gd-difference:hover{background-color:#e5e5e5}.gd-difference .gd-difference-title-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;align-content:stretch;padding:14px 21px 17px 24px}.gd-difference .gd-difference-title-wrapper fa-icon{font-size:14px}.gd-difference .gd-difference-title-wrapper .fa-arrow-right{color:#16b901}.gd-difference .gd-difference-title-wrapper .fa-pencil-alt{color:#ced600}.gd-difference .gd-difference-title-wrapper .fa-times{color:#b96401}.gd-difference .gd-difference-title-wrapper .gd-difference-body{width:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;padding-left:24.6px}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-difference-title{color:#222e35;font-size:13px;font-weight:700}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment{color:#959da5;font-size:13px;padding-top:10px;overflow:hidden;text-overflow:ellipsis}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .color{vertical-align:text-bottom;width:14px;height:14px;display:inline-block;border:1px solid #ccc;border-radius:100%}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .property{padding-left:1em}.gd-difference .gd-difference-title-wrapper .gd-difference-page{color:rgba(149,157,165,.48);font-size:11px;white-space:nowrap}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        DifferenceComponent.ctorParameters = function () { return [
-            { type: DifferencesService }
-        ]; };
-        DifferenceComponent.propDecorators = {
-            change: [{ type: core.Input }]
-        };
-        return DifferenceComponent;
-    }());
-    if (false) {
-        /** @type {?} */
-        DifferenceComponent.prototype.change;
-        /** @type {?} */
-        DifferenceComponent.prototype.active;
-        /**
-         * @type {?}
-         * @private
-         */
-        DifferenceComponent.prototype.changesService;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var $$1 = jquery;
-    var DifferenceHighlightComponent = /** @class */ (function () {
-        function DifferenceHighlightComponent(changeService) {
-            this.changesService = changeService;
-        }
-        /**
-         * @return {?}
-         */
-        DifferenceHighlightComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            this.changesService.activeChange.subscribe((/**
-             * @param {?} activeID
-             * @return {?}
-             */
-            function (activeID) { return _this.active = _this.change.id === activeID; }));
-        };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DifferenceHighlightComponent.prototype.close = /**
-         * @param {?} event
-         * @return {?}
-         */
-        function (event) {
-            this.changesService.setActiveChange(null);
-        };
-        /**
-         * @param {?} id
-         * @return {?}
-         */
-        DifferenceHighlightComponent.prototype.highlight = /**
-         * @param {?} id
-         * @return {?}
-         */
-        function (id) {
-            this.changesService.setActiveChange(id);
-        };
-        DifferenceHighlightComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-difference-highlight',
-                        template: "<div\n  class=\"gd-difference-{{change.type}} highlight-difference\"\n  (clickOutside)=\"close($event)\"\n  [clickOutsideEnabled]=\"active\"\n  (click)=\"highlight(change.id)\"\n  [ngClass]=\"{'active': active}\"\n  [ngStyle]=\"{\n    width: change.normalized.width + '%',\n    height: change.normalized.height + '%',\n    left: change.normalized.x + '%',\n    top: change.normalized.y + '%'\n  }\"\n  data-id=\"{{change.id}}\">\n\n</div>\n\n",
-                        styles: [".highlight-difference{position:absolute;cursor:pointer;z-index:1}.gd-difference.active,.highlight-difference.active{box-shadow:0 0 0 9999px rgba(0,0,0,.5);z-index:999}.gd-difference-1{background-color:rgba(0,122,255,.4)}.gd-difference-2,.gd-difference-4{background-color:rgba(46,237,0,.4)}.gd-difference-3{background-color:rgba(237,0,0,.4)}.gd-difference-6{background-color:rgba(215,224,0,.4)}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        DifferenceHighlightComponent.ctorParameters = function () { return [
-            { type: DifferencesService }
-        ]; };
-        DifferenceHighlightComponent.propDecorators = {
-            change: [{ type: core.Input }],
-            active: [{ type: core.Input }]
-        };
-        return DifferenceHighlightComponent;
-    }());
-    if (false) {
-        /** @type {?} */
-        DifferenceHighlightComponent.prototype.change;
-        /** @type {?} */
-        DifferenceHighlightComponent.prototype.active;
-        /**
-         * @type {?}
-         * @private
-         */
-        DifferenceHighlightComponent.prototype.changesService;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var $$2 = jquery;
-    var ResultDocumentComponent = /** @class */ (function (_super) {
-        __extends(ResultDocumentComponent, _super);
-        function ResultDocumentComponent(_elementRef, zoomService, changeService, windowService, navigateService) {
-            var _this = _super.call(this, _elementRef, zoomService, windowService, navigateService) || this;
-            _this.changesService = changeService;
-            return _this;
-        }
-        /**
-         * @return {?}
-         */
-        ResultDocumentComponent.prototype.close = /**
-         * @return {?}
-         */
-        function () {
-            this.changesService.setActiveChange(null);
-        };
-        /**
-         * @return {?}
-         */
-        ResultDocumentComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        ResultDocumentComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-result-document',
-                        template: "<div class=\"wait\" *ngIf=\"wait\">Please wait...</div>\n<div id=\"document\" class=\"document\">\n  <div class=\"panzoom\">\n    <div [ngClass]=\"'page'\" *ngFor=\"let page of file?.pages\"\n         [style.height]=\"getDimensionWithUnit(page.height, page.number)\"\n         [style.width]=\"getDimensionWithUnit(page.width, page.number)\"\n         gdRotation [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <gd-page [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\"\n               [width]=\"page.width\" [height]=\"page.height\" [editable]=\"page.editable\"></gd-page>\n      <div class=\"highlights\">\n        <gd-difference-highlight\n          *ngFor=\"let change of page?.changes\"\n          [change]=\"change\">\n        </gd-difference-highlight>\n      </div>\n    </div>\n  </div>\n</div>\n",
-                        // @TODO: this is replicated from base component until styles inheritance supported added to angular
-                        providers: [commonComponents.ZoomService],
-                        viewProviders: [commonComponents.ZoomDirective],
-                        styles: [":host{overflow:scroll}.document{background-color:#e7e7e7;width:100%;height:100%;-webkit-transition:.4s;transition:.4s;padding:0;margin:0;position:relative}.page{position:relative;display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{-webkit-transform:none;transform:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform-origin:50% 50% 0;transform-origin:50% 50% 0;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;flex-wrap:wrap}.gd-zoomed{margin:10px 98px}.highlights{position:absolute;top:0;left:0;bottom:0;right:0}@media (max-width:1037px){.panzoom{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        ResultDocumentComponent.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: commonComponents.ZoomService },
-            { type: DifferencesService },
-            { type: commonComponents.WindowService },
-            { type: commonComponents.NavigateService }
-        ]; };
-        return ResultDocumentComponent;
-    }(commonComponents.DocumentComponent));
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        ResultDocumentComponent.prototype.changesService;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var DifferencesComponent = /** @class */ (function () {
-        function DifferencesComponent(changeService, navigateService) {
-            this.changes = [];
-            this.changesService = changeService;
-            this.navigateService = navigateService;
-        }
-        /**
-         * @return {?}
-         */
-        DifferencesComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () { };
-        /**
-         * @param {?} id
-         * @param {?} page
-         * @param {?} event
-         * @return {?}
-         */
-        DifferencesComponent.prototype.highlightDifference = /**
-         * @param {?} id
-         * @param {?} page
-         * @param {?} event
-         * @return {?}
-         */
-        function (id, page, event) {
-            event.stopPropagation();
-            this.changesService.setActiveChange(id);
-            this.navigateService.navigateTo(page + 1);
-        };
-        DifferencesComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-differences',
-                        template: "<div *ngFor=\"let change of changes; let i = index\" data-id=\"{{i}}\" (click)=\"highlightDifference(change.id,change.pageInfo.pageNumber,$event)\">\n  <gd-comparison-difference [change]=\"change\"></gd-comparison-difference>\n</div>\n",
-                        styles: [""]
-                    }] }
-        ];
-        /** @nocollapse */
-        DifferencesComponent.ctorParameters = function () { return [
-            { type: DifferencesService },
-            { type: commonComponents.NavigateService }
-        ]; };
-        DifferencesComponent.propDecorators = {
-            changes: [{ type: core.Input }]
-        };
-        return DifferencesComponent;
-    }());
-    if (false) {
-        /** @type {?} */
-        DifferencesComponent.prototype.changes;
-        /**
-         * @type {?}
-         * @private
-         */
-        DifferencesComponent.prototype.changesService;
-        /**
-         * @type {?}
-         * @private
-         */
-        DifferencesComponent.prototype.navigateService;
     }
 
     /**
@@ -1848,6 +1863,7 @@
         return ComparisonModule;
     }());
 
+    exports.AddFilePanelComponent = AddFilePanelComponent;
     exports.ChangeInfo = ChangeInfo;
     exports.CompareResult = CompareResult;
     exports.ComparedPageModel = ComparedPageModel;
@@ -1856,20 +1872,20 @@
     exports.ComparisonConfigService = ComparisonConfigService;
     exports.ComparisonModule = ComparisonModule;
     exports.ComparisonService = ComparisonService;
+    exports.DifferenceComponent = DifferenceComponent;
+    exports.DifferenceHighlightComponent = DifferenceHighlightComponent;
+    exports.DifferencesComponent = DifferencesComponent;
+    exports.DifferencesService = DifferencesService;
     exports.Files = Files;
     exports.Highlight = Highlight;
     exports.PageInfo = PageInfo;
     exports.Rectangle = Rectangle;
+    exports.ResultDocumentComponent = ResultDocumentComponent;
+    exports.States = States;
     exports.StyleChange = StyleChange;
+    exports.UploadFilePanelComponent = UploadFilePanelComponent;
     exports.initializeApp = initializeApp;
     exports.setupLoadingInterceptor = setupLoadingInterceptor;
-    exports.ɵa = AddFilePanelComponent;
-    exports.ɵb = UploadFilePanelComponent;
-    exports.ɵc = DifferenceComponent;
-    exports.ɵd = DifferencesService;
-    exports.ɵe = DifferenceHighlightComponent;
-    exports.ɵf = ResultDocumentComponent;
-    exports.ɵg = DifferencesComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

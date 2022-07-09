@@ -24,6 +24,8 @@ export declare class ComparisonAppComponent implements OnInit {
     file: Map<string, FileDescription>;
     comparisonConfig: ComparisonConfig;
     activePanel: string;
+    firstFile: string;
+    secondFile: string;
     first: string;
     second: string;
     firstFileName: string;
@@ -38,6 +40,7 @@ export declare class ComparisonAppComponent implements OnInit {
     resultTabDisabled: boolean;
     constructor(_comparisonService: ComparisonService, configService: ComparisonConfigService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, _modalService: ModalService, _tabActivatorService: TabActivatorService, _elementRef: ElementRef<HTMLElement>, passwordService: PasswordService);
     ngOnInit(): void;
+    compareFiles(): void;
     readonly uploadConfig: boolean;
     private setLoading;
     readonly rewriteConfig: boolean;
