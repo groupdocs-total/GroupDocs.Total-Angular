@@ -37,6 +37,8 @@ export class ComparisonAppComponent implements OnInit {
   file: Map<string, FileDescription> = new Map<string, FileDescription>();
   comparisonConfig: ComparisonConfig;
   activePanel: string;
+  firstFile: string = undefined;
+  secondFile: string = undefined;
   first = Files.FIRST;
   second = Files.SECOND;
   firstFileName: string = undefined;
@@ -99,21 +101,29 @@ export class ComparisonAppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const queryString = window.location.search;
-    if (queryString) {
-      const urlParams = new URLSearchParams(queryString);
+    if(this.firstFile && this.secondFile) {
+      this.compareFiles();
+      return;
+    }
 
-      const firstFile = urlParams.get(Files.FIRST);
-      const secondFile = urlParams.get(Files.SECOND);
-      if(firstFile && secondFile) {
-        const first = this.selectFirstDefaultFile(firstFile, '');
-        const second = this.selectSecondDefaultFile(secondFile, '');
+    if (window.location.search) {
+      const urlParams = new URLSearchParams(window.location.search);
 
-        forkJoin([first, second]).subscribe(() => {
-          this.compare();
-        })
+      this.firstFile = urlParams.get(Files.FIRST);
+      this.secondFile = urlParams.get(Files.SECOND);
+      if(this.firstFile && this.secondFile) {
+        this.compareFiles();
       }
     }
+  }
+
+  compareFiles() {
+    const first = this.selectFirstDefaultFile(this.firstFile, '');
+    const second = this.selectSecondDefaultFile(this.secondFile, '');
+
+    forkJoin([first, second]).subscribe(() => {
+      this.compare();
+    });
   }
 
   get uploadConfig(): boolean {
