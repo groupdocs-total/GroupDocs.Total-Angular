@@ -38,7 +38,15 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent, DifferenceComponent, DifferenceHighlightComponent, ResultDocumentComponent, DifferencesComponent],
+  declarations: [
+    ComparisonAppComponent,
+    AddFilePanelComponent,
+    UploadFilePanelComponent,
+    DifferenceComponent,
+    DifferenceHighlightComponent,
+    ResultDocumentComponent,
+    DifferencesComponent
+  ],
   imports: [
     BrowserModule,
     CommonComponentsModule,
@@ -48,10 +56,14 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     TranslateModule.forRoot()
   ],
   exports: [
-    ComparisonAppComponent,
     CommonComponentsModule,
-    ResultDocumentComponent,
-    DifferencesComponent
+    ComparisonAppComponent,
+    AddFilePanelComponent,
+    UploadFilePanelComponent,
+    DifferenceComponent,
+    DifferencesComponent,
+    DifferenceHighlightComponent,
+    ResultDocumentComponent
   ],
   providers: [
     ComparisonService,
