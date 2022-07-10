@@ -1628,7 +1628,15 @@ var ComparisonModule = /** @class */ (function () {
     };
     ComparisonModule.decorators = [
         { type: NgModule, args: [{
-                    declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent, DifferenceComponent, DifferenceHighlightComponent, ResultDocumentComponent, DifferencesComponent],
+                    declarations: [
+                        ComparisonAppComponent,
+                        AddFilePanelComponent,
+                        UploadFilePanelComponent,
+                        DifferenceComponent,
+                        DifferenceHighlightComponent,
+                        ResultDocumentComponent,
+                        DifferencesComponent
+                    ],
                     imports: [
                         BrowserModule,
                         CommonComponentsModule,
@@ -1638,10 +1646,14 @@ var ComparisonModule = /** @class */ (function () {
                         TranslateModule.forRoot()
                     ],
                     exports: [
-                        ComparisonAppComponent,
                         CommonComponentsModule,
-                        ResultDocumentComponent,
-                        DifferencesComponent
+                        ComparisonAppComponent,
+                        AddFilePanelComponent,
+                        UploadFilePanelComponent,
+                        DifferenceComponent,
+                        DifferencesComponent,
+                        DifferenceHighlightComponent,
+                        ResultDocumentComponent
                     ],
                     providers: [
                         ComparisonService,

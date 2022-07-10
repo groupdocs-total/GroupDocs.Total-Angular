@@ -1817,7 +1817,15 @@
         };
         ComparisonModule.decorators = [
             { type: core.NgModule, args: [{
-                        declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent, DifferenceComponent, DifferenceHighlightComponent, ResultDocumentComponent, DifferencesComponent],
+                        declarations: [
+                            ComparisonAppComponent,
+                            AddFilePanelComponent,
+                            UploadFilePanelComponent,
+                            DifferenceComponent,
+                            DifferenceHighlightComponent,
+                            ResultDocumentComponent,
+                            DifferencesComponent
+                        ],
                         imports: [
                             platformBrowser.BrowserModule,
                             commonComponents.CommonComponentsModule,
@@ -1827,10 +1835,14 @@
                             core$1.TranslateModule.forRoot()
                         ],
                         exports: [
-                            ComparisonAppComponent,
                             commonComponents.CommonComponentsModule,
-                            ResultDocumentComponent,
-                            DifferencesComponent
+                            ComparisonAppComponent,
+                            AddFilePanelComponent,
+                            UploadFilePanelComponent,
+                            DifferenceComponent,
+                            DifferencesComponent,
+                            DifferenceHighlightComponent,
+                            ResultDocumentComponent
                         ],
                         providers: [
                             ComparisonService,
