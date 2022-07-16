@@ -377,6 +377,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           if (preloadPageCount > 0) {
             this.file.thumbnails = file.pages.slice();
             this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
+          } else {
+            this.preloadPages(1, countPages);
           }
 
           this.selectedPageNumber = 1;
