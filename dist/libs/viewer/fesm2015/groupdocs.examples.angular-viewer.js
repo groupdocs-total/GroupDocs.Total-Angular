@@ -900,17 +900,19 @@ class ViewerAppComponent {
                     this.timerOptions = this.getTimerOptions();
                     this.refreshZoom();
                 }
+                //copy pages to thumbnails
+                this.file.thumbnails = file.pages.slice();
                 /** @type {?} */
-                const preloadPageCount = this.getPreloadPageCount();
+                const countPagesToPreload = this.getPreloadPageCount();
                 /** @type {?} */
                 const countPages = file.pages ? file.pages.length : 0;
-                if (preloadPageCount > 0) {
-                    this.file.thumbnails = file.pages.slice();
-                    this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
-                }
-                else {
-                    this.preloadPages(1, countPages);
-                }
+                /** @type {?} */
+                const countPagesToLoad = countPagesToPreload === 0
+                    ? countPages : countPagesToPreload > countPages
+                    ? countPages
+                    : countPagesToPreload;
+                //retrieve all pages or number of pages to preload
+                this.preloadPages(1, countPagesToLoad);
                 this.selectedPageNumber = 1;
                 this._navigateService.countPages = countPages;
                 this._navigateService.currentPage = this.selectedPageNumber;

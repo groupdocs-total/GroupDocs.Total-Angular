@@ -1275,17 +1275,19 @@
                         _this.timerOptions = _this.getTimerOptions();
                         _this.refreshZoom();
                     }
+                    //copy pages to thumbnails
+                    _this.file.thumbnails = file.pages.slice();
                     /** @type {?} */
-                    var preloadPageCount = _this.getPreloadPageCount();
+                    var countPagesToPreload = _this.getPreloadPageCount();
                     /** @type {?} */
                     var countPages = file.pages ? file.pages.length : 0;
-                    if (preloadPageCount > 0) {
-                        _this.file.thumbnails = file.pages.slice();
-                        _this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
-                    }
-                    else {
-                        _this.preloadPages(1, countPages);
-                    }
+                    /** @type {?} */
+                    var countPagesToLoad = countPagesToPreload === 0
+                        ? countPages : countPagesToPreload > countPages
+                        ? countPages
+                        : countPagesToPreload;
+                    //retrieve all pages or number of pages to preload
+                    _this.preloadPages(1, countPagesToLoad);
                     _this.selectedPageNumber = 1;
                     _this._navigateService.countPages = countPages;
                     _this._navigateService.currentPage = _this.selectedPageNumber;
