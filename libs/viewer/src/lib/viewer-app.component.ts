@@ -376,7 +376,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
           const countPagesToPreload = this.getPreloadPageCount();
           const countPages = file.pages ? file.pages.length : 0;
-          const countPagesToLoad = countPagesToPreload == 0
+          const countPagesToLoad = countPagesToPreload === 0
             ? countPages : countPagesToPreload > countPages
               ? countPages
               : countPagesToPreload;
