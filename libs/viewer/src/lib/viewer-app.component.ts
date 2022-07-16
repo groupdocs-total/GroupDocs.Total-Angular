@@ -371,15 +371,18 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
             this.refreshZoom();
           }
 
-          const preloadPageCount = this.getPreloadPageCount();
-          const countPages = file.pages ? file.pages.length : 0;
+          //copy pages to thumbnails
+          this.file.thumbnails = file.pages.slice();
 
-          if (preloadPageCount > 0) {
-            this.file.thumbnails = file.pages.slice();
-            this.preloadPages(1, preloadPageCount > countPages ? countPages : preloadPageCount);
-          } else {
-            this.preloadPages(1, countPages);
-          }
+          const countPagesToPreload = this.getPreloadPageCount();
+          const countPages = file.pages ? file.pages.length : 0;
+          const countPagesToLoad = countPagesToPreload == 0
+            ? countPages : countPagesToPreload > countPages
+              ? countPages
+              : countPagesToPreload;
+
+          //retrieve all pages or number of pages to preload
+          this.preloadPages(1, countPagesToLoad);
 
           this.selectedPageNumber = 1;
           this._navigateService.countPages = countPages;
