@@ -406,17 +406,22 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         continue;
       }
 
+      const page = this.file.pages.find(p => p.number === pageNumber);
+      if(page && page.data) {
+        continue;
+      }
+
       this.pagesToPreload.push(pageNumber);
 
-      this._viewerService.loadPage(this.credentials, pageNumber).subscribe((page: PageModel) => {
-        if(page.data) {
-          page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
+      this._viewerService.loadPage(this.credentials, pageNumber).subscribe((model: PageModel) => {
+        if(model.data) {
+          model.data = model.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
         }
 
-        this.file.pages[pageNumber - 1].data = page.data;
+        this.file.pages[pageNumber - 1].data = model.data;
 
         if (this.file.thumbnails) {
-          this.file.thumbnails[pageNumber - 1].data = page.data;
+          this.file.thumbnails[pageNumber - 1].data = model.data;
         }
       });
     }
