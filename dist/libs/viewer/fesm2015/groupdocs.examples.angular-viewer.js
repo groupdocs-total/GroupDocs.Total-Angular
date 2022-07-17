@@ -937,18 +937,27 @@ class ViewerAppComponent {
             if (this.pagesToPreload.indexOf(pageNumber) !== -1) {
                 continue;
             }
-            this.pagesToPreload.push(pageNumber);
-            this._viewerService.loadPage(this.credentials, pageNumber).subscribe((/**
-             * @param {?} page
+            /** @type {?} */
+            const page = this.file.pages.find((/**
+             * @param {?} p
              * @return {?}
              */
-            (page) => {
-                if (page.data) {
-                    page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
+            p => p.number === pageNumber));
+            if (page && page.data) {
+                continue;
+            }
+            this.pagesToPreload.push(pageNumber);
+            this._viewerService.loadPage(this.credentials, pageNumber).subscribe((/**
+             * @param {?} model
+             * @return {?}
+             */
+            (model) => {
+                if (model.data) {
+                    model.data = model.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
                 }
-                this.file.pages[pageNumber - 1].data = page.data;
+                this.file.pages[pageNumber - 1].data = model.data;
                 if (this.file.thumbnails) {
-                    this.file.thumbnails[pageNumber - 1].data = page.data;
+                    this.file.thumbnails[pageNumber - 1].data = model.data;
                 }
             }));
         }

@@ -1126,18 +1126,27 @@ var ViewerAppComponent = /** @class */ (function () {
             if (this_2.pagesToPreload.indexOf(pageNumber) !== -1) {
                 return "continue";
             }
-            this_2.pagesToPreload.push(pageNumber);
-            this_2._viewerService.loadPage(this_2.credentials, pageNumber).subscribe((/**
-             * @param {?} page
+            /** @type {?} */
+            var page = this_2.file.pages.find((/**
+             * @param {?} p
              * @return {?}
              */
-            function (page) {
-                if (page.data) {
-                    page.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
+            function (p) { return p.number === pageNumber; }));
+            if (page && page.data) {
+                return "continue";
+            }
+            this_2.pagesToPreload.push(pageNumber);
+            this_2._viewerService.loadPage(this_2.credentials, pageNumber).subscribe((/**
+             * @param {?} model
+             * @return {?}
+             */
+            function (model) {
+                if (model.data) {
+                    model.data = model.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
                 }
-                _this.file.pages[pageNumber - 1].data = page.data;
+                _this.file.pages[pageNumber - 1].data = model.data;
                 if (_this.file.thumbnails) {
-                    _this.file.thumbnails[pageNumber - 1].data = page.data;
+                    _this.file.thumbnails[pageNumber - 1].data = model.data;
                 }
             }));
         };
