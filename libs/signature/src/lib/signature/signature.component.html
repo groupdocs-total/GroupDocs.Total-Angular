@@ -12,7 +12,7 @@
        (panstart)="dragStart($event)" (panmove)="dragging($event)"
        class="gd-signature-wrapper">
     <gd-context-menu *ngIf="active" [topPosition]="position.top" [textMenu]="isText()" [formatting]="getFormatting()"
-                     (changeFormatting)="saveTextSignature($event)" (removeItem)="remove()" (copySign)="onCopySign()"
+                     (removeItem)="remove()" (copySign)="onCopySign()"
                      [lock]="!unlock" (lockOut)="unlock = !$event" [translation]="getMenuShift()"
                      [menuType]="getMenuType()"></gd-context-menu>
     <img class="gd-signature-image" *ngIf="!isText()" [attr.src]="getData()" alt>

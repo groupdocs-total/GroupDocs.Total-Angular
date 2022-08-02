@@ -22,6 +22,7 @@ export class ContextMenuComponent implements OnInit {
   @Input() menuType: string;
   @Output() changeFormatting = new EventEmitter<Formatting>();
   @Output() removeItem = new EventEmitter<boolean>();
+  @Output() saveItemEmitter = new EventEmitter<boolean>();
   @Output() copySign = new EventEmitter<boolean>();
   @Output() lockOut = new EventEmitter<boolean>();
   @Output() comment = new EventEmitter<boolean>();
@@ -88,6 +89,10 @@ export class ContextMenuComponent implements OnInit {
 
   deleteItem() {
     this.removeItem.emit(true);
+  }
+
+  saveItem() {
+    this.saveItemEmitter.emit(true);
   }
 
   toggleLock() {
