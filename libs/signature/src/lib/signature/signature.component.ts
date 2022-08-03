@@ -248,8 +248,14 @@ export class Signature implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   saveText(value: string) {
-    this.data.props.text = value;
-    this.subject.next(value);
+    if (value) {
+      this.data.props.text = value;
+      this.subject.next(value);
+    } else {
+      this.data.props.text = $("#text").val();
+      this.subject.next($("#text").val());
+      this.hideMenu(null);
+    }
   }
 
   private sendSaveText() {
@@ -279,6 +285,10 @@ export class Signature implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   getMenuType() {
-    return MenuType.FOR_SIGNATURE;
+    if (!this.isText()) {
+      return MenuType.FOR_SIGNATURE;
+    } else {
+      return MenuType.FOR_TEXT_SIGNATURE;
+    }
   }
 }
