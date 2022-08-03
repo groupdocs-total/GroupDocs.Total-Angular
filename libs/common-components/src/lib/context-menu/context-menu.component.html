@@ -11,9 +11,9 @@
              (click)="toggleLock()"></gd-button>
   <gd-button *ngIf="isSignature() || isTextSignature()" [icon]="'copy'" [class]="'ng-fa-icon icon'" (click)="onCopySign()"
              (touchstart)="onCopySign()"></gd-button>
-  <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon'" (click)="deleteItem()"
+  <gd-button [icon]="'trash'" [class]="'ng-fa-icon icon remove'" (click)="deleteItem()"
              (touchstart)="deleteItem()"></gd-button>
-  <gd-button *ngIf="isTextSignature()" [icon]="'check'" [class]="'ng-fa-icon icon'" (click)="saveItem($event)"
+  <gd-button *ngIf="isTextSignature()" [icon]="'check'" [class]="'ng-fa-icon icon save'" (click)="saveItem($event)"
              (touchstart)="saveItem($event)"></gd-button>
   <gd-button *ngIf="isAnnotation()" [icon]="'comment'" [class]="'ng-fa-icon icon'" (click)="addComment()"
              (touchstart)="addComment()"></gd-button>
