@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Api, ConfigService, FileCredentials} from "@groupdocs.examples.angular/common-components";
+import {Api, ConfigService, TypedFileCredentials} from "@groupdocs.examples.angular/common-components";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class ViewerService {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
   }
 
-  loadFile(credentials: FileCredentials) {
+  loadFile(credentials: TypedFileCredentials) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
   }
 
@@ -29,44 +29,49 @@ export class ViewerService {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.UPLOAD_DOCUMENTS, formData);
   }
 
-  loadPage(credentials: FileCredentials, page: number) {
+  loadPage(credentials: TypedFileCredentials, page: number) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_PAGE, {
       'guid': credentials.guid,
+      'fileType': credentials.fileType,
       'password': credentials.password,
       'page': page
     }, Api.httpOptionsJson);
   }
 
-  rotate(credentials: FileCredentials, angle: number, page: number) {
+  rotate(credentials: TypedFileCredentials, angle: number, page: number) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.ROTATE_DOCUMENT_PAGE, {
       'guid': credentials.guid,
+      'fileType': credentials.fileType,
       'password': credentials.password,
       'pages': [page],
       'angle': angle
     }, Api.httpOptionsJson);
   }
 
-  getDownloadUrl(credentials: FileCredentials) {
+  getDownloadUrl(credentials: TypedFileCredentials) {
     return this._config.getViewerApiEndpoint() + Api.DOWNLOAD_DOCUMENTS + '/?path=' + credentials.guid;
   }
 
-  loadPrint(credentials: FileCredentials) {
+  loadPrint(credentials: TypedFileCredentials) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_PRINT, {
       'guid': credentials.guid,
+      'fileType': credentials.fileType,
       'password': credentials.password,
     }, Api.httpOptionsJson);
   }
 
-  loadPrintPdf(credentials: FileCredentials) {
+  loadPrintPdf(credentials: TypedFileCredentials) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_PRINT_PDF, {
       'guid': credentials.guid,
+      'fileType': credentials.fileType,
       'password': credentials.password,
     }, Api.httpOptionsJsonResponseTypeBlob);
   }
 
-  loadThumbnails(credentials: FileCredentials) {
+  loadThumbnails(credentials: TypedFileCredentials) {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_THUMBNAILS, {
       'guid': credentials.guid,
+      'fileType': credentials.fileType,
       'password': credentials.password,
     }, Api.httpOptionsJson);
   }

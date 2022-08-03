@@ -286,7 +286,25 @@ export class AnnotationAppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.annotationConfig.defaultDocument !== "") {
+    const queryString = window.location.search;
+
+    if (queryString) {
+      const urlParams = new URLSearchParams(queryString);
+
+      const fileRoute = urlParams.get('file');
+      if (fileRoute) {
+        this.isLoading = true;
+
+        this._annotationService
+          .upload(null, fileRoute, this.rewriteConfig)
+          .subscribe((file: FileCredentials) => {
+            this.selectDir('');
+            this.selectFile(file.guid, '', '');
+          });
+      }
+    }
+
+    if (this.annotationConfig.defaultDocument !== '') {
       this.isLoading = true;
       this.selectFile(this.annotationConfig.defaultDocument, "", "");
     }

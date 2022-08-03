@@ -1702,7 +1702,28 @@ class AnnotationAppComponent {
      * @return {?}
      */
     ngOnInit() {
-        if (this.annotationConfig.defaultDocument !== "") {
+        /** @type {?} */
+        const queryString = window.location.search;
+        if (queryString) {
+            /** @type {?} */
+            const urlParams = new URLSearchParams(queryString);
+            /** @type {?} */
+            const fileRoute = urlParams.get('file');
+            if (fileRoute) {
+                this.isLoading = true;
+                this._annotationService
+                    .upload(null, fileRoute, this.rewriteConfig)
+                    .subscribe((/**
+                 * @param {?} file
+                 * @return {?}
+                 */
+                (file) => {
+                    this.selectDir('');
+                    this.selectFile(file.guid, '', '');
+                }));
+            }
+        }
+        if (this.annotationConfig.defaultDocument !== '') {
             this.isLoading = true;
             this.selectFile(this.annotationConfig.defaultDocument, "", "");
         }

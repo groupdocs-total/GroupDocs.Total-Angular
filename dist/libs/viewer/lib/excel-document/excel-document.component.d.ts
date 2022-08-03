@@ -12,6 +12,5 @@ export declare class ExcelDocumentComponent extends DocumentComponent implements
     ngOnInit(): void;
     ngAfterViewInit(): void;
     getScrollBarWidth(): number;
-    refreshExcelDocHeight(): void;
     selectSheet(number: any): void;
 }

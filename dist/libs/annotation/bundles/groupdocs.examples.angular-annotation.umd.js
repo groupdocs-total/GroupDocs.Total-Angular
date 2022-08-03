@@ -2279,7 +2279,29 @@
          * @return {?}
          */
         function () {
-            if (this.annotationConfig.defaultDocument !== "") {
+            var _this = this;
+            /** @type {?} */
+            var queryString = window.location.search;
+            if (queryString) {
+                /** @type {?} */
+                var urlParams = new URLSearchParams(queryString);
+                /** @type {?} */
+                var fileRoute = urlParams.get('file');
+                if (fileRoute) {
+                    this.isLoading = true;
+                    this._annotationService
+                        .upload(null, fileRoute, this.rewriteConfig)
+                        .subscribe((/**
+                     * @param {?} file
+                     * @return {?}
+                     */
+                    function (file) {
+                        _this.selectDir('');
+                        _this.selectFile(file.guid, '', '');
+                    }));
+                }
+            }
+            if (this.annotationConfig.defaultDocument !== '') {
                 this.isLoading = true;
                 this.selectFile(this.annotationConfig.defaultDocument, "", "");
             }

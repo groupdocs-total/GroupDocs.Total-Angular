@@ -1043,6 +1043,22 @@ if (false) {
     /** @type {?} */
     FileCredentials.prototype.password;
 }
+var TypedFileCredentials = /** @class */ (function () {
+    function TypedFileCredentials(guid, fileType, password) {
+        this.guid = guid;
+        this.fileType = fileType;
+        this.password = password;
+    }
+    return TypedFileCredentials;
+}());
+if (false) {
+    /** @type {?} */
+    TypedFileCredentials.prototype.guid;
+    /** @type {?} */
+    TypedFileCredentials.prototype.password;
+    /** @type {?} */
+    TypedFileCredentials.prototype.fileType;
+}
 var SaveFile = /** @class */ (function (_super) {
     __extends(SaveFile, _super);
     function SaveFile(guid, password, content) {
@@ -1065,6 +1081,8 @@ var FileDescription = /** @class */ (function () {
 if (false) {
     /** @type {?} */
     FileDescription.prototype.guid;
+    /** @type {?} */
+    FileDescription.prototype.fileType;
     /** @type {?} */
     FileDescription.prototype.pages;
     /** @type {?} */
@@ -1540,6 +1558,13 @@ var BrowseFilesModalComponent = /** @class */ (function () {
             else {
                 guid = guid.replace(/\/[^\/]+\/?$/, '');
             }
+            /** @type {?} */
+            var prevDir = new FileModel();
+            prevDir.name = guid;
+            prevDir.guid = guid;
+            prevDir.directory = true;
+            prevDir.isDirectory = true;
+            this.selectedFile = prevDir;
             this.selectedDirectory.emit(guid);
         }
     };
@@ -9656,5 +9681,5 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, CommonTranslateLoader, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, CommonTranslateLoader, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, TypedFileCredentials, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
