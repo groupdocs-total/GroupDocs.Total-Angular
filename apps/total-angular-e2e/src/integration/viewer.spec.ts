@@ -11,6 +11,7 @@ describe('Viewer', () => {
     cy.fixture("annotationLoadConfigDefault").as('annotationLoadConfigDefault');
     cy.fixture("metadataLoadConfigDefault").as('metadataLoadConfigDefault');
     cy.fixture("searchLoadConfigDefault").as('searchLoadConfigDefault');
+    cy.fixture("parserLoadConfigDefault").as('parserLoadConfigDefault');
     cy.fixture("loadFileTreeDefault").as('loadFileTreeDefault');
     cy.fixture("loadFileTreeSubFolder").as('loadFileTreeSubFolder');
     cy.fixture("loadDocumentDescriptionDefault").as('loadDocumentDescriptionDefault');
@@ -23,6 +24,7 @@ describe('Viewer', () => {
     cy.route('http://localhost:8080/annotation/loadConfig', "@annotationLoadConfigDefault");
     cy.route('http://localhost:8080/metadata/loadConfig', "@metadataLoadConfigDefault");
     cy.route('http://localhost:8080/search/loadConfig', "@searchLoadConfigDefault");
+    cy.route('http://localhost:8080/parser/loadConfig', "@parserLoadConfigDefault");
 
     cy.route('POST','http://localhost:8080/viewer/loadFileTree', "@loadFileTreeDefault");
     cy.route('POST','http://localhost:8080/viewer/loadDocumentDescription', "@loadDocumentDescriptionDefault");
@@ -101,19 +103,19 @@ describe('Viewer', () => {
 
   it('for opened file when thumbnail button clicked should open thumbnail panel', () => {
     cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.get('#tools > div.toolbar-panel-right').get('gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('#tools > gd-button.thumbnails-button').click();
+    cy.get('#tools > div.toolbar-panel-right').get('gd-button.thumbnails-button').click();
     cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
   });
 
   it('should scroll last page into view when clicked on last thumbnail', () => {
     cy.visit('/viewer');
-    cy.get('#tools > gd-button:nth-child(1)').click();
+    cy.get('#tools > div.toolbar-panel-right').get('gd-button:nth-child(1)').click();
     cy.get('#gd-modal-content > div.gd-modal-header > h4').should('have.text', 'Open document');
     cy.get('#gd-modal-filebrowser > div.list-files-body > div:nth-child(3)').click();
-    cy.get('#tools > gd-button.thumbnails-button').click();
+    cy.get('#tools > div.toolbar-panel-right').get('gd-button.thumbnails-button').click();
     cy.get('.gd-thumbnails',{timeout: 60000}).should('be.visible');
     cy.get('#gd-thumbnails-page-3').should('be.visible').click();
     cy.get('#page-3').should('be.visible');

@@ -1,4 +1,4 @@
-import {Component, ElementRef} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import * as jquery from 'jquery';
 import {
   CommonModals,
@@ -11,6 +11,7 @@ import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
 import {ComparisonConfig} from "./comparison-config";
 import {CompareResult} from "./models";
+import { forkJoin } from 'rxjs';
 
 const $ = jquery;
 
@@ -29,13 +30,15 @@ export class Highlight {
   templateUrl: './comparison-app.component.html',
   styleUrls: ['./comparison-app.component.less']
 })
-export class ComparisonAppComponent {
+export class ComparisonAppComponent implements OnInit {
   files: FileModel[] = [];
   browseFilesModal = CommonModals.BrowseFiles;
   credentials: Map<string, FileCredentials> = new Map<string, FileCredentials>();
   file: Map<string, FileDescription> = new Map<string, FileDescription>();
   comparisonConfig: ComparisonConfig;
   activePanel: string;
+  firstFile: string = undefined;
+  secondFile: string = undefined;
   first = Files.FIRST;
   second = Files.SECOND;
   firstFileName: string = undefined;
@@ -97,6 +100,32 @@ export class ComparisonAppComponent {
     });
   }
 
+  ngOnInit() {
+    if(this.firstFile && this.secondFile) {
+      this.compareFiles();
+      return;
+    }
+
+    if (window.location.search) {
+      const urlParams = new URLSearchParams(window.location.search);
+
+      this.firstFile = urlParams.get(Files.FIRST);
+      this.secondFile = urlParams.get(Files.SECOND);
+      if(this.firstFile && this.secondFile) {
+        this.compareFiles();
+      }
+    }
+  }
+
+  compareFiles() {
+    const first = this.selectFirstDefaultFile(this.firstFile, '');
+    const second = this.selectSecondDefaultFile(this.secondFile, '');
+
+    forkJoin([first, second]).subscribe(() => {
+      this.compare();
+    });
+  }
+
   get uploadConfig(): boolean {
     return this.comparisonConfig ? this.comparisonConfig.upload : true;
   }
@@ -131,6 +160,16 @@ export class ComparisonAppComponent {
     });
   }
 
+  selectFirstDefaultFile($event: string, password: string) {
+    this.setLoading(Files.FIRST, true);
+    return this.getFile($event, password, Files.FIRST);
+  }
+
+  selectSecondDefaultFile($event: string, password: string) {
+    this.setLoading(Files.SECOND, true);
+    return this.getFile($event, password, Files.SECOND);
+  }
+
   selectFile($event: string, password: string, modalId: string, param: string) {
     this.setLoading(param, true);
     this.getFile($event, password, param);
@@ -142,7 +181,8 @@ export class ComparisonAppComponent {
   private getFile($event: string, password: string, param: string) {
     const credentials = {guid: $event, password: password};
     this.credentials.set(param, credentials);
-    this._comparisonService.loadFile(credentials).subscribe((file: FileDescription) => {
+    const observable = this._comparisonService.loadFile(credentials);
+    observable.subscribe((file: FileDescription) => {
         this.file.set(param, file);
         if (file) {
           const preloadResultPageCount = this.comparisonConfig.preloadResultPageCount;
@@ -155,6 +195,7 @@ export class ComparisonAppComponent {
         this.setLoading(param, false);
       }
     );
+    return observable;
   }
 
   clearFile(param: string) {

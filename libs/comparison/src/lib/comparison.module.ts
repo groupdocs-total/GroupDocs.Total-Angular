@@ -24,6 +24,7 @@ import {ResultDocumentComponent} from './result-document/result-document.compone
 import {DifferencesComponent} from './differences/differences.component';
 import {DifferencesService} from './differences.service';
 import {ClickOutsideModule} from 'ng-click-outside';
+import {TranslateModule} from '@ngx-translate/core';
 
 export function initializeApp(comparisonConfigService: ComparisonConfigService) {
   const result = () => comparisonConfigService.load();
@@ -37,19 +38,32 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
 }
 
 @NgModule({
-  declarations: [ComparisonAppComponent, AddFilePanelComponent, UploadFilePanelComponent, DifferenceComponent, DifferenceHighlightComponent, ResultDocumentComponent, DifferencesComponent],
+  declarations: [
+    ComparisonAppComponent,
+    AddFilePanelComponent,
+    UploadFilePanelComponent,
+    DifferenceComponent,
+    DifferenceHighlightComponent,
+    ResultDocumentComponent,
+    DifferencesComponent
+  ],
   imports: [
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
     FontAwesomeModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    TranslateModule.forRoot()
   ],
   exports: [
-    ComparisonAppComponent,
     CommonComponentsModule,
-    ResultDocumentComponent,
-    DifferencesComponent
+    ComparisonAppComponent,
+    AddFilePanelComponent,
+    UploadFilePanelComponent,
+    DifferenceComponent,
+    DifferencesComponent,
+    DifferenceHighlightComponent,
+    ResultDocumentComponent
   ],
   providers: [
     ComparisonService,

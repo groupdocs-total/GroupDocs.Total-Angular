@@ -1,6 +1,6 @@
 <div class="gd-nav-search-container">
   <input type="text" class="gd-search-input" (keydown.enter)="next()" #text (input)="setText(text.value)"/>
-  <div class="gd-search-count">{{current}} of {{total}}</div>
+  <div class="gd-search-count">{{current}} {{'of' | translate}}  {{total}}</div>
   <gd-button class="gd-nav-search-btn" [icon]="'chevron-left'" [disabled]="total == 0 || current == 1" (click)="prev()">
   </gd-button>
   <gd-button class="gd-nav-search-btn" [icon]="'chevron-right'" [disabled]="total == 0 || current == total" (click)="next()">

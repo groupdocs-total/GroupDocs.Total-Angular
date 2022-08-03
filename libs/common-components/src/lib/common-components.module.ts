@@ -73,7 +73,8 @@ import {TopTabComponent} from './top-tab/top-tab.component';
 import {TopTabActivatorService} from "./top-tab-activator.service";
 import {TextMenuComponent} from './text-menu/text-menu.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
-import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
+import {PageMarkerDirective} from './page-marker.directive';
+import {TranslateModule} from '@ngx-translate/core';
 
 const providers = [ConfigService,
   Api,
@@ -108,7 +109,12 @@ const providers = [ConfigService,
   TopTabActivatorService];
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
+  imports: [
+    CommonModule, 
+    FontAwesomeModule, 
+    ClickOutsideModule,
+    TranslateModule
+  ],
   declarations: [
     TopToolbarComponent,
     SidePanelComponent,
@@ -156,7 +162,7 @@ const providers = [ConfigService,
     TopTabComponent,
     TextMenuComponent,
     ContextMenuComponent,
-    ThumbnailsComponent
+    PageMarkerDirective
   ],
   exports: [
     TopToolbarComponent,
@@ -204,7 +210,7 @@ const providers = [ConfigService,
     TopTabComponent,
     TextMenuComponent,
     ContextMenuComponent,
-    ThumbnailsComponent
+    PageMarkerDirective
   ],
   providers: providers
 })

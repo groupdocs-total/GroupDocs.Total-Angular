@@ -12,6 +12,7 @@ import {ConversionModule, ConversionAppComponent} from "@groupdocs.examples.angu
 import {AnnotationModule, AnnotationAppComponent} from "@groupdocs.examples.angular/annotation";
 import {MetadataModule, MetadataAppComponent} from "@groupdocs.examples.angular/metadata";
 import {SearchAppComponent, SearchModule} from "@groupdocs.examples.angular/search";
+import {ParserAppComponent, ParserModule} from "@groupdocs.examples.angular/parser";
 
 @NgModule({
   declarations: [AppComponent, TotalNavComponent, TotalViewComponent],
@@ -25,6 +26,7 @@ import {SearchAppComponent, SearchModule} from "@groupdocs.examples.angular/sear
     AnnotationModule.forRoot("http://localhost:8080"),
     MetadataModule.forRoot("http://localhost:8080"),
     SearchModule.forRoot("http://localhost:8080"),
+    ParserModule.forRoot("http://localhost:8080"),
     RouterModule.forRoot([
       {path: '', component: TotalViewComponent},
       {path: 'viewer', component: ViewerAppComponent},
@@ -35,6 +37,7 @@ import {SearchAppComponent, SearchModule} from "@groupdocs.examples.angular/sear
       {path: 'annotation', component: AnnotationAppComponent},
       {path: 'metadata', component: MetadataAppComponent},
       {path: 'search', component: SearchAppComponent},
+      {path: 'parser', component: ParserAppComponent},
     ], {initialNavigation: 'enabled'})
   ],
   providers: [],

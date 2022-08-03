@@ -1,0 +1,39 @@
+<gd-loading-mask></gd-loading-mask>
+<div class="wrapper">
+  <div class="row">
+    <div class="column" [ngClass]="{'document-loaded': isFileLoaded()}">
+      <div class="top-panel">
+        <a class="logo-link" [href]="returnUrl">
+          <gd-logo [logo]="'parser'" icon="glasses"></gd-logo>
+        </a>
+        <gd-top-toolbar class="toolbar-panel">
+          <gd-button [icon]="'folder-open'" [tooltip]="'Browse files'" (click)="openModal(browseFilesModal, false)"
+            *ngIf="browseConfig"></gd-button>
+
+          <gd-button *ngIf="!documentError && document" [icon]="'search-plus'" [tooltip]="'Zoom In'" (click)="zoomIn()"></gd-button>
+          <gd-button *ngIf="!documentError && document" [icon]="'search-minus'" [tooltip]="'Zoom Out'" (click)="zoomOut()"></gd-button>
+          <gd-button *ngIf="!documentError && document" [icon]="'expand'" [tooltip]="'Add text field'" (click)="addFieldClick()"></gd-button>
+          <gd-button *ngIf="!documentError && document" [icon]="'table'" [tooltip]="'Add table'" (click)="addTableClick()"></gd-button>
+        </gd-top-toolbar>
+      </div>
+       <gd-init-state [icon]="'glasses'" [text]="'Drop file here to upload'" *ngIf="documentError || !document" (fileDropped)="fileDropped($event)">
+        Click <fa-icon [icon]="['fas','folder-open']"></fa-icon> to open file<br>
+        Or drop file here
+      </gd-init-state>
+
+      <div class="parser-wrapper" *ngIf="!documentError && document">
+        <gd-surface [document]="document"></gd-surface>
+      </div>
+    </div>
+
+    <gd-parser-side-panel [fileNameForCsv]="" *ngIf="!documentError && document"></gd-parser-side-panel>
+  </div>
+
+  <gd-browse-files-modal (urlForUpload)="upload($event)" [files]="files" (selectedDirectory)="selectDir($event)"
+    (selectedFileGuid)="selectFile($event, null, browseFilesModal)" [uploadConfig]="uploadConfig">
+  </gd-browse-files-modal>
+
+  <gd-error-modal></gd-error-modal>
+  <gd-password-required></gd-password-required>
+  <gd-success-modal></gd-success-modal>
+</div>

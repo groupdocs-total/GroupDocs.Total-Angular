@@ -5,6 +5,7 @@ import { ModalService } from "./modal.service";
 export declare class ErrorInterceptorService implements HttpInterceptor {
     private _modalService;
     private _messageService;
+    static ErrorMessageWindowName: string;
     constructor(_modalService: ModalService, _messageService: ExceptionMessageService);
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>;
 }

@@ -35,16 +35,33 @@ export class BrowseFilesModalComponent implements OnInit {
   }
 
   getSize(size: number) {
+    return this.getSizeValue(size) + ' ' + this.getSizeUnits(size);
+  }
+
+  getSizeValue(size: number) {
     const mb = size / 1024 / 1024;
     if (mb > 1) {
-      return (Math.round(mb * 100) / 100) + ' MB';
+      return (Math.round(mb * 100) / 100);
     } else {
       const kb = size / 1024;
       if (kb > 1) {
-        return (Math.round(kb * 100) / 100) + ' KB';
+        return (Math.round(kb * 100) / 100);
       }
     }
-    return size + ' Bytes';
+    return size;
+  }
+
+  getSizeUnits(size: number) {
+    const mb = size / 1024 / 1024;
+    if (mb > 1) {
+      return 'MB';
+    } else {
+      const kb = size / 1024;
+      if (kb > 1) {
+        return 'KB';
+      }
+    }
+    return 'Bytes';
   }
 
   getFormatName(file: FileModel) {
@@ -72,6 +89,14 @@ export class BrowseFilesModalComponent implements OnInit {
       } else {
         guid = guid.replace(/\/[^\/]+\/?$/, '');
       }
+
+      const prevDir = new FileModel();
+      prevDir.name = guid;
+      prevDir.guid = guid;
+      prevDir.directory = true;
+      prevDir.isDirectory = true;
+      
+      this.selectedFile = prevDir;
       this.selectedDirectory.emit(guid);
     }
   }

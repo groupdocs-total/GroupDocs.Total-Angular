@@ -5,6 +5,7 @@ import { Api, ConfigService, FileModel, CommonModals, ModalService, UploadFilesS
 import { BehaviorSubject } from 'rxjs';
 import { __extends } from 'tslib';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -1516,7 +1517,8 @@ var SearchModule = /** @class */ (function () {
                         BrowserModule,
                         CommonComponentsModule,
                         HttpClientModule,
-                        FontAwesomeModule
+                        FontAwesomeModule,
+                        TranslateModule.forRoot()
                     ],
                     exports: [
                         SearchAppComponent,

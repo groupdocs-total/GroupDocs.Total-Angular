@@ -21,4 +21,8 @@ export class ViewerConfig {
   watermarkText: string;
   printAllowed: boolean;
   showGridLines: boolean;
+
+  showLanguageMenu: boolean;
+  defaultLanguage: string;
+  supportedLanguages: string[];
 }

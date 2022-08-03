@@ -1,8 +1,8 @@
-<gd-modal id="gd-browse-files" [title]="'Open document'" (visible)="refresh($event)">
+<gd-modal id="gd-browse-files" title="{{'Open document' | translate }}" (visible)="refresh($event)">
   <div class="gd-dnd-wrap" *ngIf="showUploadFile" gdDnd (opening)="showUploadFile=$event">
     <div class="dnd-wrapper">
-      <fa-icon  class="icon" [icon]="['fas','cloud-download-alt']" aria-hidden="true"></fa-icon>
-      <span class="text">Drop file here to upload</span>
+      <fa-icon class="icon" [icon]="['fas','cloud-download-alt']" aria-hidden="true"></fa-icon>
+      <span class="text">{{'Drop file here to upload' | translate}}</span>
     </div>
   </div>
   <div class="upload-panel" *ngIf="uploadConfig">
@@ -13,13 +13,13 @@
         <gd-drop-down>
           <gd-drop-down-toggle>
             <gd-button [icon]="'upload'" [intent]="'brand'" [iconOnly]="false">
-              Upload file
+              {{'Upload file' | translate}}
             </gd-button>
           </gd-drop-down-toggle>
           <gd-drop-down-items>
             <gd-drop-down-item (selected)="selectUpload(item.name)" *ngFor="let item of uploads">
               <fa-icon [icon]="['fas', item.icon]"></fa-icon>
-              <div class="text">{{item.name}}</div>
+              <div class="text">{{item.name | translate}}</div>
             </gd-drop-down-item>
           </gd-drop-down-items>
         </gd-drop-down>
@@ -35,8 +35,8 @@
     </div>
   </div>
   <div class="list-files-header" [ngClass]="{'upload-url': showUploadUrl}">
-    <div class="header-name">FILE</div>
-    <div class="header-size">SIZE</div>
+    <div class="header-name">{{'FILE' | translate }}</div>
+    <div class="header-size">{{'SIZE' | translate }}</div>
   </div>
   <section id="gd-browse-section" (dragover)="showUploadFile = true;">
     <div id="gd-modal-filebrowser" class="gd-modal-table">
@@ -56,14 +56,14 @@
             </div>
           </div>
           <div class="file-size">
-            {{getSize(file?.size)}}
+            {{getSizeValue(file?.size)}} {{getSizeUnits(file?.size) | translate}}
           </div>
         </div>
       </div>
     </div>
     <div id="gd-modal-spinner" class="gd-modal-spinner" *ngIf="showSpinner()">
         <fa-icon [icon]="['fas','circle-notch']" [spin]="true"></fa-icon>
-      &nbsp;Loading... Please wait.
+      &nbsp;{{'Loading... Please wait.' | translate}}
     </div>
   </section>
 </gd-modal>

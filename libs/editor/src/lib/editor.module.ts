@@ -17,6 +17,7 @@ import {
   Api
 } from '@groupdocs.examples.angular/common-components';
 import {EditorConfigService} from "./editor-config.service";
+import {TranslateModule} from '@ngx-translate/core';
 
 export function initializeApp(editorConfigService: EditorConfigService) {
   const result =  () => editorConfigService.load();
@@ -36,7 +37,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     BrowserModule,
     CommonComponentsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    TranslateModule.forRoot(),
   ],
   exports : [
     CreateDocumentModalComponent,

@@ -10,7 +10,8 @@ export class Api {
   public static COMPARISON_APP = '/comparison';
   public static CONVERSION_APP = '/conversion';
   public static METADATA_APP = '/metadata';
-  public static DEFAULT_API_ENDPOINT = window.location.href;
+  public static PARSER_APP = '/parser';
+  public static DEFAULT_API_ENDPOINT = window.location.protocol + "//" + window.location.host + window.location.pathname;
   public static LOAD_FILE_TREE = '/loadFileTree';
   public static LOAD_CONFIG = '/loadConfig';
   public static LOAD_DOCUMENT_DESCRIPTION = '/loadDocumentDescription';
@@ -22,6 +23,7 @@ export class Api {
   public static ROTATE_DOCUMENT_PAGE = '/rotateDocumentPages';
   public static UPLOAD_DOCUMENTS = '/uploadDocument';
   public static DOWNLOAD_DOCUMENTS = '/downloadDocument';
+  public static DOWNLOAD_ANNOTATED = '/downloadAnnotated';
   public static LOAD_PRINT = '/loadPrint';
   public static LOAD_PRINT_PDF = '/printPdf';
   public static LOAD_THUMBNAILS = '/loadThumbnails';
@@ -42,6 +44,7 @@ export class Api {
   public static LOAD_SIGNATURE_IMAGE = '/loadSignatureImage';
   public static ANNOTATE = '/annotate';
   public static SEARCH = '/search';
+  public static PARSE = '/parse';
   public static ADD_FILES_TO_INDEX = '/addFilesToIndex';
   public static CLEAN_METADATA = '/clean';
   public static EXPORT_METADATA = '/export';
@@ -110,5 +113,9 @@ export class ConfigService {
 
   getSearchApiEndpoint() {
     return this._apiEndpoint.endsWith(Api.SEARCH_APP) ? this._apiEndpoint : this._apiEndpoint + Api.SEARCH_APP;
+  }
+
+  getParserApiEndpoint() {
+    return this._apiEndpoint.endsWith(Api.PARSER_APP) ? this._apiEndpoint : this._apiEndpoint + Api.PARSER_APP;
   }
 }

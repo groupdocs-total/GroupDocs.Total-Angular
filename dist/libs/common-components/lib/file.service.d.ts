@@ -15,6 +15,12 @@ export declare class FileCredentials {
     password: string;
     constructor(guid: string, password: string);
 }
+export declare class TypedFileCredentials {
+    guid: string;
+    password: string;
+    fileType: string;
+    constructor(guid: string, fileType: string, password: string);
+}
 export declare class SaveFile extends FileCredentials {
     content: string;
     pageNumber: number;
@@ -22,6 +28,7 @@ export declare class SaveFile extends FileCredentials {
 }
 export declare class FileDescription {
     guid: string;
+    fileType: string;
     pages: PageModel[];
     printAllowed: boolean;
     showGridLines: boolean;
