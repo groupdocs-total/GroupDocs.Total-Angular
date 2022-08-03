@@ -47,6 +47,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
   colorPickerShow = false;
   active = false;
   public textBackup: string;
+  pagesData = new Map<number, string>();
   private isIE = false;
   isLoading: boolean;
   fileWasDropped: false;
@@ -168,6 +169,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
     this._htmlService.htmlContent.subscribe((text: string) => {
       if (this.file && this.file.pages) {
         this.textBackup = text;
+        if (this.ifPresentation()) {
+          this.pagesData.set(this.selectedPageNumber - 1, text);
+        }
       }
     });
   }
@@ -226,6 +230,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
   selectCurrentPage(pageNumber)
   {
     this.selectedPageNumber = pageNumber;
+    if (this.ifPresentation() && this.pagesData.size > 0 && this.pagesData.get(pageNumber - 1)) {
+      this.file.pages[pageNumber - 1].data = this.pagesData.get(pageNumber - 1);
+    }
   }
 
   openModal(id: string) {
@@ -303,7 +310,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
         if (page.width === 0) page.width = this.ifPresentation() ? 960 : 595;
         if (page.height === 0) page.height = this.ifPresentation() ? 540 : 842;
       });
-      this.textBackup = this.file.pages[0].data;
+      if (this.pagesData.size == 0) {
+        this.textBackup = this.file.pages[0].data;
+      }
     }
     this.formatDisabled = !this.file;
     this.downloadDisabled = false;
