@@ -247,7 +247,7 @@ export class Signature implements OnInit, AfterViewInit, AfterViewChecked {
     }
   }
 
-  saveText(value: string) {
+  saveText(value: string = "") {
     if (value) {
       this.data.props.text = value;
       this.subject.next(value);
