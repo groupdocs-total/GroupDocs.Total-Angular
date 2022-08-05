@@ -1061,9 +1061,10 @@ if (false) {
 }
 var SaveFile = /** @class */ (function (_super) {
     __extends(SaveFile, _super);
-    function SaveFile(guid, password, content) {
+    function SaveFile(guid, password, content, pageNumber) {
         var _this = _super.call(this, guid, password) || this;
         _this.content = content;
+        _this.pageNumber = pageNumber;
         return _this;
     }
     return SaveFile;
@@ -1071,6 +1072,8 @@ var SaveFile = /** @class */ (function (_super) {
 if (false) {
     /** @type {?} */
     SaveFile.prototype.content;
+    /** @type {?} */
+    SaveFile.prototype.pageNumber;
 }
 var FileDescription = /** @class */ (function () {
     function FileDescription() {
@@ -2171,7 +2174,7 @@ var DocumentComponent = /** @class */ (function () {
     DocumentComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-document',
-                    template: "<div class=\"wait\" *ngIf=\"wait\">{{'Please wait...' | translate}}</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"!showActiveSlide || isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\" gdPageMarker></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    template: "<div class=\"wait\" *ngIf=\"wait\">{{'Please wait...' | translate}}</div>\r\n<div id=\"document\" class=\"document\">\r\n  <div [ngClass]=\"isDesktop ? 'panzoom' : 'panzoom mobile'\" gdZoom [zoomActive]=\"true\" [file]=\"file\" gdSearchable>\r\n    <div [ngClass]=\"ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'\" \r\n      *ngFor=\"let page of file?.pages\"\r\n      [style.height]=\"getDimensionWithUnit(page.height, page.number)\" [style.width]=\"getDimensionWithUnit(page.width, page.number)\" gdRotation\r\n      [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <gd-page *ngIf=\"!showActiveSlide || isVisible(page.number)\" [number]=\"page.number\" [data]=\"page.data\" [isHtml]=\"mode\" [angle]=\"page.angle\" [width]=\"page.width\"\r\n        [height]=\"page.height\" [editable]=\"page.editable\" gdPageMarker></gd-page>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
                     styles: [":host{-webkit-box-flex:1;flex:1;-webkit-transition:.4s;transition:.4s;background-color:#e7e7e7;height:100%;overflow:scroll;touch-action:auto!important}:host .document{-webkit-user-select:text!important;-moz-user-select:text!important;-ms-user-select:text!important;user-select:text!important;touch-action:auto!important}.page{display:inline-block;background-color:#fff;margin:20px;box-shadow:0 3px 6px rgba(0,0,0,.16);-webkit-transition:.3s;transition:.3s}.page.excel{overflow:auto}.page.presentation{margin:0;-webkit-transition:unset;transition:unset}.page.presentation.active{margin:20px}.wait{position:absolute;top:55px;left:Calc(30%)}.panzoom{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;align-content:flex-start}@media (max-width:1037px){.page{min-width:unset!important;min-height:unset!important;margin:5px 0}}"]
                 }] }
     ];
@@ -8512,6 +8515,181 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var ThumbnailsComponent = /** @class */ (function () {
+    function ThumbnailsComponent(_navigateService, _zoomService) {
+        this._navigateService = _navigateService;
+        this._zoomService = _zoomService;
+        this.selectedPage = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    ThumbnailsComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+    };
+    /**
+     * @return {?}
+     */
+    ThumbnailsComponent.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
+        // which leads to undesired spaces on the top of the docs pages
+        if (this.pages) {
+            this.pages.forEach((/**
+             * @param {?} page
+             * @return {?}
+             */
+            function (page) {
+                if (page.data) {
+                    page.data = page.data.replace(/>\s+</g, '><')
+                        .replace(/\uFEFF/g, "");
+                }
+            }));
+        }
+    };
+    /**
+     * @return {?}
+     */
+    ThumbnailsComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        this._zoomService.changeZoom(this._zoomService.zoom);
+    };
+    /**
+     * @return {?}
+     */
+    ThumbnailsComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        setTimeout((/**
+         * @return {?}
+         */
+        function () {
+            _this._zoomService.changeZoom(_this._zoomService.zoom);
+        }), 100);
+    };
+    /**
+     * @param {?} data
+     * @return {?}
+     */
+    ThumbnailsComponent.prototype.imgData = /**
+     * @param {?} data
+     * @return {?}
+     */
+    function (data) {
+        if (data) {
+            return data.startsWith('data:image')
+                ? data
+                : 'data:image/png;base64,' + data;
+        }
+        return null;
+    };
+    /**
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    ThumbnailsComponent.prototype.getScale = /**
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    function (x, y) {
+        return Math.min(190 / x, 190 / y);
+    };
+    /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    ThumbnailsComponent.prototype.openPage = /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    function (pageNumber) {
+        this.selectedPage.emit(pageNumber);
+        this._navigateService.navigateTo(pageNumber);
+    };
+    // TODO: consider placing in one service
+    // TODO: consider placing in one service
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    ThumbnailsComponent.prototype.getDimensionWithUnit = 
+    // TODO: consider placing in one service
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        return value + FileUtil.find(this.guid, false).unit;
+    };
+    /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    ThumbnailsComponent.prototype.emptyThumbData = /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    function (pageNumber) {
+        return "<div style=\"height:100%;display:grid;color:#bfbfbf\"><div style=\"font-size:10vw;margin:auto;text-align:center;\">" + pageNumber + "</div></div>";
+    };
+    ThumbnailsComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'gd-thumbnails',
+                    template: "<div class=\"gd-thumbnails\">\r\n  <div class=\"gd-thumbnails-panzoom\">\r\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\r\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\r\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\r\n      <div class=\"gd-wrapper\"\r\n           [style.height]=\"getDimensionWithUnit(page.height)\"\r\n           [style.width]=\"getDimensionWithUnit(page.width)\"\r\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\r\n           *ngIf=\"page.data && isHtmlMode\"\r\n           [innerHTML]=\"page.data | safeHtml\"></div>\r\n      <div class=\"gd-wrapper\" \r\n           [style.height]=\"getDimensionWithUnit(page.height)\"\r\n           [style.width]=\"getDimensionWithUnit(page.width)\"\r\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\r\n           *ngIf=\"page.data && !isHtmlMode\">\r\n           <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\r\n             alt/>\r\n      </div>\r\n      <div class=\"gd-wrapper\"\r\n           [style.height]=\"getDimensionWithUnit(800)\"\r\n           [style.width]=\"getDimensionWithUnit(800)\"\r\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(800, 800)+')'}\"\r\n           *ngIf=\"!page.data\"\r\n           [innerHTML]=\"emptyThumbData(page.number) | safeHtml\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    styles: [":host{-webkit-box-flex:0;flex:0 0 300px;background:#f5f5f5;color:#fff;overflow-y:auto;display:block;-webkit-transition:margin-left .2s;transition:margin-left .2s;height:100%}.gd-page{width:272px;height:272px;-webkit-transition:.3s;transition:.3s;background-color:#e7e7e7;cursor:pointer;margin:14px 14px 0}.gd-page:hover{background-color:silver}.gd-wrapper{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);left:50%;top:50%;position:relative;background-color:#fff;box-shadow:0 4px 12px -4px rgba(0,0,0,.38);pointer-events:none}.gd-wrapper ::ng-deep img{width:inherit}.gd-thumbnails::-webkit-scrollbar{width:0;background-color:#f5f5f5}.gd-thumbnails-panzoom>.gd-thumbnails-landscape{margin:-134px 0 -1px 12px}.gd-thumbnails .gd-page-image{height:inherit}.gd-thumbnails-landscape-image{margin:-90px 0 -23px!important}.gd-thumbnails-landscape-image-rotated{margin:126px 0 -3px -104px!important}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ThumbnailsComponent.ctorParameters = function () { return [
+        { type: NavigateService },
+        { type: ZoomService }
+    ]; };
+    ThumbnailsComponent.propDecorators = {
+        pages: [{ type: Input }],
+        guid: [{ type: Input }],
+        mode: [{ type: Input }],
+        isHtmlMode: [{ type: Input }],
+        selectedPage: [{ type: Output }]
+    };
+    return ThumbnailsComponent;
+}());
+if (false) {
+    /** @type {?} */
+    ThumbnailsComponent.prototype.pages;
+    /** @type {?} */
+    ThumbnailsComponent.prototype.guid;
+    /** @type {?} */
+    ThumbnailsComponent.prototype.mode;
+    /** @type {?} */
+    ThumbnailsComponent.prototype.isHtmlMode;
+    /** @type {?} */
+    ThumbnailsComponent.prototype.selectedPage;
+    /**
+     * @type {?}
+     * @private
+     */
+    ThumbnailsComponent.prototype._navigateService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ThumbnailsComponent.prototype._zoomService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 var providers = [ConfigService,
     Api,
@@ -8603,7 +8781,8 @@ var CommonComponentsModule = /** @class */ (function () {
                         TopTabComponent,
                         TextMenuComponent,
                         ContextMenuComponent,
-                        PageMarkerDirective
+                        PageMarkerDirective,
+                        ThumbnailsComponent
                     ],
                     exports: [
                         TopToolbarComponent,
@@ -8651,7 +8830,8 @@ var CommonComponentsModule = /** @class */ (function () {
                         TopTabComponent,
                         TextMenuComponent,
                         ContextMenuComponent,
-                        PageMarkerDirective
+                        PageMarkerDirective,
+                        ThumbnailsComponent
                     ],
                     providers: providers
                 },] }
@@ -9681,5 +9861,5 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, CommonTranslateLoader, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, TypedFileCredentials, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, CommonTranslateLoader, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, TypedFileCredentials, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd, ThumbnailsComponent as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map

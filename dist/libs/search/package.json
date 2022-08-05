@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/search",
-  "version": "0.8.92",
+  "version": "0.8.93",
   "description": "Angular application that allows to display and manipulate documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {
@@ -15,7 +15,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-regular-svg-icons": "^5.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "@groupdocs.examples.angular/common-components": "^0.8.92",
+    "@groupdocs.examples.angular/common-components": "^0.8.93",
     "@ngx-translate/core": "^12.1.2",
     "hammerjs": "^2.0.8",
     "jquery": "^3.4.1",

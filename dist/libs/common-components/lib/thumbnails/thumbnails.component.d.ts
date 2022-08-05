@@ -1,5 +1,7 @@
 import { OnInit, OnDestroy, AfterViewInit, OnChanges, EventEmitter } from '@angular/core';
-import { NavigateService, PageModel, ZoomService } from "@groupdocs.examples.angular/common-components";
+import { NavigateService } from '../navigate.service';
+import { PageModel } from '../file.service';
+import { ZoomService } from '../zoom.service';
 export declare class ThumbnailsComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     private _navigateService;
     private _zoomService;

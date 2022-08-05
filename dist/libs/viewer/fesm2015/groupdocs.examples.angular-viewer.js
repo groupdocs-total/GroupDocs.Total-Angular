@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, HostListener, EventEmitter, Input, Output, ElementRef, Renderer2, ViewChildren, NgModule, APP_INITIALIZER } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, HostListener, Input, ElementRef, Renderer2, ViewChildren, EventEmitter, Output, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, CommonTranslateLoader, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -1649,147 +1649,6 @@ if (false) {
     ViewerAppComponent.prototype.cdr;
     /** @type {?} */
     ViewerAppComponent.prototype.translate;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class ThumbnailsComponent {
-    /**
-     * @param {?} _navigateService
-     * @param {?} _zoomService
-     */
-    constructor(_navigateService, _zoomService) {
-        this._navigateService = _navigateService;
-        this._zoomService = _zoomService;
-        this.selectedPage = new EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-    }
-    /**
-     * @return {?}
-     */
-    ngOnChanges() {
-        // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
-        // which leads to undesired spaces on the top of the docs pages
-        if (this.pages) {
-            this.pages.forEach((/**
-             * @param {?} page
-             * @return {?}
-             */
-            page => {
-                if (page.data) {
-                    page.data = page.data.replace(/>\s+</g, '><')
-                        .replace(/\uFEFF/g, "");
-                }
-            }));
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        this._zoomService.changeZoom(this._zoomService.zoom);
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        setTimeout((/**
-         * @return {?}
-         */
-        () => {
-            this._zoomService.changeZoom(this._zoomService.zoom);
-        }), 100);
-    }
-    /**
-     * @param {?} data
-     * @return {?}
-     */
-    imgData(data) {
-        if (data) {
-            return data.startsWith('data:image')
-                ? data
-                : 'data:image/png;base64,' + data;
-        }
-        return null;
-    }
-    /**
-     * @param {?} x
-     * @param {?} y
-     * @return {?}
-     */
-    getScale(x, y) {
-        return Math.min(190 / x, 190 / y);
-    }
-    /**
-     * @param {?} pageNumber
-     * @return {?}
-     */
-    openPage(pageNumber) {
-        this.selectedPage.emit(pageNumber);
-        this._navigateService.navigateTo(pageNumber);
-    }
-    // TODO: consider placing in one service
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    getDimensionWithUnit(value) {
-        return value + FileUtil.find(this.guid, false).unit;
-    }
-    /**
-     * @param {?} pageNumber
-     * @return {?}
-     */
-    emptyThumbData(pageNumber) {
-        return `<div style="height:100%;display:grid;color:#bfbfbf"><div style="font-size:10vw;margin:auto;text-align:center;">${pageNumber}</div></div>`;
-    }
-}
-ThumbnailsComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'gd-thumbnails',
-                template: "<div class=\"gd-thumbnails\">\n  <div class=\"gd-thumbnails-panzoom\">\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && isHtmlMode\"\n           [innerHTML]=\"page.data | safeHtml\"></div>\n      <div class=\"gd-wrapper\" \n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && !isHtmlMode\">\n           <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\n             alt/>\n      </div>\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(800)\"\n           [style.width]=\"getDimensionWithUnit(800)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(800, 800)+')'}\"\n           *ngIf=\"!page.data\"\n           [innerHTML]=\"emptyThumbData(page.number) | safeHtml\">\n      </div>\n    </div>\n  </div>\n</div>\n",
-                styles: [":host{-webkit-box-flex:0;flex:0 0 300px;background:#f5f5f5;color:#fff;overflow-y:auto;display:block;-webkit-transition:margin-left .2s;transition:margin-left .2s;height:100%}.gd-page{width:272px;height:272px;-webkit-transition:.3s;transition:.3s;background-color:#e7e7e7;cursor:pointer;margin:14px 14px 0}.gd-page:hover{background-color:silver}.gd-wrapper{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);left:50%;top:50%;position:relative;background-color:#fff;box-shadow:0 4px 12px -4px rgba(0,0,0,.38);pointer-events:none}.gd-wrapper ::ng-deep img{width:inherit}.gd-thumbnails::-webkit-scrollbar{width:0;background-color:#f5f5f5}.gd-thumbnails-panzoom>.gd-thumbnails-landscape{margin:-134px 0 -1px 12px}.gd-thumbnails .gd-page-image{height:inherit}.gd-thumbnails-landscape-image{margin:-90px 0 -23px!important}.gd-thumbnails-landscape-image-rotated{margin:126px 0 -3px -104px!important}"]
-            }] }
-];
-/** @nocollapse */
-ThumbnailsComponent.ctorParameters = () => [
-    { type: NavigateService },
-    { type: ZoomService }
-];
-ThumbnailsComponent.propDecorators = {
-    pages: [{ type: Input }],
-    guid: [{ type: Input }],
-    mode: [{ type: Input }],
-    isHtmlMode: [{ type: Input }],
-    selectedPage: [{ type: Output }]
-};
-if (false) {
-    /** @type {?} */
-    ThumbnailsComponent.prototype.pages;
-    /** @type {?} */
-    ThumbnailsComponent.prototype.guid;
-    /** @type {?} */
-    ThumbnailsComponent.prototype.mode;
-    /** @type {?} */
-    ThumbnailsComponent.prototype.isHtmlMode;
-    /** @type {?} */
-    ThumbnailsComponent.prototype.selectedPage;
-    /**
-     * @type {?}
-     * @private
-     */
-    ThumbnailsComponent.prototype._navigateService;
-    /**
-     * @type {?}
-     * @private
-     */
-    ThumbnailsComponent.prototype._zoomService;
 }
 
 /**
@@ -3470,7 +3329,6 @@ ViewerModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
                     ViewerAppComponent,
-                    ThumbnailsComponent,
                     RunPresentationComponent,
                     ExcelDocumentComponent,
                     ExcelPageComponent
@@ -3489,7 +3347,6 @@ ViewerModule.decorators = [
                 ],
                 exports: [
                     ViewerAppComponent,
-                    ThumbnailsComponent,
                     RunPresentationComponent,
                     ExcelDocumentComponent,
                     ExcelPageComponent,
@@ -3530,5 +3387,5 @@ ViewerModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, ViewerTranslateLoader, initializeApp, setupLoadingInterceptor, translateLoaderFactory, ThumbnailsComponent as ɵa, RunPresentationComponent as ɵb, ExcelDocumentComponent as ɵc, ExcelPageComponent as ɵd, ExcelPageService as ɵe };
+export { ViewerAppComponent, ViewerConfigService, ViewerModule, ViewerService, ViewerTranslateLoader, initializeApp, setupLoadingInterceptor, translateLoaderFactory, RunPresentationComponent as ɵa, ExcelDocumentComponent as ɵb, ExcelPageComponent as ɵc, ExcelPageService as ɵd };
 //# sourceMappingURL=groupdocs.examples.angular-viewer.js.map

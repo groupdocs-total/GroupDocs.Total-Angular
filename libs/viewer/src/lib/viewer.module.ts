@@ -12,7 +12,6 @@ import {
 import {ViewerService} from "./viewer.service";
 import {ConfigService} from "@groupdocs.examples.angular/common-components";
 import {ViewerConfigService} from "./viewer-config.service";
-import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
 import {ExcelDocumentComponent} from './excel-document/excel-document.component';
 import {ExcelPageComponent} from './excel-page/excel-page.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -39,7 +38,6 @@ export function translateLoaderFactory() {
 @NgModule({
   declarations: [
     ViewerAppComponent,
-    ThumbnailsComponent,
     RunPresentationComponent,
     ExcelDocumentComponent,
     ExcelPageComponent],
@@ -57,7 +55,6 @@ export function translateLoaderFactory() {
   ],
   exports : [
     ViewerAppComponent,
-    ThumbnailsComponent,
     RunPresentationComponent,
     ExcelDocumentComponent,
     ExcelPageComponent,

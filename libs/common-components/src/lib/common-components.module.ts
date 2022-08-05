@@ -75,6 +75,7 @@ import {TextMenuComponent} from './text-menu/text-menu.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {PageMarkerDirective} from './page-marker.directive';
 import {TranslateModule} from '@ngx-translate/core';
+import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
 
 const providers = [ConfigService,
   Api,
@@ -162,7 +163,8 @@ const providers = [ConfigService,
     TopTabComponent,
     TextMenuComponent,
     ContextMenuComponent,
-    PageMarkerDirective
+    PageMarkerDirective,
+    ThumbnailsComponent
   ],
   exports: [
     TopToolbarComponent,
@@ -210,7 +212,8 @@ const providers = [ConfigService,
     TopTabComponent,
     TextMenuComponent,
     ContextMenuComponent,
-    PageMarkerDirective
+    PageMarkerDirective,
+    ThumbnailsComponent
   ],
   providers: providers
 })

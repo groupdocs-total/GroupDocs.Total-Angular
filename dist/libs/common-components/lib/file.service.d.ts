@@ -23,7 +23,8 @@ export declare class TypedFileCredentials {
 }
 export declare class SaveFile extends FileCredentials {
     content: string;
-    constructor(guid: string, password: string, content: string);
+    pageNumber: number;
+    constructor(guid: string, password: string, content: string, pageNumber: number);
 }
 export declare class FileDescription {
     guid: string;
