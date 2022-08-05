@@ -5,6 +5,7 @@ import { ZoomService } from '../zoom.service';
 
 export class MenuType {
   public static FOR_SIGNATURE = "signature";
+  public static FOR_TEXT_SIGNATURE = "text_signature";
   public static FOR_ANNOTATION = "annotation";
 }
 
@@ -22,6 +23,7 @@ export class ContextMenuComponent implements OnInit {
   @Input() menuType: string;
   @Output() changeFormatting = new EventEmitter<Formatting>();
   @Output() removeItem = new EventEmitter<boolean>();
+  @Output() saveItemEmitter = new EventEmitter<boolean>();
   @Output() copySign = new EventEmitter<boolean>();
   @Output() lockOut = new EventEmitter<boolean>();
   @Output() comment = new EventEmitter<boolean>();
@@ -90,6 +92,12 @@ export class ContextMenuComponent implements OnInit {
     this.removeItem.emit(true);
   }
 
+  saveItem($event) {
+    this.saveItemEmitter.emit(true);
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+
   toggleLock() {
     this.lock = !this.lock;
     this.lockOut.emit(this.lock);
@@ -101,6 +109,10 @@ export class ContextMenuComponent implements OnInit {
 
   isSignature() {
     return this.menuType === MenuType.FOR_SIGNATURE;
+  }
+
+  isTextSignature() {
+    return this.menuType === MenuType.FOR_TEXT_SIGNATURE;
   }
 
   isAnnotation() {

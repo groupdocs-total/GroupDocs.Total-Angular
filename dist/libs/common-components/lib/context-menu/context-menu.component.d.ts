@@ -4,6 +4,7 @@ import { WindowService } from "../window.service";
 import { ZoomService } from '../zoom.service';
 export declare class MenuType {
     static FOR_SIGNATURE: string;
+    static FOR_TEXT_SIGNATURE: string;
     static FOR_ANNOTATION: string;
 }
 export declare class ContextMenuComponent implements OnInit {
@@ -19,6 +20,7 @@ export declare class ContextMenuComponent implements OnInit {
     menuType: string;
     changeFormatting: EventEmitter<Formatting>;
     removeItem: EventEmitter<boolean>;
+    saveItemEmitter: EventEmitter<boolean>;
     copySign: EventEmitter<boolean>;
     lockOut: EventEmitter<boolean>;
     comment: EventEmitter<boolean>;
@@ -34,9 +36,11 @@ export declare class ContextMenuComponent implements OnInit {
     toggleItalic($event: any): void;
     toggleUnderline($event: any): void;
     deleteItem(): void;
+    saveItem($event: any): void;
     toggleLock(): void;
     onCopySign(): void;
     isSignature(): boolean;
+    isTextSignature(): boolean;
     isAnnotation(): boolean;
     addComment(): void;
 }
