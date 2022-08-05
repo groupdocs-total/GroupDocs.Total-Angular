@@ -1,5 +1,8 @@
 import {Component, Input, OnInit, OnDestroy, AfterViewInit, OnChanges, Output, EventEmitter} from '@angular/core';
-import {NavigateService, PageModel, ZoomService, FileUtil} from "@groupdocs.examples.angular/common-components";
+import {NavigateService} from '../navigate.service'
+import {PageModel} from '../file.service'
+import {ZoomService} from '../zoom.service'
+import {FileUtil} from '../file.service';
 
 @Component({
   selector: 'gd-thumbnails',

@@ -107,8 +107,10 @@
                    [className]="'palette ' + (bgColorPickerShow ? 'background-color-picker' : 'color-picker')"
                    (selectedColor)="selectColor($event)"></gd-color-picker>
   <div class="doc-panel" *ngIf="file">
-    <gd-document class="gd-document" *ngIf="file" [ngClass]="{'new-file': newFile}" [file]="file" [mode]="true" [htmlMode]="true"
-                 [preloadPageCount]="0" gdFormatting gdRenderPrint gdScrollable>
+    <gd-thumbnails *ngIf="ifPresentation()" [pages]="file.pages" [isHtmlMode]="true" [guid]="file.guid"
+      [mode]="true" (selectedPage)="selectCurrentPage($event)" gdScrollable></gd-thumbnails>
+    <gd-document class="gd-document" *ngIf="file" [ngClass]="{'new-file': newFile}" [file]="file" [mode]="true"
+      [htmlMode]="true" [preloadPageCount]="0" [showActiveSlide]="true" gdFormatting gdRenderPrint gdScrollable>
     </gd-document>
   </div>
   <gd-init-state [icon]="'pen-square'" [text]="'Drop file here to upload'" *ngIf="!file" (fileDropped)="fileDropped($event)">

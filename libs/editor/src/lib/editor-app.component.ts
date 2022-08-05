@@ -18,7 +18,7 @@ import {
   EditHtmlService,
   RenderPrintService,
   WindowService,
-  LoadingMaskService, Option
+  LoadingMaskService, Option, FileUtil
 } from '@groupdocs.examples.angular/common-components';
 import {EditorConfig} from "./editor-config";
 import {EditorConfigService} from "./editor-config.service";
@@ -47,12 +47,14 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
   colorPickerShow = false;
   active = false;
   public textBackup: string;
+  pagesData = new Map<number, string>();
   private isIE = false;
   isLoading: boolean;
   fileWasDropped: false;
   selectFontShow = false;
   selectFontSizeShow = false;
   newFile = false;
+  selectedPageNumber: number;
 
   constructor(private _editorService: EditorService,
               private _modalService: ModalService,
@@ -167,6 +169,9 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
     this._htmlService.htmlContent.subscribe((text: string) => {
       if (this.file && this.file.pages) {
         this.textBackup = text;
+        if (this.ifPresentation()) {
+          this.pagesData.set(this.selectedPageNumber - 1, text);
+        }
       }
     });
   }
@@ -176,6 +181,8 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
       this.isLoading = true;
       this.selectFile(this.editorConfig.defaultDocument, "", "");
     }
+
+    this.selectedPageNumber = 1;
   }
 
   ngAfterViewInit() {
@@ -214,6 +221,18 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
 
   get createNewFileConfig(): boolean {
     return this.editorConfig ? this.editorConfig.createNewFile : true;
+  }
+
+  ifPresentation() {
+    return this.file ? FileUtil.find(this.file.guid, false).format === "Microsoft PowerPoint" : false;
+  }
+
+  selectCurrentPage(pageNumber)
+  {
+    this.selectedPageNumber = pageNumber;
+    if (this.ifPresentation() && this.pagesData.size > 0 && this.pagesData.get(pageNumber - 1)) {
+      this.file.pages[pageNumber - 1].data = this.pagesData.get(pageNumber - 1);
+    }
   }
 
   openModal(id: string) {
@@ -286,10 +305,14 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
   private loadFile(file: FileDescription) {
     this.file = file;
     if (this.file && this.file.pages[0]) {
-      this.file.pages[0].editable = true;
-      this.file.pages[0].width = 595;
-      this.file.pages[0].height = 842;
-      this.textBackup = this.file.pages[0].data;
+      this.file.pages.forEach((page) => {
+        page.editable = true;
+        if (page.width === 0) page.width = this.ifPresentation() ? 960 : 595;
+        if (page.height === 0) page.height = this.ifPresentation() ? 540 : 842;
+      });
+      if (this.pagesData.size === 0) {
+        this.textBackup = this.file.pages[0].data;
+      }
     }
     this.formatDisabled = !this.file;
     this.downloadDisabled = false;
@@ -562,7 +585,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
 
     this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
 
-    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
+    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup, this.selectedPageNumber - 1);
     this._editorService.save(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);
@@ -578,7 +601,7 @@ export class EditorAppComponent implements OnInit, AfterViewInit {
 
     this.textBackup = this.getPageWithRootTags(this.textBackup, credentials.guid);
 
-    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup);
+    const saveFile = new SaveFile(credentials.guid, credentials.password, this.textBackup, 0);
     this._editorService.create(saveFile).subscribe((loadFile: FileDescription) => {
       this.loadFile(loadFile);
       this.credentials = new FileCredentials(loadFile.guid, credentials.password);

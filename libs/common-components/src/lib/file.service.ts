@@ -37,10 +37,12 @@ export class TypedFileCredentials {
 
 export class SaveFile extends FileCredentials {
   content: string;
+  pageNumber: number;
 
-  constructor(guid: string, password: string, content: string) {
+  constructor(guid: string, password: string, content: string, pageNumber: number) {
     super(guid, password);
     this.content = content;
+    this.pageNumber = pageNumber;
   }
 }
 

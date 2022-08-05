@@ -1,7 +1,8 @@
 <div class="wait" *ngIf="wait">{{'Please wait...' | translate}}</div>
 <div id="document" class="document">
   <div [ngClass]="isDesktop ? 'panzoom' : 'panzoom mobile'" gdZoom [zoomActive]="true" [file]="file" gdSearchable>
-    <div [ngClass]="ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'" *ngFor="let page of file?.pages"
+    <div [ngClass]="ifExcel() ? 'page excel' : ifPresentation() && showActiveSlide ? (isVisible(page.number) ? 'page presentation active' : 'page presentation') : 'page'" 
+      *ngFor="let page of file?.pages"
       [style.height]="getDimensionWithUnit(page.height, page.number)" [style.width]="getDimensionWithUnit(page.width, page.number)" gdRotation
       [angle]="page.angle" [isHtmlMode]="mode" [width]="page.width" [height]="page.height">
       <gd-page *ngIf="!showActiveSlide || isVisible(page.number)" [number]="page.number" [data]="page.data" [isHtml]="mode" [angle]="page.angle" [width]="page.width"
