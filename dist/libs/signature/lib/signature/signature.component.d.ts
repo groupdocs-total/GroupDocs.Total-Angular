@@ -50,7 +50,7 @@ export declare class Signature implements OnInit, AfterViewInit, AfterViewChecke
     onCopySign(): void;
     ngAfterViewInit(): void;
     private correctPosition;
-    saveText(value: string): void;
+    saveText(value?: string): void;
     private sendSaveText;
     hideMenu($event: any): void;
     getMenuShift(): number;
