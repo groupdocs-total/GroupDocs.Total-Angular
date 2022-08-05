@@ -2209,181 +2209,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var ThumbnailsComponent = /** @class */ (function () {
-        function ThumbnailsComponent(_navigateService, _zoomService) {
-            this._navigateService = _navigateService;
-            this._zoomService = _zoomService;
-            this.selectedPage = new core.EventEmitter();
-        }
-        /**
-         * @return {?}
-         */
-        ThumbnailsComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-        };
-        /**
-         * @return {?}
-         */
-        ThumbnailsComponent.prototype.ngOnChanges = /**
-         * @return {?}
-         */
-        function () {
-            // TODO: this is temporary needed to remove unneeded spaces and BOM symbol 
-            // which leads to undesired spaces on the top of the docs pages
-            if (this.pages) {
-                this.pages.forEach((/**
-                 * @param {?} page
-                 * @return {?}
-                 */
-                function (page) {
-                    if (page.data) {
-                        page.data = page.data.replace(/>\s+</g, '><')
-                            .replace(/\uFEFF/g, "");
-                    }
-                }));
-            }
-        };
-        /**
-         * @return {?}
-         */
-        ThumbnailsComponent.prototype.ngAfterViewInit = /**
-         * @return {?}
-         */
-        function () {
-            this._zoomService.changeZoom(this._zoomService.zoom);
-        };
-        /**
-         * @return {?}
-         */
-        ThumbnailsComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            setTimeout((/**
-             * @return {?}
-             */
-            function () {
-                _this._zoomService.changeZoom(_this._zoomService.zoom);
-            }), 100);
-        };
-        /**
-         * @param {?} data
-         * @return {?}
-         */
-        ThumbnailsComponent.prototype.imgData = /**
-         * @param {?} data
-         * @return {?}
-         */
-        function (data) {
-            if (data) {
-                return data.startsWith('data:image')
-                    ? data
-                    : 'data:image/png;base64,' + data;
-            }
-            return null;
-        };
-        /**
-         * @param {?} x
-         * @param {?} y
-         * @return {?}
-         */
-        ThumbnailsComponent.prototype.getScale = /**
-         * @param {?} x
-         * @param {?} y
-         * @return {?}
-         */
-        function (x, y) {
-            return Math.min(190 / x, 190 / y);
-        };
-        /**
-         * @param {?} pageNumber
-         * @return {?}
-         */
-        ThumbnailsComponent.prototype.openPage = /**
-         * @param {?} pageNumber
-         * @return {?}
-         */
-        function (pageNumber) {
-            this.selectedPage.emit(pageNumber);
-            this._navigateService.navigateTo(pageNumber);
-        };
-        // TODO: consider placing in one service
-        // TODO: consider placing in one service
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        ThumbnailsComponent.prototype.getDimensionWithUnit = 
-        // TODO: consider placing in one service
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            return value + commonComponents.FileUtil.find(this.guid, false).unit;
-        };
-        /**
-         * @param {?} pageNumber
-         * @return {?}
-         */
-        ThumbnailsComponent.prototype.emptyThumbData = /**
-         * @param {?} pageNumber
-         * @return {?}
-         */
-        function (pageNumber) {
-            return "<div style=\"height:100%;display:grid;color:#bfbfbf\"><div style=\"font-size:10vw;margin:auto;text-align:center;\">" + pageNumber + "</div></div>";
-        };
-        ThumbnailsComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'gd-thumbnails',
-                        template: "<div class=\"gd-thumbnails\">\n  <div class=\"gd-thumbnails-panzoom\">\n    <div *ngFor=\"let page of pages\" id=\"gd-thumbnails-page-{{page.number}}\" class=\"gd-page\"\n         (click)=\"openPage(page.number)\" gdRotation [withMargin]=\"false\"\n         [angle]=\"page.angle\" [isHtmlMode]=\"mode\" [width]=\"page.width\" [height]=\"page.height\">\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && isHtmlMode\"\n           [innerHTML]=\"page.data | safeHtml\"></div>\n      <div class=\"gd-wrapper\" \n           [style.height]=\"getDimensionWithUnit(page.height)\"\n           [style.width]=\"getDimensionWithUnit(page.width)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(page.width, page.height)+')'}\"\n           *ngIf=\"page.data && !isHtmlMode\">\n           <img style=\"width: inherit !important\" class=\"gd-page-image\" [attr.src]=\"imgData(page.data) | safeResourceHtml\"\n             alt/>\n      </div>\n      <div class=\"gd-wrapper\"\n           [style.height]=\"getDimensionWithUnit(800)\"\n           [style.width]=\"getDimensionWithUnit(800)\"\n           [ngStyle]=\"{'transform': 'translateX(-50%) translateY(-50%) scale('+getScale(800, 800)+')'}\"\n           *ngIf=\"!page.data\"\n           [innerHTML]=\"emptyThumbData(page.number) | safeHtml\">\n      </div>\n    </div>\n  </div>\n</div>\n",
-                        styles: [":host{-webkit-box-flex:0;flex:0 0 300px;background:#f5f5f5;color:#fff;overflow-y:auto;display:block;-webkit-transition:margin-left .2s;transition:margin-left .2s;height:100%}.gd-page{width:272px;height:272px;-webkit-transition:.3s;transition:.3s;background-color:#e7e7e7;cursor:pointer;margin:14px 14px 0}.gd-page:hover{background-color:silver}.gd-wrapper{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);left:50%;top:50%;position:relative;background-color:#fff;box-shadow:0 4px 12px -4px rgba(0,0,0,.38);pointer-events:none}.gd-wrapper ::ng-deep img{width:inherit}.gd-thumbnails::-webkit-scrollbar{width:0;background-color:#f5f5f5}.gd-thumbnails-panzoom>.gd-thumbnails-landscape{margin:-134px 0 -1px 12px}.gd-thumbnails .gd-page-image{height:inherit}.gd-thumbnails-landscape-image{margin:-90px 0 -23px!important}.gd-thumbnails-landscape-image-rotated{margin:126px 0 -3px -104px!important}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        ThumbnailsComponent.ctorParameters = function () { return [
-            { type: commonComponents.NavigateService },
-            { type: commonComponents.ZoomService }
-        ]; };
-        ThumbnailsComponent.propDecorators = {
-            pages: [{ type: core.Input }],
-            guid: [{ type: core.Input }],
-            mode: [{ type: core.Input }],
-            isHtmlMode: [{ type: core.Input }],
-            selectedPage: [{ type: core.Output }]
-        };
-        return ThumbnailsComponent;
-    }());
-    if (false) {
-        /** @type {?} */
-        ThumbnailsComponent.prototype.pages;
-        /** @type {?} */
-        ThumbnailsComponent.prototype.guid;
-        /** @type {?} */
-        ThumbnailsComponent.prototype.mode;
-        /** @type {?} */
-        ThumbnailsComponent.prototype.isHtmlMode;
-        /** @type {?} */
-        ThumbnailsComponent.prototype.selectedPage;
-        /**
-         * @type {?}
-         * @private
-         */
-        ThumbnailsComponent.prototype._navigateService;
-        /**
-         * @type {?}
-         * @private
-         */
-        ThumbnailsComponent.prototype._zoomService;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var ExcelPageService = /** @class */ (function () {
         function ExcelPageService() {
         }
@@ -4135,7 +3960,6 @@
             { type: core.NgModule, args: [{
                         declarations: [
                             ViewerAppComponent,
-                            ThumbnailsComponent,
                             RunPresentationComponent,
                             ExcelDocumentComponent,
                             ExcelPageComponent
@@ -4154,7 +3978,6 @@
                         ],
                         exports: [
                             ViewerAppComponent,
-                            ThumbnailsComponent,
                             RunPresentationComponent,
                             ExcelDocumentComponent,
                             ExcelPageComponent,
@@ -4195,11 +4018,10 @@
     exports.initializeApp = initializeApp;
     exports.setupLoadingInterceptor = setupLoadingInterceptor;
     exports.translateLoaderFactory = translateLoaderFactory;
-    exports.ɵa = ThumbnailsComponent;
-    exports.ɵb = RunPresentationComponent;
-    exports.ɵc = ExcelDocumentComponent;
-    exports.ɵd = ExcelPageComponent;
-    exports.ɵe = ExcelPageService;
+    exports.ɵa = RunPresentationComponent;
+    exports.ɵb = ExcelDocumentComponent;
+    exports.ɵc = ExcelPageComponent;
+    exports.ɵd = ExcelPageService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

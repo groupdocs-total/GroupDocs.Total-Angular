@@ -35,12 +35,14 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     colorPickerShow: boolean;
     active: boolean;
     textBackup: string;
+    pagesData: Map<number, string>;
     private isIE;
     isLoading: boolean;
     fileWasDropped: false;
     selectFontShow: boolean;
     selectFontSizeShow: boolean;
     newFile: boolean;
+    selectedPageNumber: number;
     constructor(_editorService: EditorService, _modalService: ModalService, configService: EditorConfigService, uploadFilesService: UploadFilesService, passwordService: PasswordService, _windowService: WindowService, _formattingService: FormattingService, _backFormattingService: BackFormattingService, _onCloseService: OnCloseService, _selectionService: SelectionService, _htmlService: EditHtmlService, _renderPrintService: RenderPrintService, _loadingMaskService: LoadingMaskService, _renderer: Renderer2);
     ngOnInit(): void;
     ngAfterViewInit(): void;
@@ -52,6 +54,8 @@ export declare class EditorAppComponent implements OnInit, AfterViewInit {
     readonly enableRightClickConfig: boolean;
     readonly pageSelectorConfig: boolean;
     readonly createNewFileConfig: boolean;
+    ifPresentation(): boolean;
+    selectCurrentPage(pageNumber: any): void;
     openModal(id: string): void;
     openSave(): void;
     selectDir($event: string): void;
