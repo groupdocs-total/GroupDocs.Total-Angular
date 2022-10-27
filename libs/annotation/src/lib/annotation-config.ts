@@ -12,6 +12,8 @@ export class AnnotationConfig {
   defaultDocument: string;
   preloadPageCount: 0;
 
+  defaultCommentator: string;
+
   textAnnotation: boolean;
   areaAnnotation: boolean;
   pointAnnotation: boolean;

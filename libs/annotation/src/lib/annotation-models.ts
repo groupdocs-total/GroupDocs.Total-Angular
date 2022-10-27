@@ -119,14 +119,14 @@ export class Comment {
   userName: string;
   time: number;
 
-  constructor(id: number) {
+  constructor(id: number, userName?: string) {
     this.id = id;
     this.time = Date.now();
     this.text = "";
-    this.userName = "";
+    this.userName = userName || "";
   }
 
-  static create(comment) {
+  static create(comment: Comment) {
     const ret = new Comment(comment.id);
     ret.text = comment.text;
     ret.userName = comment.userName;

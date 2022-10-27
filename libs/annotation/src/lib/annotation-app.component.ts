@@ -229,6 +229,10 @@ export class AnnotationAppComponent implements OnInit {
     return this.annotationConfig ? this.annotationConfig.browse : true;
   }
 
+  get defaultCommentator(): string {
+    return this.annotationConfig ? this.annotationConfig.defaultCommentator : "";
+  }
+
   get htmlModeConfig(): boolean {
     return false;
   }

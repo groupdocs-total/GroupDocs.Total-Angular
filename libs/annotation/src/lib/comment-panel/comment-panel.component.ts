@@ -10,6 +10,7 @@ import {Comment} from '../annotation-models'
 export class CommentPanelComponent implements OnInit {
   @Input() comments: [];
   @Input() annotationId: number;
+  @Input() commentator: string;
 
   @Output() closeComments = new EventEmitter<boolean>();
 
@@ -26,7 +27,7 @@ export class CommentPanelComponent implements OnInit {
   }
 
   newComment() {
-    this.currentComment = new Comment(this.annotationId);
+    this.currentComment = new Comment(this.annotationId, this.commentator);
   }
 
   clearComment() {
