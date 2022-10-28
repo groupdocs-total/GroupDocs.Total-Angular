@@ -60,7 +60,7 @@
       <gd-document class="gd-document" *ngIf="file" [file]="file" [mode]="htmlModeConfig" gdScrollable
                    [preloadPageCount]="preloadPageCountConfig" gdRenderPrint [htmlMode]="htmlModeConfig" (onpan)="onPan($event)"></gd-document>
     </div>
-    <gd-comment-panel *ngIf="commentOpenedId" [annotationId]="commentOpenedId"
+    <gd-comment-panel *ngIf="commentOpenedId" [annotationId]="commentOpenedId" [commentator]="defaultCommentator"
                       [comments]="getComments()" (closeComments)="closeComments()">
     </gd-comment-panel>
 
