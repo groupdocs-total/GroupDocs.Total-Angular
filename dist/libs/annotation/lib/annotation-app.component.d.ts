@@ -73,6 +73,7 @@ export declare class AnnotationAppComponent implements OnInit {
     private defaultDocumentConfig;
     readonly printConfig: boolean;
     readonly browseConfig: boolean;
+    readonly defaultCommentator: string;
     readonly htmlModeConfig: boolean;
     readonly enableRightClickConfig: boolean;
     readonly textAnnotationConfig: boolean;

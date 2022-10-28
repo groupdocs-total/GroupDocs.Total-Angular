@@ -111,8 +111,8 @@ export declare class Comment {
     text: string;
     userName: string;
     time: number;
-    constructor(id: number);
-    static create(comment: any): Comment;
+    constructor(id: number, userName?: string);
+    static create(comment: Comment): Comment;
 }
 export declare class RemoveAnnotation {
     constructor(id: number);

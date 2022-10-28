@@ -5,6 +5,7 @@ export declare class CommentPanelComponent implements OnInit {
     private _commentAnnotationService;
     comments: [];
     annotationId: number;
+    commentator: string;
     closeComments: EventEmitter<boolean>;
     currentComment: Comment;
     constructor(_commentAnnotationService: CommentAnnotationService);
