@@ -5,6 +5,13 @@
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text edited</div>
         <div class="gd-differentce-comment">{{change.text}}</div>
+
+        <input type="radio" id="actionAccept" name="action" value="reject">
+        <label for="actionAccept">Accept</label>
+        <input type="radio" id="actionReject" name="action" value="accept">
+        <label for="actionReject">Reject</label>
+        <input type="radio" id="actionNone" name="action" value="none">
+        <label for="actionNone">None</label>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='2'>
@@ -12,6 +19,13 @@
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text added</div>
         <div class="gd-differentce-comment">{{change.text}}</div>
+        
+        <input type="radio" id="actionAccept" name="action" value="reject">
+        <label for="actionAccept">Accept</label>
+        <input type="radio" id="actionReject" name="action" value="accept">
+        <label for="actionReject">Reject</label>
+        <input type="radio" id="actionNone" name="action" value="none">
+        <label for="actionNone">None</label>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='3'>
@@ -19,6 +33,13 @@
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text deleted</div>
         <div class="gd-differentce-comment">{{change.text}}</div>
+        
+        <input type="radio" id="actionAccept" name="action" value="reject">
+        <label for="actionAccept">Accept</label>
+        <input type="radio" id="actionReject" name="action" value="accept">
+        <label for="actionReject">Reject</label>
+        <input type="radio" id="actionNone" name="action" value="none">
+        <label for="actionNone">None</label>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='4'>
@@ -26,6 +47,13 @@
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text added</div>
         <div class="gd-differentce-comment">{{change.text}}</div>
+        
+        <input type="radio" id="actionAccept" name="action" value="reject">
+        <label for="actionAccept">Accept</label>
+        <input type="radio" id="actionReject" name="action" value="accept">
+        <label for="actionReject">Reject</label>
+        <input type="radio" id="actionNone" name="action" value="none">
+        <label for="actionNone">None</label>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='6'>
@@ -65,6 +93,13 @@
           </ng-container>
         </div>
       </div>
+      
+      <input type="radio" id="actionAccept" name="action" value="reject">
+      <label for="actionAccept">Accept</label>
+      <input type="radio" id="actionReject" name="action" value="accept">
+      <label for="actionReject">Reject</label>
+      <input type="radio" id="actionNone" name="action" value="none">
+      <label for="actionNone">None</label>
     </ng-container>
     <div class="gd-difference-page">Page {{change.pageInfo.pageNumber + 1}}</div>
   </div>
