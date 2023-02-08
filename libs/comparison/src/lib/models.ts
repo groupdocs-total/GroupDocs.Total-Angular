@@ -19,6 +19,7 @@ export class ChangeInfo {
   styleChanges: StyleChange[];
   normalized: Rectangle;
   active: boolean;
+  comparisonAction: number;
 }
 
 export class StyleChange {

@@ -25,6 +25,7 @@ import {DifferencesComponent} from './differences/differences.component';
 import {DifferencesService} from './differences.service';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {TranslateModule} from '@ngx-translate/core';
+import {FormsModule} from '@angular/forms';
 
 export function initializeApp(comparisonConfigService: ComparisonConfigService) {
   const result = () => comparisonConfigService.load();
@@ -53,7 +54,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     HttpClientModule,
     FontAwesomeModule,
     ClickOutsideModule,
-    TranslateModule.forRoot()
+    TranslateModule.forRoot(),
+    FormsModule
   ],
   exports: [
     CommonComponentsModule,
