@@ -56,7 +56,7 @@ export class ComparisonService {
   }
 
   changes(arr: FileCredentials[], actions: number[]) {
-    return this._http.post(this._config.getComparisonApiEndpoint() + Api.COMPARE_FILES, {
+    return this._http.post(this._config.getComparisonApiEndpoint() + '/changes', {
       'guids': arr,
       'changes': actions
     }, Api.httpOptionsJson);

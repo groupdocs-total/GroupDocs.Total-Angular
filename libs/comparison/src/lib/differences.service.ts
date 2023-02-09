@@ -25,4 +25,14 @@ export class DifferencesService {
   addToComparisonActions(id: string, action: number){
     this._comparisonActionsMap.set(id, action);
   }
+
+  private subject = new Subject<any>();
+
+  sendClickEvent(){
+    this.subject.next();
+  }
+
+  getClickEvent():Observable<any>{
+     return this.subject.asObservable();
+  }
 }

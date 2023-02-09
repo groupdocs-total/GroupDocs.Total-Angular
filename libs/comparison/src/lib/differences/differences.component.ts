@@ -35,7 +35,8 @@ export class DifferencesComponent implements OnInit {
       else sortedActions.push(this.changesService.comparisonActionsMap.get(changesIds[i]));
     }
 
-    this.changesService.comparisonActionsList = sortedActions;    
+    this.changesService.comparisonActionsList = sortedActions;   
+    this.changesService.sendClickEvent();
   }
 
   highlightDifference(id: string, page: number, event : MouseEvent){
