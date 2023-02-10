@@ -9,9 +9,10 @@ import {
 } from "@groupdocs.examples.angular/common-components";
 import {ComparisonConfigService} from "./comparison-config.service";
 import {ComparisonService} from "./comparison.service";
+import {DifferencesService} from './differences.service';
 import {ComparisonConfig} from "./comparison-config";
 import {CompareResult} from "./models";
-import { forkJoin } from 'rxjs';
+import { forkJoin,Subscription } from 'rxjs';
 
 const $ = jquery;
 
@@ -51,9 +52,11 @@ export class ComparisonAppComponent implements OnInit {
   resultTab = 'result';
   activeTab = this.filesTab;
   resultTabDisabled = true;
+  clickEventSubscription:Subscription;
 
   constructor(private _comparisonService: ComparisonService,
               private configService: ComparisonConfigService,
+              private _differencesService: DifferencesService,
               uploadFilesService: UploadFilesService,
               pagePreloadService: PagePreloadService,
               private _modalService: ModalService,
@@ -63,6 +66,10 @@ export class ComparisonAppComponent implements OnInit {
     configService.updatedConfig.subscribe((config) => {
       this.comparisonConfig = config;
     });
+
+    this.clickEventSubscription= this._differencesService.getClickEvent().subscribe(() => {
+      this.changes();
+    })
 
     pagePreloadService.checkPreload.subscribe((page: number) => {
       if (this.comparisonConfig.preloadResultPageCount !== 0) {
@@ -258,6 +265,44 @@ export class ComparisonAppComponent implements OnInit {
         this.preloadPages(panel, i, i);
       }
     }
+  }
+
+  changes() {
+    if (this.credentials.size !== 2) {
+      return;
+    }
+    this.resultTabDisabled = false;
+    const arr = [];
+    arr.push(this.credentials.get(this.first));
+    arr.push(this.credentials.get(this.second));
+    
+    let changes = [];
+    if (this._differencesService.comparisonActionsList.length) changes = this._differencesService.comparisonActionsList;
+    this._comparisonService.changes(arr, changes).subscribe((result: CompareResult) => {
+      this.result = result;
+
+      const isZeroBasedPageId = this.result.changes.find((change) => change.pageInfo.pageNumber === 0);
+
+      this.result.changes.forEach( (change) => {
+        change.id = this.generateRandomInteger();
+        const zeroBasedId = isZeroBasedPageId ? change.pageInfo.pageNumber : change.pageInfo.pageNumber - 1;
+        change.pageInfo.pageNumber = isZeroBasedPageId ? change.pageInfo.pageNumber : change.pageInfo.pageNumber - 1;
+        if(!this.result.pages[zeroBasedId].changes){
+          this.result.pages[zeroBasedId].changes = [];
+        }
+        this.result.pages[zeroBasedId].changes.push(change);
+        change.normalized = {
+          x : this.pxToPt(change.box.x) * 100 / change.pageInfo.width,
+          y : this.pxToPt(change.box.y) * 100 / change.pageInfo.height,
+          width: this.pxToPt(change.box.width) * 100 / change.pageInfo.width,
+          height: this.pxToPt(change.box.height) * 100 / change.pageInfo.height,
+        };
+      });
+    }, (err => {
+      this.resultTabDisabled = true;
+      this._tabActivatorService.changeActiveTab(this.filesTab);
+    }));
+    this._tabActivatorService.changeActiveTab(this.resultTab);
   }
 
   compare() {

@@ -5,6 +5,23 @@
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text edited</div>
         <div class="gd-differentce-comment">{{change.text}}</div>
+
+        <form>
+          <div *ngFor="let action of actions">
+            <div class="gd-difference-action">
+              
+                <input
+                  type="radio"
+                  name="action"
+                  id="action-{{ change.id }}"
+                  (input)="addAction(change.id, $event.target.value)"
+                  [value]="action.value"
+                />
+                <label for="action-{{ change.id }}"> {{ action.id }} </label>
+              
+            </div>
+          </div>
+        </form>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='2'>
@@ -12,6 +29,23 @@
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text added</div>
         <div class="gd-differentce-comment">{{change.text}}</div>
+        
+        <form>
+          <div *ngFor="let action of actions">
+            <div class="gd-difference-action">
+              
+                <input
+                  type="radio"
+                  name="action"
+                  id="action-{{ change.id }}"
+                  (input)="addAction(change.id, $event.target.value)"
+                  [value]="action.value"
+                />
+                <label for="action-{{ change.id }}"> {{ action.id }} </label>
+              
+            </div>
+          </div>
+        </form>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='3'>
@@ -19,6 +53,23 @@
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text deleted</div>
         <div class="gd-differentce-comment">{{change.text}}</div>
+        
+        <form>
+          <div *ngFor="let action of actions">
+            <div class="gd-difference-action">
+              
+                <input
+                  type="radio"
+                  name="action"
+                  id="action-{{ change.id }}"
+                  (input)="addAction(change.id, $event.target.value)"
+                  [value]="action.value"
+                />
+                <label for="action-{{ change.id }}"> {{ action.id }} </label>
+              
+            </div>
+          </div>
+        </form>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='4'>
@@ -26,6 +77,23 @@
       <div class="gd-difference-body">
         <div class="gd-difference-title">Text added</div>
         <div class="gd-differentce-comment">{{change.text}}</div>
+        
+        <form>
+          <div *ngFor="let action of actions">
+            <div class="gd-difference-action">
+              
+                <input
+                  type="radio"
+                  name="action"
+                  id="action-{{ change.id }}"
+                  (input)="addAction(change.id, $event.target.value)"
+                  [value]="action.value"
+                />
+                <label for="action-{{ change.id }}"> {{ action.id }} </label>
+              
+            </div>
+          </div>
+        </form>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase='6'>
@@ -65,6 +133,23 @@
           </ng-container>
         </div>
       </div>
+      
+      <form>
+          <div *ngFor="let action of actions">
+            <div class="gd-difference-action">
+              
+                <input
+                  type="radio"
+                  name="action"
+                  id="action-{{ change.id }}"
+                  (input)="addAction(change.id, $event.target.value)"
+                  [value]="action.value"
+                />
+                <label for="action-{{ change.id }}"> {{ action.id }} </label>
+              
+            </div>
+          </div>
+        </form>
     </ng-container>
     <div class="gd-difference-page">Page {{change.pageInfo.pageNumber + 1}}</div>
   </div>
