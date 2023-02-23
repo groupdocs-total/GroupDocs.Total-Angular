@@ -2,8 +2,10 @@ import { ElementRef, OnInit } from '@angular/core';
 import { FileCredentials, FileDescription, FileModel, ModalService, PagePreloadService, TabActivatorService, UploadFilesService, PasswordService } from "@groupdocs.examples.angular/common-components";
 import { ComparisonConfigService } from "./comparison-config.service";
 import { ComparisonService } from "./comparison.service";
+import { DifferencesService } from './differences.service';
 import { ComparisonConfig } from "./comparison-config";
 import { CompareResult } from "./models";
+import { Subscription } from 'rxjs';
 export declare class Files {
     static FIRST: string;
     static SECOND: string;
@@ -15,6 +17,7 @@ export declare class Highlight {
 export declare class ComparisonAppComponent implements OnInit {
     private _comparisonService;
     private configService;
+    private _differencesService;
     private _modalService;
     private _tabActivatorService;
     private _elementRef;
@@ -38,7 +41,8 @@ export declare class ComparisonAppComponent implements OnInit {
     resultTab: string;
     activeTab: string;
     resultTabDisabled: boolean;
-    constructor(_comparisonService: ComparisonService, configService: ComparisonConfigService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, _modalService: ModalService, _tabActivatorService: TabActivatorService, _elementRef: ElementRef<HTMLElement>, passwordService: PasswordService);
+    clickEventSubscription: Subscription;
+    constructor(_comparisonService: ComparisonService, configService: ComparisonConfigService, _differencesService: DifferencesService, uploadFilesService: UploadFilesService, pagePreloadService: PagePreloadService, _modalService: ModalService, _tabActivatorService: TabActivatorService, _elementRef: ElementRef<HTMLElement>, passwordService: PasswordService);
     ngOnInit(): void;
     compareFiles(): void;
     readonly uploadConfig: boolean;
@@ -57,6 +61,7 @@ export declare class ComparisonAppComponent implements OnInit {
     getSecondFileName(): string;
     getFirstFileName(): string;
     private checkPreload;
+    changes(): void;
     compare(): void;
     pxToPt(px: number): number;
     generateRandomInteger(): string;

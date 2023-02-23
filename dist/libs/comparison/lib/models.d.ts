@@ -16,6 +16,7 @@ export declare class ChangeInfo {
     styleChanges: StyleChange[];
     normalized: Rectangle;
     active: boolean;
+    comparisonAction: number;
 }
 export declare class StyleChange {
     changedProperty: string;

@@ -12,4 +12,5 @@ export declare class ComparisonService {
     getDownloadUrl(credentials: FileCredentials): string;
     loadPage(credentials: FileCredentials, page: number): import("rxjs").Observable<Object>;
     compare(arr: FileCredentials[]): import("rxjs").Observable<Object>;
+    changes(arr: FileCredentials[], actions: number[]): import("rxjs").Observable<Object>;
 }

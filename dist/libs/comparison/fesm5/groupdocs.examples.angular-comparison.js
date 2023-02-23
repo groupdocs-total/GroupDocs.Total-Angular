@@ -1,7 +1,7 @@
 import { EventEmitter, Component, Input, Output, Injectable, ɵɵdefineInjectable, ElementRef, ɵɵinject, NgModule, APP_INITIALIZER } from '@angular/core';
 import { FileUtil, CommonModals, ModalService, ExceptionMessageService, PageModel, NavigateService, ZoomService, ZoomDirective, WindowService, DocumentComponent, UploadFilesService, Api, ConfigService, PagePreloadService, TabActivatorService, PasswordService, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService, LoadingMaskService } from '@groupdocs.examples.angular/common-components';
 import { __extends } from 'tslib';
-import { BehaviorSubject, forkJoin } from 'rxjs';
+import { BehaviorSubject, Subject, forkJoin } from 'rxjs';
 import * as jquery from 'jquery';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -11,6 +11,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 
 /**
  * @fileoverview added by tsickle
@@ -231,6 +232,8 @@ if (false) {
     ChangeInfo.prototype.normalized;
     /** @type {?} */
     ChangeInfo.prototype.active;
+    /** @type {?} */
+    ChangeInfo.prototype.comparisonAction;
 }
 var StyleChange = /** @class */ (function () {
     function StyleChange() {
@@ -284,6 +287,9 @@ var DifferencesService = /** @class */ (function () {
     function DifferencesService() {
         this._activeChange = new BehaviorSubject(null);
         this.activeChange = this._activeChange.asObservable();
+        this._comparisonActionsMap = new Map(null);
+        this.comparisonActionsMap = this._comparisonActionsMap;
+        this.subject = new Subject();
     }
     /**
      * @param {?} id
@@ -295,6 +301,37 @@ var DifferencesService = /** @class */ (function () {
      */
     function (id) {
         this._activeChange.next(id);
+    };
+    /**
+     * @param {?} id
+     * @param {?} action
+     * @return {?}
+     */
+    DifferencesService.prototype.addToComparisonActions = /**
+     * @param {?} id
+     * @param {?} action
+     * @return {?}
+     */
+    function (id, action) {
+        this._comparisonActionsMap.set(id, action);
+    };
+    /**
+     * @return {?}
+     */
+    DifferencesService.prototype.sendClickEvent = /**
+     * @return {?}
+     */
+    function () {
+        this.subject.next();
+    };
+    /**
+     * @return {?}
+     */
+    DifferencesService.prototype.getClickEvent = /**
+     * @return {?}
+     */
+    function () {
+        return this.subject.asObservable();
     };
     DifferencesService.decorators = [
         { type: Injectable, args: [{
@@ -314,6 +351,20 @@ if (false) {
     DifferencesService.prototype._activeChange;
     /** @type {?} */
     DifferencesService.prototype.activeChange;
+    /**
+     * @type {?}
+     * @private
+     */
+    DifferencesService.prototype._comparisonActionsMap;
+    /** @type {?} */
+    DifferencesService.prototype.comparisonActionsMap;
+    /** @type {?} */
+    DifferencesService.prototype.comparisonActionsList;
+    /**
+     * @type {?}
+     * @private
+     */
+    DifferencesService.prototype.subject;
 }
 
 /**
@@ -322,8 +373,26 @@ if (false) {
  */
 var DifferenceComponent = /** @class */ (function () {
     function DifferenceComponent(changeService) {
+        this.actions = [
+            { value: 1, id: "Accept" },
+            { value: 2, id: "Reject" },
+            { value: 3, id: "None" },
+        ];
         this.changesService = changeService;
     }
+    /**
+     * @param {?} id
+     * @param {?} action
+     * @return {?}
+     */
+    DifferenceComponent.prototype.addAction = /**
+     * @param {?} id
+     * @param {?} action
+     * @return {?}
+     */
+    function (id, action) {
+        this.changesService.addToComparisonActions(id, action);
+    };
     /**
      * @return {?}
      */
@@ -352,8 +421,8 @@ var DifferenceComponent = /** @class */ (function () {
     DifferenceComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-comparison-difference',
-                    template: "<div  class=\"gd-difference\" [ngClass]=\"{'active': active}\">\n  <div [ngSwitch]=\"change.type\" class=\"gd-difference-title-wrapper\">\n    <ng-container *ngSwitchCase='1'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text edited</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='2'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='3'>\n      <fa-icon class=\"fas fa-times\" [icon]=\"['fas','trash']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text deleted</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='4'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='6'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Style changed</div>\n        <div class=\"gd-differentce-comment\">\n          <ng-container *ngFor=\"let style of change.styleChanges\" [ngSwitch]=\"style.changedProperty\">\n            <div *ngSwitchCase=\"'HighlightColor'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Highlight Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Color'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Size'\">\n              {{style.oldValue}} &rarr; {{style.newValue}}\n              <span class=\"property\">Font size</span>\n            </div>\n            <div *ngSwitchCase=\"'Bold'\">\n              <span [style.fontWeight]=\"style.oldValue ? 'bold' : ''\">{{change.text}}</span> &rarr; <span [style.fontWeight]=\"style.newValue ? 'bold' : ''\">{{change.text}}</span>\n              <span class=\"property\">Bold</span>\n            </div>\n            <div *ngSwitchCase=\"'Italic'\">\n              <span [style.fontStyle]=\"style.oldValue ? 'italic' : ''\">{{change.text}}</span> &rarr; <span [style.fontStyle]=\"style.newValue ? 'italic' : ''\">{{change.text}}</span>\n              <span class=\"property\">Italic</span>\n            </div>\n            <div *ngSwitchCase=\"'cS'\">\n              <span [style.textDecoration]=\"style.oldValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span> &rarr; <span [style.textDecoration]=\"style.newValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span>\n              <span class=\"property\">Underline</span>\n            </div>\n          </ng-container>\n        </div>\n      </div>\n    </ng-container>\n    <div class=\"gd-difference-page\">Page {{change.pageInfo.pageNumber + 1}}</div>\n  </div>\n</div>\n",
-                    styles: [".gd-difference{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-flow:row wrap;border-bottom:1px solid #eee;cursor:pointer}.gd-difference.active{background-color:#f2f2f2}.gd-difference:hover{background-color:#e5e5e5}.gd-difference .gd-difference-title-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;align-content:stretch;padding:14px 21px 17px 24px}.gd-difference .gd-difference-title-wrapper fa-icon{font-size:14px}.gd-difference .gd-difference-title-wrapper .fa-arrow-right{color:#16b901}.gd-difference .gd-difference-title-wrapper .fa-pencil-alt{color:#ced600}.gd-difference .gd-difference-title-wrapper .fa-times{color:#b96401}.gd-difference .gd-difference-title-wrapper .gd-difference-body{width:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;padding-left:24.6px}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-difference-title{color:#222e35;font-size:13px;font-weight:700}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment{color:#959da5;font-size:13px;padding-top:10px;overflow:hidden;text-overflow:ellipsis}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .color{vertical-align:text-bottom;width:14px;height:14px;display:inline-block;border:1px solid #ccc;border-radius:100%}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .property{padding-left:1em}.gd-difference .gd-difference-title-wrapper .gd-difference-page{color:rgba(149,157,165,.48);font-size:11px;white-space:nowrap}"]
+                    template: "<div  class=\"gd-difference\" [ngClass]=\"{'active': active}\">\n  <div [ngSwitch]=\"change.type\" class=\"gd-difference-title-wrapper\">\n    <ng-container *ngSwitchCase='1'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text edited</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n\n        <form>\n          <div *ngFor=\"let action of actions\">\n            <div class=\"gd-difference-action\">\n              \n                <input\n                  type=\"radio\"\n                  name=\"action\"\n                  id=\"action-{{ change.id }}\"\n                  (input)=\"addAction(change.id, $event.target.value)\"\n                  [value]=\"action.value\"\n                />\n                <label for=\"action-{{ change.id }}\"> {{ action.id }} </label>\n              \n            </div>\n          </div>\n        </form>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='2'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n        \n        <form>\n          <div *ngFor=\"let action of actions\">\n            <div class=\"gd-difference-action\">\n              \n                <input\n                  type=\"radio\"\n                  name=\"action\"\n                  id=\"action-{{ change.id }}\"\n                  (input)=\"addAction(change.id, $event.target.value)\"\n                  [value]=\"action.value\"\n                />\n                <label for=\"action-{{ change.id }}\"> {{ action.id }} </label>\n              \n            </div>\n          </div>\n        </form>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='3'>\n      <fa-icon class=\"fas fa-times\" [icon]=\"['fas','trash']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text deleted</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n        \n        <form>\n          <div *ngFor=\"let action of actions\">\n            <div class=\"gd-difference-action\">\n              \n                <input\n                  type=\"radio\"\n                  name=\"action\"\n                  id=\"action-{{ change.id }}\"\n                  (input)=\"addAction(change.id, $event.target.value)\"\n                  [value]=\"action.value\"\n                />\n                <label for=\"action-{{ change.id }}\"> {{ action.id }} </label>\n              \n            </div>\n          </div>\n        </form>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='4'>\n      <fa-icon class=\"fas fa-arrow-right\" [icon]=\"['fas','arrow-right']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Text added</div>\n        <div class=\"gd-differentce-comment\">{{change.text}}</div>\n        \n        <form>\n          <div *ngFor=\"let action of actions\">\n            <div class=\"gd-difference-action\">\n              \n                <input\n                  type=\"radio\"\n                  name=\"action\"\n                  id=\"action-{{ change.id }}\"\n                  (input)=\"addAction(change.id, $event.target.value)\"\n                  [value]=\"action.value\"\n                />\n                <label for=\"action-{{ change.id }}\"> {{ action.id }} </label>\n              \n            </div>\n          </div>\n        </form>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase='6'>\n      <fa-icon class=\"fas fa-pencil-alt\" [icon]=\"['fas','pencil-alt']\"></fa-icon>\n      <div class=\"gd-difference-body\">\n        <div class=\"gd-difference-title\">Style changed</div>\n        <div class=\"gd-differentce-comment\">\n          <ng-container *ngFor=\"let style of change.styleChanges\" [ngSwitch]=\"style.changedProperty\">\n            <div *ngSwitchCase=\"'HighlightColor'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Highlight Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Color'\">\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.oldValue)\"></span>\n              &rarr;\n              <span class=\"color\" [style.backgroundColor]=\"getRgbaColor(style.newValue)\"></span>\n              <span class=\"property\">Color</span>\n            </div>\n            <div *ngSwitchCase=\"'Size'\">\n              {{style.oldValue}} &rarr; {{style.newValue}}\n              <span class=\"property\">Font size</span>\n            </div>\n            <div *ngSwitchCase=\"'Bold'\">\n              <span [style.fontWeight]=\"style.oldValue ? 'bold' : ''\">{{change.text}}</span> &rarr; <span [style.fontWeight]=\"style.newValue ? 'bold' : ''\">{{change.text}}</span>\n              <span class=\"property\">Bold</span>\n            </div>\n            <div *ngSwitchCase=\"'Italic'\">\n              <span [style.fontStyle]=\"style.oldValue ? 'italic' : ''\">{{change.text}}</span> &rarr; <span [style.fontStyle]=\"style.newValue ? 'italic' : ''\">{{change.text}}</span>\n              <span class=\"property\">Italic</span>\n            </div>\n            <div *ngSwitchCase=\"'cS'\">\n              <span [style.textDecoration]=\"style.oldValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span> &rarr; <span [style.textDecoration]=\"style.newValue === 'SINGLE' ? 'underline' : ''\">{{change.text}}</span>\n              <span class=\"property\">Underline</span>\n            </div>\n          </ng-container>\n        </div>\n      </div>\n      \n      <form>\n          <div *ngFor=\"let action of actions\">\n            <div class=\"gd-difference-action\">\n              \n                <input\n                  type=\"radio\"\n                  name=\"action\"\n                  id=\"action-{{ change.id }}\"\n                  (input)=\"addAction(change.id, $event.target.value)\"\n                  [value]=\"action.value\"\n                />\n                <label for=\"action-{{ change.id }}\"> {{ action.id }} </label>\n              \n            </div>\n          </div>\n        </form>\n    </ng-container>\n    <div class=\"gd-difference-page\">Page {{change.pageInfo.pageNumber + 1}}</div>\n  </div>\n</div>\n",
+                    styles: [".gd-difference{-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-flow:row wrap;border-bottom:1px solid #eee;cursor:pointer}.gd-difference.active{background-color:#f2f2f2}.gd-difference:hover{background-color:#e5e5e5}.gd-difference .gd-difference-action{white-space:nowrap;color:#222e35;font-size:13px;font-weight:700;padding-top:5px}.gd-difference .gd-difference-title-wrapper{display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;align-content:stretch;padding:14px 21px 17px 24px}.gd-difference .gd-difference-title-wrapper fa-icon{font-size:14px}.gd-difference .gd-difference-title-wrapper .fa-arrow-right{color:#16b901}.gd-difference .gd-difference-title-wrapper .fa-pencil-alt{color:#ced600}.gd-difference .gd-difference-title-wrapper .fa-times{color:#b96401}.gd-difference .gd-difference-title-wrapper .gd-difference-body{width:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;padding-left:24.6px}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-difference-title{color:#222e35;font-size:13px;font-weight:700}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment{color:#959da5;font-size:13px;padding-top:10px;overflow:hidden;text-overflow:ellipsis}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .color{vertical-align:text-bottom;width:14px;height:14px;display:inline-block;border:1px solid #ccc;border-radius:100%}.gd-difference .gd-difference-title-wrapper .gd-difference-body .gd-differentce-comment .property{padding-left:1em}.gd-difference .gd-difference-title-wrapper .gd-difference-page{color:rgba(149,157,165,.48);font-size:11px;white-space:nowrap}"]
                 }] }
     ];
     /** @nocollapse */
@@ -375,6 +444,10 @@ if (false) {
      * @private
      */
     DifferenceComponent.prototype.changesService;
+    /** @type {?} */
+    DifferenceComponent.prototype.actions;
+    /** @type {?} */
+    DifferenceComponent.prototype.changeAction;
 }
 
 /**
@@ -470,6 +543,31 @@ var DifferencesComponent = /** @class */ (function () {
      */
     function () { };
     /**
+     * @param {?} changes
+     * @return {?}
+     */
+    DifferencesComponent.prototype.newChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        /** @type {?} */
+        var changesIds = [];
+        /** @type {?} */
+        var sortedActions = [];
+        for (var i = 0; i < changes.length; i++) {
+            changesIds.push(changes[i].id);
+        }
+        for (var i = 0; i < changesIds.length; i++) {
+            if (this.changesService.comparisonActionsMap.get(changesIds[i]) === undefined)
+                sortedActions.push(3);
+            else
+                sortedActions.push(this.changesService.comparisonActionsMap.get(changesIds[i]));
+        }
+        this.changesService.comparisonActionsList = sortedActions;
+        this.changesService.sendClickEvent();
+    };
+    /**
      * @param {?} id
      * @param {?} page
      * @param {?} event
@@ -489,7 +587,7 @@ var DifferencesComponent = /** @class */ (function () {
     DifferencesComponent.decorators = [
         { type: Component, args: [{
                     selector: 'gd-differences',
-                    template: "<div *ngFor=\"let change of changes; let i = index\" data-id=\"{{i}}\" (click)=\"highlightDifference(change.id,change.pageInfo.pageNumber,$event)\">\n  <gd-comparison-difference [change]=\"change\"></gd-comparison-difference>\n</div>\n",
+                    template: "<div *ngFor=\"let change of changes; let i = index\" data-id=\"{{i}}\" (click)=\"highlightDifference(change.id,change.pageInfo.pageNumber,$event)\">\n  <gd-comparison-difference [change]=\"change\"></gd-comparison-difference>\n</div>\n<gd-button [icon]=\"'play'\" [tooltip]=\"'Compare with new changes'\" (click)=\"newChanges(changes)\">\n</gd-button>\n\n",
                     styles: [""]
                 }] }
     ];
@@ -893,6 +991,22 @@ var ComparisonService = /** @class */ (function () {
     function (arr) {
         return this._http.post(this._config.getComparisonApiEndpoint() + Api.COMPARE_FILES, { 'guids': arr }, Api.httpOptionsJson);
     };
+    /**
+     * @param {?} arr
+     * @param {?} actions
+     * @return {?}
+     */
+    ComparisonService.prototype.changes = /**
+     * @param {?} arr
+     * @param {?} actions
+     * @return {?}
+     */
+    function (arr, actions) {
+        return this._http.post(this._config.getComparisonApiEndpoint() + '/changes', {
+            'guids': arr,
+            'changes': actions
+        }, Api.httpOptionsJson);
+    };
     ComparisonService.decorators = [
         { type: Injectable, args: [{
                     providedIn: 'root'
@@ -951,10 +1065,11 @@ if (false) {
     Highlight.prototype.active;
 }
 var ComparisonAppComponent = /** @class */ (function () {
-    function ComparisonAppComponent(_comparisonService, configService, uploadFilesService, pagePreloadService, _modalService, _tabActivatorService, _elementRef, passwordService) {
+    function ComparisonAppComponent(_comparisonService, configService, _differencesService, uploadFilesService, pagePreloadService, _modalService, _tabActivatorService, _elementRef, passwordService) {
         var _this = this;
         this._comparisonService = _comparisonService;
         this.configService = configService;
+        this._differencesService = _differencesService;
         this._modalService = _modalService;
         this._tabActivatorService = _tabActivatorService;
         this._elementRef = _elementRef;
@@ -981,6 +1096,12 @@ var ComparisonAppComponent = /** @class */ (function () {
          */
         function (config) {
             _this.comparisonConfig = config;
+        }));
+        this.clickEventSubscription = this._differencesService.getClickEvent().subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.changes();
         }));
         pagePreloadService.checkPreload.subscribe((/**
          * @param {?} page
@@ -1385,6 +1506,68 @@ var ComparisonAppComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    ComparisonAppComponent.prototype.changes = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.credentials.size !== 2) {
+            return;
+        }
+        this.resultTabDisabled = false;
+        /** @type {?} */
+        var arr = [];
+        arr.push(this.credentials.get(this.first));
+        arr.push(this.credentials.get(this.second));
+        /** @type {?} */
+        var changes = [];
+        if (this._differencesService.comparisonActionsList.length)
+            changes = this._differencesService.comparisonActionsList;
+        this._comparisonService.changes(arr, changes).subscribe((/**
+         * @param {?} result
+         * @return {?}
+         */
+        function (result) {
+            _this.result = result;
+            /** @type {?} */
+            var isZeroBasedPageId = _this.result.changes.find((/**
+             * @param {?} change
+             * @return {?}
+             */
+            function (change) { return change.pageInfo.pageNumber === 0; }));
+            _this.result.changes.forEach((/**
+             * @param {?} change
+             * @return {?}
+             */
+            function (change) {
+                change.id = _this.generateRandomInteger();
+                /** @type {?} */
+                var zeroBasedId = isZeroBasedPageId ? change.pageInfo.pageNumber : change.pageInfo.pageNumber - 1;
+                change.pageInfo.pageNumber = isZeroBasedPageId ? change.pageInfo.pageNumber : change.pageInfo.pageNumber - 1;
+                if (!_this.result.pages[zeroBasedId].changes) {
+                    _this.result.pages[zeroBasedId].changes = [];
+                }
+                _this.result.pages[zeroBasedId].changes.push(change);
+                change.normalized = {
+                    x: _this.pxToPt(change.box.x) * 100 / change.pageInfo.width,
+                    y: _this.pxToPt(change.box.y) * 100 / change.pageInfo.height,
+                    width: _this.pxToPt(change.box.width) * 100 / change.pageInfo.width,
+                    height: _this.pxToPt(change.box.height) * 100 / change.pageInfo.height,
+                };
+            }));
+        }), ((/**
+         * @param {?} err
+         * @return {?}
+         */
+        function (err) {
+            _this.resultTabDisabled = true;
+            _this._tabActivatorService.changeActiveTab(_this.filesTab);
+        })));
+        this._tabActivatorService.changeActiveTab(this.resultTab);
+    };
+    /**
+     * @return {?}
+     */
     ComparisonAppComponent.prototype.compare = /**
      * @return {?}
      */
@@ -1506,6 +1689,7 @@ var ComparisonAppComponent = /** @class */ (function () {
     ComparisonAppComponent.ctorParameters = function () { return [
         { type: ComparisonService },
         { type: ComparisonConfigService },
+        { type: DifferencesService },
         { type: UploadFilesService },
         { type: PagePreloadService },
         { type: ModalService },
@@ -1556,6 +1740,8 @@ if (false) {
     ComparisonAppComponent.prototype.activeTab;
     /** @type {?} */
     ComparisonAppComponent.prototype.resultTabDisabled;
+    /** @type {?} */
+    ComparisonAppComponent.prototype.clickEventSubscription;
     /**
      * @type {?}
      * @private
@@ -1566,6 +1752,11 @@ if (false) {
      * @private
      */
     ComparisonAppComponent.prototype.configService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComparisonAppComponent.prototype._differencesService;
     /**
      * @type {?}
      * @private
@@ -1643,7 +1834,8 @@ var ComparisonModule = /** @class */ (function () {
                         HttpClientModule,
                         FontAwesomeModule,
                         ClickOutsideModule,
-                        TranslateModule.forRoot()
+                        TranslateModule.forRoot(),
+                        FormsModule
                     ],
                     exports: [
                         CommonComponentsModule,

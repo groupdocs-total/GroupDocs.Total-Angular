@@ -8,5 +8,6 @@ export declare class DifferencesComponent implements OnInit {
     private navigateService;
     constructor(changeService: DifferencesService, navigateService: NavigateService);
     ngOnInit(): void;
+    newChanges(changes: any): void;
     highlightDifference(id: string, page: number, event: MouseEvent): void;
 }
