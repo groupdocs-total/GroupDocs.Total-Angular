@@ -7,6 +7,9 @@ import { Observable, Subject } from 'rxjs';
 })
 export class DifferencesService {
 
+  constructor() {
+  }
+
   private _activeChange = new BehaviorSubject<string>(null);
   activeChange = this._activeChange.asObservable();
 
@@ -15,8 +18,7 @@ export class DifferencesService {
 
   comparisonActionsList: number[];
 
-  constructor() {
-  }
+  private subject = new Subject<any>();
 
   setActiveChange(id : string){
     this._activeChange.next(id);
@@ -25,8 +27,6 @@ export class DifferencesService {
   addToComparisonActions(id: string, action: number){
     this._comparisonActionsMap.set(id, action);
   }
-
-  private subject = new Subject<any>();
 
   sendClickEvent(){
     this.subject.next();

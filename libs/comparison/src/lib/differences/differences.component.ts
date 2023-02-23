@@ -22,8 +22,8 @@ export class DifferencesComponent implements OnInit {
   ngOnInit() {}
 
   newChanges(changes) {
-    let changesIds = []
-    let sortedActions = []
+    const changesIds = []
+    const sortedActions = []
     
     for (let i = 0; i < changes.length; i++)
     {
