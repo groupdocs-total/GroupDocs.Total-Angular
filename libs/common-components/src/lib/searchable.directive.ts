@@ -3,6 +3,8 @@ import {SearchService} from "./search.service";
 import {HighlightSearchPipe} from "./pipes";
 import {ZoomService} from "./zoom.service";
 import * as jquery from "jquery";
+import {Observable, Subject} from "rxjs";
+import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 const $ = jquery;
 
 @Directive({
@@ -11,9 +13,13 @@ const $ = jquery;
 export class SearchableDirective {
 
   text: string;
+  prevText: string;
   current = 0;
   total = 0;
   private zoom = 100;
+  private _searchingObserver: Subject<boolean> = new Subject();
+  private readonly _searching: Observable<boolean> = this._searchingObserver.asObservable();
+  private _searchingFlag: boolean = false;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _searchService: SearchService,
@@ -26,30 +32,73 @@ export class SearchableDirective {
       }
     });
 
-    _searchService.textChange.subscribe((text: string) => {
+    _searchService.textChange
+      .pipe(debounceTime(500))
+       .pipe(distinctUntilChanged())
+        .subscribe((text: string) => {
       this.text = text;
-      this.highlightSearch();
+      if (!this._searchingFlag) {
+         this._searchingFlag = true;
+         this.setSearching(this._searchingFlag);
+      }
     });
 
     this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
     _zoomService.zoomChange.subscribe((val: number) => {
       this.zoom = val ? val : this.zoom;
     });
+
+    this.searching.subscribe((val: boolean) => {
+      this._searchingFlag = val;
+      if (!val) {
+        if (this.text != this.prevText) {
+          this._searchingFlag = true;
+          this.highlightSearch();
+        }
+      } 
+      else {
+        this.highlightSearch()
+      }
+    })
   }
 
-  private highlightSearch() {
+  get searching(): Observable<boolean> {
+    return this._searching;
+  }
+
+  setSearching(searching: boolean) {
+    this._searchingObserver.next(searching);
+  }
+
+  private  highlightSearch() {
+    this._searchingFlag = true;
     const el = this._elementRef ? this._elementRef.nativeElement : null;
-    if (el) {
-      this.cleanHighlight(el);
-      if (this.text) {
-        this.highlightEl(el);
-        const count = el.querySelectorAll('.gd-highlight').length;
-        this.total = count;
-      } else {
-        this.total = 0;
-      }
-      this._searchService.setTotal(this.total);
-    }
+
+       setTimeout(() => 
+       {
+        this.prevText = this.text;
+
+        if (el) {
+          if (this.prevText) {
+            this.cleanHighlight(el);
+            this.highlightEl(el);
+          } 
+          else {
+              this.cleanHighlight(el);
+          }
+        } 
+
+        if (this.prevText) {
+          const count = el.querySelectorAll('.gd-highlight').length;
+          this.total = count;
+        }
+        else {
+          this.total = 0
+        }
+         this._searchService.setTotal(this.total);
+         this.setSearching(false);
+        }
+      ,0);
   }
 
   private moveToCurrent() {
@@ -100,10 +149,13 @@ export class SearchableDirective {
 
   private cleanHighlight(el: HTMLElement) {
     const nodeListOf = el.querySelectorAll('.gd-highlight');
-    for (let i = 0; i < nodeListOf.length; i++) {
-      const element = nodeListOf.item(i);
+
+    //const lengthOfNodeList = nodeListOf.length;
+    //for (let i = 0; i < lengthOfNodeList; i++)
+    nodeListOf.forEach(element => {
+      //const element = nodeListOf.item(i);
       element.replaceWith((<HTMLElement>element).innerText);
-    }
+    })
     el.normalize();
   }
 
