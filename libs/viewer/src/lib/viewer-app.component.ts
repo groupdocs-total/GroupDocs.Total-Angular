@@ -70,6 +70,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   supportedLanguages: Option[];
   selectedLanguage: Option;
 
+  _searchTermForBackgroundService: string;
+
   docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
     mozRequestFullScreen(): Promise<void>;
     webkitRequestFullscreen(): Promise<void>;
@@ -356,7 +358,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   selectFile($event: string, password: string, modalId: string, fileType: string) {
     this.credentials = {guid: $event, fileType: fileType, password: password};
     this.file = null;
-    this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
+    this._viewerService.loadFile(this.credentials, this._searchTermForBackgroundService).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
         this.pagesToPreload = [];
@@ -398,6 +400,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this._modalService.close(modalId);
     }
     this.clearData();
+  }
+
+  setSearchTermForBackgroundService($event: string) {
+     this._searchTermForBackgroundService = $event;
   }
 
   preloadPages(start: number, end: number) {

@@ -14,8 +14,17 @@ export class ViewerService {
     return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_FILE_TREE, {'path': path}, Api.httpOptionsJson);
   }
 
-  loadFile(credentials: TypedFileCredentials) {
-    return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
+  loadFile(credentials: TypedFileCredentials, searchTermForBackend?: string | null) {
+    if (searchTermForBackend) {
+      return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION
+      , credentials, { headers: Api.httpOptionsJson.headers
+      , params: { search: searchTermForBackend }}
+      );
+    }
+    else {
+      return this._http.post(this._config.getViewerApiEndpoint() + Api.LOAD_DOCUMENT_DESCRIPTION, credentials, Api.httpOptionsJson);
+    }
+    
   }
 
   upload(file: File, url: string, rewrite: boolean) {

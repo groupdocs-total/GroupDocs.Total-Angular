@@ -24,9 +24,12 @@ export class BrowseFilesModalComponent implements OnInit {
   @Output() selectedDirectory = new EventEmitter<string>();
   @Output() urlForUpload = new EventEmitter<string>();
   @Output() closing = new EventEmitter<boolean>();
+  @Output() searchTermForBackgroundService = new EventEmitter<string>();
   private selectedFile: FileModel;
   showUploadUrl = false;
   showUploadFile = false;
+  private _searchTerm: string;
+
 
   constructor(private _uploadService: UploadFilesService) {
   }
@@ -131,6 +134,11 @@ export class BrowseFilesModalComponent implements OnInit {
       this.urlForUpload.emit(url);
       this.cleanUpload();
     }
+  }
+
+  setSearchTerm(searchTerm: string) {
+      this.searchTermForBackgroundService.emit(searchTerm);
+      this._searchTerm = searchTerm;
   }
 
   handleFileInput(files: FileList) {
