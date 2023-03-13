@@ -180,6 +180,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.fileParam = urlParams.get('file');
       this.fileTypeParam = urlParams.get('fileType');
       if(this.fileParam) {
+        this._searchTermForBackgroundService = urlParams.get('search');
         this.isLoading = true;
         this.selectFile(this.fileParam, '', '', this.fileTypeParam);
         this.selectCurrentOrFirstPage();
