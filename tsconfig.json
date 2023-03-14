@@ -18,7 +18,6 @@
     "baseUrl": ".",
     "paths": {
       "@groupdocs.examples.angular/common-components": [ 
-        "dist/libs/common-components",     
         "libs/common-components/src/index.ts"
       ],
       "@groupdocs.examples.angular/viewer": ["libs/viewer/src/index.ts"],
