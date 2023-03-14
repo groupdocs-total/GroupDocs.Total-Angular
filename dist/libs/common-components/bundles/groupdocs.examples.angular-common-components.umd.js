@@ -4906,6 +4906,9 @@
             this.current = 0;
             this.total = 0;
             this.zoom = 100;
+            this._searchingObserver = new rxjs.Subject();
+            this._searching = this._searchingObserver.asObservable();
+            this._searchingFlag = false;
             _searchService.currentChange.subscribe((/**
              * @param {?} current
              * @return {?}
@@ -4916,13 +4919,19 @@
                     _this.moveToCurrent();
                 }
             }));
-            _searchService.textChange.subscribe((/**
+            _searchService.textChange
+                .pipe(operators.debounceTime(500))
+                .pipe(operators.distinctUntilChanged())
+                .subscribe((/**
              * @param {?} text
              * @return {?}
              */
             function (text) {
                 _this.text = text;
-                _this.highlightSearch();
+                if (!_this._searchingFlag) {
+                    _this._searchingFlag = true;
+                    _this.setSearching(_this._searchingFlag);
+                }
             }));
             this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
             _zoomService.zoomChange.subscribe((/**
@@ -4932,7 +4941,44 @@
             function (val) {
                 _this.zoom = val ? val : _this.zoom;
             }));
+            this.searching.subscribe((/**
+             * @param {?} val
+             * @return {?}
+             */
+            function (val) {
+                _this._searchingFlag = val;
+                if (!val) {
+                    if (_this.text !== _this.prevText) {
+                        _this._searchingFlag = true;
+                        _this.highlightSearch();
+                    }
+                }
+                else {
+                    _this.highlightSearch();
+                }
+            }));
         }
+        Object.defineProperty(SearchableDirective.prototype, "searching", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._searching;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {?} searching
+         * @return {?}
+         */
+        SearchableDirective.prototype.setSearching = /**
+         * @param {?} searching
+         * @return {?}
+         */
+        function (searching) {
+            this._searchingObserver.next(searching);
+        };
         /**
          * @private
          * @return {?}
@@ -4942,21 +4988,35 @@
          * @return {?}
          */
         function () {
+            var _this = this;
+            this._searchingFlag = true;
             /** @type {?} */
             var el = this._elementRef ? this._elementRef.nativeElement : null;
-            if (el) {
-                this.cleanHighlight(el);
-                if (this.text) {
-                    this.highlightEl(el);
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                _this.prevText = _this.text;
+                if (el) {
+                    if (_this.prevText) {
+                        _this.cleanHighlight(el);
+                        _this.highlightEl(el);
+                    }
+                    else {
+                        _this.cleanHighlight(el);
+                    }
+                }
+                if (_this.prevText) {
                     /** @type {?} */
                     var count = el.querySelectorAll('.gd-highlight').length;
-                    this.total = count;
+                    _this.total = count;
                 }
                 else {
-                    this.total = 0;
+                    _this.total = 0;
                 }
-                this._searchService.setTotal(this.total);
-            }
+                _this._searchService.setTotal(_this.total);
+                _this.setSearching(false);
+            }), 0);
         };
         /**
          * @private
@@ -5054,11 +5114,16 @@
         function (el) {
             /** @type {?} */
             var nodeListOf = el.querySelectorAll('.gd-highlight');
-            for (var i = 0; i < nodeListOf.length; i++) {
-                /** @type {?} */
-                var element = nodeListOf.item(i);
+            //const lengthOfNodeList = nodeListOf.length;
+            //for (let i = 0; i < lengthOfNodeList; i++)
+            nodeListOf.forEach((/**
+             * @param {?} element
+             * @return {?}
+             */
+            function (element) {
+                //const element = nodeListOf.item(i);
                 element.replaceWith(((/** @type {?} */ (element))).innerText);
-            }
+            }));
             el.normalize();
         };
         /**
@@ -5090,6 +5155,8 @@
         /** @type {?} */
         SearchableDirective.prototype.text;
         /** @type {?} */
+        SearchableDirective.prototype.prevText;
+        /** @type {?} */
         SearchableDirective.prototype.current;
         /** @type {?} */
         SearchableDirective.prototype.total;
@@ -5098,6 +5165,21 @@
          * @private
          */
         SearchableDirective.prototype.zoom;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._searchingObserver;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._searching;
+        /**
+         * @type {?}
+         * @private
+         */
+        SearchableDirective.prototype._searchingFlag;
         /**
          * @type {?}
          * @private

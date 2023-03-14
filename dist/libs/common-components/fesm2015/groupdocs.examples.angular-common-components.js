@@ -4038,6 +4038,9 @@ class SearchableDirective {
         this.current = 0;
         this.total = 0;
         this.zoom = 100;
+        this._searchingObserver = new Subject();
+        this._searching = this._searchingObserver.asObservable();
+        this._searchingFlag = false;
         _searchService.currentChange.subscribe((/**
          * @param {?} current
          * @return {?}
@@ -4048,13 +4051,19 @@ class SearchableDirective {
                 this.moveToCurrent();
             }
         }));
-        _searchService.textChange.subscribe((/**
+        _searchService.textChange
+            .pipe(debounceTime(500))
+            .pipe(distinctUntilChanged())
+            .subscribe((/**
          * @param {?} text
          * @return {?}
          */
         (text) => {
             this.text = text;
-            this.highlightSearch();
+            if (!this._searchingFlag) {
+                this._searchingFlag = true;
+                this.setSearching(this._searchingFlag);
+            }
         }));
         this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
         _zoomService.zoomChange.subscribe((/**
@@ -4064,18 +4073,59 @@ class SearchableDirective {
         (val) => {
             this.zoom = val ? val : this.zoom;
         }));
+        this.searching.subscribe((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => {
+            this._searchingFlag = val;
+            if (!val) {
+                if (this.text !== this.prevText) {
+                    this._searchingFlag = true;
+                    this.highlightSearch();
+                }
+            }
+            else {
+                this.highlightSearch();
+            }
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    get searching() {
+        return this._searching;
+    }
+    /**
+     * @param {?} searching
+     * @return {?}
+     */
+    setSearching(searching) {
+        this._searchingObserver.next(searching);
     }
     /**
      * @private
      * @return {?}
      */
     highlightSearch() {
+        this._searchingFlag = true;
         /** @type {?} */
         const el = this._elementRef ? this._elementRef.nativeElement : null;
-        if (el) {
-            this.cleanHighlight(el);
-            if (this.text) {
-                this.highlightEl(el);
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            this.prevText = this.text;
+            if (el) {
+                if (this.prevText) {
+                    this.cleanHighlight(el);
+                    this.highlightEl(el);
+                }
+                else {
+                    this.cleanHighlight(el);
+                }
+            }
+            if (this.prevText) {
                 /** @type {?} */
                 const count = el.querySelectorAll('.gd-highlight').length;
                 this.total = count;
@@ -4084,7 +4134,8 @@ class SearchableDirective {
                 this.total = 0;
             }
             this._searchService.setTotal(this.total);
-        }
+            this.setSearching(false);
+        }), 0);
     }
     /**
      * @private
@@ -4168,11 +4219,16 @@ class SearchableDirective {
     cleanHighlight(el) {
         /** @type {?} */
         const nodeListOf = el.querySelectorAll('.gd-highlight');
-        for (let i = 0; i < nodeListOf.length; i++) {
-            /** @type {?} */
-            const element = nodeListOf.item(i);
+        //const lengthOfNodeList = nodeListOf.length;
+        //for (let i = 0; i < lengthOfNodeList; i++)
+        nodeListOf.forEach((/**
+         * @param {?} element
+         * @return {?}
+         */
+        element => {
+            //const element = nodeListOf.item(i);
             element.replaceWith(((/** @type {?} */ (element))).innerText);
-        }
+        }));
         el.normalize();
     }
     /**
@@ -4199,6 +4255,8 @@ if (false) {
     /** @type {?} */
     SearchableDirective.prototype.text;
     /** @type {?} */
+    SearchableDirective.prototype.prevText;
+    /** @type {?} */
     SearchableDirective.prototype.current;
     /** @type {?} */
     SearchableDirective.prototype.total;
@@ -4207,6 +4265,21 @@ if (false) {
      * @private
      */
     SearchableDirective.prototype.zoom;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._searchingObserver;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._searching;
+    /**
+     * @type {?}
+     * @private
+     */
+    SearchableDirective.prototype._searchingFlag;
     /**
      * @type {?}
      * @private
