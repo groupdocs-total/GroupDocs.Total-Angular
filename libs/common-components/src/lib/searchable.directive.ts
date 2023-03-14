@@ -19,7 +19,7 @@ export class SearchableDirective {
   private zoom = 100;
   private _searchingObserver: Subject<boolean> = new Subject();
   private readonly _searching: Observable<boolean> = this._searchingObserver.asObservable();
-  private _searchingFlag: boolean = false;
+  private _searchingFlag = false;
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _searchService: SearchService,
@@ -51,7 +51,7 @@ export class SearchableDirective {
     this.searching.subscribe((val: boolean) => {
       this._searchingFlag = val;
       if (!val) {
-        if (this.text != this.prevText) {
+        if (this.text !== this.prevText) {
           this._searchingFlag = true;
           this.highlightSearch();
         }
