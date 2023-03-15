@@ -53,6 +53,7 @@ export class FileDescription {
   printAllowed = true;
   showGridLines: boolean;
   thumbnails: PageModel[];
+  searchTerm?: string | null;
 }
 
 export class FileModel {

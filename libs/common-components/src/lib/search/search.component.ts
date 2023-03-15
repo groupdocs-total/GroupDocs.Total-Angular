@@ -33,7 +33,13 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   setText(text: string) {
-    this._searchService.setText(text);
+    setTimeout(() => {
+      this._searchService.setText(text);
+    },0);
+    
+    if (this.textElement.nativeElement.value !== text) {
+       this.textElement.nativeElement.value = text;
+    }
   }
 
   hide() {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, HostListener, ChangeDetectorRef} from '@angular/core';
+import {AfterViewInit, Component, OnInit, HostListener, ChangeDetectorRef, ViewChild} from '@angular/core';
 import {ViewerService} from "./viewer.service";
 import {
   FileDescription,
@@ -15,7 +15,8 @@ import {
   FileCredentials,
   TypedFileCredentials,
   CommonModals,
-  LoadingMaskService
+  LoadingMaskService,
+  SearchComponent
 } from "@groupdocs.examples.angular/common-components";
 import {ViewerConfig} from "./viewer-config";
 import {ViewerConfigService} from "./viewer-config.service";
@@ -72,6 +73,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   _searchTermForBackgroundService: string;
 
+  _searchElement: SearchComponent;
+  @ViewChild('search', { static: false})
+  set content(content: SearchComponent) {
+     if (content) {
+       this._searchElement = content;
+     }
+  }
+  
   docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
     mozRequestFullScreen(): Promise<void>;
     webkitRequestFullscreen(): Promise<void>;
@@ -182,7 +191,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       if(this.fileParam) {
         this._searchTermForBackgroundService = urlParams.get('search');
         this.isLoading = true;
-        this.selectFile(this.fileParam, '', '', this.fileTypeParam);
+        this.selectFile(this.fileParam, '', '', this.fileTypeParam, true);
         this.selectCurrentOrFirstPage();
         return;
       }
@@ -356,10 +365,10 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return preloadPageCount;
   }
 
-  selectFile($event: string, password: string, modalId: string, fileType: string) {
+  selectFile($event: string, password: string, modalId: string, fileType: string, fromInit: boolean = false) {
     this.credentials = {guid: $event, fileType: fileType, password: password};
     this.file = null;
-    this._viewerService.loadFile(this.credentials, this._searchTermForBackgroundService).subscribe((file: FileDescription) => {
+    this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
         this.file = file;
         this.formatDisabled = !this.file;
         this.pagesToPreload = [];
@@ -393,6 +402,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           this.countPages = countPages;
           this.showThumbnails = this.ifPresentation();
           this.runPresentation = false;
+          if (!fromInit) {
+            this._searchTermForBackgroundService = file.searchTerm;
+          }
+        }
+        if (this._searchTermForBackgroundService) {
+           if(this._searchElement) {
+             this._searchElement.setText(this._searchTermForBackgroundService);
+           }
         }
         this.cdr.detectChanges();
       }
@@ -401,10 +418,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this._modalService.close(modalId);
     }
     this.clearData();
-  }
-
-  setSearchTermForBackgroundService($event: string) {
-     this._searchTermForBackgroundService = $event;
   }
 
   preloadPages(start: number, end: number) {
@@ -636,10 +649,15 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return this.enableRightClickConfig;
   }
 
-  openSearch() {
+  openSearch(show = true) {
     if (this.formatDisabled)
       return;
-    this.showSearch = !this.showSearch;
+    if (show) {
+      this.showSearch = !this.showSearch;
+    }
+    else {
+      this.showSearch = show;
+    }
   }
 
   private refreshZoom() {
