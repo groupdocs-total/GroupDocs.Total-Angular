@@ -33,6 +33,7 @@ export declare class FileDescription {
     printAllowed: boolean;
     showGridLines: boolean;
     thumbnails: PageModel[];
+    searchTerm?: string | null;
 }
 export declare class FileModel {
     guid: string;
