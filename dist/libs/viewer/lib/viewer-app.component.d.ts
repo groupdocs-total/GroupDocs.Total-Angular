@@ -1,6 +1,6 @@
 import { AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ViewerService } from "./viewer.service";
-import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, TypedFileCredentials, LoadingMaskService } from "@groupdocs.examples.angular/common-components";
+import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, TypedFileCredentials, LoadingMaskService, SearchComponent } from "@groupdocs.examples.angular/common-components";
 import { ViewerConfig } from "./viewer-config";
 import { ViewerConfigService } from "./viewer-config.service";
 import { WindowService, Option } from "@groupdocs.examples.angular/common-components";
@@ -52,6 +52,9 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     endScrollTime: number;
     supportedLanguages: Option[];
     selectedLanguage: Option;
+    _searchTermForBackgroundService: string;
+    _searchElement: SearchComponent;
+    content: SearchComponent;
     docElmWithBrowsersFullScreenFunctions: HTMLElement & {
         mozRequestFullScreen(): Promise<void>;
         webkitRequestFullscreen(): Promise<void>;
@@ -93,7 +96,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     selectDir($event: string): void;
     selectCurrentOrFirstPage(): void;
     getPreloadPageCount(): 0 | 3;
-    selectFile($event: string, password: string, modalId: string, fileType: string): void;
+    selectFile($event: string, password: string, modalId: string, fileType: string, fromInit?: boolean): void;
     preloadPages(start: number, end: number): void;
     upload($event: string): void;
     nextPage(): void;
@@ -125,7 +128,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     openThumbnails(): void;
     private clearData;
     onRightClick(): boolean;
-    openSearch(): void;
+    openSearch(show?: boolean): void;
     private refreshZoom;
     selectCurrentPage(pageNumber: any): void;
     onMouseWheelUp(): void;

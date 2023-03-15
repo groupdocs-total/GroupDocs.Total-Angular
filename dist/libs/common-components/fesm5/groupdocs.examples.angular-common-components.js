@@ -1094,6 +1094,8 @@ if (false) {
     FileDescription.prototype.showGridLines;
     /** @type {?} */
     FileDescription.prototype.thumbnails;
+    /** @type {?} */
+    FileDescription.prototype.searchTerm;
 }
 var FileModel = /** @class */ (function () {
     function FileModel() {
@@ -4623,7 +4625,16 @@ var SearchComponent = /** @class */ (function () {
      * @return {?}
      */
     function (text) {
-        this._searchService.setText(text);
+        var _this = this;
+        setTimeout((/**
+         * @return {?}
+         */
+        function () {
+            _this._searchService.setText(text);
+        }), 0);
+        if (this.textElement.nativeElement.value !== text) {
+            this.textElement.nativeElement.value = text;
+        }
     };
     /**
      * @return {?}

@@ -953,6 +953,8 @@ if (false) {
     FileDescription.prototype.showGridLines;
     /** @type {?} */
     FileDescription.prototype.thumbnails;
+    /** @type {?} */
+    FileDescription.prototype.searchTerm;
 }
 class FileModel {
 }
@@ -3950,7 +3952,15 @@ class SearchComponent {
      * @return {?}
      */
     setText(text) {
-        this._searchService.setText(text);
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            this._searchService.setText(text);
+        }), 0);
+        if (this.textElement.nativeElement.value !== text) {
+            this.textElement.nativeElement.value = text;
+        }
     }
     /**
      * @return {?}
