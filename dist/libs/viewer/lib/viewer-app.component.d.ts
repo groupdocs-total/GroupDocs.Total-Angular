@@ -53,6 +53,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     supportedLanguages: Option[];
     selectedLanguage: Option;
     _searchTermForBackgroundService: string;
+    _searchTermFromGetQuery: boolean;
     _searchElement: SearchComponent;
     content: SearchComponent;
     docElmWithBrowsersFullScreenFunctions: HTMLElement & {
@@ -96,7 +97,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     selectDir($event: string): void;
     selectCurrentOrFirstPage(): void;
     getPreloadPageCount(): 0 | 3;
-    selectFile($event: string, password: string, modalId: string, fileType: string, fromInit?: boolean): void;
+    selectFile($event: string, password: string, modalId: string, fileType: string): void;
     preloadPages(start: number, end: number): void;
     upload($event: string): void;
     nextPage(): void;

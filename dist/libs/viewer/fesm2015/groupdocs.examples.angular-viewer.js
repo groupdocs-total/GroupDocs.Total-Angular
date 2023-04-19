@@ -506,6 +506,7 @@ class ViewerAppComponent {
         this.pagesToPreload = [];
         this._zoom = 100;
         this.fileWasDropped = false;
+        this._searchTermFromGetQuery = false;
         this.docElmWithBrowsersFullScreenFunctions = (/** @type {?} */ (document.documentElement));
         this.docWithBrowsersExitFunctions = (/** @type {?} */ (document));
         this.zoomService = zoomService;
@@ -627,9 +628,14 @@ class ViewerAppComponent {
             this.fileParam = urlParams.get('file');
             this.fileTypeParam = urlParams.get('fileType');
             if (this.fileParam) {
-                this._searchTermForBackgroundService = urlParams.get('search');
+                /** @type {?} */
+                const sTerm = urlParams.get('search');
+                if (sTerm && sTerm !== null && sTerm !== '') {
+                    this._searchTermForBackgroundService = sTerm;
+                    this._searchTermFromGetQuery = true;
+                }
                 this.isLoading = true;
-                this.selectFile(this.fileParam, '', '', this.fileTypeParam, true);
+                this.selectFile(this.fileParam, '', '', this.fileTypeParam);
                 this.selectCurrentOrFirstPage();
                 return;
             }
@@ -887,10 +893,9 @@ class ViewerAppComponent {
      * @param {?} password
      * @param {?} modalId
      * @param {?} fileType
-     * @param {?=} fromInit
      * @return {?}
      */
-    selectFile($event, password, modalId, fileType, fromInit = false) {
+    selectFile($event, password, modalId, fileType) {
         this.credentials = { guid: $event, fileType: fileType, password: password };
         this.file = null;
         this._viewerService.loadFile(this.credentials).subscribe((/**
@@ -930,11 +935,13 @@ class ViewerAppComponent {
                 this.countPages = countPages;
                 this.showThumbnails = this.ifPresentation();
                 this.runPresentation = false;
-                if (!fromInit) {
+                if (!this._searchTermFromGetQuery) {
                     this._searchTermForBackgroundService = file.searchTerm;
                 }
             }
-            if (this._searchTermForBackgroundService) {
+            if (this._searchTermForBackgroundService
+                && this._searchTermForBackgroundService !== null
+                && this._searchTermForBackgroundService !== '') {
                 if (this._searchElement) {
                     this._searchElement.setText(this._searchTermForBackgroundService);
                 }
@@ -1634,6 +1641,8 @@ if (false) {
     ViewerAppComponent.prototype.selectedLanguage;
     /** @type {?} */
     ViewerAppComponent.prototype._searchTermForBackgroundService;
+    /** @type {?} */
+    ViewerAppComponent.prototype._searchTermFromGetQuery;
     /** @type {?} */
     ViewerAppComponent.prototype._searchElement;
     /** @type {?} */

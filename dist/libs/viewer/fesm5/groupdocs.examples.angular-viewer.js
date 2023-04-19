@@ -552,6 +552,7 @@ var ViewerAppComponent = /** @class */ (function () {
         this.pagesToPreload = [];
         this._zoom = 100;
         this.fileWasDropped = false;
+        this._searchTermFromGetQuery = false;
         this.docElmWithBrowsersFullScreenFunctions = (/** @type {?} */ (document.documentElement));
         this.docWithBrowsersExitFunctions = (/** @type {?} */ (document));
         this.zoomService = zoomService;
@@ -683,9 +684,14 @@ var ViewerAppComponent = /** @class */ (function () {
             this.fileParam = urlParams.get('file');
             this.fileTypeParam = urlParams.get('fileType');
             if (this.fileParam) {
-                this._searchTermForBackgroundService = urlParams.get('search');
+                /** @type {?} */
+                var sTerm = urlParams.get('search');
+                if (sTerm && sTerm !== null && sTerm !== '') {
+                    this._searchTermForBackgroundService = sTerm;
+                    this._searchTermFromGetQuery = true;
+                }
                 this.isLoading = true;
-                this.selectFile(this.fileParam, '', '', this.fileTypeParam, true);
+                this.selectFile(this.fileParam, '', '', this.fileTypeParam);
                 this.selectCurrentOrFirstPage();
                 return;
             }
@@ -1066,7 +1072,6 @@ var ViewerAppComponent = /** @class */ (function () {
      * @param {?} password
      * @param {?} modalId
      * @param {?} fileType
-     * @param {?=} fromInit
      * @return {?}
      */
     ViewerAppComponent.prototype.selectFile = /**
@@ -1074,12 +1079,10 @@ var ViewerAppComponent = /** @class */ (function () {
      * @param {?} password
      * @param {?} modalId
      * @param {?} fileType
-     * @param {?=} fromInit
      * @return {?}
      */
-    function ($event, password, modalId, fileType, fromInit) {
+    function ($event, password, modalId, fileType) {
         var _this = this;
-        if (fromInit === void 0) { fromInit = false; }
         this.credentials = { guid: $event, fileType: fileType, password: password };
         this.file = null;
         this._viewerService.loadFile(this.credentials).subscribe((/**
@@ -1119,11 +1122,13 @@ var ViewerAppComponent = /** @class */ (function () {
                 _this.countPages = countPages;
                 _this.showThumbnails = _this.ifPresentation();
                 _this.runPresentation = false;
-                if (!fromInit) {
+                if (!_this._searchTermFromGetQuery) {
                     _this._searchTermForBackgroundService = file.searchTerm;
                 }
             }
-            if (_this._searchTermForBackgroundService) {
+            if (_this._searchTermForBackgroundService
+                && _this._searchTermForBackgroundService !== null
+                && _this._searchTermForBackgroundService !== '') {
                 if (_this._searchElement) {
                     _this._searchElement.setText(_this._searchTermForBackgroundService);
                 }
@@ -2004,6 +2009,8 @@ if (false) {
     ViewerAppComponent.prototype.selectedLanguage;
     /** @type {?} */
     ViewerAppComponent.prototype._searchTermForBackgroundService;
+    /** @type {?} */
+    ViewerAppComponent.prototype._searchTermFromGetQuery;
     /** @type {?} */
     ViewerAppComponent.prototype._searchElement;
     /** @type {?} */
