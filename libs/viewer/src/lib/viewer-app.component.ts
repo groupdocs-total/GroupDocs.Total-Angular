@@ -72,6 +72,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   selectedLanguage: Option;
 
   _searchTermForBackgroundService: string;
+  _searchTermFromGetQuery = false;
 
   _searchElement: SearchComponent;
   @ViewChild('search', { static: false})
@@ -189,9 +190,13 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.fileParam = urlParams.get('file');
       this.fileTypeParam = urlParams.get('fileType');
       if(this.fileParam) {
-        this._searchTermForBackgroundService = urlParams.get('search');
+        const sTerm = urlParams.get('search');
+        if (sTerm && sTerm !== null && sTerm !== '') {
+          this._searchTermForBackgroundService = sTerm;
+          this._searchTermFromGetQuery = true;
+        }
         this.isLoading = true;
-        this.selectFile(this.fileParam, '', '', this.fileTypeParam, true);
+        this.selectFile(this.fileParam, '', '', this.fileTypeParam);
         this.selectCurrentOrFirstPage();
         return;
       }
@@ -365,7 +370,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return preloadPageCount;
   }
 
-  selectFile($event: string, password: string, modalId: string, fileType: string, fromInit: boolean = false) {
+  selectFile($event: string, password: string, modalId: string, fileType: string) {
     this.credentials = {guid: $event, fileType: fileType, password: password};
     this.file = null;
     this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
@@ -402,14 +407,18 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           this.countPages = countPages;
           this.showThumbnails = this.ifPresentation();
           this.runPresentation = false;
-          if (!fromInit) {
+          if (!this._searchTermFromGetQuery) {
             this._searchTermForBackgroundService = file.searchTerm;
           }
         }
-        if (this._searchTermForBackgroundService) {
+        if (this._searchTermForBackgroundService 
+              && this._searchTermForBackgroundService !== null 
+                 && this._searchTermForBackgroundService !== '') {
+           
            if(this._searchElement) {
              this._searchElement.setText(this._searchTermForBackgroundService);
            }
+
         }
         this.cdr.detectChanges();
       }
