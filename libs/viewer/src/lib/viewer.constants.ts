@@ -22,6 +22,7 @@ export class Constants {
     static readonly topbarWidth = 60;
     static readonly documentMargin = 20;
     static readonly defaultShowLanguageMenu = true;
+    static readonly defaultShowToolBar = true;
     static readonly defaultLanguage = new Language("en", "en-us", "English");
     static readonly defaultSupportedLanguages = [
         new Language("ar", "ar", "العربية"),
