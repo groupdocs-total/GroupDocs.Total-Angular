@@ -86,6 +86,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     readonly enableRightClickConfig: boolean;
     readonly currentPage: number;
     readonly showLanguageMenu: boolean;
+    readonly showToolBar: boolean;
     readonly supportedLanguagesConfig: Language[];
     readonly defaultLanguageConfig: Language;
     ifPresentation(): boolean;

@@ -23,4 +23,5 @@ export declare class ViewerConfig {
     showLanguageMenu: boolean;
     defaultLanguage: string;
     supportedLanguages: string[];
+    showToolBar: boolean;
 }
