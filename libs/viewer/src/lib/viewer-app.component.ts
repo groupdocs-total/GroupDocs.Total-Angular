@@ -281,6 +281,13 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     return Constants.defaultShowLanguageMenu;
   }
 
+  get showToolBar(): boolean {
+    if(this.viewerConfig !== undefined && this.viewerConfig.showToolBar !== undefined) {
+      return this.viewerConfig.showToolBar;
+    }
+    return Constants.defaultShowToolBar
+  }
+
   get supportedLanguagesConfig(): Language[] {
     if(this.viewerConfig && this.viewerConfig.supportedLanguages) {
       const supportedLanguages = this.viewerConfig.supportedLanguages;
