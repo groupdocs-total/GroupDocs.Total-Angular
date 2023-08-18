@@ -10,6 +10,25 @@ export class ViewportService {
   constructor() {
   }
 
+  isBelowCenterOfTheScreen(elem: HTMLElement, parent?: HTMLElement) {
+    const rect = elem.getBoundingClientRect();
+    const parentRect = parent ? parent.getBoundingClientRect() : { top: 0 };
+    const viewHeight = parent
+      ? parent.offsetHeight - parseFloat(window.getComputedStyle(parent).paddingTop || '0')
+      : Math.max(document.documentElement.clientHeight, window.innerHeight);
+
+    const top = rect.top - parentRect.top;
+    const bottom = rect.bottom - parentRect.top;
+
+    const screenCenter = viewHeight / 2;
+    const elemCenter = rect.height / 2;
+
+    const isBelowCenterOfTheScreen = bottom > screenCenter && top - screenCenter < 0;
+    const isMoreThanHalfVisible = (viewHeight - top) > elemCenter;
+
+    return isBelowCenterOfTheScreen || isMoreThanHalfVisible;
+  };
+
   checkInViewport(el, zoom: number = 100, leftOffset: number = 0, deltaX: number = 0.5) {
     if (!el) {
       return false;

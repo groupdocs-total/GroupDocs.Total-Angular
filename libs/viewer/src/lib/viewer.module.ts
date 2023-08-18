@@ -5,7 +5,7 @@ import {ViewerAppComponent} from './viewer-app.component';
 import {
   Api,
   CommonComponentsModule,
-  ErrorInterceptorService, 
+  ErrorInterceptorService,
   LoadingMaskInterceptorService,
   LoadingMaskService
 } from '@groupdocs.examples.angular/common-components';
