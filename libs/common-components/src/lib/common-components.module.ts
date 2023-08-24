@@ -76,6 +76,7 @@ import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {PageMarkerDirective} from './page-marker.directive';
 import {TranslateModule} from '@ngx-translate/core';
 import {ThumbnailsComponent} from './thumbnails/thumbnails.component';
+import { ScrollableEditedDirective } from './scrollable-edited.directive';
 
 const providers = [ConfigService,
   Api,
@@ -111,8 +112,8 @@ const providers = [ConfigService,
 
 @NgModule({
   imports: [
-    CommonModule, 
-    FontAwesomeModule, 
+    CommonModule,
+    FontAwesomeModule,
     ClickOutsideModule,
     TranslateModule
   ],
@@ -133,6 +134,7 @@ const providers = [ConfigService,
     UploadFileZoneComponent,
     DndDirective,
     ScrollableDirective,
+    ScrollableEditedDirective,
     MouseWheelDirective,
     ZoomDirective,
     SelectComponent,
@@ -182,6 +184,7 @@ const providers = [ConfigService,
     SanitizeHtmlPipe,
     UploadFileZoneComponent,
     ScrollableDirective,
+    ScrollableEditedDirective,
     MouseWheelDirective,
     SelectComponent,
     RotationDirective,
