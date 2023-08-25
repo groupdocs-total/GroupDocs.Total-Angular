@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, Injectable, ElementRef, ɵɵdefineInjectable, ɵɵinject, Pipe, Directive, HostBinding, HostListener, ViewChild, ViewEncapsulation, Inject, forwardRef, ComponentFactoryResolver, ApplicationRef, ViewContainerRef, Renderer2, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, fromEvent, Observable, BehaviorSubject, throwError } from 'rxjs';
-import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, startWith, tap, map, catchError, finalize, throttleTime, delay } from 'rxjs/operators';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -815,7 +815,7 @@ ModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'gd-modal',
                 template: "<div class=\"gd-modal fade\" id=\"modalDialog\" (click)=\"onClose($event);\" *ngIf=\"visibility\">\n</div>\n<div class=\"gd-modal-dialog\" *ngIf=\"visibility\">\n  <div class=\"gd-modal-content\" id=\"gd-modal-content\">\n\n    <div class=\"gd-modal-header\">\n      <div class=\"gd-modal-close\" (click)=\"cancelClose();\"><span>&times;</span></div>\n      <h4 class=\"gd-modal-title\">{{title}}</h4>\n    </div>\n\n    <div class=\"gd-modal-body\">\n      <ng-content></ng-content>\n    </div>\n\n    <div class=\"gd-modal-footer\">\n\n    </div>\n  </div>\n</div>\n\n\n",
-                styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);z-index:1051}.gd-modal-dialog ::ng-deep .button{-webkit-box-orient:unset!important;-webkit-box-direction:unset!important;flex-direction:unset!important}.gd-modal-content{background-color:#fff;height:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
+                styles: ["@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);:host *{font-family:'Open Sans',Arial,Helvetica,sans-serif}.gd-modal{overflow:hidden;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1050;-webkit-overflow-scrolling:touch;outline:0;background-color:rgba(0,0,0,.5)}.gd-modal-dialog{box-shadow:#0005 0 0 10px;position:fixed;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);max-height:95%;overflow:scroll;z-index:1051}.gd-modal-dialog ::ng-deep .button{-webkit-box-orient:unset!important;-webkit-box-direction:unset!important;flex-direction:unset!important}.gd-modal-content{background-color:#fff;height:100%;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.gd-modal-header{height:60px;padding:0 12px 0 24px;background-color:#3e4e5a}.gd-modal-close{position:absolute;right:12px;top:12px;cursor:pointer;color:#fff;width:37px;height:37px;text-align:center}.gd-modal-close span{font-size:18px;font-weight:900;height:19px;width:10px;line-height:36px}.gd-modal-title{font-size:16px;font-weight:400;padding-top:17px;padding-bottom:22px;margin:0;color:#fff}.gd-modal-body{background-color:#fff;overflow:hidden;overflow-y:auto;height:calc(100% - 75px)}.gd-modal-footer{height:auto}.gd-modal-footer>.btn{float:right;margin:20px 15px;padding:10px 20px;cursor:pointer;font-size:12px}@media (max-width:1037px){.gd-modal-dialog{width:100%;height:100%}.gd-modal-body{height:100%}}"]
             }] }
 ];
 /** @nocollapse */
@@ -2321,6 +2321,35 @@ const $$2 = jquery;
 class ViewportService {
     constructor() {
     }
+    /**
+     * @param {?} elem
+     * @param {?=} parent
+     * @return {?}
+     */
+    isBelowCenterOfTheScreen(elem, parent) {
+        /** @type {?} */
+        const rect = elem.getBoundingClientRect();
+        /** @type {?} */
+        const parentRect = parent ? parent.getBoundingClientRect() : { top: 0 };
+        /** @type {?} */
+        const viewHeight = parent
+            ? parent.offsetHeight - parseFloat(window.getComputedStyle(parent).paddingTop || '0')
+            : Math.max(document.documentElement.clientHeight, window.innerHeight);
+        /** @type {?} */
+        const top = rect.top - parentRect.top;
+        /** @type {?} */
+        const bottom = rect.bottom - parentRect.top;
+        /** @type {?} */
+        const screenCenter = viewHeight / 2;
+        /** @type {?} */
+        const elemCenter = rect.height / 2;
+        /** @type {?} */
+        const isBelowCenterOfTheScreen = bottom > screenCenter && top - screenCenter < 0;
+        /** @type {?} */
+        const isMoreThanHalfVisible = (viewHeight - top) > elemCenter;
+        return isBelowCenterOfTheScreen || isMoreThanHalfVisible;
+    }
+    ;
     /**
      * @param {?} el
      * @param {?=} zoom
@@ -7513,6 +7542,200 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class ScrollableEditedDirective {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _navigateService
+     * @param {?} _pagePreloadService
+     * @param {?} _zoomService
+     * @param {?} _windowService
+     * @param {?} _viewportService
+     */
+    constructor(_elementRef, _navigateService, _pagePreloadService, _zoomService, _windowService, _viewportService) {
+        this._elementRef = _elementRef;
+        this._navigateService = _navigateService;
+        this._pagePreloadService = _pagePreloadService;
+        this._zoomService = _zoomService;
+        this._windowService = _windowService;
+        this._viewportService = _viewportService;
+        this.loadedPagesSet = new Set();
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        this.refresh();
+        fromEvent(window, 'resize')
+            .pipe(throttleTime(100, undefined, { trailing: true })).subscribe((/**
+         * @return {?}
+         */
+        () => this.refresh()));
+        fromEvent(this._elementRef.nativeElement, 'scroll')
+            .pipe(throttleTime(100, undefined, { trailing: true }))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this.refresh()));
+        this._zoomService.zoomChange
+            .pipe(delay(300))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this.refresh()));
+        this._navigateService.navigate.subscribe(((/**
+         * @param {?} value
+         * @return {?}
+         */
+        value => {
+            this.currentPage = value;
+            this.scrollToPage(value);
+        })));
+    }
+    /**
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    scrollToPage(pageNumber) {
+        /** @type {?} */
+        const el = this._elementRef.nativeElement;
+        /** @type {?} */
+        const pagesHeight = this.calculateOffset(pageNumber);
+        /** @type {?} */
+        const options = {
+            left: 0,
+            top: pagesHeight
+        };
+        if (el) {
+            // using polyfill
+            el.scroll(options);
+        }
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    getChildren() {
+        /** @type {?} */
+        const el = this._elementRef ? this._elementRef.nativeElement : null;
+        if (el) {
+            // here and in the similar line below we getting the document pages
+            return el.children.item(0).children.item(0).children;
+        }
+    }
+    /**
+     * @private
+     * @param {?} pageNumber
+     * @return {?}
+     */
+    calculateOffset(pageNumber) {
+        /** @type {?} */
+        const pages = this.getChildren();
+        if (!pages.length) {
+            return;
+        }
+        return ((/** @type {?} */ (pages.item(pageNumber - 1).getBoundingClientRect()))).y + this._elementRef.nativeElement.scrollTop - 70;
+    }
+    /**
+     * @return {?}
+     */
+    refresh() {
+        /** @type {?} */
+        const pages = this.getChildren();
+        /** @type {?} */
+        let pageNum = 0;
+        /** @type {?} */
+        let counter = 0;
+        while (counter < pages.length) {
+            if (this._viewportService.isBelowCenterOfTheScreen((/** @type {?} */ (pages.item(counter))), this._elementRef.nativeElement)) {
+                pageNum = counter + 1;
+            }
+            else if (pageNum) {
+                counter = pages.length;
+            }
+            counter++;
+            if (!this.loadedPagesSet.has(counter)) {
+                this._pagePreloadService.changeLastPageInView(counter);
+                this.loadedPagesSet.add(counter);
+            }
+        }
+        if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
+            this._navigateService.currentPage = pageNum;
+        }
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        this.refresh();
+    }
+}
+ScrollableEditedDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[gdScrollableEdited]'
+            },] }
+];
+/** @nocollapse */
+ScrollableEditedDirective.ctorParameters = () => [
+    { type: ElementRef },
+    { type: NavigateService },
+    { type: PagePreloadService },
+    { type: ZoomService },
+    { type: WindowService },
+    { type: ViewportService }
+];
+ScrollableEditedDirective.propDecorators = {
+    isPresentation: [{ type: Input }]
+};
+if (false) {
+    /** @type {?} */
+    ScrollableEditedDirective.prototype.isPresentation;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableEditedDirective.prototype.currentPage;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableEditedDirective.prototype.loadedPagesSet;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableEditedDirective.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableEditedDirective.prototype._navigateService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableEditedDirective.prototype._pagePreloadService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableEditedDirective.prototype._zoomService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableEditedDirective.prototype._windowService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ScrollableEditedDirective.prototype._viewportService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 const providers = [ConfigService,
     Api,
@@ -7575,6 +7798,7 @@ CommonComponentsModule.decorators = [
                     UploadFileZoneComponent,
                     DndDirective,
                     ScrollableDirective,
+                    ScrollableEditedDirective,
                     MouseWheelDirective,
                     ZoomDirective,
                     SelectComponent,
@@ -7624,6 +7848,7 @@ CommonComponentsModule.decorators = [
                     SanitizeHtmlPipe,
                     UploadFileZoneComponent,
                     ScrollableDirective,
+                    ScrollableEditedDirective,
                     MouseWheelDirective,
                     SelectComponent,
                     RotationDirective,
@@ -8680,5 +8905,5 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, CommonTranslateLoader, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, TypedFileCredentials, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd, ThumbnailsComponent as ɵe };
+export { AddDynamicComponentService, Api, BackFormattingService, BrowseFilesModalComponent, ButtonComponent, ColorPickerComponent, CommonComponentsModule, CommonModals, CommonTranslateLoader, ConfigService, ContextMenuComponent, DisabledCursorDirective, DndDirective, DocumentComponent, DropDownComponent, DropDownItemComponent, DropDownItemsComponent, DropDownToggleComponent, EditHtmlService, EditorDirective, ErrorInterceptorService, ErrorModalComponent, ExceptionMessageService, FileCredentials, FileDescription, FileModel, FileService, FileUtil, Formatting, FormattingDirective, FormattingService, HighlightSearchPipe, HostDynamicDirective, HostingDynamicComponentService, HttpError, InitStateComponent, LeftSideBarComponent, LoadingMaskComponent, LoadingMaskInterceptorService, LoadingMaskService, LogoComponent, MenuType, ModalComponent, ModalService, MouseWheelDirective, NavigateService, OnCloseService, PageComponent, PageMarkerDirective, PageModel, PagePreloadService, PasswordRequiredComponent, PasswordService, RenderPrintDirective, RenderPrintService, RotatedPage, RotationDirective, SanitizeHtmlPipe, SanitizeResourceHtmlPipe, SanitizeStylePipe, SaveFile, ScrollableDirective, ScrollableEditedDirective, SearchComponent, SearchService, SearchableDirective, SelectComponent, SelectionService, SidePanelComponent, SuccessModalComponent, TabActivatorService, TabComponent, TabbedToolbarsComponent, TextMenuComponent, TooltipComponent, TopTabActivatorService, TopToolbarComponent, TypedFileCredentials, UploadFileZoneComponent, UploadFilesService, Utils, ViewportService, WindowService, ZoomDirective, ZoomService, TabsComponent as ɵa, TooltipDirective as ɵb, ResizingComponent as ɵc, TopTabComponent as ɵd, ThumbnailsComponent as ɵe };
 //# sourceMappingURL=groupdocs.examples.angular-common-components.js.map
