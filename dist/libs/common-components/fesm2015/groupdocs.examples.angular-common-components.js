@@ -2338,15 +2338,15 @@ class ViewportService {
         /** @type {?} */
         const top = rect.top - parentRect.top;
         /** @type {?} */
-        const bottom = rect.bottom - parentRect.top;
+        const bottom = rect.bottom - parentRect.top + 40;
         /** @type {?} */
         const screenCenter = viewHeight / 2;
         /** @type {?} */
         const elemCenter = rect.height / 2;
         /** @type {?} */
-        const isBelowCenterOfTheScreen = bottom > screenCenter && top - screenCenter < 0;
+        const isBelowCenterOfTheScreen = bottom >= screenCenter && top - screenCenter <= 0;
         /** @type {?} */
-        const isMoreThanHalfVisible = (viewHeight - top) > elemCenter;
+        const isMoreThanHalfVisible = rect.height - Math.abs(top) >= elemCenter;
         return isBelowCenterOfTheScreen || isMoreThanHalfVisible;
     }
     ;
@@ -7599,6 +7599,13 @@ class ScrollableEditedDirective {
         /** @type {?} */
         const el = this._elementRef.nativeElement;
         /** @type {?} */
+        const pages = this.getChildren();
+        /** @type {?} */
+        const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen((/** @type {?} */ (pages.item(pageNumber - 1))), this._elementRef.nativeElement);
+        if (pageIsInViewport) {
+            return;
+        }
+        /** @type {?} */
         const pagesHeight = this.calculateOffset(pageNumber);
         /** @type {?} */
         const options = {
@@ -7646,7 +7653,14 @@ class ScrollableEditedDirective {
         /** @type {?} */
         let counter = 0;
         while (counter < pages.length) {
-            if (this._viewportService.isBelowCenterOfTheScreen((/** @type {?} */ (pages.item(counter))), this._elementRef.nativeElement)) {
+            // if we scrolled till the end, the current page number must be the last page
+            if (this._elementRef.nativeElement.scrollTop + this._elementRef.nativeElement.offsetHeight + 30 >= this._elementRef.nativeElement.scrollHeight) {
+                pageNum = pages.length;
+                break;
+            }
+            /** @type {?} */
+            const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen((/** @type {?} */ (pages.item(counter))), this._elementRef.nativeElement);
+            if (pageIsInViewport) {
                 pageNum = counter + 1;
             }
             else if (pageNum) {
@@ -7656,6 +7670,9 @@ class ScrollableEditedDirective {
             if (!this.loadedPagesSet.has(counter)) {
                 this._pagePreloadService.changeLastPageInView(counter);
                 this.loadedPagesSet.add(counter);
+            }
+            if (pageIsInViewport) {
+                break;
             }
         }
         if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
