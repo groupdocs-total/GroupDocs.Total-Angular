@@ -18,13 +18,13 @@ export class ViewportService {
       : Math.max(document.documentElement.clientHeight, window.innerHeight);
 
     const top = rect.top - parentRect.top;
-    const bottom = rect.bottom - parentRect.top;
+    const bottom = rect.bottom - parentRect.top + 40;
 
     const screenCenter = viewHeight / 2;
     const elemCenter = rect.height / 2;
 
-    const isBelowCenterOfTheScreen = bottom > screenCenter && top - screenCenter < 0;
-    const isMoreThanHalfVisible = (viewHeight - top) > elemCenter;
+    const isBelowCenterOfTheScreen = bottom >= screenCenter && top - screenCenter <= 0;
+    const isMoreThanHalfVisible = rect.height - Math.abs(top) >= elemCenter;
 
     return isBelowCenterOfTheScreen || isMoreThanHalfVisible;
   };
