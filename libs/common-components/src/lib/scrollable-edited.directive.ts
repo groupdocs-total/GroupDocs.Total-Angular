@@ -58,6 +58,13 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
 
   scrollToPage(pageNumber: number) {
     const el = this._elementRef.nativeElement;
+    const pages = this.getChildren();
+    const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(pages.item(pageNumber - 1) as HTMLElement, this._elementRef.nativeElement);
+
+    if (pageIsInViewport) {
+      return;
+    }
+
     const pagesHeight = this.calculateOffset(pageNumber);
     const options = {
       left: 0,
@@ -92,7 +99,14 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
     let counter = 0;
 
     while (counter < pages.length) {
-      if (this._viewportService.isBelowCenterOfTheScreen(pages.item(counter) as HTMLElement, this._elementRef.nativeElement)) {
+      // if we scrolled till the end, the current page number must be the last page
+      if (this._elementRef.nativeElement.scrollTop + this._elementRef.nativeElement.offsetHeight + 30 >= this._elementRef.nativeElement.scrollHeight) {
+        pageNum = pages.length;
+        break;
+      }
+
+      const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(pages.item(counter) as HTMLElement, this._elementRef.nativeElement);
+      if (pageIsInViewport) {
         pageNum = counter + 1;
       } else if (pageNum) {
         counter = pages.length
@@ -102,6 +116,10 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
       if (!this.loadedPagesSet.has(counter)) {
         this._pagePreloadService.changeLastPageInView(counter);
         this.loadedPagesSet.add(counter);
+      }
+
+      if (pageIsInViewport) {
+        break;
       }
     }
 
