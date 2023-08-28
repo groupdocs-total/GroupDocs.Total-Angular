@@ -8943,6 +8943,13 @@ var ScrollableEditedDirective = /** @class */ (function () {
             // if we scrolled till the end, the current page number must be the last page
             if (this._elementRef.nativeElement.scrollTop + this._elementRef.nativeElement.offsetHeight + 30 >= this._elementRef.nativeElement.scrollHeight) {
                 pageNum = pages.length;
+                counter = pageNum;
+                // load not loaded pages
+                while (!this.loadedPagesSet.has(counter)) {
+                    this._pagePreloadService.changeLastPageInView(counter);
+                    this.loadedPagesSet.add(counter);
+                    counter--;
+                }
                 break;
             }
             /** @type {?} */
