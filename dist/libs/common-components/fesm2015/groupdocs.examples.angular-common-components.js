@@ -4066,13 +4066,11 @@ class SearchableDirective {
     /**
      * @param {?} _elementRef
      * @param {?} _searchService
-     * @param {?} _highlight
      * @param {?} _zoomService
      */
-    constructor(_elementRef, _searchService, _highlight, _zoomService) {
+    constructor(_elementRef, _searchService, _zoomService) {
         this._elementRef = _elementRef;
         this._searchService = _searchService;
-        this._highlight = _highlight;
         this._zoomService = _zoomService;
         this.current = 0;
         this.total = 0;
@@ -4166,7 +4164,7 @@ class SearchableDirective {
             }
             if (this.prevText) {
                 /** @type {?} */
-                const count = el.querySelectorAll('.gd-highlight').length;
+                const count = el.querySelectorAll('mark').length;
                 this.total = count;
             }
             else {
@@ -4197,7 +4195,7 @@ class SearchableDirective {
                 $$6(value).removeClass('gd-highlight-select');
             }));
             /** @type {?} */
-            const currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
+            const currentEl = el.querySelectorAll('mark')[this.current - 1];
             $$6(currentEl).addClass('gd-highlight-select');
             if (currentEl) {
                 /** @type {?} */
@@ -4236,7 +4234,9 @@ class SearchableDirective {
         /** @type {?} */
         const text = this.text;
         /** @type {?} */
-        const highlight = this._highlight;
+        const re = new RegExp(text, 'gi');
+        /** @type {?} */
+        const reg = new RegExp(`(${text})`, 'gi');
         textNodes.each((/**
          * @return {?}
          */
@@ -4244,9 +4244,37 @@ class SearchableDirective {
             /** @type {?} */
             const $this = $$6(this);
             /** @type {?} */
-            let content = $this.text();
-            content = highlight.transform(content, text);
-            $this.replaceWith(content);
+            const content = $this.text();
+            if (content && re.test(content)) {
+                /** @type {?} */
+                const separators = [...content.matchAll(reg)]
+                    .map((/**
+                 * @param {?} arr
+                 * @return {?}
+                 */
+                arr => arr[0]))
+                    .map((/**
+                 * @param {?} s
+                 * @return {?}
+                 */
+                s => `<mark>${s}</mark>`));
+                /** @type {?} */
+                const parts = content
+                    .split(re)
+                    .map((/**
+                 * @param {?} c
+                 * @return {?}
+                 */
+                c => c.replace(/</g, '&lt;').replace(/>/g, '&gt;')));
+                /** @type {?} */
+                const transformed = parts.map((/**
+                 * @param {?} e
+                 * @param {?} i
+                 * @return {?}
+                 */
+                (e, i) => e.concat(separators[i] ? separators[i] : ''))).join('');
+                $this.replaceWith(transformed);
+            }
         }));
         el.normalize();
     }
@@ -4257,15 +4285,12 @@ class SearchableDirective {
      */
     cleanHighlight(el) {
         /** @type {?} */
-        const nodeListOf = el.querySelectorAll('.gd-highlight');
-        //const lengthOfNodeList = nodeListOf.length;
-        //for (let i = 0; i < lengthOfNodeList; i++)
+        const nodeListOf = el.querySelectorAll('mark');
         nodeListOf.forEach((/**
          * @param {?} element
          * @return {?}
          */
         element => {
-            //const element = nodeListOf.item(i);
             element.replaceWith(((/** @type {?} */ (element))).innerText);
         }));
         el.normalize();
@@ -4287,7 +4312,6 @@ SearchableDirective.decorators = [
 SearchableDirective.ctorParameters = () => [
     { type: ElementRef },
     { type: SearchService },
-    { type: HighlightSearchPipe },
     { type: ZoomService }
 ];
 if (false) {
@@ -4329,11 +4353,6 @@ if (false) {
      * @private
      */
     SearchableDirective.prototype._searchService;
-    /**
-     * @type {?}
-     * @private
-     */
-    SearchableDirective.prototype._highlight;
     /**
      * @type {?}
      * @private

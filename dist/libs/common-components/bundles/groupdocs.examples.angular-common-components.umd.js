@@ -4942,11 +4942,10 @@
     /** @type {?} */
     var $$6 = jquery;
     var SearchableDirective = /** @class */ (function () {
-        function SearchableDirective(_elementRef, _searchService, _highlight, _zoomService) {
+        function SearchableDirective(_elementRef, _searchService, _zoomService) {
             var _this = this;
             this._elementRef = _elementRef;
             this._searchService = _searchService;
-            this._highlight = _highlight;
             this._zoomService = _zoomService;
             this.current = 0;
             this.total = 0;
@@ -5053,7 +5052,7 @@
                 }
                 if (_this.prevText) {
                     /** @type {?} */
-                    var count = el.querySelectorAll('.gd-highlight').length;
+                    var count = el.querySelectorAll('mark').length;
                     _this.total = count;
                 }
                 else {
@@ -5088,7 +5087,7 @@
                     $$6(value).removeClass('gd-highlight-select');
                 }));
                 /** @type {?} */
-                var currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
+                var currentEl = el.querySelectorAll('mark')[this.current - 1];
                 $$6(currentEl).addClass('gd-highlight-select');
                 if (currentEl) {
                     /** @type {?} */
@@ -5132,7 +5131,9 @@
             /** @type {?} */
             var text = this.text;
             /** @type {?} */
-            var highlight = this._highlight;
+            var re = new RegExp(text, 'gi');
+            /** @type {?} */
+            var reg = new RegExp("(" + text + ")", 'gi');
             textNodes.each((/**
              * @return {?}
              */
@@ -5141,8 +5142,35 @@
                 var $this = $$6(this);
                 /** @type {?} */
                 var content = $this.text();
-                content = highlight.transform(content, text);
-                $this.replaceWith(content);
+                if (content && re.test(content)) {
+                    /** @type {?} */
+                    var separators_1 = __spread(content.matchAll(reg)).map((/**
+                     * @param {?} arr
+                     * @return {?}
+                     */
+                    function (arr) { return arr[0]; }))
+                        .map((/**
+                     * @param {?} s
+                     * @return {?}
+                     */
+                    function (s) { return "<mark>" + s + "</mark>"; }));
+                    /** @type {?} */
+                    var parts = content
+                        .split(re)
+                        .map((/**
+                     * @param {?} c
+                     * @return {?}
+                     */
+                    function (c) { return c.replace(/</g, '&lt;').replace(/>/g, '&gt;'); }));
+                    /** @type {?} */
+                    var transformed = parts.map((/**
+                     * @param {?} e
+                     * @param {?} i
+                     * @return {?}
+                     */
+                    function (e, i) { return e.concat(separators_1[i] ? separators_1[i] : ''); })).join('');
+                    $this.replaceWith(transformed);
+                }
             }));
             el.normalize();
         };
@@ -5158,15 +5186,12 @@
          */
         function (el) {
             /** @type {?} */
-            var nodeListOf = el.querySelectorAll('.gd-highlight');
-            //const lengthOfNodeList = nodeListOf.length;
-            //for (let i = 0; i < lengthOfNodeList; i++)
+            var nodeListOf = el.querySelectorAll('mark');
             nodeListOf.forEach((/**
              * @param {?} element
              * @return {?}
              */
             function (element) {
-                //const element = nodeListOf.item(i);
                 element.replaceWith(((/** @type {?} */ (element))).innerText);
             }));
             el.normalize();
@@ -5191,7 +5216,6 @@
         SearchableDirective.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: SearchService },
-            { type: HighlightSearchPipe },
             { type: ZoomService }
         ]; };
         return SearchableDirective;
@@ -5235,11 +5259,6 @@
          * @private
          */
         SearchableDirective.prototype._searchService;
-        /**
-         * @type {?}
-         * @private
-         */
-        SearchableDirective.prototype._highlight;
         /**
          * @type {?}
          * @private
