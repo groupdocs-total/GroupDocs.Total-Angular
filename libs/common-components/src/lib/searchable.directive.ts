@@ -1,6 +1,5 @@
 import {Directive, ElementRef} from '@angular/core';
 import {SearchService} from "./search.service";
-import {HighlightSearchPipe} from "./pipes";
 import {ZoomService} from "./zoom.service";
 import * as jquery from "jquery";
 import {Observable, Subject} from "rxjs";
@@ -23,7 +22,6 @@ export class SearchableDirective {
 
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _searchService: SearchService,
-              private _highlight: HighlightSearchPipe,
               private _zoomService: ZoomService) {
     _searchService.currentChange.subscribe((current: number) => {
       this.current = current;
@@ -89,7 +87,7 @@ export class SearchableDirective {
         } 
 
         if (this.prevText) {
-          const count = el.querySelectorAll('.gd-highlight').length;
+          const count = el.querySelectorAll('mark').length;
           this.total = count;
         }
         else {
@@ -102,26 +100,26 @@ export class SearchableDirective {
   }
 
   private moveToCurrent() {
-    if (this.current === 0) {
-      return;
-    }
-    const currentZoom = this.getZoom();
-    const el = this._elementRef ? this._elementRef.nativeElement : null;
-    if (el) {
-      el.querySelectorAll('.gd-highlight-select').forEach(function (value) {
-        $(value).removeClass('gd-highlight-select');
-      });
-      const currentEl = el.querySelectorAll('.gd-highlight')[this.current - 1];
-      $(currentEl).addClass('gd-highlight-select');
-      if (currentEl) {
-        const options = {
-          left: 0,
-          top: ($(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
-        };
-        // using polyfill
-        el.parentElement.parentElement.scroll(options);
-      }
-    }
+     if (this.current === 0) {
+       return;
+     }
+     const currentZoom = this.getZoom();
+     const el = this._elementRef ? this._elementRef.nativeElement : null;
+     if (el) {
+       el.querySelectorAll('.gd-highlight-select').forEach(function (value) {
+         $(value).removeClass('gd-highlight-select');
+       });
+       const currentEl = el.querySelectorAll('mark')[this.current - 1];
+       $(currentEl).addClass('gd-highlight-select');
+       if (currentEl) {
+         const options = {
+           left: 0,
+           top: ($(currentEl).offset().top) + el.parentElement.parentElement.scrollTop - 150,
+         };
+         // using polyfill
+         el.parentElement.parentElement.scroll(options);
+       }
+     }
   }
 
   private highlightEl(el: Element) {
@@ -137,23 +135,31 @@ export class SearchableDirective {
         checkClass;
     });
     const text = this.text;
-    const highlight = this._highlight;
+    const re = new RegExp(text, 'gi');
+    const reg = new RegExp(`(${text})`, 'gi');
     textNodes.each(function () {
       const $this = $(this);
-      let content = $this.text();
-      content = highlight.transform(content, text);
-      $this.replaceWith(content);
+      const content = $this.text();
+      if (content && re.test(content)) {
+        const separators = [...content.matchAll(reg)]
+          .map(arr => arr[0])
+          .map(s => `<mark>${s}</mark>`);
+
+        const parts = content
+          .split(re)
+          .map(c => c.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+        
+        const transformed = parts.map((e, i) => e.concat(separators[i] ? separators[i] : '')).join('');
+
+        $this.replaceWith(transformed);
+      }
     });
     el.normalize();
   }
 
   private cleanHighlight(el: HTMLElement) {
-    const nodeListOf = el.querySelectorAll('.gd-highlight');
-
-    //const lengthOfNodeList = nodeListOf.length;
-    //for (let i = 0; i < lengthOfNodeList; i++)
+    const nodeListOf = el.querySelectorAll('mark');
     nodeListOf.forEach(element => {
-      //const element = nodeListOf.item(i);
       element.replaceWith((<HTMLElement>element).innerText);
     })
     el.normalize();
