@@ -1,0 +1,134 @@
+@import "./../../styles/variables";
+#help-topic {
+  min-width: 800px;
+  min-height: 500px;
+  max-height: 80vh;
+  overflow-x: hidden;
+  overflow-y: auto;   
+}
+
+#gd-helpbrowser-section {
+    min-width: 800px;
+    min-height: 500px;
+    overflow-y: auto;
+    max-height: 80vh;
+    overflow-x: hidden;
+    overflow-y: auto;   
+  }
+
+.help-topic-image-block {
+  display: block;
+  margin: 0 auto;  
+}
+
+.help-topic-image {
+  max-width: 600px;
+  max-height: 400px;
+  display: block;
+  margin: 0 auto;  
+}
+
+.loading-message {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.help-topic-title {
+  display: block;
+  margin: 24px;  
+  font-size: 16pt;
+  display: block;
+}
+
+.help-topic-text {
+  display: block;
+  padding: 24px;  
+  position: static;
+}
+
+
+.gd-modal-table {
+    width: 100%;
+    text-align: left;
+}
+
+.toolbar-panel {
+  width      : 100%;
+  display    : flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.list-help-header {
+    height: 60px;
+    color: @dove-gray;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: @wild-sand;
+    margin-top: 24px;
+  }
+
+.header-name {
+    padding-left: 24px;
+    width: 90%;
+    line-height: 60px;
+  }
+
+.list-help-lines, .list-help-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }  
+
+.list-help-lines {
+    border-bottom: 1px solid @mercury;
+  }
+
+.gd-help-name {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+  }
+
+.help-description {
+    display: flex;
+    width: 90%;
+    padding: 18px 0px 18px 24px;
+    font-size: 14px;
+    flex: 1;    
+    cursor: pointer;
+    overflow: hidden;
+  }  
+
+.help-name {
+    font-size: 16px;
+    color: @dove-gray;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.help-checkbox {
+  margin: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+  
+.list-help-lines:hover{
+    background-color: @nav-accent-background;
+  }
+
+  @media (max-width: 1037px) {
+    #help-topic {
+      min-width: 0px;
+      min-height: 0px;
+    }
+    
+    #gd-helpbrowser-section {
+        min-width: 0px;
+        min-height: 0px;
+      }
+  }
