@@ -104,7 +104,7 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
         pageNum = pages.length;
         counter = pageNum;
         // load not loaded pages
-        while (!this.loadedPagesSet.has(counter)) {
+        while (counter > 0 && !this.loadedPagesSet.has(counter)) {
           this._pagePreloadService.changeLastPageInView(counter);
           this.loadedPagesSet.add(counter);
           counter--;
