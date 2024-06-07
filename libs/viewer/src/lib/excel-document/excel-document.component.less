@@ -1,7 +1,7 @@
 @import "./../../../../common-components/src/styles/variables.less";
 
 :host {
-  overflow        : scroll;
+  overflow        : auto;
   width           : 100%;
   background-color: @mercury;
 }
@@ -85,10 +85,6 @@
 }
 
 @media @phone-down {
-  .document {
-    overflow-x: auto !important;
-  }
-
   .page {
     min-width : unset !important;
     min-height: unset !important;
