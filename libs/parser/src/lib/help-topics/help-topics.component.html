@@ -1,0 +1,36 @@
+<gd-modal id="gd-help-topics" [title]="'Help Topics'" (visible)="refresh($event)">
+    <section id="gd-helpbrowser-section" *ngIf="!topic">
+        <div id="gd-modal-helpbrowser" class="gd-modal-table">
+            <div class="list-help-body">
+                <div class="list-help-lines" *ngFor="let topic of topics" (click)="choose(topic);">
+                    <div class="help-description">
+                        <div class="help-name">{{topic?.title}}</div>
+                        <img *ngIf="topic?.image" [style.visibility]="'hidden'" [style.width]="'1px'"
+                            [style.height]="'1px'" [src]="topic?.image" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div *ngIf="topic">
+        <div class="toolbar-panel">
+            <gd-button [icon]="'bars'" (click)="showTopics()"></gd-button>
+            <gd-button [icon]="'chevron-left'" [disabled]="isFirstTopic()" (click)="goPrev()"></gd-button>
+            <gd-button [icon]="'chevron-right'" [disabled]="isLastTopic()" (click)="goNext()"></gd-button>
+        </div>
+        <div id="help-topic" >
+            <div class="help-topic-title">{{ topic.title }}</div>
+            <div class="help-topic-image-block" *ngIf="topic?.image">
+                <fa-icon class="loading-message" [icon]="['fas','circle-notch']" [spin]="true"
+                    *ngIf="imageVisibility == 'hidden'"></fa-icon>
+                <img class="help-topic-image" (load)="onLoad()" [style.visibility]="imageVisibility"
+                    [src]="topic?.image" />
+            </div>
+            <div class="help-topic-text" [innerHTML]="topic.text"></div>
+        </div>
+    </div>
+
+    <div class="help-checkbox"><input type="checkbox" [checked]="showHelpAtStart"
+        (change)="showHelpAtStart = !showHelpAtStart"/><div (click)="showHelpAtStart = !showHelpAtStart">Show after the document is loaded</div></div>
+</gd-modal>
