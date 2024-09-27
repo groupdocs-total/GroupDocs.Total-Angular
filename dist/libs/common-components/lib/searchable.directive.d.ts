@@ -21,5 +21,5 @@ export declare class SearchableDirective {
     private moveToCurrent;
     private highlightEl;
     private cleanHighlight;
-    private getZoom;
+    private getTurkishCharacterPattern;
 }

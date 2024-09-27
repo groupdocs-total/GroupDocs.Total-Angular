@@ -5075,8 +5075,6 @@
                 return;
             }
             /** @type {?} */
-            var currentZoom = this.getZoom();
-            /** @type {?} */
             var el = this._elementRef ? this._elementRef.nativeElement : null;
             if (el) {
                 el.querySelectorAll('.gd-highlight-select').forEach((/**
@@ -5129,7 +5127,7 @@
                     checkClass;
             }));
             /** @type {?} */
-            var text = this.text;
+            var text = this.text.split('').map(this.getTurkishCharacterPattern).join('');
             /** @type {?} */
             var re = new RegExp(text, 'gi');
             /** @type {?} */
@@ -5198,14 +5196,32 @@
         };
         /**
          * @private
+         * @param {?} char
          * @return {?}
          */
-        SearchableDirective.prototype.getZoom = /**
+        SearchableDirective.prototype.getTurkishCharacterPattern = /**
          * @private
+         * @param {?} char
          * @return {?}
          */
-        function () {
-            return this.zoom / 100;
+        function (char) {
+            /** @type {?} */
+            var turkishMapping = {
+                'i': '[iİ]',
+                // English 'i' matches both 'i' and 'İ'
+                'I': '[ıI]',
+                // English 'I' matches both 'ı' and 'I'
+                'c': '[cÇ]',
+                // English 'c' matches both 'c' and 'Ç'
+                'g': '[gĞ]',
+                // English 'g' matches both 'g' and 'Ğ'
+                'o': '[oÖ]',
+                // English 'o' matches both 'o' and 'Ö'
+                's': '[sŞ]',
+                // English 's' matches both 's' and 'Ş'
+                'u': '[uÜ]',
+            };
+            return turkishMapping[char] || char;
         };
         SearchableDirective.decorators = [
             { type: core.Directive, args: [{

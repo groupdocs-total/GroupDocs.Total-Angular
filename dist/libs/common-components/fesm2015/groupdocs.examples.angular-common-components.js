@@ -4183,8 +4183,6 @@ class SearchableDirective {
             return;
         }
         /** @type {?} */
-        const currentZoom = this.getZoom();
-        /** @type {?} */
         const el = this._elementRef ? this._elementRef.nativeElement : null;
         if (el) {
             el.querySelectorAll('.gd-highlight-select').forEach((/**
@@ -4232,7 +4230,7 @@ class SearchableDirective {
                 checkClass;
         }));
         /** @type {?} */
-        const text = this.text;
+        const text = this.text.split('').map(this.getTurkishCharacterPattern).join('');
         /** @type {?} */
         const re = new RegExp(text, 'gi');
         /** @type {?} */
@@ -4297,10 +4295,27 @@ class SearchableDirective {
     }
     /**
      * @private
+     * @param {?} char
      * @return {?}
      */
-    getZoom() {
-        return this.zoom / 100;
+    getTurkishCharacterPattern(char) {
+        /** @type {?} */
+        const turkishMapping = {
+            'i': '[iİ]',
+            // English 'i' matches both 'i' and 'İ'
+            'I': '[ıI]',
+            // English 'I' matches both 'ı' and 'I'
+            'c': '[cÇ]',
+            // English 'c' matches both 'c' and 'Ç'
+            'g': '[gĞ]',
+            // English 'g' matches both 'g' and 'Ğ'
+            'o': '[oÖ]',
+            // English 'o' matches both 'o' and 'Ö'
+            's': '[sŞ]',
+            // English 's' matches both 's' and 'Ş'
+            'u': '[uÜ]',
+        };
+        return turkishMapping[char] || char;
     }
 }
 SearchableDirective.decorators = [
