@@ -23,6 +23,7 @@ export class SearchableDirective {
   constructor(private _elementRef: ElementRef<HTMLElement>,
               private _searchService: SearchService,
               private _zoomService: ZoomService) {
+                
     _searchService.currentChange.subscribe((current: number) => {
       this.current = current;
       if (this.current !== 0) {
@@ -34,12 +35,12 @@ export class SearchableDirective {
       .pipe(debounceTime(500))
        .pipe(distinctUntilChanged())
         .subscribe((text: string) => {
-      this.text = text;
-      if (!this._searchingFlag) {
-         this._searchingFlag = true;
-         this.setSearching(this._searchingFlag);
-      }
-    });
+          this.text = text;
+          if (!this._searchingFlag) {
+             this._searchingFlag = true;
+             this.setSearching(this._searchingFlag);
+          }
+        });
 
     this.zoom = _zoomService.zoom ? _zoomService.zoom : this.zoom;
     _zoomService.zoomChange.subscribe((val: number) => {
@@ -68,7 +69,7 @@ export class SearchableDirective {
     this._searchingObserver.next(searching);
   }
 
-  private  highlightSearch() {
+  private highlightSearch() {
     this._searchingFlag = true;
     const el = this._elementRef ? this._elementRef.nativeElement : null;
 
@@ -103,7 +104,6 @@ export class SearchableDirective {
      if (this.current === 0) {
        return;
      }
-     const currentZoom = this.getZoom();
      const el = this._elementRef ? this._elementRef.nativeElement : null;
      if (el) {
        el.querySelectorAll('.gd-highlight-select').forEach(function (value) {
@@ -124,17 +124,18 @@ export class SearchableDirective {
 
   private highlightEl(el: Element) {
     const textNodes = $(el).find('*').contents().filter(function () {
-      const nodeName = this.parentElement.nodeName.toLowerCase();
-      const checkClass = (<Element>this).classList ? !(<Element>this).classList.contains('gd-highlight') : true;
-      return this.nodeType === 3 &&
-        this.textContent.trim().length !== 0 &&
-        nodeName !== 'style' &&
-        nodeName !== 'title' &&
-        nodeName !== 'body' &&
-        nodeName !== 'script' &&
-        checkClass;
-    });
-    const text = this.text;
+        const nodeName = this.parentElement.nodeName.toLowerCase();
+        const checkClass = (<Element>this).classList ? !(<Element>this).classList.contains('gd-highlight') : true;
+        return this.nodeType === 3 &&
+          this.textContent.trim().length !== 0 &&
+          nodeName !== 'style' &&
+          nodeName !== 'title' &&
+          nodeName !== 'body' &&
+          nodeName !== 'script' &&
+          checkClass;
+      });
+
+    const text = this.text.split('').map(this.getTurkishCharacterPattern).join('');
     const re = new RegExp(text, 'gi');
     const reg = new RegExp(`(${text})`, 'gi');
     textNodes.each(function () {
@@ -165,7 +166,17 @@ export class SearchableDirective {
     el.normalize();
   }
 
-  private getZoom() {
-    return this.zoom / 100;
+  private getTurkishCharacterPattern(char) {
+      const turkishMapping = {
+          'i': '[iİ]',  // English 'i' matches both 'i' and 'İ'
+          'I': '[ıI]',  // English 'I' matches both 'ı' and 'I'
+          'c': '[cÇ]',  // English 'c' matches both 'c' and 'Ç'
+          'g': '[gĞ]',  // English 'g' matches both 'g' and 'Ğ'
+          'o': '[oÖ]',  // English 'o' matches both 'o' and 'Ö'
+          's': '[sŞ]',  // English 's' matches both 's' and 'Ş'
+          'u': '[uÜ]',  // English 'u' matches both 'u' and 'Ü'
+      };
+    
+      return turkishMapping[char] || char;
   }
 }
