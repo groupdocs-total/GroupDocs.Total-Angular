@@ -9098,7 +9098,12 @@
             /** @type {?} */
             var pages = this.getChildren();
             /** @type {?} */
-            var pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen((/** @type {?} */ (pages.item(pageNumber - 1))), this._elementRef.nativeElement);
+            var htmlElement = (/** @type {?} */ (pages.item(pageNumber - 1)));
+            if (!htmlElement) {
+                return;
+            }
+            /** @type {?} */
+            var pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(htmlElement, this._elementRef.nativeElement);
             if (pageIsInViewport) {
                 return;
             }
@@ -9175,7 +9180,12 @@
                     break;
                 }
                 /** @type {?} */
-                var pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen((/** @type {?} */ (pages.item(counter))), this._elementRef.nativeElement);
+                var htmlElement = (/** @type {?} */ (pages.item(counter)));
+                if (!htmlElement) {
+                    break;
+                }
+                /** @type {?} */
+                var pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(htmlElement, this._elementRef.nativeElement);
                 if (pageIsInViewport) {
                     pageNum = counter + 1;
                 }
@@ -9191,9 +9201,9 @@
                     break;
                 }
             }
-            if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
-                this._navigateService.currentPage = pageNum;
-            }
+            // if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
+            //   this._navigateService.currentPage = pageNum;
+            // }
         };
         /**
          * @param {?} changes
