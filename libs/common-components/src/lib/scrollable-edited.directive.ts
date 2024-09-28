@@ -59,7 +59,12 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
   scrollToPage(pageNumber: number) {
     const el = this._elementRef.nativeElement;
     const pages = this.getChildren();
-    const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(pages.item(pageNumber - 1) as HTMLElement, this._elementRef.nativeElement);
+    const htmlElement = pages.item(pageNumber - 1) as HTMLElement;
+    if(!htmlElement) {
+      return;
+    }
+  
+    const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(htmlElement, this._elementRef.nativeElement);
 
     if (pageIsInViewport) {
       return;
@@ -111,10 +116,13 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
         }
         break;
       }
-
-      const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(pages.item(counter) as HTMLElement, this._elementRef.nativeElement);
+      const htmlElement = pages.item(counter) as HTMLElement;
+      if(!htmlElement) {
+         break;
+      }
+      const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(htmlElement, this._elementRef.nativeElement);
       if (pageIsInViewport) {
-        pageNum = counter + 1;
+        pageNum = counter + 1; 
       } else if (pageNum) {
         counter = pages.length
       }
@@ -130,9 +138,9 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
       }
     }
 
-    if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
-      this._navigateService.currentPage = pageNum;
-    }
+    // if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
+    //   this._navigateService.currentPage = pageNum;
+    // }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
