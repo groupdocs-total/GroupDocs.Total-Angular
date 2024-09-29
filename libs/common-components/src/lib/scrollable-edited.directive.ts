@@ -141,8 +141,8 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
     }
 
      if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
-      const isLastPage = pageNum == pages.length;
-      if(!(isLastPage && this._navigateService.currentPage == 1)) {
+      const isLastPage = pageNum === pages.length;
+      if(!(isLastPage && this._navigateService.currentPage === 1)) {
         this._navigateService.currentPage = pageNum;
       }
      }
