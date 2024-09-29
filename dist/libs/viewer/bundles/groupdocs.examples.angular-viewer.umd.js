@@ -400,6 +400,8 @@
         /** @type {?} */
         ViewerConfig.prototype.enableRightClick;
         /** @type {?} */
+        ViewerConfig.prototype.preventLinkClick;
+        /** @type {?} */
         ViewerConfig.prototype.filesDirectory;
         /** @type {?} */
         ViewerConfig.prototype.fontsDirectory;
@@ -729,7 +731,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var ViewerAppComponent = /** @class */ (function () {
-        function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr, translate) {
+        function ViewerAppComponent(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr, translate, renderer, elRef) {
             var _this = this;
             this._viewerService = _viewerService;
             this._modalService = _modalService;
@@ -739,6 +741,8 @@
             this._loadingMaskService = _loadingMaskService;
             this.cdr = cdr;
             this.translate = translate;
+            this.renderer = renderer;
+            this.elRef = elRef;
             this.title = 'viewer';
             this.files = [];
             this.countPages = 0;
@@ -813,6 +817,28 @@
                     _this.refreshZoom();
                 }
             }));
+            if (this.viewerConfig.preventLinkClick) {
+                // Listen for 'click' events inside the root element of 'gd-viewer'
+                this.unlisten = this.renderer.listen(this.elRef.nativeElement, 'click', (/**
+                 * @param {?} event
+                 * @return {?}
+                 */
+                function (event) {
+                    /** @type {?} */
+                    var targetElement = (/** @type {?} */ (event.target));
+                    // Check if the clicked element is inside or is an <a> tag
+                    /** @type {?} */
+                    var anchorElement = targetElement.closest('a');
+                    if (anchorElement) {
+                        // Check if the <a> tag is a child of an element with class 'gd-document'
+                        /** @type {?} */
+                        var parentWithClass = anchorElement.closest('.gd-document');
+                        if (parentWithClass) {
+                            event.preventDefault(); // Prevent the default action of the link
+                        }
+                    }
+                }));
+            }
         }
         Object.defineProperty(ViewerAppComponent.prototype, "content", {
             set: /**
@@ -2117,6 +2143,18 @@
             this.selectedLanguage = selectedLanguage;
             this.translate.use(selectedLanguage.value);
         };
+        /**
+         * @return {?}
+         */
+        ViewerAppComponent.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+        function () {
+            // Remove the event listener to prevent memory leaks
+            if (this.unlisten) {
+                this.unlisten();
+            }
+        };
         ViewerAppComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'gd-viewer',
@@ -2138,7 +2176,9 @@
             { type: commonComponents.WindowService },
             { type: commonComponents.LoadingMaskService },
             { type: core.ChangeDetectorRef },
-            { type: core$1.TranslateService }
+            { type: core$1.TranslateService },
+            { type: core.Renderer2 },
+            { type: core.ElementRef }
         ]; };
         ViewerAppComponent.propDecorators = {
             content: [{ type: core.ViewChild, args: ['search', { static: false },] }],
@@ -2217,6 +2257,11 @@
         ViewerAppComponent.prototype.supportedLanguages;
         /** @type {?} */
         ViewerAppComponent.prototype.selectedLanguage;
+        /**
+         * @type {?}
+         * @private
+         */
+        ViewerAppComponent.prototype.unlisten;
         /** @type {?} */
         ViewerAppComponent.prototype._searchTermForBackgroundService;
         /** @type {?} */
@@ -2266,6 +2311,16 @@
         ViewerAppComponent.prototype.cdr;
         /** @type {?} */
         ViewerAppComponent.prototype.translate;
+        /**
+         * @type {?}
+         * @private
+         */
+        ViewerAppComponent.prototype.renderer;
+        /**
+         * @type {?}
+         * @private
+         */
+        ViewerAppComponent.prototype.elRef;
     }
 
     /**
@@ -2518,16 +2573,6 @@
          * @return {?}
          */
         function () {
-            var _this = this;
-            this.navigateService.navigate.subscribe((((/**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                if (value) {
-                    _this.selectSheet(value);
-                }
-            }))));
             /** @type {?} */
             var scrollbarWidth = this.getScrollBarWidth();
             this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.sheets'), 'right', this.getScrollBarWidth() + 'px');
@@ -2559,6 +2604,7 @@
          */
         function (number) {
             this.currentPageNo = number;
+            this.navigateService.navigateTo(number);
         };
         ExcelDocumentComponent.decorators = [
             { type: core.Component, args: [{

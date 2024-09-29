@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, ViewChild, HostListener, Input, ElementRef, Renderer2, ViewChildren, EventEmitter, Output, NgModule, APP_INITIALIZER } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ChangeDetectorRef, Renderer2, ElementRef, ViewChild, HostListener, Input, ViewChildren, EventEmitter, Output, NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Api, ConfigService, CommonModals, FileUtil, ModalService, UploadFilesService, NavigateService, ZoomService, PagePreloadService, RenderPrintService, PasswordService, WindowService, LoadingMaskService, DocumentComponent, CommonTranslateLoader, LoadingMaskInterceptorService, CommonComponentsModule, ErrorInterceptorService } from '@groupdocs.examples.angular/common-components';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -165,6 +165,8 @@ if (false) {
     ViewerConfig.prototype.browse;
     /** @type {?} */
     ViewerConfig.prototype.enableRightClick;
+    /** @type {?} */
+    ViewerConfig.prototype.preventLinkClick;
     /** @type {?} */
     ViewerConfig.prototype.filesDirectory;
     /** @type {?} */
@@ -491,8 +493,10 @@ class ViewerAppComponent {
      * @param {?} _loadingMaskService
      * @param {?} cdr
      * @param {?} translate
+     * @param {?} renderer
+     * @param {?} elRef
      */
-    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr, translate) {
+    constructor(_viewerService, _modalService, configService, uploadFilesService, _navigateService, zoomService, pagePreloadService, _renderPrintService, passwordService, _windowService, _loadingMaskService, cdr, translate, renderer, elRef) {
         this._viewerService = _viewerService;
         this._modalService = _modalService;
         this._navigateService = _navigateService;
@@ -501,6 +505,8 @@ class ViewerAppComponent {
         this._loadingMaskService = _loadingMaskService;
         this.cdr = cdr;
         this.translate = translate;
+        this.renderer = renderer;
+        this.elRef = elRef;
         this.title = 'viewer';
         this.files = [];
         this.countPages = 0;
@@ -575,6 +581,28 @@ class ViewerAppComponent {
                 this.refreshZoom();
             }
         }));
+        if (this.viewerConfig.preventLinkClick) {
+            // Listen for 'click' events inside the root element of 'gd-viewer'
+            this.unlisten = this.renderer.listen(this.elRef.nativeElement, 'click', (/**
+             * @param {?} event
+             * @return {?}
+             */
+            (event) => {
+                /** @type {?} */
+                const targetElement = (/** @type {?} */ (event.target));
+                // Check if the clicked element is inside or is an <a> tag
+                /** @type {?} */
+                const anchorElement = targetElement.closest('a');
+                if (anchorElement) {
+                    // Check if the <a> tag is a child of an element with class 'gd-document'
+                    /** @type {?} */
+                    const parentWithClass = anchorElement.closest('.gd-document');
+                    if (parentWithClass) {
+                        event.preventDefault(); // Prevent the default action of the link
+                    }
+                }
+            }));
+        }
     }
     /**
      * @param {?} content
@@ -1554,6 +1582,15 @@ class ViewerAppComponent {
         this.selectedLanguage = selectedLanguage;
         this.translate.use(selectedLanguage.value);
     }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        // Remove the event listener to prevent memory leaks
+        if (this.unlisten) {
+            this.unlisten();
+        }
+    }
 }
 ViewerAppComponent.decorators = [
     { type: Component, args: [{
@@ -1576,7 +1613,9 @@ ViewerAppComponent.ctorParameters = () => [
     { type: WindowService },
     { type: LoadingMaskService },
     { type: ChangeDetectorRef },
-    { type: TranslateService }
+    { type: TranslateService },
+    { type: Renderer2 },
+    { type: ElementRef }
 ];
 ViewerAppComponent.propDecorators = {
     content: [{ type: ViewChild, args: ['search', { static: false },] }],
@@ -1653,6 +1692,11 @@ if (false) {
     ViewerAppComponent.prototype.supportedLanguages;
     /** @type {?} */
     ViewerAppComponent.prototype.selectedLanguage;
+    /**
+     * @type {?}
+     * @private
+     */
+    ViewerAppComponent.prototype.unlisten;
     /** @type {?} */
     ViewerAppComponent.prototype._searchTermForBackgroundService;
     /** @type {?} */
@@ -1702,6 +1746,16 @@ if (false) {
     ViewerAppComponent.prototype.cdr;
     /** @type {?} */
     ViewerAppComponent.prototype.translate;
+    /**
+     * @type {?}
+     * @private
+     */
+    ViewerAppComponent.prototype.renderer;
+    /**
+     * @type {?}
+     * @private
+     */
+    ViewerAppComponent.prototype.elRef;
 }
 
 /**
@@ -1934,15 +1988,6 @@ class ExcelDocumentComponent extends DocumentComponent {
      * @return {?}
      */
     ngAfterViewInit() {
-        this.navigateService.navigate.subscribe((((/**
-         * @param {?} value
-         * @return {?}
-         */
-        value => {
-            if (value) {
-                this.selectSheet(value);
-            }
-        }))));
         /** @type {?} */
         const scrollbarWidth = this.getScrollBarWidth();
         this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.sheets'), 'right', this.getScrollBarWidth() + 'px');
@@ -1967,6 +2012,7 @@ class ExcelDocumentComponent extends DocumentComponent {
      */
     selectSheet(number) {
         this.currentPageNo = number;
+        this.navigateService.navigateTo(number);
     }
 }
 ExcelDocumentComponent.decorators = [

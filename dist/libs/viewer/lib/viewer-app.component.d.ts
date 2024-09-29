@@ -1,4 +1,4 @@
-import { AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, OnInit, ChangeDetectorRef, Renderer2, ElementRef, OnDestroy } from '@angular/core';
 import { ViewerService } from "./viewer.service";
 import { FileDescription, FileModel, ModalService, UploadFilesService, NavigateService, PagePreloadService, ZoomService, RenderPrintService, PasswordService, TypedFileCredentials, LoadingMaskService, SearchComponent } from "@groupdocs.examples.angular/common-components";
 import { ViewerConfig } from "./viewer-config";
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { Language } from './viewer.constants';
 import { IntervalTimer } from './interval-timer';
 import { TranslateService } from '@ngx-translate/core';
-export declare class ViewerAppComponent implements OnInit, AfterViewInit {
+export declare class ViewerAppComponent implements OnInit, OnDestroy, AfterViewInit {
     private _viewerService;
     private _modalService;
     private _navigateService;
@@ -17,6 +17,8 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     private _loadingMaskService;
     private cdr;
     translate: TranslateService;
+    private renderer;
+    private elRef;
     title: string;
     files: FileModel[];
     file: FileDescription;
@@ -52,6 +54,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     endScrollTime: number;
     supportedLanguages: Option[];
     selectedLanguage: Option;
+    private unlisten;
     _searchTermForBackgroundService: string;
     _searchTermFromGetQuery: boolean;
     _searchElement: SearchComponent;
@@ -68,7 +71,7 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     };
     zoomService: ZoomService;
     fullScreen(): void;
-    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService, cdr: ChangeDetectorRef, translate: TranslateService);
+    constructor(_viewerService: ViewerService, _modalService: ModalService, configService: ViewerConfigService, uploadFilesService: UploadFilesService, _navigateService: NavigateService, zoomService: ZoomService, pagePreloadService: PagePreloadService, _renderPrintService: RenderPrintService, passwordService: PasswordService, _windowService: WindowService, _loadingMaskService: LoadingMaskService, cdr: ChangeDetectorRef, translate: TranslateService, renderer: Renderer2, elRef: ElementRef);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     readonly rewriteConfig: boolean;
@@ -150,4 +153,5 @@ export declare class ViewerAppComponent implements OnInit, AfterViewInit {
     openFullScreen(): void;
     closeFullScreen(byButton?: boolean): void;
     selectLanguage(selectedLanguage: Option): void;
+    ngOnDestroy(): void;
 }

@@ -6,6 +6,7 @@ export declare class ViewerConfig {
     print: boolean;
     browse: boolean;
     enableRightClick: boolean;
+    preventLinkClick: boolean;
     filesDirectory: string;
     fontsDirectory: string;
     defaultDocument: string;
