@@ -29,13 +29,6 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
   }
 
   ngAfterViewInit() {
-    this.navigateService.navigate.subscribe(((
-     value => {
-       if (value) {
-         this.selectSheet(value);
-       }
-     })));
-
     const scrollbarWidth = this.getScrollBarWidth();
     this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.sheets'), 'right', this.getScrollBarWidth() + 'px');
     this.renderer.setStyle(this._elementRef.nativeElement.querySelector('.sheets'), 'bottom', this.getScrollBarWidth() + 'px');
@@ -52,5 +45,6 @@ export class ExcelDocumentComponent extends DocumentComponent implements OnInit,
 
   selectSheet(number){
     this.currentPageNo = number;
+    this.navigateService.navigateTo(number);
   }
 }
