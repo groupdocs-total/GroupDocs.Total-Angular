@@ -1,6 +1,6 @@
 {
   "name": "@groupdocs.examples.angular/metadata",
-  "version": "0.8.109",
+  "version": "0.1.20",
   "description": "Angular application that allows to display and manipulate documents supported by groupdocs libraries APIs",
   "license": "MIT",
   "publishConfig": {
@@ -11,17 +11,17 @@
     "@angular/core": "^8.0.0"
   },
   "dependencies": {
+    "@groupdocs.examples.angular/common-components": "^0.8.0",
     "@fortawesome/angular-fontawesome": "^0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-regular-svg-icons": "^5.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "@groupdocs.examples.angular/common-components": "^0.8.109",
     "@ngx-translate/core": "^12.1.2",
+    "ng-click-outside": "^5.1.1",
     "hammerjs": "^2.0.8",
     "jquery": "^3.4.1",
-    "ng-click-outside": "^5.1.1",
-    "ng2-date-picker": "^8.0.0",
     "smoothscroll-polyfill": "^0.4.4",
+    "ng2-date-picker": "^8.0.0",
     "tslib": "^1.9.0"
   },
   "main": "bundles/groupdocs.examples.angular-metadata.umd.js",

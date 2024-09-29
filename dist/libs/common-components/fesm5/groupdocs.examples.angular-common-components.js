@@ -9014,9 +9014,11 @@ var ScrollableEditedDirective = /** @class */ (function () {
                 break;
             }
         }
-        // if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
-        //   this._navigateService.currentPage = pageNum;
-        // }
+        if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
+            if (pageNum <= this._navigateService.countPages) {
+                this._navigateService.currentPage = pageNum;
+            }
+        }
     };
     /**
      * @param {?} changes
