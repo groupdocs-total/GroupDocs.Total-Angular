@@ -138,9 +138,11 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
       }
     }
 
-    // if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
-    //   this._navigateService.currentPage = pageNum;
-    // }
+     if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
+      if(pageNum <= this._navigateService.countPages) { 
+        this._navigateService.currentPage = pageNum;
+      }
+     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
