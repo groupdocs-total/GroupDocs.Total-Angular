@@ -9166,6 +9166,8 @@
             var pageNum = 0;
             /** @type {?} */
             var counter = 0;
+            /** @type {?} */
+            var countPagesInViewport = 0;
             while (counter < pages.length) {
                 // if we scrolled till the end, the current page number must be the last page
                 if (this._elementRef.nativeElement.scrollTop + this._elementRef.nativeElement.offsetHeight + 30 >= this._elementRef.nativeElement.scrollHeight) {
@@ -9188,6 +9190,7 @@
                 var pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(htmlElement, this._elementRef.nativeElement);
                 if (pageIsInViewport) {
                     pageNum = counter + 1;
+                    countPagesInViewport += 1;
                 }
                 else if (pageNum) {
                     counter = pages.length;
@@ -9202,7 +9205,9 @@
                 }
             }
             if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
-                if (pageNum <= this._navigateService.countPages) {
+                /** @type {?} */
+                var isLastPage = pageNum === pages.length;
+                if (!(isLastPage && this._navigateService.currentPage === 1)) {
                     this._navigateService.currentPage = pageNum;
                 }
             }

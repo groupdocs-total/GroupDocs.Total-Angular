@@ -7691,6 +7691,8 @@ class ScrollableEditedDirective {
         let pageNum = 0;
         /** @type {?} */
         let counter = 0;
+        /** @type {?} */
+        let countPagesInViewport = 0;
         while (counter < pages.length) {
             // if we scrolled till the end, the current page number must be the last page
             if (this._elementRef.nativeElement.scrollTop + this._elementRef.nativeElement.offsetHeight + 30 >= this._elementRef.nativeElement.scrollHeight) {
@@ -7713,6 +7715,7 @@ class ScrollableEditedDirective {
             const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(htmlElement, this._elementRef.nativeElement);
             if (pageIsInViewport) {
                 pageNum = counter + 1;
+                countPagesInViewport += 1;
             }
             else if (pageNum) {
                 counter = pages.length;
@@ -7727,7 +7730,9 @@ class ScrollableEditedDirective {
             }
         }
         if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
-            if (pageNum <= this._navigateService.countPages) {
+            /** @type {?} */
+            const isLastPage = pageNum === pages.length;
+            if (!(isLastPage && this._navigateService.currentPage === 1)) {
                 this._navigateService.currentPage = pageNum;
             }
         }
