@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnInit, HostListener, ChangeDetectorRef, ViewChild} from '@angular/core';
-import {ViewerService} from "./viewer.service";
+import { AfterViewInit, Component, OnInit, HostListener, ChangeDetectorRef, ViewChild, Renderer2, ElementRef } from '@angular/core';
+import { ViewerService } from "./viewer.service";
 import {
   FileDescription,
   FileModel,
@@ -18,13 +18,13 @@ import {
   LoadingMaskService,
   SearchComponent
 } from "@groupdocs.examples.angular/common-components";
-import {ViewerConfig} from "./viewer-config";
-import {ViewerConfigService} from "./viewer-config.service";
-import {WindowService, Option} from "@groupdocs.examples.angular/common-components";
-import {Subscription} from 'rxjs';
-import {Constants, Language} from './viewer.constants';
-import {IntervalTimer} from './interval-timer';
-import {TranslateService} from '@ngx-translate/core';
+import { ViewerConfig } from "./viewer-config";
+import { ViewerConfigService } from "./viewer-config.service";
+import { WindowService, Option } from "@groupdocs.examples.angular/common-components";
+import { Subscription } from 'rxjs';
+import { Constants, Language } from './viewer.constants';
+import { IntervalTimer } from './interval-timer';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'gd-viewer',
@@ -75,13 +75,13 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   _searchTermFromGetQuery = false;
 
   _searchElement: SearchComponent;
-  @ViewChild('search', { static: false})
+  @ViewChild('search', { static: false })
   set content(content: SearchComponent) {
-     if (content) {
-       this._searchElement = content;
-     }
+    if (content) {
+      this._searchElement = content;
+    }
   }
-  
+
   docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement & {
     mozRequestFullScreen(): Promise<void>;
     webkitRequestFullscreen(): Promise<void>;
@@ -103,19 +103,24 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private unlisten: () => void;
+
   constructor(private _viewerService: ViewerService,
-              private _modalService: ModalService,
-              configService: ViewerConfigService,
-              uploadFilesService: UploadFilesService,
-              private _navigateService: NavigateService,
-              zoomService: ZoomService,
-              pagePreloadService: PagePreloadService,
-              private _renderPrintService: RenderPrintService,
-              passwordService: PasswordService,
-              private _windowService: WindowService,
-              private _loadingMaskService: LoadingMaskService,
-              private cdr: ChangeDetectorRef,
-              public translate: TranslateService) {
+    private _modalService: ModalService,
+    configService: ViewerConfigService,
+    uploadFilesService: UploadFilesService,
+    private _navigateService: NavigateService,
+    zoomService: ZoomService,
+    pagePreloadService: PagePreloadService,
+    private _renderPrintService: RenderPrintService,
+    passwordService: PasswordService,
+    private _windowService: WindowService,
+    private _loadingMaskService: LoadingMaskService,
+    private cdr: ChangeDetectorRef,
+    public translate: TranslateService,
+    private renderer: Renderer2,
+    private elRef: ElementRef
+  ) {
 
     this.zoomService = zoomService;
     this.startScrollTime = Date.now();
@@ -137,7 +142,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     });
 
     pagePreloadService.checkPreload.subscribe((page: number) => {
-      if(this.file) {
+      if (this.file) {
         if (this.viewerConfig.preloadPageCount !== 0) {
           for (let i = page; i < page + 2; i++) {
             if (i > 0 && i <= this.file.pages.length && !this.file.pages[i - 1].data) {
@@ -159,6 +164,23 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
         this.refreshZoom();
       }
     });
+
+    if(this.viewerConfig.preventLinkClick) {
+      // Listen for 'click' events inside the root element of 'gd-viewer'
+      this.unlisten = this.renderer.listen(this.elRef.nativeElement, 'click', (event: Event) => {
+        const targetElement = event.target as HTMLElement;
+
+        // Check if the clicked element is inside or is an <a> tag
+        const anchorElement = targetElement.closest('a');
+        if (anchorElement) {
+          // Check if the <a> tag is a child of an element with class 'gd-document'
+          const parentWithClass = anchorElement.closest('.gd-document');
+          if (parentWithClass) {
+            event.preventDefault(); // Prevent the default action of the link
+          }
+        }
+      });
+    }
   }
 
   ngOnInit() {
@@ -189,7 +211,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
       this.fileParam = urlParams.get('file');
       this.fileTypeParam = urlParams.get('fileType');
-      if(this.fileParam) {
+      if (this.fileParam) {
         const sTerm = urlParams.get('search');
         if (sTerm && sTerm !== null && sTerm !== '') {
           this._searchTermForBackgroundService = sTerm;
@@ -202,7 +224,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       }
 
       this.urlParam = urlParams.get('url');
-      if(this.urlParam) {
+      if (this.urlParam) {
         this.isLoading = true;
         this.upload(this.urlParam);
         this.selectCurrentOrFirstPage();
@@ -212,8 +234,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this._loadingMaskService
-    .onLoadingChanged
-    .subscribe((loading: boolean) => this.isLoading = loading);
+      .onLoadingChanged
+      .subscribe((loading: boolean) => this.isLoading = loading);
 
     this.refreshZoom();
   }
@@ -275,21 +297,21 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   get showLanguageMenu(): boolean {
-    if(this.viewerConfig !== undefined && this.viewerConfig.showLanguageMenu !== undefined) {
+    if (this.viewerConfig !== undefined && this.viewerConfig.showLanguageMenu !== undefined) {
       return this.viewerConfig.showLanguageMenu;
     }
     return Constants.defaultShowLanguageMenu;
   }
 
   get showToolBar(): boolean {
-    if(this.viewerConfig !== undefined && this.viewerConfig.showToolBar !== undefined) {
+    if (this.viewerConfig !== undefined && this.viewerConfig.showToolBar !== undefined) {
       return this.viewerConfig.showToolBar;
     }
     return Constants.defaultShowToolBar
   }
 
   get supportedLanguagesConfig(): Language[] {
-    if(this.viewerConfig && this.viewerConfig.supportedLanguages) {
+    if (this.viewerConfig && this.viewerConfig.supportedLanguages) {
       const supportedLanguages = this.viewerConfig.supportedLanguages;
       return Constants.defaultSupportedLanguages
         .filter(lang =>
@@ -300,7 +322,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   get defaultLanguageConfig(): Language {
-    if(this.viewerConfig && this.viewerConfig.defaultLanguage) {
+    if (this.viewerConfig && this.viewerConfig.defaultLanguage) {
       return this.supportedLanguagesConfig
         .find(lang => lang.is(this.viewerConfig.defaultLanguage))
     }
@@ -309,14 +331,14 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (pathname) {
       const parts = pathname.split('/');
       for (const part of parts) {
-        if(part === "")
+        if (part === "")
           continue;
 
         const langOrNothing = this.supportedLanguagesConfig
           .filter(supported => supported.is(part))
           .shift();
 
-        if(langOrNothing)
+        if (langOrNothing)
           return langOrNothing;
       }
     }
@@ -325,7 +347,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     if (queryString) {
       const urlParams = new URLSearchParams(queryString);
       const candidate = urlParams.get('lang');
-      if(candidate) {
+      if (candidate) {
         return this.supportedLanguagesConfig
           .find(lang => lang.is(candidate))
       }
@@ -378,57 +400,57 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   selectFile($event: string, password: string, modalId: string, fileType: string) {
-    this.credentials = {guid: $event, fileType: fileType, password: password};
+    this.credentials = { guid: $event, fileType: fileType, password: password };
     this.file = null;
     this._viewerService.loadFile(this.credentials).subscribe((file: FileDescription) => {
-        this.file = file;
-        this.formatDisabled = !this.file;
-        this.pagesToPreload = [];
-        if (file) {
-          this.credentials.fileType = file.fileType;
-          this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
-          if (file.pages && file.pages[0]) {
-            this._pageHeight = file.pages[0].height;
-            this._pageWidth = file.pages[0].width;
-            this.options = this.zoomOptions();
-            this.timerOptions = this.getTimerOptions();
-            this.refreshZoom();
-          }
-
-          //copy pages to thumbnails
-          this.file.thumbnails = file.pages.slice();
-
-          const countPagesToPreload = this.getPreloadPageCount();
-          const countPages = file.pages ? file.pages.length : 0;
-          const countPagesToLoad = countPagesToPreload === 0
-            ? countPages : countPagesToPreload > countPages
-              ? countPages
-              : countPagesToPreload;
-
-          //retrieve all pages or number of pages to preload
-          this.preloadPages(1, countPagesToLoad);
-
-          this.selectedPageNumber = 1;
-          this._navigateService.countPages = countPages;
-          this._navigateService.currentPage = this.selectedPageNumber;
-          this.countPages = countPages;
-          this.showThumbnails = this.ifPresentation();
-          this.runPresentation = false;
-          if (!this._searchTermFromGetQuery) {
-            this._searchTermForBackgroundService = file.searchTerm;
-          }
+      this.file = file;
+      this.formatDisabled = !this.file;
+      this.pagesToPreload = [];
+      if (file) {
+        this.credentials.fileType = file.fileType;
+        this.formatIcon = this.file ? FileUtil.find(this.file.guid, false).icon : null;
+        if (file.pages && file.pages[0]) {
+          this._pageHeight = file.pages[0].height;
+          this._pageWidth = file.pages[0].width;
+          this.options = this.zoomOptions();
+          this.timerOptions = this.getTimerOptions();
+          this.refreshZoom();
         }
-        if (this._searchTermForBackgroundService 
-              && this._searchTermForBackgroundService !== null 
-                 && this._searchTermForBackgroundService !== '') {
-           
-           if(this._searchElement) {
-             this._searchElement.setText(this._searchTermForBackgroundService);
-           }
 
+        //copy pages to thumbnails
+        this.file.thumbnails = file.pages.slice();
+
+        const countPagesToPreload = this.getPreloadPageCount();
+        const countPages = file.pages ? file.pages.length : 0;
+        const countPagesToLoad = countPagesToPreload === 0
+          ? countPages : countPagesToPreload > countPages
+            ? countPages
+            : countPagesToPreload;
+
+        //retrieve all pages or number of pages to preload
+        this.preloadPages(1, countPagesToLoad);
+
+        this.selectedPageNumber = 1;
+        this._navigateService.countPages = countPages;
+        this._navigateService.currentPage = this.selectedPageNumber;
+        this.countPages = countPages;
+        this.showThumbnails = this.ifPresentation();
+        this.runPresentation = false;
+        if (!this._searchTermFromGetQuery) {
+          this._searchTermForBackgroundService = file.searchTerm;
         }
-        this.cdr.detectChanges();
       }
+      if (this._searchTermForBackgroundService
+        && this._searchTermForBackgroundService !== null
+        && this._searchTermForBackgroundService !== '') {
+
+        if (this._searchElement) {
+          this._searchElement.setText(this._searchTermForBackgroundService);
+        }
+
+      }
+      this.cdr.detectChanges();
+    }
     );
     if (modalId) {
       this._modalService.close(modalId);
@@ -438,19 +460,19 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   preloadPages(start: number, end: number) {
     for (let pageNumber = start; pageNumber <= end; pageNumber++) {
-      if(this.pagesToPreload.indexOf(pageNumber) !== -1){
+      if (this.pagesToPreload.indexOf(pageNumber) !== -1) {
         continue;
       }
 
       const page = this.file.pages.find(p => p.number === pageNumber);
-      if(page && page.data) {
+      if (page && page.data) {
         continue;
       }
 
       this.pagesToPreload.push(pageNumber);
 
       this._viewerService.loadPage(this.credentials, pageNumber).subscribe((model: PageModel) => {
-        if(model.data) {
+        if (model.data) {
           model.data = model.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, '');
         }
 
@@ -520,7 +542,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  fileDropped($event){
+  fileDropped($event) {
     this.fileWasDropped = $event;
   }
 
@@ -573,11 +595,11 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   }
 
   getTimerOptions() {
-    return [{value: 0, name: 'None', separator: false},
-      {value: 5, name: '5 sec', separator: false},
-      {value: 10, name: '10 sec', separator: false},
-      {value: 15, name: '15 sec', separator: false},
-      {value: 30, name: '30 sec', separator: false}];
+    return [{ value: 0, name: 'None', separator: false },
+    { value: 5, name: '5 sec', separator: false },
+    { value: 10, name: '10 sec', separator: false },
+    { value: 15, name: '15 sec', separator: false },
+    { value: 30, name: '30 sec', separator: false }];
   }
 
   set zoom(zoom) {
@@ -601,8 +623,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
     if (this.saveRotateStateConfig && this.file) {
       this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((page: PageModel) => {
-        const updatedData = page.data.replace(/>\s+</g,'><')
-          .replace(/\uFEFF/g,"");
+        const updatedData = page.data.replace(/>\s+</g, '><')
+          .replace(/\uFEFF/g, "");
         page.data = updatedData;
         this.file.pages[pageNumber - 1] = page;
 
@@ -685,8 +707,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  selectCurrentPage(pageNumber)
-  {
+  selectCurrentPage(pageNumber) {
     this.selectedPageNumber = pageNumber;
     this._navigateService.currentPage = pageNumber;
     if (this.runPresentation && this.intervalTime > 0 && this.intervalTimer.state !== 3) {
@@ -697,8 +718,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onMouseWheelUp()
-  {
+  onMouseWheelUp() {
     this.startScrollTime = Date.now();
     if (this.ifPresentation() && this.selectedPageNumber !== 1) {
       if (this.startScrollTime - this.endScrollTime > 300 && this.vertScrollEnded(true)) {
@@ -708,8 +728,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onMouseWheelDown()
-  {
+  onMouseWheelDown() {
     this.startScrollTime = Date.now();
     if (this.ifPresentation() && this.selectedPageNumber !== this.file.pages.length) {
       if (this.startScrollTime - this.endScrollTime > 300 && this.vertScrollEnded(false)) {
@@ -728,14 +747,13 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   vertScrollEnded(onTop: boolean) {
     const gdDocument = document.getElementsByClassName('gd-document')[0] as HTMLElement;
-    if (onTop)
-    {
+    if (onTop) {
       return gdDocument.scrollTop === 0;
     }
     else return gdDocument.offsetHeight + gdDocument.scrollTop >= gdDocument.scrollHeight;
   }
 
-  toggleTimer($event){
+  toggleTimer($event) {
     this.intervalTime = $event.value;
     if (this.intervalTime !== 0) {
       if (this.intervalTimer && this.intervalTimer.state === 1) {
@@ -744,7 +762,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.startCountDown(this.intervalTime);
       this.startInterval(this.intervalTime);
     }
-    else{
+    else {
       this.intervalTimer.stop();
     }
   }
@@ -759,11 +777,11 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.secondsLeft = seconds;
       seconds--;
       const interval = setInterval(() => {
-          this.secondsLeft = seconds;
-          seconds--;
-          if (seconds === 0) {
-            clearInterval(interval);
-          }
+        this.secondsLeft = seconds;
+        seconds--;
+        if (seconds === 0) {
+          clearInterval(interval);
+        }
       }, 1000);
 
       this.countDownInterval = interval;
@@ -778,8 +796,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
           this.startCountDown(intervalTime);
         }
       }
-      else
-      {
+      else {
         this.intervalTimer.stop();
       }
     }, intervalTime * 1000);
@@ -801,7 +818,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
   resumePresenting() {
     this.intervalTimer.resume();
-    const secondsRemaining = Math.round(this.intervalTimer.remaining/1000);
+    const secondsRemaining = Math.round(this.intervalTimer.remaining / 1000);
     this.startCountDown(secondsRemaining);
   }
 
@@ -820,8 +837,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
 
     const intervalId = setInterval(() => {
       if (screen.height === window.innerHeight && screen.width === window.innerWidth) {
-      this.zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 && this._pageWidth / this._pageHeight > 1.7
-        ? this.getFitToWidth() : this.getFitToHeight());
+        this.zoomService.changeZoom(window.innerWidth / window.innerHeight < 1.7 && this._pageWidth / this._pageHeight > 1.7
+          ? this.getFitToWidth() : this.getFitToHeight());
         clearInterval(intervalId);
       }
     }, 50);
@@ -846,7 +863,7 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
     this.isFullScreen = true;
   }
 
-  closeFullScreen(byButton: boolean = false){
+  closeFullScreen(byButton: boolean = false) {
     if (byButton) {
       const docWithBrowsersExitFunctions = document as Document & {
         mozCancelFullScreen(): Promise<void>;
@@ -879,5 +896,12 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   selectLanguage(selectedLanguage: Option) {
     this.selectedLanguage = selectedLanguage;
     this.translate.use(selectedLanguage.value);
+  }
+
+  ngOnDestroy() {
+    // Remove the event listener to prevent memory leaks
+    if (this.unlisten) {
+      this.unlisten();
+    }
   }
 }
