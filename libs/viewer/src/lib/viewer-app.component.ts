@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, HostListener, ChangeDetectorRef, ViewChild, Renderer2, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, OnInit, HostListener, ChangeDetectorRef, ViewChild, Renderer2, ElementRef, OnDestroy } from '@angular/core';
 import { ViewerService } from "./viewer.service";
 import {
   FileDescription,
@@ -31,7 +31,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './viewer-app.component.html',
   styleUrls: ['./viewer-app.component.less']
 })
-export class ViewerAppComponent implements OnInit, AfterViewInit {
+export class ViewerAppComponent implements OnInit, OnDestroy, AfterViewInit {
   title = 'viewer';
   files: FileModel[] = [];
   file: FileDescription;
@@ -71,6 +71,8 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
   supportedLanguages: Option[];
   selectedLanguage: Option;
 
+  private unlisten: () => void;
+
   _searchTermForBackgroundService: string;
   _searchTermFromGetQuery = false;
 
@@ -102,8 +104,6 @@ export class ViewerAppComponent implements OnInit, AfterViewInit {
       this.closeFullScreen();
     }
   }
-
-  private unlisten: () => void;
 
   constructor(private _viewerService: ViewerService,
     private _modalService: ModalService,
