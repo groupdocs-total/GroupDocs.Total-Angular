@@ -102,6 +102,7 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
     const pages = this.getChildren();
     let pageNum = 0;
     let counter = 0;
+    let countPagesInViewport = 0;
 
     while (counter < pages.length) {
       // if we scrolled till the end, the current page number must be the last page
@@ -123,6 +124,7 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
       const pageIsInViewport = this._viewportService.isBelowCenterOfTheScreen(htmlElement, this._elementRef.nativeElement);
       if (pageIsInViewport) {
         pageNum = counter + 1; 
+        countPagesInViewport += 1;
       } else if (pageNum) {
         counter = pages.length
       }
@@ -139,7 +141,8 @@ export class ScrollableEditedDirective implements AfterViewInit, OnChanges {
     }
 
      if ((this.isPresentation && this._navigateService.currentPage === 0) || !this.isPresentation) {
-      if(pageNum <= this._navigateService.countPages) { 
+      const isLastPage = pageNum == pages.length;
+      if(!(isLastPage && this._navigateService.currentPage == 1)) {
         this._navigateService.currentPage = pageNum;
       }
      }
