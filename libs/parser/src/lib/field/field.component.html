@@ -28,7 +28,7 @@
         <div *ngFor="let column of field.columns" class="tc-top resizable-handle" [style.left.px]="column.value"></div>
         <div *ngFor="let column of field.columns" class="tc-bottom resizable-handle" [style.left.px]="column.value"></div>
         <div *ngFor="let column of field.columns" class="tc" [style.left.px]="column.value"
-            (mousedown)="mouseDown($event, column.name)">
+            (mousedown)="mouseDown($event, column.name)" (panstart)="mouseDown($event, column.name)">
             <div class="tc-background"></div>
             <div class="tc-remove image-btn" title="Remove column separator" (click)="removeColumn(column)">
                 <fa-icon [icon]="'trash'"></fa-icon>
