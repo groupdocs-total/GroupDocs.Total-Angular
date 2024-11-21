@@ -16,7 +16,7 @@ export class ExcelPageService {
     cellsFromFirstRow.forEach(elm => {
       numCellsInFirstRow += elm.attributes['colspan'] ? parseInt(elm.attributes['colspan'].value, 10) : 1;
     });
- 
+
     const newTable = this.createHeader(numCellsInFirstRow, table);
     doc.querySelector('table').replaceWith(newTable);
 
@@ -34,16 +34,20 @@ export class ExcelPageService {
       th.innerText = this.colName(i);
       header.querySelector("tr").append(th);
     }
-    
+
     const colgroup = table.querySelector('colgroup');
     const col = document.createElement('col');
     col.width = '80px';
     colgroup.prepend(col);
-    
+
     table.prepend(header);
 
     let cnt = 0;
-    table.querySelectorAll('tr').forEach(row => {
+    const nodes = table.querySelectorAll('tr');
+    const filteredNodes = [].slice.call(nodes).filter(n =>
+        n.parentNode.closest('tr') === table.closest('tr')
+    );
+    filteredNodes.forEach(row => {
       const div = document.createElement('div');
       if (cnt !== 0) {
         const td = document.createElement('td');
