@@ -7,7 +7,7 @@
                  *ngIf="browseConfig" ></gd-button>
 
       <gd-select class="mobile-hide select-left noselect" [disabled]="formatDisabled" [options]="options" (selected)="selectZoom($event)"
-                 [showSelected]="{ name: zoom+'%', value : zoom}" *ngIf="zoomConfig" ></gd-select>
+                 [showSelected]="{ name: zoom+'%', value : zoom, separator: false}" *ngIf="zoomConfig" ></gd-select>
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'search-plus'" title="{{'Zoom In' | translate}}" (click)="zoomIn()"
                  *ngIf="zoomConfig" ></gd-button>
       <gd-button class="mobile-hide" [disabled]="formatDisabled" [icon]="'search-minus'" title="{{'Zoom Out' | translate}}"

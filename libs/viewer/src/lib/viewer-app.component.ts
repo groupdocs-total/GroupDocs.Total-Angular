@@ -245,7 +245,7 @@ export class ViewerAppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   get zoomConfig(): boolean {
-    return this.viewerConfig ? this.viewerConfig.zoom : true;
+    return (!this.ifExcel() || !this.viewerConfig.htmlMode) && this.viewerConfig ? this.viewerConfig.zoom  : true;
   }
 
   get pageSelectorConfig(): boolean {

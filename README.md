@@ -40,3 +40,12 @@ Run `npm run dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+## Try to run locally
+```batch
+nvm install 14.15
+nvm use 14.15.5
+npm install -g @angular/cli@14.2.13
+npm install
+ng serve
+```
