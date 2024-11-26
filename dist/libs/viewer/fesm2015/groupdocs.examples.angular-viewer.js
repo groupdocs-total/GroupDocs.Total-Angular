@@ -703,7 +703,19 @@ class ViewerAppComponent {
      * @return {?}
      */
     get zoomConfig() {
-        return (!this.ifExcel() || !this.viewerConfig.htmlMode) && this.viewerConfig ? this.viewerConfig.zoom : true;
+        /** @type {?} */
+        const defaultZoom = this.viewerConfig ? this.viewerConfig.zoom : true;
+        // Use zoom if viewerConfig exists, otherwise true
+        /** @type {?} */
+        const isExcel = this.ifExcel();
+        /** @type {?} */
+        const isHtml = this.viewerConfig ? this.viewerConfig.htmlMode : true;
+        // Return false if isExcel is true OR (isExcel is true AND htmlMode is false)
+        if (isExcel && isHtml) {
+            return false;
+        }
+        // Otherwise, return the default zoom value
+        return defaultZoom;
     }
     /**
      * @return {?}
