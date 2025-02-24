@@ -9,6 +9,8 @@ import { stringify } from '@angular/compiler/src/util';
   providedIn: 'root'
 })
 export class ParserConfigService {
+  private readonly SHOW_HELP = "parser.show-help";
+
   private _parserConfig: BehaviorSubject<ParserConfig> = new BehaviorSubject(new ParserConfig());
   private _updatedConfig: Observable<ParserConfig> = this._parserConfig.asObservable();
 
@@ -17,6 +19,19 @@ export class ParserConfigService {
 
   get updatedConfig() {
     return this._updatedConfig;
+  }
+
+  get showHelpAtStart(): boolean {
+    return localStorage.getItem(this.SHOW_HELP) !== false.toString();
+  }
+
+  set showHelpAtStart(value: boolean) {
+    if (!value) {
+      localStorage.setItem(this.SHOW_HELP, false.toString());
+    }
+    else {
+      localStorage.removeItem(this.SHOW_HELP);
+    }
   }
 
   load() {
