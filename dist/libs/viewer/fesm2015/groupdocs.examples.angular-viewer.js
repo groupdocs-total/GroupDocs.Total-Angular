@@ -1370,6 +1370,7 @@ class ViewerAppComponent {
             if (this.startScrollTime - this.endScrollTime > 300 && this.vertScrollEnded(true)) {
                 this.selectedPageNumber = this.selectedPageNumber - 1;
                 this.endScrollTime = Date.now();
+                this._navigateService.currentPage = this.selectedPageNumber;
             }
         }
     }
@@ -1384,9 +1385,11 @@ class ViewerAppComponent {
                 if (this.file.pages[this.selectedPageNumber] && !this.file.pages[this.selectedPageNumber].data) {
                     this.preloadPages(this.selectedPageNumber, this.selectedPageNumber + 1);
                     this.selectedPageNumber = this.selectedPageNumber + 1;
+                    this._navigateService.currentPage = this.selectedPageNumber;
                 }
                 else {
                     this.selectedPageNumber = this.selectedPageNumber + 1;
+                    this._navigateService.currentPage = this.selectedPageNumber;
                 }
                 this.endScrollTime = Date.now();
             }
