@@ -1,0 +1,98 @@
+{
+    "data": [
+        {
+            "title": "Introduction",
+            "text": "<p>GroupDocs.Parser allows you to extract data from your documents. It is easy to define a template with predefined fields and then extract data from your documents with it. The templates are stored on your computer in your browser storage. It is easy to upload new documents and apply your templates to automate document processing.</p><img class='help-topic-image' src='assets/help/Introduction.png'/><p>To extract data please define text fields. The <em>Text field</em> represents a rectangular area on the document page from which the text is extracted. Each field has a unique name. Text fields are grouped by <em>templates</em>.</p><p>By default, the template is empty. Once you add a new field, the template is stored on your computer with the <em>template name</em>. You can change this name (so you can easily find and load it later).</p><p>The next articles show how to extract data and work with fields and templates.</p>"
+        },
+        {
+            "title": "How to add a field",
+			"image": "assets/help/field_add.gif",
+			"text": "The field defines a rectangular area on the document page to extract a text. To add a field click <b>Add text field</b> button."
+        },
+        {
+            "title": "How to move a field",
+			"image": "assets/help/field_move.gif",
+			"text": "To move a field press the left mouse button inside the rectangular area and move the cursor to the destination position. Then release the mouse button."
+        },
+        {
+            "title": "How to resize a field",
+			"image": "assets/help/field_resize.gif",
+			"text": "To resize a field press the left mouse button inside one of four rectangular areas. Move the mouse cursor to resize a rectangular field area. Then release the mouse button."
+        },
+        {
+            "title": "How to rename a field",
+			"image": "assets/help/field_rename.gif",
+			"text": "To rename a field double click to the field or click <b>Rename the field</b> button. Then type a new name and press <b>Enter</b> or click <b>Save</b> button."
+        },
+        {
+            "title": "How to remove a field",
+			"image": "assets/help/field_remove.gif",
+			"text": "To remove a field select it. In the context menu click the button with recycle bin image."
+        },
+        {
+            "title": "How to parse data",
+			"image": "assets/help/parse.gif",
+			"text": "To parse data click <b>Parse</b> button."
+        },
+		{
+            "title": "How to download parsed data",
+			"image": "assets/help/parse_download.gif",
+			"text": "To download parsed data click <b>Download as CSV</b> button."
+        },
+        {
+            "title": "How to rename a template",
+			"image": "assets/help/template_rename.gif",
+			"text": "To rename a template click <b>Rename the current template</b> button. Then type a new name and press <b>Enter</b> or click <b>Save</b> button."
+        },
+        {
+            "title": "How to download a template",
+			"image": "assets/help/template_download.gif",
+			"text": "To download a template click <b>Download the current template</b> button. This file you can use on other devices."
+        },
+        {
+            "title": "How to remove a template",
+			"image": "assets/help/template_remove.gif",
+			"text": "To remove a template click <b>Remove the current template</b> button."
+        },
+        {
+            "title": "How to upload a template",
+			"image": "assets/help/template_upload.gif",
+			"text": "To upload a template click <b>Upload the existing template</b> button. Then select a template from your computer."
+        },
+        {
+            "title": "How to create a template",
+			"image": "assets/help/template_create.gif",
+			"text": "To create a template click <b>Create a new template</b> button."
+        },
+        {
+            "title": "How to manage templates",
+			"image": "assets/help/template_manage.gif",
+			"text": "To manage templates click <b>≡</b> button. This list contains all of stored templates. You can rename, delete or download any template. To do this hover (or tap) on the template row and click the corresponding button. To load a template double click to it."
+        },
+        {
+            "title": "How to add a table",
+			"image": "assets/help/table_add.gif",
+			"text": "The table defines a rectangular area on the document page to extract a table data. To add a table click <b>Add table</b> button."
+        },
+        {
+            "title": "How to resize a table",
+			"image": "assets/help/table_resize.gif",
+			"text": "To resize a table press the left mouse button inside one of four rectangular areas. Move the mouse cursor to resize a rectangular field area. Then release the mouse button. Or press and hold the left mouse button on any of four edges of the table, then move the mouse cursor."
+        },
+        {
+            "title": "How to add a column separator",
+			"image": "assets/help/table_add_separators.gif",
+			"text": "To add a column separator click <b>+</b> button on the left (right) of the table. Separator is created on the left (right) edge of the table. Then drag the created separator between table columns."
+        },
+        {
+            "title": "How to remove a column separator",
+			"image": "assets/help/table_remove_separator.gif",
+			"text": "To remove a column separator move the mouse cursor to it. In the context menu click the button with recycle bin image."
+        },
+        {
+            "title": "How to parse a table",
+			"image": "assets/help/parse_table.gif",
+			"text": "To parse data click <b>Parse</b> button. Then click <b>Show Table</b> button to view the table data."
+        }
+    ]
+}
