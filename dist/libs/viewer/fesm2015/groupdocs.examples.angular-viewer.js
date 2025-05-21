@@ -1232,41 +1232,24 @@ class ViewerAppComponent {
         const pageNumber = this._navigateService.currentPage;
         /** @type {?} */
         const pageModel = this.file.pages[pageNumber - 1];
-        if (this.saveRotateStateConfig && this.file) {
-            this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((/**
-             * @param {?} page
-             * @return {?}
-             */
-            (page) => {
-                /** @type {?} */
-                const updatedData = page.data.replace(/>\s+</g, '><')
-                    .replace(/\uFEFF/g, "");
-                page.data = updatedData;
-                this.file.pages[pageNumber - 1] = page;
-                if (this.file && this.file.pages && pageModel) {
-                    /** @type {?} */
-                    const angle = pageModel.angle + deg;
-                    if (angle > 360) {
-                        this.changeAngle(pageModel, 90);
-                    }
-                    else if (angle < -360) {
-                        this.changeAngle(pageModel, -90);
-                    }
-                    else {
-                        this.changeAngle(pageModel, angle);
-                    }
-                }
-            }));
-        }
+        pageModel.angle = this.getPageAngle(pageModel.angle, deg);
+        // this._viewerService.rotate(this.credentials, 0, pageNumber).subscribe((page: PageModel) => {
+        //   pageModel.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "");
+        //   pageModel.angle = angle;
+        // })
     }
     /**
      * @private
-     * @param {?} page
-     * @param {?} angle
+     * @param {?} currentAngle
+     * @param {?} deg
      * @return {?}
      */
-    changeAngle(page, angle) {
-        page.angle = angle;
+    getPageAngle(currentAngle, deg) {
+        if (!currentAngle)
+            currentAngle = 0;
+        /** @type {?} */
+        const normalizedAngle = ((currentAngle + deg) % 360 + 360) % 360;
+        return normalizedAngle;
     }
     /**
      * @return {?}

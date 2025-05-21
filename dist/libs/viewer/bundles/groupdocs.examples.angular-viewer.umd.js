@@ -1673,54 +1673,36 @@
          * @return {?}
          */
         function (deg) {
-            var _this = this;
             if (this.formatDisabled)
                 return;
             /** @type {?} */
             var pageNumber = this._navigateService.currentPage;
             /** @type {?} */
             var pageModel = this.file.pages[pageNumber - 1];
-            if (this.saveRotateStateConfig && this.file) {
-                this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((/**
-                 * @param {?} page
-                 * @return {?}
-                 */
-                function (page) {
-                    /** @type {?} */
-                    var updatedData = page.data.replace(/>\s+</g, '><')
-                        .replace(/\uFEFF/g, "");
-                    page.data = updatedData;
-                    _this.file.pages[pageNumber - 1] = page;
-                    if (_this.file && _this.file.pages && pageModel) {
-                        /** @type {?} */
-                        var angle = pageModel.angle + deg;
-                        if (angle > 360) {
-                            _this.changeAngle(pageModel, 90);
-                        }
-                        else if (angle < -360) {
-                            _this.changeAngle(pageModel, -90);
-                        }
-                        else {
-                            _this.changeAngle(pageModel, angle);
-                        }
-                    }
-                }));
-            }
+            pageModel.angle = this.getPageAngle(pageModel.angle, deg);
+            // this._viewerService.rotate(this.credentials, 0, pageNumber).subscribe((page: PageModel) => {
+            //   pageModel.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "");
+            //   pageModel.angle = angle;
+            // })
         };
         /**
          * @private
-         * @param {?} page
-         * @param {?} angle
+         * @param {?} currentAngle
+         * @param {?} deg
          * @return {?}
          */
-        ViewerAppComponent.prototype.changeAngle = /**
+        ViewerAppComponent.prototype.getPageAngle = /**
          * @private
-         * @param {?} page
-         * @param {?} angle
+         * @param {?} currentAngle
+         * @param {?} deg
          * @return {?}
          */
-        function (page, angle) {
-            page.angle = angle;
+        function (currentAngle, deg) {
+            if (!currentAngle)
+                currentAngle = 0;
+            /** @type {?} */
+            var normalizedAngle = ((currentAngle + deg) % 360 + 360) % 360;
+            return normalizedAngle;
         };
         /**
          * @return {?}

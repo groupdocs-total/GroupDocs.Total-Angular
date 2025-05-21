@@ -127,7 +127,7 @@ export declare class ViewerAppComponent implements OnInit, OnDestroy, AfterViewI
     zoom: any;
     selectZoom($event: any): void;
     rotate(deg: number): void;
-    private changeAngle;
+    private getPageAngle;
     downloadFile(): void;
     printFile(): void;
     openThumbnails(): void;
