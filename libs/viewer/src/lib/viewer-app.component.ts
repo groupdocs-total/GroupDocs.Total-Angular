@@ -629,32 +629,23 @@ export class ViewerAppComponent implements OnInit, OnDestroy, AfterViewInit {
   rotate(deg: number) {
     if (this.formatDisabled)
       return;
+   
     const pageNumber = this._navigateService.currentPage;
     const pageModel = this.file.pages[pageNumber - 1];
-
-    if (this.saveRotateStateConfig && this.file) {
-      this._viewerService.rotate(this.credentials, deg, pageNumber).subscribe((page: PageModel) => {
-        const updatedData = page.data.replace(/>\s+</g, '><')
-          .replace(/\uFEFF/g, "");
-        page.data = updatedData;
-        this.file.pages[pageNumber - 1] = page;
-
-        if (this.file && this.file.pages && pageModel) {
-          const angle = pageModel.angle + deg;
-          if (angle > 360) {
-            this.changeAngle(pageModel, 90);
-          } else if (angle < -360) {
-            this.changeAngle(pageModel, -90);
-          } else {
-            this.changeAngle(pageModel, angle);
-          }
-        }
-      })
-    }
+    pageModel.angle = this.getPageAngle(pageModel.angle, deg);
+    
+    // this._viewerService.rotate(this.credentials, 0, pageNumber).subscribe((page: PageModel) => {
+    //   pageModel.data = page.data.replace(/>\s+</g, '><').replace(/\uFEFF/g, "");
+    //   pageModel.angle = angle;
+    // })
   }
 
-  private changeAngle(page: PageModel, angle: number) {
-    page.angle = angle;
+  private getPageAngle(currentAngle: number, deg: number) {
+    if(!currentAngle)
+      currentAngle = 0;
+
+    const normalizedAngle = ((currentAngle + deg) % 360 + 360) % 360;
+    return normalizedAngle;
   }
 
   downloadFile() {
