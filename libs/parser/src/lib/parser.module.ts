@@ -23,6 +23,7 @@ import { TableViewerComponent } from './table-viewer/table-viewer.component';
 import { ParserConfigService } from './parser-config.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParserService } from './parser.service';
+import { HelpTopicsComponent } from './help-topics/help-topics.component';
 
 export function initializeApp(parserConfigService: ParserConfigService) {
   const result = () => parserConfigService.load();
@@ -44,7 +45,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     SidePanelComponent,
     RenameModalComponent,
     PlaceholderComponent,
-    TableViewerComponent  
+    TableViewerComponent,
+    HelpTopicsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ export function setupLoadingInterceptor(service: LoadingMaskService) {
     FieldComponent,
     CommonComponentsModule,
     SurfaceComponent,
-    SidePanelComponent
+    SidePanelComponent,
+    HelpTopicsComponent
   ],
   providers: [ 
     ParserService,

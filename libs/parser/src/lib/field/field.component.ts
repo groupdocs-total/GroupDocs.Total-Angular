@@ -134,15 +134,35 @@ export class FieldComponent implements OnInit, OnDestroy {
   }
 
   addColumnLeft() {
-    this.field.addColumn(null, this.width * 0.1);
+    let pos = this.width * 0.05;
+    while (this.getColumnAt(pos) !== null && pos < this.width * 0.95 - 15) {
+      pos += 15;
+    }
+
+    this.field.addColumn(null, pos);
   }
 
   addColumnRight() {
-    this.field.addColumn(null, this.width * 0.9);
+    let pos = this.width * 0.95;
+    while (this.getColumnAt(pos) !== null && pos > this.width * 0.05 + 15) {
+      pos -= 15;
+    }
+
+    this.field.addColumn(null, pos);
   }
 
   removeColumn(column: TemplateFieldTableSeparator) {
     this.field.removeColumn(column);
+  }
+
+  private getColumnAt(pos: number): TemplateFieldTableSeparator {
+    for (let i = 0; i < this.field.columns.length; i++) {
+      if (Math.abs(this.field.columns[i].value - pos) < 0.1) {
+        return this.field.columns[i];
+      }
+    }
+
+    return null;
   }
 
   set field(field: TemplateField) {

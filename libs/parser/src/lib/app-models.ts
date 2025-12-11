@@ -3,6 +3,12 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { PageModel } from "@groupdocs.examples.angular/common-components";
 import { __values } from "tslib";
 
+export class HelpTopic {
+  title: string;
+  image: string;
+  text: string;
+}
+
 export class TableValue {
   constructor(obj: any) {
     for (let i = 0; i < obj.length; i++) {
